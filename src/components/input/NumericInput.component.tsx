@@ -13,6 +13,7 @@ export type NumericInputProps = {
   id?: string;
   inputClass?: string;
   InputProps?: any;
+  InputLabelProps?: any;
   isPositive?: boolean;
   label?: string;
   margin?: 'none' | 'normal' | 'dense';
@@ -34,6 +35,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
   id,
   inputClass,
   InputProps,
+  InputLabelProps,
   isPositive,
   label,
   margin,
@@ -64,6 +66,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
       fullWidth={fullWidth}
       helperText={helperText}
       id={id}
+      InputLabelProps={InputLabelProps}
       InputProps={InputProps}
       label={label}
       margin={margin}

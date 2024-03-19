@@ -2,7 +2,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -38,6 +38,12 @@ import type { OptionCallback } from '../../state/types';
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {
   t: TFunction;
@@ -66,6 +72,8 @@ export class PaymentComboListPage extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchPaymentComboList();
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   createOrUpdate = (values: any, options: OptionCallback) =>
@@ -102,6 +110,8 @@ export class PaymentComboListPage extends React.Component<Props, State> {
       paymentComboListAvailableOnline,
       paymentComboListUnavailableOnline,
       openCreateOrUpdateForm,
+      bookkeepingAccountById,
+      bookkeepingAccounts,
     } = this.props;
 
     return (
@@ -171,6 +181,8 @@ export class PaymentComboListPage extends React.Component<Props, State> {
         />
         {this.props.openForm ? (
           <PaymentComboFormDrawerContainer
+            bookkeepingAccountById={bookkeepingAccountById}
+            bookkeepingAccounts={bookkeepingAccounts}
             displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
             handleClose={() => this.props.setOpenForm(false)}
             initial={this.props.comboInitialData}
@@ -228,6 +240,8 @@ const connector = connect(
     paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
   }),
   {
     fetchPaymentComboList,
@@ -235,6 +249,7 @@ const connector = connect(
     deletePaymentCombo,
     goToPaymentCombo: (id: number) => push(`/combo/${id}`),
     fetchTags,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   },
 );
 
@@ -242,6 +257,12 @@ export default compose<any, Props>(
   withTranslation(['paymentCombo']),
   withStyles(styles),
   connector,
+  withHandlers({
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
+  }),
   withState('openForm', 'setOpenForm', false),
   withState('comboInitialData', 'setComboInitialData', null),
   withProps(({ setComboInitialData, setOpenForm }) => ({

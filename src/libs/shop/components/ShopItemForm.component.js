@@ -32,6 +32,8 @@ import { ALMOST_100 } from '../../../constants';
 import { Tag, TagGroup } from '#libs/tag/types';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import BookkeepingAccountSelector from '../../payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '../../payment/types';
 
 const {
   trackFormAdd,
@@ -50,6 +52,8 @@ type Props = {
   loading: boolean,
   provincialTax: number,
   tagList: Array<Tag<TagGroup>>,
+  bookkeepingAccounts: BookkeepingAccount[],
+  bookkeepingAccountById: Record<number, BookkeepingAccount>,
 };
 type State = {
   name: ?string,
@@ -67,6 +71,7 @@ type State = {
   is_deliverable: boolean,
   provincialTax: string,
   tags_on_purchase?: Array<number>,
+  bookkeeping_account?: number,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {
@@ -135,6 +140,7 @@ export class ShopItemForm extends Component<Props, State> {
         ),
         tags_on_purchase: initial.tags_on_purchase,
         hasTagsSameGroup: initial.hasTagsSameGroup,
+        bookkeeping_account: initial?.bookkeeping_account || null,
       };
     } else {
       this.state = {
@@ -154,6 +160,7 @@ export class ShopItemForm extends Component<Props, State> {
         provincialTaxText: '',
         tags_on_purchase: [],
         hasTagsSameGroup: false,
+        bookkeeping_account: null,
       };
     }
   }
@@ -205,6 +212,17 @@ export class ShopItemForm extends Component<Props, State> {
     return false;
   };
 
+  setBookkeepingAccount = (bookkeepingAccountId: number) => {
+    this.setState({ bookkeeping_account: bookkeepingAccountId });
+    if (bookkeepingAccountId) {
+      const { vat_rate } =
+        this.props.bookkeepingAccountById[bookkeepingAccountId];
+      this.setState({ tva: vat_rate });
+    } else {
+      this.setState({ tva: this.props.initial?.tax || 0 });
+    }
+  };
+
   onChangeTagsOnAcquisition = (
     items: Array<{
       item: Array<{ label: string, value: number, tag: Tag<TagGroup> }>,
@@ -244,6 +262,7 @@ export class ShopItemForm extends Component<Props, State> {
     const { initial } = this.props;
     const id = initial ? initial.id : null;
     const data = new FormData();
+    data.append('bookkeeping_account', this.state.bookkeeping_account || '');
     data.append('name', this.state.name);
     data.append('description', this.state.description || '');
     data.append('subtitle', this.state.subtitle || '');
@@ -343,26 +362,6 @@ export class ShopItemForm extends Component<Props, State> {
               />
             </Grid>
             <Grid item className={classes.rightItem} xs={6}>
-              <NumericInput
-                fullWidth
-                required
-                InputProps={{
-                  inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
-                  endAdornment: (
-                    <InputAdornment position="end">%</InputAdornment>
-                  ),
-                }}
-                label={t('form.shop.item.tva')}
-                max={ALMOST_100}
-                onChange={this.handleField('tva')}
-                value={tva}
-                variant="outlined"
-              />
-              <Typography color="error" variant="body2">
-                {this.state.provincialTaxText}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
               <PriceInput
                 fullWidth
                 required
@@ -372,6 +371,34 @@ export class ShopItemForm extends Component<Props, State> {
                 variant="outlined"
               />
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <BookkeepingAccountSelector
+              bookkeepingAccountById={this.props.bookkeepingAccountById}
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
+              selectedBookkeepingAccountId={this.state.bookkeeping_account}
+              setFieldValue={this.setBookkeepingAccount}
+            />
+          </Grid>
+          <Grid item className={classes.paddingTop} xs={12}>
+            <NumericInput
+              fullWidth
+              required
+              disabled={!!this.state.bookkeeping_account}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              }}
+              label={t('form.shop.item.tva')}
+              max={ALMOST_100}
+              onChange={this.handleField('tva')}
+              value={tva}
+              variant="outlined"
+            />
+            <Typography color="error" variant="body2">
+              {this.state.provincialTaxText}
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel

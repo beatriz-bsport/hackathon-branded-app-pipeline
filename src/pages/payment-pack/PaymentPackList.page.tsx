@@ -110,6 +110,12 @@ import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/ac
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 const {
   trackFormAdd,
@@ -227,6 +233,8 @@ export class PaymentPackList extends React.Component<Props, State> {
     });
     if (this.state.selectedSortOption !== SortOption.customSort)
       this.updateSortOption(this.state.selectedSortOption);
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchAvailableBookkeepingAccountList();
   }
 
   onCreate = () => {
@@ -481,6 +489,8 @@ export class PaymentPackList extends React.Component<Props, State> {
               this.props.theme.allow_guest
             }
             availableEstablishmentList={availableEstablishmentList}
+            bookkeepingAccountById={this.props.bookkeepingAccountById}
+            bookkeepingAccounts={this.props.bookkeepingAccounts}
             categoryList={paymentPackCategoryList}
             clearPaymentPackToEdit={() =>
               this.setState({ paymentPackToEdit: null })
@@ -718,6 +728,8 @@ export class PaymentPackList extends React.Component<Props, State> {
                   this.props.theme.allow_guest_activatable
                 }
                 availableEstablishmentList={availableEstablishmentList}
+                bookkeepingAccountById={this.props.bookkeepingAccountById}
+                bookkeepingAccounts={this.props.bookkeepingAccounts}
                 categoryList={paymentPackCategoryList}
                 clearPaymentPackToEdit={() =>
                   this.setState({ paymentPackToEdit: null })
@@ -859,6 +871,8 @@ const mapStateToProps = (state: RootState) => ({
   privateServices: getPrivateServices(state),
   compatibleServicePass: getCompatibleServicePass(state),
   isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
+  bookkeepingAccounts: getBookkeepingAccountList(state),
+  bookkeepingAccountById: getBookkeepingAccountById(state),
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -891,6 +905,7 @@ const mapDispatchToProps = {
   fetchAllPrivateServices,
   resetDisabledPaymentPack,
   refreshCompanyThemeAction,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -1009,6 +1024,10 @@ const mapWithHandlers = {
   goToSettings: (props: OwnAndConnectedProps) => () => {
     props.pushRouter('/settings/personalization');
   },
+  fetchAvailableBookkeepingAccountList:
+    ({ fetchBookkeepingAccountList }) =>
+    () =>
+      fetchBookkeepingAccountList({ is_active: true }),
 };
 const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,

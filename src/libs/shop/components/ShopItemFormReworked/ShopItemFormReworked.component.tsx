@@ -14,11 +14,12 @@ import ShopItemFormProductStep from './ShopItemFormProductStep.component';
 import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
 
 import type {
+  ShopSupplier,
   ShopItem,
   ShopItemCreate,
   ShopItemEdit,
-  ShopSupplier,
 } from '#libs/shop/types';
+import type { BookkeepingAccount } from '#libs/payment/types';
 import {
   ShopItemFormStep,
   ShopItemFormValues,
@@ -44,6 +45,8 @@ type Props = {
   provincialTax: number;
   isEditForm?: boolean;
   supplierList: ShopSupplier[];
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 
 const ShopItemFormReworked: React.FC<Props> = ({
@@ -55,6 +58,8 @@ const ShopItemFormReworked: React.FC<Props> = ({
   provincialTax,
   isEditForm,
   supplierList,
+  bookkeepingAccounts,
+  bookkeepingAccountById,
 }) => {
   const classes = useStyles();
 
@@ -82,6 +87,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
       sellOnlyOnProvision: initial?.sell_only_on_provision ?? false,
       isDeliverable: initial?.is_deliverable ?? true,
       subshop: initial?.subshop ?? null,
+      bookkeepingAccount: initial?.bookkeeping_account ?? null,
     }),
     [initial],
   );
@@ -160,6 +166,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           'available_payment_method_identifiers[]': JSON.stringify(
             values.availablePaymentMethodIdentifiers,
           ),
+          bookkeeping_account: values.bookkeepingAccount,
           featured: values.featured,
           sell_only_on_provision: values.sellOnlyOnProvision,
           is_deliverable: values.isDeliverable,
@@ -213,7 +220,10 @@ const ShopItemFormReworked: React.FC<Props> = ({
         <Form noValidate className={classes.form}>
           {formStep === ShopItemFormStep.PRODUCT && (
             <ShopItemFormProductStep
+              bookkeepingAccountById={bookkeepingAccountById}
+              bookkeepingAccounts={bookkeepingAccounts}
               handleCancel={handleCancel}
+              initialValues={initialValues}
               isEditForm={isEditForm}
               isLoading={isLoading}
               provincialTax={provincialTax}

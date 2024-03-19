@@ -51,6 +51,7 @@ import type {
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
 import { ALMOST_100 } from '../../../../constants';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
@@ -148,6 +149,8 @@ type Props = {
   displayNewCheckoutFlow: boolean;
   compatibleServicePass: ServiceCompatibilityPass[];
   allowGuestMaster?: boolean;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 
 const {
@@ -178,6 +181,8 @@ export const PaymentPackForm: React.FC<Props> = ({
   allowGuestMaster,
   creditScaleFactor,
   displayNewCheckoutFlow,
+  bookkeepingAccounts,
+  bookkeepingAccountById,
 }) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
@@ -461,6 +466,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             'description',
             'off_peak_schedule',
             'highlighted_as_recommended',
+            'bookkeeping_account',
           ];
           const data = pick(sanitizedValues, keys);
           onSubmit(data, {
@@ -494,6 +500,8 @@ export const PaymentPackForm: React.FC<Props> = ({
                 }
               >
                 <PaymentPackFormGeneral
+                  bookkeepingAccountById={bookkeepingAccountById}
+                  bookkeepingAccounts={bookkeepingAccounts}
                   disabledUniversalPassFields={disabledUniversalPassFields}
                   displayNewCheckoutFlow={displayNewCheckoutFlow}
                   initial={initial}
@@ -831,4 +839,5 @@ const paymentPackSchema = Yup.object().shape({
   description: Yup.string().nullable(),
   off_peak_schedule: offPeakScheduleSchemaValidation,
   highlighted_as_recommended: Yup.boolean(),
+  bookkeeping_account: Yup.number().nullable(),
 });

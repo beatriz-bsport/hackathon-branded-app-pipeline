@@ -23,11 +23,13 @@ import PriceInput from '#components/input/PriceInput.component';
 // @ts-expect-error
 import ImageUploader from '#components/input/ImageUploader.component';
 import PaymentMethodSelectorInput from '#libs/payment/components/PaymentMethodSelectorInput.component';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 
 import type { ShopSupplier } from '#libs/shop/types';
 import type { ShopItemFormValues } from '#libs/shop/components/ShopItemFormReworked/types';
 
 import { ALMOST_100 } from '../../../../constants';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const SHOP_ITEM_SUPPLIER_FIELD_LABEL = 'shop-item-supplier-selector-label';
 
@@ -59,6 +61,9 @@ type Props = {
   isEditForm?: boolean;
   provincialTax: number;
   supplierList: ShopSupplier[];
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
+  initialValues: ShopItemFormValues;
 };
 
 const ShopItemFormProductStep: React.FC<Props> = ({
@@ -67,6 +72,9 @@ const ShopItemFormProductStep: React.FC<Props> = ({
   isEditForm,
   provincialTax,
   supplierList,
+  bookkeepingAccounts,
+  bookkeepingAccountById,
+  initialValues,
 }) => {
   const { t } = useTranslation(['translation', 'theme', 'common', 'shop']);
 
@@ -83,6 +91,19 @@ const ShopItemFormProductStep: React.FC<Props> = ({
       );
     },
     [setFieldValue],
+  );
+
+  const handleBookkeepingAccountChange = useCallback(
+    (bookkeepingAccountId: number) => {
+      setFieldValue('bookkeepingAccount', bookkeepingAccountId);
+      if (bookkeepingAccountId) {
+        const vat_rate = bookkeepingAccountById[bookkeepingAccountId].vat_rate;
+        setFieldValue('tva', vat_rate);
+      } else {
+        setFieldValue('tva', initialValues?.tva || 0);
+      }
+    },
+    [setFieldValue, bookkeepingAccountById, initialValues.tva],
   );
 
   const handleChangeCover = useCallback(
@@ -165,11 +186,34 @@ const ShopItemFormProductStep: React.FC<Props> = ({
           />
         </Grid>
         <Grid item xs={6}>
+          <PriceInput
+            fullWidth
+            required
+            error={!!errors.supplierPrice}
+            helperText={t(errors.supplierPrice)}
+            label={t('translation:shop.supplier_price')}
+            name="supplierPrice"
+            onChange={handleChange}
+            value={values.supplierPrice}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <BookkeepingAccountSelector
+            bookkeepingAccountById={bookkeepingAccountById}
+            bookkeepingAccounts={bookkeepingAccounts}
+            selectedBookkeepingAccountId={values.bookkeepingAccount}
+            setFieldValue={handleBookkeepingAccountChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <NumericInput
             fullWidth
             required
+            disabled={!!values.bookkeepingAccount}
             error={!!errors.tva}
             helperText={t(errors.tva)}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -183,19 +227,6 @@ const ShopItemFormProductStep: React.FC<Props> = ({
           <Typography color="error" variant="body2">
             {provincialTaxText}
           </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <PriceInput
-            fullWidth
-            required
-            error={!!errors.supplierPrice}
-            helperText={t(errors.supplierPrice)}
-            label={t('translation:shop.supplier_price')}
-            name="supplierPrice"
-            onChange={handleChange}
-            value={values.supplierPrice}
-            variant="outlined"
-          />
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>

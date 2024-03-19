@@ -101,6 +101,12 @@ import UniversalPassRestoreDialog from '#libs/universal-pass/components/Universa
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { fetchTags } from '#libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 const {
   trackFormAdd,
@@ -180,6 +186,8 @@ export class PrivatePassList extends React.Component<Props, State> {
     });
     this.props.fetchMetaActivities();
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
@@ -389,6 +397,8 @@ export class PrivatePassList extends React.Component<Props, State> {
             }
           >
             <PrivatePassForm
+              bookkeepingAccountById={this.props.bookingAccountById}
+              bookkeepingAccounts={this.props.bookingAccounts}
               categoryList={paymentPackCategoryList}
               compatibleServicePass={this.props.compatibleServicePass}
               creditScaleFactor={this.props.theme.pass_credit_factor}
@@ -576,6 +586,8 @@ export class PrivatePassList extends React.Component<Props, State> {
               }
             >
               <PrivatePassForm
+                bookkeepingAccountById={this.props.bookingAccountById}
+                bookkeepingAccounts={this.props.bookingAccounts}
                 categoryList={paymentPackCategoryList}
                 compatibleServicePass={this.props.compatibleServicePass}
                 creditScaleFactor={this.props.theme.pass_credit_factor}
@@ -750,6 +762,8 @@ const mapStateToProps = (state: RootState) => ({
   ),
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   videoCategories: state.video.filterableParams.items.SCTs,
+  bookingAccounts: getBookkeepingAccountList(state),
+  bookingAccountById: getBookkeepingAccountById(state),
 });
 
 const mapDispatchToProps = {
@@ -775,6 +789,7 @@ const mapDispatchToProps = {
   fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchTags,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -885,6 +900,11 @@ const mapWithHandlers = {
       });
     }
   },
+  fetchBookkeepingAccountList:
+    ({ fetchBookkeepingAccountList }) =>
+    () => {
+      fetchBookkeepingAccountList({ is_active: true });
+    },
 };
 
 export default compose(

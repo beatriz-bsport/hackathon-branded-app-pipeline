@@ -84,7 +84,8 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { ALMOST_100 } from '../../../../../constants';
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
 import ToolTip from '#components/Tooltip.component';
 
 export interface FormikValues {
@@ -114,6 +115,7 @@ export interface FormikValues {
   expiration_date?: string;
   description?: string | null;
   tags_on_consumer_item_creation?: Array<number>;
+  bookkeepingAccount: BookkeepingAccount;
 }
 type Props = {
   provincialTax: number;
@@ -141,6 +143,9 @@ type Props = {
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
   tagList: Array<Tag<TagGroup>>;
+
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 } & FormikProps<FormikValues>;
 
 const getExcludedSlots = (
@@ -193,6 +198,19 @@ export const PrivatePassForm = (props: Props) => {
     selectedTagsIds: values?.tags_on_consumer_item_creation,
     tagsWithGroup: props.tagList,
   });
+
+  const setBookkeepingAccount = React.useCallback(
+    (bookkeepingAccountId: number) => {
+      setFieldValue('bookkeeping_account', bookkeepingAccountId);
+      const tax = props.bookkeepingAccountById[bookkeepingAccountId]?.vat_rate;
+      if (tax) {
+        setFieldValue('tax', tax);
+      } else {
+        setFieldValue('tax', props.initialValues?.tax || 0);
+      }
+    },
+    [setFieldValue, props.bookkeepingAccountById, props.initialValues?.tax],
+  );
 
   const onChangeTagsOnAcquisition = React.useCallback(
     (items: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
@@ -320,7 +338,7 @@ export const PrivatePassForm = (props: Props) => {
             type="number"
           />
         </div>
-        <div className={`${classes.fieldBlock} ${classes.flexRow}`}>
+        <div className={classes.fieldBlock}>
           <PriceField
             fullWidth
             className={classes.priceField}
@@ -330,11 +348,24 @@ export const PrivatePassForm = (props: Props) => {
             label={t('privatePass.form.price.label')}
             name="price"
           />
+        </div>
+        <div className={classes.fieldBlock}>
+          <BookkeepingAccountSelector
+            bookkeepingAccountById={props.bookkeepingAccountById}
+            bookkeepingAccounts={props.bookkeepingAccounts}
+            selectedBookkeepingAccountId={values.bookkeeping_account}
+            setFieldValue={setBookkeepingAccount}
+          />
+        </div>
+        <div className={classes.fieldBlock}>
           <PercentField
             fullWidth
             required
             className={classes.taxField}
-            disabled={!!props.initial?.template_instance}
+            disabled={
+              !!props.initial?.template_instance ||
+              !!props.values.bookkeeping_account
+            }
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
             helperText={provincialTaxText}
             id="private-pass-tax-field"

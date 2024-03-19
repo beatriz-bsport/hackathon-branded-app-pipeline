@@ -31,12 +31,16 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 type Props = {
   values: any;
   initial?: Giftcard | GiftcardTemplate;
   disabledSharedGiftcardUpdate?: boolean;
   tagList?: Array<Tag<TagGroup>>;
+  bookkeepingAccounts?: BookkeepingAccount[];
+  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
 };
 
 const { trackFormAdd, trackFormSuccess } =
@@ -81,6 +85,13 @@ const GiftcardForm = (props: Props) => {
     [props.values?.tags_on_consumer_item_creation, setFieldValue],
   );
 
+  const setBookkeepingAccount = React.useCallback(
+    (bookkeepingAccountId: number) => {
+      setFieldValue('bookkeeping_account', bookkeepingAccountId);
+    },
+    [setFieldValue],
+  );
+
   return (
     <div className={classes.container}>
       <ImageField disabled={props.disabledSharedGiftcardUpdate} name="cover" />
@@ -121,6 +132,12 @@ const GiftcardForm = (props: Props) => {
           disabled={props.disabledSharedGiftcardUpdate}
           label={t('form.giftcard.unlimited.label')}
           name="unlimited"
+        />
+        <BookkeepingAccountSelector
+          bookkeepingAccountById={props.bookkeepingAccountById}
+          bookkeepingAccounts={props.bookkeepingAccounts}
+          selectedBookkeepingAccountId={props.values.bookkeeping_account}
+          setFieldValue={setBookkeepingAccount}
         />
       </fieldset>
       <SwitchField
@@ -246,6 +263,7 @@ export const GiftcardSchema = Yup.object().shape({
   available_payment_method_identifiers: Yup.array().of(Yup.number()),
   expiration_days: Yup.number().nullable().min(1),
   tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
+  bookkeeping_account: Yup.number().nullable(),
 });
 
 type WithFormikProps = {
@@ -301,6 +319,9 @@ export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
     ];
     const { cover } = values;
     const formData = new FormData();
+    if (values.bookkeeping_account) {
+      formData.append('bookkeeping_account', values.bookkeeping_account);
+    }
     if (typeof cover !== 'string' && !!cover) {
       formData.append('cover', cover);
     }

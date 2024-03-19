@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 
 import BarCode from 'react-barcode';
@@ -45,6 +45,13 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import themeSelectors from '../../libs/theme/selectors';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
+import type { BookkeepingAccount } from '../../libs/payment/types';
+import { fetchBookkeepingAccountList } from '../../libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '../../libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../../libs/payment/constants';
 
 type Props = {
   id: number,
@@ -74,6 +81,9 @@ type Props = {
   archivationWarning: { [id: number]: { used_in_combo: boolean } },
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
   fetchTags: () => void,
+  bookkeepingAccounts: BookkeepingAccount[],
+  bookkeepingAccountById: Record<number, BookkeepingAccount>,
+  fetchBookkeepingAccountList: () => void,
 };
 
 type State = { editOpen: boolean, provisionFormOpen: boolean };
@@ -89,6 +99,9 @@ export class ShopItemDetail extends Component<Props, State> {
     this.props.fetchShopItem(this.props.id);
     this.props.fetchProvisions(this.props.id, 1, SHOPITEM_PER_PAGE);
     this.props.fetchTags();
+    if (IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED) {
+      this.props.fetchBookkeepingAccountList();
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -209,6 +222,8 @@ export class ShopItemDetail extends Component<Props, State> {
           }
         >
           <ShopItemForm
+            bookkeepingAccountById={this.props.bookkeepingAccountById}
+            bookkeepingAccounts={this.props.bookkeepingAccounts}
             createOrUpdate={this.createOrUpdateShopItem}
             initial={this.props.shopitem}
             onCancel={this.closeEditForm}
@@ -267,6 +282,8 @@ export default compose(
       provision: state.shop.provision,
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      bookkeepingAccounts: getBookkeepingAccountList(state),
+      bookkeepingAccountById: getBookkeepingAccountById(state),
     }),
     {
       fetchShopItem,
@@ -278,7 +295,14 @@ export default compose(
       goToShopList: () => push('/shop'),
       isShopItemUsedInCombo,
       fetchTags,
+      fetchBookkeepingAccountListAction: fetchBookkeepingAccountList,
     },
   ),
+  withHandlers({
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountListAction }) =>
+      () =>
+        fetchBookkeepingAccountListAction({ is_active: true }),
+  }),
   withTitle(({ shopitem }) => (shopitem ? shopitem.name : '')),
 )(ShopItemDetail);

@@ -51,6 +51,8 @@ import TagSelector from '#libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -68,6 +70,8 @@ type Props = {
   displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
   tagList: Array<Tag<TagGroup>>;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 
 function repeat(arr: number[], n: number) {
@@ -94,6 +98,8 @@ export const PaymentComboForm: React.FC<Props> = ({
   initial,
   displayNewCheckoutFlow,
   tagList,
+  bookkeepingAccountById,
+  bookkeepingAccounts,
 }) => {
   const { t } = useTranslation('paymentCombo');
   const classes = useStyles();
@@ -150,6 +156,29 @@ export const PaymentComboForm: React.FC<Props> = ({
       );
     },
     [setFieldValue],
+  );
+
+  const setBookkeepingAccount = React.useCallback(
+    (bookkeepingAccountId: number) => {
+      setFieldValue('bookkeeping_account', bookkeepingAccountId);
+      const tax = bookkeepingAccountById[bookkeepingAccountId]?.vat_rate;
+      if (tax) {
+        setFieldValue('tax', tax);
+        setFieldValue('use_payment_combo_tax_on_items', true);
+      } else {
+        setFieldValue('tax', initial?.tax || 0);
+        setFieldValue(
+          'use_payment_combo_tax_on_items',
+          initial?.use_payment_combo_tax_on_items || false,
+        );
+      }
+    },
+    [
+      setFieldValue,
+      bookkeepingAccountById,
+      initial?.tax,
+      initial?.use_payment_combo_tax_on_items,
+    ],
   );
 
   const onDeleteTagsOnAcquisition = React.useCallback(
@@ -346,6 +375,7 @@ export const PaymentComboForm: React.FC<Props> = ({
       )}
 
       <CheckboxField
+        disabled={!!valuesFormik.bookkeeping_account}
         helperText={t('form.usePaymentComboTaxOnItems.helperText')}
         label={t('form.usePaymentComboTaxOnItems.label')}
         name="use_payment_combo_tax_on_items"
@@ -354,6 +384,7 @@ export const PaymentComboForm: React.FC<Props> = ({
         <PercentField
           fullWidth
           required
+          disabled={!!valuesFormik.bookkeeping_account}
           FormHelperTextProps={{
             classes: { root: classes.helperTextError },
           }}
@@ -363,6 +394,12 @@ export const PaymentComboForm: React.FC<Props> = ({
           step={0.005}
         />
       )}
+      <BookkeepingAccountSelector
+        bookkeepingAccountById={bookkeepingAccountById}
+        bookkeepingAccounts={bookkeepingAccounts}
+        selectedBookkeepingAccountId={valuesFormik.bookkeeping_account}
+        setFieldValue={setBookkeepingAccount}
+      />
 
       <SwitchField label={t('form.manager_only.label')} name="manager_only" />
       <SwitchField

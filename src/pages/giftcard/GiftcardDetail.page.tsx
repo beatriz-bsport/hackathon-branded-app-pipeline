@@ -50,6 +50,12 @@ import { RootState } from '../../reducers';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { fetchTags } from '#libs/tag/actions';
 import { Tag, TagGroup } from '#libs/tag/types';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -87,6 +93,7 @@ type WithHandlersType = {
     options?: OptionCallback<Giftcard>,
   ) => void;
   fetchConsumerGiftcardList: (page: number, page_size: number) => void;
+  fetchAvailableBookkeepingAccounts: () => void;
 };
 
 type Props = OwnProps &
@@ -103,6 +110,8 @@ export class GiftcardDetailPage extends Component<Props> {
   componentDidMount() {
     this.props.retrieveGiftcard(this.props.id);
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchAvailableBookkeepingAccounts();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -177,6 +186,8 @@ export class GiftcardDetailPage extends Component<Props> {
           }
         />
         <GiftcardFormDrawer
+          bookkeepingAccountById={this.props.bookkeepingAccountById}
+          bookkeepingAccounts={this.props.bookkeepingAccounts}
           initial={this.props.giftcard}
           onClose={() => this.props.setEditIsOpen(false)}
           onSubmit={this.props.updateGiftcard}
@@ -205,6 +216,8 @@ const connector = connect(
     ),
     giftcard: getGiftcard(state, id),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
   }),
   {
     retrieveGiftcard,
@@ -217,6 +230,7 @@ const connector = connect(
       push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
     fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
     fetchTags,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   },
 );
 
@@ -268,6 +282,12 @@ export default compose(
           },
         );
       },
+    fetchAvailableBookkeepingAccounts:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({
+          is_active: true,
+        }),
   }),
   withTitle(({ giftcard }) => (giftcard ? giftcard.name : '')),
 )(GiftcardDetailPage);

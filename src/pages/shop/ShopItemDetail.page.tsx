@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
@@ -18,6 +18,7 @@ import {
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAction,
 } from '#libs/shop/actions/shopItemReworked';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
 
 import { fetchShopSupplierList as fetchShopSupplierListAction } from '#libs/shop/actions/supplier';
 
@@ -36,6 +37,10 @@ import {
   getShopSupplierList,
   getShopItemVariantCombinationList,
 } from '#libs/shop/selectors';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
 
 // --- COMPONENTS ---
 import ShopItemDetail from '#libs/shop/components/ShopItemDetail';
@@ -61,6 +66,7 @@ import type { OptionCallback } from '../../state/types';
 
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {
   id: number;
@@ -74,6 +80,8 @@ export class ShopItemDetailPage extends Component<Props> {
     this.props.fetchShopSupplierList();
     this.retrieveShopItemDetails();
     this.props.fetchShopItemVariantCombinationList(this.props.id);
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   retrieveShopItemDetails = () => {
@@ -198,6 +206,8 @@ export class ShopItemDetailPage extends Component<Props> {
   render() {
     return (
       <ShopItemDetail
+        bookkeepingAccountById={this.props.bookkeepingAccountById}
+        bookkeepingAccounts={this.props.bookkeepingAccounts}
         companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
         createShopItemProvision={this.handleCreateShopItemProvision}
@@ -244,6 +254,8 @@ const connector = connect(
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
     variantCombinationList: getShopItemVariantCombinationList(state, id),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
   }),
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
@@ -261,11 +273,18 @@ const connector = connect(
     fetchShopItemVariantCombinationList:
       fetchShopItemVariantCombinationListAction,
     backToShopPage: () => push('/shop'),
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   },
 );
 
 export default compose<Props, OwnProps>(
   routerParamsToProps({ id: 'id:number' }),
   connector,
+  withHandlers({
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
+  }),
   withTitle(({ shopItem }) => (shopItem ? shopItem.name : '')),
 )(ShopItemDetailPage);

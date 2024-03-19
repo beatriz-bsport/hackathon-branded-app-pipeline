@@ -118,6 +118,12 @@ import { setGenericFilterValue } from '#libs/payment-packs/utils';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { fetchTags } from '#libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {
   id: number;
@@ -167,6 +173,8 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -432,6 +440,8 @@ export class PrivatePassDetails extends Component<Props> {
               }
             >
               <PrivatePassForm
+                bookkeepingAccountById={this.props.bookkeepingAccountById}
+                bookkeepingAccounts={this.props.bookkeepingAccounts}
                 compatibleServicePass={this.props.compatibleServicePass}
                 creditScaleFactor={this.props.theme.pass_credit_factor}
                 initial={getFormInitial(
@@ -571,6 +581,8 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   resolvedGenericTags: getResolvedGenericTags(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+  bookkeepingAccounts: getBookkeepingAccountList(state),
+  bookkeepingAccountById: getBookkeepingAccountById(state),
 });
 
 const mapDispatchToProps = {
@@ -621,6 +633,7 @@ const mapDispatchToProps = {
     replace(`/payment-pack/${linkedPaymentPackId}`),
   fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   fetchTags,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 
 const mapWithHandlers = {
@@ -672,6 +685,8 @@ const mapWithHandlers = {
         }
       },
     }),
+  fetchBookkeepingAccountList: (props: WithStateProps) => () =>
+    props.fetchBookkeepingAccountList({ is_active: true }),
   fetchNotificationsAndTemplatesAndSmartLists:
     (props: WithStateProps) => () => {
       props.fetchMarketingNotificationList(

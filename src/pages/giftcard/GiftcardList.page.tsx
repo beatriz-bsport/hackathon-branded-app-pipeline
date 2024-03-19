@@ -62,6 +62,12 @@ import {
 } from '../../libs/giftcard/types';
 import { OptionCallback } from '../../state/types';
 import GiftcardListItem from '../../libs/giftcard/components/GiftcardListItem.component';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -97,6 +103,7 @@ type OwnProps = {
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   companyCover: string;
   makeGiftcardCopy: (id: number, options: OptionCallback) => void;
+  fetchBookkeepingAccountList: () => void;
 };
 
 type Props = OwnProps &
@@ -117,6 +124,8 @@ export class GiftcardListPage extends Component<Props, State> {
     this.props.fetchGiftcardList();
     this.props.fetchGiftcardBackgroundImageList(this.props.company);
     this.props.fetchTags();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchAvailableBookkeepingAccounts();
   }
 
   onShowDisabled = () =>
@@ -288,12 +297,16 @@ export class GiftcardListPage extends Component<Props, State> {
           onCreateLabel={this.props.t('list.actions.create')}
         />
         <GiftcardFormDrawer
+          bookkeepingAccountById={this.props.bookkeepingAccountById}
+          bookkeepingAccounts={this.props.bookkeepingAccounts}
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.queryParams?.isCreateFormOpen}
           tagList={this.props.allTagsWithTagGroup}
         />
         <GiftcardFormDrawer
+          bookkeepingAccountById={this.props.bookkeepingAccountById}
+          bookkeepingAccounts={this.props.bookkeepingAccounts}
           initial={this.props.giftcardToEdit}
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
@@ -327,6 +340,8 @@ const connector = connect(
     giftcardToEdit:
       state.giftcard.giftcard.byId[parseInt(queryParams?.giftcardToEdit, 10)],
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
   }),
   {
     fetchGiftcardList: fetchGiftcardListAction,
@@ -339,6 +354,7 @@ const connector = connect(
     push: pushAction,
     makeGiftcardCopy: makeGiftcardCopyAction,
     fetchTags,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   },
 );
 
@@ -434,6 +450,12 @@ export default compose(
       (id: number) => {
         push(`/giftcard/${id}/`);
       },
+    fetchAvailableBookkeepingAccounts:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({
+          is_active: true,
+        }),
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:giftcard')),
 )(GiftcardListPage);

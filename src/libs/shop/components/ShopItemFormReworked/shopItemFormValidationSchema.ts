@@ -25,6 +25,7 @@ const shopItemFormProductStepValidationSchema = Yup.object().shape({
   sellOnlyOnProvision: Yup.boolean().required('common:requiredField'),
   isDeliverable: Yup.boolean().required('common:requiredField'),
   supplier: Yup.number().nullable(true),
+  bookkeepingAccount: Yup.number().nullable().notRequired(),
 });
 
 const shopItemFormVariantStepValidationSchema = Yup.object().shape({

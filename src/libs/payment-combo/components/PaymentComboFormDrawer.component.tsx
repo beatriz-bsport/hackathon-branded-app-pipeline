@@ -19,6 +19,7 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segm
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -34,6 +35,8 @@ type Props = {
   isSubmitting: boolean;
   displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 } & FormikProps<PaymentCombo>;
 
 export function PaymentComboFormDrawer(props: Props) {

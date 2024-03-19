@@ -14,6 +14,7 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segm
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { Tag, TagGroup } from '#libs/tag/types';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -29,6 +30,8 @@ type OwnProps = {
   onClose: () => void;
   initial?: Giftcard | GiftcardTemplate;
   tagList?: Array<Tag<TagGroup>>;
+  bookkeepingAccounts?: BookkeepingAccount[];
+  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
 };
 type Props = OwnProps & FormikProps<GiftcardDataAPI>;
 

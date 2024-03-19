@@ -33,6 +33,7 @@ import type { OptionCallback } from '../../../../state/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.ShopItem,
@@ -76,6 +77,8 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   deleteShopItemVariant: (id: number) => void;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -94,6 +97,8 @@ const ShopItemDetail: React.FC<Props> = ({
   page,
   variantCombinationList,
   getIsShopItemUsedInCombo,
+  bookkeepingAccounts,
+  bookkeepingAccountById,
   updateShopItem,
   updateShopItemVariantBulk,
   deleteShopItem,
@@ -320,6 +325,8 @@ const ShopItemDetail: React.FC<Props> = ({
       >
         <ShopItemFormReworked
           isEditForm
+          bookkeepingAccountById={bookkeepingAccountById}
+          bookkeepingAccounts={bookkeepingAccounts}
           initial={shopItem}
           isLoading={isLoading}
           onCancel={handleCloseEditShopItemDrawer}

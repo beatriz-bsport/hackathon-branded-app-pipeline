@@ -32,6 +32,14 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
 
+import type { BookkeepingAccount } from '../../libs/payment/types';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '../../libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '../../libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../../libs/payment/constants';
+
 type OptionsCallback = { onSuccess?: () => void, onError?: () => void };
 
 type Props = {
@@ -76,11 +84,17 @@ type Props = {
   ) => void,
   paymentComboPurchaseInvoice: Invoice,
   theme: Theme,
+  bookkeepingAccounts: BookkeepingAccount[],
+  bookkeepingAccountById: Record<number, BookkeepingAccount>,
+  fetchAvailableBookkeepingAccounts: () => void,
 };
 
 export class PaymentComboDetail extends React.Component<Props> {
   componentDidMount() {
     this.fetchData();
+    if (IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED) {
+      this.props.fetchAvailableBookkeepingAccounts();
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -160,6 +174,8 @@ export class PaymentComboDetail extends React.Component<Props> {
         />
         {this.props.paymentCombo ? (
           <PaymentComboFormDrawerContainer
+            bookkeepingAccountById={this.props.bookkeepingAccountById}
+            bookkeepingAccounts={this.props.bookkeepingAccounts}
             displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
             handleClose={() => this.props.setEditIsOpen(false)}
             initial={this.props.paymentCombo}
@@ -207,6 +223,8 @@ export default compose(
       loading: state.paymentCombo.loading,
       paymentComboPurchaseInvoice: getInvoice(state, relatedInvoice),
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      bookkeepingAccounts: getBookkeepingAccountList(state),
+      bookkeepingAccountById: getBookkeepingAccountById(state),
     }),
     {
       fetchPaymentCombo,
@@ -220,10 +238,18 @@ export default compose(
       onPaymentPackClick: (id) => push(`/payment-pack/${id}`),
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToPaymentComboList: () => push('/combo/'),
+
       fetchTags,
+      fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     },
   ),
   withHandlers({
+    fetchAvailableBookkeepingAccounts:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({
+          is_active: true,
+        }),
     fetchInvoiceByInvoiceItem:
       ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
       (buyableId, objectId, options) => {

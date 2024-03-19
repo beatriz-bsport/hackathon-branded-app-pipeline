@@ -40,6 +40,8 @@ import { provincialTaxHelperText } from '#libs/theme/utils';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { ALMOST_100 } from '../../../../constants';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 type Props = {
   paymentPackCategories: Array<PaymentPackCategory>;
@@ -48,6 +50,8 @@ type Props = {
   disabledUniversalPassFields: boolean;
   displayNewCheckoutFlow: boolean;
   setDisableUniversalPassFields: (disable: boolean) => void;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 export const PaymentPackFormGeneral = (props: Props) => {
   const {
@@ -57,6 +61,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
     disabledUniversalPassFields,
     setDisableUniversalPassFields,
     displayNewCheckoutFlow,
+    bookkeepingAccountById,
   } = props;
   const { t } = useTranslation('paymentPack');
   const {
@@ -108,6 +113,20 @@ export const PaymentPackFormGeneral = (props: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [is_universal_pass_value, setValues, setDisableUniversalPassFields]);
+
+  const setBookkeepingAccount = React.useCallback(
+    (bookkeepingAccountId: number) => {
+      setFieldValue('bookkeeping_account', bookkeepingAccountId);
+      const tax = bookkeepingAccountById[bookkeepingAccountId]?.vat_rate;
+      if (tax) {
+        setFieldValue('tax', tax);
+      } else {
+        setFieldValue('tax', initial?.tax || 0);
+      }
+    },
+    [setFieldValue, bookkeepingAccountById, initial?.tax],
+  );
+
   return (
     <>
       <Grid container id="paymentpack-form-general-section" spacing={2}>
@@ -186,11 +205,21 @@ export const PaymentPackFormGeneral = (props: Props) => {
             name="price"
           />
         </Grid>
+        <Grid item md={12} xs={12}>
+          <BookkeepingAccountSelector
+            bookkeepingAccountById={bookkeepingAccountById}
+            bookkeepingAccounts={props.bookkeepingAccounts}
+            selectedBookkeepingAccountId={values.bookkeeping_account}
+            setFieldValue={setBookkeepingAccount}
+          />
+        </Grid>
         <Grid item md={6} xs={12}>
           <TextField
             fullWidth
             required
-            disabled={initial && !initial?.editable}
+            disabled={
+              (initial && !initial?.editable) || !!values.bookkeeping_account
+            }
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
             helperText={provincialTaxText}
             id="paymentpack-form-vat-input"

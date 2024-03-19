@@ -45,6 +45,8 @@ export function mapFormDataWithObject(base, map, keyExecptionsList) {
     if (!isVariantKey && value !== undefined) {
       if (Array.isArray(value)) {
         formData.append(map[key], JSON.stringify(value));
+      } else if (key === 'bookkeeping_account' && value === null) {
+        formData.append(map[key], '');
       } else if (
         typeof value === 'object' &&
         !keyExecptionsList.includes(key)

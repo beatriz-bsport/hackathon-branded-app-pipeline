@@ -25,4 +25,5 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   supplier_price: 'supplier_price',
   tva: 'tva',
   variants: 'variants',
+  bookkeeping_account: 'bookkeeping_account',
 };

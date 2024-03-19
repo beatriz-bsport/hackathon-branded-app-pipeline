@@ -104,6 +104,11 @@ import { OptionCallback } from '../../state/types';
 
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountById,
+  getBookkeepingAccountList,
+} from '#libs/payment/selectors';
 
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
@@ -149,6 +154,7 @@ import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/ac
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {
   id: number;
@@ -230,6 +236,8 @@ export class PaymentPackDetail extends Component<Props, State> {
       company: this.props.companyId,
       status: VideoStatusEnum.processed,
     });
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchAvailableBookkeepingAccountList();
   }
 
   requestEdit = (pp: PaymentPack) => {
@@ -524,6 +532,8 @@ export class PaymentPackDetail extends Component<Props, State> {
                 this.props.theme?.allow_guest_activatable
               }
               availableEstablishmentList={availableEstablishmentList}
+              bookkeepingAccountById={this.props.bookkeepingAccountById}
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
               categoryList={[...categoryList]
                 .filter(
                   (category) =>
@@ -676,6 +686,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     compatibleServicePass: getCompatibleServicePass(state),
     resolvedGenericTags: getResolvedGenericTags(state),
     isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountById: getBookkeepingAccountById(state),
   };
 };
 
@@ -746,6 +758,7 @@ const mapDispatchToProps = {
   fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   refreshCompanyThemeAction,
   pushRouter,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 
 const mapWithHandlers = {
@@ -855,6 +868,10 @@ const mapWithHandlers = {
   goToSettings: (props: WithStateProps) => () => {
     props.pushRouter('/settings/personalization');
   },
+  fetchAvailableBookkeepingAccountList:
+    ({ fetchBookkeepingAccountList }) =>
+    () =>
+      fetchBookkeepingAccountList({ is_active: true }),
 };
 
 type StateHandlerInit = {

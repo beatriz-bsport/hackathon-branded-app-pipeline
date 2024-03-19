@@ -20,6 +20,7 @@ import type {
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 type OwnProps = {
   open: boolean;
@@ -41,6 +42,8 @@ type OwnProps = {
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   allowGuestMaster?: boolean;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
@@ -62,6 +65,8 @@ export const PaymentPackFormDrawer = (props: Props) => {
     compatibleServicePass,
     allowGuestMaster,
     displayNewCheckoutFlow,
+    bookkeepingAccounts,
+    bookkeepingAccountById,
   } = props;
 
   return (
@@ -79,6 +84,8 @@ export const PaymentPackFormDrawer = (props: Props) => {
         isInDrawer
         allowGuestMaster={!!allowGuestMaster}
         availableEstablishmentList={availableEstablishmentList}
+        bookkeepingAccountById={bookkeepingAccountById}
+        bookkeepingAccounts={bookkeepingAccounts}
         categoryList={categoryList}
         clearPaymentPackToEdit={clearPaymentPackToEdit}
         closeForm={closeForm}

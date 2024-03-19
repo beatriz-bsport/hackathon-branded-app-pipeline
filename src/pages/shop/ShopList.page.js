@@ -66,6 +66,13 @@ import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import type { BookkeepingAccount } from '../../libs/payment/types';
+import { fetchBookkeepingAccountList } from '../../libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '../../libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../../libs/payment/constants';
 
 type Props = {
   t: TFunction,
@@ -90,6 +97,9 @@ type Props = {
   theme: Theme,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
   fetchTags: () => void,
+  bookkeepingAccounts: BookkeepingAccount[],
+  bookkeepingAccountById: Record<number, BookkeepingAccount>,
+  fetchBookkeepingAccountList: () => void,
 };
 
 type State = {
@@ -111,6 +121,9 @@ export class ShopItemList extends Component<Props, State> {
     this.props.fetchSubShop();
     this.props.fetchShopItems();
     this.props.fetchTags();
+    if (IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED) {
+      this.props.fetchBookkeepingAccountList();
+    }
   }
 
   createOrUpdateShopItem = (
@@ -369,6 +382,8 @@ export class ShopItemList extends Component<Props, State> {
           }
         >
           <ShopItemForm
+            bookkeepingAccountById={this.props.bookkeepingAccountById}
+            bookkeepingAccounts={this.props.bookkeepingAccounts}
             createOrUpdate={this.createOrUpdateShopItem}
             loading={this.props.shopItemLoading}
             onCancel={this.handleCloseShopItemForm}
@@ -437,6 +452,8 @@ export default compose(
       subShops: shopSelectors.getSubShops(state),
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      bookkeepingAccounts: getBookkeepingAccountList(state),
+      bookkeepingAccountById: getBookkeepingAccountById(state),
     }),
     {
       fetchShopItems: fetchAllShopItem,
@@ -449,6 +466,7 @@ export default compose(
       goToShopItem: (id: number) => push(`/shop/${id}`),
       isShopItemUsedInCombo,
       fetchTags,
+      fetchBookkeepingAccountListAction: fetchBookkeepingAccountList,
     },
   ),
   withStyles(styles),
@@ -459,5 +477,9 @@ export default compose(
       (id, suffix) => {
         duplicateShopItem(id, suffix, { onSuccess: () => fetchShopItems() });
       },
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountListAction }) =>
+      () =>
+        fetchBookkeepingAccountListAction({ is_active: true }),
   }),
 )(ShopItemList);

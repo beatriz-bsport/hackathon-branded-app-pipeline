@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { push } from 'connected-react-router';
 import omit from 'lodash/omit';
 
@@ -35,6 +35,7 @@ import {
   disableDeliveryFee as disableDeliveryFeeAction,
   fetchAllDeliveryFee as fetchAllDeliveryFeeAction,
 } from '#libs/order/actions';
+import { fetchBookkeepingAccountList } from '#libs/payment/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';
@@ -51,6 +52,10 @@ import {
   getDeliveryFeesActive,
   getOrderConfigurationData,
 } from '#libs/order/selectors';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
 
 // --- COMPONENTS ---
 import ShopListReworked from '#libs/shop/components/ShopListReworked';
@@ -77,10 +82,15 @@ import type { DeliveryFee } from '#libs/order/types';
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {};
 
-type Props = OwnProps & ConnectedProps<typeof connector>;
+type Handlers = {
+  fetchBookkeepingAccountList: () => void;
+};
+
+type Props = OwnProps & ConnectedProps<typeof connector> & Handlers;
 
 export class ShopListReworkedPage extends PureComponent<Props> {
   componentDidMount() {
@@ -88,6 +98,8 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     this.props.fetchShopItemStandaloneList();
     this.props.fetchShopItemBaseList();
     this.props.fetchShopSupplierList();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   /** Handler to retrieve standalone + base shop items */
@@ -194,6 +206,8 @@ export class ShopListReworkedPage extends PureComponent<Props> {
   render() {
     return (
       <ShopListReworked
+        bookkeepingAccountById={this.props.bookkeepingAccountByid}
+        bookkeepingAccounts={this.props.bookkeepingAccounts}
         createOrUpdateDeliveryFee={this.props.createOrUpdateDeliveryFee}
         createShopItem={this.handleCreateShopItem}
         createSubshop={this.props.createSubshop}
@@ -245,6 +259,8 @@ const connector = connect(
     orderConfigurationUpdateLoading: state.order.configuration.update.loading,
     getIsShopItemUsedInCombo: (id: number) =>
       getIsShopItemUsedInCombo(state, id),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
+    bookkeepingAccountByid: getBookkeepingAccountById(state),
   }),
   {
     // SHOP ITEM
@@ -271,11 +287,19 @@ const connector = connect(
     fetchAllDeliveryFee: fetchAllDeliveryFeeAction,
     createOrUpdateDeliveryFee: createOrUpdateDeliveryFeeAction,
     disableDeliveryFee: disableDeliveryFeeAction,
+    // BOOKKEEPING ACCOUNT
+    fetchBookkeepingAccountListAction: fetchBookkeepingAccountList,
   },
 );
 
 export default compose<Props, OwnProps>(
   withTranslation('titles'),
   connector,
+  withHandlers({
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountListAction }) =>
+      () =>
+        fetchBookkeepingAccountListAction({ is_active: true }),
+  }),
   withTitle(({ t }: { t: TFunction }) => t('titles:shop')),
 )(ShopListReworkedPage);

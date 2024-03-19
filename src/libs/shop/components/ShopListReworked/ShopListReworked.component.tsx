@@ -28,6 +28,7 @@ import type {
   DeliveryFee,
   DeliveryFeeCreationOrUpdatePayload,
 } from '#libs/order/types';
+import type { BookkeepingAccount } from '#libs/payment/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
@@ -73,6 +74,8 @@ type Props = {
   createOrUpdateDeliveryFee: (data: DeliveryFeeCreationOrUpdatePayload) => void;
   patchDeliveryFee: (data: DeliveryConfiguration) => void;
   disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
+  bookkeepingAccounts: BookkeepingAccount[];
+  bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };
 
 const ShopListReworked: React.FC<Props> = ({
@@ -100,6 +103,8 @@ const ShopListReworked: React.FC<Props> = ({
   createOrUpdateDeliveryFee,
   patchDeliveryFee,
   disableDeliveryFee,
+  bookkeepingAccounts,
+  bookkeepingAccountById,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -291,6 +296,8 @@ const ShopListReworked: React.FC<Props> = ({
         trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.ShopItem}
       >
         <ShopItemFormReworked
+          bookkeepingAccountById={bookkeepingAccountById}
+          bookkeepingAccounts={bookkeepingAccounts}
           isLoading={isLoading}
           onCancel={handleCloseItemCreationDrawer}
           onCreateSubmit={handleCreateShopItem}

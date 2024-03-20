@@ -146,13 +146,16 @@
 @container bsContractCheckoutPage (width < 570px) {
   .bs-contract-payment-page .bs-contract-payment__container {
     width: calc(100% - var(--spacing-2));
-    /* HOTFIX: margin to fix add payment method CTA display */
-    margin-bottom: var(--spacing-8);
+    height: inherit;
   }
 
   .bs-contract-payment-page__direct__link__container {
     margin-bottom: var(--spacing-10);
     overflow-y: auto;
+  }
+
+  .bs-contract-payment-page .bs-contract-payment__form {
+    margin-bottom: var(--spacing-6);
   }
 
   .bs-contract-payment-page {

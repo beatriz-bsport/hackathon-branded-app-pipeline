@@ -7,6 +7,7 @@
   min-height: 180px;
   display: flex;
   flex-direction: column;
+  max-width: 480px;
 }
 
 .bs-activity__img {
@@ -145,7 +146,6 @@
 
 .bs-activity__middle__top__description {
   flex: 1;
-  min-width: 230px;
 }
 
 .bs-activity__middle__top__description__title {
@@ -167,11 +167,11 @@
 }
 
 .bs-activity__middle__top__map {
-  min-height: 200px;
   margin: var(--spacing-1) var(--spacing-3);
-  min-width: 340px;
+  min-width: 600px;
   height: 200px;
   flex: 1;
+  align-self: center;
   border-radius: var(--border-radius-1);
   float: right;
 }
@@ -343,7 +343,7 @@
     margin-bottom: var(--spacing-2);
   }
   .bs-activity {
-    min-width: 95vw;
+    width: 95vw;
   }
   .bs-activity__middle {
     margin-left: var(--spacing-2);

@@ -1,18 +1,18 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+import { useFormikContext } from 'formik';
+import { useTheme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import AddIcon from '@material-ui/icons/Add';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
 import Info from '@material-ui/icons/Info';
 import People from '@material-ui/icons/People';
-import { useTheme } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import RemoveIcon from '@material-ui/icons/Remove';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Alert from '@material-ui/lab/Alert';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { useFormikContext } from 'formik';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 
 import FormSection from '#components/forms/FormSection';
 import OfferFormField from '#libs/offer/form/OfferFormField.component';
@@ -40,11 +40,6 @@ import {
   OptionPaginatedCallback,
 } from '../../../../state/types';
 import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
-// @ts-ignore
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
 import NameDescriptionOverride from '#libs/offer/components/NameDescriptionOverride.component';
 
 type Props = {
@@ -75,7 +70,26 @@ type Props = {
   onSelectMetaActivity?: (activity: MetaActivity) => void;
 };
 
-const OfferFormSpecificities = (props: Props) => {
+const OfferFormSpecificities: React.FC<Props> = ({
+  activeCustomLevels,
+  allCustomLevels,
+  availableEstablishments,
+  isBroadcast,
+  zoomAppDetail,
+  roomBlueprints,
+  isWherebyIntegrationEnabled,
+  isOfferInGroup,
+  isEditOffer,
+  hideActivitySection,
+  metaActivity,
+  metaActivities,
+  initialOfferCredits,
+  fetchLevelList,
+  updateLevel,
+  createLevel,
+  deleteLevel,
+  onSelectMetaActivity,
+}) => {
   const [selectedTooltipDialog, setSelectedTooltipDialog] = useState<
     'credit' | 'spotScheduling' | 'broadcastLink' | null
   >(null);
@@ -87,12 +101,13 @@ const OfferFormSpecificities = (props: Props) => {
     values,
     touched,
     errors,
+    validateField,
     setFieldValue,
     handleChange,
     handleBlur,
     getFieldHelpers,
   } = useFormikContext<OfferFormValues>();
-  const { zoomAppEnabled } = useFeaturesProvider();
+  const { zoomAppEnabled, spiviEnabled } = useFeaturesProvider();
   const {
     effectif,
     waitingListMaxSize,
@@ -102,26 +117,6 @@ const OfferFormSpecificities = (props: Props) => {
     selectedMetaActivity,
     is_hybrid,
   } = values;
-  const {
-    activeCustomLevels,
-    allCustomLevels,
-    availableEstablishments,
-    isBroadcast,
-    zoomAppDetail,
-    roomBlueprints,
-    isWherebyIntegrationEnabled,
-    isOfferInGroup,
-    isEditOffer,
-    hideActivitySection,
-    metaActivity,
-    metaActivities,
-    initialOfferCredits,
-    fetchLevelList,
-    updateLevel,
-    createLevel,
-    deleteLevel,
-    onSelectMetaActivity,
-  } = props;
 
   const selectedEstablishment = useMemo(() => {
     if (establishment && availableEstablishments) {
@@ -141,7 +136,7 @@ const OfferFormSpecificities = (props: Props) => {
     [setFieldValue],
   );
 
-  const getAvailableRoomBlueprints = useCallback(() => {
+  const availableRoomBlueprints = useMemo(() => {
     if (roomBlueprints?.length) {
       const mapBlueprintsToOptions = (blueprint: RoomBlueprint) => {
         const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
@@ -164,17 +159,26 @@ const OfferFormSpecificities = (props: Props) => {
   );
 
   const handleSetRoomBlueprintSpot = useCallback(
-    (hasSpiviUpsell: boolean) => (blueprintId: number) => {
+    (blueprintId: number) => {
       const helpers = getFieldHelpers('roomBlueprint');
       helpers.setTouched(true);
       const blueprint = roomBlueprints.find(
         (roomBlueprint) => roomBlueprint.id === blueprintId,
       );
       const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
-      setFieldValue('roomBlueprintSlots', spotCount);
+      setFieldValue('roomBlueprintSlots', blueprintId ? spotCount : null);
+
+      /**
+       * Exceptional case where we need to validate another related field
+       * after the change of this field. We do validate HERE because we want
+       * to prevent the user from going to step 2 if effectif field has an issue
+       */
+      setTimeout(() => {
+        validateField('effectif');
+      }, 100);
 
       if (!isOfferInGroup && !touched.syncOfferOnSpivi) {
-        if (blueprint?.spivi_box_id && hasSpiviUpsell) {
+        if (blueprint?.spivi_box_id && spiviEnabled) {
           setFieldValue('syncOfferOnSpivi', true);
         }
         if (blueprint === null || !blueprint?.spivi_box_id) {
@@ -188,6 +192,8 @@ const OfferFormSpecificities = (props: Props) => {
       getFieldHelpers,
       isOfferInGroup,
       touched.syncOfferOnSpivi,
+      validateField,
+      spiviEnabled,
     ],
   );
 
@@ -467,7 +473,7 @@ const OfferFormSpecificities = (props: Props) => {
         </div>
       </OfferFormField>
 
-      {establishment && !!getAvailableRoomBlueprints().length && (
+      {establishment && !!availableRoomBlueprints.length && (
         <OfferFormField
           id="offer-form-spot-scheduling-field"
           label={t('form.section.specificities.field.roomBlueprint.title')}
@@ -476,24 +482,18 @@ const OfferFormSpecificities = (props: Props) => {
             className={classes.stretchSelf}
             id="offer-form-spot-scheduling-field-container"
           >
-            <FeatureListProvider>
-              {(featureList: FeatureList) => (
-                <OfferFormSelector
-                  isClearable
-                  className={classes.bigWidth}
-                  id="offer-form-blueprint-selector"
-                  isError={!!errors.roomBlueprint}
-                  name="roomBlueprint"
-                  onSelectedOption={handleSetRoomBlueprintSpot(
-                    hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI),
-                  )}
-                  options={getAvailableRoomBlueprints()}
-                  placeholder={t(
-                    'form.section.specificities.field.roomBlueprint.placeholder',
-                  )}
-                />
+            <OfferFormSelector
+              isClearable
+              className={classes.bigWidth}
+              id="offer-form-blueprint-selector"
+              isError={!!errors.roomBlueprint}
+              name="roomBlueprint"
+              onSelectedOption={handleSetRoomBlueprintSpot}
+              options={availableRoomBlueprints}
+              placeholder={t(
+                'form.section.specificities.field.roomBlueprint.placeholder',
               )}
-            </FeatureListProvider>
+            />
 
             <Tooltip
               className={classes.tooltip}

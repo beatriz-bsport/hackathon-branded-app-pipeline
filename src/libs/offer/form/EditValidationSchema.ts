@@ -11,9 +11,11 @@ const OfferEditFormValidationSchema = Yup.object().shape({
       name: 'isGreaterThanBlueprintSpot',
       test: function isGreaterThanBlueprintSpot() {
         const isGreaterThanSpotCount =
-          typeof this.parent.roomBlueprintSlots === 'number' &&
           this.parent.effectif > this.parent.roomBlueprintSlots;
-        if (isGreaterThanSpotCount) {
+        if (
+          typeof this.parent.roomBlueprintSlots === 'number' &&
+          isGreaterThanSpotCount
+        ) {
           return this.createError({
             message: 'offer:form.errors.field.effectif',
             path: this.path,

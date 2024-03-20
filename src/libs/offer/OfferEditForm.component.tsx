@@ -145,7 +145,7 @@ export const OfferEditForm = (props: Props) => {
   );
   const { t } = useTranslation(['common', 'offer']);
   const classes = useOfferFormStyles();
-  const { values, errors, setFieldValue, handleSubmit, validateForm } =
+  const { values, isValid, setFieldValue, handleSubmit } =
     useFormikContext<OfferFormValues>();
 
   useEffect(() => {
@@ -184,16 +184,12 @@ export const OfferEditForm = (props: Props) => {
       submitEvent.preventDefault();
       if (editCurrentStep === OFFER_EDIT_FORM_STEPS.GATHER_INFO && offer) {
         // if first step, trigger form validation first
-        validateForm().then(() => {
-          if (!Object.keys(errors).length) {
-            setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
-          }
-        });
+        setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
       } else {
         handleSubmit(submitEvent);
       }
     },
-    [editCurrentStep, offer, errors, handleSubmit, validateForm],
+    [editCurrentStep, offer, handleSubmit],
   );
 
   const submitButtonStartIcon = useMemo(() => {
@@ -343,7 +339,7 @@ export const OfferEditForm = (props: Props) => {
         <Button onClick={handleCancel}>{cancelButtonText}</Button>
         <Button
           color="primary"
-          disabled={processing}
+          disabled={processing || !isValid}
           startIcon={submitButtonStartIcon}
           type="submit"
           variant="contained"

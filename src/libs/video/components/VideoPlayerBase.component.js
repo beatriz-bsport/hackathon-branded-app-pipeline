@@ -6,6 +6,9 @@ import qualityLevelsPlugin from 'videojs-contrib-quality-levels';
 import sourceSelector from 'videojs-http-source-selector';
 import hlsQuality from 'videojs-hls-quality-selector';
 
+const VIDEOJS_CSS_LINK = 'https://vjs.zencdn.net/7.10.2/video-js.css';
+const VIDEOJS_JS_LINK = 'https://vjs.zencdn.net/7.10.2/video.min.js';
+
 type Props = {
   rounded: boolean,
   videojsProps: {
@@ -13,43 +16,54 @@ type Props = {
   },
 };
 
-export class VideoPlayerBase extends React.Component<Props> {
+type State = {
+  isVideoJSCSSReady: boolean,
+};
+
+export class VideoPlayerBase extends React.Component<Props, State> {
   player: Object;
 
   videoNode: HTMLElement;
 
-  onVideoJSRef = (ref: any) => {
-    this.videoNode = ref;
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isVideoJSCSSReady: false,
+    };
+  }
+
+  videoJSCallbackRef = (node: HTMLElement) => {
+    this.videoNode = node;
     this.startVideoJS();
   };
 
   startVideoJS = () => {
-    if (window.videojs && this.videoNode) {
-      this.player = window.videojs(
-        this.videoNode,
-        this.props.videojsProps,
-        () => {
-          window.videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
-          window.videojs.registerPlugin('sourceSelector', sourceSelector);
-          window.videojs.registerPlugin('hlsQuality', hlsQuality);
-
-          this.player = window.videojs(
-            this.videoNode,
-            this.props.videojsProps,
-            () => {
-              const qualityLevels = this.player.qualityLevels();
-              qualityLevels.on('addqualitylevel', (event) => {
-                const { qualityLevel } = event;
-                qualityLevel.enabled = true;
-              });
-              this.player.hlsQuality();
-            },
-          );
-        },
-      );
-    } else {
+    if (!this.state.isVideoJSCSSReady || !window.videojs || !this.videoNode) {
       setTimeout(this.startVideoJS, 100);
+      return;
     }
+    this.player = window.videojs(
+      this.videoNode,
+      this.props.videojsProps,
+      () => {
+        window.videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
+        window.videojs.registerPlugin('sourceSelector', sourceSelector);
+        window.videojs.registerPlugin('hlsQuality', hlsQuality);
+
+        this.player = window.videojs(
+          this.videoNode,
+          this.props.videojsProps,
+          () => {
+            const qualityLevels = this.player.qualityLevels();
+            qualityLevels.on('addqualitylevel', (event) => {
+              const { qualityLevel } = event;
+              qualityLevel.enabled = true;
+            });
+            this.player.hlsQuality();
+          },
+        );
+      },
+    );
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -70,18 +84,26 @@ export class VideoPlayerBase extends React.Component<Props> {
 
   render() {
     return (
-      /* eslint-disable */
+      /* eslint-disable jsx-a11y/media-has-caption */
       <div>
-        <Helmet>
-          <link
-            href="https://vjs.zencdn.net/7.10.2/video-js.css"
-            rel="stylesheet"
-          />
-          <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+        <Helmet
+          onChangeClientState={(addedTags) => {
+            if (
+              addedTags.linkTags?.length > 0 &&
+              addedTags.linkTags[0].href === VIDEOJS_CSS_LINK
+            ) {
+              this.setState({ isVideoJSCSSReady: true });
+            }
+          }}
+        >
+          <link href={VIDEOJS_CSS_LINK} rel="stylesheet" />
+          <script src={VIDEOJS_JS_LINK} />
         </Helmet>
 
         <div data-vjs-player>
           <video
+            ref={this.videoJSCallbackRef}
+            className="video-js fluid vjs-big-play-centered"
             style={
               this.props.rounded
                 ? {
@@ -90,13 +112,10 @@ export class VideoPlayerBase extends React.Component<Props> {
                   }
                 : {}
             }
-            ref={this.onVideoJSRef}
-            className="video-js fluid vjs-big-play-centered"
           />
         </div>
       </div>
     );
-    /* eslint-enable */
   }
 }
 

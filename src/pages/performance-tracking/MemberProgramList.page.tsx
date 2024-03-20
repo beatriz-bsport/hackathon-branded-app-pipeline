@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'connected-react-router';
@@ -14,7 +14,6 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Add, Info } from '@material-ui/icons';
-import withState from 'recompose/withState';
 
 import { Grid } from '@material-ui/core';
 import { WithHandlerType } from '../../utils/types';

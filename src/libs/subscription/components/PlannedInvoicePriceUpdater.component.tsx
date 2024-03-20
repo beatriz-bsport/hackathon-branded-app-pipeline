@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import compose from 'recompose/compose';
+import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';

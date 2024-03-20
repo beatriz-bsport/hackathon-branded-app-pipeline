@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import compose from 'recompose/compose';
+import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { Theme } from '@material-ui/core';

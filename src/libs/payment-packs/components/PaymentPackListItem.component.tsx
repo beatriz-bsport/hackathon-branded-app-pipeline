@@ -21,7 +21,7 @@ import Button from '@material-ui/core/Button';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { Theme } from '@material-ui/core/styles';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
-import compose from 'recompose/compose';
+import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import StyleIcon from '@material-ui/icons/Style';
 import classNames from 'classnames';

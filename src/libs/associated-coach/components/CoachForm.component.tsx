@@ -45,6 +45,7 @@ const {
 
 type Props = {
   isSubmitting: boolean;
+  isValid: boolean;
   onCancel: () => void;
   initial?: CoachDetailed;
   country: string;
@@ -70,6 +71,7 @@ type InitialValues = {
 
 export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
   isSubmitting,
+  isValid,
   onCancel,
   initial,
   country,
@@ -77,7 +79,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
 }) => {
   const classes = useStyles();
 
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation(['translation', 'coach']);
 
   React.useEffect(() => {
     trackFormAdd(initial?.id);
@@ -161,7 +163,12 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
             <TextField
               fullWidth
               multiline
-              helperText={t('form.descriptionHelperText')}
+              error={!!errors.description}
+              helperText={
+                errors.description
+                  ? t(errors.description)
+                  : t('form.descriptionHelperText')
+              }
               label={t('form.description')}
               minRows={2}
               name="description"
@@ -200,10 +207,22 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
             />
           </Grid>
           <Grid item md={6} xs={12}>
-            <TextField fullWidth label="Facebook URL" name="facebook_url" />
+            <TextField
+              fullWidth
+              error={!!errors.facebook_url}
+              helperText={!!errors.facebook_url && t(errors.facebook_url)}
+              label="Facebook URL"
+              name="facebook_url"
+            />
           </Grid>
           <Grid item md={6} xs={12}>
-            <TextField fullWidth label="Instagram URL" name="instagram_url" />
+            <TextField
+              fullWidth
+              error={!!errors.instagram_url}
+              helperText={!!errors.instagram_url && t(errors.instagram_url)}
+              label="Instagram URL"
+              name="instagram_url"
+            />
           </Grid>
           <Grid item md={6} xs={12}>
             <ColorField
@@ -218,7 +237,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
             {t('form.discard')}
           </Button>
           <Submit
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isValid}
             onClick={() => {
               trackFormSubmitIntent(initial?.id);
             }}
@@ -274,7 +293,9 @@ const CoachSchema = (props: Props) =>
     gender: Yup.string().nullable(false).required(),
     color: Yup.string().nullable(false),
     birthday: Yup.string().nullable(true),
-    description: Yup.string().nullable(false),
+    description: Yup.string()
+      .nullable(false)
+      .max(500, 'coach:forms.errorDescription'),
     notes: Yup.string().nullable(true),
     date_joined_company: Yup.string().nullable(true),
     date_left_company: Yup.string()
@@ -294,8 +315,14 @@ const CoachSchema = (props: Props) =>
           );
         },
       ),
-    facebook_url: Yup.string().nullable(false),
-    instagram_url: Yup.string().nullable(false),
+    facebook_url: Yup.string()
+      .url('coach:forms.errorInvalidURL')
+      .max(150, 'coach:forms.errorLinkLength')
+      .nullable(false),
+    instagram_url: Yup.string()
+      .url('coach:forms.errorInvalidURL')
+      .max(150, 'coach:forms.errorLinkLength')
+      .nullable(false),
   });
 
 export const CoachFormHOC = withFormik({

@@ -9036,7 +9036,8 @@
       "referred_discount_applied": "Reward received by the referred member",
       "purchased_products": "Products",
       "coupon_type": "Type",
-      "is_first_visit": "First booking"
+      "is_first_visit": "First booking",
+      "is_from_billing_plan": "Coming from subscription"
     },
     "yes": "Yes",
     "no": "No",

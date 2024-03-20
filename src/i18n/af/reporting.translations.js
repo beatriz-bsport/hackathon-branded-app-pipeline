@@ -384,6 +384,7 @@ const getTranslations = async () => {
       purchased_products: 'Products',
       coupon_type: 'Type',
       is_first_visit: 'First booking',
+      is_from_billing_plan: 'Coming from subscription',
     },
     yes: 'Yes',
     no: 'No',

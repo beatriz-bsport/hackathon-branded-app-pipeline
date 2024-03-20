@@ -74,7 +74,6 @@ type Props = {
   stripeId: string | null,
   snackbarSuccess: (msg: string) => void,
   fetchMemberPaymentMethod: (memberId: number) => void,
-  fetchMember: (memberId: number) => void,
   availablePaymentMethodList: Array<PaymentMethod>,
   invoiceToBill: Invoice,
   setInvoiceToBill: (invoice: ?Invoice) => void,
@@ -106,6 +105,7 @@ type Props = {
     },
     options?: OptionCallback,
   ) => void,
+  memberBulkLoading?: boolean,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -117,7 +117,6 @@ export const PrivateBookingCard = (props: Props) => {
     if (private_booking.member && private_booking.member.id) {
       props.fetchInvoiceListUnpaid(private_booking.member.id);
       props.fetchMemberPaymentMethod(private_booking.member.id);
-      props.fetchMember(private_booking.member.id);
       props.fetchConsumerGiftcardReceivedList(private_booking.member.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -343,8 +342,9 @@ export const PrivateBookingCard = (props: Props) => {
                   firstPrivateBooking={private_booking.first_in_company}
                   isPreventUpdateMetricValue={!hasEditPerformancePermission}
                   member={private_booking.member}
+                  memberLoading={props.memberBulkLoading}
                   onClick={
-                    props.goToMember
+                    !props.memberBulkLoading && !!props.goToMember
                       ? () => props.goToMember(private_booking.member.id)
                       : null
                   }

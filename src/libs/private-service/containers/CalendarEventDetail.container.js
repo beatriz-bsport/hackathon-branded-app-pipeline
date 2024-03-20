@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import isEqual from 'lodash/isEqual';
 
 import Fade from '@material-ui/core/Fade';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -275,6 +276,11 @@ type Props = {
     data: { internalNote: string },
     options: OptionCallback,
   ) => void,
+  memberBulkLoading?: boolean,
+  fetchMemberBulkById: (
+    ids: number,
+    options?: OptionCallback<Member[]>,
+  ) => void,
 };
 
 type State = {
@@ -319,6 +325,16 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       this.props.privateBookingId !== prevProps.privateBookingId
     ) {
       this.props.fetchPrivateBookingById(this.props.privateBookingId);
+    }
+    if (
+      this.props.privateBooking &&
+      !isEqual(
+        this.props.privateBooking?.member,
+        prevProps.privateBooking?.member,
+      ) &&
+      typeof this.props.privateBooking?.member === 'number'
+    ) {
+      this.props.fetchMemberBulkById([this.props.privateBooking?.member]);
     }
     if (prevProps.privateBooking && !this.props.privateBooking) {
       this.props.setIsUpdateCoachFormOpen(false);
@@ -421,7 +437,6 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             this.props.fetchConsumerGiftcardReceivedList
           }
           fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
-          fetchMember={this.props.fetchMember}
           fetchMemberPaymentMethod={this.props.fetchMemberPaymentMethod}
           fetchPerformanceTrackingData={this.props.fetchPerformanceTrackingData}
           goToCoachCalendar={this.props.goToCoachCalendar}
@@ -430,6 +445,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           invoiceToBill={this.props.invoiceToBill}
           isCoach={this.props.isCoach}
           loading={this.props.privateBookingLoading}
+          memberBulkLoading={this.props.memberBulkLoading}
           onClose={this.props.onClose}
           onDelete={
             this.props.isCoach
@@ -565,15 +581,6 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   </Button>
                 </Link>
               )}
-              {/* {offer.available ? null : (
-              <RedButton
-                onClick={this.props.openOfferDeleteModal}
-                variant="contained"
-                className={classes.manageButton}
-              >
-                {t('forms.delete.buttonHardDelete')}
-              </RedButton>
-            )} */}
             </div>
           )}
         </ObjectLevelPermissionProvider>
@@ -818,6 +825,7 @@ const OfferEditorContainer = compose(
         state.establishment.loading ||
         state.coach.loading ||
         state.metaActivity.loading,
+      memberBulkLoading: state.member.bulk.loading,
       similarOffers: getSimilarsOffers(state),
       coaches: getActiveCoaches(state),
       coachesSelectedInRole: getCoachesSelectedInRole(state),

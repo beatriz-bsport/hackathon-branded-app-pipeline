@@ -14,6 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import moment from 'moment-timezone';
 import { Cake } from '@material-ui/icons';
@@ -42,6 +43,7 @@ type Props = {
   programDataLoading: boolean;
   bottomCredit?: boolean;
   isPreventUpdateMetricValue?: boolean;
+  memberLoading?: boolean;
 };
 export const MemberMinimalListItem: React.FC<Props> = ({
   member,
@@ -58,6 +60,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   programDataLoading,
   bottomCredit,
   isPreventUpdateMetricValue,
+  memberLoading,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
@@ -110,22 +113,28 @@ export const MemberMinimalListItem: React.FC<Props> = ({
         </ListItemAvatar>
         <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
           {(hasMemberProfileAccessPermission: boolean) => (
-            <ListItemText
-              primary={
-                <div className={classes.flexDiv}>
-                  <Typography>
-                    {member.name + (firstBooking ? ' ★' : '')}
-                  </Typography>
-                  {isBirthday && (
-                    <Cake color="secondary" style={{ fontSize: '14px' }} />
-                  )}
-                  <Typography color="secondary" variant="caption">
-                    {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
-                  </Typography>
-                </div>
-              }
-              secondary={hasMemberProfileAccessPermission && secondaryInfo}
-            />
+            <>
+              {member?.name ? (
+                <ListItemText
+                  primary={
+                    <div className={classes.flexDiv}>
+                      <Typography>
+                        {member.name + (firstBooking ? ' ★' : '')}
+                      </Typography>
+                      {isBirthday && (
+                        <Cake color="secondary" style={{ fontSize: '14px' }} />
+                      )}
+                      <Typography color="secondary" variant="caption">
+                        {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
+                      </Typography>
+                    </div>
+                  }
+                  secondary={hasMemberProfileAccessPermission && secondaryInfo}
+                />
+              ) : (
+                memberLoading && <CircularProgress />
+              )}
+            </>
           )}
         </ObjectLevelPermissionProvider>
         <ListItemSecondaryAction>

@@ -125,21 +125,25 @@ export const withRelatedFields = memoize((selector) =>
           private_consumer_pass:
             privateConsumerPassData[bookings.private_consumer_pass] ||
             bookings.private_consumer_pass,
-          member: {
-            ...memberData[bookings.member],
-            tags: memberData[bookings.member]?.tags?.map((tag_id: number) => ({
-              ...tagDict[tag_id],
-              group: tagGroupData[tagDict[tag_id]?.group],
-            })),
-          } || {
-            ...memberDetailData[bookings.member],
-            tags: memberDetailData[bookings.member]?.tags?.map(
-              (tag_id: number) => ({
-                ...tagDict[tag_id],
-                group: tagGroupData[tagDict[tag_id]?.group],
-              }),
-            ),
-          },
+          member: !memberData[bookings.member]?.tags
+            ? bookings.member
+            : {
+                ...memberData[bookings.member],
+                tags: memberData[bookings.member]?.tags?.map(
+                  (tag_id: number) => ({
+                    ...tagDict[tag_id],
+                    group: tagGroupData[tagDict[tag_id]?.group],
+                  }),
+                ),
+              } || {
+                ...memberDetailData[bookings.member],
+                tags: memberDetailData[bookings.member]?.tags?.map(
+                  (tag_id: number) => ({
+                    ...tagDict[tag_id],
+                    group: tagGroupData[tagDict[tag_id]?.group],
+                  }),
+                ),
+              },
         });
       }
       return bookings.map((b) =>
@@ -149,19 +153,23 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[b.establishment],
           private_service: serviceData[b.private_service],
           private_slot: slotData[b.private_slot],
-          member: {
-            ...memberData[b.member],
-            tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
-              ...tagDict[tag_id],
-              group: tagGroupData[tagDict[tag_id]?.group],
-            })),
-          } || {
-            ...memberDetailData[b.member],
-            tags: memberDetailData[b.member]?.tags?.map((tag_id: number) => ({
-              ...tagDict[tag_id],
-              group: tagGroupData[tagDict[tag_id]?.group],
-            })),
-          },
+          member: !memberData[bookings.member]?.tags
+            ? bookings.member
+            : {
+                ...memberData[b.member],
+                tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
+                  ...tagDict[tag_id],
+                  group: tagGroupData[tagDict[tag_id]?.group],
+                })),
+              } || {
+                ...memberDetailData[b.member],
+                tags: memberDetailData[b.member]?.tags?.map(
+                  (tag_id: number) => ({
+                    ...tagDict[tag_id],
+                    group: tagGroupData[tagDict[tag_id]?.group],
+                  }),
+                ),
+              },
           private_consumer_pass:
             privateConsumerPassData[b.private_consumer_pass] ||
             b.private_consumer_pass,
@@ -180,81 +188,12 @@ export const composeBookingsWithMemberProgram = memoize((selector) =>
       getProgramDict,
       getMetricDict,
     ],
-    (
-      bookings,
-      memberProgramByMemberDict,
-      memberProgramDict,
-      programDict,
-      metricDict,
-    ) => {
+    (bookings) => {
       if (!bookings) return bookings;
       if (Array.isArray(bookings)) {
-        return bookings?.map((booking) => {
-          return {
-            ...booking,
-            member: {
-              ...booking.member,
-              memberProgramList: memberProgramByMemberDict[booking.member.id]
-                ?.map((id) => memberProgramDict[id])
-                ?.filter((mp) => !mp.is_disabled)
-                ?.filter((mp) => programDict[mp.program]?.is_disabled === false)
-                .map((memberProgram) => ({
-                  ...memberProgram,
-                  program: programDict[memberProgram.program],
-
-                  metric_record: {
-                    ...memberProgram.metric_record,
-                    general: {
-                      ...memberProgram?.metric_record?.general,
-                      metrics: memberProgram?.metric_record?.general?.metric_ids
-                        ?.filter((id) => metricDict[id])
-                        .map(
-                          (id) =>
-                            memberProgram?.metric_record?.general?.metrics[id],
-                        )
-                        .map((metricRecord) => ({
-                          ...metricRecord,
-                          metric: metricDict[metricRecord.metric_id],
-                        })),
-                    },
-                  },
-                })),
-            },
-          };
-        });
+        return bookings;
       }
-
-      return {
-        ...bookings,
-        member: {
-          ...bookings?.member,
-          memberProgramList: memberProgramByMemberDict[bookings?.member.id]
-            ?.map((id) => memberProgramDict[id])
-            ?.filter((mp) => !mp.is_disabled)
-            ?.filter((mp) => programDict[mp.program]?.is_disabled === false)
-            .map((memberProgram) => ({
-              ...memberProgram,
-              program: programDict[memberProgram.program],
-
-              metric_record: {
-                ...memberProgram.metric_record,
-                general: {
-                  ...memberProgram?.metric_record?.general,
-                  metrics: memberProgram?.metric_record?.general?.metric_ids
-                    ?.filter((id) => metricDict[id])
-                    .map(
-                      (id) =>
-                        memberProgram?.metric_record?.general?.metrics[id],
-                    )
-                    .map((metricRecord) => ({
-                      ...metricRecord,
-                      metric: metricDict[metricRecord.metric_id],
-                    })),
-                },
-              },
-            })),
-        },
-      };
+      return bookings;
     },
   ),
 );
@@ -324,7 +263,7 @@ export const withSlot = memoize((selector) =>
 );
 
 export const bookingWithAllRelatedField = memoize((selector) =>
-  withService(withSlot(withMember(selector))),
+  withService(withSlot(selector)),
 );
 
 const paramFilter: (

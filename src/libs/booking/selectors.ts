@@ -193,6 +193,8 @@ const __getOffersWithCancelledBookingsData = (state: State) =>
 export const getOffersIds = (state: State) =>
   state.booking.recurrenceRule.offersWithCancelledBookings.allIds;
 
+export const getOffersWithCancelledBookingsLoading = (state: State) =>
+  state.booking.recurrenceRule.offersWithCancelledBookings.loading;
 export const getUpdateOffersToRetryLoading = (state: State) =>
   state.booking.recurrenceRule.offersWithCancelledBookings.updateOffersToRetry
     .loading;

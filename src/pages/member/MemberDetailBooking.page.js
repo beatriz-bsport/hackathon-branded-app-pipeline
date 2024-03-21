@@ -56,6 +56,8 @@ import {
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAction,
   setSpotForBooking,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
+  retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
+  updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
 } from '#libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
@@ -79,10 +81,11 @@ import {
   withEstablishment,
   getOfferStatusWaitingListPositionById,
   getOfferById,
+  withCoach,
+  withMetaActivity,
 } from '#libs/offer/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { withCustomLevel } from '#libs/level/selectors';
-
+import { getAllCustomLevels, withCustomLevel } from '#libs/level/selectors';
 import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
@@ -125,6 +128,7 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/paymen
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '#libs/booking/components/BookingDetail.component';
 import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
+import RecurrenceRuleOfferFormDialog from '#libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
 import BookingFilters from '#libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
@@ -138,6 +142,10 @@ import {
   getRecurrenceRuleBookingList,
   getSimilarBookingList,
   withStaffModificationHistory,
+  getOffersDataList,
+  getOffersIds,
+  getUpdateOffersToRetryLoading,
+  getOffersWithCancelledBookingsLoading,
 } from '#libs/booking/selectors';
 import { getMember } from '#libs/member/selectors';
 import paymentPackSelectors, {
@@ -154,7 +162,11 @@ import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 import type { Offer, OfferStatusWaitingListPosition } from '#libs/offer/types';
-import { BookingOptionWithActivity, Booking } from '#libs/booking/types';
+import {
+  BookingOptionWithActivity,
+  Booking,
+  RecurrenceRuleBooking,
+} from '#libs/booking/types';
 import WaitingListDetail from '#libs/waiting-list/components/WaitingListDetail.component';
 import PaginatedBookingOptionList from '#libs/waiting-list/components/PaginatedBookingOptionList.component';
 import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
@@ -229,15 +241,16 @@ type Props = {
   recurrentBookingCurrentPage: number,
   setBookerInAvanceDialog: () => void,
   bookerInAvanceDialog: boolean,
+  isOffersDialogOpen: boolean,
   fetchActivitiesCompany: (company: number) => void,
   metaActivities: Array,
   setSelectedRecurrentBooking: () => void,
-  selectedRecurrentBooking: boolean,
+  selectedRecurrentBooking: RecurrenceRuleBooking | null,
   fetchRecurrenceRuleBooking: (page: number) => void,
   recurrentBookingNextPage: number,
   recurrentBookingCount: number,
-  refresh: () => void,
   onSubmitRecurrentBooking: () => void,
+  onSubmitRetryOfferWithCancelledBookings: (offerIds: number[]) => void,
 
   graphData: { data: Array<{ d: string, v: number }>, loading: boolean },
   theme: Theme,
@@ -288,6 +301,10 @@ type Props = {
   },
   getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
   getBookingOffer: (offerId: number) => Offer,
+  offersWithCancelledBookings: Offer[],
+  offersWithCancelledBookingsIdsList: number[],
+  offersWithCancelledBookingsLoading: boolean,
+  updateOffersToRetryLoading: boolean,
 };
 
 type State = {
@@ -978,12 +995,23 @@ export class MemberDetailBooking extends Component<Props, State> {
                 hasActivityGroups={this.props.activityGroups > 0}
                 initial={this.props.selectedRecurrentBooking}
                 metaActivityList={this.props.metaActivities}
+                offersWithCancelledBookingsLoading={
+                  this.props.offersWithCancelledBookingsLoading
+                }
                 onClose={() => {
                   this.props.setBookerInAvanceDialog(false);
                   this.props.setSelectedRecurrentBooking(null);
                 }}
                 onSubmit={this.props.onSubmitRecurrentBooking}
-                refresh={this.props.refresh}
+              />
+            )}
+            {this.props.isOffersDialogOpen && (
+              <RecurrenceRuleOfferFormDialog
+                allOfferIds={this.props.offersWithCancelledBookingsIdsList}
+                loading={this.props.updateOffersToRetryLoading}
+                offers={this.props.offersWithCancelledBookings}
+                onSubmit={this.props.onSubmitRetryOfferWithCancelledBookings}
+                open={this.props.isOffersDialogOpen}
               />
             )}
           </Grid>
@@ -1093,6 +1121,7 @@ export default compose(
   withStyles(styles),
   withState('open', 'setOpen', {}),
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
+  withState('isOffersDialogOpen', 'setIsOffersDialogOpen', false),
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
   withState('selectedBookingOption', 'setSelectedBookingOption', null),
   withState('discardBookingOption', 'setDiscardBookingOption', null),
@@ -1161,6 +1190,14 @@ export default compose(
       getOfferMetaActivity: (metaActivityId: number) =>
         getMetaActivity(state, metaActivityId),
       getBookingOffer: (offerId: number) => getOfferById(state, offerId),
+      offersWithCancelledBookings: withMetaActivity(
+        withCoach(withEstablishment(withCustomLevel(getOffersDataList))),
+      )(state),
+      offersWithCancelledBookingsIdsList: getOffersIds(state),
+      updateOffersToRetryLoading: getUpdateOffersToRetryLoading(state),
+      offersWithCancelledBookingsLoading:
+        getOffersWithCancelledBookingsLoading(state),
+      customLevels: getAllCustomLevels(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -1219,6 +1256,10 @@ export default compose(
       fetchAssociatedCoachesList,
       fetchGroupOffer: fetchGroupOfferAction,
       fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
+      retrieveOfferWithCancelledBookings:
+        retrieveOfferWithCancelledBookingsAction,
+      updateOfferWithCancelledBookingsToRetry:
+        updateOfferWithCancelledBookingsToRetryAction,
       fetchLevelList: fetchLevelListAction,
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
     },
@@ -1257,6 +1298,43 @@ export default compose(
       },
   }),
   withHandlers({
+    refresh:
+      ({
+        fetchRecurrenceRuleBooking,
+        fetchMemberBookings,
+        filters,
+        retrieveConsumerPackBulk,
+        setBookerInAvanceDialog,
+        fetchPaymentPackBulk,
+        id,
+      }) =>
+      () => {
+        fetchRecurrenceRuleBooking(1);
+        fetchMemberBookings({
+          member: id,
+          page: 1,
+          page_size: BOOKING_PAGE_SIZE,
+          filters,
+          options: {
+            onSuccess: (bookings) =>
+              retrieveConsumerPackBulk(
+                bookings.map((booking) => booking.consumer_payment_pack),
+                {
+                  onSuccess: (consumerPaymentPacks) =>
+                    fetchPaymentPackBulk(
+                      consumerPaymentPacks.map(
+                        (consumerPaymentPack) =>
+                          consumerPaymentPack.payment_pack,
+                      ),
+                    ),
+                },
+              ),
+          },
+        });
+        setBookerInAvanceDialog(false);
+      },
+  }),
+  withHandlers({
     fetchMemberBookingStatistics:
       ({ id, fetchBookingStatistics, chartRange, filters }) =>
       () => {
@@ -1278,6 +1356,9 @@ export default compose(
         selectedRecurrentBooking,
         setSelectedRecurrentBooking,
         createRecurrenceRuleBooking,
+        retrieveOfferWithCancelledBookings,
+        setIsOffersDialogOpen,
+        refresh,
       }) =>
       (data, options) => {
         if (id && selectedRecurrentBooking) {
@@ -1287,45 +1368,84 @@ export default compose(
               member: id,
             },
             selectedRecurrentBooking.id,
-            options,
+            {
+              onSuccess: () => {
+                retrieveOfferWithCancelledBookings(
+                  selectedRecurrentBooking.id,
+                  {
+                    onSuccess: (offers: Offer[]) => {
+                      if (offers?.length) {
+                        setIsOffersDialogOpen(true);
+                      } else {
+                        setSelectedRecurrentBooking(null);
+                        refresh();
+                      }
+                    },
+                  },
+                );
+                options?.onSuccess?.();
+              },
+              onError: () => {
+                options?.onError?.();
+              },
+            },
           );
         }
         if (id && !selectedRecurrentBooking) {
-          createRecurrenceRuleBooking({ ...data, member: id }, options);
+          createRecurrenceRuleBooking(
+            { ...data, member: id },
+            {
+              onSuccess: (
+                createdRecurrenceRuleBooking: RecurrenceRuleBooking,
+              ) => {
+                setSelectedRecurrentBooking(createdRecurrenceRuleBooking);
+                retrieveOfferWithCancelledBookings(
+                  createdRecurrenceRuleBooking.id,
+                  {
+                    onSuccess: (offers: Offer[]) => {
+                      if (offers?.length) {
+                        setIsOffersDialogOpen(true);
+                      } else {
+                        refresh();
+                        setSelectedRecurrentBooking(null);
+                      }
+                    },
+                  },
+                );
+                options?.onSuccess?.();
+              },
+              onError: () => {
+                options?.onError?.();
+              },
+            },
+          );
         }
-        setSelectedRecurrentBooking(null);
       },
-    refresh:
+    onSubmitRetryOfferWithCancelledBookings:
       ({
-        fetchRecurrenceRuleBooking,
-        fetchMemberBookings,
-        filters,
-        retrieveConsumerPackBulk,
-        setBookerInAvanceDialog,
-        fetchPaymentPackBulk,
-        id,
+        selectedRecurrentBooking,
+        setIsOffersDialogOpen,
+        setSelectedRecurrentBooking,
+        updateOfferWithCancelledBookingsToRetry,
+        refresh,
       }) =>
-      () => {
-        fetchRecurrenceRuleBooking(1);
-        fetchMemberBookings({
-          member: id,
-          page: 1,
-          page_size: BOOKING_PAGE_SIZE,
-          filters,
-          options: {
-            onSuccess: (bookings) =>
-              retrieveConsumerPackBulk(
-                bookings.map((b) => b.consumer_payment_pack),
-                {
-                  onSuccess: (cppList) =>
-                    fetchPaymentPackBulk(
-                      cppList.map((cpp) => cpp.payment_pack),
-                    ),
-                },
-              ),
+      (offerIdsToRetry: number[]) => {
+        updateOfferWithCancelledBookingsToRetry(
+          selectedRecurrentBooking.id,
+          offerIdsToRetry,
+          {
+            onSuccess: () => {
+              refresh();
+              setSelectedRecurrentBooking(null);
+              setIsOffersDialogOpen(false);
+            },
+            onError: () => {
+              refresh();
+              setSelectedRecurrentBooking(null);
+              setIsOffersDialogOpen(false);
+            },
           },
-        });
-        setBookerInAvanceDialog(false);
+        );
       },
     setOpenValue:
       ({ setOpen, open }) =>

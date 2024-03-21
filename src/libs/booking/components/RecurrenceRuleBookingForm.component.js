@@ -239,15 +239,13 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
           notify_if_booked: false,
         },
   validationSchema: RecurrenceRuleBookingSchema,
-  handleSubmit: (values, { props: { onSubmit, refresh }, setSubmitting }) => {
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => {
         setSubmitting(false);
-        refresh();
       },
       onError: () => {
         setSubmitting(false);
-        refresh();
       },
     });
   },

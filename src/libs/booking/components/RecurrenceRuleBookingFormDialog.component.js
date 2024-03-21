@@ -21,6 +21,7 @@ type Props = {
   onClose: () => void,
   isSubmitting: boolean,
   metaActivityList: MetaActivity[],
+  offersWithCancelledBookingsLoading: boolean,
 };
 
 export const RecurrenceRuleBookingFormDialog = (props: Props) => {
@@ -58,13 +59,20 @@ export const RecurrenceRuleBookingFormDialog = (props: Props) => {
                 />
               </DialogContent>
               <DialogActions>
-                <Button disabled={props.isSubmitting} onClick={props.onClose}>
+                <Button
+                  disabled={
+                    props.isSubmitting ||
+                    props.offersWithCancelledBookingsLoading
+                  }
+                  onClick={props.onClose}
+                >
                   {t('recurrenceRule.actions.close')}
                 </Button>
                 <Submit
                   disabled={
                     props.isSubmitting ||
-                    (values.meta_activity && !hasCreateBookingPermission)
+                    (values.meta_activity && !hasCreateBookingPermission) ||
+                    props.offersWithCancelledBookingsLoading
                   }
                 >
                   {t('recurrenceRule.actions.save')}

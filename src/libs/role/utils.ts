@@ -7,16 +7,17 @@ import mergeWith from 'lodash/mergeWith';
 import get from 'lodash/get';
 
 import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
-import {
+import type {
   RolePermission,
   ProtectedUrls,
   Role,
   SelectFieldItem,
   FranchiseRole,
   FranchiseRolePermission,
+  ObjectLevelPermissions,
 } from './types';
-import { Coach } from '#libs/associated-coach/types';
-import { Company } from '#libs/company/types';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Company } from '#libs/company/types';
 
 export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {
@@ -177,12 +178,22 @@ export const getOptionsFromIds = memoize(
 type HasAccessToUrlProps = {
   url: string;
   userPermissions: RolePermission;
+  objectLevelPermissions: ObjectLevelPermissions;
 };
 
 export const hasAccessToUrl = ({
   url,
   userPermissions,
+  objectLevelPermissions,
 }: HasAccessToUrlProps): boolean => {
+  // Will revoke access to member profiles (URLs starting with "/member/{only numbers}") if not granted by the objectLevelPermissions.
+  if (
+    new RegExp(/^\/member\/[0-9]+.*/).test(parseRestrictedPath(url)) &&
+    !objectLevelPermissions?.member?.allowed_actions?.accessProfile
+  ) {
+    return false;
+  }
+
   const permissionKey = matchUrlToRelevantPermissionKey(url);
   return !!getNestedKeyInObject(userPermissions, permissionKey);
 };

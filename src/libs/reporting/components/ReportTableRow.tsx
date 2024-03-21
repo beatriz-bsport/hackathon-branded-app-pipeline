@@ -4,11 +4,16 @@ import { TableRow } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { CellConverter, ReportMetadataColumn, SerializedRow } from '../types';
-import ReportTableCell from './ReportTableCell';
-import { generateRowLink } from '../utils';
+import { generateRowLink } from '#libs/reporting/utils';
 import { hasAccessToUrl } from '#libs/role/utils';
-import { RolePermission } from '#libs/role/types';
+import ReportTableCell from '#libs/reporting/components/ReportTableCell';
+
+import type {
+  CellConverter,
+  ReportMetadataColumn,
+  SerializedRow,
+} from '#libs/reporting/types';
+import type { RolePermission, ObjectLevelPermissions } from '#libs/role/types';
 
 type ReportTableRowsProps = {
   reportStoreRowsLoading: boolean;
@@ -26,6 +31,7 @@ type ReportTableRowsProps = {
   serializedRow: SerializedRow;
   reportCategory: ReportCategoryEnum;
   userPermissions: RolePermission;
+  objectLevelPermissions: ObjectLevelPermissions;
 };
 
 const ReportTableRow: React.FC<ReportTableRowsProps> = ({
@@ -38,12 +44,17 @@ const ReportTableRow: React.FC<ReportTableRowsProps> = ({
   serializedRow,
   reportCategory,
   userPermissions,
+  objectLevelPermissions,
 }: ReportTableRowsProps) => {
   const link = generateRowLink({
     reportCategory,
     rowExtraData: serializedRow.row_extra_data,
   });
-  const hasAccessToLink = hasAccessToUrl({ url: link, userPermissions });
+  const hasAccessToLink = hasAccessToUrl({
+    url: link,
+    userPermissions,
+    objectLevelPermissions,
+  });
   const goToItemDetail = useCallback(() => {
     if (link && hasAccessToLink) window.open(link, '_blank', 'noreferrer');
   }, [hasAccessToLink, link]);

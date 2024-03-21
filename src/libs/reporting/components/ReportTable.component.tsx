@@ -1,25 +1,34 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import Table from '@material-ui/core/Table';
-import Typography from '@material-ui/core/Typography';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { TableFooter, Theme } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
 import grey from '@material-ui/core/colors/grey';
 
-import { ReportConfiguration, ReportMetadata, SerializedRow } from '../types';
-import { getConverter, getColumn, ReportColumnPermissions } from '../utils';
-import ReportTableRow from './ReportTableRow';
-import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
+import {
+  getConverter,
+  getColumn,
+  ReportColumnPermissions,
+} from '#libs/reporting/utils';
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
+import ReportTableRow from '#libs/reporting/components/ReportTableRow';
+
+import type { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
+import type {
+  ReportConfiguration,
+  ReportMetadata,
+  SerializedRow,
+} from '#libs/reporting/types';
 
 type TableProps = {
   reportStoreRowsLoading: boolean;
@@ -178,6 +187,7 @@ const ReportTable: React.FC<TableProps> = ({
                 columnsConfigs={columnsConfigs}
                 converters={converters}
                 index={index}
+                objectLevelPermissions={objectLevelPermissions}
                 reportCategory={report.category}
                 reportStoreRowsLoading={reportStoreRowsLoading}
                 serializedRow={serializedRow}
@@ -203,7 +213,7 @@ const ReportTable: React.FC<TableProps> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   responsive: {
     overflowX: 'auto',
   },
@@ -240,4 +250,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   chipDefault: { cursor: 'default' },
 }));
 
-export default ReportTable;
+export default React.memo(ReportTable);

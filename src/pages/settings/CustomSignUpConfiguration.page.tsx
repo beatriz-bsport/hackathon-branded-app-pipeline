@@ -189,6 +189,7 @@ export class FormsConfiguration extends React.Component<Props> {
                     shouldWrapLayerInCssHoc
                     initial={this.props.customFormSelected}
                     isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                    layouts={this.props.customFormSelected.layout}
                   />
                 </Paper>
               </div>

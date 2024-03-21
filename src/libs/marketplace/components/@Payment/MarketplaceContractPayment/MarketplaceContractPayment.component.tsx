@@ -490,6 +490,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           />
 
           <MarketplaceContractPaymentCoupon
+            contractId={contract?.id}
             couponCode={couponCode}
             isContractLegalTermsAccepted={isContractLegalTermsAccepted}
             isLoading={isLoading}

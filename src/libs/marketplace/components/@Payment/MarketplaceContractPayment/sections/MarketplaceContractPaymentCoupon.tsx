@@ -23,6 +23,7 @@ export type Props = {
     formCouponCode: string,
     options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => Promise<void>;
+  contractId: number;
 };
 
 const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
@@ -33,7 +34,15 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
     isContractLegalTermsAccepted,
     onDeleteCoupon,
     onSubmitCouponForm,
+    contractId,
   }) => {
+    // Whenever the paymentMethod changes, we change the state of the billing details
+    React.useEffect(() => {
+      if (contractId) {
+        onSubmitCouponForm(couponCode, {});
+      }
+    }, [contractId, onSubmitCouponForm, couponCode]);
+
     return (
       <>
         {!voucher && (

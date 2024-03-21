@@ -52,7 +52,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
 
     const handleOnClickSender = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberSender.id),
-      [consumerGiftcard.id, isClickable, memberSender.id, onClick],
+      [consumerGiftcard?.id, isClickable, memberSender?.id, onClick],
     );
 
     const isClickable = React.useMemo(
@@ -189,7 +189,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
 
     const handleOnClickReceiver = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberReceiver.id),
-      [consumerGiftcard.id, isClickable, memberReceiver.id, onClick],
+      [consumerGiftcard?.id, isClickable, memberReceiver?.id, onClick],
     );
 
     const isClickable = React.useMemo(

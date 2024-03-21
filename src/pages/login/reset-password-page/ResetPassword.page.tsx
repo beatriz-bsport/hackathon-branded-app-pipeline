@@ -161,8 +161,15 @@ export default compose(
     membership: parseQueryString(props.location.search)?.membership,
     // @ts-expect-error
     franchisorId: parseQueryString(props.location.search)?.franchisor,
-    originalLoginNextLink: parseQueryString(props.location.search) // @ts-expect-error
-      ?.originalLoginNextLink,
+    originalLoginNextLink:
+      props.location?.search &&
+      props.location.search?.indexOf('originalLoginNextLink') !== -1
+        ? props.location.search.substring(
+            props.location.search?.indexOf('originalLoginNextLink') +
+              'originalLoginNextLink'.length +
+              1,
+          )
+        : '',
     // @ts-expect-error
     context: parseQueryString(props.location.search)?.context,
   })),

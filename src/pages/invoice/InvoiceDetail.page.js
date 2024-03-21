@@ -545,9 +545,6 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.establishmentBillingGroups
                 }
                 invoice={this.props.invoice}
-                memberDefaultBillingEstablishment={
-                  this.props.member?.default_billing_establishment
-                }
                 onClickInvoice={this.props.goToInvoice}
               />
               {this.props.invoice.invoice_type !==

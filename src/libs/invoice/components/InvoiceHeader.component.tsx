@@ -40,7 +40,6 @@ type Props = {
   invoice?:
     | WithAuthor<WithEstablishment<Invoice<Member>>>
     | WithAuthor<WithEstablishmentBillingGroup<Invoice<Member>>>;
-  memberDefaultBillingEstablishment?: Establishment;
   editEstablishmentBillingGroup: (establishmentBillingGroupId: number) => void;
   onClickInvoice: (uuid: string) => void;
 };
@@ -76,7 +75,6 @@ export const InvoiceHeader = (props: Props) => {
     editEstablishmentBillingGroupIsLoading,
     establishmentBillingGroups,
     invoice,
-    memberDefaultBillingEstablishment,
     editEstablishmentBillingGroup,
   } = props;
 
@@ -95,16 +93,14 @@ export const InvoiceHeader = (props: Props) => {
     const billingGroup =
       invoice?.establishment_billing_group as EstablishmentBillingGroup;
 
-    const establishment =
-      (invoice?.establishment as Establishment) ||
-      memberDefaultBillingEstablishment;
+    const establishment = invoice?.establishment as Establishment;
 
     return (
       billingGroup?.name ||
       establishment?.location?.address ||
       t('invoice.header.noBillingGroup')
     );
-  }, [invoice, memberDefaultBillingEstablishment, t]);
+  }, [invoice, t]);
 
   const onEditEstablishmentBillingGroup = useCallback(
     (establishmentBillingGroup: EstablishmentBillingGroup) => {

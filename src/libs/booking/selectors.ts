@@ -186,3 +186,17 @@ export const getFutureBookingsByMemberCount = (
   const futureBookingsByMember = state.booking.futureBookingsByMember.byId;
   return futureBookingsByMember[memberId]?.length ?? 0;
 };
+
+const __getOffersWithCancelledBookingsData = (state: State) =>
+  state.booking.recurrenceRule.offersWithCancelledBookings.byId;
+
+export const getOffersIds = (state: State) =>
+  state.booking.recurrenceRule.offersWithCancelledBookings.allIds;
+
+export const getUpdateOffersToRetryLoading = (state: State) =>
+  state.booking.recurrenceRule.offersWithCancelledBookings.updateOffersToRetry
+    .loading;
+export const getOffersDataList = createSelector(
+  [__getOffersWithCancelledBookingsData, getOffersIds],
+  (data, ids) => ids.map((id) => data[id]),
+);

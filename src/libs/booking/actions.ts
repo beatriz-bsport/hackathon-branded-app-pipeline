@@ -26,6 +26,8 @@ import {
   createRecurrenceRuleBooking as createRecurrenceRuleBookingAPI,
   deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAPI,
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAPI,
+  retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAPI,
+  updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAPI,
   setSpotForMember,
 } from './api';
 
@@ -34,6 +36,7 @@ import type { Booking, BookingREST } from './types';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import type { Offer } from '#libs/offer/types';
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),
@@ -780,5 +783,85 @@ export function fetchSimilarFuturBookingInGroup(
       if (options && options.onError) options.onError(error);
     }
     dispatch(fetchSimilarFuturBookingInGroupActions.isLoading(false));
+  };
+}
+
+export const retrieveOfferWithCancelledBookingsActions = {
+  isLoading: createAction<boolean>(
+    'RECURENCE_RULE_BOOKING/RETRIEVE_OFFER_WITH_CANCELLED_BOOKING/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'RECURENCE_RULE_BOOKING/RETRIEVE_OFFER_WITH_CANCELLED_BOOKING/ERROR',
+  ),
+  success: createAction<Offer[]>(
+    'RECURENCE_RULE_BOOKING/RETRIEVE_OFFER_WITH_CANCELLED_BOOKING/SUCCESS',
+  ),
+};
+
+export function retrieveOfferWithCancelledBookings(
+  recurrenceRuleBookingId: number,
+  options?: OptionCallback<Offer[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveOfferWithCancelledBookingsActions.isLoading(true));
+    dispatch(retrieveOfferWithCancelledBookingsActions.error(null));
+    try {
+      const response = await retrieveOfferWithCancelledBookingsAPI(
+        recurrenceRuleBookingId,
+      );
+
+      dispatch(
+        retrieveOfferWithCancelledBookingsActions.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveOfferWithCancelledBookingsActions.error(error));
+
+      options?.onError?.(error);
+    }
+    dispatch(retrieveOfferWithCancelledBookingsActions.isLoading(false));
+  };
+}
+
+export const updateOfferWithCancelledBookingsToRetryActions = {
+  isLoading: createAction<boolean>(
+    'RECURENCE_RULE_BOOKING/UPDATE_OFFER_WITH_CANCELLED_BOOKING_TO_RETRY/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'RECURENCE_RULE_BOOKING/UPDATE_OFFER_WITH_CANCELLED_BOOKING_TO_RETRY/ERROR',
+  ),
+  success: createAction<number>(
+    'RECURENCE_RULE_BOOKING/UPDATE_OFFER_WITH_CANCELLED_BOOKING_TO_RETRY/SUCCESS',
+  ),
+};
+
+export function updateOfferWithCancelledBookingsToRetry(
+  recurrenceRuleBookingId: number,
+  offer_ids: number[],
+  options?: OptionCallback<number>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateOfferWithCancelledBookingsToRetryActions.isLoading(true));
+    dispatch(updateOfferWithCancelledBookingsToRetryActions.error(null));
+    try {
+      const response = await updateOfferWithCancelledBookingsToRetryAPI(
+        recurrenceRuleBookingId,
+        offer_ids,
+      );
+
+      dispatch(
+        updateOfferWithCancelledBookingsToRetryActions.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(updateOfferWithCancelledBookingsToRetryActions.error(error));
+
+      options?.onError?.(error);
+    }
+    dispatch(updateOfferWithCancelledBookingsToRetryActions.isLoading(false));
   };
 }

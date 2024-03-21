@@ -182,6 +182,11 @@ export type BookingsState = {
     allIds: number[];
   };
   futureBookingsByMember: ErrorAndLoading & { allIds: number[] };
+  offersWithCancelledBookings: ErrorAndLoading & {
+    allIds: number[];
+    byId: { [key: string]: Offer };
+    updateOffersToRetry: ErrorAndLoading;
+  };
 };
 
 export type BookingsAction =

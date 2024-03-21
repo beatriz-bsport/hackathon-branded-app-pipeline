@@ -300,6 +300,12 @@ const getTranslations = async () => {
         permissionWarning:
           'You do not have the permission to create bookings for this activity',
       },
+      offerForm: {
+        helperText:
+          'It appears that sessions contained in the recurrent booking were canceled before for this member, you can select here the sessions that you’ll allow the system to book again',
+        unselectAll: 'Unselect all',
+        selectAll: 'Select all',
+      },
       recurrentRuleBooking: 'Recurrent booking',
       item: {
         explain:

@@ -14,6 +14,7 @@ import {
   BookingFilterParams,
   CancelBookingParams,
 } from './types';
+import type { Offer } from '#libs/offer/types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(
@@ -116,5 +117,21 @@ export async function updateRecurrenceRuleBooking(data: any, id: number) {
   return patchAuth(
     `${API_V1_URI}/booking/recurrence_rule_booking/${id}/`,
     data,
+  );
+}
+
+export async function retrieveOfferWithCancelledBookings(id: number) {
+  return getAuth<Offer[]>(
+    `${API_V1_URI}/booking/recurrence_rule_booking/${id}/get_offers_to_rebook/`,
+  );
+}
+
+export async function updateOfferWithCancelledBookingsToRetry(
+  id: number,
+  offer_ids: number[],
+) {
+  return postAuth<number>(
+    `${API_V1_URI}/booking/recurrence_rule_booking/${id}/update_recurrence_booking_offers_to_retry/`,
+    { offer_ids },
   );
 }

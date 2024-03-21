@@ -17,8 +17,11 @@ import {
   deleteRecurrenceRuleBookingActions,
   fetchSimilarFuturBookingInGroupActions,
   fetchFutureBookingsByMemberActions,
+  retrieveOfferWithCancelledBookingsActions,
+  updateOfferWithCancelledBookingsToRetryActions,
 } from './actions';
-import { Booking, BookingsState } from './types';
+import type { Booking, BookingsState } from './types';
+import type { Offer } from '#libs/offer/types';
 
 export const initialState: Immutable.Immutable<BookingsState> =
   Immutable<BookingsState>({
@@ -86,6 +89,13 @@ export const initialState: Immutable.Immutable<BookingsState> =
       edit: {
         loading: false,
         error: null,
+      },
+      offersWithCancelledBookings: {
+        allIds: [],
+        byId: {},
+        error: null,
+        loading: false,
+        updateOffersToRetry: { error: null, loading: false },
       },
     },
     similar: {
@@ -364,6 +374,69 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
           },
           { deep: true },
         );
+    },
+    [retrieveOfferWithCancelledBookingsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['recurrenceRule', 'offersWithCancelledBookings', 'loading'],
+        payload,
+      );
+    },
+    [retrieveOfferWithCancelledBookingsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['recurrenceRule', 'offersWithCancelledBookings', 'error'],
+        payload,
+      );
+    },
+    [retrieveOfferWithCancelledBookingsActions.success.toString()]: (
+      state,
+      { payload }: { payload: Offer[] },
+    ) => {
+      return state
+        .setIn(
+          ['recurrenceRule', 'offersWithCancelledBookings', 'allIds'],
+          payload.map((offers) => offers.id),
+        )
+        .setIn(
+          ['recurrenceRule', 'offersWithCancelledBookings', 'byId'],
+          payload.reduce((acc: { [offer_id: number]: Offer }, offer: Offer) => {
+            acc[offer.id] = offer;
+            return acc;
+          }, {}),
+        );
+    },
+    [updateOfferWithCancelledBookingsToRetryActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'recurrenceRule',
+          'offersWithCancelledBookings',
+          'updateOffersToRetry',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [updateOfferWithCancelledBookingsToRetryActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        [
+          'recurrenceRule',
+          'offersWithCancelledBookings',
+          'updateOffersToRetry',
+          'error',
+        ],
+        payload,
+      );
     },
     [fetchSimilarFuturBookingInGroupActions.isLoading.toString()]: (
       state,

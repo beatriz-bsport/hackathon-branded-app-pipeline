@@ -144,7 +144,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
 
         const payload = {
           name: values.name,
-          ...(values.subtitle && { subtitle: values.subtitle }),
+          subtitle: values.subtitle || '',
           price: values.price,
           supplier_price: values.supplierPrice.toString(),
           ...(!!values.cover &&

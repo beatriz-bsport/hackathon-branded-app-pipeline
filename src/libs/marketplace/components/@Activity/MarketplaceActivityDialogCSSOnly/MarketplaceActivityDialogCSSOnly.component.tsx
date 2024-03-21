@@ -44,6 +44,7 @@ export function MarketplaceActivityDialog(props: Props) {
       borderRadius: '12px',
       maxHeight: '80vh',
     },
+    className: 'bs-activity--dialog_paper',
   };
   const useWidgetSlidingPortal =
     WidgetUtils.isWidget() &&

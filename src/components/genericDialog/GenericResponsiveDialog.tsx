@@ -3,6 +3,7 @@ import { Theme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+import type { PaperProps } from '@material-ui/core/Paper';
 
 type OwnProps = {
   id?: string;
@@ -17,6 +18,7 @@ type OwnProps = {
   PaperComponent?: React.Component;
   ariaLabelledby?: string;
   scroll?: 'paper' | 'body';
+  PaperProps?: Partial<PaperProps>;
 };
 
 type Props = OwnProps;
@@ -35,6 +37,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
     PaperComponent,
     ariaLabelledby,
     scroll = 'body',
+    PaperProps,
   } = props;
   const theme: Theme = useTheme();
   const classes = useStyles({ padding });
@@ -56,6 +59,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
       open={open}
       scroll={scroll}
       {...(PaperComponent || {})}
+      PaperProps={PaperProps}
     >
       {children}
     </Dialog>

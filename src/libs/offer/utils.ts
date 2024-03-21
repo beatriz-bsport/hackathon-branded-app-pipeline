@@ -1,11 +1,16 @@
 import moment, { Moment, MomentInput } from 'moment-timezone';
-import {
+import type {
   Offer,
+  OfferDataListItem,
   OfferFormRecurrenceWeekDay,
   OfferFormValues,
   Offer_FULL,
 } from './types';
 import { OFFER_RECURRENCE } from './constants';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Level } from '#libs/level/types';
 
 export function isDateTooFar(date: MomentInput) {
   return moment(date).diff(moment(), 'years', true) > 3;
@@ -126,3 +131,30 @@ export function getDeletePermission(
   }
   return false;
 }
+
+export const getOffersWithMoreInformation = (
+  offers: Offer[],
+  coaches: Coach[],
+  establishments: Establishment[],
+  metaActivities: MetaActivity[],
+  customLevels: Level[],
+): OfferDataListItem[] =>
+  // @ts-ignore typescript is not inferring correctly the type of offer ...
+  (offers ?? []).map((offer) => {
+    return {
+      ...offer,
+      coach: coaches?.find((coach) => offer.coach === coach.id),
+      coach_override: coaches?.find(
+        (coach) => offer.coach_override === coach.id,
+      ),
+      meta_activity: metaActivities?.find(
+        (metaActivity) => offer.meta_activity === metaActivity.id,
+      ),
+      establishment: establishments?.find(
+        (establishment) => offer.establishment === establishment.id,
+      ),
+      customLevel: customLevels?.find(
+        (level) => offer.custom_level === level.id,
+      ),
+    };
+  });

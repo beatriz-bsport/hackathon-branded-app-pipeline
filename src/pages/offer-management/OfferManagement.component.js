@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import { Prompt } from 'react-router-dom';
 import moment from 'moment-timezone';
+import uniq from 'lodash/uniq';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -15,6 +16,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { mapFormData } from '../form.utils';
+import RecurrenceRuleOfferFormDialog from '#libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
@@ -48,7 +50,12 @@ import type {
   Establishment,
   EstablishmentBillingGroup,
 } from '#libs/establishment/types';
-import type { OfferEdit, Offer, OfferStatus } from '../../libs/offer/types';
+import type {
+  OfferEdit,
+  Offer,
+  OfferDataListItem,
+  OfferStatus,
+} from '#libs/offer/types';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
@@ -66,6 +73,7 @@ import type {
   OptionCallback,
   OptionBackgroundCallback,
 } from '../../state/types';
+
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
@@ -316,6 +324,19 @@ type Props = {
     data: OfferEdit,
     options: OptionCallback<Offer>,
   ) => void,
+  retrieveOfferWithCancelledBookings: (
+    recurrenceRuleBookingId: number,
+    options?: OptionCallback<Offer[]>,
+  ) => void,
+  offersWithCancelledBookings: OfferDataListItem[],
+  offersWithCancelledBookingsIdsList: number[],
+  offersWithCancelledBookingsLoading: boolean,
+  updateOfferWithCancelledBookingsToRetry: (
+    recurrenceRuleBookingId: number,
+    offer_ids: number[],
+    options: OptionCallback<number>,
+  ) => void,
+  updateOffersToRetryLoading: boolean,
 };
 
 type State = {
@@ -324,6 +345,8 @@ type State = {
   isMemberProgramDetailDialogOpen: boolean,
   memberIdFocused: null | number,
   openConfirmationRollCallDialog: boolean,
+  recurrentBookingId: number | null,
+  isOffersDialogOpen: boolean | null,
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -333,6 +356,8 @@ export class OfferManagement extends Component<Props, State> {
     isMemberProgramDetailDialogOpen: false,
     memberIdFocused: null,
     openConfirmationRollCallDialog: false,
+    recurrentBookingId: null,
+    isOffersDialogOpen: false,
   };
 
   componentDidMount() {
@@ -418,6 +443,14 @@ export class OfferManagement extends Component<Props, State> {
         (qi) => qi.memberId !== memberId,
       ),
     }));
+  };
+
+  setRecurrentBookingId = (id: number) => {
+    this.setState({ recurrentBookingId: id });
+  };
+
+  setIsOffersDialogOpen = (value: boolean) => {
+    this.setState({ isOffersDialogOpen: value });
   };
 
   createInvoice = (invoiceData: any, options: OptionCallback) => {
@@ -814,6 +847,33 @@ export class OfferManagement extends Component<Props, State> {
     );
   };
 
+  setRecurrentBookingId = (id: number) => {
+    this.setState({ recurrentBookingId: id });
+  };
+
+  setIsOffersDialogOpen = (value: boolean) => {
+    this.setState({ isOffersDialogOpen: value });
+  };
+
+  onSubmitRetryOfferWithCancelledBookings = (offerIdsToRetry: number[]) => {
+    this.props.updateOfferWithCancelledBookingsToRetry(
+      this.state.recurrentBookingId,
+      offerIdsToRetry,
+      {
+        onSuccess: () => {
+          this.setRecurrentBookingId(null);
+          this.setIsOffersDialogOpen(false);
+          this.refreshRecurrenceRuleBookingFormDialog();
+        },
+        onError: () => {
+          this.setRecurrentBookingId(null);
+          this.setIsOffersDialogOpen(false);
+          this.refreshRecurrenceRuleBookingFormDialog();
+        },
+      },
+    );
+  };
+
   render() {
     const {
       offer,
@@ -935,40 +995,90 @@ export class OfferManagement extends Component<Props, State> {
           )}
         </ObjectLevelPermissionProvider>
 
-        {!!this.props.offer && this.props.bookerInAvanceDialog && (
-          <RecurrenceRuleBookingFormDialog
-            offerSet
-            establishmentList={this.props.establishmentList}
-            fetchGroupsOfferList={this.props.fetchGroupsOfferList}
-            hasActivityGroups={this.props.activityGroups > 0}
-            initial={{
-              meta_activity: {
-                id: this.props.offer.meta_activity_id,
-                name: this.props.offer.name,
-              },
-              establishment: this.props.offer.etablissement,
-              hour: moment(this.props.offer.date_start)
-                .tz(this.props.offer.timezone_name)
-                .hours(),
-              minute: moment(this.props.offer.date_start)
-                .tz(this.props.offer.timezone_name)
-                .minutes(),
-              day_of_week:
-                moment(this.props.offer.date_start)
+        {!!this.props.offer &&
+          this.props.bookerInAvanceDialog &&
+          !this.state.isOffersDialogOpen && (
+            <RecurrenceRuleBookingFormDialog
+              offerSet
+              establishmentList={this.props.establishmentList}
+              fetchGroupsOfferList={this.props.fetchGroupsOfferList}
+              hasActivityGroups={this.props.activityGroups > 0}
+              initial={{
+                meta_activity: {
+                  id: this.props.offer.meta_activity_id,
+                  name: this.props.offer.name,
+                },
+                establishment: this.props.offer.etablissement,
+                hour: moment(this.props.offer.date_start)
                   .tz(this.props.offer.timezone_name)
-                  .isoWeekday() - 1,
-            }}
-            metaActivityList={this.props.metaActivities}
-            onClose={() => this.props.setBookerInAvanceDialog(false)}
-            onSubmit={(data, options) => {
-              if (this.props.memberToRegister) {
-                this.props.createRecurrenceRuleBooking(
-                  { ...data, member: this.props.memberToRegister.id },
-                  options,
-                );
+                  .hours(),
+                minute: moment(this.props.offer.date_start)
+                  .tz(this.props.offer.timezone_name)
+                  .minutes(),
+                day_of_week:
+                  moment(this.props.offer.date_start)
+                    .tz(this.props.offer.timezone_name)
+                    .isoWeekday() - 1,
+              }}
+              metaActivityList={this.props.metaActivities}
+              offersWithCancelledBookingsLoading={
+                this.props.offersWithCancelledBookingsLoading
               }
-            }}
-            refresh={this.refreshRecurrenceRuleBookingFormDialog}
+              onClose={() => this.props.setBookerInAvanceDialog(false)}
+              onSubmit={(data, options) => {
+                if (this.props.memberToRegister) {
+                  this.props.createRecurrenceRuleBooking(
+                    { ...data, member: this.props.memberToRegister.id },
+                    {
+                      onSuccess: (
+                        createdRecurrenceRuleBooking: RecurrenceRuleBooking,
+                      ) => {
+                        this.setRecurrentBookingId(
+                          createdRecurrenceRuleBooking.id,
+                        );
+                        this.props.retrieveOfferWithCancelledBookings(
+                          createdRecurrenceRuleBooking.id,
+                          {
+                            onSuccess: (offers: Offer[]) => {
+                              if (offers?.length) {
+                                const coach_ids = offers.map(
+                                  (offerFetched) => offerFetched.coach,
+                                );
+                                const coach_override_ids = offers.map(
+                                  (offerFetched) => offerFetched.coach_override,
+                                );
+                                this.props.fetchAssociatedCoachesList({
+                                  id__in: uniq([
+                                    ...coach_ids,
+                                    ...coach_override_ids,
+                                  ]),
+                                });
+                                this.setIsOffersDialogOpen(true);
+                              } else {
+                                this.props.setBookerInAvanceDialog(false);
+                                this.refreshRecurrenceRuleBookingFormDialog();
+                              }
+                            },
+                          },
+                        );
+                        options?.onSuccess?.();
+                      },
+                      onError: () => {
+                        options?.onError?.();
+                      },
+                    },
+                  );
+                }
+              }}
+            />
+          )}
+        {this.state.isOffersDialogOpen && (
+          <RecurrenceRuleOfferFormDialog
+            allOfferIds={this.props.offersWithCancelledBookingsIdsList}
+            loading={this.props.updateOffersToRetryLoading}
+            offers={this.props.offersWithCancelledBookings}
+            onSubmit={this.onSubmitRetryOfferWithCancelledBookings}
+            open={this.state.isOffersDialogOpen}
           />
         )}
         <Grid item xs={12}>

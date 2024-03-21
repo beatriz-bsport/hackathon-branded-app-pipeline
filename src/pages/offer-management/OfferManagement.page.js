@@ -27,7 +27,13 @@ import {
   fetchOfferBulk as fetchOfferBulkAction,
   fetchOfferStatusList as fetchOfferStatusListAction,
 } from '#libs/offer/actions';
-import { getDetailedOffer, withSpecificCoach } from '#libs/offer/selectors';
+import {
+  getDetailedOffer,
+  withSpecificCoach,
+  withEstablishment,
+  withCoach,
+  withMetaActivity,
+} from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -49,6 +55,8 @@ import {
   setSpotForBooking as setSpotForBookingAction,
   fetchBookingsByConsumerPack,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
+  retrieveOfferWithCancelledBookings as retrieveOfferWithCancelledBookingsAction,
+  updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAction,
 } from '#libs/booking/actions';
 import {
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
@@ -63,6 +71,7 @@ import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifierFromState,
 } from '#libs/spot-scheduling/selector';
+import { getActiveCoaches } from '#libs/associated-coach/selectors';
 
 import {
   fetchAllWaitingListPositions as fetchAllWaitingListPositionsAction,
@@ -76,8 +85,12 @@ import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
   withStaffModificationHistory,
+  getOffersDataList,
+  getOffersIds,
+  getUpdateOffersToRetryLoading,
+  getOffersWithCancelledBookingsLoading,
 } from '#libs/booking/selectors';
-import { withCustomLevel } from '#libs/level/selectors';
+import { getAllCustomLevels, withCustomLevel } from '#libs/level/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
@@ -214,6 +227,7 @@ export default compose(
       memberCreationPending: state.member.upsert.loading,
       memberCreationErrors: state.member.upsert.error,
       country: state.theme.theme.locale.split('_')[1],
+      coaches: getActiveCoaches(state),
 
       // booking
       bookings: withStaffModificationHistory(
@@ -232,6 +246,13 @@ export default compose(
       resolvedGenericTags: getResolvedGenericTags(state),
 
       establishmentList: getAvailableEstablishmentList(state),
+      offersWithCancelledBookings: withMetaActivity(
+        withCoach(withEstablishment(withCustomLevel(getOffersDataList))),
+      )(state),
+      offersWithCancelledBookingsIdsList: getOffersIds(state),
+      offersWithCancelledBookingsLoading:
+        getOffersWithCancelledBookingsLoading(state),
+      updateOffersToRetryLoading: getUpdateOffersToRetryLoading(state),
       // invoice
       unpaidInvoiceList: getUnpaidInvoiceListWithInvoiceItemAndMembers(state),
       quickCreatedInvoices: withInvoiceItem(getAllQuickCreatedInvoices)(state),
@@ -272,6 +293,7 @@ export default compose(
         getInvoicePaymentGroupIsProcessing(state, invoiceUuid),
 
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+      customLevels: getAllCustomLevels(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -315,6 +337,10 @@ export default compose(
       cancelBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
+      retrieveOfferWithCancelledBookings:
+        retrieveOfferWithCancelledBookingsAction,
+      updateOfferWithCancelledBookingsToRetry:
+        updateOfferWithCancelledBookingsToRetryAction,
 
       // member
       fetchMember: fetchMemberAction,

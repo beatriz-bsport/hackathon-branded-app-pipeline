@@ -392,7 +392,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         if (data.can_be_applied) {
           this.setState({
             coupon_code,
-            voucher: data.voucher,
+            voucher: Math.round(data.voucher * 100) / 100,
           });
           if (options && options.onSuccess) options.onSuccess();
         } else if (options && options.onError) options.onError();

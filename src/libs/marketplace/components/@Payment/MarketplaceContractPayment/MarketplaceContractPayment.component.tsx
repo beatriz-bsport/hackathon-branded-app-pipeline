@@ -392,7 +392,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           .then(({ data }) => {
             if (data.can_be_applied) {
               setCouponCode(formCouponCode);
-              setVoucher(data.voucher);
+              setVoucher(Math.round(data.voucher * 100) / 100);
               if (options && options.onSuccess) options.onSuccess();
             } else if (options && options.onError) options.onError();
           })

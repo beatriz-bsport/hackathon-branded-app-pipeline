@@ -81,7 +81,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
   handleClose,
   cancelBooking,
 }) => {
-  const { t } = useTranslation('consumerSpace');
+  const { t } = useTranslation(['consumerSpace', 'common']);
 
   const bookingDate = useConsumerBookingDateTime({
     dateStart:
@@ -111,14 +111,18 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
 
   const drawerTitle = (() => {
     if (bookingOption) {
-      return t('reworked.myBookings.cancelModal.confirm.consumerBookingOption');
+      return t(
+        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerBookingOption',
+      );
     }
     if (privateBooking) {
       return t(
-        'reworked.myBookings.cancelModal.confirm.consumerPrivateBooking',
+        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerPrivateBooking',
       );
     }
-    return t('reworked.myBookings.cancelModal.confirm.consumerBooking');
+    return t(
+      'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerBooking',
+    );
   })();
 
   const drawerSubtitle = `${
@@ -128,14 +132,17 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
 
   const drawerMessage = (() => {
     if (isLateCancellation) {
-      return t('reworked.myBookings.cancelModal.noRefund');
+      return t('consumerSpace:reworked.myBookings.cancelModal.noRefund');
     }
     if (bookingOption) {
-      return t('reworked.myBookings.cancelModal.waitlist');
+      return t('consumerSpace:reworked.myBookings.cancelModal.waitlist');
     }
-    return t('reworked.myBookings.cancelModal.creditsWillBeRefunded', {
-      count: booking?.credit_consumed ?? privateBooking?.private_slot?.credit,
-    });
+    return t(
+      'consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded',
+      {
+        count: booking?.credit_consumed ?? privateBooking?.private_slot?.credit,
+      },
+    );
   })();
 
   const handleSubmit = useCallback(() => {
@@ -164,6 +171,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
         onCancel: handleClose,
         confirmLabel: drawerTitle,
         onConfirm: handleSubmit,
+        cancelLabel: t('common:back'),
       }}
     >
       <div
@@ -179,24 +187,28 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
           className="bs-consumer-booking-cancel-drawer__text"
           variant="body-md"
         >
-          {t('reworked.myBookings.cancelModal.group.message')}
+          {t('consumerSpace:reworked.myBookings.cancelModal.group.message')}
         </Typography>
 
         <Alert
           hideLeftIcon
           className="bs-consumer-booking-cancel-drawer__alert"
           color="warning"
-          title={t('reworked.myBookings.cancelModal.group.alert.title')}
+          title={t(
+            'consumerSpace:reworked.myBookings.cancelModal.group.alert.title',
+          )}
           variant="weak"
         >
-          {t('reworked.myBookings.cancelModal.group.alert.message')}
+          {t(
+            'consumerSpace:reworked.myBookings.cancelModal.group.alert.message',
+          )}
         </Alert>
 
         <Typography
           className="bs-consumer-booking-cancel-drawer__text"
           variant="title-sm"
         >
-          {t('reworked.myBookings.cancelModal.group.listTitle')}
+          {t('consumerSpace:reworked.myBookings.cancelModal.group.listTitle')}
         </Typography>
 
         <List className="bs-consumer-booking-cancel-drawer__list">

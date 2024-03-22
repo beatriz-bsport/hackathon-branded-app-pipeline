@@ -69,12 +69,12 @@ export const SubscriptionContractListItem = (props: Props) => {
           (props.contract.private_pass && props.contract.private_pass.name) ||
           (props.contract.payment_combo && props.contract.payment_combo.name) ||
           ''
-        }${
+        }${` - ${props.t('contract.duration', {
+          month: props.contract.nb_interval,
+        })}`}${
           props.contract.auto_renewal
-            ? ''
-            : `- ${props.t('contract.duration', {
-                month: props.contract.nb_interval,
-              })}`
+            ? ` [${props.t('contract.autoRenewal')}]`
+            : ''
         }`}
       />
       {props.onDelete && !props.contract.is_usable_by_staff && (

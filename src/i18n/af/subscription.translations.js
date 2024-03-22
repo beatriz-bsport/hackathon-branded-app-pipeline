@@ -159,6 +159,7 @@ const getTranslations = async () => {
         acceptContractTerms: 'Agree to the <0>terms and conditions</0>',
       },
       duration: '{{month}} bills',
+      autoRenewal: 'Automatic renewal',
       list: {
         title: 'Subscriptions',
         isEmpty: 'No contract',

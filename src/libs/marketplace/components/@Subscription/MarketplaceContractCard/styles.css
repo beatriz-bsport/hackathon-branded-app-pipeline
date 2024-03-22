@@ -32,6 +32,7 @@
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .bs-contract-card__title__icon {

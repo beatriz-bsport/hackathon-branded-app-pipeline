@@ -134,7 +134,14 @@ const ClockInHistoryRow: React.FC<{
     const start = moment.unix(clock_out);
     const duration = moment.duration(start.diff(end));
 
-    return moment.utc(duration.as('milliseconds')).format('HH:mm');
+    const hours = Math.floor(
+      moment.duration(duration, 'millisecond').asHours(),
+    );
+    const minutes = `${
+      duration.minutes() > 9 ? duration.minutes() : `0${duration.minutes()}`
+    }`;
+
+    return `${hours}:${minutes}`;
   };
 
   const getDurationTextInBase10 = (clock_in: number, clock_out: number) => {

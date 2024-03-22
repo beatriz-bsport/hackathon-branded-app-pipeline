@@ -70,6 +70,7 @@
 .bs-contract-checkout__price {
   margin-top: var(--spacing-1);
   align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .bs-contract-checkout__planned-invoices {

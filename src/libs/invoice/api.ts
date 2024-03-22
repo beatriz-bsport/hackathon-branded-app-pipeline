@@ -1,5 +1,5 @@
-import { AxiosResponse } from 'axios';
-import { PaginatedResponse } from '../../state/types';
+import type { AxiosResponse } from 'axios';
+import type { PaginatedResponse } from 'src/state/types';
 import {
   API_V1_URI,
   getAuth,
@@ -24,9 +24,9 @@ import type {
   RequestClientSecretPayload,
   PlannedPaymentEventSerializer,
   InvoiceDetailsSerializer,
-} from './types';
-import { InvoiceItem } from './invoice-item/types';
-import { Payment } from '#libs/payment/types';
+} from '#libs/invoice/types';
+import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import type { Payment } from '#libs/payment/types';
 
 export async function fetchByQuery(
   params: InvoiceFilter & {

@@ -9,29 +9,32 @@ import {
 import { createSelector } from 'reselect';
 import SeamlessImmutable from 'seamless-immutable';
 
-import { getPrivatePassAvailable } from '../private-service/selectors/private-pass';
-import { getShopItemsAvailable } from '../shop/selectors';
-import { getEnabled as getPaymentPackEnabled } from '../payment-packs/selectors';
-import { getPaymentComboList } from '../payment-combo/selectors';
-import { getMemberListData, getMemberDetailData } from '../member/selectors';
-import { getUsers as getStaff } from '../role/selectors';
+import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
+import { getGiftcardListEnabled } from '#libs/giftcard/selectors';
+import { getMemberListData, getMemberDetailData } from '#libs/member/selectors';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
+import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
+import { getShopItemsAvailable } from '#libs/shop/selectors';
+import { getUsers as getStaff } from '#libs/role/selectors';
 import {
   getAllEstablishments,
   getAllEstablishmentBillingGroupDict,
-} from '../establishment/selectors';
-import { getGiftcardListEnabled } from '../giftcard/selectors';
+} from '#libs/establishment/selectors';
+import { shouldPlannedPaymentEventBeDisplayed } from '#libs/invoice/utils';
 
-import { RootState } from '../../reducers';
-import { PrivatePass } from '../private-service/types';
-import { ShopItem } from '../shop/types';
-import { PaymentCombo } from '../payment-combo/types';
-import { Giftcard } from '../giftcard/types';
-
-import { InvoiceState, Invoice, PlannedPaymentEvent } from './types';
-import { shouldPlannedPaymentEventBeDisplayed } from './utils';
-import { PaymentItem } from './payment/types';
-import { Establishment } from '../establishment/types';
-import { PaymentPack } from '#libs/payment-packs/types';
+import type { RootState } from '../../reducers';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { ShopItem } from '#libs/shop/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { Giftcard } from '#libs/giftcard/types';
+import type { PaymentItem } from '#libs/invoice/payment/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type {
+  InvoiceState,
+  Invoice,
+  PlannedPaymentEvent,
+} from '#libs/invoice/types';
 
 export const getState = (state: RootState): InvoiceState => state.invoice;
 

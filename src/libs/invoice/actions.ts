@@ -44,12 +44,20 @@ import {
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
 } from './api';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 
-import { Dispatch, OptionCallback, PaginatedResponse } from '../../state/types';
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
-import { fetchAll as fetchAlerting } from '../alerting/actions';
-import {
+import { fetchAll as fetchAlerting } from '#libs/alerting/actions';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import { isErrorWithCustomCode } from '#libs/utils';
+
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
+import type {
   Invoice,
   InvoiceConfigurationSerializer,
   InvoiceConfigurationMemberSerializer,
@@ -62,14 +70,10 @@ import {
   PlannedPaymentEvent,
   PlannedPaymentEventFilter,
   PlannedPaymentEventSerializer,
-} from './types';
-import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '../role/constants';
-import { PaymentItem } from './payment/types';
-import { InvoiceItem } from './invoice-item/types';
-import { Payment } from '#libs/payment/types';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-
-import { isErrorWithCustomCode } from '#libs/utils';
+} from '#libs/invoice/types';
+import type { PaymentItem } from '#libs/invoice/payment/types';
+import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import type { Payment } from '#libs/payment/types';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -152,7 +156,7 @@ export const finalizeInvoiceActions = {
 
 export function finalizeInvoice(
   uuid: string,
-  options: OptionCallback<InvoiceV1Serializer>,
+  options?: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: true }));
@@ -160,14 +164,10 @@ export function finalizeInvoice(
     try {
       const response = await finalizeAPI(uuid);
       dispatch(finalizeInvoiceActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (err) {
       dispatch(finalizeInvoiceActions.error(err));
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
     }
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: false }));
   };
@@ -335,14 +335,10 @@ export function fetchByQueryInvoice(
       const response = await fetchByQueryAPI(params);
       const invoice = response.data[0];
       dispatch(retrieveInvoiceActions.success(invoice));
-      if (options && options.onSuccess) {
-        options.onSuccess(invoice);
-      }
+      options?.onSuccess?.(invoice);
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
   };
@@ -359,15 +355,11 @@ export function fetchSpecificInvoice(
     try {
       const response = await fetchSpecificAPI(invoiceId);
       const invoice = response.data;
-      if (options && options.onSuccess) {
-        options.onSuccess(invoice);
-      }
+      options?.onSuccess?.(invoice);
       dispatch(retrieveInvoiceActions.success(invoice));
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
   };
@@ -625,22 +617,18 @@ export function fetchInvoiceList(
     dispatch(listInvoiceActions.error(null));
     try {
       const response = await fetchByQueryAPI(params);
-      if (params && params.page && response.data.results) {
+      if (params?.page && response.data.results) {
         dispatch(
           listInvoiceActions.success({ ...response.data, page: params.page }),
         );
       } else {
         dispatch(listInvoiceActions.success(response.data));
       }
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data.results || response.data);
-      }
+      options?.onSuccess?.(response.data.results || response.data);
     } catch (err) {
       dispatch(listInvoiceActions.error(err));
       console.error(err);
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
     }
     dispatch(listInvoiceActions.isLoading(false));
   };

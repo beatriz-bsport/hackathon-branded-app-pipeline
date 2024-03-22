@@ -20,7 +20,7 @@ import {
   retrieveOfferWithCancelledBookingsActions,
   updateOfferWithCancelledBookingsToRetryActions,
 } from './actions';
-import type { Booking, BookingsState } from './types';
+import type { Booking, BookingsState, RecurrenceRuleBooking } from './types';
 import type { Offer } from '#libs/offer/types';
 
 export const initialState: Immutable.Immutable<BookingsState> =
@@ -351,18 +351,16 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
       state,
       { payload }: any,
     ) => {
-      const allIds =
-        payload.page === 1
-          ? payload.results.map((rb: any) => rb.id)
-          : [
-              ...state.recurrenceRule.allIds.asMutable(),
-              ...payload.results.map((rb: any) => rb.id),
-            ];
       return state
         .setIn(['recurrenceRule', 'page'], payload.page)
         .setIn(['recurrenceRule', 'count'], payload.count)
         .setIn(['recurrenceRule', 'next_page'], payload.next_page)
-        .setIn(['recurrenceRule', 'allIds'], allIds)
+        .setIn(
+          ['recurrenceRule', 'allIds'],
+          payload.results.map(
+            (recurrenceRule: RecurrenceRuleBooking) => recurrenceRule.id,
+          ),
+        )
         .merge(
           {
             recurrenceRule: {

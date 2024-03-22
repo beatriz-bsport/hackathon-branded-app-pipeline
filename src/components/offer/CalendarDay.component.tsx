@@ -95,7 +95,7 @@ export const CalendarDay: React.FC<Props> = ({
       <div />
       <div className={classes.wrapper}>
         {displayMode === WEEKMODE && showDayName
-          ? moment.weekdaysShort(true)?.[day.weekday()]?.[0]
+          ? moment.weekdaysShort(true)[day.weekday()]?.[0]?.toUpperCase()
           : null}
         <Typography color="inherit" variant="subtitle1">
           {day.date()}

@@ -16,8 +16,9 @@
 }
 
 .bs-paymentpack-card__grid {
-  grid-template-columns: 50%;
   flex: 1;
+  grid-template-columns: 60% 40%;
+  gap: 0;
 }
 
 .bs-paymentpack-card__title {
@@ -39,6 +40,7 @@
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .bs-paymentpack-card__title__icon {

@@ -71,7 +71,8 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
         <Grid classes={{ 'bs-pass-card__grid': 'bs-pass-card__grid' }}>
           <GridItem
             alignment={Alignment.FLEX_START}
-            columnEnd={1}
+            columnEnd={2}
+            columnStart={1}
             justification={
               isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
             }
@@ -99,6 +100,8 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
           </GridItem>
           <GridItem
             alignment={Alignment.FLEX_END}
+            columnEnd={3}
+            columnStart={2}
             justification={Justification.SPACE_BETWEEN}
           >
             <div className="bs-pass-card__validity">

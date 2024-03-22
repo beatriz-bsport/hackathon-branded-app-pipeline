@@ -31,6 +31,13 @@ const exceptionMessageRegexpToIgnore = [
    */
   /Can't find variable: \$/,
   /\$ is not defined/,
+  /**
+   * Ignore Axios 500 errors
+   * https://bsport-cg.sentry.io/issues/1574738750
+   * https://bsport-cg.sentry.io/issues/1574939281
+   */
+  /Request failed with status code 500/,
+  /Network Error/,
 ];
 
 Sentry.init({

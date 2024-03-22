@@ -6664,7 +6664,7 @@
                     },
                     "label": "Limit the amount of future bookings per member for group activities"
                 },
-                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app",
+                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app and marketplace",
                 "schedule": {
                     "alert": "The schedule's start time must be earlier than the end time",
                     "end": "End time",

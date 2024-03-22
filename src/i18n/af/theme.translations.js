@@ -117,7 +117,7 @@ const getTranslations = async () => {
             'Limit the amount of future booked workshop sessions per member',
         },
         hiddenFromMarketplace:
-          'Activate this to display your studio on the general BSPORT app',
+          'Activate this to display your studio on the general BSPORT app and marketplace',
         schedule: {
           alert: "The schedule's start time must be earlier than the end time",
           end: 'End time',

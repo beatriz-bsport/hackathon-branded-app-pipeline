@@ -114,7 +114,9 @@ class FabWithItems extends React.PureComponent<Props, State> {
             <ExtendedFabBadge badgeValue={this.state.badgeButtonBaseValue} />
             {this.state.openFab ? <CloseIcon /> : <AddIcon />}
             {label && (
-              <Typography className={classes.fabLabel}>{label}</Typography>
+              <Typography className={classes.fabLabel} variant="inherit">
+                {label}
+              </Typography>
             )}
           </Fab>
         </div>

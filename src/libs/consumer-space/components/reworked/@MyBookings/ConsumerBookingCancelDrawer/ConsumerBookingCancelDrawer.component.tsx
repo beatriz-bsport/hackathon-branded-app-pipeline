@@ -33,6 +33,8 @@ type Props = {
   timezone: string;
   /** The session time display config retrieved from the company's theme */
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
+  /** Whether a booking cancellation is processing or not */
+  isLoading: boolean;
   /** If the booking's offer is part of a group, get related bookings that will be cancelled */
   relatedBookings: ConsumerBooking[];
   handleClose: () => void;
@@ -80,6 +82,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
   relatedBookings,
   handleClose,
   cancelBooking,
+  isLoading,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
@@ -172,6 +175,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
         confirmLabel: drawerTitle,
         onConfirm: handleSubmit,
         cancelLabel: t('common:back'),
+        isSubmitLoading: isLoading,
       }}
     >
       <div

@@ -223,8 +223,10 @@ const ConsumerBookingModals: React.FC<Props> = ({
         bookingOption={selectedBookingOptionForCancelation}
         cancelBooking={handleCancelBooking}
         handleClose={handleResetSelectedItemsForCancellation}
+        isLoading={isCancellingBooking}
         isOpen={
           isMobile &&
+          isCancelBookingModalOpen &&
           !!(
             selectedBookingForCancelation ||
             selectedPrivateBookingForCancelation ||

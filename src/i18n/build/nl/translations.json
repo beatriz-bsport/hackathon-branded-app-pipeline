@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "Nog {{ daysRemaining }} dag(en) geldig",
+                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -5424,6 +5424,25 @@
                 "between": "en",
                 "first": "Heeft een leeftijd",
                 "name": "Leeftijd"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "en",
+                        "before": "De waarde van de eerste aankoop was"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filter op datum"
+                },
+                "booleanChoice": {
+                    "is_not": "nog niet voltooid",
+                    "is": "gedaan",
+                    "before": "De eerste aankoop is"
+                },
+                "explanation": "Filter op leden die hun eerste aankoop hebben gedaan",
+                "name": "Eerste aankoop"
             }
         },
         "mails": "E-mails",
@@ -10403,7 +10422,52 @@
             "title": "Productdetails",
             "deleteVariant": "Verwijderd variant",
             "startingAt": "Startend op"
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "Weet je zeker dat je deze leverancier wilt verwijderen?",
+                                "title": "Leverancier: {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Notities",
+                                    "name": "Naam*"
+                                },
+                                "titleUpdate": "Leverancier bewerken",
+                                "titleCreate": "Een leverancier toevoegen"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Verwijderen",
+                                    "edit": "Bewerken"
+                                },
+                                "addSupplier": "Een leverancier toevoegen",
+                                "actions": "Acties",
+                                "notes": "Notities",
+                                "name": "Naam"
+                            },
+                            "title": "Leveranciers"
+                        }
+                    },
+                    "title": "Instellingen"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Naam"
+                        },
+                        "title": "Een productcategorie toevoegen"
+                    },
+                    "title": "Producten"
+                }
+            }
+        },
+        "variantCount": "{{count}} variant",
+        "variantCount_plural": "{{count}} varianten"
     },
     "paymentRules": {
         "base_percent": "Percentage van de waarde",
@@ -17609,6 +17673,19 @@
                     "title": "Welkom bij {{ audienceCamelCase }}!",
                     "confirm": "Start",
                     "return": "Ga terug"
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Verwijderen"
+                }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "De trigger die voorafgaat wordt ook verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+                        "title": "Weet je zeker dat je deze uitgang wilt verwijderen?"
+                    }
                 }
             }
         },

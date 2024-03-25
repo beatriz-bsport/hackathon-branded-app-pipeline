@@ -6,42 +6,41 @@ import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  t: TFunction;
 };
 
-export function MemberConfirmMergeDialog(props: Props) {
+export const MemberConfirmMergeDialog: React.FC<Props> = ({
+  onClose,
+  onSubmit,
+  open,
+}) => {
+  const { t } = useTranslation('member');
   return (
-    <Dialog open={props.open} scroll="paper">
-      <DialogTitle>{props.t('forms.merge.title')}</DialogTitle>
+    <Dialog open={open} scroll="paper">
+      <DialogTitle>{t('forms.merge.title')}</DialogTitle>
       <DialogContent>
         <div>
-          <p>{props.t('forms.merge.explainCredit')}</p>
-          <p>
-            {props.t('forms.merge.explainBookingsAndPassAndInvoiceAndNotes')}
-          </p>
-          <Typography color="error">
-            {props.t('forms.merge.explainTags')}
-          </Typography>
-          <p>{props.t('forms.merge.emailWillBeSend')}</p>
+          <p>{t('forms.merge.explainCredit')}</p>
+          <p>{t('forms.merge.explainBookingsAndPassAndInvoiceAndNotes')}</p>
+          <Typography color="error">{t('forms.merge.explainTags')}</Typography>
+          <p>{t('forms.merge.emailWillBeSend')}</p>
         </div>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={props.onClose}>
-          {props.t('forms.merge.cancel')}
+        <Button color="secondary" onClick={onClose}>
+          {t('forms.merge.cancel')}
         </Button>
-        <Button color="primary" onClick={props.onSubmit}>
-          {props.t('forms.merge.submit')}
+        <Button color="primary" onClick={onSubmit}>
+          {t('forms.merge.submit')}
         </Button>
       </DialogActions>
     </Dialog>
   );
-}
+};
 
-export default compose(withTranslation(['member']))(MemberConfirmMergeDialog);
+export default React.memo(MemberConfirmMergeDialog);

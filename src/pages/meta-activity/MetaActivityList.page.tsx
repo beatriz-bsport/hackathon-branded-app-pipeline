@@ -743,11 +743,13 @@ type HandlersProps = MetaActivityConnectedProps &
 
 const handlers = {
   makeActivityCopy:
-    ({ makeActivityCopy, fetchActivitiesCompany, companyId }: HandlersProps) =>
+    ({ makeActivityCopy, goToDetail }: HandlersProps) =>
     (id: number, suffix: string) => {
       makeActivityCopy(id, suffix, {
-        onSuccess: () =>
-          fetchActivitiesCompany(companyId, { customer_enabled: true }),
+        onSuccess: (data: MetaActivity) => {
+          // eslint-disable-next-line no-unused-expressions
+          data?.id && goToDetail(data.id);
+        },
       });
     },
   onSubmit:

@@ -1,4 +1,6 @@
 exports.default = {
+  login: 'Login',
+  logout: 'Logout',
   backofficeMenu: {
     coupon: 'Promotions',
     contract: 'Subscriptions',

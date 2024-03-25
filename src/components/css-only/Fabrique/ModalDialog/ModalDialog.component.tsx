@@ -183,6 +183,7 @@ export const ModalDialog: React.FC<Props> = ({
             classes?.close,
           )}
           color="grey"
+          isDisabled={isSubmitLoading}
           onClick={onClose}
           variant="text"
         >
@@ -225,6 +226,7 @@ export const ModalDialog: React.FC<Props> = ({
               classes?.cancel,
             )}
             color="grey"
+            isDisabled={isSubmitLoading}
             onClick={onCancel}
             size="md"
             variant="outlined"

@@ -55,15 +55,18 @@ export const BottomDrawer: React.FC<Props> = ({
      * more at https://github.com/mui/material-ui/blob/553cf822f6500075d374f3e89ad04b8308cd9f47/docs/data/base/components/modal/modal.md#overflow-layout-shift
      */
     if (blanketProps.isOpen && !isBlanketOpen && bodyElementRef.current) {
-      bodyElementRef.current.style.overflow = 'hidden';
+      bodyElementRef.current.style.cssText =
+        'overflow: hidden; position: fixed;';
+
       setIsBlanketOpen(true);
     }
     /**
      * Revert all styling applied on blanket opening.
      */
     if (!blanketProps.isOpen && isBlanketOpen && bodyElementRef.current) {
-      bodyElementRef.current.style.overflow = 'initial';
-      bodyElementRef.current.style.paddingRight = 'initial';
+      bodyElementRef.current.style.cssText =
+        'overflow: initial; padding-right: initial; position: initial;';
+
       setIsBlanketOpen(false);
     }
   }, [blanketProps.isOpen, isBlanketOpen]);

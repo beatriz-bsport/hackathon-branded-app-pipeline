@@ -1,13 +1,22 @@
 import moment from 'moment-timezone';
 import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
+import type { RootState } from 'src/reducers';
+import type {
+  Dispatch,
+  OptionCallback,
+  ThunkAction,
+  PaginatedResponse,
+} from 'src/state/types';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+
 import api, {
   fetchUniversalPasses as fetchUniversalPassesAPI,
   fetchMyPassesTabs as fetchMyPassesTabsAPI,
-} from './api';
-import { RootState } from '../../reducers';
+  fetchConsumerInvoices as fetchConsumerInvoicesAPI,
+  fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAPI,
+} from '#libs/consumer-space/api';
 import {
   cancelBookingV2 as cancelBookingV2API,
   fetchBookingListV2 as fetchBookingListAPI,
@@ -25,11 +34,11 @@ import {
 import { fetchConsumerPackList as fetchConsumerPaymentPackListAPI } from '#libs/consumer-payment-pack/api';
 
 import type {
-  Dispatch,
-  OptionCallback,
-  ThunkAction,
-  PaginatedResponse,
-} from '../../state/types';
+  BookingOrPrivateBooking,
+  ConsumerInvoiceParams,
+  ConsumerPassesTabDisplay,
+  Profile,
+} from '#libs/consumer-space/types';
 import type {
   PrivateBooking,
   PrivateBookingFilterParams,
@@ -39,11 +48,6 @@ import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackREST,
 } from '#libs/consumer-payment-pack/types';
-import type {
-  BookingOrPrivateBooking,
-  ConsumerPassesTabDisplay,
-  Profile,
-} from '#libs/consumer-space/types';
 import type {
   Booking,
   BookingOption,
@@ -57,6 +61,10 @@ import type {
   WaitingListBookingOptionPaginatedQueryParams,
 } from '#libs/waiting-list/types';
 import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type {
+  ConsumerInvoiceComplementary,
+  ConsumerInvoiceREST,
+} from '#libs/invoice/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -1489,3 +1497,144 @@ export const fetchConsumerPassesTabDisplay =
     }
     dispatch(fetchConsumerPassesTabDisplayActions.isLoading(false));
   };
+
+// MY INVOICES
+
+export const fetchConsumerUnpaidInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/UNPAID/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/UNPAID/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/UNPAID/LIST/SUCCESS',
+  ),
+};
+export function fetchConsumerUnpaidInvoices(
+  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  options?: OptionCallback<ConsumerInvoiceREST[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerUnpaidInvoicesActions.isLoading(true));
+      dispatch(fetchConsumerUnpaidInvoicesActions.error(null));
+
+      const response = await fetchConsumerInvoicesAPI({
+        unpaid: true,
+        page,
+        page_size,
+        company_id,
+      });
+      dispatch(fetchConsumerUnpaidInvoicesActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerUnpaidInvoicesActions.error(error));
+    } finally {
+      dispatch(fetchConsumerUnpaidInvoicesActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerPaidInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/PAID/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/PAID/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/PAID/LIST/SUCCESS',
+  ),
+};
+export function fetchConsumerPaidInvoices(
+  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  options?: OptionCallback<ConsumerInvoiceREST[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerPaidInvoicesActions.isLoading(true));
+      dispatch(fetchConsumerPaidInvoicesActions.error(null));
+
+      const response = await fetchConsumerInvoicesAPI({
+        paid: true,
+        page,
+        page_size,
+        company_id,
+      });
+      dispatch(fetchConsumerPaidInvoicesActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerPaidInvoicesActions.error(error));
+    } finally {
+      dispatch(fetchConsumerPaidInvoicesActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerRefundedInvoicesActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/REFUNDED/LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/REFUNDED/LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/REFUNDED/LIST/SUCCESS',
+  ),
+};
+export function fetchConsumerRefundedInvoices(
+  { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  options?: OptionCallback<ConsumerInvoiceREST[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerRefundedInvoicesActions.isLoading(true));
+      dispatch(fetchConsumerRefundedInvoicesActions.error(null));
+
+      const response = await fetchConsumerInvoicesAPI({
+        refunded: true,
+        page,
+        page_size,
+        company_id,
+      });
+      dispatch(fetchConsumerRefundedInvoicesActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerRefundedInvoicesActions.error(error));
+    } finally {
+      dispatch(fetchConsumerRefundedInvoicesActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerInvoicesComplementaryActions = {
+  isLoading: createAction<boolean>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/ERROR',
+  ),
+  success: createAction<ConsumerInvoiceComplementary[]>(
+    'CONSUMER_INVOICE/COMPLEMENTARY_LIST/SUCCESS',
+  ),
+};
+export function fetchConsumerInvoicesComplementary(
+  filterParams: { uuid__in?: string[] },
+  options?: OptionCallback<ConsumerInvoiceComplementary[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerInvoicesComplementaryActions.isLoading(true));
+      dispatch(fetchConsumerInvoicesComplementaryActions.error(null));
+
+      const response = await fetchConsumerInvoicesComplementaryAPI(
+        filterParams,
+      );
+      dispatch(
+        fetchConsumerInvoicesComplementaryActions.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerInvoicesComplementaryActions.error(error));
+    } finally {
+      dispatch(fetchConsumerInvoicesComplementaryActions.isLoading(false));
+    }
+  };
+}

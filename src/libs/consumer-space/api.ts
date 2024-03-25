@@ -10,7 +10,14 @@ import {
 
 import type { BookingREST } from '#libs/booking/types';
 import type { UniversalPassREST } from '#libs/universal-pass/types';
-import type { ConsumerPassesTabDisplay } from './types';
+import type {
+  ConsumerInvoiceComplementary,
+  ConsumerInvoiceREST,
+} from '#libs/invoice/types';
+import type {
+  ConsumerInvoiceQueryParams,
+  ConsumerPassesTabDisplay,
+} from '#libs/consumer-space/types';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
@@ -72,6 +79,22 @@ export const fetchMyPassesTabs = (memberId: number) =>
   getAuth<ConsumerPassesTabDisplay>(
     `${API_V1_URI}/member/${memberId}/get_my_passes_tabs/`,
   );
+
+export const fetchConsumerInvoices = (params: ConsumerInvoiceQueryParams) => {
+  return getAuth<PaginatedResponse<ConsumerInvoiceREST>>(
+    `${API_V1_URI}/payment/consumer_invoices/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchConsumerInvoicesComplementary = (params: {
+  uuid__in?: string[];
+}) => {
+  return getAuth<ConsumerInvoiceComplementary[]>(
+    `${API_V1_URI}/payment/consumer_invoices/get_complementary_fields/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
 
 export default {
   fetchFutureBookings: fetchConsumerFutureBookings,

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from '../../reducers';
+import type { RootState } from 'src/reducers';
 
 import { filterBookingListByOfferDate } from '#libs/booking/utils';
 
@@ -42,6 +42,9 @@ import {
   getServiceCompatibilityPassesByPrivatePassAndPrivateService,
 } from '#libs/private-service/selectors/private-pass';
 
+import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+
 import type {
   Booking,
   BookingREST,
@@ -62,14 +65,12 @@ import type {
 } from '#libs/consumer-payment-pack/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-
-import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
-import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import { WaitingListBookingOption } from '#libs/waiting-list/types';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type {
   UniversalPassREST,
   UniversalPassReworked,
 } from '#libs/universal-pass/types';
+import type { ConsumerInvoiceREST } from '#libs/invoice/types';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
@@ -1020,3 +1021,65 @@ export const getConsumerPassMetadataLoading = createSelector(
 
 export const getMySubscriptionsInvoicesDetailsState = (state: RootState) =>
   state.consumerReworked.mySubscriptions.invoices;
+
+// MY INVOICES
+const _getUnpaidInvoicesAllUuids = (state: RootState) =>
+  state.consumerReworked.myInvoices.unpaid.allUuids;
+const _getPaidInvoicesAllUuids = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.allUuids;
+const _getRefundedInvoicesAllUuids = (state: RootState) =>
+  state.consumerReworked.myInvoices.refunded.allUuids;
+const _getInvoicesRESTByUuid = (state: RootState) =>
+  state.consumerReworked.myInvoices.restByUuid;
+const _getInvoicesComplementaryByUuid = (state: RootState) =>
+  state.consumerReworked.myInvoices.complementary.byUuid;
+
+export const getUnpaidInvoices = createSelector(
+  [_getInvoicesRESTByUuid, _getUnpaidInvoicesAllUuids],
+  (restByUuid, allUuids): ConsumerInvoiceREST[] =>
+    (allUuids || [])
+      .map((uuid) => restByUuid[uuid])
+      .filter((_invoice) => !!_invoice),
+);
+export const getPaidInvoices = createSelector(
+  [_getInvoicesRESTByUuid, _getPaidInvoicesAllUuids],
+  (restByUuid, allUuids): ConsumerInvoiceREST[] =>
+    (allUuids || [])
+      .map((uuid) => restByUuid[uuid])
+      .filter((_invoice) => !!_invoice),
+);
+export const getRefundedInvoices = createSelector(
+  [_getInvoicesRESTByUuid, _getRefundedInvoicesAllUuids],
+  (restByUuid, allUuids): ConsumerInvoiceREST[] =>
+    (allUuids || [])
+      .map((uuid) => restByUuid[uuid])
+      .filter((_invoice) => !!_invoice),
+);
+
+export const getInvoiceComplementaryInformation = createSelector(
+  [_getInvoicesComplementaryByUuid, (state: RootState, uuid: string) => uuid],
+  (invoideByUiid, invoiceUiid) => invoideByUiid[invoiceUiid],
+);
+
+export const getUnpaidInvoicesCount = (state: RootState) =>
+  state.consumerReworked.myInvoices.unpaid.count;
+export const getPaidInvoicesCount = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.count;
+export const getRefundedInvoicesCount = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.count;
+
+export const getInvoicesLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.loading;
+export const getUnpaidInvoicesLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.unpaid.loading;
+export const getPaidInvoicesLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.loading;
+export const getRefundedInvoicesLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.refunded.loading;
+
+export const getUnpaidInvoicesNextPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.unpaid.nextPage;
+export const getPaidInvoicesNextPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.paid.nextPage;
+export const getRefundedInvoicesNextPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.refunded.nextPage;

@@ -1,9 +1,9 @@
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
-
 import { handleActions } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
+import type { PaginatedResponse } from 'src/state/types';
 
 import {
   fetchMyPastBookingAsMemberActions,
@@ -25,8 +25,11 @@ import {
   fetchMyActiveUniversalPassesAsMemberActions,
   fetchMyFutureUniversalPassesAsMemberActions,
   fetchConsumerPassesTabDisplayActions,
-} from './actions';
-
+  fetchConsumerUnpaidInvoicesActions,
+  fetchConsumerPaidInvoicesActions,
+  fetchConsumerRefundedInvoicesActions,
+  fetchConsumerInvoicesComplementaryActions,
+} from '#libs/consumer-space/actions';
 import {
   fetchActiveSubscriptionDetailAsMemberActions,
   fetchConsumerSubscriptionInvoicesDetailsActions,
@@ -37,20 +40,31 @@ import {
   fetchMyFutureSubscriptionsAsMemberActions,
 } from '#libs/consumer-space/actions/subscription-actions';
 
-import type { ConsumerPassesTabDisplay, ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
-import type { PaginatedResponse } from '../../state/types';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
+import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type {
+  ConsumerPassesTabDisplay,
+  ConsumerStateReworked,
+} from '#libs/consumer-space/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
 } from '#libs/private-service/types';
-import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
-import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
-import type { UniversalPassREST } from '#libs/universal-pass/types';
+import {
+  ConsumerInvoiceComplementary,
+  ConsumerInvoiceREST,
+} from '#libs/invoice/types';
+
+type ConsumerInvoiceRESTByUuid = { [uuid: string]: ConsumerInvoiceREST };
+type ConsumerInvoiceComplementaryByUuid = {
+  [uuid: string]: ConsumerInvoiceComplementary;
+};
 
 type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ConsumerStateReworked> =
@@ -325,6 +339,40 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
             byId: {},
           },
         },
+      },
+    },
+    myInvoices: {
+      error: null,
+      loading: false,
+      restByUuid: {},
+      complementary: {
+        error: null,
+        loading: false,
+        byUuid: {},
+      },
+      unpaid: {
+        error: null,
+        loading: false,
+        count: 0,
+        page: 1,
+        allUuids: [],
+        nextPage: null,
+      },
+      paid: {
+        error: null,
+        loading: false,
+        count: 0,
+        page: 1,
+        allUuids: [],
+        nextPage: null,
+      },
+      refunded: {
+        error: null,
+        loading: false,
+        count: 0,
+        page: 1,
+        allUuids: [],
+        nextPage: null,
       },
     },
   });
@@ -1637,6 +1685,177 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['mySubscriptions', 'invoices', 'error'], payload);
+    },
+    /* MY INVOICES REDUCER */
+    [fetchConsumerUnpaidInvoicesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myInvoices', 'unpaid', 'loading'], payload);
+    },
+    [fetchConsumerUnpaidInvoicesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myInvoices', 'unpaid', 'error'], payload);
+    },
+    [fetchConsumerUnpaidInvoicesActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ConsumerInvoiceREST> },
+    ) => {
+      return state
+        .setIn(['myInvoices', 'unpaid', 'count'], payload.count)
+        .setIn(['myInvoices', 'unpaid', 'page'], payload.page)
+        .setIn(['myInvoices', 'unpaid', 'nextPage'], payload.next_page)
+        .updateIn(['myInvoices', 'unpaid', 'allUuids'], (allUuids) =>
+          uniq([
+            ...allUuids,
+            ...(payload.results || []).map(
+              (consumerInvoice) => consumerInvoice.uuid,
+            ),
+          ]),
+        )
+        .merge(
+          {
+            myInvoices: {
+              restByUuid: (
+                payload.results || []
+              ).reduce<ConsumerInvoiceRESTByUuid>(
+                (accumulator, currentConsumerInvoice) => ({
+                  ...accumulator,
+                  [currentConsumerInvoice.uuid]: currentConsumerInvoice,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchConsumerPaidInvoicesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myInvoices', 'paid', 'loading'], payload);
+    },
+    [fetchConsumerPaidInvoicesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myInvoices', 'paid', 'error'], payload);
+    },
+    [fetchConsumerPaidInvoicesActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ConsumerInvoiceREST> },
+    ) => {
+      return state
+        .setIn(['myInvoices', 'paid', 'count'], payload.count)
+        .setIn(['myInvoices', 'paid', 'page'], payload.page)
+        .setIn(['myInvoices', 'paid', 'nextPage'], payload.next_page)
+        .updateIn(['myInvoices', 'paid', 'allUuids'], (allUuids) =>
+          uniq([
+            ...allUuids,
+            ...(payload.results || []).map(
+              (consumerInvoice) => consumerInvoice.uuid,
+            ),
+          ]),
+        )
+        .merge(
+          {
+            myInvoices: {
+              restByUuid: (
+                payload.results || []
+              ).reduce<ConsumerInvoiceRESTByUuid>(
+                (accumulator, currentConsumerInvoice) => ({
+                  ...accumulator,
+                  [currentConsumerInvoice.uuid]: currentConsumerInvoice,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchConsumerRefundedInvoicesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myInvoices', 'refunded', 'loading'], payload);
+    },
+    [fetchConsumerRefundedInvoicesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myInvoices', 'refunded', 'error'], payload);
+    },
+    [fetchConsumerRefundedInvoicesActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ConsumerInvoiceREST> },
+    ) => {
+      return state
+        .setIn(['myInvoices', 'refunded', 'count'], payload.count)
+        .setIn(['myInvoices', 'refunded', 'page'], payload.page)
+        .setIn(['myInvoices', 'refunded', 'nextPage'], payload.next_page)
+        .updateIn(['myInvoices', 'refunded', 'allUuids'], (allUuids) =>
+          uniq([
+            ...allUuids,
+            ...(payload.results || []).map(
+              (consumerInvoice) => consumerInvoice.uuid,
+            ),
+          ]),
+        )
+        .merge(
+          {
+            myInvoices: {
+              restByUuid: (
+                payload.results || []
+              ).reduce<ConsumerInvoiceRESTByUuid>(
+                (accumulator, currentConsumerInvoice) => ({
+                  ...accumulator,
+                  [currentConsumerInvoice.uuid]: currentConsumerInvoice,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchConsumerInvoicesComplementaryActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myInvoices', 'complementary', 'loading'], payload);
+    },
+    [fetchConsumerInvoicesComplementaryActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myInvoices', 'complementary', 'error'], payload);
+    },
+    [fetchConsumerInvoicesComplementaryActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConsumerInvoiceComplementary[] },
+    ) => {
+      return state.merge(
+        {
+          myInvoices: {
+            complementary: {
+              byUuid: (
+                payload || []
+              ).reduce<ConsumerInvoiceComplementaryByUuid>(
+                (accumulator, currentConsumerInvoice) => ({
+                  ...accumulator,
+                  [currentConsumerInvoice.uuid]: currentConsumerInvoice,
+                }),
+                {},
+              ),
+            },
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

@@ -1,16 +1,20 @@
+import type { ErrorAndLoading } from 'src/libs/types';
 import type {
   PrivateBooking,
   PrivateConsumerPassREST,
 } from '#libs/private-service/types';
 import type { Booking, BookingREST } from '#libs/booking/types';
-import type { ErrorAndLoading } from '../types';
-import { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
+import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
-import { UniversalPassREST } from '#libs/universal-pass/types';
+import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type {
+  ConsumerInvoiceComplementary,
+  ConsumerInvoiceREST,
+} from '#libs/invoice/types';
 
 export type Profile = {
   name: string;
@@ -173,7 +177,38 @@ export type ConsumerStateReworked = {
       expired: ConsumerPassReworked<UniversalPassREST>;
     };
   };
+  myInvoices: ErrorAndLoading & {
+    restByUuid: { [uuid: string]: ConsumerInvoiceREST };
+    complementary: ErrorAndLoading & {
+      byUuid: { [uuid: string]: ConsumerInvoiceComplementary };
+    };
+    unpaid: ErrorAndLoading & ConsumerInvoiceReworked;
+    paid: ErrorAndLoading & ConsumerInvoiceReworked;
+    refunded: ErrorAndLoading & ConsumerInvoiceReworked;
+  };
 };
+
+export type ConsumerInvoiceReworked = {
+  count: number;
+  page: number;
+  nextPage: number | null;
+  allUuids: string[];
+};
+
+export type ConsumerInvoiceFilter = {
+  unpaid?: boolean;
+  paid?: boolean;
+  refunded?: boolean;
+};
+
+export type ConsumerInvoiceParams = {
+  page?: number;
+  page_size?: number;
+  company_id: number;
+};
+
+export type ConsumerInvoiceQueryParams = ConsumerInvoiceFilter &
+  ConsumerInvoiceParams;
 
 export type ConsumerPaymentPackCompatibility = {
   type: 'activity' | 'category' | 'room';

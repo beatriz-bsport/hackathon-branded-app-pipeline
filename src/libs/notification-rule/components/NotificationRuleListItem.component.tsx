@@ -111,15 +111,15 @@ export const NotificationRuleListItem = (props: Props) => {
   };
 
   const handleChangeEmail = useCallback(
-    (option: any) => {
-      if (!option) {
+    (optionValue: number) => {
+      if (!optionValue) {
         return onDeleteNotificationRule(rule.id);
       }
       if (rule?.company) {
         return updateNotification(
           {
             ...rule,
-            email_design: option.value,
+            email_design: optionValue,
           },
           { onError: handleTagsError, onSuccess: hideAlert },
         );
@@ -127,7 +127,7 @@ export const NotificationRuleListItem = (props: Props) => {
       return updateNotification(
         {
           notification_event: event,
-          email_design: option.value,
+          email_design: optionValue,
         },
         { onError: handleTagsError, onSuccess: hideAlert },
       );
@@ -156,7 +156,6 @@ export const NotificationRuleListItem = (props: Props) => {
                 disabled={franchisedOwned}
                 emails={emailDesignList}
                 helperText={t('emailDesign.placeholder')}
-                nullCurrentValue={showAlert && !(rule || {}).email_design}
                 onChange={handleChangeEmail}
                 value={(rule || {}).email_design}
               />

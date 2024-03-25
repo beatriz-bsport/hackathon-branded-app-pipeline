@@ -1,22 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import Select from 'react-select';
 import moment from 'moment-timezone';
-import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-// @ts-expect-error
-import Selector from '../../../components/Selector.component';
+import { OptionsType } from 'react-select/lib/types';
 import type { EmailTemplateSummary } from '../types';
 
 type Props = {
-  classes?: any;
   emails: EmailTemplateSummary[];
   onChange: (id?: number) => void;
   helperText: string;
   value?: number;
-  selectorClass?: string;
-  nullCurrentValue?: boolean;
   disabled?: boolean;
 };
 
@@ -28,6 +24,12 @@ type EmailOptionProps = {
   isFocused: boolean;
 };
 
+type EmailTemplateOption = {
+  label: string;
+  value: number;
+  email?: EmailTemplateSummary;
+};
+
 const EmailOption: React.FC<EmailOptionProps> = React.memo(
   ({ data, innerRef, innerProps, isSelected, isFocused }) => {
     return (
@@ -36,10 +38,10 @@ const EmailOption: React.FC<EmailOptionProps> = React.memo(
           <ListItemText
             primary={
               <Typography component="span" variant="subtitle1">
-                {data.pp.title}
+                {data.email.title}
               </Typography>
             }
-            secondary={data.pp.subject}
+            secondary={data.email.subject}
           />
         </ListItem>
       </div>
@@ -47,17 +49,17 @@ const EmailOption: React.FC<EmailOptionProps> = React.memo(
   },
 );
 
+const getEmailListOptions = (emails: EmailTemplateSummary[]) =>
+  emails?.map((e) => ({ label: e.title, value: e.id, email: e }));
+
 export const EmailSelector: React.FC<Props> = ({
   value,
   onChange,
   emails,
-  classes,
-  selectorClass,
   helperText,
-  nullCurrentValue,
   disabled,
 }) => {
-  const suggestions = useMemo(
+  const suggestions: OptionsType<EmailTemplateOption> = useMemo(
     () =>
       emails
         ? [...emails]
@@ -70,24 +72,35 @@ export const EmailSelector: React.FC<Props> = ({
             ?.map((pp) => ({
               value: pp.id,
               label: pp.title,
-              pp,
+              email: pp,
             }))
         : [],
     [emails],
   );
+  const emailOptionsSelected =
+    value && emails
+      ? getEmailListOptions(emails).filter(
+          (emailOption: { value: number; label: string }) =>
+            value === emailOption.value,
+        )
+      : null;
+
+  const handleChangeEmail = useCallback(
+    (option: EmailTemplateOption) => {
+      onChange(option?.value);
+    },
+    [onChange],
+  );
 
   return (
-    <Selector
+    <Select<EmailTemplateOption>
       isClearable
-      searchIcon
-      className={classNames(classes, selectorClass)}
       components={{ Option: EmailOption }}
       isDisabled={disabled}
-      nullCurrentValue={nullCurrentValue}
-      onChange={onChange}
+      onChange={handleChangeEmail}
+      options={suggestions}
       placeholder={helperText}
-      selected={value}
-      suggestions={suggestions}
+      value={emailOptionsSelected}
     />
   );
 };

@@ -42,6 +42,10 @@ import { parseQueryString } from '../http';
 import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#libs/access-control/actions';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
 
 type Props = {
   members: MemberMinimal[];
@@ -107,7 +111,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     flex: 'display',
     width: '100%',
-    minWidth: '400px',
+    minWidth: '600px',
     justifyContent: 'flex-start',
     paddingTop: theme.spacing(1),
     marginTop: theme.spacing(1),
@@ -198,6 +202,17 @@ export class SearchResults extends React.Component<Props, State> {
     });
   };
 
+  handleCheckinMember = (member: Member) => {
+    this.props.checkMemberInEstablishment({
+      memberId: member.id,
+      establishmentIds: this.props.establishmentsSelectedInRole,
+    });
+  };
+
+  hideAccessMonitoring =
+    !hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING) ||
+    !this.props.establishmentsSelectedInRole?.length;
+
   render() {
     const { t, classes, member, selected } = this.props;
     const hasLoaded = member;
@@ -265,6 +280,9 @@ export class SearchResults extends React.Component<Props, State> {
                 className={selected && !isLoadingMember ? classes.hidden : ''}
                 items={this.props.members}
                 loading={this.props.loading}
+                onMemberCheckin={
+                  !this.hideAccessMonitoring && this.handleCheckinMember
+                }
                 selected={selected}
                 selectEntity={this.selectEntity}
                 showVaccinationStatus={this.props.showVaccinationStatus}
@@ -338,6 +356,8 @@ function mapStateToProps(state) {
     membersLoading: state.member.search.loading,
     showVaccinationStatus: showVaccinationStatus(state),
     permissions: getPermissions(state),
+    featureList: state.company.feature.data,
+    establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
   };
 }
 
@@ -358,6 +378,7 @@ export default compose(
     openCreateMember: () => push('/member/add'),
     searchForTextInArchive: (text: string) =>
       searchArchivedMembers(text, { only_archived: true }),
+    checkMemberInEstablishment: checkMemberInEstablishmentAction,
   }),
   connect((state, { location }) => ({
     searchText: getSearchText(state, location),

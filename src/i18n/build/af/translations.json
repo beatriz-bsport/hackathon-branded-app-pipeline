@@ -1,4 +1,5 @@
 {
+  "accessControl": { "memberEntry": "Member entry" },
   "alerting": {
     "list": { "title": "Notifications", "emptyAlerting": "No new notification to display." },
     "alert_kind": {

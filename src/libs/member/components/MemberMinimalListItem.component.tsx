@@ -25,6 +25,8 @@ import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import CheckPermission from '#libs/role/components/CheckPermission.component';
+import CheckInButton from '#libs/access-control/components/CheckInButton.component';
 
 type Props = {
   anonimize?: boolean;
@@ -42,6 +44,7 @@ type Props = {
   onClick?: (memberId: number) => void;
   onEdit?: () => void;
   updateMemberMetricValue: (data: any, options?: any) => void;
+  onCheckin: () => void;
 };
 
 export const MemberMinimalListItem: React.FC<Props> = ({
@@ -60,6 +63,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   onClick,
   onEdit,
   updateMemberMetricValue,
+  onCheckin,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
@@ -124,6 +128,11 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     ? moment().format('MM-DD') === moment(member.birthday).format('MM-DD')
     : false;
 
+  const showVerticalDivider =
+    (!!fetchPerformanceTrackingData && !!programList?.length) ||
+    !!onEdit ||
+    !!onCheckin;
+
   return (
     <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
       {(hasMemberProfileAccessPermission: boolean) => (
@@ -162,7 +171,10 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             ) : (
               memberLoading && <CircularProgress />
             )}
-            <ListItemSecondaryAction>
+            <ListItemSecondaryAction className={classes.secondaryActions}>
+              {showVerticalDivider && (
+                <div className={classes.verticalDivider} />
+              )}
               {!!fetchPerformanceTrackingData && !!programList?.length && (
                 <Tooltip title={t('performanceTracking:metric.statistic')}>
                   <IconButton onClick={openMemberProgramDetailDialog}>
@@ -174,6 +186,11 @@ export const MemberMinimalListItem: React.FC<Props> = ({
                 <IconButton onClick={onEdit}>
                   <EditIcon />
                 </IconButton>
+              )}
+              {!!onCheckin && (
+                <CheckPermission requiredPermissions="navigationMenu.accessMonitoring.perform">
+                  <CheckInButton handleCheckIn={onCheckin} />
+                </CheckPermission>
               )}
             </ListItemSecondaryAction>
           </ListItem>
@@ -208,6 +225,16 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       marginRight: theme.spacing(0.5),
     },
+  },
+  secondaryActions: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  verticalDivider: {
+    width: 1,
+    height: theme.spacing(5),
+    backgroundColor: theme.palette.divider,
+    marginRight: theme.spacing(2),
   },
 }));
 

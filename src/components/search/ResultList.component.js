@@ -22,6 +22,7 @@ type Props = {
   renderListComponent: () => Node,
   classes: Object,
   showVaccinationStatus: boolean,
+  onMemberCheckin?: (member: Member) => void,
 };
 
 const EmptyResults = (props: { t: TFunction }) => (
@@ -38,7 +39,7 @@ const EmptyResults = (props: { t: TFunction }) => (
 
 export class ResultList extends Component<Props> {
   renderResults = () => {
-    const { renderListComponent } = this.props;
+    const { renderListComponent, onMemberCheckin } = this.props;
     if (this.props.items.length === 0) {
       return <EmptyResults t={this.props.t} />;
     }
@@ -50,6 +51,7 @@ export class ResultList extends Component<Props> {
         key={item.id}
         bottomCredit
         member={item}
+        onCheckin={onMemberCheckin ? () => onMemberCheckin(item) : null}
         onClick={() => {
           this.props.selectEntity({ data: item, type: 'member' });
         }}

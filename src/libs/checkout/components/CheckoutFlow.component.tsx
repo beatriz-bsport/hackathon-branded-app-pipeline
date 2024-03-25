@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
 import BasketConsumer from './BasketConsumer.component';
 
 import BasketFinalizer from './BasketFinalizer.component';
@@ -99,6 +100,16 @@ type Props = {
 export const CheckoutFlow: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('checkout');
+  const basketIsEmpty = React.useMemo(
+    () =>
+      !props.loading &&
+      (props.basket?.checkout_items ?? []).filter(
+        (item) => item.buyable_item_identifier !== BUYABLE_ITEM_COUPON,
+      )?.length === 0,
+
+    [props.loading, props.basket],
+  );
+
   return (
     <div className={classes.container}>
       <Typography className={classes.title} variant="h4">
@@ -107,6 +118,7 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
       <Paper square>
         <BasketConsumer
           basket={props.basket}
+          basketIsEmpty={basketIsEmpty}
           isExcludingTax={props.isExcludingTax}
           loading={props.loading}
           onAddCheckoutItem={(data) => {
@@ -131,7 +143,7 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
           />
         </div>
       ) : null}
-      {props.basket.checkout_items.length ? (
+      {!basketIsEmpty ? (
         <Paper square className={classes.paper}>
           <BasketFinalizer
             withPrice
@@ -143,6 +155,7 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
             availablePaymentMethods={props.basket.available_payment_methods}
             backToCalendar={props.backToCalendar}
             basket={props.basket}
+            basketIsEmpty={basketIsEmpty}
             checkItemsBasket={props.checkItemsBasket}
             companyCountry={props.companyCountry}
             creditAccountBalance={props.creditAccountBalance}

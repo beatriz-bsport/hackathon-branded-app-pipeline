@@ -71,6 +71,7 @@ type Props = {
   isEstablishmentBillingGroupSelected: boolean,
   setIsEstablishmentBillingGroupSelected: (_: boolean) => void,
   updateMemberBillingGroup: (establishmentBillingGroupId: number) => void,
+  basketIsEmpty: boolean,
 };
 
 type State = {
@@ -315,10 +316,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
   };
 
   render() {
-    if (
-      !this.props.basket.checkout_items ||
-      this.props.basket.checkout_items.length === 0
-    ) {
+    if (this.props.basketIsEmpty) {
       return null;
     }
     const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(

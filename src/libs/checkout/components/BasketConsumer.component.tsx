@@ -55,6 +55,7 @@ type Props = {
   onItemExpire: (item: CheckoutItem) => void;
   onRemoveInternalAccountPrepaidLine: () => void;
   isExcludingTax?: boolean;
+  basketIsEmpty: boolean;
 };
 
 export const BasketConsumer = (props: Props) => {
@@ -76,7 +77,7 @@ export const BasketConsumer = (props: Props) => {
     <div className={props.fullWidth === true ? classes.fullWidth : ''}>
       {props.loading ? <LinearProgress /> : null}
       <List dense disablePadding>
-        {props.basket.checkout_items.length ? (
+        {!props.basketIsEmpty ? (
           <>
             {props.basket.checkout_items.map((checkoutItem) => (
               <CheckoutItemListItem

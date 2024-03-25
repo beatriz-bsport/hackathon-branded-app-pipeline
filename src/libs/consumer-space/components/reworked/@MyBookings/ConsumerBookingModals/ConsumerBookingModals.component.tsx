@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
@@ -127,6 +127,16 @@ const ConsumerBookingModals: React.FC<Props> = ({
   handleSetSelectedTab,
   handleToggleBookingTabDrawer,
 }) => {
+  const handleCloseBookingCancelModal = useCallback(() => {
+    if (!isCancellingBooking) {
+      handleToggleCancelBookingModal();
+      handleResetSelectedItemsForCancellation();
+    }
+  }, [
+    isCancellingBooking,
+    handleToggleCancelBookingModal,
+    handleResetSelectedItemsForCancellation,
+  ]);
   return (
     <PortalContainer wrapperId="bs-consumer-booking-modals-portal-container">
       {isCancelBookingModalOpen &&
@@ -141,7 +151,7 @@ const ConsumerBookingModals: React.FC<Props> = ({
             bookingOption={selectedBookingOptionForCancelation}
             cancelBooking={handleCancelBooking}
             isLoading={isCancellingBooking}
-            onClose={handleToggleCancelBookingModal}
+            onClose={handleCloseBookingCancelModal}
             privateBooking={selectedPrivateBookingForCancelation}
             relatedBookings={relatedBookingsInGroup}
             sessionTimeDisplay={sessionTimeDisplay}
@@ -222,7 +232,7 @@ const ConsumerBookingModals: React.FC<Props> = ({
         booking={selectedBookingForCancelation}
         bookingOption={selectedBookingOptionForCancelation}
         cancelBooking={handleCancelBooking}
-        handleClose={handleResetSelectedItemsForCancellation}
+        handleClose={handleCloseBookingCancelModal}
         isLoading={isCancellingBooking}
         isOpen={
           isMobile &&

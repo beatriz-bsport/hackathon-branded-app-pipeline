@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionList: {
     '& > li': {
-      listStyleType: 'disc',
+      listStyleType: 'none',
     },
   },
   colorPicker: {

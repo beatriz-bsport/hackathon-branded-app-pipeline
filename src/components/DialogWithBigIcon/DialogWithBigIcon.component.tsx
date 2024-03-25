@@ -392,7 +392,7 @@ const useStyles = makeStyles<
   },
   subTextList: {
     '& > li': {
-      listStyleType: 'disc',
+      listStyleType: 'none',
     },
   },
   subText: {

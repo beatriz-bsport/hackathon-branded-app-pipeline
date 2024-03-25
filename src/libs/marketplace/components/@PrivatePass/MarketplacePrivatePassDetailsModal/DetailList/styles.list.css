@@ -59,7 +59,7 @@
 }
 
 .bs-pass-details-dialog__list__item__sublist__item {
-  list-style-type: disc;
+  list-style-type: none;
   font-weight: var(--body1-fontWeight);
 }
 

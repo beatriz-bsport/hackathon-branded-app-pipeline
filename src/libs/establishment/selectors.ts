@@ -224,3 +224,7 @@ export const getDefaultEstablishmentBillingGroup = createSelector(
 
 export const getEstablishmentBulkRetrieveState = (state: RootState) =>
   getState(state).bulkRetrieve;
+
+export const getEstablishmentsSelectedInRole = (state: RootState): number[] => {
+  return state.auth.establishments_selected_in_role;
+};

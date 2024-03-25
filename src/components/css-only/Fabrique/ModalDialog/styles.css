@@ -135,6 +135,7 @@
   display: flex;
   width: fit-content;
   gap: var(--bs-space-size-2);
+  justify-content: flex-end;
 }
 
 .bs-fabrique-modal-dialog__root--xs .bs-fabrique-modal-dialog__footer__actions {
@@ -144,13 +145,12 @@
 
 .bs-fabrique-modal-dialog__root--md .bs-fabrique-modal-dialog__footer__actions {
   flex: 1;
-  justify-content: flex-end;
 }
 
-.bs-fabrique-modal-dialog__root--md .bs-fabrique-modal-dialog__footer__actions,
-.bs-fabrique-modal-dialog__root--md
+.bs-fabrique-modal-dialog__root--xs .bs-fabrique-modal-dialog__footer__actions,
+.bs-fabrique-modal-dialog__root--xs
   .bs-fabrique-modal-dialog__footer__actions__cancel,
-.bs-fabrique-modal-dialog__root--md
+.bs-fabrique-modal-dialog__root--xs
   .bs-fabrique-modal-dialog__footer__actions__confirm {
   flex-basis: 50%;
 }

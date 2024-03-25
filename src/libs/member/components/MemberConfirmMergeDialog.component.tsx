@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -11,10 +10,10 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 type Props = {
-  open: boolean,
-  onClose: () => void,
-  onSubmit: () => void,
-  t: TFunction,
+  open: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
+  t: TFunction;
 };
 
 export function MemberConfirmMergeDialog(props: Props) {

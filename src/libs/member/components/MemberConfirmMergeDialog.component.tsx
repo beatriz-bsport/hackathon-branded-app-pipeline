@@ -2,11 +2,12 @@ import React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
+import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core';
 
 type Props = {
   open: boolean;
@@ -20,16 +21,21 @@ export const MemberConfirmMergeDialog: React.FC<Props> = ({
   open,
 }) => {
   const { t } = useTranslation('member');
+
+  const classes = useStyles();
+
   return (
     <Dialog open={open} scroll="paper">
-      <DialogTitle>{t('forms.merge.title')}</DialogTitle>
+      <DialogTitle>{t('forms.merge.confirmation.title')}</DialogTitle>
       <DialogContent>
-        <div>
-          <p>{t('forms.merge.explainCredit')}</p>
-          <p>{t('forms.merge.explainBookingsAndPassAndInvoiceAndNotes')}</p>
-          <Typography color="error">{t('forms.merge.explainTags')}</Typography>
-          <p>{t('forms.merge.emailWillBeSend')}</p>
-        </div>
+        <Trans
+          i18nKey="forms.merge.confirmation.mergeIsPermanentWarning"
+          ns="member"
+        />
+        <div className={classes.spacerVertical} />
+        <Alert severity="info" variant="outlined">
+          {t('forms.merge.confirmation.willNotifyInfo')}
+        </Alert>
       </DialogContent>
       <DialogActions>
         <Button color="secondary" onClick={onClose}>
@@ -42,5 +48,11 @@ export const MemberConfirmMergeDialog: React.FC<Props> = ({
     </Dialog>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  spacerVertical: {
+    height: theme.spacing(2),
+  },
+}));
 
 export default React.memo(MemberConfirmMergeDialog);

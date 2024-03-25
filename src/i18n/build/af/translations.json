@@ -4496,6 +4496,12 @@
     "merge": "Merge",
     "forms": {
       "merge": {
+        "confirmation": {
+          "confirm": "Confirm",
+          "title": "Are you sure to merge members?",
+          "mergeIsPermanentWarning": "Merging members will transfer the internal balance, reservations, passes, notes and invoices. <strong>This action cannot be undone once confirmed.</strong>\n\n Only the tags of the deleted member will not be transferred. A message will be sent to both email addresses to notify the members.",
+          "willNotifyInfo": "These profiles will be merged across the entire franchise. This action can take some time, we will notify you once completed."
+        },
         "seeMemberPage": " See member page",
         "success": "Members merged",
         "error": "Impossible to merge members",

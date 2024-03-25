@@ -683,6 +683,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   cashback,
                   notify,
                   deleteAll,
+                  custom_selection,
+                  custom_selection_ids,
+                  force,
                   cancel_linked_hybrid_offer,
                 }) =>
                   this.onCancelOffer({
@@ -690,6 +693,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                     cashback,
                     notify,
                     deleteAll,
+                    custom_selection,
+                    custom_selection_ids,
+                    force,
                     cancel_linked_hybrid_offer,
                   })
                 }

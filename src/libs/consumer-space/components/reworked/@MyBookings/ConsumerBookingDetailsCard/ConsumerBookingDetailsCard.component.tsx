@@ -137,7 +137,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  if (showPlaceholder) {
+  if (showPlaceholder && !isLoading) {
     return (
       <ConsumerCardPlaceholder
         className={className}
@@ -147,7 +147,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   }
 
   if (isLoading) {
-    return <ConsumerDetailsCardSkeleton />;
+    return <ConsumerDetailsCardSkeleton className={className} />;
   }
 
   return (

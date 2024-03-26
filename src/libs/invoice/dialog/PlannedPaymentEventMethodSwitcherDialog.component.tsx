@@ -485,7 +485,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
             {paymentMethodType !== 'terminal' && (
               <DialogActions>
                 <Button color="secondary" onClick={props.onClose}>
-                  {t('translation:common.previous')}
+                  {t('translation:common.cancel')}
                 </Button>
                 {props.processing ? (
                   <CircularProgress />

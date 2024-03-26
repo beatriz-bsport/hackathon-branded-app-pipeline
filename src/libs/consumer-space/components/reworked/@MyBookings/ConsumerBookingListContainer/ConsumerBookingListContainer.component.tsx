@@ -199,6 +199,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             <GenericInfiniteScrollEnhancedCssOnly<
               ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
             >
+              className="bs-consumer-page-root__bookings__list__infinite-scroll"
               fetchMoreData={handlePaginationFetchMore}
               hasMore={hasNextPage}
               height={

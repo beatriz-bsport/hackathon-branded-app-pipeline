@@ -1,6 +1,14 @@
 import { createAction } from 'redux-actions';
-import { SnackKind, BackgroundSnackKind } from './types';
-import { Dispatch } from '../../state/types';
+
+import { AccessStatus } from '#libs/access-control/const';
+
+import type { ThunkAction, Dispatch } from '../../state/types';
+import type {
+  SnackKind,
+  BackgroundSnackKind,
+  AccessControlSnack,
+} from './types';
+import type { MemberMinimal } from '#libs/member/types';
 
 export const snackbarDisplay = createAction('SNACKBAR/DISPLAY');
 export const snackbarDestroy = createAction('SNACKBAR/DESTROY');
@@ -110,3 +118,34 @@ export const bottomSnackbar = {
   info: bottomSnackbarInfo,
   warning: bottomSnackbarWarning,
 };
+
+export const accessControlSnackBarDisplay = createAction<AccessControlSnack>(
+  'ACCESS_CONTROL_SNACKBAR/DISPLAY',
+);
+export const accessControlSnackBarDestroy = createAction<number>(
+  'ACCESS_CONTROL_SNACKBAR/DESTROY',
+);
+
+export function displayAccessControlSnackbar(
+  memberVisitId: number,
+  member: MemberMinimal,
+  access_status: AccessStatus,
+): ThunkAction {
+  return async (dispatch) => {
+    dispatch(
+      accessControlSnackBarDisplay({
+        id: memberVisitId,
+        member,
+        accessStatus: access_status,
+      }),
+    );
+    await sleep(5000);
+    dispatch(accessControlSnackBarDestroy(memberVisitId));
+  };
+}
+
+export function deleteAccessControlSnackbar(memberVisitId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(accessControlSnackBarDestroy(memberVisitId));
+  };
+}

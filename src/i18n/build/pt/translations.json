@@ -2313,7 +2313,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }}  dias restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -3985,6 +3985,19 @@
                     "title": "Bem-vindo ao {{ audienceCamelCase }}",
                     "confirm": "Início",
                     "return": "Voltar para trás"
+                }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "O acionador que o precede também será eliminado.  O resto do {{ workflowLowerCase }} será desligado mas não eliminado.",
+                        "title": "Tem certeza de que pretende eliminar esta saída?"
+                    }
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Eliminar"
                 }
             }
         },
@@ -12712,7 +12725,7 @@
                 "first": "um dos passes de aulas",
                 "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
                 "third": "à",
-                "name": "Passes",
+                "name": "Passes de aulas",
                 "has_not": "Não possui",
                 "second": "e",
                 "credits": {
@@ -12868,6 +12881,64 @@
                 "first": "Aderiu ao estúdio   ",
                 "name": "Data da inscrição",
                 "explanation": "Aderiu ao estúdio em..."
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}}como membro referenciado",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "um membro referido",
+                    "is_not": "não é",
+                    "is": "é",
+                    "before": "O membro"
+                },
+                "explanation": " Filtra os membros que utilizaram uma ligação de referência para se inscreverem",
+                "name": "Membro indicado"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} como referenciador",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    },
+                    "referred": {
+                        "tooltip": "Podem também ser incluídos os deputados que não tenham indicado ninguém",
+                        "after": "membros",
+                        "between": "e",
+                        "before": "O membro referiu"
+                    },
+                    "reward": {
+                        "after": "recompensas como referenciador",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    }
+                },
+                "explanation": "Filtra os membros que indicaram membros",
+                "name": "Referenciador"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "e",
+                        "before": "O montante da primeira compra foi de"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtrar por data"
+                },
+                "booleanChoice": {
+                    "is_not": "ainda não concluído",
+                    "is": "feito",
+                    "before": "A primeira compra é"
+                },
+                "explanation": "Filtra os membros com um primeiro cabaz finalizado/pago",
+                "name": "Primeira compra"
             }
         },
         "cannotBeDeletedDialog": {
@@ -12888,7 +12959,7 @@
         },
         "delete": "Eliminar",
         "filterCategory": {
-            "2": "Passes de aulas",
+            "2": "Passes",
             "1": "Informações do membro",
             "3": "Reservas",
             "4": "Compras"
@@ -17472,7 +17543,52 @@
             "showMore": "Mostrar mais",
             "startingAt": "A partir de",
             "title": "Detalhes do produto"
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "Tem a certeza de que pretende eliminar este fornecedor?",
+                                "title": "Fornecedor: {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Notas",
+                                    "name": "Nome *"
+                                },
+                                "titleUpdate": "Editar fornecedor",
+                                "titleCreate": "Adicionar fornecedor"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Eliminar",
+                                    "edit": "Editar"
+                                },
+                                "addSupplier": "Adicionar fornecedor",
+                                "actions": "Acções",
+                                "notes": "Notas",
+                                "name": "Nome"
+                            },
+                            "title": "Fornecedores"
+                        }
+                    },
+                    "title": "Configurações"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Nome"
+                        },
+                        "title": "AdIcionar uma categoria"
+                    },
+                    "title": "Produtos"
+                }
+            }
+        },
+        "variantCount": "{{count}} variante",
+        "variantCount_plural": "{{count}} variantes"
     },
     "quicksale": {
         "cardListPage": {

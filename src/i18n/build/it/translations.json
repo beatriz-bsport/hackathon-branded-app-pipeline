@@ -10739,7 +10739,7 @@
                     "second": "e"
                 },
                 "infoIcon": "I pacchetti illimitati saranno sempre inclusi",
-                "name": "Generale",
+                "name": "Pacchetti",
                 "first": "uno dei seguenti pacchetti",
                 "has": "Possiede",
                 "date_bought": {
@@ -11154,6 +11154,64 @@
                 "false": "Non compilato",
                 "first": "un numero di telefono",
                 "explanation": "Ha fornito un numero di telefono"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} come membro raccomandato",
+                        "between": "e",
+                        "before": "Il membro ha ottenuto"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "un membro raccomandato",
+                    "is_not": "non è",
+                    "is": "è",
+                    "before": "Il membro"
+                },
+                "explanation": " Filtra i membri che hanno usato un link di riferimento per iscriversi",
+                "name": "Membro raccomandato"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} come referente",
+                        "between": "e",
+                        "before": "Il membro ha ottenuto"
+                    },
+                    "referred": {
+                        "tooltip": "Possono essere inclusi anche i membri che non hanno raccomandato nessuno",
+                        "after": "membri",
+                        "between": "e",
+                        "before": "Il membro segnalato"
+                    },
+                    "reward": {
+                        "after": "premi come referente",
+                        "between": "e",
+                        "before": "Il membro ha ottenuto"
+                    }
+                },
+                "explanation": "Filtra i membri che hanno fatto da referente",
+                "name": "Referente"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "e",
+                        "before": "L'importo del primo acquisto è stato"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtra per data"
+                },
+                "booleanChoice": {
+                    "is_not": "non ancora fatto",
+                    "is": "fatto",
+                    "before": "Il primo acquisto è"
+                },
+                "explanation": "Filtra i membri con un primo carrello finalizzato/pagato",
+                "name": "Primo acquisto"
             }
         },
         "smart_list": {
@@ -13086,7 +13144,52 @@
             "showMore": "Mostra più",
             "startingAt": "A partire da",
             "title": "Dettagli del prodotto"
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "Sei sicuro di voler cancellare questo fornitore?",
+                                "title": "Fornitore: {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Note",
+                                    "name": "Nome *"
+                                },
+                                "titleUpdate": "Modifica fornitore",
+                                "titleCreate": "Aggiungi fornitore"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Elimina",
+                                    "edit": "Modifica"
+                                },
+                                "addSupplier": "Aggiungi fornitore",
+                                "actions": "Azioni",
+                                "notes": "Note",
+                                "name": "Nome"
+                            },
+                            "title": "Fornitori"
+                        }
+                    },
+                    "title": "Impostazioni"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Nome"
+                        },
+                        "title": "Aggiungi una categoria"
+                    },
+                    "title": "Prodotti"
+                }
+            }
+        },
+        "variantCount": "{{count}} variante",
+        "variantCount_plural": "{{count}} varianti"
     },
     "paymentRules": {
         "save": "Salva",
@@ -17588,6 +17691,19 @@
                     "confirm": "Inizio",
                     "return": "Indietro",
                     "helper": "Iniziamo a impostare insieme il {{ workflowLowerCase }}! \nUn flusso di lavoro è un insieme di trigger e passi collegati tra loro con le rispettive azioni di marketing che ti aiuteranno a portare i membri verso l'obiettivo che è stato stabilito."
+                }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "Anche il trigger che lo precede verrà eliminato. Il resto del {{ workflowLowerCase }} verrà disconnesso, ma non cancellato.",
+                        "title": "Sei sicuro di voler cancellare questa uscita?"
+                    }
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Elimina"
                 }
             }
         },

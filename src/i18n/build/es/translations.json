@@ -2838,7 +2838,52 @@
             "showMore": "Ver más",
             "startingAt": "A partir de",
             "title": "Detalles del producto"
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "¿Está seguro de que desea eliminar este proveedor?",
+                                "title": "Proveedor: {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Notas",
+                                    "name": "Nombre *"
+                                },
+                                "titleUpdate": "Editar proveedor",
+                                "titleCreate": "Añadir un proveedor"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Borrar",
+                                    "edit": "Editar"
+                                },
+                                "addSupplier": "Añadir un proveedor",
+                                "actions": "Acciones",
+                                "notes": "Notas",
+                                "name": "Nombre"
+                            },
+                            "title": "Proveedores"
+                        }
+                    },
+                    "title": "Parámetros"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Nombre"
+                        },
+                        "title": "Añadir una categoría"
+                    },
+                    "title": "Productos"
+                }
+            }
+        },
+        "variantCount": "{{count}} variante",
+        "variantCount_plural": "{{count}} variantes"
     },
     "payment": {
         "explainOption": "Estaria previsto cuanda se libere un hueco",
@@ -15649,7 +15694,7 @@
                 "has_not": "No posee",
                 "has": "Posee",
                 "first": "uno de los bonos",
-                "name": "General",
+                "name": "Bonos",
                 "explanation": "Ha comprado el bono A en la fecha Y, con X créditos"
             },
             "18": {
@@ -15869,6 +15914,64 @@
                 "between": "y",
                 "first": "Tiene una edad",
                 "name": "Edad"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} como miembro referido",
+                        "between": "y",
+                        "before": "El miembro obtuvo"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "un miembro referido",
+                    "is_not": "no es",
+                    "is": "es",
+                    "before": "El miembro"
+                },
+                "explanation": " Filtra los miembros que utilizaron un enlace de referencia para registrarse",
+                "name": "Miembro referido"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} como referente",
+                        "between": "y",
+                        "before": "El miembro obtuvo"
+                    },
+                    "referred": {
+                        "tooltip": "También se puede incluir a los miembros que no hayan referido a nadie",
+                        "after": "miembros",
+                        "between": "y",
+                        "before": "El miembro refirió"
+                    },
+                    "reward": {
+                        "after": "recompensa como referente",
+                        "between": "y",
+                        "before": "El miembro obtuvo"
+                    }
+                },
+                "explanation": "Filtra a los miembros que han referido miembros",
+                "name": "Referente"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "y",
+                        "before": "El importe de la primera compra fue de"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtrar por fecha"
+                },
+                "booleanChoice": {
+                    "is_not": "aún no se ha hecho",
+                    "is": "hecho",
+                    "before": "La primera compra es"
+                },
+                "explanation": "Filtra los miembros con una primera cesta finalizada/pagada",
+                "name": "Primera compra"
             }
         },
         "filterCategory": {
@@ -17644,6 +17747,19 @@
                     "title": "¡Bienvenido a {{ audienceCamelCase }}!",
                     "confirm": "Inicio",
                     "return": "Regresar"
+                }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "El desencadenante que precede también se eliminará. El resto del {{ workflowLowerCase }} se desconectará pero no se eliminará.",
+                        "title": "¿Está seguro de que desea eliminar esta salida?"
+                    }
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Borrar"
                 }
             }
         },

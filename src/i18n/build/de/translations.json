@@ -2599,6 +2599,64 @@
                 "nonMedical": "nicht medizinisch",
                 "name": "Hinweise",
                 "first": "Hat mindestens einen Hinweis"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als ein empfohlenes Mitglied",
+                        "between": "und",
+                        "before": "Das Mitglied erhielt"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "ein empfohlenes Mitglied",
+                    "is_not": "ist nicht",
+                    "is": "ist",
+                    "before": "Das Mitglied"
+                },
+                "explanation": " Filtert die Mitglieder, die einen Empfehlungslink zur Anmeldung verwendet haben",
+                "name": "Empfohlenes Mitglied"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als Empfehler",
+                        "between": "und",
+                        "before": "Das Mitglied erhielt"
+                    },
+                    "referred": {
+                        "tooltip": "Mitglieder, die niemanden empfohlen haben, können ebenfalls eingeschlossen werden.",
+                        "after": "Mitglieder",
+                        "between": "und",
+                        "before": "Das Mitglied empfahl"
+                    },
+                    "reward": {
+                        "after": "Belohnungen als Empfehler",
+                        "between": "und",
+                        "before": "Das Mitglied bekam"
+                    }
+                },
+                "name": "Empfehler",
+                "explanation": "Filtert die Mitglieder, die Mitglieder empfohlen haben"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "und",
+                        "before": "Der Betrag des ersten Einkaufs betrug"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Nach Datum filtern"
+                },
+                "booleanChoice": {
+                    "is_not": "noch nicht fertig",
+                    "is": "fertig",
+                    "before": "Der erste Kauf ist"
+                },
+                "explanation": "Filtert die Mitglieder mit einem ersten abgeschlossenen/bezahlten Warenkorb",
+                "name": "Erstmaliger Kauf"
             }
         },
         "filterCategory": {
@@ -8775,7 +8833,52 @@
             "showMore": "Mehr anzeigen",
             "startingAt": "Ab",
             "title": "Details zum Produkt"
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "Sind Sie sicher, dass Sie diesen Anbieter löschen möchten?",
+                                "title": "Lieferant: {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Anmerkungen",
+                                    "name": "Name *"
+                                },
+                                "titleUpdate": "Anbieter bearbeiten",
+                                "titleCreate": "Anbieter hinzufügen"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Löschen",
+                                    "edit": "bearbeiten"
+                                },
+                                "addSupplier": "Anbieter hinzufügen",
+                                "actions": "Aktionen",
+                                "notes": "Anmerkungen",
+                                "name": "Name"
+                            },
+                            "title": "Anbieter"
+                        }
+                    },
+                    "title": "Einstellungen"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Name"
+                        },
+                        "title": "Eine Kategorie hinzufügen"
+                    },
+                    "title": "Produkte"
+                }
+            }
+        },
+        "variantCount": "{{count}}  Variante",
+        "variantCount_plural": "{{count}}  Varianten"
     },
     "datetime": {
         "form": {
@@ -12018,7 +12121,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }}  Verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -17495,6 +17598,19 @@
                     "helper": "Lassen Sie uns gemeinsam mit der Einrichtung des {{ workflowLowerCase }} beginnen! Ein Workflow ist eine Reihe miteinander verbundener Trigger und Schritte mit respektiven Marketingaktionen, die helfen, Mitglieder auf ein definiertes Ziel hinzuführen.",
                     "confirm": "Start",
                     "return": "Zurück"
+                }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "Der vorangehende Vorgang wird ebenfalls gelöscht. Der Rest des {{ workflowLowerCase }} wird getrennt, aber nicht gelöscht.",
+                        "title": "Sind Sie sicher, dass Sie diesen Zugang löschen möchten?"
+                    }
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Löschen"
                 }
             }
         },

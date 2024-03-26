@@ -4928,6 +4928,19 @@
                     "confirm": "Commencer",
                     "return": "Annuler"
                 }
+            },
+            "exit": {
+                "archive": {
+                    "dialog": {
+                        "helper": "Les déclencheurs qui précèdent cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
+                        "title": "Êtes-vous sûr de vouloir supprimer cette sortie?"
+                    }
+                }
+            },
+            "deleteExit": {
+                "dialog": {
+                    "confirmButton": "Supprimer"
+                }
             }
         },
         "audience": {
@@ -12923,7 +12936,52 @@
                 "genericTitle": "Confirmer la suppression",
                 "title": "Suppression - {{name}}"
             }
-        }
+        },
+        "shopList": {
+            "tab": {
+                "settings": {
+                    "section": {
+                        "suppliers": {
+                            "deleteModal": {
+                                "message": "Êtes-vous sûr de vouloir supprimer ce fournisseur ?",
+                                "title": "Fournisseur : {{supplierName}}"
+                            },
+                            "modal": {
+                                "field": {
+                                    "description": "Notes",
+                                    "name": "Nom *"
+                                },
+                                "titleUpdate": "Modifier un fournisseur",
+                                "titleCreate": "Ajouter un fournisseur"
+                            },
+                            "table": {
+                                "action": {
+                                    "delete": "Supprimer",
+                                    "edit": "Éditer"
+                                },
+                                "addSupplier": "Ajouter un fournisseur",
+                                "actions": "Actions",
+                                "notes": "Notes",
+                                "name": "Nom"
+                            },
+                            "title": "Fournisseurs"
+                        }
+                    },
+                    "title": "Paramètres"
+                },
+                "products": {
+                    "subshopForm": {
+                        "field": {
+                            "name": "Nom"
+                        },
+                        "title": "Ajouter une catégorie"
+                    },
+                    "title": "Produits"
+                }
+            }
+        },
+        "variantCount": "{{count}} variante",
+        "variantCount_plural": "{{count}} variantes"
     },
     "smartList": {
         "duplicate": "Dupliquer",
@@ -13084,7 +13142,7 @@
         },
         "filterCategory": {
             "1": "Informations membre",
-            "2": "Cartes de cours",
+            "2": "Cartes",
             "3": "Réservations",
             "4": "Achats"
         },
@@ -13136,7 +13194,7 @@
             },
             "19": {
                 "explanation": "A acheté la carte de cours A à Y date, avec X credits",
-                "name": "Général",
+                "name": "Cartes de cours",
                 "first": "une des cartes de cours",
                 "has": "Possède",
                 "has_not": "Ne possède pas",
@@ -13558,6 +13616,64 @@
                 "2": "plus de (⩾)",
                 "5": "exactement",
                 "6": "entre deux"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} en tant que membre parrainé",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "un membre parrainé",
+                    "is_not": "n'est pas",
+                    "is": "est",
+                    "before": "Le membre"
+                },
+                "explanation": " Filtre les membres qui ont utilisé un lien de parrainage pour s'inscrire",
+                "name": "Membre parrainé"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} en tant que parrain",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    },
+                    "referred": {
+                        "tooltip": "Les membres qui n'ont parrainé personne peuvent également être inclus",
+                        "after": "membres",
+                        "between": "et",
+                        "before": "Le membre a parrainé"
+                    },
+                    "reward": {
+                        "after": "récompenses en tant que parrain",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    }
+                },
+                "explanation": "Filtre les membres qui ont parrainé d'autres membres",
+                "name": "Parrainage"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "et",
+                        "before": "Le montant du premier achat était de"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtrer par date"
+                },
+                "booleanChoice": {
+                    "is_not": "Pas encore réalisé",
+                    "is": "réalisé",
+                    "before": "Le premier achat est"
+                },
+                "explanation": "Filtre les membres ayant un premier panier finalisé/payé",
+                "name": "Premier achat"
             }
         },
         "tag_rules": {

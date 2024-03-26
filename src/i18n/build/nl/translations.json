@@ -5438,11 +5438,50 @@
                 },
                 "booleanChoice": {
                     "is_not": "nog niet voltooid",
-                    "is": "gedaan",
+                    "is": "voltooid",
                     "before": "De eerste aankoop is"
                 },
                 "explanation": "Filter op leden die hun eerste aankoop hebben gedaan",
                 "name": "Eerste aankoop"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als een doorverwezen lid",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "een doorverwezen lid",
+                    "is_not": "is niet",
+                    "is": "is",
+                    "before": "Het lid"
+                },
+                "explanation": " Filtert de leden die een doorverwijslink hebben gebruikt om zich aan te melden",
+                "name": "Doorverwezen lid"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als doorverwijzer",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    },
+                    "referred": {
+                        "tooltip": "Leden die niemand hebben doorverwezen kunnen ook worden toegevoegd",
+                        "after": "leden",
+                        "between": "en",
+                        "before": "Het lid verwees"
+                    },
+                    "reward": {
+                        "after": "beloningen als doorverwijzer",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    }
+                },
+                "name": "Doorverwijzer",
+                "explanation": "Filtert de leden die leden hebben doorverwezen"
             }
         },
         "mails": "E-mails",
@@ -10460,7 +10499,7 @@
                         "field": {
                             "name": "Naam"
                         },
-                        "title": "Een productcategorie toevoegen"
+                        "title": "Een categorie toevoegen"
                     },
                     "title": "Producten"
                 }

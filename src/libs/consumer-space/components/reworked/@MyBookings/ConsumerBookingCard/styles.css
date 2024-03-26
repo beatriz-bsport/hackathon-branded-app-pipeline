@@ -37,7 +37,6 @@
 
 .bs-consumer-booking-card__body__button {
   display: inline-flex;
-  gap: var(--bs-space-size-2);
   width: fit-content;
   padding: var(--bs-space-size-2) 0;
 }

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';
@@ -141,6 +141,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     openMenuOnClear,
     closeMenuOnSelect = true,
     withoutNullValues,
+    allOptionsPlaceholder,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -220,6 +221,15 @@ function MaterialUISelector<T extends OptionTypeBase>(
 
   const emptyIndicatorsContainer = React.useCallback(() => null, []);
 
+  const displayAllOptionsPlaceholder = useMemo(
+    () =>
+      !!isMulti &&
+      !!allOptionsPlaceholder &&
+      options?.length !== 0 &&
+      options?.length === value?.length,
+    [isMulti, allOptionsPlaceholder, options, value],
+  );
+
   return (
     <SelectorContext.Provider
       value={{
@@ -277,8 +287,10 @@ function MaterialUISelector<T extends OptionTypeBase>(
           {...restProps}
           // Mandatory for multi selection use
           ref={selectRef}
+          allOptionsPlaceholder={allOptionsPlaceholder}
           closeMenuOnSelect={closeMenuOnSelect}
           defaultNumberShown={defaultNumberShown}
+          displayAllOptionsPlaceholder={displayAllOptionsPlaceholder}
           onBlur={handleBlur}
           onInputChange={onInputChange}
           selectRef={selectRef}
@@ -511,6 +523,25 @@ const ShowMoreButton: React.FC<{
   );
 };
 
+const getItemPositionData = (selectProps, data) => {
+  /**
+  This function is used to get the index of the current item in the selected values
+  */
+  const selectedValues = selectProps?.value ?? [];
+  const index =
+    selectedValues.findIndex((value) => value?.value === data?.value) ?? -1;
+  const maxDisplay = selectProps?.defaultNumberShown ?? 4;
+  const overflowValues = selectedValues.length - maxDisplay;
+
+  return {
+    index,
+    maxDisplay,
+    data,
+    overflowValues,
+    selectedValues,
+  };
+};
+
 function MultiValueRemove<T extends OptionTypeBase>(
   chipsRenderer?: (props: {
     data: T;
@@ -525,13 +556,8 @@ function MultiValueRemove<T extends OptionTypeBase>(
   };
 
   return (props: any) => {
-    const selectedValues = props.selectProps?.value ?? [];
-    const index =
-      selectedValues.findIndex((value) => value?.value === props.data?.value) ??
-      -1;
-
-    const maxDisplay = props.selectProps?.defaultNumberShown ?? 4;
-    const overflowValues = selectedValues.length - maxDisplay;
+    const { selectedValues, index, maxDisplay, overflowValues } =
+      getItemPositionData(props.selectProps, props.data);
 
     const handleDelete = (...args: any) => {
       props.innerProps.onClick(...args);
@@ -648,16 +674,36 @@ function MenuList<T extends OptionTypeBase>(
 }
 
 const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
+  const { displayAllOptionsPlaceholder } = props?.selectProps;
   const classes = useStyles();
 
+  const { index, maxDisplay, data } = getItemPositionData(
+    props.selectProps,
+    props.data,
+  );
+
   return (
-    <components.MultiValueContainer
-      {...props}
-      getStyles={resetStyle}
-      innerProps={{ className: classes.reset }}
-    >
-      {props?.children?.[1]}
-    </components.MultiValueContainer>
+    <SelectorContext.Consumer>
+      {({ displayMore }) => {
+        const isHiddenItemChip =
+          (index > maxDisplay && !displayMore && !!data) ||
+          displayAllOptionsPlaceholder;
+
+        const className = isHiddenItemChip
+          ? classes.displayNone
+          : classes.reset;
+
+        return (
+          <components.MultiValueContainer
+            {...props}
+            getStyles={resetStyle}
+            innerProps={{ className }}
+          >
+            {props?.children?.[1]}
+          </components.MultiValueContainer>
+        );
+      }}
+    </SelectorContext.Consumer>
   );
 };
 
@@ -716,21 +762,20 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
   const classes = useStyles();
 
   return (props: ValueContainerProps<T, boolean, any>) => {
-    const shouldDisplayAllOptionsSelectedPlaceholder =
-      props.isMulti &&
-      props.selectProps?.allOptionsPlaceholder &&
-      props.options?.length !== 0 &&
-      props.options?.length === props.selectProps?.value?.length;
-
     let content;
-    if (shouldDisplayAllOptionsSelectedPlaceholder) {
+    if (props.selectProps?.displayAllOptionsPlaceholder) {
       content = (
-        <Typography
-          className={props?.selectProps?.classes?.placeholder}
-          color="textSecondary"
-        >
-          {props.selectProps?.allOptionsPlaceholder}
-        </Typography>
+        <>
+          <Typography
+            className={props?.selectProps?.classes?.placeholder}
+            color="textSecondary"
+          >
+            {props.selectProps?.allOptionsPlaceholder}
+          </Typography>
+          {/* This is a hack to make the entire select clickable
+          Make sure the children components are under display: none rule */}
+          {props.children}
+        </>
       );
     } else if (props.hasValue && !props.isMulti) {
       content = <div>{props.children}</div>;
@@ -768,6 +813,9 @@ function SingleValue<T extends OptionTypeBase>(
 
 const resetStyle = () => ({});
 const useStyles = makeStyles((theme: Theme) => ({
+  displayNone: {
+    display: 'none',
+  },
   container: {},
   menu: {
     marginTop: theme.spacing(1),

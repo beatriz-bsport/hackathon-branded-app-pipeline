@@ -56,21 +56,25 @@ type MemberCountData = {
   nb_subscriptions: number;
 };
 
+// = MemberListMinimalWithAvatarSerializer
 export type MemberMinimal<Tag = number, CA = number> = {
   accept_email: boolean;
   archived: boolean;
+  birthday: string;
   consumer: number;
   credit_account_balance: CA;
   date_joined: string;
   email: string;
+  first_name: string;
   id: number;
+  is_pos: boolean;
+  last_name: string;
   name: string;
   phone: string;
   photo: string;
   tags: Array<Tag>;
   total_unpaid_amount: string;
   vaccination_status?: boolean;
-  is_pos: boolean;
 };
 
 export type Member<Tag = number, CA = number> = {

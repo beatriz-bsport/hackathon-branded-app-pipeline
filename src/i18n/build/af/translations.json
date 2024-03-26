@@ -1,5 +1,8 @@
 {
-  "accessControl": { "memberEntry": "Member entry" },
+  "accessControl": {
+    "memberEntry": "Member entry",
+    "snackbar": { "message": "<strong>{{- name }}</strong> just checked in.", "G": "Valid", "O": "Warning", "R": "Not valid" }
+  },
   "alerting": {
     "list": { "title": "Notifications", "emptyAlerting": "No new notification to display." },
     "alert_kind": {

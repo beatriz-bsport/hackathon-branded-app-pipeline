@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type BackgroundDialog = {
   messages: Array<{
     id: string;
@@ -6,8 +8,13 @@ export type BackgroundDialog = {
     link: string;
     displayMode: BackgroundDialogDisplayMode;
     actionMode: BackgroundDialogActionMode;
+    customDialogComponent?: CustomDialogComponent;
   }>;
 };
+
+export type CustomDialogComponent = React.FC<{
+  closeDialog: () => void;
+}>;
 
 export type BackgroundDialogState = {
   messages: Array<BackgroundDialogState>;

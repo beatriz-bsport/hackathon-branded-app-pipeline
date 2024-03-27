@@ -20,6 +20,7 @@ export default handleActions(
         link: payload.link,
         displayMode: payload.displayMode,
         actionMode: payload.actionMode,
+        customDialogComponent: payload.customDialogComponent,
       });
       return state.merge({ messages });
     },

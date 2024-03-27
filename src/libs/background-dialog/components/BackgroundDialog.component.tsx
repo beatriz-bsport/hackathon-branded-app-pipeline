@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -25,6 +25,7 @@ import {
   BackgroundDialog,
   BackgroundDialogActionMode,
   BackgroundDialogDisplayMode,
+  CustomDialogComponent,
 } from '../types';
 
 type Props = {
@@ -64,135 +65,172 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
   const handleDownloadDisable = () => {
     setDownloadDisable(false);
   };
+
   return (
     <div>
-      {(backgroundDialog ?? []).map((dialog) => (
-        <Dialog
-          key={dialog.id}
-          fullWidth
-          open
-          aria-describedby="alert-excel-report"
-          aria-labelledby="alert-excel-report"
-          maxWidth="md"
-        >
-          {!!dialog.title && (
-            <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
-          )}
-          {dialog.displayMode === BackgroundDialogDisplayMode.ACCESS_DENIED && (
-            <DialogTitle id="alert-dialog-title">
-              {t('snackbar:accessDenied.general.title')}
-            </DialogTitle>
-          )}
-          <DialogContent>
-            {dialog.displayMode === 'TEXT' && (
-              <DialogContentText id="alert-dialog-description">
-                {dialog.message}
-              </DialogContentText>
+      {(backgroundDialog ?? []).map((dialog) => {
+        if (dialog.customDialogComponent) {
+          return (
+            <CustomDialog
+              key={dialog.id}
+              deleteBackgroundDialog={deletebackgroundDialog}
+              DialogComponent={dialog.customDialogComponent}
+              dialogId={dialog.id}
+            />
+          );
+        }
+        return (
+          <Dialog
+            key={dialog.id}
+            fullWidth
+            open
+            aria-describedby="alert-excel-report"
+            aria-labelledby="alert-excel-report"
+            maxWidth="md"
+          >
+            {!!dialog.title && (
+              <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
             )}
-            {dialog.displayMode === BackgroundDialogDisplayMode.INFORMATION && (
-              <div className={classes.contentWithIcon}>
-                <InfoIcon className={classes.icon} />
-                <Typography
-                  align="center"
-                  className={classes.infoText}
-                  id="alert-dialog-description"
-                >
-                  {dialog.message}
-                </Typography>
-              </div>
-            )}
+
             {dialog.displayMode ===
               BackgroundDialogDisplayMode.ACCESS_DENIED && (
-              <div className={classes.contentWithIcon}>
-                <BlockIcon className={classNames(classes.icon, classes.red)} />
-                <Typography
-                  align="center"
-                  className={classes.infoText}
-                  id="alert-dialog-description"
-                >
-                  {t('snackbar:accessDenied.general.message')}
-                </Typography>
-              </div>
+              <DialogTitle id="alert-dialog-title">
+                {t('snackbar:accessDenied.general.title')}
+              </DialogTitle>
             )}
-            {dialog.displayMode === BackgroundDialogDisplayMode.SUCCESS && (
-              <div className={classes.contentWithIcon}>
-                <CheckIcon className={classes.icon} color="secondary" />
-                <Typography
-                  align="center"
-                  className={classes.infoText}
-                  id="alert-dialog-description"
-                >
+            <DialogContent>
+              {dialog.displayMode === 'TEXT' && (
+                <DialogContentText id="alert-dialog-description">
                   {dialog.message}
-                </Typography>
-              </div>
-            )}
-          </DialogContent>
-          <DialogActions>
-            {dialog.actionMode === BackgroundDialogActionMode.DOWNLOAD && (
-              <>
-                <a href={dialog.link} rel="noreferrer" target="_blank">
-                  <Button
-                    autoFocus
-                    color="primary"
-                    onClick={() => {
-                      handleDownloadDisable();
-                    }}
-                    variant="contained"
+                </DialogContentText>
+              )}
+              {dialog.displayMode ===
+                BackgroundDialogDisplayMode.INFORMATION && (
+                <div className={classes.contentWithIcon}>
+                  <InfoIcon className={classes.icon} />
+                  <Typography
+                    align="center"
+                    className={classes.infoText}
+                    id="alert-dialog-description"
                   >
-                    {t('common.download')}
-                    <GetAppIcon />
-                  </Button>
-                </a>
+                    {dialog.message}
+                  </Typography>
+                </div>
+              )}
+              {dialog.displayMode ===
+                BackgroundDialogDisplayMode.ACCESS_DENIED && (
+                <div className={classes.contentWithIcon}>
+                  <BlockIcon
+                    className={classNames(classes.icon, classes.red)}
+                  />
+                  <Typography
+                    align="center"
+                    className={classes.infoText}
+                    id="alert-dialog-description"
+                  >
+                    {t('snackbar:accessDenied.general.message')}
+                  </Typography>
+                </div>
+              )}
+              {dialog.displayMode === BackgroundDialogDisplayMode.SUCCESS && (
+                <div className={classes.contentWithIcon}>
+                  <CheckIcon className={classes.icon} color="secondary" />
+                  <Typography
+                    align="center"
+                    className={classes.infoText}
+                    id="alert-dialog-description"
+                  >
+                    {dialog.message}
+                  </Typography>
+                </div>
+              )}
+            </DialogContent>
+            <DialogActions>
+              {dialog.actionMode === BackgroundDialogActionMode.DOWNLOAD && (
+                <>
+                  <a href={dialog.link} rel="noreferrer" target="_blank">
+                    <Button
+                      autoFocus
+                      color="primary"
+                      onClick={() => {
+                        handleDownloadDisable();
+                      }}
+                      variant="contained"
+                    >
+                      {t('common.download')}
+                      <GetAppIcon />
+                    </Button>
+                  </a>
 
-                <Button
-                  autoFocus
-                  color="secondary"
-                  disabled={downloadDisable}
-                  onClick={() => deletebackgroundDialog(dialog.id)}
-                >
-                  {t('common.continue')}
-                </Button>
-              </>
-            )}
-            {dialog.actionMode === BackgroundDialogActionMode.REDIRECT && (
-              <>
-                <Button
-                  color="secondary"
-                  onClick={() => deletebackgroundDialog(dialog.id)}
-                >
-                  {t('common.continue')}
-                </Button>
-                {dialog.link && (
                   <Button
                     autoFocus
-                    color="primary"
-                    onClick={() => {
-                      pushRouter(dialog.link);
-                      deletebackgroundDialog(dialog.id);
-                    }}
+                    color="secondary"
+                    disabled={downloadDisable}
+                    onClick={() => deletebackgroundDialog(dialog.id)}
                   >
-                    {t('common.see')}
-                    <ArrowForwardIcon />
+                    {t('common.continue')}
                   </Button>
-                )}
-              </>
-            )}
-            {!Object.values(BackgroundDialogActionMode).includes(
-              dialog.actionMode,
-            ) && (
-              <Button
-                color="secondary"
-                onClick={() => deletebackgroundDialog(dialog.id)}
-              >
-                {t('common.continue')}
-              </Button>
-            )}
-          </DialogActions>
-        </Dialog>
-      ))}
+                </>
+              )}
+              {dialog.actionMode === BackgroundDialogActionMode.REDIRECT && (
+                <>
+                  <Button
+                    color="secondary"
+                    onClick={() => deletebackgroundDialog(dialog.id)}
+                  >
+                    {t('common.continue')}
+                  </Button>
+                  {dialog.link && (
+                    <Button
+                      autoFocus
+                      color="primary"
+                      onClick={() => {
+                        pushRouter(dialog.link);
+                        deletebackgroundDialog(dialog.id);
+                      }}
+                    >
+                      {t('common.see')}
+                      <ArrowForwardIcon />
+                    </Button>
+                  )}
+                </>
+              )}
+              {!Object.values(BackgroundDialogActionMode).includes(
+                dialog.actionMode,
+              ) && (
+                <Button
+                  color="secondary"
+                  onClick={() => deletebackgroundDialog(dialog.id)}
+                >
+                  {t('common.continue')}
+                </Button>
+              )}
+            </DialogActions>
+          </Dialog>
+        );
+      })}
     </div>
   );
 };
+
+const CustomDialog = React.memo(
+  ({
+    dialogId,
+    DialogComponent,
+    deleteBackgroundDialog,
+  }: {
+    dialogId: string;
+    DialogComponent: CustomDialogComponent;
+    deleteBackgroundDialog: (id: string) => void;
+  }) => {
+    const closeDialog = useCallback(
+      () => deleteBackgroundDialog(dialogId),
+      [dialogId, deleteBackgroundDialog],
+    );
+
+    return <DialogComponent closeDialog={closeDialog} />;
+  },
+);
 
 function mapStateToProps(state: RootState) {
   return {

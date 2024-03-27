@@ -4,6 +4,7 @@ import { Dispatch } from '../../state/types';
 import {
   BackgroundDialogActionMode,
   BackgroundDialogDisplayMode,
+  CustomDialogComponent,
 } from './types';
 
 export const backgroundDialogDisplay = createAction(
@@ -30,6 +31,28 @@ export function displayBackgroundDialog(
         link,
         actionMode,
         displayMode,
+      }),
+    );
+  };
+}
+
+export function displayCustomBackgroundDialog({
+  uuid,
+  customDialogComponent,
+}: {
+  uuid: string;
+  customDialogComponent: CustomDialogComponent;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      backgroundDialogDisplay({
+        uuid,
+        title: '',
+        message: '',
+        link: '',
+        actionMode: null,
+        displayMode: null,
+        customDialogComponent,
       }),
     );
   };

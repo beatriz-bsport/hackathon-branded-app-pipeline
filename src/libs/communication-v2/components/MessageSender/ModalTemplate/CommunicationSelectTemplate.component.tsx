@@ -73,10 +73,10 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   );
 
   const onSelectTemplate = React.useCallback(
-    (ev: any) => {
-      if (ev) {
-        onChangeTemplate(ev.value);
-        getEmailDetail(ev.value);
+    (eventValue: number) => {
+      if (eventValue) {
+        onChangeTemplate(eventValue);
+        getEmailDetail(eventValue);
       } else {
         onChangeTemplate(null);
       }
@@ -135,12 +135,14 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
         <LinearProgress className={classes.selectorContainer} />
       ) : (
         <div className={classes.selectorContainer}>
-          <EmailSelector
-            emails={emailSummaryList}
-            helperText={t('mail.mailSelection')}
-            onChange={onSelectTemplate}
-            value={selectedTemplate}
-          />
+          <div className={classes.emailSelectorContainer}>
+            <EmailSelector
+              emails={emailSummaryList}
+              helperText={t('mail.mailSelection')}
+              onChange={onSelectTemplate}
+              value={selectedTemplate}
+            />
+          </div>
           <Fab
             className={classes.addIcon}
             color="secondary"
@@ -311,6 +313,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
+  },
+  emailSelectorContainer: {
+    width: '85%',
   },
 }));
 

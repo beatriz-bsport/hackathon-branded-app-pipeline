@@ -156,16 +156,20 @@ const MarketingRuleSendingMethodField = (props: Props) => {
               <LinearProgress className={classes.selectorContainer} />
             ) : (
               <div className={classes.selectorContainer}>
-                <EmailSelector
-                  emails={emails}
-                  helperText={t('paymentPack:notification.form.mailSelection')}
-                  name="email_design"
-                  onChange={(ev) => {
-                    setFieldValue('email_design', ev ? ev.value : null);
-                    if (ev) getEmailDetail(ev.value);
-                  }}
-                  value={email_design}
-                />
+                <div className={classes.emailSelectorContainer}>
+                  <EmailSelector
+                    emails={emails}
+                    helperText={t(
+                      'paymentPack:notification.form.mailSelection',
+                    )}
+                    name="email_design"
+                    onChange={(eventValue) => {
+                      setFieldValue('email_design', eventValue || null);
+                      if (eventValue) getEmailDetail(eventValue);
+                    }}
+                    value={email_design}
+                  />
+                </div>
               </div>
             )}
             <div className={classes.buttonContainer}>
@@ -304,6 +308,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
+  },
+  emailSelectorContainer: {
+    width: '100%',
   },
   previewEmpty: {
     display: 'flex',

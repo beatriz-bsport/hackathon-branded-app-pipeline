@@ -131,16 +131,18 @@ export class SendEmailDialog extends Component<Props> {
               <LinearProgress className={classes.selectorContainer} />
             ) : (
               <div className={classes.selectorContainer}>
-                <EmailSelector
-                  emails={this.props.emails}
-                  helperText={t('mails')}
-                  onChange={(ev) => {
-                    const { value } = ev;
-                    this.setState({ selectedMail: value });
-                    this.props.getEmailDetail(value);
-                  }}
-                  value={this.state.selectedMail}
-                />
+                <div className={classes.emailSelectorContainer}>
+                  <EmailSelector
+                    emails={this.props.emails}
+                    helperText={t('mails')}
+                    onChange={(ev) => {
+                      const { value } = ev;
+                      this.setState({ selectedMail: value });
+                      this.props.getEmailDetail(value);
+                    }}
+                    value={this.state.selectedMail}
+                  />
+                </div>
                 <Fab
                   className={classes.addIcon}
                   color="secondary"
@@ -228,6 +230,9 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
+  },
+  emailSelectorContainer: {
+    width: '100%',
   },
   previewEmpty: {
     display: 'flex',

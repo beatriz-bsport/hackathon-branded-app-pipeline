@@ -128,9 +128,9 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
                 }
                 helperText={t('franchise.form.mailSelection')}
                 name="email_design"
-                onChange={(ev) => {
-                  setFieldValue('email_design', ev ? ev.value : null);
-                  ev && refreshEmailPreview(ev.value);
+                onChange={(eventValue) => {
+                  setFieldValue('email_design', eventValue || null);
+                  eventValue && refreshEmailPreview(eventValue);
                 }}
                 value={values.email_design}
               />

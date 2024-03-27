@@ -88,10 +88,10 @@ export class SelectTemplate extends Component<Props> {
     );
   };
 
-  handleOnChange = (ev) => {
-    if (ev && ev.value) {
-      this.props.onChangeTemplate(ev.value);
-      this.props.getEmailDetail(ev.value);
+  handleOnChange = (eventValue) => {
+    if (eventValue) {
+      this.props.onChangeTemplate(eventValue);
+      this.props.getEmailDetail(eventValue);
     }
   };
 
@@ -115,12 +115,14 @@ export class SelectTemplate extends Component<Props> {
             <LinearProgress className={classes.selectorContainer} />
           ) : (
             <div className={classes.selectorContainer}>
-              <EmailSelector
-                emails={this.props.emails}
-                helperText={t('mail.mailSelection')}
-                onChange={this.handleOnChange}
-                value={this.props.selectedMail}
-              />
+              <div className={classes.emailSelectorContainer}>
+                <EmailSelector
+                  emails={this.props.emails}
+                  helperText={t('mail.mailSelection')}
+                  onChange={this.handleOnChange}
+                  value={this.props.selectedMail}
+                />
+              </div>
               <Fab
                 className={classes.addIcon}
                 color="secondary"
@@ -241,6 +243,9 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
+  },
+  emailSelectorContainer: {
+    width: '100%',
   },
   previewEmpty: {
     display: 'flex',

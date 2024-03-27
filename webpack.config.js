@@ -143,6 +143,7 @@ const defaultConfig = {
         __dirname,
         './node_modules/bsport-saas/src/components/untitledui',
       ),
+      '#pages': path.resolve(__dirname, './node_modules/bsport-saas/src/pages'),
     },
   },
 };

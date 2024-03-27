@@ -46,6 +46,8 @@ import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
+import { withAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
+import type { MemberVisitREST } from '#libs/access-control/types';
 
 type Props = {
   members: MemberMinimal[];
@@ -64,6 +66,7 @@ type Props = {
   searchText: string;
   permissions: RolePermission;
   searchForTextInArchive: (tex: string) => void;
+  sendToAccessControlBroadcastChannel: (message: any) => void;
 };
 
 type State = {
@@ -203,10 +206,17 @@ export class SearchResults extends React.Component<Props, State> {
   };
 
   handleCheckinMember = (member: Member) => {
-    this.props.checkMemberInEstablishment({
-      memberId: member.id,
-      establishmentIds: this.props.establishmentsSelectedInRole,
-    });
+    this.props.checkMemberInEstablishment(
+      {
+        memberId: member.id,
+        establishmentIds: this.props.establishmentsSelectedInRole,
+      },
+      {
+        onSuccess: (data: MemberVisitREST) => {
+          this.props.sendToAccessControlBroadcastChannel(data);
+        },
+      },
+    );
   };
 
   hideAccessMonitoring =
@@ -384,4 +394,5 @@ export default compose(
     searchText: getSearchText(state, location),
   })),
   withTitle(({ t }: { t: TFunction }) => t('titles:searchResults')),
+  withAccessControlBroadcastChannel,
 )(SearchResults);

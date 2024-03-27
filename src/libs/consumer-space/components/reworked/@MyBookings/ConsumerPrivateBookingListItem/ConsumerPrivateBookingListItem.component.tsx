@@ -5,7 +5,10 @@ import {
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
 
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import {
+  getCoachDisplayName,
+  getCoachDisplayPicture,
+} from '@bsport/common/lib/master-data/coach';
 import { isDateInThePast } from '#utils/datetime';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
@@ -60,11 +63,13 @@ const ConsumerPrivateBookingListItem: React.FC<Props> = ({
     item.coach?.firstname,
   );
 
+  const coachPicture = getCoachDisplayPicture(coachDisplay, item.coach?.photo);
+
   return (
     <ConsumerBookingCard
       activityName={item.private_service?.name}
       coachName={coachName}
-      coachPhoto={item.coach?.photo}
+      coachPhoto={coachPicture}
       establishmentAddress={item.establishment?.location?.address}
       isAtHome={item.private_service?.is_home_service}
       isBookableForAGuest={false}

@@ -8,7 +8,10 @@ import {
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
 
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import {
+  getCoachDisplayName,
+  getCoachDisplayPicture,
+} from '@bsport/common/lib/master-data/coach';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
@@ -179,6 +182,13 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     selectedBooking?.coach_override?.firstname,
   );
 
+  const selectedBookingCoachPicture = getCoachDisplayPicture(
+    coachDisplay,
+    selectedBooking?.coach?.photo ||
+      selectedPrivateBooking?.coach?.photo ||
+      selectedBookingOption?.coach?.photo,
+  );
+
   return (
     <div
       className={classNames('bs-consumer-page-root__bookings', {
@@ -303,11 +313,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             }
             coachOverrideName={selectedBookingCoachOverrideName}
             coachOverridePicture={selectedBooking?.coach_override?.photo}
-            coachPicture={
-              selectedBooking?.coach?.photo ||
-              selectedPrivateBooking?.coach?.photo ||
-              selectedBookingOption?.coach?.photo
-            }
+            coachPicture={selectedBookingCoachPicture}
             consumerPaymentPackAvailableCredits={
               selectedBooking?.consumer_payment_pack?.available_credits ??
               selectedPrivateBooking?.private_consumer_pass?.private_pass

@@ -48,6 +48,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
   menuId,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
   const secondaryButtonsList = React.useMemo(
     () => [
       {

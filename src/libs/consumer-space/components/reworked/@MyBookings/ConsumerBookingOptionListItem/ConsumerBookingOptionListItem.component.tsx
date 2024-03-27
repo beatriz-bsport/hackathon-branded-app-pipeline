@@ -68,11 +68,12 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
 
   return (
     <ConsumerBookingCard
+      isBookable
       activityName={item.meta_activity?.name}
       coachName={coachName}
       coachPhoto={item.coach?.photo}
       establishmentAddress={item.establishment?.location?.address}
-      isBookable={item.is_convertible}
+      isBookableDisabled={!item.is_convertible}
       isBookingCancelled={!!item.cancelled}
       isCancelDisabled={isBookingOptionInThePast}
       isCancellable={!item.cancelled}

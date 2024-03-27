@@ -575,32 +575,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     const offerLoading = !this.props.containerWidth || loading;
     return (
       <>
-        <MarketplaceActivityDialogV2
-          coaches={coaches}
-          companyTheme={this.props.theme}
-          customLevels={this.props.customLevels}
-          establishments={
-            filters.establishment_group__in?.length
-              ? this.state.filteredEstablishments
-              : establishments
-          }
-          group={this.props.group}
-          hideCoach={this.props.theme && this.props.theme.hideCoach}
-          isBookingDisabled={
-            !this.state.offer?.available || isOfferInThePast(this.state?.offer)
-          }
-          mapContainerClassName={this.props.mapContainerClassName}
-          metaActivities={
-            this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
-          }
-          offer={this.state.offer}
-          onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
-          onClose={this.closeOfferDialog}
-          open={!!this.state.offerId}
-        />
         <MarketplaceCalendarComponent
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
@@ -653,6 +627,32 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           theme={this.props.theme}
           toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}
+        />
+        <MarketplaceActivityDialogV2
+          coaches={coaches}
+          companyTheme={this.props.theme}
+          customLevels={this.props.customLevels}
+          establishments={
+            filters.establishment_group__in?.length
+              ? this.state.filteredEstablishments
+              : establishments
+          }
+          group={this.props.group}
+          hideCoach={this.props.theme && this.props.theme.hideCoach}
+          isBookingDisabled={
+            !this.state.offer?.available || isOfferInThePast(this.state?.offer)
+          }
+          mapContainerClassName={this.props.mapContainerClassName}
+          metaActivities={
+            this.props.theme.show_workshops_customer
+              ? this.props.metaActivitiesWorkshops
+              : metaActivities
+          }
+          offer={this.state.offer}
+          onClickBook={this.goToBook}
+          onClickBookOption={this.props.goToBookOption}
+          onClose={this.closeOfferDialog}
+          open={!!this.state.offerId}
         />
         {this.state.displayGroupPopup && (
           <GroupRulePopupContained

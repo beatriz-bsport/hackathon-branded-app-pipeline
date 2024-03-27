@@ -438,12 +438,14 @@ export default function useConsumerBookingsDataManager({
       }
       setSelectedTab(type);
       handleResetSelectedItems();
+      handleResetSelectedItemsForCancellation();
     },
     [
       handleFetchTabData,
       handleResetSelectedItems,
       resetConsumerState,
       selectedFilterTab,
+      handleResetSelectedItemsForCancellation,
     ],
   );
 
@@ -455,8 +457,9 @@ export default function useConsumerBookingsDataManager({
     (type: BookingFilterTab) => {
       setSelectedFilterTab(type);
       handleResetSelectedItems();
+      handleResetSelectedItemsForCancellation();
     },
-    [handleResetSelectedItems],
+    [handleResetSelectedItems, handleResetSelectedItemsForCancellation],
   );
 
   /**

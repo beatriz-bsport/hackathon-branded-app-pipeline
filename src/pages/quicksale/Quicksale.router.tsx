@@ -33,7 +33,7 @@ const Quicksale: React.FC<Props> = ({
     }
   }, [authenticated, fetchCompanyTheme, fetchProfile]);
 
-  if (!authenticated || (role && role !== RoleType.USER_ROLE_QUICKSALE))
+  if (!authenticated || role !== RoleType.USER_ROLE_QUICKSALE)
     return <Redirect to="/" />;
 
   return (

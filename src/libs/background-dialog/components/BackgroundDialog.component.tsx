@@ -23,12 +23,8 @@ import { deletebackgroundDialog as deletebackgroundDialogAction } from '../actio
 import { RootState } from '../../../reducers';
 import {
   BackgroundDialog,
-  ACTION_MODE_DOWNLOAD,
-  DISPLAY_TEXT,
-  DISPLAY_SUCCESS,
-  DISPLAY_INFORMATION,
-  ACTION_MODE_REDIRECT,
-  DISPLAY_ACCESS_DENIED,
+  BackgroundDialogActionMode,
+  BackgroundDialogDisplayMode,
 } from '../types';
 
 type Props = {
@@ -82,18 +78,18 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
           {!!dialog.title && (
             <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
           )}
-          {dialog.displayMode === DISPLAY_ACCESS_DENIED && (
+          {dialog.displayMode === BackgroundDialogDisplayMode.ACCESS_DENIED && (
             <DialogTitle id="alert-dialog-title">
               {t('snackbar:accessDenied.general.title')}
             </DialogTitle>
           )}
           <DialogContent>
-            {dialog.displayMode === DISPLAY_TEXT && (
+            {dialog.displayMode === 'TEXT' && (
               <DialogContentText id="alert-dialog-description">
                 {dialog.message}
               </DialogContentText>
             )}
-            {dialog.displayMode === DISPLAY_INFORMATION && (
+            {dialog.displayMode === BackgroundDialogDisplayMode.INFORMATION && (
               <div className={classes.contentWithIcon}>
                 <InfoIcon className={classes.icon} />
                 <Typography
@@ -105,7 +101,8 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                 </Typography>
               </div>
             )}
-            {dialog.displayMode === DISPLAY_ACCESS_DENIED && (
+            {dialog.displayMode ===
+              BackgroundDialogDisplayMode.ACCESS_DENIED && (
               <div className={classes.contentWithIcon}>
                 <BlockIcon className={classNames(classes.icon, classes.red)} />
                 <Typography
@@ -117,7 +114,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                 </Typography>
               </div>
             )}
-            {dialog.displayMode === DISPLAY_SUCCESS && (
+            {dialog.displayMode === BackgroundDialogDisplayMode.SUCCESS && (
               <div className={classes.contentWithIcon}>
                 <CheckIcon className={classes.icon} color="secondary" />
                 <Typography
@@ -131,7 +128,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
             )}
           </DialogContent>
           <DialogActions>
-            {dialog.actionMode === ACTION_MODE_DOWNLOAD && (
+            {dialog.actionMode === BackgroundDialogActionMode.DOWNLOAD && (
               <>
                 <a href={dialog.link} rel="noreferrer" target="_blank">
                   <Button
@@ -157,7 +154,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                 </Button>
               </>
             )}
-            {dialog.actionMode === ACTION_MODE_REDIRECT && (
+            {dialog.actionMode === BackgroundDialogActionMode.REDIRECT && (
               <>
                 <Button
                   color="secondary"
@@ -180,7 +177,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                 )}
               </>
             )}
-            {![ACTION_MODE_DOWNLOAD, ACTION_MODE_REDIRECT].includes(
+            {!Object.values(BackgroundDialogActionMode).includes(
               dialog.actionMode,
             ) && (
               <Button

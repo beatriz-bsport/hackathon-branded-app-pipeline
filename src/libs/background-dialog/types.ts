@@ -4,8 +4,8 @@ export type BackgroundDialog = {
     title: string;
     message: string;
     link: string;
-    displayMode: string;
-    actionMode: string;
+    displayMode: BackgroundDialogDisplayMode;
+    actionMode: BackgroundDialogActionMode;
   }>;
 };
 
@@ -13,9 +13,14 @@ export type BackgroundDialogState = {
   messages: Array<BackgroundDialogState>;
 };
 
-export const ACTION_MODE_DOWNLOAD = 'DOWNLOAD';
-export const ACTION_MODE_REDIRECT = 'REDIRECT';
-export const DISPLAY_INFORMATION = 'INFORMATION';
-export const DISPLAY_ACCESS_DENIED = 'ACCESS_DENIED';
-export const DISPLAY_TEXT = 'TEXT';
-export const DISPLAY_SUCCESS = 'SUCCESS';
+export enum BackgroundDialogDisplayMode {
+  INFORMATION = 'INFORMATION',
+  ACCESS_DENIED = 'ACCESS_DENIED',
+  TEXT = 'TEXT',
+  SUCCESS = 'SUCCESS',
+}
+
+export enum BackgroundDialogActionMode {
+  DOWNLOAD = 'DOWNLOAD',
+  REDIRECT = 'REDIRECT',
+}

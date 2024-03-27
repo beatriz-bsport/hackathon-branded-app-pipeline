@@ -43,10 +43,12 @@ import { getPermissions } from './selectors';
 import { matchUrlToRelevantPermissionKey, getNestedKeyInObject } from './utils';
 import { RootState } from '../../reducers';
 import { displayBackgroundDialog } from '#libs/background-dialog/actions';
+
 import {
-  DISPLAY_ACCESS_DENIED,
-  ACTION_MODE_REDIRECT,
+  BackgroundDialogDisplayMode,
+  BackgroundDialogActionMode,
 } from '#libs/background-dialog/types';
+
 import { isErrorWithCustomCode } from '#libs/utils';
 
 export const userRoleList = {
@@ -553,8 +555,8 @@ export function redirectIfAllowed(
               '',
               '',
               '',
-              ACTION_MODE_REDIRECT,
-              DISPLAY_ACCESS_DENIED,
+              BackgroundDialogActionMode.REDIRECT,
+              BackgroundDialogDisplayMode.ACCESS_DENIED,
             ),
           );
           return;

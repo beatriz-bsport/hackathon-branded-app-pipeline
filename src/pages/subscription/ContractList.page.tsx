@@ -91,9 +91,8 @@ import { Coach } from '../../libs/associated-coach/types';
 import { Member } from '../../libs/member/types';
 
 import {
-  DISPLAY_INFORMATION,
-  DISPLAY_SUCCESS,
-  ACTION_MODE_REDIRECT,
+  BackgroundDialogDisplayMode,
+  BackgroundDialogActionMode,
 } from '#libs/background-dialog/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -627,8 +626,8 @@ const mapWithHandlers = {
         t('subscription:register.dialog.info'),
         '',
         undefined,
-        ACTION_MODE_REDIRECT,
-        DISPLAY_INFORMATION,
+        BackgroundDialogActionMode.REDIRECT,
+        BackgroundDialogDisplayMode.INFORMATION,
       );
       registerContractBackground(id, data, {
         onError: (err) => {
@@ -652,8 +651,8 @@ const mapWithHandlers = {
             responseData?.billing_plan?.id
               ? `/subscription/${responseData.billing_plan.id}`
               : undefined,
-            ACTION_MODE_REDIRECT,
-            DISPLAY_SUCCESS,
+            BackgroundDialogActionMode.REDIRECT,
+            BackgroundDialogDisplayMode.SUCCESS,
           );
           if (options?.onSuccess) options.onSuccess(responseData);
         },

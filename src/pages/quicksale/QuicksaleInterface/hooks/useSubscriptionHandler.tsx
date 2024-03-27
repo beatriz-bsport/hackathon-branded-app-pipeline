@@ -12,10 +12,7 @@ import type {
   OptionBackgroundCallback,
   OptionCallback,
 } from '../../../../state/types';
-import {
-  DISPLAY_INFORMATION,
-  DISPLAY_SUCCESS,
-} from '#libs/background-dialog/types';
+import { BackgroundDialogDisplayMode } from '#libs/background-dialog/types';
 
 const useSubscriptionHandler = (
   currency: string,
@@ -88,7 +85,7 @@ const useSubscriptionHandler = (
             '',
             undefined,
             '',
-            DISPLAY_INFORMATION,
+            BackgroundDialogDisplayMode.INFORMATION,
           );
         },
         onBackgroundError: () => {
@@ -106,7 +103,7 @@ const useSubscriptionHandler = (
               ? `/subscription/${responseData.billing_plan.id}`
               : undefined,
             '',
-            DISPLAY_SUCCESS,
+            BackgroundDialogDisplayMode.SUCCESS,
           );
           if (options?.onSuccess) options.onSuccess(responseData);
         },

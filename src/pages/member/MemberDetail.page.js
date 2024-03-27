@@ -80,9 +80,8 @@ import { ObjectLevelPermissions } from '../../libs/role/types';
 import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils';
 
 import {
-  ACTION_MODE_REDIRECT,
-  DISPLAY_SUCCESS,
-  DISPLAY_INFORMATION,
+  BackgroundDialogDisplayMode,
+  BackgroundDialogActionMode,
 } from '#libs/background-dialog/types';
 
 import Config from '../../config';
@@ -703,8 +702,8 @@ export default compose(
               t('subscription:register.dialog.info'),
               '',
               undefined,
-              ACTION_MODE_REDIRECT,
-              DISPLAY_INFORMATION,
+              BackgroundDialogActionMode.REDIRECT,
+              BackgroundDialogDisplayMode.INFORMATION,
             );
           },
           onBackgroundError: () => {
@@ -721,8 +720,8 @@ export default compose(
               responseData?.billing_plan?.id
                 ? `/subscription/${responseData.billing_plan.id}`
                 : undefined,
-              ACTION_MODE_REDIRECT,
-              DISPLAY_SUCCESS,
+              BackgroundDialogActionMode.REDIRECT,
+              BackgroundDialogDisplayMode.SUCCESS,
             );
             if (options?.onSuccess) options.onSuccess(responseData);
           },

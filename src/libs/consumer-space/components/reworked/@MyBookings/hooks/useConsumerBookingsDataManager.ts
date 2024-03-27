@@ -745,7 +745,7 @@ export default function useConsumerBookingsDataManager({
   const handleShowSpotDetails = useCallback(
     (booking: ConsumerBooking) => {
       if (
-        (booking.spot_information as SpotInformation).name &&
+        (booking.spot_information as SpotInformation).indexType &&
         booking.room_blueprint
       ) {
         fetchAssociatedBlueprintObjects(booking.room_blueprint.id);

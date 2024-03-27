@@ -47,6 +47,7 @@ export type Props = {
   onClickBook: (offer: Offer) => void;
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
+  hideLevel?: boolean;
   width: string;
   group: { [key: number]: OffersGroup };
   coachDisplay?: MarketPlaceCoachDisplay;
@@ -59,6 +60,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
     coaches,
     customLevels,
     hideCoach,
+    hideLevel,
     companyTheme,
     group,
     coachDisplay,
@@ -220,6 +222,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               activityDialog
               className="bs-activity__top__content__status__level"
               customLevel={customLevel}
+              hideLevel={hideLevel}
             />
             {metaActivity && metaActivity?.is_broadcast && (
               <MarketplaceBroadcast activityDialog />

@@ -56,6 +56,7 @@ export function MarketplaceActivityDialog(props: Props) {
           <MarketplaceActivityV2
             {...props}
             coachDisplay={props.companyTheme?.coach_display}
+            hideLevel={!props.companyTheme?.show_level}
             width="xs"
           />
         ) : null}
@@ -80,6 +81,7 @@ export function MarketplaceActivityDialog(props: Props) {
           <MarketplaceActivityV2
             {...props}
             coachDisplay={props.companyTheme?.coach_display}
+            hideLevel={!props.companyTheme?.show_level}
           />
         ) : null}
       </DialogContent>

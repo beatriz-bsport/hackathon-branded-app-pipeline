@@ -3,6 +3,8 @@ import {
   buildUrlParams,
   setAuthToken,
   getAuthToken,
+  setAccessControlBroadcastsChannelId,
+  getAccessControlBroadcastsChannelId,
   parseQueryStringWhithoutDecode,
 } from './utils';
 import { BASE_URI, API_URI, API_V1_URI } from './constants';
@@ -34,6 +36,8 @@ export {
   buildUrlParams,
   setAuthToken,
   getAuthToken,
+  setAccessControlBroadcastsChannelId,
+  getAccessControlBroadcastsChannelId,
   // CONSTANTS
   BASE_URI,
   API_URI,

@@ -1,6 +1,11 @@
 import Immutable from 'seamless-immutable';
+import { v4 as uuidv4 } from 'uuid';
 
-import { setAuthToken } from '../http';
+import {
+  setAuthToken,
+  setAccessControlBroadcastsChannelId,
+  getAccessControlBroadcastsChannelId,
+} from '../http';
 import actionTypes from '../actions/auth.types';
 import {
   stampLastPlatformSubscriptionWarningDateSuccess,
@@ -78,6 +83,7 @@ export default function authReducers(state = initialState, action = {}) {
       return state.set('initializating', action.payload);
     case actionTypes.DISCONNECT:
       setAuthToken(null);
+      setAccessControlBroadcastsChannelId(null);
       return initialState;
 
     case actionTypes.LOGIN_INITIATED:
@@ -128,6 +134,10 @@ export default function authReducers(state = initialState, action = {}) {
       } = action;
 
       setAuthToken(token);
+      // Get or generate a new channel id for the access control broadcasts
+      setAccessControlBroadcastsChannelId(
+        getAccessControlBroadcastsChannelId() || uuidv4(),
+      );
       let res = state;
       if (!context?.accessLevel) {
         res = state

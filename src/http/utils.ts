@@ -84,6 +84,14 @@ export function setAuthToken(token: string) {
   storage.setItem('bsport:http:token', token);
 }
 
+export function setAccessControlBroadcastsChannelId(uuid: string) {
+  if (!uuid || uuid === 'null') {
+    storage.removeItem('bsport:accm-channel:id');
+    return;
+  }
+  storage.setItem('bsport:accm-channel:id', uuid);
+}
+
 export function getCookie(name: string) {
   const values = document.cookie.split(';').map((s) => s.split('='));
   const item = values.find((c) => c[0].trim() === name);
@@ -102,4 +110,8 @@ export function getAuthToken() {
     );
   }
   return storage.getItem('bsport:http:token');
+}
+
+export function getAccessControlBroadcastsChannelId() {
+  return storage.getItem('bsport:accm-channel:id');
 }

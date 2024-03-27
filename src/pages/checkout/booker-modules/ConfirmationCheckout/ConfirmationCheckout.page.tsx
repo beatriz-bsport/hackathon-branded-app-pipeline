@@ -117,6 +117,7 @@ type ConfirmationCheckoutProps = {
   billingPlan: Subscription;
   companyId: number;
   goToMemberProfile: () => void;
+  goToMemberBookings: () => void;
   goToMarketplace: () => void;
   goToMemberPasses: () => void;
   goToMemberSubscriptions: () => void;
@@ -438,6 +439,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 {...(showCallToActionButtons && {
                   goToMemberSubscriptions: this.props.goToMemberSubscriptions,
                 })}
+                goToMemberBookings={this.props.goToMemberBookings}
                 isLoading={isLoading}
                 offers={offers}
                 status={confirmationStatus}
@@ -648,6 +650,24 @@ const mapWithHandlers = {
         return;
       }
       replace(`/c/${companyId}`);
+    },
+  goToMemberBookings:
+    ({
+      replace,
+      companyId,
+      companyTheme,
+    }: {
+      replace: typeof replaceRouter;
+      companyId: number;
+      queryParams: QueryParams;
+      companyTheme: CompanyTheme;
+    }) =>
+    () => {
+      if (WidgetUtils.isWidget()) {
+        replace(buildUrlForWidget('bookings/', companyTheme));
+        return;
+      }
+      replace(`/c/${companyId}/booking/`);
     },
   goToMarketplace:
     ({

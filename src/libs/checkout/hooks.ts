@@ -10,6 +10,7 @@ export const useConfirmationMessageData = (
   goToCalendar: () => void,
   goBack: () => void,
   goToMemberProfile: () => void,
+  goToMemberBookings: () => void,
   goToMemberPasses: () => void,
   goToMemberSubscriptions: () => void,
 ) => {
@@ -44,11 +45,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -90,11 +91,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -119,11 +120,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -148,11 +149,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -186,11 +187,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -212,11 +213,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -238,11 +239,11 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          ...(goToMemberProfile
+          ...(goToMemberBookings
             ? {
                 confirm: {
                   label: t('validation.actions.myBookings'),
-                  onClick: goToMemberProfile,
+                  onClick: goToMemberBookings,
                 },
               }
             : {}),
@@ -372,6 +373,7 @@ export const useConfirmationMessageData = (
     t,
     goToCalendar,
     goToMemberProfile,
+    goToMemberBookings,
     goBack,
     checkoutItems?.length,
     offers?.length,

@@ -129,7 +129,7 @@ export default compose(
       upsertMember: createOrUpdateMember,
     },
   ),
-  withProps(({ goToMember, mergeMembers, upsertMember, dst, src }) => ({
+  withProps(({ mergeMembers, upsertMember, dst, src }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
         // eslint-disable-next-line
@@ -145,7 +145,6 @@ export default compose(
           mergeMembers(src, dst, {
             onSuccess: () => {
               options.onSuccess();
-              goToMember(dst);
             },
           });
         },

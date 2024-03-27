@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
+import URI from 'urijs';
 
 import * as Sentry from '@sentry/react';
 import type { RootState } from '../../reducers/types';
@@ -63,6 +64,10 @@ import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { COMPANY_EVENTS } from './events.utils';
 import { fetchEventList } from '#libs/event/actions';
 import { EventListParams } from '#libs/event/types';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
+import { displayCustomBackgroundDialog } from '#libs/background-dialog/actions';
+
+import MemberStatusMergeDialogComponent from './MemberStatusMergeDialog.component';
 
 export const actionTypes = {
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',
@@ -737,19 +742,67 @@ export function mergeMembers(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionMergeStart(src, dst));
+    dispatch(push(`/member/${src}`));
 
     try {
-      const response: any = await mergeApi(src, dst);
-
+      const response: AxiosResponse<void> = await mergeApi(src, dst);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       if (response.status !== 200) {
         throw new Error(response);
       }
-      dispatch(actionMergeSuccess(src, dst));
-      dispatch(snackbarSuccess('member.merge.success'));
-      if (options && options.onSuccess) options.onSuccess();
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            dispatch(
+              displayCustomBackgroundDialog({
+                customDialogComponent: ({ closeDialog }) =>
+                  MemberStatusMergeDialogComponent.Success({
+                    closeDialog: () => {
+                      if (
+                        URI(window.location.href)
+                          .path()
+                          .includes(`/member/${src}`)
+                      ) {
+                        dispatch(push(`/member/${dst}`));
+                      } else {
+                        window.location.reload();
+                      }
+                      closeDialog();
+                    },
+                    onSeeClick: () => {
+                      dispatch(push(`/member/${dst}`));
+                      closeDialog();
+                    },
+                  }),
+                uuid: `success-${backgroundTaskUuid}`,
+              }),
+            );
+
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (error) => {
+            dispatch(
+              displayCustomBackgroundDialog({
+                customDialogComponent: MemberStatusMergeDialogComponent.Error,
+                uuid: `error-${backgroundTaskUuid}`,
+              }),
+            );
+            console.error(error);
+            dispatch(actionMergeError(error));
+            if (options && options.onError) options.onError(error);
+          },
+        }),
+      );
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('member.merge.error'));
+      dispatch(
+        displayCustomBackgroundDialog({
+          customDialogComponent: MemberStatusMergeDialogComponent.Error,
+          uuid: `unknown-error-when-merging-${src}-${dst}`,
+        }),
+      );
       dispatch(actionMergeError(e));
       if (options && options.onError) {
         options.onError((e || {}).response ? e.response.data : {});

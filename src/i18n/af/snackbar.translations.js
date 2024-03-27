@@ -382,6 +382,15 @@ const getTranslations = async () => {
         },
       },
     },
+    mergeSuccess: {
+      title: 'The merge has been successful',
+      content: 'An e-mail was sent to both addresses to notify the member',
+      seeMemberProfile: 'See member profile',
+    },
+    mergeError: {
+      title: 'The merge failed',
+      content: 'Please try again or contact support for further information',
+    },
     establishment: {
       update: { success: 'Establishment details updated' },
       create: { success: 'Establishment successfully created' },

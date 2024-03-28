@@ -18,7 +18,7 @@ import OfferFormTags from '#libs/offer/form/sections/OfferFormTags.component';
 import OfferFormCreationValidationSchema from '#libs/offer/form/CreationValidationSchema';
 import { useOfferFormStyles } from '#libs/offer/hooks';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
-import { getIsoWeekDay, getOfferRecurrenceDates } from '#libs/offer/utils';
+import { getOfferRecurrenceDates } from '#libs/offer/utils';
 
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -256,7 +256,10 @@ const formikFormWrapper = withFormik<
   OfferFormValues
 >({
   mapPropsToValues: (props: ComponentProps & FormProps) => {
-    const isoWeekDay = getIsoWeekDay();
+    const dateIntervalStart = moment(props.selectedDate ?? undefined).startOf(
+      'day',
+    );
+    const recurrenceIsoWeekDay = dateIntervalStart.isoWeekday();
     return {
       allowGuestOffer: true,
       availableOnPartnership: !props.isOfferInGroup,
@@ -266,7 +269,7 @@ const formikFormWrapper = withFormik<
       coachPaymentRule: null,
       credits: 1,
       dateIntervalEnd: moment(props.selectedDate ?? undefined).add(1, 'day'),
-      dateIntervalStart: moment(props.selectedDate ?? undefined).startOf('day'),
+      dateIntervalStart,
       dates: [],
       durationMinute: 60,
       effectif: null,
@@ -284,13 +287,13 @@ const formikFormWrapper = withFormik<
       partnerMaxBookingCount: props.isOfferInGroup ? 0 : 6,
       recurrence: OFFER_RECURRENCE.WEEKLY,
       recurrenceWeekDay: {
-        '1': isoWeekDay === 1,
-        '2': isoWeekDay === 2,
-        '3': isoWeekDay === 3,
-        '4': isoWeekDay === 4,
-        '5': isoWeekDay === 5,
-        '6': isoWeekDay === 6,
-        '7': isoWeekDay === 7,
+        '1': recurrenceIsoWeekDay === 1,
+        '2': recurrenceIsoWeekDay === 2,
+        '3': recurrenceIsoWeekDay === 3,
+        '4': recurrenceIsoWeekDay === 4,
+        '5': recurrenceIsoWeekDay === 5,
+        '6': recurrenceIsoWeekDay === 6,
+        '7': recurrenceIsoWeekDay === 7,
       },
       roomBlueprint: null,
       roomBlueprintSlots: null,

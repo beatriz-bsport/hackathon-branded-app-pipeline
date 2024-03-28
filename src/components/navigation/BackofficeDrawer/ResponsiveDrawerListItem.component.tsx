@@ -14,7 +14,11 @@ import { Alert } from '@material-ui/lab';
 import Popper from '@material-ui/core/Popper';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
-import type { DrawerItem } from './ResponsiveDrawer.component';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import type {
+  DrawerItem,
+  DrawerItemDefault,
+} from './ResponsiveDrawer.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import DrawerListItemIcon from './DrawerListItemIcon.component';
 
@@ -97,6 +101,10 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
             secondary={item.subtext}
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
+        )}
+
+        {(item as DrawerItemDefault)?.openInNewTab && (
+          <OpenInNewIcon color="disabled" />
         )}
       </ListItem>
       <Hidden smDown>

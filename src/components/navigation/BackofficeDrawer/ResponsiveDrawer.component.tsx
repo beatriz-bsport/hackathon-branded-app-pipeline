@@ -122,6 +122,7 @@ export type DrawerItemDefault = {
   shrinkMenuOnIconOnly?: boolean;
   hasInnerTabs?: boolean;
   excludeUrlPatterns?: string[];
+  openInNewTab?: boolean;
 };
 
 export type DrawerItemDivider = {
@@ -204,22 +205,25 @@ const ResponsiveDrawer: React.FC<Props> = ({
     if (!hasUpsellIdentifier(UPSELL_IDENTIFIER_ACCESS_MONITORING)) {
       return [];
     }
-    let to;
+    let to_path;
+    let openInNewTab = false;
     if (permissions?.navigationMenu?.accessMonitoring?.perform) {
-      to = '/access-monitoring/perform';
+      to_path = '/access-monitoring/perform';
+      openInNewTab = true;
     } else if (permissions?.navigationMenu?.accessMonitoring?.monitor) {
-      to = '/access-monitoring/monitor';
+      to_path = '/access-monitoring/monitor';
     } else if (permissions?.navigationMenu?.accessMonitoring?.settings) {
-      to = '/access-monitoring/settings';
+      to_path = '/access-monitoring/settings';
     } else {
       return Immutable([]);
     }
     return Immutable([
       {
-        to,
+        to: to_path,
         icon: MeetingRoomIcon,
         text: t('backofficeMenu.accessMonitoring'),
         hasInnerTabs: true,
+        openInNewTab,
       } as DrawerItemDefault,
     ]);
   }, [t, hasUpsellIdentifier, permissions]);

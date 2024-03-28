@@ -36,6 +36,7 @@ class Wrapper extends React.PureComponent<WrapperProp> {
           key={i}
           className={item.className || ''}
           style={{ textDecoration: 'none' }}
+          target={item?.openInNewTab ? '_blank' : '_self'}
           to={item.to}
         >
           {children}

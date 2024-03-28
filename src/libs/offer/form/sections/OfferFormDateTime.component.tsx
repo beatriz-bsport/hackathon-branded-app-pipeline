@@ -102,17 +102,11 @@ const OfferFormDateTime = (props: Props) => {
       const startDateWeekDay = getStartDateWeekDay(date);
       newRecurrenceWeekDay[startDateWeekDay] = true;
       setFieldValue('recurrenceWeekDay', newRecurrenceWeekDay);
-      if (isRecurrence && isDateEqualOrAfterEndDate) {
+      if (isDateEqualOrAfterEndDate) {
         setFieldValue('dateIntervalEnd', moment(date).add(1, 'day'));
       }
     },
-    [
-      dateIntervalEnd,
-      dateIntervalStart,
-      handleChangeDate,
-      isRecurrence,
-      setFieldValue,
-    ],
+    [dateIntervalEnd, dateIntervalStart, handleChangeDate, setFieldValue],
   );
 
   const handleChangeDateEnd = useCallback(

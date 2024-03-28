@@ -1,85 +1,105 @@
-// @flow
-
 import React from 'react';
+import moment from 'moment-timezone';
+import { useTranslation } from 'react-i18next';
+
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { pure } from 'recompose';
-import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/Warning';
-import {
-  formatAsDatetime,
-  formatAsDatetimeAdapted,
-} from '../../../utils/datetime';
-import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
+
+import { formatAsDatetime, formatAsDatetimeAdapted } from '#utils/datetime';
+
+import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
 import Level from '#libs/level/components/Level.component';
 
+import type { Offer_FULL } from '#libs/offer/types';
+import type { Level as LevelType } from '#libs/level/types';
+
 type Props = {
-  offer: Object,
-  onClick: (offerId: number) => void,
-  editing_parameters?: any,
-  disabled?: boolean,
-  selected?: boolean,
-  similarOffer?: boolean,
-  handleChange?: () => void,
-  checked?: boolean,
-  divider?: boolean,
+  checked?: boolean;
+  disabled?: boolean;
+  divider?: boolean;
+  editing_parameters?: any;
+  handleChange?: () => void;
+  offer: Offer_FULL & { customLevel: LevelType };
+  onClick: (offerId: number) => void;
+  selected?: boolean;
+  similarOffer?: boolean;
 };
 
-export const OfferListItem = (props: Props) => {
-  const { offer } = props;
+export const OfferListItemV2: React.FC<Props> = ({
+  checked,
+  disabled,
+  divider,
+  editing_parameters,
+  handleChange,
+  offer,
+  onClick,
+  selected,
+  similarOffer,
+}) => {
   const { t } = useTranslation(['offer']);
   const classes = useStyles();
 
+  const handleClickItem = React.useCallback(() => {
+    if (onClick && offer.id) {
+      onClick(offer.id);
+    }
+  }, [offer, onClick]);
+
+  const offerNameDisplay = React.useMemo(
+    () => offer?.name_override || offer?.meta_activity?.name || offer?.name,
+    [offer],
+  );
+
+  const coach = React.useMemo(() => offer?.coach ?? null, [offer]);
+
+  const coachOverride = React.useMemo(
+    () => offer?.coach_override ?? null,
+    [offer],
+  );
+
+  const offerDateStart = React.useMemo(
+    () =>
+      formatAsDatetimeAdapted(
+        offer.date_start,
+        'llll',
+        offer.timezone_name || moment().tz() || 'Europe/Paris',
+      ),
+    [offer],
+  );
   return (
     <ListItem
-      button={!!props.onClick}
-      disabled={props.disabled}
-      divider={props?.divider ?? false}
-      onClick={props.onClick ? () => props.onClick(offer.id) : null}
-      selected={props.selected}
+      // @ts-expect-error
+      button={!!onClick}
+      disabled={disabled}
+      divider={!!divider}
+      onClick={handleClickItem}
+      selected={selected}
     >
-      {props.similarOffer ? (
+      {similarOffer ? (
         <Checkbox
-          checked={props.checked}
-          disabled={props.disabled}
-          onChange={props.handleChange}
+          checked={checked}
+          disabled={disabled}
+          onChange={handleChange}
         />
       ) : null}
       <ListItemAvatar>
-        <CoachAvatar
-          coach={offer && offer.coach ? offer.coach : null}
-          coach_override={offer.coach_override ? offer.coach_override : null}
-          t={t}
-        />
+        <CoachAvatar coach={coach} coach_override={coachOverride} />
       </ListItemAvatar>
       <ListItemText
         primary={
           <div>
-            <Typography inline>
-              {offer?.name_override ||
-                offer?.meta_activity?.name ||
-                offer?.name}
-            </Typography>
-            <Typography inline variant="caption">
-              {formatAsDatetimeAdapted(
-                offer.date_start,
-                'llll',
-                offer.timezone_name || moment().tz() || 'Europe/Paris',
-              )}
-            </Typography>
+            <Typography>{offerNameDisplay}</Typography>
+            <Typography variant="caption">{offerDateStart}</Typography>
             <div className={classes.row}>
               <Level
                 noStyle
                 align="left"
-                className={classes.level}
                 customLevel={offer && offer.customLevel}
-                noWrap={false}
                 variant="caption"
               />
 
@@ -93,7 +113,7 @@ export const OfferListItem = (props: Props) => {
                   <WarningIcon
                     className={classes.warningIcon}
                     color="error"
-                    size={15}
+                    fontSize="medium"
                   />
                   <Typography className={classes.warningText} variant="caption">
                     {t('warningOfferFull')}
@@ -108,6 +128,7 @@ export const OfferListItem = (props: Props) => {
             ? `${
                 (
                   offer.establishment_override ||
+                  // @ts-expect-error Not deleted to make sure we are not breaking anything on all endpoints.
                   offer.etablissement ||
                   offer.establishment
                 )?.title ?? ''
@@ -115,7 +136,7 @@ export const OfferListItem = (props: Props) => {
             : ''
         }
       />
-      {props.editing_parameters ? (
+      {editing_parameters ? (
         <div>
           <Typography
             className={classes.inline}
@@ -132,7 +153,7 @@ export const OfferListItem = (props: Props) => {
           >
             <div className={classes.text}>{t('forms.new_date')}</div>
             {formatAsDatetime(
-              props.editing_parameters.new_date_start,
+              editing_parameters.new_date_start,
               offer.timezone_name,
             )}
           </Typography>
@@ -141,6 +162,7 @@ export const OfferListItem = (props: Props) => {
     </ListItem>
   );
 };
+
 const useStyles = makeStyles((theme) => ({
   warningText: {
     width: theme.spacing(30),
@@ -163,4 +185,4 @@ const useStyles = makeStyles((theme) => ({
   marginLeft: { marginLeft: theme.spacing(1) },
 }));
 
-export default pure(OfferListItem);
+export default React.memo(OfferListItemV2);

@@ -165,6 +165,7 @@ export type Offer<
   internal_note?: string;
   name_override?: string;
   description_override?: string;
+  validated_booking_count: number;
 };
 
 /**

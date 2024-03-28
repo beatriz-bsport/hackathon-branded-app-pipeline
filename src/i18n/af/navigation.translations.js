@@ -5,6 +5,7 @@ exports.default = {
     coupon: 'Promotions',
     contract: 'Subscriptions',
     subscription: 'Direct debits',
+    accessMonitoring: 'Access',
     myClub: 'My studio',
     settings: {
       paymentRules: 'Payroll',
@@ -168,6 +169,11 @@ exports.default = {
       'Click here to complete your billing set up and to activate online payments.',
   },
   tab: {
+    accessMonitoring: {
+      perform: 'Member visit',
+      monitor: 'Location visits',
+      settings: 'Settings',
+    },
     coach: { calendar: 'Calendar', general: 'Profile' },
     customForm: {
       layout: 'Customisation',

@@ -38,6 +38,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -45,6 +46,7 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import Immutable from 'seamless-immutable';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
@@ -63,6 +65,7 @@ import {
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_CADENCE,
   UPSELL_IDENTIFIER_QUICKBOOKS,
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
@@ -197,6 +200,30 @@ const ResponsiveDrawer: React.FC<Props> = ({
     [featureList],
   );
 
+  const accessMonitoringItem = React.useMemo(() => {
+    if (!hasUpsellIdentifier(UPSELL_IDENTIFIER_ACCESS_MONITORING)) {
+      return [];
+    }
+    let to;
+    if (permissions?.navigationMenu?.accessMonitoring?.perform) {
+      to = '/access-monitoring/perform';
+    } else if (permissions?.navigationMenu?.accessMonitoring?.monitor) {
+      to = '/access-monitoring/monitor';
+    } else if (permissions?.navigationMenu?.accessMonitoring?.settings) {
+      to = '/access-monitoring/settings';
+    } else {
+      return Immutable([]);
+    }
+    return Immutable([
+      {
+        to,
+        icon: MeetingRoomIcon,
+        text: t('backofficeMenu.accessMonitoring'),
+        hasInnerTabs: true,
+      } as DrawerItemDefault,
+    ]);
+  }, [t, hasUpsellIdentifier, permissions]);
+
   const items: DrawerItem[] = React.useMemo(() => {
     return [
       {
@@ -222,6 +249,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         icon: ScheduleIcon,
         text: t('backofficeMenu.schedule'),
       } as DrawerItemDefault,
+      ...accessMonitoringItem,
       {
         icon: BusinessCenterIcon,
         text: t('backofficeMenu.myClub'),
@@ -636,6 +664,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
       } as DrawerItemDefault,
     ];
   }, [
+    accessMonitoringItem,
     classes,
     companyId,
     disconnect,

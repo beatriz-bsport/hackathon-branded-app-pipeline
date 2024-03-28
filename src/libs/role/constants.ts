@@ -8,6 +8,7 @@ import {
   // @ts-expect-error
 } from '#libs/role/role-types.js';
 import {
+  UPSELL_IDENTIFIER_ACCESS_MONITORING,
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
@@ -23,8 +24,12 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   // give calendar and schedule priority for redirection
   '/calendar': ['navigationMenu.calendar'],
   '/schedule': ['navigationMenu.schedule'],
+  '/access-monitoring/monitor': ['navigationMenu.accessMonitoring.monitor'],
+  '/access-monitoring/perform': ['navigationMenu.accessMonitoring.perform'],
+  '/access-monitoring/settings': ['navigationMenu.accessMonitoring.settings'],
   '/activity': ['navigationMenu.myClub.activities'],
   '/activity/add': ['navigationMenu.myClub.activities'],
+  '/add-offers': ['navigationMenu.schedule', 'navigationMenu.calendar'],
   '/audience': ['navigationMenu.marketing.cadence'],
   '/clock-in/history': ['navigationMenu.payments.clockIn.canAccessHistory'],
   '/clock-in/real-time': ['navigationMenu.payments.clockIn.clockInForOther'],
@@ -67,25 +72,27 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/private-service/pass': ['navigationMenu.products.privatePass'],
   '/private-service/service': ['navigationMenu.myClub.appointments'],
   '/replacement': ['navigationMenu.myClub.replacement'],
-  '/replacement/management': ['navigationMenu.myClub.replacement'],
   '/replacement/discipline-group': ['navigationMenu.myClub.replacement'],
+  '/replacement/management': ['navigationMenu.myClub.replacement'],
   '/reporting': ['navigationMenu.reporting'],
   '/search': ['member.retrieve'],
   '/search/results': ['member.search'],
   '/settings/active-campaign': ['navigationMenu.settings.activeCampaign'],
   '/settings/broadcast': ['navigationMenu.settings.liveStreaming'],
+  '/settings/coach-userspace': ['navigationMenu.settings.coachUserspace'],
+  '/settings/company_onboarding': ['navigationMenu.settings.subscription'],
   '/settings/company': ['navigationMenu.settings.company'],
   '/settings/forms': ['navigationMenu.settings.memberForms'],
   '/settings/general': ['navigationMenu.settings.generals'],
   '/settings/invoice': ['navigationMenu.settings.billing'],
   '/settings/marketplace-settings': ['navigationMenu.settings.marketplace'],
+  '/settings/mobile-personalisation/customize': [
+    'navigationMenu.settings.mobilePersonalization',
+  ],
   '/settings/mobile-personalisation/links': [
     'navigationMenu.settings.mobilePersonalization',
   ],
   '/settings/mobile-personalisation/popups': [
-    'navigationMenu.settings.mobilePersonalization',
-  ],
-  '/settings/mobile-personalisation/customize': [
     'navigationMenu.settings.mobilePersonalization',
   ],
   '/settings/notification-rule': [
@@ -104,9 +111,8 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/settings/waiting-list': ['navigationMenu.settings.waitingList'],
   '/settings/webhook': ['navigationMenu.settings.webHook'],
   '/settings/widget/create': ['navigationMenu.settings.widgets'],
-  '/settings/widget/customize': ['navigationMenu.settings.widgets'],
-  '/settings/coach-userspace': ['navigationMenu.settings.coachUserspace'],
   '/settings/widget/customize-css': ['navigationMenu.settings.widgets'],
+  '/settings/widget/customize': ['navigationMenu.settings.widgets'],
   '/shop': ['navigationMenu.products.shop'],
   '/smart-list': ['navigationMenu.marketing.smartlists'],
   '/spot-scheduling': ['navigationMenu.myClub.establishments'],
@@ -119,8 +125,6 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/workshop-activity/tabs': ['navigationMenu.myClub.workshops'],
   '/workshop-activity/tabs/groups': ['navigationMenu.myClub.workshops'],
   '/workshop-activity/tabs/list': ['navigationMenu.myClub.workshops'],
-  '/settings/company_onboarding': ['navigationMenu.settings.subscription'],
-  '/add-offers': ['navigationMenu.schedule', 'navigationMenu.calendar'],
 
   '/empty': [],
 };
@@ -132,6 +136,9 @@ export const URLS_UPSELL: Record<string, number> = {
   '/settings/mobile-personalisation/links': UPSELL_IDENTIFIER_CUSTOM_APP,
   '/settings/mobile-personalisation/popups': UPSELL_IDENTIFIER_CUSTOM_APP,
   '/settings/mobile-personalisation/customize': UPSELL_IDENTIFIER_CUSTOM_APP,
+  '/access-monitoring/perform': UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  '/access-monitoring/monitor': UPSELL_IDENTIFIER_ACCESS_MONITORING,
+  '/access-monitoring/settings': UPSELL_IDENTIFIER_ACCESS_MONITORING,
   // todo check vod
 };
 

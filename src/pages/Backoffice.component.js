@@ -235,6 +235,10 @@ const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
 
 const Inbox = asyncComponent(() => import('./inbox/Inbox.router'));
 
+const AccessMonitoring = asyncComponent(() =>
+  import('./access-monitoring/AccessMonitoring.router'),
+);
+
 type Props = {
   isStripeOnboardingPending: boolean,
   nbAlerting: number,
@@ -429,6 +433,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={SpotScheduling} path="/spot-scheduling/:id" />
       <Route component={() => <div />} path="/empty" />
       <Route component={Inbox} path="/inbox" />
+      <Route component={AccessMonitoring} path="/access-monitoring/:tab" />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         props.vodEnabled) && <Route component={VodRouter} path="/vod" />}
       <Route component={PlanningRouter} path="/" />

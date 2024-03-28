@@ -60,6 +60,8 @@ export type RolePermission = {
     // This permission is hidden for a company without the access monitoring upsell
     accessMonitoring?: {
       perform: boolean;
+      monitor: boolean;
+      settings: boolean;
     };
     myClub: {
       activities: boolean;
@@ -438,6 +440,9 @@ export type RoleState = ErrorAndLoading & {
 };
 
 export type ProtectedUrls =
+  | '/access-monitoring/monitor'
+  | '/access-monitoring/perform'
+  | '/access-monitoring/settings'
   | '/activity'
   | '/activity/add'
   | '/add-offers'
@@ -484,24 +489,25 @@ export type ProtectedUrls =
   | '/private-service/calendar'
   | '/private-service/pass'
   | '/private-service/service'
-  | '/reporting'
   | '/replacement'
-  | '/replacement/management'
   | '/replacement/discipline-group'
+  | '/replacement/management'
+  | '/reporting'
   | '/schedule'
   | '/search'
   | '/search/results'
   | '/settings/active-campaign'
   | '/settings/broadcast'
+  | '/settings/coach-userspace'
   | '/settings/company_onboarding'
   | '/settings/company'
   | '/settings/forms'
   | '/settings/general'
   | '/settings/invoice'
   | '/settings/marketplace-settings'
+  | '/settings/mobile-personalisation/customize'
   | '/settings/mobile-personalisation/links'
   | '/settings/mobile-personalisation/popups'
-  | '/settings/mobile-personalisation/customize'
   | '/settings/notification-rule'
   | '/settings/partnership'
   | '/settings/payment-methods'
@@ -516,9 +522,8 @@ export type ProtectedUrls =
   | '/settings/waiting-list'
   | '/settings/webhook'
   | '/settings/widget/create'
-  | '/settings/widget/customize'
-  | '/settings/coach-userspace'
   | '/settings/widget/customize-css'
+  | '/settings/widget/customize'
   | '/shop'
   | '/smart-list'
   | '/spot-scheduling'

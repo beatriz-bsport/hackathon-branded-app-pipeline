@@ -5044,6 +5044,7 @@
       "coupon": "Promotions",
       "contract": "Subscriptions",
       "subscription": "Direct debits",
+      "accessMonitoring": "Access",
       "myClub": "My studio",
       "settings": {
         "paymentRules": "Payroll",
@@ -5192,6 +5193,7 @@
     },
     "stripeOnboardingPending": { "banner": "Click here to complete your billing set up and to activate online payments." },
     "tab": {
+      "accessMonitoring": { "perform": "Member visit", "monitor": "Location visits", "settings": "Settings" },
       "coach": { "calendar": "Calendar", "general": "Profile" },
       "customForm": { "layout": "Customisation", "statistics": "Statistics", "campaign": "Campaign", "general": "Content" },
       "franchise": { "staff": { "role": "Roles", "staffAccount": "Staff accounts" } },
@@ -9676,7 +9678,12 @@
           "replacement": { "_label": "Substitution" }
         },
         "schedule": { "_label": "Schedule" },
-        "accessMonitoring": { "_label": "Access monitoring", "perform": { "_label": "Perform access monitoring" } },
+        "accessMonitoring": {
+          "_label": "Access monitoring",
+          "perform": { "_label": "Perform access monitoring" },
+          "monitor": { "_label": "Access location visits history" },
+          "settings": { "_label": "Access settings page" }
+        },
         "calendar": { "_label": "Calendar" },
         "dashboard": { "_label": "Dashboard" },
         "_label": "Navigation menu",

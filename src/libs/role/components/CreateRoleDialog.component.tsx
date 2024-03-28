@@ -111,7 +111,9 @@ const getDefaultPermissions = (
     calendar: true,
     schedule: true,
     ...(!hideAccessMonitoring(featureList, isFranchisor)
-      ? { accessMonitoring: { perform: false } }
+      ? {
+          accessMonitoring: { perform: false, monitor: false, settings: false },
+        }
       : {}),
     myClub: {
       activities: true,

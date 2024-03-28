@@ -263,6 +263,8 @@ const getTranslations = async () => {
         accessMonitoring: {
           _label: 'Access monitoring',
           perform: { _label: 'Perform access monitoring' },
+          monitor: { _label: 'Access location visits history' },
+          settings: { _label: 'Access settings page' },
         },
         calendar: { _label: 'Calendar' },
         dashboard: { _label: 'Dashboard' },

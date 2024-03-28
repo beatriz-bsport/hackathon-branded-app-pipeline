@@ -1,4 +1,5 @@
 import React from 'react';
+import { OptionCallback } from '../../../state/types';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 import withFormik from '@bbbtech/storybook-formik';
@@ -8,7 +9,14 @@ import { NewsletterFormBase } from '.';
 
 const NewsletterFormTemplate: ComponentStory<typeof NewsletterFormBase> = (
   args,
-) => <NewsletterFormBase {...args} onSubmit={() => {}} />;
+) => (
+  <NewsletterFormBase
+    {...args}
+    onSubmit={(_, options: OptionCallback) => {
+      options.onSuccess();
+    }}
+  />
+);
 
 export const Emptyform = NewsletterFormTemplate.bind({});
 
@@ -59,6 +67,26 @@ export default {
     showSubtitle: {
       description:
         'If `true`, displays the subtitle. If no custom text provided, a default one is provided as fallback.',
+      control: { type: 'boolean' },
+    },
+    successTitle: {
+      description:
+        'The custom title text to display on the confirmation page, displayed if `showSuccessTitle` is set to `true`',
+      control: { type: 'text' },
+    },
+    showSuccessTitle: {
+      description:
+        'If `true`, displays the success title. If no custom text provided, a default one is provided as fallback.',
+      control: { type: 'boolean' },
+    },
+    successText: {
+      description:
+        'The custom text to display on the confirmation page, displayed if `showSuccessText` is set to `true`',
+      control: { type: 'text' },
+    },
+    showSuccessText: {
+      description:
+        'If `true`, displays the success text. If no custom text provided, a default one is provided as fallback.',
       control: { type: 'boolean' },
     },
     onSubmit: {

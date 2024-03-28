@@ -150,7 +150,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           ...(!!values.cover &&
             typeof values.cover !== 'string' && { cover: values.cover }),
           tva: values.tva.toString(),
-          ...(!!values.description && { description: values.description }),
+          description: values.description || '',
           barcode: values.barcode,
           marketplace_enabled: values.marketplaceEnabled,
           'available_payment_method_identifiers[]': JSON.stringify(

@@ -368,18 +368,23 @@ export default function useConsumerBookingsDataManager({
     [getIsBookingsLoading, selectedTab],
   );
 
-  const relatedBookingsInGroup = useMemo(
-    () =>
-      getRelatedConsumerBookingsInGroup(
-        selectedBookingForCancelation?.offer?.group,
+  const relatedBookingsInGroup = useMemo(() => {
+    if (!selectedBookingForCancelation) {
+      return getRelatedConsumerBookingsInGroup(
+        selectedBooking?.offer?.group,
         selectedFilterTab,
-      ),
-    [
-      getRelatedConsumerBookingsInGroup,
+      );
+    }
+    return getRelatedConsumerBookingsInGroup(
       selectedBookingForCancelation?.offer?.group,
       selectedFilterTab,
-    ],
-  );
+    );
+  }, [
+    getRelatedConsumerBookingsInGroup,
+    selectedBookingForCancelation,
+    selectedFilterTab,
+    selectedBooking,
+  ]);
 
   /**
    * Function used to fetch data from pagination

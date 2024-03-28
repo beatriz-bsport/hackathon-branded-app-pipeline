@@ -160,9 +160,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           sell_only_on_provision: values.sellOnlyOnProvision,
           is_deliverable: values.isDeliverable,
           ...(!!values.subshop && { subshop: values.subshop }),
-          ...(!!values.stockKeepingUnit && {
-            stock_keeping_unit: values.stockKeepingUnit,
-          }),
+          stock_keeping_unit: values.stockKeepingUnit || '',
           ...(!!values.supplier && { supplier: values.supplier }),
           ...variantsPayload,
         };

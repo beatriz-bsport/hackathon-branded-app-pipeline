@@ -347,6 +347,7 @@ export class CouponList extends React.PureComponent<Props, State> {
         this.props.activeCoupons.length === 0 &&
         !this.props.loading ? (
           <IsEmptyList
+            hideBottomActions
             button={this.props.t('createCoupon')}
             onCreate={() =>
               this.setState({ couponFormState: { open: true, initial: null } })
@@ -449,12 +450,9 @@ export class CouponList extends React.PureComponent<Props, State> {
           onSubmit={this.props.deleteCoupon}
           open={!!this.props.couponToDelete}
         />
-        {(!!this.props.inactiveCoupons?.length ||
-          !!this.props.activeCoupons?.length) && (
-          <div className={classes.addButtonContainer}>
-            <FabWithItems items={this.fabItems} label={t('createCoupon')} />
-          </div>
-        )}
+        <div className={classes.addButtonContainer}>
+          <FabWithItems items={this.fabItems} label={t('createCoupon')} />
+        </div>
       </div>
     );
   }

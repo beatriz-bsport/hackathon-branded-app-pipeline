@@ -5,7 +5,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-
 import { compose } from 'recompose';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -47,6 +46,8 @@ import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import { colors } from '@bsport/common/lib/colors';
 import { People } from '@material-ui/icons';
 import { ButtonBase, Dialog } from '@material-ui/core';
+import { containsAnySubstring } from '../../libs/utils';
+import { NEW_MEMBER_PROFILE_ROUTE_LIST } from '../../libs/consumer-space/constants';
 import { getTextColorFromRGB } from '../../utils/color';
 import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
@@ -733,29 +734,30 @@ const styles = (theme) => ({
       position: 'fixed',
     },
   },
-  content: {
+  content: ({ location }) => ({
     flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    ...(['production', 'staging'].includes(
+    ...(!['staging', 'production'].includes(
       Config.REACT_APP_SENTRY_ENVIRONMENT,
-    ) && {
-      [theme.breakpoints.up('md')]: {
-        paddingLeft: theme.spacing(3),
-        paddingRight: theme.spacing(3),
-      },
-      paddingBottom: theme.spacing(1),
-      paddingTop: theme.spacing(2),
-      overflow: 'auto',
-    }),
-    ...(['dev'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) && {
-      margin: 0,
-      padding: 0,
-      overflow: 'inherit',
-    }),
-  },
+    ) && containsAnySubstring(location.pathname, NEW_MEMBER_PROFILE_ROUTE_LIST)
+      ? {
+          margin: 0,
+          padding: 0,
+          overflow: 'inherit',
+        }
+      : {
+          [theme.breakpoints.up('md')]: {
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3),
+          },
+          paddingBottom: theme.spacing(1),
+          paddingTop: theme.spacing(2),
+          overflow: 'auto',
+        }),
+  }),
   logo: {
     alignItems: 'center',
     justify: 'center',
@@ -786,8 +788,9 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withRouter,
   withTranslation(['consumerSpace']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
   marketplaceCssHoc(),
-)(withRouter(ConsumerDrawer));
+)(ConsumerDrawer);

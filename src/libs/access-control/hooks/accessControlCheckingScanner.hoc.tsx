@@ -41,10 +41,10 @@ export const withAccessControlCheckInScanner = (
      * @param memberId - The ID of the member.
      */
     const onCodeScan = useCallback(
-      (memberId: string) => {
+      (memberBarcode: string) => {
         checkMemberInEstablishment?.(
           {
-            memberId,
+            memberBarcode,
             establishmentIds: establishmentsSelectedInRole,
           },
           {

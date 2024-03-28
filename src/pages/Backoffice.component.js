@@ -105,6 +105,7 @@ import {
 } from '../libs/custom-form/actions';
 import { BannerProvider } from '../hocs/banner.hoc';
 import withRudderStackHistoryTracker from '../components/analytics/rudderstack/with-rudderstack-history-tracking';
+import { withAccessControlCheckInScanner } from '../libs/access-control/hooks/accessControlCheckingScanner.hoc';
 import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/utils';
 
 import {
@@ -135,6 +136,8 @@ import {
   fetchInboxThreadList as fetchInboxThreadListAction,
 } from '#libs/communication-v2/actions';
 import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
+import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '../libs/access-control/actions';
+import { getEstablishmentsSelectedInRole } from '../libs/establishment/selectors';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -1013,6 +1016,7 @@ export default compose(
       platformSubscriptionPaymentStatus:
         state.platformBilling.subscriptionPaymentStatus.data,
       stripeAccountStatus: state.company.stripeAccountStatus.data,
+      establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     }),
     {
       fetchBatchUnreadAnswersCounts: fetchBatchUnreadAnswersCountsAction,
@@ -1075,6 +1079,7 @@ export default compose(
       fetchUserTutorialCompletion,
       updateUserAcknowlegdeTutorial,
       updateTutorialLessonViewedStatus,
+      checkMemberInEstablishment: checkMemberInEstablishmentAction,
 
       getStripeOnboardingPending,
     },
@@ -1107,4 +1112,5 @@ export default compose(
       },
   }),
   withRudderStackHistoryTracker,
+  withAccessControlCheckInScanner,
 )(themedBackoffice);

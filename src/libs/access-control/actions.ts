@@ -1,6 +1,8 @@
 import type { AxiosResponse } from 'axios';
 import { createAction } from 'redux-actions';
 
+import { displayAccessControlSnackbar } from '#libs/snackbar/actions';
+
 import { checkMemberInEstablishment as checkMemberInEstablishmentAPI } from './api';
 
 import type { ThunkAction, OptionCallback } from '../../state/types';
@@ -46,7 +48,6 @@ export const checkMemberInEstablishment = (
 ): ThunkAction => {
   return async (dispatch) => {
     dispatch(checkMemberInEstablishmentActions.loading(true));
-    // TODO: Broadcast the loading state
     dispatch(checkMemberInEstablishmentActions.error(null));
     try {
       const response = await checkMemberInEstablishmentAPI({
@@ -55,11 +56,14 @@ export const checkMemberInEstablishment = (
         establishmentIds,
       });
       dispatch(checkMemberInEstablishmentActions.success(response));
-      // TODO: Broadcast the success state
-      options?.onSuccess(response.data);
+      const { data } = response;
+      dispatch(
+        displayAccessControlSnackbar(data.id, data.member, data.access_status),
+      );
+      options?.onSuccess?.(data);
     } catch (error) {
       dispatch(checkMemberInEstablishmentActions.error(error));
-      options?.onError(error);
+      options?.onError?.(error);
     }
     dispatch(checkMemberInEstablishmentActions.loading(false));
   };

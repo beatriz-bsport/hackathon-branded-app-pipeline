@@ -13,17 +13,22 @@ import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core';
 import {
+  deleteAccessControlSnackbar as deleteAccessControlSnackbarAction,
   deleteBottomSnackbar as deleteBottomSnackbarAction,
   deleteSnackbar,
 } from './libs/snackbar/actions';
-import type { Snack } from './libs/snackbar/types';
 import { RootState } from './reducers';
+import AccessControlSnackBar from '#libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
+
+import type { AccessControlSnack, Snack } from './libs/snackbar/types';
 
 type Props = {
   topMessages: Snack[];
   bottomMessages: Snack[];
+  accessControlMessages: AccessControlSnack[];
   deleteTopSnackbar: (id: number) => void;
   deleteBottomSnackbar: (id: number) => void;
+  deleteAccessControlSnackbar: (id: number) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -59,8 +64,10 @@ const useStyles = makeStyles((theme) => ({
 export const SnackbarPile: React.FC<Props> = ({
   topMessages,
   bottomMessages,
+  accessControlMessages,
   deleteTopSnackbar,
   deleteBottomSnackbar,
+  deleteAccessControlSnackbar,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['snackbar']);
@@ -73,6 +80,11 @@ export const SnackbarPile: React.FC<Props> = ({
   const handleDeleteBottomSnackbar = React.useCallback(
     (snackbarId: number) => () => deleteBottomSnackbar(snackbarId),
     [deleteBottomSnackbar],
+  );
+
+  const handleDeleteAccessControlSnackbar = React.useCallback(
+    (snackbarId: number) => () => deleteAccessControlSnackbar(snackbarId),
+    [deleteAccessControlSnackbar],
   );
 
   const uniqTopMessages = React.useMemo(
@@ -89,6 +101,14 @@ export const SnackbarPile: React.FC<Props> = ({
         bottomMessages?.find((snack) => snack.id === snackId),
       ) ?? [],
     [bottomMessages],
+  );
+
+  const uniqAccessControlMessages = React.useMemo(
+    () =>
+      uniq(accessControlMessages?.map((snack) => snack.id))?.map((snackId) =>
+        accessControlMessages?.find((snack) => snack.id === snackId),
+      ) ?? [],
+    [accessControlMessages],
   );
 
   return (
@@ -114,6 +134,16 @@ export const SnackbarPile: React.FC<Props> = ({
             message={t(snack.message)}
           />
         </Snackbar>
+      ))}
+      {uniqAccessControlMessages?.map((snack) => (
+        <AccessControlSnackBar
+          key={`accessControlMessage-${snack.id}`}
+          open
+          accessStatus={snack.accessStatus}
+          handleClose={handleDeleteAccessControlSnackbar(snack.id)}
+          handleOpen={() => {}}
+          member={snack.member}
+        />
       ))}
       {uniqBottomMessages?.map((snack) => (
         <Snackbar
@@ -153,12 +183,14 @@ function mapStateToProps(state: RootState) {
   return {
     topMessages: state.snackbar.topMessages,
     bottomMessages: state.snackbar.bottomMessages,
+    accessControlMessages: state.snackbar.accessControlMessages,
   };
 }
 
 const mapDispatchToProps = {
   deleteTopSnackbar: deleteSnackbar,
   deleteBottomSnackbar: deleteBottomSnackbarAction,
+  deleteAccessControlSnackbar: deleteAccessControlSnackbarAction,
 };
 
 export const SnackbarDataProvider = [mapStateToProps, mapDispatchToProps];

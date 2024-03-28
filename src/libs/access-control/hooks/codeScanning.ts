@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect } from 'react';
+
 import {
   MEMBERSHIP_ID_LENGTH,
   SCANNER_FILTER_DELAY_MS,
@@ -24,10 +25,17 @@ import {
  * a valid code is scanned.
  * @param {number} kwargs.expectedInputLength - Expected length of the scanned input. This
  * parameter determines when the `onCodeScan` callback is triggered.
+ * @param {boolean} kwargs.canPerformAccessMonitoring - Flag to enable or disable the scanner
  */
 export function useNumericCodeScanner(
   onCodeScan: (catchedSequence: string) => void,
-  { expectedInputLength } = { expectedInputLength: MEMBERSHIP_ID_LENGTH },
+  {
+    expectedInputLength = MEMBERSHIP_ID_LENGTH,
+    canPerformAccessMonitoring = false,
+  }: {
+    expectedInputLength?: number;
+    canPerformAccessMonitoring?: boolean;
+  },
 ) {
   // Reference to store the last key press time
   const lastKeyPressTimeRef = useRef(0);
@@ -42,39 +50,44 @@ export function useNumericCodeScanner(
    */
   const handleKeyDown = useCallback(
     (event) => {
-      const currentTime = new Date().getTime();
-      const timeDifference = currentTime - lastKeyPressTimeRef.current;
+      if (canPerformAccessMonitoring) {
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - lastKeyPressTimeRef.current;
 
-      // Block keydown event if the time difference is smaller than the filter delay.
-      // This way, the pressed key won't affect any text input.
-      if (timeDifference <= SCANNER_FILTER_DELAY_MS) {
-        event.preventDefault();
+        // Block keydown event if the time difference is smaller than the filter delay.
+        // This way, the pressed key won't affect any text input.
+        if (timeDifference <= SCANNER_FILTER_DELAY_MS) {
+          event.preventDefault();
+        }
+
+        // Keep the key value in the input sequence only if the time difference is lower than the
+        // soft filter delay.
+        // This different filter param enables to keep more inputs, even if the scanner has an unexpected
+        // transmitting delay.
+        if (timeDifference > SCANNER_FILTER_SOFT_DELAY_MS) {
+          scannerInputRef.current = '';
+        } else if (!Number.isNaN(Number(event.key))) {
+          scannerInputRef.current += event.key;
+        }
+
+        // Trigger onCodeScan callback when the input sequence reaches the expected length
+        if (scannerInputRef.current.length === expectedInputLength) {
+          onCodeScan(scannerInputRef.current);
+          scannerInputRef.current = '';
+        }
+
+        lastKeyPressTimeRef.current = currentTime;
       }
-
-      // Keep the key value in the input sequence only if the time difference is lower than the
-      // soft filter delay.
-      // This different filter param enables to keep more inputs, even if the scanner has an unexpected
-      // transmitting delay.
-      if (timeDifference > SCANNER_FILTER_SOFT_DELAY_MS) {
-        scannerInputRef.current = '';
-      } else if (!Number.isNaN(Number(event.key))) {
-        scannerInputRef.current += event.key;
-      }
-
-      // Trigger onCodeScan callback when the input sequence reaches the expected length
-      if (scannerInputRef.current.length === expectedInputLength) {
-        onCodeScan(scannerInputRef.current);
-        scannerInputRef.current = '';
-      }
-
-      lastKeyPressTimeRef.current = currentTime;
     },
-    [expectedInputLength, onCodeScan],
+    [expectedInputLength, onCodeScan, canPerformAccessMonitoring],
   );
 
   // Attach and detach event listener for keydown on component mount and unmount
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+    if (canPerformAccessMonitoring) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+    return () => {};
+  }, [handleKeyDown, canPerformAccessMonitoring]);
 }

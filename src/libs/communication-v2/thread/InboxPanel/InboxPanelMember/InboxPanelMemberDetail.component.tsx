@@ -1,31 +1,34 @@
 import React, { memo, useCallback, useState } from 'react';
-
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
 import BarCode from 'react-barcode';
 import type { CallHistoryMethodAction } from 'connected-react-router';
-import { makeStyles, useTheme } from '@material-ui/core';
+
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/core/styles/useTheme';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Cake from '@material-ui/icons/Cake';
+import Dialog from '@material-ui/core/Dialog';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Dialog from '@material-ui/core/Dialog';
-import TodayIcon from '@material-ui/icons/Today';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import Cake from '@material-ui/icons/Cake';
+import PlaceIcon from '@material-ui/icons/Place';
+import TodayIcon from '@material-ui/icons/Today';
+import Typography from '@material-ui/core/Typography';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import PlaceIcon from '@material-ui/icons/Place';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { formatAsDate } from '../../../../../utils/datetime';
-import type { Member } from '#libs/member/types';
-import EmergencyContactItemComponent from '#libs/communication/components/EmergencyContactItem.component';
 import { CustomChip } from '#components/chip/CustomChip.component';
+import { formatAsDate } from '#utils/datetime';
+import EmergencyContactItemComponent from '#libs/communication/components/EmergencyContactItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+
+import type { Member } from '#libs/member/types';
 
 type Props = {
   member: Member;
@@ -178,14 +181,23 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
           </div>
         )}
 
-        <ButtonBase onClick={handleClickMemberRedirection}>
-          <Typography color="primary">
-            {t(
-              `communication:thread.panel.navigation.${ChatThreadKinds.Member}`,
-            ).toUpperCase()}
-          </Typography>
-          <ArrowForwardIcon className={classes.arrowIcon} color="primary" />
-        </ButtonBase>
+        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+          {(hasMemberProfileAccessPermission: boolean) =>
+            hasMemberProfileAccessPermission && (
+              <ButtonBase onClick={handleClickMemberRedirection}>
+                <Typography color="primary">
+                  {t(
+                    `communication:thread.panel.navigation.${ChatThreadKinds.Member}`,
+                  ).toUpperCase()}
+                </Typography>
+                <ArrowForwardIcon
+                  className={classes.arrowIcon}
+                  color="primary"
+                />
+              </ButtonBase>
+            )
+          }
+        </ObjectLevelPermissionProvider>
       </div>
 
       <Dialog onClose={handleCloseBarcode} open={displayBarcodeDialog}>

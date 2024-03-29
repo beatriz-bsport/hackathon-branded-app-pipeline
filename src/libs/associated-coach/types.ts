@@ -1,6 +1,23 @@
 import { ActivitySimplified } from '../../api/types';
 import { ErrorAndLoading } from '#libs/types';
 
+export type CoachUpdateOrCreatedPayload = {
+  avatar: File;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  gender: string;
+  color: string;
+  birthday: string;
+  description: string;
+  notes: string;
+  date_joined_company: string | null;
+  date_left_company: string | null;
+  facebook_url: string;
+  instagram_url: string;
+};
+
 export type Coach = {
   firstname: string;
   lastname: string;

@@ -1,65 +1,68 @@
-// @flow
-
 import React from 'react';
-import { compose, withProps, withState } from 'recompose';
-
-import { goBack, push } from 'connected-react-router';
 
 import { connect } from 'react-redux';
+import { compose, withProps, withState } from 'recompose';
+import { goBack, push } from 'connected-react-router';
+import { withTranslation, WithTranslation } from 'react-i18next';
+
 import Dialog from '@material-ui/core/Dialog';
-import withStyles from '@material-ui/core/styles/withStyles';
-
-import { withTranslation, TFunction } from 'react-i18next';
-
 import {
   Button,
+  createStyles,
   DialogActions,
   DialogContent,
   Typography,
 } from '@material-ui/core';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
+import withTitle from '#hocs/with-title.hoc';
 
 import {
   fetchAssociatedCoachesList,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
-} from '../../libs/associated-coach/actions';
-import { getCoach } from '../../libs/associated-coach/selectors';
-import CoachForm from '../../libs/associated-coach/components/CoachForm.component';
-import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachEmailCheckDialog.component';
+} from '#libs/associated-coach/actions';
+import { getCoach } from '#libs/associated-coach/selectors';
+// @ts-expect-error
+import { mapFormData, unmap } from '../form.utils';
+// @ts-expect-error
+import { browserCountryCode } from '../../i18n';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+
+import CoachForm from '#libs/associated-coach/components/CoachForm.component';
+import CoachEmailCheckDialog from '#libs/associated-coach/components/CoachEmailCheckDialog.component';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
 
-import { mapFormData, unmap } from '../form.utils';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
+import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
 
-import withTitle from '../../hocs/with-title.hoc';
-import { browserCountryCode } from '../../i18n';
-
-type Props = {
-  initial: any,
-  onSubmit: () => void,
-  onCancel: () => void,
-  t: TFunction,
+type OwnProps = {
+  initial: any;
+  onSubmit: () => void;
+  onCancel: () => void;
   classes: {
-    container: string,
-  },
+    container: string;
+  };
 
-  coachId: ?number,
-  initialEmail: ?string,
-  setInitialEmail: (email: string) => void,
+  coachId?: number;
+  initialEmail?: string;
+  setInitialEmail: (email: string) => void;
 
-  goToCoachList: () => void,
-  fetchAssociatedCoachesList: () => void,
+  goToCoachList: () => void;
+  fetchAssociatedCoachesList: () => void;
   linkCoachViaEmail: (
     email: string,
-    options: { onSuccess: () => void, onError: () => void },
-  ) => void,
-  setIsEmailChecking: (boolean) => void,
-  isEmailChecking: boolean,
-  setIsEmailChecking: (boolean) => void,
-  isUserAlreadyRegisteredDialogOpen: boolean,
-  setIsUserAlreadyRegisteredDialogOpen: (boolean) => void,
+    options: { onSuccess: () => void; onError: () => void },
+  ) => void;
+  isEmailChecking: boolean;
+  setIsEmailChecking: (isChecking: boolean) => void;
+  isUserAlreadyRegisteredDialogOpen: boolean;
+  setIsUserAlreadyRegisteredDialogOpen: (open: boolean) => void;
 };
+
+type Props = OwnProps & WithTranslation;
 
 const CoachMap = {
   avatar: 'photo',
@@ -158,6 +161,7 @@ export class CoachFormPage extends React.Component<Props> {
 
         <CoachForm
           country={browserCountryCode()}
+          // @ts-expect-error
           defaultEmail={this.props.initialEmail}
           initial={initialData}
           onCancel={onCancel}
@@ -168,13 +172,14 @@ export class CoachFormPage extends React.Component<Props> {
   }
 }
 
-const styles = () => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-});
+const styles = () =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  });
 
 export default compose(
   withTranslation(),
@@ -187,7 +192,7 @@ export default compose(
     false,
   ),
   connect(
-    (state, { coachId }) => ({
+    (state: RootState, { coachId }: { coachId: number }) => ({
       pending: state.coach.upsert.loading,
       errors: state.coach.upsert.error,
       initial: coachId !== null ? getCoach(state, coachId) : null,
@@ -209,7 +214,10 @@ export default compose(
       setIsUserAlreadyRegisteredDialogOpen,
       setIsEmailChecking,
     }) => ({
-      onSubmit: (values, options) => {
+      onSubmit: (
+        values: CoachUpdateOrCreatedPayload,
+        options: OptionCallback,
+      ) => {
         if (!values.birthday) {
           // eslint-disable-next-line
           delete values.birthday;
@@ -235,5 +243,5 @@ export default compose(
     }),
   ),
   withStyles(styles),
-  withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachFormPage')),
+  withTitle(({ t }) => t('titles:coach.coachFormPage')),
 )(CoachFormPage);

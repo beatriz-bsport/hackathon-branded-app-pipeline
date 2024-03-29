@@ -18,8 +18,20 @@ type Props = {
   memberId: number;
 
   notes: Array<MemberNote>;
-  deleteNote: (id: number) => void;
-  createOrUpdateNote: (note: MemberNote) => void;
+  deleteNote: ({
+    noteId,
+    memberId,
+  }: {
+    noteId: number;
+    memberId: number;
+  }) => void;
+  createOrUpdateNote: (note: {
+    id: number;
+    text: string;
+    memberId: number;
+    highlighted: boolean;
+    is_medical: boolean;
+  }) => void;
 
   tagGroups: Array<TagGroup>;
   memberTags: Array<number>;
@@ -96,14 +108,24 @@ export const MemberCRM: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   const createMedicalNote = React.useCallback(
-    (note: MemberNote) => {
+    (note: {
+      id: number;
+      text: string;
+      memberId: number;
+      highlighted: boolean;
+    }) => {
       createOrUpdateNote({ ...note, is_medical: true });
     },
     [createOrUpdateNote],
   );
 
   const createNonMedicalNote = React.useCallback(
-    (note: MemberNote) => {
+    (note: {
+      id: number;
+      text: string;
+      memberId: number;
+      highlighted: boolean;
+    }) => {
       createOrUpdateNote({ ...note, is_medical: false });
     },
     [createOrUpdateNote],

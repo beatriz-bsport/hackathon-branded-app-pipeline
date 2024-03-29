@@ -18,7 +18,7 @@ import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
 
 import {
-  fetchAssociatedCoachesList,
+  fetchAssociatedCoach,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
 } from '#libs/associated-coach/actions';
@@ -80,7 +80,7 @@ export class CoachFormPage extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchAssociatedCoachesList();
+    this.props.coachId && this.props.fetchAssociatedCoach(this.props.coachId);
   }
 
   handleUserAlreadyRegisteredDialogClose = () =>
@@ -116,12 +116,10 @@ export class CoachFormPage extends React.Component<Props, State> {
     this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
       onSuccess: () => {
         this.props.goToCoachList();
-
         this.setState({ isEmailChecking: false });
       },
       onError: () => {
         this.setState({ initialEmail: email });
-
         this.setState({ isEmailChecking: false });
       },
     });
@@ -173,7 +171,7 @@ export class CoachFormPage extends React.Component<Props, State> {
                 type="submit"
                 variant="contained"
               >
-                {t('common.ok')}
+                {t('common:ok')}
               </Button>
             </DialogActions>
           </DialogContent>
@@ -198,7 +196,7 @@ const connector = connect(
     initial: coachId !== null ? getCoach(state, coachId) : null,
   }),
   {
-    fetchAssociatedCoachesList,
+    fetchAssociatedCoach,
     onCancel: goBack,
     upsertCoach: createOrUpdateCoach,
     linkCoachViaEmail,

@@ -1,87 +1,90 @@
-// @flow
-
 import React from 'react';
-
-import { compose, withState } from 'recompose';
-import Collapse from '@material-ui/core/Collapse';
+import { compose } from 'recompose';
 import { push } from 'connected-react-router';
-import { connect } from 'react-redux';
-import { withTranslation, TFunction } from 'react-i18next';
+import { connect, ConnectedProps } from 'react-redux';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
+import Fuse, { FuseOptions } from 'fuse.js';
+
+import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { createStyles } from '@material-ui/core';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import type { Theme } from '@material-ui/core/styles';
+import withTitle from '../../hocs/with-title.hoc';
 
 import {
   deleteCoach,
   restoreCoach,
   fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
-import type { Coach } from '../../api/types';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
   getInactiveCoaches,
   getInactiveCoachesSelectedInRole,
 } from '../../libs/associated-coach/selectors';
-import withTitle from '../../hocs/with-title.hoc';
-import FuzeSearch from '../../components/FuzeSearch.component';
 
 import CoachListItem, {
   CoachListSkeleton,
 } from '../../libs/associated-coach/components/CoachListItem.component';
+
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
-import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import FuzeSearch from '../../components/FuzeSearch.component';
 import VirtualizedCoachList from '#libs/associated-coach/components/VirtualizedCoachList.component';
 
-type Props = {
-  loading: boolean,
-  associatedCoaches: Array<Coach>,
-  inactiveCoaches: Array<Coach>,
-  coachesSelectedInRole: Array<Coach>,
-  inactiveCoachesSelectedInRole: Array<Coach>,
+import type { RootState } from '../../reducers';
+import type { Coach } from '#libs/associated-coach/types';
 
-  fetchAssociatedCoachesList: () => void,
+type OwnProps = {};
 
-  deleteCoachId: ?number,
-  deleteCoach: (id: ?number) => void,
-  restoreCoach: (id: ?number) => void,
-  setDeleteCoachId: (id: ?number) => void,
+type Props = OwnProps &
+  WithTranslation &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles>;
 
-  goToCoachDetail: (coachId: number) => void,
-  goToCoachEdit: (coachId: number) => void,
-  onCreate: () => void,
-
-  t: TFunction,
-  classes: Object,
+type State = {
+  searchText: string;
+  searchResult: Coach[];
+  showDisabled: boolean;
+  deleteCoachId: number | null;
 };
 
 export class CoachList extends React.Component<Props, State> {
-  state = {
-    searchText: '',
-    searchResult: [],
-    showDisabled: false,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      searchText: '',
+      searchResult: [],
+      showDisabled: false,
+      deleteCoachId: null,
+    };
+  }
 
   componentDidMount() {
     this.props.fetchAssociatedCoachesList();
   }
 
-  changeSearch = (fuse) => (ev) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
+  changeSearch =
+    (fuse: Fuse<Coach, FuseOptions<Coach>>) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({
+        searchText: event.target.value,
+        searchResult: fuse.search(event.target.value) as Coach[],
+      });
+    };
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
@@ -90,6 +93,9 @@ export class CoachList extends React.Component<Props, State> {
   onShowDisabled = () => {
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
   };
+
+  setDeleteCoachId = (deleteCoachId: number | null) =>
+    this.setState({ deleteCoachId });
 
   render() {
     const { t } = this.props;
@@ -101,10 +107,10 @@ export class CoachList extends React.Component<Props, State> {
     ) {
       return (
         <IsEmptyList
-          button={this.props.t('coach:addCoach')}
+          button={t('coach:addCoach')}
           onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('coach:addCoach')}
-          text={this.props.t('coach:noCoachs')}
+          onCreateLabel={t('coach:addCoach')}
+          text={t('coach:noCoachs')}
         />
       );
     }
@@ -130,7 +136,7 @@ export class CoachList extends React.Component<Props, State> {
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         {this.props.loading && coachesList.length === 0 && (
-          <Paper className={this.props.classes.searchPaperHiden}>
+          <Paper>
             <CoachListSkeleton numberItems={8} />
           </Paper>
         )}
@@ -142,16 +148,14 @@ export class CoachList extends React.Component<Props, State> {
               items={coachesList}
               placeholder={t('coach:search')}
               searchFields={['name', 'email']}
-              searchResult={this.state.searchResult}
               searchText={this.state.searchText}
             />
             <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? this.props.classes.searchPaperDisplayed
-                  : this.props.classes.searchPaperHiden
-              }
+              className={classNames({
+                [this.props.classes.searchPaperDisplayed]:
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== '',
+              })}
             >
               <Collapse
                 in={
@@ -168,9 +172,7 @@ export class CoachList extends React.Component<Props, State> {
                           divider
                           coach={coach}
                           deleteCoach={
-                            hasDeletePermission
-                              ? this.props.setDeleteCoachId
-                              : null
+                            hasDeletePermission ? this.setDeleteCoachId : null
                           }
                           onCoachSelected={
                             !coach.disabled ? this.props.goToCoachDetail : null
@@ -192,11 +194,12 @@ export class CoachList extends React.Component<Props, State> {
                 'management.coach.allowed_actions.delete',
               ]}
             >
+              {/* @ts-expect-error */}
               {([hasEditPermission, hasDeletePermission]) => (
                 <VirtualizedCoachList
                   coachList={coachesList}
                   deleteCoach={
-                    hasDeletePermission ? this.props.setDeleteCoachId : null
+                    hasDeletePermission ? this.setDeleteCoachId : null
                   }
                   onCoachSelected={this.props.goToCoachDetail}
                   onEditCoach={
@@ -207,10 +210,9 @@ export class CoachList extends React.Component<Props, State> {
             </ObjectLevelPermissionProvider>
           </List>
           <CoachDeleteModal
-            checkCanDeleteCoach={canDeleteCoachAPI}
-            coachToDeleteId={this.props.deleteCoachId}
+            coachToDeleteId={this.state.deleteCoachId}
             deleteCoach={this.props.deleteCoach}
-            onClose={() => this.props.setDeleteCoachId(null)}
+            onClose={() => this.setDeleteCoachId(null)}
           />
         </Paper>
 
@@ -222,10 +224,9 @@ export class CoachList extends React.Component<Props, State> {
               onClick={this.onShowDisabled}
             >
               <Typography
-                className={this.props.classes.titleContainer}
                 color={
                   (inactiveCoachesList || []).length
-                    ? 'default'
+                    ? 'initial'
                     : 'textSecondary'
                 }
                 variant="h5"
@@ -259,9 +260,7 @@ export class CoachList extends React.Component<Props, State> {
                       <VirtualizedCoachList
                         coachList={inactiveCoachesList}
                         deleteCoach={
-                          hasDeletePermission
-                            ? this.props.setDeleteCoachId
-                            : null
+                          hasDeletePermission ? this.setDeleteCoachId : null
                         }
                         onCoachSelected={this.props.goToCoachDetail}
                         restoreCoach={
@@ -284,7 +283,7 @@ export class CoachList extends React.Component<Props, State> {
         >
           <BottomActionsButton
             onCreate={this.props.onCreate}
-            onCreateLabel={this.props.t('coach:addCoach')}
+            onCreateLabel={t('coach:addCoach')}
           />
         </ObjectLevelPermissionWrapper>
       </div>
@@ -292,84 +291,84 @@ export class CoachList extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    paddingBottom: theme.spacing(16),
-  },
-  searchPaperDisplayed: {
-    border: '2px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-  },
-  searchPaperHidden: {
-    border: '1px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-    boderBottom: '0px',
-  },
-  noCoachMessage: {
-    width: '90%',
-    maxWidth: '400px',
-    margin: 'auto',
-    marginTop: theme.spacing(5),
-    textAlign: 'right',
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    border: 'solid 2px #cecece',
-    borderRadius: theme.spacing(1),
-  },
-  containerMsg: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    paddingBottom: theme.spacing(1),
-  },
-  buttonContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginRight: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
-  buttonTitle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingBottom: theme.spacing(1),
-    marginTop: theme.spacing(3),
-  },
-  search: { marginBottom: theme.spacing(2) },
-  collapse: {
-    paddingTop: theme.spacing(2),
-  },
-});
-
-export default compose(
-  connect(
-    (state) => ({
-      loading: state.coach.loading,
-      associatedCoaches: getActiveCoaches(state),
-      inactiveCoaches: getInactiveCoaches(state),
-      coachesSelectedInRole: getCoachesSelectedInRole(state),
-      inactiveCoachesSelectedInRole: getInactiveCoachesSelectedInRole(state),
-    }),
-    {
-      fetchAssociatedCoachesList,
-      deleteCoach,
-      restoreCoach,
-      goToCreateCoach: () => push('/coach/add'),
-      goToCoachDetail: (coachId) => push(`/coach/${coachId}`),
-      onCreate: () => push('/coach/add'),
-      goToCoachEdit: (coachId) => push(`/coach/edit/${coachId}`),
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      paddingBottom: theme.spacing(16),
     },
-  ),
-  withTranslation(),
+    searchPaperDisplayed: {
+      border: '2px solid',
+      borderTop: '0px',
+    },
+    searchPaperHidden: {
+      border: '1px solid',
+      borderTop: '0px',
+      boderBottom: '0px',
+    },
+    noCoachMessage: {
+      width: '90%',
+      maxWidth: '400px',
+      margin: 'auto',
+      marginTop: theme.spacing(5),
+      textAlign: 'right',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      border: 'solid 2px #cecece',
+      borderRadius: theme.spacing(1),
+    },
+    containerMsg: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      paddingBottom: theme.spacing(1),
+    },
+    buttonContainer: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+    button: {
+      marginRight: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    buttonTitle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingBottom: theme.spacing(1),
+      marginTop: theme.spacing(3),
+    },
+    search: { marginBottom: theme.spacing(2) },
+    collapse: {
+      paddingTop: theme.spacing(2),
+    },
+  });
+
+const connector = connect(
+  (state: RootState) => ({
+    loading: state.coach.loading,
+    associatedCoaches: getActiveCoaches(state),
+    inactiveCoaches: getInactiveCoaches(state),
+    coachesSelectedInRole: getCoachesSelectedInRole(state),
+    inactiveCoachesSelectedInRole: getInactiveCoachesSelectedInRole(state),
+  }),
+  {
+    fetchAssociatedCoachesList,
+    deleteCoach,
+    restoreCoach,
+    goToCreateCoach: () => push('/coach/add'),
+    goToCoachDetail: (coachId: number) => push(`/coach/${coachId}`),
+    onCreate: () => push('/coach/add'),
+    goToCoachEdit: (coachId: number) => push(`/coach/edit/${coachId}`),
+  },
+);
+
+export default compose<OwnProps, Props>(
+  connector,
+  withTranslation(['coach']),
   withStyles(styles),
-  withState('deleteCoachId', 'setDeleteCoachId', null),
-  withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachList')),
+  withTitle(({ t }) => t('titles:coach.coachList')),
 )(CoachList);

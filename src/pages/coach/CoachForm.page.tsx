@@ -44,7 +44,7 @@ type OwnProps = {
 type Props = OwnProps &
   WithTranslation &
   ConnectedProps<typeof connector> &
-  WithStyles;
+  WithStyles<typeof styles>;
 
 const CoachMap = {
   avatar: 'photo',

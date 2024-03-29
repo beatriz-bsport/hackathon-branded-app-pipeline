@@ -142,7 +142,10 @@ export class CoachFormPage extends React.Component<Props, State> {
 
     return (
       <div className={classes.container}>
-        <GenericResponsiveDialog open={!initial && this.state.isEmailChecking}>
+        <GenericResponsiveDialog
+          maxWidth="sm"
+          open={!initial && this.state.isEmailChecking}
+        >
           <CoachEmailCheckDialog
             onCancel={this.props.onCancel}
             submit={this.onConfirmLinkCoachByEmail}
@@ -192,7 +195,6 @@ export class CoachFormPage extends React.Component<Props, State> {
 
 const connector = connect(
   (state: RootState, { coachId }: { coachId: number }) => ({
-    pending: state.coach.upsert.loading,
     initial: coachId !== null ? getCoach(state, coachId) : null,
   }),
   {

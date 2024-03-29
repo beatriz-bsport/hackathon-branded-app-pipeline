@@ -48,20 +48,20 @@ type Props = OwnProps &
 
 const CoachMap = {
   avatar: 'photo',
-  firstname: 'first_name',
-  lastname: 'last_name',
-  gender: 'gender',
   birthday: 'birthday',
-  email: 'email',
-  description: 'description',
-  notes: 'notes',
+  color: 'color',
   date_joined_company: 'date_joined_company',
   date_left_company: 'date_left_company',
-  phone: 'phone.phone_number',
+  description: 'description',
+  email: 'email',
   facebook_url: 'facebook_url',
-  instagram_url: 'instagram_url',
-  color: 'color',
+  firstname: 'first_name',
+  gender: 'gender',
   id: 'id',
+  instagram_url: 'instagram_url',
+  lastname: 'last_name',
+  notes: 'notes',
+  phone: 'phone.phone_number',
 };
 
 type State = {

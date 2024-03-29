@@ -3,19 +3,19 @@ import { ErrorAndLoading } from '#libs/types';
 
 export type CoachUpdateOrCreatedPayload = {
   avatar: File;
-  firstname: string;
-  lastname: string;
-  email: string;
-  phone: string;
-  gender: string;
-  color: string;
   birthday: string;
-  description: string;
-  notes: string;
+  color: string;
   date_joined_company: string | null;
   date_left_company: string | null;
+  description: string;
+  email: string;
   facebook_url: string;
+  firstname: string;
+  gender: string;
   instagram_url: string;
+  lastname: string;
+  notes: string;
+  phone: string;
 };
 
 export type Coach = {

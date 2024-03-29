@@ -1,10 +1,9 @@
-// @flow
-
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import CoachForm from './CoachForm.page';
 import CoachPerformance from './CoachPerformance.page';
 import CoachDetailRouter from './CoachDetail.router';
+// @ts-expect-error
 import CoachList from './CoachList.page';
 import AllCoachPerformance from './AllCoachPerformance.page';
 

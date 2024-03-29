@@ -5667,7 +5667,7 @@
                 "title": "Geteilter Kurspass"
             },
             "section": {
-                "titleManagerOnly": "Zum Verkauf verfügbar",
+                "titleManagerOnly": "Nicht zum Verkauf verfügbar",
                 "titleAvailable": "Zum Verkauf verfügbar"
             },
             "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
@@ -7269,7 +7269,7 @@
             "2006": "Dieser Pass ist nicht kompatibel mit einer Buchung zum gewählten Datum",
             "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
             "2002": "Dieser Kurspass ist nur für neue Mitglieder erhältlich",
-            "2004": "Dieser Pass steht nicht zum Verkauf",
+            "2004": "Dieser Pass ist nicht zum Kauf verfügbar",
             "2005": "Dieser Pass steht nicht zum Verkauf",
             "8001": "Der von Ihnen gewählte Platz ist nicht mehr verfügbar",
             "generic": "Kann nicht gebucht werden",
@@ -7288,7 +7288,7 @@
             "2016": "Sie haben die maximale Anzahl von Buchungen für diesen Monat erreicht",
             "2015": "Sie haben die maximale Anzahl von Buchungen für diese Woche erreicht",
             "2014": "Sie haben die maximale Anzahl von Buchungen für diesen Tag erreicht",
-            "45004": "Der Gutschein ist nicht mehr erhältlich.",
+            "45004": "Der Gutschein ist nicht mehr zum Kauf verfügbar.",
             "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
             "45005": "Der Gutschein ist nicht mehr erhältlich.",
             "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",

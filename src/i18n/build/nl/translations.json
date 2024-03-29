@@ -3375,7 +3375,7 @@
         },
         "export": {
             "category": "Excel: {{category}}",
-            "ready": "Uw rapport \"{{ name }}\" is gereed om te downloaden.",
+            "ready": "Je rapport genaamd \"{{ name }}\" is gereed om te downloaden.",
             "generate": "Aanmaken",
             "processing": "We zijn bezig met het aanmaken van je Excel-bestand. Je krijgt een melding zodra het klaar is.",
             "continue": "Verder",
@@ -17780,7 +17780,7 @@
                 "dialog": {
                     "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. De {{ workflowLowerCase }} wordt gepauzeerd en gearchiveerd, maar u kunt deze later eenvoudig weer activeren.",
                     "title": "Weet je zeker dat je \"{{ workflowLowerCase }}\" wilt archiveren?",
-                    "beingArchived": "U staat op het punt om \"{{ naam }}\" te archiveren."
+                    "beingArchived": "Je staat op het punt om \"{{ naam }}\" te archiveren."
                 }
             },
             "howTo": {
@@ -18628,7 +18628,7 @@
             "duration": "Betalingen worden iedere {{frequency}} {{recurrency}} geïncasseerd voor {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}.",
             "comboAvailable": "{{length}} compatibel pakket",
             "comboAvailable_plural": "{{length}} compatibele pakketten",
-            "giftcardAvailable": "{{length}} compatibele cadeaubon(nen)",
+            "giftcardAvailable": "{{length}} compatibele cadeaubon",
             "giftcardAvailable_plural": "{{length}} compatibele cadeaubon(nen)",
             "shopItemAvailable": "{{length}} compatibel webshop-product",
             "shopItemAvailable_plural": "{{length}} compatibele webshop-producten",
@@ -18642,14 +18642,14 @@
             "combo": "Pakketten",
             "recurrency": "Interval",
             "number_of_billing": "Aantal betalingen",
-            "paymentNumber": "{{number_of_billing}} betaling(en)",
+            "paymentNumber": "{{number_of_billing}} betaling",
             "paymentNumber_plural": "{{number_of_billing}} betaling(en)",
             "fee": "Toeslagen",
             "minimumAmount": "Minimum aankoopbedrag",
             "compatibility": "Compatibiliteit",
             "seeAll": "Toon alles",
             "packAvailableForAll": "Alle compatibele leskaarten",
-            "packAvailable": "{{length}} compatibele leskaart(en)",
+            "packAvailable": "{{length}} compatibele leskaart",
             "packAvailable_plural": "{{length}} compatibele leskaart(en)",
             "privatePassAvailableForAll": "Alle compatibele afspraakkaarten",
             "privatePassAvailable": "{{length}} compatibele afspraakkaart(en)",

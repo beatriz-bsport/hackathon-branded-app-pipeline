@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { compose, withProps, withState } from 'recompose';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose } from 'recompose';
 import { goBack, push } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import Dialog from '@material-ui/core/Dialog';
 import {
   Button,
   createStyles,
@@ -13,7 +12,7 @@ import {
   DialogContent,
   Typography,
 } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 
 import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
@@ -39,30 +38,13 @@ import type { RootState } from '../../reducers';
 import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
 
 type OwnProps = {
-  initial: any;
-  onSubmit: () => void;
-  onCancel: () => void;
-  classes: {
-    container: string;
-  };
-
-  coachId?: number;
-  initialEmail?: string;
-  setInitialEmail: (email: string) => void;
-
-  goToCoachList: () => void;
-  fetchAssociatedCoachesList: () => void;
-  linkCoachViaEmail: (
-    email: string,
-    options: { onSuccess: () => void; onError: () => void },
-  ) => void;
-  isEmailChecking: boolean;
-  setIsEmailChecking: (isChecking: boolean) => void;
-  isUserAlreadyRegisteredDialogOpen: boolean;
-  setIsUserAlreadyRegisteredDialogOpen: (open: boolean) => void;
+  coachId: number;
 };
 
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps &
+  WithTranslation &
+  ConnectedProps<typeof connector> &
+  WithStyles;
 
 const CoachMap = {
   avatar: 'photo',
@@ -82,23 +64,74 @@ const CoachMap = {
   id: 'id',
 };
 
-export class CoachFormPage extends React.Component<Props> {
+type State = {
+  isUserAlreadyRegisteredDialogOpen: boolean;
+  isEmailChecking: boolean;
+  initialEmail: null | string;
+};
+export class CoachFormPage extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isUserAlreadyRegisteredDialogOpen: false,
+      isEmailChecking: false,
+      initialEmail: null,
+    };
+  }
+
   componentDidMount() {
     this.props.fetchAssociatedCoachesList();
   }
 
   handleUserAlreadyRegisteredDialogClose = () =>
-    this.props.setIsUserAlreadyRegisteredDialogOpen(false);
+    this.setState({ isUserAlreadyRegisteredDialogOpen: false });
+
+  onSubmit = (values: CoachUpdateOrCreatedPayload, options: OptionCallback) => {
+    if (!values.birthday) {
+      // eslint-disable-next-line
+      delete values.birthday;
+    }
+    const formData = mapFormData(values, CoachMap);
+
+    if (this.props.initial) {
+      formData.append('id', this.props.initial.id);
+    }
+
+    this.props.upsertCoach(formData, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.props.goToCoachList();
+      },
+      onError: options?.onError,
+      customErrorAction: () => {
+        this.setState({
+          isUserAlreadyRegisteredDialogOpen: true,
+          isEmailChecking: false,
+        });
+      },
+    });
+  };
+
+  onConfirmLinkCoachByEmail = (email: string) => {
+    this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
+      onSuccess: () => {
+        this.props.goToCoachList();
+
+        this.setState({ isEmailChecking: false });
+      },
+      onError: () => {
+        this.setState({ initialEmail: email });
+
+        this.setState({ isEmailChecking: false });
+      },
+    });
+  };
+
+  handleCloseIsUserAlreadyRegisteredDialog = () =>
+    this.setState({ isUserAlreadyRegisteredDialogOpen: false });
 
   render() {
-    const {
-      initial,
-      isEmailChecking,
-      isUserAlreadyRegisteredDialogOpen,
-      onCancel,
-      goToCoachList,
-      t,
-    } = this.props;
+    const { initial, classes, onCancel, goToCoachList, t } = this.props;
 
     if (this.props.coachId && !initial) {
       return <LinearProgress />;
@@ -110,28 +143,17 @@ export class CoachFormPage extends React.Component<Props> {
       : null;
 
     return (
-      <div className={this.props.classes.container}>
-        <Dialog open={!initial && isEmailChecking}>
+      <div className={classes.container}>
+        <GenericResponsiveDialog open={!initial && this.state.isEmailChecking}>
           <CoachEmailCheckDialog
             onCancel={this.props.onCancel}
-            submit={(email) => {
-              this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
-                onSuccess: () => {
-                  goToCoachList();
-                  this.props.setIsEmailChecking(false);
-                },
-                onError: () => {
-                  this.props.setInitialEmail(email);
-                  this.props.setIsEmailChecking(false);
-                },
-              });
-            }}
+            submit={this.onConfirmLinkCoachByEmail}
           />
-        </Dialog>
+        </GenericResponsiveDialog>
 
         <GenericResponsiveDialog
           onClose={this.handleUserAlreadyRegisteredDialogClose}
-          open={isUserAlreadyRegisteredDialogOpen}
+          open={this.state.isUserAlreadyRegisteredDialogOpen}
         >
           <DialogContent>
             <Typography variant="body1">
@@ -140,9 +162,7 @@ export class CoachFormPage extends React.Component<Props> {
             <DialogActions>
               <Button
                 color="primary"
-                onClick={() =>
-                  this.props.setIsUserAlreadyRegisteredDialogOpen(false)
-                }
+                onClick={this.handleCloseIsUserAlreadyRegisteredDialog}
                 type="submit"
               >
                 {t('navigation:backofficeMenu.goBack')}
@@ -162,15 +182,30 @@ export class CoachFormPage extends React.Component<Props> {
         <CoachForm
           country={browserCountryCode()}
           // @ts-expect-error
-          defaultEmail={this.props.initialEmail}
+          defaultEmail={this.state.initialEmail}
           initial={initialData}
           onCancel={onCancel}
-          onSubmit={this.props.onSubmit}
+          onSubmit={this.onSubmit}
         />
       </div>
     );
   }
 }
+
+const connector = connect(
+  (state: RootState, { coachId }: { coachId: number }) => ({
+    pending: state.coach.upsert.loading,
+    initial: coachId !== null ? getCoach(state, coachId) : null,
+  }),
+  {
+    fetchAssociatedCoachesList,
+    onCancel: goBack,
+    upsertCoach: createOrUpdateCoach,
+    linkCoachViaEmail,
+    push,
+    goToCoachList: () => push('/coach'),
+  },
+);
 
 const styles = () =>
   createStyles({
@@ -181,67 +216,10 @@ const styles = () =>
     },
   });
 
-export default compose(
-  withTranslation(),
+export default compose<OwnProps, Props>(
+  withTranslation(['navigation, coach', 'common']),
   mapRouterParamsToProps({ id: 'coachId:number' }),
-  withState('isEmailChecking', 'setIsEmailChecking', true),
-  withState('initialEmail', 'setInitialEmail', null),
-  withState(
-    'isUserAlreadyRegisteredDialogOpen',
-    'setIsUserAlreadyRegisteredDialogOpen',
-    false,
-  ),
-  connect(
-    (state: RootState, { coachId }: { coachId: number }) => ({
-      pending: state.coach.upsert.loading,
-      errors: state.coach.upsert.error,
-      initial: coachId !== null ? getCoach(state, coachId) : null,
-    }),
-    {
-      fetchAssociatedCoachesList,
-      onCancel: goBack,
-      upsertCoach: createOrUpdateCoach,
-      linkCoachViaEmail,
-      push,
-      goToCoachList: () => push('/coach'),
-    },
-  ),
-  withProps(
-    ({
-      upsertCoach,
-      initial,
-      goToCoachList,
-      setIsUserAlreadyRegisteredDialogOpen,
-      setIsEmailChecking,
-    }) => ({
-      onSubmit: (
-        values: CoachUpdateOrCreatedPayload,
-        options: OptionCallback,
-      ) => {
-        if (!values.birthday) {
-          // eslint-disable-next-line
-          delete values.birthday;
-        }
-        const formData = mapFormData(values, CoachMap);
-
-        if (initial) {
-          formData.append('id', initial.id);
-        }
-
-        upsertCoach(formData, {
-          onSuccess: () => {
-            if (options && options.onSuccess) options.onSuccess();
-            goToCoachList();
-          },
-          onError: options?.onError,
-          customErrorAction: () => {
-            setIsUserAlreadyRegisteredDialogOpen(true);
-            setIsEmailChecking(false);
-          },
-        });
-      },
-    }),
-  ),
+  connector,
   withStyles(styles),
   withTitle(({ t }) => t('titles:coach.coachFormPage')),
 )(CoachFormPage);

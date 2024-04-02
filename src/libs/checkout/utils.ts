@@ -109,7 +109,7 @@ export const getSubTotal = (
 
   const totalPrice = relevantCheckoutItems.reduce(
     (acc, ci) =>
-      acc + parseFloat(getPrice(ci.unit_price * ci.quantity, true, ci.tax)),
+      acc + parseFloat(getPrice(ci.unit_price, true, ci.tax)) * ci.quantity,
     0,
   );
   return totalPrice.toFixed(2);

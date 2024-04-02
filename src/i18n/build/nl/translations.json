@@ -1056,7 +1056,7 @@
                 "bookOption": "Wachtlijst",
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort beschikbaar",
-                "alreadyRegistered": "Gereserveerd",
+                "alreadyRegistered": "Vol",
                 "full": "Vol",
                 "popOverTitle": {
                     "notAvailable": "De sessie is geannuleerd",

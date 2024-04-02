@@ -55,6 +55,7 @@ export const GroupOfferRedirectToFirstOfferDialog: React.FC<Props> = ({
             <Typography>
               {t('workshop.warningBookingRedirectToFirstOffer', {
                 name: group.name,
+                interpolation: { escapeValue: false },
               })}
             </Typography>
           ) : (

@@ -1,5 +1,5 @@
 export type InvoiceItem = {
-  id: string;
+  id: number;
   price: string;
   invoice: string;
   object_id: number;

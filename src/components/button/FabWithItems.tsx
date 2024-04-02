@@ -141,8 +141,8 @@ const styles = (theme: Theme) => ({
     alignItems: 'flex-end',
     zIndex: 9999,
     position: 'fixed',
-    bottom: 20,
-    right: 20,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   fabLabel: {
     marginLeft: theme.spacing(1),

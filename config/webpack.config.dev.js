@@ -112,6 +112,7 @@ module.exports = {
       ),
       '#untitledui': path.resolve(__dirname, '../src/components/untitledui'),
       '#pages': path.resolve(__dirname, '../src/pages'),
+      '#state': path.resolve(__dirname, '../src/state'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

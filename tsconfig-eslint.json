@@ -24,7 +24,7 @@
         "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
         "#untitledui/*": ["./src/components/untitledui/*"],
         "#pages/*": ["./src/pages/*"],
-      
+        "#state": ["./src/state/*"],
       },
     },
     "include": ["./src/**/*.ts*"]

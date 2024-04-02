@@ -151,7 +151,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
                 supplierPrice={getCurrencyDisplayWithPrice(
                   shopItem.supplier_price,
                 )}
-                tva={getCurrencyDisplayWithPrice(shopItem.tva)}
+                tva={shopItem.tva}
               />
             )}
             <ShopItemDetailHistoryTab />

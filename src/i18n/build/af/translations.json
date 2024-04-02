@@ -10697,6 +10697,7 @@
           "supplier": "Supplier",
           "supplierPrice": "Supplier price",
           "vat": "VAT/Sales tax",
+          "vatValue": "{{vat}} %",
           "availableOnline": "Available online",
           "paymentMethods": "Accepted payment methods",
           "paymentMethodsChip": { "online": "Online", "inStore": "In store", "onlineInStore": "Online & In-store" },

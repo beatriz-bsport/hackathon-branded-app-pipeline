@@ -151,7 +151,9 @@ const ShopItemDetailSettingsTab: React.FC<Props> = ({
           <Typography variant="subtitle2">
             {t('shopItemDetail.table.settings.vat')}
           </Typography>
-          <div className={classes.listItemValue}>{tva}</div>
+          <div className={classes.listItemValue}>
+            {t('shopItemDetail.table.settings.vatValue', { vat: tva })}
+          </div>
         </ListItem>
 
         <Divider />

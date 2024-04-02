@@ -155,6 +155,7 @@ exports.default = {
         supplier: 'Supplier',
         supplierPrice: 'Supplier price',
         vat: 'VAT/Sales tax',
+        vatValue: '{{vat}} %',
         availableOnline: 'Available online',
         paymentMethods: 'Accepted payment methods',
         paymentMethodsChip: {

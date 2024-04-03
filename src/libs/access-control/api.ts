@@ -47,3 +47,9 @@ export const setMemberVisitEntryStatus = (
     },
   );
 };
+
+export const refreshMemberVisitAccessStatus = (memberVisitId: number) => {
+  return postAuth<MemberVisitREST>(
+    `${API_V1_URI}/access_control/member_visit/${memberVisitId}/refresh_access_status/`,
+  );
+};

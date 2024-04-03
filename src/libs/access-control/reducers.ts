@@ -6,6 +6,7 @@ import type { AxiosResponse } from 'axios';
 
 import {
   checkMemberInEstablishmentActions,
+  refreshMemberVisitAccessStatusActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
 
@@ -52,6 +53,39 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         .setIn(
           ['memberVisit', 'allIds'],
           // FIXME: This changes the order of the memberVisit list
+          uniq([...state.memberVisit.allIds, memberVisit.id]),
+        )
+        .merge(
+          {
+            memberVisit: {
+              byId: {
+                [memberVisit.id]: memberVisit,
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [refreshMemberVisitAccessStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['memberVisit', 'error'], payload);
+    },
+    [refreshMemberVisitAccessStatusActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['memberVisit', 'loading'], payload);
+    },
+    [refreshMemberVisitAccessStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<MemberVisitREST> },
+    ) => {
+      const memberVisit = payload.data;
+      return state
+        .setIn(
+          ['memberVisit', 'allIds'],
           uniq([...state.memberVisit.allIds, memberVisit.id]),
         )
         .merge(

@@ -6,6 +6,7 @@ import { displayAccessControlSnackbar } from '#libs/snackbar/actions';
 import {
   checkMemberInEstablishment as checkMemberInEstablishmentAPI,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
+  refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAPI,
 } from './api';
 
 import type { ThunkAction, OptionCallback } from '../../state/types';
@@ -105,5 +106,36 @@ export const setMemberVisitEntryStatus = (
       options?.onError?.(error);
     }
     dispatch(setMemberVisitEntryStatusActions.loading(false));
+  };
+};
+
+export const refreshMemberVisitAccessStatusActions = {
+  success: createAction<AxiosResponse<MemberVisitREST>>(
+    'ACCESS_CONTROL/REFRESH_MEMBER_VISIT_ACCESS_STATUS/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/REFRESH_MEMBER_VISIT_ACCESS_STATUS/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/REFRESH_MEMBER_VISIT_ACCESS_STATUS/ERROR',
+  ),
+};
+
+export const refreshMemberVisitAccessStatus = (
+  memberVisitId: number,
+  options?: OptionCallback<MemberVisitREST>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(refreshMemberVisitAccessStatusActions.loading(true));
+    dispatch(refreshMemberVisitAccessStatusActions.error(null));
+    try {
+      const response = await refreshMemberVisitAccessStatusAPI(memberVisitId);
+      dispatch(refreshMemberVisitAccessStatusActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(refreshMemberVisitAccessStatusActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(refreshMemberVisitAccessStatusActions.loading(false));
   };
 };

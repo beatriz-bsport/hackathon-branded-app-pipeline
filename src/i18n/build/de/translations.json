@@ -5761,9 +5761,9 @@
             "name": "{{ name }}"
         },
         "privateBookingIncomplete": {
-            "name": "Mitglied: {{ user_name }}",
+            "name": "Mitglied: {{- user_name }}",
             "date": "Datum: {{ date_start }}",
-            "explain": "Der Termin von <1>{{name}}</1> hat keine zugeteilte Lehrkraft."
+            "explain": "Der Termin von <1>{{- name }}</1> hat keine zugeteilte Lehrkraft."
         },
         "unevenInvoice": {
             "explainUneven": "Diese Rechnung <1>{{ invoice_identifier }}</1> ist nicht ausgeglichen.",
@@ -5788,7 +5788,7 @@
         },
         "showMore": "Mehr anzeigen",
         "newOrder": {
-            "explain": "Von <1>{{name}}</1> im Shop bezahlt.",
+            "explain": "Von <1>{{- name }}</1> im Shop bezahlt.",
             "price": "Betrag: {{ price }}.",
             "title": "Bestellung in Bearbeitung"
         },
@@ -5812,7 +5812,7 @@
         },
         "lateReplacementRequest": {
             "title": "Späte Vertretung",
-            "content": "hat für den folgenden Kurs eine Vertretung beantragt: {{activity_name}} - {{-date_start}}"
+            "content": "hat für den folgenden Kurs eine Vertretung beantragt: {{- activity_name}} - {{-date_start}}"
         },
         "newTutorialSectionOrLesson": {
             "newSection": {
@@ -9207,10 +9207,10 @@
         "statusCode": {
             "cancelledByOffer": "Kurs vom Studio abgesagt",
             "cancelledByConsumer": "Vom Kunden storniert",
-            "cancelledByManager": "Vom Manager storniert ({{cancelled_by}})",
+            "cancelledByManager": "Vom Manager storniert ({{- cancelled_by }})",
             "cancelledByOfferDate": "Kurs vom Studio am {{-date}} um {{time}} abgesagt.",
             "cancelledByConsumerDate": "Vom Kunden am {{-date}} um {{time}} storniert.",
-            "cancelledByManagerDate": "Am {{-date}} um {{time}} von {{cancelled_by}} abgesagt.",
+            "cancelledByManagerDate": "Am {{-date}} um {{time}} von {{- cancelled_by }} abgesagt.",
             "cancelledByAnonymousManager": "Annullierung Admin",
             "cancelledByAnonymousManagerDate": "Vom Studio am {{-date}} um {{time}} abgesagt."
         },
@@ -10301,7 +10301,7 @@
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
             "delete": {
                 "explain2": "Sie können sie später wieder hinzufügen.",
-                "explain1": "Sind Sie sicher, dass Sie die Weitergabe des Aktionscodes für {{name}} stoppen wollen ?",
+                "explain1": "Sind Sie sicher, dass Sie die Weitergabe des Aktionscodes für ({{- name }}) stoppen wollen ?",
                 "title": "Teilen stoppen"
             },
             "create": {
@@ -12062,7 +12062,7 @@
             "statistic": "Statistiken",
             "connectedAs": "Anmelden als",
             "backToRelationMasterSpace": "Zu meinem Konto zurückkehren",
-            "relationConnectedAs": "Derzeit angemeldet als: {{name}}",
+            "relationConnectedAs": "Derzeit angemeldet als: {{- name }}",
             "goBack": "Zurück"
         },
         "pack": {
@@ -14391,7 +14391,10 @@
                 "errors": {
                     "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn Sie eine neue Lehrkraft erstellen."
                 }
-            }
+            },
+            "errorDescription": "Die Beschreibung ist zu lang (max. 500)",
+            "errorLinkLength": "Der angegebene URL ist zu lang (max. 150)",
+            "errorInvalidURL": "Bitte geben Sie einen gültigen URL ein"
         },
         "noActivity": "Diese Lehrkraft leitet keine Aktivität.",
         "selfNoActivity": "Du bist für keine Aktivität eingeteilt.",
@@ -18662,7 +18665,7 @@
             "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
             "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
             "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Clock-Out\".",
-            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Clock-In\", um mit der Zeiterfassung Ihres Tages zu beginnen.",
+            "subtitleClockIn": "Hallo {{- name }}, klicken Sie auf \"Clock-In\", um mit der Zeiterfassung Ihres Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
             "lastClockIn": "Letzter Clock-In: {{- date }} - {{ hour }}",
             "clockOut": "Clock-Out",

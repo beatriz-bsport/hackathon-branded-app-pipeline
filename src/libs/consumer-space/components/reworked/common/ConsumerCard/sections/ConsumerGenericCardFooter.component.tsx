@@ -79,6 +79,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
     },
     [],
   );
+
   const handleOnMenuClose = React.useCallback(() => {
     setIsButtonMenuOpened(false);
     setAnchorEl(null);
@@ -170,8 +171,9 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
             </Button>
           ),
       )}
+
       {/* TODO: DISPLAY BOTTOMDRAWER IF ON MOBILE AND MENU IF ON DESKTOP */}
-      {menuId && (
+      {!!menuId && (
         <Menu
           anchorEl={anchorEl}
           className={classNames(

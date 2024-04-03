@@ -42,7 +42,12 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
 
   return (
     <>
-      <Grid container spacing={4}>
+      <Grid
+        container
+        alignContent="flex-start"
+        className={classes.gridContainer}
+        spacing={4}
+      >
         <Grid item xs={12}>
           <Typography variant="body2">
             {t('shopitem.form.variantHelperText')}
@@ -101,6 +106,9 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    height: '100%',
+  },
   gridItemContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -112,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginTop: theme.spacing(2),
+    gap: theme.spacing(1),
   },
 }));
 

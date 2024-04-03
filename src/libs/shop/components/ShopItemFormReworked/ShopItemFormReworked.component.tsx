@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   CB,
@@ -52,6 +53,8 @@ const ShopItemFormReworked: React.FC<Props> = ({
   isEditForm,
   supplierList,
 }) => {
+  const classes = useStyles();
+
   const initialValues: ShopItemFormValues = useMemo(
     () => ({
       name: initial?.name ?? '',
@@ -186,7 +189,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
       onSubmit={handleOnSubmit}
       validationSchema={shopItemFormValidationSchema}
     >
-      <Form noValidate>
+      <Form noValidate className={classes.form}>
         {formStep === ShopItemFormStep.PRODUCT && (
           <ShopItemFormProductStep
             handleCancel={handleCancel}
@@ -204,5 +207,13 @@ const ShopItemFormReworked: React.FC<Props> = ({
     </Formik>
   );
 };
+
+const useStyles = makeStyles(() => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+}));
 
 export default React.memo(ShopItemFormReworked);

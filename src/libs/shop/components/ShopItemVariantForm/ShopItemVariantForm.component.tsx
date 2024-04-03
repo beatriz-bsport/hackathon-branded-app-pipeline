@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Formik, Form } from 'formik';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
 
@@ -19,6 +20,8 @@ type Props = {
  * @prop `onCancel` Action to perform when cancel button has been clicked
  */
 const ShopItemVariantForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+  const classes = useStyles();
+
   const [initialValues] = useState<ShopItemVariantFormValues>({
     colors: [],
     sizes: [],
@@ -43,11 +46,19 @@ const ShopItemVariantForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
       onSubmit={handleOnSubmit}
       validationSchema={shopItemVariantFormValidationSchema}
     >
-      <Form noValidate>
+      <Form noValidate className={classes.form}>
         <ShopItemFormVariantStep onCancel={onCancel} />
       </Form>
     </Formik>
   );
 };
+
+const useStyles = makeStyles(() => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+}));
 
 export default React.memo(ShopItemVariantForm);

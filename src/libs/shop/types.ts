@@ -1,4 +1,5 @@
 import { ErrorAndLoading, WithPagination } from '#libs/types';
+import { ShopItemDetailTab } from './components/ShopItemDetail/constants';
 
 export type Provision = {
   product_name: string;
@@ -248,4 +249,10 @@ export type ShopSupplierUpdate = {
   id: number;
   name: string;
   description?: string;
+};
+
+/** An available/selectable tab from the table in shop item details */
+export type TabListOption = {
+  label: string;
+  value: ShopItemDetailTab;
 };

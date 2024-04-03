@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
-import { makeStyles, useTheme } from '@material-ui/core';
+import { makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -193,8 +193,11 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   fetchShopItemVariantList,
   setIsVariantEditMode,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation(['shop', 'common']);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const classes = useStyles();
 
   const getInitialValues = useCallback(
     () => ({
@@ -309,7 +312,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
                 </Button>
               </div>
             )}
-            {!isVariantEditMode && (
+            {!isMobile && !isVariantEditMode && (
               <div className={classes.tableEditActions}>
                 <Button
                   color="secondary"

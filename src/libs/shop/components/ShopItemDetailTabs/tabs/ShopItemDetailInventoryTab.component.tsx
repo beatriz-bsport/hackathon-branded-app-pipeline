@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
@@ -51,6 +51,8 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('shop');
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
   const initialValues = useMemo(
@@ -139,25 +141,27 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
         }: FormikProps<ShopItemInventoryBulkUpdateFormValues>) => (
           <Form noValidate>
             <TableContainer className={classes.tableContainer}>
-              <div className={classes.tableActionContainer}>
-                {!!errors.variants && (
-                  <Alert
-                    className={classes.tableErrorContainer}
-                    severity="error"
-                  >
-                    {t('shopItemDetail.table.inventory.formError')}
-                  </Alert>
-                )}
+              {!isMobile && (
+                <div className={classes.tableActionContainer}>
+                  {!!errors.variants && (
+                    <Alert
+                      className={classes.tableErrorContainer}
+                      severity="error"
+                    >
+                      {t('shopItemDetail.table.inventory.formError')}
+                    </Alert>
+                  )}
 
-                <Button
-                  color="primary"
-                  disabled={isUpdatingVariant || !isValid}
-                  type="submit"
-                  variant="contained"
-                >
-                  {t('shopItemDetail.table.inventory.action.update')}
-                </Button>
-              </div>
+                  <Button
+                    color="primary"
+                    disabled={isUpdatingVariant || !isValid}
+                    type="submit"
+                    variant="contained"
+                  >
+                    {t('shopItemDetail.table.inventory.action.update')}
+                  </Button>
+                </div>
+              )}
 
               <Table>
                 <TableHead>

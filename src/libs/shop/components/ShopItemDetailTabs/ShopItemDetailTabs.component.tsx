@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { LinearProgress, makeStyles } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import {
+  LinearProgress,
+  makeStyles,
+  useTheme,
+  useMediaQuery,
+} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
@@ -19,10 +23,11 @@ import type {
   ShopItem,
   ShopSupplier,
   ShopItemVariant,
+  TabListOption,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
-import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { ShopItemDetailTab } from '../ShopItemDetail/constants';
 
 type Props = {
   companyId?: number;
@@ -30,16 +35,17 @@ type Props = {
   isVariantListLoading?: boolean;
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
-  selectedTab: string;
+  selectedTab: TabListOption;
   variantList: ShopItemVariant[];
   shopItem: ShopItem;
   shopItemSupplier: ShopSupplier;
   page: number;
   count: number;
   isVariantEditMode?: boolean;
+  availableTabListOptions: TabListOption[];
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
-  handleChangeTab: (_: React.ChangeEvent, tab: ShopItemDetailTab) => void;
+  handleChangeTab: (option: TabListOption) => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   onDeleteShopItemVariant: (id: number) => void;
   fetchShopItemVariantList: (page: number) => void;
@@ -63,6 +69,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   page,
   count,
   isVariantEditMode,
+  availableTabListOptions = [],
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   handleChangeTab,
@@ -72,38 +79,39 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   createShopItemProvisionBulk,
   setIsVariantEditMode,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
-  const { t } = useTranslation('shop');
 
-  const variantListCount = count > 0 ? ` (${count})` : '';
+  const onChangeTab = useCallback(
+    (_: React.ChangeEvent, value: ShopItemDetailTab) => {
+      // find the matching option from the selected value
+      const relatedOption = availableTabListOptions.find(
+        (option) => option.value === value,
+      );
+      handleChangeTab({ label: relatedOption?.label ?? '', value });
+    },
+    [handleChangeTab, availableTabListOptions],
+  );
 
   return (
     <Card>
-      <TabContext value={selectedTab}>
-        <Tabs
-          classes={{ root: classes.tabsContainer }}
-          onChange={handleChangeTab}
-          value={selectedTab}
-        >
-          <Tab
-            label={t('shop:shopItemDetail.tab.inventory')}
-            value={ShopItemDetailTab.INVENTORY}
-          />
-          <Tab
-            label={`${t(
-              'shop:shopItemDetail.tab.variants',
-            )}${variantListCount}`}
-            value={ShopItemDetailTab.VARIANTS}
-          />
-          <Tab
-            label={t('shop:shopItemDetail.tab.settings')}
-            value={ShopItemDetailTab.SETTINGS}
-          />
-          <Tab
-            label={t('shop:shopItemDetail.tab.history')}
-            value={ShopItemDetailTab.HISTORY}
-          />
-        </Tabs>
+      <TabContext value={selectedTab.value}>
+        {!isMobile && (
+          <Tabs
+            classes={{ root: classes.tabsContainer }}
+            onChange={onChangeTab}
+            value={selectedTab.value}
+          >
+            {availableTabListOptions.map((option) => (
+              <Tab
+                key={option.value}
+                label={option.label}
+                value={option.value}
+              />
+            ))}
+          </Tabs>
+        )}
 
         {(isLoading || isVariantListLoading || isDeletingVariant) && (
           <LinearProgress color="primary" />

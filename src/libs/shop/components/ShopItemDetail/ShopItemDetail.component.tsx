@@ -3,8 +3,9 @@ import React, { useState, useCallback, useMemo } from 'react';
 // @ts-expect-error
 import Barcode from 'react-barcode';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme, useMediaQuery, Theme } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
+import Select from 'react-select';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
@@ -23,6 +24,7 @@ import type {
   ShopItemVariantAttributes,
   ShopSupplier,
   ProvisionBulkCreate,
+  TabListOption,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
@@ -91,13 +93,16 @@ const ShopItemDetail: React.FC<Props> = ({
   deleteShopItemVariant,
   createShopItemProvisionBulk,
 }) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const classes = useStyles({ isMobile });
 
   const { t } = useTranslation('shop');
 
-  const [selectedTab, setSelectedTab] = useState<ShopItemDetailTab>(
-    ShopItemDetailTab.INVENTORY,
-  );
+  const [selectedTab, setSelectedTab] = useState<TabListOption>({
+    label: t('shop:shopItemDetail.tab.inventory'),
+    value: ShopItemDetailTab.INVENTORY,
+  });
 
   const [isEditShopitemDrawerOpen, setIsEditShopitemDrawerOpen] =
     useState(false);
@@ -181,10 +186,10 @@ const ShopItemDetail: React.FC<Props> = ({
   );
 
   const handleChangeTab = useCallback(
-    (_: React.ChangeEvent, tab: ShopItemDetailTab) => {
+    (option: TabListOption) => {
       const isTabRenderingVariants =
-        tab === ShopItemDetailTab.INVENTORY ||
-        tab === ShopItemDetailTab.VARIANTS;
+        option.value === ShopItemDetailTab.INVENTORY ||
+        option.value === ShopItemDetailTab.VARIANTS;
       /* 
        Whenever changing tab, we want to get back to page 1 to prevent
        keeping page number synchronized across tabs. 
@@ -193,7 +198,7 @@ const ShopItemDetail: React.FC<Props> = ({
         fetchShopItemVariantList(1);
       }
       isVariantEditMode && setIsVariantEditMode(false);
-      setSelectedTab(tab);
+      setSelectedTab(option);
     },
     [fetchShopItemVariantList, isVariantEditMode, page],
   );
@@ -220,10 +225,31 @@ const ShopItemDetail: React.FC<Props> = ({
     },
     [createShopItemVariants, handleCloseCreateVariantDrawer, shopItem?.id],
   );
+
   const allVariantsHaveSamePrice = useMemo(() => {
     const initialPrice = shopItem?.price;
     return variantList.every((variant) => variant.price === initialPrice);
   }, [shopItem?.price, variantList]);
+
+  const variantListCount = count > 0 ? ` (${count})` : '';
+
+  const availableTabListOptions: TabListOption[] = useMemo(
+    () => [
+      {
+        label: t('shop:shopItemDetail.tab.inventory'),
+        value: ShopItemDetailTab.INVENTORY,
+      },
+      {
+        label: `${t('shop:shopItemDetail.tab.variants')}${variantListCount}`,
+        value: ShopItemDetailTab.VARIANTS,
+      },
+      {
+        label: t('shop:shopItemDetail.tab.settings'),
+        value: ShopItemDetailTab.SETTINGS,
+      },
+    ],
+    [t, variantListCount],
+  );
 
   return (
     <div className={classes.container}>
@@ -242,7 +268,16 @@ const ShopItemDetail: React.FC<Props> = ({
         subtitle={shopItem?.subtitle}
       />
 
+      {isMobile && (
+        <Select
+          onChange={handleChangeTab}
+          options={availableTabListOptions}
+          value={selectedTab}
+        />
+      )}
+
       <ShopItemDetailTabs
+        availableTabListOptions={availableTabListOptions}
         companyId={companyId}
         count={count}
         createShopItemProvisionBulk={createShopItemProvisionBulk}
@@ -318,12 +353,12 @@ const ShopItemDetail: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { isMobile: boolean }>((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
-    padding: theme.spacing(4),
+    padding: ({ isMobile }) => theme.spacing(isMobile ? 2 : 4),
   },
 }));
 

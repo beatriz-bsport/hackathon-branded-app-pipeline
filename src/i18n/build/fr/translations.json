@@ -5461,7 +5461,11 @@
                 "explainTags": "Les tags du membre supprimés ne seront pas transférés",
                 "emailWillBeSend": "Un email sera envoyé aux deux adresses pour prévenir les membres.",
                 "cancel": "Annuler",
-                "submit": "Fusionner"
+                "submit": "Fusionner",
+                "confirmation": {
+                    "title": "Êtes-vous sûr de vouloir fusionner les membres ?",
+                    "confirm": "Confirmer"
+                }
             },
             "error": "Impossible de sauvegarder le membre",
             "phone": {

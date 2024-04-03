@@ -1780,7 +1780,7 @@
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
             "notifyRevert": "Stornierungs-E-Mail senden",
             "refundRevert": "Rückerstattung gebrauchter Credits",
-            "cancellingOtherBookingInGroup": "Achtung: Dieser Kurs ist eine Gruppeneinheit von ({{- name }}). Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
+            "cancellingOtherBookingInGroup": "Achtung: Dieser Kurs ist Teil eines Events ({{- name }}). Andere Buchungen, die mit diesem Ereignis verbunden sind, werden nicht bearbeitet.",
             "cancellingBookingInGroup": "Mehrere Kurse stornieren",
             "waitingListPosition": "Auf der Warteliste {{ position }}/{{ size }}"
         },
@@ -10303,7 +10303,7 @@
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
             "delete": {
                 "explain2": "Sie können sie später wieder hinzufügen.",
-                "explain1": "Sind Sie sicher, dass Sie die Verfügbarkeit des Aktionscodes {{name}} ändern wollen ?",
+                "explain1": "Sind Sie sicher, dass Sie die Verfügbarkeit des Aktionscodes für ({{- name }}) ändern wollen ?",
                 "title": "Teilen stoppen"
             },
             "create": {
@@ -18972,7 +18972,7 @@
     "tutorial": {
         "shareDialog": {
             "infoTextSection": "Geben Sie alle Stunden im Abschnitt {{- name }} für Ihre Mitarbeiter frei, die keinen Zugriff auf die Registerkarte \"Tutorials\" haben. Sie können dann nur in diesem Abschnitt navigieren.",
-            "infoTextLesson": "Geben Sie diesen Kurs {{- name }} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
+            "infoTextLesson": "Geben Sie diesen Kurs {{- name }} an Mitarbeiter weiter die keinen Zugang auf die Tutorials haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
             "title": "Teilen",
             "continueButton": "Weiter"
         },

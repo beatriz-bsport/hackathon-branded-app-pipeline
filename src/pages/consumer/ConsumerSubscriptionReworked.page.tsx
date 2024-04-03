@@ -258,9 +258,9 @@ const mapWithHandlers = {
               member: props.membership.id,
               status,
             });
-            if (options && options.onSuccess) options.onSuccess(sub);
+            options?.onSuccess?.(sub);
           },
-          onError: options ? options.onError : null,
+          onError: options?.onError,
         },
       );
     },
@@ -277,11 +277,9 @@ const mapWithHandlers = {
             props.fetchPaymentMethodListAction({
               company: props.membership.company,
             });
-            if (options && options.onSuccess) {
-              options.onSuccess();
-            }
+            options?.onSuccess?.();
           },
-          onError: options && options.onError,
+          onError: options?.onError,
         },
       );
     },

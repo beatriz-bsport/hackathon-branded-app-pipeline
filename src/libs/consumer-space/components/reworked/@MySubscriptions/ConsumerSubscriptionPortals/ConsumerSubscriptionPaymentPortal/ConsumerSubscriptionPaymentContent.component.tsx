@@ -1,48 +1,47 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { AxiosResponse } from 'axios';
 
 import Alert from '#Fabrique/Alert';
-
 import BigIcon from '#Fabrique/BigIcon';
 import Typography from '#Fabrique/Typography';
 
 import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment/SubscriptionPayment.component';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
+
+import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
-import type { OptionCallback } from '../../../../../../../state/types';
 
 type Props = {
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   enabledPaymentGroupMethodIdentifierIds: number[];
   memberMail: string;
   memberName: string;
   paymentMethodList: PaymentMethod[];
   paymentMethodLoading: boolean;
   paymentMethodUsed: PaymentMethod;
+  selectedPaymentMethodId: string | null;
+  switchSucceeded: boolean;
+  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   refreshSavedPaymentMethodList: () => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;
-  selectedPaymentMethodId: string | null;
   setSelectedSavedPaymentMethod: React.Dispatch<React.SetStateAction<string>>;
-  switchSucceeded: boolean;
 };
 
 const ConsumerSubscriptionPaymentContent: React.FC<Props> = ({
-  detachPaymentMethod,
   enabledPaymentGroupMethodIdentifierIds,
   memberMail,
   memberName,
   paymentMethodList,
   paymentMethodLoading,
   paymentMethodUsed,
+  selectedPaymentMethodId,
+  switchSucceeded,
+  detachPaymentMethod,
   refreshSavedPaymentMethodList,
   requestSetupIntentSecret,
-  selectedPaymentMethodId,
   setSelectedSavedPaymentMethod,
-  switchSucceeded,
 }) => {
   const { t } = useTranslation('consumerSpace');
 

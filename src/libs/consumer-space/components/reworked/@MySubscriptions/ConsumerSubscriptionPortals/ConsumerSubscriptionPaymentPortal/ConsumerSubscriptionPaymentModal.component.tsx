@@ -4,19 +4,15 @@ import type { AxiosResponse } from 'axios';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Blanket from '#Fabrique/Blanket';
 import { PortalContainer } from '#Fabrique/PortalContainer';
-
 import { ConsumerSubscriptionPaymentContent } from '.';
 
+import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
-import type { OptionCallback } from '../../../../../../../state/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 
 type Props = {
   cancelLabel: string;
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   enabledPaymentGroupMethodIdentifierIds: number[];
-  handleClose: () => void;
-  handleConfirm: () => void;
   isOpen: boolean;
   isProcessing: boolean;
   memberMail: string;
@@ -24,23 +20,23 @@ type Props = {
   paymentMethodList: PaymentMethod[];
   paymentMethodLoading: boolean;
   paymentMethodUsed: PaymentMethod;
+  selectedPaymentMethodId: string | null;
+  selectedSubscription: SubscriptionREST;
+  switchSucceeded: boolean;
+  title: string;
+  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  handleClose: () => void;
+  handleConfirm: () => void;
   refreshSavedPaymentMethodList: () => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;
-  selectedPaymentMethodId: string | null;
-  selectedSubscription: SubscriptionREST;
   setSelectedSavedPaymentMethod: React.Dispatch<React.SetStateAction<string>>;
-  switchSucceeded: boolean;
-  title: string;
 };
 
 const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
   cancelLabel,
-  detachPaymentMethod,
   enabledPaymentGroupMethodIdentifierIds,
-  handleClose,
-  handleConfirm,
   isOpen,
   isProcessing,
   memberMail,
@@ -48,13 +44,16 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
   paymentMethodList,
   paymentMethodLoading,
   paymentMethodUsed,
-  refreshSavedPaymentMethodList,
-  requestSetupIntentSecret,
   selectedPaymentMethodId,
   selectedSubscription,
-  setSelectedSavedPaymentMethod,
   switchSucceeded,
   title,
+  detachPaymentMethod,
+  handleClose,
+  handleConfirm,
+  refreshSavedPaymentMethodList,
+  requestSetupIntentSecret,
+  setSelectedSavedPaymentMethod,
 }) => {
   return (
     <PortalContainer wrapperId="bs-consumer-subscription-payment-modal-portal-container">

@@ -1,32 +1,32 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { AxiosResponse } from 'axios';
 
 import {
   ConsumerSubscriptionPaymentModal,
   ConsumerSubscriptionPaymentBottomDrawer,
 } from '.';
+
+import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
-import type { OptionCallback } from '../../../../../../../state/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 
 type Props = {
-  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   displayBottomDrawer: boolean;
   enabledPaymentGroupMethodIdentifierIds: number[];
   isOpen: boolean;
   memberMail: string;
   memberName: string;
-  onClose: () => void;
   paymentMethodList: PaymentMethod[];
   paymentMethodLoading: boolean;
   paymentMethodUsed: PaymentMethod;
+  selectedSubscription: SubscriptionREST;
+  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
+  onClose: () => void;
   refreshSavedPaymentMethodList: () => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;
-  selectedSubscription: SubscriptionREST;
   switchPaymentMethod: (
     subscriptionId: number,
     payment_method_id: string,
@@ -35,19 +35,19 @@ type Props = {
 };
 
 const ConsumerSubscriptionPaymentPortal: React.FC<Props> = ({
-  detachPaymentMethod,
   displayBottomDrawer,
   enabledPaymentGroupMethodIdentifierIds,
   isOpen,
   memberMail,
   memberName,
-  onClose,
   paymentMethodList,
   paymentMethodLoading,
   paymentMethodUsed,
+  selectedSubscription,
+  detachPaymentMethod,
+  onClose,
   refreshSavedPaymentMethodList,
   requestSetupIntentSecret,
-  selectedSubscription,
   switchPaymentMethod,
 }) => {
   const { t } = useTranslation('consumerSpace');

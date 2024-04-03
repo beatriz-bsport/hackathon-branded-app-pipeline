@@ -4449,7 +4449,7 @@
                 "label": "Limit the uses per member"
             },
             "usage_total": {
-                "label": "Total number of members that can use the code"
+                "label": "Code usage limit across all members"
             },
             "only_on_first_checkout": {
                 "label": "This promotional code can only be used for the 1st purchase"

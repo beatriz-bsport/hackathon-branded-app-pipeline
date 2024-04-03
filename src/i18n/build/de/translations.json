@@ -384,7 +384,8 @@
                 "title": "Vergangenes Datum",
                 "cancel": "Stornieren"
             },
-            "monthBillingDay": "Wird jeden {{ month_billing_day }} des Monats in Rechnung gestellt"
+            "monthBillingDay": "Wird jeden {{ month_billing_day }} des Monats in Rechnung gestellt",
+            "autoRenewal": "Automatische Verlängerung"
         },
         "subscription": {
             "actions": {
@@ -672,14 +673,14 @@
                 "form": {
                     "failureStep": {
                         "contentUnknownError": "Es ist ein unvorhergesehener Fehler aufgetreten. Wir entschuldigen uns für die entstandenen Unannehmlichkeiten.",
-                        "contentOverlapPause": "Das Abonnement {{- subscriptionName}} von {{subscriberName}} konnte nicht pausiert werden, da bereits eine Pause von {{- fromDate}} bis {{- untilDate}} vorgesehen ist.",
+                        "contentOverlapPause": "Das Abonnement {{- subscriptionName}} von {{- subscriberName }} konnte nicht pausiert werden, da bereits eine Pause von {{- fromDate}} bis {{- untilDate}} vorgesehen ist.",
                         "contentCanNotEditPauseEndBeforeToday": "Der neue Termin für den Beginn der Pause kann erst heute festgelegt werden.",
                         "title": "Pausieren fehlgeschlagen",
                         "contentSubscriptionWillEndBeforePause": "Das Abonnement kann in diesem Zeitraum nicht pausiert werden, da es vorher beendet wurde oder eine Verlängerung zu diesem Zeitpunkt noch nicht durchgeführt wurde.",
                         "contentCanNotCancelPause": "Da die Pause bereits begonnen hat oder schon vorbei ist, kann sie nicht mehr abgesagt werden.",
                         "contentSubscriptionHasNotStarted": "Die Pause wurde nicht durchgeführt, da der Datumsbereich vor dem Beginn des Abonnements liegt.",
                         "contentCanNotEditPauseStartWhenHasStarted": "Der Beginn der Pause kann nicht mehr geändert werden, sobald sie begonnen hat.",
-                        "contentIncomingBill": "Das Abonnement {{- subscriptionName}} von {{subscriberName}} konnte nicht pausiert werden, da eine Rechnung innerhalb des Pausenintervalls innerhalb von 24 Stunden in Rechnung gestellt wird oder eine zukünftige Rechnung bezahlt wird. Bitte ändern Sie das Startdatum der Pause.",
+                        "contentIncomingBill": "Das Abonnement {{- subscriptionName}} von {{- subscriberName }} konnte nicht pausiert werden, da eine Rechnung innerhalb des Pausenintervalls innerhalb von 24 Stunden in Rechnung gestellt wird oder eine zukünftige Rechnung bezahlt wird. Bitte ändern Sie das Startdatum der Pause.",
                         "contentCanNotCreateAPauseInThePast": "Die Pause kann nicht in der Vergangenheit beginnen.",
                         "contentInvalidTimedelta": "Die Pause sollte mindestens einen Tag dauern."
                     },
@@ -691,7 +692,7 @@
                         "titleUpdate": "Pause bearbeiten"
                     },
                     "successStep": {
-                        "content": "Das {{- subscriptionName}} Abonnement von {{subscriberName}} wurde von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert.",
+                        "content": "Das {{- subscriptionName}} Abonnement von {{- subscriberName }} wurde von {{- fromDate}} bis einschließlich {{- untilDate}} pausiert.",
                         "title": "Abonnement pausieren"
                     }
                 },
@@ -765,9 +766,9 @@
                     "title": "Pause aufheben"
                 },
                 "listItem": {
-                    "createdAtBy": "Erstellt am {{- dateCreation}} von {{staffName}}",
+                    "createdAtBy": "Erstellt am {{- dateCreation}} von {{- staffName }}",
                     "createdAt": "Erstellt am {{- dateCreation}}",
-                    "deletedAtBy": "Storniert am {{- dateDeletion}} von {{staffName}}",
+                    "deletedAtBy": "Storniert am {{- dateDeletion}} von {{- staffName }}",
                     "fromToUntil": "Von {{- fromDate}} bis {{- untilDate}}",
                     "label": "Pause von {{- fromDate}} bis {{- untilDate}}",
                     "deletedAt": "Storniert am {{- dateDeletion}}",
@@ -1420,7 +1421,7 @@
                     },
                     "header": "Fortgeschritten"
                 },
-                "editingGroup": "Achtung, dieser Kurs ist Teil der Kursgruppe {{ name }}",
+                "editingGroup": "Achtung, dieser Kurs ist Teil der Kursgruppe {{- name }}",
                 "explainAllowGuest": "Die Buchung für einen Gast zulassen"
             },
             "shop": {
@@ -1779,7 +1780,7 @@
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
             "notifyRevert": "Stornierungs-E-Mail senden",
             "refundRevert": "Rückerstattung gebrauchter Credits",
-            "cancellingOtherBookingInGroup": "Achtung: Dieser Kurs ist eine Gruppeneinheit von {{ name }}. Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
+            "cancellingOtherBookingInGroup": "Achtung: Dieser Kurs ist eine Gruppeneinheit von ({{- name }}). Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
             "cancellingBookingInGroup": "Mehrere Kurse stornieren",
             "waitingListPosition": "Auf der Warteliste {{ position }}/{{ size }}"
         },
@@ -1804,7 +1805,7 @@
                 "discardAllGroup": "Alle Buchungen dieser Gruppe werden storniert.",
                 "willBeRefund": "Der Kurs am {{-day}} wird wieder gutgeschrieben",
                 "willNotBeRefund": "Nicht beglichene Credits",
-                "discardGroup1": "Diese Buchung ist Teil der \"{{ group }}\".",
+                "discardGroup1": "Diese Buchung ist Teil der \"{{- group }}\".",
                 "discardGroup2": "Sie werden automatisch von allen noch nicht stattgefundenen Kursen dieser Gruppe abgemeldet.",
                 "discardGroup3": "Wenn Sie nur einen Kurs dieser Gruppe absagen möchten, wenden Sie sich bitte an Ihr Studio.",
                 "discardGroupPossibleExplain": "Ihre Credits werden wieder verfügbar sein.",
@@ -1839,7 +1840,7 @@
                     "passCompatibleNotOwnedByMember": "Rechnungsstellung eines neuen Kurspasses",
                     "doNotConsumeCredit": "Für diese Anmeldung werden den Mitgliedern keine Credits abgezogen",
                     "loadingData": "Buchungsdaten laden",
-                    "groupWarning": "Dieser Kurs ist Teil eines Events {{ name }}",
+                    "groupWarning": "Dieser Kurs ist Teil eines Events ({{- name }})",
                     "bookMoreInGroup": "Andere Events buchen",
                     "bookSingleInGroup": "Nur für diesen Kurs anmelden",
                     "bookingLimitReached": "Buchungsgrenze erreicht"
@@ -2855,7 +2856,7 @@
             "title": "Liste der Kadenzen"
         },
         "cadence": {
-            "content": "Wird in der Kadenz verwendet: {{ cadence_name }}",
+            "content": "Wird in der Kadenz verwendet:{{- cadence_name }}",
             "content_plural": "Verwendet in {{ count }} Kadenzen"
         },
         "cannotBeDeletedDialog": {
@@ -2878,7 +2879,7 @@
             "title": "Liste der {{ workflowPluralLowerCase }}"
         },
         "audience": {
-            "content": "Verwendet im {{ workflowLowerCase }}:{{ workflow_name }}",
+            "content": "Verwendet im {{ workflowLowerCase }}:{{- workflow_name }}",
             "content_plural": "Verwendet in {{ count }}{{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Bericht herunterladen",
@@ -3007,7 +3008,7 @@
                     },
                     "label": "Begrenzung der maximalen Anzahl zukünftiger Buchungen pro Kunde"
                 },
-                "hiddenFromMarketplace": "Erscheint in der bsport-App",
+                "hiddenFromMarketplace": "Aktiviere dies, um dein Studio in der allgemeinen BSPORT-App und auf dem Marktplatz anzuzeigen",
                 "schedule": {
                     "alert": "Die Anfangszeit des Wochenplans sollte vor der Endzeit liegen",
                     "end": "Endzeit",
@@ -6176,7 +6177,8 @@
             "booking_date_created": "Datum und Zeit der Buchung",
             "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)",
             "billing_group_address": "Adresse",
-            "is_first_visit": "Erste Reservierung"
+            "is_first_visit": "Erste Reservierung",
+            "is_from_billing_plan": "Aus dem Abonnement"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -6185,7 +6187,7 @@
             "button_new": "Erstelle meinen ersten Report"
         },
         "report": {
-            "delete_message": "Bist Du Dir sicher, dass Du den Report {{name}} löschen möchtest?"
+            "delete_message": "Bist Du Dir sicher, dass Du \"{{- name }}\" löschen möchtest?"
         },
         "subheader": {
             "average": "Durchschnitt",
@@ -8546,7 +8548,7 @@
         "base_percent": "Prozentsatz des Wertes",
         "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
         "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
-        "title": "Lohnausstellung der Lehrkraft {{name}}",
+        "title": "Lohnausstellung der Lehrkraft {{- name }}",
         "pageTitle": "Lohnabrechnung",
         "coach_payment_rules": {
             "Simulator": {
@@ -8824,7 +8826,7 @@
                 "comboWarning": "Achtung! Wenn Sie dieses Produkt löschen, können Sie es auch nicht mehr für die Packete verkaufen, für die es verwendet wird.",
                 "message": "Sind Sie sicher, dass Sie dieses Produkt aus Ihrem Webshop löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
                 "genericTitle": "Bestätigung der Löschung",
-                "title": "Löschung"
+                "title": "Löschung - {{- name }}"
             },
             "deleteVariant": "Variante löschen",
             "viewBarcode": "Barcode anzeigen",
@@ -8841,7 +8843,7 @@
                         "suppliers": {
                             "deleteModal": {
                                 "message": "Sind Sie sicher, dass Sie diesen Anbieter löschen möchten?",
-                                "title": "Lieferant: {{supplierName}}"
+                                "title": "Lieferant: {{- supplierName }}"
                             },
                             "modal": {
                                 "field": {
@@ -9686,7 +9688,7 @@
                     "memberOfCompany": "Um mit dem Browsen fortzufahren, füllen Sie bitte die folgenden Informationen aus.",
                     "notMemberYet": "Haben Sie diese Informationen korrekt ausgefüllt und möchten Sie den Anmeldevorgang abschließen? "
                 },
-                "welcome": "Hallo {{firstname}}",
+                "welcome": "Hallo {{- firstname }}",
                 "subtitle": {
                     "notMemberYet": "Sieht so aus, als würden Sie unser Studio zum ersten Mal besuchen.",
                     "memberOfCompany": "Bitte füllen Sie das folgende Formular aus."
@@ -9824,7 +9826,7 @@
             "done": "Ich besitze einen gültigen COVID-19 Sanitätspass"
         },
         "archive": {
-            "archivedMember": "Archiviertes Mitglied: {{name}}",
+            "archivedMember": "Archiviertes Mitglied: {{- name}}",
             "dialog": {
                 "title": "Mitglied archivieren",
                 "actions": {
@@ -10003,7 +10005,7 @@
             },
             "member-custom_form_filled": {
                 "filter": "Profilformular bearbeitet",
-                "primaryText": "Das Formular für die Profilbearbeitung {{ formName }} wurde ausgefüllt."
+                "primaryText": "Profilbearbeitungs Formular {{- formName }} wurde ausgefüllt."
             },
             "member-giftcard_used": {
                 "filter": "Verwendete Gutscheine",
@@ -10016,11 +10018,11 @@
             "member-private_booking_registered": {
                 "filter": "Termin",
                 "primaryText": "{{ source }} hat den Termin {{- privateServiceName }} gebucht. - {{- privateSlotName }} vom {{- privateServiceDate }}.",
-                "sourceManager": "Der Manager {{ managerName }}"
+                "sourceManager": "Der Manager {{- managerName }}"
             },
             "member-tag_applied": {
                 "filter": "Angewandte Tags",
-                "primaryText": "Das Tag {{ tagName }} wurde angewendet."
+                "primaryText": "Das Tag {{- tagName }} wurde angewendet."
             },
             "member-vod_bought": {
                 "filter": "VOD gekauft",
@@ -10057,7 +10059,7 @@
             "value": "Nr.{{id}}",
             "label": "Nummer des Ausweisdokuments"
         },
-        "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{ name }}<1> angemeldet",
+        "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{- name }}</1> angemeldet",
         "email": "E-Mail"
     },
     "common": {
@@ -10301,7 +10303,7 @@
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
             "delete": {
                 "explain2": "Sie können sie später wieder hinzufügen.",
-                "explain1": "Sind Sie sicher, dass Sie die Weitergabe des Aktionscodes für ({{- name }}) stoppen wollen ?",
+                "explain1": "Sind Sie sicher, dass Sie die Verfügbarkeit des Aktionscodes {{name}} ändern wollen ?",
                 "title": "Teilen stoppen"
             },
             "create": {
@@ -13323,7 +13325,7 @@
             "expires": "Läuft ab",
             "classLocation": "Ihr Kurs findet statt in",
             "spotUnassigned": "Spot nicht zugewiesen",
-            "spotInfo": "Dein ist"
+            "spotInfo": "Dein {{- spotName }} ist:"
         },
         "signout": {
             "form": {
@@ -13465,7 +13467,7 @@
             "coachFormPage": "Lehrkraft-Formular",
             "coachList": "Lehrkräfte",
             "allCoachPerformance": "Lohnabrechnung",
-            "coachPerformance": "Lohnabrechnung: {{name}}"
+            "coachPerformance": "Lohnabrechnung: {{- name }}"
         },
         "invoice": {
             "invoiceCreate": "In Rechnung stellen",
@@ -13972,7 +13974,7 @@
                 },
                 "is": " ist ",
                 "shareEmail": "Immer eine Email-Kopie senden",
-                "autorization": "{{name_1}} Zugriff auf das Konto von {{name_2}} erlauben",
+                "autorization": "\"{{- name_1 }}\" Zugriff auf das Konto von \"{{- name_2 }}\" erlauben",
                 "accountInfo": "Der Kontozugriff ermöglicht es dem Mitglied, von seinem eigenen Konto aus auf das Konto der Beziehung zuzugreifen.",
                 "access": "Zugang zum Konto",
                 "confirm": "Bestätigen",
@@ -14199,9 +14201,9 @@
             "manager": "Manager",
             "franchisor": "Master Account",
             "continue": "Mit diesem Konto fortfahren",
-            "currentSession": "Sie sind derzeit als {{name}} angemeldet",
+            "currentSession": "Sie sind derzeit als {{- name }} angemeldet",
             "restore": "Fortfahren mit dem vorherigen Konto",
-            "previousSession": " Sie waren angemeldet als {{name}}",
+            "previousSession": " Sie waren angemeldet als {{- name }}",
             "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden."
         },
         "stripeOnboardingPending": {
@@ -14300,7 +14302,9 @@
                 "campaigns": "Kampagnen",
                 "general": "Allgemein"
             }
-        }
+        },
+        "logout": "Abmelden",
+        "login": "Anmelden"
     },
     "emailTemplate": {
         "editor": {
@@ -14700,7 +14704,7 @@
                 "bookTitle": "Übersicht"
             },
             "noWorkshopAvailable": "Momentan sind keine kommenden Workshops geplant.",
-            "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{name}} weitergeleitet. Die gemeinsam zu buchenden Kurse werden auf Ihrem Buchungsbildschirm aufgelistet.",
+            "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{- name }}} weitergeleitet. Die gemeinsam zu buchenden Kurse werden auf Ihrem Buchungsbildschirm aufgelistet.",
             "loadMore": "Mehr dazu",
             "cancel": "Abbrechen",
             "confirm": "Weiter",
@@ -15360,7 +15364,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Achtung dieser Kurs ist Teil der Gruppe von Kursen {{ name }}"
+                "warning": "Achtung dieser Kurs ist Teil der Gruppe von Kursen {{- name }}"
             },
             "stepper": {
                 "step": {
@@ -15422,7 +15426,7 @@
                 "helpTitle": "Wie läuft die Synchronisierung ab?",
                 "helpContent": "Die Mitglieder in der Smartlist werden jede Nacht an die ActiveCampaign-Liste geschickt, sie erscheinen dort als \"aktiv\". Mitglieder, die von der Smartlist gestrichen werden, werden auch von der ActiveCampaign-Liste gestrichen, ihr Status ist dann \"unbestätigt\".",
                 "noList": "KEINE LISTE",
-                "listItemText": "Die Mitglieder der Smartlist <1>{{smartlist}}</2> an die ActiveCampaign-Liste <3>{{list}}</4> senden"
+                "listItemText": "Die Mitglieder der Smartlist <1>{{- smartlist }}</2> an die ActiveCampaign-Liste <3>{{- list }}</4> senden"
             }
         },
         "broadcast": {
@@ -16346,7 +16350,7 @@
             },
             "subscriptionForm": {
                 "commitmentMessage": "Bitte beachten Sie: Ein Abonnement ist mit einer 12-monatigen Verpflichtung verbunden",
-                "confirmationMessage": "Sie haben erfolgreich {{ name }} abonniert",
+                "confirmationMessage": "Sie haben erfolgreich {{- name }} abonniert",
                 "info": "Kundenservice kontaktieren",
                 "infoHelper": "Brauchen Sie mehr Informationen?",
                 "confirmHelper": "Bitte bestätigen Sie, dass Sie dieses Add-on abonnieren möchten",
@@ -17082,7 +17086,7 @@
                 "title": "Titel",
                 "isMandatoryOnSignUp": "Dieses Feld ist bei der Anmeldung obligatorisch",
                 "waiver": "Haftungsverzichtserklärung",
-                "repeatPassword": "Passwort bestätigen",
+                "repeatPassword": "Bestätigen",
                 "general_terms_and_conditions": "Ich akzeptiere die Allgemeine Geschäftsbedingungen.",
                 "country": "Land",
                 "city": "Stadt",
@@ -17390,7 +17394,7 @@
             },
             "archive": {
                 "dialog": {
-                    "beingArchived": "Sie sind dabei, {{ name }} zu archivieren.",
+                    "beingArchived": "Sie sind dabei, {{- name }} zu archivieren.",
                     "confirm": "Weiter",
                     "helper": "Die Mitglieder, die sich gerade in der Kadenz befinden, verlassen diese automatisch. Diese Kadenz wird archiviert, aber Sie können sie später wieder aktivieren.",
                     "cancel": "Stornieren",
@@ -17668,7 +17672,7 @@
                 "dialog": {
                     "helper": "Mitglieder, die sich derzeit im {{ workflowLowerCase }} befinden, verlassen diesen automatisch. Der {{ workflowLowerCase }} wird angehalten und archiviert, aber Sie können ihn später einfach wieder aktivieren.",
                     "title": "Sind Sie sicher, dass Sie den {{ workflowLowerCase }} archivieren wollen?",
-                    "beingArchived": "Sie sind dabei, \"{{ Name }}\" zu archivieren."
+                    "beingArchived": "Sie sind dabei, \"{{- name }}\" zu archivieren."
                 }
             },
             "howTo": {
@@ -17720,7 +17724,7 @@
                     "sms": "SMS",
                     "email": "E-Mail",
                     "availableSoon": "Bald verfügbar",
-                    "knowMore": "Mehr Informationen über das {{ upsellName }} Upsell",
+                    "knowMore": "Mehr Informationen über das {{- upsellName }} Upsell",
                     "title": "Gesendete Kommunikation"
                 },
                 "openButton": "Öffne {{ workflowLowerCase }}"
@@ -17859,20 +17863,20 @@
             "deleted": "Spot gelöscht",
             "missImageFree": "Sie haben das Bild für den freien Spot nicht geladen",
             "subtitle": "Platz-Typ erstellen",
-            "freePersonalized": "Verfügbar: {{name}}",
+            "freePersonalized": "Verfügbar: {{- name }}",
             "title": "Raumplan",
             "circular": "Rund",
             "rectangle": "Rechteck",
             "square": "Quadrat",
             "predefined": "Vorgegebene Formen",
             "selected": "Ausgewählter Spot",
-            "takenPersonalized": "Gebucht: {{name}}",
+            "takenPersonalized": "Gebucht: {{- name }}",
             "generalInfo": "Allgemeine Informationen",
             "taken": "Gebuchte Spots",
             "saved": "Gespeicherter Spot",
             "nameExplain": "Name des Platz-typs",
             "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
-            "selectedPersonalized": "{{name}} ausgewählt",
+            "selectedPersonalized": "{{- name }} ausgewählt",
             "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
             "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert",
             "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
@@ -17900,10 +17904,10 @@
             "legend": "Legende",
             "available": "Verfügbar",
             "availableSpot": "Platz verfügbar",
-            "availablePersonalizedSpot": "{{ spotName }} verfügbar",
+            "availablePersonalizedSpot": "{{- spotName }} verfügbar",
             "unavailable": "Nicht verfügbar",
             "unavailableSpot": "Platz nicht verfügbar",
-            "unavailablePersonalizedSpot": "{{ spotName }} nicht verfügbar",
+            "unavailablePersonalizedSpot": "{{- spotName }} nicht verfügbar",
             "seeAll": "Alle sehen",
             "confirm": "Bestätigen",
             "selectOtherSpot": {
@@ -18828,7 +18832,7 @@
         },
         "disciplineGroup": {
             "delete": {
-                "description": "Sind Sie sicher, dass Sie die Disziplingruppe {{name}} löschen möchten?",
+                "description": "Sind Sie sicher, dass Sie die Disziplingruppe {{- name }} löschen möchten?",
                 "title": "Löschen",
                 "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
@@ -18967,8 +18971,8 @@
     },
     "tutorial": {
         "shareDialog": {
-            "infoTextSection": "Geben Sie alle Kurse von \"{{name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
-            "infoTextLesson": "Geben Sie diesen Kurs {{name}} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
+            "infoTextSection": "Geben Sie alle Stunden im Abschnitt {{- name }} für Ihre Mitarbeiter frei, die keinen Zugriff auf die Registerkarte \"Tutorials\" haben. Sie können dann nur in diesem Abschnitt navigieren.",
+            "infoTextLesson": "Geben Sie diesen Kurs {{- name }} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
             "title": "Teilen",
             "continueButton": "Weiter"
         },
@@ -19007,7 +19011,7 @@
         "sectionFinishDialog": {
             "title": "Herzlichen Glückwunsch!",
             "continueButton": "Weiter",
-            "infoText": "Du hast alle Kurse im Abschnitt {{name}} abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
+            "infoText": "Du hast alle Kurse im Abschnitt {{- name }}  abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
         },
         "allFinishDialog": {
             "title": "Abgeschlossen!",
@@ -19169,12 +19173,12 @@
                 "title": "Hinzufügen nicht möglich",
                 "subTextListItem": "Leider konnte der Artikel nicht hinzugefügt werden, weil",
                 "newMember": {
-                    "subText": "{{ optionalBeginning }} {{ name }} ist kein neues Mitglied."
+                    "subText": "{{ optionalBeginning }} {{- name }} ist kein neues Mitglied."
                 },
                 "tag": {
-                    "hasTag": "{{ optionalBeginning }} {{ name }} besitzt das Tag {{ tagName }}.",
-                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} besitzt nicht das Tag {{ tagName }}.",
-                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} besitzt das Tag {{ ownedTagName }} und besitzt nicht das Tag {{ notOwnedTagName }}."
+                    "hasTag": "{{ optionalBeginning }} {{- name }} besitzt das Tag {{- tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} besitzt nicht das Tag {{- tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} besitzt das Tag {{- ownedTagName }} und besitzt nicht das Tag {{- notOwnedTagName }."
                 }
             },
             "authenticationRequired": {

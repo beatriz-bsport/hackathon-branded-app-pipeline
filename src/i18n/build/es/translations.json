@@ -381,7 +381,7 @@
                     "address_line_2": "Dirección adicional",
                     "address_line_1": "Dirección",
                     "gender": "Sexo",
-                    "passwordConfirm": "Confirmar la contraseña",
+                    "passwordConfirm": "Confirmar",
                     "password": "Contraseña",
                     "email": "Correo electrónico",
                     "last_name": "Apellido",
@@ -468,7 +468,7 @@
                     "header": "Avanzado"
                 },
                 "explainAllowGuest": "Autorizar la reserva para un invitado",
-                "editingGroup": "Cuidado, esta sesión forma parte del grupo de sesiones {{ name }}"
+                "editingGroup": "Cuidado, esta sesión forma parte del grupo de sesiones {{- name }}"
             },
             "paymentPack": {
                 "newMemberOnly": "Uniquement pour les nouveaux clients",
@@ -668,7 +668,7 @@
                 "intro": "Su reserva el {{date}}",
                 "discardGroupPossibleExplain": "Tus créditos volverán a ser utilizables.",
                 "discardGroup3": "Si desea cancelar sólo una sesión del grupo, póngase en contacto con su estudio.",
-                "discardGroup1": "Esta reserva forma parte del grupo de sesiones {{ group }}.",
+                "discardGroup1": "Esta reserva forma parte del grupo de sesiones {{- group }}.",
                 "willNotBeRefund": "Créditos no reembolsados",
                 "willBeRefund": "La sesión del {{-day}} se volverá a acreditar",
                 "discardAllGroup": "Todas las reservas del grupos serán canceladas.",
@@ -960,7 +960,7 @@
             "notifyRevert": "Enviar un email de cancelación",
             "refundRevert": "Reembolso de los créditos utilizados",
             "cancellingBookingInGroup": "Cancelar para otras sesiones de este grupo.",
-            "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{ name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas.",
+            "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{- name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas.",
             "waitingListPosition": "En lista de espera {{ posición }}/{ tamaño }}"
         },
         "level": {
@@ -1139,7 +1139,7 @@
                     "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse",
                     "bookSingleInGroup": "Inscribir sólo en esta sesión",
                     "bookMoreInGroup": "Inscribir en otras sesiones de grupo",
-                    "groupWarning": "Esta sesión forma parte del grupo de sesiones {{ name }}",
+                    "groupWarning": "Esta sesión forma parte del grupo de sesiones {{- name }}",
                     "loadingData": "Carga de los datos de reserva",
                     "bookingLimitReached": "Límite de reservas alcanzado"
                 }
@@ -2279,7 +2279,7 @@
         },
         "active_campaign": {
             "link": {
-                "listItemText": "Enviar los miembros de la smartlist <1> {{smartlist}} </2> a la lista de ActiveCampaign <3> {{list}} </4>",
+                "listItemText": "Enviar los miembros de la smartlist <1> {{- smartlist }} </2> a la lista de ActiveCampaign <3> {{- list }} </4>",
                 "noList": "LISTA DESCONOCIDA",
                 "helperForm": "Elige una smartlist de bsport y vincúlala a una de tus listas en ActiveCampaign",
                 "listActiveCampaignSelection": "Elegir una lista ActiveCampaign",
@@ -2829,7 +2829,7 @@
                 "comboWarning": "¡Atención! Al eliminar este producto, también dejará de estar disponible para la compra de los paquetes para los que se utiliza.",
                 "message": "¿Está seguro de que desea eliminar este producto de su tienda virtual? Esta acción no se puede deshacer.",
                 "genericTitle": "Confirmación de eliminación",
-                "title": "Eliminación - {{name}}"
+                "title": "Eliminación - {{- name }}"
             },
             "deleteVariant": "Borrar variante",
             "viewBarcode": "Ver código de barras",
@@ -2846,7 +2846,7 @@
                         "suppliers": {
                             "deleteModal": {
                                 "message": "¿Está seguro de que desea eliminar este proveedor?",
-                                "title": "Proveedor: {{supplierName}}"
+                                "title": "Proveedor: {{- supplierName }}"
                             },
                             "modal": {
                                 "field": {
@@ -4180,7 +4180,8 @@
                 "alertSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
                 "title": "Fecha pasada"
             },
-            "monthBillingDay": "Facturado cada {{ month_billing_day }} del mes"
+            "monthBillingDay": "Facturado cada {{ month_billing_day }} del mes",
+            "autoRenewal": "Renovación automática"
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -4552,12 +4553,12 @@
                         "contentSubscriptionWillEndBeforePause": "La suscripción no se puede pausar durante este periodo porque habrá terminado antes o su renovación no se ha ejecutado todavía en este momento.",
                         "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
                         "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
-                        "contentOverlapPause": "La cuota {{- subscriptionName}} de {{subscriberName}} no se ha podido pausar porque ya hay una pausa programada de {{- fromDate}} a {{- untilDate}}.",
-                        "contentIncomingBill": "La cuota {{- subscriptionName}} de {{subscriberName}} no se ha podido pausar porque se va a cobrar una factura en el intervalo de pausa dentro de 24 horas, o se está pagando una factura futura. Por favor, cambia la fecha de inicio de la pausa.",
+                        "contentOverlapPause": "La cuota {{- subscriptionName}} de {{- subscriberName }} no se ha podido pausar porque ya hay una pausa programada de {{- fromDate}} a {{- untilDate}}.",
+                        "contentIncomingBill": "La cuota {{- subscriptionName}} de {{- subscriberName }} no se ha podido pausar porque se va a cobrar una factura en el intervalo de pausa dentro de 24 horas, o se está pagando una factura futura. Por favor, cambia la fecha de inicio de la pausa.",
                         "title": "Fallo de la pausa"
                     },
                     "successStep": {
-                        "content": "La cuota {{- subscriptionName}} de {{subscriberName}} se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido.",
+                        "content": "La cuota {{- subscriptionName}} de {{- subscriberName }} se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido.",
                         "title": "Pausa de la cuota"
                     },
                     "initStep": {
@@ -4615,9 +4616,9 @@
                     "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
                     "pausedAt": "{{ days }} días - El {{- date }}",
                     "deletedAt": "Desprogramado el {{- dateDeletion}}",
-                    "deletedAtBy": "Desprogramado en {{- dateDeletion}} por {{staffName}}",
+                    "deletedAtBy": "Desprogramado en {{- dateDeletion}} por {{- staffName }}",
                     "createdAt": "Creado el {{- dateCreation}}",
-                    "createdAtBy": "Creado el {{- dateCreation}} por {{staffName}}",
+                    "createdAtBy": "Creado el {{- dateCreation}} por {{- staffName }}",
                     "fromToUntil": "Pausa de {{- fromDate}} a {{- untilDate}}"
                 },
                 "deleteDialog": {
@@ -5028,7 +5029,8 @@
             "margin_value_incl_tax": "Valor marginal (IVA / IVA incluido)",
             "margin_value_excluding_sales_tax": "Valor marginal (sin IVA)",
             "billing_group_address": "Dirección",
-            "is_first_visit": "Primera reserva"
+            "is_first_visit": "Primera reserva",
+            "is_from_billing_plan": "Procedente de la suscripción"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5067,7 +5069,7 @@
             "booking": "Reserva"
         },
         "report": {
-            "delete_message": "Esta seguro suprimir el informe {{name}} ?"
+            "delete_message": "Está seguro de querer borrar el informe {{- name }}?"
         },
         "form": {
             "title": "Nueve informe",
@@ -5890,7 +5892,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Cuidado, esta sesión forma parte del grupo de sesiones {{ name }}"
+                "warning": "Cuidado, esta sesión forma parte del grupo de sesiones {{- name }}"
             },
             "stepper": {
                 "step": {
@@ -6004,7 +6006,7 @@
                     "notMemberYet": "Transmisión de información",
                     "memberOfCompany": "Completar mi información"
                 },
-                "welcome": "Hola {{firstname}}",
+                "welcome": "Hola {{- firstname }}",
                 "subtitle": {
                     "notMemberYet": "Parece que es la primera vez que se conecta a este estudio",
                     "memberOfCompany": "Cuéntenos más sobre usted."
@@ -6122,7 +6124,7 @@
                 "helper_text_1": "¿Estás seguro de que quieres archivar a este miembro?",
                 "title": "Archivar un miembro"
             },
-            "archivedMember": "Miembro archivado : {{name}}"
+            "archivedMember": "Miembro archivado : {{- name}}"
         },
         "termsOfUse": "Condiciones generales de uso",
         "archived": "Archivado",
@@ -6272,10 +6274,10 @@
             "member-private_booking_registered": {
                 "primaryText": "{{ source }} ha reservado una cita {{- privateServiceName }} - {{- privateSlotName }} para {{- privateServiceDate }}.",
                 "filter": "Cita previa",
-                "sourceManager": "El manager {{ managerName }}"
+                "sourceManager": "El manager {{- managerName }}"
             },
             "member-tag_applied": {
-                "primaryText": "Se ha aplicado la etiqueta {{ tagName }}.",
+                "primaryText": "Se ha aplicado la etiqueta {{- tagName }}.",
                 "filter": "Etiquetas aplicadas"
             },
             "member-basket_paid": {
@@ -6289,7 +6291,7 @@
             },
             "member-custom_form_filled": {
                 "filter": "Edición del formulario de perfil",
-                "primaryText": "Se ha rellenado el formulario de edición de perfil {{ formName }}."
+                "primaryText": "Se ha rellenado el formulario de edición de perfil {{- formName }}."
             },
             "member-giftcard_used": {
                 "filter": "Tarjetas regalo utilizadas",
@@ -6334,7 +6336,7 @@
             "label": "Numéro de membership",
             "value": "Número {{id}}"
         },
-        "signedUpWithReferral": "Miembro registrado con el enlace de referencia de <1>{{ name }}</1>",
+        "signedUpWithReferral": "Miembro registrado con el enlace de referencia de <1>{{- name }}</1>",
         "email": "Email"
     },
     "booking": {
@@ -6881,7 +6883,7 @@
             "confirm": "Continuar",
             "cancel": "Cancelar",
             "loadMore": "Ver más",
-            "warningBookingRedirectToFirstOffer": "Ha sido redirigido a la pantalla de reserva de grupo de sesiones {{name}}, las sesiones que se van a reservar juntas aparecerán en su pantalla de reserva."
+            "warningBookingRedirectToFirstOffer": "Ha sido redirigido a la pantalla de reserva de grupo de sesiones {{- name }}, las sesiones que se van a reservar juntas aparecerán en su pantalla de reserva."
         },
         "warning": {
             "backToBackoffice": "Interfaz manager",
@@ -10080,7 +10082,7 @@
                     },
                     "label": "Limitar el número de reservas futuras por miembro"
                 },
-                "hiddenFromMarketplace": "Aparecer en la solicitud de bsport",
+                "hiddenFromMarketplace": "Aparecer en la app de bsport y en el marketplace",
                 "schedule": {
                     "alert": "La hora de inicio del horario debe ser anterior a la hora de finalización",
                     "end": "Hora de finalización",
@@ -12084,7 +12086,7 @@
         "coaches": "Profesores",
         "dateTitle": "Rango de fechas",
         "label": "Regla de remuneración",
-        "title": "Pago del profesor {{name}}",
+        "title": "Pago de profesor para {{- name }}",
         "calculate": "Calcular",
         "common": {
             "until": "Final",
@@ -14610,7 +14612,7 @@
             "visitsLeft": "Visitas restantes",
             "classLocation": "Tu sesión tiene lugar en",
             "spotUnassigned": "Plaza no asignada",
-            "spotInfo": "Su {{spotName}} es:"
+            "spotInfo": "Su {{- spotName }} es:"
         },
         "memberList": {
             "empty": "Ningún estudiante inscrito en este curso",
@@ -15061,9 +15063,9 @@
             "manager": "gerente",
             "franchisor": "franquiciador",
             "continue": "Continúe con esta sesión",
-            "currentSession": "Actualmente está conectado como {{name}}",
+            "currentSession": "Actualmente está conectado como {{- name }}",
             "restore": "Restaurar esta sesión",
-            "previousSession": " Has iniciado la sesión como {{name}}",
+            "previousSession": " Has iniciado la sesión como {{- name }}",
             "title": " Parece que está utilizando varias pestañas simultáneamente"
         },
         "stripeOnboardingPending": {
@@ -15162,7 +15164,9 @@
                 "campaigns": "Campañas",
                 "general": "General"
             }
-        }
+        },
+        "logout": "Cerrar sesión",
+        "login": "Iniciar sesión"
     },
     "video": {
         "video": {
@@ -16173,7 +16177,7 @@
             "title": "Lista de las cadencias"
         },
         "cadence": {
-            "content": "Usado en la cadencia: {{ cadence_name }}",
+            "content": "Usado en la cadencia: {{- cadence_name }}",
             "content_plural": "Usado en {{ count }} cadencias"
         },
         "cannotBeDeletedDialog": {
@@ -16196,7 +16200,7 @@
             "title": "Lista de los {{ workflowPluralLowerCase }}"
         },
         "audience": {
-            "content": "Se utiliza en el {{ workflowLowerCase }}: {{ workflow_name }}",
+            "content": "Se utiliza en el {{ workflowLowerCase }}: {{- workflow_name }}",
             "content_plural": "Usado en {{ count }} {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Descargar el informe",
@@ -16256,7 +16260,7 @@
                 "is": " es ",
                 "access": "Acceso a la cuenta",
                 "confirm": "Confirmar",
-                "autorization": "Permitir a {{name_1}} acceder a la cuenta de {{name_2}}",
+                "autorization": "Permitir a {{- name_1 }} acceder a la cuenta de {{- name_2 }}",
                 "accountInfo": "El acceso a la cuenta permite al miembro acceder a la cuenta de su relación desde su propia cuenta.",
                 "email": "Copia del email",
                 "parentalLink": "Relación"
@@ -16404,7 +16408,7 @@
             "couponCreate": "Formulario promoción"
         },
         "coach": {
-            "coachPerformance": "Pago del profesor {{name}}",
+            "coachPerformance": "Pago del profesor {{- name }}",
             "coachFormPage": "Formulario profesor",
             "allCoachPerformance": "Resumen profesor",
             "coachList": "Profesores"
@@ -16998,7 +17002,7 @@
             },
             "subscriptionForm": {
                 "commitmentMessage": "Nota: La suscripción implica un compromiso de 12 meses.",
-                "confirmationMessage": "Te has suscrito con éxito a {{ name }}",
+                "confirmationMessage": "Te has suscrito con éxito a {{- name }}",
                 "info": "Contactar con el servicio de atención al cliente",
                 "infoHelper": "¿Necesita más información?",
                 "confirmHelper": "Confirme que desea suscribirse a este suplemento",
@@ -17169,7 +17173,7 @@
                 "link_to_tag_popover": "Vincular una etiqueta a esta opción",
                 "isMandatoryOnSignUp": "La pregunta es obligatoria en la inscripción",
                 "waiver": "Exención de responsabilidad",
-                "repeatPassword": "Confirmar contraseña",
+                "repeatPassword": "Confirmar",
                 "general_terms_and_conditions": "Condiciones de uso",
                 "country": "País",
                 "city": "Ciudad",
@@ -17818,7 +17822,7 @@
                 "dialog": {
                     "helper": "Los miembros que se encuentren actualmente en el {{ workflowLowerCase }} saldrán automáticamente de él. El {{ workflowLowerCase }} se pondrá en pausa y se archivará, pero podrá reactivarlo fácilmente más tarde.",
                     "title": "¿Está seguro de que desea archivar el {{ workflowLowerCase }}?",
-                    "beingArchived": "Está a punto de archivar \"{{ name }}\"."
+                    "beingArchived": "Está a punto de archivar \"{{- name }}\"."
                 }
             },
             "howTo": {
@@ -17869,7 +17873,7 @@
                     "sms": "SMS",
                     "email": "Email",
                     "availableSoon": "Disponible próximamente",
-                    "knowMore": "Más información sobre la funcionalidad adicional {{ upsellName }}",
+                    "knowMore": "Más información sobre la funcionalidad adicional {{- upsellName }}",
                     "title": "Comunicaciones enviadas"
                 },
                 "openButton": "Abrir {{ workflowLowerCase }}"
@@ -18015,11 +18019,11 @@
             "missImageSelected": "No ha cargado la imagen para el sitio seleccionado",
             "missImageTaken": "No ha cargado la imagen para el sitio reservado",
             "missImageFree": "No ha cargado la imagen para el sitio libre",
-            "selectedPersonalized": "{{name}} seleccionado",
+            "selectedPersonalized": "{{- name }} seleccionado",
             "selected": "Sitio seleccionado",
-            "takenPersonalized": "{{name}} reservado",
+            "takenPersonalized": "{{- name }} reservado",
             "taken": "Sitio reservado",
-            "freePersonalized": "{{name}} disponible",
+            "freePersonalized": "{{- name }} disponible",
             "free": "Sitio disponible",
             "personalizedExplain": "Puedes personalizar la forma de los sitios importando tus propias imágenes. Para ello necesitamos 3 iconos diferentes. Uno para indicar que el sitio está disponible, otro cuando está reservado. Asegúrate de que son del mismo tamaño y no incluyas ningún número en tus iconos.",
             "preview": "Vista previa",
@@ -18049,10 +18053,10 @@
             "legend": "Leyenda",
             "available": "Disponible",
             "availableSpot": "Sitio disponible",
-            "availablePersonalizedSpot": "{{ spotName }} disponible",
+            "availablePersonalizedSpot": "{{- spotName }} disponible",
             "unavailable": "No disponible",
             "unavailableSpot": "Sitio no disponible",
-            "unavailablePersonalizedSpot": "{{ spotName }} no disponible",
+            "unavailablePersonalizedSpot": "{{- spotName }} no disponible",
             "seeAll": "Ver todo",
             "confirm": "Confirmar",
             "selectOtherSpot": {
@@ -18886,13 +18890,13 @@
         },
         "sectionFinishDialog": {
             "continueButton": "Continuar",
-            "infoText": "Has completado todos las clases de la sección {{name}}. Sigue mejorando completando la siguiente sección.",
+            "infoText": "Has completado todos las clases de la sección {{- name }}. Sigue mejorando completando la siguiente sección.",
             "title": "¡Felicidades!"
         },
         "shareDialog": {
             "continueButton": "Continuar",
-            "infoTextLesson": "Compartir la clase {{name}} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de este curso.",
-            "infoTextSection": "Compartir todas las clases de la sección {{name}} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de esta sección.",
+            "infoTextLesson": "Compartir la clase {{- name }} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de este curso.",
+            "infoTextSection": "Compartir todas las clases de la sección {{- name }} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de esta sección.",
             "title": "Compartir"
         },
         "welcomeDialog": {
@@ -19012,7 +19016,7 @@
         },
         "disciplineGroup": {
             "delete": {
-                "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{name}}?",
+                "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{- name }}?",
                 "title": "Borrar",
                 "confirm": "Confirmar",
                 "cancel": "Cancelar"
@@ -19342,12 +19346,12 @@
                 "title": "No se puede añadir",
                 "subTextListItem": "Lamentablemente no ha sido posible añadir el artículo porque",
                 "newMember": {
-                    "subText": "{{ optionalBeginning }} {{ name }} no es un miembro nuevo."
+                    "subText": "{{ optionalBeginning }} {{- name }} no es un miembro nuevo."
                 },
                 "tag": {
-                    "hasTag": "{{ optionalBeginning }} {{ name }} está etiquetado como {{ tagName }}.",
-                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} no está etiquetado como {{ tagName }}.",
-                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} está etiquetado como {{ ownedTagName }} y no está etiquetado como {{ notOwnedTagName }}."
+                    "hasTag": "{{ optionalBeginning }} {{- name }} está etiquetado como {{- tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} no está etiquetado como {{- tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} está etiquetado como {{- ownedTagName }} y no está etiquetado como {{- notOwnedTagName }}."
                 }
             },
             "itemsRemovedFromBasket": {

@@ -1007,7 +1007,7 @@
                     "registerToOffer": "Reservering",
                     "doNotConsumeCredit": "Geen credits voor deze reserveringen aftrekken",
                     "bookMoreInGroup": "Andere evenementen reserveren",
-                    "groupWarning": "Deze sessie is onderdeel van het evenement \"{{ name }}\".",
+                    "groupWarning": "Deze sessie is onderdeel van het evenement {{- name }}",
                     "bookSingleInGroup": "Alleen voor deze sessie inschrijven",
                     "loadingData": "Reserveringsgegevens laden",
                     "bookingLimitReached": "Reserveringslimiet bereikt"
@@ -1259,7 +1259,7 @@
                 "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
                 "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
                 "discardGroup2": "Je wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gekoppeld zijn.",
-                "discardGroup1": "Deze reservering is onderdeel van \"{{ group }}\".",
+                "discardGroup1": "Deze reservering is onderdeel van \"{{- group }}\".",
                 "waintingListPositionLabel": "Positie :"
             },
             "help": {
@@ -1408,7 +1408,7 @@
                     },
                     "header": "Geavanceerd"
                 },
-                "editingGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\".",
+                "editingGroup": "Deze sessie is gekoppeld aan het evenement {{- name }}",
                 "explainAllowGuest": "Activeer de functie voor leden om gasten uit te nodigen"
             },
             "payment": {
@@ -1795,7 +1795,7 @@
             "notifyRevert": "Een annuleringsmail sturen",
             "refundRevert": "Gebruikte credits terugbetalen",
             "cancellingBookingInGroup": "Meerdere sessies annuleren",
-            "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd.",
+            "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement {{- name }}. Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd.",
             "waitingListPosition": "Positie op de wachtlijst: {{ position }}/{{ size }}"
         },
         "workshopActivity": {
@@ -3306,10 +3306,11 @@
             "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)",
             "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)",
             "billing_group_address": "Adress",
-            "is_first_visit": "Eerste boeking"
+            "is_first_visit": "Eerste boeking",
+            "is_from_billing_plan": "Afkomstig van abonnement"
         },
         "report": {
-            "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
+            "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
         },
         "no": "Nee",
         "yes": "Ja",
@@ -3730,7 +3731,7 @@
         "newOrder": {
             "price": "Bedrag: {{ price }}.",
             "title": "Bestelling in behandeling",
-            "explain": "Nieuwe bestelling van \"{{name}}\""
+            "explain": "Betaald door <1>{{-naam }}</1> in de winkel."
         },
         "task": {
             "name": "{{name}}"
@@ -5533,7 +5534,7 @@
             "title": "Lijst"
         },
         "cadence": {
-            "content": "Relevante cadence: {{ cadence_name }}",
+            "content": "Relevante cadence: {{- cadence_name }}",
             "content_plural": "Deze Smartlist wordt in {{ count }} cadences gebruikt"
         },
         "cannotBeDeletedDialog": {
@@ -5551,7 +5552,7 @@
             "title": "Lijst van de {{ workflowPluralLowerCase }}"
         },
         "audience": {
-            "content": "Gebruikt in de {{ workflowLowerCase }}: {{ workflow_name }}",
+            "content": "Gebruikt in de {{ workflowLowerCase }}: {{- workflow_name }}",
             "content_plural": "Gebruikt in {{ count }} {{ workflowPluralLowerCase }}"
         },
         "cannotBeDeletedDialogAudience": {
@@ -6113,7 +6114,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Deze sessie is onderdeel van de de groep \"{{ name }}\""
+                "warning": "Deze sessie is onderdeel van de de groep {{- name }}"
             },
             "stepper": {
                 "step": {
@@ -6554,7 +6555,7 @@
             },
             "member-tag_applied": {
                 "filter": "Tags toegepast",
-                "primaryText": "De {{ tagName }} tag is toegepast."
+                "primaryText": "De {{- tagName }} tag is toegepast."
             },
             "member-vod_bought": {
                 "filter": "VOD gekocht",
@@ -6562,7 +6563,7 @@
             },
             "member-private_booking_registered": {
                 "primaryText": "{{ source }} heeft de afspraak {{- privateServiceName }} - {{- privateSlotName }} op {{- privateServiceDate }} geboekt.",
-                "sourceManager": "De manager {{ managerName }}",
+                "sourceManager": "De manager {{- managerName }}",
                 "filter": "Afspraken"
             },
             "member-custom_form_filled": {
@@ -7439,7 +7440,7 @@
             "headOnIn": "Gereed!",
             "visitsLeft": "Resterende bezoeken",
             "spotUnassigned": "Spot niet toegewezen",
-            "spotInfo": "jouw {{spotName}} is:"
+            "spotInfo": "jouw {{- spotName }} is:"
         },
         "authenticationDialog": {
             "error": "Het ingevoerde wachtwoord is ongeldig",
@@ -7477,7 +7478,7 @@
         "coach": {
             "coachList": "Instructeurs",
             "coachFormPage": "[Formulier] Instructeur",
-            "coachPerformance": "Payroll: {{name}}",
+            "coachPerformance": "Payroll: {{- name }}",
             "allCoachPerformance": "Payroll"
         },
         "coupon": {
@@ -7795,7 +7796,8 @@
                 "cancel": "Annuleren",
                 "validate": "Bevestigen"
             },
-            "monthBillingDay": "Gefactureerd elke {{ month_billing_day }} van de maand"
+            "monthBillingDay": "Gefactureerd elke {{ month_billing_day }} van de maand",
+            "autoRenewal": "Automatische vernieuwing"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -8262,7 +8264,7 @@
                     "failureStep": {
                         "contentCanNotCancelPause": "Reeds begonnen pauzeringen kunnen niet worden geannuleerd.",
                         "contentInvalidTimedelta": "De duur moet ten minste één dag zijn.",
-                        "contentOverlapPause": "Er is reeds een pauze ({{- fromDate}} t/m {{- untilDate}}) voor dit abonnement ({{- subscriptionName}}) van \"{{subscriberName}}\" ingesteld.",
+                        "contentOverlapPause": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} kon niet worden gepauzeerd omdat er al een pauze is gepland van {{- fromDate}} tot {{- untilDate}}.",
                         "title": "Pauzering mislukt",
                         "contentUnknownError": "Er is een onvoorziene fout opgetreden. Onze excuses voor het ongemak.",
                         "contentSubscriptionHasNotStarted": "De pauze is niet voltooid omdat het datumbereik van de pauze vóór de start van het abonnement ligt.",
@@ -8270,10 +8272,10 @@
                         "contentCanNotEditPauseEndBeforeToday": "De nieuwe begindatum van de pauze kan niet eerder dan vandaag worden ingesteld.",
                         "contentCanNotEditPauseStartWhenHasStarted": "De begindatum van de pauze kan niet worden gewijzigd wanneer deze eenmaal is begonnen.",
                         "contentSubscriptionWillEndBeforePause": "Het abonnement kan in deze periode niet worden gepauzeerd omdat het eerder is afgelopen of de verlenging ervan op dat moment nog niet is uitgevoerd.",
-                        "contentIncomingBill": "Het {{- subscriptionName}} abonnement van {{subscriberName}} kon niet worden gepauzeerd omdat een factuur in het pauze-interval binnen 24 uur wordt gefactureerd of een betaling heeft lopen. Gelieve de begindatum van de pauze te wijzigen."
+                        "contentIncomingBill": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} kon niet worden gepauzeerd omdat een factuur in het pauze-interval binnen 24 uur wordt gefactureerd of een betaling heeft lopen. Wijzig de begindatum van de pauze."
                     },
                     "successStep": {
-                        "content": "Dit abonnement ({{- subscriptionName}}) van \"{{subscriberName}}\" is van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
+                        "content": "Het {{- subscriptionName}} abonnement van {{- subscriberName }} is gepauzeerd van {{- fromDate}} tot {{- untilDate}} inbegrepen.",
                         "title": "Abonnement pauzeren"
                     },
                     "initStep": {
@@ -8336,9 +8338,9 @@
                     "label": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}",
                     "pausedAt": "{{ days }} dag(en) - Op {{- date}}",
                     "deletedAt": "Pauze is geannuleerd op {{- dateDeletion}}",
-                    "deletedAtBy": "Pauzering is geannuleerd op {{- dateDeletion}} door {{staffName}}",
+                    "deletedAtBy": "Geannuleerd op {{- dateDeletion}} door {{- staffName }}",
                     "createdAt": "Gepauzeerd op {{- dateCreation}}",
-                    "createdAtBy": "Gepauzeerd op {{- dateCreation}} door {{staffName}}",
+                    "createdAtBy": "Gemaakt op {{- dateCreation}} door {{- staffName }}",
                     "fromToUntil": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}"
                 },
                 "deleteDialog": {
@@ -8855,7 +8857,7 @@
                 "smartListSelection": "Kies een Smartlist",
                 "listActiveCampaignSelection": "Kies een ActiveCampaign-lijst",
                 "noList": "LIJST NIET GEVONDEN",
-                "listItemText": "Stuur leden in de Smartlist \"<1> {{smartlist}} </2>\" naar de lijst van ActiveCampaign \"<3> {{list}} </4>\"."
+                "listItemText": "Stuur leden in de Smartlist \"<1> {{- smartlist }} </2>\" naar de lijst van ActiveCampaign \"<3> {{- list }} </4>\"."
             },
             "submit": "Bevestigen",
             "cancel": "Annuleren"
@@ -10452,7 +10454,7 @@
                 "comboWarning": "Zodra je dit product verwijdert, zal het ook niet langer beschikbaar zijn om gekocht te worden bij bijbehorende pakketten.",
                 "message": "Weet je zeker dat je dit product van je webshop wilt verwijderen? Deze actie is definitief.",
                 "genericTitle": "Bevestig verwijdering",
-                "title": "Verwijder \"{{name}}\""
+                "title": "Verwijder  - {{- name }}"
             },
             "viewBarcode": "Toon barcode",
             "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",
@@ -10469,7 +10471,7 @@
                         "suppliers": {
                             "deleteModal": {
                                 "message": "Weet je zeker dat je deze leverancier wilt verwijderen?",
-                                "title": "Leverancier: {{supplierName}}"
+                                "title": "Leverancier: {{- supplierName }}"
                             },
                             "modal": {
                                 "field": {
@@ -10542,7 +10544,7 @@
             "pick_a_month": "Selecteer een maand"
         },
         "calculate": "Bereken",
-        "title": "Salarisoverzicht van {{name}}",
+        "title": "Salarisoverzicht van {{- name }}",
         "label": "Payroll",
         "dateTitle": "Periode",
         "coaches": "Instructeurs",
@@ -12201,7 +12203,7 @@
                 "email": "Berichtgeving",
                 "access": "Accounttoegang",
                 "accountInfo": "Door de toegang tot andere accounts te activeren kunnen bepaalde leden als een gekoppeld persoon inloggen.",
-                "autorization": "Geef \"{{name_1}}\" toegang tot het account van \"{{name_2}}\".",
+                "autorization": "Geef \"{{- name_1 }}\" toegang tot het account van \"{{- name_2 }}\".",
                 "confirm": "Bevestigen"
             },
             "list": {
@@ -16312,9 +16314,9 @@
             "manager": "Manager",
             "franchisor": "Master-Account",
             "continue": "Met dit account verdergaan",
-            "currentSession": "Je bent momenteel als \"{{name}}\" verbonden.",
+            "currentSession": "Je bent momenteel als {{- name }} verbonden.",
             "restore": "Met het vorige account verdergaan",
-            "previousSession": " Je was als \"{{name}}\" verbonden",
+            "previousSession": " Je was als {{- name }} verbonden",
             "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt."
         },
         "stripeOnboardingPending": {
@@ -16413,7 +16415,9 @@
                 "campaigns": "Campagnes",
                 "general": "Algemeen"
             }
-        }
+        },
+        "logout": "Loguit",
+        "login": "Login"
     },
     "widget": {
         "widget": {
@@ -16986,7 +16990,7 @@
             },
             "subscriptionForm": {
                 "commitmentMessage": "Houd rekening met het feit dat er een termijn van 12 maanden hierop van toepassing is.",
-                "confirmationMessage": "Deze optie ({{ name }}) is succesvol toegevoegd!",
+                "confirmationMessage": "Deze optie {{- name }} is succesvol toegevoegd!",
                 "info": "Contacteer onze klantenservice",
                 "infoHelper": "Verdere vragen?",
                 "confirmHelper": "Bevestig of je deze aanvullende dienst aan je pakket wilt toevoegen.",
@@ -17968,10 +17972,10 @@
             "missImageSelected": "Er mist een afbeelding voor de geselecteerde plaatsen.",
             "missImageTaken": "Er mist een afbeelding voor de gereserveerde plaatsen.",
             "missImageFree": "Er mist een afbeelding voor de vrije plaatsen.",
-            "selectedPersonalized": "Geselecteerd: {{name}}",
+            "selectedPersonalized": "Geselecteerd: {{- name }}",
             "selected": "Geselecteerde plaats",
-            "takenPersonalized": "Gereserveerd: {{name}}",
-            "freePersonalized": "Beschikbaar: {{name}}",
+            "takenPersonalized": "Gereserveerd: {{- name }}",
+            "freePersonalized": "Beschikbaar: {{- name }}",
             "taken": "Gereserveerd",
             "free": "Vrij",
             "personalizedExplain": "Upload 2 verschillende iconen om gepersonaliseerde afbeeldingen voor vrije en gereserveerde plaatsen te gebruiken. Deze iconen moeten dezelfde grootte hebben en niet bedrukt met letters of cijfers zijn.",
@@ -18014,10 +18018,10 @@
             "legend": "Legenda",
             "available": "Beschikbaar op",
             "availableSpot": "Beschikbare ruimte",
-            "availablePersonalizedSpot": "{{ spotName }} beschikbaar",
+            "availablePersonalizedSpot": "{{- spotName }} beschikbaar",
             "unavailable": "Niet beschikbaar",
             "unavailableSpot": "Ruimte niet beschikbaar",
-            "unavailablePersonalizedSpot": "{{ spotName }} niet beschikbaar",
+            "unavailablePersonalizedSpot": "{{- spotName }} niet beschikbaar",
             "seeAll": "Bekijk alle",
             "confirm": "Bevestig",
             "selectOtherSpot": {
@@ -18851,13 +18855,13 @@
         },
         "sectionFinishDialog": {
             "continueButton": "Verder",
-            "infoText": "Je hebt alle lessen van deze sectie (\"{{name}}\") voltooid. Begin met de volgende sectie om meer te leren.",
+            "infoText": "Je hebt alle lessen van deze sectie {{- name }} voltooid. Begin met de volgende sectie om meer te leren.",
             "title": "Voltooid"
         },
         "shareDialog": {
             "continueButton": "Verder",
-            "infoTextLesson": "Deel deze les ({{name}}) met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze les.",
-            "infoTextSection": "Deel alle lessen uit \"{{name}}\" met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze sectie.",
+            "infoTextLesson": "Deel deze les {{- name }} met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze les.",
+            "infoTextSection": "Deel alle lessen uit {{- name }} met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze sectie.",
             "title": "Delen"
         },
         "welcomeDialog": {
@@ -18955,7 +18959,7 @@
             "delete": {
                 "confirm": "Bevestigen",
                 "cancel": "Annuleren",
-                "description": "Weet je zeker dat je de {{name}} discipline groep wilt verwijderen?",
+                "description": "Weet je zeker dat je de {{- name }} discipline groep wilt verwijderen?",
                 "title": "Verwijderen"
             },
             "coaches": "{{count}} Instructeur",
@@ -19279,12 +19283,12 @@
                 "title": "Onmogelijk toe te voegen",
                 "subTextListItem": "Helaas kon het artikel niet worden toegevoegd omdat",
                 "newMember": {
-                    "subText": "{{ optionalBeginning }} {{ name }} is geen nieuw lid."
+                    "subText": "{{ optionalBeginning }} {{- name }} is geen nieuw lid."
                 },
                 "tag": {
-                    "hasTag": "{{ optionalBeginning }} {{ name }} heeft de tag {{ tagName }}.",
-                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} heeft de tag {{ tagName }} niet.",
-                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} heeft de {{ ownedTagName }} tag en heeft niet de {{ notOwnedTagName }} tag."
+                    "hasTag": "{{ optionalBeginning }} {{- name }} heeft de tag {{- tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} heeft de tag {{- tagName }} niet.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} heeft de {{- ownedTagName }} tag en heeft niet de {{- notOwnedTagName }} tag."
                 }
             },
             "authenticationNecessary": "Leden dienen geverifieerd te worden voor deze sectie.",

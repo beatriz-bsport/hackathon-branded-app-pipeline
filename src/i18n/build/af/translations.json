@@ -11109,7 +11109,9 @@
       "21": {
         "name": "Booking number",
         "first": "Members that booked ",
+        "first_v2": "Members that booked their ",
         "second_singular": "session(s)",
+        "second_singular_v2": "th session",
         "second_plural": "session(s)",
         "activity": { "first": "of" },
         "establishment": { "first": "in" },
@@ -11231,6 +11233,7 @@
         "third": "at a percentage",
         "all": "all forms",
         "atLeastOne": "at least one form",
+        "first": "Has completed",
         "second": "among",
         "none": "no form",
         "hasNotCompleted": "Has not completed",
@@ -11243,6 +11246,8 @@
         "sms": "to receive notifications by SMS",
         "false": "Doesn't accept",
         "true": "Accepts",
+        "and": "And",
+        "or": "Or",
         "oneNeeded": "At least one of the activated conditions must be filled",
         "allNeeded": "All activated conditions must be filled",
         "name": "Notifications"

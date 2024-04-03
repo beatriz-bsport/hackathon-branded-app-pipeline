@@ -217,7 +217,6 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             />
             {doesApplyToPass
               ? values?.only_on_objects?.map((paymentPackId, index) => (
-                  // @ts-expect-error: needed because creditScaleFactor was added to props
                   <PaymentPackListItem
                     key={`${paymentPackId}-${index}`}
                     disabled={isProcessing}

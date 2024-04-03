@@ -61,7 +61,6 @@ type OwnProps = {
   attributes?: any;
   isExcludingTax?: boolean;
   isFlexContainerOnMobile?: boolean;
-  creditScaleFactor: number;
   isPaperVariant?: boolean;
 };
 

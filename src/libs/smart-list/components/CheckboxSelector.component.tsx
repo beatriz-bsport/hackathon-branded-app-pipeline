@@ -207,4 +207,4 @@ const styles = (theme: Theme) =>
     dropdownArrow: { color: '#757575' },
   });
 
-export default compose(withStyles(styles))(CheckboxSelector);
+export default compose<any, OwnProps>(withStyles(styles))(CheckboxSelector);

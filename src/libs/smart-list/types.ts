@@ -1,4 +1,8 @@
-import { ErrorAndLoading } from '../types';
+import type { OptionCallback, ThunkAction } from 'src/state/types';
+import type { ErrorAndLoading } from '../types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { Coach } from '#libs/associated-coach/types';
 
 export type SmartList = {
   id: number;
@@ -89,4 +93,57 @@ export type FetchSmartlistMembersQueryParams = {
 export type OptionType = {
   value: number | null;
   label: string;
+};
+
+export type FetchBulkItemsType = {
+  meta_activities: (
+    ids: number[],
+    options?: OptionCallback<MetaActivity[]>,
+    useCacheMilliseconds?: number,
+  ) => ThunkAction;
+  coaches: (ids: number[], options?: OptionCallback) => Promise<void>;
+  payment_packs: (
+    ids: number[],
+    options?: OptionCallback<PaymentPack[]>,
+  ) => any;
+  establishments: (ids: number[], options?: OptionCallback) => Promise<unknown>;
+  private_passes: (ids: number[], options?: OptionCallback) => Promise<void>;
+  private_services: (ids: number[], options?: OptionCallback) => Promise<void>;
+  custom_forms: (params: { id__in: number[] }) => Promise<void>;
+};
+
+export type FetchItemsType = {
+  meta_activities: {
+    fetchAction: () => ThunkAction;
+    loading: boolean;
+  };
+  coaches: {
+    fetchAction: (
+      params?: {
+        [key: string]: string | number | boolean | number[];
+      },
+      options?: OptionCallback<Coach[]>,
+    ) => Promise<void>;
+    loading: boolean;
+  };
+  payment_packs: {
+    fetchAction: () => Promise<void>;
+    loading: boolean;
+  };
+  establishments: {
+    fetchAction: (params?: any, options?: OptionCallback) => Promise<void>;
+    loading: boolean;
+  };
+  private_passes: {
+    fetchAction: (params?: any, options?: OptionCallback) => Promise<void>;
+    loading: boolean;
+  };
+  private_services: {
+    fetchAction: () => Promise<void>;
+    loading: boolean;
+  };
+  custom_forms: {
+    fetchAction: () => Promise<void>;
+    loading: boolean;
+  };
 };

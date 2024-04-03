@@ -5,10 +5,16 @@ export const shopItemFormValidationSchema = Yup.object().shape({
     .required('common:requiredField')
     .max(200, 'shop:shopitem.form.error.name'),
   subtitle: Yup.string(),
-  price: Yup.number().required('common:requiredField'),
-  supplierPrice: Yup.number().required('common:requiredField'),
+  price: Yup.number()
+    .typeError('common:requiredField')
+    .required('common:requiredField'),
+  supplierPrice: Yup.number()
+    .typeError('common:requiredField')
+    .required('common:requiredField'),
   cover: Yup.mixed().nullable(),
-  tva: Yup.number().required('common:requiredField'),
+  tva: Yup.number()
+    .required('common:requiredField')
+    .typeError('common:requiredField'),
   description: Yup.string(),
   barcode: Yup.string(),
   stockKeepingUnit: Yup.string(),

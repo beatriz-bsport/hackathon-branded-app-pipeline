@@ -5464,7 +5464,9 @@
                 "submit": "Fusionner",
                 "confirmation": {
                     "title": "Êtes-vous sûr de vouloir fusionner les membres ?",
-                    "confirm": "Confirmer"
+                    "confirm": "Bevestig",
+                    "willNotifyInfo": "Ces profils seront fusionnés dans l'ensemble de la franchise. Cette action peut prendre un certain temps, nous vous en informerons une fois qu'elle sera terminée.",
+                    "mergeIsPermanentWarning": "Les membres fusionnés transfèreront leur solde interne, leurs réservations, cartes de cours, notes et factures. <strong>Cette action ne peut être annulée une fois confirmée.</strong>\n\nSeuls les tags du membre supprimé ne seront pas transférés. Un message sera envoyé aux deux adresses électroniques pour informer les membres."
                 }
             },
             "error": "Impossible de sauvegarder le membre",
@@ -14820,6 +14822,15 @@
                 "124004": "Le nom du tag principal est déjà utilisé",
                 "124003": "Le nom du sous-tag est déjà utilisé"
             }
+        },
+        "mergeError": {
+            "content": "Veuillez réessayer ou contacter le support pour plus d'informations",
+            "title": "La fusion a échouée"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Voir le membre du profil",
+            "content": "Un courrier électronique a été envoyé aux deux adresses pour informer le membre",
+            "title": "La fusion a été réalisée avec succès"
         }
     },
     "spotScheduling": {

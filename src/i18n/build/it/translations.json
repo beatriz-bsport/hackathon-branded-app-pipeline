@@ -6015,6 +6015,15 @@
                 "124004": "Il nome del tag principale è già utilizzato",
                 "124003": "Il nome del sotto-tag è già utilizzato"
             }
+        },
+        "mergeError": {
+            "content": "Riprova o contatta l'assistenza per ulteriori informazioni",
+            "title": "L'unione è fallita"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Vedi il profilo del membro",
+            "content": "A entrambi gli indirizzi è stata inviata un'e-mail per informare il membro",
+            "title": "L'unione è stata eseguita correttamente"
         }
     },
     "settings": {
@@ -9752,7 +9761,13 @@
                 "error": "Impossibile accorpare i membri",
                 "srcMember": "Socio da accorpare (eliminato)",
                 "dstMember": "Membro da tenere",
-                "emailWillBeSend": "Un'e-mail sarà inviata a entrambi gli indirizzi per informare i membri."
+                "emailWillBeSend": "Un'e-mail sarà inviata a entrambi gli indirizzi per informare i membri.",
+                "confirmation": {
+                    "willNotifyInfo": "Questi profili saranno uniti in tutto il franchising. Questa operazione può richiedere del tempo, ma ti informeremo una volta completata.",
+                    "mergeIsPermanentWarning": "L'unione di due membri trasferirà il saldo interno, prenotazioni, pacchetti, note e ricevute. <strong>Questa azione non può essere annullata una volta confermata.</strong>\n\n Solo i tag del membro eliminato non verranno trasferiti. Un messaggio verrà inviato a entrambi gli indirizzi email per avvisare i membri.",
+                    "title": "Sei sicuro di voler unire questi membri?",
+                    "confirm": "Conferma"
+                }
             },
             "error": "Impossibile salvare il membro",
             "update": {

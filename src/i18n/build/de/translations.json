@@ -7632,6 +7632,15 @@
                 "124004": "Der Hauptname des Tags wird bereits verwendet",
                 "124003": "Der Name des Untertags wird bereits verwendet"
             }
+        },
+        "mergeError": {
+            "content": "Bitte versuchen Sie es erneut oder kontaktieren Sie den Support für weitere Informationen",
+            "title": "Die Zusammenführung ist fehlgeschlagen"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Siehe Mitgliederprofil",
+            "content": "Eine E-Mail wurde an beide Adressen geschickt, um die Mitglieder zu informieren",
+            "title": "Die Zusammenführung ist erfolgreich verlaufen"
         }
     },
     "invoice": {
@@ -9669,7 +9678,13 @@
                 "explainTags": "Tags des gelöschten Mitglieds werden nicht übertragen",
                 "cancel": "Abbrechen",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Kurspässe, Buchungen, Rechnungen und Anmerkungen werden übertragen.",
-                "emailWillBeSend": "An beide Adressen wird eine E-Mail geschickt, um die Mitglieder zu benachrichtigen."
+                "emailWillBeSend": "An beide Adressen wird eine E-Mail geschickt, um die Mitglieder zu benachrichtigen.",
+                "confirmation": {
+                    "willNotifyInfo": "Diese Profile werden in allen Franchisesystemen zusammengeführt. Dieser Vorgang kann einige Zeit in Anspruch nehmen, wir werden Sie benachrichtigen, sobald er abgeschlossen ist.",
+                    "title": "Wollen Sie die Mitglieder wirklich zusammenführen?",
+                    "mergeIsPermanentWarning": "Bei der Zusammenführung von Mitgliedern werden der interne Saldo, Reservierungen, Pässe, Notizen und Rechnungen übertragen.<strong>Diese Aktion kann nicht mehr rückgängig gemacht werden, sobald sie bestätigt wurde.</strong>\n\nNur die Tags des gelöschten Mitglieds werden nicht übertragen. Es wird eine Nachricht an beide E-Mail-Adressen gesendet, um die Mitglieder zu benachrichtigen.",
+                    "confirm": "Bestätigen"
+                }
             },
             "update": {
                 "title": "Mitgliedinformationen aktualisiert",

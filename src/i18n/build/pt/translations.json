@@ -2316,7 +2316,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }} dias que sobram",
+                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -4534,7 +4534,13 @@
                 "success": "Membros fundidos",
                 "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
                 "cancel": "Cancelar",
-                "submit": "Fundir"
+                "submit": "Fundir",
+                "confirmation": {
+                    "willNotifyInfo": "Estes perfis serão fundidos em toda a franquia. Esta ação pode demorar algum tempo, pelo que o informaremos logo que esteja concluída.",
+                    "mergeIsPermanentWarning": "Os membros que se fundem transferem o saldo interno, as reservas, os passes, as notas e as facturas. <strong>Esta ação não pode ser anulada depois de confirmada. </strong>\nApenas as etiquetas atribuídas ao membro eliminado é que não serão transferidas. Será enviada uma mensagem para ambos os endereços de correio eletrónico para notificar os membros.",
+                    "title": "Tem a certeza de que pretende fundir membros?",
+                    "confirm": "Confirmar"
+                }
             },
             "title": "Informação do utilizador",
             "error": "Não é possível guardar o membro",
@@ -10276,6 +10282,15 @@
                 "124004": "O nome da etiqueta principal já está em uso",
                 "124003": "O nome da subetiqueta já está em uso"
             }
+        },
+        "mergeError": {
+            "content": "Tente novamente ou contacte o suporte para obter mais informações",
+            "title": "A fusão falhou"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Ver o perfil do membro",
+            "content": "Foi enviada uma mensagem eletrónica para ambos os endereços para notificar o membro",
+            "title": "A fusão foi bem-sucedida"
         }
     },
     "theme": {

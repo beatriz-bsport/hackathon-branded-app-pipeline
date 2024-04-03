@@ -6257,7 +6257,13 @@
                 "explainCredit": "De waarde van de interne rekening (Wallet) wordt naar het nieuwe account overgezet.",
                 "success": "Leden samengevoegd",
                 "seeMemberPage": " Zie ledenprofiel",
-                "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd."
+                "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd.",
+                "confirmation": {
+                    "willNotifyInfo": "Deze profielen zullen worden samengevoegd voor de hele franchise. Deze actie kan enige tijd in beslag nemen, we zullen je op de hoogte stellen zodra deze is voltooid.",
+                    "mergeIsPermanentWarning": "Merging members will transfer the internal balance, reservations, passes, notes and invoices. <strong>This action cannot be undone once confirmed.</strong>\n Only the tags of the deleted member will not be transferred. A message will be sent to both email addresses to notify the members.",
+                    "title": "Weet je zeker dat je leden wilt samenvoegen?",
+                    "confirm": "Bevestig"
+                }
             },
             "error": "Fout bij het opslaan van de wijzigingen",
             "create": {
@@ -12048,6 +12054,15 @@
                 "124004": "Deze hoofd-tag bestaat al",
                 "124003": "Deze sub-tag bestaat al"
             }
+        },
+        "mergeError": {
+            "content": "Probeer het opnieuw of neem contact op met support voor meer informatie",
+            "title": "Het samenvoegen is mislukt"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Bekijk profiel",
+            "content": "Naar beide adressen is een e-mail gestuurd om het lid te informeren",
+            "title": "De samenvoeging is geslaagd"
         }
     },
     "coach": {

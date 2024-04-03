@@ -5987,7 +5987,13 @@
                 "cancel": "Cancelar",
                 "submit": "Fusionar",
                 "seeMemberPage": " Ver la página del miembro",
-                "emailWillBeSend": "Se enviará un correo electrónico a ambas direcciones para notificar a los miembros."
+                "emailWillBeSend": "Se enviará un correo electrónico a ambas direcciones para notificar a los miembros.",
+                "confirmation": {
+                    "willNotifyInfo": "Estos perfiles se fusionarán en toda la franquicia. Esta acción puede llevar algún tiempo, se lo notificaremos una vez completada.",
+                    "mergeIsPermanentWarning": "La fusión de los miembros transferirá el saldo interno, las reservas, los bonos, las notas y las facturas. <strong>Esta acción no puede deshacerse una vez confirmada.</strong>\n\nSólo las etiquetas del miembro eliminado no se transferirán. Se enviará un mensaje a ambas direcciones de correo electrónico para notificárselo a los miembros.",
+                    "title": "¿Estás seguro de fusionar los miembros?",
+                    "confirm": "Comfirmar"
+                }
             },
             "error": "No es possible guardar el cliente",
             "create": {
@@ -13767,6 +13773,15 @@
                 "124004": "El nombre de la etiqueta principal ya está utilizado",
                 "124003": "El nombre de la etiqueta secundaria ya se ha utilizado"
             }
+        },
+        "mergeError": {
+            "content": "Vuelva a intentarlo o póngase en contacto con el servicio de asistencia para obtener más información",
+            "title": "La fusión falló"
+        },
+        "mergeSuccess": {
+            "seeMemberProfile": "Ver perfil del miembro",
+            "content": "Se envió un correo electrónico a ambas direcciones para notificar al socio",
+            "title": "La fusión ha sido un éxito"
         }
     },
     "paymentPack": {

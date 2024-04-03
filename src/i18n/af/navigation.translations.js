@@ -100,6 +100,7 @@ exports.default = {
     franchiseConnectedAs: "You're currently connected as: {{- name}}",
     redirecting: "You're being redirected to your page",
     backToFranchiseWorskpace: 'Return to Master Account',
+    backToWebshop: 'Back to the webshop',
     giftcard: 'Gift cards',
     programs: 'Programs',
     expenses: 'Expenses',

@@ -25,13 +25,13 @@
         },
         "newOrder": {
             "title": "Encomenda pendente",
-            "explain": "Pago por <1>{{name}}</1> na loja",
+            "explain": "Pago por <1>{{- name}}</1> na loja",
             "price": "Valor: {{ price }}."
         },
         "privateBookingIncomplete": {
-            "explain": "A aula privada de <1>{{name}}</1> não tem professor atribuído.",
+            "explain": "A aula privada de <1>{{- name}}</1> não tem professor atribuído.",
             "date": "Data : {{ date_start }}",
-            "name": "Membro : {{ user_name }}"
+            "name": "Membro : {{- user_name }}"
         },
         "unpaidPrivateBooking": {
             "credits_due": "{{ credits }} crédito(s) não pago(s)"
@@ -66,7 +66,7 @@
         },
         "lateReplacementRequest": {
             "title": "Substituição tardia",
-            "content": "solicitou uma substituição para a aula seguinte : {{activity_name}} - {{-date_start}}"
+            "content": "solicitou uma substituição para a aula seguinte : {{- activity_name}} - {{-date_start}}"
         }
     },
     "authentication": {
@@ -490,8 +490,8 @@
             "cancelledByAnonymousManagerDate": "Gerir cancelamentos de {{-date}} à {{time}}",
             "cancelledByOffer": "Sessão cancelada",
             "cancelledByOfferDate": "Sessão cancelada pelo estúdio  {{-date}} às {{time}}",
-            "cancelledByManager": "Cancelamento efetuado por {{cancelled_by}}",
-            "cancelledByManagerDate": "Cancelamento efetuado a {{-date}} às {{time}} por {{cancelled_by}}",
+            "cancelledByManager": "Cancelamento efetuado por {{- cancelled_by}}",
+            "cancelledByManagerDate": "Cancelamento efetuado a {{-date}} às {{time}} por {{- cancelled_by}}",
             "cancelledByConsumerDate": "Cancelamento efetuado pelo aluno a {{-date}} às {{time}}",
             "cancelledByConsumer": "Cancelamento efetuado pelo aluno"
         },
@@ -626,7 +626,10 @@
                 "cancel": "Cancelar",
                 "confirm": "Eliminar"
             },
-            "error_email_exists": "Já existe um professor com este endereço de email, utilize o formulário de criação de Professor"
+            "error_email_exists": "Já existe um professor com este endereço de email, utilize o formulário de criação de Professor",
+            "errorDescription": "A descrição fornecida é demasiado longa (máx. 500)",
+            "errorLinkLength": "O URL fornecido é demasiado longo (máx. 150)",
+            "errorInvalidURL": "Por favor, introduza um URL válido"
         },
         "detail": {
             "coachSpaceInfo": "Nesta área, o professor pode aceder ao seu resumo de remuneração por sessão e visualizar o seu horário. Pode também adicionar a sua disponibilidade.",
@@ -1566,7 +1569,7 @@
             "clockOut": "Clock-out",
             "lastClockOut": "Hora de chegada: ",
             "lastClockIn": "Última picagem de ponto: {{- date }} - {{ hour }}",
-            "subtitleClockIn": "Bom dia {{ name }}, clique em \"Começar\" para dar entrada.",
+            "subtitleClockIn": "Bom dia {{- name }}, clique em \"Registar\" para dar entrada.",
             "successClockIn": "Hora de chegada:"
         },
         "attendanceTable": {
@@ -2244,7 +2247,7 @@
             "invoice": "Fatura",
             "changeMembership": "Mudança de estabelecimento",
             "pick_a_language": "Seleccionar uma língua",
-            "relationConnectedAs": "Conectado como : {{name}}",
+            "relationConnectedAs": "Conectado como : {{- name}}",
             "backToRelationMasterSpace": "voltar à minha conta",
             "connectedAs": "Iniciar sessão como",
             "automaticLanguage": "Detetar automáticamente a língua",
@@ -2313,7 +2316,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} dias que sobram",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -2787,7 +2790,7 @@
             "companyEmpty": "Nenhum estúdio está configurado para aceitar esta promoção",
             "delete": {
                 "explain2": "Pode adicioná-lo novamente mais tarde.",
-                "explain1": "Tem a certeza de que pretende deixar de partilhar o código promocional para {{name}} ?",
+                "explain1": "Tem a certeza de que pretende deixar de partilhar o código promocional para {{- name}} ?",
                 "title": "Parar de partilhar"
             },
             "create": {

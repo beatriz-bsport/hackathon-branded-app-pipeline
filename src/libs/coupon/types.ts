@@ -178,11 +178,9 @@ export enum CouponFilterOptions {
   DEFAULT = -1,
 }
 
-export type CheckCouponCodeParams = {
-  body: {
-    code: string;
-    coupon_ids_to_ignore: number[];
-  };
+export type CheckCouponCodePayload = {
+  code: string;
+  coupon_ids_to_ignore: number[];
 };
 
-export type CheckCouponCodeResponse = { is_used: boolean };
+export type CheckCouponCodeResponsePayload = { is_used: boolean };

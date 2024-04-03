@@ -39,6 +39,7 @@ import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
+import debounce from 'lodash/debounce';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { Moment } from '../../../i18n';
 
@@ -55,7 +56,7 @@ import NumericInput from '#components/input/NumericInput.component';
 import PriceInput from '#components/input/PriceInput.component';
 import PercentInput from '#components/input/PercentInput.component';
 import Checkbox from '#components/input/Checkbox.component';
-import type { Coupon } from '../types';
+import type { Coupon, CheckCouponCodePayload } from '../types';
 
 import { PaymentPack } from '#libs/payment-packs/types';
 import { ShopItem } from '#libs/shop/types';
@@ -65,6 +66,7 @@ import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type { OptionCallback } from '../../../state/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { checkCouponCodeValidity } from '#libs/coupon/api';
 
 const {
   trackFormAdd,
@@ -116,6 +118,7 @@ export class CouponForm extends React.Component<Props, State> {
     super(props);
     if (props.initial) {
       this.state = {
+        isCodeUsedError: false,
         name: props.initial.name,
         percent_off: props.initial.percent_off,
         amount_off: props.initial.amount_off,
@@ -141,6 +144,7 @@ export class CouponForm extends React.Component<Props, State> {
       };
     } else {
       this.state = {
+        isCodeUsedError: false,
         name: null,
         percent_off: 0,
         amount_off: 0,
@@ -196,11 +200,27 @@ export class CouponForm extends React.Component<Props, State> {
     }
   }
 
+  checkCouponCodeAvailability = debounce(async (code: string) => {
+    const payload: CheckCouponCodePayload = {
+      code,
+      coupon_ids_to_ignore: this.props.initial?.id
+        ? [this.props.initial.id]
+        : [],
+    };
+    const { data } = await checkCouponCodeValidity(payload);
+    if (
+      this.state.isCodeUsedError !== data?.is_used &&
+      code === this.state.code
+    ) {
+      this.setState({ isCodeUsedError: data?.is_used });
+    }
+  }, 500);
+
   handleChange = (key: string, isEvent: boolean) => (value) => {
-    if (isEvent) {
-      this.setState({ [key]: value.target.value });
-    } else {
-      this.setState({ [key]: value });
+    const inputValue = isEvent ? value.target.value : value;
+    this.setState({ [key]: inputValue });
+    if (key === 'code') {
+      this.checkCouponCodeAvailability(inputValue);
     }
   };
 
@@ -798,7 +818,12 @@ export class CouponForm extends React.Component<Props, State> {
           required
           className={classes.field}
           disabled={!!initial?.coupon_template_instance}
-          helperText={t('form.code.helperText')}
+          error={this.state.isCodeUsedError}
+          helperText={
+            this.state.isCodeUsedError
+              ? t('form.code.codeAlreadyInUse')
+              : t('form.code.helperText')
+          }
           inputProps={{ maxLength: 32 }}
           label={t('form.code.label')}
           onChange={this.handleChange('code', true)}
@@ -910,7 +935,8 @@ export class CouponForm extends React.Component<Props, State> {
               !!initial?.coupon_template_instance ||
               this.props.processing ||
               this.state.minimum_amount < 0 ||
-              this.state.tag_selection_error
+              this.state.tag_selection_error ||
+              this.state.isCodeUsedError
             }
             onClick={(ev) => {
               ev.preventDefault();

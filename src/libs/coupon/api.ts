@@ -21,8 +21,8 @@ import {
   InvoiceParams,
   FetchDiscountParams,
   UniqueCodeCouponCreationPayload,
-  CheckCouponCodeParams,
-  CheckCouponCodeResponse,
+  CheckCouponCodePayload,
+  CheckCouponCodeResponsePayload,
 } from './types';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
@@ -55,11 +55,11 @@ export const fetchCouponDiscounts: (
 };
 
 export const checkCouponCodeValidity = async (
-  params: CheckCouponCodeParams,
+  payload: CheckCouponCodePayload,
 ) => {
-  return postAuth<CheckCouponCodeResponse>(
+  return postAuth<CheckCouponCodeResponsePayload>(
     `${COUPON_URI}coupon_code_used/`,
-    params.body,
+    payload,
   );
 };
 

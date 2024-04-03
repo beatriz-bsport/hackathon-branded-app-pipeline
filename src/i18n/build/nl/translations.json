@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -12096,7 +12096,10 @@
             "create": {
                 "title": "Nieuwe instructeur",
                 "success": "Instructeur toegevoegd"
-            }
+            },
+            "errorDescription": "De opgegeven beschrijving is te lang (max 500)",
+            "errorLinkLength": "De opgegeven URL is te lang (max 150)",
+            "errorInvalidURL": "Voer een geldige URL in"
         },
         "detail": {
             "tab": {

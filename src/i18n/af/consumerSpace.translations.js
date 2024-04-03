@@ -494,6 +494,16 @@ exports.default = {
         retryDate: 'The payment will be retried on {{ date }}',
         total: 'Total',
       },
+      payment: {
+        addPaymentMethod: 'Add payment method',
+        confirm: 'Confirm',
+        details: 'Payment details',
+        method: 'Payment method',
+        myBalance: 'My internal account balance',
+        successMessage: 'The payment was successful',
+        title: 'Invoice payment',
+        useBalance: 'Use',
+      },
     },
   },
 };

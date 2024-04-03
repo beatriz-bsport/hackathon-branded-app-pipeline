@@ -27,6 +27,7 @@ export type WaitingListConfiguration = {
   no_notification_utc_interval_hour_start: number;
   no_notification_utc_interval_hour_end: number;
   display_member_position: boolean;
+  kick_if_no_pack_when_auto_consume: boolean;
 };
 
 export type WaitingListBookingOption = {

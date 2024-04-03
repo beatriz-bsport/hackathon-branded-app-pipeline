@@ -95,6 +95,33 @@ export const getCurrencyDisplayWithPrice = (
   }
 };
 
+export const getCurrencyDisplayWithPriceAndQuantity = (
+  price: number,
+  quantity?: number,
+  isExcludingTax?: boolean,
+  tax?: number,
+) => {
+  if (isNil(price)) {
+    return '';
+  }
+  const priceTakingAccountOfTax =
+    parseFloat(getPrice(price, isExcludingTax, tax)) * quantity;
+
+  const symbol = getCurrencyDisplay();
+
+  switch (symbol) {
+    case '€':
+    case 'kr.':
+    case 'chf':
+    case 'sek':
+    case 'nok':
+    case 'dkk':
+      return `${priceTakingAccountOfTax.toFixed(2)}${'\u00A0'}${symbol}`;
+    default:
+      return `${symbol}${priceTakingAccountOfTax}`;
+  }
+};
+
 export const getThemeLoading = (state: RootState) => {
   if (getTheme(state)) {
     return state.theme.loading;

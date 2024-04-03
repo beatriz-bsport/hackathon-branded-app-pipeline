@@ -3814,7 +3814,10 @@
                     "cannotDelete": "¡No puedes suprimir a este profesor porque las sesiones en el futuro están planificadas!",
                     "canDelete": "¿Seguro que quieres eliminar a este profesor? Ya no tendrás acceso al cálculo de su remuneración. Puedes añadirlo nuevamente desde su email."
                 }
-            }
+            },
+            "errorDescription": "La descripción proporcionada es demasiado larga (máx. 500)",
+            "errorLinkLength": "La URL proporcionada es demasiado larga (máx. 150)",
+            "errorInvalidURL": "Introduzca una URL válida"
         },
         "search": "Buscar un profesor",
         "selector": {
@@ -5496,7 +5499,7 @@
             "name": "{{name}}"
         },
         "privateBookingIncomplete": {
-            "name": "Miembro: {{user_name}}",
+            "name": "Miembro: {{ user_name }}",
             "date": "Fecha: {{date_start}}",
             "explain": "La cita de <1> {{name}} </1> no tiene un profesor designado."
         },
@@ -5530,7 +5533,7 @@
         },
         "readAll": "Marcar todo como leído",
         "lateReplacementRequest": {
-            "content": "ha solicitado la sustitución de la siguiente sesión: {{activity_name}} - {{-date_start}}",
+            "content": "ha solicitado la sustitución para la siguiente sesión: {{activity_name}} - {{-date_start}}",
             "title": "Sustitución tardía"
         }
     },
@@ -6364,12 +6367,12 @@
         "loading": "Cargando",
         "wasRefunded": "Reembolsada",
         "statusCode": {
-            "cancelledByManager": "Cancelación manager por {{cancelled_by}}",
+            "cancelledByManager": "Cancelado por manager {{cancelled_by}}",
             "cancelledByConsumer": "Cancelación cliente",
             "cancelledByOffer": "Clase cancelada por el club",
             "cancelledByOfferDate": "Sesión cancelada por el club el {{-date}} a las {{time}}",
             "cancelledByConsumerDate": "Cancelado por el cliente el {{-date}} a las {{time}}",
-            "cancelledByManagerDate": "Cancelación manager el {{-date}} a las {{time}} por {{cancelled_by}}",
+            "cancelledByManagerDate": "Cancelado por el manager el {{-date}} a las {{time}} por {{cancelled_by}}",
             "cancelledByAnonymousManagerDate": "Cancelado por el manager el {{-date}} a las {{time}}",
             "cancelledByAnonymousManager": "Cancelación manager"
         },
@@ -7591,7 +7594,7 @@
             "automaticLanguage": "Detección automática de idiomas",
             "giftcard": "Tarjetas de regalo",
             "statistic": "Estadísticas",
-            "relationConnectedAs": "Conectado como : {{name}}",
+            "relationConnectedAs": "Actualmente conectado como: {{name}}",
             "backToRelationMasterSpace": "volver a mi cuenta",
             "connectedAs": "Iniciar sesión como",
             "goBack": "Atrás"
@@ -8133,7 +8136,7 @@
             "companyEmpty": "Ningún estudio está configurado para aceptar esta promoción",
             "delete": {
                 "explain2": "Puedes añadirlo de nuevo más tarde.",
-                "explain1": "¿Estás seguro de que desea dejar de compartir el código promocional de {{name}} ?",
+                "explain1": "¿Estás seguro de que quieres editar la disponibilidad de esta promoción ({{name}})?",
                 "title": "Deja de compartir"
             },
             "create": {
@@ -18845,7 +18848,7 @@
             "clockOut": "Acabar",
             "lastClockIn": "Último registro: {{- date }} - {{ hour }}",
             "lastClockOut": "Hora de llegada: ",
-            "subtitleClockIn": "Buenos días {{ name }}, haga clic en \"Inicio\" para comenzar la puntuación de su día.",
+            "subtitleClockIn": "Buenos días {{ name }}, haga clic en \"Inicio\" para comenzar el registro de su día.",
             "subtitleClockOut": "¡Aquí vamos! Para volver a fichar y detener la cuenta atrás, haga clic en \"Finalizar\".",
             "clockInForOther": "fichar por otro personal",
             "subtitleSuccess": "Su horario se ha guardado con éxito. La próxima vez que abra esta ventana podrá iniciar un nuevo fichaje.",

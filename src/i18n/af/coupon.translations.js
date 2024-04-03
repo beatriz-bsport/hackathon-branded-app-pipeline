@@ -88,6 +88,7 @@ const getTranslations = async () => {
         label: 'Code',
         helperText:
           'Your members will need to use this exact promotional code.',
+        codeAlreadyInUse: 'This code is already in use.',
         helperTextFranchise:
           'Your members will need to use this exact promotional code. Please revise if any of the studios have already applied this promotion.',
       },

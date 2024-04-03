@@ -12,6 +12,7 @@ import '../styles.css';
 type Props = {
   title: string;
   subtitle: string;
+  description?: string;
   chipsDataList: ChipData[];
   className: string;
   chipsWrapperClassName: string;
@@ -20,6 +21,7 @@ type Props = {
 const ConsumerGenericCardHeader: React.FC<Props> = ({
   title,
   subtitle,
+  description,
   chipsDataList,
   className,
   chipsWrapperClassName,
@@ -39,6 +41,14 @@ const ConsumerGenericCardHeader: React.FC<Props> = ({
         >
           {subtitle}
         </Typography>
+        {description && (
+          <Typography
+            className="bs-consumer__generic-card__header-description"
+            variant="body-md"
+          >
+            {description}
+          </Typography>
+        )}
       </div>
       <div
         className={classNames(

@@ -18,6 +18,14 @@
   font-weight: 700;
 }
 
+.bs-consumer__generic-card__header__subtitle {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer__generic-card__header-description {
+  padding-top: var(--bs-space-size-2);
+}
+
 .bs-consumer__generic-card__header__chips-wrapper {
   display: flex;
   gap: var(--bs-space-size-2);

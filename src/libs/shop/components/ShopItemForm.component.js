@@ -246,10 +246,10 @@ export class ShopItemForm extends Component<Props, State> {
     const data = new FormData();
     data.append('name', this.state.name);
     if (this.state.description) {
-      data.append('description', this.state.description);
+      data.append('description', this.state.description || '');
     }
     if (this.state.subtitle) {
-      data.append('subtitle', this.state.subtitle);
+      data.append('subtitle', this.state.subtitle || '');
     }
     data.append('tva', this.state.tva);
     data.append('price', this.state.price);

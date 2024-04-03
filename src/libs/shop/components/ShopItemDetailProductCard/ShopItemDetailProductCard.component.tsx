@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react';
 
-import { LinearProgress, makeStyles } from '@material-ui/core';
+import {
+  LinearProgress,
+  makeStyles,
+  useMediaQuery,
+  useTheme,
+  Theme,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -32,8 +38,10 @@ type Props = {
   onDeleteShopItem: () => void;
 };
 
-const ShopItemDetailProductCardSkeleton: React.FC = () => {
-  const classes = useStyles();
+const ShopItemDetailProductCardSkeleton: React.FC<{
+  isMobile: boolean;
+}> = ({ isMobile }) => {
+  const classes = useStyles({ isMobile });
 
   const { t } = useTranslation('shop');
 
@@ -80,7 +88,9 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   onEditShopItem,
   onDeleteShopItem,
 }) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes = useStyles({ isMobile });
   const { t } = useTranslation(['shop', 'common']);
 
   const [menuAnchorElement, setMenuAnchorElement] =
@@ -108,7 +118,7 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   );
 
   if (isLoading) {
-    return <ShopItemDetailProductCardSkeleton />;
+    return <ShopItemDetailProductCardSkeleton isMobile={isMobile} />;
   }
 
   return (
@@ -187,12 +197,13 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { isMobile: boolean }>((theme) => ({
   cardHeader: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(3),
+    flexWrap: 'wrap',
   },
   cardHeaderActionsContainer: {
     display: 'flex',
@@ -201,16 +212,18 @@ const useStyles = makeStyles((theme) => ({
   cardHeaderMoreActionsButton: {
     marginLeft: theme.spacing(2),
   },
-  contentContainer: {
+  contentContainer: ({ isMobile }) => ({
     display: 'flex',
+    ...(isMobile && { flexDirection: 'column' }),
     alignItems: 'flex-start',
     gap: theme.spacing(2),
-  },
-  imageContainer: {
-    width: 120,
+  }),
+  imageContainer: ({ isMobile }) => ({
+    width: isMobile ? 150 : 120,
     'object-fit': 'contain',
     padding: theme.spacing(2),
-  },
+    ...(isMobile && { alignSelf: 'center' }),
+  }),
   skeletonTextContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -220,11 +233,13 @@ const useStyles = makeStyles((theme) => ({
   textContainer: {
     flex: 1,
   },
-  nameAndPriceContainer: {
+  nameAndPriceContainer: ({ isMobile }) => ({
     display: 'flex',
+    ...(isMobile && { flexDirection: 'column' }),
+    ...(isMobile && { gap: theme.spacing(1) }),
     justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
-  },
+  }),
   priceContainer: {
     display: 'flex',
     alignItems: 'center',

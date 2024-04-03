@@ -1,10 +1,10 @@
-// @flow
 import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
+import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -23,71 +23,43 @@ import {
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import Switch from '@material-ui/core/Switch';
-import NumericInput from '../../../components/input/NumericInput.component';
+import { withFormik, FormikProps, Form } from 'formik';
+import type { Theme, WithStyles } from '@material-ui/core/styles/';
+import NumericInput from '#components/input/NumericInput.component';
 
 import {
   WaitingListConfiguration,
   WaitingListAutoCancellation,
-} from '../types';
+} from '#libs/waiting-list/types';
 
-type Props = {
-  t: TFunction,
-  classes: any,
-  configuration: WaitingListConfiguration,
-  onSubmit: (data: any) => void,
+type FormikValues = {
+  autoCancellationType: WaitingListAutoCancellation;
+  autoConsumePack: boolean;
+  autokickDelay: number;
+  checkCredit: boolean;
+  displayMemberPosition: boolean;
+  dumbDelayMinutes: number;
+  dynamic: number;
+  isOptionBlocking: boolean;
+  kickIfNoPackWhenAutoConsume: boolean;
+  lastDelayBeforeAutoConsume: number;
+  smartDelayPercentage: number;
 };
 
-type State = {
-  configuration: WaitingListConfiguration,
+type OwnProps = {
+  configuration: WaitingListConfiguration;
+  onSubmit: (data: WaitingListConfiguration) => void;
 };
 
-export class WaitingListConfigurationForm extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      configuration: props.configuration,
-    };
-  }
+type OuterProps = FormikProps<FormikValues> &
+  WithStyles<typeof styles> &
+  WithTranslation;
 
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.configuration !== this.props.configuration) {
-      this.setState({ configuration: this.props.configuration });
-    }
-  }
+type Props = OwnProps & OuterProps;
 
-  handleChange = (field) => (value) => {
-    this.setState((prevState) => ({
-      configuration: { ...prevState.configuration, [field]: value },
-    }));
-  };
-
-  compareStateToProps = () => {
-    const propsConfig = this.props.configuration;
-    const stateConfig = this.state.configuration;
-    return (
-      propsConfig.auto_cancellation_type ===
-        stateConfig.auto_cancellation_type &&
-      propsConfig.smart_delay_percentage ===
-        stateConfig.smart_delay_percentage &&
-      propsConfig.dumb_delay_minutes === stateConfig.dumb_delay_minutes &&
-      propsConfig.dynamic === stateConfig.dynamic &&
-      propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
-      propsConfig.autokick_delay === stateConfig.autokick_delay &&
-      propsConfig.kick_if_no_pack_when_auto_consume ===
-        stateConfig.kick_if_no_pack_when_auto_consume &&
-      propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
-      propsConfig.last_delay_before_auto_consume ===
-        stateConfig.last_delay_before_auto_consume &&
-      propsConfig.is_option_blocking === stateConfig.is_option_blocking &&
-      propsConfig.check_credit === stateConfig.check_credit &&
-      propsConfig.display_member_position ===
-        stateConfig.display_member_position
-    );
-  };
-
-  onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
-    ev.preventDefault();
-    this.props.onSubmit({ ...this.state.configuration });
+export class WaitingListConfigurationForm extends Component<Props> {
+  handleChange = (field: string) => (value: any) => {
+    this.props.setFieldValue(field, value);
   };
 
   renderUnorderedForm = () => {
@@ -106,14 +78,14 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
   generateAlertInfoContent = () => {
     const { t } = this.props;
     if (
-      this.state.configuration.auto_cancellation_type ===
+      this.props.values.autoCancellationType ===
       WaitingListAutoCancellation.dumb
     ) {
       return t(
         `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSimple`,
         {
-          autokick_delay: this.state.configuration.autokick_delay,
-          dumb_delay_minutes: this.state.configuration.dumb_delay_minutes,
+          autokick_delay: this.props.values.autokickDelay,
+          dumb_delay_minutes: this.props.values.dumbDelayMinutes,
         },
       );
     }
@@ -121,17 +93,17 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     const exampleComputedDelayOne = (
       exampleHoursBefore *
       60 *
-      (this.state.configuration.smart_delay_percentage / 100)
+      (this.props.values.smartDelayPercentage / 100)
     ).toFixed(0);
     const exampleComputedDelayTwo = (
-      (exampleHoursBefore * 60 - exampleComputedDelayOne) *
-      (this.state.configuration.smart_delay_percentage / 100)
+      (exampleHoursBefore * 60 - parseInt(exampleComputedDelayOne)) *
+      (this.props.values.smartDelayPercentage / 100)
     ).toFixed(0);
     return t(
       `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSmart`,
       {
-        autokick_delay: this.state.configuration.autokick_delay,
-        smart_delay_percentage: this.state.configuration.smart_delay_percentage,
+        autokick_delay: this.props.values.autokickDelay,
+        smart_delay_percentage: this.props.values.smartDelayPercentage,
         example_hours_before: 3,
         example_computed_delay_one: exampleComputedDelayOne,
         example_computed_delay_two: exampleComputedDelayTwo,
@@ -143,11 +115,12 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const isDisplayPositionChecked = event.target.checked;
-    this.handleChange('display_member_position')(isDisplayPositionChecked);
+    this.handleChange('displayMemberPosition')(isDisplayPositionChecked);
   };
 
   renderOrderedForm = () => {
     const { classes, t } = this.props;
+
     return (
       <div>
         <div className={classes.row}>
@@ -158,6 +131,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
         </div>
         <div className={classes.field}>
           <NumericInput
+            error={!!this.props.errors.autokickDelay}
             fullWidth={false}
             helperText={t('form.autokick_delay.helper')}
             InputProps={{
@@ -165,20 +139,20 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             }}
             label={t('form.autokick_delay.label')}
             onChange={(ev) =>
-              this.handleChange('autokick_delay')(parseInt(ev.target.value, 10))
+              this.handleChange('autokickDelay')(parseInt(ev.target.value, 10))
             }
-            value={this.state.configuration.autokick_delay}
+            value={this.props.values.autokickDelay}
           />
         </div>
         <div className={classes.field}>
           <FormControlLabel
             control={
               <Checkbox
-                checked={this.state.configuration.auto_consume_pack}
+                checked={this.props.values.autoConsumePack}
                 onChange={(event) =>
-                  this.handleChange('auto_consume_pack')(event.target.checked)
+                  this.handleChange('autoConsumePack')(event.target.checked)
                 }
-                value={this.state.configuration.auto_consume_pack}
+                value={this.props.values.autoConsumePack}
               />
             }
             label={t('form.auto_consume_pack.label')}
@@ -196,18 +170,16 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             control={
               <Checkbox
                 checked={
-                  this.state.configuration.kick_if_no_pack_when_auto_consume &&
-                  this.state.configuration.auto_consume_pack
+                  this.props.values.kickIfNoPackWhenAutoConsume &&
+                  this.props.values.autoConsumePack
                 }
-                disabled={!this.state.configuration.auto_consume_pack}
+                disabled={!this.props.values.autoConsumePack}
                 onChange={(event) =>
-                  this.handleChange('kick_if_no_pack_when_auto_consume')(
+                  this.handleChange('kickIfNoPackWhenAutoConsume')(
                     event.target.checked,
                   )
                 }
-                value={
-                  this.state.configuration.kick_if_no_pack_when_auto_consume
-                }
+                value={this.props.values.kickIfNoPackWhenAutoConsume}
               />
             }
             label={t('form.kick_if_no_pack_when_auto_consume.label')}
@@ -222,6 +194,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
         </div>
         <div className={classes.field}>
           <NumericInput
+            error={!!this.props.errors.lastDelayBeforeAutoConsume}
             fullWidth={false}
             helperText={t('form.last_delay_before_auto_consume.helper')}
             InputProps={{
@@ -230,11 +203,11 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             }}
             label={t('form.last_delay_before_auto_consume.label')}
             onChange={(ev) =>
-              this.handleChange('last_delay_before_auto_consume')(
+              this.handleChange('lastDelayBeforeAutoConsume')(
                 parseInt(ev.target.value, 10),
               )
             }
-            value={this.state.configuration.last_delay_before_auto_consume}
+            value={this.props.values.lastDelayBeforeAutoConsume}
           />
         </div>
         <div className={classes.divider} />
@@ -251,12 +224,12 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 <Radio
                   aria-label="simple"
                   checked={
-                    this.state.configuration.auto_cancellation_type ===
+                    this.props.values.autoCancellationType ===
                     WaitingListAutoCancellation.dumb
                   }
                   name="simple"
                   onChange={() =>
-                    this.handleChange('auto_cancellation_type')(
+                    this.handleChange('autoCancellationType')(
                       WaitingListAutoCancellation.dumb,
                     )
                   }
@@ -267,9 +240,10 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             />
             <NumericInput
               disabled={
-                this.state.configuration.auto_cancellation_type ===
+                this.props.values.autoCancellationType ===
                 WaitingListAutoCancellation.smart
               }
+              error={!!this.props.errors.dumbDelayMinutes}
               InputProps={{
                 inputProps: { min: 15, step: 1, max: 32000 },
                 endAdornment: (
@@ -277,11 +251,11 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 ),
               }}
               onChange={(ev) =>
-                this.handleChange('dumb_delay_minutes')(
+                this.handleChange('dumbDelayMinutes')(
                   parseInt(ev.target.value, 10),
                 )
               }
-              value={this.state.configuration.dumb_delay_minutes}
+              value={this.props.values.dumbDelayMinutes}
             />
           </div>
           <div className={classes.field}>
@@ -290,12 +264,12 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 <Radio
                   aria-label="smart"
                   checked={
-                    this.state.configuration.auto_cancellation_type ===
+                    this.props.values.autoCancellationType ===
                     WaitingListAutoCancellation.smart
                   }
                   name="smart"
                   onChange={() =>
-                    this.handleChange('auto_cancellation_type')(
+                    this.handleChange('autoCancellationType')(
                       WaitingListAutoCancellation.smart,
                     )
                   }
@@ -306,20 +280,21 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             />
             <NumericInput
               disabled={
-                this.state.configuration.auto_cancellation_type ===
+                this.props.values.autoCancellationType ===
                 WaitingListAutoCancellation.dumb
               }
+              error={!!this.props.errors.smartDelayPercentage}
               fullWidth={false}
               InputProps={{
                 inputProps: { min: 10, step: 1, max: 100 },
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
               onChange={(ev) =>
-                this.handleChange('smart_delay_percentage')(
+                this.handleChange('smartDelayPercentage')(
                   parseInt(ev.target.value, 10),
                 )
               }
-              value={this.state.configuration.smart_delay_percentage}
+              value={this.props.values.smartDelayPercentage}
             />
           </div>
         </fieldset>
@@ -327,10 +302,10 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           <FormControlLabel
             control={
               <Switch
-                checked={this.state.configuration.display_member_position}
+                checked={this.props.values.displayMemberPosition}
                 color="primary"
                 onChange={this.handleDisplayPositionChange}
-                value={this.state.configuration.display_member_position}
+                value={this.props.values.displayMemberPosition}
               />
             }
             label={t('form.display_member_position.label')}
@@ -343,19 +318,17 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
   render() {
     const { classes, t } = this.props;
     return (
-      <form className={classes.root} onSubmit={this.onSubmit}>
+      <Form className={classes.root}>
         <FormControl className={classes.formControl} component="fieldset">
           <div className={classes.field}>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={this.state.configuration.is_option_blocking}
+                  checked={this.props.values.isOptionBlocking}
                   onChange={(event) =>
-                    this.handleChange('is_option_blocking')(
-                      event.target.checked,
-                    )
+                    this.handleChange('isOptionBlocking')(event.target.checked)
                   }
-                  value={this.state.configuration.is_option_blocking}
+                  value={this.props.values.isOptionBlocking}
                 />
               }
               label={t('form.is_option_blocking.label')}
@@ -373,11 +346,11 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             <FormControlLabel
               control={
                 <Switch
-                  checked={this.state.configuration.check_credit}
+                  checked={this.props.values.checkCredit}
                   onChange={(event) =>
-                    this.handleChange('check_credit')(event.target.checked)
+                    this.handleChange('checkCredit')(event.target.checked)
                   }
-                  value={this.state.configuration.check_credit}
+                  value={this.props.values.checkCredit}
                 />
               }
               label={t('form.check_credit.label')}
@@ -400,12 +373,11 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               onChange={(ev) =>
                 this.handleChange('dynamic')(parseInt(ev.target.value, 10))
               }
-              value={`${this.state.configuration.dynamic}`}
+              value={`${this.props.values.dynamic}`}
             >
               <FormControlLabel
                 control={<Radio color="primary" />}
                 label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`)}
-                labelPlacement="right"
                 value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
               />
               <FormControlLabel
@@ -413,25 +385,18 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 label={t(
                   `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`,
                 )}
-                labelPlacement="right"
                 value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
               />
             </RadioGroup>
           </FormControl>
           <div className={classes.settingsInner}>
             <Collapse
-              in={
-                this.state.configuration.dynamic ===
-                WAITING_LIST_DYNAMIC_ORDERED
-              }
+              in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_ORDERED}
             >
               {this.renderOrderedForm()}
             </Collapse>
             <Collapse
-              in={
-                this.state.configuration.dynamic ===
-                WAITING_LIST_DYNAMIC_UNORDERED
-              }
+              in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED}
             >
               {this.renderUnorderedForm()}
             </Collapse>
@@ -439,78 +404,125 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
         </FormControl>
         <Button
           color="primary"
-          disabled={this.compareStateToProps()}
+          disabled={!this.props.dirty || this.props.isSubmitting}
           type="submit"
           variant="contained"
         >
           {t('form.submit')}
         </Button>
-      </form>
+      </Form>
     );
   }
 }
-
-const styles = (theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '70%',
-  },
-  formControl: {
-    paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(1),
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  explainWaitingListConf: {
-    paddingTop: theme.spacing(2),
-  },
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  field: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  helperText: {
-    marginTop: theme.spacing(-1),
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: theme.spacing(3),
-  },
-  singleRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2),
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  settingsInner: {
-    backgroundColor: '#F3F3F3',
-    borderRadius: theme.spacing(2),
-    border: '1px solid #F3F3F3',
-    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px ${theme.spacing(
-      2,
-    )}px`,
-    width: '100%',
-  },
-  alert: {
-    alignItems: 'center',
-  },
-});
-
-export default compose(
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '70%',
+    },
+    formControl: {
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+    },
+    column: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    explainWaitingListConf: {
+      paddingTop: theme.spacing(2),
+    },
+    divider: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    field: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    helperText: {
+      marginTop: theme.spacing(-1),
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: theme.spacing(3),
+    },
+    singleRow: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: theme.spacing(2),
+    },
+    leftIcon: {
+      marginRight: theme.spacing(1),
+    },
+    settingsInner: {
+      backgroundColor: '#F3F3F3',
+      borderRadius: theme.spacing(2),
+      border: '1px solid #F3F3F3',
+      padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px ${theme.spacing(
+        2,
+      )}px`,
+      width: '100%',
+    },
+    alert: {
+      alignItems: 'center',
+    },
+  });
+export default compose<OwnProps, OuterProps>(
+  withFormik<Props, FormikValues>({
+    enableReinitialize: true,
+    mapPropsToValues: ({ configuration }) => {
+      const {
+        auto_cancellation_type: autoCancellationType,
+        auto_consume_pack: autoConsumePack,
+        autokick_delay: autokickDelay,
+        check_credit: checkCredit,
+        display_member_position: displayMemberPosition,
+        dumb_delay_minutes: dumbDelayMinutes,
+        dynamic,
+        is_option_blocking: isOptionBlocking,
+        kick_if_no_pack_when_auto_consume: kickIfNoPackWhenAutoConsume,
+        last_delay_before_auto_consume: lastDelayBeforeAutoConsume,
+        smart_delay_percentage: smartDelayPercentage,
+      } = configuration;
+      return {
+        autoCancellationType,
+        autoConsumePack,
+        autokickDelay,
+        checkCredit,
+        displayMemberPosition,
+        dumbDelayMinutes,
+        dynamic,
+        isOptionBlocking,
+        kickIfNoPackWhenAutoConsume,
+        lastDelayBeforeAutoConsume,
+        smartDelayPercentage,
+      };
+    },
+    handleSubmit: (values, { props: { onSubmit, configuration } }) => {
+      const sanitizedConfiguration = {
+        ...configuration,
+        auto_cancellation_type: values.autoCancellationType,
+        auto_consume_pack: values.autoConsumePack,
+        autokick_delay: values.autokickDelay,
+        check_credit: values.checkCredit,
+        display_member_position: values.displayMemberPosition,
+        dumb_delay_minutes: values.dumbDelayMinutes,
+        dynamic: values.dynamic,
+        is_option_blocking: values.isOptionBlocking,
+        kick_if_no_pack_when_auto_consume: values.kickIfNoPackWhenAutoConsume,
+        last_delay_before_auto_consume: values.lastDelayBeforeAutoConsume,
+        smart_delay_percentage: values.smartDelayPercentage,
+      };
+      onSubmit(sanitizedConfiguration);
+    },
+  }),
   withStyles(styles),
-  withTranslation(['waitingList']),
-)(WaitingListConfigurationForm);
+  withTranslation('waitingList'),
+)(React.memo(WaitingListConfigurationForm));

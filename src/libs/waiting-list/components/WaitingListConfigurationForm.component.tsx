@@ -136,12 +136,21 @@ export class WaitingListConfigurationForm extends Component<Props> {
     );
   };
 
-  handleDisplayPositionChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const isDisplayPositionChecked = event.target.checked;
-    this.handleChange('displayMemberPosition')(isDisplayPositionChecked);
-  };
+  handleCheckBoxFieldChange =
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const isChecked = event.target.checked;
+      this.handleChange(field)(isChecked);
+    };
+
+  handleNumericFieldChange =
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      this.handleChange(field)(parseInt(event.target.value, 10));
+    };
+
+  handleAutoCancellationTypeChange =
+    (value: WaitingListAutoCancellation) => () => {
+      this.handleChange('autoCancellationType')(value);
+    };
 
   renderOrderedForm = () => {
     const { classes, t } = this.props;
@@ -163,9 +172,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
               inputProps: { min: 2, step: 1, max: 100 },
             }}
             label={t('form.autokick_delay.label')}
-            onChange={(ev) =>
-              this.handleChange('autokickDelay')(parseInt(ev.target.value, 10))
-            }
+            onChange={this.handleNumericFieldChange('autokickDelay')}
             value={this.props.values.autokickDelay}
           />
         </div>
@@ -174,9 +181,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
             control={
               <Checkbox
                 checked={this.props.values.autoConsumePack}
-                onChange={(event) =>
-                  this.handleChange('autoConsumePack')(event.target.checked)
-                }
+                onChange={this.handleCheckBoxFieldChange('autoConsumePack')}
                 value={this.props.values.autoConsumePack}
               />
             }
@@ -199,11 +204,9 @@ export class WaitingListConfigurationForm extends Component<Props> {
                   this.props.values.autoConsumePack
                 }
                 disabled={!this.props.values.autoConsumePack}
-                onChange={(event) =>
-                  this.handleChange('kickIfNoPackWhenAutoConsume')(
-                    event.target.checked,
-                  )
-                }
+                onChange={this.handleCheckBoxFieldChange(
+                  'kickIfNoPackWhenAutoConsume',
+                )}
                 value={this.props.values.kickIfNoPackWhenAutoConsume}
               />
             }
@@ -227,11 +230,9 @@ export class WaitingListConfigurationForm extends Component<Props> {
               endAdornment: <InputAdornment position="end">min</InputAdornment>,
             }}
             label={t('form.last_delay_before_auto_consume.label')}
-            onChange={(ev) =>
-              this.handleChange('lastDelayBeforeAutoConsume')(
-                parseInt(ev.target.value, 10),
-              )
-            }
+            onChange={this.handleNumericFieldChange(
+              'lastDelayBeforeAutoConsume',
+            )}
             value={this.props.values.lastDelayBeforeAutoConsume}
           />
         </div>
@@ -253,11 +254,9 @@ export class WaitingListConfigurationForm extends Component<Props> {
                     WaitingListAutoCancellation.dumb
                   }
                   name="simple"
-                  onChange={() =>
-                    this.handleChange('autoCancellationType')(
-                      WaitingListAutoCancellation.dumb,
-                    )
-                  }
+                  onChange={this.handleAutoCancellationTypeChange(
+                    WaitingListAutoCancellation.dumb,
+                  )}
                   value={WaitingListAutoCancellation.dumb}
                 />
               }
@@ -275,11 +274,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
                   <InputAdornment position="end">min</InputAdornment>
                 ),
               }}
-              onChange={(ev) =>
-                this.handleChange('dumbDelayMinutes')(
-                  parseInt(ev.target.value, 10),
-                )
-              }
+              onChange={this.handleNumericFieldChange('dumbDelayMinutes')}
               value={this.props.values.dumbDelayMinutes}
             />
           </div>
@@ -293,11 +288,9 @@ export class WaitingListConfigurationForm extends Component<Props> {
                     WaitingListAutoCancellation.smart
                   }
                   name="smart"
-                  onChange={() =>
-                    this.handleChange('autoCancellationType')(
-                      WaitingListAutoCancellation.smart,
-                    )
-                  }
+                  onChange={this.handleAutoCancellationTypeChange(
+                    WaitingListAutoCancellation.smart,
+                  )}
                   value={WaitingListAutoCancellation.smart}
                 />
               }
@@ -314,11 +307,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
                 inputProps: { min: 10, step: 1, max: 100 },
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
-              onChange={(ev) =>
-                this.handleChange('smartDelayPercentage')(
-                  parseInt(ev.target.value, 10),
-                )
-              }
+              onChange={this.handleNumericFieldChange('smartDelayPercentage')}
               value={this.props.values.smartDelayPercentage}
             />
           </div>
@@ -329,7 +318,9 @@ export class WaitingListConfigurationForm extends Component<Props> {
               <Switch
                 checked={this.props.values.displayMemberPosition}
                 color="primary"
-                onChange={this.handleDisplayPositionChange}
+                onChange={this.handleCheckBoxFieldChange(
+                  'displayMemberPosition',
+                )}
                 value={this.props.values.displayMemberPosition}
               />
             }
@@ -350,9 +341,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
               control={
                 <Checkbox
                   checked={this.props.values.isOptionBlocking}
-                  onChange={(event) =>
-                    this.handleChange('isOptionBlocking')(event.target.checked)
-                  }
+                  onChange={this.handleCheckBoxFieldChange('isOptionBlocking')}
                   value={this.props.values.isOptionBlocking}
                 />
               }
@@ -372,9 +361,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
               control={
                 <Switch
                   checked={this.props.values.checkCredit}
-                  onChange={(event) =>
-                    this.handleChange('checkCredit')(event.target.checked)
-                  }
+                  onChange={this.handleCheckBoxFieldChange('checkCredit')}
                   value={this.props.values.checkCredit}
                 />
               }
@@ -395,9 +382,7 @@ export class WaitingListConfigurationForm extends Component<Props> {
               row
               aria-label="position"
               defaultValue="right"
-              onChange={(ev) =>
-                this.handleChange('dynamic')(parseInt(ev.target.value, 10))
-              }
+              onChange={this.handleNumericFieldChange('dynamic')}
               value={`${this.props.values.dynamic}`}
             >
               <FormControlLabel

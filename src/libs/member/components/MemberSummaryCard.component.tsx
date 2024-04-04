@@ -131,10 +131,10 @@ export class MemberSummaryCard extends PureComponent<Props> {
     }`;
 
     return (
-      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-        {(hasMemberProfileAccess: boolean) => (
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+        {(hasMemberReadInfoPermission: boolean) => (
           <div className={this.props.classes.horizontalPadding2}>
-            {hasMemberProfileAccess && (
+            {hasMemberReadInfoPermission && (
               <MemberSummaryInfoItem
                 icon={<TodayIcon />}
                 value={memberBirthdayValue}
@@ -148,7 +148,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                 id: member.official_document_id,
               })}
               valueExtra={
-                hasMemberProfileAccess &&
+                hasMemberReadInfoPermission &&
                 isBirthday && <Cake color="secondary" fontSize="small" />
               }
             />
@@ -194,12 +194,12 @@ export class MemberSummaryCard extends PureComponent<Props> {
       <ObjectLevelPermissionProvider
         requiredPermission={[
           'member.allowed_actions.communication',
-          'member.allowed_actions.accessProfile',
+          'member.allowed_actions.readInfo',
         ]}
       >
         {([
           hasMemberCommunicationPermission,
-          hasMemberProfileAccess,
+          hasMemberReadInfoPermission,
         ]: boolean[]) => {
           const hideContactButton =
             this.props.hideContactButton || !hasMemberCommunicationPermission;
@@ -223,7 +223,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                       }
                     }}
                     phoneNumber={
-                      (hasMemberProfileAccess &&
+                      (hasMemberReadInfoPermission &&
                         member.consumer.phonenumber?.phone_number) ||
                       ''
                     }
@@ -233,7 +233,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
               <EmailItem
                 notificationIcon
                 accept_email={member.accept_email}
-                email={(hasMemberProfileAccess && member.consumer.email) || ''}
+                email={
+                  (hasMemberReadInfoPermission && member.consumer.email) || ''
+                }
                 hideContactButton={hideContactButton}
                 openMailDialog={
                   // eslint-disable-next-line
@@ -241,7 +243,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                 }
                 pending_email={member.pending_email}
               />
-              {hasMemberProfileAccess && member.emergency_contact && (
+              {hasMemberReadInfoPermission && member.emergency_contact && (
                 <EmergencyContactItemComponent
                   emergency_contact={member.emergency_contact}
                 />
@@ -313,7 +315,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
     return (
       <ObjectLevelPermissionWrapper
         forcedBehavior="hidden"
-        requiredPermission="member.allowed_actions.accessProfile"
+        requiredPermission="member.allowed_actions.readInfo"
       >
         <List>
           <ListItem>

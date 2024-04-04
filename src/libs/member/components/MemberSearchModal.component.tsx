@@ -60,8 +60,8 @@ const MemberListItem = (props: {
     disabled={props.disabled}
     onClick={props.onClick}
   >
-    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-      {(hasMemberProfileAccessPermission: boolean) => (
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+      {(hasMemberReadInfoPermission: boolean) => (
         <ListItemText
           primary={
             <div
@@ -83,7 +83,7 @@ const MemberListItem = (props: {
               </div>
             </div>
           }
-          secondary={hasMemberProfileAccessPermission && props.member.email}
+          secondary={hasMemberReadInfoPermission && props.member.email}
         />
       )}
     </ObjectLevelPermissionProvider>

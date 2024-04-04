@@ -91,10 +91,17 @@ const renderRows = (
   members: MemberMinimal[],
   t: TFunction,
   interrogateMemberStatus: (id: number) => void,
+  hasMemberReadInfoPermission: boolean,
   goToMember?: (id: number) => void,
 ) => {
   return members.map((member) =>
-    renderRow(member, t, interrogateMemberStatus, goToMember),
+    renderRow(
+      member,
+      t,
+      interrogateMemberStatus,
+      hasMemberReadInfoPermission,
+      goToMember,
+    ),
   );
 };
 
@@ -102,6 +109,7 @@ const renderRow = (
   member: MemberMinimal,
   t: TFunction,
   interrogateMemberStatus: (id: number) => void,
+  hasMemberReadInfoPermission: boolean,
   goToMemberPage?: (id: number) => void,
 ) => {
   const { credit_account_balance, email, date_joined, name, id, accept_email } =
@@ -109,7 +117,7 @@ const renderRow = (
   return {
     name,
     date_joined: formatAsDate(date_joined),
-    email,
+    ...(hasMemberReadInfoPermission && { email }),
     credit_account_balance: (
       <CreditAccountBalance credit_account_balance={credit_account_balance} />
     ),
@@ -128,7 +136,7 @@ const renderRow = (
   };
 };
 
-const getColumnData = (t: TFunction) => {
+const getColumnData = (t: TFunction, hasMemberReadInfoPermission: boolean) => {
   return [
     {
       name: 'name',
@@ -138,14 +146,18 @@ const getColumnData = (t: TFunction) => {
         sort: false,
       },
     },
-    {
-      name: 'email',
-      label: t('email'),
-      options: {
-        filter: false,
-        sort: false,
-      },
-    },
+    ...(hasMemberReadInfoPermission
+      ? [
+          {
+            name: 'email',
+            label: t('email'),
+            options: {
+              filter: false,
+              sort: false,
+            },
+          },
+        ]
+      : []),
     {
       name: 'date_joined',
       label: t('date_joined'),
@@ -401,19 +413,24 @@ export class MemberTable extends PureComponent<Props, State> {
     };
 
     return (
-      <MUIDataTable
-        columns={getColumnData(t)}
-        data={renderRows(
-          this.state.members?.filter(
-            (mem) => !this.props.disabledMemberId?.includes(mem.id),
-          ),
-          t,
-          this.props.interrogateMemberStatus,
-          this.props.goToMember,
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+        {(hasMemberReadInfoPermission: boolean) => (
+          <MUIDataTable
+            columns={getColumnData(t, hasMemberReadInfoPermission)}
+            data={renderRows(
+              this.state.members?.filter(
+                (mem) => !this.props.disabledMemberId?.includes(mem.id),
+              ),
+              t,
+              this.props.interrogateMemberStatus,
+              hasMemberReadInfoPermission,
+              this.props.goToMember,
+            )}
+            options={options}
+            title=""
+          />
         )}
-        options={options}
-        title=""
-      />
+      </ObjectLevelPermissionProvider>
     );
   }
 }

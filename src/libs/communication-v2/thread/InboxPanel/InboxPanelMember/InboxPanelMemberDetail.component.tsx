@@ -78,112 +78,125 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
   } ${address?.state ? '- ' : ''}${(address?.country || '').toUpperCase()}`;
 
   return (
-    <div>
-      <div className={classes.memberSummaryContainer}>
-        <div className={classes.contactMember}>
-          {member?.phone_number && (
-            <div className={classes.contactItemContainer}>
-              <CustomChip
-                displayedValue={member?.phone_number}
-                icon="LocalPhone"
-                mainColor={theme.palette.primary.main}
-              />
-            </div>
-          )}
-
-          {member?.email && (
-            <div className={classes.contactItemContainer}>
-              <CustomChip
-                displayedValue={member?.email}
-                icon="Mail"
-                mainColor={theme.palette.primary.main}
-              />
-            </div>
-          )}
-        </div>
-        <div className={classes.signupDate}>
-          <Typography noWrap color="textSecondary">
-            {t('memberSince') + formatAsDate(member?.date_joined)}
-          </Typography>
-        </div>
-
-        <List dense disablePadding className={classes.section}>
-          {!!member?.birthday && (
-            <ListItem dense disableGutters>
-              <TodayIcon />
-              <ListItemText
-                className={classes.listItemText}
-                primary={
-                  <div className={classes.rowInfo}>
-                    <div>
-                      {' '}
-                      {`${t('member:birth.bornIn', {
-                        context: member?.gender,
-                        date: moment(member?.birthday).format('L'),
-                        age,
-                      })}`}
-                    </div>
-                    <div>{isBirthday && <Cake color="secondary" />}</div>
-                  </div>
-                }
-              />
-            </ListItem>
-          )}
-          <ListItem dense disableGutters>
-            <PersonOutlineIcon />
-            <ListItemText
-              className={classes.listItemText}
-              primary={`N°${member?.membership_ID}`}
-            />
-          </ListItem>
-        </List>
-
-        <div className={classes.section}>
-          <ListItem disableGutters classes={{ root: classes.denseListItem }}>
-            <ViewWeekIcon />
-            <ListItemText
-              className={classes.listItemText}
-              primary={
-                <div className={classes.rowInfo}>
-                  {`${barcode}`}
-                  <IconButton
-                    className={classes.visibilityIcon}
-                    onClick={handleClickBarcode}
-                  >
-                    <VisibilityIcon color="primary" />
-                  </IconButton>
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'member.allowed_actions.readInfo',
+        'member.allowed_actions.accessProfile',
+      ]}
+    >
+      {([
+        hasMemberReadInfoPermission,
+        hasMemberProfileAccessPermission,
+      ]: boolean[]) => (
+        <div>
+          <div className={classes.memberSummaryContainer}>
+            <div className={classes.contactMember}>
+              {member?.phone_number && hasMemberReadInfoPermission && (
+                <div className={classes.contactItemContainer}>
+                  <CustomChip
+                    displayedValue={member?.phone_number}
+                    icon="LocalPhone"
+                    mainColor={theme.palette.primary.main}
+                  />
                 </div>
-              }
-            />
-          </ListItem>
-        </div>
+              )}
 
-        {address && (
-          <div className={classes.section}>
-            <ListItem disableGutters classes={{ root: classes.denseListItem }}>
-              <PlaceIcon />
-              <ListItemText
-                className={classes.listItemText}
-                primary={primaryAddress}
-                secondary={secondaryAddress}
-              />
-            </ListItem>
-          </div>
-        )}
+              {member?.email && hasMemberReadInfoPermission && (
+                <div className={classes.contactItemContainer}>
+                  <CustomChip
+                    displayedValue={member?.email}
+                    icon="Mail"
+                    mainColor={theme.palette.primary.main}
+                  />
+                </div>
+              )}
+            </div>
+            <div className={classes.signupDate}>
+              <Typography noWrap color="textSecondary">
+                {t('memberSince') + formatAsDate(member?.date_joined)}
+              </Typography>
+            </div>
 
-        {member?.emergency_contact && (
-          <div className={classes.emergencyContact}>
-            <EmergencyContactItemComponent
-              disableGutters
-              denseListItem={classes.denseListItem}
-              emergency_contact={member?.emergency_contact}
-            />
-          </div>
-        )}
+            <List dense disablePadding className={classes.section}>
+              {!!member?.birthday && hasMemberReadInfoPermission && (
+                <ListItem dense disableGutters>
+                  <TodayIcon />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary={
+                      <div className={classes.rowInfo}>
+                        <div>
+                          {' '}
+                          {`${t('member:birth.bornIn', {
+                            context: member?.gender,
+                            date: moment(member?.birthday).format('L'),
+                            age,
+                          })}`}
+                        </div>
+                        <div>{isBirthday && <Cake color="secondary" />}</div>
+                      </div>
+                    }
+                  />
+                </ListItem>
+              )}
+              <ListItem dense disableGutters>
+                <PersonOutlineIcon />
+                <ListItemText
+                  className={classes.listItemText}
+                  primary={`N°${member?.membership_ID}`}
+                />
+              </ListItem>
+            </List>
 
-        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-          {(hasMemberProfileAccessPermission: boolean) =>
-            hasMemberProfileAccessPermission && (
+            <div className={classes.section}>
+              <ListItem
+                disableGutters
+                classes={{ root: classes.denseListItem }}
+              >
+                <ViewWeekIcon />
+                <ListItemText
+                  className={classes.listItemText}
+                  primary={
+                    <div className={classes.rowInfo}>
+                      {`${barcode}`}
+                      <IconButton
+                        className={classes.visibilityIcon}
+                        onClick={handleClickBarcode}
+                      >
+                        <VisibilityIcon color="primary" />
+                      </IconButton>
+                    </div>
+                  }
+                />
+              </ListItem>
+            </div>
+
+            {address && hasMemberReadInfoPermission && (
+              <div className={classes.section}>
+                <ListItem
+                  disableGutters
+                  classes={{ root: classes.denseListItem }}
+                >
+                  <PlaceIcon />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary={primaryAddress}
+                    secondary={secondaryAddress}
+                  />
+                </ListItem>
+              </div>
+            )}
+
+            {member?.emergency_contact && hasMemberReadInfoPermission && (
+              <div className={classes.emergencyContact}>
+                <EmergencyContactItemComponent
+                  disableGutters
+                  denseListItem={classes.denseListItem}
+                  emergency_contact={member?.emergency_contact}
+                />
+              </div>
+            )}
+            {hasMemberProfileAccessPermission && (
               <ButtonBase onClick={handleClickMemberRedirection}>
                 <Typography color="primary">
                   {t(
@@ -195,15 +208,18 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
                   color="primary"
                 />
               </ButtonBase>
-            )
-          }
-        </ObjectLevelPermissionProvider>
-      </div>
+            )}
+          </div>
 
-      <Dialog onClose={handleCloseBarcode} open={displayBarcodeDialog}>
-        <BarCode background={theme.palette.grey[50]} value={member?.barcode} />
-      </Dialog>
-    </div>
+          <Dialog onClose={handleCloseBarcode} open={displayBarcodeDialog}>
+            <BarCode
+              background={theme.palette.grey[50]}
+              value={member?.barcode}
+            />
+          </Dialog>
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

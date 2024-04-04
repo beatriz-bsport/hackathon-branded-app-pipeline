@@ -78,7 +78,6 @@ import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/comm
 import type { CommunicationContext } from '#libs/communication-v2/types';
 import { ObjectLevelPermissions } from '../../libs/role/types';
 import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils';
-
 import {
   BackgroundDialogDisplayMode,
   BackgroundDialogActionMode,
@@ -255,7 +254,7 @@ const getTabsData = (
         },
         ...(hasObjectLevelPermission(
           objectLevelPermissions,
-          'member.allowed_actions.accessProfile',
+          'member.allowed_actions.readInfo',
         )
           ? [
               {

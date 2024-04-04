@@ -15,6 +15,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { useTranslation } from 'react-i18next';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import type { Member } from '#libs/member/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   member: Member;
@@ -52,14 +53,18 @@ function MemberBookingHelper(props: Props) {
       onClick={props.onClickListItem}
       selected={props.selected}
     >
-      <ListItemText
-        classes={{
-          primary: classes.text,
-          secondary: classes.text,
-        }}
-        primary={props.member.name}
-        secondary={email}
-      />
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+        {(hasMemberInfoAccessPermission: boolean) => (
+          <ListItemText
+            classes={{
+              primary: classes.text,
+              secondary: classes.text,
+            }}
+            primary={props.member.name}
+            secondary={hasMemberInfoAccessPermission ? email : ''}
+          />
+        )}
+      </ObjectLevelPermissionProvider>
       <ListItemSecondaryAction>
         {props.hasBooked ? (
           <React.Fragment>

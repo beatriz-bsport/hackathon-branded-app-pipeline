@@ -35,6 +35,7 @@ import CustomFormView from '../../libs/custom-form/components/consumer-form/Cust
 import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
 import themeSelector from '../../libs/theme/selectors';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type StateHandlerInit = {
   customFormFilledSelected: boolean;
@@ -91,118 +92,120 @@ export class MemberCustomForm extends React.Component<Props> {
       return <BackofficeLinearProgress additionalMargin={1} />;
     }
     return (
-      <Grid container direction="row" spacing={3}>
-        <Grid item md={6} xs={12}>
-          <Paper>
-            <CustomFormCompletedList
-              customFormFilledList={this.props.customFormFilledList}
-              onClickItem={(id) => this.setSelected(id)}
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <div className={classes.formContainer}>
-            {this.props.customFormFilledSelected ? (
-              this.getCustomFormEnabledFieldWithAnswer() && (
-                <>
-                  {this.getCustomFormEnabledFieldWithAnswer()?.custom_form_field
-                    ?.length ? (
-                    <Paper className={classes.paperContainer}>
-                      <CustomFormView
-                        key={this.props.customFormFilledSelected}
-                        asManager
-                        disableLayout
-                        shouldWrapLayerInCssHoc
-                        general_terms_and_conditions={
-                          this.props.theme.general_terms_of_use
-                        }
-                        initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
-                        isCssVariantActivated={
-                          CUSTOM_FORM_CSS_VARIANT_ACTIVATED
-                        }
-                        refreshLoading={this.props.customFormViewLoading}
-                        waiver={this.props?.theme.waiver}
-                      />
-                    </Paper>
-                  ) : (
-                    <div className={classes.emptyContainer}>
-                      <div className={classes.column}>
-                        <Alert
-                          className={classes.alertIcon}
-                          color="grey"
-                          severity="info"
-                        >
-                          {t('customForm.allFieldDisabled')}
-                        </Alert>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )
-            ) : (
-              <>
-                <div className={classes.emptyContainer}>
-                  <div className={classes.column}>
-                    <Alert
-                      className={classes.alertIcon}
-                      color="grey"
-                      severity="info"
-                    >
-                      {' '}
-                      {t('customForm.selectCustomFormFilled')}
-                    </Alert>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-          <div className={classes.formContainer}>
-            {this.props.customFormFilledSelected
-              ? this.getCustomFormDisabledFieldWithAnswer()?.custom_form_field
-                  ?.length !== 0 && (
+      <ObjectLevelPermissionWrapper requiredPermission="member.allowed_actions.readInfo">
+        <Grid container direction="row" spacing={3}>
+          <Grid item md={6} xs={12}>
+            <Paper>
+              <CustomFormCompletedList
+                customFormFilledList={this.props.customFormFilledList}
+                onClickItem={(id) => this.setSelected(id)}
+              />
+            </Paper>
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <div className={classes.formContainer}>
+              {this.props.customFormFilledSelected ? (
+                this.getCustomFormEnabledFieldWithAnswer() && (
                   <>
-                    <ButtonBase
-                      className={classes.disabledHeader}
-                      onClick={() =>
-                        this.props.setShowDisabledField(
-                          !this.props.showDisabledField,
-                        )
-                      }
-                    >
-                      <Typography variant="h5">
-                        {`${t('customForm.answerForDisabledField')} (${
-                          this.getCustomFormDisabledFieldWithAnswer()
-                            ?.custom_form_field?.length
-                        })`}
-                      </Typography>
-                      {this.props.showDisabledField ? (
-                        <ExpandLessIcon />
-                      ) : (
-                        <ExpandMoreIcon />
-                      )}
-                    </ButtonBase>
-                    <Divider className={classes.divider} />
-                    <Collapse in={this.props.showDisabledField}>
+                    {this.getCustomFormEnabledFieldWithAnswer()
+                      ?.custom_form_field?.length ? (
                       <Paper className={classes.paperContainer}>
                         <CustomFormView
                           key={this.props.customFormFilledSelected}
                           asManager
                           disableLayout
+                          shouldWrapLayerInCssHoc
                           general_terms_and_conditions={
                             this.props.theme.general_terms_of_use
                           }
-                          initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
+                          initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
+                          isCssVariantActivated={
+                            CUSTOM_FORM_CSS_VARIANT_ACTIVATED
+                          }
                           refreshLoading={this.props.customFormViewLoading}
                           waiver={this.props?.theme.waiver}
                         />
                       </Paper>
-                    </Collapse>
+                    ) : (
+                      <div className={classes.emptyContainer}>
+                        <div className={classes.column}>
+                          <Alert
+                            className={classes.alertIcon}
+                            color="grey"
+                            severity="info"
+                          >
+                            {t('customForm.allFieldDisabled')}
+                          </Alert>
+                        </div>
+                      </div>
+                    )}
                   </>
                 )
-              : null}
-          </div>
+              ) : (
+                <>
+                  <div className={classes.emptyContainer}>
+                    <div className={classes.column}>
+                      <Alert
+                        className={classes.alertIcon}
+                        color="grey"
+                        severity="info"
+                      >
+                        {' '}
+                        {t('customForm.selectCustomFormFilled')}
+                      </Alert>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className={classes.formContainer}>
+              {this.props.customFormFilledSelected
+                ? this.getCustomFormDisabledFieldWithAnswer()?.custom_form_field
+                    ?.length !== 0 && (
+                    <>
+                      <ButtonBase
+                        className={classes.disabledHeader}
+                        onClick={() =>
+                          this.props.setShowDisabledField(
+                            !this.props.showDisabledField,
+                          )
+                        }
+                      >
+                        <Typography variant="h5">
+                          {`${t('customForm.answerForDisabledField')} (${
+                            this.getCustomFormDisabledFieldWithAnswer()
+                              ?.custom_form_field?.length
+                          })`}
+                        </Typography>
+                        {this.props.showDisabledField ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </ButtonBase>
+                      <Divider className={classes.divider} />
+                      <Collapse in={this.props.showDisabledField}>
+                        <Paper className={classes.paperContainer}>
+                          <CustomFormView
+                            key={this.props.customFormFilledSelected}
+                            asManager
+                            disableLayout
+                            general_terms_and_conditions={
+                              this.props.theme.general_terms_of_use
+                            }
+                            initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
+                            refreshLoading={this.props.customFormViewLoading}
+                            waiver={this.props?.theme.waiver}
+                          />
+                        </Paper>
+                      </Collapse>
+                    </>
+                  )
+                : null}
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </ObjectLevelPermissionWrapper>
     );
   }
 }

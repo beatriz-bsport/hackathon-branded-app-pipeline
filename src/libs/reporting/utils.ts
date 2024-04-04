@@ -939,198 +939,180 @@ export const isColumnChipsable = (
 export const ReportColumnPermissions = {
   [ReportCategoryEnum.BILLING_PLAN]: {
     [BillingPlanMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.MEMBERS_PURCHASE]: {
     [MembersPurchaseMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [MembersPurchaseMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.MEMBERS]: {
-    [MemberMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [MemberMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
     [MemberMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [MemberMetadataIdentifierEnum.BIRTHDAY]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [MemberMetadataIdentifierEnum.FULL_ADDRESS]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.OFFERS]: {
-    [OfferMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [OfferMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
   },
   [ReportCategoryEnum.SUBSCRIPTION]: {
     [SubscriptionMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [SubscriptionMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.FIRST_BOOKING]: {
     [FirstBookingMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [FirstBookingMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.FIRST_ATTENDANCE]: {
     [FirstAttendanceMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [FirstAttendanceMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.FIRST_PRIVATE_BOOKING]: {
     [FirstPrivateBookingMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [FirstPrivateBookingMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS]: {
     [UnpaidInvoiceMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [UnpaidInvoiceMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.BOOKINGS]: {
-    [BookingMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [BookingMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
     [BookingMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.EXPIRED_PASS]: {
     [ExpiredConsumerPaymentPackMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [ExpiredConsumerPaymentPackMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED]: {
     [PrivateConsumerPassMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [PrivateConsumerPassMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.UNIVERSAL_PASSES]: {
     [UniversalPassMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [UniversalPassMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.PRIVATE_SERVICE]: {
     [PrivateServiceMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [PrivateServiceMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.MEMBERSHIPS]: {
     [ConsumerPaymentPackMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [ConsumerPaymentPackMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.BASKET]: {
-    [BasketMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [BasketMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
     [BasketMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.CREDIT]: {
-    [CreditMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [CreditMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
     [CreditMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.DISCOUNT]: {
-    [DiscountMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [DiscountMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
   },
   [ReportCategoryEnum.CONSUMER_GIFTCARD]: {
     [ConsumerGiftcardMetadataIdentifierEnum.SRC_FIRSTNAME]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [ConsumerGiftcardMetadataIdentifierEnum.SRC_LASTNAME]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [ConsumerGiftcardMetadataIdentifierEnum.SRC_EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [ConsumerGiftcardMetadataIdentifierEnum.SRC_PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.INVOICES]: {
-    [InvoiceMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [InvoiceMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
     [InvoiceMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.UNPAID_INVOICES]: {
     [UnpaidInvoiceMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
     [UnpaidInvoiceMetadataIdentifierEnum.PHONENUMBER]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.PAYMENTS]: {
-    [PaymentMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [PaymentMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
   },
   [ReportCategoryEnum.ON_SPOT_PAYMENTS]: {
     [OnSpotPaymentMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.DISPUTE]: {
-    [DisputeMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
-    ],
+    [DisputeMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
   },
   [ReportCategoryEnum.PAYMENT_INSTALMENTS]: {
     [PaymentByInstalmentsMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
   [ReportCategoryEnum.VIDEO_PURCHASE]: {
     [VideoPurchaseMetadataIdentifierEnum.EMAIL]: [
-      'member.allowed_actions.accessProfile',
+      'member.allowed_actions.readInfo',
     ],
   },
 };

@@ -134,8 +134,16 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     !!onCheckin;
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-      {(hasMemberProfileAccessPermission: boolean) => (
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'member.allowed_actions.accessProfile',
+        'member.allowed_actions.readInfo',
+      ]}
+    >
+      {([
+        hasMemberProfileAccessPermission,
+        hasMemberReadInfoPermission,
+      ]: boolean[]) => (
         <>
           <ListItem
             button={(!!onClick && hasMemberProfileAccessPermission) as any}
@@ -166,7 +174,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
                     </Typography>
                   </div>
                 }
-                secondary={hasMemberProfileAccessPermission && secondaryInfo}
+                secondary={hasMemberReadInfoPermission && secondaryInfo}
               />
             ) : (
               memberLoading && <CircularProgress />

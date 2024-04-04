@@ -42,11 +42,11 @@ import type {
 } from '#libs/custom-form/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import CustomFormTitleCSS from '#libs/custom-form/components/CustomFormTitleCSS';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -130,9 +130,11 @@ export class SignupPage extends Component<Props> {
     this.props.goBackToLogin(this.props.membership);
   };
 
-  isCustomFormCssVariantActivated = () =>
-    CUSTOM_FORM_CSS_VARIANT_ACTIVATED ||
-    !!this.props.signUpCustomForm?.layout_configuration?.use_custom_css_variant;
+  shoulDisplayCssVariant = () =>
+    isCustomFormCssVariantActivated(
+      !!this.props.signUpCustomForm?.layout_configuration
+        ?.use_custom_css_variant,
+    );
 
   getContainerClass = () => {
     if (
@@ -177,7 +179,7 @@ export class SignupPage extends Component<Props> {
     return (
       <div ref={containerRef} className={this.getContainerClass()}>
         <div className="bs-signup-container--margin-top">
-          {this.isCustomFormCssVariantActivated() ? (
+          {this.shoulDisplayCssVariant() ? (
             <CustomFormTitleCSS
               isCompany={!!membership}
               simplifyUI={simplifyUI}
@@ -196,7 +198,7 @@ export class SignupPage extends Component<Props> {
                 fieldsAreIndependent={fieldsAreIndependent}
                 general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
-                isCssVariantActivated={this.isCustomFormCssVariantActivated()}
+                isCssVariantActivated={this.shoulDisplayCssVariant()}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
                 onSubmit={this.submitCustomForm}

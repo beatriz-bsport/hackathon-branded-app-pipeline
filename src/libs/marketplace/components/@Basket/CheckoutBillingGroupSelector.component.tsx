@@ -1,20 +1,22 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select';
-import { Typography, makeStyles } from '@material-ui/core';
 import memoize from 'lodash/memoize';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import Select from 'react-select';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@material-ui/core/Typography';
+
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 
 type Props = {
   enableMultiLocalization: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
-  setSelectedEstablishmentBillingGroup: (
-    value: React.SetStateAction<EstablishmentBillingGroup>,
-  ) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   setIsEstablishmentBillingGroupSelected: (
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  setSelectedEstablishmentBillingGroup: (
+    value: React.SetStateAction<EstablishmentBillingGroup>,
+  ) => void;
 };
 
 /**
@@ -22,8 +24,8 @@ type Props = {
  *
  * @param {boolean} props.enableMultiLocalization - Flag to enable multi localization. If false, the selector is hidden.
  * @param {Array} props.establishmentBillingGroups - The list of establishment billing groups.
- * @param {Function} props.setSelectedEstablishmentBillingGroup - Function to set the selected establishment billing group.
  * @param {Object} props.selectedEstablishmentBillingGroup - The selected establishment billing group.
+ * @param {Function} props.setSelectedEstablishmentBillingGroup - Function to set the selected establishment billing group.
  * @param {Function} props.setIsEstablishmentBillingGroupSelected - Function to set if an establishment billing group is selected.
  *
  * @returns {ReactElement} Returns a billing group selector component.
@@ -31,9 +33,9 @@ type Props = {
 const CheckoutBillingGroupSelector: React.FC<Props> = ({
   enableMultiLocalization,
   establishmentBillingGroups,
-  setSelectedEstablishmentBillingGroup,
   selectedEstablishmentBillingGroup,
   setIsEstablishmentBillingGroupSelected,
+  setSelectedEstablishmentBillingGroup,
 }) => {
   const getEstablishmentBillingGroupById = React.useMemo(
     () =>
@@ -48,15 +50,15 @@ const CheckoutBillingGroupSelector: React.FC<Props> = ({
 
   const handleSelectEstablishmentBillingGroup = useCallback(
     (newOption) => {
-      setSelectedEstablishmentBillingGroup(
+      setSelectedEstablishmentBillingGroup?.(
         getEstablishmentBillingGroupById(newOption.value),
       );
-      setIsEstablishmentBillingGroupSelected(true);
+      setIsEstablishmentBillingGroupSelected?.(true);
     },
     [
-      setSelectedEstablishmentBillingGroup,
       getEstablishmentBillingGroupById,
       setIsEstablishmentBillingGroupSelected,
+      setSelectedEstablishmentBillingGroup,
     ],
   );
 

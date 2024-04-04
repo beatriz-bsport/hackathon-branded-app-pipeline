@@ -69,13 +69,15 @@ type PaymentStripeProps = {
   creditAccountBalance?: number | null;
   detachPaymentMethodLoading: boolean;
   enableMultiLocalization: boolean;
-  establishmentBillingGroups: EstablishmentBillingGroup[];
+  establishmentBillingGroups?: EstablishmentBillingGroup[];
   forceHideButton?: boolean;
   fromApp?: boolean;
   hidePrice?: boolean;
-  instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
-  instalmentPaymentSelectedId: number;
-  isEstablishmentBillingGroupSelected: boolean;
+  instalmentPaymentConfigurationList?:
+    | InstalmentPaymentApiWithBasketId[]
+    | null;
+  instalmentPaymentSelectedId?: number;
+  isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
   memberId: number;
   paymentGroupId: number;
@@ -83,36 +85,36 @@ type PaymentStripeProps = {
   paymentMethodChoices: number[];
   paymentProcessing?: boolean;
   ref?: React.Ref<any>;
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  selectedEstablishmentBillingGroup?: EstablishmentBillingGroup;
   sepaDefaultEmail?: string;
   sepaDefaultName?: string;
   stripeId: string | null;
   termsAndConditions?: string;
-  termsAndConditionsAccepted: boolean;
+  termsAndConditionsAccepted?: boolean;
   applyBalanceToInvoice?: () => void;
-  checkItemsBasket: (basketId: string) => boolean;
+  checkItemsBasket?: (basketId: string) => boolean; // Only necessary if there is there is a basketId
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   detachPaymentMethod: (pm_id: string) => void;
   onCancel: () => void;
   onError?: () => void;
-  onSelectInstalmentPayment: (
+  onSelectInstalmentPayment?: (
     id: number,
     options?: OptionCallback<Basket>,
   ) => void;
   onSuccess: (callback?: () => void) => void;
-  setIsEstablishmentBillingGroupSelected: (
+  setIsEstablishmentBillingGroupSelected?: (
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing?: (process: boolean) => void;
-  setSelectedEstablishmentBillingGroup: (
+  setSelectedEstablishmentBillingGroup?: (
     value: React.SetStateAction<EstablishmentBillingGroup>,
   ) => void;
-  setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
+  setTermsAndConditionsAccepted?: (termsAndConditionsAccepted: boolean) => void;
+  snackbarErrorMsg?: (msg: string) => void;
+  snackbarSuccessMsg?: (msg: string) => void;
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void;
   useInternalAccount?: (amount: number) => void;
@@ -380,20 +382,24 @@ const PaymentStripe: React.FC<
             paymentProcessing={paymentProcessing}
             selectPaymentMethod={handleSelectPaymentMethod}
           />
-          <InstalmentPaymentSelector
-            basketPriceCts={
-              basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
-            }
-            fromApp={fromApp}
-            instalmentPaymentConfigurationList={
-              instalmentPaymentConfigurationList
-            }
-            instalmentPaymentConfigurationSelectedId={
-              instalmentPaymentSelectedId
-            }
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
-            paymentProcessing={paymentProcessing}
-          />
+          {instalmentPaymentConfigurationList?.length > 0 &&
+            !!instalmentPaymentSelectedId &&
+            !!onSelectInstalmentPayment && (
+              <InstalmentPaymentSelector
+                basketPriceCts={
+                  basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
+                }
+                fromApp={fromApp}
+                instalmentPaymentConfigurationList={
+                  instalmentPaymentConfigurationList
+                }
+                instalmentPaymentConfigurationSelectedId={
+                  instalmentPaymentSelectedId
+                }
+                onSelectInstalmentPayment={onSelectInstalmentPayment}
+                paymentProcessing={paymentProcessing}
+              />
+            )}
         </>
         {processing || !totalPriceCts ? (
           <CircularProgress />
@@ -453,27 +459,31 @@ const PaymentStripe: React.FC<
                     setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                     setPaymentProcessing={enhancedSetPaymentProcessing}
                     setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
-                    snackbarErrorMsg={snackbarErrorMsg}
-                    snackbarSuccessMsg={snackbarSuccessMsg}
+                    snackbarErrorMsg={snackbarErrorMsg} // Unused as it does not exist in the child component
+                    snackbarSuccessMsg={snackbarSuccessMsg} // Unused as it does not exist in the child component
                     termsAndConditionsAccepted={termsAndConditionsAccepted}
                     useInternalAccount={useInternalAccount}
                     userDefaultEmail={sepaDefaultEmail}
                     userDefaultName={sepaDefaultName}
                   >
                     <div className={classes.billingGroupSelector}>
-                      <CheckoutBillingGroupSelector
-                        enableMultiLocalization={enableMultiLocalization}
-                        establishmentBillingGroups={establishmentBillingGroups}
-                        selectedEstablishmentBillingGroup={
-                          selectedEstablishmentBillingGroup
-                        }
-                        setIsEstablishmentBillingGroupSelected={
-                          setIsEstablishmentBillingGroupSelected
-                        }
-                        setSelectedEstablishmentBillingGroup={
-                          setSelectedEstablishmentBillingGroup
-                        }
-                      />
+                      {!!establishmentBillingGroups && (
+                        <CheckoutBillingGroupSelector
+                          enableMultiLocalization={enableMultiLocalization}
+                          establishmentBillingGroups={
+                            establishmentBillingGroups
+                          }
+                          selectedEstablishmentBillingGroup={
+                            selectedEstablishmentBillingGroup
+                          }
+                          setIsEstablishmentBillingGroupSelected={
+                            setIsEstablishmentBillingGroupSelected
+                          }
+                          setSelectedEstablishmentBillingGroup={
+                            setSelectedEstablishmentBillingGroup
+                          }
+                        />
+                      )}
                     </div>
                   </StripePaymentMethodForm>
                 )}

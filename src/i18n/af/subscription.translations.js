@@ -206,7 +206,12 @@ const getTranslations = async () => {
           label: 'Content',
           paymentCombo: 'Packs',
         },
-        error: { missingObject: 'This field is required' },
+        error: {
+          missingObject: 'This field is required',
+          missingPaymentPack: 'You must select one pass',
+          missingPrivatePass: 'You must select one appointment pass',
+          missingPaymentCombo: 'You must select one pack',
+        },
         recurrence_basis: {
           intervalName: {
             week: 'week',

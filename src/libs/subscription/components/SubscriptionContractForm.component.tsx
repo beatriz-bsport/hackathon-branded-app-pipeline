@@ -646,7 +646,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .nullable()
     .test(
       'is-nullable',
-      'missing',
+      'contract.form.error.missingPaymentPack',
       function checkPaymentPackIsNullable(payment_pack) {
         const { object_type } = this.parent;
         return object_type !== ObjectType.paymentPack || !!payment_pack;
@@ -657,7 +657,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .nullable()
     .test(
       'is-nullable',
-      'missing',
+      'contract.form.error.missingPrivatePass',
       function checkPrivatePassIsNullable(private_pass) {
         const { object_type } = this.parent;
         return object_type !== ObjectType.privatePass || !!private_pass;
@@ -668,7 +668,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .nullable()
     .test(
       'is-nullable',
-      'missing',
+      'contract.form.error.missingPaymentCombo',
       function checkPaymentComboIsNullable(payment_combo) {
         const { object_type } = this.parent;
         return object_type !== ObjectType.paymentCombo || !!payment_combo;

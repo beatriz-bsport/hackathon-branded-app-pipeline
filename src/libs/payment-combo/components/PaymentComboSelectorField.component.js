@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next';
 
 import PaymentComboSelector from './PaymentComboSelector.component';
 
-export const SelectField = withTranslation([])((props) => {
+export const SelectField = withTranslation('subscription')((props) => {
   const { t, fullWidth, required } = props;
   return (
     <Field {...props}>
@@ -48,7 +48,9 @@ export const SelectField = withTranslation([])((props) => {
             )}
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body1">{t(message)}</Typography>
+                <Typography color="error" variant="body1">
+                  {t(message)}
+                </Typography>
               )}
             </ErrorMessage>
           </FormControl>

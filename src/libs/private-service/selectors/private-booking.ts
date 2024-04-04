@@ -125,7 +125,7 @@ export const withRelatedFields = memoize((selector) =>
           private_consumer_pass:
             privateConsumerPassData[bookings.private_consumer_pass] ||
             bookings.private_consumer_pass,
-          member: !memberData[bookings.member]?.tags
+          member: !memberData[bookings.member]
             ? bookings.member
             : {
                 ...memberData[bookings.member],
@@ -153,8 +153,8 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[b.establishment],
           private_service: serviceData[b.private_service],
           private_slot: slotData[b.private_slot],
-          member: !memberData[bookings.member]?.tags
-            ? bookings.member
+          member: !memberData[b.member]
+            ? b.member
             : {
                 ...memberData[b.member],
                 tags: memberData[b.member]?.tags?.map((tag_id: number) => ({

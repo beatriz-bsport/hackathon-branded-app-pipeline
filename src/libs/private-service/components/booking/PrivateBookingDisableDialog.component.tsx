@@ -42,6 +42,7 @@ export const PrivateBookingDisableDialog: React.FC<Props> = ({
     private_booking.booking_status_code &&
     private_booking.booking_status_code !== BOOKING_STATUS_OK.id;
   const isRecurrent = !!private_booking?.recurrence_rule_private_booking;
+
   return (
     <GenericResponsiveDialog maxWidth="sm" open={open}>
       <form onSubmit={handleSubmit}>
@@ -75,7 +76,7 @@ export const PrivateBookingDisableDialog: React.FC<Props> = ({
             />
             <Typography>
               {t('privateBooking.delete.sendCancellationMail', {
-                name: private_booking.member.name,
+                name: private_booking.member?.name ?? '',
               })}
             </Typography>
           </div>
@@ -115,4 +116,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PrivateBookingDisableDialog;
+export default React.memo(PrivateBookingDisableDialog);

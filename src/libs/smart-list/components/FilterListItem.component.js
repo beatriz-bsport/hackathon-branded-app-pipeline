@@ -46,6 +46,7 @@ import CreditAccountFilter from './filters/CreditAccountFilter.component';
 import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
 import GenderFilter from './filters/GenderFilter.component';
 import BookingsNumberFilter from './filters/BookingsNumberFilter.component';
+import BookingsNumberFilterV2 from './filters/BookingsNumberFilterV2.component';
 import TagFilter from './filters/TagFilter.component';
 import MemberDateJoinedFilter from './filters/MemberDateJoinedFilter.component';
 import PaymentPackFilter from './filters/PaymentPackFilter.component';
@@ -61,7 +62,9 @@ import WaiverFilter from './filters/WaiverFilter.component';
 import PaymentMethodFilter from './filters/PaymentMethodFilter.component';
 import AgeFilter from './filters/AgeFilter.component';
 import CustomFormsFilter from './filters/CustomFormsFilter.component';
+import CustomFormsFilterV2 from './filters/CustomFormsFilterV2.component';
 import UserMarketingNotificationsFilter from './filters/UserMarketingNotificationsFilter.component';
+import UserMarketingNotificationsFilterV2 from './filters/UserMarketingNotificationsFilterV2.component';
 import NotesFilter from './filters/NotesFilter.component';
 import RelationsFilter from './filters/RelationsFilter.component';
 import UserHasPhoneFilter from './filters/UserHasPhoneFilter.component';
@@ -286,7 +289,28 @@ export class FilterCard extends Component<Props> {
             tags={this.props.tags}
           />
         );
-      case BOOKINGS_NUMBER_FILTER_IDENTIFIER:
+      case BOOKINGS_NUMBER_FILTER_IDENTIFIER: {
+        if (this.props.new || this.state.filter_data.is_v2) {
+          return (
+            <BookingsNumberFilterV2
+              coaches={this.props.coaches}
+              customLevels={this.props.customLevels}
+              establishments={this.props.establishments}
+              fetchBulkItems={this.props.fetchBulkItems}
+              fetchItems={this.props.fetchItems}
+              filter_data={this.state.filter_data}
+              isNew={this.props.new}
+              meta_activities={this.props.meta_activities}
+              onChange={this.handleChange}
+              payment_packs={this.props.payment_packs}
+              renderAttendanceSelectorWarning={
+                this.renderAttendanceSelectorWarning
+              }
+              renderSelectorWarning={this.renderSelectorWarning}
+              setNotNullableData={this.setNotNullableData}
+            />
+          );
+        }
         return (
           <BookingsNumberFilter
             coaches={this.props.coaches}
@@ -306,6 +330,7 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
+      }
       case FIRST_BOOKING_FILTER_IDENTIFIER:
         return (
           <FirstBookingFilter
@@ -466,7 +491,24 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
-      case CUSTOM_FORMS_FILTER_IDENTIFIER:
+      case CUSTOM_FORMS_FILTER_IDENTIFIER: {
+        if (this.props.new || this.state.filter_data.is_v2) {
+          return (
+            <CustomFormsFilterV2
+              custom_forms={this.props.customForms}
+              fetchBulkItems={this.props.fetchBulkItems}
+              fetchItems={this.props.fetchItems}
+              filter_data={{
+                ...this.state.filter_data,
+                filter_identifier: CUSTOM_FORMS_FILTER_IDENTIFIER,
+              }}
+              isNew={this.props.new}
+              onChange={this.handleChange}
+              renderSelectorWarning={this.renderSelectorWarning}
+              setNotNullableData={this.setNotNullableData}
+            />
+          );
+        }
         return (
           <CustomFormsFilter
             custom_forms={this.props.customForms}
@@ -482,8 +524,23 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
-
-      case USER_MARKETING_NOTIFICATIONS_FILTER:
+      }
+      case USER_MARKETING_NOTIFICATIONS_FILTER: {
+        if (this.props.new || this.state.filter_data.is_v2) {
+          return (
+            <UserMarketingNotificationsFilterV2
+              filter_data={{
+                ...this.state.filter_data,
+                filter_identifier: USER_MARKETING_NOTIFICATIONS_FILTER,
+              }}
+              isNew={this.props.new}
+              onChange={this.handleChange}
+              renderSelectorWarning={this.renderSelectorWarning}
+              setNotAllFalsyData={this.setNotAllFalsyData}
+              setNotNullableData={this.setNotNullableData}
+            />
+          );
+        }
         return (
           <UserMarketingNotificationsFilter
             filter_data={{
@@ -497,6 +554,7 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
+      }
       case NOTES_FILTER_IDENTIFIER:
         return (
           <NotesFilter

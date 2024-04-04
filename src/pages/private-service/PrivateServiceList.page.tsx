@@ -198,7 +198,6 @@ export class PrivateServiceList extends React.Component<Props, State> {
                     'management.privateService.allowed_actions.delete',
                   ]}
                 >
-                  {/* @ts-expect-error */}
                   {([hasEditPermission, hasDeletePermission]) =>
                     this.state.searchResult.map((ps) => (
                       <PrivateServiceListItem

@@ -331,7 +331,7 @@ const ProductNotificationForm = (props: Props) => {
           <Divider className={classes.divider} />
           <div className={classes.fieldContainer}>
             <div className={classes.titleContainer}>
-              <CreditCardIcon />
+              <CreditCardIcon color="action" />
               <Typography variant="h6">
                 {t('notification.form.contractTitle')}
               </Typography>

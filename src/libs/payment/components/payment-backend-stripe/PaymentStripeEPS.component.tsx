@@ -22,6 +22,7 @@ type PaymentStripeEPSProps = {
   children?: React.ReactNode;
   clientSecret: string;
   forceDisabled?: boolean;
+  forceHideButton?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
@@ -41,6 +42,7 @@ export const PaymentStripeEPS = forwardRef(
       children,
       clientSecret,
       forceDisabled,
+      forceHideButton,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
       checkItemsBasket,
@@ -205,7 +207,7 @@ export const PaymentStripeEPS = forwardRef(
           </div>
         )}
         {children}
-        {!isNewCheckoutFlow && (
+        {!isNewCheckoutFlow && !forceHideButton && (
           <div className={classes.actionRow}>
             {processing ? (
               <CircularProgress />

@@ -49,6 +49,7 @@ type Props = {
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
+  forceHideButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
@@ -129,6 +130,7 @@ const StripePaymentCard = forwardRef(
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
+      forceHideButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
@@ -696,7 +698,7 @@ const StripePaymentCard = forwardRef(
           </>
         )}
         {children ?? null}
-        {(!isNewCheckoutFlow || forceButtonDisplay) && (
+        {(!isNewCheckoutFlow || forceButtonDisplay) && !forceHideButton && (
           <>
             {AcceptTermsAndConditionsComponent && (
               <div

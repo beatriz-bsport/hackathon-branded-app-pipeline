@@ -22,6 +22,7 @@ type PaymentStripeGiropayProps = {
   children?: React.ReactNode;
   clientSecret: string;
   forceDisabled?: boolean;
+  forceHideButton?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
   userDefaultName?: string;
@@ -42,6 +43,7 @@ export const PaymentStripeGiropay = forwardRef(
       children,
       clientSecret,
       forceDisabled,
+      forceHideButton,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
       userDefaultName,
@@ -195,7 +197,7 @@ export const PaymentStripeGiropay = forwardRef(
           </div>
         )}
         {children}
-        {!isNewCheckoutFlow && (
+        {!isNewCheckoutFlow && !forceHideButton && (
           <div className={classes.actionRow}>
             {processing ? (
               <CircularProgress />

@@ -174,6 +174,7 @@ type PaymentStripeSEPAProps = {
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
+  forceHideButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
@@ -212,6 +213,7 @@ export const PaymentStripeSEPA = forwardRef(
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
+      forceHideButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
@@ -629,7 +631,7 @@ export const PaymentStripeSEPA = forwardRef(
           </>
         )}
         {children ?? null}
-        {(!isNewCheckoutFlow || forceButtonDisplay) && (
+        {(!isNewCheckoutFlow || forceButtonDisplay) && !forceHideButton && (
           <>
             {AcceptTermsAndConditionsComponent && (
               <div

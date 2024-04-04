@@ -70,6 +70,7 @@ type PaymentStripeProps = {
   detachPaymentMethodLoading: boolean;
   enableMultiLocalization: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
+  forceHideButton?: boolean;
   fromApp?: boolean;
   hidePrice?: boolean;
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
@@ -164,6 +165,7 @@ const PaymentStripe: React.FC<
       detachPaymentMethodLoading,
       enableMultiLocalization,
       establishmentBillingGroups,
+      forceHideButton,
       fromApp,
       hidePrice,
       instalmentPaymentConfigurationList,
@@ -432,6 +434,7 @@ const PaymentStripe: React.FC<
                     detachPaymentMethod={detachPaymentMethod}
                     detachPaymentMethodLoading={detachPaymentMethodLoading}
                     forceDisabled={priceUpdaterOpen}
+                    forceHideButton={forceHideButton}
                     forceSave={!!instalmentPaymentSelectedId}
                     fromApp={fromApp}
                     hasAddPaymentMethodPermission={

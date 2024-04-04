@@ -27,6 +27,7 @@ type PaymentStripeBanContactProps = {
   children?: React.ReactNode;
   clientSecret: string;
   forceDisabled?: boolean;
+  forceHideButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
@@ -52,6 +53,7 @@ export const PaymentStripeBancontact = forwardRef(
       children,
       clientSecret,
       forceDisabled,
+      forceHideButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
@@ -282,7 +284,7 @@ export const PaymentStripeBancontact = forwardRef(
           </>
         )}
         {children}
-        {!isNewCheckoutFlow && (
+        {!isNewCheckoutFlow && !forceHideButton && (
           <>
             <div className={classes.conditions}>
               {AcceptTermsAndConditionsComponent}

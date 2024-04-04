@@ -4,7 +4,10 @@ import { handleActions } from 'redux-actions';
 
 import type { AxiosResponse } from 'axios';
 
-import { checkMemberInEstablishmentActions } from './actions';
+import {
+  checkMemberInEstablishmentActions,
+  setMemberVisitEntryStatusActions,
+} from './actions';
 
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type { AccessControlState, MemberVisitREST } from './types';
@@ -48,6 +51,41 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       return state
         .setIn(
           ['memberVisit', 'allIds'],
+          // FIXME: This changes the order of the memberVisit list
+          uniq([...state.memberVisit.allIds, memberVisit.id]),
+        )
+        .merge(
+          {
+            memberVisit: {
+              byId: {
+                [memberVisit.id]: memberVisit,
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [setMemberVisitEntryStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['memberVisit', 'error'], payload);
+    },
+    [setMemberVisitEntryStatusActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['memberVisit', 'loading'], payload);
+    },
+    [setMemberVisitEntryStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<MemberVisitREST> },
+    ) => {
+      const memberVisit = payload.data;
+      return state
+        .setIn(
+          ['memberVisit', 'allIds'],
+          // FIXME: This changes the order of the memberVisit list
           uniq([...state.memberVisit.allIds, memberVisit.id]),
         )
         .merge(

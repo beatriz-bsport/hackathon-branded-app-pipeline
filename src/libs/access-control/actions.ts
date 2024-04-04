@@ -3,10 +3,14 @@ import { createAction } from 'redux-actions';
 
 import { displayAccessControlSnackbar } from '#libs/snackbar/actions';
 
-import { checkMemberInEstablishment as checkMemberInEstablishmentAPI } from './api';
+import {
+  checkMemberInEstablishment as checkMemberInEstablishmentAPI,
+  setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
+} from './api';
 
 import type { ThunkAction, OptionCallback } from '../../state/types';
 import type { MemberVisitREST } from './types';
+import { EntryStatus } from './const';
 
 export const checkMemberInEstablishmentActions = {
   success: createAction<AxiosResponse<MemberVisitREST>>(
@@ -66,5 +70,40 @@ export const checkMemberInEstablishment = (
       options?.onError?.(error);
     }
     dispatch(checkMemberInEstablishmentActions.loading(false));
+  };
+};
+
+export const setMemberVisitEntryStatusActions = {
+  success: createAction<AxiosResponse<MemberVisitREST>>(
+    'ACCESS_CONTROL/SET_MEMBER_VISIT_ENTRY_STATUS/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/SET_MEMBER_VISIT_ENTRY_STATUS/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/SET_MEMBER_VISIT_ENTRY_STATUS/ERROR',
+  ),
+};
+
+export const setMemberVisitEntryStatus = (
+  memberVisitId: number,
+  entryStatus: EntryStatus,
+  options?: OptionCallback<MemberVisitREST>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(setMemberVisitEntryStatusActions.loading(true));
+    dispatch(setMemberVisitEntryStatusActions.error(null));
+    try {
+      const response = await setMemberVisitEntryStatusAPI(
+        memberVisitId,
+        entryStatus,
+      );
+      dispatch(setMemberVisitEntryStatusActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(setMemberVisitEntryStatusActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(setMemberVisitEntryStatusActions.loading(false));
   };
 };

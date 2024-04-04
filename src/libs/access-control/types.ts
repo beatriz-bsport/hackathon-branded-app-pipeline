@@ -1,5 +1,5 @@
 import type { Establishment } from '#libs/establishment/types';
-import { AccessStatus } from './const';
+import { AccessStatus, EntryStatus } from './const';
 
 import type { Member, MemberMinimal } from '#libs/member/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
@@ -64,6 +64,7 @@ export type MemberVisitREST = {
   access_status: AccessStatus;
   datetime_created: string;
   establishments?: number;
+  entry_status: EntryStatus;
   id: number;
   initial_access_status: AccessStatus;
   last_update: string;

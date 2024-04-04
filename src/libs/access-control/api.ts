@@ -1,4 +1,5 @@
 import { buildUrlParams, API_V1_URI, getAuth, postAuth } from '../../http';
+import { EntryStatus } from './const';
 
 import type { MemberVisitFilterParams, MemberVisitREST } from './types';
 
@@ -31,6 +32,18 @@ export const checkMemberInEstablishment = ({
       member_id: memberId,
       member_barcode: memberBarcode,
       establishments: establishmentIds,
+    },
+  );
+};
+
+export const setMemberVisitEntryStatus = (
+  memberVisitId: number,
+  entryStatus: EntryStatus,
+) => {
+  return postAuth<MemberVisitREST>(
+    `${API_V1_URI}/access_control/member_visit/${memberVisitId}/set_member_entry/`,
+    {
+      entry_status: entryStatus,
     },
   );
 };

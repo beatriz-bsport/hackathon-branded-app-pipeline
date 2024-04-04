@@ -2,31 +2,31 @@ import React, { useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Info from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import AddIcon from '@material-ui/icons/Add';
-import { Info } from '@material-ui/icons';
 /**
  * Use the CSS tab above to style your Element's container.
  */
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
 import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
-import Checkbox from '@material-ui/core/Checkbox';
 import { StripeError } from '@stripe/stripe-js';
 
-import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
-} from '../../api';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
-import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
+} from '#libs/payment/api';
+import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+import PaymentMethodList from '#libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#components/Popover';
-import StripeErrorCode from './StripeErrorCode.component';
+import StripeErrorCode from '#libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
 // Custom styling can be passed as options when creating an Element.
 const IBAN_STYLE = {
@@ -162,75 +162,75 @@ const IbanForm: React.FC<PropsIban> = ({
 };
 
 type PaymentStripeSEPAProps = {
-  onError?: () => void;
-  onSuccess: (callback: () => void) => void;
-  memberId?: number;
-  clientSecret: string;
-  onCancel: () => void;
-  termsAndConditionsAccepted: boolean;
   AcceptTermsAndConditionsComponent?: React.Component;
-  forceDisabled?: boolean;
-  detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (paymentMetodId: string) => void;
-  userDefaultName?: string;
-  userDefaultEmail?: string;
-  loading?: boolean;
+  allowConsumerToUseInternalAccount?: boolean;
+  applyBalanceLoading?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
-  allowConsumerToUseInternalAccount?: boolean;
-  useInternalAccount?: (amount: number) => void;
-  applyBalanceToInvoice?: () => void;
+  children?: React.ReactNode;
+  clientSecret: string;
   creditAccountBalance?: number | null;
-  applyBalanceLoading?: boolean;
+  customClasses?: { [className: string]: string };
+  detachPaymentMethodLoading: boolean;
+  forceButtonDisplay?: boolean;
+  forceDisabled?: boolean;
   forceSave?: boolean;
+  hasAddPaymentMethodPermission?: boolean;
+  hideSaveForLater?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
+  loading?: boolean;
+  memberId?: number;
+  termsAndConditionsAccepted: boolean;
+  userDefaultEmail?: string;
+  userDefaultName?: string;
+  applyBalanceToInvoice?: () => void;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
-  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  detachPaymentMethod: (paymentMetodId: string) => void;
+  onCancel: () => void;
+  onError?: () => void;
+  onSuccess: (callback: () => void) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  customClasses?: { [className: string]: string };
-  children?: React.ReactNode;
-  forceButtonDisplay?: boolean;
-  hideSaveForLater?: boolean;
-  isEstablishmentBillingGroupSelected?: boolean;
-  hasAddPaymentMethodPermission?: boolean;
+  setPaymentProcessing: (processing: boolean) => void;
+  useInternalAccount?: (amount: number) => void;
 };
 
 export const PaymentStripeSEPA = forwardRef(
   (
     {
-      onError,
-      onSuccess,
-      memberId,
-      clientSecret,
-      onCancel,
-      termsAndConditionsAccepted,
       AcceptTermsAndConditionsComponent,
-      forceDisabled,
-      detachPaymentMethodLoading,
-      detachPaymentMethod,
-      userDefaultName,
-      userDefaultEmail,
-      loading,
+      allowConsumerToUseInternalAccount,
+      applyBalanceLoading,
       basketId,
       basketTotalPriceCts,
-      allowConsumerToUseInternalAccount,
-      useInternalAccount,
-      applyBalanceToInvoice,
-      creditAccountBalance,
-      applyBalanceLoading,
-      forceSave,
-      checkItemsBasket,
-      isEstablishmentBillingGroupSelected,
-      setPaymentProcessing,
-      createPendingBookingsIfNecessary,
-      setIsOnlinePaymentDisabled,
-      customClasses,
       children,
+      clientSecret,
+      creditAccountBalance,
+      customClasses,
+      detachPaymentMethodLoading,
       forceButtonDisplay,
-      hideSaveForLater,
+      forceDisabled,
+      forceSave,
       hasAddPaymentMethodPermission = true,
+      hideSaveForLater,
+      isEstablishmentBillingGroupSelected,
+      loading,
+      memberId,
+      termsAndConditionsAccepted,
+      userDefaultEmail,
+      userDefaultName,
+      applyBalanceToInvoice,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSuccess,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      useInternalAccount,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {

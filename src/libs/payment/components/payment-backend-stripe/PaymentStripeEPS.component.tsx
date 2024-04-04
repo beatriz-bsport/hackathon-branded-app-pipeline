@@ -1,52 +1,53 @@
 // @ts-nocheck
 import React, { useImperativeHandle, forwardRef } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { useTranslation } from 'react-i18next';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group';
-import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
+import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
 import {
-  verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
-} from '../../api';
+  verifyPriceBasket as verifyPriceBasketAPI,
+} from '#libs/payment/api';
 
 type PaymentStripeEPSProps = {
-  clientSecret: string;
-  onCancel: () => void;
-  forceDisabled?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
+  children?: React.ReactNode;
+  clientSecret: string;
+  forceDisabled?: boolean;
+  hasAddPaymentMethodPermission?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
-  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  onCancel: () => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  isEstablishmentBillingGroupSelected?: boolean;
-  hasAddPaymentMethodPermission?: boolean;
-  children?: React.ReactNode;
+  setPaymentProcessing: (processing: boolean) => void;
 };
 
 export const PaymentStripeEPS = forwardRef(
   (
     {
-      clientSecret,
-      onCancel,
-      forceDisabled,
       basketId,
       basketTotalPriceCts,
-      checkItemsBasket,
-      setPaymentProcessing,
-      createPendingBookingsIfNecessary,
-      setIsOnlinePaymentDisabled,
+      children,
+      clientSecret,
+      forceDisabled,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
-      children,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      onCancel,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
     }: PaymentStripeEPSProps,
     ref,
   ) => {

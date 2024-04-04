@@ -24,7 +24,7 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { loadStripe } from '@stripe/stripe-js';

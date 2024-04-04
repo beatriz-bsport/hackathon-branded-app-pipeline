@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import {
   PaymentRequestButtonElement,
   useStripe,
 } from '@stripe/react-stripe-js';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY } from '@bsport/common/lib/master-data/payment-group';
+import type { PaymentRequest } from '@stripe/stripe-js';
 
 const CheckoutForm = (props: {
   clientSecret: string;
@@ -13,7 +13,9 @@ const CheckoutForm = (props: {
   }) => void;
 }) => {
   const stripe = useStripe();
-  const [paymentRequest, setPaymentRequest] = useState(null);
+  const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(
+    null,
+  );
 
   useEffect(() => {
     if (stripe) {

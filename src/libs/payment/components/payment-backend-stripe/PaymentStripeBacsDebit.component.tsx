@@ -5,92 +5,93 @@ import React, {
   useImperativeHandle,
   forwardRef,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   useStripe,
   useElements,
   PaymentElement,
 } from '@stripe/react-stripe-js';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Info from '@material-ui/icons/Info';
+import Typography from '@material-ui/core/Typography';
 import { ButtonBase, Checkbox } from '@material-ui/core';
+
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT } from '@bsport/common/lib/master-data/payment-group';
-import { Info } from '@material-ui/icons';
-import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
 import {
-  fetchPaymentMethodList as fetchPaymentMethodListAPI,
-  verifyPriceBasket as verifyPriceBasketAPI,
-  updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
-  confirmPaymentByPaymentMethodId as confirmPaymentByPaymentMethodIdAPI,
-  updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
-  confirmPaymentByPaymentMethodIdWebview as confirmPaymentByPaymentMethodIdWebviewAPI,
   blockPendingBasket as blockPendingBasketAPI,
-} from '../../api';
-import PaymentMethodList from '../payment-method-list';
-import PopOver from '#components/Popover';
+  confirmPaymentByPaymentMethodId as confirmPaymentByPaymentMethodIdAPI,
+  confirmPaymentByPaymentMethodIdWebview as confirmPaymentByPaymentMethodIdWebviewAPI,
+  fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
+  updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
+  verifyPriceBasket as verifyPriceBasketAPI,
+} from '#libs/payment/api';
+
+import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import PaymentMethodList from '#libs/payment/components/payment-method-list';
+import PopOver from '#components/Popover';
 
 interface PaymentStripeBacsDebitProps {
-  onCancel: () => void;
-  onSuccess: (callback?: () => void) => void;
-  onError: () => void;
-  termsAndConditionsAccepted: boolean;
-  isEstablishmentBillingGroupSelected?: boolean;
   AcceptTermsAndConditionsComponent: React.Component;
-  forceDisabled?: boolean;
-  loading?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
-  checkItemsBasket: (basketId: string) => boolean;
-  setPaymentProcessing: (processing: boolean) => boolean;
+  children?: React.ReactNode;
   clientSecret: string;
-  fromApp: boolean;
-  paymentGroupId: number;
-  memberId: number;
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
+  forceDisabled?: boolean;
+  fromApp: boolean;
+  hasAddPaymentMethodPermission?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
+  loading?: boolean;
+  memberId: number;
+  paymentGroupId: number;
   saveForLaterBacsDebit: boolean;
-  setSaveForLaterBacsDebit: React.Dispatch<React.SetStateAction<Boolean>>;
+  termsAndConditionsAccepted: boolean;
+  checkItemsBasket: (basketId: string) => boolean;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  detachPaymentMethod: (pm_id: string) => void;
+  onCancel: () => void;
+  onError: () => void;
+  onSuccess: (callback?: () => void) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  hasAddPaymentMethodPermission?: boolean;
-  children?: React.ReactNode;
+  setPaymentProcessing: (processing: boolean) => boolean;
+  setSaveForLaterBacsDebit: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
 const PaymentStripeBacsDebit = forwardRef(
   (
     {
-      onCancel,
-      onSuccess,
-      onError,
-      termsAndConditionsAccepted,
       AcceptTermsAndConditionsComponent,
-      forceDisabled,
-      loading,
       basketId,
       basketTotalPriceCts,
-      checkItemsBasket,
-      setPaymentProcessing,
-      clientSecret,
-      fromApp,
-      paymentGroupId,
-      memberId,
-      detachPaymentMethodLoading,
-      detachPaymentMethod,
-      saveForLaterBacsDebit,
-      setSaveForLaterBacsDebit,
-      isEstablishmentBillingGroupSelected,
-      createPendingBookingsIfNecessary,
-      setIsOnlinePaymentDisabled,
-      hasAddPaymentMethodPermission = true,
       children,
+      clientSecret,
+      detachPaymentMethodLoading,
+      forceDisabled,
+      fromApp,
+      hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
+      loading,
+      memberId,
+      paymentGroupId,
+      saveForLaterBacsDebit,
+      termsAndConditionsAccepted,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSuccess,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      setSaveForLaterBacsDebit,
     }: PaymentStripeBacsDebitProps,
     ref,
   ) => {

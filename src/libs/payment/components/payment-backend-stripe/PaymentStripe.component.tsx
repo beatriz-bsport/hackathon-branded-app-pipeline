@@ -1,6 +1,11 @@
 import React, { forwardRef, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import SaveIcon from '@material-ui/icons/Save';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe } from '@stripe/stripe-js';
@@ -16,109 +21,99 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import SaveIcon from '@material-ui/icons/Save';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
+import type { OptionCallback } from '#state/types';
+import type { Basket } from '#libs/checkout/types';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+import { TermsAndConditionType } from '#libs/payment/types';
 
+import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
 import PaymentStripeBacsDebit from './PaymentStripeBacsDebit.component';
-import PaymentStripeCard from './PaymentStripeCard.component';
-import PaymentStripeSEPA from './PaymentStripeSEPA.component';
 import PaymentStripeBancontact from './PaymentStripeBancontact.component';
-import PaymentStripeSofort from './PaymentStripeSofort.component';
-import PaymentStripeIdeal from './PaymentStripeIdeal.component';
+import PaymentStripeCard from './PaymentStripeCard.component';
 import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
+import PaymentStripeIdeal from './PaymentStripeIdeal.component';
+import PaymentStripeSEPA from './PaymentStripeSEPA.component';
+import PaymentStripeSofort from './PaymentStripeSofort.component';
 import PriceInput from '#components/input/PriceInput.component';
-import InstalmentPaymentSelector from '../../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
-
-import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
-import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
   getCompanyCountry,
   getStripeRegion,
-} from '../../../theme/selectors';
-import type { OptionCallback } from '../../../../state/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+} from '#libs/theme/selectors';
 import {
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
 } from '#libs/payment/api';
-import { TermsAndConditionType } from '#libs/payment/types';
-import type { Basket } from '#libs/checkout/types';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
 const stripePromise = loadStripe(getStripePkKey());
 
 const SAVE_FOR_LATER_OFF_SESSION = 'off_session';
 
 type PaymentStripeProps = {
-  loading: boolean;
-  paymentMethodChoices: Array<number>;
-  memberId: number;
-  companyId: number;
-  clientSecret: string;
-  onCancel: () => void;
-  onSuccess: (callback?: () => void) => void;
-  onError?: () => void;
-  paymentGroupPriceCts?: number;
-  termsAndConditions?: string;
-  setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
-  termsAndConditionsAccepted: boolean;
-  isEstablishmentBillingGroupSelected: boolean;
-  updatePriceCts?: (priceCts: number, options: OptionCallback) => void;
-  detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
-
-  sepaDefaultName?: string;
-  sepaDefaultEmail?: string;
-
+  allowConsumerToUseInternalAccount?: boolean;
+  applyBalanceLoading?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
-
   basketTotalPricePrepaidLines?: number;
-  allowConsumerToUseInternalAccount?: boolean;
-  useInternalAccount?: (amount: number) => void;
-  applyBalanceToInvoice?: () => void;
+  cardBillingDetailsMandatory: boolean;
+  clientSecret: string;
+  companyId: number;
   creditAccountBalance?: number | null;
-  applyBalanceLoading?: boolean;
-
+  detachPaymentMethodLoading: boolean;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  fromApp?: boolean;
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   instalmentPaymentSelectedId: number;
+  isEstablishmentBillingGroupSelected: boolean;
+  loading: boolean;
+  memberId: number;
+  paymentGroupId: number;
+  paymentGroupPriceCts?: number;
+  paymentMethodChoices: number[];
+  paymentProcessing?: boolean;
+  ref?: React.Ref<any>;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  sepaDefaultEmail?: string;
+  sepaDefaultName?: string;
+  stripeId: string | null;
+  termsAndConditions?: string;
+  termsAndConditionsAccepted: boolean;
+  applyBalanceToInvoice?: () => void;
+  checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
+  detachPaymentMethod: (pm_id: string) => void;
+  onCancel: () => void;
+  onError?: () => void;
   onSelectInstalmentPayment: (
     id: number,
     options?: OptionCallback<Basket>,
   ) => void;
-  checkItemsBasket: (basketId: string) => boolean;
-  paymentProcessing?: boolean;
-  setPaymentProcessing?: (process: boolean) => void;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
-
-  fromApp?: boolean;
-  paymentGroupId: number;
-  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  ref?: React.Ref<any>;
-  stripeId: string | null;
-  cardBillingDetailsMandatory: boolean;
-  enableMultiLocalization: boolean;
-  establishmentBillingGroups: EstablishmentBillingGroup[];
-  setSelectedEstablishmentBillingGroup: (
-    value: React.SetStateAction<EstablishmentBillingGroup>,
-  ) => void;
+  onSuccess: (callback?: () => void) => void;
   setIsEstablishmentBillingGroupSelected: (
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  setPaymentProcessing?: (process: boolean) => void;
+  setSelectedEstablishmentBillingGroup: (
+    value: React.SetStateAction<EstablishmentBillingGroup>,
+  ) => void;
+  setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
+  updatePriceCts?: (priceCts: number, options: OptionCallback) => void;
+  useInternalAccount?: (amount: number) => void;
 };
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
@@ -156,57 +151,52 @@ const PaymentStripe: React.FC<
 > = forwardRef(
   (
     {
-      loading,
-      paymentMethodChoices,
-      memberId,
-      companyId,
-      clientSecret,
-      onCancel,
-      onSuccess,
-      onError,
-      paymentGroupPriceCts,
-      termsAndConditions,
-      setTermsAndConditionsAccepted,
-      termsAndConditionsAccepted,
-      isEstablishmentBillingGroupSelected = true,
-      updatePriceCts,
-      detachPaymentMethodLoading,
-      detachPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-
-      sepaDefaultName,
-      sepaDefaultEmail,
-
+      allowConsumerToUseInternalAccount,
+      applyBalanceLoading,
       basketId,
       basketTotalPriceCts,
-
       basketTotalPricePrepaidLines,
-      allowConsumerToUseInternalAccount,
-      useInternalAccount,
-      applyBalanceToInvoice,
-      creditAccountBalance,
-      applyBalanceLoading,
-
-      instalmentPaymentConfigurationList,
-      instalmentPaymentSelectedId,
-      onSelectInstalmentPayment,
-      checkItemsBasket,
-      paymentProcessing,
-      setPaymentProcessing,
-      createPendingBookingsIfNecessary,
-
-      fromApp,
-      paymentGroupId,
-      setIsOnlinePaymentDisabled,
-      stripeId,
       cardBillingDetailsMandatory,
+      clientSecret,
+      companyId,
+      creditAccountBalance,
+      detachPaymentMethodLoading,
       enableMultiLocalization,
       establishmentBillingGroups,
-      setSelectedEstablishmentBillingGroup,
-      setIsEstablishmentBillingGroupSelected,
+      fromApp,
+      instalmentPaymentConfigurationList,
+      instalmentPaymentSelectedId,
+      isEstablishmentBillingGroupSelected = true,
+      loading,
+      memberId,
+      paymentGroupId,
+      paymentGroupPriceCts,
+      paymentMethodChoices,
+      paymentProcessing,
       selectedEstablishmentBillingGroup,
+      sepaDefaultEmail,
+      sepaDefaultName,
+      stripeId,
+      termsAndConditions,
+      termsAndConditionsAccepted,
+      applyBalanceToInvoice,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSelectInstalmentPayment,
+      onSuccess,
+      setIsEstablishmentBillingGroupSelected,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      setSelectedEstablishmentBillingGroup,
+      setTermsAndConditionsAccepted,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
       updateMemberBillingGroup,
+      updatePriceCts,
+      useInternalAccount,
     },
     ref,
   ) => {
@@ -282,7 +272,7 @@ const PaymentStripe: React.FC<
       ],
     );
 
-    // This useEffect is mandatory in thenew checkout flow, since if this condition is not
+    // This useEffect is mandatory in the new checkout flow, since if this condition is not
     // fullfilled no Stripe PaymentMethodForm component is mounted yet and so we don't want the
     // Pay button to be active
     React.useEffect(() => {
@@ -516,4 +506,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaymentStripe;
+export default React.memo(PaymentStripe);

@@ -1,77 +1,78 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import Immutable from 'seamless-immutable';
-
-import grey from '@material-ui/core/colors/grey';
-import { isWidthDown, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import AddIcon from '@material-ui/icons/Add';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
-import { Info } from '@material-ui/icons';
+
+import { isWidthDown, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import grey from '@material-ui/core/colors/grey';
+import Info from '@material-ui/icons/Info';
+import Typography from '@material-ui/core/Typography';
+
+import type { OptionCallback } from '#state/types';
+import type { BillingDetails } from '#libs/marketplace/types';
+import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+import { useWidth } from '#hooks/useWidth';
+import CardBillingDetailsForm from '#libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 import Config from '../../../../config';
-import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
-import StripeErrorCode from './StripeErrorCode.component';
-import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
+import PaymentMethodList from '#libs/payment/components/payment-method-list/PaymentMethodList.component';
+import PopOver from '#components/Popover';
+import StripeErrorCode from '#libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-} from '../../api';
-import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
-import PopOver from '#components/Popover';
-import { OptionCallback } from '../../../../state/types';
-import type { BillingDetails } from '#libs/marketplace/types';
-import CardBillingDetailsForm from './CardBillingDetailsForm';
-import { useWidth } from '../../../../hooks/useWidth';
+} from '#libs/payment/api';
 
 type Props = {
-  memberId: number;
-  companyId?: number;
-  onSuccess: (callback: () => void) => void;
-  onError?: () => void;
-  setPaymentProcessing?: (processing: boolean) => void;
-  onCancel: () => void;
-  clientSecret: string;
-  termsAndConditionsAccepted: boolean;
-  isEstablishmentBillingGroupSelected?: boolean;
   AcceptTermsAndConditionsComponent?: React.Component;
-  forceDisabled?: boolean;
-  detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (
-    paymentMethodId: string,
-    options?: OptionCallback,
-  ) => void;
-  loading?: boolean;
-  userDefaultName?: string;
-  userDefaultEmail?: string;
+  allowConsumerToUseInternalAccount?: boolean;
+  applyBalanceLoading?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
-  allowConsumerToUseInternalAccount?: boolean;
-  useInternalAccount?: (amount: number) => void;
-  applyBalanceToInvoice?: () => void;
+  cardBillingDetailsMandatory: boolean;
+  children?: React.ReactNode;
+  clientSecret: string;
+  companyCountry?: string;
+  companyId?: number;
   creditAccountBalance?: number | null;
-  applyBalanceLoading?: boolean;
+  customClasses?: { [className: string]: string };
+  detachPaymentMethodLoading: boolean;
+  forceButtonDisplay?: boolean;
+  forceDisabled?: boolean;
   forceSave?: boolean;
+  hasAddPaymentMethodPermission?: boolean;
+  hideSaveForLater?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
+  loading?: boolean;
+  memberId: number;
+  termsAndConditionsAccepted: boolean;
+  userDefaultEmail?: string;
+  userDefaultName?: string;
+  applyBalanceToInvoice?: () => void;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
+  onCancel: () => void;
+  onError?: () => void;
+  onSuccess: (callback: () => void) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  customClasses?: { [className: string]: string };
-  children?: React.ReactNode;
-  forceButtonDisplay?: boolean;
-  hideSaveForLater?: boolean;
-  cardBillingDetailsMandatory: boolean;
-  companyCountry?: string;
-  hasAddPaymentMethodPermission?: boolean;
+  setPaymentProcessing?: (processing: boolean) => void;
+  useInternalAccount?: (amount: number) => void;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -113,40 +114,40 @@ const CardSection = (props: { error: any }) => {
 const StripePaymentCard = forwardRef(
   (
     {
-      memberId,
-      companyId,
-      onSuccess,
-      onError,
-      setPaymentProcessing,
-      onCancel,
-      clientSecret,
-      termsAndConditionsAccepted,
       AcceptTermsAndConditionsComponent,
-      forceDisabled,
-      detachPaymentMethodLoading,
-      detachPaymentMethod,
-      loading,
-      userDefaultName,
-      userDefaultEmail,
+      allowConsumerToUseInternalAccount,
+      applyBalanceLoading,
       basketId,
       basketTotalPriceCts,
-      allowConsumerToUseInternalAccount,
-      useInternalAccount,
-      applyBalanceToInvoice,
+      cardBillingDetailsMandatory,
+      children,
+      clientSecret,
+      companyCountry,
+      companyId,
       creditAccountBalance,
-      applyBalanceLoading,
+      customClasses,
+      detachPaymentMethodLoading,
+      forceButtonDisplay,
+      forceDisabled,
       forceSave,
+      hasAddPaymentMethodPermission = true,
+      hideSaveForLater,
+      isEstablishmentBillingGroupSelected,
+      loading,
+      memberId,
+      termsAndConditionsAccepted,
+      userDefaultEmail,
+      userDefaultName,
+      applyBalanceToInvoice,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSuccess,
       setIsOnlinePaymentDisabled,
-      customClasses,
-      children,
-      forceButtonDisplay,
-      hideSaveForLater,
-      cardBillingDetailsMandatory,
-      companyCountry,
-      hasAddPaymentMethodPermission = true,
-      isEstablishmentBillingGroupSelected,
+      setPaymentProcessing,
+      useInternalAccount,
     }: Props,
     ref,
   ) => {

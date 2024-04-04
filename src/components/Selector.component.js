@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
-
+import type { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SearchIcon from '@material-ui/icons/Search';
@@ -20,6 +20,7 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
 type SelectProps = {
   classes: {
+    rootInput: string,
     valueContainer: string,
     noOptionsMessage: string,
     input: string,
@@ -32,6 +33,7 @@ type SelectProps = {
   },
   textFieldProps: any,
   searchIcon: boolean,
+  error: boolean,
 };
 
 type NoOptionsMessageProps = {
@@ -69,12 +71,13 @@ type ControlProps = {
 function Control(props: ControlProps) {
   const adornment = props.selectProps.searchIcon ? (
     <InputAdornment position="start">
-      <SearchIcon />
+      <SearchIcon color={props.selectProps.error ? 'error' : 'secondary'} />
     </InputAdornment>
   ) : null;
   return (
     <TextField
       fullWidth
+      error={props.selectProps.error}
       InputProps={{
         inputComponent,
         startAdornment: adornment,
@@ -121,7 +124,7 @@ type PlaceholderProps = {
 function Placeholder(props: PlaceholderProps) {
   return (
     <Typography
-      color="textSecondary"
+      color={props.selectProps.error ? 'error' : 'textSecondary'}
       {...props.innerProps}
       style={{ minHeight: 64 }}
     >
@@ -208,7 +211,6 @@ const components = {
 };
 
 export type Suggestion = { value: number, name: string };
-type Theme = { palette: { text: { primary: string } } };
 
 type IntegrationReactSelectProps = {
   className: ?string,
@@ -228,6 +230,7 @@ type IntegrationReactSelectProps = {
   autofocus: boolean,
   id: string,
   isDisabled: boolean,
+  error: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -245,6 +248,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     autofocus,
     nullCurrentValue,
     isDisabled,
+    error,
   } = props;
 
   const selectStyles = {
@@ -286,6 +290,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         autofocus={autofocus}
         classes={classes}
         components={{ ...components, ...props.components }}
+        error={error}
         filterOption={props.filterOption}
         id={props.id}
         isClearable={props.isClearable}

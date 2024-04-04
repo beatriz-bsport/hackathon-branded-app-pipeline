@@ -51,13 +51,19 @@ type Props = {
   children?: React.ReactChild,
   subHelper?: string,
   disabled?: boolean,
+  showError?: boolean,
 };
+
 type State = {
   previewUrl: string,
 };
 
 export class ImageField extends Component<Props, State> {
   state = { previewUrl: '' };
+
+  static defaultProps = {
+    showError: true, // Default value assigned here
+  };
 
   render() {
     const { classes } = this.props;
@@ -157,16 +163,18 @@ export class ImageField extends Component<Props, State> {
                     )}
                   </Grid>
                 </label>
-                <ErrorMessage {...this.props}>
-                  {(message) => (
-                    <Typography
-                      className={this.props.classes.alertError}
-                      variant="body2"
-                    >
-                      {this.props.t(message)}
-                    </Typography>
-                  )}
-                </ErrorMessage>
+                {this.props.showError && (
+                  <ErrorMessage {...this.props}>
+                    {(message) => (
+                      <Typography
+                        className={this.props.classes.alertError}
+                        variant="body2"
+                      >
+                        {this.props.t(message)}
+                      </Typography>
+                    )}
+                  </ErrorMessage>
+                )}
               </div>
             )}
           </Dropzone>

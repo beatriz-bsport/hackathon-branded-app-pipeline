@@ -258,7 +258,9 @@ export const InvoiceContent: React.FC<Props> = ({
                   {t('section.paymentList.total')}
                 </Typography>
                 <Typography
-                  color={amountPaymentItem < amountInvoiceItem ? 'error' : null}
+                  color={
+                    amountPaymentItem < amountInvoiceItem ? 'error' : 'inherit'
+                  }
                   variant="h5"
                 >
                   {getCurrencyDisplayWithPrice(amountPaymentItem || 0)}

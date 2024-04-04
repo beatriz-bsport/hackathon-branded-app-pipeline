@@ -35,6 +35,10 @@ export type ShopItem = {
   barcode: string;
   color: string;
   company: number;
+  company_details: {
+    id: number;
+    name: string;
+  };
   cover: string | null;
   current_stock?: number;
   description: string;

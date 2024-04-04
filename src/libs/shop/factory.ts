@@ -34,6 +34,10 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     supplier_price: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
     cover: faker.image.urlPicsumPhotos({ width: 600, height: 500 }),
     company: faker.number.int({ max: 10000 }),
+    company_details: {
+      id: faker.number.int({ max: 10000 }),
+      name: faker.lorem.words(3),
+    },
     unlimited_provisions:
       options?.isUnlimitedProvisions ?? faker.datatype.boolean(),
     subshop: parseInt(faker.finance.accountNumber(4), 10),

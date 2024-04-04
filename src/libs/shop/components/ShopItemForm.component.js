@@ -245,12 +245,8 @@ export class ShopItemForm extends Component<Props, State> {
     const id = initial ? initial.id : null;
     const data = new FormData();
     data.append('name', this.state.name);
-    if (this.state.description) {
-      data.append('description', this.state.description || '');
-    }
-    if (this.state.subtitle) {
-      data.append('subtitle', this.state.subtitle || '');
-    }
+    data.append('description', this.state.description || '');
+    data.append('subtitle', this.state.subtitle || '');
     data.append('tva', this.state.tva);
     data.append('price', this.state.price);
     data.append('barcode', this.state.barcode);

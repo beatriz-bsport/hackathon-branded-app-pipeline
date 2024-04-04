@@ -62,7 +62,7 @@ export const VideoForm = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.field}>
-        <ImageField name="cover_main" />
+        <ImageField name="cover_main" showError={false} />
         <ErrorMessage
           name="cover_main"
           render={() => (

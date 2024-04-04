@@ -39,6 +39,7 @@ import type {
   Layout,
 } from './types';
 import { Member, MemberAddress, UserProfile } from '../member/types';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from './constants';
 
 export const MODEL_BASED_QUESTION_ANY = 0;
 export const MODEL_BASED_QUESTION_FAVORITE = 1;
@@ -395,3 +396,6 @@ export const generateUniqueCustomFormFieldIdentifier = (
     field.signup_question_kind ?? null
   }::disabled-${field.disabled ?? null}::mandatory-${field.disabled ?? null}`;
 };
+
+export const isCustomFormCssVariantActivated = (useCustomCssVariant: boolean) =>
+  CUSTOM_FORM_CSS_VARIANT_ACTIVATED || useCustomCssVariant;

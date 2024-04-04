@@ -19,6 +19,7 @@ import {
   fetchCompanyCustomMemberForm,
 } from '../../libs/custom-form/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import {
   getMemberThroughMembership,
   getMemberDetailData,
@@ -31,6 +32,8 @@ import {
   getCustomFormBlockingDisplayRuleIdsList,
 } from '../../libs/membership/selectors';
 import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWrapperInner.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 type OwnProps = {
   companyId: number;
@@ -49,6 +52,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
       this.props.fetchCompanyCustomMemberForm({
         company: this.props.companyId,
       });
+      this.props.retrieveCompanyCssConfiguration(this.props.companyId);
       if (this.props.authenticated) {
         this.props.requestMembershipValidation({
           company: this.props.companyId,
@@ -158,6 +162,7 @@ const mapStateToProps = (
   membership: getMembership(state, companyId),
   customFormIdsList: getCustomFormMissingList(state),
   customFormDisplayRuleList: getCustomFormBlockingDisplayRuleIdsList(state),
+  customConfiguration: state.exportableComponents.customCss,
 });
 
 const mapDispatchToProps = {
@@ -171,7 +176,10 @@ const mapDispatchToProps = {
   fetchMissingCustomFormBulk,
   fetchBlockingCustomFormDisplayRuleBulk,
   fetchCompanyCustomMemberForm,
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
 )(MemberShipValidationWrapper);

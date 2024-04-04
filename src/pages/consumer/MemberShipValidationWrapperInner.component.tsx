@@ -47,7 +47,7 @@ import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import MemberGreetingBanner from '../../libs/custom-form/components/consumer-form/CustomFormMemberGreetingBanner.component';
 import { Member } from '../../libs/member/types';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
 
 type StateHandlerInit = {
   temporaryCustomFormData: {
@@ -147,12 +147,17 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     });
   };
 
+  shoulDisplayCssVariant = () =>
+    isCustomFormCssVariantActivated(
+      !!this.props.memberCustomForm?.layout_configuration
+        ?.use_custom_css_variant,
+    );
+
   render() {
     const { classes } = this.props;
     if (!this.props.theme) {
       return this.props.children;
     }
-
     return (
       <>
         {this.props.memberCustomForm && (
@@ -183,7 +188,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                       this.props.theme.general_terms_of_use
                     }
                     initial={this.props.memberCustomForm}
-                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                    isCssVariantActivated={this.shoulDisplayCssVariant()}
                     layouts={this.props.memberCustomForm.layout}
                     onCancel={() => this.props.disconnect()}
                     onSubmit={this.props.submitCustomMembeForm}

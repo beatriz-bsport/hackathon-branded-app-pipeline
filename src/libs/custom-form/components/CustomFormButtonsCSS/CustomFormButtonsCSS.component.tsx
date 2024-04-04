@@ -27,6 +27,8 @@ export type Props = {
   simplifyUI?: boolean;
   isSubmitting: boolean;
   handleCancel: () => void;
+  className?: string;
+  id?: string;
 };
 
 const CustomFormButtonsCSS: React.FC<Props> = ({
@@ -41,6 +43,8 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
   simplifyUI,
   isSubmitting,
   handleCancel,
+  className,
+  id,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -51,12 +55,16 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames({
-        'bs-custom-form-buttons--submit-and-cancel': !!onCancel,
-        'bs-custom-form-buttons--submit': !onCancel,
-        'bs-custom-form-buttons--submit-and-cancel--simplified':
-          !!onCancel && simplifyUI,
-      })}
+      className={classNames(
+        {
+          'bs-custom-form-buttons--submit-and-cancel': !!onCancel,
+          'bs-custom-form-buttons--submit': !onCancel,
+          'bs-custom-form-buttons--submit-and-cancel--simplified':
+            !!onCancel && simplifyUI,
+        },
+        className,
+      )}
+      id={id}
     >
       <Button
         className={classNames('bs-custom-form-buttons__button_cancelled', {

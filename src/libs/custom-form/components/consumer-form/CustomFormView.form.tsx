@@ -121,11 +121,17 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     );
   }
 
+  const customCssProps = {
+    className: props.shouldWrapLayerInCssHoc ? 'bs-setup-variable' : '',
+    id: props.shouldWrapLayerInCssHoc ? 'bs-setup-derived-variable' : undefined,
+  };
+
   return (
     <Form className={classes.form}>
       <ConsumerFormFields {...props} />
       {isCssVariantActivated ? (
         <CustomFormButtonsCSS
+          {...customCssProps}
           disconnectOnCancel={disconnectOnCancel}
           handleCancel={handleCancel}
           handleSubmit={handleSubmit}

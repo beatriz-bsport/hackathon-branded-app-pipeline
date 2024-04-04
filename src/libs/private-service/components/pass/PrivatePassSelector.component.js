@@ -22,6 +22,7 @@ type Props = {
   selectorClass: string,
   autofocus: boolean,
   disabled?: boolean,
+  error: boolean,
 };
 
 type OptionProps = {
@@ -59,6 +60,7 @@ export function PrivatePassSelector(props: Props) {
     selectorClass,
     autofocus,
     helperText,
+    error,
   } = props;
   const suggestions = privatePassList
     ? [...privatePassList]
@@ -71,6 +73,7 @@ export function PrivatePassSelector(props: Props) {
       autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: privatePassOption }}
+      error={error}
       isDisabled={!!props.disabled}
       nullCurrentValue={props.nullCurrentValue}
       onChange={(event) => onChange(event.value)}

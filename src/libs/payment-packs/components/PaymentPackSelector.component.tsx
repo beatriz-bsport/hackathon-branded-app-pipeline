@@ -57,6 +57,7 @@ export function PaymentPackSelector(props: Props) {
     helperText,
     nullCurrentValue,
     autofocus,
+    error,
   } = props;
   const suggestions = [...paymentPacks]
     .sort((pp, pp_) => pp.name > pp_.name)
@@ -67,6 +68,7 @@ export function PaymentPackSelector(props: Props) {
       autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentPackOption }}
+      error={error}
       isDisabled={!!props.disabled}
       isMulti={props.isMulti}
       nullCurrentValue={nullCurrentValue}

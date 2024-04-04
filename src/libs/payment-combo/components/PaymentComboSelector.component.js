@@ -20,6 +20,7 @@ type Props = {
   selectorClass: string,
   autofocus: boolean,
   disabled?: boolean,
+  error?: boolean,
 };
 
 type OptionProps = {
@@ -56,6 +57,7 @@ export function PaymentComboSelector(props: Props) {
     helperText,
     nullCurrentValue,
     autofocus,
+    error,
   } = props;
   const suggestions = [...(paymentComboList || [])]
     .sort((pp, pp_) => pp.name > pp_.name)
@@ -67,6 +69,7 @@ export function PaymentComboSelector(props: Props) {
       autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
+      error={error}
       isDisabled={!!props.disabled}
       nullCurrentValue={nullCurrentValue}
       onChange={(event) => onChange(event.value)}

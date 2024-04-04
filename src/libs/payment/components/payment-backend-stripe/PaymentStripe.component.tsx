@@ -71,6 +71,7 @@ type PaymentStripeProps = {
   enableMultiLocalization: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
   fromApp?: boolean;
+  hidePrice?: boolean;
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   instalmentPaymentSelectedId: number;
   isEstablishmentBillingGroupSelected: boolean;
@@ -164,6 +165,7 @@ const PaymentStripe: React.FC<
       enableMultiLocalization,
       establishmentBillingGroups,
       fromApp,
+      hidePrice,
       instalmentPaymentConfigurationList,
       instalmentPaymentSelectedId,
       isEstablishmentBillingGroupSelected = true,
@@ -350,7 +352,7 @@ const PaymentStripe: React.FC<
             </IconButton>
           </div>
         )}
-        {!priceUpdaterOpen && !!paymentGroupPriceCts && (
+        {!priceUpdaterOpen && !!paymentGroupPriceCts && !hidePrice && (
           <div className={classes.priceContainer}>
             <Typography variant="h5">
               {`${getCurrencyDisplayWithPrice(

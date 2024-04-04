@@ -12,24 +12,26 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import AddIcon from '@material-ui/icons/Add';
 
+import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
+
 import type { AxiosResponse } from 'axios';
-import { OptionCallback } from '../../../../../state/types';
-import Tooltip from '#components/Tooltip.component';
+import type { OptionCallback } from '#state/types';
+import type { PaymentMethod } from '#libs/payment/types';
+
 import { MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER } from '#libs/marketplace/constants';
 import {
   MarketplacePaymentMethods,
   MarketplacePaymentMethodBillingDetails,
 } from '#libs/marketplace/types';
 import { getBillingDetailsDefaultValue } from '#libs/checkout/utils';
-import { PaymentMethod } from '#libs/payment/types';
 import { getCurrencyCode } from '#libs/theme/selectors';
-import { PaymentMethodCardSelector } from '#libs/payment/components/PaymentMethodCardSelector.component';
-import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
-import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { PaymentMethodCardSelector } from '#libs/payment/components/PaymentMethodCardSelector.component';
+import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
+import Tooltip from '#components/Tooltip.component';
 
 import './SubscriptionPaymentStyle.css';
 
@@ -46,19 +48,19 @@ export type Props = {
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
   onlinePaymentEnabled?: boolean;
+  selectedSavedPaymentMethodId: string | null;
+  paymentMethodLoading: boolean;
+  withPaymentMethodTitle?: boolean;
+  withoutPaymentMethodPadding?: boolean;
+  initialPaymentMethod?: MarketplacePaymentMethods;
   detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;
   refreshSavedPaymentMethodList: () => void;
-  selectedSavedPaymentMethodId: string | null;
   setSelectedSavedPaymentMethodId: React.Dispatch<
     React.SetStateAction<string | null>
   >;
-  paymentMethodLoading: boolean;
-  withPaymentMethodTitle?: boolean;
-  withoutPaymentMethodPadding?: boolean;
-  initialPaymentMethod?: MarketplacePaymentMethods;
 };
 
 const MarketplaceSubscriptionPayment: React.FC<Props> = ({
@@ -68,15 +70,15 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
   sepaDefaultName,
   sepaDefaultEmail,
   onlinePaymentEnabled,
-  detachPaymentMethod,
-  requestSetupIntentSecret,
-  refreshSavedPaymentMethodList,
   selectedSavedPaymentMethodId,
-  setSelectedSavedPaymentMethodId,
   paymentMethodLoading,
   withPaymentMethodTitle,
   withoutPaymentMethodPadding,
   initialPaymentMethod,
+  detachPaymentMethod,
+  requestSetupIntentSecret,
+  refreshSavedPaymentMethodList,
+  setSelectedSavedPaymentMethodId,
 }) => {
   const { t } = useTranslation(['subscription', 'payment']);
 
@@ -345,4 +347,4 @@ export const MarketplaceSubscriptionPaymentForStorybook = marketplaceCssHoc()(
   MarketplaceSubscriptionPayment,
 );
 
-export default MarketplaceSubscriptionPayment;
+export default React.memo(MarketplaceSubscriptionPayment);

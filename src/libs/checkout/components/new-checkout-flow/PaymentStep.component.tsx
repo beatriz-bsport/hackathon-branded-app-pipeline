@@ -1,13 +1,14 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { OptionCallback } from '../../../../state/types';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import PaymentStripe from '#libs/payment/components/payment-backend-stripe/PaymentStripe.component';
-import { BasketNullPrice } from './BasketNullPrice.component';
+import type { OptionCallback } from '#state/types';
 import type { Basket, PrepaidLine } from '#libs/checkout/types';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+
+import PaymentStripe from '#libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import { BasketNullPrice } from '#libs/checkout/components/new-checkout-flow/BasketNullPrice.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
 
 type PaymentStepProps = {
   allowConsumerToUseInternalAccount: boolean;

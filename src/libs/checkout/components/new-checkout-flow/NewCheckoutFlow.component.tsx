@@ -610,4 +610,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default NewCheckoutFlow;
+export default React.memo(NewCheckoutFlow);

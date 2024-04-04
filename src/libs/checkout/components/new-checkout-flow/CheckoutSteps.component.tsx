@@ -1,27 +1,27 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
+import { ImmutableArray } from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { makeStyles, Theme } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { ImmutableArray } from 'seamless-immutable';
-import BasketDeliveryForm from '#libs/checkout/components/BasketDeliveryForm.component';
-import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
+import type { OptionCallback } from 'src/state/types';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-
-import type { OptionCallback } from '../../../../state/types';
+import { TermsAndConditionType } from '#libs/payment/types';
 import {
   BasketAddress,
   Basket,
   PrepaidLine,
   StepType,
   STEPS,
-} from '../../types';
+} from '#libs/checkout/types';
+
 import { PaymentStep } from './PaymentStep.component';
-import { TermsAndConditionType } from '#libs/payment/types';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
+import BasketDeliveryForm from '#libs/checkout/components/BasketDeliveryForm.component';
 
 type CheckoutStepsProps = {
   allowConsumerToUseInternalAccount: boolean;
@@ -315,7 +315,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
   },
 );
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   paymentStepsContainer: {
     display: 'flex',
     flexDirection: 'column',

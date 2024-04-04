@@ -7,7 +7,7 @@
   min-height: 180px;
   display: flex;
   flex-direction: column;
-  max-width: 480px;
+  width: 480px;
 }
 
 .bs-activity__img {
@@ -142,6 +142,8 @@
 
 .bs-activity__middle__top {
   gap: var(--spacing-2);
+  container: bsActivityMiddleTop / inline-size;
+  position: relative;
 }
 
 .bs-activity__middle__top__description {
@@ -167,13 +169,13 @@
 }
 
 .bs-activity__middle__top__map {
-  margin: var(--spacing-1) var(--spacing-3);
-  min-width: 600px;
+  margin: var(--spacing-1) 0;
+  min-width: 340px;
+  width: 100cqw;
   height: 200px;
   flex: 1;
   align-self: center;
   border-radius: var(--border-radius-1);
-  float: right;
 }
 
 .bs-activity__middle__top__map__dialog {

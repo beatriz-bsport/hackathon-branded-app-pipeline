@@ -19,6 +19,8 @@ import {
   Member,
 } from './types';
 
+const PAGE_SIZE = 300;
+
 export async function fetchMemberList(params: {
   page?: number;
   page_size?: number;
@@ -33,6 +35,7 @@ export async function fetchMemberList(params: {
 }): Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>> {
   return getAuth(
     `${API_V1_URI}/member/${buildUrlParams({
+      page_size: PAGE_SIZE,
       ...params,
     })}`,
   );

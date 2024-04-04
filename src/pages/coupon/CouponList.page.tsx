@@ -121,6 +121,11 @@ export class CouponList extends React.PureComponent<Props, State> {
     uniqueCodeCouponFormState: { open: false, initial: null as Coupon },
   };
 
+  constructor(props: Props) {
+    super(props);
+    this.addCouponRef = React.createRef(null);
+  }
+
   componentDidMount() {
     this.props.fetchCouponPage(1);
     this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
@@ -349,9 +354,9 @@ export class CouponList extends React.PureComponent<Props, State> {
           <IsEmptyList
             hideBottomActions
             button={this.props.t('createCoupon')}
-            onCreate={() =>
-              this.setState({ couponFormState: { open: true, initial: null } })
-            }
+            onCreate={() => {
+              this.addCouponRef.current?.onClick();
+            }}
             text={this.props.t('list.isEmpty')}
           />
         ) : (
@@ -451,7 +456,11 @@ export class CouponList extends React.PureComponent<Props, State> {
           open={!!this.props.couponToDelete}
         />
         <div className={classes.addButtonContainer}>
-          <FabWithItems items={this.fabItems} label={t('createCoupon')} />
+          <FabWithItems
+            ref={this.addCouponRef}
+            items={this.fabItems}
+            label={t('createCoupon')}
+          />
         </div>
       </div>
     );

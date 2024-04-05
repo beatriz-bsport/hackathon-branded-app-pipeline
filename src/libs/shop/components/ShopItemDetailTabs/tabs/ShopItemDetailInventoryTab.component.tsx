@@ -1,26 +1,24 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
+import { FormikHelpers } from 'formik';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
-import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import TabPanel from '@material-ui/lab/TabPanel';
 import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import ShopItemInventoryBulkUpdateForm from '#libs/shop/components/ShopItemInventoryBulkUpdateForm';
+import ShopItemDetailInventoryList from '../../ShopItemDetailInventoryList/ShopItemDetailInventoryList.component';
+import ShopItemDetailInventoryListMobile from '../../ShopItemDetailInventoryListMobile/ShopItemDetailInventoryListMobile.component';
 
-import shopItemInventoryBulkFormValidationSchema from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/shopItemInventoryBulkFormValidationSchema';
-
-import type { ProvisionBulkCreate, ShopItemVariant } from '#libs/shop/types';
+import type {
+  Provision,
+  ProvisionBulkCreate,
+  ProvisionCreate,
+  ShopItemVariant,
+} from '#libs/shop/types';
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { OptionCallback } from '../../../../../state/types';
 
@@ -38,6 +36,10 @@ type Props = {
     data: ProvisionBulkCreate,
     options?: OptionCallback,
   ) => void;
+  createShopItemProvision: (
+    data: ProvisionCreate,
+    options?: OptionCallback<Provision>,
+  ) => void;
 };
 
 const ShopItemDetailInventoryTab: React.FC<Props> = ({
@@ -48,26 +50,13 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   handleOpenVariantDrawer,
   fetchShopItemVariantList,
   createShopItemProvisionBulk,
+  createShopItemProvision,
 }) => {
   const { t } = useTranslation('shop');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
-
-  const initialValues = useMemo(
-    () => ({
-      variants: (shopItemVariantList ?? []).map((shopItemVariant) => ({
-        id: shopItemVariant.id,
-        color: shopItemVariant.color,
-        size: shopItemVariant.size,
-        currentStock: shopItemVariant.current_stock ?? 0,
-        stockAdjustment: null,
-        totalSales: shopItemVariant.total_sales ?? 0,
-      })),
-    }),
-    [shopItemVariantList],
-  );
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
@@ -128,67 +117,19 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
       className={classes.tabPanelContainer}
       value={ShopItemDetailTab.INVENTORY}
     >
-      <Formik
-        enableReinitialize
-        validateOnChange
-        initialValues={initialValues}
-        onSubmit={handleOnSubmit}
-        validationSchema={shopItemInventoryBulkFormValidationSchema}
-      >
-        {({
-          errors,
-          isValid,
-        }: FormikProps<ShopItemInventoryBulkUpdateFormValues>) => (
-          <Form noValidate>
-            <TableContainer className={classes.tableContainer}>
-              {!isMobile && (
-                <div className={classes.tableActionContainer}>
-                  {!!errors.variants && (
-                    <Alert
-                      className={classes.tableErrorContainer}
-                      severity="error"
-                    >
-                      {t('shopItemDetail.table.inventory.formError')}
-                    </Alert>
-                  )}
-
-                  <Button
-                    color="primary"
-                    disabled={isUpdatingVariant || !isValid}
-                    type="submit"
-                    variant="contained"
-                  >
-                    {t('shopItemDetail.table.inventory.action.update')}
-                  </Button>
-                </div>
-              )}
-
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      {t('shopItemDetail.table.inventory.variants')}
-                    </TableCell>
-                    <TableCell>
-                      {t('shopItemDetail.table.inventory.currentStock')}
-                    </TableCell>
-                    <TableCell>
-                      {t('shopItemDetail.table.inventory.stockAdjustment')}
-                    </TableCell>
-                    <TableCell>
-                      {t('shopItemDetail.table.inventory.totalSales')}
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <ShopItemInventoryBulkUpdateForm
-                  isUpdatingVariant={isUpdatingVariant}
-                />
-              </Table>
-            </TableContainer>
-          </Form>
-        )}
-      </Formik>
+      {isMobile ? (
+        <ShopItemDetailInventoryListMobile
+          createShopItemProvision={createShopItemProvision}
+          isUpdatingVariant={isUpdatingVariant}
+          shopItemVariantList={shopItemVariantList}
+        />
+      ) : (
+        <ShopItemDetailInventoryList
+          handleSubmit={handleOnSubmit}
+          isUpdatingVariant={isUpdatingVariant}
+          shopItemVariantList={shopItemVariantList}
+        />
+      )}
 
       <Pagination
         className={classes.justifyCenter}
@@ -211,19 +152,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tabPanelContainer: {
     padding: theme.spacing(2),
-  },
-  tableContainer: {
-    paddingBottom: theme.spacing(2),
-  },
-  tableErrorContainer: {
-    height: 36,
-    alignItems: 'center',
-  },
-  tableActionContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: theme.spacing(2),
-    gap: theme.spacing(1),
   },
   justifyCenter: {
     display: 'flex',

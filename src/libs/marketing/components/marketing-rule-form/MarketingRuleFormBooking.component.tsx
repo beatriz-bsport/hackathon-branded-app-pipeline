@@ -264,7 +264,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                         eventKind,
                       )}`,
                     )
-                  : `${t('booking:notification.form.help.text')} ${t(
+                  : `${t(
                       `booking:notification.form.help.${getNotificationKind(
                         eventKind,
                       )}`,

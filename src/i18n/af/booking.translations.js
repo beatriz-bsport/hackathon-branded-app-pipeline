@@ -183,12 +183,13 @@ const getTranslations = async () => {
         submit: 'Confirm',
         help: {
           notRefunded:
-            'a member registered {{notify_booking_nb}} late cancellation(s).',
+            'This notification will be sent when a member registers {{notify_booking_nb}} late cancellation(s).',
           refunded:
-            'has registered {{notify_booking_nb}} late cancellation(s).',
-          absence: 'Absence: {{notify_booking_nb}}',
-          attendance: 'a member booked {{notify_booking_nb}} time(s).',
-          text: 'This notification will be sent to relevant members when',
+            'This notification will be sent when a member registers {{notify_booking_nb}} refunded cancellation(s).',
+          absence:
+            'This notification will be sent when a member absents {{notify_booking_nb}} time(s).',
+          attendance:
+            'This notification will be sent when a member attends {{notify_booking_nb}} time(s).',
           allEvents: {
             notRefunded:
               'This notification will be sent every time a member late cancels.',

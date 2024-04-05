@@ -305,8 +305,17 @@ export const deleteShopSupplier = (id: number) => {
 };
 
 /**
- * Update the current stock quantity for multiple shop items at once.
- * @param data Formatted payload from Formik
+ * Creates a `Provision` object to update stock quantity of a shop item
+ * @param data Provision creation payload
+ */
+export const createShopItemProvision = (data: ProvisionCreate) => {
+  return postAuth<Provision>(`${API_V1_URI}/shop/provision/`, data);
+};
+
+/**
+ * Creates several `Provision` objects to update stock
+ * quantity of multiple shop items at once
+ * @param data Provision creation payload
  */
 export const createShopItemProvisionBulk = (data: ProvisionBulkCreate) => {
   return postAuth<Provision[]>(

@@ -3314,7 +3314,7 @@
     },
     "or": " or ",
     "contactUs": "Studio manager, are you interested in our solution?\nPlease contact us.",
-    "signup": { "title": "Signup" },
+    "signup": { "title": "Signup", "titleAsResgisterBooking": "Register your booking" },
     "doubleLogin": {
       "disconnect": "Login again",
       "explain": "Your session has expired. Perhaps you've logged in with two different accounts simultaneously, or perhaps you've signed out from another tab/window?"

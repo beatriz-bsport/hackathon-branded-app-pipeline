@@ -28,7 +28,7 @@ exports.default = {
   or: ' or ',
   contactUs:
     'Studio manager, are you interested in our solution?\nPlease contact us.',
-  signup: { title: 'Signup' },
+  signup: { title: 'Signup', titleAsResgisterBooking: 'Register your booking' },
   doubleLogin: {
     disconnect: 'Login again',
     explain:

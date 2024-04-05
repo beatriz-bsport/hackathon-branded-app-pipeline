@@ -286,3 +286,15 @@ export const getSubscriptionValidationUrl = (
     `/checkout/${companyId}/subscription/${contractId}/validation`,
     params,
   );
+
+/**
+ * Checks if the next URL indicates a booking flow.
+ *
+ * @param {string} urlNext - The URL to check for booking flow indicators.
+ * @returns {boolean} - True if the URL indicates a booking flow, otherwise false.
+ * NB : This is implemented as a "hot-feature" and further development must be done
+ * to avoid keeping this ugly implementation
+ */
+export const isBookingFlowNext = (urlNext: string): boolean =>
+  !!urlNext?.includes('/booker-module-s/') ||
+  !!urlNext?.includes('/private-slot-booker/');

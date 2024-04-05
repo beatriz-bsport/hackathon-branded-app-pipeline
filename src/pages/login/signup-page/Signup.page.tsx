@@ -47,6 +47,9 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
+import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
+
+import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -162,6 +165,14 @@ export class SignupPage extends Component<Props> {
       containerRef,
     } = this.props;
 
+    const signUpTitle =
+      isBookingFlowNext(next) &&
+      COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE.includes(
+        parseInt(this.props.membership),
+      )
+        ? t('signup.titleAsResgisterBooking')
+        : t('signup.title');
+
     if (authenticated) {
       if (next) {
         return <Redirect to={next} />;
@@ -183,13 +194,13 @@ export class SignupPage extends Component<Props> {
             <CustomFormTitleCSS
               isCompany={!!membership}
               simplifyUI={simplifyUI}
-              title={t('signup.title')}
+              title={signUpTitle}
             />
           ) : (
             <CustomFormTitle
               isCompany={!!membership}
               simplifyUI={simplifyUI}
-              title={t('signup.title')}
+              title={signUpTitle}
             />
           )}
           {signUpCustomForm && signUpCustomForm.layout && (

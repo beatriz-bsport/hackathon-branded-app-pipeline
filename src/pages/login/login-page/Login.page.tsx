@@ -31,6 +31,8 @@ import './LoginPageStyles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
+import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
 
 type OwnProps = {
   location: {
@@ -109,6 +111,12 @@ export class ConsumerLoginPage extends Component<Props> {
       context,
     } = this.props;
 
+    const bookingFlowIsNext =
+      isBookingFlowNext(goNext) &&
+      COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE.includes(
+        parseInt(membership),
+      );
+
     if (authenticated) {
       if (goNext) {
         return <Redirect to={goNext} />;
@@ -153,6 +161,7 @@ export class ConsumerLoginPage extends Component<Props> {
           {(!franchisorId ||
             (franchisorId && step === STEPS.loginToFranchise)) && (
             <Login
+              bookingFlowIsNext={bookingFlowIsNext}
               company={!!membership}
               context={context}
               doEmailLogin={this.props.doEmailLogin}

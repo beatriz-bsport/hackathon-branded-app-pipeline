@@ -45,6 +45,7 @@ export type Props = {
    */
   originalLoginNextLink?: string;
   context?: string;
+  bookingFlowIsNext?: boolean;
 } & WithTranslation;
 
 type State = {
@@ -92,8 +93,15 @@ export class ConsumerLogin extends Component<Props, State> {
   closeWidgetModalOnGoBack = () => WidgetUtils.closeModal();
 
   render() {
-    const { simplifyUI, loading, t, hideRegister, errorFields, error } =
-      this.props;
+    const {
+      simplifyUI,
+      loading,
+      t,
+      hideRegister,
+      errorFields,
+      error,
+      bookingFlowIsNext,
+    } = this.props;
 
     const { requestSignUp } = this.props;
 
@@ -114,6 +122,10 @@ export class ConsumerLogin extends Component<Props, State> {
       this.props.company || this.props.franchisor
         ? 'bs-rectangle--company'
         : 'bs-rectangle--default';
+
+    const loginTitle = bookingFlowIsNext
+      ? t('signup.titleAsResgisterBooking')
+      : t('signin.connection');
 
     return (
       <div className="bs-login-container bs-flex-column--center">
@@ -144,9 +156,7 @@ export class ConsumerLogin extends Component<Props, State> {
                 'bs-login-container__connection-title',
               )}
             >
-              <div className="bs-login-container__connection">
-                {t('signin.connection')}
-              </div>
+              <div className="bs-login-container__connection">{loginTitle}</div>
               {!simplifyUI && (
                 <div
                   className={classnames(rectangleClass, 'rectangle-animated')}

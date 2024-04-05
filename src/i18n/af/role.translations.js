@@ -221,7 +221,7 @@ const getTranslations = async () => {
           notifications: { _label: 'Notifications' },
           strategies: { _label: 'Strategies' },
           tags: { _label: 'Tags' },
-          cadence: { _label: 'Cadence' },
+          cadence: { _label: 'Audience' },
           audience: { _label: 'Audience' },
         },
         payments: {

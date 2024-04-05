@@ -29,7 +29,6 @@ type Props = {
     permission: RolePermission | ObjectLevelPermissions,
   ) => void;
   keysToHide?: string[];
-  isLocalOrDevEnv: boolean;
   dependencyMap?: Record<'direct' | 'reciproque', { [key: string]: string }>;
 };
 
@@ -43,12 +42,11 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
   updatePermission,
   dependencyMap,
   keysToHide = [],
-  isLocalOrDevEnv,
 }) => {
   const { t } = useTranslation(['role']);
   const classes = useStyles();
 
-  const [isFolded, setIsFolded] = useState(!!isLocalOrDevEnv);
+  const [isFolded, setIsFolded] = useState(true);
 
   if ([...keysAccumulator].join('.') === 'navigationMenu.search') {
     return null;
@@ -270,7 +268,6 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
                   checkBoxData={value}
                   dependencyMap={dependencyMap}
                   disabled={disabled}
-                  isLocalOrDevEnv={isLocalOrDevEnv}
                   keysAccumulator={[...keysAccumulator, innerKey]}
                   keysToHide={keysToHide}
                   permissions={permissions}

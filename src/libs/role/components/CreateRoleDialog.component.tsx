@@ -27,7 +27,6 @@ import {
   DEFAULT_OBJECT_LEVEL_PERMISSIONS,
   OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
 } from '#libs/role/constants';
-import Config from '../../../config';
 
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -88,24 +87,6 @@ const getDefaultPermissions = (
   featureList: FeatureList,
   isFranchisor: boolean,
 ): RolePermission => ({
-  appbarButtons: {
-    ledger: true,
-    notificationCenter: true,
-    communicationAlerts: true,
-  },
-  navigation: true,
-  checkin: false,
-  offer: {
-    create: true,
-    delete: true,
-    edit: true,
-  },
-  member: {
-    retrieve: true,
-    search: true,
-    create: true,
-  },
-  restrictedPaths: [],
   navigationMenu: {
     dashboard: true,
     calendar: true,
@@ -152,7 +133,6 @@ const getDefaultPermissions = (
       smartlists: true,
       notifications: true,
       tags: true,
-      strategies: true,
       cadence: true,
     },
     digitalOffer: {
@@ -189,6 +169,14 @@ const getDefaultPermissions = (
     },
     tutorial: true,
   },
+  appbarButtons: {
+    ledger: true,
+    notificationCenter: true,
+    communicationAlerts: true,
+  },
+  navigation: true,
+  checkin: false,
+  restrictedPaths: [],
 });
 
 const HIDDEN_PARAMS = [
@@ -362,10 +350,6 @@ export class CreateRoleDialog extends React.Component<Props, State> {
 
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
 
-    const isLocalOrDevEnv = ['local', 'dev', 'pool'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
-
     const description = disabled
       ? getRoleDescription(this.props.role, t)
       : this.state.description;
@@ -436,7 +420,6 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     key={key}
                     checkBoxData={this.state.permissions}
                     disabled={this.props.role && !this.props.role.editable}
-                    isLocalOrDevEnv={isLocalOrDevEnv}
                     keysAccumulator={[key]}
                     permissions={this.state.permissions}
                     rightKey={key}
@@ -449,25 +432,22 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 ))}
             </div>
 
-            {isLocalOrDevEnv && (
-              <div className={classes.checkboxesContainer}>
-                {Object.keys(this.state.objectLevelPermissions).map((key) => (
-                  <RecursiveCheckBoxComponent
-                    key={key}
-                    checkBoxData={this.state.objectLevelPermissions}
-                    dependencyMap={OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP}
-                    disabled={this.props.role && !this.props.role.editable}
-                    isLocalOrDevEnv={isLocalOrDevEnv}
-                    keysAccumulator={[key]}
-                    keysToHide={['allowed_actions']}
-                    permissions={this.state.objectLevelPermissions}
-                    rightKey={key}
-                    translationKeyPrefix="objectLevelPermissions"
-                    updatePermission={this.updateObjectLevelPermissions}
-                  />
-                ))}
-              </div>
-            )}
+            <div className={classes.checkboxesContainer}>
+              {Object.keys(this.state.objectLevelPermissions).map((key) => (
+                <RecursiveCheckBoxComponent
+                  key={key}
+                  checkBoxData={this.state.objectLevelPermissions}
+                  dependencyMap={OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP}
+                  disabled={this.props.role && !this.props.role.editable}
+                  keysAccumulator={[key]}
+                  keysToHide={['allowed_actions']}
+                  permissions={this.state.objectLevelPermissions}
+                  rightKey={key}
+                  translationKeyPrefix="objectLevelPermissions"
+                  updatePermission={this.updateObjectLevelPermissions}
+                />
+              ))}
+            </div>
 
             <div className={classes.marginTop4} />
 

@@ -35,16 +35,6 @@ export type FranchiseUserRoleData = {
 };
 
 export type RolePermission = {
-  offer: {
-    delete: boolean;
-    edit: boolean;
-    create: boolean;
-  };
-  member: {
-    search: boolean;
-    retrieve: boolean;
-    create: boolean;
-  };
   checkin: boolean;
   navigation: boolean;
   appbarButtons: {
@@ -100,7 +90,6 @@ export type RolePermission = {
       smartlists: boolean;
       notifications: boolean;
       tags: boolean;
-      strategies: boolean;
       cadence: boolean;
     };
     digitalOffer: {

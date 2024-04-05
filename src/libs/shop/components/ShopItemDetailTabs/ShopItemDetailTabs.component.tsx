@@ -24,6 +24,8 @@ import type {
   ShopSupplier,
   ShopItemVariant,
   TabListOption,
+  ProvisionCreate,
+  Provision,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
@@ -49,6 +51,10 @@ type Props = {
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   onDeleteShopItemVariant: (id: number) => void;
   fetchShopItemVariantList: (page: number) => void;
+  createShopItemProvision: (
+    data: ProvisionCreate,
+    options?: OptionCallback<Provision>,
+  ) => void;
   createShopItemProvisionBulk: (
     data: ProvisionBulkCreate,
     options?: OptionCallback,
@@ -76,6 +82,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   updateShopItemVariantBulk,
   onDeleteShopItemVariant,
   fetchShopItemVariantList,
+  createShopItemProvision,
   createShopItemProvisionBulk,
   setIsVariantEditMode,
 }) => {
@@ -121,6 +128,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
           <>
             <ShopItemDetailInventoryTab
               count={count}
+              createShopItemProvision={createShopItemProvision}
               createShopItemProvisionBulk={createShopItemProvisionBulk}
               fetchShopItemVariantList={fetchShopItemVariantList}
               handleOpenVariantDrawer={handleOpenVariantDrawer}

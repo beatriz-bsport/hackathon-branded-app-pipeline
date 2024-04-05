@@ -14,6 +14,7 @@ import {
   deleteShopItemVariant as deleteShopItemVariantAction,
   retrieveShopItemSupplier as retrieveShopItemSupplierAction,
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
+  createShopItemProvision as createShopItemProvisionAction,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
 } from '#libs/shop/actions/shopItemReworked';
 
@@ -46,7 +47,9 @@ import { mapFormDataWithObject } from '../form.utils';
 // --- TYPES ---
 import type { RootState } from '../../reducers';
 import type {
+  Provision,
   ProvisionBulkCreate,
+  ProvisionCreate,
   ShopItem,
   ShopItemEdit,
   ShopItemVariant,
@@ -117,6 +120,18 @@ export class ShopItemDetailPage extends Component<Props> {
     });
   };
 
+  handleCreateShopItemProvision = (
+    data: ProvisionCreate,
+    options?: OptionCallback<Provision>,
+  ) =>
+    this.props.createShopItemProvision(data, {
+      onSuccess: () => {
+        this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+        options?.onSuccess?.();
+      },
+      onError: options?.onError,
+    });
+
   handleCreateShopItemProvisionBulk = (
     data: ProvisionBulkCreate,
     options?: OptionCallback,
@@ -176,6 +191,7 @@ export class ShopItemDetailPage extends Component<Props> {
       <ShopItemDetail
         companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
+        createShopItemProvision={this.handleCreateShopItemProvision}
         createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}
@@ -230,6 +246,7 @@ const connector = connect(
     createShopItemVariants: createShopItemVariantsAction,
     deleteShopItemVariant: deleteShopItemVariantAction,
     createShopItemProvisionBulk: createShopItemProvisionBulkAction,
+    createShopItemProvision: createShopItemProvisionAction,
     backToShopPage: () => push('/shop'),
   },
 );

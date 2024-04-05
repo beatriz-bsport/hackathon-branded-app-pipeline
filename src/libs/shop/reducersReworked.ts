@@ -16,6 +16,7 @@ import {
   deleteShopItemActions,
   deleteShopItemVariantActions,
   retrieveShopItemSupplierActions,
+  createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
 } from './actions/shopItemReworked';
 
@@ -434,6 +435,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [createShopItemProvisionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'loading'],
+        payload,
+      );
+    },
+    [createShopItemProvisionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'error'],
+        payload,
       );
     },
     [createShopItemProvisionBulkActions.isLoading.toString()]: (

@@ -188,6 +188,7 @@ export const hasAccessToUrl = ({
 }: HasAccessToUrlProps): boolean => {
   // Will revoke access to member profiles (URLs starting with "/member/{only numbers}") if not granted by the objectLevelPermissions.
   if (
+    url &&
     new RegExp(/^\/member\/[0-9]+.*/).test(parseRestrictedPath(url)) &&
     !objectLevelPermissions?.member?.allowed_actions?.accessProfile
   ) {

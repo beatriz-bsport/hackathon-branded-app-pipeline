@@ -24,6 +24,7 @@ exports.default = {
       title: 'Update provision',
       quantityLabel: 'Unit(s)',
       quantityHelperText: 'Units to add/remove to provision',
+      quantityError: 'Please enter a valid number',
       cancel: 'Cancel',
       submit: 'Save',
     },

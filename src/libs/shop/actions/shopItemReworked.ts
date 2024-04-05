@@ -12,6 +12,7 @@ import {
   deleteShopItem as deleteShopItemAPI,
   retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
   createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
+  createShopItemProvision as createShopItemProvisionAPI,
   duplicateShopItem as duplicateShopItemAPI,
 } from '../api';
 
@@ -32,6 +33,7 @@ import type {
   ShopSupplier,
   Provision,
   ProvisionBulkCreate,
+  ProvisionCreate,
 } from '../types';
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
@@ -491,15 +493,46 @@ export const retrieveShopItemSupplier = (
   };
 };
 
+export const createShopItemProvisionActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/PROVISION/UPDATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/PROVISION/UPDATE/ERROR'),
+};
+
+/**
+ * Creates a `Provision` object to update stock quantity of a shop item
+ * @param data Provision creation payload
+ */
+export const createShopItemProvision = (
+  data: ProvisionCreate,
+  options?: OptionCallback<Provision>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createShopItemProvisionActions.isLoading(true));
+      dispatch(createShopItemProvisionActions.error(null));
+
+      const result = await createShopItemProvisionAPI(data);
+
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(createShopItemProvisionActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(createShopItemProvisionActions.isLoading(false));
+    }
+  };
+};
+
 export const createShopItemProvisionBulkActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/PROVISION/BULK/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/PROVISION/BULK/ERROR'),
 };
 
 /**
- * Update the current stock quantity for multiple shop items at once.
- * @param id The base shop item id. Used to update redux store without refetching.
- * @param data Formatted payload from Formik
+ * Creates several `Provision` objects to update stock
+ * quantity of multiple shop items at once
+ * @param data Provision creation payload
  */
 export const createShopItemProvisionBulk = (
   id: number,

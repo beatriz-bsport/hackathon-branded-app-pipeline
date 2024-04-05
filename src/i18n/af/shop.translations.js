@@ -133,6 +133,11 @@ exports.default = {
     },
     table: {
       inventory: {
+        filterPlaceholder: {
+          company: 'Select studio',
+          size: 'Select size',
+          color: 'Select color',
+        },
         formError: 'Stock adjustment values must be valid numbers',
         action: { update: 'Update inventory' },
         variants: 'Variants',

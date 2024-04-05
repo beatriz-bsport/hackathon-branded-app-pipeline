@@ -179,7 +179,6 @@ export const PaymentPackForm: React.FC<Props> = ({
   privateServices,
   compatibleServicePass,
   allowGuestMaster,
-  creditScaleFactor,
   displayNewCheckoutFlow,
   bookkeepingAccounts,
   bookkeepingAccountById,
@@ -241,7 +240,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             ? {
                 ...initial,
                 credit_number: initial?.unlimited ? 'unlimited' : 'limited',
-                credits: initial?.credits / (creditScaleFactor || 1) || 0,
+                credits: initial?.credits || 0,
                 penalty_active: !!initial?.penalty_active,
                 no_show_penalty_active: !!initial?.no_show_penalty_active,
                 validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
@@ -391,7 +390,6 @@ export const PaymentPackForm: React.FC<Props> = ({
               break;
           }
           if (values.credit_number === 'limited') {
-            sanitizedValues.credits *= creditScaleFactor || 1;
             sanitizedValues.apply_penalties = false;
           }
           if (!values.full_vod_access) {

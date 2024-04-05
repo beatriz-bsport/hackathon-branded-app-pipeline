@@ -90,7 +90,6 @@ export const PaymentPackFormDrawer = (props: Props) => {
         clearPaymentPackToEdit={clearPaymentPackToEdit}
         closeForm={closeForm}
         compatibleServicePass={compatibleServicePass}
-        creditScaleFactor={props.creditScaleFactor}
         displayNewCheckoutFlow={displayNewCheckoutFlow}
         initial={initial}
         metaActivityList={metaActivityList}

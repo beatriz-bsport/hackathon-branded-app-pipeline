@@ -10,25 +10,23 @@ import {
   Theme,
 } from '@material-ui/core/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { CircularProgress } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+import type { RootState } from '../../reducers';
 import withQueryParams from '../../hocs/with-query-params.hoc';
-import { fetchMember } from '../../libs/member/actions';
-import { RootState } from '../../reducers';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import { fetchMember } from '#libs/member/actions';
+import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
+import { fetchPaymentMethodList } from '#libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import {
   getCompanyCountry,
   getStripeRegion,
   getTheme,
 } from '#libs/theme/selectors';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-
-import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
-
 import { getMember } from '#libs/member/selectors';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
-import { fetchPaymentMethodList } from '#libs/payment/actions';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 type OwnProps = {
   queryParams: RouterProps;

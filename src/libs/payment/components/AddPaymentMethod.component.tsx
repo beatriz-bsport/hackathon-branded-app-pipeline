@@ -1,51 +1,54 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AxiosResponse } from 'axios';
-import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
-import CollectPaymentMethod from './CollectPaymentMethod.component';
+import type { AxiosResponse } from 'axios';
 import type { StripeReader } from '#libs/terminal/types';
+import CollectPaymentMethod from './CollectPaymentMethod.component';
+import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
 
-type OwnProps = {
-  onChange?: (param: string) => void;
-  paymentMethodType?: string;
-  enabledPaymentMethods: Array<number>;
+type Props = {
+  addViaTerminal?: boolean;
+  cardBillingDetailsMandatory: boolean;
+  companyId?: number;
   disabled?: boolean;
+  enabledPaymentMethods: Array<number>;
+  labelClose?: string;
+  paymentMethodType?: string;
   sepaDefaultEmail: string;
   sepaDefaultName: string;
-  requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
-  refreshSavedPaymentMethodList?: () => void;
-  onCancel?: () => void;
   stripeReaders?: StripeReader[];
-  addViaTerminal?: boolean;
+  onCancel?: () => void;
+  onChange?: (param: string) => void;
   onSuccess?: () => void;
-  labelClose?: string;
-  companyId?: number;
-  cardBillingDetailsMandatory: boolean;
+  refreshSavedPaymentMethodList?: () => void;
+  requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
 };
-type Props = OwnProps;
+
 export const AddPaymentMethod: React.FC<Props> = ({
-  onChange,
-  requestSetupIntentSecret,
-  refreshSavedPaymentMethodList,
-  paymentMethodType,
-  enabledPaymentMethods,
-  disabled,
-  sepaDefaultName,
-  sepaDefaultEmail,
-  labelClose,
-  onCancel,
-  stripeReaders,
   addViaTerminal,
-  onSuccess,
-  companyId,
   cardBillingDetailsMandatory,
+  companyId,
+  disabled,
+  enabledPaymentMethods,
+  labelClose,
+  paymentMethodType,
+  sepaDefaultEmail,
+  sepaDefaultName,
+  stripeReaders,
+  onCancel,
+  onChange,
+  onSuccess,
+  refreshSavedPaymentMethodList,
+  requestSetupIntentSecret,
 }) => {
   const { t } = useTranslation('payment');
+
   const [paymentMethodTypeControlled, setPaymentMethodTypeControlled] =
     React.useState('card');
+
   const changePaymentMethod = (value: string) => {
     setPaymentMethodTypeControlled(value);
   };
+
   return (
     <>
       <PaymentMethodSwitcher
@@ -54,7 +57,6 @@ export const AddPaymentMethod: React.FC<Props> = ({
         onChange={onChange || changePaymentMethod}
         paymentMethod={paymentMethodType || paymentMethodTypeControlled}
       />
-
       <CollectPaymentMethod
         addViaTerminal={!!addViaTerminal}
         cardBillingDetailsMandatory={cardBillingDetailsMandatory}
@@ -74,4 +76,5 @@ export const AddPaymentMethod: React.FC<Props> = ({
     </>
   );
 };
+
 export default memo(AddPaymentMethod);

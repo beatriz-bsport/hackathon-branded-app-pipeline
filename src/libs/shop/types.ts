@@ -213,9 +213,9 @@ export type ShopAPIFilter = {
   page_size?: number;
 };
 
-export type ProvisionCreate = Omit<Provision, 'id'>;
+export type ProvisionCreate = { shop_item: number; qty: number };
 
-export type ProvisionBulkCreate = { shop_item: number; qty: number }[];
+export type ProvisionBulkCreate = ProvisionCreate[];
 
 export type ShopItemFactoryOptions = {
   isStandaloneItem?: boolean;

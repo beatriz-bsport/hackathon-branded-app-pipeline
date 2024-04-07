@@ -519,7 +519,7 @@ export function fetchPackExtensions(consumerPaymentPackId: number) {
     dispatch(extensionListActions.error(null));
     try {
       const response = await fetchExtensionListAPI(consumerPaymentPackId);
-      dispatch(extensionListActions.success(response.data));
+      dispatch(extensionListActions.success(response.data.results));
     } catch (error) {
       console.error(error);
       dispatch(extensionListActions.error(error));

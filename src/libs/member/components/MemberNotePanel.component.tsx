@@ -97,7 +97,7 @@ const MemberNotePanel: React.FC<Props> = ({
           />
         </div>
       ) : null}
-      {notes.length
+      {(notes ?? []).length
         ? notes.map((note) => (
             <div key={note.id} className={classes.noteContainer}>
               <MemberNote
@@ -112,7 +112,7 @@ const MemberNotePanel: React.FC<Props> = ({
             </div>
           ))
         : null}
-      {notes.length === 0 && !isNewNote ? (
+      {(notes ?? []).length === 0 && !isNewNote ? (
         <div className={classes.emptyMessage}>
           <Typography color="textSecondary" variant="caption">
             {t('note.noNoteSaved')}

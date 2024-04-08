@@ -45,7 +45,7 @@ import { Offer } from '#libs/offer/types';
 import Tooltip from '#components/Tooltip.component';
 import RedButton from '#components/button/RedButton.component';
 
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplay, getCreditFactor } from '#libs/theme/selectors';
 
 import {
   formatAsDatetime,
@@ -217,11 +217,13 @@ export class BookingItemForManager extends Component<Props, State> {
       ];
     }
     const { available_credits } = consumer_payment_pack;
+    const divided_available_credits = available_credits / getCreditFactor();
     const { credits } = payment_pack;
+    const divided_credits = credits / getCreditFactor();
     return [
       [payment_pack.name, 'secondary'],
       [
-        ` ${packDates} - ${available_credits}/${credits}${
+        ` ${packDates} - ${divided_available_credits}/${divided_credits}${
           booking.was_refunded ? `, (${t('wasRefunded')})` : ''
         }`,
         available_credits / credits < 0.1 || soonExpired ? 'error' : 'primary',

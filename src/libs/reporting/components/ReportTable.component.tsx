@@ -113,8 +113,11 @@ const ReportTable: React.FC<TableProps> = ({
   );
 
   const converters = React.useMemo(
-    () => columnsConfigs?.map((c) => getConverter(c, classes, t)) ?? [],
-    [classes, columnsConfigs, t],
+    () =>
+      columnsConfigs?.map((config) =>
+        getConverter(config, classes, t, report.category),
+      ) ?? [],
+    [classes, columnsConfigs, report.category, t],
   );
 
   /*

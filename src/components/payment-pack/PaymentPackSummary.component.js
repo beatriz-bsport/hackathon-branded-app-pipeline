@@ -7,8 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { getValidityInfo } from '../../libs/payment-packs/utils';
-import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
+import { getValidityInfo } from '#libs/payment-packs/utils';
+import {
+  getCreditFactor,
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -26,7 +29,7 @@ export function PaymentPackMinimalSummary(props: Props) {
 
   const creditsFormatted = unlimited
     ? t('unlimitedCredits')
-    : `${t('credits')}: ${credits}`;
+    : `${t('credits')}: ${credits / getCreditFactor()}`;
 
   const dateInfo = getValidityInfo(paymentPack, props.t);
   const classes = useStyles();

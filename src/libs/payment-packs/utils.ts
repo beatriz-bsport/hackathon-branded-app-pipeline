@@ -2,7 +2,10 @@
 import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment-timezone';
 import omit from 'lodash/omit';
-import { getCurrencyDisplayWithPrice } from '../theme/selectors';
+import {
+  getCurrencyDisplayWithPrice,
+  getCreditFactor,
+} from '../theme/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import {
@@ -303,10 +306,10 @@ export const getMarketplaceSearchItemIndicator = (
   }
   return paymentPack?.credits > 1
     ? t('paymentPack:specifications.nbCredits_plural', {
-        credits: paymentPack.credits,
+        credits: paymentPack.credits / getCreditFactor(),
       })
     : t('paymentPack:specifications.nbCredits', {
-        credits: paymentPack.credits,
+        credits: paymentPack.credits / getCreditFactor(),
       });
 };
 

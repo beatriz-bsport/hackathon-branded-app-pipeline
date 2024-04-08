@@ -188,6 +188,7 @@ const ReportGeneration: React.FC<Props> = ({
         <>
           <ReportTableHeaders
             handleGenerateHeaders={handleGenerateHeaders}
+            reportCategory={report.category}
             reportHeaders={reportHeaders}
             reportHeadersLoading={reportHeadersLoading}
           />

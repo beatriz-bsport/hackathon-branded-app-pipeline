@@ -17,11 +17,14 @@ const CardHeaders: React.FC<{
     datatype: string;
     column_value: null | number;
   }[];
-}> = ({ headerDetails, headerTitle }) => {
+  reportCategory: string;
+}> = ({ headerDetails, headerTitle, reportCategory }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
-  const converters = headerDetails.map((c) => getConverter(c, classes, t));
+  const converters = headerDetails.map((config) =>
+    getConverter(config, classes, t, reportCategory),
+  );
   return (
     <div>
       <Typography className={classes.headerSectionTitle} variant="h6">
@@ -62,7 +65,8 @@ const CardHeaders: React.FC<{
 
 const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
-}> = ({ reportHeaders }) => {
+  reportCategory: number;
+}> = ({ reportHeaders, reportCategory }) => {
   const classes = useStyles();
 
   return (
@@ -73,6 +77,7 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.averageable}
             headerTitle="average"
+            reportCategory={reportCategory}
           />
         )}
       {reportHeaders &&
@@ -81,6 +86,7 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.summable}
             headerTitle="sum"
+            reportCategory={reportCategory}
           />
         )}
     </div>

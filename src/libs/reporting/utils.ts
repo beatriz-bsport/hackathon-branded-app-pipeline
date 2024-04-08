@@ -74,6 +74,7 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 import {
+  getCreditFactor,
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '../theme/selectors';
@@ -284,6 +285,7 @@ export const getConverter = (
   column: ReportMetadataColumn,
   classes: ClassNameMap<string>,
   t: TFunction,
+  reportCategory: string,
 ): CellConverter => {
   if (!column || !column.datatype) {
     return (value: any) => ({ value });
@@ -315,7 +317,25 @@ export const getConverter = (
         };
       }
     }
+    const creditsColumns = [
+      'credits',
+      'available_credits',
+      'remaining_credits_annotated',
+    ];
     if (datatype === 'int') {
+      const shouldBeDivided =
+        reportCategory === 'memberships' &&
+        creditsColumns.includes(column.column_identifier || column.identifier);
+      if (shouldBeDivided) {
+        let dividedValue = value ? value / getCreditFactor() : 0;
+        if (dividedValue % 1 !== 0) {
+          dividedValue = dividedValue.toFixed(1);
+        }
+        return {
+          cellProps: { className: classes.right },
+          value: dividedValue,
+        };
+      }
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },

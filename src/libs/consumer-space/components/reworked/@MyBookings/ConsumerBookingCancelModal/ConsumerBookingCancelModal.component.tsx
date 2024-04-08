@@ -21,6 +21,7 @@ import type {
 } from '#libs/booking/types';
 
 import './styles.css';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   /** The selected consumer booking in the modal */
@@ -139,7 +140,9 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
     return t(
       'consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded',
       {
-        count: booking?.credit_consumed ?? privateBooking?.private_slot?.credit,
+        count: booking?.credit_consumed
+          ? booking?.credit_consumed / getCreditFactor()
+          : privateBooking?.private_slot?.credit,
       },
     );
   })();

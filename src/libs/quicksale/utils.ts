@@ -18,6 +18,7 @@ import type { Basket } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
 import type { Tag } from '#libs/tag/types';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 export const getBorderColorFromBackgroundColor = (backgroundColor: string) => {
   // This function retrieves the border color of an item card of the quicksale
@@ -130,9 +131,12 @@ export const getCardInfoFromBuyableItem = (
         subtitle: `${t('objectCard.subtitle.paymentPack')} - ${
           buyableItem.credits === null
             ? t('objectCard.subtitle.unlimited')
-            : `${buyableItem.credits} ${t('objectCard.subtitle.credit', {
-                count: buyableItem.credits,
-              })}`
+            : `${buyableItem.credits / getCreditFactor()} ${t(
+                'objectCard.subtitle.credit',
+                {
+                  count: buyableItem.credits / getCreditFactor(),
+                },
+              )}`
         }`,
         price: Number(buyableItem.price),
         color: itemColor,

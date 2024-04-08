@@ -348,14 +348,22 @@ export enum BookingsAndPrivateBookingsTypeEnum {
   future,
   past,
   beforeDateEnd,
+  /**
+   * For access monitoring purpose.
+   * We want to fetch only today's next booking (ongoing or to come) until 2AM the next day
+   * We also limit the page size to 1, since we only need the next booking
+   * */
+  todayNextBookingUntil2amOnly,
 }
 
 export function fetchBookingsAndPrivateBookings(args: {
   member: number;
-  date_start: string;
+  date_start?: string;
   page?: number;
   options?: OptionCallback<BookingOrPrivateBooking[]>;
   type?: BookingsAndPrivateBookingsTypeEnum;
+  mine?: boolean;
+  forceRefetch?: boolean;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     args.page === 1 && dispatch(consumerBookingAndPrivateBookingReset());
@@ -381,14 +389,15 @@ export function fetchBookingsAndPrivateBookings(args: {
       const promises: Promise<null | any>[] = [];
 
       if (
-        bookingRest.length < pageSize &&
-        bookingAndPrivateBooking.booking.next_page
+        (bookingRest.length < pageSize &&
+          bookingAndPrivateBooking.booking.next_page) ||
+        args.forceRefetch
       ) {
         const params: any = {
           member: args.member,
           page: bookingPage,
           page_size: pageSize,
-          mine: true,
+          mine: args?.mine ?? true,
           booking_status_code: BOOKING_STATUS_OK.id,
           ordering: 'offer__date_start',
         };
@@ -405,6 +414,20 @@ export function fetchBookingsAndPrivateBookings(args: {
           params.before_date_end = true;
         }
 
+        if (
+          args.type ===
+          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
+        ) {
+          delete params.min_date;
+          params.before_date_end = true;
+          params.start_until_datetime = moment()
+            .endOf('day')
+            .add(2, 'hours')
+            .toISOString();
+          params.page_size = 1;
+          params.page = 1;
+        }
+
         const promise = fetchBookingListAPI(params);
         promises.push(promise);
       } else {
@@ -412,8 +435,9 @@ export function fetchBookingsAndPrivateBookings(args: {
       }
 
       if (
-        privateBookingRest.length < pageSize &&
-        bookingAndPrivateBooking.privateBooking.next_page
+        (privateBookingRest.length < pageSize &&
+          bookingAndPrivateBooking.privateBooking.next_page) ||
+        args.forceRefetch
       ) {
         const params: any = {
           member: args.member,
@@ -433,6 +457,20 @@ export function fetchBookingsAndPrivateBookings(args: {
         if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
           delete params.date_start__gte;
           params.before_date_end = true;
+        }
+
+        if (
+          args.type ===
+          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
+        ) {
+          delete params.date_start__gte;
+          params.before_date_end = true;
+          params.start_until_datetime = moment()
+            .endOf('day')
+            .add(2, 'hours')
+            .toISOString();
+          params.page_size = 1;
+          params.page = 1;
         }
 
         const promise = fetchPrivateBookings(params);

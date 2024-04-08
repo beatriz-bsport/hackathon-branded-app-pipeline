@@ -259,7 +259,9 @@ export type PrivateBooking<
   associated_coach: number;
   associated_establishment: number;
   coach: CoachId;
+  coach_name: string;
   establishment: EstablishmentId;
+  establishment_name: string;
   date_created: string;
   source: number;
   first_in_company: boolean;
@@ -267,6 +269,7 @@ export type PrivateBooking<
   timezone_name: string;
   date_canceled: string;
   is_unpaid: boolean;
+  is_at_home: boolean;
   recurrence_rule_private_booking: RecurrenceRulePrivateBooking;
   staff_history: StaffHistory;
   internal_note?: string;

@@ -88,6 +88,7 @@ export type BookingREST = {
   attendance_date_updated: string | null;
   booking_status_code: number;
   coach: number;
+  coach_name: string;
   coach_override: number | null;
   consumer: number;
   consumer_payment_pack: number;
@@ -98,6 +99,7 @@ export type BookingREST = {
   date_no_show_registered: string | null;
   date_roll_call_last_modified: string | null;
   establishment: number;
+  establishment_name: string;
   first_in_company: boolean;
   has_spivi_error: boolean | null;
   id: number;

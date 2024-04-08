@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,11 +8,11 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Pagination from '@material-ui/lab/Pagination';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TabPanel from '@material-ui/lab/TabPanel';
@@ -28,12 +28,16 @@ import OrderConfigurationForm from '#libs/order/components/OrderConfigurationFor
 
 import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 import type { ShopSupplier } from '#libs/shop/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import { SHOP_SUPPLIER_PAGE_SIZE } from '#libs/shop/constants';
 
 type Props = {
   isSupplierListLoading?: boolean;
   supplierList: ShopSupplier[];
+  supplierListCount: number;
+  supplierListPage: number;
   deliveryConfiguration: DeliveryConfiguration;
   deliveryFees: DeliveryFee[];
   isOrderConfigurationLoading?: boolean;
@@ -45,11 +49,17 @@ type Props = {
   handleEditDeliveryFee: (deliveryFee: DeliveryFee) => void;
   patchDeliveryFee: (data: DeliveryConfiguration) => void;
   disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
+  changeSupplierPage: (
+    page: number,
+    options?: OptionCallback<ShopSupplier[]>,
+  ) => void;
 };
 
 const ShopListSettingsTab: React.FC<Props> = ({
   isSupplierListLoading,
   supplierList,
+  supplierListCount,
+  supplierListPage,
   deliveryConfiguration,
   deliveryFees,
   isOrderConfigurationLoading,
@@ -61,10 +71,18 @@ const ShopListSettingsTab: React.FC<Props> = ({
   handleEditDeliveryFee,
   patchDeliveryFee,
   disableDeliveryFee,
+  changeSupplierPage,
 }) => {
   const classes = useStyles();
 
   const { t } = useTranslation(['shop', 'order']);
+
+  const handlePageChange = useCallback(
+    (_: React.ChangeEvent, pageNumber: number) => {
+      changeSupplierPage(pageNumber);
+    },
+    [changeSupplierPage],
+  );
 
   return (
     <TabPanel className={classes.contentContainer} value={ShopListTab.SETTINGS}>
@@ -135,21 +153,27 @@ const ShopListSettingsTab: React.FC<Props> = ({
                   </TableRow>
                 ))}
               </TableBody>
-              <TableFooter>
-                <div className={classes.tableFooter}>
-                  <Button
-                    color="primary"
-                    onClick={handleOpenSupplierModal}
-                    startIcon={<AddIcon />}
-                    variant="outlined"
-                  >
-                    {t(
-                      'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
-                    )}
-                  </Button>
-                </div>
-              </TableFooter>
             </Table>
+
+            <div className={classes.tableFooter}>
+              <Button
+                color="primary"
+                onClick={handleOpenSupplierModal}
+                startIcon={<AddIcon />}
+                variant="outlined"
+              >
+                {t(
+                  'shop:shopList.tab.settings.section.suppliers.table.addSupplier',
+                )}
+              </Button>
+
+              <Pagination
+                className={classes.paginationContainer}
+                count={Math.ceil(supplierListCount / SHOP_SUPPLIER_PAGE_SIZE)}
+                onChange={handlePageChange}
+                page={supplierListPage}
+              />
+            </div>
           </Card>
         </Grid>
       </Grid>
@@ -222,10 +246,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   tableFooter: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: theme.spacing(2),
   },
   divider: {
     marginBottom: theme.spacing(3),
+  },
+  paginationContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   // delivery fees old classes
   leftIcon: {

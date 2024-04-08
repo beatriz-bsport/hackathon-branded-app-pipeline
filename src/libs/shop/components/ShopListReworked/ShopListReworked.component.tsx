@@ -37,6 +37,8 @@ type Props = {
   isLoading?: boolean;
   subshopList: SubShop[];
   supplierList: ShopSupplier[];
+  supplierListCount: number;
+  supplierListPage: number;
   provincialTax: number;
   deliveryConfiguration: DeliveryConfiguration;
   deliveryFees: DeliveryFee[];
@@ -76,12 +78,18 @@ type Props = {
   disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
+  changeSupplierPage: (
+    page: number,
+    options?: OptionCallback<ShopSupplier[]>,
+  ) => void;
 };
 
 const ShopListReworked: React.FC<Props> = ({
   isLoading,
   subshopList,
   supplierList,
+  supplierListCount,
+  supplierListPage,
   provincialTax,
   deliveryConfiguration,
   deliveryFees,
@@ -105,6 +113,7 @@ const ShopListReworked: React.FC<Props> = ({
   disableDeliveryFee,
   bookkeepingAccounts,
   bookkeepingAccountById,
+  changeSupplierPage,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -181,7 +190,9 @@ const ShopListReworked: React.FC<Props> = ({
         });
       } else {
         createSupplier(values as ShopSupplierCreate, {
-          onSuccess: handleCloseSupplierModal,
+          onSuccess: () => {
+            handleCloseSupplierModal();
+          },
         });
       }
     },
@@ -200,7 +211,9 @@ const ShopListReworked: React.FC<Props> = ({
 
   const handleDeleteSupplier = useCallback(() => {
     deleteSupplier(selectedSupplier?.id, {
-      onSuccess: handleCloseSupplierDeleteModal,
+      onSuccess: () => {
+        handleCloseSupplierDeleteModal();
+      },
     });
   }, [deleteSupplier, handleCloseSupplierDeleteModal, selectedSupplier?.id]);
 
@@ -265,6 +278,7 @@ const ShopListReworked: React.FC<Props> = ({
     <div className={classes.container}>
       {isLoading && <LinearProgress />}
       <ShopListTabs
+        changeSupplierPage={changeSupplierPage}
         createSubshop={createSubshop}
         deleteSubshop={deleteSubshop}
         deliveryConfiguration={deliveryConfiguration}
@@ -286,6 +300,8 @@ const ShopListReworked: React.FC<Props> = ({
         setShopItemToDelete={handleSetShopItemToDelete}
         subshopList={subshopList}
         supplierList={supplierList}
+        supplierListCount={supplierListCount}
+        supplierListPage={supplierListPage}
         updateSubshop={updateSubshop}
       />
 

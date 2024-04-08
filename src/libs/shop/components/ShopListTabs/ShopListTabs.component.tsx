@@ -19,6 +19,8 @@ import { ShopListTab } from './constants';
 type Props = {
   subshopList: SubShop[];
   supplierList: ShopSupplier[];
+  supplierListCount: number;
+  supplierListPage: number;
   deliveryConfiguration: DeliveryConfiguration;
   deliveryFees: DeliveryFee[];
   isOrderConfigurationLoading?: boolean;
@@ -45,11 +47,17 @@ type Props = {
   handleEditDeliveryFee: (deliveryFee: DeliveryFee) => void;
   patchDeliveryFee: (data: DeliveryConfiguration) => void;
   disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
+  changeSupplierPage: (
+    page: number,
+    options?: OptionCallback<ShopSupplier[]>,
+  ) => void;
 };
 
 const ShopListTabs: React.FC<Props> = ({
   subshopList,
   supplierList,
+  supplierListCount,
+  supplierListPage,
   deliveryConfiguration,
   deliveryFees,
   isOrderConfigurationLoading,
@@ -70,6 +78,7 @@ const ShopListTabs: React.FC<Props> = ({
   handleEditDeliveryFee,
   patchDeliveryFee,
   disableDeliveryFee,
+  changeSupplierPage,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -117,6 +126,7 @@ const ShopListTabs: React.FC<Props> = ({
       />
 
       <ShopListSettingsTab
+        changeSupplierPage={changeSupplierPage}
         deliveryConfiguration={deliveryConfiguration}
         deliveryFees={deliveryFees}
         disableDeliveryFee={disableDeliveryFee}
@@ -129,6 +139,8 @@ const ShopListTabs: React.FC<Props> = ({
         isOrderConfigurationUpdateLoading={isOrderConfigurationUpdateLoading}
         patchDeliveryFee={patchDeliveryFee}
         supplierList={supplierList}
+        supplierListCount={supplierListCount}
+        supplierListPage={supplierListPage}
       />
     </TabContext>
   );

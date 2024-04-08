@@ -43,7 +43,7 @@ import {
   getIsShopItemUsedInCombo,
   getShopItemBaseLoading,
   getShopItemStandaloneLoading,
-  getShopSupplierList,
+  getShopSupplierState,
   getShopSupplierListLoading,
   getSubshopList,
   getSubshopLoading,
@@ -100,6 +100,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     this.props.fetchShopSupplierList();
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
+    this.handleFetchShopSupplierList();
   }
 
   /** Handler to retrieve standalone + base shop items */
@@ -114,15 +115,26 @@ export class ShopListReworkedPage extends PureComponent<Props> {
       case ShopListTab.PRODUCTS:
         this.handleFetchStandaloneBaseItemList();
         this.props.fetchSubshopList();
-        this.props.fetchShopSupplierList();
+        this.handleFetchShopSupplierList();
         break;
       case ShopListTab.SETTINGS:
-        this.props.fetchShopSupplierList();
+        this.handleFetchShopSupplierList();
         this.props.fetchAllDeliveryFee();
         this.props.fetchConfiguration();
         break;
       default:
     }
+  };
+
+  handleChangeSupplierPage = (
+    page: number,
+    options: OptionCallback<ShopSupplier[]>,
+  ) => {
+    this.props.fetchShopSupplierList(page, options);
+  };
+
+  handleFetchShopSupplierList = (page?: number) => {
+    this.props.fetchShopSupplierList(page ?? this.props.supplierState.page);
   };
 
   handleCreateShopItem = (
@@ -167,16 +179,44 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     values: ShopSupplierCreate,
     options?: OptionCallback<ShopSupplier>,
   ) => {
-    this.props.createShopSupplier(values, options);
+    this.props.createShopSupplier(values, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierList();
+        options?.onSuccess?.();
+      },
+    });
   };
 
   handleUpdateSupplier = (
     values: ShopSupplierUpdate,
     options?: OptionCallback<ShopSupplier>,
-  ) => this.props.updateShopSupplier(values, options);
+  ) => {
+    this.props.updateShopSupplier(values, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierList();
+        options?.onSuccess?.();
+      },
+    });
+  };
 
-  handleDeleteSupplier = (id: number, options: OptionCallback<number>) =>
-    this.props.deleteShopSupplier(id, options);
+  handleDeleteSupplier = (id: number, options?: OptionCallback<number>) => {
+    const suppliersPage = this.props.supplierState.page;
+    const isRemovingLastListItem =
+      (this.props.supplierState.suppliers ?? []).length === 1 &&
+      suppliersPage > 1;
+
+    this.props.deleteShopSupplier(id, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierList(
+          isRemovingLastListItem ? suppliersPage - 1 : suppliersPage,
+        );
+        options?.onSuccess?.();
+      },
+    });
+  };
 
   handleRetrieveShopItemUsedInCombo = (id: number) => {
     this.props.retrieveShopItemUsedInCombo(id);
@@ -208,6 +248,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
       <ShopListReworked
         bookkeepingAccountById={this.props.bookkeepingAccountByid}
         bookkeepingAccounts={this.props.bookkeepingAccounts}
+        changeSupplierPage={this.handleChangeSupplierPage}
         createOrUpdateDeliveryFee={this.props.createOrUpdateDeliveryFee}
         createShopItem={this.handleCreateShopItem}
         createSubshop={this.props.createSubshop}
@@ -236,7 +277,9 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         provincialTax={this.props.theme.provincial_tax_value}
         retrieveShopItemUsedInCombo={this.handleRetrieveShopItemUsedInCombo}
         subshopList={this.props.subshopList}
-        supplierList={this.props.supplierList}
+        supplierList={this.props.supplierState.suppliers}
+        supplierListCount={this.props.supplierState.count}
+        supplierListPage={this.props.supplierState.page}
         updateSubshop={this.handleUpdateSubshop}
         updateSupplier={this.handleUpdateSupplier}
       />
@@ -249,7 +292,7 @@ const connector = connect(
     theme: getTheme(state),
     subshopList: getSubshopList(state),
     subshopLoading: getSubshopLoading(state),
-    supplierList: getShopSupplierList(state),
+    supplierState: getShopSupplierState(state),
     isSupplierListLoading: getShopSupplierListLoading(state),
     shopItemStandaloneLoading: getShopItemStandaloneLoading(state),
     shopItemBaseLoading: getShopItemBaseLoading(state),

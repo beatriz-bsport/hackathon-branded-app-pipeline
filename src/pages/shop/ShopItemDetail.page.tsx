@@ -36,8 +36,8 @@ import {
   getShopItemVariantDeleteLoading,
   getShopItemVariantUpdateLoading,
   getShopItemSupplier as getShopItemSupplierSelector,
-  getShopSupplierList,
   getShopItemVariantCombinationList,
+  getShopSupplierState,
 } from '#libs/shop/selectors';
 import {
   getBookkeepingAccountList,
@@ -230,7 +230,7 @@ export class ShopItemDetailPage extends Component<Props> {
         shopItemSupplier={this.props.getShopItemSupplier(
           this.props.shopItem?.supplier,
         )}
-        supplierList={this.props.supplierList}
+        supplierList={this.props.supplierState.suppliers}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
         variantCombinationList={this.props.variantCombinationList ?? []}
@@ -251,7 +251,7 @@ const connector = connect(
       getIsShopItemUsedInComboSelector(state, shopItemId),
     getShopItemSupplier: (supplierId: number) =>
       getShopItemSupplierSelector(state, supplierId),
-    supplierList: getShopSupplierList(state),
+    supplierState: getShopSupplierState(state),
     isUpdateVariantLoading: getShopItemVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),

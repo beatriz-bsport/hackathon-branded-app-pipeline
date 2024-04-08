@@ -445,7 +445,7 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state.setIn(['memberForm', 'loading'], payload);
+      return state.setIn(['memberForm', 'error'], payload);
     },
     [fetchCompanyCustomMemberFormActions.success.toString()]: (
       state,

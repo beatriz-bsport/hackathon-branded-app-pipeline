@@ -298,12 +298,18 @@ export const getShopItemVariantCombinationList = (
 };
 
 /**
- * Retrieves the list of all suppliers for the current company
+ * Retrieves the list of paginated suppliers for the current company
  */
-export const getShopSupplierList = createSelector(
-  [getShopSupplierAllIds, getShopSupplierById],
-  (subshopAllIds, subshopById) => {
-    return subshopAllIds.map((id) => subshopById[id]);
+export const getShopSupplierState = createSelector(
+  [getShopSupplierAllIds, getShopSupplierById, (state: RootState) => state],
+  (subshopAllIds, subshopById, state) => {
+    const shopSupplierState = state.shopReworked.shopItemReworked.suppliers;
+    return {
+      page: shopSupplierState.page,
+      next_page: shopSupplierState.next_page,
+      count: shopSupplierState.count,
+      suppliers: subshopAllIds.map((id) => subshopById[id]),
+    };
   },
 );
 

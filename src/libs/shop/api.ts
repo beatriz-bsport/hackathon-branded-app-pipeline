@@ -27,6 +27,7 @@ import type {
   ShopSupplierCreate,
   ShopSupplierUpdate,
   ShopItemVariantCombination,
+  ShopSupplierFilterParams,
 } from './types';
 
 export async function fetchAll(
@@ -271,10 +272,12 @@ export const retrieveShopItemSupplier = (id: number) => {
 
 /**
  * Fetch the list of all shop suppliers
+ * @param page The page number used to fetch suppliers
+ * @param page_size The number of suppliers to fetch per page
  */
-export const fetchShopSupplierList = () => {
+export const fetchShopSupplierList = (params: ShopSupplierFilterParams) => {
   return getAuth<PaginatedResponse<ShopSupplier>>(
-    `${API_V1_URI}/shop/supplier/`,
+    `${API_V1_URI}/shop/supplier/${buildUrlParams(params)}`,
   );
 };
 

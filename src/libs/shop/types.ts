@@ -79,6 +79,11 @@ export type ShopItemVariantFilterParams = {
   page: number;
 };
 
+export type ShopSupplierFilterParams = {
+  page_size: number;
+  page?: number;
+};
+
 export type ShopItemCreate = {
   'available_payment_method_identifiers[]': string;
   barcode: string;

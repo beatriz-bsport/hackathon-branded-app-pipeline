@@ -17,10 +17,7 @@ import GridItem, {
   Justification,
 } from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
-import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
@@ -88,7 +85,7 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
             {!hideCredits && (
               <div className="bs-pass-card__subtitle">
                 {t('genericCard.credits.availableCredit', {
-                  count: privatePass.credits / getCreditFactor(),
+                  count: privatePass.credits,
                 })}
               </div>
             )}

@@ -11,7 +11,6 @@ import { withTranslation, TFunction } from 'react-i18next';
 import DurationInput from '../../../../components/input/DurationInputWithSelect.component';
 import NumericInput from '../../../../components/input/NumericInput.component';
 import { DURATION_CHOICES_SHORT, Submit } from '../../../../components/forms';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 type PrivateSlotData = any;
 
@@ -35,7 +34,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       this.state = {
         name: props.initial.name,
         duration_minutes: props.initial.duration_minutes,
-        credit: props.initial.credit / getCreditFactor(),
+        credit: props.initial.credit,
         people_capacity_used: props.initial.people_capacity_used,
         booking_interval_minutes: props.initial.booking_interval_minutes,
         isSubmitting: false,
@@ -97,7 +96,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         name: this.state.name,
         description: this.state.description,
         duration_minutes: this.state.duration_minutes,
-        credit: this.state.credit * getCreditFactor(),
+        credit: this.state.credit,
         people_capacity_used: this.state.people_capacity_used,
         booking_interval_minutes:
           this.state.booking_interval_minutes || MIN_DURATION_MINUTES,

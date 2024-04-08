@@ -12,7 +12,6 @@ import StyleIcon from '@material-ui/icons/Style';
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
 
 import { PrivatePass } from '#libs/private-service/types';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 import './styles.list.css';
 
@@ -42,7 +41,7 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
               <StarIcon />
             </span>
             {t('genericCardDetails.credits.availableCredit', {
-              count: privatePass?.credits / getCreditFactor(),
+              count: privatePass?.credits,
             })}
           </li>
         )}

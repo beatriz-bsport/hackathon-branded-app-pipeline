@@ -1,5 +1,6 @@
 export const SHOPITEM_PER_PAGE = 10;
 export const SHOP_ITEM_VARIANTS_PAGE_SIZE = 15;
+export const SHOP_SUPPLIER_PAGE_SIZE = 15;
 
 /**
  * Mapper param given to function mapFormDataWithObject\

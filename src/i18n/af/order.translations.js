@@ -2,7 +2,7 @@ exports.default = {
   products: { nbProducts: 'items' },
   state: {
     0: 'On hold',
-    700: 'Paid',
+    700: 'To be processed',
     1100: 'Cancelled',
     1200: 'Click & Collect',
     9000: 'Sent',

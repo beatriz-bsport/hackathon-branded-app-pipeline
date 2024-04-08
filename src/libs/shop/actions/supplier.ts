@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import {
+  retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
   fetchShopSupplierList as retrieveShopSupplierListAPI,
   createShopSupplier as createShopSupplierAPI,
   updateShopSupplier as updateShopSupplierAPI,
@@ -13,6 +14,39 @@ import type {
   ShopSupplierUpdate,
 } from '#libs/shop/types';
 import type { Dispatch, OptionCallback } from '../../../state/types';
+
+export const retrieveShopItemSupplierActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/SUPPLIER/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/SUPPLIER/ERROR'),
+  success: createAction<ShopSupplier>('SHOP_ITEM/SUPPLIER/SUCCESS'),
+};
+
+/**
+ * Retrieves a specific shop item supplier.
+ * @param id The ID of the supplier to fetch
+ */
+export const retrieveShopItemSupplier = (
+  id: number,
+  options?: OptionCallback<ShopSupplier>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(retrieveShopItemSupplierActions.isLoading(true));
+      dispatch(retrieveShopItemSupplierActions.error(null));
+
+      const result = await retrieveShopItemSupplierAPI(id);
+
+      dispatch(retrieveShopItemSupplierActions.success(result.data));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(retrieveShopItemSupplierActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(retrieveShopItemSupplierActions.isLoading(false));
+    }
+  };
+};
 
 export const fetchShopSupplierListActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/LIST/LOADING'),

@@ -15,7 +15,6 @@ import {
   updateShopItemVariantBulkActions,
   deleteShopItemActions,
   deleteShopItemVariantActions,
-  retrieveShopItemSupplierActions,
   createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
   fetchShopItemVariantCombinationListActions,
@@ -29,6 +28,7 @@ import {
 } from './actions/subshopReworked';
 
 import {
+  retrieveShopItemSupplierActions,
   fetchShopSupplierListActions,
   createShopSupplierActions,
   updateShopSupplierActions,

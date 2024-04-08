@@ -10,7 +10,6 @@ import {
   updateShopItem as updateShopItemAPI,
   updateShopItemVariantBulk as updateShopItemVariantBulkAPI,
   deleteShopItem as deleteShopItemAPI,
-  retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
   createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
   createShopItemProvision as createShopItemProvisionAPI,
   duplicateShopItem as duplicateShopItemAPI,
@@ -31,7 +30,6 @@ import type {
   ShopItemListFilterParams,
   ShopItemVariant,
   ShopItemVariantAttributes,
-  ShopSupplier,
   Provision,
   ProvisionBulkCreate,
   ProvisionCreate,
@@ -458,39 +456,6 @@ export const deleteShopItemVariant = (
       options?.onError?.();
     } finally {
       dispatch(deleteShopItemVariantActions.isLoading(false));
-    }
-  };
-};
-
-export const retrieveShopItemSupplierActions = {
-  isLoading: createAction<boolean>('SHOP_ITEM/SUPPLIER/LOADING'),
-  error: createAction<Error | null>('SHOP_ITEM/SUPPLIER/ERROR'),
-  success: createAction<ShopSupplier>('SHOP_ITEM/SUPPLIER/SUCCESS'),
-};
-
-/**
- * Retrieves a specific shop item supplier.
- * @param id The ID of the supplier to fetch
- */
-export const retrieveShopItemSupplier = (
-  id: number,
-  options?: OptionCallback<ShopSupplier>,
-) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch(retrieveShopItemSupplierActions.isLoading(true));
-      dispatch(retrieveShopItemSupplierActions.error(null));
-
-      const result = await retrieveShopItemSupplierAPI(id);
-
-      dispatch(retrieveShopItemSupplierActions.success(result.data));
-      options?.onSuccess?.(result.data);
-    } catch (error) {
-      dispatch(retrieveShopItemSupplierActions.error(error));
-      console.error(error);
-      options?.onError?.();
-    } finally {
-      dispatch(retrieveShopItemSupplierActions.isLoading(false));
     }
   };
 };

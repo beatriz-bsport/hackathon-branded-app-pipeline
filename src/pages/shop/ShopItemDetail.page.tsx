@@ -12,7 +12,6 @@ import {
   deleteShopItem as deleteShopItemAction,
   createShopItemVariants as createShopItemVariantsAction,
   deleteShopItemVariant as deleteShopItemVariantAction,
-  retrieveShopItemSupplier as retrieveShopItemSupplierAction,
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
   createShopItemProvision as createShopItemProvisionAction,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
@@ -20,7 +19,10 @@ import {
 } from '#libs/shop/actions/shopItemReworked';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
 
-import { fetchShopSupplierList as fetchShopSupplierListAction } from '#libs/shop/actions/supplier';
+import {
+  retrieveShopItemSupplier as retrieveShopItemSupplierAction,
+  fetchShopSupplierList as fetchShopSupplierListAction,
+} from '#libs/shop/actions/supplier';
 
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';

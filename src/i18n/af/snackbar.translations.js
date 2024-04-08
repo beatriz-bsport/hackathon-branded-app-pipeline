@@ -321,6 +321,20 @@ const getTranslations = async () => {
           success: 'Category successfully saved',
         },
       },
+      supplier: {
+        create: {
+          error: 'Error creating supplier',
+          success: 'Supplier created successfully',
+        },
+        update: {
+          error: 'Error updating supplier',
+          success: 'Supplier updated successfully',
+        },
+        delete: {
+          error: 'Error deleting supplier',
+          success: 'Supplier deleted successfully',
+        },
+      },
     },
     role: {
       error: {

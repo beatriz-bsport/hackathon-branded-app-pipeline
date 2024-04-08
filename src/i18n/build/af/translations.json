@@ -11470,6 +11470,11 @@
       "subShop": {
         "delete": { "error": "Impossible to delete the category", "success": "Category deleted" },
         "createOrUpdate": { "error": "Impossible to save the category", "success": "Category successfully saved" }
+      },
+      "supplier": {
+        "create": { "error": "Error creating supplier", "success": "Supplier created successfully" },
+        "update": { "error": "Error updating supplier", "success": "Supplier updated successfully" },
+        "delete": { "error": "Error deleting supplier", "success": "Supplier deleted successfully" }
       }
     },
     "role": {

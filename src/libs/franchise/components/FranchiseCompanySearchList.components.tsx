@@ -6,25 +6,25 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
+import { compose } from 'recompose';
+import { WithTranslation, useTranslation } from 'react-i18next';
+import AddIcon from '@material-ui/icons/Add';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import { WithTranslation, useTranslation } from 'react-i18next';
+import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
-import { compose } from 'recompose';
-import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
-import CompanyListItem from '../../membership/components/CompanyListItem.component';
-import { OptionCallback } from '../../../state/types';
-
-import { FranchiseCompany, CompanyGroup } from '../types';
-import HighlightedText from '../../../components/HighlightedText/HighlightedText.component';
-import FuzzySearch from '../../../components/search/FuzzySearch.component';
 import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
+import CompanyListItem from '#libs/membership/components/CompanyListItem.component';
+import FuzzySearch from '#components/search/FuzzySearch.component';
+import HighlightedText from '#components/HighlightedText/HighlightedText.component';
+
+import type { FranchiseCompany, CompanyGroup } from '#libs/franchise/types';
+import type { OptionCallback } from '#state/types';
 
 export type OwnProps = {
   companies: FranchiseCompany[];
@@ -43,6 +43,8 @@ export type OwnProps = {
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 const FranchiseCompanySearchList = (props: Props) => {
+  const { t } = useTranslation('franchise');
+
   const { selectedCompanyId, companies, classes, handleCompanySelected } =
     props;
 
@@ -50,7 +52,6 @@ const FranchiseCompanySearchList = (props: Props) => {
     null,
   );
   const [createGroupOpen, setCreateGroupOpen] = React.useState<boolean>(false);
-  const { t } = useTranslation(['franchise']);
 
   return (
     <div>
@@ -92,28 +93,33 @@ const FranchiseCompanySearchList = (props: Props) => {
         </Button>
       )}
       {(props.companyGroupList || [])
-        .filter((g) => (companies || []).some((c) => c.company_group === g.id))
-        .map((g) => (
-          <div className={classes.companiesContainer}>
+        .filter((group) =>
+          companies.some((company) => company.company_group === group.id),
+        )
+        .map((group) => (
+          <div key={group.id} className={classes.companiesContainer}>
             <div className={classes.rowLarge}>
-              <Typography variant="h4">{g.name}</Typography>
+              <Typography variant="h4">{group.name}</Typography>
               {!props.restrictedFranchisees && (
-                <IconButton color="primary" onClick={() => setGroupToEdit(g)}>
+                <IconButton
+                  color="primary"
+                  onClick={() => setGroupToEdit(group)}
+                >
                   <EditIcon />
                 </IconButton>
               )}
             </div>
             <Divider className={classes.divider} />
             <Paper>
-              {(companies || [])
-                .filter((c) => c.company_group === g.id)
-                .map((c) => (
+              {companies
+                .filter((company) => company.company_group === group.id)
+                .map((company) => (
                   <CompanyListItem
-                    key={c.id}
-                    company={c}
+                    key={company.id}
+                    company={company}
                     isRedirectLoading={props.isRedirectLoading}
-                    onClick={handleCompanySelected(c.id, c.name)}
-                    selected={c.id === selectedCompanyId}
+                    onClick={handleCompanySelected(company.id, company.name)}
+                    selected={company.id === selectedCompanyId}
                   />
                 ))}
             </Paper>
@@ -121,8 +127,8 @@ const FranchiseCompanySearchList = (props: Props) => {
         ))}
       <div className={classes.companiesContainer}>
         <Paper>
-          {(companies || [])
-            .filter((c) => !c.company_group)
+          {companies
+            .filter((company) => !company.company_group)
             .map((company) => (
               <CompanyListItem
                 key={company.id}

@@ -12,6 +12,7 @@ import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getPermissions } from '#libs/role/selectors';
+import MemberVisit from './MemberVisit.page';
 
 import type { RootState } from '../../reducers';
 import type { RolePermission } from '#libs/role/types';
@@ -43,7 +44,7 @@ const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
   };
 
   const components = {
-    perform: <div />,
+    perform: <MemberVisit />,
     monitor: <div />,
     settings: <div />,
   };

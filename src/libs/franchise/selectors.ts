@@ -24,6 +24,17 @@ export const getFranchisor = (state: RootState) => {
   return null;
 };
 
+export const getFranchisorCompaniesAvailableOnMarketplace = (
+  state: RootState,
+) => {
+  if (getState(state)?.franchisor) {
+    return (getState(state)?.franchisor?.companies ?? []).filter(
+      (company) => !!company && !company.hidden_from_marketplace,
+    );
+  }
+  return [];
+};
+
 export const getFranchiseTheme = (state: RootState) => {
   if (getState(state)?.franchisor) {
     return {

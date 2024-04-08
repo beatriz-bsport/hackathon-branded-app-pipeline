@@ -27,6 +27,7 @@ import { getFranchiseTheme } from '../../theme';
 import {
   getFranchiseThemeLoading,
   getFranchisor,
+  getFranchisorCompaniesAvailableOnMarketplace,
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
@@ -82,7 +83,7 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
       return null;
     }
 
-    let companiesSelectable = this.props.franchiseTheme.companies;
+    let companiesSelectable = this.props.availableCompanies;
     if (paymentPackTemplateCompanies?.length) {
       companiesSelectable = companiesSelectable?.filter((comp) =>
         paymentPackTemplateCompanies.includes(comp?.id),
@@ -133,6 +134,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.auth.authenticated,
   franchiseTheme: getFranchisor(state),
+  availableCompanies: getFranchisorCompaniesAvailableOnMarketplace(state),
   franchiseThemeLoading: getFranchiseThemeLoading(state),
   getCompanyThemeLoading: getThemeLoading(state),
 });

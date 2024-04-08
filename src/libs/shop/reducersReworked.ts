@@ -65,6 +65,9 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
       suppliers: {
         error: null,
         loading: false,
+        count: 0,
+        next_page: 1,
+        page: 1,
         byId: {},
         allIds: [],
         create: { error: null, loading: false },
@@ -654,18 +657,21 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     },
     [fetchShopSupplierListActions.success.toString()]: (
       state,
-      { payload }: { payload: ShopSupplier[] },
+      { payload }: { payload: PaginatedResponse<ShopSupplier> },
     ) => {
+      const { page, count, results, next_page } = payload;
       return state
-        .setIn(
-          ['shopItemReworked', 'suppliers', 'allIds'],
-          payload.map((supplier) => supplier.id),
-        )
+        .setIn(['shopItemReworked', 'suppliers'], {
+          page,
+          count,
+          next_page,
+          allIds: results.map((supplier) => supplier.id),
+        })
         .merge(
           {
             shopItemReworked: {
               suppliers: {
-                byId: payload.reduce<PayloadReduceType<ShopSupplier>>(
+                byId: results.reduce<PayloadReduceType<ShopSupplier>>(
                   (acc, shopSupplier) => {
                     acc[shopSupplier.id] = shopSupplier;
                     return acc;
@@ -696,25 +702,6 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       );
     },
-    [createShopSupplierActions.success.toString()]: (
-      state,
-      { payload }: { payload: ShopSupplier },
-    ) => {
-      const suppliersAllIds = state.shopItemReworked.suppliers.allIds;
-      return state
-        .setIn(
-          ['shopItemReworked', 'suppliers', 'allIds'],
-          [...suppliersAllIds, payload.id],
-        )
-        .merge(
-          {
-            shopItemReworked: {
-              suppliers: { byId: { [payload.id]: payload } },
-            },
-          },
-          { deep: true },
-        );
-    },
     [updateShopSupplierActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -731,19 +718,6 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       return state.setIn(
         ['shopItemReworked', 'suppliers', 'updateSupplier', 'error'],
         payload,
-      );
-    },
-    [updateShopSupplierActions.success.toString()]: (
-      state,
-      { payload }: { payload: ShopSupplier },
-    ) => {
-      return state.merge(
-        {
-          shopItemReworked: {
-            suppliers: { byId: { [payload.id]: payload } },
-          },
-        },
-        { deep: true },
       );
     },
     [deleteShopSupplierActions.isLoading.toString()]: (
@@ -763,22 +737,6 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         ['shopItemReworked', 'suppliers', 'delete', 'error'],
         payload,
       );
-    },
-    [deleteShopSupplierActions.success.toString()]: (
-      state,
-      { payload }: { payload: number },
-    ) => {
-      return state
-        .setIn(
-          ['shopItemReworked', 'suppliers', 'allIds'],
-          state.shopItemReworked.suppliers.allIds.filter(
-            (id: number) => id !== payload,
-          ),
-        )
-        .updateIn(
-          ['shopItemReworked', 'suppliers', 'byId'],
-          (shopSuppliersById) => omit(shopSuppliersById, payload),
-        );
     },
     [fetchShopItemVariantCombinationListActions.isLoading.toString()]: (
       state,

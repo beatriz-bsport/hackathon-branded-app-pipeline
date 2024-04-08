@@ -174,7 +174,8 @@ export type ShopStateReworked = {
       create: ErrorAndLoading;
       updateSupplier: ErrorAndLoading;
       delete: ErrorAndLoading;
-    } & ErrorAndLoading;
+    } & WithPagination &
+      ErrorAndLoading;
     /** State for variants created from a base `ShopItem` */
     itemVariant: {
       create: ErrorAndLoading;

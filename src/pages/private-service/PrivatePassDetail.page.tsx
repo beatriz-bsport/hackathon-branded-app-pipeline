@@ -443,7 +443,6 @@ export class PrivatePassDetails extends Component<Props> {
                 bookkeepingAccountById={this.props.bookkeepingAccountById}
                 bookkeepingAccounts={this.props.bookkeepingAccounts}
                 compatibleServicePass={this.props.compatibleServicePass}
-                creditScaleFactor={this.props.theme.pass_credit_factor}
                 initial={getFormInitial(
                   this.props.privatePass,
                   this.props.compatibleServicePass,

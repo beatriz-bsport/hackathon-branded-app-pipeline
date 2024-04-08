@@ -401,7 +401,6 @@ export class PrivatePassList extends React.Component<Props, State> {
               bookkeepingAccounts={this.props.bookingAccounts}
               categoryList={paymentPackCategoryList}
               compatibleServicePass={this.props.compatibleServicePass}
-              creditScaleFactor={this.props.theme.pass_credit_factor}
               establishmentList={establishmentList}
               metaActivityList={metaActivities}
               onCancel={() => this.props.closePrivatePassForm()}
@@ -590,7 +589,6 @@ export class PrivatePassList extends React.Component<Props, State> {
                 bookkeepingAccounts={this.props.bookingAccounts}
                 categoryList={paymentPackCategoryList}
                 compatibleServicePass={this.props.compatibleServicePass}
-                creditScaleFactor={this.props.theme.pass_credit_factor}
                 establishmentList={establishmentList}
                 initial={getFormInitial(
                   this.props.selectedPrivatePass,

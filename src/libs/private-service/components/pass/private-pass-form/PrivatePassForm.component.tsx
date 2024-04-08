@@ -1036,7 +1036,7 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
-  mapPropsToValues: ({ initial, creditScaleFactor }) => {
+  mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
         ...initial,
@@ -1053,7 +1053,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         applies_for_payroll: initial.applies_for_payroll,
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
         expiration_date_active: !!initial?.expiration_date,
-        credits: initial?.credits / (creditScaleFactor || 1),
+        credits: initial?.credits,
         tags_on_consumer_item_creation:
           initial.tags_on_consumer_item_creation || [],
       };
@@ -1089,10 +1089,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (
-    values,
-    { props: { onSubmit, initial, creditScaleFactor }, setSubmitting },
-  ) => {
+  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const { linked_payment_pack, credits, ...otherValues } = values;
 
     const newValues = {
@@ -1111,7 +1108,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         values.expiration_date_active && values.expiration_date
           ? moment(values.expiration_date).format('YYYY-MM-DD')
           : null,
-      credits: credits * (creditScaleFactor || 1),
+      credits,
     };
     onSubmit(newValues, {
       onSuccess: () => {

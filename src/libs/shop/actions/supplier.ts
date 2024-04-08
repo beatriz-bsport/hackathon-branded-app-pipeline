@@ -8,12 +8,20 @@ import {
   deleteShopSupplier as deleteShopSupplierAPI,
 } from '../api';
 
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+
 import type {
   ShopSupplier,
   ShopSupplierCreate,
   ShopSupplierUpdate,
 } from '#libs/shop/types';
-import type { Dispatch, OptionCallback } from '../../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../../state/types';
+import type { RootState } from '../../../reducers';
+import { SHOP_SUPPLIER_PAGE_SIZE } from '../constants';
 
 export const retrieveShopItemSupplierActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/SUPPLIER/LOADING'),
@@ -51,23 +59,32 @@ export const retrieveShopItemSupplier = (
 export const fetchShopSupplierListActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_SUPPLIER/LIST/ERROR'),
-  success: createAction<ShopSupplier[]>('SHOP_SUPPLIER/LIST/SUCCESS'),
+  success: createAction<PaginatedResponse<ShopSupplier>>(
+    'SHOP_SUPPLIER/LIST/SUCCESS',
+  ),
 };
 
 /**
  * Fetch the list of all shop suppliers
+ * @param page The page number used to fetch suppliers
  */
 export const fetchShopSupplierList = (
+  page?: number,
   options?: OptionCallback<ShopSupplier[]>,
 ) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const supplierStatePage =
+      getState().shopReworked.shopItemReworked.suppliers.page ?? 1;
     try {
       dispatch(fetchShopSupplierListActions.isLoading(true));
       dispatch(fetchShopSupplierListActions.error(null));
 
-      const result = await retrieveShopSupplierListAPI();
+      const result = await retrieveShopSupplierListAPI({
+        page_size: SHOP_SUPPLIER_PAGE_SIZE,
+        page: page ?? supplierStatePage,
+      });
 
-      dispatch(fetchShopSupplierListActions.success(result.data.results));
+      dispatch(fetchShopSupplierListActions.success(result.data));
       options?.onSuccess?.(result.data.results);
     } catch (error) {
       dispatch(fetchShopSupplierListActions.error(error));
@@ -82,7 +99,6 @@ export const fetchShopSupplierList = (
 export const createShopSupplierActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/CREATE/LOADING'),
   error: createAction<Error | null>('SHOP_SUPPLIER/CREATE/ERROR'),
-  success: createAction<ShopSupplier>('SHOP_SUPPLIER/CREATE/SUCCESS'),
 };
 
 /**
@@ -100,10 +116,11 @@ export const createShopSupplier = (
 
       const result = await createShopSupplierAPI(data);
 
-      dispatch(createShopSupplierActions.success(result.data));
+      dispatch(snackbarSuccess('shop.supplier.create.success'));
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(createShopSupplierActions.error(error));
+      dispatch(snackbarError('shop.supplier.create.error'));
       console.error(error);
       options?.onError?.();
     } finally {
@@ -115,7 +132,6 @@ export const createShopSupplier = (
 export const updateShopSupplierActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/UPDATE/LOADING'),
   error: createAction<Error | null>('SHOP_SUPPLIER/UPDATE/ERROR'),
-  success: createAction<ShopSupplier>('SHOP_SUPPLIER/UPDATE/SUCCESS'),
 };
 
 /**
@@ -133,10 +149,11 @@ export const updateShopSupplier = (
 
       const result = await updateShopSupplierAPI(data);
 
-      dispatch(updateShopSupplierActions.success(result.data));
+      dispatch(snackbarSuccess('shop.supplier.update.success'));
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(updateShopSupplierActions.error(error));
+      dispatch(snackbarError('shop.supplier.update.error'));
       console.error(error);
       options?.onError?.();
     } finally {
@@ -148,7 +165,6 @@ export const updateShopSupplier = (
 export const deleteShopSupplierActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/DELETE/LOADING'),
   error: createAction<Error | null>('SHOP_SUPPLIER/DELETE/ERROR'),
-  success: createAction<number>('SHOP_SUPPLIER/DELETE/SUCCESS'),
 };
 
 /**
@@ -166,10 +182,11 @@ export const deleteShopSupplier = (
 
       await deleteShopSupplierAPI(id);
 
-      dispatch(deleteShopSupplierActions.success(id));
+      dispatch(snackbarSuccess('shop.supplier.delete.success'));
       options?.onSuccess?.(id);
     } catch (error) {
       dispatch(deleteShopSupplierActions.error(error));
+      dispatch(snackbarError('shop.supplier.delete.error'));
       console.error(error);
       options?.onError?.();
     } finally {

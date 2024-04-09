@@ -265,7 +265,7 @@ const connector = connect(
       ? CoachPaymentSelector(
           state,
           associatedCoachSelector.get(state, props.associatedCoachId)
-            .coach_payment_rule,
+            .coach_payment_rule_id,
         )
       : null,
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),

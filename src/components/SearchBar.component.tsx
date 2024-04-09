@@ -1,11 +1,9 @@
-// @flow
-
 import React, { Component } from 'react';
 import { compose, withState } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -23,28 +21,30 @@ import moment from 'moment-timezone';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { TFunction } from 'i18next';
 import { getMemberHistory } from '../libs/member/selectors';
 
 import { parseQueryString } from '../http';
 import DelayedTextField from './DelayedTextField.component';
 
+// @ts-expect-error js file
 import { search as searchActions } from '../actions';
 import { searchArchived as searchArchivedMembers } from '../libs/member/actions';
 
 type Props = {
-  t: TFunction,
-  searchForText: (string, path: ?string, changeLocation: boolean) => void,
-  searchForTextAmoungArchived: (text: string) => void,
-  searchText: string,
-  clearSearch: (boolean) => void,
-  history: Object,
-  classes: any,
-  className: string,
-  changeLocation: boolean,
-  push: (string) => void,
-  memberHistory: Array<Member>,
-  setMemberHistoryAnchor: (HTMLElement) => void,
-  memberHistoryAnchor: ?HTMLElement,
+  t: TFunction;
+  searchForText: (text: string, changeLocation: boolean, path?: string) => void;
+  searchForTextAmoungArchived: (text: string) => void;
+  searchText: string;
+  clearSearch: (bool: boolean) => void;
+  history: Object;
+  classes: any;
+  className: string;
+  changeLocation: boolean;
+  push: (string) => void;
+  memberHistory: Array<Member>;
+  setMemberHistoryAnchor: (HTMLElement) => void;
+  memberHistoryAnchor: ?HTMLElement;
 };
 
 export class SearchBar extends Component<Props> {

@@ -124,7 +124,6 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
             establishmentsOptions={establishmentsOptions}
             handleDateFiltersChange={handleDateFiltersChange}
             isEstablishmentFilterEmbedded={!isMultiLocalizationEnabled}
-            isSubmitting={isSubmitting}
             loading={loading}
             onSubmit={onSubmit}
             setSelectedEstablishmentFilter={setSelectedEstablishmentFilter}

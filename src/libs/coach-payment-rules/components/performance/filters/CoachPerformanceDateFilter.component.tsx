@@ -41,8 +41,7 @@ type InitialValues = {
   establishmentsSelected: number[];
 };
 
-type Props = {
-  isSubmitting: boolean;
+type OwnProps = {
   disabled?: boolean;
   loading: boolean;
   hideExport?: boolean;
@@ -88,6 +87,8 @@ type Props = {
     selectedLocations: number[],
   ) => void;
 };
+
+type Props = OwnProps & FormikProps<InitialValues>;
 
 export function CoachPerformanceForm(props: Props) {
   const {
@@ -312,7 +313,7 @@ const CoachPerformanceSchema = Yup.object().shape({
   establishmentsSelected: Yup.array().of(Yup.number()),
 });
 
-export default compose<any, Props>(
+export default compose<any, OwnProps>(
   withFormik<Props, InitialValues>({
     mapPropsToValues: () => ({
       dateStart: moment().startOf('month'),

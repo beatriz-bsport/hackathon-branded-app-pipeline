@@ -49,9 +49,8 @@ type InitialValues = {
   establishmentsSelected: number[];
 };
 
-type Props = {
+type OwnProps = {
   coaches: Array<Coach>;
-  isSubmitting: boolean;
   disabled?: boolean;
   loading: boolean;
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
@@ -65,7 +64,9 @@ type Props = {
   establishmentGroupList: EstablishmentGroupAPI[];
   establishmentsLoading: boolean;
   establishmentGroupListLoading: boolean;
-} & FormikProps<InitialValues>;
+};
+
+type Props = OwnProps & FormikProps<InitialValues>;
 
 type FormProps = {
   selectedLocations: number[];
@@ -370,7 +371,7 @@ const CoachPerformanceSchema = Yup.object().shape({
   dateStart: Yup.date(),
 });
 
-export default compose<any, Props>(
+export default compose<any, OwnProps & FormProps>(
   withFormik<Props & FormProps, InitialValues>({
     mapPropsToValues: ({
       selectedLocations,

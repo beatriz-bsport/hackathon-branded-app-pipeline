@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
@@ -56,6 +55,7 @@ import {
   getFilteredEstablishments,
   getEstablishmentGroupNames,
   getEstablishmentNames,
+  // @ts-expect-error js file
 } from '#libs/coach-payment-rules/utils';
 
 type OwnProps = {
@@ -255,6 +255,7 @@ const connector = connect(
   (state: RootState, props: OwnProps) => ({
     coachWithPerformance: withCoachPerformance(associatedCoachSelector.get)(
       state,
+      // @ts-expect-error unexpected argument
       props.associatedCoachId,
     ) as CoachwithPerformance,
     loading: state.coachPaymentRules.performance.loading,

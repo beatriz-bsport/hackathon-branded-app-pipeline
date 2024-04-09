@@ -14,6 +14,7 @@ import {
   createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
   createShopItemProvision as createShopItemProvisionAPI,
   duplicateShopItem as duplicateShopItemAPI,
+  fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAPI,
 } from '../api';
 
 import { snackbarSuccess } from '#libs/snackbar/actions';
@@ -34,6 +35,7 @@ import type {
   Provision,
   ProvisionBulkCreate,
   ProvisionCreate,
+  ShopItemVariantCombination,
 } from '../types';
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
@@ -589,6 +591,48 @@ export const duplicateShopItem = (
       options?.onError?.();
     } finally {
       dispatch(duplicateShopItemActions.isLoading(false));
+    }
+  };
+};
+
+export const fetchShopItemVariantCombinationListActions = {
+  isLoading: createAction<boolean>(
+    'SHOP_ITEM/VARIANT_COMBINATION_LIST/LOADING',
+  ),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT_COMBINATION_LIST/ERROR'),
+  success: createAction<{ id: number; data: ShopItemVariantCombination[] }>(
+    'SHOP_ITEM/VARIANT_COMBINATION_LIST/SUCCESS',
+  ),
+};
+
+/**
+ * Fetch the list of existing variant combination for a base item
+ * @param id The ID of the base item
+ */
+export const fetchShopItemVariantCombinationList = (
+  id: number,
+  options?: OptionCallback<ShopItemVariantCombination[]>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchShopItemVariantCombinationListActions.isLoading(true));
+      dispatch(fetchShopItemVariantCombinationListActions.error(null));
+
+      const result = await fetchShopItemVariantCombinationListAPI(id);
+
+      dispatch(
+        fetchShopItemVariantCombinationListActions.success({
+          id,
+          data: result.data,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(fetchShopItemVariantCombinationListActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(fetchShopItemVariantCombinationListActions.isLoading(false));
     }
   };
 };

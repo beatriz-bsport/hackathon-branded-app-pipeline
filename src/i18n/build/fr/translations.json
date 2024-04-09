@@ -4257,7 +4257,9 @@
                 "subtitle": "Recevez des offres exclusives et découvrez nos dernières nouvelles.",
                 "title": "S'abonner à notre newsletter",
                 "email": "Email",
-                "validate": "Soumettre"
+                "validate": "Soumettre",
+                "successText": "Votre inscription a été envoyée",
+                "successTitle": "Merci pour votre intérêt!"
             }
         },
         "notifications": {
@@ -18448,7 +18450,9 @@
                     "hasFailedPayments": "A des échecs de payment",
                     "isReferralProgramAvailable": "Dispose d'un programme de parrainage",
                     "hasRemainingReferralUses": "a des possibilités de parrainage restantes",
-                    "state": "État"
+                    "state": "État",
+                    "showSuccessText": "Montrer le texte de confirmation",
+                    "showSuccessTitle": "Montrer le titre de la confirmation"
                 },
                 "option": {
                     "true": "Oui",
@@ -18570,7 +18574,11 @@
                 "firstNameAndEmail": "Prénom et adresse électronique",
                 "fullNameAndEmail": "Nom complet et adresse électronique",
                 "tagToApply": "Tag à appliquer lors de la soumission",
-                "newsletterFieldsType": "Renseignements demandés"
+                "newsletterFieldsType": "Renseignements demandés",
+                "showSuccessText": "Montrer le texte de confirmation",
+                "successText": "Texte de confirmation",
+                "showSuccessTitle": "Montrer le titre de la confirmation",
+                "successTitle": "Titre de la confirmation"
             }
         },
         "create": "Général",
@@ -19082,7 +19090,7 @@
         },
         "coachAnswer": {
             "yes": "Oui",
-            "ratherNo": "Ne préfère pas",
+            "ratherNo": "Peut-être",
             "no": "Non"
         },
         "noListItem": {

@@ -16794,7 +16794,9 @@
                     "hasFailedPayments": "Heeft betalingen mislukt",
                     "hasRemainingReferralUses": "Heeft overblijvende verwijzingen",
                     "isReferralProgramAvailable": "Heeft een verwijzingsprogramma",
-                    "state": "Staat"
+                    "state": "Staat",
+                    "showSuccessText": "Toon bevestigingstekst",
+                    "showSuccessTitle": "Toon bevestigingstitel"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16990,7 +16992,11 @@
                 "fullNameAndEmail": "Volledige naam en e-mail",
                 "advancedSettings": "Geavanceerde instellingen inschakelen",
                 "tagToApply": "Label toepassen bij indiening",
-                "newsletterFieldsType": "Informatie gevraagd"
+                "newsletterFieldsType": "Informatie gevraagd",
+                "showSuccessText": "Toon bevestigingstekst",
+                "successText": "Bevestigingstekst",
+                "showSuccessTitle": "Toon bevestigingstitel",
+                "successTitle": "Bevestigingstitel"
             }
         },
         "customize": "Personalisering",
@@ -19125,7 +19131,7 @@
         },
         "coachAnswer": {
             "no": "Nee",
-            "ratherNo": "Geen voorkeur",
+            "ratherNo": "Misschien",
             "yes": "Ja"
         },
         "managerTableTitles": {

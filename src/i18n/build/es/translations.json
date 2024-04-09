@@ -10516,7 +10516,42 @@
                 "ifEmptySelectAll": "Dejar vacío para seleccionar todo",
                 "selectFranchisees": "Selección de franquicias",
                 "selectFranchiseesDisabled": "Esta configuración es sólo para el papel personalizado (no para el de Admin o Owner)",
-                "commissionHeader": "Tasa de comisión"
+                "commissionHeader": "Tasa de comisión",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Seleccionar establecimiento",
+                            "search": "Búsqueda de establecimiento…",
+                            "allOptionsPlaceholder": "Todos los establecimientos",
+                            "title": "Establecimiento"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Seleccionar dirección",
+                            "search": "Buscar dirección…",
+                            "title": "Dirección",
+                            "helpText": "Seleccione aquí si este acceso de personal controlará la entrada de miembros frente a un establecimiento específico, un grupo de establecimientos o todo el estudio (en cuyo caso deje vacío el selector de establecimientos)."
+                        },
+                        "multilocation": {
+                            "placeholder": "Seleccione el lugar",
+                            "search": "Buscar ubicación…",
+                            "title": "Ubicación",
+                            "helpText": "Seleccione aquí si este acceso del personal controlará la entrada de los miembros frente a un establecimiento específico, un grupo de establecimientos o toda una ubicación (en cuyo caso deje vacío el selector de establecimiento tras la selección de la ubicación)."
+                        },
+                        "title": "Control de acceso"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Dejar vacío para seleccionar todo",
+                        "allOptionsPlaceholder": "Todos los profesores",
+                        "placeholder": "Seleccionar profesores",
+                        "subtitle": "Profesores asociados",
+                        "helpText": "Esta cuenta de personal sólo tendrá acceso al horario y calendario de los profesores seleccionados. Todos los profesores están seleccionados por defecto.",
+                        "title": "Restricciones para los profesores"
+                    },
+                    "title": "Configuración avanzada"
+                },
+                "advancedSettings": "Configuración avanzada",
+                "commission": "Comisión",
+                "warningNoEstablishmentSelected": "Debe configurar desde dónde trabajará el personal en Configuración avanzada."
             },
             "role": {
                 "delete": {
@@ -10810,6 +10845,12 @@
                 },
                 "inbox": {
                     "_label": "Bandeja de entrada"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Realizar el control de acceso"
+                    },
+                    "_label": "Control de acceso"
                 }
             },
             "member": {
@@ -16788,7 +16829,9 @@
                     "hasFailedPayments": "Hay impagos",
                     "hasRemainingReferralUses": "Tiene usos de referencia restantes",
                     "isReferralProgramAvailable": "Dispone de un programa de referencia",
-                    "state": "Estado"
+                    "state": "Estado",
+                    "showSuccessText": "Mostrar texto de confirmación",
+                    "showSuccessTitle": "Mostrar título de confirmación"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -16984,7 +17027,11 @@
                 "firstNameAndEmail": "Nombre y correo electrónico",
                 "fullNameAndEmail": "Nombre completo y correo electrónico",
                 "tagToApply": "Etiqueta que debe aplicarse en el envío",
-                "newsletterFieldsType": "Información solicitada"
+                "newsletterFieldsType": "Información solicitada",
+                "showSuccessText": "Mostrar texto de confirmación",
+                "successText": "Texto de confirmación",
+                "showSuccessTitle": "Mostrar título de confirmación",
+                "successTitle": "Título de confirmación"
             }
         },
         "customize": "Personalización",
@@ -17096,7 +17143,9 @@
                 "subtitle": "Obtenga ofertas exclusivas y entérese de nuestras últimas novedades",
                 "title": "Suscríbase a nuestro newsletter",
                 "email": "Email",
-                "validate": "Enviar"
+                "validate": "Enviar",
+                "successText": "Su suscripción ha sido enviada",
+                "successTitle": "¡Gracias por su interés!"
             }
         },
         "notifications": {
@@ -18969,7 +19018,7 @@
         },
         "coachAnswer": {
             "no": "No",
-            "ratherNo": "No prefiera",
+            "ratherNo": "Quizá",
             "yes": "Sí"
         },
         "managerTableTitles": {

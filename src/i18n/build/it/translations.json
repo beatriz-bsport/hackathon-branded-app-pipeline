@@ -16829,7 +16829,9 @@
                     "hasFailedPayments": "Ha dei pagamenti non andati a buon fine",
                     "hasRemainingReferralUses": "Ha un referral ancora rimanente da utilizzare",
                     "isReferralProgramAvailable": "Ha un programma referral disponibile",
-                    "state": "Stato"
+                    "state": "Stato",
+                    "showSuccessText": "Mostra il testo di conferma",
+                    "showSuccessTitle": "Mostra il titolo di conferma"
                 },
                 "option": {
                     "false": "No",
@@ -16969,7 +16971,11 @@
                 "firstNameAndEmail": "Nome ed email",
                 "fullNameAndEmail": "Nome completo ed email",
                 "tagToApply": "Tag da applicare all'invio",
-                "newsletterFieldsType": "Informazioni richeste"
+                "newsletterFieldsType": "Informazioni richeste",
+                "showSuccessText": "Mostra il testo di conferma",
+                "successText": "Testo di conferma",
+                "showSuccessTitle": "Mostra il titolo di conferma",
+                "successTitle": "Titolo di conferma"
             }
         },
         "create": "Generale",
@@ -17081,7 +17087,9 @@
                 "subtitle": "Ricevi offerte esclusive e conosci le nostre ultime novità",
                 "title": "Iscriviti alla newsletter",
                 "email": "Email",
-                "validate": "Invia"
+                "validate": "Invia",
+                "successText": "La tua iscrizione è stata inviata",
+                "successTitle": "Grazie dell'interesse!"
             }
         },
         "notifications": {
@@ -19015,7 +19023,7 @@
         },
         "coachAnswer": {
             "yes": "Si",
-            "ratherNo": "Non preferire",
+            "ratherNo": "Forse",
             "no": "No"
         },
         "noListItem": {

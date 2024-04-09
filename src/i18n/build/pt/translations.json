@@ -4090,7 +4090,9 @@
                 "subtitle": "Obter ofertas exclusivas e conhecer as nossas últimas notícias",
                 "title": "Subscrever a nossa newsletter",
                 "email": "Correio eletrónico",
-                "validate": "Submeter"
+                "validate": "Submeter",
+                "successText": "A sua subscrição foi enviada",
+                "successTitle": "Obrigado pelo seu interesse!"
             }
         },
         "audience": {
@@ -7166,6 +7168,12 @@
                 },
                 "inbox": {
                     "_label": "Caixa de entrada"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Efetuar a monitorização do acesso"
+                    },
+                    "_label": "Monitorização de acesso"
                 }
             },
             "franchiseMenu": {
@@ -7338,7 +7346,42 @@
                     "title": "Criar uma conta staff",
                     "buttonLabel": "Adicionar um acesso"
                 },
-                "selectFranchisees": "Seleção de franchisados"
+                "selectFranchisees": "Seleção de franchisados",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Selecionar o estabelecimento",
+                            "search": "Procurar um estabelecimento…",
+                            "allOptionsPlaceholder": "Todos os estabelecimentos",
+                            "title": "Estabelecimento"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Seleccionar morada",
+                            "search": "Procurar pela morada…",
+                            "title": "Morada",
+                            "helpText": "Seleccione aqui se este acesso do membro irá controlar a entrada de um membro em frente de um estabelecimento específico, de um grupo de estabelecimentos ou de todo o estúdio (neste caso, deixe o seletor de estabelecimento vazio)"
+                        },
+                        "multilocation": {
+                            "placeholder": "Seleccionar localização",
+                            "search": "Procurar pela localização…",
+                            "title": "Localização",
+                            "helpText": "Seleccione aqui se este acesso do membro irá controlar a entrada dos membros em frente de um estabelecimento específico, de um grupo de estabelecimentos ou de um local completo (neste caso, deixe o seletor de estabelecimento vazio após a seleção do local)"
+                        },
+                        "title": "Monitorização de acesso"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Deixar em branco para selecionar todos",
+                        "allOptionsPlaceholder": "Todos os professores",
+                        "placeholder": "Selecionar professores",
+                        "subtitle": "Professores associados",
+                        "helpText": "Esta conta de funcionário só terá acesso ao horário e ao calendário dos professores seleccionados. Todos os professores são seleccionados por predefinição.",
+                        "title": "Restrições para os professores"
+                    },
+                    "title": "Definições avançadas"
+                },
+                "advancedSettings": "Definições avançadas",
+                "commission": "Comissão",
+                "warningNoEstablishmentSelected": "Tem de definir o local a partir do qual o staff irá trabalhar nas Definições avançadas."
             }
         },
         "overbookingForbidden": "Os direitos atribuídos enquanto membro do pessoal não lhe permite ultrapassar o número máximo de reservas.",
@@ -12117,7 +12160,7 @@
         },
         "coachAnswer": {
             "no": "Nome",
-            "ratherNo": "Não prefiro",
+            "ratherNo": "Talvez",
             "yes": "Sim"
         },
         "managerTableTitles": {
@@ -13846,7 +13889,9 @@
                     "hasFailedPayments": "Não efectuou pagamentos",
                     "hasRemainingReferralUses": "Tem ainda utilizações de referência",
                     "isReferralProgramAvailable": "Tem um programa de referência disponível",
-                    "state": "Estado"
+                    "state": "Estado",
+                    "showSuccessText": "Mostrar o texto de confirmação",
+                    "showSuccessTitle": "Mostrar título de confirmação"
                 },
                 "configurationTitle": "Variações",
                 "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
@@ -14126,7 +14171,11 @@
                 "firstNameAndEmail": "Nome próprio e correio eletrónico",
                 "fullNameAndEmail": "Nome completo e correio eletrónico",
                 "tagToApply": "Etiqueta a aplicar na apresentação",
-                "newsletterFieldsType": "Informações solicitadas"
+                "newsletterFieldsType": "Informações solicitadas",
+                "showSuccessText": "Mostrar o texto de confirmação",
+                "successText": "Texto de confirmação",
+                "showSuccessTitle": "Mostrar o título de confirmação",
+                "successTitle": "Confirmação do título"
             }
         },
         "customizeCss": "Personalização css",

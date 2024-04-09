@@ -10,6 +10,7 @@ const getTranslations = async () => {
   );
 
   const {
+    EMAIL_RECIPIENT_UNKNOWN,
     EMAIL_RECIPIENT_DELIVERED,
     EMAIL_RECIPIENT_DEFERRED,
     EMAIL_RECIPIENT_DROPPED,
@@ -216,6 +217,7 @@ const getTranslations = async () => {
         [EMAIL_RECIPIENT_PROCESSED]: 'Pending',
         [EMAIL_RECIPIENT_PENDING]: 'Pending',
         [EMAIL_RECIPIENT_BOUNCED]: 'Bounced',
+        [EMAIL_RECIPIENT_UNKNOWN]: 'Unknown',
       },
       table: {
         columns: {

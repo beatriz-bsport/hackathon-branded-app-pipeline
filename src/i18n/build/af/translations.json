@@ -1116,7 +1116,15 @@
       "readCount": "Opened",
       "clicksCount": "Clicks",
       "showEmail": "Show email",
-      "status": { "0": "Pending", "1": "Pending", "2": "Refused", "3": "Deferred", "4": "Delivered", "5": "Bounced" },
+      "status": {
+        "0": "Pending",
+        "1": "Pending",
+        "2": "Refused",
+        "3": "Deferred",
+        "4": "Delivered",
+        "5": "Bounced",
+        "-1": "Unknown"
+      },
       "table": {
         "columns": {
           "email": "Email",

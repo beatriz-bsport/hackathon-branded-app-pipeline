@@ -17,27 +17,29 @@ import { RolePermission } from '../../libs/role/types';
 
 type Props = {
   classes: Object,
-  t: TFunction,
-  onReset: () => void,
-  searchedText: string,
-  onChange: (e: SyntheticEvent<HTMLElement>) => void,
+  fullWidth?: boolean,
   memberHistory: Array<Member>,
   memberHistoryAnchor: ?HTMLElement,
-  setMemberHistoryAnchor: (HTMLElement) => void,
+  onChange: (e: SyntheticEvent<HTMLElement>) => void,
   onClickRegister: (Member) => void,
+  onReset: () => void,
   permissions: RolePermission,
-  fullWidth?: boolean,
+  placeholder?: string,
+  searchedText: string,
+  setMemberHistoryAnchor: (HTMLElement) => void,
+  t: TFunction,
 };
 
 export function SearchMember(props: Props) {
   const {
     classes,
-    t,
-    onReset,
-    searchedText,
-    permissions,
-    onChange,
     fullWidth,
+    onChange,
+    onReset,
+    permissions,
+    placeholder,
+    searchedText,
+    t,
   } = props;
   return (
     <div className={classNames({ [classes.input]: fullWidth })}>
@@ -106,7 +108,7 @@ export function SearchMember(props: Props) {
             props.setMemberHistoryAnchor(ev.currentTarget);
           }
         }}
-        placeholder={t('input')}
+        placeholder={placeholder ?? t('input')}
         value={searchedText}
         variant="outlined"
       />

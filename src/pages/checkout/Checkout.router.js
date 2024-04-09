@@ -16,6 +16,7 @@ import { fetchProfile } from '../../libs/consumer-space/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';
 import { getTheme } from '../../theme';
+import { getLoginUrl as getLoginRedirectionUrl } from '../../libs/marketplace/routing-utils';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -91,11 +92,11 @@ export class PaymentRouter extends React.Component<Props> {
 
   getLoginUrl = () => {
     const { pathname } = this.props.location;
-    return `/login/customer?next=${encodeURIComponent(
-      `${pathname}${
-        window.location.search ? window.location.search : '?'
-      }&membership=${this.props.companyId}`,
-    )}&membership=${this.props.companyId}`;
+    return getLoginRedirectionUrl(
+      this.props.companyId,
+      pathname,
+      window.location.search,
+    );
   };
 
   render() {

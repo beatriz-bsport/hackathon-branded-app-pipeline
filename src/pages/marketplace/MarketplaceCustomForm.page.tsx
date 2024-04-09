@@ -41,6 +41,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { getLoginUrl as getLoginRedirectionUrl } from '#libs/marketplace/routing-utils';
 
 type StateHandlerInit = {
   submitSuccess: boolean;
@@ -97,11 +98,11 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
 
   getLoginUrl = () => {
     const { pathname } = this.props.location;
-    return `/login/customer?next=${encodeURIComponent(
-      `${pathname}${
-        window.location.search ? window.location.search : '?'
-      }&membership=${this.props.companyId}`,
-    )}&membership=${this.props.companyId}`;
+    return getLoginRedirectionUrl(
+      this.props.companyId,
+      pathname,
+      window.location.search,
+    );
   };
 
   render() {

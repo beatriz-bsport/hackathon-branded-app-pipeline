@@ -18,6 +18,7 @@ import {
   retrieveShopItemSupplierActions,
   createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
+  fetchShopItemVariantCombinationListActions,
 } from './actions/shopItemReworked';
 
 import {
@@ -39,6 +40,7 @@ import type {
   IsShopUsedInComboAPI,
   ShopItem,
   ShopItemVariant,
+  ShopItemVariantCombination,
   ShopStateReworked,
   ShopSupplier,
   SubShop,
@@ -276,20 +278,47 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       },
     ) => {
       const { next_page, count, page, results } = payload.data;
-      return state.setIn(
-        [
-          'shopItemReworked',
-          'itemVariant',
-          'byBaseItemId',
-          `${payload.baseItemId}`,
-        ],
-        {
+      return state
+        .setIn(
+          [
+            'shopItemReworked',
+            'itemVariant',
+            'byBaseItemId',
+            `${payload.baseItemId}`,
+            'next_page',
+          ],
           next_page,
-          page,
+        )
+        .setIn(
+          [
+            'shopItemReworked',
+            'itemVariant',
+            'byBaseItemId',
+            `${payload.baseItemId}`,
+            'count',
+          ],
           count,
-          variants: results,
-        },
-      );
+        )
+        .setIn(
+          [
+            'shopItemReworked',
+            'itemVariant',
+            'byBaseItemId',
+            `${payload.baseItemId}`,
+            'page',
+          ],
+          page,
+        )
+        .setIn(
+          [
+            'shopItemReworked',
+            'itemVariant',
+            'byBaseItemId',
+            `${payload.baseItemId}`,
+            'variants',
+          ],
+          results,
+        );
     },
     [createShopItemActions.isLoading.toString()]: (
       state,
@@ -750,6 +779,39 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           ['shopItemReworked', 'suppliers', 'byId'],
           (shopSuppliersById) => omit(shopSuppliersById, payload),
         );
+    },
+    [fetchShopItemVariantCombinationListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopItemVariantCombinationListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['shopItemReworked', 'itemVariant', 'error'], payload);
+    },
+    [fetchShopItemVariantCombinationListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { id: number; data: ShopItemVariantCombination[] } },
+    ) => {
+      if (!payload.id) return state;
+      return state.setIn(
+        [
+          'shopItemReworked',
+          'itemVariant',
+          'byBaseItemId',
+          payload.id,
+          'combinationList',
+        ],
+        payload.data,
+      );
     },
   },
   initialState,

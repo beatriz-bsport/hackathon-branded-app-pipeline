@@ -174,7 +174,10 @@ export type ShopStateReworked = {
       updateVariant: ErrorAndLoading;
       delete: ErrorAndLoading;
       byBaseItemId: {
-        [key: number]: WithPagination & { variants: ShopItemVariant[] };
+        [key: number]: WithPagination & {
+          combinationList: ShopItemVariantCombination[];
+          variants: ShopItemVariant[];
+        };
       };
       allIds: number[];
     } & ErrorAndLoading;

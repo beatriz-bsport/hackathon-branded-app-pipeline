@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
+                        "expiresIn_plural": "Resterende dagen",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -17102,7 +17102,9 @@
                 "subtitle": "Ontvang exclusieve promo's en blijf altijd up-to-date",
                 "title": "Abonneer op onze nieuwsbrief",
                 "email": "E-mail",
-                "validate": "Versturen"
+                "validate": "Versturen",
+                "successText": "Je abonnement is verstuurd",
+                "successTitle": "Bedankt voor je interesse!"
             }
         },
         "notifications": {

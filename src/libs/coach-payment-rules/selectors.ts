@@ -15,14 +15,15 @@ import { RootState } from '../../reducers';
 import {
   associatedCoachSelector,
   getAllCoaches,
-} from '../associated-coach/selectors';
+} from '#libs/associated-coach/selectors';
 
-import type { Coach } from '../associated-coach/types';
 import type {
+  AssociatedCoachWithPerformance,
+  Coach,
   CoachPaymentRule,
   CoachPaymentRuleGroup,
   CoachPaymentRuleGroupAPI,
-} from './types';
+} from '#libs/associated-coach/types';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
   state.coachPaymentRules.items[id];
@@ -207,7 +208,10 @@ export const withCachedCoachPerformance = memoize((selector: any) =>
 export const withCoachPerformance = memoize((selector: any) =>
   createSelector(
     [selector, getAllAssociatecCoachPerformance],
-    (associatedCoachList: Coach | Array<Coach>, coachPerformance) => {
+    (
+      associatedCoachList: Coach | Array<Coach>,
+      coachPerformance,
+    ): Coach | AssociatedCoachWithPerformance[] => {
       if (!associatedCoachList) {
         return associatedCoachList;
       }

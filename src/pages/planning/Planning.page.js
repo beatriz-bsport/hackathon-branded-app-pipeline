@@ -37,7 +37,6 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import { useOldPermissions } from '../../config';
 
 import withTitle from '#hocs/with-title.hoc';
 
@@ -143,7 +142,6 @@ import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import { DATE_FORMAT } from '../../utils/datetime';
 
 import CheckPermission from '#libs/role/components/CheckPermission.component';
-import { PermissionContext } from '../../context';
 import {
   getAvailableRoomBlueprints,
   getRoomBlueprints,
@@ -1290,46 +1288,24 @@ export class Planning extends PureComponent<Props, State> {
                         flexDirection: 'column',
                       }}
                     >
-                      {useOldPermissions ? (
-                        <PermissionContext.Consumer>
-                          {(permission) => (
-                            <Calendar
-                              showDayName
-                              date={this.props.date}
-                              events={events_}
-                              filters={this.props.offerFilters}
-                              onDateChange={this.loadDayData}
-                              onDownload={this.onDownload}
-                              onRequestMassDisable={
-                                permission.offer.delete &&
-                                this.props.setMassDisablerStartDate
-                              }
-                              setShowCancelledOffers={
-                                this.props.setShowCancelledOffers
-                              }
-                              showCancelledOffers={showCancelledOffers}
-                            />
-                          )}
-                        </PermissionContext.Consumer>
-                      ) : (
-                        <Calendar
-                          showDayName
-                          date={this.props.date}
-                          events={events_}
-                          filters={this.props.offerFilters}
-                          onDateChange={this.loadDayData}
-                          onDownload={this.onDownload}
-                          onRequestMassDisable={
-                            (hasDeleteActivityPermission ||
-                              hasDeleteWorkshopPermission) &&
-                            this.props.setMassDisablerStartDate
-                          }
-                          setShowCancelledOffers={
-                            this.props.setShowCancelledOffers
-                          }
-                          showCancelledOffers={showCancelledOffers}
-                        />
-                      )}
+                      <Calendar
+                        showDayName
+                        date={this.props.date}
+                        events={events_}
+                        filters={this.props.offerFilters}
+                        onDateChange={this.loadDayData}
+                        onDownload={this.onDownload}
+                        onRequestMassDisable={
+                          (hasDeleteActivityPermission ||
+                            hasDeleteWorkshopPermission) &&
+                          this.props.setMassDisablerStartDate
+                        }
+                        setShowCancelledOffers={
+                          this.props.setShowCancelledOffers
+                        }
+                        showCancelledOffers={showCancelledOffers}
+                      />
+
                       <TimeTable
                         displayCoachInfoOnHover
                         showTags

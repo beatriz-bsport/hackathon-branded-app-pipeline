@@ -22,7 +22,6 @@ import {
   getMemberDetail,
 } from '#libs/member/selectors';
 import { getPermissions } from '#libs/role/selectors';
-import { useOldPermissions } from '../../config';
 import MemberArchiveDialog from '#libs/member/components/MemberArchiveDialog.component';
 import MemberTable from '#libs/member/MemberTable.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -167,12 +166,8 @@ export class Members extends Component<Props, State> {
                     hasMemberProfileAccessPermission ? goToMemberPage : null
                   }
                   interrogateMemberStatus={this.interrogateMemberStatus}
-                  oldCreateMemberPermission={
-                    this.props.permissions?.member?.create
-                  }
                   tagsExcluded={this.state.tagsExcluded}
                   tagsIncluded={this.state.tagsIncluded}
-                  useOldPermissions={useOldPermissions}
                 />
               )}
             </ObjectLevelPermissionProvider>

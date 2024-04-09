@@ -37,7 +37,7 @@ import {
   Dialog,
   DialogTitle,
 } from '@material-ui/core';
-import Config, { useOldPermissions } from '../../config';
+import Config from '../../config';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
@@ -591,21 +591,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               ]}
                             >
                               {([
-                                hasNewCreatePermission,
-                                hasNewCommunicationPermission,
+                                hasCreatePermission,
+                                hasCommunicationPermission,
                                 hasActivityCreateBookingPermission,
                                 hasWorkshopCreateBookingPermission,
                               ]) => {
-                                // Temporary while former and new set of permissions coexist
-                                const hasCreatePermission = useOldPermissions
-                                  ? permissions?.member?.create
-                                  : hasNewCreatePermission;
-
-                                const hasCommunicationPermission =
-                                  useOldPermissions
-                                    ? permissions?.member?.retrieve
-                                    : hasNewCommunicationPermission;
-
                                 return (
                                   <>
                                     {hasCommunicationPermission && (

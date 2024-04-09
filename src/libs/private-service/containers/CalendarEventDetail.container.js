@@ -105,7 +105,6 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
-import CheckPermission from '../../role/components/CheckPermission.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
@@ -160,7 +159,6 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { ZoomApp } from '../../zoom-app/types';
-import { useOldPermissions } from '../../../config';
 
 type Props = {
   offerId: number,
@@ -521,49 +519,28 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               />
               {offer.available ? (
                 <div className={classes.buttonRow}>
-                  {useOldPermissions ? (
-                    <CheckPermission requiredPermissions="offer.edit">
-                      <Button
-                        color="primary"
-                        onClick={this.props.openOfferEditModal}
-                      >
-                        <EditIcon className={classes.iconLeft} />
-                        <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
-                      </Button>
-                    </CheckPermission>
-                  ) : (
-                    getEditPermission(
-                      offer,
-                      hasEditActivityPermission,
-                      hasEditWorkshopPermission,
-                    ) && (
-                      <Button
-                        color="primary"
-                        onClick={this.props.openOfferEditModal}
-                      >
-                        <EditIcon className={classes.iconLeft} />
-                        <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
-                      </Button>
-                    )
+                  {getEditPermission(
+                    offer,
+                    hasEditActivityPermission,
+                    hasEditWorkshopPermission,
+                  ) && (
+                    <Button
+                      color="primary"
+                      onClick={this.props.openOfferEditModal}
+                    >
+                      <EditIcon className={classes.iconLeft} />
+                      <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                    </Button>
                   )}
-                  {useOldPermissions ? (
-                    <CheckPermission requiredPermissions="offer.delete">
-                      <RedButton onClick={this.props.openOfferDeleteModal}>
-                        <DeleteIcon className={classes.iconLeft} />
-                        <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
-                      </RedButton>
-                    </CheckPermission>
-                  ) : (
-                    getDeletePermission(
-                      offer,
-                      hasDeleteActivityPermission,
-                      hasDeleteWorkshopPermission,
-                    ) && (
-                      <RedButton onClick={this.props.openOfferDeleteModal}>
-                        <DeleteIcon className={classes.iconLeft} />
-                        <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
-                      </RedButton>
-                    )
+                  {getDeletePermission(
+                    offer,
+                    hasDeleteActivityPermission,
+                    hasDeleteWorkshopPermission,
+                  ) && (
+                    <RedButton onClick={this.props.openOfferDeleteModal}>
+                      <DeleteIcon className={classes.iconLeft} />
+                      <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                    </RedButton>
                   )}
                 </div>
               ) : null}

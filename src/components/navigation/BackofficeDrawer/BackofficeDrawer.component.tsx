@@ -51,7 +51,7 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
-import Config, { useOldPermissions } from '../../../config';
+import Config from '../../../config';
 import { getTextColorFromRGB } from '../../../utils/color';
 import { getAllUnreadAnswersCount } from '#libs/communication-v2/selectors';
 
@@ -99,7 +99,7 @@ import type {
 } from '../../../state/types';
 
 import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -499,34 +499,25 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               />
             </MenuItem>
           )}
-          <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
-            {(hasNewPermission) => {
-              // Temporary while former and new set of permissions coexist
-              const hasPermission = useOldPermissions
-                ? permissions?.member?.create
-                : hasNewPermission;
-              return (
-                hasPermission && (
-                  <MenuItem onClick={openCreateMember}>
-                    <ListItemIcon>
-                      <Grid item>
-                        <Tooltip
-                          title={t(
-                            'navigation:backofficeMenu.addMemberTooltip',
-                          )}
-                        >
-                          <PersonAddIcon />
-                        </Tooltip>
-                      </Grid>
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={t('navigation:backofficeMenu.addMemberTooltip')}
-                    />
-                  </MenuItem>
-                )
-              );
-            }}
-          </ObjectLevelPermissionProvider>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.create"
+          >
+            <MenuItem onClick={openCreateMember}>
+              <ListItemIcon>
+                <Grid item>
+                  <Tooltip
+                    title={t('navigation:backofficeMenu.addMemberTooltip')}
+                  >
+                    <PersonAddIcon />
+                  </Tooltip>
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary={t('navigation:backofficeMenu.addMemberTooltip')}
+              />
+            </MenuItem>
+          </ObjectLevelPermissionWrapper>
           <MenuItem onClick={openIntercomHelp}>
             <ListItemIcon>
               <Grid item>
@@ -737,29 +728,22 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                           </IconButton>
                         </Grid>
                       )}
-                      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
-                        {(hasNewPermission) => {
-                          // Temporary while former and new set of permissions coexist
-                          const hasPermission = useOldPermissions
-                            ? permissions?.member?.create
-                            : hasNewPermission;
-                          return (
-                            hasPermission && (
-                              <Grid item>
-                                <IconButton onClick={openCreateMember}>
-                                  <Tooltip
-                                    title={t(
-                                      'navigation:backofficeMenu.addMemberTooltip',
-                                    )}
-                                  >
-                                    <PersonAddIcon />
-                                  </Tooltip>
-                                </IconButton>
-                              </Grid>
-                            )
-                          );
-                        }}
-                      </ObjectLevelPermissionProvider>
+                      <ObjectLevelPermissionWrapper
+                        forcedBehavior="hidden"
+                        requiredPermission="member.allowed_actions.create"
+                      >
+                        <Grid item>
+                          <IconButton onClick={openCreateMember}>
+                            <Tooltip
+                              title={t(
+                                'navigation:backofficeMenu.addMemberTooltip',
+                              )}
+                            >
+                              <PersonAddIcon />
+                            </Tooltip>
+                          </IconButton>
+                        </Grid>
+                      </ObjectLevelPermissionWrapper>
                     </Hidden>
                     {permissions?.appbarButtons?.notificationCenter && (
                       <Grid item>

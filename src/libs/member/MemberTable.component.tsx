@@ -30,9 +30,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { formatAsDate } from '#utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { MemberMinimal } from '#libs/member/types';
 import type { Tag } from '#libs/tag/types';
 import type { GenericPaginationResults } from '#libs/types';
@@ -225,9 +224,6 @@ type OwnProps = {
   disabledMemberId?: Array<number>;
   noDataText?: string;
   snackbarError?: (message: string) => void;
-  // temporary props for transition to new permissions
-  useOldPermissions?: boolean;
-  oldCreateMemberPermission?: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -390,26 +386,21 @@ export class MemberTable extends PureComponent<Props, State> {
           <TableFooter>
             <TableRow>
               <div className={this.props.classes.footerContainer}>
-                <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
-                  {(hasNewPermission) => {
-                    // Temporary while former and new set of permissions coexist
-                    const hasPermission = this.props.useOldPermissions
-                      ? this.props.oldCreateMemberPermission
-                      : hasNewPermission;
-                    return this.props.hideAddButton || !hasPermission ? (
-                      <div />
-                    ) : (
-                      <Button
-                        color="primary"
-                        onClick={this.props.addMember}
-                        variant="contained"
-                      >
-                        <AddIcon className={this.props.classes.leftIcon} />
-                        {t('addMember')}
-                      </Button>
-                    );
-                  }}
-                </ObjectLevelPermissionProvider>
+                {!this.props.hideAddButton && (
+                  <ObjectLevelPermissionWrapper
+                    forcedBehavior="hidden"
+                    requiredPermission="member.allowed_actions.create"
+                  >
+                    <Button
+                      color="primary"
+                      onClick={this.props.addMember}
+                      variant="contained"
+                    >
+                      <AddIcon className={this.props.classes.leftIcon} />
+                      {t('addMember')}
+                    </Button>
+                  </ObjectLevelPermissionWrapper>
+                )}
                 <TablePagination
                   count={count}
                   onPageChange={(_, page_) => changePage(page_)}

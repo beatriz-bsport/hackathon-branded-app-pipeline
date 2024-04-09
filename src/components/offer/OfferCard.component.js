@@ -33,7 +33,6 @@ import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
 import type { Offer } from '../../api/types';
 import { PermissionContext } from '../../context';
-import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
@@ -45,7 +44,6 @@ import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardS
 import OfferDetail from './OfferDetail.component';
 
 import type { Theme as CompanyTheme } from '#libs/theme/types';
-import { useOldPermissions } from '../../config';
 
 type Props = {
   t: TFunction,
@@ -357,59 +355,29 @@ export class OfferCard extends Component<Props, State> {
                   <div>
                     <div className={this.props.classes.bottomBlock}>
                       <div className={this.props.classes.buttonContainer}>
-                        {useOldPermissions ? (
-                          <CheckPermission requiredPermissions="offer.edit">
-                            <div className={this.props.classes.button}>
-                              <Button
-                                color="primary"
-                                onClick={onEditButtonClick}
-                              >
-                                <EditIcon className={classes.iconLeft} />
-                                <Hidden xsDown>
-                                  {t('offer:calendar.modifyOffer')}
-                                </Hidden>
-                              </Button>
-                            </div>
-                          </CheckPermission>
-                        ) : (
-                          getEditPermission(
-                            offer,
-                            hasEditActivityPermission,
-                            hasEditWorkshopPermission,
-                          ) && (
-                            <Button color="primary" onClick={onEditButtonClick}>
-                              <EditIcon className={classes.iconLeft} />
-                              <Hidden xsDown>
-                                {t('offer:calendar.modifyOffer')}
-                              </Hidden>
-                            </Button>
-                          )
+                        {getEditPermission(
+                          offer,
+                          hasEditActivityPermission,
+                          hasEditWorkshopPermission,
+                        ) && (
+                          <Button color="primary" onClick={onEditButtonClick}>
+                            <EditIcon className={classes.iconLeft} />
+                            <Hidden xsDown>
+                              {t('offer:calendar.modifyOffer')}
+                            </Hidden>
+                          </Button>
                         )}
-
-                        {useOldPermissions ? (
-                          <CheckPermission requiredPermissions="offer.delete">
-                            <div className={this.props.classes.button}>
-                              <RedButton onClick={onDeleteButtonClick}>
-                                <DeleteIcon className={classes.iconLeft} />
-                                <Hidden xsDown>
-                                  {t('offer:calendar.deleteOffer')}
-                                </Hidden>
-                              </RedButton>
-                            </div>
-                          </CheckPermission>
-                        ) : (
-                          getDeletePermission(
-                            offer,
-                            hasDeleteActivityPermission,
-                            hasDeleteWorkshopPermission,
-                          ) && (
-                            <RedButton onClick={onDeleteButtonClick}>
-                              <DeleteIcon className={classes.iconLeft} />
-                              <Hidden xsDown>
-                                {t('offer:calendar.deleteOffer')}
-                              </Hidden>
-                            </RedButton>
-                          )
+                        {getDeletePermission(
+                          offer,
+                          hasDeleteActivityPermission,
+                          hasDeleteWorkshopPermission,
+                        ) && (
+                          <RedButton onClick={onDeleteButtonClick}>
+                            <DeleteIcon className={classes.iconLeft} />
+                            <Hidden xsDown>
+                              {t('offer:calendar.deleteOffer')}
+                            </Hidden>
+                          </RedButton>
                         )}
                       </div>
                       {offer.id && this.props.companyId ? (

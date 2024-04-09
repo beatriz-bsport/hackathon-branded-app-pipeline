@@ -21,7 +21,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { useOldPermissions } from '../config';
 import {
   getSearchedMembers,
   withTags,
@@ -41,7 +40,6 @@ import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import { parseQueryString } from '../http';
 import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#libs/access-control/actions';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
@@ -53,6 +51,7 @@ import {
   type BroadcastChannelMessage,
 } from '#libs/broadcast-channel/types';
 import type { OptionCallback } from '#state/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   members: MemberMinimal[];
@@ -287,28 +286,17 @@ export class SearchResults extends React.Component<Props, State> {
           )}
           <div className={classes.content}>
             <Paper className={classes.contentInner}>
-              <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
-                {(hasNewPermission) => {
-                  // Temporary while former and new set of permissions coexist
-                  const hasPermission = useOldPermissions
-                    ? this.props.permissions?.member?.create
-                    : hasNewPermission;
-                  return (
-                    hasPermission && (
-                      <ListItem
-                        button
-                        divider
-                        onClick={this.props.openCreateMember}
-                      >
-                        <ListItemIcon>
-                          <PersonAddIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={t('actions.addMember')} />
-                      </ListItem>
-                    )
-                  );
-                }}
-              </ObjectLevelPermissionProvider>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="member.allowed_actions.create"
+              >
+                <ListItem button divider onClick={this.props.openCreateMember}>
+                  <ListItemIcon>
+                    <PersonAddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t('actions.addMember')} />
+                </ListItem>
+              </ObjectLevelPermissionWrapper>
               <ResultList
                 className={selected && !isLoadingMember ? classes.hidden : ''}
                 disableAccessMonitoringButton={

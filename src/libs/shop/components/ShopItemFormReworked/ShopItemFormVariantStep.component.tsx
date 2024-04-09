@@ -4,6 +4,7 @@ import { useFormikContext } from 'formik';
 import { Creatable } from 'react-select';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,11 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import type { ShopItemFormValues, ShopItemVariantOption } from './types';
 
 type Props = {
+  warningMessage?: string;
+  submitLabel?: string;
   handlePreviousStep?: () => void;
   onCancel?: () => void;
 };
 
 const ShopItemFormVariantStep: React.FC<Props> = ({
+  warningMessage,
+  submitLabel,
   handlePreviousStep,
   onCancel,
 }) => {
@@ -23,7 +28,7 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const { values, errors, setFieldValue } =
+  const { values, errors, isValid, setFieldValue } =
     useFormikContext<ShopItemFormValues>();
 
   const handleSetColors = useCallback(
@@ -92,13 +97,25 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
           </Typography>
         </Grid>
       </Grid>
+
+      {!!warningMessage && (
+        <Alert className={classes.warningAlert} severity="warning">
+          {t(warningMessage)}
+        </Alert>
+      )}
+
       <div className={classes.buttons}>
         {!!handlePreviousStep && (
           <Button onClick={handlePreviousStep}>{t('common:back')}</Button>
         )}
         {!!onCancel && <Button onClick={onCancel}>{t('common:cancel')}</Button>}
-        <Button color="primary" type="submit" variant="contained">
-          {t('common:save')}
+        <Button
+          color="primary"
+          disabled={!isValid}
+          type="submit"
+          variant="contained"
+        >
+          {submitLabel || t('common:save')}
         </Button>
       </div>
     </>
@@ -113,6 +130,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(0.5),
+  },
+  warningAlert: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   buttons: {
     display: 'flex',

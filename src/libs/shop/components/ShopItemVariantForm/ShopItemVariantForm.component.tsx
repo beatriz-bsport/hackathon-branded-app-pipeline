@@ -1,15 +1,26 @@
 import React, { useCallback, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import type { OptionsType } from 'react-select/lib/types';
 
 import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
 
-import type { ShopItemVariantAttributes } from '#libs/shop/types';
+import type {
+  ShopItemVariantAttributes,
+  ShopItemVariantCombination,
+} from '#libs/shop/types';
 import type { ShopItemVariantFormValues } from './types';
+import type { ShopItemVariantOption } from '../ShopItemFormReworked/types';
 
 import { shopItemVariantFormValidationSchema } from './shopItemVariantFormValidationSchema';
+import {
+  generateShopitemColorSizeCombinationList,
+  getDuplicateVariantCombinationList,
+} from '#libs/shop/utils';
 
 type Props = {
+  variantCombinationList: ShopItemVariantCombination[];
   onSubmit: (formData: ShopItemVariantAttributes) => void;
   onCancel: () => void;
 };
@@ -19,8 +30,14 @@ type Props = {
  * @prop `onSubmit` Action to perform when the form has been submitted with parsed values
  * @prop `onCancel` Action to perform when cancel button has been clicked
  */
-const ShopItemVariantForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+const ShopItemVariantForm: React.FC<Props> = ({
+  variantCombinationList,
+  onSubmit,
+  onCancel,
+}) => {
   const classes = useStyles();
+
+  const { t } = useTranslation('shop');
 
   const [initialValues] = useState<ShopItemVariantFormValues>({
     colors: [],
@@ -40,15 +57,55 @@ const ShopItemVariantForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
     [onSubmit],
   );
 
+  const getVariantFormVariantData = useCallback(
+    (
+      colors: OptionsType<ShopItemVariantOption>,
+      sizes: OptionsType<ShopItemVariantOption>,
+    ) => {
+      const shopItemVariantCombinationList =
+        generateShopitemColorSizeCombinationList(
+          (colors ?? []).map((color) => color.value),
+          (sizes ?? []).map((size) => size.value),
+        );
+      const duplicatedCombinationList = getDuplicateVariantCombinationList(
+        shopItemVariantCombinationList,
+        variantCombinationList,
+      );
+
+      return {
+        submitLabel: shopItemVariantCombinationList.length
+          ? t('saveVariantCount', {
+              count:
+                shopItemVariantCombinationList.length -
+                duplicatedCombinationList.length,
+            })
+          : '',
+        duplicatedCount: duplicatedCombinationList.length,
+      };
+    },
+    [t, variantCombinationList],
+  );
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
       validationSchema={shopItemVariantFormValidationSchema}
     >
-      <Form noValidate className={classes.form}>
-        <ShopItemFormVariantStep onCancel={onCancel} />
-      </Form>
+      {({ values }) => (
+        <Form noValidate className={classes.form}>
+          <ShopItemFormVariantStep
+            onCancel={onCancel}
+            submitLabel={
+              getVariantFormVariantData(values.colors, values.sizes).submitLabel
+            }
+            warningMessage={
+              getVariantFormVariantData(values.colors, values.sizes)
+                .duplicatedCount && t('duplicateVariantWarning')
+            }
+          />
+        </Form>
+      )}
     </Formik>
   );
 };

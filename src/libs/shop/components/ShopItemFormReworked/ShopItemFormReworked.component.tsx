@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import type { OptionsType } from 'react-select/lib/types';
 
 import {
   CB,
@@ -26,6 +28,7 @@ import {
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 import { shopItemFormValidationSchema } from './shopItemFormValidationSchema';
+import { generateShopitemColorSizeCombinationList } from '#libs/shop/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -54,6 +57,8 @@ const ShopItemFormReworked: React.FC<Props> = ({
   supplierList,
 }) => {
   const classes = useStyles();
+
+  const { t } = useTranslation('shop');
 
   const initialValues: ShopItemFormValues = useMemo(
     () => ({
@@ -183,27 +188,54 @@ const ShopItemFormReworked: React.FC<Props> = ({
     ],
   );
 
+  const getVariantStepSubmitLabel = useCallback(
+    (
+      colors: OptionsType<ShopItemVariantOption>,
+      sizes: OptionsType<ShopItemVariantOption>,
+    ) => {
+      const shopItemVariantCombinationList =
+        generateShopitemColorSizeCombinationList(
+          (colors ?? []).map((color) => color.value),
+          (sizes ?? []).map((size) => size.value),
+        );
+      return shopItemVariantCombinationList.length
+        ? t('saveProductWithVariantCount', {
+            count: shopItemVariantCombinationList.length,
+          })
+        : '';
+    },
+    [t],
+  );
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
       validationSchema={shopItemFormValidationSchema}
     >
-      <Form noValidate className={classes.form}>
-        {formStep === ShopItemFormStep.PRODUCT && (
-          <ShopItemFormProductStep
-            handleCancel={handleCancel}
-            handleNextStep={handleNextStep}
-            isEditForm={isEditForm}
-            isLoading={isLoading}
-            provincialTax={provincialTax}
-            supplierList={supplierList}
-          />
-        )}
-        {formStep === ShopItemFormStep.VARIANT && (
-          <ShopItemFormVariantStep handlePreviousStep={handlePreviousStep} />
-        )}
-      </Form>
+      {({ values }) => (
+        <Form noValidate className={classes.form}>
+          {formStep === ShopItemFormStep.PRODUCT && (
+            <ShopItemFormProductStep
+              handleCancel={handleCancel}
+              handleNextStep={handleNextStep}
+              isEditForm={isEditForm}
+              isLoading={isLoading}
+              provincialTax={provincialTax}
+              supplierList={supplierList}
+            />
+          )}
+          {formStep === ShopItemFormStep.VARIANT && (
+            <ShopItemFormVariantStep
+              handlePreviousStep={handlePreviousStep}
+              submitLabel={getVariantStepSubmitLabel(
+                values.colors,
+                values.sizes,
+              )}
+            />
+          )}
+        </Form>
+      )}
     </Formik>
   );
 };

@@ -27,6 +27,7 @@ import type {
   TabListOption,
   Provision,
   ProvisionCreate,
+  ShopItemVariantCombination,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
@@ -51,6 +52,7 @@ type Props = {
   supplierList: ShopSupplier[];
   page: number;
   count: number;
+  variantCombinationList: ShopItemVariantCombination[];
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
@@ -90,6 +92,7 @@ const ShopItemDetail: React.FC<Props> = ({
   supplierList,
   count,
   page,
+  variantCombinationList,
   getIsShopItemUsedInCombo,
   updateShopItem,
   updateShopItemVariantBulk,
@@ -335,6 +338,7 @@ const ShopItemDetail: React.FC<Props> = ({
         <ShopItemVariantForm
           onCancel={handleCloseCreateVariantDrawer}
           onSubmit={handleSubmitCreateVariant}
+          variantCombinationList={variantCombinationList}
         />
       </GenericResponsiveDrawer>
 

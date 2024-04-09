@@ -16,6 +16,7 @@ import {
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
   createShopItemProvision as createShopItemProvisionAction,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
+  fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 import { fetchShopSupplierList as fetchShopSupplierListAction } from '#libs/shop/actions/supplier';
@@ -33,6 +34,7 @@ import {
   getShopItemVariantUpdateLoading,
   getShopItemSupplier as getShopItemSupplierSelector,
   getShopSupplierList,
+  getShopItemVariantCombinationList,
 } from '#libs/shop/selectors';
 
 // --- COMPONENTS ---
@@ -71,6 +73,7 @@ export class ShopItemDetailPage extends Component<Props> {
     this.props.retrieveShopItemUsedInCombo(this.props.id);
     this.props.fetchShopSupplierList();
     this.retrieveShopItemDetails();
+    this.props.fetchShopItemVariantCombinationList(this.props.id);
   }
 
   retrieveShopItemDetails = () => {
@@ -162,6 +165,7 @@ export class ShopItemDetailPage extends Component<Props> {
       options: {
         onSuccess: () => {
           this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+          this.props.fetchShopItemVariantCombinationList(this.props.id);
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -212,7 +216,8 @@ export class ShopItemDetailPage extends Component<Props> {
         supplierList={this.props.supplierList}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
-        variantList={this.props.shopItemVariantState.variants}
+        variantCombinationList={this.props.variantCombinationList ?? []}
+        variantList={this.props.shopItemVariantState.variants ?? []}
       />
     );
   }
@@ -233,6 +238,7 @@ const connector = connect(
     isUpdateVariantLoading: getShopItemVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
+    variantCombinationList: getShopItemVariantCombinationList(state, id),
   }),
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
@@ -247,6 +253,8 @@ const connector = connect(
     deleteShopItemVariant: deleteShopItemVariantAction,
     createShopItemProvisionBulk: createShopItemProvisionBulkAction,
     createShopItemProvision: createShopItemProvisionAction,
+    fetchShopItemVariantCombinationList:
+      fetchShopItemVariantCombinationListAction,
     backToShopPage: () => push('/shop'),
   },
 );

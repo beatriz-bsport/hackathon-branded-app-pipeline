@@ -26,6 +26,7 @@ import type {
   ProvisionBulkCreate,
   ShopSupplierCreate,
   ShopSupplierUpdate,
+  ShopItemVariantCombination,
 } from './types';
 
 export async function fetchAll(
@@ -356,4 +357,14 @@ export const updateSubshop = (data: { id: number; name: string }) => {
  */
 export const deleteSubshop = (id: number) => {
   return deleteAuth(`${API_V1_URI}/shop/subshop/${id}/`);
+};
+
+/**
+ * Fetch the list of existing variant combination for a base item
+ * @param id The ID of the base item
+ */
+export const fetchShopItemVariantCombinationList = (id: number) => {
+  return getAuth<ShopItemVariantCombination[]>(
+    `${API_V1_URI}/shop/item/${id}/variants/`,
+  );
 };

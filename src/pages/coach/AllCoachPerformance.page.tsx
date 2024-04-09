@@ -266,7 +266,10 @@ export class AllCoachPerformancePage extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-    let associatedCoachWithCoachPaymentRuleAndPerformanceSelected = [];
+    let associatedCoachWithCoachPaymentRuleAndPerformanceSelected:
+      | Coach
+      | CoachwithPerformance[]
+      | Omit<CoachwithPerformance, 'performanceLoading'>[] = [];
     if (this.props.selectedCachedTimestamp) {
       associatedCoachWithCoachPaymentRuleAndPerformanceSelected =
         this.props
@@ -275,6 +278,11 @@ export class AllCoachPerformancePage extends Component<Props, State> {
       associatedCoachWithCoachPaymentRuleAndPerformanceSelected =
         this.props.associatedCoachWithCoachPaymentRuleAndPerformance;
     }
+
+    const dangerouslyTypeCastedAssociatedCoachWithCoachPaymentRuleAndPerformanceSelected =
+      associatedCoachWithCoachPaymentRuleAndPerformanceSelected as
+        | CoachwithPerformance[];
+
     const isInPreviewMode =
       !!this.props.selectedCachedTimestamp &&
       !!this.props
@@ -294,6 +302,7 @@ export class AllCoachPerformancePage extends Component<Props, State> {
               this.props.isSubmitLoading
             }
             onSubmit={this.props.onSubmit}
+            setSelectedEstablishmentFilter={this.setSelectedEstablishmentFilter}
             startTimestamp={this.state.startTimestamp}
             updateStateDate={this.changeDate}
           />
@@ -302,7 +311,6 @@ export class AllCoachPerformancePage extends Component<Props, State> {
         <CoachPerformanceAdvancedFilters
           coaches={this.props.allActiveAssociatedCoaches}
           coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
-          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
           coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           disabled={isInPreviewMode}
           establishmentGroupList={this.props.establishmentGroupList}
@@ -332,7 +340,7 @@ export class AllCoachPerformancePage extends Component<Props, State> {
         />
         <CoachPerformanceTable
           associatedCoachWithPerformance={
-            associatedCoachWithCoachPaymentRuleAndPerformanceSelected
+            dangerouslyTypeCastedAssociatedCoachWithCoachPaymentRuleAndPerformanceSelected
           }
           changePage={this.changePage}
           coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}

@@ -4,7 +4,7 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
-import { WithTranslation, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Table from '@material-ui/core/Table';
@@ -22,7 +22,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '#components/Tooltip.component';
-import { MaterialStyleType } from '../../../../utils/types';
 import type {
   CoachPaymentRuleGroup,
   CoachPaymentRule,
@@ -55,8 +54,7 @@ type CoachPaymentRuleActions = {
   setCoachPaymentRuleGroup: (
     coachId: number,
     coach_payment_rule_group_id: number,
-    associated_coach_id: number,
-  ) => number;
+  ) => void;
   setCoachPaymentRule: (
     coachId: number,
     coach_payment_rule_id: number,
@@ -332,11 +330,7 @@ type OwnProps = {
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof useStyles>> &
-  WithTranslation;
-
-export const CoachPerformanceTable = (props: Props) => {
+export const CoachPerformanceTable = (props: OwnProps) => {
   const {
     associatedCoachWithPerformance,
     loading,

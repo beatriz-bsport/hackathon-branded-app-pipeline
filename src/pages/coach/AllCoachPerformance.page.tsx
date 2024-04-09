@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -12,7 +11,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import {
   getActiveCoaches,
   getActiveCoachesBulk,
-} from '../../libs/associated-coach/selectors';
+} from '#libs/associated-coach/selectors';
 import {
   setCoachPaymentRule,
   setCoachPrivatePaymentRule,
@@ -67,7 +66,9 @@ import {
   getFilteredEstablishments,
   getEstablishmentGroupNames,
   getEstablishmentNames,
+  // @ts-expect-error js file
 } from '#libs/coach-payment-rules/utils';
+import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
 
 const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>
@@ -105,6 +106,7 @@ type CoachPaginationHelperParams =
       associatedCoachList: number[];
       is_associated_coach_list: true;
     };
+
 const coachPaginationHelper = ({
   associatedCoachList,
   is_associated_coach_list,
@@ -402,6 +404,7 @@ const connector = connect(
     allActiveAssociatedCoaches: getActiveCoaches(state),
     associatedCoachWithCoachPaymentRuleAndPerformance: withCoachPerformance(
       getActiveCoachesBulk,
+      // @ts-expect-error unexpected coachesPaginated[coachPaginationState.page] prop
     )(state, coachesPaginated[coachPaginationState.page]),
 
     coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),

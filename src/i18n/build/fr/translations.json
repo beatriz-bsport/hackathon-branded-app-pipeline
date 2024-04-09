@@ -10856,7 +10856,42 @@
                 "selectFranchisees": "Sélectionner des franchisés",
                 "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)",
                 "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
-                "commissionHeader": "Taux de commission"
+                "commissionHeader": "Taux de commission",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Sélectionner une salle",
+                            "search": "Rechercher une salle…",
+                            "allOptionsPlaceholder": "Toutes les salles",
+                            "title": "Salle"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Sélectionner une adresse",
+                            "search": "Rechercher une adresse…",
+                            "title": "Adresse",
+                            "helpText": "Sélectionnez ici si ce compte staff contrôlera l'entrée du membre devant une salle spécifique, un groupe de salle ou l'ensemble du studio (dans ce cas, laissez le sélecteur de salle vide)"
+                        },
+                        "multilocation": {
+                            "placeholder": "Sélectionner une localisation",
+                            "search": "Rechercher une localisation…",
+                            "title": "Localisation",
+                            "helpText": "Sélectionnez ici si ce compte staff contrôlera l'entrée des membres devant une salle spécifique, un groupe de salle ou une localisation entière (dans ce cas, laissez le sélecteur de salle vide après la sélection de la localisation)"
+                        },
+                        "title": "Surveillance des accès"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
+                        "allOptionsPlaceholder": "Tous les professeurs",
+                        "placeholder": "Sélectionner des professeurs",
+                        "subtitle": "Professeurs associés",
+                        "helpText": "Ce compte staff n'aura accès qu'à l'emploi du temps et au calendrier des professeurs sélectionnés. Par défaut, tous les professeurs sont sélectionnés.",
+                        "title": "Restrictions pour les professeurs"
+                    },
+                    "title": "Paramètres avancés"
+                },
+                "advancedSettings": "Paramètres avancés",
+                "commission": "Commission",
+                "warningNoEstablishmentSelected": "Vous devez définir l'endroit où le staff travaillera dans les paramètres avancés."
             },
             "role": {
                 "create": {
@@ -11153,6 +11188,12 @@
                 },
                 "inbox": {
                     "_label": "Inbox"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Surveiller les accès"
+                    },
+                    "_label": "Surveillance des accès"
                 }
             },
             "franchiseMenu": {

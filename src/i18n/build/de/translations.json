@@ -3403,7 +3403,42 @@
                 "selectCoach": "Lehrkraft auswählen",
                 "selectFranchisees": "Niederlassung auswählen",
                 "ifEmptySelectAll": "Leer lassen, um alle auszuwählen",
-                "commissionHeader": "Provisionssatz"
+                "commissionHeader": "Provisionssatz",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Einrichtung auswählen",
+                            "search": "Suche nach Einrichtung…",
+                            "allOptionsPlaceholder": "Alle Einrichtungen",
+                            "title": "Einrichtung"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Adresse auswählen",
+                            "search": "Suche nach Adresse…",
+                            "title": "Adresse",
+                            "helpText": "Wählen Sie hier aus, ob dieser Mitarbeiterzugang den Zutritt des Mitglieds zu einer bestimmten Einrichtung, einer Gruppe von Einrichtungen oder dem gesamten Studio überwachen soll (in diesem Fall lassen Sie die Auswahlmöglichkeit für die Einrichtung leer)"
+                        },
+                        "multilocation": {
+                            "placeholder": "Standort auswählen",
+                            "search": "Suche nach Standort…",
+                            "title": "Standort",
+                            "helpText": "Wählen Sie hier aus, ob dieser Mitarbeiterzugang den Zutritt der Mitglieder vor einem bestimmten Betrieb, einer Gruppe von Betrieben oder einem ganzen Standort überwachen soll (in diesem Fall lassen Sie den Selektor der Einrichtung nach der Auswahl des Standorts leer)"
+                        },
+                        "title": "Zugangskontrolle"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Frei lassen, um alle auszuwählen",
+                        "allOptionsPlaceholder": "Alle Lehrer",
+                        "placeholder": "Lehrkräfte auswählen",
+                        "subtitle": "Zugehörige Lehrer",
+                        "helpText": "Dieses Personalkonto hat nur Zugriff auf den Zeitplan und den Kalender der ausgewählten Lehrer. Als Standard sind alle Lehrer ausgewählt.",
+                        "title": "Einschränkungen für Lehrkräfte"
+                    },
+                    "title": "Erweiterte Einstellungen"
+                },
+                "advancedSettings": "Erweiterte Einstellungen",
+                "commission": "Kommission",
+                "warningNoEstablishmentSelected": "In den Erweiterten Einstellungen müssen Sie festlegen, von wo die Mitarbeiter arbeiten sollen."
             },
             "role": {
                 "delete": {
@@ -3697,6 +3732,12 @@
                 },
                 "inbox": {
                     "_label": "Posteingang"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Zugangskontrolle durchführen"
+                    },
+                    "_label": "Zugangskontrolle"
                 }
             },
             "member": {

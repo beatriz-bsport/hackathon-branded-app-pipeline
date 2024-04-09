@@ -14878,7 +14878,42 @@
                 "selectFranchisees": "Seleziona lo studio",
                 "selectFranchiseesDisabled": "Questa impostazione è solo per il ruolo personalizzato (non amministratore o proprietario)",
                 "ifEmptySelectAll": "Lascia vuoto per selezionare tutto",
-                "commissionHeader": "Tasso di commissione"
+                "commissionHeader": "Tasso di commissione",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Seleziona uno stabilimento",
+                            "search": "Cerca uno stabilimento…",
+                            "allOptionsPlaceholder": "Tutti gli stabilimenti",
+                            "title": "Stabilimento"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Seleziona un indirizzo",
+                            "search": "Cerca un indirizzo…",
+                            "title": "Indirizzo",
+                            "helpText": "Seleziona qui se questo accesso dello staff monitorerà l'ingresso dei membri davanti a uno specifico stabilimento, a un gruppo di stabilimenti o all'intero studio (in tal caso lasciare vuoto il selettore dello stabilimento)"
+                        },
+                        "multilocation": {
+                            "placeholder": "Seleziona una sede",
+                            "search": "Cerca una sede…",
+                            "title": "Sede",
+                            "helpText": "Seleziona qui se questo accesso dello staff monitorerà l'ingresso dei membri davanti a un locale specifico, a un gruppo di locali o a un'intera località (in tal caso lasciare vuoto il selettore del locale dopo la selezione della sede)"
+                        },
+                        "title": "Monitoraggio degli accessi"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Lascia vuoto per selezionare tutti",
+                        "allOptionsPlaceholder": "Tutti gli insegnanti",
+                        "placeholder": "Seleziona insegnanti",
+                        "subtitle": "Insegnante associato",
+                        "helpText": "Questo account dello staff avrà accesso solo agli orari e al calendario degli insegnanti selezionati. Per impostazione predefinita, sono selezionati tutti gli insegnanti.",
+                        "title": "Restrizioni per l'insegnante"
+                    },
+                    "title": "Impostazioni avanzate"
+                },
+                "advancedSettings": "Impostazioni avanzate",
+                "commission": "Commissioni",
+                "warningNoEstablishmentSelected": "È necessario impostare il luogo di lavoro del personale nelle Impostazioni avanzate."
             },
             "role": {
                 "delete": {
@@ -15168,6 +15203,12 @@
                 },
                 "inbox": {
                     "_label": "Posta in arrivo"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Eseguire il monitoraggio degli accessi"
+                    },
+                    "_label": "Monitoraggio degli accessi"
                 }
             },
             "member": {

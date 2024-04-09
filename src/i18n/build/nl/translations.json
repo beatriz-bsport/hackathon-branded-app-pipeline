@@ -14637,7 +14637,42 @@
                 "ifEmptySelectAll": "Laat dit veld leeg om alles te selecteren.",
                 "selectFranchisees": "Selecteer studio's",
                 "selectFranchiseesDisabled": "Deze instelling is alleen voor aangepaste rollen (niet Admin of Systeembeheerder)",
-                "commissionHeader": "Commissietarieven"
+                "commissionHeader": "Commissietarieven",
+                "advancedSettingsModal": {
+                    "accessMonitoring": {
+                        "establishment": {
+                            "placeholder": "Selecteer vestiging",
+                            "search": "Zoeken naar vestiging…",
+                            "allOptionsPlaceholder": "Alle vestigingen",
+                            "title": "Vestiging"
+                        },
+                        "singlelocation": {
+                            "placeholder": "Adres kiezen",
+                            "search": "Zoeken naar adres…",
+                            "title": "Address",
+                            "helpText": "Selecteer hier of dit personeelslid toegang heeft tot een specifieke vestiging, een groep vestigingen of de hele studio (laat in dat geval de vestiging-selector leeg)"
+                        },
+                        "multilocation": {
+                            "placeholder": "Selecteer locatie",
+                            "search": "Zoeken naar locatie…",
+                            "title": "Locatie",
+                            "helpText": "Selecteer hier of deze toegang voor personeel de toegang van leden zal controleren voor een specifieke vestiging, een groep vestigingen of een hele locatie (laat in dat geval de vestigingsselector leeg na de selectie van de locatie)"
+                        },
+                        "title": "Toegangscontrole"
+                    },
+                    "teacher": {
+                        "ifEmptySelectAll": "Leeg laten om alles te selecteren",
+                        "allOptionsPlaceholder": "Alle instructeurs",
+                        "placeholder": "Selecteer instructeurs",
+                        "subtitle": "Geassocieerde docenten",
+                        "helpText": "Dit personeelsaccount heeft alleen toegang tot de agenda en de agenda van de geselecteerde docenten. Standaard zijn alle docenten geselecteerd.",
+                        "title": "Beperkingen voor leerkrachten"
+                    },
+                    "title": "Geavanceerde instellingen"
+                },
+                "advancedSettings": "Geavanceerde instellingen",
+                "commission": "Commisie",
+                "warningNoEstablishmentSelected": "Onder Geavanceerde instellingen moet je instellen van waaruit het personeel zal werken."
             },
             "role": {
                 "delete": {
@@ -14932,6 +14967,12 @@
                 },
                 "inbox": {
                     "_label": "Inbox"
+                },
+                "accessMonitoring": {
+                    "perform": {
+                        "_label": "Toegangscontrole uitvoeren"
+                    },
+                    "_label": "Toegangscontrole"
                 }
             },
             "member": {

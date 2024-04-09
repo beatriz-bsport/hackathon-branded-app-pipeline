@@ -166,6 +166,7 @@ export const getShopItemVariantState = (
       next_page: null,
       count: 0,
       variants: [],
+      combinationList: [],
     };
   }
   return shopItemVariantState;
@@ -254,6 +255,18 @@ export const getShopSupplierUpdateLoading = (state: RootState) =>
 /** Returns the loading state when deleting a supplier */
 export const getShopSupplierDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.delete.loading;
+
+/** Returns the existing variant combination list from a base item */
+export const getShopItemVariantCombinationList = (
+  state: RootState,
+  id: number,
+) => {
+  if (!id) return [];
+  return (
+    state.shopReworked.shopItemReworked.itemVariant.byBaseItemId[id]
+      ?.combinationList ?? []
+  );
+};
 
 /**
  * Retrieves the list of all suppliers for the current company

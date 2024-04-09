@@ -71,4 +71,5 @@ exports.default = {
   discard: 'Discard',
   yes: 'Yes',
   no: 'No',
+  none: 'None',
 };

@@ -1,7 +1,75 @@
 {
   "accessControl": {
     "memberEntry": "Member entry",
-    "snackbar": { "message": "<strong>{{- name }}</strong> just checked in.", "G": "Valid", "O": "Warning", "R": "Not valid" }
+    "snackbar": { "message": "<strong>{{- name }}</strong> just checked in.", "G": "Valid", "O": "Warning", "R": "Not valid" },
+    "memberVisit": {
+      "emptyState": {
+        "waitForScan": "Wait for the member to scan their barcode or search their name or barcode manually.",
+        "establishmentsSelectedInRole": "You are monitoring access for <strong>{{- address }} - {{- establishments }}</strong>",
+        "or": "or",
+        "searchMember": "Search members by name or number"
+      },
+      "closeMemberVisit": "Close member page",
+      "refreshMemberVisit": "Refresh status",
+      "warnings": {
+        "hasUnpaidInvoices": "The member has one or several unpaid invoices",
+        "hasNegativeAccountBalance": "The member account balance is negative",
+        "hasUnpaidAppointments": "The member has one or several unpaid appointments",
+        "bookingsInOtherEstablishments": "The member’s booking {{- bookingName}} is scheduled in a different establishment : {{- establishmentName }}",
+        "noPasses": "The member has no active pass with credits left",
+        "passIsDisabled": "The member's pass {{- passName }} is disabled",
+        "passLinkedToPausedSubscription": "The member's pass {{- passName }} is linked to a paused subscription",
+        "passRestrictedToVod": "The member's pass {{- passName }} is restricted to VOD only",
+        "passRestrictedByOffPeakSchedule": "The member's pass {{- passName }} does not allow entry during this time slot",
+        "passIncompatibleWithEstablishments": "The member's pass {{- passName }} is not compatible with your site",
+        "passIncompatibleWithAppointmentsInEstablishments": "Appointments that can be booked with the member's pass {{- passName }} are not compatible with your site",
+        "numberOfCheckedPasses": "{{- count }} member's pass were checked with no valid result.",
+        "numberOfCheckedPasses_plural": "{{- count }} member's passes were checked with no valid result."
+      }
+    },
+    "memberVisitDetails": {
+      "accessStatus": { "green": "Valid", "orange": "Warning", "red": "Not valid" },
+      "title": "Member information",
+      "firstName": "First name:",
+      "lastName": "Last name:",
+      "nextBooking": "Next booking:",
+      "teacherName": "Teacher: {{- coachName}}",
+      "spotName": "Spot: {{- spotName}}",
+      "pass": "Pass:",
+      "photoHasChanged": "Profile picture changed recently",
+      "actions": { "seePreviousImages": "See previous", "goToProfile": "Profile", "billMember": "Bill" },
+      "manualEntry": {
+        "description": "Indicate if this member can enter or not",
+        "button": {
+          "refuse": "Refuse entry",
+          "accept": "Allow entry",
+          "entryAllowed": "Entered",
+          "entryRefused": "Entry refused"
+        }
+      },
+      "passExpiration": "Valid until {{- expirationDate }}",
+      "atHome": "At home"
+    },
+    "modals": {
+      "accessStatusChangedSuccess": {
+        "title": "Member status updated",
+        "message": "All issues have been cleared. Member status is updated to valid."
+      },
+      "entryStatusChanged": {
+        "Y": {
+          "title": "Member entered",
+          "message": "Member was allowed to enter with existing warnings.",
+          "description": "You can still address warnings from the Location visit tab."
+        },
+        "close": "Close member page",
+        "stay": "Stay on member page",
+        "N": {
+          "title": "Entry refused",
+          "message": "Member was refused entry.",
+          "description": "You can still address warnings and let them enter from the Location visit tab."
+        }
+      }
+    }
   },
   "alerting": {
     "list": { "title": "Notifications", "emptyAlerting": "No new notification to display." },
@@ -989,7 +1057,8 @@
     "day_plural": "days",
     "discard": "Discard",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "none": "None"
   },
   "communication": {
     "table": { "columns": { "member": "Member", "title": "Preview", "date_created": "Date", "status": "Status" } },

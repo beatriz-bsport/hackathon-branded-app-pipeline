@@ -16838,7 +16838,9 @@
                     "hasFailedPayments": "Hat Zahlungen nicht geleistet",
                     "hasRemainingReferralUses": "Hat verbleibende Verwendungszwecke",
                     "isReferralProgramAvailable": "hat ein Empfehlungsprogramm",
-                    "state": "Zustand"
+                    "state": "Zustand",
+                    "showSuccessText": "Bestätigungstitel anzeigen",
+                    "showSuccessTitle": "Bestätigungstitel anzeigen"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16960,7 +16962,11 @@
                 "firstNameAndEmail": "Vorname und E-Mail",
                 "fullNameAndEmail": "Vollständiger Name und E-Mail",
                 "tagToApply": "Bei der Einreichung zu verwendender Tag",
-                "newsletterFieldsType": "Angefragte Informationen"
+                "newsletterFieldsType": "Angefragte Informationen",
+                "showSuccessText": "Bestätigungstext anzeigen",
+                "successText": "Bestätigungstext",
+                "showSuccessTitle": "Bestätigungstitel anzeigen",
+                "successTitle": "Bestätigungstitel"
             }
         },
         "create": "Allgemein",
@@ -16988,7 +16994,9 @@
                 "subtitle": "Erhalten Sie exklusive Angebote und erfahren Sie unsere neuesten Nachrichten",
                 "title": "Unseren Newsletter abonnieren",
                 "email": "E-Mail",
-                "validate": "Einreichen"
+                "validate": "Einreichen",
+                "successText": "Ihr Anmeldeformular wurde gesendet",
+                "successTitle": "Vielen Dank für Ihr Interesse!"
             }
         },
         "notifications": {

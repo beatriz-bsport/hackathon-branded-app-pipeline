@@ -256,3 +256,10 @@ export type TabListOption = {
   label: string;
   value: ShopItemDetailTab;
 };
+
+/** Represents an existing variant created with associated color/size combination */
+export type ShopItemVariantCombination = {
+  id: number;
+  color: string;
+  size: string;
+};

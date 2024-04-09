@@ -84,7 +84,7 @@ import {
   fetchConsumerPaymentPackForBooking,
   fetchConsumerPaymentPackMaxoutBooking,
 } from '#libs/consumer-payment-pack/actions';
-import { fetchCoachBulk } from '#libs/associated-coach/actions';
+import { fetchCoachBulkForCompany } from '#libs/associated-coach/actions';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import {
@@ -262,7 +262,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.fetchMemberTagList(offer.company);
         this.props.fetchAllPaymentPackCategory(offer.company);
         this.props.fetchMetaActivityBulk([offer.meta_activity]);
-        this.props.fetchCoachBulk([offer.coach, offer.coach_override]);
+        this.props.fetchCoachBulkForCompany(
+          [offer.coach, offer.coach_override],
+          this.props.companyId,
+        );
         this.props.fetchEstablishmentBulk([offer.establishment]);
         if (offer.room_blueprint !== null) {
           this.setState({ isSpotSelectorOpen: true });
@@ -1198,7 +1201,7 @@ const mapDispatchToProps = {
   fetchConsumerPaymentPackMaxoutBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
   fetchMetaActivityBulk,
-  fetchCoachBulk,
+  fetchCoachBulkForCompany,
   fetchEstablishmentBulk,
   offerUserRegistration,
   fetchPaymentComboForBooking,

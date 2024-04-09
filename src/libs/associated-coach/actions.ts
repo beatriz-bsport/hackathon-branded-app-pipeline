@@ -566,6 +566,39 @@ export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
   };
 }
 
+/**
+ * @deprecated This version was introduced as a hotfix and has not been properly tested.
+ * The deprecation warning should remain until it has been thoroughly tested and can be used in
+ * other places besides BoutiqueBookerModule.page.tsx.
+ * The "twin" method "fetchCoachBulk" causes issues since filtering by filtering id__in (coach_pk)
+ * returns several AssociatedCoach instances per Coach, and the bulkRetrieveActions.success will only store
+ * the last one.
+ * By enforcing filtering with a "company," we ensure that the last one (the unique AssociatedCoach per Company) is
+ * the one we actually want.
+ */
+export const fetchCoachBulkForCompany = (
+  ids: Array<number>,
+  company: number,
+  options?: OptionCallback,
+) => {
+  return async (
+    dispatch: ThunkDispatch<any, any, any>,
+    getState: () => RootState,
+  ) => {
+    if (!company) {
+      return;
+    }
+    const freshCoachList = getFreshCoachIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshCoachList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(fetchCoachBulkBase({ id__in: ids_uniq, company }, options));
+  };
+};
+
 export const fetchCoachBulk = (
   ids: Array<number>,
   options?: OptionCallback,

@@ -95,32 +95,48 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
   });
-const coachPaginationHelper = (
-  associatedCoachList: Array<Coach>,
-  is_associated_coach_list: boolean,
-) => {
+
+type CoachPaginationHelperParams =
+  | {
+      associatedCoachList: Coach[];
+      is_associated_coach_list: false;
+    }
+  | {
+      associatedCoachList: number[];
+      is_associated_coach_list: true;
+    };
+const coachPaginationHelper = ({
+  associatedCoachList,
+  is_associated_coach_list,
+}: CoachPaginationHelperParams) => {
   if (is_associated_coach_list) {
-    return associatedCoachList?.reduce((acc, associated_coach_id, index) => {
-      if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-        acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-          associated_coach_id,
-        );
+    // typecasting should not be necessary, but somehow compiler fails to infer union type (while editor succeeds)
+    return (associatedCoachList as number[])?.reduce<Record<number, number[]>>(
+      (acc, coach_id, index) => {
+        const nextPageIndex = Math.floor(index / PAGINATION_PAGE_LENGTH) + 1;
+        if (acc[nextPageIndex]) {
+          acc[nextPageIndex].push(coach_id);
+        } else {
+          acc[nextPageIndex] = [coach_id];
+        }
+        return acc;
+      },
+      {},
+    );
+  }
+
+  return (associatedCoachList as Coach[])?.reduce<Record<number, number[]>>(
+    (acc, coach, index) => {
+      const nextPageIndex = Math.floor(index / PAGINATION_PAGE_LENGTH) + 1;
+      if (acc[nextPageIndex]) {
+        acc[nextPageIndex].push(coach.id);
       } else {
-        acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-          associated_coach_id,
-        ];
+        acc[nextPageIndex] = [coach.id];
       }
       return acc;
-    }, {});
-  }
-  return associatedCoachList?.reduce((acc, coach, index) => {
-    if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-      acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(coach.id);
-    } else {
-      acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [coach.id];
-    }
-    return acc;
-  }, {});
+    },
+    {},
+  );
 };
 
 type StateProps = WithHandlerType<typeof withStateHandlersSetter> &
@@ -194,7 +210,10 @@ export class AllCoachPerformancePage extends Component<Props, State> {
         previous: null,
       });
       this.props.setCoachesPaginated(
-        coachPaginationHelper(this.props.allActiveAssociatedCoaches, false),
+        coachPaginationHelper({
+          associatedCoachList: this.props.allActiveAssociatedCoaches,
+          is_associated_coach_list: false,
+        }),
       );
     }
 
@@ -224,7 +243,10 @@ export class AllCoachPerformancePage extends Component<Props, State> {
   leavePreviewMode = () => {
     this.props.setSelectedCachedTimestamp(null);
     this.props.setCoachesPaginated(
-      coachPaginationHelper(this.props.allActiveAssociatedCoaches, false),
+      coachPaginationHelper({
+        associatedCoachList: this.props.allActiveAssociatedCoaches,
+        is_associated_coach_list: false,
+      }),
     );
     this.props.setCoachPagination({
       page: 1,
@@ -548,31 +570,34 @@ const mapWithHandlers = {
         });
 
         setCoachesPaginated(
-          coaches.reduce((acc, associated_coach_id, index) => {
-            if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                allActiveAssociatedCoaches.find(
-                  (associated_coach) =>
-                    associated_coach_id ===
-                    associated_coach.associated_coach_id,
-                ).id,
-              );
-            } else {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                allActiveAssociatedCoaches.find(
-                  (associated_coach) =>
-                    associated_coach_id ===
-                    associated_coach.associated_coach_id,
-                ).id,
-              ];
-            }
-            return acc;
-          }, {}),
+          coaches.reduce<Record<number, number[]>>(
+            (acc, associated_coach_id, index) => {
+              if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
+                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
+                  allActiveAssociatedCoaches.find(
+                    (associated_coach) =>
+                      associated_coach_id ===
+                      associated_coach.associated_coach_id,
+                  ).id,
+                );
+              } else {
+                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
+                  allActiveAssociatedCoaches.find(
+                    (associated_coach) =>
+                      associated_coach_id ===
+                      associated_coach.associated_coach_id,
+                  ).id,
+                ];
+              }
+              return acc;
+            },
+            {},
+          ),
         );
-        const associatedCoachesFilterPaginated = coachPaginationHelper(
-          coaches,
-          true,
-        );
+        const associatedCoachesFilterPaginated = coachPaginationHelper({
+          associatedCoachList: coaches,
+          is_associated_coach_list: true,
+        });
         setAssociatedCoachesPaginated(associatedCoachesFilterPaginated);
       }
       options?.onSuccess();
@@ -833,7 +858,7 @@ const mapWithHandlers = {
       fetchAssociatedCoachesList(params, {
         onSuccess: (coaches) => {
           setAssociatedCoachesPaginated(
-            coaches.reduce((acc, coach, index) => {
+            coaches.reduce<Record<number, number[]>>((acc, coach, index) => {
               if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
                 acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
                   coach.associated_coach_id,
@@ -847,7 +872,12 @@ const mapWithHandlers = {
             }, {}),
           );
 
-          setCoachesPaginated(coachPaginationHelper(coaches, false));
+          setCoachesPaginated(
+            coachPaginationHelper({
+              associatedCoachList: coaches,
+              is_associated_coach_list: false,
+            }),
+          );
           const isLastPage = coaches.length <= PAGINATION_PAGE_LENGTH;
           setCoachPagination({
             page: 1,

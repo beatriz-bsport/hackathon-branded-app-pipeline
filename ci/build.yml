@@ -8,7 +8,7 @@ Build Deploy Staging:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "master"
-      when: always
+      when: on_success
     - when: never
   variables:
     S3BUCKETNAME: cdn-staging-sandbox
@@ -29,7 +29,7 @@ Build Deploy Production:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
-      when: always
+      when: on_success
     - when: never
   variables:
     S3BUCKETNAME: bsport-cdn
@@ -50,7 +50,7 @@ Build Deploy Dev:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
-      when: always
+      when: on_success
     - when: never
   variables:
     ENVIRONMENT: dev
@@ -69,7 +69,7 @@ Build Deploy Feature Branch:
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: $CI_COMMIT_TAG =~ /deploy-frontend-only-/
-      when: always
+      when: on_success
     - when: never
   variables:
     SLACK_WEBHOOK_URL: "${SLACK_FEATURE_BRANCH_WEBHOOK_URL}"

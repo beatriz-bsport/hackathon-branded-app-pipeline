@@ -25,7 +25,7 @@ Prepare Docker Builder Image Staging:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "master"
-      when: always
+      when: on_success
     - when: never
   variables:
     S3BUCKETNAME: bsport-eu-cdn-staging
@@ -40,7 +40,7 @@ Prepare Docker Builder Image Production:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
-      when: always
+      when: on_success
     - when: never
   variables:
     S3BUCKETNAME: bsport-cdn
@@ -55,7 +55,7 @@ Prepare Docker Builder Image Dev:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
-      when: always
+      when: on_success
     - when: never
   variables:
     ENVIRONMENT: dev
@@ -72,7 +72,7 @@ Prepare Docker Builder Image Feature Branch:
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: $CI_COMMIT_TAG =~ /deploy-/
-      when: always
+      when: on_success
     - when: never
   script:
     - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p'`

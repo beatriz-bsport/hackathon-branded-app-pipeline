@@ -237,9 +237,7 @@ export default compose<any, Props>(
   withRouter,
   withTranslation(namespaces),
   withProps((props: Props) => ({
-    // @ts-expect-error
     membership: parseQueryString(props.location.search).membership,
-    // @ts-expect-error
     franchisor: parseQueryString(props.location.search).franchisor,
   })),
   connect(

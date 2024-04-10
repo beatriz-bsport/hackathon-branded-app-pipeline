@@ -20,7 +20,7 @@ export const getBsportRequestFromHeader = () => {
   }
 };
 
-export function parseQueryString(url: string) {
+export function parseQueryString(url: string): Record<string, string> {
   const pos = url.lastIndexOf('?');
   if (pos === -1) {
     return {};

@@ -157,9 +157,7 @@ const connector = connect(
 
 export default compose(
   withProps((props: LocationProps) => ({
-    // @ts-expect-error
     membership: parseQueryString(props.location.search)?.membership,
-    // @ts-expect-error
     franchisorId: parseQueryString(props.location.search)?.franchisor,
     originalLoginNextLink:
       props.location?.search &&
@@ -170,7 +168,6 @@ export default compose(
               1,
           )
         : '',
-    // @ts-expect-error
     context: parseQueryString(props.location.search)?.context,
   })),
   connector,

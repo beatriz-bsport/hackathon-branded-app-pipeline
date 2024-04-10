@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { compose, withState } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { withTranslation } from 'react-i18next';
+import { ConnectedProps, connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -15,13 +15,16 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { Cake } from '@material-ui/icons';
-// import Popover from '@material-ui/core/Popover';
 import Popover from '@material-ui/core/Popper';
 import moment from 'moment-timezone';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { TFunction } from 'i18next';
+import type { Dispatch } from 'src/state/types';
+import { Theme } from '@material-ui/core';
+import type { RootState } from 'src/reducers';
+import type { Location } from 'history';
+import { WithStyles } from '@material-ui/styles';
 import { getMemberHistory } from '../libs/member/selectors';
 
 import { parseQueryString } from '../http';
@@ -31,25 +34,22 @@ import DelayedTextField from './DelayedTextField.component';
 import { search as searchActions } from '../actions';
 import { searchArchived as searchArchivedMembers } from '../libs/member/actions';
 
-type Props = {
-  t: TFunction;
-  searchForText: (text: string, changeLocation: boolean, path?: string) => void;
-  searchForTextAmoungArchived: (text: string) => void;
-  searchText: string;
-  clearSearch: (bool: boolean) => void;
-  history: Object;
-  classes: any;
+type OwnProps = {
   className: string;
   changeLocation: boolean;
-  push: (string) => void;
-  memberHistory: Array<Member>;
-  setMemberHistoryAnchor: (HTMLElement) => void;
-  memberHistoryAnchor: ?HTMLElement;
+  setMemberHistoryAnchor: (anchor: HTMLElement) => void;
+  memberHistoryAnchor?: HTMLElement;
 };
 
+type Props = OwnProps &
+  ConnectedProps<typeof connector> &
+  WithTranslation &
+  RouteComponentProps &
+  WithStyles<typeof styles>;
+
 export class SearchBar extends Component<Props> {
-  handleChange = (e: Object) => {
-    const { value } = e.target;
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     this.props.setMemberHistoryAnchor(null);
 
     if (!value) {
@@ -159,9 +159,9 @@ export class SearchBar extends Component<Props> {
   }
 }
 
-function mapDisPatchToProps(dispatch) {
+function mapDisPatchToProps(dispatch: Dispatch) {
   return {
-    searchForText(text: string, replace: boolean, changeLocation: boolean) {
+    searchForText(text: string, replace: string, changeLocation: boolean) {
       dispatch(
         searchActions.searchText(text, replace, changeLocation, {
           hide_archived: true,
@@ -174,13 +174,13 @@ function mapDisPatchToProps(dispatch) {
     clearSearch(changeLocation: boolean) {
       dispatch(searchActions.clearSearch(changeLocation));
     },
-    push(path) {
+    push(path: string) {
       dispatch(push(path));
     },
   };
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   bar: {
     width: '100%',
   },
@@ -203,7 +203,7 @@ const styles = (theme) => ({
   },
 });
 
-function getSearchText(state, location) {
+function getSearchText(state: RootState, location: Location) {
   if (state.search.searchText) {
     return state.search.searchText;
   }
@@ -211,16 +211,18 @@ function getSearchText(state, location) {
   return query.q;
 }
 
+const connector = connect(
+  (state: RootState, { location }: { location: Location }) => ({
+    searchText: getSearchText(state, location),
+    memberHistory: getMemberHistory(state),
+  }),
+  mapDisPatchToProps,
+);
+
 export default compose(
   withStyles(styles),
   withTranslation(['search']),
   withRouter,
   withState('memberHistoryAnchor', 'setMemberHistoryAnchor', null),
-  connect(
-    (state, { location }) => ({
-      searchText: getSearchText(state, location),
-      memberHistory: getMemberHistory(state),
-    }),
-    mapDisPatchToProps,
-  ),
+  connector,
 )(SearchBar);

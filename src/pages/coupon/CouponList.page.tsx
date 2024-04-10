@@ -54,6 +54,10 @@ import {
   fetchShopItemAsManager as fetchAllShop,
 } from '#libs/shop/actions/shopitem';
 import {
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#libs/shop/actions/shopItemReworked';
+import {
   fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
   fetchPrivatePassList,
 } from '#libs/private-service/actions';
@@ -67,8 +71,8 @@ import {
   getEnabled as getPaymentPacks,
 } from '#libs/payment-packs/selectors';
 import {
-  getAllShopItemData,
-  getShopItemsAvailable as getShopItems,
+  getShopItemBaseAndStandaloneById,
+  getShopItemBaseAndStandaloneList,
 } from '#libs/shop/selectors';
 import {
   getPrivatePassById,
@@ -129,7 +133,8 @@ export class CouponList extends React.PureComponent<Props, State> {
   componentDidMount() {
     this.props.fetchCouponPage(1);
     this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
-    this.props.fetchAllShop();
+    this.props.fetchShopItemStandaloneList();
+    this.props.fetchShopItemBaseList();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchTags();
@@ -415,7 +420,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           allPaymentCombosById={this.props.allPaymentCombosById}
           allPaymentPacksById={this.props.allPaymentPacksById}
           allPrivatePassesById={this.props.allPrivatePassesById}
-          allShopItemsById={this.props.allShopItemsById}
+          allShopItemsById={this.props.shopItemBaseAndStandaloneById}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
@@ -429,7 +434,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           paymentPacks={this.props.paymentPacks}
           privatePasses={this.props.privatePasses}
           processing={this.props.createOrUpdateLoading}
-          shopItems={this.props.shopItems}
+          shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
@@ -445,8 +450,8 @@ export class CouponList extends React.PureComponent<Props, State> {
           paymentPacksById={this.props.allPaymentPacksById}
           privatePasses={this.props.privatePasses}
           privatePassesById={this.props.allPrivatePassesById}
-          shopItems={this.props.shopItems}
-          shopItemsById={this.props.allShopItemsById}
+          shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
+          shopItemsById={this.props.shopItemBaseAndStandaloneById}
           uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
         />
 
@@ -499,8 +504,8 @@ const connector = connect(
     tagsLoading: state.tag.tag.loading || state.tag.group.loading,
     paymentPacks: getPaymentPacks(state),
     allPaymentPacksById: getPaymentPackById(state),
-    shopItems: getShopItems(state),
-    allShopItemsById: getAllShopItemData(state),
+    shopItemBaseAndStandaloneById: getShopItemBaseAndStandaloneById(state),
+    shopItemBaseAndStandaloneList: getShopItemBaseAndStandaloneList(state),
     paymentCombos: getPaymentComboList(state),
     allPaymentCombosById: getPaymenComboDataDict(state),
     privatePasses: getPrivatePass(state),
@@ -526,6 +531,8 @@ const connector = connect(
     updateUniqueCodeCouponAction: updateUniqueCodeCoupon,
     resetDisabledPaymentPack: resetDisabledPaymentPackAction,
     retrieveCoupon,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
   },
 );
 

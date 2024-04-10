@@ -39,10 +39,11 @@ import {
   fetchPaymentPackBulk as fetchSelectedPaymentPacks,
   resetDisabledPaymentPack as resetDisabledPaymentPackAction,
 } from '../../libs/payment-packs/actions';
+import { fetchBulk as fetchSelectedShopItems } from '#libs/shop/actions/shopitem';
 import {
-  fetchBulk as fetchSelectedShopItems,
-  fetchShopItemAsManager as fetchAllShop,
-} from '#libs/shop/actions/shopitem';
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#libs/shop/actions/shopItemReworked';
 import {
   fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
   fetchPrivatePassList,
@@ -58,7 +59,8 @@ import {
 } from '#libs/payment-packs/selectors';
 import {
   getAllShopItemData,
-  getShopItemsAvailable as getShopItems,
+  getShopItemBaseAndStandaloneById,
+  getShopItemBaseAndStandaloneList,
 } from '#libs/shop/selectors';
 import {
   getPrivatePassById,
@@ -103,7 +105,6 @@ type Props = {
   fetchTags: () => void,
   fetchAllPaymentPacks: () => void,
   fetchSelectedPaymentPacks: (ids: Number[]) => void,
-  fetchAllShop: () => void,
   fetchPrivatePassList: () => void,
   fetchSelectedPrivatePasses: (ids: Number[]) => void,
   fetchPaymentComboList: () => void,
@@ -118,7 +119,6 @@ type Props = {
   tagsLoading: boolean,
   paymentPacks: Array<PaymentPack>,
   allPaymentPacksById: { [key: number]: PaymentPack },
-  shopItems: Array<ShopItem>,
   allShopItemsById: { [key: number]: ShopItem },
   privatePasses: Array<PrivatePass>,
   allPrivatePassesById: { [key: number]: PrivatePass },
@@ -152,7 +152,6 @@ export class CouponCreate extends Component<Props, State> {
       page_size: PAGE_SIZE,
     });
     this.props.fetchAllPaymentPacks();
-    this.props.fetchAllShop();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchTags();
@@ -161,6 +160,8 @@ export class CouponCreate extends Component<Props, State> {
   componentDidMount() {
     this.props.retrieveCoupon(this.props.id);
     this.props.fetchTags();
+    this.props.fetchShopItemStandaloneList();
+    this.props.fetchShopItemBaseList();
   }
 
   componentWillUnmount() {
@@ -331,7 +332,7 @@ export class CouponCreate extends Component<Props, State> {
           allPaymentCombosById={this.props.allPaymentCombosById}
           allPaymentPacksById={this.props.allPaymentPacksById}
           allPrivatePassesById={this.props.allPrivatePassesById}
-          allShopItemsById={this.props.allShopItemsById}
+          allShopItemsById={this.props.shopItemBaseAndStandaloneById}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
@@ -345,7 +346,7 @@ export class CouponCreate extends Component<Props, State> {
           paymentPacks={this.props.paymentPacks}
           privatePasses={this.props.privatePasses}
           processing={this.props.createOrUpdateLoading}
-          shopItems={this.props.shopItems}
+          shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
@@ -363,8 +364,8 @@ export class CouponCreate extends Component<Props, State> {
             paymentPacksById={this.props.allPaymentPacksById}
             privatePasses={this.props.privatePasses}
             privatePassesById={this.props.allPrivatePassesById}
-            shopItems={this.props.shopItems}
-            shopItemsById={this.props.allShopItemsById}
+            shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
+            shopItemsById={this.props.shopItemBaseAndStandaloneById}
             uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
           />
           <VoucherCodesDialog
@@ -484,13 +485,14 @@ const connector = connect(
     tagsLoading: state.tag.tag.loading || state.tag.group.loading,
     paymentPacks: getPaymentPacks(state),
     allPaymentPacksById: getPaymentPackById(state),
-    shopItems: getShopItems(state),
     allShopItemsById: getAllShopItemData(state),
     privatePasses: getPrivatePass(state),
     allPrivatePassesById: getPrivatePassById(state),
     paymentCombos: getPaymentComboList(state),
     allPaymentCombosById: getPaymenComboDataDict(state),
     tagList: getAllTagsWithTagGroup(state),
+    shopItemBaseAndStandaloneById: getShopItemBaseAndStandaloneById(state),
+    shopItemBaseAndStandaloneList: getShopItemBaseAndStandaloneList(state),
   }),
   {
     goToCouponList: () => pushRouter('/coupon'),
@@ -504,7 +506,6 @@ const connector = connect(
     resetDiscounts,
     fetchAllPaymentPacks,
     fetchSelectedPaymentPacks,
-    fetchAllShop,
     fetchSelectedShopItems,
     fetchPrivatePassList,
     fetchSelectedPrivatePasses,
@@ -516,6 +517,8 @@ const connector = connect(
     markCodesAsRedeemed: markCodesAsRedeemedAction,
     exportCodesAsCsv: exportCodesAsCsvAction,
     retrieveCoupon,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
   },
 );
 export default compose(

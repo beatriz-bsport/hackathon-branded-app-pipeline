@@ -72,7 +72,6 @@ export class SearchBar extends Component<Props> {
     return (
       <div className={`${classes.bar} ${className}`}>
         <Popover
-          disableAutoFocus
           transition
           anchorEl={this.props.memberHistoryAnchor}
           open={

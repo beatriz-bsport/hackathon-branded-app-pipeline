@@ -151,7 +151,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<Props, OwnProps>(
   withRouter,
   withStyles(styles, { withTheme: true }),
   withTranslation(['franchise']),

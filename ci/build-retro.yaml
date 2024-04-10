@@ -8,7 +8,7 @@
     max: 2
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $TRIGGERED_JOB == "tag-releases"'
-      when: always
+      when: on_success
     - when: never
 
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}

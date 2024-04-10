@@ -14,7 +14,7 @@ Build widget dev:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
-      when: always
+      when: on_success
     - if: $CI_COMMIT_TAG =~ /deploy-/
       when: never
     - when: never
@@ -27,7 +27,7 @@ Build widget staging:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "master"
-      when: always
+      when: on_success
     - if: $CI_COMMIT_TAG =~ /deploy-/
       when: never
     - when: never
@@ -42,7 +42,7 @@ Build widget production:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
-      when: always
+      when: on_success
     - if: $CI_COMMIT_TAG =~ /deploy-/
       when: never
     - when: never

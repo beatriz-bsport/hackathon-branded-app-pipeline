@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import Immutable from 'seamless-immutable';
 
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
@@ -203,6 +204,34 @@ export const getShopItemBaseList = createSelector(
   [getShopItemBaseAllIds, getShopItemBaseById],
   (shopItemBaseAllIds, shopItemBaseById) => {
     return shopItemBaseAllIds.map((id) => shopItemBaseById[id]);
+  },
+);
+
+/** Get base + standalone shop item ids */
+export const getShopItemBaseAndStandaloneAllIds = createSelector(
+  [getShopItemStandaloneAllIds, getShopItemBaseAllIds],
+  (shopItemStandaloneAllIds, shopItemBaseAllIds) => {
+    return shopItemStandaloneAllIds.concat(shopItemBaseAllIds);
+  },
+);
+
+/** Get base + standalone shop item data */
+export const getShopItemBaseAndStandaloneById = createSelector(
+  [getShopItemStandaloneById, getShopItemBaseById],
+  (shopItemStandaloneById, shopItemBaseById) => {
+    return Immutable({
+      ...shopItemStandaloneById,
+      ...shopItemBaseById,
+    });
+  },
+);
+
+export const getShopItemBaseAndStandaloneList = createSelector(
+  [getShopItemBaseAndStandaloneAllIds, getShopItemBaseAndStandaloneById],
+  (shopItemBaseAndStandaloneAllIds, shopItemBaseAndStandaloneById) => {
+    return shopItemBaseAndStandaloneAllIds.map(
+      (id) => shopItemBaseAndStandaloneById[id],
+    );
   },
 );
 

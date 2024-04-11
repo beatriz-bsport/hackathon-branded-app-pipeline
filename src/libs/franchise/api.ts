@@ -17,6 +17,7 @@ import type {
   FranchiseDetails,
   CompanyGroup,
   CreateUpdateCompanyGroupData,
+  SearchUsersPayload,
 } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
@@ -82,4 +83,8 @@ export const createOrUpdateCompanyGroup = (
     `${API_V1_URI}/franchisor/company_group/`,
     data,
   );
+};
+
+export const searchFranchiseUsers = async (payload: SearchUsersPayload) => {
+  return postAuth<FranchiseUser[]>(`${API_V1_URI}/user/search/`, payload);
 };

@@ -1,6 +1,7 @@
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
-import { OptionCallback } from '../../state/types';
+import { push as pushRouter } from 'connected-react-router';
+import type { OptionCallback } from '../../state/types';
 
 import {
   fetchFranchise as fetchFranchiseAPI,
@@ -11,8 +12,15 @@ import {
   fetchCompanyGroupList as fetchCompanyGroupListAPI,
   retrieveFranchise as retrieveFranchiseAPI,
   createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
+  searchFranchiseUsers as searchFranchiseUsersAPI,
 } from './api';
-import { Franchise, CompanyGroup, CreateUpdateCompanyGroupData } from './types';
+import type {
+  Franchise,
+  CompanyGroup,
+  CreateUpdateCompanyGroupData,
+  SearchUsersPayload,
+  FranchiseUser,
+} from './types';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -254,5 +262,40 @@ export function createOrUpdateCompanyGroup(
     } finally {
       dispatch(createOrUpdateCompanyGroupActions.isLoading(false));
     }
+  };
+}
+
+export const searchFranchiseUsersActions = {
+  error: createAction<Error | null>('FRANCHISE/USERS/SEARCH/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/USERS/SEARCH/IS_LOADING'),
+  success: createAction<FranchiseUser[]>('FRANCHISE/USERS/SEARCH/SUCCESS'),
+  previousURI: createAction<string>('FRANCHISE/USERS/SEARCH/PREVIOUS_URL'),
+};
+
+export function searchFranchiseUsers(
+  payload: SearchUsersPayload,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    if (!window.location.pathname.includes('/f/search')) {
+      dispatch(
+        searchFranchiseUsersActions.previousURI(window.location.pathname),
+      );
+    }
+    dispatch(searchFranchiseUsersActions.isLoading(true));
+    dispatch(searchFranchiseUsersActions.error(null));
+    dispatch(pushRouter('/f/search'));
+
+    try {
+      const response = await searchFranchiseUsersAPI(payload);
+      dispatch(searchFranchiseUsersActions.success(response.data));
+
+      options?.onSuccess();
+    } catch (error) {
+      dispatch(searchFranchiseUsersActions.error(error));
+      options?.onError(error);
+    }
+
+    dispatch(searchFranchiseUsersActions.isLoading(false));
   };
 }

@@ -12,6 +12,7 @@ import {
   listCompanyGroupActions,
   createOrUpdateCompanyGroupActions,
   themeUpdate,
+  searchFranchiseUsersActions,
 } from './actions';
 import {
   FranchiseCompany,
@@ -30,6 +31,13 @@ const initialState: Immutable.Immutable<FranchiseState> =
       count: 0,
       allIds: [],
       byId: {},
+      loading: false,
+    },
+    searchedUsers: {
+      results: [],
+      loading: false,
+      error: null,
+      previousURI: '',
     },
     companies: {
       byId: {},
@@ -239,6 +247,30 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           },
           { deep: true },
         );
+    },
+    [searchFranchiseUsersActions.previousURI.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload },
+    ) => {
+      return state.setIn(['searchedUsers', 'previousURI'], payload);
+    },
+    [searchFranchiseUsersActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload },
+    ) => {
+      return state.setIn(['searchedUsers', 'loading'], payload);
+    },
+    [searchFranchiseUsersActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload },
+    ) => {
+      return state.setIn(['searchedUsers', 'error'], payload);
+    },
+    [searchFranchiseUsersActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload },
+    ) => {
+      return state.setIn(['searchedUsers', 'results'], payload);
     },
   },
   initialState,

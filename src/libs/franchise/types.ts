@@ -11,6 +11,12 @@ export type FranchiseState = {
     type: string;
   };
   franchisor?: Franchise | FranchiseDetails;
+  searchedUsers: {
+    results: FranchiseUser[];
+    loading: boolean;
+    error: Error | null;
+    previousURI: string;
+  };
   users: {
     page: number;
     count: number;
@@ -110,4 +116,9 @@ export type CreateUpdateCompanyGroupData = {
   id?: number;
   name: string;
   companies: number[];
+};
+
+export type SearchUsersPayload = {
+  text: string;
+  count?: number;
 };

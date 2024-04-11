@@ -1,24 +1,8 @@
 import type { WidgetApiMessageType } from 'bsport-saas/src/libs/widget/types';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Dispatch } from 'react';
-import {
-  BridgeAPIActionsRegistry,
-  ApiCallAction,
-} from 'bsport-saas/src/libs/widget/actionsRegistry';
-
-type QueryClientParams = {
-  timeBetweenRefetchs: number,
-  maxCallAttempts: number,
-  retryOnError: boolean,
-};
-
-type ActionOptions = {
-  successCallbackExtractFn?: (data: unknown) => unknown,
-};
-
-const defaultActionOptions: ActionOptions = {
-  successCallbackExtractFn: (data) => data,
-};
+import { ActionOptions, QueryClientParams } from './types';
+import { defaultActionOptions } from './constants';
 
 class BridgeApiCallHandler {
   #timeBetweenRefetchs: number;

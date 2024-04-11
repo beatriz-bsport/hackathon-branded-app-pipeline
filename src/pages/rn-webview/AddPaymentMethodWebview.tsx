@@ -64,7 +64,9 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
       },
     });
 
-    this.props.fetchMember(this.props.memberId);
+    // The query param '?me=true' is here to force the retrieval of the member
+    // even if the user is in fact a coach
+    this.props.fetchMember(this.props.memberId, null, { me: true });
   }
 
   requestSetupIntentSecret = () => {

@@ -88,8 +88,8 @@ export async function untagAll(tagId: number) {
   });
 }
 
-export async function fetchMember(memberId: number) {
-  return getAuth(`${API_V1_URI}/member/${memberId}/`);
+export async function fetchMember(memberId: number, params?: { me: boolean }) {
+  return getAuth(`${API_V1_URI}/member/${memberId}/${buildUrlParams(params)}`);
 }
 
 export async function fetchCountObject(memberId: number) {

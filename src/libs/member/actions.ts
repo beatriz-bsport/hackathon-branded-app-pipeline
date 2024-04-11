@@ -498,12 +498,16 @@ export function searchArchived(
   };
 }
 
-export function fetchMember(id: number, options?: OptionCallback<Member>) {
+export function fetchMember(
+  id: number,
+  options?: OptionCallback<Member>,
+  params?: { me: boolean },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
 
     try {
-      const response = await fetchMemberApi(id);
+      const response = await fetchMemberApi(id, params);
       const member = response.data;
       dispatch(hasFetchedMember(member));
       if (options && options.onSuccess) {

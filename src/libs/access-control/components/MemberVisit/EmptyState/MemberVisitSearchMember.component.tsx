@@ -10,11 +10,13 @@ import type { MemberMinimal } from '#libs/member/types';
 type Props = {
   onMemberClick: (memberId: number) => void;
   searchMembers: (searchText: string, params: any, options: any) => void;
+  title?: string;
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
   onMemberClick,
   searchMembers,
+  title,
 }) => {
   const { t } = useTranslation('accessControl');
   const classes = useStyles();
@@ -60,7 +62,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <Typography variant="h6">{t('memberVisit.emptyState.or')}</Typography>
+        {!!title && <Typography variant="h6">{title}</Typography>}
         <div className={classes.memberSearch}>
           <MemberSearchBar
             fullWidth

@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 
-import { WithTranslation } from 'react-i18next';
+import { WithTranslation, useTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
@@ -304,6 +304,7 @@ const MemberVisit: React.FC<Props> = React.memo(
     theme,
   }) => {
     const classes = useStyles();
+    const { t } = useTranslation('accessControl');
 
     const {
       establishmentsInRole,
@@ -355,6 +356,7 @@ const MemberVisit: React.FC<Props> = React.memo(
                 <MemberVisitSearchMemberComponent
                   onMemberClick={handleCheckInMember}
                   searchMembers={searchMembers}
+                  title={t('memberVisit.emptyState.or')}
                 />
               </>
             </ObjectLevelPermissionWrapper>

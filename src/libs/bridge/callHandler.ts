@@ -1,6 +1,10 @@
-import type { WidgetApiMessageType } from 'bsport-saas/src/libs/widget/types';
+import type {
+  ApiCallActions,
+  WidgetApiMessageType,
+} from 'bsport-saas/src/libs/widget/types';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Dispatch } from 'react';
+import { BridgeAPIActionsRegistry } from 'bsport-saas/src/libs/widget/actionsRegistry';
 import { ActionOptions, QueryClientParams } from './types';
 import { defaultActionOptions } from './constants';
 
@@ -9,7 +13,7 @@ class BridgeApiCallHandler {
 
   #maxCallAttempts: number;
 
-  #actionsRegistry: BridgeAPIActionsRegistry;
+  #actionsRegistry: BridgeAPIActionsRegistry<ApiCallActions>;
 
   #requestStatusStore: Partial<
     // @ts-expect-error due to prettier trailing comma
@@ -41,7 +45,7 @@ class BridgeApiCallHandler {
 
   bindActions(
     type: WidgetApiMessageType,
-    actions: ApiCallAction,
+    actions: ApiCallActions,
     options?: ActionOptions,
   ) {
     const optionsWithDefaults = { ...defaultActionOptions, ...options };
@@ -60,7 +64,10 @@ class BridgeApiCallHandler {
     payload: { args: A, options?: OptionCallback<T> },
     dispatch: Dispatch<any>,
   }) {
-    const action = this.#actionsRegistry.get(type);
+    const actions = this.#actionsRegistry.get(type);
+
+    const isLoadingAction =
+      'isLoading' in actions ? actions.isLoading : actions.loading;
 
     const iframe = document.getElementById('@bsport-bridge-iframe');
 
@@ -82,18 +89,18 @@ class BridgeApiCallHandler {
       if (this.#requestStatusStore[type] === 'fulfilled') return;
 
       if (attempt >= this.#maxCallAttempts) {
-        dispatch(action.error(new Error('Max call attempts reached')));
-        dispatch(action.isLoading(false));
+        dispatch(actions.error(new Error('Max call attempts reached')));
+        dispatch(isLoadingAction(false));
         return;
       }
 
-      dispatch(action.isLoading(true));
-      dispatch(action.error(null));
+      dispatch(isLoadingAction(true));
+      dispatch(actions.error(null));
       try {
         iframe.contentWindow?.postMessage({ type, args: payload.args }, '*');
       } catch (err) {
-        dispatch(action.error(err));
-        dispatch(action.isLoading(false));
+        dispatch(actions.error(err));
+        dispatch(isLoadingAction(false));
         console.error(err);
       }
       setTimeout(() => {
@@ -114,6 +121,9 @@ class BridgeApiCallHandler {
     dispatch: Dispatch<any>,
   }) {
     const actions = this.#actionsRegistry.get(type);
+    const isLoadingAction =
+      'isLoading' in actions ? actions.isLoading : actions.loading;
+
     if (response.error) {
       if (this.#retryOnError && this.#requestStatusStore[type] === 'pending') {
         return;
@@ -131,7 +141,7 @@ class BridgeApiCallHandler {
       }
       dispatch(actions.success(response.data));
     }
-    dispatch(actions.isLoading(false));
+    dispatch(isLoadingAction(false));
   }
 }
 /**

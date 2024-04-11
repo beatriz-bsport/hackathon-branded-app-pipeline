@@ -74,7 +74,7 @@ export class CoachFormPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       isUserAlreadyRegisteredDialogOpen: false,
-      isEmailChecking: false,
+      isEmailChecking: true,
       initialEmail: null,
     };
   }

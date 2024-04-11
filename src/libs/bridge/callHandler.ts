@@ -12,6 +12,14 @@ type QueryClientParams = {
   retryOnError: boolean,
 };
 
+type ActionOptions = {
+  successCallbackExtractFn?: (data: unknown) => unknown,
+};
+
+const defaultActionOptions: ActionOptions = {
+  successCallbackExtractFn: (data) => data,
+};
+
 class BridgeApiCallHandler {
   #timeBetweenRefetchs: number;
 
@@ -29,8 +37,12 @@ class BridgeApiCallHandler {
   #apiCallbackRegistry: Partial<
     Record<
       WidgetApiMessageType,
-      // @ts-expect-error due to prettier trailing comma
-      { onSuccess?: (data: any) => void, onError?: (error: Error) => void },
+      {
+        onSuccess?: (data: any) => void,
+        onError?: (error: Error) => void,
+        successExtractFn: (data: unknown) => unknown,
+        // @ts-expect-error due to prettier trailing comma
+      },
       // @ts-expect-error due to prettier trailing comma
     >,
   > = {};
@@ -43,8 +55,16 @@ class BridgeApiCallHandler {
     this.#actionsRegistry = new BridgeAPIActionsRegistry('widget');
   }
 
-  bindActions(type: WidgetApiMessageType, actions: ApiCallAction) {
+  bindActions(
+    type: WidgetApiMessageType,
+    actions: ApiCallAction,
+    options?: ActionOptions,
+  ) {
+    const optionsWithDefaults = { ...defaultActionOptions, ...options };
     this.#actionsRegistry.register(type, actions);
+    this.#apiCallbackRegistry[type] = {
+      successExtractFn: optionsWithDefaults.successCallbackExtractFn,
+    };
   }
 
   sendRequest<A, T>({
@@ -67,16 +87,10 @@ class BridgeApiCallHandler {
     this.#requestStatusStore[type] = 'pending';
 
     if (payload.options?.onSuccess) {
-      if (!this.#apiCallbackRegistry[type]) {
-        this.#apiCallbackRegistry[type] = {};
-      }
       this.#apiCallbackRegistry[type].onSuccess = payload.options.onSuccess;
     }
 
     if (payload.options?.onError) {
-      if (!this.#apiCallbackRegistry[type]) {
-        this.#apiCallbackRegistry[type] = {};
-      }
       this.#apiCallbackRegistry[type].onError = payload.options.onError;
     }
 
@@ -128,7 +142,8 @@ class BridgeApiCallHandler {
     } else {
       this.#requestStatusStore[type] = 'fulfilled';
       if (this.#apiCallbackRegistry[type]?.onSuccess) {
-        this.#apiCallbackRegistry[type].onSuccess(response.data);
+        const extractFn = this.#apiCallbackRegistry[type].successExtractFn;
+        this.#apiCallbackRegistry[type].onSuccess(extractFn(response.data));
       }
       dispatch(actions.success(response.data));
     }

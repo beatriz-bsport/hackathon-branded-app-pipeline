@@ -65,14 +65,14 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
       this.props.settingsData?.length > 0
         ? this.props.settingsData[0].settings[
             NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING
-          ]?.disabled ?? true
-        : true;
+          ]?.disabled ?? false
+        : false;
     const notificationRulePaymentExpiredSecondWarningIsDisabled =
       this.props.settingsData?.length > 0
         ? this.props.settingsData[0].settings[
             NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING
-          ]?.disabled ?? true
-        : true;
+          ]?.disabled ?? false
+        : false;
 
     return (
       <div className={classes.container}>

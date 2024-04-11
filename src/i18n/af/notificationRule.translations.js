@@ -437,7 +437,7 @@ const getTranslations = async () => {
       [NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]:
         'Subscription payment method about to expire (first warning)',
       [NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]:
-        'subscription payment method about to expire (second warning)',
+        'Subscription payment method about to expire (second warning)',
     },
     pageTitle: 'Transactional notifications',
     caption: {

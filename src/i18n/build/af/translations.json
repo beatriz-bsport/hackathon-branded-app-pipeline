@@ -5429,7 +5429,7 @@
       "102": "Cancelled session (for teachers)",
       "103": "Modified session (for teachers)",
       "200": "Subscription payment method about to expire (first warning)",
-      "201": "subscription payment method about to expire (second warning)",
+      "201": "Subscription payment method about to expire (second warning)",
       "300": "A member that hasn't responded in time and has been kicked from the waitlist",
       "301": "Reset member password",
       "302": "Member email validation",

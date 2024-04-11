@@ -30,6 +30,10 @@ import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/act
 import { getFranchisePermissions } from '#libs/role/selectors';
 import GenericDialog from '#components/genericDialog/GenericDialog';
 
+const FranchiseUserSearch = asyncComponent(
+  () => import('./FranchiseUserSearch.page'),
+);
+
 const FranchiseMemberDetails = asyncComponent(
   () => import('./FranchiseMemberDetails.page'),
 );
@@ -166,6 +170,7 @@ const FranchiseRouter = (props: Props) => {
             <Route component={EmailTemplate} path="/f/email-template" />
             <Route component={FranchiseMarketingRouter} path="/f/marketing" />
             <Route component={WidgetGeneratorPage} path="/f/settings/widget" />
+            <Route component={FranchiseUserSearch} path="/f/search" />
             <Route
               exact
               component={FranchiseStaffRoleRouter}

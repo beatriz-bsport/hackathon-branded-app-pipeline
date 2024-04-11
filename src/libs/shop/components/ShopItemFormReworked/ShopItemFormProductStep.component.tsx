@@ -55,7 +55,6 @@ const ShopItemPreview: React.FC<{
 
 type Props = {
   handleCancel: () => void;
-  handleNextStep: () => void;
   isLoading?: boolean;
   isEditForm?: boolean;
   provincialTax: number;
@@ -64,7 +63,6 @@ type Props = {
 
 const ShopItemFormProductStep: React.FC<Props> = ({
   handleCancel,
-  handleNextStep,
   isLoading,
   isEditForm,
   provincialTax,
@@ -328,8 +326,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             <Button
               className={classes.button}
               color="primary"
-              onClick={isEditForm ? undefined : handleNextStep}
-              type={isEditForm ? 'submit' : 'button'}
+              type="submit"
               variant="contained"
             >
               {isEditForm

@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
+import { ShopItemFormStep } from './types';
 
-export const shopItemFormValidationSchema = Yup.object().shape({
+const shopItemFormProductStepValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required('common:requiredField')
     .max(200, 'shop:shopitem.form.error.name'),
@@ -23,6 +24,10 @@ export const shopItemFormValidationSchema = Yup.object().shape({
   featured: Yup.boolean().required('common:requiredField'),
   sellOnlyOnProvision: Yup.boolean().required('common:requiredField'),
   isDeliverable: Yup.boolean().required('common:requiredField'),
+  supplier: Yup.number().nullable(true),
+});
+
+const shopItemFormVariantStepValidationSchema = Yup.object().shape({
   colors: Yup.array().of(
     Yup.object().shape({
       label: Yup.string()
@@ -43,5 +48,9 @@ export const shopItemFormValidationSchema = Yup.object().shape({
         .max(100, 'shop:shopItem.form.error.colorSize'),
     }),
   ),
-  supplier: Yup.number().nullable(true),
 });
+
+export default {
+  [ShopItemFormStep.PRODUCT]: shopItemFormProductStepValidationSchema,
+  [ShopItemFormStep.VARIANT]: shopItemFormVariantStepValidationSchema,
+};

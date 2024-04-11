@@ -27,7 +27,7 @@ import {
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
-import { shopItemFormValidationSchema } from './shopItemFormValidationSchema';
+import shopItemFormValidationSchema from './shopItemFormValidationSchema';
 import { generateShopitemColorSizeCombinationList } from '#libs/shop/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
@@ -92,10 +92,6 @@ const ShopItemFormReworked: React.FC<Props> = ({
 
   const handlePreviousStep = useCallback(() => {
     setFormStep(ShopItemFormStep.PRODUCT);
-  }, []);
-
-  const handleNextStep = useCallback(() => {
-    setFormStep(ShopItemFormStep.VARIANT);
   }, []);
 
   const handleCancel = useCallback(() => {
@@ -211,14 +207,13 @@ const ShopItemFormReworked: React.FC<Props> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
-      validationSchema={shopItemFormValidationSchema}
+      validationSchema={shopItemFormValidationSchema[formStep]}
     >
       {({ values }) => (
         <Form noValidate className={classes.form}>
           {formStep === ShopItemFormStep.PRODUCT && (
             <ShopItemFormProductStep
               handleCancel={handleCancel}
-              handleNextStep={handleNextStep}
               isEditForm={isEditForm}
               isLoading={isLoading}
               provincialTax={provincialTax}

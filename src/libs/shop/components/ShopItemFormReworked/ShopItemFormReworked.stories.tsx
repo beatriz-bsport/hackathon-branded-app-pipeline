@@ -11,7 +11,7 @@ import ShopItemFormReworked from './ShopItemFormReworked.component';
 
 import type { ShopItemFormValues } from './types';
 
-import { shopItemFormValidationSchema } from './shopItemFormValidationSchema';
+import shopItemFormValidationSchema from './shopItemFormValidationSchema';
 
 const ShopItemFormTemplate: ComponentStory<typeof ShopItemFormReworked> = (
   args,
@@ -119,7 +119,7 @@ export default {
       enableReinitialize: true,
       validateOnChange: false,
       validateOnBlur: false,
-      validationSchema: shopItemFormValidationSchema,
+      validationSchema: shopItemFormValidationSchema.product,
       onSubmit: () => {},
     },
     layout: 'centered',

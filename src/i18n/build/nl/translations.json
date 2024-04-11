@@ -6260,7 +6260,7 @@
                 "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd.",
                 "confirmation": {
                     "willNotifyInfo": "Deze profielen zullen worden samengevoegd voor de hele franchise. Deze actie kan enige tijd in beslag nemen, we zullen je op de hoogte stellen zodra deze is voltooid.",
-                    "mergeIsPermanentWarning": "Merging members will transfer the internal balance, reservations, passes, notes and invoices. <strong>This action cannot be undone once confirmed.</strong>\n Only the tags of the deleted member will not be transferred. A message will be sent to both email addresses to notify the members.",
+                    "mergeIsPermanentWarning": "Het samenvoegen van leden zal de waarde van de interne rekeningen, reserveringen, kaarten, noties en facturen overzetten. <strong>Deze actie is definitief en kan na het bevestigen hiervan niet ongedaan worden gemaakt.</strong>\n\nAlleen de Tags van het samengoegde lid worden niet overgezet. Houd rekening mee dat beide e-mailadressen ook een bevestiging ontvangen.",
                     "title": "Weet je zeker dat je leden wilt samenvoegen?",
                     "confirm": "Bevestig"
                 }
@@ -10460,7 +10460,7 @@
                 "comboWarning": "Zodra je dit product verwijdert, zal het ook niet langer beschikbaar zijn om gekocht te worden bij bijbehorende pakketten.",
                 "message": "Weet je zeker dat je dit product van je webshop wilt verwijderen? Deze actie is definitief.",
                 "genericTitle": "Bevestig verwijdering",
-                "title": "Verwijder  - {{- name }}"
+                "title": "Verwijder: {{- name }}"
             },
             "viewBarcode": "Toon barcode",
             "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",

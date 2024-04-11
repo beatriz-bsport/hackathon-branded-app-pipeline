@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
-import type { ShopItem } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getShopItemName } from '../utils';
@@ -36,11 +35,30 @@ export default (props: Props) => {
 
   const itemSubtitle = props.shopitem.subtitle;
 
-  const itemPrice = props.shopitem.lowest_variant_price
-    ? t('startingAtWithPrice', {
-        price: getCurrencyDisplayWithPrice(props.shopitem.lowest_variant_price),
-      })
-    : getCurrencyDisplayWithPrice(props.shopitem.price);
+  const itemPrice = useMemo(() => {
+    const isStandaloneItem = !!props.shopitem?.is_standalone_item;
+    const lowestVariantPrice = parseFloat(
+      props.shopitem?.lowest_variant_price,
+    ).toFixed(2);
+    const allVariantsHaveSamePrice =
+      !!props.shopitem?.all_variants_follow_base_price;
+    const price = props.shopitem?.price;
+
+    // Standalone item OR base item with same price for all variants
+    if (isStandaloneItem || allVariantsHaveSamePrice) {
+      return getCurrencyDisplayWithPrice(price);
+    }
+    // Base item with dynamic variant prices
+    return t('startingAtWithPrice', {
+      price: getCurrencyDisplayWithPrice(lowestVariantPrice ?? ''),
+    });
+  }, [
+    props.shopitem?.all_variants_follow_base_price,
+    props.shopitem?.is_standalone_item,
+    props.shopitem?.lowest_variant_price,
+    props.shopitem.price,
+    t,
+  ]);
 
   const shopItemName = getShopItemName({
     name: props.shopitem?.name ?? '',

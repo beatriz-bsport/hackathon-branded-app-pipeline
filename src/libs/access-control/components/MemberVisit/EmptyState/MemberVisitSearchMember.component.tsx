@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
@@ -9,17 +9,19 @@ import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
   onMemberClick: (memberId: number) => void;
+  reducedWidth?: boolean;
   searchMembers: (searchText: string, params: any, options: any) => void;
   title?: string;
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
   onMemberClick,
+  reducedWidth,
   searchMembers,
   title,
 }) => {
   const { t } = useTranslation('accessControl');
-  const classes = useStyles();
+  const classes = useStyles({ reducedWidth });
 
   const [searchText, setSearchText] = React.useState('');
 
@@ -94,15 +96,20 @@ const MemberVisitSearchMember: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<
+  Theme,
+  {
+    reducedWidth?: boolean;
+  }
+>((theme) => ({
   root: {
-    width: '100%',
+    width: ({ reducedWidth }) => (reducedWidth ? 400 : '100%'),
     display: 'flex',
     justifyContent: 'center',
   },
   content: {
     [theme.breakpoints.up('md')]: {
-      width: '70%',
+      width: ({ reducedWidth }) => (reducedWidth ? '100%' : '70%'),
     },
     [theme.breakpoints.down('md')]: {
       width: '100%',

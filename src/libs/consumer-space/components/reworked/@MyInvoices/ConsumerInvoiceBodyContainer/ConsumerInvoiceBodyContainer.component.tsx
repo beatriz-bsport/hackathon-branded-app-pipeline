@@ -29,6 +29,7 @@ type Props = {
   clearSelectedConsumerInvoice: () => void;
   fetchMoreInvoices: () => void;
   getInvoice: (uuid: string) => Invoice;
+  payConsumerInvoice: (consumerInvoice: ConsumerInvoice) => void;
   seeInvoiceDetails: (consumerInvoice: ConsumerInvoice) => void;
 };
 
@@ -43,6 +44,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
   clearSelectedConsumerInvoice,
   fetchMoreInvoices,
   getInvoice,
+  payConsumerInvoice,
   seeInvoiceDetails,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -72,6 +74,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
     },
     [],
   );
+
   const handleSeeInvoiceDetails = React.useCallback(
     (consumerInvoice: ConsumerInvoice) => () =>
       seeInvoiceDetails(consumerInvoice),
@@ -126,6 +129,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
             }
             getInvoice={getInvoice}
             isMultilocationEnabled={isMultilocationEnabled}
+            payInvoice={payConsumerInvoice}
             selectedFilter={selectedFilter}
           />
         </div>
@@ -170,6 +174,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
                   !!selectedConsumerInvoice &&
                   selectedConsumerInvoice.uuid === item.uuid
                 }
+                payInvoice={payConsumerInvoice}
                 seeDetails={handleSeeInvoiceDetails(item)}
                 selectedFilter={selectedFilter}
               />
@@ -191,6 +196,7 @@ const ConsumerInvoiceBodyContainer: React.FC<Props> = ({
                 }
                 getInvoice={getInvoice}
                 isMultilocationEnabled={isMultilocationEnabled}
+                payInvoice={payConsumerInvoice}
                 selectedFilter={selectedFilter}
               />
             </div>

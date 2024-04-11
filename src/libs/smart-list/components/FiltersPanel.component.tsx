@@ -91,7 +91,6 @@ import type {
   CommunicationScheduled,
   SmartListPopupSending,
 } from '#libs/communication-v2/types';
-import { shouldHideReferral } from '#libs/referral/utils';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -139,18 +138,6 @@ const filtersList = {
     FIRST_PURCHASE_FILTER_IDENTIFIER,
   ],
 };
-
-// TODO: Remove this condition once the referral feature is finished
-if (shouldHideReferral) {
-  filtersList[MEMBER_INFO] = filtersList[MEMBER_INFO].filter(
-    (filter) =>
-      filter !== REFERRER_FILTER_IDENTIFIER &&
-      filter !== REFERRED_MEMBERS_FILTER_IDENTIFIER,
-  );
-  filtersList[BUY] = filtersList[BUY].filter(
-    (filter) => filter !== FIRST_PURCHASE_FILTER_IDENTIFIER,
-  );
-}
 
 const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING, BUY];
 

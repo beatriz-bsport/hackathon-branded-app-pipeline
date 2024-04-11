@@ -439,7 +439,6 @@ import {
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
-import { shouldHideReferral } from '#libs/referral/utils';
 /* TEMPLATE
 
 {
@@ -521,7 +520,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_OFFER_BOOKING_LIST_CONFIGURATION,
   MARKETING_NEWSLETTER_FORM_V2_CONFIGURATION,
   RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
-  ...(!shouldHideReferral ? [REFERRAL_DETAILS_CONFIGURATION] : []),
+  REFERRAL_DETAILS_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -705,10 +704,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETING_NEWSLETTER_FORM_V2_PREVIEW,
     [CssComponentsVariantIdentifiers.RESET_PASSWORD_CONFIRMATION]:
       RESET_PASSWORD_CONFIRMATION_PREVIEW,
-    ...(!shouldHideReferral && {
-      [CssComponentsVariantIdentifiers.REFERRAL_DETAILS]:
-        REFERRAL_DETAILS_PREVIEW,
-    }),
+    [CssComponentsVariantIdentifiers.REFERRAL_DETAILS]:
+      REFERRAL_DETAILS_PREVIEW,
 
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:

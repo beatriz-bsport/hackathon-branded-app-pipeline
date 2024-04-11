@@ -1,7 +1,6 @@
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { ReferredVoucherTypeChoices } from './constants';
 import type { ReferralLinkStatus } from './types';
-import Config from '../../config';
 
 export const isReferralUsable = (
   referralLinkStatus: ReferralLinkStatus | null,
@@ -36,9 +35,3 @@ export const getReferredReduction = ({
 
   return { referredReduction, hideReferredReduction };
 };
-
-// Temporary condition to hide the referral page while the feature is not finished
-// Condition will be removed once the feature is finished
-export const shouldHideReferral =
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';

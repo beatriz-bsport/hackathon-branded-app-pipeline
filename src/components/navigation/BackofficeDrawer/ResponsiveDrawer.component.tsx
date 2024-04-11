@@ -71,7 +71,6 @@ import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
-import { shouldHideReferral } from '#libs/referral/utils';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -598,18 +597,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.active_campaign'),
           } as DrawerItemDefault,
-
-          // Temporary condition to hide the referral page while the feature is not finished
-          // Condition will be removed once the feature is finished
-          ...(shouldHideReferral
-            ? []
-            : [
-                {
-                  to: '/settings/referral',
-                  dense: true,
-                  text: t('backofficeMenu.settings.referral'),
-                } as DrawerItemDefault,
-              ]),
+          {
+            to: '/settings/referral',
+            dense: true,
+            text: t('backofficeMenu.settings.referral'),
+          } as DrawerItemDefault,
           {
             to: '/settings/platform-billing',
             dense: true,

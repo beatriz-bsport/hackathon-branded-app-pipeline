@@ -15,6 +15,10 @@ exports.default = {
     isVaccinated: "I'm in possession of a valid COVID-19 Sanitary Pass",
     franchises: 'Studios',
   },
+  search: {
+    pageTitle: 'Search',
+    usersTableTitle: 'Users',
+  },
   pagination: {
     outOf: '{{from}} - {{to}} out of {{count}}',
     rowPerPage: 'Elements per page',

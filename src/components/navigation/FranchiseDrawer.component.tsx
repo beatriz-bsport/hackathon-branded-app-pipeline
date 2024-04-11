@@ -70,6 +70,7 @@ import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
 import VersionVisualizer from '../VersionVisualizer.component';
 import { checkRequiredPermissions } from '#libs/role/utils';
 import { FranchiseRolePermission } from '#libs/role/types';
+import FranchiseUserSearchBarComponent from '#libs/franchise/components/FranchiseUserSearchBar.component';
 
 // import SearchBar from '../SearchBar.component';
 
@@ -378,11 +379,10 @@ export const FranchiseDrawer = (props: Props) => {
                       <Help />
                     </IconButton>
                   </Grid>
-                  {/* <Grid item className={classes.searchBar}>
-                    TODO @Aymeric See what to do with the search
-                    <SearchBar changeLocation />
-                  </Grid> 
-                  */}
+                  <Grid item className={classes.searchBar}>
+                    <FranchiseUserSearchBarComponent changeLocation />
+                  </Grid>
+
                   {renderAdditionalButtons()}
                 </>
               </Grid>

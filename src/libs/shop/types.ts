@@ -33,6 +33,7 @@ export type IsShopUsedInComboAPI = {
 
 export type ShopItem = {
   available_payment_method_identifiers: number[];
+  all_variants_follow_base_price: boolean | null;
   barcode: string;
   color: string;
   company: number;
@@ -227,6 +228,7 @@ export type ShopItemFactoryOptions = {
   isMarketplaceEnabled?: boolean;
   isDeliverable?: boolean;
   isDisabled?: boolean;
+  allVariantsFollowBasePrice?: boolean;
 };
 
 export type ShopItemListFilterParams = ShopAPIFilter & {

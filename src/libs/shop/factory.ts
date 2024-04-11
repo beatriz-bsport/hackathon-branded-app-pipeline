@@ -58,6 +58,8 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
       null,
       faker.number.int({ min: 20, max: 100 }),
     ]),
+    all_variants_follow_base_price:
+      options?.allVariantsFollowBasePrice ?? faker.datatype.boolean(),
     stock_keeping_unit: faker.string.alphanumeric(10),
     supplier: faker.helpers.arrayElement([
       null,

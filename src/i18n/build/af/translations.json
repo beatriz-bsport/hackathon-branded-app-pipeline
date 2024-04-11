@@ -5183,6 +5183,7 @@
       "recurrent_private_booking": "Recurring appointments",
       "replacement_request": "Substitution",
       "giftcard": "Gift cards",
+      "referral": "Referral",
       "performance": "Performance"
     },
     "emailDesign": {
@@ -5396,7 +5397,13 @@
           "reduction_purchase_referred": "Discount for the referred member",
           "referring_reward": "Reward for the referrer",
           "minimum_purchase_referral": "Minimum purchase amount",
-          "deadline_use_referral": "Referral reward validity"
+          "deadline_use_referral": "Referral reward validity",
+          "referring_firstname": "Referrer first name",
+          "referring_lastname": "Referrer last name",
+          "referred_firstname": "Referred first name",
+          "referred_lastname": "Referred last name",
+          "referral_link": "Referral link",
+          "registration_date": "Referred member registration date"
         }
       }
     },
@@ -5468,7 +5475,9 @@
       "987": "Attempt to collect an installment payment",
       "1001": "Spivi account created (for members)",
       "1002": "Spinning session performance",
-      "1003": "Spivi account created (for teachers)"
+      "1003": "Spivi account created (for teachers)",
+      "1101": "Referral grant available (referred member)",
+      "1102": "Referral grant available (referring member)"
     },
     "pageTitle": "Transactional notifications",
     "caption": {

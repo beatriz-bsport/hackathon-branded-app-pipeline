@@ -67,6 +67,8 @@ const getTranslations = async () => {
     NOTIFICATION_MEMBERSHIP_EMAIL_MODIFICATION_BY_MANAGER,
     NOTIFICATION_GIFTCARD_ACTIVATION,
     NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER,
+    NOTIFICATION_REFERRAL_GRANT_CREATED,
+    NOTIFICATION_REFERRED_GRANT_CONSUMED,
     NOTIFICATION_SPIVI_ACCOUNT_CREATED,
     NOTIFICATION_SPIVI_PERFORMANCE,
     NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED,
@@ -88,6 +90,7 @@ const getTranslations = async () => {
       recurrent_private_booking: 'Recurring appointments',
       replacement_request: 'Substitution',
       giftcard: 'Gift cards',
+      referral: 'Referral',
       performance: 'Performance',
     },
     emailDesign: {
@@ -309,6 +312,12 @@ const getTranslations = async () => {
           referring_reward: 'Reward for the referrer',
           minimum_purchase_referral: 'Minimum purchase amount',
           deadline_use_referral: 'Referral reward validity',
+          referring_firstname: 'Referrer first name',
+          referring_lastname: 'Referrer last name',
+          referred_firstname: 'Referred first name',
+          referred_lastname: 'Referred last name',
+          referral_link: 'Referral link',
+          registration_date: 'Referred member registration date',
         },
       },
     },
@@ -431,6 +440,10 @@ const getTranslations = async () => {
         'Request for invoice download',
       [NOTIFICATION_SPIVI_ACCOUNT_CREATED]:
         'Spivi account created (for members)',
+      [NOTIFICATION_REFERRAL_GRANT_CREATED]:
+        'Referral grant available (referred member)',
+      [NOTIFICATION_REFERRED_GRANT_CONSUMED]:
+        'Referral grant available (referring member)',
       [NOTIFICATION_SPIVI_PERFORMANCE]: 'Spinning session performance',
       [NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED]:
         'Spivi account created (for teachers)',

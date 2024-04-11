@@ -31,13 +31,7 @@ type ShopItemBulkFieldArray = {
     >;
 };
 
-type Props = {
-  isUpdatingVariant?: boolean;
-};
-
-const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
-  isUpdatingVariant,
-}) => {
+const ShopItemInventoryBulkUpdateForm: React.FC = () => {
   const { errors } = useFormikContext<ShopItemInventoryBulkUpdateFormValues>();
   const classes = useStyles();
 
@@ -76,7 +70,6 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
                     {({ field }: { field: FieldInputProps<number> }) => (
                       <TextField
                         {...field}
-                        disabled={isUpdatingVariant}
                         error={
                           !!(
                             errors.variants as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]

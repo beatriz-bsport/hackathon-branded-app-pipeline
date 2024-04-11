@@ -99,9 +99,7 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
                 </TableRow>
               </TableHead>
 
-              <ShopItemInventoryBulkUpdateForm
-                isUpdatingVariant={isUpdatingVariant}
-              />
+              <ShopItemInventoryBulkUpdateForm />
             </Table>
           </TableContainer>
         </Form>

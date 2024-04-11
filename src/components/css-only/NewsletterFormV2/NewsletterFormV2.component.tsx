@@ -168,7 +168,7 @@ const NewsletterFormV2: React.FC<Props> = React.memo(
               {isSuccessState ? (
                 <NewsletterFormV2SuccessStateComponent {...successArgs} />
               ) : (
-                <div>
+                <>
                   {(showTitle || showSubtitle) && (
                     <div className="bs-newsletter-form__root__text">
                       {showTitle && (
@@ -276,7 +276,7 @@ const NewsletterFormV2: React.FC<Props> = React.memo(
                       {isSuccessState ? '' : t('newsletter.formV2.validate')}
                     </Button>
                   </Form>
-                </div>
+                </>
               )}
             </div>
           </div>

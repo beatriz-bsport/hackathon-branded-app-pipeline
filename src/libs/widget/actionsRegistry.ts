@@ -1,11 +1,9 @@
-import { Action } from 'redux';
-import { ActionFunctionAny } from 'redux-actions';
-import { WidgetApiMessageType } from './types';
+import { CallAction, WidgetApiMessageType } from './types';
 
 type Registry<T> = Record<WidgetApiMessageType, T>;
 
-export class BridgeAPIActionsRegistry {
-  #_registry: Partial<Registry> = {};
+export class BridgeAPIActionsRegistry<T> {
+  #_registry: Partial<Registry<T>> = {};
 
   #_client: 'widget' | 'SaaS';
 
@@ -14,7 +12,7 @@ export class BridgeAPIActionsRegistry {
   }
 
   // Method to add an entry to the registry
-  add(key: WidgetApiMessageType, value: ApiCallAction): void {
+  add(key: WidgetApiMessageType, value: T): void {
     if (this.has(key)) {
       throw new Error(
         `Key ${key} is already bound to a ${this.#_client} action`,
@@ -24,7 +22,7 @@ export class BridgeAPIActionsRegistry {
   }
 
   // Method to retrieve an entry from the registry
-  get(key: WidgetApiMessageType): ApiCallAction | undefined {
+  get(key: WidgetApiMessageType): T | undefined {
     if (!this.has(key)) {
       throw new Error(`Key ${key} is not bound to any ${this.#_client} action`);
     }
@@ -47,7 +45,7 @@ export class BridgeAPIActionsRegistry {
   }
 
   // Decorator to add items to the registry
-  register(key: WidgetApiMessageType, value: ApiCallAction) {
+  register(key: WidgetApiMessageType, value: T) {
     this.add(key, value);
   }
 }
@@ -62,4 +60,6 @@ export class BridgeAPIActionsRegistry {
  * @method register - Decorator to add items to the registry
  */
 
-export const bridgeAPIActionsRegistry = new BridgeAPIActionsRegistry('SaaS');
+export const bridgeAPIActionsRegistry = new BridgeAPIActionsRegistry<
+  CallAction<any, any>
+>('SaaS');

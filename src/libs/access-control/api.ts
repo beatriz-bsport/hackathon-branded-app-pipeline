@@ -7,7 +7,8 @@ import {
 } from '../../http';
 import { EntryStatus } from './constants';
 
-import type { MemberVisitFilterParams, MemberVisitREST } from './types';
+import type { PaginatedResponse } from '../../state/types';
+import type { MemberVisitQueryParams, MemberVisitREST } from './types';
 
 export const retrieveMemberVisit = (memberVisitId: number) => {
   return getAuth<MemberVisitREST>(
@@ -15,8 +16,8 @@ export const retrieveMemberVisit = (memberVisitId: number) => {
   );
 };
 
-export const getMemberVisitList = (params: MemberVisitFilterParams) => {
-  return getAuth<MemberVisitREST[]>(
+export const getMemberVisitList = (params: MemberVisitQueryParams) => {
+  return getAuth<PaginatedResponse<MemberVisitREST>>(
     `${API_V1_URI}/access_control/member_visit/${buildUrlParams(params)}`,
   );
 };

@@ -96,8 +96,11 @@ export type AccessControlState = {
 
 /** OTHER TYPES */
 
-export type MemberVisitFilterParams = {
+export type MemberVisitQueryParams = {
+  page_size: number;
+  page: number;
   member?: number;
-  establishments?: number;
-  access_status?: number;
+  access_status?: AccessStatus;
+  entry_status?: EntryStatus;
+  staff_user?: number;
 };

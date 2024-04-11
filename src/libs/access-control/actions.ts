@@ -7,10 +7,15 @@ import {
   checkMemberInEstablishment as checkMemberInEstablishmentAPI,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAPI,
+  getMemberVisitList as getMemberVisitListAPI,
 } from './api';
 
-import type { ThunkAction, OptionCallback } from '../../state/types';
-import type { MemberVisitREST } from './types';
+import type {
+  ThunkAction,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
+import type { MemberVisitQueryParams, MemberVisitREST } from './types';
 import { EntryStatus } from './constants';
 
 export const checkMemberInEstablishmentActions = {
@@ -137,5 +142,45 @@ export const refreshMemberVisitAccessStatus = (
       options?.onError?.(error);
     }
     dispatch(refreshMemberVisitAccessStatusActions.loading(false));
+  };
+};
+
+export const getMemberVisitListActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<MemberVisitREST>>>(
+    'ACCESS_CONTROL/FETCH_MEMBER_VISIT/SUCCESS',
+  ),
+  loading: createAction<boolean>('ACCESS_CONTROL/FETCH_MEMBER_VISIT/LOADING'),
+  error: createAction<Error | null>('ACCESS_CONTROL/FETCH_MEMBER_VISIT/ERROR'),
+};
+
+/**
+ * Fetch the list of member visits.
+ *
+ * The backend always filter the member visits by the user's company
+ */
+export const getMemberVisitList = (
+  { page_size = 10, ...params }: MemberVisitQueryParams,
+  options?: OptionCallback<MemberVisitREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(getMemberVisitListActions.loading(true));
+    dispatch(getMemberVisitListActions.error(null));
+
+    const currentState = getState().accessControl.memberVisit;
+    const nextPage = currentState.next_page ?? 1;
+
+    try {
+      const response = await getMemberVisitListAPI({
+        page_size,
+        page: nextPage,
+        ...params,
+      });
+      dispatch(getMemberVisitListActions.success(response));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(getMemberVisitListActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getMemberVisitListActions.loading(false));
   };
 };

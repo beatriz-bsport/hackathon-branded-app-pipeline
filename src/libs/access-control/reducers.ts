@@ -6,10 +6,12 @@ import type { AxiosResponse } from 'axios';
 
 import {
   checkMemberInEstablishmentActions,
+  getMemberVisitListActions,
   refreshMemberVisitAccessStatusActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
 
+import type { PaginatedResponse } from '../../state/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type { AccessControlState, MemberVisitREST } from './types';
 
@@ -128,6 +130,52 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
               byId: {
                 [memberVisit.id]: memberVisit,
               },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [getMemberVisitListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['memberVisit', 'error'], payload);
+    },
+    [getMemberVisitListActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['memberVisit', 'loading'], payload);
+    },
+    [getMemberVisitListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<MemberVisitREST>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['memberVisit', 'next_page'], next_page)
+        .setIn(['memberVisit', 'count'], count)
+        .setIn(['memberVisit', 'page'], page)
+        .setIn(
+          ['memberVisit', 'allIds'],
+          uniq([
+            ...state.memberVisit.allIds,
+            ...results.map((memberVisit) => memberVisit.id),
+          ]),
+        )
+        .merge(
+          {
+            memberVisit: {
+              byId: results.reduce(
+                (acc: Record<number, MemberVisitREST>, memberVisit) => {
+                  acc[memberVisit.id] = memberVisit;
+                  return acc;
+                },
+                {},
+              ),
             },
           },
           { deep: true },

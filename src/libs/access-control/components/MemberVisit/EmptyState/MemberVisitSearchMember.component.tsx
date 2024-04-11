@@ -8,13 +8,13 @@ import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
+  onMemberClick: (memberId: number) => void;
   searchMembers: (searchText: string, params: any, options: any) => void;
-  handleCheckInMember: (memberId: number) => void;
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
+  onMemberClick,
   searchMembers,
-  handleCheckInMember,
 }) => {
   const { t } = useTranslation('accessControl');
   const classes = useStyles();
@@ -45,10 +45,10 @@ const MemberVisitSearchMember: React.FC<Props> = ({
 
   const onMemberSelect = React.useCallback(
     (memberId: number) => {
-      handleCheckInMember(memberId);
+      onMemberClick(memberId);
       clearSearch();
     },
-    [handleCheckInMember, clearSearch],
+    [onMemberClick, clearSearch],
   );
 
   useEffect(() => {

@@ -353,7 +353,7 @@ const MemberVisit: React.FC<Props> = React.memo(
               <>
                 <Divider />
                 <MemberVisitSearchMemberComponent
-                  handleCheckInMember={handleCheckInMember}
+                  onMemberClick={handleCheckInMember}
                   searchMembers={searchMembers}
                 />
               </>

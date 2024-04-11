@@ -2,13 +2,7 @@ import { Action } from 'redux';
 import { ActionFunctionAny } from 'redux-actions';
 import { WidgetApiMessageType } from './types';
 
-export type ApiCallAction = {
-  success: ActionFunctionAny<Action<any>>;
-  isLoading: ActionFunctionAny<Action<any>>;
-  error: ActionFunctionAny<Action<any>>;
-};
-
-type Registry = Record<WidgetApiMessageType, ApiCallAction>;
+type Registry<T> = Record<WidgetApiMessageType, T>;
 
 export class BridgeAPIActionsRegistry {
   #_registry: Partial<Registry> = {};

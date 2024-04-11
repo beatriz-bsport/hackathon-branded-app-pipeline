@@ -1,3 +1,7 @@
+import { ActionFunctionAny } from 'redux-actions';
+import { Action } from 'redux';
+import { OptionCallback, ThunkAction } from '../../state/types';
+
 export enum WidgetMessageType {
   PAYMENT_SUCCESS = 'PAYMENT_SUCCESS',
   VIDEO_REGISTERED = 'VIDEO_REGISTERED',
@@ -46,3 +50,27 @@ export const widgetApiMessageTypes = [
 ] as const;
 
 export type WidgetApiMessageType = (typeof widgetApiMessageTypes)[number];
+
+/**
+ * @deprecated loading does not follow the boolean naming convention. Added to
+ * have iso naming between widget and SaaS
+ */
+
+type LegacyApiCallActions = {
+  success: ActionFunctionAny<Action<any>>;
+  loading: ActionFunctionAny<Action<any>>;
+  error: ActionFunctionAny<Action<any>>;
+};
+
+type CorrectApiCallActions = {
+  success: ActionFunctionAny<Action<any>>;
+  isLoading: ActionFunctionAny<Action<any>>;
+  error: ActionFunctionAny<Action<any>>;
+};
+
+export type CallAction<A, R> = (
+  args: A,
+  options?: OptionCallback<R>,
+) => ThunkAction;
+
+export type ApiCallActions = CorrectApiCallActions | LegacyApiCallActions;

@@ -18,6 +18,10 @@ import type {
 import type { MemberVisitQueryParams, MemberVisitREST } from './types';
 import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
+export const globalMemberVisitActions = {
+  clear: createAction('ACCESS_CONTROL/CLEAR_MEMBER_VISIT'),
+};
+
 export const checkMemberInEstablishmentActions = {
   success: createAction<AxiosResponse<MemberVisitREST>>(
     'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/SUCCESS',
@@ -168,6 +172,9 @@ export const getMemberVisitList = (
 
     const currentState = getState().accessControl.memberVisit;
     const nextPage = currentState.next_page ?? 1;
+
+    // TODO: Fix member visit live list pagination
+    dispatch(globalMemberVisitActions.clear());
 
     try {
       const response = await getMemberVisitListAPI({

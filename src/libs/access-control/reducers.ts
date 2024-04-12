@@ -7,6 +7,7 @@ import type { AxiosResponse } from 'axios';
 import {
   checkMemberInEstablishmentActions,
   getMemberVisitListActions,
+  globalMemberVisitActions,
   refreshMemberVisitAccessStatusActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
@@ -34,6 +35,14 @@ export const initialState: Immutable.Immutable<AccessControlState> =
 
 export default handleActions<Immutable.Immutable<AccessControlState>, any>(
   {
+    [globalMemberVisitActions.clear.toString()]: (state) => {
+      return state
+        .setIn(['memberVisit', 'page'], 0)
+        .setIn(['memberVisit', 'next_page'], null)
+        .setIn(['memberVisit', 'count'], 0)
+        .setIn(['memberVisit', 'byId'], {})
+        .setIn(['memberVisit', 'allIds'], []);
+    },
     [checkMemberInEstablishmentActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },

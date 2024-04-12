@@ -10,6 +10,9 @@ import {
   spotForBlueprintActions,
   deleteSpotForBlueprintActions,
   assetUnboundForBlueprintActions,
+  roomBlueprintWidgetActions,
+  assetForBlueprintWidgetActions,
+  spotForBlueprintWidgetActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SpotSchedulingState> =
@@ -65,6 +68,20 @@ export default handleActions(
       });
 
       const ids = payload.map((room) => room.id);
+
+      return state
+        .setIn(['roomBlueprint', 'byId'], byId)
+        .setIn(['roomBlueprint', 'ids'], ids);
+    },
+    [roomBlueprintWidgetActions.success.toString()]: (state, { payload }) => {
+      const byId = { ...state.roomBlueprint.byId };
+      const { results } = payload;
+
+      results.forEach((room) => {
+        byId[room.id] = room;
+      });
+
+      const ids = results.map((room) => room.id);
 
       return state
         .setIn(['roomBlueprint', 'byId'], byId)
@@ -128,6 +145,31 @@ export default handleActions(
         .setIn(['assetForBlueprint', 'ids'], ids)
         .merge({ assetForBlueprint: { byBlueprintById } }, { deep: true });
     },
+    [assetForBlueprintWidgetActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const byId = { ...state.assetForBlueprint.byId };
+      const byBlueprintById: {
+        [key: string]: { [key: string]: AssetForBlueprint };
+      } = {};
+
+      const { results } = payload;
+
+      results.forEach((room) => {
+        byId[room.id] = room;
+        if (!byBlueprintById[room.blueprint])
+          byBlueprintById[room.blueprint] = {};
+        byBlueprintById[room.blueprint][room.id] = room;
+      });
+
+      const ids = results.map((room) => room.id);
+
+      return state
+        .setIn(['assetForBlueprint', 'byId'], byId)
+        .setIn(['assetForBlueprint', 'ids'], ids)
+        .merge({ assetForBlueprint: { byBlueprintById } }, { deep: true });
+    },
     [createOrUpdateSpotForBlueprintActions.isLoading.toString()]: (
       state,
       { payload },
@@ -158,6 +200,25 @@ export default handleActions(
         {
           spotForBlueprint: {
             byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+            ids,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [spotForBlueprintWidgetActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const { results } = payload;
+      const ids = results.map((spotType) => spotType.id);
+      return state.merge(
+        {
+          spotForBlueprint: {
+            byId: results.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),

@@ -14,11 +14,19 @@ export const roomBlueprintActions = {
   delete: createAction('SPOTSCHEDULING/ROOMBLUEPRINT/DELETE'),
 };
 
+export const roomBlueprintWidgetActions = {
+  success: createAction('WIDGET/SPOTSCHEDULING/ROOMBLUEPRINT/SUCCESS'),
+};
+
 export const assetForBlueprintActions = {
   success: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/SUCCESS'),
   list: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/LIST'),
   isLoading: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/IS_LOADING'),
   error: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/ERROR'),
+};
+
+export const assetForBlueprintWidgetActions = {
+  success: createAction('WIDGET/SPOTSCHEDULING/ASSETBLUEPRINT/SUCCESS'),
 };
 
 export const assetUnboundForBlueprintActions = {
@@ -39,6 +47,10 @@ export const spotForBlueprintActions = {
   list: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/LIST'),
   isLoading: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/IS_LOADING'),
   error: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/ERROR'),
+};
+
+export const spotForBlueprintWidgetActions = {
+  success: createAction('WIDGET/SPOTSCHEDULING/SPOTBLUEPRINT/LIST'),
 };
 
 export const deleteSpotForBlueprintActions = {
@@ -67,6 +79,29 @@ export function fetchRoomBlueprints(
     }
 
     dispatch(roomBlueprintActions.isLoading(false));
+  };
+}
+
+/**
+ * We need this variant to send the right data format in handleBridgeApiCallRequest
+ * and to be correctly handled on the widget side.
+ */
+export function fetchRoomBlueprintsWidget(
+  data?: RoomBlueprintFilters,
+  options?: OptionCallback<RoomBlueprint[]>,
+): ThunkAction {
+  return async () => {
+    try {
+      const response = await api.fetchRoomBlueprints(data);
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
   };
 }
 
@@ -188,6 +223,29 @@ export function fetchAssetForBlueprint(
     }
 
     dispatch(assetForBlueprintActions.isLoading(false));
+  };
+}
+
+/**
+ * We need this variant to send the right data format in handleBridgeApiCallRequest
+ * and to be correctly handled on the widget side.
+ */
+export function fetchAssetForBlueprintWidget(
+  data: { blueprint?: number },
+  options?: OptionCallback,
+): ThunkAction {
+  return async () => {
+    try {
+      const response = await api.fetchAssetForBlueprint(data);
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
   };
 }
 
@@ -366,6 +424,33 @@ export function fetchSpotForBlueprint(
     }
 
     dispatch(spotForBlueprintActions.isLoading(false));
+  };
+}
+
+/**
+ * We need this variant to send the right data format in handleBridgeApiCallRequest
+ * and to be correctly handled on the widget side.
+ */
+export function fetchSpotForBlueprintWidget(
+  data: {
+    company?: number;
+    blueprint?: number;
+  },
+  options?: OptionCallback,
+): ThunkAction {
+  return async () => {
+    try {
+      const response = await api.fetchSpotForBlueprint(data);
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
   };
 }
 

@@ -24,25 +24,25 @@ import {
   deleteCoach,
   restoreCoach,
   fetchAssociatedCoachesList,
-} from '../../libs/associated-coach/actions';
+} from '#libs/associated-coach/actions';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
   getInactiveCoaches,
   getInactiveCoachesSelectedInRole,
-} from '../../libs/associated-coach/selectors';
+} from '#libs/associated-coach/selectors';
 
 import CoachListItem, {
   CoachListSkeleton,
-} from '../../libs/associated-coach/components/CoachListItem.component';
+} from '#libs/associated-coach/components/CoachListItem.component';
 
-import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import CoachDeleteModal from '#libs/associated-coach/components/CoachDeleteModal.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 import VirtualizedCoachList from '#libs/associated-coach/components/VirtualizedCoachList.component';
 
 import type { RootState } from '../../reducers';

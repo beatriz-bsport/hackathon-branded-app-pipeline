@@ -46,6 +46,7 @@ type Props = {
   userStatus?: number;
   values?: CustomFormFilled;
   isCssVariantActivated?: boolean;
+  measureBeforeMount?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
   waiver?: string;
   handleSubmit?: () => void;

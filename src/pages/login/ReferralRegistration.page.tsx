@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
@@ -63,13 +62,12 @@ import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { buildUrlParams } from '../../http';
 // @ts-expect-error not typed
 import { requestLogin } from '../../actions/auth.actions';
-// @ts-expect-error not typed
-import { getTheme } from '../../theme';
 
 import './signup-page/SignupPageStyles.css';
 
 import { RootState } from '../../reducers';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 
 type OwnProps = {
   title: string;
@@ -262,58 +260,55 @@ export class ReferralRegistration extends Component<Props, State> {
       this.props.memberCustomFormLoading
     ) {
       return (
-        <MuiThemeProvider theme={getTheme(theme)}>
-          <div className={containerClass}>
-            <div className="bs-signup-container--margin-top">
-              <CircularProgress />
-            </div>
+        <div className={containerClass}>
+          <div className="bs-signup-container--margin-top">
+            <CircularProgress />
           </div>
-        </MuiThemeProvider>
+        </div>
       );
     }
 
     return (
-      <MuiThemeProvider theme={getTheme(theme)}>
-        <div className={containerClass}>
-          <div className="bs-signup-container--margin-top">
-            {!this.state.hasBeenRegistered && (
-              <CustomFormTitle
-                isCompany
-                simplifyUI={simplifyUI}
-                title={t('signup.title')}
-              />
-            )}
-            <ReferralLinkRegistrationInfo
-              companyName={theme.company_name}
-              hasBeenRegistered={this.state.hasBeenRegistered}
-              onConfirm={this.state.onFinish}
-              referralExceptionCode={referralRegistrationErrorCode}
-              referralLinkStatus={referralLinkStatus}
-              simplifyUI={theme.simplifyUI}
+      <div className={containerClass}>
+        <div className="bs-signup-container--margin-top">
+          {!this.state.hasBeenRegistered && (
+            <CustomFormTitle
+              isCompany
+              simplifyUI={simplifyUI}
+              title={t('signup.title')}
             />
-            {!referralRegistrationErrorCode &&
-              !this.state.hasBeenRegistered &&
-              isReferralUsable(referralLinkStatus) &&
-              form &&
-              form.layout && (
-                <div className="bs-signup-container__custom-form">
-                  <CustomFormView
-                    hideBackButton
-                    general_terms_and_conditions={theme.general_terms_of_use}
-                    initial={form}
-                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
-                    layouts={form.layout}
-                    onSubmit={this.submitCustomForm}
-                    onSubmitDraft={this.props.setLoginInformations}
-                    simplifyUI={simplifyUI}
-                    waiver={theme.waiver}
-                  />
-                </div>
-              )}
-            {!!theme && <Analytics theme={theme} username="" />}
-          </div>
+          )}
+          <ReferralLinkRegistrationInfo
+            companyName={theme.company_name}
+            hasBeenRegistered={this.state.hasBeenRegistered}
+            onConfirm={this.state.onFinish}
+            referralExceptionCode={referralRegistrationErrorCode}
+            referralLinkStatus={referralLinkStatus}
+            simplifyUI={theme.simplifyUI}
+          />
+          {!referralRegistrationErrorCode &&
+            !this.state.hasBeenRegistered &&
+            isReferralUsable(referralLinkStatus) &&
+            form &&
+            form.layout && (
+              <div className="bs-signup-container__custom-form">
+                <CustomFormView
+                  hideBackButton
+                  measureBeforeMount
+                  general_terms_and_conditions={theme.general_terms_of_use}
+                  initial={form}
+                  isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                  layouts={form.layout}
+                  onSubmit={this.submitCustomForm}
+                  onSubmitDraft={this.props.setLoginInformations}
+                  simplifyUI={simplifyUI}
+                  waiver={theme.waiver}
+                />
+              </div>
+            )}
+          {!!theme && <Analytics theme={theme} username="" />}
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
@@ -378,5 +373,6 @@ export default compose(
     withLoginInformationsHandlersInit,
     withLoginInformationHandlers,
   ),
+  withThemeProvider,
   marketplaceCssHoc(),
 )(ReferralRegistration);

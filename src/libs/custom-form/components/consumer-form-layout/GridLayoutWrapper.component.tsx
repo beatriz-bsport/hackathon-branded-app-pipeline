@@ -18,6 +18,7 @@ type Props = {
   layouts?: { [key: string]: Array<Layout> };
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
+  measureBeforeMount?: boolean;
   isCssVariantActivated?: boolean;
   rowHeight?: number;
 };
@@ -30,6 +31,7 @@ const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
   layouts,
   onLayoutChange,
   customProviderWidth,
+  measureBeforeMount,
   isCssVariantActivated,
   rowHeight,
 }) => {
@@ -76,6 +78,7 @@ const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
         isDraggable={isEditing || false}
         isResizable={isEditing || false}
         layouts={layouts}
+        measureBeforeMount={measureBeforeMount}
         onLayoutChange={handleOnLayoutChange}
         resizeHandles={['s', 'n', 'se']}
         rowHeight={layoutRowHeight}

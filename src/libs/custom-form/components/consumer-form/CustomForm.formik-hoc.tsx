@@ -33,6 +33,7 @@ type OwnProps = {
   isEditing?: boolean;
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
+  measureBeforeMount?: boolean;
   fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
   isCssVariantActivated?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
@@ -53,6 +54,7 @@ export const ConsumerFormFields = (props: Props) => {
     fieldsAreIndependent,
     isCssVariantActivated,
     shouldWrapLayerInCssHoc,
+    measureBeforeMount,
     ...restProps
   } = props;
   /* eslint-disable */
@@ -65,6 +67,7 @@ export const ConsumerFormFields = (props: Props) => {
       }) => (
         <>
           <GridLayoutWrapper
+            measureBeforeMount={measureBeforeMount}
             onLayoutChange={props.onLayoutChange}
             layouts={props.layouts}
             isEditing={props.isEditing}

@@ -12,7 +12,7 @@ import consumerPaymentPack from 'bsport-saas/src/libs/consumer-payment-pack/redu
 import establishment from 'bsport-saas/src/libs/establishment/reducers';
 import franchise from 'bsport-saas/src/libs/franchise/reducers';
 import giftcard from 'bsport-saas/src/libs/giftcard/reducers';
-import levelReducer from 'bsport-saas/src/libs/level/reducers';
+import level from 'bsport-saas/src/libs/level/reducers';
 import marketplace from 'bsport-saas/src/libs/marketplace/reducers';
 import metaActivity from 'bsport-saas/src/libs/meta-activity/reducers';
 import offer from 'bsport-saas/src/libs/offer/reducers';
@@ -28,6 +28,8 @@ import tag from 'bsport-saas/src/libs/tag/reducers';
 import themeReducers from 'bsport-saas/src/libs/theme/reducers';
 import video from 'bsport-saas/src/libs/video/reducers';
 import exportableComponent from 'bsport-saas/src/libs/exportable-components/reducers';
+import consumerSpace from 'bsport-saas/src/libs/consumer-space/reducersReworked';
+import spotScheduling from 'bsport-saas/src/libs/spot-scheduling/reducers';
 
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -37,6 +39,8 @@ import { createBrowserHistory } from 'history';
 import { TagState } from 'bsport-saas/src/libs/tag/types';
 import { LevelState } from 'bsport-saas/src/libs/level/types';
 import { ExportableComponentsState } from 'bsport-saas/src/libs/exportable-components/types';
+import { ConsumerStateReworked } from 'bsport-saas/src/libs/consumer-space/types';
+import { SpotSchedulingState } from 'bsport-saas/src/libs/spot-scheduling/types';
 
 //  -----------------------------------------
 
@@ -74,8 +78,10 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     tag,
     giftcard,
     franchise,
-    level: levelReducer,
+    level,
     exportableComponent,
+    consumerReworked: consumerSpace,
+    spotScheduling,
   });
 
 export interface RootState {
@@ -104,6 +110,8 @@ export interface RootState {
   theme: ThemeState;
   video: any;
   exportableComponent: ExportableComponentsState;
+  consumerReworked: ConsumerStateReworked;
+  spotScheduling: SpotSchedulingState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

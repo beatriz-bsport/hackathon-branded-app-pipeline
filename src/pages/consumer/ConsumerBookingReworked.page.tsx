@@ -39,6 +39,7 @@ import {
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '#libs/private-service/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 import { getTheme } from '#libs/theme/selectors';
 import { getMembership } from '#libs/membership/selectors';
@@ -77,6 +78,7 @@ import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBoo
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -384,6 +386,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
 
 const connector = connect(
   (state: RootState, { companyId }: OwnProps & ParamsProps) => ({
+    authenticated: state.auth.authenticated,
     companyId: state.theme.theme.company,
     membership: getMembership(state, companyId),
     timezone: state.theme.theme.timezone_name,
@@ -456,6 +459,12 @@ const connector = connect(
 );
 
 const mapWithHandlers = {};
+
+export const ConsumerBookingWidget = compose(
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
+)(ConsumerBooking);
+
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,

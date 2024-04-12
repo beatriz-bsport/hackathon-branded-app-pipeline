@@ -1,0 +1,156 @@
+import { privateServiceBulkActions } from 'bsport-saas/src/libs/private-service/actions';
+import { coachBulkRetrieveActions } from '../../actions/associatedCoach';
+import { retrieveConsumerPackBulkActions } from '../../actions/consumerPack';
+import {
+  cancelBookingAsMemberActions,
+  cancelBookingOptionAsMemberActions,
+  cancelPrivateBookingAsMemberActions,
+  fetchMyBookingOptionAsMemberActions,
+  fetchMyBookingOptionWorkshopAsMemberActions,
+  fetchMyFutureBookingAsMemberActions,
+  fetchMyFutureBookingWorkshopAsMemberActions,
+  fetchMyFuturePrivateBookingAsMemberActions,
+  fetchMyPastBookingAsMemberActions,
+  fetchMyPastBookingWorkshopAsMemberActions,
+  fetchMyPastPrivateBookingAsMemberActions,
+} from '../../actions/consumerSpace';
+import { establishmentBulkRetrieveActions } from '../../actions/establishment';
+import { fetchLevelListActions } from '../../actions/level';
+import { metaActivityBulkActions } from '../../actions/metaActivity';
+import {
+  fetchOfferBulkActions,
+  fetchGroupOfferActions,
+} from '../../actions/offer';
+import { fetchPaymentPackBulkActions } from '../../actions/paymentPack';
+import { privateConsumerPassBulkActions } from '../../actions/privateConsumerPass';
+import { privateSlotBulkActions } from '../../actions/privateService';
+import {
+  assetForBlueprintActions,
+  fetchRoomBlueprintActions,
+  spotForBlueprintActions,
+} from '../../actions/spotScheduling';
+import { extractPaginatedResponseDataResults } from '../../utils/reduxHelpers';
+import { apiCallHandler } from './callHandler';
+
+export const actionsBinder = () => {
+  apiCallHandler.bindActions(
+    'FETCH_PAST_BOOKING_AS_MEMBER',
+    fetchMyPastBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_BOOKING_AS_MEMBER',
+    fetchMyFutureBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_BOOKING_OPTION_AS_MEMBER',
+    fetchMyBookingOptionAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_BOOKING_OPTION_WORKSHOP_AS_MEMBER',
+    fetchMyBookingOptionWorkshopAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_PAST_PRIVATE_BOOKING_AS_MEMBER',
+    fetchMyPastPrivateBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_PRIVATE_BOOKING_AS_MEMBER',
+    fetchMyFuturePrivateBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_PAST_BOOKING_WORKSHOP_AS_MEMBER',
+    fetchMyPastBookingWorkshopAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_BOOKING_WORKSHOP_AS_MEMBER',
+    fetchMyFutureBookingWorkshopAsMemberActions,
+  );
+
+  apiCallHandler.bindActions('FETCH_COACH_BULK', coachBulkRetrieveActions);
+
+  apiCallHandler.bindActions('FETCH_GROUP_OFFER', fetchGroupOfferActions);
+
+  apiCallHandler.bindActions('FETCH_LEVEL_LIST', fetchLevelListActions);
+
+  apiCallHandler.bindActions(
+    'FETCH_META_ACTIVITY_BULK',
+    metaActivityBulkActions,
+  );
+
+  apiCallHandler.bindActions('FETCH_OFFER_BULK', fetchOfferBulkActions, {
+    successCallbackExtractFn: extractPaginatedResponseDataResults,
+  });
+
+  apiCallHandler.bindActions(
+    'FETCH_ESTABLISHMENT_BULK',
+    establishmentBulkRetrieveActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_CONSUMER_PACK_BULK',
+    retrieveConsumerPackBulkActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_PAYMENT_PACK_BULK',
+    fetchPaymentPackBulkActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_ROOM_BLUE_PRINT',
+    fetchRoomBlueprintActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_SPOT_FOR_BLUEPRINT',
+    spotForBlueprintActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'ASSETS_FOR_BLUE_PRINT',
+    assetForBlueprintActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'PRIVATE_CONSUMER_PASS_BULK',
+    privateConsumerPassBulkActions,
+  );
+
+  apiCallHandler.bindActions('PRIVATE_SLOT_BULK', privateSlotBulkActions);
+
+  apiCallHandler.bindActions('PRIVATE_SERVICE_BULK', privateServiceBulkActions);
+
+  apiCallHandler.bindActions(
+    'CANCEL_BOOKING_AS_MEMBER',
+    cancelBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'CANCEL_PRIVATE_BOOKING_AS_MEMBER',
+    cancelPrivateBookingAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'CANCEL_BOOKING_OPTION_AS_MEMBER',
+    cancelBookingOptionAsMemberActions,
+  );
+};

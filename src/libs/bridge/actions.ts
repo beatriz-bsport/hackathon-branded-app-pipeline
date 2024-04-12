@@ -16,6 +16,8 @@ import { closeUserInteractionPortal } from '../modal/actions';
 import { RootState } from '../../reducers';
 import { apiCallHandler } from './callHandler';
 
+import { actionsBinder } from './actionsBinder';
+
 // First part: how to send message
 // ---------------------------------
 
@@ -215,6 +217,8 @@ apiCallHandler.bindActions(
   'MEMBERSHIP_BY_COMPANY',
   retrieveMembershipByCompanyAction,
 );
+
+actionsBinder();
 
 // Second part: how to handle messages
 // -----------------------------------

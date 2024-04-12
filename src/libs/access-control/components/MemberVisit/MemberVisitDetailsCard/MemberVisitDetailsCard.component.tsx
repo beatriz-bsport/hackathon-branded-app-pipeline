@@ -27,17 +27,17 @@ import type { PrivateBooking } from '#libs/private-service/types';
 import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
-  memberVisit: MemberVisitREST;
   isLoading?: boolean;
-  onMemberProfileClick: () => void;
-  onMemberBillClick: () => void;
-  onAllowManualEntry: () => void;
-  onRefuseManualEntry: () => void;
+  memberVisit: MemberVisitREST;
   nextBooking: {
     type: 'booking' | 'privateBooking';
     booking?: BookingREST;
     privateBooking?: PrivateBooking;
   };
+  onAllowManualEntry: () => void;
+  onMemberBillClick: () => void;
+  onMemberProfileClick: () => void;
+  onRefuseManualEntry: () => void;
 };
 
 const MemberVisitDetailsCardContent: React.FC<
@@ -125,13 +125,13 @@ const MemberVisitDetailsCardContent: React.FC<
 };
 
 const MemberVisitDetailsCard: React.FC<Props> = ({
-  memberVisit,
   isLoading,
-  onMemberProfileClick,
-  onMemberBillClick,
-  onAllowManualEntry,
-  onRefuseManualEntry,
+  memberVisit,
   nextBooking,
+  onAllowManualEntry,
+  onMemberBillClick,
+  onMemberProfileClick,
+  onRefuseManualEntry,
 }) => {
   const { member, access_status, initial_access_status } = memberVisit ?? {};
 

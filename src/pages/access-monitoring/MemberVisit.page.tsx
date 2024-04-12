@@ -5,7 +5,6 @@ import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import MemberVisitWarningsComponent from '#libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
 
 // Selectors
 
@@ -40,6 +39,7 @@ import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLeve
 import AccessStatusChangedSuccessModal from '#libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
 import EntryStatusChangedModalComponent from '#libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
 import StaffLocationBlocker from '#libs/access-control/components/MemberVisit/StaffLocationBlocker.component';
+import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
 
 // Constants
 
@@ -353,7 +353,7 @@ const MemberVisit: React.FC<Props> = React.memo(
               onMemberProfileClick={handleMemberProfileClick}
               onRefuseManualEntry={handleRefuseManualEntry}
             />
-            <MemberVisitWarningsComponent
+            <MemberVisitWarnings
               isLoading={memberVisitIsLoading}
               memberVisit={memberVisit}
             />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
@@ -27,12 +27,12 @@ const MemberVisitSearchMember: React.FC<Props> = ({
 
   const [searchResults, setSearchResults] = React.useState<MemberMinimal[]>([]);
 
-  const clearSearch = React.useCallback(() => {
+  const clearSearch = useCallback(() => {
     setSearchText('');
     setSearchResults([]);
   }, []);
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchText(event.target.value);
       searchMembers(
@@ -47,7 +47,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
     [searchMembers],
   );
 
-  const onMemberSelect = React.useCallback(
+  const onMemberSelect = useCallback(
     (memberId: number) => {
       onMemberClick(memberId);
       clearSearch();

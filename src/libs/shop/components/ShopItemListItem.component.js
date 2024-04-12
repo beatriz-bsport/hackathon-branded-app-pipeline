@@ -1,5 +1,5 @@
 // @flow
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -31,11 +31,11 @@ type Props = {
 export default (props: Props) => {
   const { t } = useTranslation('shop');
 
-  const itemName = props.shopitem.name;
+  const itemName = props.shopitem?.name ?? '';
 
-  const itemSubtitle = props.shopitem.subtitle;
+  const itemSubtitle = props.shopitem?.subtitle ?? '';
 
-  const itemPrice = useMemo(() => {
+  const itemPrice = (() => {
     const isStandaloneItem = !!props.shopitem?.is_standalone_item;
     const lowestVariantPrice = parseFloat(
       props.shopitem?.lowest_variant_price,
@@ -52,21 +52,15 @@ export default (props: Props) => {
     return t('startingAtWithPrice', {
       price: getCurrencyDisplayWithPrice(lowestVariantPrice ?? ''),
     });
-  }, [
-    props.shopitem?.all_variants_follow_base_price,
-    props.shopitem?.is_standalone_item,
-    props.shopitem?.lowest_variant_price,
-    props.shopitem.price,
-    t,
-  ]);
+  })();
 
   const shopItemName = getShopItemName({
     name: props.shopitem?.name ?? '',
     size: props.shopitem?.size ?? '',
     color: props.shopitem?.color ?? '',
     variantCount:
-      props.shopitem.number_of_variants &&
-      t('variantCount', { count: props.shopitem.number_of_variants }),
+      props.shopitem?.number_of_variants &&
+      t('variantCount', { count: props.shopitem?.number_of_variants }),
     price: itemPrice,
   });
 
@@ -94,10 +88,10 @@ export default (props: Props) => {
         onClick={props.onClick}
         style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
       >
-        {!!props.shopitem.cover && (
+        {!!props.shopitem?.cover && (
           <ListItemIcon>
             <Avatar
-              src={props.shopitem.cover}
+              src={props.shopitem?.cover}
               style={{ height: 60, width: 60, marginRight: 8 }}
             />
           </ListItemIcon>

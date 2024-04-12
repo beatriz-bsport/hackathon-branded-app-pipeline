@@ -28,7 +28,6 @@ import {
   requestMembershipValidation,
   fetchMembershipListAsConsumer,
 } from '../../libs/membership/actions';
-import Config from '../../config';
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
 import { fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction } from '../../libs/checkout/actions';
@@ -60,6 +59,7 @@ import {
   navigateToRelationAccount as navigateToRelationAccountAction,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
+import { displayReworkedMemberProfile } from '../../libs/consumer-space/constants';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -204,9 +204,6 @@ export class ConsumerHome extends React.Component<Props> {
   render() {
     const isRelationNavigation = !!window.localStorage.getItem(
       'bsport:relatedMemberMaster:http:token',
-    );
-    const displayReworkedMemberProfile = !['staging', 'production'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
     );
 
     return (

@@ -132,16 +132,10 @@ export class ChangePassword extends Component<Props, State> {
   };
 
   handlePageExit = () => {
-    const {
-      theme,
-      pushToCustomUrl,
-      pushToDefaultLogin,
-      membership,
-      franchisorId,
-    } = this.props;
+    const { theme, pushToDefaultLogin, membership, franchisorId } = this.props;
 
     if (theme && theme.reset_password_url_redirection) {
-      pushToCustomUrl(theme.reset_password_url_redirection);
+      window.location.href = theme.reset_password_url_redirection;
     } else {
       pushToDefaultLogin(
         'login.passwordChangedSuccess',
@@ -226,9 +220,6 @@ const connector = connect(
           ...(franchisorId ? { franchisor: franchisorId } : {}),
         })}`,
       ),
-    pushToCustomUrl: (customUrl: string) => {
-      window.location.href = customUrl;
-    },
   },
 );
 

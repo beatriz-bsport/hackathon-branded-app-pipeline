@@ -1206,7 +1206,8 @@
                     "subscription_nb_days_pause": "Pausa: numero di giorni",
                     "subscription_next_invoice_date": "Data della prossima contabilizzazione",
                     "subscription_contract_terms_link": "link \"Condizioni Legali\"",
-                    "subscription_duration": "Durata totale"
+                    "subscription_duration": "Durata totale",
+                    "days_until_payment_method_expiration": "Numero di giorni prima della scadenza del metodo di pagamento"
                 }
             },
             "PrivateConsumerPass": {
@@ -1380,7 +1381,13 @@
                     "deadline_use_referral": "Validità del premio referral",
                     "minimum_purchase_referral": "Importo minimo di acquisto",
                     "referring_reward": "Ricompensa per il referente",
-                    "reduction_purchase_referred": "Sconto per il membro invitato"
+                    "reduction_purchase_referred": "Sconto per il membro invitato",
+                    "registration_date": "Data di iscrizione del membro riferito",
+                    "referral_link": "Link referral",
+                    "referred_lastname": "Cognome del riferito",
+                    "referred_firstname": "Nome del riferito",
+                    "referring_lastname": "Cognome del referente",
+                    "referring_firstname": "Nome del referente"
                 },
                 "name": "Referral"
             }
@@ -1451,7 +1458,11 @@
             "1001": "Account Spivi creato (membri)",
             "1003": "Account Spivi creato (insegnanti)",
             "31": "Prenotazione per un ospite (per l'ospite)",
-            "30": "Prenotazione per un ospite (per il membro che invita)"
+            "30": "Prenotazione per un ospite (per il membro che invita)",
+            "1102": "Contributo per il referral disponibile (membro referente)",
+            "1101": "Contributo per il referral disponibile (membro riferito)",
+            "201": "Metodo di pagamento dell'abbonamento in scadenza (secondo avviso)",
+            "200": "Metodo di pagamento dell'abbonamento in scadenza (primo avviso)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1466,7 +1477,8 @@
             "recurrent_private_booking": "Appuntamento ricorrente",
             "replacement_request": "Sostituzione",
             "giftcard": "Gift card",
-            "performance": "Performance"
+            "performance": "Performance",
+            "referral": "Referral"
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
@@ -2306,7 +2318,8 @@
                 "2": "Rifiutato",
                 "3": "In attesa",
                 "4": "Ricevuto",
-                "5": "Errore"
+                "5": "Errore",
+                "-1": "Sconosciuto"
             },
             "table": {
                 "columns": {
@@ -4196,7 +4209,8 @@
                 "expand": "Estendi"
             },
             "inbox": "Posta in arrivo",
-            "audience": "{{ audienceCamelCase }}"
+            "audience": "{{ audienceCamelCase }}",
+            "backToWebshop": "Torna allo shop"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -4935,7 +4949,7 @@
         "state": {
             "9000": "Spedito",
             "0": "In attesa",
-            "700": "Pagato",
+            "700": "In elaborazione",
             "1100": "Annullato",
             "1200": "Da recuperare sul posto"
         },
@@ -11632,7 +11646,8 @@
             "code": {
                 "label": "Codice",
                 "helperText": "Il codice che invierai ai clienti interessati",
-                "helperTextFranchise": "Il codice che verrà inviato ai clienti interessati. Assicurati che il codice non esista già nei tuoi diversi studi."
+                "helperTextFranchise": "Il codice che verrà inviato ai clienti interessati. Assicurati che il codice non esista già nei tuoi diversi studi.",
+                "codeAlreadyInUse": "Questo codice è già in uso."
             },
             "voucher_type": {
                 "percent": "In percentuale",
@@ -19610,5 +19625,14 @@
                 "general": "Generale"
             }
         }
+    },
+    "accessControl": {
+        "snackbar": {
+            "R": "Non valido",
+            "O": "Attenzione",
+            "G": "Valido",
+            "message": "<strong>{{- name }}</strong> ha appena eseguito il check in."
+        },
+        "memberEntry": "Ingresso del membro"
     }
 }

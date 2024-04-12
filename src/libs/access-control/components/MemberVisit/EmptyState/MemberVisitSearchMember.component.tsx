@@ -1,16 +1,20 @@
 import React, { useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 
 import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
+  displayDropDownInPopover?: boolean;
   onClearSearch?: () => void;
   onMemberClick: (memberId: number) => void;
   reducedWidth?: boolean;
@@ -19,6 +23,7 @@ type Props = {
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
+  displayDropDownInPopover,
   onClearSearch,
   onMemberClick,
   reducedWidth,
@@ -26,7 +31,10 @@ const MemberVisitSearchMember: React.FC<Props> = ({
   title,
 }) => {
   const { t } = useTranslation('accessControl');
-  const classes = useStyles({ reducedWidth });
+  const classes = useStyles({
+    reducedWidth,
+    displayDropDownInPopover,
+  });
 
   const [searchText, setSearchText] = React.useState('');
 
@@ -80,21 +88,32 @@ const MemberVisitSearchMember: React.FC<Props> = ({
             searchedText={searchText}
           />
           {!!searchResults?.length && (
-            <List className={classes.memberList}>
-              {searchResults.map((member) => (
-                <ListItem
-                  key={member.id}
-                  button
-                  className={classes.memberListItem}
-                  onClick={() => onMemberSelect(member.id)}
-                >
-                  <ListItemText
-                    primary={member.name}
-                    secondary={member.email}
-                  />
-                </ListItem>
-              ))}
-            </List>
+            <ConditionalWrapper
+              condition={displayDropDownInPopover}
+              wrapper={(children) => (
+                <div style={{ position: 'relative' }}>{children}</div>
+              )}
+            >
+              <ClickAwayListener onClickAway={clearSearch}>
+                <Paper className={classes.memberListContainer} elevation={8}>
+                  <List className={classes.memberList}>
+                    {searchResults.map((member) => (
+                      <ListItem
+                        key={member.id}
+                        button
+                        className={classes.memberListItem}
+                        onClick={() => onMemberSelect(member)}
+                      >
+                        <ListItemText
+                          primary={member.name}
+                          secondary={member.email}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Paper>
+              </ClickAwayListener>
+            </ConditionalWrapper>
           )}
         </div>
       </div>
@@ -105,6 +124,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
 const useStyles = makeStyles<
   Theme,
   {
+    displayDropDownInPopover?: boolean;
     reducedWidth?: boolean;
   }
 >((theme) => ({
@@ -127,18 +147,27 @@ const useStyles = makeStyles<
   },
   memberList: {
     width: '100%',
-    marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: theme.shape.borderRadius,
-    borderColor: theme.palette.grey[500],
     maxHeight: 500,
     overflow: 'scroll',
   },
   memberListItem: {},
+  memberListContainer: {
+    width: '100%',
+
+    position: ({ displayDropDownInPopover }) =>
+      displayDropDownInPopover ? 'absolute' : 'relative',
+    zIndex: ({ displayDropDownInPopover }) =>
+      displayDropDownInPopover ? 99999 : 1,
+
+    borderColor: theme.palette.grey[300],
+    borderWidth: 2,
+    borderRadius: theme.spacing(1),
+  },
   memberSearch: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1),
+    gap: ({ displayDropDownInPopover }) =>
+      displayDropDownInPopover ? 0 : theme.spacing(1),
     width: '100%',
   },
 }));

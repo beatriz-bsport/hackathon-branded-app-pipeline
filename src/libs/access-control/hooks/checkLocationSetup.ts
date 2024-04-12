@@ -10,62 +10,89 @@ import type {
  * (By location, we mean the address of the establishments, if the company does not have multi-location upsell,
  * and the establishment group if it does)
  *
- * A staff member can only be assigned to one location at a time.
+ * A staff user can only be assigned to one location at a time.
  * On the contrary, it can be assigned to multiple establishments at once.
  *
- * This hook checks if the staff member is assigned to multiple establishments and if they share the same location.
+ * This hook checks that the establishments assigned to the staff user share the same location.
+ * It can also be used to check and parse the location data of a member visit. (see examples)
  *
  * If there is a mistake in the staff configuration, the location blocker will be displayed.
  *
- * Finally, the hook returns the location of the staff member,
- * in order to display it in the member visit (with empty state) page
+ * Finally, the hook returns the location of the staff user, in order to display it.
  *
  * @param {Record<string, Establishment>} establishmentsData - The establishments data of the company
- * @param {number[]} establishmentsSelectedInRole - The establishments linked to the staff role
+ * @param {number[]} establishmentsToCheck - The establishments we want to check
  * @param {EstablishmentGroupAPI[]} establishmentGroups - The establishment groups of the company
  * @param {boolean} enableMultilocalization - The company has multi-location upsell or not
  *
+ * @example
+ * // To check the staff location and display the location blocker if needed
+ * const {
+ *  showLocationBlocker,
+ *  staffLocationAddress,
+ *  staffLocationEstablishmentGroup,
+ *  establishmentObjects: establishmentsInRole,
+ * } = useCheckAccessControlLocationSetup({
+ *  establishmentsData,
+ *  establishmentsToCheck: establishmentsSelectedInRole,
+ *  establishmentGroups,
+ *  enableMultilocalization: theme.enable_multi_localization,
+ * });
+ *
+ * @example
+ * // To check the location of a member visit and display it
+ * const {
+ *  staffLocationAddress,
+ *  staffLocationEstablishmentGroup,
+ *  establishmentObjects,
+ * } = useCheckAccessControlLocationSetup({
+ *  establishmentsData,
+ *  establishmentsToCheck: memberVisit.establishments,
+ *  establishmentGroups,
+ *  enableMultilocalization: theme.enable_multi_localization,
+ * });
+ *
  * @returns
  * - showLocationBlocker: boolean
- * - establishmentsInRole: Establishment[]
+ * - establishmentObjects: Establishment[]
  * - staffLocationAddress: string | null
  * - staffLocationEstablishmentGroup: EstablishmentGroupAPI | null
  */
-export const useCheckStaffLocation = ({
+export const useCheckAccessControlLocationSetup = ({
   establishmentsData,
-  establishmentsSelectedInRole,
+  establishmentsToCheck,
   establishmentGroups,
   enableMultilocalization,
 }: {
   establishmentsData: Record<string, Establishment>;
-  establishmentsSelectedInRole: number[];
+  establishmentsToCheck: number[];
   establishmentGroups: EstablishmentGroupAPI[];
   enableMultilocalization: boolean;
 }) => {
   const [showLocationBlocker, setShowLocationBlocker] = useState(false);
 
-  const establishmentsInRole = useMemo(
+  const establishmentObjects = useMemo(
     () =>
-      establishmentsSelectedInRole.map(
-        (establishmentId) => establishmentsData[establishmentId],
-      ),
-    [establishmentsData, establishmentsSelectedInRole],
+      establishmentsToCheck
+        .map((establishmentId) => establishmentsData?.[establishmentId])
+        .filter((establishment) => !!establishment),
+    [establishmentsData, establishmentsToCheck],
   );
 
   const addresses = useMemo(
     () =>
-      establishmentsInRole.map(
+      establishmentObjects.map(
         (establishment) => establishment?.location.address,
       ),
-    [establishmentsInRole],
+    [establishmentObjects],
   );
 
   const allAddressesAreDefinedAndEqual = useMemo(
     () =>
       uniq(addresses).length === 1 &&
-      addresses.length === establishmentsSelectedInRole.length &&
+      addresses.length === establishmentsToCheck.length &&
       !!addresses[0],
-    [addresses, establishmentsSelectedInRole],
+    [addresses, establishmentsToCheck],
   );
 
   const uniqueSharedAddress = useMemo(
@@ -76,11 +103,11 @@ export const useCheckStaffLocation = ({
   const establishmentGroupsContainingAllEstablishmentsInRole = useMemo(
     () =>
       establishmentGroups?.filter((establishmentGroup) =>
-        establishmentsSelectedInRole.every((establishmentId) =>
+        establishmentsToCheck.every((establishmentId) =>
           establishmentGroup.establishment.includes(establishmentId),
         ),
       ),
-    [establishmentGroups, establishmentsSelectedInRole],
+    [establishmentGroups, establishmentsToCheck],
   );
 
   const allEstablishmentsShareOneUniqueLocation = useMemo(
@@ -100,7 +127,7 @@ export const useCheckStaffLocation = ({
   );
 
   useEffect(() => {
-    if (!establishmentsSelectedInRole?.length) {
+    if (!establishmentsToCheck?.length) {
       setShowLocationBlocker(true);
     } else if (!Object.keys(establishmentsData).length) {
       setShowLocationBlocker(false);
@@ -115,7 +142,7 @@ export const useCheckStaffLocation = ({
       setShowLocationBlocker(false);
     }
   }, [
-    establishmentsSelectedInRole,
+    establishmentsToCheck,
     enableMultilocalization,
     allAddressesAreDefinedAndEqual,
     allEstablishmentsShareOneUniqueLocation,
@@ -124,7 +151,7 @@ export const useCheckStaffLocation = ({
 
   return Immutable({
     showLocationBlocker,
-    establishmentsInRole,
+    establishmentObjects,
     staffLocationAddress: uniqueSharedAddress,
     staffLocationEstablishmentGroup: uniqueSharedEstablishmentGroup,
   });

@@ -56,8 +56,7 @@ import type { RootState } from '../../reducers';
 // Hooks
 
 import { useAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
-
-import { useCheckStaffLocation } from '#libs/access-control/hooks/checkStaffLocation';
+import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
 import type { MemberVisitREST } from '#libs/access-control/types';
 
@@ -256,12 +255,12 @@ export const useMemberVisitPageDataManager = ({
 
   const {
     showLocationBlocker,
-    establishmentsInRole,
+    establishmentObjects: establishmentsInRole,
     staffLocationEstablishmentGroup,
     staffLocationAddress,
-  } = useCheckStaffLocation({
+  } = useCheckAccessControlLocationSetup({
     establishmentsData,
-    establishmentsSelectedInRole,
+    establishmentsToCheck: establishmentsSelectedInRole,
     establishmentGroups,
     enableMultilocalization: theme.enable_multi_localization,
   });

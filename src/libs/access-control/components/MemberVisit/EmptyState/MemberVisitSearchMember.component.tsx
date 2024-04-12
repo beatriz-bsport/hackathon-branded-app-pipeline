@@ -1,7 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 
 import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 

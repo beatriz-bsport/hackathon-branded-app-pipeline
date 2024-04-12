@@ -19,10 +19,6 @@ import { getAllBookingAndPrivateBooking } from '#libs/consumer-space/selectors';
 
 // Actions
 
-import {
-  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '#libs/establishment/actions';
 import { search } from '#libs/member/actions';
 import {
   checkMemberInEstablishment as checkMemberInEstablishmentAction,
@@ -67,9 +63,7 @@ export const useMemberVisitPageDataManager = ({
   establishmentGroups,
   establishmentsData,
   establishmentsSelectedInRole,
-  fetchAllEstablishmentGroup,
   fetchBookingsAndPrivateBookings,
-  fetchEstablishmentBulk,
   refreshMemberVisitAccessStatus,
   setMemberVisitEntryStatus,
   theme,
@@ -79,9 +73,7 @@ export const useMemberVisitPageDataManager = ({
   | 'establishmentGroups'
   | 'establishmentsData'
   | 'establishmentsSelectedInRole'
-  | 'fetchAllEstablishmentGroup'
   | 'fetchBookingsAndPrivateBookings'
-  | 'fetchEstablishmentBulk'
   | 'refreshMemberVisitAccessStatus'
   | 'setMemberVisitEntryStatus'
   | 'theme'
@@ -100,7 +92,7 @@ export const useMemberVisitPageDataManager = ({
   const [showEntryStatusChangedModal, setShowEntryStatusChangedModal] =
     React.useState(false);
 
-  /** -------------- BROADCAST CHANNEL --------------- */
+  /** -------------- HOOKS --------------- */
 
   const sendToAccessControlBroadcastChannel = useAccessControlBroadcastChannel(
     (_memberVisit: MemberVisitREST) => {
@@ -112,19 +104,6 @@ export const useMemberVisitPageDataManager = ({
   );
 
   /** ------------- EFFECTS --------------- */
-
-  // Fetch data on component mount
-  useEffect(() => {
-    fetchEstablishmentBulk(establishmentsSelectedInRole);
-    if (theme.enable_multi_localization) {
-      fetchAllEstablishmentGroup();
-    }
-  }, [
-    fetchEstablishmentBulk,
-    establishmentsSelectedInRole,
-    theme,
-    fetchAllEstablishmentGroup,
-  ]);
 
   // Fetch member data after check-in
   useEffect(() => {
@@ -293,9 +272,7 @@ const MemberVisit: React.FC<Props> = React.memo(
     establishmentGroups,
     establishmentsData,
     establishmentsSelectedInRole,
-    fetchAllEstablishmentGroup,
     fetchBookingsAndPrivateBookings,
-    fetchEstablishmentBulk,
     memberVisitIsLoading,
     refreshMemberVisitAccessStatus,
     searchMembers,
@@ -328,9 +305,7 @@ const MemberVisit: React.FC<Props> = React.memo(
       establishmentGroups,
       establishmentsData,
       establishmentsSelectedInRole,
-      fetchAllEstablishmentGroup,
       fetchBookingsAndPrivateBookings,
-      fetchEstablishmentBulk,
       refreshMemberVisitAccessStatus,
       setMemberVisitEntryStatus,
       theme,
@@ -419,9 +394,7 @@ const connector = connect(
   }),
   {
     checkMemberInEstablishment: checkMemberInEstablishmentAction,
-    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
-    fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
     searchMembers: search,
     setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,

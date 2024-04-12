@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
@@ -16,6 +16,10 @@ import MemberVisit from './MemberVisit.page';
 
 import type { RootState } from '../../reducers';
 import type { RolePermission } from '#libs/role/types';
+import {
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '#libs/establishment/actions';
 
 type TabType = 'perform' | 'monitor' | 'settings';
 
@@ -83,12 +87,23 @@ const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
  * and call the AccessMonitoringSwitcher component to render the content of the selected tab.
  */
 const AccessMonitoringRouter: React.FC<Props> = ({
-  tab,
-  push,
+  fetchAllEstablishmentGroup,
+  fetchEstablishments,
   pageHeight,
   permissions,
+  push,
+  tab,
+  theme,
 }) => {
   const classes = useStyles();
+
+  // Fetch data on component mount
+  useEffect(() => {
+    if (theme.enable_multi_localization) {
+      fetchAllEstablishmentGroup();
+    }
+    fetchEstablishments();
+  }, [fetchAllEstablishmentGroup, fetchEstablishments, theme]);
 
   const tabsData = Immutable([
     ...(permissions?.navigationMenu?.accessMonitoring?.perform
@@ -137,8 +152,11 @@ const useStyles = makeStyles((theme) => ({
 const connector = connect(
   (state: RootState) => ({
     permissions: getPermissions(state),
+    theme: state.theme.theme,
   }),
   {
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
+    fetchEstablishments: fetchEstablishmentsAction,
     push: pushFunc,
   },
 );

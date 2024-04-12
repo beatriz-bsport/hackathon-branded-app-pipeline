@@ -39,11 +39,11 @@ export function isOfferInGroupLockedByPreviousOfferInPast(
   if (offerGroup?.full_booking_only === false) {
     return false;
   }
+  if (!offerInGroup?.group || offerGroup?.allow_booking_after_start) {
+    return false;
+  }
   if (offerGroup?.first_offer_date) {
     return moment(offerGroup.first_offer_date).isSameOrBefore(moment());
-  }
-  if (!offerInGroup?.group || offerInGroup.group.allow_booking_after_start) {
-    return false;
   }
   return moment(offerInGroup.group.first_offer_date).isSameOrBefore(moment());
 }

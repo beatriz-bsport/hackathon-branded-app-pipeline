@@ -15,8 +15,7 @@ import { formatAsDatetime, formatAsDatetimeAdapted } from '#utils/datetime';
 import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
 import Level from '#libs/level/components/Level.component';
 
-import type { Offer_FULL } from '#libs/offer/types';
-import type { Level as LevelType } from '#libs/level/types';
+import type { OfferDataListItem } from '#libs/offer/types';
 
 type Props = {
   checked?: boolean;
@@ -24,7 +23,7 @@ type Props = {
   divider?: boolean;
   editing_parameters?: any;
   handleChange?: () => void;
-  offer: Offer_FULL & { customLevel: LevelType };
+  offer: OfferDataListItem;
   onClick: (offerId: number) => void;
   selected?: boolean;
   similarOffer?: boolean;

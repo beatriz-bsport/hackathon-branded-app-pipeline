@@ -29,10 +29,13 @@ import {
   Submit,
   ColorField,
 } from '#components/forms';
-
-import type { CoachDetailed } from '../../../api/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
+
+import type { CoachDetailed } from '../../../api/types';
+import type { OptionCallback } from '#state/types';
 
 const {
   trackFormAdd,
@@ -44,13 +47,18 @@ const {
 );
 
 type Props = {
-  isSubmitting: boolean;
-  isValid: boolean;
   onCancel: () => void;
   initial?: CoachDetailed;
   country: string;
 };
 
+type HOCProps = {
+  onSubmit: (
+    payload: CoachUpdateOrCreatedPayload,
+    options?: OptionCallback,
+  ) => void;
+  defaultEmail: string;
+};
 type InitialValues = {
   initial?: CoachDetailed;
   avatar: string;
@@ -68,6 +76,8 @@ type InitialValues = {
   facebook_url: string;
   instagram_url: string;
 };
+
+export type CoachFormValues = Omit<InitialValues, 'initial'>;
 
 export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
   isSubmitting,
@@ -325,7 +335,7 @@ const CoachSchema = (props: Props) =>
       .nullable(false),
   });
 
-export const CoachFormHOC = withFormik({
+export const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
   enableReinitialize: true,
   mapPropsToValues: ({ initial, defaultEmail }: Props) =>
     initial || {

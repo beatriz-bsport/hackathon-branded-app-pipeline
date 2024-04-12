@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 
-import { actionTypes, PaymentPackState } from './types';
+import { actionTypes, PaymentPack, PaymentPackState } from './types';
 import {
   fetchActivityCompatibleAction,
   fetchOneAction,
@@ -25,6 +25,7 @@ import {
   updatePaymentPackOrderActions,
   updatePaymentPackCategoryOrderActions,
   isPaymentPackUsedInComboActions,
+  paymentPackBulkWidgetActions,
 } from './actions';
 
 const initialState: PaymentPackState = Immutable({
@@ -497,6 +498,21 @@ export const newPaymentPackReducer = handleActions(
     },
     [paymentPackBulkActions.success.toString()]: (state, { payload }) => {
       return state.merge({ byId: payload.paymentPacksById }, { deep: true });
+    },
+    [paymentPackBulkWidgetActions.success.toString()]: (state, { payload }) => {
+      const { results } = payload;
+      return state.merge(
+        {
+          byId: results.reduce<{ [id: number]: PaymentPack }>(
+            (acc, paymentPack) => {
+              acc[paymentPack.id] = paymentPack;
+              return acc;
+            },
+            {},
+          ),
+        },
+        { deep: true },
+      );
     },
     [fetchOneAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);

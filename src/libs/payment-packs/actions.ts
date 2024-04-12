@@ -351,6 +351,10 @@ export const paymentPackBulkActions = {
   success: createAction('PAYMENT_PACK/BULK/SUCCESS'),
 };
 
+export const paymentPackBulkWidgetActions = {
+  success: createAction('WIDGET/PAYMENT_PACK/BULK/SUCCESS'),
+};
+
 export function fetchPaymentPackBulk(
   ids: Array<number>,
   options?: OptionCallback<PaymentPack[]>,
@@ -384,6 +388,31 @@ export function fetchPaymentPackBulk(
       if (options && options.onError) options.onError();
     }
     dispatch(paymentPackBulkActions.isLoading(false));
+  };
+}
+
+export function fetchPaymentPackBulkWidget(
+  ids: Array<number>,
+  options?: OptionCallback<PaymentPack[]>,
+): ThunkAction {
+  return async () => {
+    const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    try {
+      const response = await fetchPaymentPackListAPI({
+        id__in: ids_uniq,
+        page_size: null,
+      });
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (options && options.onError) options.onError(err);
+    }
   };
 }
 

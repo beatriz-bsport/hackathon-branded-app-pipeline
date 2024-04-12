@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as Yup from 'yup';
 
 import { compose } from 'recompose';
 
@@ -31,6 +32,30 @@ import {
   WaitingListConfiguration,
   WaitingListAutoCancellation,
 } from '#libs/waiting-list/types';
+
+const WaitingListConfigurationFormValidationSchema = Yup.object().shape({
+  autoCancellationType: Yup.number()
+    .oneOf([
+      WaitingListAutoCancellation.dumb,
+      WaitingListAutoCancellation.smart,
+    ])
+    .required(),
+  autoConsumePack: Yup.boolean().required(),
+  autokickDelay: Yup.number().required(),
+  checkCredit: Yup.boolean().required(),
+  displayMemberPosition: Yup.boolean().required(),
+  dumbDelayMinutes: Yup.number().min(15).required(),
+  dynamic: Yup.number()
+    .oneOf([WAITING_LIST_DYNAMIC_ORDERED, WAITING_LIST_DYNAMIC_UNORDERED])
+    .required(),
+  isOptionBlocking: Yup.boolean().required(),
+  kickIfNoPackWhenAutoConsume: Yup.boolean().required(),
+  lastDelayBeforeAutoConsume: Yup.number()
+    .min(0)
+    .max(60 * 4)
+    .required(),
+  smartDelayPercentage: Yup.number().min(10).max(100).required(),
+});
 
 type FormikValues = {
   autoCancellationType: WaitingListAutoCancellation;
@@ -477,6 +502,7 @@ const styles = (theme: Theme) =>
 export default compose<OwnProps, OuterProps>(
   withFormik<Props, FormikValues>({
     enableReinitialize: true,
+    validationSchema: WaitingListConfigurationFormValidationSchema,
     mapPropsToValues: ({ configuration }) => {
       const {
         auto_cancellation_type: autoCancellationType,

@@ -14,11 +14,17 @@ export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
 export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
   'paymentPackTemplate';
 export const EXPORTABLE_COMPONENT_TYPE_REFERRAL = 'referral';
+export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING = 'consumerBooking';
 
 export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_REFERRAL,
     label: 'referral',
+    defaultConfig: {},
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
+    label: 'consumerBooking',
     defaultConfig: {},
   },
   {

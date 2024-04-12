@@ -8,6 +8,7 @@ import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
+  onClearSearch?: () => void;
   onMemberClick: (memberId: number) => void;
   reducedWidth?: boolean;
   searchMembers: (searchText: string, params: any, options: any) => void;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
+  onClearSearch,
   onMemberClick,
   reducedWidth,
   searchMembers,
@@ -30,7 +32,8 @@ const MemberVisitSearchMember: React.FC<Props> = ({
   const clearSearch = useCallback(() => {
     setSearchText('');
     setSearchResults([]);
-  }, []);
+    onClearSearch?.();
+  }, [setSearchText, setSearchResults, onClearSearch]);
 
   const onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

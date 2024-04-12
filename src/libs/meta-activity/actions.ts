@@ -88,6 +88,38 @@ export function fetchMetaActivityBulk(
   };
 }
 
+/*
+ * We have to declare this other action for the widget, the onsuccess method needs to use response.data as params
+ * to make things work on the call handler.
+ */
+export function fetchMetaActivityBulkWidget(
+  ids: Array<number>,
+  options?: OptionCallback<MetaActivity[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    const freshIdList = getFreshPureMetaActivityList(getState());
+
+    const ids_uniq = uniq(ids)
+      .filter((id) => !!id)
+      .filter((id) => !freshIdList.includes(id));
+    if (ids_uniq.length === 0) {
+      return;
+    }
+
+    try {
+      const response = await fetchMetaActivityListAPI({
+        id__in: ids_uniq,
+        page_size: null,
+      });
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      Sentry.captureException(err);
+      console.error(err);
+      if (options && options.onError) options.onError(err);
+    }
+  };
+}
+
 export function fetchMetaActivityBulkAfterCategoryDelete(
   ids: Array<number>,
   options?: OptionCallback,

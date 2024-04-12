@@ -175,13 +175,18 @@ export class ShopItemDetailPage extends Component<Props> {
 
   handleDeleteShopItemVariant = (id: number) => {
     const currentPage = this.props.shopItemVariantState.page;
-    const isLastItemInList =
+    const isLastItemInPage =
       this.props.shopItemVariantState.variants.length === 1;
 
     this.props.deleteShopItemVariant(id, {
       onSuccess: () => {
         this.fetchShopItemVariantList(
-          isLastItemInList ? currentPage - 1 : currentPage,
+          /**
+           * When performing a variant deletion, we want to fetch the previous page
+           * if we did delete the last remaining variant in the page. This avoid pagination
+           * number issues (e.g refetching a page that doesnt exist anymore).
+           */
+          isLastItemInPage && currentPage > 1 ? currentPage - 1 : currentPage,
         );
       },
     });

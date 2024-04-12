@@ -62,18 +62,27 @@ const MemberVisitSearchMember: React.FC<Props> = ({
   );
 
   const onMemberSelect = useCallback(
-    (memberId: number) => {
-      onMemberClick(memberId);
-      clearSearch();
+    (member: MemberMinimal) => {
+      onMemberClick(member.id);
+      setSearchText((_searchText) => {
+        if (member?.name.replace(/\s/g, '')?.length) {
+          return member.name;
+        }
+        if (member?.email?.replace(/\s/g, '')?.length) {
+          return member.email;
+        }
+        return _searchText;
+      });
+      setSearchResults([]);
     },
-    [onMemberClick, clearSearch],
+    [onMemberClick, setSearchResults],
   );
 
   useEffect(() => {
     if (!searchText) {
       setSearchResults([]);
     }
-  }, [searchText]);
+  }, [searchText, setSearchResults]);
 
   return (
     <div className={classes.root}>

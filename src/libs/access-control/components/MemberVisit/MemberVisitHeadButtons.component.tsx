@@ -12,7 +12,7 @@ import { AccessStatus } from '#libs/access-control/constants';
 type Props = {
   accessStatus: AccessStatus;
   isLoading: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onRefresh: () => void;
 };
 
@@ -46,14 +46,16 @@ const MemberVisitHeadButtons: React.FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <Button
-        onClick={onClose}
-        size="small"
-        startIcon={<CloseIcon />}
-        variant="outlined"
-      >
-        {t('memberVisit.closeMemberVisit')}
-      </Button>
+      {!!onClose && (
+        <Button
+          onClick={onClose}
+          size="small"
+          startIcon={<CloseIcon />}
+          variant="outlined"
+        >
+          {t('memberVisit.closeMemberVisit')}
+        </Button>
+      )}
       {accessStatus !== AccessStatus.GREEN && (
         <Button
           onClick={onRefresh}

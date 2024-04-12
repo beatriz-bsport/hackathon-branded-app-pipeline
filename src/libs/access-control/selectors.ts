@@ -26,3 +26,11 @@ export const getAllMemberVisits = createSelector(
 
 export const getMemberVisitIsLoading = (state: RootState) =>
   state.accessControl.memberVisit.loading;
+
+export const getMemberVisitLiveHistoryIsLoading = (state: RootState) => {
+  return (
+    state.accessControl.memberVisit.loading ||
+    state.establishment.loading ||
+    state.establishment.establishmentGroup.loading
+  );
+};

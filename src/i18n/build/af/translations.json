@@ -10571,7 +10571,8 @@
         "giftcard": "Gift cards",
         "paymentPackTemplate": "Shared passes",
         "calendarV2": "Calendar",
-        "referral": "Referral"
+        "referral": "Referral",
+        "consumerBooking": "My bookings"
       },
       "preview": "Preview",
       "saveButton": "Save",

@@ -172,6 +172,7 @@ exports.default = {
       paymentPackTemplate: 'Shared passes',
       calendarV2: 'Calendar',
       referral: 'Referral',
+      consumerBooking: 'My bookings',
     },
     preview: 'Preview',
     saveButton: 'Save',

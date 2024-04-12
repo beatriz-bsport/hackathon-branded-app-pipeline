@@ -28,6 +28,7 @@ import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
   isLoading?: boolean;
+  locationInformation?: string;
   memberVisit: MemberVisitREST;
   nextBooking: {
     type: 'booking' | 'privateBooking';
@@ -126,6 +127,7 @@ const MemberVisitDetailsCardContent: React.FC<
 
 const MemberVisitDetailsCard: React.FC<Props> = ({
   isLoading,
+  locationInformation,
   memberVisit,
   nextBooking,
   onAllowManualEntry,
@@ -147,13 +149,25 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
   return (
     <Card className={classes.root} variant="outlined">
       <div className={classes.titleContainer}>
-        <Typography variant="h6">{t('memberVisitDetails.title')}</Typography>
-        <div className={classes.chipsContainer}>
-          <AccessStatusChip
-            accessStatus={access_status}
-            initialAccessStatus={initial_access_status}
-          />
+        <div className={classes.titleAndChips}>
+          <Typography variant="h6">{t('memberVisitDetails.title')}</Typography>
+          <div className={classes.chipsContainer}>
+            <AccessStatusChip
+              accessStatus={access_status}
+              initialAccessStatus={initial_access_status}
+            />
+          </div>
         </div>
+        {locationInformation && (
+          <Typography
+            noWrap
+            className={classes.locationInformation}
+            color="textSecondary"
+            variant="body1"
+          >
+            {locationInformation}
+          </Typography>
+        )}
       </div>
       <div className={classes.content}>
         <div className={classes.photoContainer}>
@@ -243,7 +257,7 @@ const useStyles = makeStyles<Theme, { access_status?: AccessStatus }>(
       borderWidth: 2,
       borderRadius: theme.spacing(1),
     },
-    titleContainer: {
+    titleAndChips: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -307,6 +321,9 @@ const useStyles = makeStyles<Theme, { access_status?: AccessStatus }>(
     },
     skeleton: {
       borderRadius: theme.spacing(1),
+    },
+    locationInformation: {
+      fontWeight: 500,
     },
   }),
 );

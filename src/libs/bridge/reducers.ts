@@ -14,11 +14,13 @@ import {
   memberTagActions,
   getVideoPlaybackUrlActions,
   listRegisteredIds,
-  retrieveReferralProgramForCompanyActions,
-  retrieveMemberAction,
-  retrieveMembershipByCompanyAction,
-  retrieveReferralMemberStatusActions,
 } from './actions';
+import {
+  retrieveReferralMemberStatusActions,
+  retrieveReferralProgramForCompanyActions,
+} from '../../actions/referral';
+import { retrieveMemberAction } from '../../actions/member';
+import { retrieveMembershipByCompanyAction } from '../../actions/membership';
 
 export type BridgeState = {
   authentication: {

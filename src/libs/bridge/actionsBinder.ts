@@ -31,6 +31,12 @@ import {
 } from '../../actions/spotScheduling';
 import { extractPaginatedResponseDataResults } from '../../utils/reduxHelpers';
 import { apiCallHandler } from './callHandler';
+import {
+  retrieveReferralMemberStatusActions,
+  retrieveReferralProgramForCompanyActions,
+} from '../../actions/referral';
+import { retrieveMemberAction } from '../../actions/member';
+import { retrieveMembershipByCompanyAction } from '../../actions/membership';
 
 export const actionsBinder = () => {
   apiCallHandler.bindActions(
@@ -152,5 +158,22 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'CANCEL_BOOKING_OPTION_AS_MEMBER',
     cancelBookingOptionAsMemberActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
+    retrieveReferralProgramForCompanyActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
+    retrieveReferralMemberStatusActions,
+  );
+
+  apiCallHandler.bindActions('FETCH_MEMBER_BY_ID', retrieveMemberAction);
+
+  apiCallHandler.bindActions(
+    'MEMBERSHIP_BY_COMPANY',
+    retrieveMembershipByCompanyAction,
   );
 };

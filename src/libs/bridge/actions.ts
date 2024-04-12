@@ -181,43 +181,6 @@ export const getVideoPlaybackUrlActions = {
   accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
 };
 
-export const retrieveReferralProgramForCompanyActions = {
-  success: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/SUCCESS'),
-  isLoading: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/LOADING'),
-  error: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/ERROR'),
-};
-apiCallHandler.bindActions(
-  'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
-  retrieveReferralProgramForCompanyActions,
-);
-
-export const retrieveReferralMemberStatusActions = {
-  success: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/SUCCESS'),
-  isLoading: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/LOADING'),
-  error: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/ERROR'),
-};
-apiCallHandler.bindActions(
-  'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
-  retrieveReferralMemberStatusActions,
-);
-
-export const retrieveMemberAction = {
-  success: createAction('REFERRAL/BRIDGE/MEMBER/SUCCESS'),
-  isLoading: createAction('REFERRAL/BRIDGE/MEMBER/LOADING'),
-  error: createAction('REFERRAL/BRIDGE/MEMBER/ERROR'),
-};
-apiCallHandler.bindActions('FETCH_MEMBER_BY_ID', retrieveMemberAction);
-
-export const retrieveMembershipByCompanyAction = {
-  success: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/SUCCESS'),
-  isLoading: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/LOADING'),
-  error: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/ERROR'),
-};
-apiCallHandler.bindActions(
-  'MEMBERSHIP_BY_COMPANY',
-  retrieveMembershipByCompanyAction,
-);
-
 actionsBinder();
 
 // Second part: how to handle messages

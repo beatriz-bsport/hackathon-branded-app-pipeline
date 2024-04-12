@@ -135,11 +135,11 @@ class BridgeApiCallHandler {
       dispatch(actions.error(response.error));
     } else {
       this.#requestStatusStore[type] = 'fulfilled';
+      dispatch(actions.success(response.data));
       if (this.#apiCallbackRegistry[type]?.onSuccess) {
         const extractFn = this.#apiCallbackRegistry[type].successExtractFn;
         this.#apiCallbackRegistry[type].onSuccess(extractFn(response.data));
       }
-      dispatch(actions.success(response.data));
     }
     dispatch(isLoadingAction(false));
   }

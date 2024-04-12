@@ -43,6 +43,32 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         .setIn(['memberVisit', 'byId'], {})
         .setIn(['memberVisit', 'allIds'], []);
     },
+    [globalMemberVisitActions.manualUpdateFromBroadcastChannel.toString()]: (
+      state,
+      { payload }: { payload: MemberVisitREST },
+    ) => {
+      const memberVisit = payload;
+      const memberVisitExists = !!state.memberVisit.byId?.[memberVisit.id];
+      return state
+        .setIn(
+          ['memberVisit', 'allIds'],
+          uniq([
+            ...(!memberVisitExists ? [memberVisit.id] : []),
+            ...state.memberVisit.allIds,
+            ...(memberVisitExists ? [] : [memberVisit.id]),
+          ]),
+        )
+        .merge(
+          {
+            memberVisit: {
+              byId: {
+                [memberVisit.id]: memberVisit,
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
     [checkMemberInEstablishmentActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },

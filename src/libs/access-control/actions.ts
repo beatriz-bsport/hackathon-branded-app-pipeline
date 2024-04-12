@@ -20,6 +20,9 @@ import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 export const globalMemberVisitActions = {
   clear: createAction('ACCESS_CONTROL/CLEAR_MEMBER_VISIT'),
+  manualUpdateFromBroadcastChannel: createAction<MemberVisitREST>(
+    'ACCESS_CONTROL/MANUAL_UPDATE_FROM_BROADCAST_CHANNEL',
+  ),
 };
 
 export const checkMemberInEstablishmentActions = {
@@ -189,5 +192,15 @@ export const getMemberVisitList = (
       options?.onError?.(error);
     }
     dispatch(getMemberVisitListActions.loading(false));
+  };
+};
+
+export const manualUpdateMemberVisitFromBroadcastChannel = (
+  memberVisit: MemberVisitREST,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(
+      globalMemberVisitActions.manualUpdateFromBroadcastChannel(memberVisit),
+    );
   };
 };

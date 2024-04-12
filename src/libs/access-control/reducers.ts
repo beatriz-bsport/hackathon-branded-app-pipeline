@@ -63,8 +63,8 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       return state
         .setIn(
           ['memberVisit', 'allIds'],
-          // FIXME: This changes the order of the memberVisit list
-          uniq([...state.memberVisit.allIds, memberVisit.id]),
+          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
+          uniq([memberVisit.id, ...state.memberVisit.allIds]),
         )
         .merge(
           {
@@ -130,8 +130,8 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       return state
         .setIn(
           ['memberVisit', 'allIds'],
-          // FIXME: This changes the order of the memberVisit list
-          uniq([...state.memberVisit.allIds, memberVisit.id]),
+          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
+          uniq([memberVisit.id, ...state.memberVisit.allIds]),
         )
         .merge(
           {

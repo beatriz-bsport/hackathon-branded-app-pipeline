@@ -13,6 +13,7 @@ import ContentWithAppBar from '#components/generic-appbar-content/ContentWithApp
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getPermissions } from '#libs/role/selectors';
 import MemberVisit from './MemberVisit.page';
+import LiveHistory from './LiveHistory.page';
 
 import type { RootState } from '../../reducers';
 import type { RolePermission } from '#libs/role/types';
@@ -49,7 +50,7 @@ const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
 
   const components = {
     perform: <MemberVisit />,
-    monitor: <div />,
+    monitor: <LiveHistory />,
     settings: <div />,
   };
 

@@ -97,8 +97,8 @@ export type AccessControlState = {
 /** OTHER TYPES */
 
 export type MemberVisitQueryParams = {
-  page_size: number;
-  page: number;
+  page_size?: number;
+  page?: number;
   member?: number;
   access_status?: AccessStatus;
   entry_status?: EntryStatus;

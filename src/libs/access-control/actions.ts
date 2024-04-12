@@ -16,7 +16,7 @@ import type {
   PaginatedResponse,
 } from '../../state/types';
 import type { MemberVisitQueryParams, MemberVisitREST } from './types';
-import { EntryStatus } from './constants';
+import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 export const checkMemberInEstablishmentActions = {
   success: createAction<AxiosResponse<MemberVisitREST>>(
@@ -159,7 +159,7 @@ export const getMemberVisitListActions = {
  * The backend always filter the member visits by the user's company
  */
 export const getMemberVisitList = (
-  { page_size = 10, ...params }: MemberVisitQueryParams,
+  params: Omit<MemberVisitQueryParams, 'page_size'>,
   options?: OptionCallback<MemberVisitREST[]>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
@@ -171,9 +171,9 @@ export const getMemberVisitList = (
 
     try {
       const response = await getMemberVisitListAPI({
-        page_size,
         page: nextPage,
         ...params,
+        page_size: FETCH_MEMBER_VISIT_PAGE_SIZE,
       });
       dispatch(getMemberVisitListActions.success(response));
       options?.onSuccess?.(response.data.results);

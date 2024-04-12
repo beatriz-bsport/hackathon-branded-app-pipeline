@@ -63,7 +63,7 @@ export type MemberVisitREST = {
   access_status_data: AccessStatusData;
   access_status: AccessStatus;
   datetime_created: string;
-  establishments?: number;
+  establishments?: number[];
   entry_status: EntryStatus;
   id: number;
   initial_access_status: AccessStatus;

@@ -42,6 +42,18 @@ exports.default = {
         "{{- count }} member's passes were checked with no valid result.",
     },
   },
+  liveHistory: {
+    table: {
+      refusedEntry: 'Refused entry',
+      entered: 'Entered',
+      entryUnknown: 'Specify if member was allowed to enter',
+      member: 'Member',
+      session: 'Visit reason',
+      time: 'Entry',
+      accessStatus: 'Status',
+    },
+    breadcrumbTitle: 'Location visit',
+  },
   memberVisitDetails: {
     accessStatus: {
       green: 'Valid',

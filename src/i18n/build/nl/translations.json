@@ -559,7 +559,9 @@
             "1001": "Spivi-account aangemaakt (leden)",
             "1003": "Spivi-account aangemaakt (instructeurs)",
             "31": "Gastreserveringen (gast)",
-            "30": "Gastreserveringen (uitnodiger)"
+            "30": "Gastreserveringen (uitnodiger)",
+            "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
+            "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)"
         },
         "tag": {
             "BookingOption": {
@@ -649,7 +651,8 @@
                     "subscription_name": "Abonnementsnaam",
                     "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
                     "subscription_contract_terms_link": "Link voor voorwaarden",
-                    "subscription_duration": "Totale duur"
+                    "subscription_duration": "Totale duur",
+                    "days_until_payment_method_expiration": "Het aantal dagen voordat de betaalmethode verloopt"
                 },
                 "name": "Abonnementen"
             },
@@ -773,7 +776,12 @@
                     "deadline_use_referral": "Geldigheid aanbevelingsbeloning",
                     "minimum_purchase_referral": "Minimum aankoopbedrag",
                     "referring_reward": "Beloning voor de verwijzer",
-                    "reduction_purchase_referred": "Korting voor het doorverwezen lid"
+                    "reduction_purchase_referred": "Korting voor het doorverwezen lid",
+                    "registration_date": "Inschrijfdatim van doorverwezen persoon",
+                    "referred_lastname": "Achternaam (doorverwezen persoon)",
+                    "referred_firstname": "Voornaam (doorverwezen persoon)",
+                    "referring_lastname": "Achternaam (doorverwijzende persoon)",
+                    "referring_firstname": "Voornaam (doorverwijzende persoon)"
                 },
                 "name": "Referral"
             }
@@ -796,7 +804,8 @@
             "recurrent_private_booking": "Periodieke afspraken",
             "replacement_request": "Vervanging",
             "giftcard": "Cadeaubon",
-            "performance": "Prestaties"
+            "performance": "Prestaties",
+            "referral": "Doorverwijzing"
         },
         "pageTitle": "Transactionele berichten",
         "caption": {
@@ -7627,7 +7636,10 @@
                     "paymentCombo": "Pakketten"
                 },
                 "error": {
-                    "missingObject": "Dit veld is verplicht"
+                    "missingObject": "Dit veld is verplicht",
+                    "missingPaymentCombo": "Selecteer ten minste één pakket",
+                    "missingPrivatePass": "Selecteer ten minste één afspraakkaart",
+                    "missingPaymentPack": "Selecteer ten minste één leskaart"
                 },
                 "recurrence_basis": {
                     "helperText": " ",
@@ -8790,7 +8802,7 @@
         },
         "state": {
             "0": "In afwachting",
-            "700": "Betaald",
+            "700": "Te verwerken",
             "1100": "Geannuleerd",
             "1200": "Afhalen",
             "9000": "Verzonden"
@@ -8980,7 +8992,13 @@
             "title": "Online betalingen",
             "methodPaymentCardBillingDetails": "Verzoek alle facturen die betaald zijn met betaalkaarten in te zien.",
             "methodPaymentCardBillingDetailsHelper": "Schakel deze optie in om het aantal betalingen die 3D Secure vereisen te verminderen. Dit omvat sms-bevestigingen, bank-apps en meer. Houd er rekening mee dat deze velden verplicht zijn.",
-            "methodPaymentCardBillingDetailsTitle": "Verzoek alle factuurgegevens in te zien"
+            "methodPaymentCardBillingDetailsTitle": "Verzoek alle factuurgegevens in te zien",
+            "DaysBeforeNotificationInputs": {
+                "errors": {
+                    "max": "Het aantal dagen kan niet meer dan {{maxDays}} dag(en) zijn",
+                    "secondWarningDayBiggerThanFirst": "The tweede melding kan niet eerder zijn dan de eerste melding"
+                }
+            }
         },
         "billing_group": {
             "header": "Groepsfacturatie",
@@ -10381,7 +10399,8 @@
                 "quantityLabel": "Aantal",
                 "quantityHelperText": "Het aantal toe te voegen of te verwijderen producten.",
                 "cancel": "Annuleren",
-                "submit": "Opslaan"
+                "submit": "Opslaan",
+                "quantityError": "Gelieve een geldig aantal invoeren"
             },
             "action": {
                 "update": "Voorraad bijwerken"
@@ -10405,7 +10424,8 @@
                     "barcode": "Barcode",
                     "requiresDelivery": "Levering vereist",
                     "featured": "Aanbevolen",
-                    "sellOnlyOnProvision": "Verkoop alleen als er voorraad is"
+                    "sellOnlyOnProvision": "Verkoop alleen als er voorraad is",
+                    "vatValue": "{{vat}}%"
                 },
                 "variants": {
                     "availableOnline": "Online beschikbaar",
@@ -13295,10 +13315,10 @@
                 "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
                 "hideCoach": "Verberg de informatie van instructeurs op de agenda van je leden",
                 "maxFutureBooking": {
-                    "label": "Beperk het maximaal aantal toekomstige reserveringen per lid voor groepsactiviteiten",
+                    "label": "Dit is het maximum aantal toekomstige reserveringen voor workshops die leden vooraf kunnen inplannen",
                     "numberCheck": {
                         "placeholder": "Limiet",
-                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor uw leden, exclusief workshop reserveringen."
+                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor groepsactiviteiten die leden vooraf kunnen inplannen."
                     }
                 },
                 "hiddenFromMarketplace": "Activeer deze optie om je studio op de algemene app van BSPORT te tonen",
@@ -13426,7 +13446,7 @@
                 "startWeekOnToday": "Start de kalender van uw leden op de datum van vandaag als het scherm in de kaartmodus voor weekweergave staat.",
                 "showPastSessionsCalendar": "Toon sessies uit het verleden op de kalender van je leden",
                 "maxFutureWorkshop": {
-                    "label": "Aantal toekomstig geboekte workshop sessies per lid beperken",
+                    "label": "Dit is het maximum aantal toekomstige reserveringen voor workshops die leden vooraf kunnen inplannen.",
                     "numberCheck": {
                         "placeholder": "Maximum",
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor workshop sessies per lid."
@@ -13434,7 +13454,7 @@
                 },
                 "waitingListAccountsForMaxFutureBookings": {
                     "helperText": "Als dit geactiveerd is, wordt het aantal toekomstige boekingen in mindering gebracht op het aantal geregistreerde wachtlijstplaatsen. Toekomstige wachtlijstslots worden ook beperkt op basis van dezelfde telling om overboeking te voorkomen.",
-                    "label": "Neem wachtlijstplaatsen op in het maximale aantal toekomstige boekingen/workshops"
+                    "label": "Bereken ook inschrijvingen op wachtlijst wanneer toekomstige reserveringen geteld worden"
                 },
                 "bookingLimitation": "Globale boekingsbeperkingen",
                 "resetPassword": {
@@ -16325,7 +16345,8 @@
             "cadences": "Cadences",
             "replacement": "Vervanging",
             "inbox": "Inbox",
-            "audience": "{{ audienceCamelCase }}"
+            "audience": "{{ audienceCamelCase }}",
+            "backToWebshop": "Terug naar Webshop"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -16661,7 +16682,9 @@
                     "unauthenticated": "Ongeauthenticeerd",
                     "loading": "Laden",
                     "authenticated": "Geverifieerd",
-                    "unknownError": "Onbekende fout"
+                    "unknownError": "Onbekende fout",
+                    "NotCollapsable": "Niet inklapbaar",
+                    "Collapsable": "Inklapbaar"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -16796,7 +16819,8 @@
                     "isReferralProgramAvailable": "Heeft een verwijzingsprogramma",
                     "state": "Staat",
                     "showSuccessText": "Toon bevestigingstekst",
-                    "showSuccessTitle": "Toon bevestigingstitel"
+                    "showSuccessTitle": "Toon bevestigingstitel",
+                    "isCollapsable": "Type titel"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16957,7 +16981,8 @@
                 "consumer_subscription_details_card": "Gegevenskaart consumentenabonnement",
                 "consumer_subscription_card": "Consumentenabonnementskaart",
                 "fabrique_big_icon": "Groot logo",
-                "referral_details": "Details verwijzing"
+                "referral_details": "Details verwijzing",
+                "fabrique_title": "Titel"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -19631,6 +19656,11 @@
                 "campaign": "Campagnes",
                 "general": "Algemeen"
             }
+        }
+    },
+    "accessControl": {
+        "snackbar": {
+            "message": "<strong>{{- name }}</strong> checkte zojuist in."
         }
     }
 }

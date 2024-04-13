@@ -7532,7 +7532,7 @@
             },
             "deleteForm": {
                 "title": "Désactivation",
-                "content": "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
+                "content": "En désactivant le partage avec ce studio, les cartes de cours déjà achetées dans ce studio resteront utilisables, dans ce studio uniquement. Les cartes de cours déjà achetées dans les autres studios ne seront plus utilisables dans le studio désactivé.",
                 "actions": {
                     "close": "Fermer",
                     "submit": "Désactiver le partage"
@@ -8713,7 +8713,7 @@
             },
             "deleteForm": {
                 "title": "Désactivation",
-                "content": "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
+                "content": "En désactivant le partage avec ce studio, les cartes RDV déjà achetées dans ce studio resteront utilisables, dans ce studio uniquement. Les cartes RDV déjà achetées dans les autres studios ne seront plus utilisables dans le studio désactivé.",
                 "actions": {
                     "close": "Fermer",
                     "submit": "Désactiver le partage"

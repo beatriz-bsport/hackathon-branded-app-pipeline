@@ -4150,7 +4150,7 @@
         },
         "privatePassTemplateInstance": {
             "deleteForm": {
-                "content": "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
+                "content": "By deactivating sharing with this studio, appointment passes already purchased in this studio will remain usable, in this studio only. Appointment passes already purchased in other studios will no longer be usable in the deactivated studio.",
                 "actions": {
                     "submit": "Disable sharing",
                     "close": "Close"
@@ -6659,10 +6659,10 @@
                 "hideCoach": "Hide teachers' info on the calendar for members",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "This will be the maximum amount of future bookings per member, excluding workshop bookings.",
+                        "helperText": "",
                         "placeholder": "Maximum"
                     },
-                    "label": "Limit the amount of future bookings per member for group activities"
+                    "label": ""
                 },
                 "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app and marketplace",
                 "schedule": {
@@ -8197,7 +8197,10 @@
             "methodPaymentBasket": "Single payments",
             "methodPaymentCardBillingDetails": "Request invoicing details for card payments.",
             "methodPaymentCardBillingDetailsTitle": "Request full invoicing details",
-            "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory."
+            "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory.",
+            "DaysBeforeNotificationInputs": {
+                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here."
+            }
         },
         "billing_group": {
             "header": "Billing group",
@@ -11869,7 +11872,7 @@
                     "submit": "Disable sharing",
                     "close": "Close"
                 },
-                "content": "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
+                "content": "By deactivating sharing with this studio, passes already purchased in this studio will remain usable, in this studio only. Passes already purchased in other studios will no longer be usable in the deactivated studio.",
                 "title": "Deactivation"
             },
             "form": {

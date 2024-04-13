@@ -3780,7 +3780,7 @@
             },
             "deleteForm": {
                 "title": "Disattivazione",
-                "content": "I membri che hanno acquistato un pacchetto in questo studio potranno continuare a utilizzarlo in altri studi compatibili, anche dopo la disattivazione di questo studio specifico. Gli altri pacchetti condivisi non saranno più utilizzabili presso lo studio disattivato.",
+                "content": "Disattivando la condivisione con questo studio, i pacchetti per appuntamenti già acquistati in questo studio rimarranno utilizzabili solo in esso. I pacchetti per appuntamenti già acquistate in altri studi non saranno più utilizzabili in quello disattivato.",
                 "actions": {
                     "close": "Chiudere",
                     "submit": "Disattivare la condivisione"
@@ -4521,10 +4521,10 @@
                 "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce dei clienti",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "Questo sarà il numero massimo di prenotazioni future per ogni membro, escluse le prenotazioni per i workshop.",
+                        "helperText": "Numero massimo di sessioni di attività di gruppo che un membro può prenotare in anticipo.",
                         "placeholder": "Numero massimo"
                     },
-                    "label": "Limita il numero massimo di prenotazioni future per cliente"
+                    "label": "Limita la quantità di prenotazioni future per membro per le attività di gruppo"
                 },
                 "hiddenFromMarketplace": "Attiva questa opzione per visualizzare il proprio studio nell'app e nel marketplace generale di BSPORT",
                 "schedule": {
@@ -4651,15 +4651,15 @@
                 "startWeekOnToday": "Mostrare come prima data del calendario quella odierna se la visualizzazione è settimanale",
                 "showPastSessionsCalendar": "Mostra le sessioni passate sul calendario dei membri",
                 "maxFutureWorkshop": {
-                    "label": "Limita il numero di workshop prenotati in futuro per ogni membro",
+                    "label": "Limita la quantità di prenotazioni future per ogni membro per i workshop",
                     "numberCheck": {
                         "placeholder": "Massimo",
-                        "helperText": "Questo sarà il numero massimo di sessioni workshop prenotate in futuro per ogni membro."
+                        "helperText": "Numero massimo di sessioni di workshop che un membro può prenotare in anticipo."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "helperText": "Se attivato, il numero di prenotazioni future consentito sarà diminuito del numero di posti futuri in lista d'attesa registrati. Anche i posti futuri in lista d'attesa saranno limitati in base a questo conteggio, per evitare l'overbooking.",
-                    "label": "Includere i posti della lista d'attesa nel conteggio del numero massimo di prenotazioni/workshop futuri"
+                    "helperText": "Se attivata, le prenotazioni future includeranno sia le iscrizioni alla lista d'attesa che le prenotazioni effettive. Una volta raggiunto il limite, un membro non potrà più iscriversi a una lista d'attesa né prenotare una sessione.",
+                    "label": "Includi le registrazioni in lista d'attesa nel conteggio delle prenotazioni future"
                 },
                 "bookingLimitation": "Restrizioni generali sulle prenotazioni",
                 "resetPassword": {
@@ -6223,7 +6223,19 @@
             "title": "Pagamento online",
             "methodPaymentCardBillingDetails": "Richiedi i dati di contabilizzazione per i pagamenti con carta.",
             "methodPaymentCardBillingDetailsHelper": "Attivando questa funzione, ridurrete il numero di pagamenti con carta che richiedono 3D Secure (convalida SMS, applicazioni bancarie, ecc.).",
-            "methodPaymentCardBillingDetailsTitle": "Richiedi i dati di contabilizzazione completi"
+            "methodPaymentCardBillingDetailsTitle": "Richiedi i dati di contabilizzazione completi",
+            "DaysBeforeNotificationInputs": {
+                "errors": {
+                    "max": "Il numero di giorni non può essere superiore a {{maxDays}}",
+                    "secondWarningDayBiggerThanFirst": "La seconda notifica non può essere più grande della prima"
+                },
+                "labels": {
+                    "daysBeforeSecondNotification": "Seconda notifica (giorni prima della data di scadenza)",
+                    "daysBeforeFirstNotification": "Prima notifica (giorni prima della data di scadenza)"
+                },
+                "helpText": "Se hai attivato le email transazionali per i \"promemoria di scadenza dei metodi di pagamento\" nelle sezioni \"Contabilizzazione\" e \"Abbonamenti\", puoi personalizzare qui il numero di giorni.",
+                "title": "Scegliere il numero di giorni prima della data di scadenza del metodo di pagamento per inviare una notifica via email."
+            }
         },
         "billing_group": {
             "header": "Gruppo di contabilizzazione",
@@ -7270,7 +7282,10 @@
                     "paymentCombo": "Pacchetto combinato"
                 },
                 "error": {
-                    "missingObject": "Questo campo è obbligatorio"
+                    "missingObject": "Questo campo è obbligatorio",
+                    "missingPaymentCombo": "È necessario selezionare un pacchetto combinato",
+                    "missingPrivatePass": "È necessario selezionare un pacchetto per appuntamenti",
+                    "missingPaymentPack": "È necessario selezionare un pacchetto"
                 },
                 "recurrence_basis": {
                     "intervalName": {
@@ -9445,7 +9460,7 @@
                     "submit": "Disattivare la condivisione",
                     "close": "Chiudere"
                 },
-                "content": "I membri che hanno acquistato un pacchetto in questo studio potranno continuare a utilizzarlo in altri studi compatibili, anche dopo la disattivazione di questo studio specifico. Gli altri pacchetti condivisi non saranno più utilizzabili presso lo studio disattivato.",
+                "content": "Disattivando la condivisione con questo studio, i pacchetti già acquistati in questo studio rimarranno utilizzabili solo in esso. I pacchetti già acquistati in altri studi non saranno più utilizzabili in quello disattivato.",
                 "title": "Disattivazione"
             },
             "form": {
@@ -13035,7 +13050,8 @@
                 "submit": "Salva",
                 "title": "Modifica dello stock",
                 "quantityLabel": "Unità",
-                "quantityHelperText": "Unità da aggiungere / sottrarre allo stock"
+                "quantityHelperText": "Unità da aggiungere / sottrarre allo stock",
+                "quantityError": "Inserisci un numero valido"
             },
             "total_sales": "Numero di oggetti venduti:",
             "current_stock": "Scorta attuale:",
@@ -13133,7 +13149,8 @@
                     "availableOnline": "Disponibile online",
                     "vat": "IVA/Imposta sulle vendite",
                     "supplierPrice": "Prezzo del fornitore",
-                    "supplier": "Fornitore"
+                    "supplier": "Fornitore",
+                    "vatValue": "{{vat}} %"
                 },
                 "variants": {
                     "availableOnline": "Disponibile online",
@@ -16710,7 +16727,8 @@
                 "consumer_subscription_details_card": "Card dettagli dell'abbonamento dei clienti",
                 "consumer_subscription_card": "Card abbonamento dei clienti",
                 "fabrique_big_icon": "Icona grande",
-                "referral_details": "Dettagli del referral"
+                "referral_details": "Dettagli del referral",
+                "fabrique_title": "Titolo"
             },
             "cssConfig": {
                 "title": {
@@ -16846,7 +16864,8 @@
                     "isReferralProgramAvailable": "Ha un programma referral disponibile",
                     "state": "Stato",
                     "showSuccessText": "Mostra il testo di conferma",
-                    "showSuccessTitle": "Mostra il titolo di conferma"
+                    "showSuccessTitle": "Mostra il titolo di conferma",
+                    "isCollapsable": "Tipo di titolo"
                 },
                 "option": {
                     "false": "No",
@@ -16947,7 +16966,9 @@
                     "unauthenticated": "Non autenticato",
                     "loading": "Caricamento",
                     "authenticated": "Autenticato",
-                    "unknownError": "Errore sconosciuto"
+                    "unknownError": "Errore sconosciuto",
+                    "NotCollapsable": "Non richiudibile",
+                    "Collapsable": "Richiudibile"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",

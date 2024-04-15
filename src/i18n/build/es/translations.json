@@ -2442,7 +2442,11 @@
             "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de",
             "methodPaymentCardBillingDetailsTitle": "Solicitar todos los datos de facturación",
             "methodPaymentCardBillingDetails": "Solicitar datos de facturación para pagos con tarjeta.",
-            "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios."
+            "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios.",
+            "DaysBeforeNotificationInputs": {
+                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
+                "title": "Elija el número de días antes de la fecha de caducidad del método de pago para enviar una notificación por correo electrónico."
+            }
         },
         "billing_group": {
             "header": "Grupos de facturación",
@@ -7130,7 +7134,8 @@
             "recurrent_private_booking": "Cita periódica",
             "replacement_request": "Sustitución",
             "giftcard": "Tarjetas regalo",
-            "performance": "Rendimiento"
+            "performance": "Rendimiento",
+            "referral": "Referencia"
         },
         "eventType": {
             "14": "Un miembro ha sido suprimido de la lista de espera por el estudio",
@@ -7199,7 +7204,11 @@
             "1003": "Cuenta Spivi creada (profesores)",
             "31": "Reserva para un invitado (para el invitado)",
             "30": "Reserva para un invitado (para el miembro que invita)",
-            "undefined": "Reserva para un invitado (para invitado)"
+            "undefined": "Reserva para un invitado (para invitado)",
+            "1102": "Bonificación por referencia ( miembro referente)",
+            "1101": "Bonificación por referencia disponible ( miembro referido)",
+            "201": "Método de pago de la suscripción a punto de caducar (segundo aviso)",
+            "200": "Método de pago de suscripción a punto de caducar (primer aviso)"
         },
         "tag": {
             "BookingOption": {
@@ -7289,7 +7298,8 @@
                     "subscription_name": "Nombre de la suscripción",
                     "subscription_next_invoice_date": "Próxima fecha de facturación",
                     "subscription_contract_terms_link": "Enlace al aviso legal",
-                    "subscription_duration": "Duración total"
+                    "subscription_duration": "Duración total",
+                    "days_until_payment_method_expiration": "Número de días hasta que caduque el método de pago"
                 },
                 "name": "Suscripción"
             },
@@ -7413,7 +7423,13 @@
                     "deadline_use_referral": "Validez de la recompensa por referencia",
                     "minimum_purchase_referral": "Importe mínimo de compra",
                     "referring_reward": "Recompensa para el referente",
-                    "reduction_purchase_referred": "Descuento para el miembro referido"
+                    "reduction_purchase_referred": "Descuento para el miembro referido",
+                    "registration_date": "Fecha de inscripción del miembro referido",
+                    "referral_link": "Enlace de referencia",
+                    "referred_lastname": "Apellido del referido",
+                    "referred_firstname": "Nombre del referido",
+                    "referring_lastname": "Apellido del referente",
+                    "referring_firstname": "Nombre del referente"
                 },
                 "name": "Referencia"
             }
@@ -8059,7 +8075,8 @@
             "code": {
                 "helperText": "El código que enviarás a los clientes interesados",
                 "label": "Código",
-                "helperTextFranchise": "El código que se transmitirá a los clientes interesados. Asegúrese de que el código no existe ya en sus diferentes estudios."
+                "helperTextFranchise": "El código que se transmitirá a los clientes interesados. Asegúrese de que el código no existe ya en sus diferentes estudios.",
+                "codeAlreadyInUse": "Este código ya está en uso."
             },
             "name": {
                 "label": "Nombre"
@@ -9288,7 +9305,7 @@
                 }
             },
             "deleteForm": {
-                "content": "Al desactivar este estudio de compartir el mapa, todos los miembros que posean este mapa y lo hayan comprado en este estudio podrán seguir utilizándolo. Sin embargo, ya no podrán utilizarlo en otros estudios. Por último, las tarjetas compradas en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+                "content": "Al desactivar el uso compartido con este estudio, los pases de cita ya adquiridos en este estudio seguirán siendo utilizables, sólo en este estudio. Los pases de cita ya adquiridos en otros estudios dejarán de ser utilizables en el estudio desactivado.",
                 "title": "Desactivación",
                 "actions": {
                     "close": "Cerrar",
@@ -9417,7 +9434,8 @@
                 "1": "En curso",
                 "0": "En curso",
                 "3": "Espera",
-                "2": "Rechazado"
+                "2": "Rechazado",
+                "-1": "Desconocido"
             },
             "readCount": "Apertura",
             "showEmail": "Ver el email",
@@ -14579,7 +14597,7 @@
                     "submit": "Desactivar el uso compartido",
                     "close": "Cerrar"
                 },
-                "content": "Al desactivar este estudio de compartir el mapa, todos los miembros que posean este mapa y lo hayan comprado en este estudio podrán seguir utilizándolo. Sin embargo, ya no podrán utilizarlo en otros estudios. Por último, las tarjetas compradas en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+                "content": "Al desactivar el uso compartido con este estudio, los pases ya adquiridos en este estudio seguirán siendo utilizables, sólo en este estudio. Los pases ya comprados en otros estudios ya no se podrán utilizar en el estudio desactivado.",
                 "title": "Desactivación"
             },
             "form": {
@@ -15074,7 +15092,8 @@
             "cadences": "Cadencias",
             "replacement": "Sustitución",
             "inbox": "Bandeja de entrada",
-            "audience": "{{ audienceCamelCase }}"
+            "audience": "{{ audienceCamelCase }}",
+            "backToWebshop": "Volver a la tienda"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -19667,5 +19686,14 @@
                 "general": "General"
             }
         }
+    },
+    "accessControl": {
+        "snackbar": {
+            "R": "Inválido",
+            "O": "Atención",
+            "G": "Válido",
+            "message": "<strong>{{- name }}</strong> acaba de hacer su entrada."
+        },
+        "memberEntry": "Entrada de miembros"
     }
 }

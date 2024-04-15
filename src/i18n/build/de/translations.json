@@ -5732,7 +5732,7 @@
                     "submit": "Freigabe deaktivieren",
                     "close": "Schließen"
                 },
-                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung des Passes deaktivieren, können alle Mitglieder, die diesen Pass besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Pässe, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden.",
+                "content": "Durch die Deaktivierung der gemeinsamen Nutzung mit diesem Studio bleiben die bereits in diesem Studio erworbenen Pässe nur in diesem Studio nutzbar. Bereits in anderen Studios gekaufte Pässe sind im deaktivierten Studio nicht mehr nutzbar.",
                 "title": "Deaktivierung"
             },
             "form": {
@@ -10268,7 +10268,8 @@
             "code": {
                 "label": "Code",
                 "helperText": "Der Code, der an die betroffenen Kunden weitergeleitet wird",
-                "helperTextFranchise": "Der Code, den Sie an die betroffenen Kunden weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert."
+                "helperTextFranchise": "Der Code, den Sie an die betroffenen Kunden weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert.",
+                "codeAlreadyInUse": "Dieser Code ist bereits in Gebrauch."
             },
             "is_active": {
                 "label": "Aktiv",
@@ -11509,7 +11510,7 @@
                     "close": "Schließen",
                     "submit": "Freigabe deaktivieren"
                 },
-                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung des Passes deaktivieren, können alle Mitglieder, die diesen Pass besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Pässe, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden."
+                "content": "Durch die Deaktivierung der gemeinsamen Nutzung mit diesem Studio bleiben die bereits in diesem Studio erworbenen Terminpässe nur in diesem Studio nutzbar. Terminpässe, die bereits in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr genutzt werden."
             },
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
             "actions": {
@@ -11594,7 +11595,8 @@
                 "5": "Fehler",
                 "2": "Abgelehnt",
                 "1": "Ausstehend",
-                "0": "Ausstehend"
+                "0": "Ausstehend",
+                "-1": "Unbekannt"
             },
             "clicksCount": "Klicks",
             "readCount": "Geöffnet",
@@ -13020,7 +13022,11 @@
             "1003": "Spivi-Konto erstellt (Lehrkraft)",
             "31": "Buchung für einen Gast (für Gast)",
             "30": "Buchung für einen Gast (für einladendes Mitglied)",
-            "undefined": "Buchung für einen Gast (für Gast)"
+            "undefined": "Buchung für einen Gast (für Gast)",
+            "1102": "Empfehlungszuschuss verfügbar (empfohlenes Mitglied)",
+            "1101": "Empfehlungszuschuss verfügbar (empfohlenes Mitglied)",
+            "201": "Zahlmethode für das Abo läuft bald ab (zweite Warnung)",
+            "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)"
         },
         "tag": {
             "BookingOption": {
@@ -13068,7 +13074,8 @@
                     "subscription_nb_days_pause": "Für eine Anzahl von X Tagen pausiert",
                     "subscription_next_invoice_date": "Nächstes Abrechnungsdatum",
                     "subscription_contract_terms_link": "Link für Nutzungsbedingungen",
-                    "subscription_duration": "Gesamtdauer"
+                    "subscription_duration": "Gesamtdauer",
+                    "days_until_payment_method_expiration": "Anzahl der Tage bis zum Ablauf der Zahlungsmethode"
                 },
                 "name": "Abonnements"
             },
@@ -13234,7 +13241,13 @@
                     "deadline_use_referral": "Gültigkeit der Empfehlungsprämie",
                     "minimum_purchase_referral": "Mindestkaufbetrag",
                     "referring_reward": "Belohnung für den Anwerber",
-                    "reduction_purchase_referred": "Rabatt für das empfohlene Mitglied"
+                    "reduction_purchase_referred": "Rabatt für das empfohlene Mitglied",
+                    "registration_date": "Registrierungsdatum des eingeladenen Mitglieds",
+                    "referral_link": "Empfehlungslink",
+                    "referred_lastname": "Nachname des Empfehlers",
+                    "referred_firstname": "Vorname des Empfehlers",
+                    "referring_lastname": "Nachname des Empfehlers",
+                    "referring_firstname": "Vorname des Empfehlers"
                 },
                 "name": "Empfehlung"
             }
@@ -13257,7 +13270,8 @@
             "recurrent_private_booking": "Wiederkehrende Termine",
             "replacement_request": "Vertretung",
             "giftcard": "Gutscheine",
-            "performance": "Performance"
+            "performance": "Performance",
+            "referral": "Verweis"
         },
         "pageTitle": "Transaktions-Benachrichtigungen",
         "caption": {
@@ -14212,7 +14226,8 @@
             "help": "Hilfe",
             "cadences": "Kadenz",
             "inbox": "Posteingang",
-            "audience": "{{ audienceCamelCase }}"
+            "audience": "{{ audienceCamelCase }}",
+            "backToWebshop": "Zurück zum Webshop"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -15634,7 +15649,11 @@
             "title": "Onlinebezahlung",
             "methodPaymentCardBillingDetails": "Rechnungsdaten der Kartenzahlung beantragen.",
             "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsdetails anfordern",
-            "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder."
+            "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder.",
+            "DaysBeforeNotificationInputs": {
+                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
+                "title": "Wählen Sie die Anzahl der Tage vor dem Ablaufdatum der Zahlungsmethode, um eine E-Mail-Benachrichtigung zu senden."
+            }
         },
         "billing_group": {
             "header": "Abrechnungsgruppe",
@@ -19517,5 +19536,14 @@
                 "general": "Allgemein"
             }
         }
+    },
+    "accessControl": {
+        "snackbar": {
+            "R": "Nicht gültig",
+            "O": "Warnung",
+            "G": "Gültig",
+            "message": "<strong>{{- name }}</strong> hat gerade eingecheckt."
+        },
+        "memberEntry": "Mitgliedschaft"
     }
 }

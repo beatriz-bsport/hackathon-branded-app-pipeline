@@ -28,7 +28,7 @@ import {
 import withStayEvent from '../../hocs/tracking/stay-event.hoc';
 import ActiveCampaignLinkForm from '../../libs/active-campaign/components/ActiveCampaignLinkForm.component';
 import ActiveCampaignWebhooks from '../../libs/active-campaign/components/ActiveCampaignWebhooks.component';
-import ActiveCampaignAccountFormDialog from '../../libs/active-campaign/components/ActiveCampaignAccountForm.component';
+import ActiveCampaignAccountForm from '../../libs/active-campaign/components/ActiveCampaignAccountForm.component';
 import ActiveCampaignLinks from '../../libs/active-campaign/components/ActiveCampaignLinks.component';
 
 import {
@@ -78,7 +78,7 @@ type Props = {
   getActiveCampaignWebhooks: (id: number) => void,
 };
 
-export class ActiveCampaignConfiguration extends Component<Props> {
+export class ActiveCampaignPage extends Component<Props> {
   state = {
     selected: null,
     openForm: false,
@@ -283,7 +283,7 @@ export class ActiveCampaignConfiguration extends Component<Props> {
             }
           }}
         />
-        <ActiveCampaignAccountFormDialog
+        <ActiveCampaignAccountForm
           account={this.props.account}
           onCancel={() => this.setState({ openEditAccount: false })}
           open={this.state.openEditAccount}
@@ -398,4 +398,4 @@ export default compose(
   withStyles(styles),
   withTranslation(['settings']),
   withTitle(({ t }) => t('tab.active_campaign')),
-)(ActiveCampaignConfiguration);
+)(ActiveCampaignPage);

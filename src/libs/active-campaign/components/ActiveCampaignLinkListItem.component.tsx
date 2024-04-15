@@ -1,28 +1,25 @@
-// @flow
-
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
-import { withTranslation, Trans, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
-
-import { compose } from 'recompose';
-
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import { Trans, useTranslation } from 'react-i18next';
+import type { ImmutableObject } from 'seamless-immutable';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import type { Link, ActiveCampaignList } from '../types';
 
 type Props = {
-  link: any,
-  classes: Object,
-  t: TFunction,
-  activeCampaignLists: Array<any>,
-  onClickEdit: () => void,
-  onClickDelete: () => void,
+  link: ImmutableObject<Link>;
+  activeCampaignLists: ActiveCampaignList[];
+  onClickEdit: () => void;
+  onClickDelete: () => void;
 };
 
-export const ActiveCampaignLinkItem = (props: Props) => {
+export const ActiveCampaignLinkListItem: React.FC<Props> = (props) => {
+  const classes = useStyles();
+  const { t } = useTranslation('settings');
   if (props.link) {
     const smartlist = props.link.smartlist.name;
     const list =
@@ -37,12 +34,12 @@ export const ActiveCampaignLinkItem = (props: Props) => {
               parseInt(item.id, 10) ===
               parseInt(props.link.active_campaign_list, 10),
           ).name
-        : props.t('active_campaign.link.noList');
+        : t('active_campaign.link.noList');
     return (
-      <ListItem divider className={props.classes.container}>
-        <div className={props.classes.inlineContainer}>
+      <ListItem divider className={classes.container}>
+        <div className={classes.inlineContainer}>
           <Typography>
-            <Trans i18nKey="active_campaign.link.listItemText" t={props.t}>
+            <Trans i18nKey="active_campaign.link.listItemText" t={t}>
               Lier la smartlist <strong>{{ smartlist }}</strong> à la liste
               <strong>
                 {{
@@ -51,11 +48,11 @@ export const ActiveCampaignLinkItem = (props: Props) => {
               </strong>
             </Trans>
           </Typography>
-          {list === props.t('active_campaign.link.noList') ? (
-            <WarningIcon className={props.classes.warningIcon} color="error" />
+          {list === t('active_campaign.link.noList') ? (
+            <WarningIcon className={classes.warningIcon} color="error" />
           ) : null}
         </div>
-        <div className={props.classes.inlineContainer}>
+        <div className={classes.inlineContainer}>
           <IconButton color="primary" onClick={props.onClickEdit}>
             <EditIcon />
           </IconButton>
@@ -70,7 +67,7 @@ export const ActiveCampaignLinkItem = (props: Props) => {
   return null;
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   warningIcon: { marginLeft: theme.spacing(1) },
   container: {
     display: 'flex',
@@ -81,9 +78,6 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   b: { fontWeight: 'bold' },
-});
+}));
 
-export default compose(
-  withStyles(styles),
-  withTranslation(['settings']),
-)(ActiveCampaignLinkItem);
+export default ActiveCampaignLinkListItem;

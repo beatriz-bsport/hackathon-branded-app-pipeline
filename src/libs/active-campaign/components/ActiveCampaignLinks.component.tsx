@@ -1,42 +1,37 @@
-// @flow
-
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-
+import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import Typography from '@material-ui/core/Typography';
 
 import HelpIcon from '@material-ui/icons/Help';
 
+import { Theme, makeStyles } from '@material-ui/core';
 import ActiveCampaignLinkListItem from './ActiveCampaignLinkListItem.component';
+import type { Link, ActiveCampaignList } from '../types';
 
 type Props = {
-  t: TFunction,
-  links: any,
-  loading: boolean,
-  classes: Object,
-  onClickEdit: (link) => void,
-  onClickAdd: () => void,
-  onClickInfo: () => void,
-
-  onClickDelete: (id: number) => void,
-  activeCampaignLists: any,
-  disabled: Object,
+  links: ImmutableArray<Link>;
+  loading: boolean;
+  onClickEdit: (link: ImmutableObject<Link>) => void;
+  onClickAdd: () => void;
+  onClickInfo: () => void;
+  onClickDelete: (id: number) => void;
+  activeCampaignLists: ActiveCampaignList[];
+  disabled: boolean;
 };
 
-export function ActiveCampaignWebhooks(props: Props) {
+export const ActiveCampaignLinks: React.FC<Props> = (props) => {
+  const { t } = useTranslation('settings');
+  const classes = useStyles();
   return (
     <div>
-      <div className={props.classes.inline}>
-        <Typography variant="h5">
-          {props.t('active_campaign.link.title')}
-        </Typography>
+      <div className={classes.inline}>
+        <Typography variant="h5">{t('active_campaign.link.title')}</Typography>
         <IconButton onClick={props.onClickInfo}>
           <HelpIcon />
         </IconButton>
@@ -52,23 +47,23 @@ export function ActiveCampaignWebhooks(props: Props) {
           />
         ))}
       </Paper>
-      <div className={props.classes.addButtonContainer}>
+      <div className={classes.addButtonContainer}>
         <Button
-          className={props.classes.addButton}
+          className={classes.addButton}
           color="primary"
           disabled={props.disabled}
           onClick={() => props.onClickAdd()}
           variant="outlined"
         >
           <AddIcon />
-          {props.t('active_campaign.link.add')}
+          {t('active_campaign.link.add')}
         </Button>
       </div>
     </div>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   inline: {
     display: 'flex',
     alignItems: 'center',
@@ -79,9 +74,6 @@ const styles = (theme) => ({
     marginTop: theme.spacing(1),
   },
   addButtonContainer: { display: 'flex', justifyContent: 'start' },
-});
+}));
 
-export default compose(
-  withStyles(styles),
-  withTranslation(['settings']),
-)(ActiveCampaignWebhooks);
+export default ActiveCampaignLinks;

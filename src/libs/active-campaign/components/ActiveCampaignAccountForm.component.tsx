@@ -1,41 +1,38 @@
-// @flow
-
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-
+import { Theme } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { createStyles } from '@material-ui/styles';
+import type { Account } from '../types';
 
-type Props = {
-  open: boolean,
-  t: TFunction,
-  classes: Object,
-  account: Account,
-  updateAccount: (data: any) => void,
-  onCancel: () => void,
+type OuterProps = {
+  open: boolean;
+  account: Account;
+  updateAccount: (data: Pick<Account, 'token' | 'api_url'>) => void;
+  onCancel: () => void;
 };
 
-export class ActiveCampaignAccountFormDialog extends React.Component<
-  Props,
-  State,
-> {
-  state = {
-    token:
-      this.props.account && this.props.account.token
-        ? this.props.account.token
-        : null,
-    api_url:
-      this.props.account && this.props.account.api_url
-        ? this.props.account.api_url
-        : null,
-  };
+type InnerProps = WithStyles<typeof styles> & WithTranslation;
+
+type Props = OuterProps & InnerProps;
+
+type State = Pick<Account, 'token' | 'api_url'>;
+export class ActiveCampaignAccountForm extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      token: this.props.account?.token || null,
+      api_url: this.props.account?.api_url || null,
+    };
+  }
 
   onCancel = () => {
     this.setState({
@@ -45,18 +42,11 @@ export class ActiveCampaignAccountFormDialog extends React.Component<
     this.props.onCancel();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.open !== prevProps.open) {
-      // eslint-disable-next-line
       this.setState({
-        token:
-          this.props.account && this.props.account.token
-            ? this.props.account.token
-            : null,
-        api_url:
-          this.props.account && this.props.account.api_url
-            ? this.props.account.api_url
-            : null,
+        token: this.props.account?.token || null,
+        api_url: this.props.account?.api_url || null,
       });
     }
   }
@@ -117,21 +107,22 @@ export class ActiveCampaignAccountFormDialog extends React.Component<
   }
 }
 
-const styles = (theme) => ({
-  textField: {
-    marginTop: theme.spacing(2),
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  formControl: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    textField: {
+      marginTop: theme.spacing(2),
+    },
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    formControl: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+  });
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withStyles(styles),
-  withTranslation(['settings']),
-)(ActiveCampaignAccountFormDialog);
+  withTranslation('settings'),
+)(ActiveCampaignAccountForm);

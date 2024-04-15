@@ -1,11 +1,9 @@
-// @flow
-
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-
+import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,31 +12,35 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import SmartListSelector from '../../smart-list/components/SmartListSelector.component';
+import { Theme } from '@material-ui/core';
+import { createStyles } from '@material-ui/styles';
+// @ts-expect-error
+import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
+import type { Link, LinkApi, ActiveCampaignList } from '../types';
+import type { SmartList } from '#libs/smart-list/types';
 
-type Props = {
-  open: boolean,
-  smartLists: Array<any>,
-  t: TFunction,
-  classes: Object,
-  link: Link,
-  updateLink: (data: any) => void,
-  onCancel: () => void,
-  activeCampaignLists: Array<any>,
+type OuterProps = {
+  open: boolean;
+  smartLists: ImmutableArray<SmartList>;
+  link: ImmutableObject<Link>;
+  updateLink: (
+    data: Pick<LinkApi, 'smartlist' | 'active_campaign_list'>,
+  ) => void;
+  onCancel: () => void;
+  activeCampaignLists: ActiveCampaignList[];
 };
+type InnerProps = WithStyles<typeof styles> & WithTranslation;
 
-const ACTIVE_CAMPAIGN_LIST_SELECTION = -1;
+type Props = OuterProps & InnerProps;
 
-export class ActiveCampaignFormDialog extends React.Component<Props, State> {
+type State = Pick<LinkApi, 'smartlist' | 'active_campaign_list'>;
+const ACTIVE_CAMPAIGN_LIST_SELECTION = '-1';
+
+export class ActiveCampaignLinkForm extends React.Component<Props, State> {
   state = {
-    smartlist:
-      this.props.link && this.props.link.smartlist
-        ? this.props.link.smartlist.id
-        : null,
+    smartlist: this.props.link?.smartlist?.id ?? null,
     active_campaign_list:
-      this.props.link && this.props.link.active_campaign_list
-        ? this.props.link.active_campaign_list
-        : ACTIVE_CAMPAIGN_LIST_SELECTION,
+      this.props.link?.active_campaign_list || ACTIVE_CAMPAIGN_LIST_SELECTION,
   };
 
   onCancel = () => {
@@ -49,12 +51,11 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
     this.props.onCancel();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.link && this.props.link !== prevProps.link) {
-      // eslint-disable-next-line
       this.setState({
-        smartlist: this.props.link.smartlist.id,
-        active_campaign_list: this.props.link.active_campaign_list,
+        smartlist: this.props.link?.smartlist?.id ?? null,
+        active_campaign_list: this.props.link?.active_campaign_list || null,
       });
     }
   }
@@ -91,10 +92,10 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
             <div>
               <SmartListSelector
                 helperText={t('active_campaign.link.smartListSelection')}
-                onChange={(ev) => {
-                  if (ev.length) {
+                onChange={(newVal: Array<{ value: number; name: string }>) => {
+                  if (newVal.length) {
                     this.setState({
-                      smartlist: ev[ev.length - 1].value,
+                      smartlist: Number(newVal[newVal.length - 1].value),
                     });
                   } else {
                     this.setState({
@@ -109,8 +110,7 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
                 <FormControl className={classes.formControl}>
                   <Select
                     required
-                    className={classes.input}
-                    onChange={(ev) =>
+                    onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
                       this.setState({ active_campaign_list: ev.target.value })
                     }
                     value={this.state.active_campaign_list}
@@ -153,23 +153,24 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  textField: {
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  helperText: {
-    marginBottom: theme.spacing(2),
-  },
-  dialog: {
-    minHeight: '400px',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    textField: {
+      marginTop: theme.spacing(2),
+    },
+    formControl: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+    helperText: {
+      marginBottom: theme.spacing(2),
+    },
+    dialog: {
+      minHeight: '400px',
+    },
+  });
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withStyles(styles),
-  withTranslation(['settings']),
-)(ActiveCampaignFormDialog);
+  withTranslation('settings'),
+)(ActiveCampaignLinkForm);

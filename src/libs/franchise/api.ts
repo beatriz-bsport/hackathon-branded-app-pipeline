@@ -63,7 +63,7 @@ export const fetchFranchiseTheme = async (
 
 export const fetchCompanyGroupList = async (
   params: any,
-): Promise<AxiosResponse<CompanyGroup>> => {
+): Promise<AxiosResponse<CompanyGroup[]>> => {
   return getAuth(
     `${API_V1_URI}/franchisor/company_group/${buildUrlParams(params)}`,
   );

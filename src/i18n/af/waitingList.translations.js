@@ -73,6 +73,14 @@ const getTranslations = async () => {
       display_member_position: {
         label: 'Display the position in the waiting list',
       },
+      errors: {
+        dumbDelayMinutesError:
+          'Minutes between recalls should be higher than 15',
+        smartDelayPercentageError:
+          'The percentage needs to be between 10 and 100',
+        autokickDelayError: 'A number is required',
+        lastDelayBeforeAutoConsumeError: 'Minutes should be between 0 and 240',
+      },
     },
     explainWaitingListConf:
       'Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.',

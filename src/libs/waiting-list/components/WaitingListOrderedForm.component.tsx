@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { useFormikContext } from 'formik';
+import { ErrorMessage, useFormikContext } from 'formik';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
@@ -98,6 +98,13 @@ const WaitingListOrderedForm: React.FC<Props> = ({
           onChange={handleNumericFieldChange('autokickDelay')}
           value={values.autokickDelay}
         />
+        <ErrorMessage name="autokickDelay">
+          {(error_msg) => (
+            <Typography color="error" variant="caption">
+              {`${t(error_msg)}`}
+            </Typography>
+          )}
+        </ErrorMessage>
       </div>
       <div className={classes.field}>
         <FormControlLabel
@@ -155,6 +162,13 @@ const WaitingListOrderedForm: React.FC<Props> = ({
           onChange={handleNumericFieldChange('lastDelayBeforeAutoConsume')}
           value={values.lastDelayBeforeAutoConsume}
         />
+        <ErrorMessage name="lastDelayBeforeAutoConsume">
+          {(error_msg) => (
+            <Typography color="error" variant="caption">
+              {`${t(error_msg)}`}
+            </Typography>
+          )}
+        </ErrorMessage>
       </div>
       <div className={classes.divider} />
       <fieldset className={classes.column}>
@@ -194,6 +208,13 @@ const WaitingListOrderedForm: React.FC<Props> = ({
             onChange={handleNumericFieldChange('dumbDelayMinutes')}
             value={values.dumbDelayMinutes}
           />
+          <ErrorMessage name="dumbDelayMinutes">
+            {(error_msg) => (
+              <Typography color="error" variant="caption">
+                {`${t(error_msg)}`}
+              </Typography>
+            )}
+          </ErrorMessage>
         </div>
         <div className={classes.field}>
           <FormControlLabel
@@ -226,6 +247,13 @@ const WaitingListOrderedForm: React.FC<Props> = ({
             onChange={handleNumericFieldChange('smartDelayPercentage')}
             value={values.smartDelayPercentage}
           />
+          <ErrorMessage name="smartDelayPercentage">
+            {(error_msg) => (
+              <Typography color="error" variant="caption">
+                {`${t(error_msg)}`}
+              </Typography>
+            )}
+          </ErrorMessage>
         </div>
       </fieldset>
       <div className={classes.field}>

@@ -35,20 +35,52 @@ const WaitingListConfigurationFormValidationSchema = Yup.object().shape({
     ])
     .required(),
   autoConsumePack: Yup.boolean().required(),
-  autokickDelay: Yup.number().required(),
+  autokickDelay: Yup.number()
+    .transform((value: number) => (Number.isNaN(value) ? null : value)) // needed to return the error message instead of NaN error
+    .nullable()
+    .required('form.errors.autokickDelayError'),
   checkCredit: Yup.boolean().required(),
   displayMemberPosition: Yup.boolean().required(),
-  dumbDelayMinutes: Yup.number().min(15).required(),
+  dumbDelayMinutes: Yup.mixed() // mixed needed because can be a number and null
+    .nullable()
+    .test(
+      'dumbDelayMinutesError',
+      'form.errors.dumbDelayMinutesError',
+      function checkDumbDelayMinutesValue(value) {
+        const { autoCancellationType } = this.parent;
+
+        if (autoCancellationType !== WaitingListAutoCancellation.dumb) {
+          return true;
+        }
+        return value >= 15;
+      },
+    ),
   dynamic: Yup.number()
     .oneOf([WAITING_LIST_DYNAMIC_ORDERED, WAITING_LIST_DYNAMIC_UNORDERED])
     .required(),
   isOptionBlocking: Yup.boolean().required(),
   kickIfNoPackWhenAutoConsume: Yup.boolean().required(),
   lastDelayBeforeAutoConsume: Yup.number()
-    .min(0)
-    .max(60 * 4)
-    .required(),
-  smartDelayPercentage: Yup.number().min(10).max(100).required(),
+    .transform((value: number) => (Number.isNaN(value) ? null : value)) // needed to return the error message instead of NaN error
+    .nullable()
+    .min(0, 'form.errors.lastDelayBeforeAutoConsumeError')
+    .max(60 * 4, 'form.errors.lastDelayBeforeAutoConsumeError')
+    .required('form.errors.lastDelayBeforeAutoConsumeError'),
+  smartDelayPercentage: Yup.mixed() // mixed needed because can be a number and null
+    .nullable()
+    .test(
+      'smartDelayPercentageError',
+      'form.errors.smartDelayPercentageError',
+      function checkSmartDelayPercentageValue(value) {
+        const { autoCancellationType } = this.parent;
+
+        if (autoCancellationType !== WaitingListAutoCancellation.smart) {
+          return true;
+        }
+
+        return value <= 100 && value >= 10;
+      },
+    ),
 });
 
 export type WaitingListConfigurationFormikValues = {
@@ -76,6 +108,7 @@ const WaitingListConfigurationForm: React.FC<Props> = ({
   dirty,
   isSubmitting,
   isValid,
+  setFieldTouched,
   setFieldValue,
   values,
 }) => {
@@ -83,9 +116,10 @@ const WaitingListConfigurationForm: React.FC<Props> = ({
   const classes = useStyles();
   const handleChange = React.useCallback(
     (field: string) => (value: any) => {
-      setFieldValue(field, value);
+      setFieldTouched(field, true, false); // necessary for ErrorMessage from formik
+      setFieldValue(field, value, true);
     },
-    [setFieldValue],
+    [setFieldValue, setFieldTouched],
   );
 
   const handleCheckBoxFieldChange = React.useCallback(

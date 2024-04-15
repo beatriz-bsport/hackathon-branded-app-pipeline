@@ -1,9 +1,14 @@
-// @flow
-
 import { createAction } from 'redux-actions';
+import type { Dispatch, ThunkAction, OptionCallback } from 'src/state/types';
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import type { Dispatch, ThunkAction } from '../../state/types';
-
+import type {
+  ActiveCampaignWebhook,
+  Account,
+  LinkApi,
+  LinksPayload,
+  ActiveCampaignList,
+} from './types';
 import {
   getActiveCampaignAccount as getActiveCampaignAccountAPI,
   updateActiveCampaignAccount as updateActiveCampaignAccountAPI,
@@ -16,18 +21,18 @@ import {
   getActiveCampaignLists as getActiveCampaignListsAPI,
   fetchWebhooks as getActiveCampaignWebhooksAPI,
 } from './api';
-
-import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
+// @ts-expect-error
+import withIntercomAction from '#hocs/tracking/dispatch-action.hoc';
 
 // Active campaign Account
 export const activeCampaignAccountListAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/LIST/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/LIST/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_ACCOUNT/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_ACCOUNT/LIST/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_ACCOUNT/LIST/ERROR'),
+  success: createAction<Account[]>('ACTIVE_CAMPAIGN_ACCOUNT/LIST/SUCCESS'),
 };
 
 export function fetchActiveCampaignAccount(
-  options: OptionCallBack,
+  options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignAccountListAction.isLoading(true));
@@ -46,15 +51,15 @@ export function fetchActiveCampaignAccount(
 }
 
 export const activeCampaignAccountUpdateAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/ERROR'),
+  success: createAction<Account>('ACTIVE_CAMPAIGN_ACCOUNT/UPDATE/SUCCESS'),
 };
 
 export function updateActiveCampaignAccount(
   id: number,
-  data: any,
-  options: OptionCallBack,
+  data: Account,
+  options?: OptionCallback<void>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignAccountUpdateAction.isLoading(true));
@@ -73,9 +78,9 @@ export function updateActiveCampaignAccount(
 }
 
 export const activeCampaignAccountDeleteAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/ERROR'),
+  success: createAction<number>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/SUCCESS'),
 };
 
 export function deleteActiveCampaignAccount(id: number): ThunkAction {
@@ -93,16 +98,16 @@ export function deleteActiveCampaignAccount(id: number): ThunkAction {
 }
 
 export const activeCampaignAccountCreateAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/ERROR'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/ERROR'),
   success: withIntercomAction('Create ActiveCampaign account')(
-    createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/SUCCESS'),
+    createAction<Account>('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/SUCCESS'),
   ),
 };
 
 export function createActiveCampaignAccount(
-  data: any,
-  options: OptionCallBack,
+  data: Account,
+  options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignAccountCreateAction.isLoading(true));
@@ -122,12 +127,14 @@ export function createActiveCampaignAccount(
 
 // Active campaign lists links
 export const activeCampaignLinksListAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/LIST/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_LINKS/LIST/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_LINKS/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_LINKS/LIST/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_LINKS/LIST/ERROR'),
+  success: createAction<LinksPayload>('ACTIVE_CAMPAIGN_LINKS/LIST/SUCCESS'),
 };
 
-export function fetchActiveCampaignLinks(options: OptionCallBack): ThunkAction {
+export function fetchActiveCampaignLinks(
+  options?: OptionCallback<LinkApi[]>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignLinksListAction.isLoading(true));
     dispatch(activeCampaignLinksListAction.error(null));
@@ -150,12 +157,15 @@ export function fetchActiveCampaignLinks(options: OptionCallBack): ThunkAction {
 }
 
 export const activeCampaignLinksUpdateAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/UPDATE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_LINKS/UPDATE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_LINKS/UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_LINKS/UPDATE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_LINKS/UPDATE/ERROR'),
+  success: createAction<LinkApi>('ACTIVE_CAMPAIGN_LINKS/UPDATE/SUCCESS'),
 };
 
-export function updateActiveCampaignLinks(id: number, data: any): ThunkAction {
+export function updateActiveCampaignLinks(
+  id: number,
+  data: LinkApi,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignLinksUpdateAction.isLoading(true));
     dispatch(activeCampaignLinksUpdateAction.error(null));
@@ -170,9 +180,9 @@ export function updateActiveCampaignLinks(id: number, data: any): ThunkAction {
 }
 
 export const activeCampaignLinksDeleteAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/DELETE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_LINKS/DELETE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_LINKS/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_LINKS/DELETE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_LINKS/DELETE/ERROR'),
+  success: createAction<number>('ACTIVE_CAMPAIGN_LINKS/DELETE/SUCCESS'),
 };
 
 export function deleteActiveCampaignLinks(id: number): ThunkAction {
@@ -190,14 +200,14 @@ export function deleteActiveCampaignLinks(id: number): ThunkAction {
 }
 
 export const activeCampaignLinksCreateAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/ERROR'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_LINKS/CREATE/LOADING'),
+  error: createAction<Error | null>('ACTIVE_CAMPAIGN_LINKS/CREATE/ERROR'),
   success: withIntercomAction('Create ActiveCampaign list linking')(
-    createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/SUCCESS'),
+    createAction<LinkApi>('ACTIVE_CAMPAIGN_LINKS/CREATE/SUCCESS'),
   ),
 };
 
-export function createActiveCampaignLinks(data: any): ThunkAction {
+export function createActiveCampaignLinks(data: LinkApi): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(activeCampaignLinksCreateAction.isLoading(true));
     dispatch(activeCampaignLinksCreateAction.error(null));
@@ -212,9 +222,11 @@ export function createActiveCampaignLinks(data: any): ThunkAction {
 }
 
 export const getActiveCampaignListsAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/GET_LISTS/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_LINKS/GET_LISTS/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_LINKS/GET_LISTS/SUCCESS'),
+  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_LINKS/GET_LISTS/LOADING'),
+  error: createAction<number | null>('ACTIVE_CAMPAIGN_LINKS/GET_LISTS/ERROR'),
+  success: createAction<ActiveCampaignList[]>(
+    'ACTIVE_CAMPAIGN_LINKS/GET_LISTS/SUCCESS',
+  ),
 };
 
 export function getActiveCampaignLists(id: number): ThunkAction {
@@ -232,14 +244,20 @@ export function getActiveCampaignLists(id: number): ThunkAction {
 }
 
 export const getActiveCampaignWebhooksAction = {
-  isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/LOADING'),
-  error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/LOADING',
+  ),
+  error: createAction<number | null>(
+    'ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/ERROR',
+  ),
+  success: createAction<ActiveCampaignWebhook>(
+    'ACTIVE_CAMPAIGN_ACCOUNT/GET_WEBHOOKS/SUCCESS',
+  ),
 };
 
 export function getActiveCampaignWebhooks(
-  id,
-  options: OptionCallBack,
+  id: number,
+  options?: OptionCallback & { onFinish?: () => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(getActiveCampaignWebhooksAction.isLoading(true));

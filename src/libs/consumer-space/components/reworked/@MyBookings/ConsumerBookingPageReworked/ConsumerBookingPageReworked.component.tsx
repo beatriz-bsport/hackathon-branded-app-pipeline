@@ -79,7 +79,6 @@ type Props = {
     options?: OptionCallback<PrivateBooking>,
   ) => void;
   cancelBookingOption: (
-    id: number,
     params: DiscardBookingOptionParams,
     options?: OptionCallback<WaitingListBookingOption>,
   ) => void;

@@ -112,7 +112,6 @@ export default function useConsumerBookingsDataManager({
     options?: OptionCallback<PrivateBooking>,
   ) => void;
   cancelBookingOption: (
-    id: number,
     params: DiscardBookingOptionParams,
     options?: OptionCallback<WaitingListBookingOption>,
   ) => void;
@@ -589,7 +588,7 @@ export default function useConsumerBookingsDataManager({
         );
       }
       if (bookingOptionId) {
-        cancelBookingOption(bookingOptionId, null, optionCallback);
+        cancelBookingOption({ bookingOptionId }, optionCallback);
       }
     },
     [

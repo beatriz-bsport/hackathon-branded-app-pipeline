@@ -1020,16 +1020,19 @@ export const cancelBookingOptionAsMemberActions = {
 };
 
 export function cancelBookingOptionAsMember(
-  id: number,
   params: DiscardBookingOptionParams,
   options?: OptionCallback<WaitingListBookingOption>,
 ): ThunkAction {
+  const { bookingOptionId, ...restParams } = params;
   return async (dispatch: Dispatch) => {
     dispatch(cancelBookingOptionAsMemberActions.isLoading(true));
     dispatch(cancelBookingOptionAsMemberActions.error(null));
 
     try {
-      const response = await discardBookingOptionAPI(id, params);
+      const response = await discardBookingOptionAPI(
+        bookingOptionId,
+        restParams,
+      );
       dispatch(cancelBookingOptionAsMemberActions.success(response));
       options?.onSuccess?.(response.data);
     } catch (err) {

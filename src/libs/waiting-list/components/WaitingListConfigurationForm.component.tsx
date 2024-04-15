@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { withTranslation, WithTranslation } from 'react-i18next';
-
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -23,7 +20,6 @@ import {
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import Switch from '@material-ui/core/Switch';
 import { withFormik, FormikProps, Form } from 'formik';
-import type { Theme, WithStyles } from '@material-ui/core/styles/';
 
 import {
   WaitingListConfiguration,
@@ -69,256 +65,248 @@ export type WaitingListConfigurationFormikValues = {
   smartDelayPercentage: number;
 };
 
-type OwnProps = {
+type FormikHOCProps = {
   configuration: WaitingListConfiguration;
   onSubmit: (data: WaitingListConfiguration) => void;
 };
 
-type OuterProps = FormikProps<WaitingListConfigurationFormikValues> &
-  WithStyles<typeof styles> &
-  WithTranslation;
+type Props = FormikProps<WaitingListConfigurationFormikValues>;
 
-type Props = OwnProps & OuterProps;
+const WaitingListConfigurationForm: React.FC<Props> = ({
+  dirty,
+  isSubmitting,
+  isValid,
+  setFieldValue,
+  values,
+}) => {
+  const { t } = useTranslation('waitingList');
+  const classes = useStyles();
+  const handleChange = React.useCallback(
+    (field: string) => (value: any) => {
+      setFieldValue(field, value);
+    },
+    [setFieldValue],
+  );
 
-export class WaitingListConfigurationForm extends Component<Props> {
-  handleChange = (field: string) => (value: any) => {
-    this.props.setFieldValue(field, value);
-  };
-
-  handleCheckBoxFieldChange =
+  const handleCheckBoxFieldChange = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const isChecked = event.target.checked;
-      this.handleChange(field)(isChecked);
-    };
+      handleChange(field)(isChecked);
+    },
+    [handleChange],
+  );
 
-  handleNumericFieldChange =
+  const handleNumericFieldChange = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.handleChange(field)(parseInt(event.target.value, 10));
-    };
+      handleChange(field)(parseInt(event.target.value, 10));
+    },
+    [handleChange],
+  );
 
-  handleAutoCancellationTypeChange =
+  const handleAutoCancellationTypeChange = React.useCallback(
     (value: WaitingListAutoCancellation) => () => {
-      this.handleChange('autoCancellationType')(value);
-    };
+      handleChange('autoCancellationType')(value);
+    },
+    [handleChange],
+  );
 
-  render() {
-    const { classes, t } = this.props;
-    return (
-      <Form className={classes.root}>
-        <FormControl className={classes.formControl} component="fieldset">
-          <div className={classes.field}>
+  return (
+    <Form className={classes.root}>
+      <FormControl className={classes.formControl} component="fieldset">
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={values.isOptionBlocking}
+                onChange={handleCheckBoxFieldChange('isOptionBlocking')}
+                value={values.isOptionBlocking}
+              />
+            }
+            label={t('form.is_option_blocking.label')}
+          />
+          <Typography
+            className={classes.helperText}
+            color="textSecondary"
+            variant="caption"
+          >
+            {t('form.is_option_blocking.helper')}
+          </Typography>
+        </div>
+
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={values.checkCredit}
+                onChange={handleCheckBoxFieldChange('checkCredit')}
+                value={values.checkCredit}
+              />
+            }
+            label={t('form.check_credit.label')}
+          />
+          <Typography
+            className={classes.helperText}
+            color="textSecondary"
+            variant="caption"
+          >
+            {t('form.check_credit.helper')}
+          </Typography>
+        </div>
+
+        <FormControl className={classes.field} component="fieldset">
+          <FormLabel component="div">{t('form.dynamic.label')}</FormLabel>
+          <RadioGroup
+            row
+            aria-label="position"
+            defaultValue="right"
+            onChange={handleNumericFieldChange('dynamic')}
+            value={`${values.dynamic}`}
+          >
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.props.values.isOptionBlocking}
-                  onChange={this.handleCheckBoxFieldChange('isOptionBlocking')}
-                  value={this.props.values.isOptionBlocking}
-                />
-              }
-              label={t('form.is_option_blocking.label')}
+              control={<Radio color="primary" />}
+              label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`)}
+              value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
             />
-            <Typography
-              className={classes.helperText}
-              color="textSecondary"
-              variant="caption"
-            >
-              {t('form.is_option_blocking.helper')}
-            </Typography>
-          </div>
-
-          <div className={classes.field}>
             <FormControlLabel
-              control={
-                <Switch
-                  checked={this.props.values.checkCredit}
-                  onChange={this.handleCheckBoxFieldChange('checkCredit')}
-                  value={this.props.values.checkCredit}
-                />
-              }
-              label={t('form.check_credit.label')}
+              control={<Radio color="primary" />}
+              label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`)}
+              value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
             />
-            <Typography
-              className={classes.helperText}
-              color="textSecondary"
-              variant="caption"
-            >
-              {t('form.check_credit.helper')}
-            </Typography>
-          </div>
-
-          <FormControl className={classes.field} component="fieldset">
-            <FormLabel component="div">{t('form.dynamic.label')}</FormLabel>
-            <RadioGroup
-              row
-              aria-label="position"
-              defaultValue="right"
-              onChange={this.handleNumericFieldChange('dynamic')}
-              value={`${this.props.values.dynamic}`}
-            >
-              <FormControlLabel
-                control={<Radio color="primary" />}
-                label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`)}
-                value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
-              />
-              <FormControlLabel
-                control={<Radio color="primary" />}
-                label={t(
-                  `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`,
-                )}
-                value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
-              />
-            </RadioGroup>
-          </FormControl>
-          <div className={classes.settingsInner}>
-            <Collapse
-              in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_ORDERED}
-            >
-              <WaitingListOrderedForm
-                handleAutoCancellationTypeChange={
-                  this.handleAutoCancellationTypeChange
-                }
-                handleCheckBoxFieldChange={this.handleCheckBoxFieldChange}
-                handleNumericFieldChange={this.handleNumericFieldChange}
-              />
-            </Collapse>
-            <Collapse
-              in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED}
-            >
-              <div className={this.props.classes.singleRow}>
-                <InfoOutlineIcon className={this.props.classes.leftIcon} />
-                <Typography color="textSecondary">
-                  {this.props.t(
-                    `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`,
-                  )}
-                </Typography>
-              </div>
-            </Collapse>
-          </div>
+          </RadioGroup>
         </FormControl>
-        <Button
-          color="primary"
-          disabled={
-            !this.props.dirty || this.props.isSubmitting || !this.props.isValid
-          }
-          type="submit"
-          variant="contained"
-        >
-          {t('form.submit')}
-        </Button>
-      </Form>
-    );
-  }
-}
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      width: '70%',
-    },
-    formControl: {
-      paddingBottom: theme.spacing(2),
-      paddingLeft: theme.spacing(1),
-    },
-    column: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    explainWaitingListConf: {
-      paddingTop: theme.spacing(2),
-    },
-    divider: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
-    field: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    helperText: {
-      marginTop: theme.spacing(-1),
-    },
-    row: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: theme.spacing(3),
-    },
-    singleRow: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: theme.spacing(2),
-    },
-    leftIcon: {
-      marginRight: theme.spacing(1),
-    },
-    settingsInner: {
-      backgroundColor: '#F3F3F3',
-      borderRadius: theme.spacing(2),
-      border: '1px solid #F3F3F3',
-      padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px ${theme.spacing(
-        2,
-      )}px`,
-      width: '100%',
-    },
-    alert: {
-      alignItems: 'center',
-    },
-  });
-export default compose<OwnProps, OuterProps>(
-  withFormik<Props, WaitingListConfigurationFormikValues>({
-    enableReinitialize: true,
-    validationSchema: WaitingListConfigurationFormValidationSchema,
-    mapPropsToValues: ({ configuration }) => {
-      const {
-        auto_cancellation_type: autoCancellationType,
-        auto_consume_pack: autoConsumePack,
-        autokick_delay: autokickDelay,
-        check_credit: checkCredit,
-        display_member_position: displayMemberPosition,
-        dumb_delay_minutes: dumbDelayMinutes,
-        dynamic,
-        is_option_blocking: isOptionBlocking,
-        kick_if_no_pack_when_auto_consume: kickIfNoPackWhenAutoConsume,
-        last_delay_before_auto_consume: lastDelayBeforeAutoConsume,
-        smart_delay_percentage: smartDelayPercentage,
-      } = configuration;
-      return {
-        autoCancellationType,
-        autoConsumePack,
-        autokickDelay,
-        checkCredit,
-        displayMemberPosition,
-        dumbDelayMinutes,
-        dynamic,
-        isOptionBlocking,
-        kickIfNoPackWhenAutoConsume,
-        lastDelayBeforeAutoConsume,
-        smartDelayPercentage,
-      };
-    },
-    handleSubmit: (values, { props: { onSubmit, configuration } }) => {
-      const sanitizedConfiguration = {
-        ...configuration,
-        auto_cancellation_type: values.autoCancellationType,
-        auto_consume_pack: values.autoConsumePack,
-        autokick_delay: values.autokickDelay,
-        check_credit: values.checkCredit,
-        display_member_position: values.displayMemberPosition,
-        dumb_delay_minutes: values.dumbDelayMinutes,
-        dynamic: values.dynamic,
-        is_option_blocking: values.isOptionBlocking,
-        kick_if_no_pack_when_auto_consume: values.kickIfNoPackWhenAutoConsume,
-        last_delay_before_auto_consume: values.lastDelayBeforeAutoConsume,
-        smart_delay_percentage: values.smartDelayPercentage,
-      };
-      onSubmit(sanitizedConfiguration);
-    },
-  }),
-  withStyles(styles),
-  withTranslation('waitingList'),
-)(React.memo(WaitingListConfigurationForm));
+        <div className={classes.settingsInner}>
+          <Collapse in={values.dynamic === WAITING_LIST_DYNAMIC_ORDERED}>
+            <WaitingListOrderedForm
+              handleAutoCancellationTypeChange={
+                handleAutoCancellationTypeChange
+              }
+              handleCheckBoxFieldChange={handleCheckBoxFieldChange}
+              handleNumericFieldChange={handleNumericFieldChange}
+            />
+          </Collapse>
+          <Collapse in={values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED}>
+            <div className={classes.singleRow}>
+              <InfoOutlineIcon className={classes.leftIcon} />
+              <Typography color="textSecondary">
+                {t(`form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`)}
+              </Typography>
+            </div>
+          </Collapse>
+        </div>
+      </FormControl>
+      <Button
+        color="primary"
+        disabled={!dirty || isSubmitting || !isValid}
+        type="submit"
+        variant="contained"
+      >
+        {t('form.submit')}
+      </Button>
+    </Form>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '70%',
+  },
+  formControl: {
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  field: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  helperText: {
+    marginTop: theme.spacing(-1),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3),
+  },
+  singleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  settingsInner: {
+    backgroundColor: '#F3F3F3',
+    borderRadius: theme.spacing(2),
+    border: '1px solid #F3F3F3',
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px ${theme.spacing(
+      2,
+    )}px`,
+    width: '100%',
+  },
+}));
+
+const FormikFormWrapper = withFormik<
+  FormikHOCProps,
+  WaitingListConfigurationFormikValues
+>({
+  enableReinitialize: true,
+  validationSchema: WaitingListConfigurationFormValidationSchema,
+  mapPropsToValues: ({ configuration }) => {
+    const {
+      auto_cancellation_type: autoCancellationType,
+      auto_consume_pack: autoConsumePack,
+      autokick_delay: autokickDelay,
+      check_credit: checkCredit,
+      display_member_position: displayMemberPosition,
+      dumb_delay_minutes: dumbDelayMinutes,
+      dynamic,
+      is_option_blocking: isOptionBlocking,
+      kick_if_no_pack_when_auto_consume: kickIfNoPackWhenAutoConsume,
+      last_delay_before_auto_consume: lastDelayBeforeAutoConsume,
+      smart_delay_percentage: smartDelayPercentage,
+    } = configuration;
+    return {
+      autoCancellationType,
+      autoConsumePack,
+      autokickDelay,
+      checkCredit,
+      displayMemberPosition,
+      dumbDelayMinutes,
+      dynamic,
+      isOptionBlocking,
+      kickIfNoPackWhenAutoConsume,
+      lastDelayBeforeAutoConsume,
+      smartDelayPercentage,
+    };
+  },
+  handleSubmit: (values, { props: { onSubmit, configuration } }) => {
+    const sanitizedConfiguration = {
+      ...configuration,
+      auto_cancellation_type: values.autoCancellationType,
+      auto_consume_pack: values.autoConsumePack,
+      autokick_delay: values.autokickDelay,
+      check_credit: values.checkCredit,
+      display_member_position: values.displayMemberPosition,
+      dumb_delay_minutes: values.dumbDelayMinutes,
+      dynamic: values.dynamic,
+      is_option_blocking: values.isOptionBlocking,
+      kick_if_no_pack_when_auto_consume: values.kickIfNoPackWhenAutoConsume,
+      last_delay_before_auto_consume: values.lastDelayBeforeAutoConsume,
+      smart_delay_percentage: values.smartDelayPercentage,
+    };
+    onSubmit(sanitizedConfiguration);
+  },
+});
+
+export default React.memo(FormikFormWrapper(WaitingListConfigurationForm));

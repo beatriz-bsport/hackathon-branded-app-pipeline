@@ -67,6 +67,7 @@ const LiveHistory: React.FC<Props> = ({
   const classes = useStyles();
 
   const {
+    fetchMemberVisitList,
     handleAllowManualEntry,
     handleCloseAccessStatusChangeSuccessModal,
     handleCloseEntryStatusChangedModal,
@@ -165,7 +166,7 @@ const LiveHistory: React.FC<Props> = ({
         handleSelectMemberVisit={handleSelectMemberVisit}
         handleMemberProfileClick={handleMemberProfileClick}
         memberVisitList={memberVisitList}
-        getMemberVisitList={getMemberVisitList}
+        getMemberVisitList={fetchMemberVisitList}
         memberVisitState={memberVisitState}
       />
     </div>

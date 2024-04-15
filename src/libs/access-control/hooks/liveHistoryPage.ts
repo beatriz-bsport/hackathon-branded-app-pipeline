@@ -1,4 +1,5 @@
 import { useMemo, useCallback, useEffect, useState } from 'react';
+import moment from 'moment-timezone';
 import { Props as LiveHistoryProps } from '#pages/access-monitoring/LiveHistory.page';
 import { useAccessControlBroadcastChannel } from './broadcastChannel';
 import { MemberVisitREST } from '../types';
@@ -47,9 +48,26 @@ export const useLiveHistoryPageDataManager = ({
 
   /** EFFECTS */
 
+  // Fetch today's member visit list
+  const fetchMemberVisitList = useCallback(
+    (params: { page: number; member?: number }) => {
+      // If current time is before 2am, we need to fetch yesterday's data as well
+      const datetime_created_after = moment()
+        .subtract(2, 'hours')
+        .startOf('day')
+        .toISOString();
+
+      getMemberVisitList({
+        ...params,
+        datetime_created_after,
+      });
+    },
+    [getMemberVisitList],
+  );
+
   useEffect(() => {
-    getMemberVisitList({ page: 1 });
-  }, [getMemberVisitList]);
+    fetchMemberVisitList({ page: 1 });
+  }, [fetchMemberVisitList]);
 
   /** HOOKS */
 
@@ -93,9 +111,9 @@ export const useLiveHistoryPageDataManager = ({
   // Member filter selection
   const handleSelectMember = useCallback(
     (memberId: number) => {
-      getMemberVisitList({ member: memberId, page: 1 });
+      fetchMemberVisitList({ member: memberId, page: 1 });
     },
-    [getMemberVisitList],
+    [fetchMemberVisitList],
   );
 
   // In member visit details
@@ -127,8 +145,8 @@ export const useLiveHistoryPageDataManager = ({
 
   // When clearing the member filter
   const handleRefreshFirstPage = useCallback(() => {
-    getMemberVisitList({ page: 1 });
-  }, [getMemberVisitList]);
+    fetchMemberVisitList({ page: 1 });
+  }, [fetchMemberVisitList]);
 
   const handleMemberProfileClick = useCallback((memberId: number) => {
     window.open(`/member/${memberId}`);
@@ -213,6 +231,7 @@ export const useLiveHistoryPageDataManager = ({
   );
 
   return {
+    fetchMemberVisitList,
     handleAllowManualEntry,
     handleCloseAccessStatusChangeSuccessModal,
     handleCloseEntryStatusChangedModal,

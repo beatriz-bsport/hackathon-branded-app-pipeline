@@ -103,4 +103,6 @@ export type MemberVisitQueryParams = {
   access_status?: AccessStatus;
   entry_status?: EntryStatus;
   staff_user?: number;
+  datetime_created_after?: string;
+  datetime_created_before?: string;
 };

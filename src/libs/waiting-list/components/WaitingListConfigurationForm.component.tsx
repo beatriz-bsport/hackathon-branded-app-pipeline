@@ -11,14 +11,12 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import Alert from '@material-ui/lab/Alert';
 import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
@@ -26,12 +24,12 @@ import {
 import Switch from '@material-ui/core/Switch';
 import { withFormik, FormikProps, Form } from 'formik';
 import type { Theme, WithStyles } from '@material-ui/core/styles/';
-import NumericInput from '#components/input/NumericInput.component';
 
 import {
   WaitingListConfiguration,
   WaitingListAutoCancellation,
 } from '#libs/waiting-list/types';
+import WaitingListOrderedForm from './WaitingListOrderedForm.component';
 
 const WaitingListConfigurationFormValidationSchema = Yup.object().shape({
   autoCancellationType: Yup.number()
@@ -57,7 +55,7 @@ const WaitingListConfigurationFormValidationSchema = Yup.object().shape({
   smartDelayPercentage: Yup.number().min(10).max(100).required(),
 });
 
-type FormikValues = {
+export type WaitingListConfigurationFormikValues = {
   autoCancellationType: WaitingListAutoCancellation;
   autoConsumePack: boolean;
   autokickDelay: number;
@@ -76,7 +74,7 @@ type OwnProps = {
   onSubmit: (data: WaitingListConfiguration) => void;
 };
 
-type OuterProps = FormikProps<FormikValues> &
+type OuterProps = FormikProps<WaitingListConfigurationFormikValues> &
   WithStyles<typeof styles> &
   WithTranslation;
 
@@ -85,55 +83,6 @@ type Props = OwnProps & OuterProps;
 export class WaitingListConfigurationForm extends Component<Props> {
   handleChange = (field: string) => (value: any) => {
     this.props.setFieldValue(field, value);
-  };
-
-  renderUnorderedForm = () => {
-    return (
-      <div className={this.props.classes.singleRow}>
-        <InfoOutlineIcon className={this.props.classes.leftIcon} />
-        <Typography color="textSecondary">
-          {this.props.t(
-            `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`,
-          )}
-        </Typography>
-      </div>
-    );
-  };
-
-  generateAlertInfoContent = () => {
-    const { t } = this.props;
-    if (
-      this.props.values.autoCancellationType ===
-      WaitingListAutoCancellation.dumb
-    ) {
-      return t(
-        `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSimple`,
-        {
-          autokick_delay: this.props.values.autokickDelay,
-          dumb_delay_minutes: this.props.values.dumbDelayMinutes,
-        },
-      );
-    }
-    const exampleHoursBefore = 3;
-    const exampleComputedDelayOne = (
-      exampleHoursBefore *
-      60 *
-      (this.props.values.smartDelayPercentage / 100)
-    ).toFixed(0);
-    const exampleComputedDelayTwo = (
-      (exampleHoursBefore * 60 - parseInt(exampleComputedDelayOne)) *
-      (this.props.values.smartDelayPercentage / 100)
-    ).toFixed(0);
-    return t(
-      `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSmart`,
-      {
-        autokick_delay: this.props.values.autokickDelay,
-        smart_delay_percentage: this.props.values.smartDelayPercentage,
-        example_hours_before: 3,
-        example_computed_delay_one: exampleComputedDelayOne,
-        example_computed_delay_two: exampleComputedDelayTwo,
-      },
-    );
   };
 
   handleCheckBoxFieldChange =
@@ -151,185 +100,6 @@ export class WaitingListConfigurationForm extends Component<Props> {
     (value: WaitingListAutoCancellation) => () => {
       this.handleChange('autoCancellationType')(value);
     };
-
-  renderOrderedForm = () => {
-    const { classes, t } = this.props;
-
-    return (
-      <div>
-        <div className={classes.row}>
-          <InfoOutlineIcon className={classes.leftIcon} />
-          <Typography color="textSecondary">
-            {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.explain`)}
-          </Typography>
-        </div>
-        <div className={classes.field}>
-          <NumericInput
-            error={!!this.props.errors.autokickDelay}
-            fullWidth={false}
-            helperText={t('form.autokick_delay.helper')}
-            InputProps={{
-              inputProps: { min: 2, step: 1, max: 100 },
-            }}
-            label={t('form.autokick_delay.label')}
-            onChange={this.handleNumericFieldChange('autokickDelay')}
-            value={this.props.values.autokickDelay}
-          />
-        </div>
-        <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.props.values.autoConsumePack}
-                onChange={this.handleCheckBoxFieldChange('autoConsumePack')}
-                value={this.props.values.autoConsumePack}
-              />
-            }
-            label={t('form.auto_consume_pack.label')}
-          />
-          <Typography
-            className={classes.helperText}
-            color="textSecondary"
-            variant="caption"
-          >
-            {t('form.auto_consume_pack.helper')}
-          </Typography>
-        </div>
-        <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={
-                  this.props.values.kickIfNoPackWhenAutoConsume &&
-                  this.props.values.autoConsumePack
-                }
-                disabled={!this.props.values.autoConsumePack}
-                onChange={this.handleCheckBoxFieldChange(
-                  'kickIfNoPackWhenAutoConsume',
-                )}
-                value={this.props.values.kickIfNoPackWhenAutoConsume}
-              />
-            }
-            label={t('form.kick_if_no_pack_when_auto_consume.label')}
-          />
-          <Typography
-            className={classes.helperText}
-            color="textSecondary"
-            variant="caption"
-          >
-            {t('form.kick_if_no_pack_when_auto_consume.helper')}
-          </Typography>
-        </div>
-        <div className={classes.field}>
-          <NumericInput
-            error={!!this.props.errors.lastDelayBeforeAutoConsume}
-            fullWidth={false}
-            helperText={t('form.last_delay_before_auto_consume.helper')}
-            InputProps={{
-              inputProps: { min: 0, step: 1, max: 4 * 60 },
-              endAdornment: <InputAdornment position="end">min</InputAdornment>,
-            }}
-            label={t('form.last_delay_before_auto_consume.label')}
-            onChange={this.handleNumericFieldChange(
-              'lastDelayBeforeAutoConsume',
-            )}
-            value={this.props.values.lastDelayBeforeAutoConsume}
-          />
-        </div>
-        <div className={classes.divider} />
-        <fieldset className={classes.column}>
-          <legend>
-            {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.settingsDelay`)}
-          </legend>
-          <Alert className={classes.alert} severity="info" variant="outlined">
-            {this.generateAlertInfoContent()}
-          </Alert>
-          <div className={classes.field}>
-            <FormControlLabel
-              control={
-                <Radio
-                  aria-label="simple"
-                  checked={
-                    this.props.values.autoCancellationType ===
-                    WaitingListAutoCancellation.dumb
-                  }
-                  name="simple"
-                  onChange={this.handleAutoCancellationTypeChange(
-                    WaitingListAutoCancellation.dumb,
-                  )}
-                  value={WaitingListAutoCancellation.dumb}
-                />
-              }
-              label={t('form.dumb_delay_minutes.label')}
-            />
-            <NumericInput
-              disabled={
-                this.props.values.autoCancellationType ===
-                WaitingListAutoCancellation.smart
-              }
-              error={!!this.props.errors.dumbDelayMinutes}
-              InputProps={{
-                inputProps: { min: 15, step: 1, max: 32000 },
-                endAdornment: (
-                  <InputAdornment position="end">min</InputAdornment>
-                ),
-              }}
-              onChange={this.handleNumericFieldChange('dumbDelayMinutes')}
-              value={this.props.values.dumbDelayMinutes}
-            />
-          </div>
-          <div className={classes.field}>
-            <FormControlLabel
-              control={
-                <Radio
-                  aria-label="smart"
-                  checked={
-                    this.props.values.autoCancellationType ===
-                    WaitingListAutoCancellation.smart
-                  }
-                  name="smart"
-                  onChange={this.handleAutoCancellationTypeChange(
-                    WaitingListAutoCancellation.smart,
-                  )}
-                  value={WaitingListAutoCancellation.smart}
-                />
-              }
-              label={t('form.smart_delay_percentage.label')}
-            />
-            <NumericInput
-              disabled={
-                this.props.values.autoCancellationType ===
-                WaitingListAutoCancellation.dumb
-              }
-              error={!!this.props.errors.smartDelayPercentage}
-              fullWidth={false}
-              InputProps={{
-                inputProps: { min: 10, step: 1, max: 100 },
-                endAdornment: <InputAdornment position="end">%</InputAdornment>,
-              }}
-              onChange={this.handleNumericFieldChange('smartDelayPercentage')}
-              value={this.props.values.smartDelayPercentage}
-            />
-          </div>
-        </fieldset>
-        <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.props.values.displayMemberPosition}
-                color="primary"
-                onChange={this.handleCheckBoxFieldChange(
-                  'displayMemberPosition',
-                )}
-                value={this.props.values.displayMemberPosition}
-              />
-            }
-            label={t('form.display_member_position.label')}
-          />
-        </div>
-      </div>
-    );
-  };
 
   render() {
     const { classes, t } = this.props;
@@ -403,18 +173,33 @@ export class WaitingListConfigurationForm extends Component<Props> {
             <Collapse
               in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_ORDERED}
             >
-              {this.renderOrderedForm()}
+              <WaitingListOrderedForm
+                handleAutoCancellationTypeChange={
+                  this.handleAutoCancellationTypeChange
+                }
+                handleCheckBoxFieldChange={this.handleCheckBoxFieldChange}
+                handleNumericFieldChange={this.handleNumericFieldChange}
+              />
             </Collapse>
             <Collapse
               in={this.props.values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED}
             >
-              {this.renderUnorderedForm()}
+              <div className={this.props.classes.singleRow}>
+                <InfoOutlineIcon className={this.props.classes.leftIcon} />
+                <Typography color="textSecondary">
+                  {this.props.t(
+                    `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`,
+                  )}
+                </Typography>
+              </div>
             </Collapse>
           </div>
         </FormControl>
         <Button
           color="primary"
-          disabled={!this.props.dirty || this.props.isSubmitting}
+          disabled={
+            !this.props.dirty || this.props.isSubmitting || !this.props.isValid
+          }
           type="submit"
           variant="contained"
         >
@@ -485,7 +270,7 @@ const styles = (theme: Theme) =>
     },
   });
 export default compose<OwnProps, OuterProps>(
-  withFormik<Props, FormikValues>({
+  withFormik<Props, WaitingListConfigurationFormikValues>({
     enableReinitialize: true,
     validationSchema: WaitingListConfigurationFormValidationSchema,
     mapPropsToValues: ({ configuration }) => {

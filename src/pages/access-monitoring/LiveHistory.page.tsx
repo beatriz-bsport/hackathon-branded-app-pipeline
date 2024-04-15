@@ -35,6 +35,7 @@ import {
   getAssociatedEstablishmentGroup,
   getEstablishmentsSelectedInRole,
 } from '#libs/establishment/selectors';
+import { getPermissions } from '#libs/role/selectors';
 
 /** CONSTANTS */
 import { EntryStatus } from '#libs/access-control/constants';
@@ -58,6 +59,7 @@ const LiveHistory: React.FC<Props> = ({
   manualUpdateMemberVisitFromBroadcastChannel,
   memberVisitList,
   memberVisitState,
+  permissions,
   refreshMemberVisitAccessStatus,
   searchMembers,
   setMemberVisitEntryStatus,
@@ -91,6 +93,7 @@ const LiveHistory: React.FC<Props> = ({
     getMemberVisitList,
     manualUpdateMemberVisitFromBroadcastChannel,
     memberVisitState,
+    permissions,
     refreshMemberVisitAccessStatus,
     setMemberVisitEntryStatus,
     theme,
@@ -193,6 +196,7 @@ const connector = connect(
     isLoading: getMemberVisitLiveHistoryIsLoading(state),
     memberVisitList: getAllMemberVisits(state),
     memberVisitState: state.accessControl.memberVisit,
+    permissions: getPermissions(state),
     theme: state.theme.theme,
   }),
   {

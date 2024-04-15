@@ -14,6 +14,7 @@ export const useLiveHistoryPageDataManager = ({
   getMemberVisitList,
   manualUpdateMemberVisitFromBroadcastChannel,
   memberVisitState,
+  permissions,
   refreshMemberVisitAccessStatus,
   setMemberVisitEntryStatus,
   theme,
@@ -25,6 +26,7 @@ export const useLiveHistoryPageDataManager = ({
   | 'getMemberVisitList'
   | 'manualUpdateMemberVisitFromBroadcastChannel'
   | 'memberVisitState'
+  | 'permissions'
   | 'refreshMemberVisitAccessStatus'
   | 'setMemberVisitEntryStatus'
   | 'theme'
@@ -57,9 +59,14 @@ export const useLiveHistoryPageDataManager = ({
         .startOf('day')
         .toISOString();
 
+      // If the staff user has the permission to perform access monitoring, we will only show the member visits performed by him
+      const performed_by_me =
+        permissions?.navigationMenu?.accessMonitoring?.perform;
+
       getMemberVisitList({
         ...params,
         datetime_created_after,
+        ...{ performed_by_me },
       });
     },
     [getMemberVisitList],

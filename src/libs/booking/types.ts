@@ -257,7 +257,8 @@ export type BookingFilterParams = {
   page_size: number;
 };
 
-export type CancelBookingFilterParams = {
+export type CancelBookingParams = {
+  bookingId: number;
   force_notify?: boolean;
   force_refund?: boolean;
   activity_group?: number;

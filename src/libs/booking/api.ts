@@ -12,7 +12,7 @@ import {
   Booking,
   BookingREST,
   BookingFilterParams,
-  CancelBookingFilterParams,
+  CancelBookingParams,
 } from './types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
@@ -68,7 +68,7 @@ export const cancelBooking = async (id: number, data: any = {}) => {
 
 export const cancelBookingV2 = (
   id: number,
-  params: CancelBookingFilterParams,
+  params: Omit<CancelBookingParams, 'bookingId'>,
 ) => {
   return postAuth<BookingREST>(`${API_V1_URI}/booking/${id}/cancel/`, params);
 };

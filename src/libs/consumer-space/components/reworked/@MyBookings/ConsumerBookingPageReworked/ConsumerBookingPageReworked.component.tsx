@@ -18,7 +18,7 @@ import type {
 import type {
   ConsumerBooking,
   BookingREST,
-  CancelBookingFilterParams,
+  CancelBookingParams,
   ConsumerPrivateBooking,
   ConsumerBookingOption,
 } from '#libs/booking/types';
@@ -70,13 +70,12 @@ type Props = {
   fetchFutureBookingsWorkshop: () => void;
   resetConsumerState: () => void;
   cancelBooking: (
-    bookingId: number,
-    params: CancelBookingFilterParams,
+    params: CancelBookingParams,
     options?: OptionCallback<BookingREST>,
   ) => void;
   cancelPrivateBooking: (
     bookingId: number,
-    params: CancelBookingFilterParams,
+    params: CancelBookingParams,
     options?: OptionCallback<PrivateBooking>,
   ) => void;
   cancelBookingOption: (

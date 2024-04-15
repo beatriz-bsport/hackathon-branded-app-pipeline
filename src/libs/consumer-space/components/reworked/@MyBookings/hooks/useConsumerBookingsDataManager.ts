@@ -13,7 +13,7 @@ import type {
 } from '#libs/consumer-space/types';
 import type {
   BookingREST,
-  CancelBookingFilterParams,
+  CancelBookingParams,
   CancelPrivateBookingFilterParams,
   ConsumerBooking,
   ConsumerBookingOption,
@@ -104,8 +104,7 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookingsWorkshop: () => void;
   resetConsumerState: () => void;
   cancelBooking: (
-    bookingId: number,
-    params: CancelBookingFilterParams,
+    params: CancelBookingParams,
     options?: OptionCallback<BookingREST>,
   ) => void;
   cancelPrivateBooking: (
@@ -580,8 +579,7 @@ export default function useConsumerBookingsDataManager({
 
       if (bookingId) {
         cancelBooking(
-          bookingId,
-          { force_refund: isRefundingCredit },
+          { bookingId, force_refund: isRefundingCredit },
           optionCallback,
         );
       }

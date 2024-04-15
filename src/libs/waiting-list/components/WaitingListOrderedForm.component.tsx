@@ -45,8 +45,8 @@ const WaitingListOrderedForm: React.FC<Props> = ({
       return t(
         `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSimple`,
         {
-          autokick_delay: values.autokickDelay,
-          dumb_delay_minutes: values.dumbDelayMinutes,
+          autokick_delay: values.autokickDelay || 0,
+          dumb_delay_minutes: values.dumbDelayMinutes || 0,
         },
       );
     }
@@ -54,17 +54,17 @@ const WaitingListOrderedForm: React.FC<Props> = ({
     const exampleComputedDelayOne = (
       exampleHoursBefore *
       60 *
-      (values.smartDelayPercentage / 100)
+      (values.smartDelayPercentage || 0 / 100)
     ).toFixed(0);
     const exampleComputedDelayTwo = (
       (exampleHoursBefore * 60 - parseInt(exampleComputedDelayOne)) *
-      (values.smartDelayPercentage / 100)
+      (values.smartDelayPercentage || 0 / 100)
     ).toFixed(0);
     return t(
       `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSmart`,
       {
-        autokick_delay: values.autokickDelay,
-        smart_delay_percentage: values.smartDelayPercentage,
+        autokick_delay: values.autokickDelay || 0,
+        smart_delay_percentage: values.smartDelayPercentage || 0,
         example_hours_before: 3,
         example_computed_delay_one: exampleComputedDelayOne,
         example_computed_delay_two: exampleComputedDelayTwo,

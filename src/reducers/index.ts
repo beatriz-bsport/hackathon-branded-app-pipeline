@@ -160,6 +160,7 @@ import type { ZoomAppState } from '#libs/zoom-app/types';
 import type { ShopState, ShopStateReworked } from '#libs/shop/types';
 import type { AccessControlState } from '#libs/access-control/types';
 import type { PaymentBackendState } from '#libs/payment/types';
+import type { ActiveCampaignState } from '#libs/active-campaign/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -252,7 +253,7 @@ const rootReducer = (history: any) =>
 export type RootState = {
   router: ReturnType<typeof connectRouter>;
   accessControl: AccessControlState;
-  activeCampaign: any;
+  activeCampaign: ActiveCampaignState;
   alerting: AlertingState;
   auth: any;
   backgroundDialog: BackgroundDialogState;

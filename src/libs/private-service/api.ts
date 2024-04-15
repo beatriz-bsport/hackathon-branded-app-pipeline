@@ -18,7 +18,7 @@ import type {
 } from './types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
-import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
+import type { CancelPrivateBookingParams } from '#libs/booking/types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
@@ -582,7 +582,7 @@ export const registerPrivateBookings = ({
 
 export const disablePrivateBooking = (
   id: number,
-  data: CancelPrivateBookingFilterParams,
+  data: Omit<CancelPrivateBookingParams, 'privateBookingId'>,
 ) => {
   return postAuth<PrivateBooking>(
     `${API_V1_URI}/private_service/private_booking/${id}/disable/`,

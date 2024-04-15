@@ -265,7 +265,8 @@ export type CancelBookingParams = {
   bookings_in_same_group?: number[];
 };
 
-export type CancelPrivateBookingFilterParams = {
+export type CancelPrivateBookingParams = {
+  privateBookingId: number;
   force_refund?: boolean;
   send_mail?: boolean;
 };

@@ -53,7 +53,7 @@ import type {
   BookingOption,
   BookingREST,
   CancelBookingParams,
-  CancelPrivateBookingFilterParams,
+  CancelPrivateBookingParams,
 } from '#libs/booking/types';
 import type {
   DiscardBookingOptionParams,
@@ -902,16 +902,19 @@ export const cancelPrivateBookingAsMemberActions = {
 };
 
 export function cancelPrivateBookingAsMember(
-  id: number,
-  params: CancelPrivateBookingFilterParams,
+  params: CancelPrivateBookingParams,
   options?: OptionCallback<PrivateBooking>,
 ): ThunkAction {
+  const { privateBookingId, ...restParams } = params;
   return async (dispatch: Dispatch) => {
     dispatch(cancelPrivateBookingAsMemberActions.isLoading(true));
     dispatch(cancelPrivateBookingAsMemberActions.error(null));
 
     try {
-      const response = await disablePrivateBookingAPI(id, params);
+      const response = await disablePrivateBookingAPI(
+        privateBookingId,
+        restParams,
+      );
       dispatch(cancelPrivateBookingAsMemberActions.success(response));
       options?.onSuccess?.(response.data);
     } catch (err) {

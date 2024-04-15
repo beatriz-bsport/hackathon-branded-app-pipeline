@@ -14,7 +14,7 @@ import type {
 import type {
   BookingREST,
   CancelBookingParams,
-  CancelPrivateBookingFilterParams,
+  CancelPrivateBookingParams,
   ConsumerBooking,
   ConsumerBookingOption,
   ConsumerPrivateBooking,
@@ -108,8 +108,7 @@ export default function useConsumerBookingsDataManager({
     options?: OptionCallback<BookingREST>,
   ) => void;
   cancelPrivateBooking: (
-    bookingId: number,
-    params: CancelPrivateBookingFilterParams,
+    params: CancelPrivateBookingParams,
     options?: OptionCallback<PrivateBooking>,
   ) => void;
   cancelBookingOption: (
@@ -585,8 +584,7 @@ export default function useConsumerBookingsDataManager({
       }
       if (privateBookingId) {
         cancelPrivateBooking(
-          privateBookingId,
-          { force_refund: isRefundingCredit },
+          { privateBookingId, force_refund: isRefundingCredit },
           optionCallback,
         );
       }

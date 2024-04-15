@@ -21,6 +21,7 @@ import type {
   CancelBookingParams,
   ConsumerPrivateBooking,
   ConsumerBookingOption,
+  CancelPrivateBookingParams,
 } from '#libs/booking/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { OptionCallback } from '../../../../../../state/types';
@@ -74,8 +75,7 @@ type Props = {
     options?: OptionCallback<BookingREST>,
   ) => void;
   cancelPrivateBooking: (
-    bookingId: number,
-    params: CancelBookingParams,
+    params: CancelPrivateBookingParams,
     options?: OptionCallback<PrivateBooking>,
   ) => void;
   cancelBookingOption: (

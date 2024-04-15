@@ -8,6 +8,9 @@ import type { ErrorAndLoading, WithPagination } from '#libs/types';
 
 export type CheckOnBookings = {
   is_valid: boolean;
+  most_relevant_booking_data: {
+    booking_name: string;
+  } | null;
   bookings_in_other_establishments: {
     booking_name: string;
     establishment_name: string;

@@ -24,6 +24,7 @@ import type {
   MemberVisitQueryParams,
   MemberVisitREST,
 } from '#libs/access-control/types';
+import classNames from 'classnames';
 
 type Props = {
   getMemberVisitList: (
@@ -78,6 +79,33 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
     [t, memberVisit.entry_status],
   );
 
+  const visitReasonElement = useMemo(() => {
+    if (
+      memberVisit.access_status_data.check_on_bookings
+        .most_relevant_booking_data?.booking_name
+    ) {
+      return (
+        <ListItemText
+          primary={
+            memberVisit.access_status_data.check_on_bookings
+              .most_relevant_booking_data.booking_name
+          }
+          className={classes.flex1}
+        />
+      );
+    }
+    return (
+      <ListItemText
+        primary={t('common:none')}
+        className={classNames(classes.flex1, classes.textSecondary)}
+      />
+    );
+  }, [
+    memberVisit.access_status_data.check_on_bookings.most_relevant_booking_data
+      ?.booking_name,
+    t,
+  ]);
+
   return (
     <ListItem divider={divider} className={classes.listItem}>
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
@@ -108,8 +136,7 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
         )}
       </ObjectLevelPermissionProvider>
 
-      {/* TODO: Display visit reason here */}
-      <ListItemText primary={t('common:none')} className={classes.flex1} />
+      {visitReasonElement}
 
       <ListItemText
         className={classes.flex1}
@@ -246,6 +273,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     gap: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+  },
+  textSecondary: {
+    color: theme.palette.text.secondary,
   },
 }));
 

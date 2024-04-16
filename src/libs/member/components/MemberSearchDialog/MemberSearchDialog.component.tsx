@@ -20,8 +20,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-// @ts-expect-error
-import SearchMember from '../../../../pages/offer-management/SearchMember.component';
+import MemberSearchBar from '../MemberSearchBar.component';
 // @ts-expect-error
 import MemberForm from '#libs/member/MemberForm.component';
 import { getLatest } from '#libs/member/api';
@@ -238,10 +237,11 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                 elementClasses?.searchBarContainer,
               )}
             >
-              <SearchMember
+              <MemberSearchBar
                 fullWidth
                 memberHistory={[]}
                 onChange={onChange}
+                // @ts-expect-error
                 onClickRegister={setSelectedMemberId}
                 onReset={clearSearch}
                 searchedText={searchText}

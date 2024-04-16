@@ -23,8 +23,7 @@ import type { Theme } from '@material-ui/core';
 import { Cake } from '@material-ui/icons';
 import moment from 'moment-timezone';
 
-// @ts-expect-error
-import SearchMemberInput from '../../../pages/offer-management/SearchMember.component';
+import MemberSearchBar from './MemberSearchBar.component';
 // @ts-expect-error
 import MemberForm from '../MemberForm.component';
 import { Member } from '../types';
@@ -162,8 +161,7 @@ export const MemberSearchModal: React.FC<Props> = ({
       scroll="paper"
     >
       <DialogTitle>
-        <SearchMemberInput
-          disabled={disabled}
+        <MemberSearchBar
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
             setSearchedText(ev.target.value);
             searchMembers?.(ev.target.value);

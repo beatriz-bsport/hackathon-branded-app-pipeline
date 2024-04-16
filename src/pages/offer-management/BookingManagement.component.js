@@ -41,7 +41,7 @@ import Config, { useOldPermissions } from '../../config';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
-import SearchMember from './SearchMember.component';
+import MemberSearchBar from '../../libs/member/components/MemberSearchBar.component';
 import WaitingListControlHeader from './WaitingListControlHeader.component';
 
 import BookingTable from '#libs/booking/components/BookingTable.component';
@@ -674,7 +674,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                 );
                               }}
                             </ObjectLevelPermissionProvider>
-                            <SearchMember
+                            <MemberSearchBar
                               anonimize={!permissions?.member?.search}
                               memberHistory={this.props.memberHistory || []}
                               memberHistoryAnchor={

@@ -1,74 +1,89 @@
-// @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-import { withTranslation, TFunction } from 'react-i18next';
 import Popover from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import DelayedTextField from '../../components/DelayedTextField.component';
-import { RolePermission } from '../../libs/role/types';
+import { makeStyles } from '@material-ui/core';
+
+import DelayedTextField from '../../../components/DelayedTextField.component';
+
+import type { RolePermission } from '#libs/role/types';
+import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
-  classes: Object,
-  fullWidth?: boolean,
-  memberHistory: Array<Member>,
-  memberHistoryAnchor: ?HTMLElement,
-  onChange: (e: SyntheticEvent<HTMLElement>) => void,
-  onClickRegister: (Member) => void,
-  onReset: () => void,
-  permissions: RolePermission,
-  placeholder?: string,
-  searchedText: string,
-  setMemberHistoryAnchor: (HTMLElement) => void,
-  t: TFunction,
+  fullWidth?: boolean;
+  memberHistory?: MemberMinimal[];
+  memberHistoryAnchor?: HTMLElement;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickRegister?: (Member: MemberMinimal) => void;
+  onReset: () => void;
+  permissions?: RolePermission;
+  placeholder?: string;
+  searchedText: string;
+  setMemberHistoryAnchor?: (event: HTMLElement) => void;
 };
 
-export function SearchMember(props: Props) {
-  const {
-    classes,
-    fullWidth,
-    onChange,
-    onReset,
-    permissions,
-    placeholder,
-    searchedText,
-    t,
-  } = props;
+const MemberSearchBar: React.FC<Props> = ({
+  fullWidth,
+  memberHistory,
+  memberHistoryAnchor,
+  onChange,
+  onClickRegister,
+  onReset,
+  permissions,
+  placeholder,
+  searchedText,
+  setMemberHistoryAnchor,
+}) => {
+  const { t } = useTranslation('search');
+  const classes = useStyles();
+
+  const handleBlur = useCallback(() => {
+    setMemberHistoryAnchor?.(null);
+  }, [setMemberHistoryAnchor]);
+
+  const handleFocus = useCallback(
+    (ev: React.FocusEvent<HTMLInputElement>) => {
+      setMemberHistoryAnchor?.(ev.currentTarget);
+    },
+    [setMemberHistoryAnchor],
+  );
+
   return (
     <div className={classNames({ [classes.input]: fullWidth })}>
       <Popover
         disableAutoFocus
         transition
-        anchorEl={props.memberHistoryAnchor}
-        open={
-          Boolean(props.memberHistoryAnchor) && !!props.memberHistory.length
-        }
+        anchorEl={memberHistoryAnchor}
+        open={!!memberHistory?.length}
+        // FIXME
+        // @ts-expect-error
         placement="center"
         style={{ zIndex: 1000000 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
-              {props.memberHistory.slice(0, 5).map((m) => (
+              {(memberHistory?.slice(0, 5) ?? []).map((member) => (
                 <ListItem
-                  key={m.id}
+                  key={member.id}
                   button
                   divider
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    props.onClickRegister(m);
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onClickRegister?.(member);
                   }}
                 >
                   <ListItemText
-                    primary={m.name}
-                    secondary={permissions?.member?.search ? m.email : ''}
+                    primary={member.name}
+                    secondary={permissions?.member?.search ? member.email : ''}
                   />
                 </ListItem>
               ))}
@@ -97,26 +112,18 @@ export function SearchMember(props: Props) {
             </InputAdornment>
           ) : null,
         }}
-        onBlur={() => {
-          if (props.setMemberHistoryAnchor) {
-            props.setMemberHistoryAnchor(null);
-          }
-        }}
+        onBlur={handleBlur}
         onChange={onChange}
-        onFocus={(ev) => {
-          if (props.setMemberHistoryAnchor) {
-            props.setMemberHistoryAnchor(ev.currentTarget);
-          }
-        }}
+        onFocus={handleFocus}
         placeholder={placeholder ?? t('input')}
         value={searchedText}
         variant="outlined"
       />
     </div>
   );
-}
+};
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   input: {
     width: '100%',
   },
@@ -124,8 +131,6 @@ const styles = () => ({
     backgroundColor: '#F8F8F8',
     width: '100%',
   },
-});
+}));
 
-export default withTranslation(['search'])(
-  withStyles(styles)(React.memo(SearchMember)),
-);
+export default React.memo(MemberSearchBar);

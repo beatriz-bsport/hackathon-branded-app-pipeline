@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
-// @ts-expect-error
-import SearchMember from '../../../../../pages/offer-management/SearchMember.component';
+import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 
 import type { MemberMinimal } from '#libs/member/types';
 
@@ -63,7 +62,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
       <div className={classes.content}>
         <Typography variant="h6">{t('memberVisit.emptyState.or')}</Typography>
         <div className={classes.memberSearch}>
-          <SearchMember
+          <MemberSearchBar
             fullWidth
             onChange={onChange}
             onReset={clearSearch}

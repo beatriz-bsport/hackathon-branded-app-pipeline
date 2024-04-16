@@ -1,11 +1,13 @@
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { SvgIcon, SvgIconProps, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 
-import {
+import BarcodeIcon from '#components/icons/BarcodeIcon.component';
+
+import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
@@ -18,26 +20,6 @@ type Props = {
     | EstablishmentGroupAPI
     | ImmutableObject<EstablishmentGroupAPI>;
 };
-
-const BarcodeIcon = (props: SvgIconProps) => (
-  <SvgIcon {...props}>
-    <svg
-      height="24"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 12V6h1m-1 6h1V6m-1 12v-3h1m0 0v3h-1M7 6v6m0 3v3m7-12v6m0 3v3m3-12v6m0 3v3M6 3H3v3m-1 6h20m-4-9h3v3M6 21H3v-3m15 3h3v-3"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  </SvgIcon>
-);
 
 const MemberVisitPlaceHolder: React.FC<Props> = ({
   enableMultiLocalization,

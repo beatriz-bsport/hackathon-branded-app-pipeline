@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "Resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -561,7 +561,9 @@
             "31": "Gastreserveringen (gast)",
             "30": "Gastreserveringen (uitnodiger)",
             "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
-            "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)"
+            "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
+            "1102": "Verwijzingsvoordeel beschikbaar (verwijzend lid)",
+            "1101": "Verwijzingsvoordeel beschikbaar (doorverwezen lid)"
         },
         "tag": {
             "BookingOption": {
@@ -781,7 +783,8 @@
                     "referred_lastname": "Achternaam (doorverwezen persoon)",
                     "referred_firstname": "Voornaam (doorverwezen persoon)",
                     "referring_lastname": "Achternaam (doorverwijzende persoon)",
-                    "referring_firstname": "Voornaam (doorverwijzende persoon)"
+                    "referring_firstname": "Voornaam (doorverwijzende persoon)",
+                    "referral_link": "Doorverwijslink"
                 },
                 "name": "Referral"
             }
@@ -2282,7 +2285,8 @@
                 "2": "Geweigerd",
                 "3": "Aan het wachten",
                 "4": "Ontvangen",
-                "5": "Fout"
+                "5": "Fout",
+                "-1": "Onbekend"
             },
             "table": {
                 "columns": {
@@ -8997,7 +9001,9 @@
                 "errors": {
                     "max": "Het aantal dagen kan niet meer dan {{maxDays}} dag(en) zijn",
                     "secondWarningDayBiggerThanFirst": "The tweede melding kan niet eerder zijn dan de eerste melding"
-                }
+                },
+                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
+                "title": "Kies het aantal dagen vóór de vervaldatum van de betaalmethode om een e-mailmelding te verzenden."
             }
         },
         "billing_group": {
@@ -10197,7 +10203,7 @@
                     "submit": "Delen deactiveren",
                     "close": "Sluiten"
                 },
-                "content": "Leden die gedeelde kaarten bij deze studio hebben gekocht kunnen deze alsnog bij andere studio's gebruiken na het deactiveren van deze specifieke studio/kaart. Verder worden gedeelde kaarten van andere studio's niet meer bij de gedeactiveerde studio geaccepteerd.",
+                "content": "Door het delen met deze studio uit te schakelen, blijven de afspraakkaarten die al in deze studio zijn gekocht, bruikbaar, maar alleen in deze studio. Afspraakkaarten die al in andere studio's zijn gekocht, zijn niet langer bruikbaar in de gedeactiveerde studio.",
                 "title": "Deactivering"
             },
             "form": {
@@ -12348,7 +12354,8 @@
             "code": {
                 "helperText": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren.",
                 "label": "Promotiecode",
-                "helperTextFranchise": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren. Controleer of deze promotie niet al bij bestaande studio's wordt gebruikt."
+                "helperTextFranchise": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren. Controleer of deze promotie niet al bij bestaande studio's wordt gebruikt.",
+                "codeAlreadyInUse": "Deze code is al in gebruik."
             },
             "voucher_type": {
                 "percent": "Percentage",
@@ -19660,7 +19667,11 @@
     },
     "accessControl": {
         "snackbar": {
-            "message": "<strong>{{- name }}</strong> checkte zojuist in."
-        }
+            "message": "<strong>{{- name }}</strong> checkte zojuist in.",
+            "R": "Niet geldig",
+            "O": "Waarschuwing",
+            "G": "Geldig"
+        },
+        "memberEntry": "Lid toetreding"
     }
 }

@@ -33,6 +33,6 @@ export const retrieveReferralMemberStatus = (memberId: number) => {
 
 export const retrieveReferralLinkStatus = (referral_uuid: string) => {
   return getAuth<ReferralLinkStatus>(
-    `${API_V1_URI}/referral/referral-link-status/${referral_uuid}`,
+    `${API_V1_URI}/referral/referral-link-status/${referral_uuid}/`,
   );
 };

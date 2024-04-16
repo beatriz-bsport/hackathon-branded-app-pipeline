@@ -494,9 +494,7 @@ export const getConsumerBookingsLoading = createSelector(
         pastBookingsState.loading ||
         futureBookingsState.loading ||
         state.level.loading ||
-        state.metaActivity.loading ||
-        state.consumerPaymentPack.loading ||
-        state.paymentPack.loading,
+        state.metaActivity.loading,
       [BookingTabEnum.APPOINTMENT]:
         pastPrivateBookingsState.loading ||
         futurePrivateBookingsState.loading ||
@@ -507,9 +505,7 @@ export const getConsumerBookingsLoading = createSelector(
         pastBookingsWorkshopState.loading ||
         futureBookingsWorkshopState.loading ||
         state.level.loading ||
-        state.metaActivity.loading ||
-        state.consumerPaymentPack.loading ||
-        state.paymentPack.loading,
+        state.metaActivity.loading,
     };
 
     return (state.coach.loading ||

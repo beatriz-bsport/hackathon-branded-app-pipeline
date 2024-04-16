@@ -57,6 +57,7 @@ type Props = {
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   spotTypes: SpotType[];
   companyTheme: CompanyTheme;
+  isConsumerPacksLoading: boolean;
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   handleBookASessionClick: () => void;
   fetchPastBookings: () => void;
@@ -113,6 +114,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   companyTheme,
   getIsBookingsLoading,
   handleBookASessionClick,
+  isConsumerPacksLoading,
   fetchPastBookings,
   fetchFutureBookings,
   fetchBookingOptions,
@@ -146,7 +148,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     waitlistItemsCount,
     nextPage,
     bookingList,
-    isBookingsLoading,
+    isBookingsPageLoading,
     privateBookingList,
     bookingOptionList,
     relatedBookingsInGroup,
@@ -209,6 +211,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     fetchAssociatedBlueprintObjects,
     cancelPrivateBooking,
     cancelBookingOption,
+    isConsumerPacksLoading,
   });
 
   const emptyFn = () => {};
@@ -294,7 +297,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleSelectBookingForCancelation={handleSelectBookingForCancelation}
           handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
-          isLoading={isBookingsLoading}
+          isLoading={isBookingsPageLoading}
           isMobile={isMobile}
           privateBookingList={privateBookingList}
           relatedBookingsInGroup={relatedBookingsInGroup}

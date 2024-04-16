@@ -82,6 +82,9 @@ type OwnProps = {};
 type ParamsProps = {
   companyId: number;
 };
+type State = {
+  isConsumerPacksLoading: boolean;
+};
 
 type OwnAndConnectedProps = OwnProps &
   ParamsProps &
@@ -95,7 +98,14 @@ type Props = {
 } & WithHandlerType<typeof mapWithHandlers> &
   OwnAndConnectedProps;
 
-export class ConsumerBooking extends React.Component<Props> {
+export class ConsumerBooking extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isConsumerPacksLoading: false,
+    };
+  }
+
   componentDidMount() {
     this.fetchPastBookings();
     this.fetchFutureBookings();
@@ -107,6 +117,27 @@ export class ConsumerBooking extends React.Component<Props> {
     this.props.fetchSpotForBlueprint({
       company: this.props.companyId,
       blueprint: blueprintId,
+    });
+  };
+
+  /**
+   * There's a slight delay between the triggering of onSuccess in retrieveConsumerPackBulk
+   * and the setting of the consumer_payment_pack and payment_pack loading states.
+   * This leads to a flicker of the skeleton interface. Hence, we require a local state to ensure
+   * a more precise representation of the loading process.
+   */
+  fetchConsumerPacksAndPaymentPacks = (bookingsConsumerPackList: number[]) => {
+    this.setState({ isConsumerPacksLoading: true });
+    this.props.retrieveConsumerPackBulk(bookingsConsumerPackList, {
+      onSuccess: (consumerPackList) =>
+        this.props.fetchPaymentPackBulk(
+          uniq(
+            consumerPackList.map((consumerPack) => consumerPack.payment_pack),
+          ),
+          {
+            onSuccess: () => this.setState({ isConsumerPacksLoading: false }),
+          },
+        ),
     });
   };
 
@@ -140,14 +171,7 @@ export class ConsumerBooking extends React.Component<Props> {
     this.props.fetchLevelList({ id__in: bookingsLevelList });
     this.props.fetchMetaActivityBulk(bookingsMetaActivityList);
     this.props.fetchEstablishmentBulk(bookingsEstablishmentList);
-    this.props.retrieveConsumerPackBulk(bookingsConsumerPackList, {
-      onSuccess: (consumerPackList) =>
-        this.props.fetchPaymentPackBulk(
-          uniq(
-            consumerPackList.map((consumerPack) => consumerPack.payment_pack),
-          ),
-        ),
-    });
+    this.fetchConsumerPacksAndPaymentPacks(bookingsConsumerPackList);
   };
 
   fetchAssociatedBookingOptionsObjects = (
@@ -342,6 +366,7 @@ export class ConsumerBooking extends React.Component<Props> {
           this.props.getRelatedConsumerBookingsInGroup
         }
         handleBookASessionClick={this.handleBookASessionClick}
+        isConsumerPacksLoading={this.state.isConsumerPacksLoading}
         pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}

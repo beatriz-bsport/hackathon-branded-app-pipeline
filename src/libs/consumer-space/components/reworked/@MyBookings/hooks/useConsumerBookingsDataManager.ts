@@ -73,6 +73,7 @@ export default function useConsumerBookingsDataManager({
   fetchAssociatedBlueprintObjects,
   cancelPrivateBooking,
   cancelBookingOption,
+  isConsumerPacksLoading,
 }: {
   isNewCheckoutFlow: boolean;
   companyId: number;
@@ -122,6 +123,7 @@ export default function useConsumerBookingsDataManager({
     filterTab: BookingFilterTab,
   ) => ConsumerBooking[];
   fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
+  isConsumerPacksLoading: boolean;
 }) {
   const history = useHistory();
   const { width } = useViewport();
@@ -363,9 +365,9 @@ export default function useConsumerBookingsDataManager({
     [bookingOptionsListMap, selectedFilterTab, selectedTab],
   );
 
-  const isBookingsLoading = useMemo(
-    () => getIsBookingsLoading(selectedTab),
-    [getIsBookingsLoading, selectedTab],
+  const isBookingsPageLoading = useMemo(
+    () => getIsBookingsLoading(selectedTab) || isConsumerPacksLoading,
+    [getIsBookingsLoading, selectedTab, isConsumerPacksLoading],
   );
 
   const relatedBookingsInGroup = useMemo(() => {
@@ -820,7 +822,7 @@ export default function useConsumerBookingsDataManager({
     handleCancelBooking,
     handleBookSession,
     // COMPUTED STATE
-    isBookingsLoading,
+    isBookingsPageLoading,
     futureItemsCount,
     waitlistItemsCount,
     nextPage,

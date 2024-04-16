@@ -85,6 +85,30 @@ exports.default = {
     passExpiration: 'Valid until {{- expirationDate }}',
     atHome: 'At home',
   },
+  settings: {
+    title: 'Member entry timeframe',
+    description:
+      'Set time allowed for member to enter before and after their session starts in a compatible establishment.',
+    hours: 'Hours',
+    minutes: 'Minutes',
+    // The semantic inversion of the before and after titles is intentional
+    // as the before period is actually after the session starts,
+    // and vice versa.
+    afterTitle: 'Entry period before session starts',
+    beforeTitle: 'Entry period after session starts',
+    isStudioWide: 'Settings are applied studio-wide.',
+    errors: {
+      required: 'This field is required',
+      hours: {
+        min: 'Must be greater than 0',
+        max: 'Must be lower than 24',
+      },
+      minutes: {
+        min: 'Must be greater than 0',
+        max: 'Must be lower than 60',
+      },
+    },
+  },
   modals: {
     accessStatusChangedSuccess: {
       title: 'Member status updated',

@@ -119,7 +119,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     let taken_image = '';
     free_image = spotType.free_image;
     selected_image = spotType.selected_image;
-    taken_image = spotType.selected_image;
+    taken_image = spotType.taken_image;
 
     if (spotType.customization === PERSONALIZED_CUSTOMIZATION) {
       typeof free_image !== 'string' && spot.append('free_image', free_image);

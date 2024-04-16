@@ -5,7 +5,7 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Card from '@material-ui/core/Card';
 
-import { AccessStatus } from '#libs/access-control/const';
+import { AccessStatus } from '#libs/access-control/constants';
 
 const MemberVisitDetailsCardSkeleton: React.FC = React.memo(() => {
   const classes = useStyles({ access_status: null });

@@ -8,7 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import { Theme, lighten, makeStyles } from '@material-ui/core/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import { AccessStatus } from '#libs/access-control/const';
+import { AccessStatus } from '#libs/access-control/constants';
 
 type Props = {
   accessStatus: AccessStatus;

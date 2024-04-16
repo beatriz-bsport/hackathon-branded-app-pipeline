@@ -11,7 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { MemberMinimal } from '#libs/member/types';
 
-import { AccessStatus } from '../../const';
+import { AccessStatus } from '../../constants';
 
 type Props = {
   open: boolean;

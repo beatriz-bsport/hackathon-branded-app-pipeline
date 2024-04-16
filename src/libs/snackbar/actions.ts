@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { AccessStatus } from '#libs/access-control/const';
+import { AccessStatus } from '#libs/access-control/constants';
 
 import type { ThunkAction, Dispatch } from '../../state/types';
 import type {

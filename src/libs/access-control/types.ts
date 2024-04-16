@@ -1,5 +1,5 @@
 import type { Establishment } from '#libs/establishment/types';
-import { AccessStatus, EntryStatus } from './const';
+import { AccessStatus, EntryStatus } from './constants';
 
 import type { Member, MemberMinimal } from '#libs/member/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';

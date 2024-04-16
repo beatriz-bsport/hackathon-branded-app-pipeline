@@ -24,7 +24,7 @@ import MemberVisitDetailsCardSkeleton from './MemberVisitDetailsCardSkeleton.com
 import type { MemberVisitREST } from '#libs/access-control/types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PrivateBooking } from '#libs/private-service/types';
-import { AccessStatus } from '#libs/access-control/const';
+import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
   memberVisit: MemberVisitREST;

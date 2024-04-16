@@ -1,4 +1,4 @@
-import { AccessStatus } from '#libs/access-control/const';
+import { AccessStatus } from '#libs/access-control/constants';
 
 import type { MemberMinimal } from '#libs/member/types';
 

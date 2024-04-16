@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import type { Props as MemberVisitDetailsCardProps } from './MemberVisitDetailsCard.component';
 
-import { AccessStatus, EntryStatus } from '#libs/access-control/const';
+import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
 
 const MemberVisitDetailsCardManualEntrySection: React.FC<
   Pick<

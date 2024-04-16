@@ -10,7 +10,7 @@ import {
 
 import type { ThunkAction, OptionCallback } from '../../state/types';
 import type { MemberVisitREST } from './types';
-import { EntryStatus } from './const';
+import { EntryStatus } from './constants';
 
 export const checkMemberInEstablishmentActions = {
   success: createAction<AxiosResponse<MemberVisitREST>>(

@@ -1,5 +1,5 @@
 import { buildUrlParams, API_V1_URI, getAuth, postAuth } from '../../http';
-import { EntryStatus } from './const';
+import { EntryStatus } from './constants';
 
 import type { MemberVisitFilterParams, MemberVisitREST } from './types';
 

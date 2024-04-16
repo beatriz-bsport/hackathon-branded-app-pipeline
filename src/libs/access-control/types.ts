@@ -75,6 +75,11 @@ export type MemberVisitREST = {
   staff_user?: number;
 };
 
+export type AccessControlPolicy = {
+  booked_session_time_interval_before_visit: string;
+  booked_session_time_interval_after_visit: string;
+};
+
 /** COMMON TYPES */
 
 // TODO: Update
@@ -95,6 +100,7 @@ type StoreSection<ObjectType> = {
 
 export type AccessControlState = {
   memberVisit: StoreSection<MemberVisitREST>;
+  policy: { policy: AccessControlPolicy } & ErrorAndLoading;
 };
 
 /** OTHER TYPES */

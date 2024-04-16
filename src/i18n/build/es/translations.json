@@ -2444,8 +2444,16 @@
             "methodPaymentCardBillingDetails": "Solicitar datos de facturación para pagos con tarjeta.",
             "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios.",
             "DaysBeforeNotificationInputs": {
-                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
-                "title": "Elija el número de días antes de la fecha de caducidad del método de pago para enviar una notificación por correo electrónico."
+                "helpText": "Si tiene activada la opción \"Recordatorios de caducidad del método de pago\" para las notificaciones transaccionales en las suscripciones, puede personalizar aquí el número de días.",
+                "title": "Elija el número de días antes de la fecha de caducidad del método de pago para enviar una notificación por correo electrónico.",
+                "errors": {
+                    "max": "El número de días no puede ser superior a {{maxDays}}",
+                    "secondWarningDayBiggerThanFirst": "La segunda notificación no puede ser mayor que la primera"
+                },
+                "labels": {
+                    "daysBeforeSecondNotification": "Segunda notificación (días antes de la fecha de expiración)",
+                    "daysBeforeFirstNotification": "Primera notificación (días antes de la fecha de expiración)"
+                }
             }
         },
         "billing_group": {
@@ -2709,7 +2717,8 @@
                 "quantityLabel": "Unidades",
                 "quantityHelperText": "Unidad que se añadirá/quitará de las existencias",
                 "cancel": "Cancelar",
-                "submit": "Guardar"
+                "submit": "Guardar",
+                "quantityError": "Introduzca un número válido"
             },
             "action": {
                 "update": "Actualizar las existencias"
@@ -2794,7 +2803,8 @@
                     "availableOnline": "Disponible en línea",
                     "vat": "IVA/Impuesto sobre las ventas",
                     "supplierPrice": "Precio proveedor",
-                    "supplier": "Proveedor"
+                    "supplier": "Proveedor",
+                    "vatValue": "{{vat}} %"
                 },
                 "variants": {
                     "availableOnline": "Disponible en línea",
@@ -4009,7 +4019,10 @@
                     "paymentCombo": "Pack"
                 },
                 "error": {
-                    "missingObject": "Este campo es obligatorio"
+                    "missingObject": "Este campo es obligatorio",
+                    "missingPaymentCombo": "Debe seleccionar un pack",
+                    "missingPrivatePass": "Debe seleccionar un tarjeta de citas",
+                    "missingPaymentPack": "Debe seleccionar un bono"
                 },
                 "recurrence_basis": {
                     "intervalName": {
@@ -10101,10 +10114,10 @@
                 "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "Esta será la cantidad máxima de reservas futuras por socio, excluidas las reservas de talleres.",
+                        "helperText": "El número máximo de sesiones de actividades de grupo que un afiliado puede reservar por adelantado.",
                         "placeholder": "Número máximo"
                     },
-                    "label": "Limitar el número de reservas futuras por miembro"
+                    "label": "Limitar el número de reservas futuras por socio para actividades de grupo"
                 },
                 "hiddenFromMarketplace": "Aparecer en la app de bsport y en el marketplace",
                 "schedule": {
@@ -10231,15 +10244,15 @@
                 "startWeekOnToday": "Inicie la agenda de sus socios en la fecha de hoy si la pantalla está en modo tarjeta vista semana",
                 "showPastSessionsCalendar": "Mostrar sesiones pasadas en el calendario de sus miembros",
                 "maxFutureWorkshop": {
-                    "label": "Limitar la cantidad de futuras sesiones de taller reservadas por socio",
+                    "label": "Limitar el número de futuras reservas de talleres por miembro",
                     "numberCheck": {
                         "placeholder": "Máximo",
-                        "helperText": "Esta será la cantidad máxima de futuras sesiones de taller reservadas por socio."
+                        "helperText": "Número máximo de sesiones de taller que un miembro puede reservar por adelantado."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "helperText": "Si se activa, el número de reservas futuras se reducirá en función del número de plazas en lista de espera registradas. Las futuras plazas en lista de espera también se restringirán en función de este mismo recuento, para evitar el exceso de reservas.",
-                    "label": "Incluir las plazas en lista de espera en el recuento máximo de reservas/talleres futuros"
+                    "helperText": "Si se activa, las reservas futuras incluirán tanto las inscripciones en lista de espera como las reservas reales. Cuando se alcance el límite, un usuario no podrá inscribirse en una lista de espera ni reservar una sesión.",
+                    "label": "Incluir las inscripciones en lista de espera en el cómputo de futuras reservas"
                 },
                 "bookingLimitation": "Restricciones globales de reserva",
                 "resetPassword": {
@@ -16715,7 +16728,9 @@
                     "unauthenticated": "Sin autentificar",
                     "loading": "Cargando",
                     "authenticated": "Autentificado",
-                    "unknownError": "Error desconocido"
+                    "unknownError": "Error desconocido",
+                    "NotCollapsable": "No plegable",
+                    "Collapsable": "Plegable"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -16850,7 +16865,8 @@
                     "isReferralProgramAvailable": "Dispone de un programa de referencia",
                     "state": "Estado",
                     "showSuccessText": "Mostrar texto de confirmación",
-                    "showSuccessTitle": "Mostrar título de confirmación"
+                    "showSuccessTitle": "Mostrar título de confirmación",
+                    "isCollapsable": "Tipo de título"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -17011,7 +17027,8 @@
                 "consumer_subscription_details_card": "Tarjeta de datos de suscripción del consumidor",
                 "consumer_subscription_card": "Tarjeta de suscripción del consumidor",
                 "fabrique_big_icon": "Icono grande",
-                "referral_details": "Detalles de la referencia"
+                "referral_details": "Detalles de la referencia",
+                "fabrique_title": "Título"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

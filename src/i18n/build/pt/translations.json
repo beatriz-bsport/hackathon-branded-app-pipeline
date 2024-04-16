@@ -13612,7 +13612,10 @@
             "methodPaymentSubscriptionError": "Selecione pelo menos um método de pagamento",
             "methodPaymentCardBillingDetailsHelper": "Ao ativar esse recurso, você reduzirá o número de pagamentos com cartão que requerem o 3D Secure (validação por SMS, aplicativos bancários etc.) Observe que esses campos são obrigatórios.",
             "methodPaymentCardBillingDetailsTitle": "Solicitar detalhes completos de faturamento",
-            "methodPaymentCardBillingDetails": "Solicitar detalhes de faturamento para pagamentos com cartão."
+            "methodPaymentCardBillingDetails": "Solicitar detalhes de faturamento para pagamentos com cartão.",
+            "DaysBeforeNotificationInputs": {
+                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here."
+            }
         },
         "company": {
             "bankAccountInfo": {

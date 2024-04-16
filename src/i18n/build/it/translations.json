@@ -6233,7 +6233,7 @@
                     "daysBeforeSecondNotification": "Seconda notifica (giorni prima della data di scadenza)",
                     "daysBeforeFirstNotification": "Prima notifica (giorni prima della data di scadenza)"
                 },
-                "helpText": "Se hai attivato le email transazionali per i \"promemoria di scadenza dei metodi di pagamento\" nelle sezioni \"Contabilizzazione\" e \"Abbonamenti\", puoi personalizzare qui il numero di giorni.",
+                "helpText": "Se è stata attivata l'opzione \"Promemoria scadenza del metodo di pagamento\" per le notifiche transazionali sugli abbonamenti, puoi modificare il numero di giorni qui.",
                 "title": "Scegliere il numero di giorni prima della data di scadenza del metodo di pagamento per inviare una notifica via email."
             }
         },

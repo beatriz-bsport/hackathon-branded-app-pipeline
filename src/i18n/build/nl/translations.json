@@ -562,8 +562,8 @@
             "30": "Gastreserveringen (uitnodiger)",
             "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
             "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
-            "1102": "Verwijzingsvoordeel beschikbaar (verwijzend lid)",
-            "1101": "Verwijzingsvoordeel beschikbaar (doorverwezen lid)"
+            "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
+            "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)"
         },
         "tag": {
             "BookingOption": {
@@ -775,16 +775,16 @@
             },
             "ReferralProgram": {
                 "tags": {
-                    "deadline_use_referral": "Geldigheid aanbevelingsbeloning",
+                    "deadline_use_referral": "Geldigheid doorverwijzings-beloning",
                     "minimum_purchase_referral": "Minimum aankoopbedrag",
-                    "referring_reward": "Beloning voor de verwijzer",
+                    "referring_reward": "Beloning voor de doorverwijzer",
                     "reduction_purchase_referred": "Korting voor het doorverwezen lid",
-                    "registration_date": "Inschrijfdatim van doorverwezen persoon",
+                    "registration_date": "Inschrijfdatum van doorverwezen persoon",
                     "referred_lastname": "Achternaam (doorverwezen persoon)",
                     "referred_firstname": "Voornaam (doorverwezen persoon)",
                     "referring_lastname": "Achternaam (doorverwijzende persoon)",
                     "referring_firstname": "Voornaam (doorverwijzende persoon)",
-                    "referral_link": "Doorverwijslink"
+                    "referral_link": "Referral-link"
                 },
                 "name": "Referral"
             }
@@ -808,7 +808,7 @@
             "replacement_request": "Vervanging",
             "giftcard": "Cadeaubon",
             "performance": "Prestaties",
-            "referral": "Doorverwijzing"
+            "referral": "Referral"
         },
         "pageTitle": "Transactionele berichten",
         "caption": {
@@ -6626,7 +6626,7 @@
             "value": "ID: {{id}}",
             "label": "Identiteitsbewijsnummer"
         },
-        "signedUpWithReferral": "Lid heeft zich aangemeld met <1>{{ name }}</1>'s doorverwijslink",
+        "signedUpWithReferral": "Lid heeft zich aangemeld met <1>{{ name }}</1>'s referral-link",
         "email": "Email"
     },
     "booking": {
@@ -9002,8 +9002,12 @@
                     "max": "Het aantal dagen kan niet meer dan {{maxDays}} dag(en) zijn",
                     "secondWarningDayBiggerThanFirst": "The tweede melding kan niet eerder zijn dan de eerste melding"
                 },
-                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
-                "title": "Kies het aantal dagen vóór de vervaldatum van de betaalmethode om een e-mailmelding te verzenden."
+                "helpText": "Als je de \"Herinneringen voor vervaldatum van betaalmethode\" hebt ingeschakeld voor ''transactionele berichten'' over ''abonnementen'', kun je hier het aantal dagen aanpassen.",
+                "title": "Kies het aantal dagen vóór de vervaldatum van de betaalmethode om een e-mailmelding te verzenden.",
+                "labels": {
+                    "daysBeforeSecondNotification": "Tweede melding (dagen vóór vervaldatum)",
+                    "daysBeforeFirstNotification": "Eerste melding (dagen vóór vervaldatum)"
+                }
             }
         },
         "billing_group": {
@@ -13456,11 +13460,11 @@
                     "label": "Dit is het maximum aantal toekomstige reserveringen voor workshops die leden vooraf kunnen inplannen.",
                     "numberCheck": {
                         "placeholder": "Maximum",
-                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor workshop sessies per lid."
+                        "helperText": "Het maximale aantal workshop-sessies dat een lid van tevoren kan reserveren."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "helperText": "Als dit geactiveerd is, wordt het aantal toekomstige boekingen in mindering gebracht op het aantal geregistreerde wachtlijstplaatsen. Toekomstige wachtlijstslots worden ook beperkt op basis van dezelfde telling om overboeking te voorkomen.",
+                    "helperText": "Indien geactiveerd, zullen toekomstige boekingen zowel wachtlijstregistraties als daadwerkelijke boekingen omvatten. Wanneer het limiet is bereikt, zal een lid beperkt worden in zowel het inschrijven op de wachtlijst als het reserveren van een sessie.",
                     "label": "Bereken ook inschrijvingen op wachtlijst wanneer toekomstige reserveringen geteld worden"
                 },
                 "bookingLimitation": "Globale boekingsbeperkingen",
@@ -16304,7 +16308,7 @@
                 "mobilePersonalization": "Gepersonaliseerde app",
                 "coachUserspace": "Instructeursomgeving",
                 "quicksale": "Kassasysteem",
-                "referral": "Verwijzing"
+                "referral": "Referral"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",
@@ -19504,8 +19508,8 @@
                 "title": "Korting voor het doorverwezen lid"
             },
             "activateReferral": {
-                "label": "Activeer doorverwijslink",
-                "description": "Elk lid kan deze doorverwijslink delen met niet-leden. Bij gebruik krijgt het nieuwe lid automatisch korting en wordt het lid dat de link deelde beloond."
+                "label": "Activeer referral-link",
+                "description": "Elk lid kan deze referral-link delen met niet-leden. Bij gebruik krijgt het nieuwe lid automatisch korting en wordt het lid dat de link deelde beloond."
             },
             "errors": {
                 "timeLimit": "De vertraging moet groter zijn dan 1",
@@ -19529,9 +19533,9 @@
             },
             "minimumBasketAmount": {
                 "description": "Deze waarde verwijst naar de totale prijs van het mandje",
-                "label": "Minimumwaarde van klantmandje"
+                "label": "Minimumwaarde van het mandje"
             },
-            "title": "Verwijzing",
+            "title": "Referral",
             "submit": "Opslaan"
         },
         "conditions": {

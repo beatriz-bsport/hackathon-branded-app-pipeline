@@ -1301,7 +1301,8 @@
                 "2": "Refusé",
                 "3": "Attente",
                 "4": "Reçu",
-                "5": "Erreur"
+                "5": "Erreur",
+                "-1": "Inconnu"
             },
             "table": {
                 "columns": {
@@ -2119,7 +2120,8 @@
             "code": {
                 "label": "Code",
                 "helperText": "Le code que vous transmettrez aux clients concernés",
-                "helperTextFranchise": "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios."
+                "helperTextFranchise": "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios.",
+                "codeAlreadyInUse": "Ce code est déjà utilisé."
             },
             "voucher_type": {
                 "percent": "En pourcentage",
@@ -6067,7 +6069,8 @@
             "help": "Aide",
             "cadences": "Cadences",
             "inbox": "Boîte de réception",
-            "audience": "{{ audienceCamelCase }}"
+            "audience": "{{ audienceCamelCase }}",
+            "backToWebshop": "Revenir au magasin"
         },
         "multiSession": {
             "title": " Vous semblez utiliser plusieurs onglets simultanément",
@@ -6230,7 +6233,8 @@
             "recurrent_private_booking": "Rendez-vous récurrent",
             "replacement_request": "Remplacement",
             "giftcard": "Cartes cadeaux",
-            "performance": "Performance"
+            "performance": "Performance",
+            "referral": "Parrainage"
         },
         "emailDesign": {
             "placeholder": "Généré par bsport",
@@ -6263,7 +6267,8 @@
                     "subscription_nb_days_pause": "Mise en Pause : nb de jours",
                     "subscription_next_invoice_date": "Date de la prochaine facturation",
                     "subscription_contract_terms_link": "Lien des mentions légales",
-                    "subscription_duration": "Durée totale"
+                    "subscription_duration": "Durée totale",
+                    "days_until_payment_method_expiration": "Nombre de jours avant l'expiration du mode de paiement"
                 }
             },
             "User": {
@@ -6452,7 +6457,13 @@
                     "deadline_use_referral": "Validité de la prime de parrainage",
                     "minimum_purchase_referral": "Montant minimum d'achat",
                     "referring_reward": "Récompense pour le parrain",
-                    "reduction_purchase_referred": "Réduction pour le membre parrainé"
+                    "reduction_purchase_referred": "Réduction pour le membre parrainé",
+                    "registration_date": "Date d'inscription du membre parrainé",
+                    "referral_link": "Lien de parrainage",
+                    "referred_lastname": "Nom du parrainé",
+                    "referred_firstname": "Prénom du parrainé",
+                    "referring_lastname": "Nom du parrain",
+                    "referring_firstname": "Prénom du parrain"
                 },
                 "name": "Parrainage"
             }
@@ -6523,7 +6534,11 @@
             "1002": "Performance de la séance de spinning",
             "1003": "Compte Spivi créé (professeurs)",
             "31": "Réservation pour un invité (pour un membre invité)",
-            "30": "Réservation pour un invité (pour un membre invitant)"
+            "30": "Réservation pour un invité (pour un membre invitant)",
+            "1102": "Récompense de parrainage disponible (parrain)",
+            "1101": "Offre de parrainage disponible (membre parrainé)",
+            "201": "Le mode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
+            "200": "Le mode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -6990,7 +7005,7 @@
         },
         "state": {
             "0": "En attente",
-            "700": "Payé",
+            "700": "A traiter",
             "1100": "Annulé",
             "1200": "A récupérer sur place",
             "9000": "Expédié"
@@ -12688,7 +12703,19 @@
             "methodPaymentCardBillingDetails": "Demander les coordonnées de facturation pour les paiements par carte.",
             "methodPaymentCardBillingDetailsHelper": "En activant cette fonctionnalité, vous réduirez le nombre de paiement par carte nécessitant le 3D Secure (validation SMS, applications bancaires, etc.).Attention, ces champs seront obligatoires.",
             "save": "Enregistrer",
-            "methodPaymentCardBillingDetailsTitle": "Demander les détails complets de facturation"
+            "methodPaymentCardBillingDetailsTitle": "Demander les détails complets de facturation",
+            "DaysBeforeNotificationInputs": {
+                "errors": {
+                    "max": "Le nombre de jours ne peut être supérieur à {{maxDays}}",
+                    "secondWarningDayBiggerThanFirst": "La deuxième notification ne peut pas être supérieure à la première"
+                },
+                "labels": {
+                    "daysBeforeSecondNotification": "Deuxième notification (jours avant la date d'expiration)",
+                    "daysBeforeFirstNotification": "Première notification (jours avant la date d'expiration)"
+                },
+                "helpText": "Si vous avez activé l'option \"Rappels d'expiration des modes de paiement\" pour les notifications transactionnelles sur les abonnements, vous pouvez personnaliser le nombre de jours ici.",
+                "title": "Choisissez le nombre de jours avant la date d'expiration de la méthode de paiement pour envoyer une notification par email."
+            }
         },
         "billing_group": {
             "add": "Ajouter un groupe",
@@ -12865,7 +12892,8 @@
                 "quantityLabel": "Unité(s)",
                 "quantityHelperText": "Unité à ajouter/soustraire du stock",
                 "cancel": "Annuler",
-                "submit": "Enregistrer"
+                "submit": "Enregistrer",
+                "quantityError": "Veuillez saisir un numéro valide"
             },
             "action": {
                 "update": "Actualiser le stock"
@@ -12960,7 +12988,8 @@
                     "availableOnline": "Disponible en ligne",
                     "vat": "TVA/Taxe sur la vente",
                     "supplierPrice": "Prix fournisseur",
-                    "supplier": "Fournisseur"
+                    "supplier": "Fournisseur",
+                    "vatValue": "{{vat}} %"
                 },
                 "variants": {
                     "availableOnline": "Disponible en ligne",
@@ -15341,7 +15370,10 @@
                     "label": "Nom du contrat"
                 },
                 "error": {
-                    "missingObject": "Ce champ est obligatoire"
+                    "missingObject": "Ce champ est obligatoire",
+                    "missingPaymentCombo": "Vous devez sélectionner un pack",
+                    "missingPrivatePass": "Vous devez sélectionner une carte de RDV",
+                    "missingPaymentPack": "Vous devez sélectionner une carte de cours"
                 },
                 "object_type": {
                     "label": "Type d'abonnement",
@@ -16099,10 +16131,10 @@
                 "internalAccountNotusableOnContract": "Ce moyen de paiement n'est pas utilisable pour les contrats",
                 "internalAccount": "Solde Client",
                 "maxFutureBooking": {
-                    "label": "Limiter le nombre de réservations futures par membre",
+                    "label": "Limiter le nombre de réservations futures d'activités par membre",
                     "numberCheck": {
                         "placeholder": "Nombre maximum",
-                        "helperText": "Il s'agit du nombre maximum de réservations futures par membre, à l'exclusion de la réservation d'ateliers."
+                        "helperText": "Le nombre maximum de séances d'activités qu'un membre peut réserver à l'avance."
                     }
                 },
                 "schedule": {
@@ -16291,15 +16323,15 @@
                 "startWeekOnToday": "Démarrez le calendrier de vos membres à la date du jour si l'affichage est en mode carte hebdomadaire",
                 "showPastSessionsCalendar": "Afficher les séances passées sur le calendrier de vos membres",
                 "maxFutureWorkshop": {
-                    "label": "Limiter le nombre de futures séances d'atelier réservées par membre",
+                    "label": "Limiter le nombre de réservations futures d'ateliers par membre",
                     "numberCheck": {
                         "placeholder": "Maximum",
-                        "helperText": "Il s'agit du nombre maximum de futures séances d'atelier réservées par membre."
+                        "helperText": "Le nombre maximum de sessions d'atelier qu'un membre peut réserver à l'avance."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "label": "Inclure les places sur liste d'attente dans le nombre maximum de réservations/ateliers à venir",
-                    "helperText": "Si cette option est activée, les réservations futures comprendront à la fois les inscriptions sur liste d'attente et les réservations effectives. Lorsque la limite est atteinte, un membre ne peut ni s'inscrire sur une liste d'attente ni réserver une séance."
+                    "label": "Inclure les inscriptions sur liste d'attente dans le calcul des réservations futures",
+                    "helperText": "Si cette option est activée, les réservations futures comprendront à la fois les inscriptions sur liste d'attente et les réservations effectives. Lorsque la limite est atteinte, un membre ne peut plus s'inscrire sur une liste d'attente ni réserver une session."
                 },
                 "bookingLimitation": "Restrictions globales sur les réservations",
                 "resetPassword": {
@@ -18298,7 +18330,8 @@
                 "consumer_subscription_card": "Carte de l'abonnement du consommateur",
                 "consumer_subscription_details_card": "Carte du détail de l'abonnement du consommateur",
                 "fabrique_big_icon": "Grande icône",
-                "referral_details": "Détails du parrain"
+                "referral_details": "Détails du parrain",
+                "fabrique_title": "Titre"
             },
             "page": {
                 "common": "Commun",
@@ -18452,7 +18485,8 @@
                     "hasRemainingReferralUses": "a des possibilités de parrainage restantes",
                     "state": "État",
                     "showSuccessText": "Montrer le texte de confirmation",
-                    "showSuccessTitle": "Montrer le titre de la confirmation"
+                    "showSuccessTitle": "Montrer le titre de la confirmation",
+                    "isCollapsable": "Type de titre"
                 },
                 "option": {
                     "true": "Oui",
@@ -18553,7 +18587,9 @@
                     "unauthenticated": "Non vérifié",
                     "loading": "Chargement",
                     "authenticated": "Vérifié",
-                    "unknownError": "Erreur inconnue"
+                    "unknownError": "Erreur inconnue",
+                    "NotCollapsable": "Non repliable",
+                    "Collapsable": "Repliable"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
@@ -19373,5 +19409,14 @@
                 "general": "Général"
             }
         }
+    },
+    "accessControl": {
+        "snackbar": {
+            "R": "Non valide",
+            "O": "Attention",
+            "G": "Valide",
+            "message": "<strong>{{- name }}</strong> vient de se présenter."
+        },
+        "memberEntry": "Entrée membre"
     }
 }

@@ -209,7 +209,10 @@
                     "paymentCombo": "Package"
                 },
                 "error": {
-                    "missingObject": "Pflichtfeld"
+                    "missingObject": "Pflichtfeld",
+                    "missingPaymentCombo": "Sie müssen ein Paket auswählen",
+                    "missingPrivatePass": "Sie müssen einen Terminpass auswählen",
+                    "missingPaymentPack": "Sie müssen einen Pass auswählen"
                 },
                 "recurrence": {
                     "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} n Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
@@ -3003,10 +3006,10 @@
                 "hideCoach": "Blende die Anzeige der Lehrkraft auf dem Kundenkalender aus",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "Dies ist die maximale Anzahl zukünftiger Buchungen pro Mitglied, ausgenommen Workshop-Buchungen.",
+                        "helperText": "Die maximale Anzahl von Veranstaltungen für Gruppenaktivitäten, die ein Mitglied im Voraus buchen kann.",
                         "placeholder": "Maximale Anzahl"
                     },
-                    "label": "Begrenzung der maximalen Anzahl zukünftiger Buchungen pro Kunde"
+                    "label": "Begrenzen Sie die Anzahl der zukünftigen Buchungen pro Mitglied für Gruppenaktivitäten"
                 },
                 "hiddenFromMarketplace": "Aktiviere dies, um dein Studio in der allgemeinen BSPORT-App und auf dem Marktplatz anzuzeigen",
                 "schedule": {
@@ -3133,15 +3136,15 @@
                 "startWeekOnToday": "Starten Sie den Kalender Ihrer Mitglieder mit dem heutigen Datum, wenn die Anzeige im Wochenansicht-Kartenmodus ist",
                 "showPastSessionsCalendar": "Zeige vergangene Kurse im Kalender Ihrer Mitglieder",
                 "maxFutureWorkshop": {
-                    "label": "Begrenzung der Anzahl der künftig gebuchten Workshops pro Mitglied",
+                    "label": "Begrenzung der Anzahl zukünftiger Buchungen pro Mitglied für Workshops",
                     "numberCheck": {
                         "placeholder": "Maximal",
-                        "helperText": "Dies ist die Maximalanzahl der künftig gebuchten Workshop-Termine pro Mitglied."
+                        "helperText": "Die maximale Anzahl von Veranstaltungen, die ein Mitglied im Voraus buchen kann."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "helperText": "Wenn aktiviert, wird die Anzahl der zukünftigen Buchungen um die Anzahl der registrierten zukünftigen Wartelistenplätze verringert. Künftige Wartelistenplätze werden ebenfalls auf der Grundlage dieser Anzahl eingeschränkt, um Überbuchungen zu vermeiden.",
-                    "label": "Wartelisteplätze in die Anzahl maximaler zukünftiger Buchungen/Workshops inkludieren"
+                    "helperText": "Wenn diese Funktion aktiviert ist, werden zukünftige Buchungen sowohl Wartelistenanmeldungen als auch tatsächliche Buchungen enthalten. Wenn das Limit erreicht ist, kann sich ein Mitglied weder auf einer Warteliste eintragen noch eine Sitzung buchen.",
+                    "label": "Berücksichtigung von Anmeldungen auf der Warteliste bei der Zählung künftiger Buchungen"
                 },
                 "bookingLimitation": "Golabel Buchungsbeschränkungen",
                 "resetPassword": {
@@ -8780,7 +8783,8 @@
                 "cancel": "Abbrechen",
                 "quantityLabel": "Session(s)",
                 "title": "Änderung des Inventares",
-                "quantityHelperText": "Zum Inventar hinzuzufügende/abzuziehende Session"
+                "quantityHelperText": "Zum Inventar hinzuzufügende/abzuziehende Session",
+                "quantityError": "Bitte geben Sie eine gültige Nummer ein"
             },
             "noProvisionHistory": "Kein Verkaufsverlauf",
             "current_stock": "Aktuelles Inventar :",
@@ -8821,7 +8825,8 @@
                     "availableOnline": "Online erhältlich",
                     "vat": "MwSt/Umsatzsteuer",
                     "supplierPrice": "Lieferantenpreis",
-                    "supplier": "Lieferant"
+                    "supplier": "Lieferant",
+                    "vatValue": "{{vat}} %"
                 },
                 "variants": {
                     "barcode": "Barcode",
@@ -13438,7 +13443,7 @@
             "1200": "Abholung vor Ort",
             "9000": "Versendet",
             "1100": "Storniert",
-            "700": "Bezahlt",
+            "700": "Zu bearbeiten",
             "0": "In Bearbeitung"
         },
         "actions": {
@@ -15651,8 +15656,16 @@
             "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsdetails anfordern",
             "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder.",
             "DaysBeforeNotificationInputs": {
-                "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on subscriptions,  you can customize the number of days here.",
-                "title": "Wählen Sie die Anzahl der Tage vor dem Ablaufdatum der Zahlungsmethode, um eine E-Mail-Benachrichtigung zu senden."
+                "helpText": "Wenn Sie die Funktion \"Erinnerungen an den Ablauf der Zahlungsmethode\" für Transaktionsbenachrichtigungen bei Abonnements aktiviert haben, können Sie die Anzahl der Tage hier anpassen.",
+                "title": "Wählen Sie die Anzahl der Tage vor dem Ablaufdatum der Zahlungsmethode, um eine E-Mail-Benachrichtigung zu senden.",
+                "errors": {
+                    "max": "Die Anzahl der Tage kann nicht länger sein als 1{{maxDays}}",
+                    "secondWarningDayBiggerThanFirst": "Die zweite Benachrichtigung kann nicht mehr Tage enthalten, als die erste Benachrichtigung"
+                },
+                "labels": {
+                    "daysBeforeSecondNotification": "Zweite Benachrichtigung (Tage vor Ablauf der Frist)",
+                    "daysBeforeFirstNotification": "Erste Benachrichtigung (Tage vor Ablauf der Frist)"
+                }
             }
         },
         "billing_group": {
@@ -16706,7 +16719,8 @@
                 "consumer_subscription_details_card": "Karte mit Angaben zum Verbraucherabonnement",
                 "consumer_subscription_card": "Abonnementkarte für Verbraucher",
                 "fabrique_big_icon": "Großes Symbol",
-                "referral_details": "Details zur Empfehlung"
+                "referral_details": "Details zur Empfehlung",
+                "fabrique_title": "Titel"
             },
             "page": {
                 "calendar": "Kalender",
@@ -16859,7 +16873,8 @@
                     "isReferralProgramAvailable": "hat ein Empfehlungsprogramm",
                     "state": "Zustand",
                     "showSuccessText": "Bestätigungstitel anzeigen",
-                    "showSuccessTitle": "Bestätigungstitel anzeigen"
+                    "showSuccessTitle": "Bestätigungstitel anzeigen",
+                    "isCollapsable": "Art des Titels"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16960,7 +16975,9 @@
                     "unauthenticated": "Nicht authentifiziert",
                     "loading": "Laden",
                     "authenticated": "Authentifiziert",
-                    "unknownError": "Unbekannter Fehler"
+                    "unknownError": "Unbekannter Fehler",
+                    "NotCollapsable": "Nicht zusammenklappbar",
+                    "Collapsable": "Zusammenklappbar"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",

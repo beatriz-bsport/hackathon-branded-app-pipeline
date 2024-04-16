@@ -31,7 +31,7 @@ type Props = {
   isUnpaid?: boolean;
   isAtHome?: boolean;
   isDetailsDisabled?: boolean;
-  isCancelDisabled?: boolean;
+  isItemInThePast?: boolean;
   isBookableDisabled?: boolean;
   isMoreDisabled?: boolean;
   onDetailsClick?: () => void;
@@ -61,7 +61,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
   establishmentAddress,
   waitingListPosition,
   isDetailsDisabled,
-  isCancelDisabled,
+  isItemInThePast,
   isMoreDisabled,
   isBookableDisabled,
   isJoinableOnlineDisabled,
@@ -125,12 +125,12 @@ const ConsumerBookingCard: React.FC<Props> = ({
           spotSchedulingPosition={spotSchedulingPosition}
           waitingListPosition={waitingListPosition}
         />
-        {!isBookingCancelled && (
+        {!isBookingCancelled && !isItemInThePast && (
           <ConsumerBookingCardFooter
             isBookable={isBookable}
             isBookableDisabled={isBookableDisabled}
             isBookableForAGuest={isBookableForAGuest}
-            isCancelDisabled={isCancelDisabled}
+            isCancelDisabled={isItemInThePast}
             isCancellable={isCancellable}
             isJoinableOnline={isJoinableOnline}
             isJoinableOnlineDisabled={isJoinableOnlineDisabled}

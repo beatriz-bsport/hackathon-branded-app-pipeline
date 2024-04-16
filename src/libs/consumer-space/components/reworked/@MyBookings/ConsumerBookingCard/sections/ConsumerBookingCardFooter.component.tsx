@@ -18,7 +18,6 @@ type Props = Required<
     ConsumerBookingCardProps,
     | 'onBookingCancelClick'
     | 'isCancellable'
-    | 'isCancelDisabled'
     | 'onBookingForAGuestClick'
     | 'isBookableForAGuest'
     | 'onBookClick'
@@ -29,7 +28,7 @@ type Props = Required<
     | 'isJoinableOnlineDisabled'
     | 'isMoreDisabled'
   >
-> & { isMoreDisplayed: boolean; menuId: string };
+> & { isMoreDisplayed: boolean; menuId: string; isCancelDisabled: boolean };
 
 const ConsumerBookingCardFooter: React.FC<Props> = ({
   isBookable,

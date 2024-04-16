@@ -8,6 +8,8 @@ import {
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAPI,
   getMemberVisitList as getMemberVisitListAPI,
+  getAccessControlPolicy as getAccessControlPolicyAPI,
+  patchAccessControlPolicy as patchAccessControlPolicyAPI,
 } from './api';
 
 import type {
@@ -15,7 +17,11 @@ import type {
   OptionCallback,
   PaginatedResponse,
 } from '../../state/types';
-import type { MemberVisitQueryParams, MemberVisitREST } from './types';
+import type {
+  AccessControlPolicy,
+  MemberVisitQueryParams,
+  MemberVisitREST,
+} from './types';
 import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 export const globalMemberVisitActions = {
@@ -202,5 +208,68 @@ export const manualUpdateMemberVisitFromBroadcastChannel = (
     dispatch(
       globalMemberVisitActions.manualUpdateFromBroadcastChannel(memberVisit),
     );
+  };
+};
+
+export const getAccessControlPolicyActions = {
+  success: createAction<AxiosResponse<AccessControlPolicy>>(
+    'ACCESS_CONTROL/GET_ACCESS_CONTROL_POLICY/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/GET_ACCESS_CONTROL_POLICY/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/GET_ACCESS_CONTROL_POLICY/ERROR',
+  ),
+};
+
+export const getAccessControlPolicy = (
+  companyId: number,
+  options?: OptionCallback<AccessControlPolicy>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(getAccessControlPolicyActions.loading(true));
+    dispatch(getAccessControlPolicyActions.error(null));
+    try {
+      const response = await getAccessControlPolicyAPI(companyId);
+      dispatch(getAccessControlPolicyActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(getAccessControlPolicyActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getAccessControlPolicyActions.loading(false));
+  };
+};
+
+export const patchAccessControlPolicyActions = {
+  success: createAction<AxiosResponse<AccessControlPolicy>>(
+    'ACCESS_CONTROL/PATCH_ACCESS_CONTROL_POLICY/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/PATCH_ACCESS_CONTROL_POLICY/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/PATCH_ACCESS_CONTROL_POLICY/ERROR',
+  ),
+};
+
+export const patchAccessControlPolicy = (
+  companyId: number,
+  data: AccessControlPolicy,
+  options?: OptionCallback<AccessControlPolicy>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(patchAccessControlPolicyActions.loading(true));
+    dispatch(patchAccessControlPolicyActions.error(null));
+    try {
+      const response = await patchAccessControlPolicyAPI(companyId, data);
+      dispatch(patchAccessControlPolicyActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(patchAccessControlPolicyActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(patchAccessControlPolicyActions.loading(false));
   };
 };

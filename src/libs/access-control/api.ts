@@ -8,7 +8,11 @@ import {
 import { EntryStatus } from './constants';
 
 import type { PaginatedResponse } from '../../state/types';
-import type { MemberVisitQueryParams, MemberVisitREST } from './types';
+import type {
+  AccessControlPolicy,
+  MemberVisitQueryParams,
+  MemberVisitREST,
+} from './types';
 
 export const retrieveMemberVisit = (memberVisitId: number) => {
   return getAuth<MemberVisitREST>(
@@ -58,5 +62,21 @@ export const setMemberVisitEntryStatus = (
 export const refreshMemberVisitAccessStatus = (memberVisitId: number) => {
   return postAuth<MemberVisitREST>(
     `${API_V1_URI}/access_control/member_visit/${memberVisitId}/refresh_access_status/`,
+  );
+};
+
+export const getAccessControlPolicy = (companyId: number) => {
+  return getAuth<AccessControlPolicy>(
+    `${API_V1_URI}/access_control/policy/${companyId}`,
+  );
+};
+
+export const patchAccessControlPolicy = (
+  companyId: number,
+  data: AccessControlPolicy,
+) => {
+  return patchAuth<AccessControlPolicy>(
+    `${API_V1_URI}/access_control/policy/${companyId}/`,
+    data,
   );
 };

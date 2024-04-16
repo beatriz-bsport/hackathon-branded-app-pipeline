@@ -6,15 +6,21 @@ import type { AxiosResponse } from 'axios';
 
 import {
   checkMemberInEstablishmentActions,
+  getAccessControlPolicyActions,
   getMemberVisitListActions,
   globalMemberVisitActions,
+  patchAccessControlPolicyActions,
   refreshMemberVisitAccessStatusActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
 
 import type { PaginatedResponse } from '../../state/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
-import type { AccessControlState, MemberVisitREST } from './types';
+import type {
+  AccessControlPolicy,
+  AccessControlState,
+  MemberVisitREST,
+} from './types';
 
 const basePaginationErrorAndLoading: ErrorAndLoading & WithPagination = {
   page: 0,
@@ -30,6 +36,14 @@ export const initialState: Immutable.Immutable<AccessControlState> =
       ...basePaginationErrorAndLoading,
       byId: {},
       allIds: [],
+    },
+    policy: {
+      loading: false,
+      error: null,
+      policy: {
+        booked_session_time_interval_after_visit: '',
+        booked_session_time_interval_before_visit: '',
+      },
     },
   });
 
@@ -215,6 +229,58 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
           },
           { deep: true },
         );
+    },
+    [getAccessControlPolicyActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['policy', 'error'], payload);
+    },
+    [getAccessControlPolicyActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['policy', 'loading'], payload);
+    },
+    [getAccessControlPolicyActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<AccessControlPolicy> },
+    ) => {
+      const policy = payload.data;
+      return state.merge(
+        {
+          policy: {
+            policy,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [patchAccessControlPolicyActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['policy', 'error'], payload);
+    },
+    [patchAccessControlPolicyActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['policy', 'loading'], payload);
+    },
+    [patchAccessControlPolicyActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<AccessControlPolicy> },
+    ) => {
+      const policy = payload.data;
+      return state.merge(
+        {
+          policy: {
+            policy,
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

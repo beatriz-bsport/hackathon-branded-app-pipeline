@@ -34,3 +34,6 @@ export const getMemberVisitLiveHistoryIsLoading = (state: RootState) => {
     state.establishment.establishmentGroup.loading
   );
 };
+
+export const getAccessControlPolicy = (state: RootState) =>
+  state.accessControl.policy.policy;

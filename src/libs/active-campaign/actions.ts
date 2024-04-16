@@ -12,7 +12,6 @@ import type {
 import {
   getActiveCampaignAccount as getActiveCampaignAccountAPI,
   updateActiveCampaignAccount as updateActiveCampaignAccountAPI,
-  deleteActiveCampaignAccount as deleteActiveCampaignAccountAPI,
   createActiveCampaignAccount as createActiveCampaignAccountAPI,
   getActiveCampaignListsLinks as getActiveCampaignListsLinksAPI,
   updateActiveCampaignListsLinks as updateActiveCampaignListsLinksAPI,
@@ -74,26 +73,6 @@ export function updateActiveCampaignAccount(
       dispatch(activeCampaignAccountUpdateAction.error(err));
     }
     dispatch(activeCampaignAccountUpdateAction.isLoading(false));
-  };
-}
-
-export const activeCampaignAccountDeleteAction = {
-  isLoading: createAction<boolean>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/LOADING'),
-  error: createAction<Error | null>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/ERROR'),
-  success: createAction<number>('ACTIVE_CAMPAIGN_ACCOUNT/DELETE/SUCCESS'),
-};
-
-export function deleteActiveCampaignAccount(id: number): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(activeCampaignAccountDeleteAction.isLoading(true));
-    dispatch(activeCampaignAccountDeleteAction.error(null));
-    try {
-      await deleteActiveCampaignAccountAPI(id);
-      dispatch(activeCampaignAccountDeleteAction.success(id));
-    } catch (err) {
-      dispatch(activeCampaignAccountDeleteAction.error(err));
-    }
-    dispatch(activeCampaignAccountDeleteAction.isLoading(false));
   };
 }
 

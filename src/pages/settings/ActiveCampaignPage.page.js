@@ -34,7 +34,6 @@ import ActiveCampaignLinks from '../../libs/active-campaign/components/ActiveCam
 import {
   fetchActiveCampaignAccount,
   updateActiveCampaignAccount,
-  deleteActiveCampaignAccount,
   createActiveCampaignAccount,
   fetchActiveCampaignLinks as fetchActiveCampaignLinksAction,
   updateActiveCampaignLinks,
@@ -373,7 +372,6 @@ export default compose(
     {
       fetchActiveCampaignAccount,
       updateActiveCampaignAccount,
-      deleteActiveCampaignAccount,
       createActiveCampaignAccount,
       fetchActiveCampaignLinks: fetchActiveCampaignLinksAction,
       updateActiveCampaignLinks,

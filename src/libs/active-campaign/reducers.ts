@@ -11,7 +11,6 @@ import type {
 import {
   activeCampaignAccountListAction,
   activeCampaignAccountUpdateAction,
-  activeCampaignAccountDeleteAction,
   activeCampaignAccountCreateAction,
   getActiveCampaignListsAction,
   activeCampaignLinksListAction,
@@ -107,33 +106,6 @@ export default handleActions<Immutable.Immutable<ActiveCampaignState>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['account', 'error'], payload);
-    },
-    [activeCampaignAccountDeleteAction.isLoading.toString()]: (
-      state,
-      { payload }: { payload: boolean },
-    ) => {
-      return state.setIn(['account', 'loading'], payload);
-    },
-    [activeCampaignAccountDeleteAction.error.toString()]: (
-      state,
-      { payload }: { payload: Error | null },
-    ) => {
-      return state.setIn(['account', 'error'], payload);
-    },
-    [activeCampaignAccountDeleteAction.success.toString()]: (
-      state,
-      { payload }: { payload: number },
-    ) => {
-      return state
-        .updateIn(['byId'], (x) => x.without(`${payload}`))
-        .updateIn(
-          ['allIds'],
-          (myList, removeId) => {
-            const newList = myList.filter((id: number) => id !== removeId);
-            return newList;
-          },
-          payload,
-        );
     },
 
     // links

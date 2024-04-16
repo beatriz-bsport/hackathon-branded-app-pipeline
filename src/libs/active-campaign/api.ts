@@ -23,10 +23,6 @@ export const updateActiveCampaignAccount = (id: number, data: Account) => {
   return patchAuth<Account>(`${ACTIVE_CAMPAIGN_URI}account/${id}/`, data);
 };
 
-export const deleteActiveCampaignAccount = (id: number) => {
-  return deleteAuth<void>(`${ACTIVE_CAMPAIGN_URI}account/${id}/`);
-};
-
 export const createActiveCampaignAccount = (data: Account) => {
   return postAuth<Account>(`${ACTIVE_CAMPAIGN_URI}account/`, data);
 };

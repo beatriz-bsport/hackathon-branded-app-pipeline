@@ -117,23 +117,6 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     [handleSeeBookingDetails],
   );
 
-  const isLateCancellation = getIsLateBookingCancellation(
-    selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
-    selectedBooking?.meta_activity?.last_discard_minutes ||
-      selectedPrivateBooking?.private_service?.last_discard_minutes,
-    selectedBooking?.offer?.date_start || selectedPrivateBooking?.date_start,
-  );
-
-  const currentBookingList = (() => {
-    if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
-      return bookingOptionList;
-    }
-    if (selectedTab === BookingTabEnum.APPOINTMENT) {
-      return privateBookingList;
-    }
-    return bookingList;
-  })();
-
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart:
       selectedBooking?.offer?.date_start ||
@@ -151,6 +134,23 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     sessionTimeDisplay,
     timezoneName: timezone,
   });
+
+  const isLateCancellation = getIsLateBookingCancellation(
+    selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
+    selectedBooking?.meta_activity?.last_discard_minutes ||
+      selectedPrivateBooking?.private_service?.last_discard_minutes,
+    selectedBooking?.offer?.date_start || selectedPrivateBooking?.date_start,
+  );
+
+  const currentBookingList = (() => {
+    if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+      return bookingOptionList;
+    }
+    if (selectedTab === BookingTabEnum.APPOINTMENT) {
+      return privateBookingList;
+    }
+    return bookingList;
+  })();
 
   const showPlaceholder = (() => {
     if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
@@ -346,6 +346,13 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                 selectedPrivateBooking ||
                 selectedBookingOption
               )?.establishment?.location?.address
+            }
+            establishmentTitle={
+              (
+                selectedBooking ||
+                selectedPrivateBooking ||
+                selectedBookingOption
+              )?.establishment?.title
             }
             isCancelled={
               !!(selectedBooking || selectedPrivateBooking)?.date_canceled ||

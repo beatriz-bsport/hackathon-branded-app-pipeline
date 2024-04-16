@@ -8,12 +8,12 @@ import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 
 type Props = {
-  establishmentRoomName?: string;
+  establishmentTitle?: string;
   establishmentAddress: string;
 };
 
 const ConsumerBookingDetailsCardLocationSection: React.FC<Props> = ({
-  establishmentRoomName,
+  establishmentTitle,
   establishmentAddress,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -29,11 +29,11 @@ const ConsumerBookingDetailsCardLocationSection: React.FC<Props> = ({
             'bs-consumer-booking-details-card__location-section__list__item',
             {
               'bs-consumer-booking-details-card__location-section__list__item--hidden':
-                !establishmentRoomName,
+                !establishmentTitle,
             },
           )}
           icon={<Building01 stroke="currentColor" />}
-          label={establishmentRoomName}
+          label={establishmentTitle}
           size="sm"
         />
         <ListItem

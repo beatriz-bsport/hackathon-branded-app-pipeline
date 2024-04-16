@@ -132,6 +132,10 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
           (selectedBooking || selectedPrivateBooking || selectedBookingOption)
             ?.establishment?.location?.address
         }
+        establishmentTitle={
+          (selectedBooking || selectedPrivateBooking || selectedBookingOption)
+            ?.establishment?.title
+        }
         isCancelled={
           !!(selectedBooking || selectedPrivateBooking)?.date_canceled ||
           !!selectedBookingOption?.cancelled

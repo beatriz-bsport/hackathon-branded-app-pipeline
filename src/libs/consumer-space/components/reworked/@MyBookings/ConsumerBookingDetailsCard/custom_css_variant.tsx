@@ -131,7 +131,7 @@ const usePropsFromVariation = (
     creditsToRefund: CREDITS_TO_REFUND,
     cancellationDate: CANCELLATION_DATE,
     isCancelledFromManager: false,
-    establishmentRoomName: showEstablishmentRoomSelected && 'Cycling Room',
+    establishmentTitle: showEstablishmentRoomSelected && 'Cycling Room',
     establishmentAddress: ESTABLISHMENT.location.address,
     sessionTimeDisplay: theme.session_time_display,
     timezoneName: TIMEZONE,

@@ -72,7 +72,7 @@ const defaultArgs = {
   showPlaceholder: false,
   isLoading: false,
   establishmentTimezoneName: 'Europe/London',
-  establishmentRoomName: 'Cycling Room',
+  establishmentTitle: 'Cycling Room',
   establishmentAddress: ESTABLISHMENT.location.address,
   sessionTimeDisplay:
     themeFactoryBot.companyTheme.createOne().session_time_display,
@@ -189,7 +189,7 @@ export default {
         'The establishment timezone retrieved from the company theme',
       control: 'text',
     },
-    establishmentRoomName: {
+    establishmentTitle: {
       description:
         'Optional room name to display above of the establishment address',
       control: 'text',

@@ -68,7 +68,7 @@ export type Props = {
   /** Whether the member's pass has unlimited credits or not */
   isPaymentPackUnlimited?: boolean;
   /** Optional room name to display above of the establishment address */
-  establishmentRoomName?: string;
+  establishmentTitle?: string;
   /** The address of the establishment related to the offer */
   establishmentAddress?: string;
   /** The description related to the offer's activity */
@@ -120,7 +120,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   consumerPaymentPackUsedCredits,
   isPaymentPackUnlimited,
   paymentPackTotalCredits,
-  establishmentRoomName,
+  establishmentTitle,
   establishmentAddress,
   description,
   waitlistPosition,
@@ -190,7 +190,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
       {!!establishmentAddress && (
         <ConsumerBookingDetailsCardLocationSection
           establishmentAddress={establishmentAddress}
-          establishmentRoomName={establishmentRoomName}
+          establishmentTitle={establishmentTitle}
         />
       )}
 

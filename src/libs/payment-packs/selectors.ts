@@ -518,3 +518,9 @@ export const getPaymentPackCategoryWithNbItems = createSelector(
     });
   },
 );
+
+export const getPaymentPackMassExtensionList = (state: RootState) => {
+  return state.paymentPack.massExtension.allIds.map(
+    (id) => state.paymentPack.massExtension.byId[id],
+  );
+};

@@ -37,10 +37,7 @@ import {
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
 } from '#libs/consumer-payment-pack/actions';
-import {
-  getConsumerPacksByPackWithMember,
-  getConsumerPaymentPackMassExtension,
-} from '#libs/consumer-payment-pack/selectors';
+import { getConsumerPacksByPackWithMember } from '#libs/consumer-payment-pack/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
@@ -90,6 +87,7 @@ import {
   withTags,
   getPaymentPackCategoryById,
   getAllPaymentPackCategory,
+  getPaymentPackMassExtensionList,
 } from '#libs/payment-packs/selectors';
 import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -504,7 +502,7 @@ export class PaymentPackDetail extends Component<Props, State> {
                     </Typography>
                     <Divider className={this.props.classes.divider} />
                     <PaymentPackMassExtensionList
-                      firstLoadDone={this.props.massExtension.firstLoadDone}
+                      firstLoadDone
                       itemPerPage={PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE}
                       items={this.props.massExtension.items}
                       loading={this.props.massExtension.loading}
@@ -659,11 +657,10 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState, props: OwnProps) => {
   return {
     massExtension: {
-      items: getConsumerPaymentPackMassExtension(state),
-      count: state.consumerPaymentPack.massExtension.count,
-      loading: state.consumerPaymentPack.massExtension.loading,
-      firstLoadDone: state.consumerPaymentPack.massExtension.firstLoadDone,
-      page: state.consumerPaymentPack.massExtension.page,
+      items: getPaymentPackMassExtensionList(state),
+      count: state.paymentPack.massExtension.count,
+      loading: state.paymentPack.massExtension.loading,
+      page: state.paymentPack.massExtension.page,
     },
     loading: state.paymentPack.loading || state.establishment.loading,
     pack: withTags(

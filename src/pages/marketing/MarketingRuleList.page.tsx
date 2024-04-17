@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Theme, Typography } from '@material-ui/core';
+import { Theme } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
@@ -96,7 +96,6 @@ import {
   withEstablishment,
 } from '#libs/establishment/selectors';
 import { _getAvailablePrivateServices } from '#libs/private-service/selectors/private-service';
-import NotificationsList from '#libs/marketing/components/MarketingRuleNotificationList.component';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import { EstablishmentGroup } from '#libs/establishment/types';
@@ -104,6 +103,7 @@ import { EstablishmentGroup } from '#libs/establishment/types';
 import FabWithItems from '#components/button/FabWithItems';
 import MarketingRuleListContract from '#libs/marketing/components/MarketingRuleListContract.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import MarketingRuleListBirthday from '#libs/marketing/components/MarketingRuleListBirthday.component';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -401,23 +401,13 @@ export class MarketingRuleListPage extends Component<Props, State> {
             smartLists={this.props.smartLists}
           />
 
-          <Typography className={classes.classTitle} variant="h5">
-            {this.props.t('marketing:notifications.groupTitle.birthday')}
-          </Typography>
-          <div>
-            <NotificationsList
-              emailSummariesById={this.props.emailSummariesById}
-              notifications={this.props.notifications.birthday}
-              onClickNotification={this.onClickNotification}
-              onUpdateNotification={this.props.updateMarketingNotification}
-              smartLists={this.props.smartLists}
-            />
-            {this.props.notifications?.birthday?.length === 0 && (
-              <Typography>
-                {this.props.t('marketing:notifications.notificationsEmpty')}
-              </Typography>
-            )}
-          </div>
+          <MarketingRuleListBirthday
+            emailSummariesById={this.props.emailSummariesById}
+            notifications={this.props.notifications.birthday}
+            onClickNotification={this.onClickNotification}
+            onUpdateNotification={this.props.updateMarketingNotification}
+            smartLists={this.props.smartLists}
+          />
           <div className={classes.bottomPaddingFix} />
         </div>
 
@@ -522,14 +512,6 @@ const styles = (theme: Theme) => ({
   },
   loadingContainer: {
     width: '100%',
-  },
-  classTitle: {
-    borderWidth: 0,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    paddingBottom: theme.spacing(1),
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(4),
   },
 });
 

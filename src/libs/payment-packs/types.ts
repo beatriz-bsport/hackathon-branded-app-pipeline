@@ -36,6 +36,20 @@ export type PaymentPackMassExtension = {
   payment_pack: number;
 };
 
+export type PaymentPackMassExtensionParams = {
+  page_size?: number;
+  page: number;
+  payment_pack: number;
+};
+
+export type PaymentPackMassExtensionCreate = {
+  nb_days: number;
+  max_ending_date: string;
+  min_ending_date: string;
+  note: string;
+  payment_pack: number;
+};
+
 export type PaymentPackFilters<FilterValue = boolean> = {
   is_expired?: FilterValue;
   is_valid_today?: FilterValue;

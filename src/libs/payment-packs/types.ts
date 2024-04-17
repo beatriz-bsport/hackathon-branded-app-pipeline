@@ -220,6 +220,15 @@ export type PaymentPackState = Immutable.Immutable<{
     allIds: Array<number>;
     upsert: ErrorAndLoading;
   };
+  massExtension: ErrorAndLoading & {
+    allIds: number[];
+    byId: { [extensionId: number]: PaymentPackMassExtension };
+    count: number;
+    create: ErrorAndLoading;
+    delete: ErrorAndLoading;
+    next_page: number;
+    page: number;
+  };
 }>;
 
 export const actionTypes = {

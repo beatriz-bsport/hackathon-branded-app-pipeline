@@ -18,7 +18,6 @@ import {
   partialRefundActions,
   listConsumerPaymentPackCompatibleActions,
   listConsumerPaymentPackPenaltyActions,
-  massExtensionActions,
   consumerPaymentPackMaxoutBookingAction,
   listConsumerPaymentPackActions,
 } from './actions';
@@ -66,16 +65,6 @@ const initialState = Immutable<ConsumerPaymentPackState>({
       loading: false,
       error: null,
     },
-  },
-  massExtension: {
-    loading: false,
-    firstLoadDone: false,
-    error: null,
-    byId: {},
-    allIds: [],
-    count: 0,
-    page: 1,
-    next_page: 1,
   },
   byPaymentPack: {
     error: null,
@@ -217,37 +206,6 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
     },
     [extensionListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'items'], payload);
-    },
-    [massExtensionActions.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['massExtension', 'loading'], payload);
-    },
-    [massExtensionActions.error.toString()]: (state, { payload }) => {
-      return state.setIn(['massExtension', 'error'], payload);
-    },
-    [massExtensionActions.success.toString()]: (state, { payload }: any) => {
-      return state
-        .setIn(
-          ['massExtension', 'allIds'],
-          payload.results.map((m) => m.id),
-        )
-        .setIn(['massExtension', 'count'], payload.count)
-        .setIn(['massExtension', 'firstLoadDone'], true)
-        .setIn(['massExtension', 'page'], payload.page)
-        .setIn(['massExtension', 'next_page'], payload.next_page)
-        .merge(
-          {
-            massExtension: {
-              byId: payload.results.reduce((acc, mE) => {
-                acc[mE.id] = mE;
-                return acc;
-              }, {}),
-            },
-          },
-          { deep: true },
-        );
-    },
-    [massExtensionActions.create.toString()]: (state, { payload }) => {
-      return state.setIn(['massExtension', 'byId', payload.id], payload);
     },
     [byMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);

@@ -3,7 +3,13 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 
-import { actionTypes, PaymentPack, PaymentPackState } from './types';
+import type { PaginatedResponse } from '../../state/types';
+import {
+  actionTypes,
+  PaymentPackMassExtension,
+  PaymentPack,
+  PaymentPackState,
+} from './types';
 import {
   fetchActivityCompatibleAction,
   fetchOneAction,
@@ -27,6 +33,9 @@ import {
   isPaymentPackUsedInComboActions,
   paymentPackBulkWidgetActions,
   updatePaymentPackCompatibilitiesAction,
+  fetchPaymentPackMassExtensionListActions,
+  createPaymentPackMassExtensionActions,
+  deletePaymentPackMassExtensionActions,
 } from './actions';
 
 const initialState: PaymentPackState = Immutable({
@@ -76,6 +85,23 @@ const initialState: PaymentPackState = Immutable({
     loading: false,
     error: null,
     upsert: {
+      loading: false,
+      error: null,
+    },
+  },
+  massExtension: {
+    allIds: [],
+    byId: {},
+    count: 0,
+    error: null,
+    loading: false,
+    next_page: 1,
+    page: 1,
+    create: {
+      loading: false,
+      error: null,
+    },
+    delete: {
       loading: false,
       error: null,
     },
@@ -676,6 +702,69 @@ export const newPaymentPackReducer = handleActions(
       { payload }: { payload: PaymentPack },
     ) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [fetchPaymentPackMassExtensionListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['massExtension', 'loading'], payload);
+    },
+    [fetchPaymentPackMassExtensionListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['massExtension', 'error'], payload);
+    },
+    [fetchPaymentPackMassExtensionListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<PaymentPackMassExtension> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+      return state
+        .setIn(['massExtension', 'page'], page)
+        .setIn(['massExtension', 'next_page'], next_page)
+        .setIn(['massExtension', 'count'], count)
+        .setIn(
+          ['massExtension', 'allIds'],
+          results.map((massExtension) => massExtension.id),
+        )
+        .merge(
+          {
+            massExtension: {
+              byId: results.reduce<{
+                [extensionId: number]: PaymentPackMassExtension;
+              }>((accumulator, massExtension) => {
+                accumulator[massExtension.id] = massExtension;
+                return accumulator;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createPaymentPackMassExtensionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['massExtension', 'create', 'loading'], payload);
+    },
+    [createPaymentPackMassExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['massExtension', 'create', 'error'], payload);
+    },
+    [deletePaymentPackMassExtensionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['massExtension', 'delete', 'loading'], payload);
+    },
+    [deletePaymentPackMassExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['massExtension', 'delete', 'error'], payload);
     },
   },
   initialState,

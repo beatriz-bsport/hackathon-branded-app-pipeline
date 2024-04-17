@@ -161,6 +161,7 @@ import type { ShopState, ShopStateReworked } from '#libs/shop/types';
 import type { AccessControlState } from '#libs/access-control/types';
 import type { PaymentBackendState } from '#libs/payment/types';
 import type { ActiveCampaignState } from '#libs/active-campaign/types';
+import type { PaymentPackState } from '#libs/payment-packs/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -298,7 +299,10 @@ export type RootState = {
   partnership: PartnershipState;
   paymentBackend: PaymentBackendState;
   paymentCombo: PaymentComboState;
-  paymentPack: any;
+  paymentPack: {
+    [key: string]: any;
+    massExtension: PaymentPackState['massExtension'];
+  };
   paymentRules: any;
   performanceTracking: PerformanceTrackingState;
   platformBilling: any;

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   API_URI,
@@ -82,7 +81,7 @@ export async function patch(id: number, data: any) {
 }
 
 export async function disableConsumerPack(id: number) {
-  return patchAuth(`${API_URI}/saas/payment-pack/consumer/${id}/disable`);
+  return patchAuth(`${API_URI}/saas/payment-pack/consumer/${id}/disable`, {});
 }
 
 export async function fetchPaymentPackList(params: any) {

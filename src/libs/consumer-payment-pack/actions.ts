@@ -18,17 +18,12 @@ import {
   subCreditToConsumerPack as subCreditAPI,
   fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAPI,
   fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAPI,
-  createMassExtension as createMassExtensionAPI,
-  fetchMassExtensions as fetchMassExtensionsAPI,
-  deleteMassExtension as deleteMassExtensionAPI,
   unblock as unblockAPI,
   fetchConsumerPaymentPackMaxoutBooking as fetchConsumerPaymentPackMaxoutBookingAPI,
   fetchByOfferByMemberV2 as fetchByOfferByMemberV2API,
 } from './api';
 
-import { monitorBackgroundTask } from '../background-task/actions';
 import type { ConsumerPaymentPack } from './types';
-import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -549,87 +544,6 @@ export function createPackExtension(data: any, options?: OptionCallback) {
       if (options && options.onError) options.onError();
     }
     dispatch(extensionCreateActions.isLoading(false));
-  };
-}
-
-export const massExtensionActions = {
-  isLoading: createAction('CONSUMER_PACK_MASS_EXTENSION/IS_LOADING'),
-  error: createAction('CONSUMER_PACK_MASS_EXTENSION/ERROR'),
-  success: createAction('CONSUMER_PACK_MASS_EXTENSION/SUCCESS'),
-  create: createAction('CONSUMER_PACK_MASS_EXTENSION/CREATE'),
-};
-
-export function fetchMassExtensionList(
-  params: {
-    paymentPack: number;
-    page: number;
-    page_size: number;
-  },
-  options?: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(massExtensionActions.isLoading(true));
-    dispatch(massExtensionActions.error(null));
-    try {
-      const response = await fetchMassExtensionsAPI(params);
-      response.data.page = params.page;
-      dispatch(massExtensionActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (e) {
-      console.error(e);
-      dispatch(massExtensionActions.error(e));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(massExtensionActions.isLoading(false));
-  };
-}
-
-export function createMassExtension(
-  data: Pick<
-    PaymentPackMassExtension,
-    Exclude<keyof PaymentPackMassExtension, 'id' | 'date_created'>
-  >,
-  options?: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(massExtensionActions.isLoading(true));
-    dispatch(massExtensionActions.error(null));
-    try {
-      const response = await createMassExtensionAPI(data);
-      dispatch(massExtensionActions.create(response.data));
-      options && options.onSuccess && options.onSuccess();
-      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: options.onSuccess,
-        }),
-      );
-    } catch (e) {
-      console.error(e);
-      dispatch(massExtensionActions.error(e));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(massExtensionActions.isLoading(false));
-  };
-}
-
-export function deleteMassExtension(id: number, options?: OptionCallback) {
-  return async (dispatch: Dispatch) => {
-    dispatch(massExtensionActions.isLoading(true));
-    try {
-      const response = await deleteMassExtensionAPI(id);
-      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: options.onSuccess,
-        }),
-      );
-    } catch (e) {
-      console.error(e);
-      dispatch(massExtensionActions.error(e));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(massExtensionActions.isLoading(false));
   };
 }
 

@@ -36,9 +36,6 @@ import {
   updateCredit as updateCreditAction,
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
-  fetchMassExtensionList,
-  createMassExtension,
-  deleteMassExtension,
 } from '#libs/consumer-payment-pack/actions';
 import {
   getConsumerPacksByPackWithMember,
@@ -73,6 +70,9 @@ import {
   fetchAllPaymentPackCategory,
   isPaymentPackUsedInCombo,
   updatePaymentPackCompatibilities as updatePaymentPackCompatibilitiesAction,
+  fetchPaymentPackMassExtensionList as fetchPaymentPackMassExtensionListAction,
+  createPaymentPackMassExtension as createPaymentPackMassExtensionAction,
+  deletePaymentPackMassExtension as deletePaymentPackMassExtensionAction,
 } from '#libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -226,9 +226,8 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
-    this.props.fetchMassExtensionList({
-      paymentPack: this.props.id,
-      page: 1,
+    this.props.fetchPaymentPackMassExtensionList({
+      payment_pack: this.props.id,
       page_size: PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE,
     });
 
@@ -287,7 +286,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     const { minDate, maxDate, nbDays, note } = data;
 
     this.props.setLoadingMassExtension(true);
-    this.props.createMassExtension(
+    this.props.createPaymentPackMassExtension(
       {
         payment_pack: this.props.pack.id,
         min_ending_date: minDate,
@@ -298,10 +297,8 @@ export class PaymentPackDetail extends Component<Props, State> {
       {
         onSuccess: () => {
           this.props.setLoadingMassExtension(false);
-          this.props.fetchMassExtensionList({
-            paymentPack: this.props.id,
-            page: 1,
-            page_size: PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE,
+          this.props.fetchPaymentPackMassExtensionList({
+            payment_pack: this.props.id,
           });
         },
       },
@@ -311,12 +308,14 @@ export class PaymentPackDetail extends Component<Props, State> {
   };
 
   onDeleteMassExtension = (massExtension: PaymentPackMassExtension) => {
-    this.props.deleteMassExtension(massExtension.id, {
+    const currentPage = this.props.massExtension.page;
+    const isLastItemInPage = this.props.massExtension.items?.length === 1;
+    this.props.deletePaymentPackMassExtension(massExtension.id, {
       onSuccess: () => {
-        this.props.fetchMassExtensionList({
-          paymentPack: this.props.id,
-          page: 1,
-          page_size: PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE,
+        this.props.fetchPaymentPackMassExtensionList({
+          payment_pack: this.props.id,
+          /** Fetch the previous page if removing the last page item */
+          ...(isLastItemInPage && { page: currentPage - 1 }),
         });
       },
     });
@@ -511,11 +510,10 @@ export class PaymentPackDetail extends Component<Props, State> {
                       loading={this.props.massExtension.loading}
                       nbItems={this.props.massExtension.count}
                       onDelete={this.onDeleteMassExtension}
-                      onPageRequested={(page, page_size) => {
-                        this.props.fetchMassExtensionList({
+                      onPageRequested={(page) => {
+                        this.props.fetchPaymentPackMassExtensionList({
                           paymentPack: this.props.id,
                           page,
-                          page_size,
                         });
                       }}
                       page={this.props.massExtension.page}
@@ -768,9 +766,9 @@ const mapDispatchToProps = {
   createMarketingNotification: createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification: deleteMarketingNotificationAction,
-  createMassExtension,
-  fetchMassExtensionList,
-  deleteMassExtension,
+  createPaymentPackMassExtension: createPaymentPackMassExtensionAction,
+  fetchPaymentPackMassExtensionList: fetchPaymentPackMassExtensionListAction,
+  deletePaymentPackMassExtension: deletePaymentPackMassExtensionAction,
   fetchEstablishments,
   fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,

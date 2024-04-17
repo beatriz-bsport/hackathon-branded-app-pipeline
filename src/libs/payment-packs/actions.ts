@@ -26,6 +26,9 @@ import {
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
   editCategoryOrder,
   editPackCompatibilities as editPackCompatibilitiesAPI,
+  fetchPaymentPackMassExtensionList as fetchPaymentPackMassExtensionListAPI,
+  createPaymentPackMassExtension as createPaymentPackMassExtensionAPI,
+  deletePaymentPackMassExtension as deletePaymentPackMassExtensionAPI,
 } from './api';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
 
@@ -37,6 +40,9 @@ import {
   PaymentPackCategoryWithPacks,
   PaymentPackTemplate,
   PaymentPackCompatibilitiesData,
+  PaymentPackMassExtension,
+  PaymentPackMassExtensionCreate,
+  PaymentPackMassExtensionParams,
 } from './types';
 // @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
@@ -46,8 +52,11 @@ import type {
   OptionCallback,
   ThunkAction,
   OptionBackgroundCallback,
+  PaginatedResponse,
 } from '../../state/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import type { RootState } from '../../reducers';
+import { PAYMENT_PACK_MASS_EXTENSION_PAGE_SIZE } from './constants';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
@@ -923,5 +932,123 @@ export function isPaymentPackUsedInCombo(id: number, options?: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(isPaymentPackUsedInComboActions.isLoading(false));
+  };
+}
+
+export const fetchPaymentPackMassExtensionListActions = {
+  isLoading: createAction<boolean>('PAYMENT_PACK/MASS_EXTENSION/LOADING'),
+  error: createAction<Error | null>('PAYMENT_PACK/MASS_EXTENSION/ERROR'),
+  success: createAction<PaginatedResponse<PaymentPackMassExtension>>(
+    'PAYMENT_PACK/MASS_EXTENSION/SUCCESS',
+  ),
+};
+
+/**
+ * Fetch the list of mass extensions for a specific payment pack
+ * @param params Object containing the required `payment_pack` ID + optional pagination params
+ */
+export function fetchPaymentPackMassExtensionList(
+  params: PaymentPackMassExtensionParams,
+  options?: OptionCallback<PaginatedResponse<PaymentPackMassExtension>>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchPaymentPackMassExtensionListActions.isLoading(true));
+    dispatch(fetchPaymentPackMassExtensionListActions.error(null));
+
+    const page = getState().paymentPack.massExtension.page ?? 1;
+    try {
+      const response = await fetchPaymentPackMassExtensionListAPI({
+        ...params,
+        page: params.page ?? page,
+        page_size: PAYMENT_PACK_MASS_EXTENSION_PAGE_SIZE,
+      });
+
+      dispatch(fetchPaymentPackMassExtensionListActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchPaymentPackMassExtensionListActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(fetchPaymentPackMassExtensionListActions.isLoading(false));
+    }
+  };
+}
+
+export const createPaymentPackMassExtensionActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT_PACK/MASS_EXTENSION/CREATE/LOADING',
+  ),
+  error: createAction<Error | null>('PAYMENT_PACK/MASS_EXTENSION/CREATE/ERROR'),
+};
+
+/**
+ * Create an extension for a payment pack
+ * @param data The payload sent for the creation of the extension
+ */
+export function createPaymentPackMassExtension(
+  data: PaymentPackMassExtensionCreate,
+  options?: OptionCallback<PaymentPackMassExtension>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createPaymentPackMassExtensionActions.isLoading(true));
+    dispatch(createPaymentPackMassExtensionActions.error(null));
+    try {
+      const response = await createPaymentPackMassExtensionAPI(data);
+
+      options?.onSuccess?.(response.data);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          // @ts-expect-error
+          onSuccess: options?.onSuccess,
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+      dispatch(createPaymentPackMassExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(createPaymentPackMassExtensionActions.isLoading(false));
+    }
+  };
+}
+
+export const deletePaymentPackMassExtensionActions = {
+  isLoading: createAction<boolean>(
+    'PAYMENT_PACK/MASS_EXTENSION/DELETE/LOADING',
+  ),
+  error: createAction<Error | null>('PAYMENT_PACK/MASS_EXTENSION/DELETE/ERROR'),
+};
+
+/**
+ * Delete a payment pack extension
+ * @param id The ID of the extension to delete
+ */
+export function deletePaymentPackMassExtension(
+  id: number,
+  options?: OptionCallback<number>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePaymentPackMassExtensionActions.isLoading(true));
+    dispatch(deletePaymentPackMassExtensionActions.error(null));
+    try {
+      const response = await deletePaymentPackMassExtensionAPI(id);
+
+      options?.onSuccess?.(id);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          // @ts-expect-error
+          onSuccess: options?.onSuccess,
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+      dispatch(deletePaymentPackMassExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(deletePaymentPackMassExtensionActions.isLoading(false));
+    }
   };
 }

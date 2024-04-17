@@ -339,7 +339,7 @@ export class PaymentPackDetail extends Component<Props, State> {
       loading,
       classes,
       notifications,
-      categoryList,
+      SCTList,
       availableEstablishmentList,
       metaActivities,
       allTagsWithTagGroup,
@@ -351,6 +351,17 @@ export class PaymentPackDetail extends Component<Props, State> {
     const paymentPackCategory = pack.category
       ? this.props.paymentPackCategoryById[pack.category]
       : {};
+
+    const validSCTs = metaActivities.map((metaActivity) => metaActivity.SCT);
+    const availableSCTs = SCTList.filter(
+      (category) => validSCTs.indexOf(category.id) !== -1,
+    )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
+
     return (
       <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.compatibility">
         {(hasCompatibilityPermission: boolean) => (
@@ -532,19 +543,7 @@ export class PaymentPackDetail extends Component<Props, State> {
                 this.props.theme?.allow_guest_activatable
               }
               availableEstablishmentList={availableEstablishmentList}
-              bookkeepingAccountById={this.props.bookkeepingAccountById}
-              bookkeepingAccounts={this.props.bookkeepingAccounts}
-              categoryList={[...categoryList]
-                .filter(
-                  (category) =>
-                    metaActivities.map((a) => a.SCT).indexOf(category.id) !==
-                    -1,
-                )
-                .concat(this.props.videoCategories)
-                .filter(
-                  (value, index, arr) =>
-                    arr.findIndex((sct) => sct.id === value.id) === index,
-                )}
+              categoryList={availableSCTs}
               clearPaymentPackToEdit={() =>
                 this.setState({ paymentPackToEdit: null })
               }
@@ -677,7 +676,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     ),
     theme: themeSelectors.getTheme(state),
 
-    categoryList: getEditableSCTs(state),
+    SCTList: getEditableSCTs(state),
     tagCategories: getTagCategories(state),
     videoCategories: state.video.filterableParams.items.SCTs,
     companyId: state.theme.theme.company,

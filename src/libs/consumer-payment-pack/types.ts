@@ -1,7 +1,10 @@
 import type { SCT } from '#libs/category/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
-import type { PaymentPack } from '#libs/payment-packs/types';
+import type {
+  PaymentPack,
+  PaymentPackMassExtension,
+} from '#libs/payment-packs/types';
 import type { PrivateConsumerPass } from '#libs/private-service/types';
 import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from '#libs/relationship/types';
 import type { Consumer } from '../../api/types';
@@ -64,16 +67,6 @@ export type ConsumerPaymentPackPenalty = {
   penalty_kind: number;
   days_blocked: number;
   account_value: string;
-};
-
-export type PaymentPackMassExtension = {
-  id: number;
-  payment_pack: number;
-  min_ending_date: string;
-  max_ending_date: string;
-  note: string;
-  nb_days: number;
-  date_created: string;
 };
 
 export type ConsumerPaymentPackCreditRefund = {

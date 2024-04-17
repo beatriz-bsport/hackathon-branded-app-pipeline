@@ -94,12 +94,13 @@ import {
 import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import {
+import type {
   PaymentPack,
   PaymentPackCompatibilitiesData,
   PaymentPackFilters,
   PaymentPackFiltersOpener,
   PaymentPackFormValues,
+  PaymentPackMassExtension,
 } from '#libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
 import { OptionCallback } from '../../state/types';
@@ -119,7 +120,6 @@ import {
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionList from '#libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
-import { PaymentPackMassExtension } from '#libs/consumer-payment-pack/types';
 
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Paper } from '@material-ui/core';
 
@@ -6,7 +5,7 @@ import { Paper } from '@material-ui/core';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import PaymentPackMassExtensionListItem from './PaymentPackMassExtensionListItem.component';
 
-import { PaymentPackMassExtension } from '../types';
+import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
 
 type Props = {
   items: Array<PaymentPackMassExtension>;
@@ -34,7 +33,7 @@ export const PaginatedMassExtensionList = (props: Props) => {
         nbItems={props.nbItems}
         onPageRequested={props.onPageRequested}
         page={props.page}
-        renderEmpty={() => null}
+        renderEmpty={() => <></>}
         renderItem={(massExtension: PaymentPackMassExtension) => (
           <PaymentPackMassExtensionListItem
             key={massExtension.id}

@@ -26,6 +26,16 @@ export type ConsumerPaymentPackExtension = {
   id: number;
 };
 
+export type PaymentPackMassExtension = {
+  date_created: string;
+  id: number;
+  max_ending_date: string;
+  min_ending_date: string;
+  nb_days: number;
+  note: string;
+  payment_pack: number;
+};
+
 export type PaymentPackFilters<FilterValue = boolean> = {
   is_expired?: FilterValue;
   is_valid_today?: FilterValue;

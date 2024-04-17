@@ -27,7 +27,8 @@ import {
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
-import { ConsumerPaymentPack, PaymentPackMassExtension } from './types';
+import type { ConsumerPaymentPack } from './types';
+import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { ButtonBase, Collapse, Typography } from '@material-ui/core';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DeepPartial } from 'redux';
 import { OptionCallback, ThunkAction } from '../../../state/types';
 import NotificationsList from '#libs/marketing/components/MarketingRuleNotificationList.component';
@@ -32,12 +34,24 @@ const MarketingRuleListBirthday: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
+  const [showSection, setShowSection] = useState<boolean>(false);
+  const toggleSelection = useCallback(
+    () => setShowSection((prevShowSelection) => !prevShowSelection),
+    [],
+  );
+
   return (
     <>
-      <Typography className={classes.classTitle} variant="h5">
-        {t('marketing:notifications.groupTitle.birthday')}
-      </Typography>
-      <div>
+      <ButtonBase
+        className={classes.buttonTitleHeader}
+        onClick={toggleSelection}
+      >
+        <Typography variant="h5">
+          {t('notifications.groupTitle.birthday')}
+        </Typography>
+        {showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+      </ButtonBase>
+      <Collapse in={showSection}>
         <NotificationsList
           emailSummariesById={emailSummariesById}
           notifications={notifications}
@@ -46,23 +60,25 @@ const MarketingRuleListBirthday: React.FC<Props> = ({
           smartLists={smartLists}
         />
         {notifications.length === 0 && (
-          <Typography>
-            {t('marketing:notifications.notificationsEmpty')}
-          </Typography>
+          <Typography>{t('notifications.notificationsEmpty')}</Typography>
         )}
-      </div>
+      </Collapse>
     </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  classTitle: {
+  buttonTitleHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 0,
     borderBottomWidth: 1,
     borderStyle: 'solid',
     paddingBottom: theme.spacing(1),
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
+    width: '100%',
   },
 }));
 

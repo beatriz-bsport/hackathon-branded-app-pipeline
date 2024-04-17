@@ -295,7 +295,7 @@ const CoachSchema = (props: Props) =>
     birthday: Yup.string().nullable(true),
     description: Yup.string()
       .nullable(false)
-      .max(500, 'coach:forms.errorDescription'),
+      .max(1000, 'coach:forms.errorDescription'),
     notes: Yup.string().nullable(true),
     date_joined_company: Yup.string().nullable(true),
     date_left_company: Yup.string()

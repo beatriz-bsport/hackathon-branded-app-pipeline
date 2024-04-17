@@ -15,10 +15,15 @@ import {
   putAuthDeprecated,
 } from '../../http';
 
+import type { PaginatedResponse } from '../../state/types';
+
 import type {
   PaymentPack,
-  PaymentPackCategory,
   PaymentPackCompatibilitiesData,
+  PaymentPackCategory,
+  PaymentPackMassExtension,
+  PaymentPackMassExtensionCreate,
+  PaymentPackMassExtensionParams,
 } from './types';
 
 export async function fetchAllPaymentPacks() {
@@ -192,6 +197,40 @@ export async function deletePaymentPackCategory(
     `${API_V1_URI}/payment-pack/payment-pack-category/${paymentPackCategory.id}/`,
   );
 }
+
+/**
+ * Fetch the list of mass extensions for a specific payment pack
+ * @param params Object containing the required `payment_pack` ID + optional pagination params
+ */
+export const fetchPaymentPackMassExtensionList = (
+  params: PaymentPackMassExtensionParams,
+) => {
+  return getAuth<PaginatedResponse<PaymentPackMassExtension>>(
+    `${API_V1_URI}/payment-pack/mass-extension/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Create an extension for a payment pack
+ * @param data The payload sent for the creation of the extension
+ */
+export const createPaymentPackMassExtension = (
+  data: PaymentPackMassExtensionCreate,
+) => {
+  return postAuth<PaymentPackMassExtension>(
+    `${API_V1_URI}/payment-pack/mass-extension/`,
+    data,
+  );
+};
+
+/**
+ * Delete a payment pack extension
+ * @param id The ID of the extension to delete
+ */
+export const deletePaymentPackMassExtension = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/payment-pack/mass-extension/${id}`);
+};
+
 export default {
   fetchAll: fetchAllPaymentPacks,
   create,

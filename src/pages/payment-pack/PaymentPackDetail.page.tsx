@@ -72,6 +72,7 @@ import {
   createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
   isPaymentPackUsedInCombo,
+  updatePaymentPackCompatibilities as updatePaymentPackCompatibilitiesAction,
 } from '#libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -95,6 +96,7 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import {
   PaymentPack,
+  PaymentPackCompatibilitiesData,
   PaymentPackFilters,
   PaymentPackFiltersOpener,
   PaymentPackFormValues,
@@ -155,6 +157,7 @@ import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/
 import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import CompatibilityFormComponent from '#libs/private-service/components/pass/compatibility/CompatibilityForm.component';
 
 type OwnProps = {
   id: number;
@@ -239,6 +242,13 @@ export class PaymentPackDetail extends Component<Props, State> {
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchAvailableBookkeepingAccountList();
   }
+
+  updatePaymentPackCompatibilities = (data: PaymentPackCompatibilitiesData) => {
+    this.props.updatePaymentPackCompatibilities({
+      paymentPackId: this.props.id,
+      data,
+    });
+  };
 
   requestEdit = (pp: PaymentPack) => {
     this.setState({ paymentPackToEdit: pp }, () => {
@@ -394,6 +404,24 @@ export class PaymentPackDetail extends Component<Props, State> {
                 scaleCreditLoading={this.props.scaleCreditLoading}
                 snackbarSuccess={this.props.snackbarSuccess}
               />
+              {!(pack?.linked_private_pass || pack?.is_universal_pass) && (
+                <>
+                  <div className={classes.spacerVertical} />
+                  <CompatibilityFormComponent
+                    availableEstablishmentList={availableEstablishmentList}
+                    metaActivityList={metaActivities}
+                    paymentPackValues={{
+                      metaActivities: pack.metaActivities,
+                      SCTs: pack.categories,
+                      establishments: pack.establishments,
+                    }}
+                    SCTList={availableSCTs}
+                    updatePassCompatibility={
+                      this.updatePaymentPackCompatibilities
+                    }
+                  />
+                </>
+              )}
               {pack?.linked_private_pass && (
                 <div className={classes.compatiblePSCard}>
                   <PrivatePassCompatibleServiceList
@@ -601,6 +629,9 @@ const styles = (theme: Theme) => ({
   emptyContainer: {
     padding: theme.spacing(2),
   },
+  spacerVertical: {
+    height: theme.spacing(2),
+  },
   massExtensionContainer: {
     paddingTop: theme.spacing(4),
   },
@@ -758,6 +789,7 @@ const mapDispatchToProps = {
   refreshCompanyThemeAction,
   pushRouter,
   fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+  updatePaymentPackCompatibilities: updatePaymentPackCompatibilitiesAction,
 };
 
 const mapWithHandlers = {

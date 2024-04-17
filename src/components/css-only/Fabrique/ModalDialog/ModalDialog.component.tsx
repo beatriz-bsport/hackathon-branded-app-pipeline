@@ -16,12 +16,14 @@ import { useModalDialogDefaultLeftIcon } from './hooks';
 import './styles.css';
 
 type Props = {
-  /** If set to `true` the root element width is set to `100%` */
-  isFullWidth?: boolean;
+  /** The text to display inside the cancel button. Fallback to 'Cancel' if not provided */
+  cancelLabel?: string;
   /** Modal dialog main content */
   children?: React.ReactNode;
   /** Optional CSS class name to pass to root element */
   className?: string;
+  /** Modal dialog color theme @default 'primary' */
+  color?: ModalDialogColor;
   /** Optional CSS class name to pass to child element(s) */
   classes?: {
     header?: string;
@@ -35,30 +37,28 @@ type Props = {
     cancel?: string;
     confirm?: string;
   };
-  /** Modal dialog color theme @default 'primary' */
-  color?: ModalDialogColor;
-  /** Modal dialog size @default 'lg' */
-  size?: ModalDialogSize;
+  /** The text to display inside the confirm button. Fallback to 'Confirm' if not provided */
+  confirmLabel?: string;
+  /** If set to `true` the root element width is set to `100%` */
+  isFullWidth?: boolean;
+  /** If `true` the confirm button is disabled */
+  isSubmitLoading?: boolean;
   /** Custom SVG element to display. If none provided, a default one is displayed according to color */
   leftIcon?: React.ReactNode;
-  /** Title text displayed in header */
-  title: string;
+  /** Modal dialog size @default 'lg' */
+  size?: ModalDialogSize;
   /** Optional subtitle text displayed in header */
   subtitle?: string;
   /** Optional element displayed as subtitle in header */
   subtitleElement?: React.ReactElement;
-  /** Action to perform on close button click */
-  onClose?: () => void;
-  /** The text to display inside the cancel button. Fallback to 'Cancel' if not provided */
-  cancelLabel?: string;
+  /** Title text displayed in header */
+  title: string;
   /** Action to perform on cancel button click */
-  onCancel?: () => void;
-  /** If `true` the confirm button is disabled */
-  isSubmitLoading?: boolean;
-  /** The text to display inside the confirm button. Fallback to 'Confirm' if not provided */
-  confirmLabel?: string;
+  onCancel?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  /** Action to perform on close button click */
+  onClose?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   /** Action to perform on confirm button click */
-  onConfirm?: () => void;
+  onConfirm?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const ModalDialogColorClassNameMap = {
@@ -77,21 +77,21 @@ const ModalDialogSizeClassNameMap = {
 };
 
 export const ModalDialog: React.FC<Props> = ({
-  isFullWidth,
+  cancelLabel,
   children,
-  className,
   classes,
+  className,
   color = ModalDialogColorEnum.PRIMARY,
-  size = ModalDialogSizeEnum.LG,
+  confirmLabel,
+  isFullWidth,
+  isSubmitLoading,
   leftIcon,
-  title,
+  size = ModalDialogSizeEnum.LG,
   subtitle,
   subtitleElement,
-  onClose,
-  cancelLabel,
+  title,
   onCancel,
-  isSubmitLoading,
-  confirmLabel,
+  onClose,
   onConfirm,
 }) => {
   const { t } = useTranslation('common');
@@ -185,7 +185,6 @@ export const ModalDialog: React.FC<Props> = ({
             classes?.close,
           )}
           color="grey"
-          isDisabled={isSubmitLoading}
           onClick={onClose}
           variant="text"
         >
@@ -231,7 +230,6 @@ export const ModalDialog: React.FC<Props> = ({
               classes?.cancel,
             )}
             color="grey"
-            isDisabled={isSubmitLoading}
             onClick={onCancel}
             size="md"
             variant="outlined"

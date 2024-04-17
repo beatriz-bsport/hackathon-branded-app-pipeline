@@ -47,7 +47,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
 > {
   state: State = {
     hideById: {},
-    showSection: true,
+    showSection: false,
   };
 
   render() {

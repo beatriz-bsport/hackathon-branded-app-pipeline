@@ -116,7 +116,7 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
   State
 > {
   state: State = {
-    showSection: true,
+    showSection: false,
     hideById: {},
   };
 

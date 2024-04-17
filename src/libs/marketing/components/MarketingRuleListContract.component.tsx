@@ -39,7 +39,7 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
   const [hideById, setHideById] = useState<{
     [key: string]: boolean | undefined;
   }>({});
-  const [showSection, setShowSection] = useState<boolean>(true);
+  const [showSection, setShowSection] = useState<boolean>(false);
   const { t } = useTranslation('marketing');
 
   const classes = useStyles();

@@ -3,44 +3,87 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
-
-import {
-  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-  BsportRequestFromHeaderValue,
-} from '../../constants';
-
-import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import { RootState } from '../../reducers';
-import { fetchCurrentBasket } from '#libs/checkout/actions';
-import { getCurrentBasket } from '#libs/checkout/selectors';
+import { getAuthToken } from '../../http';
 // @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+
+// SELECTORS
+import { getCurrentBasket } from '#libs/checkout/selectors';
+import { getMembership } from '#libs/membership/selectors';
+
+// ACTIONS
+import { fetchCurrentBasket } from '#libs/checkout/actions';
 // @ts-expect-error
 import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
-import { fetchBookingsAndPrivateBookings } from '../../libs/consumer-space/actions';
+import {
+  cancelBookingAsMember as cancelBookingAsMemberAction,
+  cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
+  cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
+  fetchBookingsAndPrivateBookings,
+  fetchMyBookingOptionAsMember as fetchMyBookingOptionAsMemberAction,
+  fetchMyBookingOptionWorkshopAsMember as fetchMyBookingOptionWorkshopAsMemberAction,
+  fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
+  fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
+  fetchMyFuturePrivateBookingAsMember as fetchMyFuturePrivateBookingAsMemberAction,
+  fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
+  fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
+  fetchMyPastPrivateBookingAsMember as fetchMyPastPrivateBookingAsMemberAction,
+} from '#libs/consumer-space/actions';
+
+import {
+  fetchOfferRegisteredIds,
+  fetchOfferBulk as fetchOfferBulkAction,
+} from '#libs/offer/actions';
+
 import {
   fetchMembership,
   fetchMembershipByCompany,
 } from '#libs/membership/actions';
-import { getMembership } from '#libs/membership/selectors';
-import WidgetUtils from '#libs/widget/WidgetUtils';
+
+import { fetchMemberTagList } from '#libs/tag/actions';
+import { getPlaybackUrl } from '#libs/video/actions';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import { fetchMember } from '#libs/member/actions';
+import { bridgeAPIActionsRegistry } from '#libs/widget/actionsRegistry';
+import { fetchMetaActivityBulkWidget } from '#libs/meta-activity/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import { fetchPaymentPackBulkWidget } from '#libs/payment-packs/actions';
+import {
+  fetchAssetForBlueprintWidget,
+  fetchRoomBlueprintsWidget,
+  fetchSpotForBlueprintWidget,
+} from '#libs/spot-scheduling/actions';
+import {
+  fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
+  fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
+} from '#libs/private-service/actions';
+
+// TYPES
 import {
   WidgetApiMessageType,
   WidgetMessageType,
   widgetApiMessageTypes,
 } from '#libs/widget/types';
 import type { CheckoutItem, Basket } from '#libs/checkout/types';
-import { getAuthToken } from '../../http';
-import { fetchMemberTagList } from '#libs/tag/actions';
-import { getPlaybackUrl } from '#libs/video/actions';
-import { fetchOfferRegisteredIds } from '#libs/offer/actions';
-import {
-  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
-  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
-import { fetchMember } from '#libs/member/actions';
 import type { Tag } from '#libs/tag/types';
-import { bridgeAPIActionsRegistry } from '#libs/widget/actionsRegistry';
+
+// CONSTANTS
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
+import actionsBinder from '#libs/widget/actionsBinder';
 
 type OwnProps = {
   companyId: number;
@@ -51,6 +94,8 @@ type OwnProps = {
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
+
+export type BridgeWidgetActions = typeof mapDispatchToProps;
 
 type WidgetMessageEvent =
   | {
@@ -109,22 +154,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   }
 
   bindBridgeActions = () => {
-    bridgeAPIActionsRegistry.register(
-      'MEMBERSHIP_BY_COMPANY',
-      this.props.fetchMembershipByCompany,
-    );
-    bridgeAPIActionsRegistry.register(
-      'FETCH_MEMBER_BY_ID',
-      this.props.retrieveMember,
-    );
-    bridgeAPIActionsRegistry.register(
-      'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
-      this.props.retrieveReferralMemberStatus,
-    );
-    bridgeAPIActionsRegistry.register(
-      'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
-      this.props.retrieveReferralProgramForCompany,
-    );
+    actionsBinder({ ...this.props });
   };
 
   handleBridgeApiCallRequest = <A, T>({
@@ -339,6 +369,34 @@ const mapDispatchToProps = {
   retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
   retrieveMember: fetchMember,
   fetchMembershipByCompany,
+  fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
+  fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
+  fetchMyBookingOptionAsMember: fetchMyBookingOptionAsMemberAction,
+  fetchMyBookingOptionWorkshopAsMember:
+    fetchMyBookingOptionWorkshopAsMemberAction,
+  fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
+  fetchMyFuturePrivateBookingAsMember:
+    fetchMyFuturePrivateBookingAsMemberAction,
+  fetchMyPastBookingWorkshopAsMember: fetchMyPastBookingWorkshopAsMemberAction,
+  fetchMyFutureBookingWorkshopAsMember:
+    fetchMyFutureBookingWorkshopAsMemberAction,
+  fetchCoachBulk: fetchCoachBulkAction,
+  fetchGroupOffer: fetchGroupOfferAction,
+  fetchLevelList: fetchLevelListAction,
+  fetchMetaActivityBulk: fetchMetaActivityBulkWidget,
+  fetchOfferBulk: fetchOfferBulkAction,
+  fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+  retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+  fetchPaymentPackBulk: fetchPaymentPackBulkWidget,
+  fetchRoomBlueprints: fetchRoomBlueprintsWidget,
+  fetchSpotForBlueprint: fetchSpotForBlueprintWidget,
+  fetchAssetForBlueprint: fetchAssetForBlueprintWidget,
+  fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
+  fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+  fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
+  cancelBookingAsMember: cancelBookingAsMemberAction,
+  cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
+  cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,
 };
 
 export default compose(

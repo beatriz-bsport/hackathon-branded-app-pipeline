@@ -31,7 +31,7 @@ export const SelectField = withTranslation('subscription')((props) => {
                 'i18nOptions',
                 'reportNS',
               ])}
-              error={!!errors[field.name]}
+              error={!!(touched[field.name] && !!errors[field.name])}
               onChange={(option) => {
                 setFieldValue(field.name, option);
               }}

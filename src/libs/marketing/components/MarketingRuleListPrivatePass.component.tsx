@@ -68,12 +68,13 @@ export class PaymentPackNotificationList extends React.PureComponent<
           </Typography>
           {this.state.showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ButtonBase>
-
-        {!Object.keys(this.props.privatePassNotifications).length && (
-          <Typography>
-            {t('marketing:notifications.notificationsEmpty')}
-          </Typography>
-        )}
+        <Collapse in={this.state.showSection}>
+          {!Object.keys(this.props.privatePassNotifications).length && (
+            <Typography>
+              {t('marketing:notifications.notificationsEmpty')}
+            </Typography>
+          )}
+        </Collapse>
         {Object.keys(this.props.privatePassNotifications).map((id) => {
           const notifications: MarketingNotification[] =
             this.props.privatePassNotifications[id];

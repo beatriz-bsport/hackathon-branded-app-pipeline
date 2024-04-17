@@ -210,11 +210,13 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
           </Typography>
           {this.state.showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ButtonBase>
-        {!Object.entries(this.props.privateBookingNotifications).length && (
-          <Typography>
-            {t('marketing:notifications.notificationsEmpty')}
-          </Typography>
-        )}
+        <Collapse in={this.state.showSection}>
+          {!Object.entries(this.props.privateBookingNotifications).length && (
+            <Typography>
+              {t('marketing:notifications.notificationsEmpty')}
+            </Typography>
+          )}
+        </Collapse>
 
         {Object.entries(this.props.privateBookingNotifications).map(
           ([key, group]) => (

@@ -54,12 +54,13 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
         </Typography>
         {showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ButtonBase>
-
-      {!Object.keys(props.contractNotifications ?? []).length && (
-        <Typography>
-          {t('marketing:notifications.notificationsEmpty')}
-        </Typography>
-      )}
+      <Collapse in={showSection}>
+        {!Object.keys(props.contractNotifications ?? []).length && (
+          <Typography>
+            {t('marketing:notifications.notificationsEmpty')}
+          </Typography>
+        )}
+      </Collapse>
       {Object.keys(props.contractNotifications ?? []).map((id) => {
         const notifications: MarketingNotification[] =
           props.contractNotifications[id] || [];

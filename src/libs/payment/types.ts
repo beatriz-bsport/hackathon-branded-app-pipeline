@@ -164,3 +164,13 @@ export type BookkeepingAccountSubmitParams = Omit<
 export type fetchBookkeepingAccountListFilter = {
   is_active?: boolean;
 };
+
+export type DetachPaymentMethodPayload = {
+  company?: number;
+  member?: number;
+  payment_method_id: string;
+};
+
+export type DetachPaymentMethodResponse = {
+  payment_backend_payment_method_id: string | null;
+};

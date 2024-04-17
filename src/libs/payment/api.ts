@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
   getAuth,
@@ -10,13 +10,15 @@ import {
   patchAuth,
 } from '../../http';
 import type {
+  DetachPaymentMethodPayload,
+  DetachPaymentMethodResponse,
+  InternalPaymentPayload,
   PaymentGroup,
   PaymentMethod,
-  InternalPaymentPayload,
-  StripePayout,
   StripeBalance,
   BookkeepingAccount,
   fetchBookkeepingAccountListFilter,
+  StripePayout,
 } from './types';
 import type { BillingDetails } from '#libs/marketplace/types';
 
@@ -41,15 +43,18 @@ export const updatePaymentMethodBillingDetails = async (data: {
 };
 
 export const detachPaymentMethod = async (
-  params: { member?: number; payment_method_id: string; company?: number } = {
+  payload: DetachPaymentMethodPayload = {
     payment_method_id: '',
   },
 ) => {
-  return postAuth(`${API_V1_URI}/payment/payment_method/detach/`, {
-    member: params.member,
-    payment_method_id: params.payment_method_id,
-    company: params.company,
-  });
+  return postAuth<DetachPaymentMethodResponse>(
+    `${API_V1_URI}/payment/payment_method/detach/`,
+    {
+      member: payload.member,
+      payment_method_id: payload.payment_method_id,
+      company: payload.company,
+    },
+  );
 };
 
 export const fetchOnSpotPaymentReport = async (params: any = {}) => {

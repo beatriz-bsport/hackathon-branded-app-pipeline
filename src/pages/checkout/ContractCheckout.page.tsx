@@ -261,9 +261,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     try {
       await this.props.detachPaymentMethod(paymentMethodId.toString());
       this.props.fetchPaymentMethodList();
-      options.onSuccess && options.onSuccess();
+      options?.onSuccess?.();
     } catch (err) {
-      options.onError && options.onError();
+      options?.onError?.();
     }
   };
 
@@ -327,11 +327,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     } catch (err) {
       console.error(err);
       this.goToValidationPage(false);
-      if (options && options.onError) options.onError(err);
+      options?.onError?.(err);
     }
-    if (options && options.onSuccess) {
-      options.onSuccess();
-    }
+    options?.onSuccess?.();
   };
 
   goToValidationPage = (success: boolean) => {
@@ -731,15 +729,15 @@ export default compose<any, ownProps>(
   withHandlers({
     detachPaymentMethod:
       ({ detachPaymentMethodAction, fetchPaymentMethodList, companyId }) =>
-      (pm_id: number, options: OptionCallback) => {
+      (pm_id: string, options: OptionCallback) => {
         detachPaymentMethodAction(
           { company: companyId, payment_method_id: pm_id },
           {
             onSuccess: () => {
               fetchPaymentMethodList({ company: companyId });
-              if (options && options.onSuccess) options.onSuccess();
+              options?.onSuccess?.();
             },
-            onError: options && options.onError,
+            onError: options?.onError,
           },
         );
       },

@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
-import {
+import type {
   Dispatch,
   ThunkAction,
   OptionCallback,
   OptionBackgroundCallback,
 } from '../../state/types';
-import { RootState } from '../../reducers';
-import { ReportConfiguration } from '../reporting/types';
+import type { RootState } from '../../reducers';
+import type { ReportConfiguration } from '../reporting/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 import {
@@ -37,6 +37,8 @@ import type {
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
   fetchBookkeepingAccountListFilter,
+  DetachPaymentMethodPayload,
+  DetachPaymentMethodResponse,
 } from './types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
@@ -70,21 +72,24 @@ export function fetchPaymentMethodList(
 }
 
 export const detachPaymentMethodActions = {
-  isLoading: createAction('PAYMENT_METHOD/DETACH/LOADING'),
-  error: createAction('PAYMENT_METHOD/DETACH/ERROR'),
-  success: createAction('PATMENT_METHOD/DETACH/SUCCESS'),
+  isLoading: createAction<boolean>('PAYMENT_METHOD/DETACH/LOADING'),
+  error: createAction<Error | null>('PAYMENT_METHOD/DETACH/ERROR'),
+  success: createAction<DetachPaymentMethodResponse | {}>(
+    'PATMENT_METHOD/DETACH/SUCCESS',
+  ),
 };
-export function detachPaymentMethod(params: any, options?: OptionCallback) {
+export function detachPaymentMethod(
+  payload: DetachPaymentMethodPayload,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(detachPaymentMethodActions.error(null));
     dispatch(detachPaymentMethodActions.isLoading(true));
     try {
-      const response = await detachPaymentMethodAPI(params);
+      const response = await detachPaymentMethodAPI(payload);
       dispatch(detachPaymentMethodActions.success(response.data));
       dispatch(snackbarSuccess('invoice:paymentMethod.detach.pm_deleted'));
-      if (options && options.onSuccess) {
-        options.onSuccess();
-      }
+      options?.onSuccess?.();
     } catch (err) {
       console.error(err);
       dispatch(detachPaymentMethodActions.success({}));
@@ -93,9 +98,7 @@ export function detachPaymentMethod(params: any, options?: OptionCallback) {
           snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
         );
       }
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
       dispatch(detachPaymentMethodActions.error(err.response?.data || err));
     }
     dispatch(detachPaymentMethodActions.isLoading(false));

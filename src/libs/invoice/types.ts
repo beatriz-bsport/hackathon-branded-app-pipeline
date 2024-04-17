@@ -190,6 +190,7 @@ export type InvoiceFilter = {
   member_in?: number[];
   only_today?: boolean;
   is_draft?: boolean;
+  uuid__in?: string[];
 };
 
 export type PaymentFilter = {

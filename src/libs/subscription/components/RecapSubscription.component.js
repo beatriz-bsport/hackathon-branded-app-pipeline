@@ -37,11 +37,13 @@ const RecapSubscription = (props: RecapProps) => (
         className={props.classes.highlightText}
         color="primary"
       >
-        {` ${getCurrencyDisplayWithPrice(
+        {` ${
           props.price
-            ? parseFloat(props.price) - parseFloat(props.recurrentVoucher)
-            : '-- ',
-        )}`}
+            ? getCurrencyDisplayWithPrice(
+                parseFloat(props.price) - parseFloat(props.recurrentVoucher),
+              )
+            : '-- '
+        }`}
       </Typography>
       <Typography inline>{`${props.t('recap.every')}`}</Typography>
       <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
@@ -77,12 +79,15 @@ const RecapSubscription = (props: RecapProps) => (
     <div className={props.classes.section}>
       <Typography inline>{props.t('recap.forATotalOf')}</Typography>
       <Typography inline className={props.classes.highlightText} color="error">
-        {` ${getCurrencyDisplayWithPrice(
+        {` ${
           props.price && props.nbPeriod
-            ? parseInt(props.nbPeriod, 10) *
-                (parseFloat(props.price) - parseFloat(props.recurrentVoucher))
-            : '--',
-        )}`}
+            ? getCurrencyDisplayWithPrice(
+                parseInt(props.nbPeriod, 10) *
+                  (parseFloat(props.price) -
+                    parseFloat(props.recurrentVoucher)),
+              )
+            : '--'
+        }`}
       </Typography>
     </div>
   </div>

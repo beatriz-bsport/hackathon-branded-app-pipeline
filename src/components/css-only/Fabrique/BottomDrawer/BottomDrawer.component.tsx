@@ -56,7 +56,7 @@ export const BottomDrawer: React.FC<Props> = ({
      */
     if (blanketProps.isOpen && !isBlanketOpen && bodyElementRef.current) {
       bodyElementRef.current.style.cssText =
-        'overflow: hidden; position: fixed;';
+        'overflow: hidden; position: fixed; width: 100%';
 
       setIsBlanketOpen(true);
     }

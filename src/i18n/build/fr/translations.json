@@ -6537,8 +6537,8 @@
             "30": "Réservation pour un invité (pour un membre invitant)",
             "1102": "Récompense de parrainage disponible (parrain)",
             "1101": "Offre de parrainage disponible (membre parrainé)",
-            "201": "Le mode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
-            "200": "Le mode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)"
+            "201": "La méthode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
+            "200": "La méthode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -9021,10 +9021,10 @@
         },
         "privateService": {
             "padBeforeBooking": {
-                "explain1": "Si activé, les réservations ne pourront être effectuées que si le calendrier est disponible en incluant la réservation",
-                "explain2": "Exemple : la salle est disponible de 10h à 11h, votre RDV dure 1h, mais nécessite 15min avant et après la réservation.",
-                "explain3": "ACTIVÉ : le RDV ne sera pas possible. Il faut que la salle soit disponible de 9h45 à 11h15. Le prochain RDV ne sera possible qu'à partir de 11h30.",
-                "explain4": "NON-ACTIVÉ : le RDV sera possible et bloquera la salle 15 min avant et après la réservation. Le prochain RDV sera possible à partir de 11h30."
+                "explain1": "Si activé, le temps de tampon après le premier rendez-vous et celui avant le deuxième rendez-vous ne se chevaucheront pas (l'écart entre deux rendez-vous sera plus important car deux temps tampons sont pris en compte). Si non activé, le temps de tampon après le premier rendez-vous et celui avant le deuxième rendez-vous se chevaucheront",
+                "explain2": "Exemple : Un rendez-vous a été fixé à 13 heures, il dure une heure et il y a un temps de tampon de 5 minutes avant et après le rendez-vous (par exemple pour le nettoyage de la salle).",
+                "explain3": "SI ACTIVÉ : Le prochain rendez-vous pourra être réservé à partir de 14h10 (5 minutes après la fin du rendez-vous précédent + 5 minutes avant le début du rendez-vous suivant). Les temps tampons des rendez-vous ne peuvent pas se chevaucher.",
+                "explain4": "NON-ACTIVÉ : le prochain rendez-vous pourra être réservé à partir de 14h05 (les 5 minutes après la fin du rendez-vous précédent seront les mêmes 5 minutes nécessaires avant le début du rendez-vous suivant). Dans ce cas, les temps tampons peuvent se chevaucher."
             },
             "delete": {
                 "title": "Suppression du rendez-vous",
@@ -9501,7 +9501,7 @@
             },
             "form": {
                 "pad_before_booking": {
-                    "label": "Prendre en compte avant même la réservation"
+                    "label": "Activer pour éviter le chevauchement des temps de tampons des séances dont les heures de fin et de début sont proches"
                 },
                 "managerOnly": {
                     "label": "Invisible pour les clients"
@@ -9850,7 +9850,7 @@
             },
             "redirectLink": {
                 "title": "Lien de redirection",
-                "description": "Après son inscription, le nouveau membre sera redirigé vers la page indiquée par votre URL. Si vous laissez la case vide, il sera amené à la page d'achats des cartes",
+                "description": "Après son inscription, le nouveau membre sera redirigé vers la page indiquée par votre URL. Si vous laissez la case vide, il sera amené à la page du calendrier",
                 "placeholder": "URL de redirection"
             },
             "warnings": {
@@ -12713,7 +12713,7 @@
                     "daysBeforeSecondNotification": "Deuxième notification (jours avant la date d'expiration)",
                     "daysBeforeFirstNotification": "Première notification (jours avant la date d'expiration)"
                 },
-                "helpText": "Si vous avez activé l'option \"Rappels d'expiration des modes de paiement\" pour les notifications transactionnelles sur les abonnements, vous pouvez personnaliser le nombre de jours ici.",
+                "helpText": "Si vous avez les notifications transactionnelles activées pour les \"rappels d'expiration des méthodes de paiement\" pour les abonnements, vous pouvez personnaliser le nombre de jours ici.",
                 "title": "Choisissez le nombre de jours avant la date d'expiration de la méthode de paiement pour envoyer une notification par email."
             }
         },

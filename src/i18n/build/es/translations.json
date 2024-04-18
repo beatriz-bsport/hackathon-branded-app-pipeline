@@ -19566,7 +19566,7 @@
             },
             "redirectLink": {
                 "placeholder": "URL de redireccionamiento",
-                "description": "Después de registrarse, el nuevo miembro será redirigido a la página indicada por su URL. Si deja la casilla vacía, será redirigido a la página de compra de pases.",
+                "description": "Tras registrarse, el nuevo miembro será redirigido a la página indicada por su URL. Si deja la casilla vacía, será redirigido a la página del Calendario.",
                 "title": "Enlace de redireccionamiento"
             },
             "tag": {

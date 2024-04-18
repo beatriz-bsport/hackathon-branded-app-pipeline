@@ -3373,10 +3373,10 @@
                 "confirm": "Delete"
             },
             "padBeforeBooking": {
-                "explain2": "Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.",
-                "explain4": "NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.",
-                "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.",
-                "explain1": "If activated, bookings can only be made if the calendar is available including the booking"
+                "explain2": "Example: An appointment has been booked for 13:00, lasts 1 hour, and you have an availability buffer of 5 minutes set up before and after the appointment (i.e. for room cleaning).",
+                "explain4": "NON-ACTIVE: It will allow the next appointment to be booked from 14:05 (the 5 minutes after the end of the previous appointment will be the same 5 minutes required before the next appointment starts). The buffer times in this case can overlap",
+                "explain3": "IF ACTIVE: It will allow the next appointment to be booked from 14:10 (5 minutes after the end of the previous appointment + 5 minutes before the start of the next one). The buffer times of the appointments can not overlap",
+                "explain1": "If activated, the availability buffer after the first appointment and the availability buffer before the second appointment will not overlap (there will be a larger gap between two appointments as two availability buffers are considered). If not activated, it will overlap the availability buffer after the first appointment with the availability buffer before the second appointment."
             }
         },
         "calendar": {
@@ -3930,7 +3930,7 @@
                     "helperText": "Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members."
                 },
                 "pad_before_booking": {
-                    "label": "Activate retroactively for this booking"
+                    "label": "Activate to avoid overlapping buffer times from sessions with ending and starting times close to each other"
                 }
             },
             "parameters": {
@@ -6659,10 +6659,10 @@
                 "hideCoach": "Hide teachers' info on the calendar for members",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "",
+                        "helperText": "The maximum number of group activity sessions a member can book in advance.",
                         "placeholder": "Maximum"
                     },
-                    "label": ""
+                    "label": "Limit the amount of future bookings per member for group activities"
                 },
                 "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app and marketplace",
                 "schedule": {
@@ -18734,6 +18734,11 @@
         "referralErrors": {
             "33004": {
                 "description": "An error has been encountered while registering the referral."
+            }
+        },
+        "form": {
+            "redirectLink": {
+                "description": "After registering, the new member will be redirected to the page indicated by your URL. If you leave the box empty, they will be taken to the Calendar page"
             }
         }
     }

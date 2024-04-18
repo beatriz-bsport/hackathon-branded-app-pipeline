@@ -19509,7 +19509,7 @@
             },
             "redirectLink": {
                 "placeholder": "URL di reindirizzamento",
-                "description": "Dopo la registrazione, il nuovo membro sarà reindirizzato alla pagina indicata dal vostro URL. Se si lascia la casella vuota, il nuovo membro verrà indirizzato alla pagina di acquisto del pacchetto",
+                "description": "Dopo la registrazione, il nuovo membro sarà reindirizzato alla pagina indicata dal vostro URL. Se si lascia vuoto, il nuovo membro verrà indirizzato alla schermata del Calendario",
                 "title": "Link di reindirizzamento"
             },
             "tag": {

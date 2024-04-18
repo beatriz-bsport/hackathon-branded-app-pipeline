@@ -7367,7 +7367,7 @@
             "seeLess": "Zie minder",
             "registerButton": "Abonneren",
             "invoice": "{{ count }} Factuur",
-            "invoice_plural": "{{ count }} factures",
+            "invoice_plural": "{{ count }} facturen",
             "fees": "Inschrijfkosten: {{ fees }}",
             "billingInterval": {
                 "day": "dag",

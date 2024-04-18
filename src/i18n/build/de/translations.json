@@ -3146,7 +3146,7 @@
                     "helperText": "Wenn diese Funktion aktiviert ist, werden zukünftige Buchungen sowohl Wartelistenanmeldungen als auch tatsächliche Buchungen enthalten. Wenn das Limit erreicht ist, kann sich ein Mitglied weder auf einer Warteliste eintragen noch eine Sitzung buchen.",
                     "label": "Berücksichtigung von Anmeldungen auf der Warteliste bei der Zählung künftiger Buchungen"
                 },
-                "bookingLimitation": "Golabel Buchungsbeschränkungen",
+                "bookingLimitation": "Globale Buchungsbeschränkungen",
                 "resetPassword": {
                     "urlError": "Bitte geben Sie eine gültige URL ein",
                     "urlHelperText": "Dieses Feld leer lassen, um auf den Marktplatz umzuleiten",
@@ -19424,7 +19424,7 @@
             },
             "redirectLink": {
                 "placeholder": "Weiterleitungs-URL",
-                "description": "Nach der Registrierung wird das neue Mitglied auf die Seite weitergeleitet, die in Ihrer URL angegeben ist. Wenn Sie das Feld leer lassen, wird das neue Mitglied auf die Seite zum Kauf des Passes weitergeleitet",
+                "description": "Nach der Registrierung wird das neue Mitglied zu der Seite weitergeleitet, die durch Ihre URL angegeben ist. Wenn Sie das Feld leer lassen, wird das neue Mitglied auf die Kalenderseite weitergeleitet",
                 "title": "Link weiterleiten"
             },
             "tag": {

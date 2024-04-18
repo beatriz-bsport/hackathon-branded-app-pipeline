@@ -1,7 +1,6 @@
-// @flow
-import React, { Component } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,25 +11,28 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import withStyles from '@material-ui/core/styles/withStyles';
-import { connect } from 'react-redux';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { getAllSmartList } from '../../libs/smart-list/selectors';
-import { createWebhook, deleteWebhook } from '../../libs/active-campaign/api';
+import type { ThunkAction } from 'src/state/types';
+import { createStyles, Theme } from '@material-ui/core';
+import type { RootState } from 'src/reducers';
+import type { ImmutableObject } from 'seamless-immutable';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { createWebhook, deleteWebhook } from '#libs/active-campaign/api';
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
-} from '../../libs/smart-list/actions';
-import withStayEvent from '../../hocs/tracking/stay-event.hoc';
-import ActiveCampaignLinkForm from '../../libs/active-campaign/components/ActiveCampaignLinkForm.component';
-import ActiveCampaignWebhooks from '../../libs/active-campaign/components/ActiveCampaignWebhooks.component';
-import ActiveCampaignAccountForm from '../../libs/active-campaign/components/ActiveCampaignAccountForm.component';
-import ActiveCampaignLinks from '../../libs/active-campaign/components/ActiveCampaignLinks.component';
-
+} from '#libs/smart-list/actions';
+// @ts-expect-error
+import withStayEvent from '#hocs/tracking/stay-event.hoc';
+import ActiveCampaignLinkForm from '#libs/active-campaign/components/ActiveCampaignLinkForm.component';
+import ActiveCampaignWebhooks from '#libs/active-campaign/components/ActiveCampaignWebhooks.component';
+import ActiveCampaignAccountForm from '#libs/active-campaign/components/ActiveCampaignAccountForm.component';
+import ActiveCampaignLinks from '#libs/active-campaign/components/ActiveCampaignLinks.component';
 import {
   fetchActiveCampaignAccount,
   updateActiveCampaignAccount,
@@ -41,44 +43,32 @@ import {
   createActiveCampaignLinks,
   getActiveCampaignLists,
   getActiveCampaignWebhooks,
-} from '../../libs/active-campaign/actions';
+} from '#libs/active-campaign/actions';
 import {
   withSmartlist,
   getActiveCampaignLinks,
   getAccount,
-} from '../../libs/active-campaign/selectors';
-import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
-import withTitle from '../../hocs/with-title.hoc';
+} from '#libs/active-campaign/selectors';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import withTitle from '#hocs/with-title.hoc';
+import type { Link, Account } from '#libs/active-campaign/types';
 
-type Props = {
-  loading: boolean,
-  classes: any,
-  activeCampaignLists: Array<any>,
-  deleteActiveCampaignLinks: (id: number) => void,
-  updateActiveCampaignLinks: (id: number, data: any) => void,
-  createActiveCampaignLinks: (data: any) => void,
-  t: TFunction,
-  links: Array<any>,
-  smartLists: Array<SmartList>,
-  account: Object,
-  getSmartLists: () => void,
-  fetchActiveCampaignAccount: () => void,
-  fetchActiveCampaignLinks: () => void,
-  getActiveCampaignLists: () => void,
-  updateActiveCampaignAccount: (id: number, data: any) => void,
-  createActiveCampaignAccount: (data: any) => void,
-  company_id: number,
-  activeCampaignListsLoading: boolean,
-  linkLoading: boolean,
-  errorAccountInfo: number,
+type Props = ConnectedProps<typeof connector> &
+  WithStyles<typeof styles> &
+  WithTranslation;
 
-  // webhooks
-  webhooks: Array<any>,
-  getActiveCampaignWebhooks: (id: number) => void,
+type State = {
+  selected: ImmutableObject<Link> | null;
+  openForm: boolean;
+  openHelpModal: boolean;
+  openEditAccount: boolean;
+  webhookLoading: string | null;
+  openListInfoModal: boolean;
+  openWebhookInfoModal: boolean;
 };
 
-export class ActiveCampaignPage extends Component<Props> {
-  state = {
+export class ActiveCampaignPage extends React.Component<Props, State> {
+  state: State = {
     selected: null,
     openForm: false,
     openHelpModal: false,
@@ -209,7 +199,7 @@ export class ActiveCampaignPage extends Component<Props> {
     );
   };
 
-  handleWebhookActive = async (hook) => {
+  handleWebhookActive = async (hook: string) => {
     this.setState({ webhookLoading: hook });
     if (this.props.webhooks.items.find((webhook) => webhook.name === hook)) {
       await deleteWebhook(
@@ -226,8 +216,7 @@ export class ActiveCampaignPage extends Component<Props> {
 
   render() {
     const { classes } = this.props;
-    if (this.props.loading) return <LinearProgress />;
-    const isdisabled = !this.props.account ? 'disabled' : null;
+    const isdisabled: boolean = !this.props.account;
 
     return (
       <div className={classes.container}>
@@ -243,7 +232,9 @@ export class ActiveCampaignPage extends Component<Props> {
             this.props.getSmartLists();
             this.setState({ openForm: true });
           }}
-          onClickDelete={(id) => this.props.deleteActiveCampaignLinks(id)}
+          onClickDelete={(id: number) =>
+            this.props.deleteActiveCampaignLinks(id)
+          }
           onClickEdit={(link) => {
             this.props.getSmartLists();
             this.setState({
@@ -286,7 +277,7 @@ export class ActiveCampaignPage extends Component<Props> {
           account={this.props.account}
           onCancel={() => this.setState({ openEditAccount: false })}
           open={this.state.openEditAccount}
-          updateAccount={(data) => {
+          updateAccount={(data: Account) => {
             if (this.props.account) {
               this.props.updateActiveCampaignAccount(
                 this.props.account.id,
@@ -303,7 +294,8 @@ export class ActiveCampaignPage extends Component<Props> {
                   company: this.props.company_id,
                 },
                 {
-                  onSuccess: (id) => this.props.getActiveCampaignLists(id),
+                  onSuccess: (account) =>
+                    this.props.getActiveCampaignLists(account),
                 },
               );
             }
@@ -318,82 +310,85 @@ export class ActiveCampaignPage extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  typoMargin: {
-    marginTop: theme.spacing(1),
-  },
-
-  titleLink: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(3),
-  },
-  inline: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(2),
-  },
-  inlineError: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: theme.spacing(3),
-  },
-  warningIcon: { marginRight: theme.spacing(1) },
-  accountInfosContainer: { paddingBottom: theme.spacing(2) },
-  accountInlineEdit: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  container: {
-    padding: theme.spacing(2),
-    paddingTop: 0,
-  },
-});
-
-export default compose(
-  withStayEvent('active-campaign', [10, 30, 90]),
-  connect(
-    (state) => ({
-      links: withSmartlist(getActiveCampaignLinks)(state),
-      account: getAccount(state),
-      accountLoading: state.activeCampaign.account.loading,
-      linkLoading: state.activeCampaign.links.loading,
-      activeCampaignLists: state.activeCampaign.links.lists,
-      smartLists: getAllSmartList(state),
-      company_id: state.theme.theme.company,
-      activeCampaignListsLoading: state.activeCampaign.links.listsLoading,
-      errorAccountInfo: state.activeCampaign.links.listsError,
-      webhooks: {
-        items: state.activeCampaign.account.webhooks.items,
-        loading: state.activeCampaign.account.webhooks.loading,
-      },
-    }),
-    {
-      fetchActiveCampaignAccount,
-      updateActiveCampaignAccount,
-      createActiveCampaignAccount,
-      fetchActiveCampaignLinks: fetchActiveCampaignLinksAction,
-      updateActiveCampaignLinks,
-      deleteActiveCampaignLinks,
-      createActiveCampaignLinks,
-      getActiveCampaignLists,
-      getActiveCampaignWebhooks,
-      fetchSmartListBulk: fetchSmartListBulkAction,
-      getSmartLists: fetchAllSmartLists,
-      testSuccess: snackbarSuccess,
-      testError: snackbarError,
+const styles = (theme: Theme) =>
+  createStyles({
+    typoMargin: {
+      marginTop: theme.spacing(1),
     },
-  ),
+
+    titleLink: {
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(3),
+    },
+    inline: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(2),
+    },
+    inlineError: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: theme.spacing(3),
+    },
+    warningIcon: { marginRight: theme.spacing(1) },
+    accountInfosContainer: { paddingBottom: theme.spacing(2) },
+    accountInlineEdit: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    container: {
+      padding: theme.spacing(2),
+      paddingTop: 0,
+    },
+  });
+
+const connector = connect(
+  (state: RootState) => ({
+    links: withSmartlist(getActiveCampaignLinks)(state),
+    account: getAccount(state),
+    accountLoading: state.activeCampaign.account.loading,
+    linkLoading: state.activeCampaign.links.loading,
+    activeCampaignLists: state.activeCampaign.links.lists,
+    smartLists: getAllSmartList(state),
+    company_id: state.theme.theme.company,
+    activeCampaignListsLoading: state.activeCampaign.links.listsLoading,
+    errorAccountInfo: state.activeCampaign.links.listsError,
+    webhooks: {
+      items: state.activeCampaign.account.webhooks.items,
+      loading: state.activeCampaign.account.webhooks.loading,
+    },
+  }),
+  {
+    fetchActiveCampaignAccount,
+    updateActiveCampaignAccount,
+    createActiveCampaignAccount,
+    fetchActiveCampaignLinks: fetchActiveCampaignLinksAction,
+    updateActiveCampaignLinks,
+    deleteActiveCampaignLinks,
+    createActiveCampaignLinks,
+    getActiveCampaignLists,
+    getActiveCampaignWebhooks,
+    fetchSmartListBulk: fetchSmartListBulkAction,
+    getSmartLists: fetchAllSmartLists,
+    testSuccess: snackbarSuccess,
+    testError: snackbarError,
+  },
+);
+
+export default compose<Props, ThunkAction>(
+  withStayEvent('active-campaign', [10, 30, 90]),
+  connector,
   withProps(({ fetchActiveCampaignLinks, fetchSmartListBulk }) => ({
     fetchActiveCampaignLinks: () =>
       fetchActiveCampaignLinks({
-        onSuccess: (links) => {
+        onSuccess: (links: Link[]) => {
           fetchSmartListBulk(links.map((link) => link.smartlist));
         },
       }),
   })),
   withStyles(styles),
-  withTranslation(['settings']),
+  withTranslation('settings'),
   withTitle(({ t }) => t('tab.active_campaign')),
 )(ActiveCampaignPage);

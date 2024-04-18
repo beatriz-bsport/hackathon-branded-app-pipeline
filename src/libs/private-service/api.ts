@@ -15,6 +15,9 @@ import type {
   PrivateBookingFilterParams,
   PrivateConsumerPassREST,
   ServiceCompatibilityPass,
+  PrivatePassMassExtensionParams,
+  PrivatePassMassExtensionCreate,
+  PrivatePassMassExtension,
 } from './types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
@@ -671,24 +674,42 @@ export const deleteRecurrenceRulePrivateBooking = (id: number) => {
   );
 };
 
-export async function fetchPrivatePassMassExtensions(data: any) {
-  return getAuth(
-    `${API_V1_URI}/private_service/private_pass_mass_extension/?private_pass=${data.privatePass}&page=${data.page}&page_size=${data.page_size}`,
+/**
+ * Fetch the list of mass extensions for a specific private pass
+ * @param params Object containing the required `private_pass` ID + optional pagination params
+ */
+export const fetchPrivatePassMassExtensionList = (
+  params: PrivatePassMassExtensionParams,
+) => {
+  return getAuth<PaginatedResponse<PrivatePassMassExtension>>(
+    `${API_V1_URI}/private_service/private_pass_mass_extension/${buildUrlParams(
+      params,
+    )}`,
   );
-}
+};
 
-export async function createPrivatePassMassExtension(data: any) {
-  return postAuth(
+/**
+ * Create an extension for a private pass
+ * @param data The payload sent for the creation of the extension
+ */
+export const createPrivatePassMassExtension = (
+  data: PrivatePassMassExtensionCreate,
+) => {
+  return postAuth<PrivatePassMassExtension>(
     `${API_V1_URI}/private_service/private_pass_mass_extension/`,
     data,
   );
-}
+};
 
-export async function deletePrivatePassMassExtension(id: number) {
+/**
+ * Delete a private pass extension
+ * @param id The ID of the extension to delete
+ */
+export const deletePrivatePassMassExtension = (id: number) => {
   return deleteAuth(
     `${API_V1_URI}/private_service/private_pass_mass_extension/${id}`,
   );
-}
+};
 
 export async function resourceAllocationChecker(
   privateSlotId: number,

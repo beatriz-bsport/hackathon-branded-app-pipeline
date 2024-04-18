@@ -247,6 +247,9 @@ const getTranslations = async () => {
       invoice_datetime: 'Invoice issue date',
       bookkeeping_account_name: 'Account name',
       bookkeeping_account_number: 'Account number',
+      is_first_visit: 'First booking',
+      private_booking_date_created: 'Date and time of booking',
+      billing_group_address: 'Address',
     },
     graphFormDrawer: {
       helperText: {

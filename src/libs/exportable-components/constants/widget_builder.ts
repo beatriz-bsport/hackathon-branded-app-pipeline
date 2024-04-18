@@ -15,6 +15,7 @@ export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
   'paymentPackTemplate';
 export const EXPORTABLE_COMPONENT_TYPE_REFERRAL = 'referral';
 export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING = 'consumerBooking';
+export const EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS = 'consumerPass';
 
 export const EXPORTABLE_COMPONENTS = [
   {
@@ -25,6 +26,11 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_BOOKING,
     label: 'consumerBooking',
+    defaultConfig: {},
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_CONSUMER_PASS,
+    label: 'consumerPass',
     defaultConfig: {},
   },
   {

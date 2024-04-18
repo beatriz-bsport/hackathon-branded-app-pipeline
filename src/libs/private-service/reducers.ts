@@ -3,6 +3,7 @@ import Seamless from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import omit from 'lodash/omit';
+import type { PaginatedResponse } from '../../state/types';
 import {
   availabilitySlotListActions,
   availabilitySlotUpdateActions,
@@ -52,7 +53,6 @@ import {
   listRecurrenceRulePrivateBookingActions,
   createOrUpdateRecurrenceRulePrivateBookingActions,
   deleteRecurrenceRulePrivateBookingActions,
-  privateConsumerPassMassExtensionActions,
   privateServiceCompatiblePassActions,
   privateServiceCompatiblePassListActions,
   privatePassUpdateOrderActions,
@@ -68,10 +68,17 @@ import {
   privateSlotCheckUnpaidBookingEligibilityActions,
   searchFirstAvailableSlotsActions,
   incompatibilitiesReasonsBySlotByConsumerPassActions,
+  fetchPrivatePassMassExtensionListActions,
+  createPrivatePassMassExtensionActions,
+  deletePrivatePassMassExtensionActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
-import { PrivateServiceState, ServiceCompatibilityPass } from './types';
+import {
+  PrivatePassMassExtension,
+  PrivateServiceState,
+  ServiceCompatibilityPass,
+} from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
   Seamless<PrivateServiceState>({
@@ -144,16 +151,6 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
           error: null,
         },
         updatingConsumerPass: [],
-      },
-      massExtension: {
-        loading: false,
-        firstLoadDone: false,
-        error: null,
-        byId: {},
-        allIds: [],
-        count: 0,
-        page: 1,
-        next_page: 1,
       },
       incompatibilitiesBySlotByConsumerPass: {
         byId: {},
@@ -230,6 +227,23 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       createOrUpdate: {
         loading: false,
         error: null,
+      },
+      massExtension: {
+        allIds: [],
+        byId: {},
+        count: 0,
+        error: null,
+        loading: false,
+        next_page: 1,
+        page: 1,
+        create: {
+          loading: false,
+          error: null,
+        },
+        delete: {
+          loading: false,
+          error: null,
+        },
       },
     },
     calendarEvent: {
@@ -421,47 +435,46 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       );
     },
 
-    [privateConsumerPassMassExtensionActions.isLoading.toString()]: (
+    [fetchPrivatePassMassExtensionListActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'massExtension', 'loading'],
         payload,
       );
     },
-    [privateConsumerPassMassExtensionActions.error.toString()]: (
+    [fetchPrivatePassMassExtensionListActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'massExtension', 'error'],
         payload,
       );
     },
-    [privateConsumerPassMassExtensionActions.success.toString()]: (
+    [fetchPrivatePassMassExtensionListActions.success.toString()]: (
       state,
-      { payload }: any,
+      { payload }: { payload: PaginatedResponse<PrivatePassMassExtension> },
     ) => {
+      const { page, next_page, count, results } = payload;
       return state
+        .setIn(['privatePass', 'massExtension', 'page'], page)
+        .setIn(['privatePass', 'massExtension', 'next_page'], next_page)
+        .setIn(['privatePass', 'massExtension', 'count'], count)
         .setIn(
-          ['privateConsumerPass', 'massExtension', 'allIds'],
-          payload.results.map((m) => m.id),
-        )
-        .setIn(['privateConsumerPass', 'massExtension', 'count'], payload.count)
-        .setIn(['privateConsumerPass', 'massExtension', 'firstLoadDone'], true)
-        .setIn(['privateConsumerPass', 'massExtension', 'page'], payload.page)
-        .setIn(
-          ['privateConsumerPass', 'massExtension', 'next_page'],
-          payload.next_page,
+          ['privatePass', 'massExtension', 'allIds'],
+          results.map((massExtension) => massExtension.id),
         )
         .merge(
           {
-            privateConsumerPass: {
+            privatePass: {
               massExtension: {
-                byId: payload.results.reduce((acc, mE) => {
-                  acc[mE.id] = mE;
-                  return acc;
+                byId: results.reduce<{
+                  [extensionId: number]: PrivatePassMassExtension;
+                }>((accumulator, massExtension) => {
+                  accumulator[massExtension.id] = massExtension;
+                  return accumulator;
                 }, {}),
               },
             },
@@ -469,16 +482,42 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           { deep: true },
         );
     },
-    [privateConsumerPassMassExtensionActions.create.toString()]: (
+    [createPrivatePassMassExtensionActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['privateConsumerPass', 'massExtension', 'byId', payload.id],
+        ['privatePass', 'massExtension', 'create', 'loading'],
         payload,
       );
     },
-
+    [createPrivatePassMassExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['privatePass', 'massExtension', 'create', 'error'],
+        payload,
+      );
+    },
+    [deletePrivatePassMassExtensionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['privatePass', 'massExtension', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deletePrivatePassMassExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['privatePass', 'massExtension', 'delete', 'error'],
+        payload,
+      );
+    },
     [updateResourceConfigurationActions.success.toString()]: (
       state,
       { payload },

@@ -482,12 +482,6 @@ export interface PrivateServiceState {
       delete: ErrorAndLoading;
       updatingConsumerPass: [];
     };
-    massExtension: ErrorAndLoading &
-      WithPagination & {
-        byId: { [key: string]: PrivatePassMassExtension };
-        allIds: number[];
-        firstLoadDone: boolean;
-      };
   };
   resource: {
     byId: { [key: string]: PrivateResource };
@@ -527,6 +521,15 @@ export interface PrivateServiceState {
     asConsumer: ErrorAndLoading & { allIds: Array<number> };
     archivationWarning: { [id: number]: { used_in_combo: boolean } };
     createOrUpdate: ErrorAndLoading;
+    massExtension: ErrorAndLoading & {
+      allIds: number[];
+      byId: { [extensionId: number]: PrivatePassMassExtension };
+      count: number;
+      create: ErrorAndLoading;
+      delete: ErrorAndLoading;
+      next_page: number;
+      page: number;
+    };
   };
   privateBooking: ErrorAndLoading & {
     byId: { [id: string]: PrivateBooking };

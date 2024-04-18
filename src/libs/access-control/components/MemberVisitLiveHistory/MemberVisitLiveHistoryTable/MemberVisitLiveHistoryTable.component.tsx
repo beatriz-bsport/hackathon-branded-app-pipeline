@@ -26,7 +26,7 @@ import type {
 } from '#libs/access-control/types';
 import classNames from 'classnames';
 
-type Props = {
+export type Props = {
   getMemberVisitList: (
     params: MemberVisitQueryParams,
     options?: OptionCallback<MemberVisitREST[]>,
@@ -62,22 +62,25 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
     handleSelectMemberVisit(memberVisit);
   }, [handleSelectMemberVisit, memberVisit]);
 
-  const entryStatusText = useMemo(
-    () =>
-      ({
-        [EntryStatus.ENTERED]: t('liveHistory.table.entered'),
-        [EntryStatus.NOT_ENTERED]: t('liveHistory.table.refusedEntry'),
-        [EntryStatus.UNKNOWN]: (
+  const entryStatusText = useMemo<string | JSX.Element>(() => {
+    switch (memberVisit.entry_status) {
+      case EntryStatus.ENTERED:
+        return t('liveHistory.table.entered');
+      case EntryStatus.NOT_ENTERED:
+        return t('liveHistory.table.refusedEntry');
+      case EntryStatus.UNKNOWN:
+        return (
           <span
             onClick={handleOpenMemberVisitDetails}
             className={classes.clickableViewDetails}
           >
             {t('liveHistory.table.entryUnknown')}
           </span>
-        ),
-      }?.[memberVisit.entry_status] || ''),
-    [t, memberVisit.entry_status],
-  );
+        );
+      default:
+        return '';
+    }
+  }, [t, memberVisit.entry_status]);
 
   const visitReasonElement = useMemo(() => {
     if (

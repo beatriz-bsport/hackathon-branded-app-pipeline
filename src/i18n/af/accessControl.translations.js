@@ -25,7 +25,7 @@ exports.default = {
       bookingsInOtherEstablishments:
         'The member’s booking {{- bookingName}} is scheduled in a different establishment : {{- establishmentName }}',
       noPasses: 'The member has no active pass with credits left',
-      passIsDisabled: "The member's pass {{- passName }} is disabled",
+      passIsDisabled: 'The member pass {{- passName }} is currently blocked',
       passLinkedToPausedSubscription:
         "The member's pass {{- passName }} is linked to a paused subscription",
       passRestrictedToVod:

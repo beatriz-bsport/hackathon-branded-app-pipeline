@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import {
@@ -96,6 +95,7 @@ const _getByOfferByMemberBase = (state: RootState) => {
 
 export const getByOfferByMember = createSelector(
   _getByOfferByMemberBase,
+  // @ts-expect-error typing not up-to-date
   (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
 );
 
@@ -105,6 +105,7 @@ const _getNonCompatibleByOfferByMemberBase = (state: RootState) => {
 
 export const getNonCompatibleByOfferByMember = createSelector(
   _getNonCompatibleByOfferByMemberBase,
+  // @ts-expect-error typing not up-to-date
   (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
 );
 

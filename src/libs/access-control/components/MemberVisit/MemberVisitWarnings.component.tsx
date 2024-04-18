@@ -7,7 +7,7 @@ import { MemberVisitREST } from '#libs/access-control/types';
 import { AccessStatus } from '#libs/access-control/constants';
 import { getMemberVisitWarnings } from '#libs/access-control/utils';
 
-type Props = {
+export type Props = {
   isLoading: boolean;
   memberVisit: MemberVisitREST;
 };

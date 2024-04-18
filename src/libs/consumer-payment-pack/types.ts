@@ -15,6 +15,18 @@ export type ConsumerPaymentPackExtension = {
   id: number;
 };
 
+export type ConsumerPaymentPackExtensionParams = {
+  page_size?: number;
+  page: number;
+  consumer_payment_pack: number;
+};
+
+export type ConsumerPaymentPackExtensionCreate = {
+  nb_days: number;
+  note: string;
+  consumer_payment_pack: number;
+};
+
 export type ConsumerPaymentPack<PP = number> = {
   available_credits: number;
   bookings: number[];

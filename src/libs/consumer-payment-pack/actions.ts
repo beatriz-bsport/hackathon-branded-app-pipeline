@@ -1,7 +1,11 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
@@ -9,9 +13,9 @@ import {
   fetchNonCompatibleByOfferByMember as fetchNonCompatibleByOfferByMemberAPI,
   fetchIncompatibilitiesReasonsByOfferByConsumerPack as fetchIncompatibilitiesReasonsByOfferByConsumerPackAPI,
   fetchConsumerPackList as fetchConsumerPaymentPackListAPI,
-  fetchExtensions as fetchExtensionListAPI,
-  createExtension as createExtensionAPI,
-  deleteExtension as deleteExtensionAPI,
+  fetchConsumerPaymentPackExtensionList as fetchConsumerPaymentPackExtensionListAPI,
+  createConsumerPaymentPackExtension as createConsumerPaymentPackExtensionAPI,
+  deleteConsumerPaymentPackExtension as deleteConsumerPaymentPackExtensionAPI,
   refundConsumerPaymentPack as refundConsumerPaymentPackAPI,
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAPI,
   addCreditToConsumerPack as addCreditAPI,
@@ -23,7 +27,15 @@ import {
   fetchByOfferByMemberV2 as fetchByOfferByMemberV2API,
 } from './api';
 
-import type { ConsumerPaymentPack } from './types';
+import type {
+  ConsumerPaymentPack,
+  ConsumerPaymentPackExtension,
+  ConsumerPaymentPackExtensionCreate,
+  ConsumerPaymentPackExtensionParams,
+} from './types';
+import type { RootState } from '../../reducers';
+
+import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from './constants';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -499,81 +511,107 @@ export function fetchConsumerPaymentPackForBooking(
   };
 }
 
-// BEGIN Extension
-//
-// ----------------------------
-//
-export const extensionListActions = {
-  isLoading: createAction('CONSUMER_PACK_EXTENSION/LIST/IS_LOADING'),
-  error: createAction('CONSUMER_PACK_EXTENSION/LIST/ERROR'),
-  success: createAction('CONSUMER_PACK_EXTENSION/LIST/SUCCESS'),
+export const fetchConsumerPaymentPackExtensionListActions = {
+  isLoading: createAction<boolean>('CONSUMER_PACK/EXTENSION_LIST/LOADING'),
+  error: createAction<Error | null>('CONSUMER_PACK/EXTENSION_LIST/ERROR'),
+  success: createAction<PaginatedResponse<ConsumerPaymentPackExtension>>(
+    'CONSUMER_PACK/EXTENSION_LIST/SUCCESS',
+  ),
 };
 
-export function fetchPackExtensions(consumerPaymentPackId: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(extensionListActions.isLoading(true));
-    dispatch(extensionListActions.error(null));
+/**
+ * Fetch the list of extensions for a specific consumer payment pack
+ * @param params Object containing the required `consumer_payment_pack` ID + optional pagination params
+ */
+export function fetchConsumerPaymentPackExtensionList(
+  params: ConsumerPaymentPackExtensionParams,
+  options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackExtension>>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchConsumerPaymentPackExtensionListActions.isLoading(true));
+    dispatch(fetchConsumerPaymentPackExtensionListActions.error(null));
+
+    const page = getState().consumerPaymentPack.extension.page ?? 1;
     try {
-      const response = await fetchExtensionListAPI(consumerPaymentPackId);
-      dispatch(extensionListActions.success(response.data.results));
+      const response = await fetchConsumerPaymentPackExtensionListAPI({
+        ...params,
+        page: params.page ?? page,
+        page_size: CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE,
+      });
+
+      dispatch(
+        fetchConsumerPaymentPackExtensionListActions.success(response.data),
+      );
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
-      dispatch(extensionListActions.error(error));
+      dispatch(fetchConsumerPaymentPackExtensionListActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(fetchConsumerPaymentPackExtensionListActions.isLoading(false));
     }
-    dispatch(extensionListActions.isLoading(false));
   };
 }
 
-export const extensionCreateActions = {
-  isLoading: createAction('CONSUMER_PACK_EXTENSION/CREATE/IS_LOADING'),
-  error: createAction('CONSUMER_PACK_EXTENSION/CREATE/ERROR'),
-  success: createAction('CONSUMER_PACK_EXTENSION/CREATE/SUCCESS'),
+export const createConsumerPaymentPackExtensionActions = {
+  isLoading: createAction<boolean>('CONSUMER_PACK/EXTENSION/CREATE/LOADING'),
+  error: createAction<Error | null>('CONSUMER_PACK/EXTENSION/CREATE/ERROR'),
 };
 
-export function createPackExtension(data: any, options?: OptionCallback) {
+/**
+ * Create an extension for a consumer payment pack
+ * @param data The payload sent for the creation of the extension
+ */
+export function createConsumerPaymentPackExtension(
+  data: ConsumerPaymentPackExtensionCreate,
+  options?: OptionCallback<ConsumerPaymentPackExtension>,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(extensionCreateActions.isLoading(true));
-    dispatch(extensionCreateActions.error(null));
+    dispatch(createConsumerPaymentPackExtensionActions.isLoading(true));
+    dispatch(createConsumerPaymentPackExtensionActions.error(null));
     try {
-      const response = await createExtensionAPI(data);
-      dispatch(extensionCreateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      const response = await createConsumerPaymentPackExtensionAPI(data);
+
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
-      dispatch(extensionCreateActions.error(error));
-      if (options && options.onError) options.onError();
+      dispatch(createConsumerPaymentPackExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(createConsumerPaymentPackExtensionActions.isLoading(false));
     }
-    dispatch(extensionCreateActions.isLoading(false));
   };
 }
 
-export const extensionDeleteActions = {
-  isLoading: createAction('CONSUMER_PACK_EXTENSION/DELETE/IS_LOADING'),
-  error: createAction('CONSUMER_PACK_EXTENSION/DELETE/ERROR'),
-  success: createAction('CONSUMER_PACK_EXTENSION/DELETE/SUCCESS'),
+export const deleteConsumerPaymentPackExtensionActions = {
+  isLoading: createAction<boolean>('CONSUMER_PACK/EXTENSION/DELETE/LOADING'),
+  error: createAction<Error | null>('CONSUMER_PACK/EXTENSION/DELETE/ERROR'),
 };
 
-export function deletePackExtension(id: number, options?: OptionCallback) {
+/**
+ * Delete a consumer payment pack extension
+ * @param id The ID of the extension to delete
+ */
+export function deleteConsumerPaymentPackExtension(
+  id: number,
+  options?: OptionCallback<number>,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(extensionDeleteActions.isLoading(true));
-    dispatch(extensionDeleteActions.error(null));
+    dispatch(deleteConsumerPaymentPackExtensionActions.isLoading(true));
+    dispatch(deleteConsumerPaymentPackExtensionActions.error(null));
     try {
-      await deleteExtensionAPI(id);
-      dispatch(extensionDeleteActions.success(id));
-      if (options && options.onSuccess) options.onSuccess();
+      await deleteConsumerPaymentPackExtensionAPI(id);
+
+      options?.onSuccess?.(id);
     } catch (error) {
       console.error(error);
-      dispatch(extensionDeleteActions.error(error));
-      if (options && options.onError) options.onError();
+      dispatch(deleteConsumerPaymentPackExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(deleteConsumerPaymentPackExtensionActions.isLoading(false));
     }
-    dispatch(extensionDeleteActions.isLoading(false));
   };
 }
-
-//
-// ----------------------------
-//
-// END Extension
 
 export const listConsumerPaymentPackCompatibleActions = {
   isLoading: createAction('CONSUMER_PACK/COMPATIBLE_LIST/IS_LOADING'),

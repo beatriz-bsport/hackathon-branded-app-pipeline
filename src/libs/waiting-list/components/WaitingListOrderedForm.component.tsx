@@ -32,7 +32,7 @@ const WaitingListOrderedForm: React.FC<Props> = ({
   handleNumericFieldChange,
 }) => {
   const { t } = useTranslation('waitingList');
-  const { values, errors } =
+  const { values, errors, setFieldValue } =
     useFormikContext<WaitingListConfigurationFormikValues>();
   const classes = useStyles();
 
@@ -72,6 +72,16 @@ const WaitingListOrderedForm: React.FC<Props> = ({
     values.autokickDelay,
     values.dumbDelayMinutes,
     values.smartDelayPercentage,
+  ]);
+
+  React.useEffect(() => {
+    if (!values.autoConsumePack && values.kickIfNoPackWhenAutoConsume) {
+      setFieldValue('kickIfNoPackWhenAutoConsume', false);
+    }
+  }, [
+    values.autoConsumePack,
+    values.kickIfNoPackWhenAutoConsume,
+    setFieldValue,
   ]);
 
   return (

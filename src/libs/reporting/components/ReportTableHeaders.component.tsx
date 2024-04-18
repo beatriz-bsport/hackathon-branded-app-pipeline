@@ -1,14 +1,14 @@
 // @ts-nocheck
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 
-import { ReportHeader } from '../types';
-import { getConverter } from '../utils';
+import { getConverter } from '#libs/reporting/utils';
+import type { ReportHeader } from '#libs/reporting/types';
 
 const CardHeaders: React.FC<{
   headerTitle?: 'average' | 'sum';
@@ -18,25 +18,26 @@ const CardHeaders: React.FC<{
     column_value: null | number;
   }[];
   reportCategory: string;
-}> = ({ headerDetails, headerTitle, reportCategory }) => {
+}> = React.memo(({ headerDetails, headerTitle, reportCategory }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
-  const converters = headerDetails.map((config) =>
-    getConverter(config, classes, t, reportCategory),
+  const converters = (headerDetails || []).map((detail) =>
+    getConverter(detail, classes, t, reportCategory),
   );
+
   return (
     <div>
       <Typography className={classes.headerSectionTitle} variant="h6">
         {t(`header.${(headerTitle || '').toLowerCase()}`)}
       </Typography>
       <Grid container direction="row" spacing={2}>
-        {headerDetails.map((colum, index) => {
+        {headerDetails.map((detail, index) => {
           return (
             <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
               <Card className={classes.cardStyle} elevation={1}>
                 <Typography variant="body2">
-                  {t(`columns.${colum.column_identifier}`)}
+                  {t(`columns.${detail.column_identifier}`)}
                 </Typography>
                 <div
                   style={{
@@ -49,9 +50,10 @@ const CardHeaders: React.FC<{
                 >
                   <Typography
                     variant="h5"
-                    {...(converters[index](colum.column_value).cellProps || {})}
+                    {...(converters[index](detail.column_value).cellProps ||
+                      {})}
                   >
-                    {converters[index](colum.column_value).value}
+                    {converters[index](detail.column_value).value}
                   </Typography>
                 </div>
               </Card>
@@ -61,7 +63,7 @@ const CardHeaders: React.FC<{
       </Grid>
     </div>
   );
-};
+});
 
 const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
@@ -71,18 +73,16 @@ const ReportTableHeaders: React.FC<{
 
   return (
     <div className={classes.container}>
-      {reportHeaders &&
-        reportHeaders.averageable &&
-        reportHeaders.averageable.length !== 0 && (
+      {!!reportHeaders?.averageable?.length &&
+        reportHeaders.averageable.length > 0 && (
           <CardHeaders
             headerDetails={reportHeaders.averageable}
             headerTitle="average"
             reportCategory={reportCategory}
           />
         )}
-      {reportHeaders &&
-        reportHeaders.summable &&
-        reportHeaders.summable.length !== 0 && (
+      {!!reportHeaders?.averageable?.length &&
+        reportHeaders.averageable.length > 0 && (
           <CardHeaders
             headerDetails={reportHeaders.summable}
             headerTitle="sum"
@@ -93,7 +93,7 @@ const ReportTableHeaders: React.FC<{
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
@@ -113,4 +113,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default ReportTableHeaders;
+export default React.memo(ReportTableHeaders);

@@ -12,15 +12,15 @@ import ReportGenerationForm from './ReportGenerationForm.component';
 import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
 
-import {
+import type {
   ReportConfiguration,
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadata,
   SerializedRow,
-} from '../types';
+} from '#libs/reporting/types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
-import { getColumn, getReportObjectPermissions } from '../utils';
+import { getColumn, getReportObjectPermissions } from '#libs/reporting/utils';
 import { OptionCallback } from '../../../state/types';
 import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
@@ -250,4 +250,4 @@ const ReportGeneration: React.FC<Props> = ({
   );
 };
 
-export default ReportGeneration;
+export default React.memo(ReportGeneration);

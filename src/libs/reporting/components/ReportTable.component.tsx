@@ -108,7 +108,7 @@ const ReportTable: React.FC<TableProps> = ({
   const { columns = [] } = report;
 
   const columnsConfigs = React.useMemo(
-    () => columns?.map((c) => getColumn(metadata, report, c)) ?? [],
+    () => columns?.map((column) => getColumn(metadata, report, column)) ?? [],
     [columns, metadata, report],
   );
 

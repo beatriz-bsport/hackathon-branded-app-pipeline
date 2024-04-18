@@ -83,6 +83,8 @@
     var(--bs-consumer-booking-details-card__header-picture);
   height: var(--bs-consumer-booking-details-card-header-height);
   margin-bottom: var(--bs-space-size-4);
+  /*We need to set this property for the widget, as the default value set by the cleanslate is content-box*/
+  box-sizing: border-box;
 }
 
 .bs-consumer-booking-details-card__header-section__summary {

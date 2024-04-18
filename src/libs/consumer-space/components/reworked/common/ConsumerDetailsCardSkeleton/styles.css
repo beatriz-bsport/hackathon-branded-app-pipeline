@@ -13,6 +13,7 @@
   padding: var(--bs-space-size-4);
   margin-bottom: var(--bs-space-size-4);
   border-radius: var(--bs-border-radius-sm);
+  box-sizing: border-box;
 }
 
 .bs-consumer-details-card-skeleton__section__title {

@@ -31,6 +31,16 @@ import {
   fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
   fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
   fetchMyPastPrivateBookingAsMember as fetchMyPastPrivateBookingAsMemberAction,
+  fetchConsumerPassesTabDisplay as fetchConsumerPassesTabDisplayAction,
+  fetchMyActiveConsumerPaymentPacksAsMember as fetchMyActiveConsumerPaymentPacksAsMemberAction,
+  fetchMyActivePrivateConsumerPassesAsMember as fetchMyActivePrivateConsumerPassesAsMemberAction,
+  fetchMyActiveUniversalPassesAsMember as fetchMyActiveUniversalPassesAsMemberAction,
+  fetchMyExpiredConsumerPaymentPacksAsMember as fetchMyExpiredConsumerPaymentPacksAsMemberAction,
+  fetchMyExpiredPrivateConsumerPassesAsMember as fetchMyExpiredPrivateConsumerPassesAsMemberAction,
+  fetchMyExpiredUniversalPassesAsMember as fetchMyExpiredUniversalPassesAsMemberAction,
+  fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
+  fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
+  fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
 } from '#libs/consumer-space/actions';
 
 import {
@@ -67,6 +77,8 @@ import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
+  fetchPrivatePassBulk,
+  fetchPrivateServiceCompatiblePassList,
 } from '#libs/private-service/actions';
 
 // TYPES
@@ -84,6 +96,10 @@ import {
   BsportRequestFromHeaderValue,
 } from '../../constants';
 import actionsBinder from '#libs/widget/actionsBinder';
+import {
+  fetchRelatedMembersNamesByConsumerPaymentPackLinks,
+  fetchRelatedMembersNamesByPrivateConsumerPassLinks,
+} from '#libs/relationship/actions';
 
 type OwnProps = {
   companyId: number;
@@ -397,6 +413,29 @@ const mapDispatchToProps = {
   cancelBookingAsMember: cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
   cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,
+  fetchConsumerPassesTabDisplay: fetchConsumerPassesTabDisplayAction,
+  fetchMyActiveConsumerPaymentPacksAsMember:
+    fetchMyActiveConsumerPaymentPacksAsMemberAction,
+  fetchMyActivePrivateConsumerPassesAsMember:
+    fetchMyActivePrivateConsumerPassesAsMemberAction,
+  fetchMyActiveUniversalPassesAsMember:
+    fetchMyActiveUniversalPassesAsMemberAction,
+  fetchMyExpiredConsumerPaymentPacksAsMember:
+    fetchMyExpiredConsumerPaymentPacksAsMemberAction,
+  fetchMyExpiredPrivateConsumerPassesAsMember:
+    fetchMyExpiredPrivateConsumerPassesAsMemberAction,
+  fetchMyExpiredUniversalPassesAsMember:
+    fetchMyExpiredUniversalPassesAsMemberAction,
+  fetchMyFutureConsumerPaymentPacksAsMember:
+    fetchMyFutureConsumerPaymentPacksAsMemberAction,
+  fetchMyFuturePrivateConsumerPassesAsMember:
+    fetchMyFuturePrivateConsumerPassesAsMemberAction,
+  fetchMyFutureUniversalPassesAsMember:
+    fetchMyFutureUniversalPassesAsMemberAction,
+  fetchRelatedMembersNamesByConsumerPaymentPackLinks,
+  fetchRelatedMembersNamesByPrivateConsumerPassLinks,
+  fetchPrivatePassBulk,
+  fetchPrivateServiceCompatiblePassList,
 };
 
 export default compose(

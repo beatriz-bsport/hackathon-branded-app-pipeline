@@ -69,7 +69,7 @@ import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/co
 
 import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
 import {
-  getConsumerPaymentPackExtensions,
+  getConsumerPaymentPackExtensionList,
   getConsumerPack,
   getConsumerPaymentPackByMember,
   withPaymentPack,
@@ -721,7 +721,7 @@ export default compose(
         loading: state.consumerPaymentPack.penalty.loading,
       },
       consumerPaymentPacksLoadingById: state.consumerPaymentPack.updatingById,
-      passExtensions: getConsumerPaymentPackExtensions(state),
+      passExtensions: getConsumerPaymentPackExtensionList(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       passExtensionCreationLoading:
         state.consumerPaymentPack.extension.create.loading,

@@ -20,8 +20,22 @@ export const getByPaymentPack = createSelector(
 export const getConsumerPack = (state: RootState, id: number) =>
   state.consumerPaymentPack.byId[id];
 
-export const getConsumerPaymentPackExtensions = (state: RootState) =>
-  state.consumerPaymentPack.extension.items;
+export const getConsumerPaymentPackExtensionState = (state: RootState) =>
+  state.consumerPaymentPack.extension;
+
+export const getConsumerPaymentPackExtensionsAllIds = (state: RootState) =>
+  state.consumerPaymentPack.extension.allIds;
+
+export const getConsumerPaymentPackExtensionsById = (state: RootState) =>
+  state.consumerPaymentPack.extension.byId;
+
+export const getConsumerPaymentPackExtensionList = createSelector(
+  [
+    getConsumerPaymentPackExtensionsAllIds,
+    getConsumerPaymentPackExtensionsById,
+  ],
+  (allIds, data) => allIds.map((id) => data[id]),
+);
 
 export const getConsumerPacksWithPaymentPack = createSelector(
   [getAllData, getPaymentPacks, getPaymentPackById],

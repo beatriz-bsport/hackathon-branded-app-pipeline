@@ -25,11 +25,11 @@ const AccessStatusChip: React.FC<Props> = ({
   // Recursively render the chips if the access status has changed (max depth = 2)
   if (!!initialAccessStatus && initialAccessStatus !== accessStatus) {
     return (
-      <>
+      <div className={classes.chipsContainer}>
         <AccessStatusChip accessStatus={initialAccessStatus} />
         <ChevronRightIcon color="disabled" />
         <AccessStatusChip accessStatus={accessStatus} />
-      </>
+      </div>
     );
   }
 
@@ -108,6 +108,10 @@ const useStyles = makeStyles<Theme, { accessStatus: AccessStatus }>(
             return theme.palette.success.dark;
         }
       },
+    },
+    chipsContainer: {
+      display: 'flex',
+      alignItems: 'center',
     },
   }),
 );

@@ -41,7 +41,7 @@ exports.default = {
       'A teacher with this email address already exists, please use the new teacher form',
     errorInvalidURL: 'Please enter a valid URL',
     errorLinkLength: 'The URL provided is too long (max 150)',
-    errorDescription: 'The description provided is too long (max 500)',
+    errorDescription: 'The description provided is too long (max 1000)',
     linkByEmail: {
       cancel: 'Cancel',
       submit: 'Confirm',

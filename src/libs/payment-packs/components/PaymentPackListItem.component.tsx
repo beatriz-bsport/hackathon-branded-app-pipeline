@@ -26,18 +26,19 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import StyleIcon from '@material-ui/icons/Style';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '../../../components/Tooltip.component';
+import Tooltip from '#components/Tooltip.component';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '../../theme/selectors';
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';
-import { MaterialStyleType } from '../../../utils/types';
+import { MaterialStyleType } from '#utils/types';
 
 type OwnProps = {
   pack: PaymentPack;
@@ -151,8 +152,8 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             secondary={`${
               !this.props.pack.unlimited
                 ? this.props.t('specifications.nbCredits', {
-                    count: this.props.pack.credits / getCreditFactor(),
-                    credits: this.props.pack.credits / getCreditFactor(),
+                    count: getCreditsDividedValue(this.props.pack.credits),
+                    credits: getCreditsDividedDisplay(this.props.pack.credits),
                   })
                 : this.props.t('specifications.unlimitedCredits')
             } - ${getCurrencyDisplayWithPrice(

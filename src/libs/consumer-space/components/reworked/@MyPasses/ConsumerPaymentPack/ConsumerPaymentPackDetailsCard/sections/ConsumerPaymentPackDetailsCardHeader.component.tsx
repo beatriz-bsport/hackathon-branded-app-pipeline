@@ -8,7 +8,7 @@ import ConsumerCardSection from '#libs/consumer-space/components/reworked/common
 import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 
 import { useConsumerPassDetailsCardHeaderData } from '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/DetailsCard/hooks';
-import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 
 type Props = {
   creditsLeft: number;
@@ -61,10 +61,12 @@ const ConsumerPaymentPackDetailsCardHeader: React.FC<Props> = ({
     >
       {!isMobile && (
         <ConsumerPaymentPackCreditStatus
-          consumerPaymentPackAvailableCredits={creditsLeft / getCreditFactor()}
-          consumerPaymentPackUsedCredits={usedCredits / getCreditFactor()}
+          consumerPaymentPackAvailableCredits={getCreditsDividedValue(
+            creditsLeft,
+          )}
+          consumerPaymentPackUsedCredits={getCreditsDividedValue(usedCredits)}
           isPaymentPackUnlimited={isUnlimited}
-          paymentPackTotalCredits={totalCredits / getCreditFactor()}
+          paymentPackTotalCredits={getCreditsDividedValue(totalCredits)}
         />
       )}
       <List

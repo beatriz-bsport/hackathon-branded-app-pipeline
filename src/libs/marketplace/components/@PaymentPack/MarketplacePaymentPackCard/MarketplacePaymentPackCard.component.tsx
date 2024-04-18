@@ -17,10 +17,8 @@ import GridItem, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
-import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
@@ -53,7 +51,7 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
     : t('genericCard.credits.availableCredit', {
-        count: paymentPack.credits / getCreditFactor(),
+        count: getCreditsDividedValue(paymentPack?.credits),
       });
 
   const handleAddToCart = useCallback(

@@ -7,7 +7,10 @@ import moment from 'moment-timezone';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCreditFactor } from '#libs/theme/selectors';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 import './styles.css';
 
@@ -72,14 +75,12 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
         ...classes,
       })}
     >
-      {`${
-        (consumerPaymentPack.available_credits ||
-          paymentPack.credits - consumerPaymentPack.used_credits) /
-        getCreditFactor()
-      } / ${paymentPack.credits / getCreditFactor()} ${t(
-        paymentPack.credits / getCreditFactor() > 1
-          ? 'paymentPack:credits_plural'
-          : 'paymentPack:credits',
+      {`${getCreditsDividedDisplay(
+        consumerPaymentPack.available_credits ||
+          paymentPack.credits - consumerPaymentPack.used_credits,
+      )} / ${getCreditsDividedDisplay(paymentPack.credits)} ${t(
+        'paymentPack:credits',
+        { count: getCreditsDividedValue(paymentPack.credits) },
       ).toLowerCase()}`}
     </span>
   );

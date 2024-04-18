@@ -18,7 +18,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-import { getCreditFactor } from '#libs/theme/selectors';
 import {
   getPassDate,
   getSpecificIncompatibilitiesReasons,
@@ -31,6 +30,7 @@ import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../state/types';
 import type { PrivateConsumerPass } from '#libs/private-service/types';
 import type { Member } from '#libs/member/types';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   button?: Node;
@@ -328,11 +328,11 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
                   )}
                   <Typography variant="caption">
                     {t('consumerPass.current_credits', {
-                      credits: private_pass.credits / getCreditFactor(),
-                      current_credits:
-                        (private_pass.credits -
-                          private_consumer_pass.used_credits) /
-                        getCreditFactor(),
+                      credits: getCreditsDividedDisplay(private_pass.credits),
+                      current_credits: getCreditsDividedDisplay(
+                        private_pass.credits -
+                          private_consumer_pass.used_credits,
+                      ),
                     })}
                   </Typography>
                 </div>

@@ -10,12 +10,13 @@ import {
   PaymentPack,
   PaymentPackTemplate,
   MaxoutData,
-} from '../../payment-packs/types';
-import { getValidityInfo } from '../../payment-packs/utils';
+} from '#libs/payment-packs/types';
 import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '../../theme/selectors';
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getValidityInfo } from '#libs/payment-packs/utils';
 import Tooltip from '#components/Tooltip.component';
 
 interface Props {
@@ -27,11 +28,14 @@ interface Props {
 const PaymentPackItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);
-  const dividedCredits = props.paymentPack.credits / getCreditFactor();
+  const dividedCreditsValue = getCreditsDividedValue(props.paymentPack.credits);
+  const dividedCreditsDisplay = getCreditsDividedDisplay(
+    props.paymentPack.credits,
+  );
   const credits = !props.paymentPack.unlimited
     ? t('paymentPack:specifications.nbCredits', {
-        credits: dividedCredits,
-        count: dividedCredits,
+        credits: dividedCreditsDisplay,
+        count: dividedCreditsValue,
       })
     : t('paymentPack:specifications.unlimitedCredits');
 

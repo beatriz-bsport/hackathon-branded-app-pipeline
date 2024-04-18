@@ -73,11 +73,13 @@ import {
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
 import type { SvgIconProps } from '@material-ui/core/SvgIcon';
+
 import {
-  getCreditFactor,
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
-} from '../theme/selectors';
+} from '#libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
+
 import type {
   ReportCategory,
   ReportMetadataColumn,
@@ -317,6 +319,7 @@ export const getConverter = (
         };
       }
     }
+
     const creditsColumns = [
       'credits',
       'available_credits',
@@ -326,16 +329,15 @@ export const getConverter = (
       const shouldBeDivided =
         reportCategory === 'memberships' &&
         creditsColumns.includes(column.column_identifier || column.identifier);
+
       if (shouldBeDivided) {
-        let dividedValue = value ? value / getCreditFactor() : 0;
-        if (dividedValue % 1 !== 0) {
-          dividedValue = dividedValue.toFixed(1);
-        }
+        const dividedValue = getCreditsDividedDisplay(parseInt(value, 10));
         return {
           cellProps: { className: classes.right },
           value: dividedValue,
         };
       }
+
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },
@@ -343,6 +345,7 @@ export const getConverter = (
         };
       }
     }
+
     if (datatype === 'percent') {
       if (typeof value === 'number' || !value) {
         return {

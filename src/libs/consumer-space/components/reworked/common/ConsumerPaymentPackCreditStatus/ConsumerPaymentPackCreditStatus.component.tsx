@@ -5,10 +5,13 @@ import classNames from 'classnames';
 import moment from 'moment-timezone';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCreditFactor } from '#libs/theme/selectors';
 import Typography from '#Fabrique/Typography';
 
 import './styles.css';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 export type Props = {
   className?: string;
@@ -99,12 +102,11 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
       )}
       variant="body-sm"
     >
-      {`${
-        (consumerPaymentPackAvailableCredits ||
-          paymentPackTotalCredits - consumerPaymentPackUsedCredits) /
-        getCreditFactor()
-      }/${paymentPackTotalCredits / getCreditFactor()}\xa0${t(
-        paymentPackTotalCredits / getCreditFactor() > 1
+      {`${getCreditsDividedDisplay(
+        consumerPaymentPackAvailableCredits ||
+          paymentPackTotalCredits - consumerPaymentPackUsedCredits,
+      )}/${getCreditsDividedDisplay(paymentPackTotalCredits)}\xa0${t(
+        getCreditsDividedValue(paymentPackTotalCredits) > 1
           ? 'paymentPack:credits_plural'
           : 'paymentPack:credits',
       ).toLowerCase()}`}

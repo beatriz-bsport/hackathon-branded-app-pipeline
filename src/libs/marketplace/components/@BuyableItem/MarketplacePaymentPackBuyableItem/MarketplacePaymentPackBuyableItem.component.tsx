@@ -15,10 +15,8 @@ import GridItem from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import Button from '#components/css-only/Fabrique/Button';
-import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 import { useValidityInfoForPaymentPackCard } from '#libs/marketplace/utils/payment-pack';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import RecommendedChip from '#components/css-only/RecommendedChip';
@@ -49,7 +47,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
     : t('genericCard.credits.availableCredit', {
-        count: (paymentPack?.credits ?? 0) / getCreditFactor(),
+        count: getCreditsDividedValue(paymentPack?.credits ?? 0),
       });
 
   const descriptionText = useIsTextExpandable(showAllDescription);

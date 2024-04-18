@@ -5,10 +5,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '../../theme/selectors';
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '../../theme/utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
@@ -21,7 +22,10 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const description = props.creditRefund.credits
     ? t('consumerPaymentPack.refund.description', {
-        credits: props.creditRefund.credits / getCreditFactor(),
+        credits: getCreditsDividedDisplay(
+          parseInt(props.creditRefund.credits, 10),
+        ),
+        count: getCreditsDividedValue(parseInt(props.creditRefund.credits, 10)),
         note: props.creditRefund.note,
       })
     : props.creditRefund.note;

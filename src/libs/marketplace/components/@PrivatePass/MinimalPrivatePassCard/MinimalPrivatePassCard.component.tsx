@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import {
-  getCreditFactor,
-  getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 import Card, { CardSize } from '#csscomponents/Card';
 import Grid from '#csscomponents/Grid';
 import CardContent from '#csscomponents/Card/CardContent';
@@ -43,7 +41,7 @@ const MinimalPrivatePassCard: React.FC<Props> = ({
   const formattedQuantity = quantity && `x${nbsp}${quantity}`;
 
   const formattedCredits = t('genericCard.credits.availableCredit', {
-    count: privatePass.credits / getCreditFactor(),
+    count: getCreditsDividedValue(privatePass.credits),
   });
 
   return (

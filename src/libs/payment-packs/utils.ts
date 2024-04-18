@@ -2,12 +2,10 @@
 import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment-timezone';
 import omit from 'lodash/omit';
-import {
-  getCurrencyDisplayWithPrice,
-  getCreditFactor,
-} from '../theme/selectors';
-import { formatAsDate } from '../../utils/datetime';
-import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { formatAsDate } from '#utils/datetime';
+import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import {
   OffPeakSchedule,
   PaymentPack,
@@ -306,10 +304,10 @@ export const getMarketplaceSearchItemIndicator = (
   }
   return paymentPack?.credits > 1
     ? t('paymentPack:specifications.nbCredits_plural', {
-        credits: paymentPack.credits / getCreditFactor(),
+        credits: getCreditsDividedDisplay(paymentPack.credits),
       })
     : t('paymentPack:specifications.nbCredits', {
-        credits: paymentPack.credits / getCreditFactor(),
+        credits: getCreditsDividedDisplay(paymentPack.credits),
       });
 };
 

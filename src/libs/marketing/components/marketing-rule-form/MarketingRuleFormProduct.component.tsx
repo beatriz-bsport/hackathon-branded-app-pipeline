@@ -41,6 +41,7 @@ import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -562,7 +563,7 @@ export default compose<any, Props>(
           payment_pack_id,
           private_pass_id,
           days_left: Math.abs(days_left) || 0,
-          credits_left: (credits_left || 0) / getCreditFactor(),
+          credits_left: getCreditsDividedValue(credits_left || 0),
           smartlist_include: smartlist_include || [],
           smartlist_exclude: smartlist_exclude || [],
           hours: Math.abs(hours) || 0,

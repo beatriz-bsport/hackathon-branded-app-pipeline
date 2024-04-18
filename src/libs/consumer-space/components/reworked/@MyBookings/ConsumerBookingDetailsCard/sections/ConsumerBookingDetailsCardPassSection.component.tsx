@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 import Typography from '#Fabrique/Typography';
-import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 
 type Props = {
   paymentPackName: string;
@@ -57,7 +57,7 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
           )}
           consumerPaymentPackAvailableCredits={
             isPaymentPack
-              ? consumerPaymentPackAvailableCredits / getCreditFactor()
+              ? getCreditsDividedValue(consumerPaymentPackAvailableCredits)
               : consumerPaymentPackAvailableCredits
           }
           consumerPaymentPackPenaltyDisabledFrom={
@@ -68,14 +68,14 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
           }
           consumerPaymentPackUsedCredits={
             isPaymentPack
-              ? consumerPaymentPackUsedCredits / getCreditFactor()
+              ? getCreditsDividedValue(consumerPaymentPackUsedCredits)
               : consumerPaymentPackUsedCredits
           }
           isConsumerPaymentPackDisabled={isConsumerPaymentPackDisabled}
           isPaymentPackUnlimited={isPaymentPackUnlimited}
           paymentPackTotalCredits={
             isPaymentPack
-              ? paymentPackTotalCredits / getCreditFactor()
+              ? getCreditsDividedValue(paymentPackTotalCredits)
               : paymentPackTotalCredits
           }
         />

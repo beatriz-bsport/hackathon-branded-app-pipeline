@@ -19,7 +19,7 @@ import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/ty
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
-import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 
 type Props = {
   isMobile?: boolean;
@@ -103,7 +103,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item.id}
-              creditsLeft={item.available_credits / getCreditFactor()}
+              creditsLeft={getCreditsDividedValue(item.available_credits)}
               expirationDate={item.ending_date}
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
@@ -117,7 +117,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
               isUnlimited={!item.payment_pack?.credits}
               passName={item.payment_pack?.name}
               startDate={item.starting_date}
-              totalCredits={item.payment_pack?.credits / getCreditFactor()}
+              totalCredits={getCreditsDividedValue(item.payment_pack?.credits)}
             />
           )}
         />

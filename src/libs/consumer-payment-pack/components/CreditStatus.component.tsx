@@ -7,7 +7,10 @@ import { Variant } from '@material-ui/core/styles/createTypography';
 
 import { ConsumerPaymentPack } from '../types';
 import { PaymentPack } from '../../payment-packs/types';
-import { getCreditFactor } from '#libs/theme/selectors';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 type OwnProps = {
   consumerPack?: ConsumerPaymentPack<number | PaymentPack>;
@@ -60,6 +63,9 @@ export const CreditStatus = (props: Props) => {
       </Typography>
     );
   }
+
+  const availableCredits =
+    available_credits || credits - consumerPack?.used_credits;
   return (
     <Typography
       color={
@@ -69,10 +75,11 @@ export const CreditStatus = (props: Props) => {
       component="span"
       variant={props.variant || 'caption'}
     >
-      {`${
-        (available_credits || credits - consumerPack?.used_credits) /
-        getCreditFactor()
-      } / ${credits / getCreditFactor()} ${props.t('credits').toLowerCase()}`}
+      {`${getCreditsDividedDisplay(
+        availableCredits,
+      )} / ${getCreditsDividedDisplay(credits)} ${props
+        .t('credits', { count: getCreditsDividedValue(availableCredits) })
+        .toLowerCase()}`}
     </Typography>
   );
 };

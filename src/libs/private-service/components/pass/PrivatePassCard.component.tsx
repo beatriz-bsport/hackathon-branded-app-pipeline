@@ -24,16 +24,17 @@ import {
   CB,
   CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
-import {
-  getCreditFactor,
-  getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import RedButton from '#components/button/RedButton.component';
 import { getValidityInfo } from '../../utils';
 
 import type { PrivatePass, PrivatePassCategory } from '../../types';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 type Props = {
   pass: PrivatePass;
@@ -138,10 +139,10 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                       color="textSecondary"
                       variant="caption"
                     >
-                      {`${pass.credits / getCreditFactor()}${t(
+                      {`${getCreditsDividedDisplay(pass.credits)}${t(
                         'privatePass.parameters.nbCredits',
                         {
-                          count: pass.credits / getCreditFactor(),
+                          count: getCreditsDividedValue(pass.credits),
                         },
                       ).toLowerCase()}`}
                     </Typography>

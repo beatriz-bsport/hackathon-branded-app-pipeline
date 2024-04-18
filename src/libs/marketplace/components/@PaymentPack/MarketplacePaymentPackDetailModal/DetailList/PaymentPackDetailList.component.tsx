@@ -15,10 +15,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import {
-  getCreditFactor,
-  getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedValue } from '#libs/theme/utils';
 
 import {
   useCompatibilityInfoForPaymentPackDetailCard,
@@ -109,7 +107,7 @@ const PaymentPackDetailList: React.FC<Props> = ({
               <StarIcon />
             </span>
             {t('genericCardDetails.credits.availableCredit', {
-              count: paymentPack.credits / getCreditFactor(),
+              count: getCreditsDividedValue(paymentPack.credits),
             })}
           </li>
         ))}

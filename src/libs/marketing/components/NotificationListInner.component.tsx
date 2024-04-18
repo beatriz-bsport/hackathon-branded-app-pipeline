@@ -13,12 +13,15 @@ import { MarketingNotification } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { SmartList } from '../../smart-list/types';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#libs/payment-packs/utils';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 const getLabelForRules = (
   notification: MarketingNotification,
@@ -65,8 +68,8 @@ const getLabelForRules = (
     notification.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT
   ) {
     const creditsLeftLabel = t('paymentPack:notification.creditsLeftLabel', {
-      credit: notification.event_rules.credits_left / getCreditFactor(),
-      count: notification.event_rules.credits_left / getCreditFactor(),
+      credit: getCreditsDividedDisplay(notification.event_rules.credits_left),
+      count: getCreditsDividedValue(notification.event_rules.credits_left),
     });
     const { kind, hours } = notification.event_rules;
     if (kind !== undefined && hours) {

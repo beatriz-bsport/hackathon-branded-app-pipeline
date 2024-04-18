@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
-import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   onBookFromPack: () => void,
@@ -31,7 +31,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
       return t('payment.bookWithUnlimitedPack');
     }
 
-    return `${creditPrice / getCreditFactor()} ${t(
+    return `${getCreditsDividedDisplay(parseInt(creditPrice, 10))} ${t(
       'payment.payWithNCredits2',
     )}`;
   };

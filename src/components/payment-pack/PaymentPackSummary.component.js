@@ -8,10 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { getValidityInfo } from '#libs/payment-packs/utils';
-import {
-  getCreditFactor,
-  getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   t: TFunction,
@@ -29,7 +27,7 @@ export function PaymentPackMinimalSummary(props: Props) {
 
   const creditsFormatted = unlimited
     ? t('unlimitedCredits')
-    : `${t('credits')}: ${credits / getCreditFactor()}`;
+    : `${t('credits')}: ${getCreditsDividedDisplay(parseInt(credits, 10))}`;
 
   const dateInfo = getValidityInfo(paymentPack, props.t);
   const classes = useStyles();

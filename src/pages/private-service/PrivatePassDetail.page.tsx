@@ -26,10 +26,10 @@ import {
   withServices,
   withAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
+  getPrivatePassMassExtensionList,
 } from '#libs/private-service/selectors/private-pass';
 import {
   getPrivateConsumerPassByPrivatePass,
-  getPrivateConsumerPassMassExtension,
   withMember,
 } from '#libs/private-service/selectors/private-consumer-pass';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
@@ -389,7 +389,7 @@ export class PrivatePassDetails extends Component<Props> {
                     </Typography>
                     <Divider className={this.props.classes.divider} />
                     <PrivatePassMassExtensionList
-                      firstLoadDone={this.props.massExtension.firstLoadDone}
+                      firstLoadDone
                       itemPerPage={MASS_EXTENSION_PAGINATION_SIZE}
                       items={this.props.massExtension.items}
                       loading={this.props.massExtension.loading}
@@ -554,12 +554,10 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
     updating: state.privateService.privateConsumerPass.updatingConsumerPass,
   },
   massExtension: {
-    items: getPrivateConsumerPassMassExtension(state),
-    count: state.privateService.privateConsumerPass.massExtension.count,
-    loading: state.privateService.privateConsumerPass.massExtension.loading,
-    firstLoadDone:
-      state.privateService.privateConsumerPass.massExtension.firstLoadDone,
-    page: state.privateService.privateConsumerPass.massExtension.page,
+    items: getPrivatePassMassExtensionList(state),
+    count: state.privateService.privatePass.massExtension.count,
+    loading: state.privateService.privatePass.massExtension.loading,
+    page: state.privateService.privatePass.massExtension.page,
   },
   compatibleServicePass: getCompatibleServicePass(state),
   privatePassCategories: getPrivatePassCategories(state),

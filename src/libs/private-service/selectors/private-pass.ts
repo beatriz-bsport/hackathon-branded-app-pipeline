@@ -376,3 +376,9 @@ export const getRelatedPrivatePassAvailable = createSelector(
     return pp.filter((p) => p.available);
   },
 );
+
+export const getPrivatePassMassExtensionList = (state: RootState) => {
+  return state.privateService.privatePass.massExtension.allIds.map(
+    (id) => state.privateService.privatePass.massExtension.byId[id],
+  );
+};

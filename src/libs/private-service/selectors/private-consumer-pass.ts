@@ -137,14 +137,6 @@ export const getPrivateConsumerPassByMember = createSelector(
   (data, ids) => ids.map((id) => data[id]),
 );
 
-export const getPrivateConsumerPassMassExtension = (state: RootState) => {
-  return state.privateService.privateConsumerPass.massExtension.allIds.map(
-    (id) => {
-      return state.privateService.privateConsumerPass.massExtension.byId[id];
-    },
-  );
-};
-
 export const getUnPaidBookingAvailabilityForPrivateslot = (
   state: RootState,
   id: number,

@@ -10,7 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { AccessStatus } from '#libs/access-control/constants';
 
-type Props = {
+export type Props = {
   accessStatus: AccessStatus;
   initialAccessStatus?: AccessStatus;
 };

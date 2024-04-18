@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { getCreditFactor } from '#libs/theme/selectors';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   open: boolean,
@@ -50,7 +51,8 @@ export const RefundConsumerPaymentPack = (props: Props) => {
         onSubmit={(ev) => {
           ev.preventDefault();
           props.onSubmit(props.consumerPaymentPack.id, {
-            credit_to_refund: props.showCreditRefund ? props.credits : 0,
+            credit_to_refund:
+              (props.showCreditRefund ? props.credits : 0) * getCreditFactor(),
             refund_amount: props.price,
             note: props.note,
             block_unlimited: props.showCreditRefund
@@ -81,17 +83,9 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                   className={classes.field}
                   InputProps={{ inputProps: { step: 1, min: 1 } }}
                   label={t('consumerPaymentPack.refund.credits.label')}
-                  onBlur={() =>
-                    props.handleCreditChange({
-                      target: {
-                        value:
-                          parseInt(props.credits * getCreditFactor(), 10) || 0,
-                      },
-                    })
-                  }
                   onChange={props.handleCreditChange}
                   type="number"
-                  value={props.credits / getCreditFactor()}
+                  value={props.credits}
                   variant="outlined"
                 />
               )}
@@ -180,7 +174,9 @@ const useStyles = makeStyles((theme) => ({
 export default compose(
   withStateHandlers(
     ({ consumerPaymentPack }) => ({
-      credits: Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
+      credits: getCreditsDividedDisplay(
+        Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
+      ),
       price: 0,
       note: '',
       blockUnlimited: true,

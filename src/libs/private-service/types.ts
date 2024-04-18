@@ -366,6 +366,20 @@ export type PrivatePassMassExtension = {
   private_pass: number;
 };
 
+export type PrivatePassMassExtensionParams = {
+  page_size?: number;
+  page: number;
+  private_pass: number;
+};
+
+export type PrivatePassMassExtensionCreate = {
+  max_ending_date: string;
+  min_ending_date: string;
+  nb_days: number;
+  note: string;
+  private_pass: number;
+};
+
 export type PrivatePassCategory = {
   id: number;
   name: string;

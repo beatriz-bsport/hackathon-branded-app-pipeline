@@ -104,9 +104,13 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
   updatingById: { [key: string]: boolean };
   partialRefund: ErrorAndLoading & { items: number[] };
   extension: ErrorAndLoading & {
-    items: [];
+    allIds: number[];
+    byId: { [extensionId: number]: ConsumerPaymentPackExtension };
+    count: number;
     create: ErrorAndLoading;
     delete: ErrorAndLoading;
+    next_page: number;
+    page: number;
   };
   byPaymentPack: ErrorAndLoading &
     WithPagination & {

@@ -3,9 +3,9 @@ import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
 import {
-  extensionListActions,
-  extensionCreateActions,
-  extensionDeleteActions,
+  fetchConsumerPaymentPackExtensionListActions,
+  createConsumerPaymentPackExtensionActions,
+  deleteConsumerPaymentPackExtensionActions,
   byPaymentPack,
   byMember,
   universalbyMember,
@@ -22,7 +22,11 @@ import {
   listConsumerPaymentPackActions,
 } from './actions';
 
-import { ConsumerPaymentPackState } from './types';
+import {
+  ConsumerPaymentPackExtension,
+  ConsumerPaymentPackState,
+} from './types';
+import type { PaginatedResponse } from '../../state/types';
 
 const initialState = Immutable<ConsumerPaymentPackState>({
   byOfferByMember: {
@@ -54,9 +58,13 @@ const initialState = Immutable<ConsumerPaymentPackState>({
     items: [],
   },
   extension: {
-    items: [],
-    loading: false,
+    allIds: [],
+    byId: {},
+    count: 0,
     error: null,
+    loading: false,
+    next_page: 1,
+    page: 1,
     create: {
       loading: false,
       error: null,
@@ -133,17 +141,68 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
     [partialRefundActions.listReset.toString()]: (state) => {
       return state.setIn(['partialRefund', 'items'], []);
     },
-    [extensionCreateActions.isLoading.toString()]: (state, { payload }) => {
+    [fetchConsumerPaymentPackExtensionListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['extension', 'loading'], payload);
+    },
+    [fetchConsumerPaymentPackExtensionListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['extension', 'error'], payload);
+    },
+    [fetchConsumerPaymentPackExtensionListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ConsumerPaymentPackExtension> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+      return state
+        .setIn(['extension', 'page'], page)
+        .setIn(['extension', 'next_page'], next_page)
+        .setIn(['extension', 'count'], count)
+        .setIn(
+          ['extension', 'allIds'],
+          results.map((extension) => extension.id),
+        )
+        .merge(
+          {
+            extension: {
+              byId: results.reduce<{
+                [extensionId: number]: ConsumerPaymentPackExtension;
+              }>((accumulator, extension) => {
+                accumulator[extension.id] = extension;
+                return accumulator;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createConsumerPaymentPackExtensionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['extension', 'create', 'loading'], payload);
     },
-    [extensionCreateActions.error.toString()]: (state, { payload }) => {
+    [createConsumerPaymentPackExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['extension', 'create', 'error'], payload);
     },
-    [extensionCreateActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(
-        ['extension', 'items'],
-        [payload, ...state.extension.items],
-      );
+    [deleteConsumerPaymentPackExtensionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['extension', 'delete', 'loading'], payload);
+    },
+    [deleteConsumerPaymentPackExtensionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['extension', 'delete', 'error'], payload);
     },
     [incompatibilitiesReasonsByOfferByConsumerPack.success.toString()]: (
       state,
@@ -184,28 +243,6 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         ['incompatibilitiesByOfferByConsumerPack', 'byId'],
         {},
       );
-    },
-    [extensionDeleteActions.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['extension', 'delete', 'loading'], payload);
-    },
-    [extensionDeleteActions.error.toString()]: (state, { payload }) => {
-      return state.setIn(['extension', 'delete', 'error'], payload);
-    },
-    [extensionDeleteActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(
-        ['extension', 'items'],
-        state.extension.items.filter((e) => e.id !== payload),
-      );
-    },
-
-    [extensionListActions.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['extension', 'loading'], payload);
-    },
-    [extensionListActions.error.toString()]: (state, { payload }) => {
-      return state.setIn(['extension', 'error'], payload);
-    },
-    [extensionListActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(['extension', 'items'], payload);
     },
     [byMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);

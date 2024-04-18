@@ -102,7 +102,7 @@ export const UniversalPassListContainer: React.FC<Props> = ({
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item?.consumer_payment_pack?.id}
-              creditsLeft={item?.consumer_payment_pack?.available_credits}
+              creditsLeft={item?.consumer_payment_pack?.available_credits?.toString()}
               expirationDate={item?.consumer_payment_pack?.ending_date}
               handleSeeDetails={handleSeeDetails(item?.id)}
               isLoading={isLoading}
@@ -120,7 +120,7 @@ export const UniversalPassListContainer: React.FC<Props> = ({
               isUnlimited={!item?.consumer_payment_pack?.payment_pack?.credits}
               passName={item?.consumer_payment_pack?.payment_pack?.name}
               startDate={item?.consumer_payment_pack?.starting_date}
-              totalCredits={item?.consumer_payment_pack?.payment_pack?.credits}
+              totalCredits={item?.consumer_payment_pack?.payment_pack?.credits?.toString()}
             />
           )}
         />

@@ -12,7 +12,7 @@ import './styles.css';
 
 type Props = {
   /** Number of credits the member can still use */
-  creditsLeft?: number;
+  creditsLeft?: string;
   /** End date for the validity of the pass */
   expirationDate?: string;
   /** Callback called when clinking on "See details" button */
@@ -34,7 +34,7 @@ type Props = {
   /** Start date for the validity of the pass */
   startDate?: string;
   /** Maximum number of credits the member can spend with the pass */
-  totalCredits?: number;
+  totalCredits?: string;
 };
 
 /**

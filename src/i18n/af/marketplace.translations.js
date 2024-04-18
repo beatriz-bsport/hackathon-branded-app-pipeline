@@ -73,8 +73,8 @@ exports.default = {
     details: { buttonContent: 'Details' },
     credits: {
       unlimited: 'Unlimited',
-      availableCredit: '{{count}} credit',
-      availableCredit_plural: '{{count}} credits',
+      availableCredit: '{{credits}} credit',
+      availableCredit_plural: '{{credits}} credits',
     },
     title: {
       universalPassMessage:
@@ -171,8 +171,8 @@ exports.default = {
     },
     credits: {
       unlimited: 'Unlimited',
-      availableCredit: '{{count}} credit',
-      availableCredit_plural: '{{count}} credits',
+      availableCredit: '{{credits}} credit',
+      availableCredit_plural: '{{credits}} credits',
     },
     compatibleTimeSlot: 'Compatible time slots',
   },

@@ -2,7 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getCreditsDividedValue } from '#libs/theme/utils';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 import Card, { CardSize } from '#components/css-only/Card';
 import Grid from '#components/css-only/Grid';
 import CardContent from '#components/css-only/Card/CardContent';
@@ -46,6 +49,7 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
     ? t('genericCard.credits.unlimited')
     : t('genericCard.credits.availableCredit', {
         count: getCreditsDividedValue(paymentPack.credits),
+        credits: getCreditsDividedDisplay(paymentPack.credits),
       });
 
   return (

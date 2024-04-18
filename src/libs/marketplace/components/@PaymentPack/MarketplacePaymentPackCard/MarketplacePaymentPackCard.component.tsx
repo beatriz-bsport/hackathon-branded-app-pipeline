@@ -18,7 +18,10 @@ import GridItem, {
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getCreditsDividedValue } from '#libs/theme/utils';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
@@ -48,11 +51,15 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
   );
 
+  const count = getCreditsDividedValue(paymentPack?.credits);
+  const credits = getCreditsDividedDisplay(paymentPack?.credits);
+
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
-    : t('genericCard.credits.availableCredit', {
-        count: getCreditsDividedValue(paymentPack?.credits),
-      });
+    : `${t('genericCard.credits.availableCredit', {
+        count,
+        credits,
+      })}`;
 
   const handleAddToCart = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

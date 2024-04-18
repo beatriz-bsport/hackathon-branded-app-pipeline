@@ -42,6 +42,7 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
             </span>
             {t('genericCardDetails.credits.availableCredit', {
               count: privatePass?.credits,
+              credits: privatePass?.credits,
             })}
           </li>
         )}

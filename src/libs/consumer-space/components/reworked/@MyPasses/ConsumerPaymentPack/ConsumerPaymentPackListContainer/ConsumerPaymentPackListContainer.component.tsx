@@ -7,6 +7,7 @@ import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll
 import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import ConsumerPaymentPackDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
 import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 import { parseConsumerPaymentPackData } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
 import {
@@ -19,7 +20,6 @@ import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/ty
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
-import { getCreditsDividedValue } from '#libs/theme/utils';
 
 type Props = {
   isMobile?: boolean;
@@ -103,7 +103,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item.id}
-              creditsLeft={getCreditsDividedValue(item.available_credits)}
+              creditsLeft={getCreditsDividedDisplay(item.available_credits)}
               expirationDate={item.ending_date}
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
@@ -117,7 +117,9 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
               isUnlimited={!item.payment_pack?.credits}
               passName={item.payment_pack?.name}
               startDate={item.starting_date}
-              totalCredits={getCreditsDividedValue(item.payment_pack?.credits)}
+              totalCredits={getCreditsDividedDisplay(
+                item.payment_pack?.credits,
+              )}
             />
           )}
         />

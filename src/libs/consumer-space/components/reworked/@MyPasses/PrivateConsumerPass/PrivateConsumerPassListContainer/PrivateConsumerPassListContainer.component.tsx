@@ -100,7 +100,9 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item.id}
-              creditsLeft={item?.private_pass?.credits - item?.used_credits}
+              creditsLeft={(
+                item?.private_pass?.credits - item?.used_credits
+              )?.toString()}
               expirationDate={item ? getExpirationDate(item) : null}
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
@@ -114,7 +116,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
               isUnlimited={!item?.private_pass?.credits}
               passName={item?.private_pass?.name}
               startDate={item?.date_bought}
-              totalCredits={item?.private_pass?.credits}
+              totalCredits={item?.private_pass?.credits?.toString()}
             />
           )}
         />

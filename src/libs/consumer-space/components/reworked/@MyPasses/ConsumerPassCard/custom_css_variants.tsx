@@ -90,14 +90,14 @@ export const CONSUMER_PASS_CARD_PREVIEW: React.FC<{
 
   return (
     <ConsumerPassCard
-      creditsLeft={
+      creditsLeft={(
         fakeConsumerPass.available_credits - fakeConsumerPass.used_credits
-      }
+      ).toString()}
       expirationDate={fakeConsumerPass.ending_date}
       handleSeeDetails={emptyMethod}
       passName={fakePaymentPack.name}
       startDate={fakeConsumerPass.starting_date}
-      totalCredits={fakeConsumerPass.available_credits}
+      totalCredits={fakeConsumerPass.available_credits.toString()}
       {...componentProps}
     />
   );

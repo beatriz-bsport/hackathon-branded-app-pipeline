@@ -29,9 +29,10 @@ const ConsumerPassCardTemplate: ComponentStory<
 
 const defaultArgs = {
   handleSeeDetails: ActionData.handleSeeDetails,
-  totalCredits: fakeConsumerPass.available_credits,
-  creditsLeft:
-    fakeConsumerPass.available_credits - fakeConsumerPass.used_credits,
+  totalCredits: fakeConsumerPass.available_credits.toString(),
+  creditsLeft: (
+    fakeConsumerPass.available_credits - fakeConsumerPass.used_credits
+  ).toString(),
   passName: fakePaymentPack.name,
   expirationDate: moment(fakeConsumerPass.ending_date).format('YYYY-MM-DD'),
   startDate: moment(fakeConsumerPass.starting_date).format('YYYY-MM-DD'),
@@ -85,7 +86,7 @@ export default {
   component: ConsumerPassCardStorybook,
   argTypes: {
     creditsLeft: {
-      control: 'number',
+      control: 'text',
       description: 'Number of credits the member can still use',
     },
     expirationDate: {
@@ -122,7 +123,7 @@ export default {
       description: 'Start date for the validity of the pass',
     },
     totalCredits: {
-      control: 'number',
+      control: 'text',
       description:
         'Maximum number of credits the member can spend with the pass',
     },

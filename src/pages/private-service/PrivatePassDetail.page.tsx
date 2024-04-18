@@ -166,9 +166,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchAllPrivatePassCategory();
     this.props.fetchPrivatePassMassExtensionList({
-      privatePass: this.props.id,
-      page: 1,
-      page_size: MASS_EXTENSION_PAGINATION_SIZE,
+      private_pass: this.props.id,
     });
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
@@ -216,9 +214,7 @@ export class PrivatePassDetails extends Component<Props> {
         onSuccess: () => {
           this.props.setLoadingMassExtension(false);
           this.props.fetchPrivatePassMassExtensionList({
-            privatePass: this.props.id,
-            page: 1,
-            page_size: MASS_EXTENSION_PAGINATION_SIZE,
+            private_pass: this.props.id,
           });
         },
       },
@@ -228,12 +224,14 @@ export class PrivatePassDetails extends Component<Props> {
   };
 
   onDeleteMassExtension = (massExtension: PrivatePassMassExtension) => {
+    const currentPage = this.props.massExtension.page;
+    const isLastItemInPage = this.props.massExtension.items?.length === 1;
     this.props.deletePrivatePassMassExtension(massExtension.id, {
       onSuccess: () => {
         this.props.fetchPrivatePassMassExtensionList({
-          privatePass: this.props.id,
-          page: 1,
-          page_size: MASS_EXTENSION_PAGINATION_SIZE,
+          private_pass: this.props.id,
+          /** Fetch the previous page if removing the last page item */
+          ...(isLastItemInPage && { page: currentPage - 1 }),
         });
       },
     });
@@ -397,11 +395,10 @@ export class PrivatePassDetails extends Component<Props> {
                       loading={this.props.massExtension.loading}
                       nbItems={this.props.massExtension.count}
                       onDelete={this.onDeleteMassExtension}
-                      onPageRequested={(page, page_size) => {
+                      onPageRequested={(page) => {
                         this.props.fetchPrivatePassMassExtensionList({
-                          privatePass: this.props.id,
+                          private_pass: this.props.id,
                           page,
-                          page_size,
                         });
                       }}
                       page={this.props.massExtension.page}

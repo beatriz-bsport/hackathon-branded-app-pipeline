@@ -47,9 +47,9 @@ import {
   retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
   unblock,
-  fetchPackExtensions,
-  deletePackExtension,
-  createPackExtension,
+  fetchConsumerPaymentPackExtensionList as fetchConsumerPaymentPackExtensionListAction,
+  deleteConsumerPaymentPackExtension as deleteConsumerPaymentPackExtensionAction,
+  createConsumerPaymentPackExtension as createConsumerPaymentPackExtensionAction,
   refundConsumerPaymentPack as refundConsumerPaymentPackActions,
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
   fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAction,
@@ -87,6 +87,9 @@ import type { Member } from '../../libs/member/types';
 import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackPenalty,
+  ConsumerPaymentPackExtensionParams,
+  ConsumerPaymentPackExtensionCreate,
+  ConsumerPaymentPackExtension,
 } from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
@@ -110,7 +113,10 @@ type Props = {
   }) => void,
   fetchBookingsByConsumerPack: (id: number) => void,
   fetchInvoice: (uuid: string) => void,
-  fetchExtensions: (consumerPassId: number) => void,
+  fetchConsumerPaymentPackExtensionList: (
+    params: ConsumerPaymentPackExtensionParams,
+    options?: OptionCallback<ConsumerPaymentPackExtension[]>,
+  ) => void,
   refreshConsumerPack: (id: number) => void,
   passExtensions: Array<ConsumerPaymentPackExtension>,
   consumerPackLoading: boolean,
@@ -160,13 +166,15 @@ type Props = {
 
   passExtensionsLoading: boolean,
   setOpenCreateExtension: (boolean) => void,
-  deleteExtension: (
+  deleteConsumerPaymentPackExtension: (
     id: number,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
   ) => void,
   openCreateExtension: boolean,
   setOpenCreateExtension: (boolean) => void,
-  createExtension: (data: any) => void,
+  createConsumerPaymentPackExtension: (
+    data: ConsumerPaymentPackExtensionCreate,
+  ) => void,
 
   t: TFunction,
   classes: Object,
@@ -332,7 +340,9 @@ export class MemberDetailPass extends Component<Props, State> {
         );
       }
 
-      this.props.fetchExtensions(this.props.selectedConsumerPass.id);
+      this.props.fetchConsumerPaymentPackExtensionList({
+        consumer_payment_pack: this.props.selectedConsumerPass.id,
+      });
       this.fetchBookings(1, 5);
       if (this.props.consumerPassId) {
         this.props.fetchConsumerPaymentPackCreditRefundList(
@@ -546,11 +556,16 @@ export class MemberDetailPass extends Component<Props, State> {
                   }
                   currentBookingPage={this.props.bookingCurrentPage}
                   deleteExtension={(id) => {
-                    this.props.deleteExtension(id, {
-                      onSuccess: () =>
+                    this.props.deleteConsumerPaymentPackExtension(id, {
+                      onSuccess: () => {
                         this.props.refreshConsumerPack(
                           this.props.selectedConsumerPass.id,
-                        ),
+                        );
+                        this.props.fetchConsumerPaymentPackExtensionList({
+                          consumer_payment_pack:
+                            this.props.selectedConsumerPass.id,
+                        });
+                      },
                     });
                   }}
                   discardBookingAttendance={this.props.discardBookingAttendance}
@@ -602,7 +617,7 @@ export class MemberDetailPass extends Component<Props, State> {
               consumerPaymentPack={this.props.selectedConsumerPass}
               onClose={() => this.props.setOpenCreateExtension(false)}
               onSubmit={(data) => {
-                this.props.createExtension(
+                this.props.createConsumerPaymentPackExtension(
                   {
                     ...data,
                     consumer_payment_pack: this.props.selectedConsumerPass.id,
@@ -612,6 +627,10 @@ export class MemberDetailPass extends Component<Props, State> {
                       this.props.refreshConsumerPack(
                         this.props.selectedConsumerPass.id,
                       );
+                      this.props.fetchConsumerPaymentPackExtensionList({
+                        consumer_payment_pack:
+                          this.props.selectedConsumerPass.id,
+                      });
                       this.props.setOpenCreateExtension(false);
                     },
                   },
@@ -749,9 +768,12 @@ export default compose(
         replace(`/member/${memberId}/pass/${id}/`),
       deleteBooking,
 
-      fetchExtensions: fetchPackExtensions,
-      createExtension: createPackExtension,
-      deleteExtension: deletePackExtension,
+      fetchConsumerPaymentPackExtensionList:
+        fetchConsumerPaymentPackExtensionListAction,
+      createConsumerPaymentPackExtension:
+        createConsumerPaymentPackExtensionAction,
+      deleteConsumerPaymentPackExtension:
+        deleteConsumerPaymentPackExtensionAction,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
       fetchConsumerPaymentPackCreditRefundList:
         fetchConsumerPaymentPackCreditRefundListAction,

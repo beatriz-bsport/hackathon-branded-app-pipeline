@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -144,13 +144,12 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   formIsFilled = () =>
-    (this.state.payment_pack ||
-      this.state.private_pass ||
-      this.state.payment_combo) &&
-    this.state.nb_interval &&
-    this.props.member &&
-    (this.props.withName ? !!this.state.name : true) &&
-    this.state.recurrent_voucher;
+    (!!this.state.payment_pack ||
+      !!this.state.private_pass ||
+      !!this.state.payment_combo) &&
+    !!this.state.nb_interval &&
+    !!this.props.member &&
+    (this.props.withName ? !!this.state.name : true);
 
   updatePaymentPack = (id: number) =>
     this.setState({
@@ -203,6 +202,14 @@ export class SubscriptionCreate extends Component<Props, State> {
         moment().set(PLANNED_INVOICE_TIME_CONFIGURATION).startOf('day'),
       ),
     });
+  };
+
+  handleBlurRecurrentVoucher = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value || '0';
+    parseFloat(value) <= 0 &&
+      this.setState({
+        recurrent_voucher: 0,
+      });
   };
 
   updateRecurrentVoucher = (event: any) =>
@@ -373,6 +380,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                 <PriceInput
                   fullWidth
                   label={t('parameters.recurrent_voucher')}
+                  onBlur={this.handleBlurRecurrentVoucher}
                   onChange={this.updateRecurrentVoucher}
                   value={this.state.recurrent_voucher}
                 />

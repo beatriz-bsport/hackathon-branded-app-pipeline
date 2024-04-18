@@ -134,6 +134,76 @@ const actionsBinder = (actions: BridgeWidgetActions) => {
     'PRIVATE_SERVICE_BULK',
     actions.fetchPrivateServiceBulk,
   );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_PASSES_TABS',
+    actions.fetchConsumerPassesTabDisplay,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_ACTIVE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    actions.fetchMyActiveConsumerPaymentPacksAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_ACTIVE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    actions.fetchMyActivePrivateConsumerPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_ACTIVE_UNIVERSAL_PASSES_AS_MEMBER',
+    actions.fetchMyActiveUniversalPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_EXPIRED_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    actions.fetchMyExpiredConsumerPaymentPacksAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_EXPIRED_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    actions.fetchMyExpiredPrivateConsumerPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_EXPIRED_UNIVERSAL_PASS_AS_MEMBER',
+    actions.fetchMyExpiredUniversalPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_FUTURE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    actions.fetchMyFutureConsumerPaymentPacksAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_FUTURE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    actions.fetchMyFuturePrivateConsumerPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_FUTURE_UNIVERSAL_PASS_AS_MEMBER',
+    actions.fetchMyFutureUniversalPassesAsMember,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_RELATED_MEMBERS_NAMES_BY_CONSUMER_PAYMENT_PACK_LINK',
+    actions.fetchRelatedMembersNamesByPrivateConsumerPassLinks,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_RELATED_MEMBERS_NAMES_BY_PRIVATE_CONSUMER_PASS_LINK',
+    actions.fetchRelatedMembersNamesByPrivateConsumerPassLinks,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_PRIVATE_PASS_BULK',
+    actions.fetchPrivatePassBulk,
+  );
+
+  bridgeAPIActionsRegistry.register(
+    'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
+    actions.fetchPrivateServiceCompatiblePassList,
+  );
 };
 
 export default actionsBinder;

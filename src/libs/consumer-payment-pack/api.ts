@@ -7,7 +7,12 @@ import {
 } from '../../http';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import type { PaginatedResponse } from '../../state/types';
-import type { ConsumerPaymentPackREST } from './types';
+import type {
+  ConsumerPaymentPackExtension,
+  ConsumerPaymentPackExtensionCreate,
+  ConsumerPaymentPackExtensionParams,
+  ConsumerPaymentPackREST,
+} from './types';
 
 export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(
@@ -59,19 +64,38 @@ export async function fetchConsumerPackList(params: any = {}) {
   );
 }
 
-export async function fetchExtensions(consumerPassId: number) {
-  return getAuth(
-    `${API_V1_URI}/payment-pack/pack-extension/?consumer_payment_pack=${consumerPassId}`,
+/**
+ * Fetch the list of extensions for a specific consumer payment pack
+ * @param params Object containing the required `consumer_payment_pack` ID + optional pagination params
+ */
+export const fetchConsumerPaymentPackExtensionList = (
+  params: ConsumerPaymentPackExtensionParams,
+) => {
+  return getAuth<PaginatedResponse<ConsumerPaymentPackExtension>>(
+    `${API_V1_URI}/payment-pack/pack-extension/${buildUrlParams(params)}`,
   );
-}
+};
 
-export async function createExtension(data: any) {
-  return postAuth(`${API_V1_URI}/payment-pack/pack-extension/`, data);
-}
+/**
+ * Create an extension for a consumer payment pack
+ * @param data The payload sent for the creation of the extension
+ */
+export const createConsumerPaymentPackExtension = (
+  data: ConsumerPaymentPackExtensionCreate,
+) => {
+  return postAuth<ConsumerPaymentPackExtension>(
+    `${API_V1_URI}/payment-pack/pack-extension/`,
+    data,
+  );
+};
 
-export async function deleteExtension(id: number) {
+/**
+ * Delete a consumer payment pack extension
+ * @param id The ID of the extension to delete
+ */
+export const deleteConsumerPaymentPackExtension = (id: number) => {
   return deleteAuth(`${API_V1_URI}/payment-pack/pack-extension/${id}/`);
-}
+};
 
 export async function refundConsumerPaymentPack(id: number, data: any) {
   return postAuth(
@@ -131,7 +155,4 @@ export async function fetchConsumerPaymentPackMaxoutBooking(params: any) {
 
 export default {
   fetchByOfferByMember,
-  fetchExtensions,
-  createExtension,
-  deleteExtension,
 };

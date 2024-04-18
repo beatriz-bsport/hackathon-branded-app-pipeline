@@ -173,6 +173,7 @@ exports.default = {
       calendarV2: 'Calendar',
       referral: 'Referral',
       consumerBooking: 'My bookings',
+      consumerPass: 'My passes',
     },
     preview: 'Preview',
     saveButton: 'Save',

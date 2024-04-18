@@ -10664,7 +10664,8 @@
         "paymentPackTemplate": "Shared passes",
         "calendarV2": "Calendar",
         "referral": "Referral",
-        "consumerBooking": "My bookings"
+        "consumerBooking": "My bookings",
+        "consumerPass": "My passes"
       },
       "preview": "Preview",
       "saveButton": "Save",

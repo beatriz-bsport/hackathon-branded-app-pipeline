@@ -9,22 +9,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
 import Alert from '@material-ui/lab/Alert';
-import Switch from '@material-ui/core/Switch';
 
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import NumericInput from '#components/input/NumericInput.component';
 import type { WaitingListConfigurationFormikValues } from './WaitingListConfigurationForm.component';
 import { WaitingListAutoCancellation } from '../types';
+// @ts-expect-error
+import { CheckboxField, SwitchField } from '#components/forms';
 
 type Props = {
   handleAutoCancellationTypeChange: (
     value: WaitingListAutoCancellation,
   ) => () => void;
-  handleCheckBoxFieldChange: (
-    field: string,
-  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNumericFieldChange: (
     field: string,
   ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -32,7 +29,6 @@ type Props = {
 
 const WaitingListOrderedForm: React.FC<Props> = ({
   handleAutoCancellationTypeChange,
-  handleCheckBoxFieldChange,
   handleNumericFieldChange,
 }) => {
   const { t } = useTranslation('waitingList');
@@ -107,47 +103,35 @@ const WaitingListOrderedForm: React.FC<Props> = ({
         </ErrorMessage>
       </div>
       <div className={classes.field}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={values.autoConsumePack}
-              onChange={handleCheckBoxFieldChange('autoConsumePack')}
-              value={values.autoConsumePack}
-            />
+        <CheckboxField
+          helperText={
+            <Typography
+              className={classes.helperText}
+              color="textSecondary"
+              variant="caption"
+            >
+              {t('form.auto_consume_pack.helper')}
+            </Typography>
           }
           label={t('form.auto_consume_pack.label')}
+          name="autoConsumePack"
         />
-        <Typography
-          className={classes.helperText}
-          color="textSecondary"
-          variant="caption"
-        >
-          {t('form.auto_consume_pack.helper')}
-        </Typography>
       </div>
       <div className={classes.field}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={
-                values.kickIfNoPackWhenAutoConsume && values.autoConsumePack
-              }
-              disabled={!values.autoConsumePack}
-              onChange={handleCheckBoxFieldChange(
-                'kickIfNoPackWhenAutoConsume',
-              )}
-              value={values.kickIfNoPackWhenAutoConsume}
-            />
+        <CheckboxField
+          disabled={!values.autoConsumePack}
+          helperText={
+            <Typography
+              className={classes.helperText}
+              color="textSecondary"
+              variant="caption"
+            >
+              {t('form.kick_if_no_pack_when_auto_consume.helper')}
+            </Typography>
           }
           label={t('form.kick_if_no_pack_when_auto_consume.label')}
+          name="kickIfNoPackWhenAutoConsume"
         />
-        <Typography
-          className={classes.helperText}
-          color="textSecondary"
-          variant="caption"
-        >
-          {t('form.kick_if_no_pack_when_auto_consume.helper')}
-        </Typography>
       </div>
       <div className={classes.field}>
         <NumericInput
@@ -257,16 +241,9 @@ const WaitingListOrderedForm: React.FC<Props> = ({
         </div>
       </fieldset>
       <div className={classes.field}>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={values.displayMemberPosition}
-              color="primary"
-              onChange={handleCheckBoxFieldChange('displayMemberPosition')}
-              value={values.displayMemberPosition}
-            />
-          }
+        <SwitchField
           label={t('form.display_member_position.label')}
+          name="displayMemberPosition"
         />
       </div>
     </div>

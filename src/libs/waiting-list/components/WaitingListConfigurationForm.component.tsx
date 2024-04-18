@@ -5,21 +5,19 @@ import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import Switch from '@material-ui/core/Switch';
 import { withFormik, FormikProps, Form } from 'formik';
+// @ts-expect-error
+import { SwitchField, CheckboxField, RadioGroupField } from '#components/forms';
 
 import {
   WaitingListConfiguration,
@@ -90,7 +88,7 @@ export type WaitingListConfigurationFormikValues = {
   checkCredit: boolean;
   displayMemberPosition: boolean;
   dumbDelayMinutes: number;
-  dynamic: number;
+  dynamic: string;
   isOptionBlocking: boolean;
   kickIfNoPackWhenAutoConsume: boolean;
   lastDelayBeforeAutoConsume: number;
@@ -108,8 +106,8 @@ const WaitingListConfigurationForm: React.FC<Props> = ({
   dirty,
   isSubmitting,
   isValid,
-  setFieldTouched,
   setFieldValue,
+  setFieldTouched,
   values,
 }) => {
   const { t } = useTranslation('waitingList');
@@ -120,14 +118,6 @@ const WaitingListConfigurationForm: React.FC<Props> = ({
       setFieldValue(field, value, true);
     },
     [setFieldValue, setFieldTouched],
-  );
-
-  const handleCheckBoxFieldChange = React.useCallback(
-    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const isChecked = event.target.checked;
-      handleChange(field)(isChecked);
-    },
-    [handleChange],
   );
 
   const handleNumericFieldChange = React.useCallback(
@@ -148,77 +138,70 @@ const WaitingListConfigurationForm: React.FC<Props> = ({
     <Form className={classes.root}>
       <FormControl className={classes.formControl} component="fieldset">
         <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={values.isOptionBlocking}
-                onChange={handleCheckBoxFieldChange('isOptionBlocking')}
-                value={values.isOptionBlocking}
-              />
+          <CheckboxField
+            helperText={
+              <Typography
+                className={classes.helperText}
+                color="textSecondary"
+                variant="caption"
+              >
+                {t('form.is_option_blocking.helper')}
+              </Typography>
             }
             label={t('form.is_option_blocking.label')}
+            name="isOptionBlocking"
           />
-          <Typography
-            className={classes.helperText}
-            color="textSecondary"
-            variant="caption"
-          >
-            {t('form.is_option_blocking.helper')}
-          </Typography>
         </div>
 
         <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={values.checkCredit}
-                onChange={handleCheckBoxFieldChange('checkCredit')}
-                value={values.checkCredit}
-              />
+          <SwitchField
+            helperText={
+              <Typography
+                className={classes.helperText}
+                color="textSecondary"
+                variant="caption"
+              >
+                {t('form.check_credit.helper')}
+              </Typography>
             }
             label={t('form.check_credit.label')}
+            name="checkCredit"
           />
-          <Typography
-            className={classes.helperText}
-            color="textSecondary"
-            variant="caption"
-          >
-            {t('form.check_credit.helper')}
-          </Typography>
         </div>
 
         <FormControl className={classes.field} component="fieldset">
           <FormLabel component="div">{t('form.dynamic.label')}</FormLabel>
-          <RadioGroup
-            row
-            aria-label="position"
-            defaultValue="right"
-            onChange={handleNumericFieldChange('dynamic')}
-            value={`${values.dynamic}`}
-          >
-            <FormControlLabel
-              control={<Radio color="primary" />}
-              label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`)}
-              value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
-            />
-            <FormControlLabel
-              control={<Radio color="primary" />}
-              label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`)}
-              value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
-            />
-          </RadioGroup>
+          <RadioGroupField
+            isRow
+            choices={[
+              {
+                label: t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`),
+                value: WAITING_LIST_DYNAMIC_ORDERED.toString(),
+              },
+              {
+                label: t(
+                  `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`,
+                ),
+                value: WAITING_LIST_DYNAMIC_UNORDERED.toString(),
+              },
+            ]}
+            name="dynamic"
+          />
         </FormControl>
         <div className={classes.settingsInner}>
-          <Collapse in={values.dynamic === WAITING_LIST_DYNAMIC_ORDERED}>
+          <Collapse
+            in={values.dynamic === WAITING_LIST_DYNAMIC_ORDERED.toString()}
+          >
             <WaitingListOrderedForm
               handleAutoCancellationTypeChange={
                 handleAutoCancellationTypeChange
               }
-              handleCheckBoxFieldChange={handleCheckBoxFieldChange}
               handleNumericFieldChange={handleNumericFieldChange}
             />
           </Collapse>
-          <Collapse in={values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED}>
+          <Collapse
+            in={values.dynamic === WAITING_LIST_DYNAMIC_UNORDERED.toString()}
+          >
             <div className={classes.singleRow}>
               <InfoOutlineIcon className={classes.leftIcon} />
               <Typography color="textSecondary">
@@ -317,7 +300,7 @@ const FormikFormWrapper = withFormik<
       checkCredit,
       displayMemberPosition,
       dumbDelayMinutes,
-      dynamic,
+      dynamic: dynamic.toString(),
       isOptionBlocking,
       kickIfNoPackWhenAutoConsume,
       lastDelayBeforeAutoConsume,
@@ -333,7 +316,7 @@ const FormikFormWrapper = withFormik<
       check_credit: values.checkCredit,
       display_member_position: values.displayMemberPosition,
       dumb_delay_minutes: values.dumbDelayMinutes,
-      dynamic: values.dynamic,
+      dynamic: parseInt(values.dynamic),
       is_option_blocking: values.isOptionBlocking,
       kick_if_no_pack_when_auto_consume: values.kickIfNoPackWhenAutoConsume,
       last_delay_before_auto_consume: values.lastDelayBeforeAutoConsume,

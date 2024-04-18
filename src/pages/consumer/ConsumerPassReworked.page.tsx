@@ -6,6 +6,7 @@ import uniq from 'lodash/uniq';
 
 import type { RootState } from 'src/reducers';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 /** COMPONENTS */
 
@@ -424,6 +425,7 @@ export class ConsumerPassReworked extends React.Component<
 
 const connector = connect(
   (state: RootState, { companyId }: { companyId: number }) => ({
+    authenticated: state.auth.authenticated,
     membership: getMembership(state, companyId),
     companyId,
     theme: getTheme(state),
@@ -503,5 +505,10 @@ const connector = connect(
     resetConsumerState: resetConsumerStateAction,
   },
 );
+
+export const ConsumerPassWidget = compose(
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
+)(ConsumerPassReworked);
 
 export default compose(connector, marketplaceCssHoc())(ConsumerPassReworked);

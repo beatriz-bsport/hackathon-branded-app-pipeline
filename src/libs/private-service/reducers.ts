@@ -39,7 +39,7 @@ import {
   serviceGroupListActions,
   serviceGroupCreateOrUpdateActions,
   serviceGroupDeleteActions,
-  listPrivateConsumerPassExtensionActions,
+  fetchPrivateConsumerPassExtensionListActions,
   deletePrivateConsumerPassExtensionActions,
   createPrivateConsumerPassExtensionActions,
   privateConsumerPassBulkActions,
@@ -74,7 +74,8 @@ import {
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
-import {
+import type {
+  PrivateConsumerPassExtension,
   PrivatePassMassExtension,
   PrivateServiceState,
   ServiceCompatibilityPass,
@@ -139,9 +140,13 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         count: 0,
       },
       extension: {
-        items: [],
-        loading: false,
+        allIds: [],
+        byId: {},
+        count: 0,
         error: null,
+        loading: false,
+        next_page: 1,
+        page: 1,
         create: {
           loading: false,
           error: null,
@@ -348,39 +353,56 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         state.customEvent.byId.without(payload),
       );
     },
-    [listPrivateConsumerPassExtensionActions.success.toString()]: (
+    [fetchPrivateConsumerPassExtensionListActions.isLoading.toString()]: (
       state,
-      { payload },
-    ) => {
-      return state.setIn(
-        ['privateConsumerPass', 'extension', 'items'],
-        payload,
-      );
-    },
-    [listPrivateConsumerPassExtensionActions.reset.toString()]: (state) => {
-      return state.setIn(['privateConsumerPass', 'extension', 'items'], []);
-    },
-    [listPrivateConsumerPassExtensionActions.error.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state.setIn(
-        ['privateConsumerPass', 'extension', 'error'],
-        payload,
-      );
-    },
-    [listPrivateConsumerPassExtensionActions.isLoading.toString()]: (
-      state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'loading'],
         payload,
       );
     },
+    [fetchPrivateConsumerPassExtensionListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'error'],
+        payload,
+      );
+    },
+    [fetchPrivateConsumerPassExtensionListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<PrivateConsumerPassExtension> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+      return state
+        .setIn(['privateConsumerPass', 'extension', 'page'], page)
+        .setIn(['privateConsumerPass', 'extension', 'next_page'], next_page)
+        .setIn(['privateConsumerPass', 'extension', 'count'], count)
+        .setIn(
+          ['privateConsumerPass', 'extension', 'allIds'],
+          results.map((extension) => extension.id),
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              extension: {
+                byId: results.reduce<{
+                  [extensionId: number]: PrivateConsumerPassExtension;
+                }>((accumulator, extension) => {
+                  accumulator[extension.id] = extension;
+                  return accumulator;
+                }, {}),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
     [deletePrivateConsumerPassExtensionActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'delete', 'loading'],
@@ -389,27 +411,16 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [deletePrivateConsumerPassExtensionActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'delete', 'error'],
         payload,
       );
     },
-    [deletePrivateConsumerPassExtensionActions.success.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state.setIn(
-        ['privateConsumerPass', 'extension', 'items'],
-        state.privateConsumerPass.extension.items.filter(
-          (e: any) => e.id !== payload,
-        ),
-      );
-    },
     [createPrivateConsumerPassExtensionActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'create', 'loading'],
@@ -418,23 +429,13 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [createPrivateConsumerPassExtensionActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'create', 'error'],
         payload,
       );
     },
-    [createPrivateConsumerPassExtensionActions.success.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state.setIn(
-        ['privateConsumerPass', 'extension', 'items'],
-        [...(state.privateConsumerPass.extension.items as any), payload],
-      );
-    },
-
     [fetchPrivatePassMassExtensionListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },

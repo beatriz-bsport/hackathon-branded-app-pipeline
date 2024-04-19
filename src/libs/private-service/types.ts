@@ -489,9 +489,13 @@ export interface PrivateServiceState {
         allIds: string[];
       };
     extension: ErrorAndLoading & {
-      items: PrivateConsumerPassExtension[];
+      allIds: number[];
+      byId: { [extensionId: number]: PrivateConsumerPassExtension };
+      count: number;
       create: ErrorAndLoading;
       delete: ErrorAndLoading;
+      next_page: number;
+      page: number;
       updatingConsumerPass: [];
     };
   };

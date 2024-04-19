@@ -142,3 +142,20 @@ export const getUnPaidBookingAvailabilityForPrivateslot = (
   id: number,
 ) =>
   state.privateService.privateSlot.unpaidBookingAvailability.byId[id] || false;
+
+export const getPrivateConsumerPassExtensionState = (state: RootState) =>
+  state.privateService.privateConsumerPass.extension;
+
+export const getPrivateConsumerPassExtensionsAllIds = (state: RootState) =>
+  state.privateService.privateConsumerPass.extension.allIds;
+
+export const getPrivateConsumerPassExtensionsById = (state: RootState) =>
+  state.privateService.privateConsumerPass.extension.byId;
+
+export const getPrivateConsumerPassExtensionsList = createSelector(
+  [
+    getPrivateConsumerPassExtensionsAllIds,
+    getPrivateConsumerPassExtensionsById,
+  ],
+  (allIds, data) => allIds.map((id) => data[id]),
+);

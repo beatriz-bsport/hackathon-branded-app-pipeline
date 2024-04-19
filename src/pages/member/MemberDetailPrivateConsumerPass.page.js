@@ -40,6 +40,7 @@ import {
   getPrivateConsumerPassList,
   getPrivateConsumerPass,
   excludeUnPaidPrivateConsumerPass,
+  getPrivateConsumerPassExtensionsList,
 } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
@@ -354,7 +355,7 @@ export default compose(
       privateConsumerPassCount: state.privateService.privateConsumerPass.count,
       privateConsumerPassInvoice: getInvoice(state, relatedInvoice),
       privateConsumerPassExtensionList:
-        state.privateService.privateConsumerPass.extension.items,
+        getPrivateConsumerPassExtensionsList(state),
       private_booking_list: getPrivateBookingListBase(state),
       privateConsumerPassExtensionLoading:
         state.privateService.privateConsumerPass.extension.loading,

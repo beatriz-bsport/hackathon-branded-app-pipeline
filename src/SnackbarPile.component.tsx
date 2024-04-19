@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core';
+import { push as pushAction } from 'connected-react-router';
 import {
   deleteAccessControlSnackbar as deleteAccessControlSnackbarAction,
   deleteBottomSnackbar as deleteBottomSnackbarAction,
@@ -21,6 +22,7 @@ import { RootState } from './reducers';
 import AccessControlSnackBar from '#libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
 
 import type { AccessControlSnack, Snack } from './libs/snackbar/types';
+import { getPerformAccessMonitoringUrl } from '#libs/access-control/utils';
 
 type Props = {
   topMessages: Snack[];
@@ -29,6 +31,7 @@ type Props = {
   deleteTopSnackbar: (id: number) => void;
   deleteBottomSnackbar: (id: number) => void;
   deleteAccessControlSnackbar: (id: number) => void;
+  push: (path: string) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +71,7 @@ export const SnackbarPile: React.FC<Props> = ({
   deleteTopSnackbar,
   deleteBottomSnackbar,
   deleteAccessControlSnackbar,
+  push,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['snackbar']);
@@ -141,7 +145,9 @@ export const SnackbarPile: React.FC<Props> = ({
           open
           accessStatus={snack.accessStatus}
           handleClose={handleDeleteAccessControlSnackbar(snack.id)}
-          handleOpen={() => {}}
+          handleOpen={() =>
+            push(getPerformAccessMonitoringUrl({ id: snack.id }))
+          }
           member={snack.member}
         />
       ))}
@@ -191,6 +197,7 @@ const mapDispatchToProps = {
   deleteTopSnackbar: deleteSnackbar,
   deleteBottomSnackbar: deleteBottomSnackbarAction,
   deleteAccessControlSnackbar: deleteAccessControlSnackbarAction,
+  push: pushAction,
 };
 
 export const SnackbarDataProvider = [mapStateToProps, mapDispatchToProps];

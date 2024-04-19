@@ -33,7 +33,11 @@ import {
 } from '../../actions/offer';
 import { fetchPaymentPackBulkActions } from '../../actions/paymentPack';
 import { privateConsumerPassBulkActions } from '../../actions/privateConsumerPass';
-import { privateSlotBulkActions } from '../../actions/privateService';
+import {
+  privatePassBulkActions,
+  privateServiceCompatiblePassListActions,
+  privateSlotBulkActions,
+} from '../../actions/privateService';
 import {
   assetForBlueprintActions,
   fetchRoomBlueprintActions,
@@ -249,5 +253,12 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'FETCH_RELATED_MEMBERS_NAMES_BY_PRIVATE_CONSUMER_PASS_LINK',
     fetchRelatedMembersNamesByPrivateConsumerPassLinksActions,
+  );
+
+  apiCallHandler.bindActions('FETCH_PRIVATE_PASS_BULK', privatePassBulkActions);
+
+  apiCallHandler.bindActions(
+    'FETCH_PRIVATE_SERVICE_COMPATIBLE_PASS_LIST',
+    privateServiceCompatiblePassListActions,
   );
 };

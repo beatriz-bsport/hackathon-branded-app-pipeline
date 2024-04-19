@@ -26,9 +26,9 @@ import {
   fetchPrivateBookings as fetchPrivateBookingsAction,
   fetchPrivateConsumerPass,
   updatePrivateConsumerPassCredits,
-  fetchPrivateConsumerPassExtensionList,
-  createPrivateConsumerPassExtension,
-  deletePrivateConsumerPassExtension,
+  fetchPrivateConsumerPassExtensionList as fetchPrivateConsumerPassExtensionListAction,
+  createPrivateConsumerPassExtension as createPrivateConsumerPassExtensionAction,
+  deletePrivateConsumerPassExtension as deletePrivateConsumerPassExtensionAction,
   forceRegularizeUnpaid as forceRegularizeUnpaidAction,
   resetPrivateConsumerPassList as resetPrivateConsumerPassListAction,
 } from '../../libs/private-service/actions';
@@ -51,6 +51,10 @@ import PrivateConsumerPassFilters from '../../libs/private-service/components/pa
 import { OptionCallback } from '../../state/types';
 import { retrieveConsumerPackBulk } from '#libs/consumer-payment-pack/actions';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import {
+  PrivateConsumerPassExtensionParams,
+  PrivateConsumerPassExtensionCreate,
+} from '#libs/private-service/types';
 
 type Props = {
   fetchPrivateConsumerPassList: (filters: any, params: any) => void,
@@ -59,7 +63,7 @@ type Props = {
   privateConsumerPassId: ?number,
   fetchPrivateBookings: (params: any) => void,
   fetchPrivateConsumerPassExtensionList: (
-    privateConsumerPassId: number,
+    params: PrivateConsumerPassExtensionParams,
   ) => void,
   fetchInvoiceByInvoiceItem: (
     buyable_item_identifier: number,
@@ -72,7 +76,9 @@ type Props = {
   privateConsumerPassSelected: ?PrivateConsumerPass,
   setOpenCreateExtension: (boolean) => void,
   openCreateExtension: () => void,
-  createExtension: (data: any) => void,
+  createPrivateConsumerPassExtension: (
+    data: PrivateConsumerPassExtensionCreate,
+  ) => void,
   private_consumer_pass_list: Array<PrivateConsumerPass>,
   privateConsumerPassExtensionList: Array<PrivateConsumerPassExtension>,
   private_booking_list: Array<PrivateBooking>,
@@ -161,9 +167,9 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     this.props.fetchPrivateBookings({
       private_consumer_pass: this.props.privateConsumerPassId,
     });
-    this.props.fetchPrivateConsumerPassExtensionList(
-      this.props.privateConsumerPassId,
-    );
+    this.props.fetchPrivateConsumerPassExtensionList({
+      private_consumer_pass: this.props.privateConsumerPassId,
+    });
     if (
       this.props.privateConsumerPassSelected?.linked_consumer_payment_pack &&
       !this.props.privateConsumerPassSelected?.is_universal_consumer_pass_source
@@ -274,6 +280,10 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                         this.props.fetchPrivateConsumerPass(
                           this.props.privateConsumerPassId,
                         );
+                        this.props.fetchPrivateConsumerPassExtensionList({
+                          private_consumer_pass:
+                            this.props.privateConsumerPassId,
+                        });
                       },
                     });
                   }}
@@ -308,7 +318,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
             <PrivateConsumerPassExtensionCreateDialog
               onClose={() => this.props.setOpenCreateExtension(false)}
               onSubmit={(data) => {
-                this.props.createExtension(
+                this.props.createPrivateConsumerPassExtension(
                   {
                     ...data,
                     private_consumer_pass: this.props.privateConsumerPassId,
@@ -318,6 +328,9 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                       this.props.fetchPrivateConsumerPass(
                         this.props.privateConsumerPassId,
                       );
+                      this.props.fetchPrivateConsumerPassExtensionList({
+                        private_consumer_pass: this.props.privateConsumerPassId,
+                      });
                       this.props.setOpenCreateExtension(false);
                     },
                   },
@@ -381,12 +394,15 @@ export default compose(
       fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
       fetchPrivateConsumerPass,
       forceRegularizeUnpaid: forceRegularizeUnpaidAction,
-      fetchPrivateConsumerPassExtensionList,
+      fetchPrivateConsumerPassExtensionList:
+        fetchPrivateConsumerPassExtensionListAction,
       updatePrivateConsumerPassCredits,
-      deletePrivateConsumerPassExtension,
+      deletePrivateConsumerPassExtension:
+        deletePrivateConsumerPassExtensionAction,
       deletePrivateBooking,
       disablePrivateBooking: disablePrivateBookingAction,
-      createExtension: createPrivateConsumerPassExtension,
+      createPrivateConsumerPassExtension:
+        createPrivateConsumerPassExtensionAction,
       fetchManagerFilters: fetchManagerFiltersSettings,
       updateManagerFilters: updateManagerFiltersSettings,
       fetchMember,

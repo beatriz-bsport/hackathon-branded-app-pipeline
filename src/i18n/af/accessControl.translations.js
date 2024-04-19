@@ -111,6 +111,12 @@ exports.default = {
     },
   },
   modals: {
+    locationBlocker: {
+      title: 'Location not assigned',
+      message:
+        'Ask staff with admin rights to assign a location to your staff access.',
+      description: 'Found in Settings > Staff.',
+    },
     accessStatusChangedSuccess: {
       title: 'Member status updated',
       message:

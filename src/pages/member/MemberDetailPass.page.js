@@ -67,7 +67,7 @@ import { fetchConsumerPaymentPackLinks as fetchConsumerPaymentPackLinksAction } 
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
 
-import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
+import ConsumerExtensionCreateDialog from '../../components/ConsumerExtensionCreateDialog';
 import {
   getConsumerPaymentPackExtensionList,
   getConsumerPack,
@@ -209,7 +209,7 @@ type Props = {
     object_id: number,
     options?: OptionCallback,
   ) => void,
-  passExtenxionDeleteLoading: boolean,
+  passExtensionDeleteLoading: boolean,
   passExtensionCreationLoading: boolean,
   consumerPaymentPacksLoadingById: { [key: string]: boolean },
   theme: Theme,
@@ -600,7 +600,7 @@ export class MemberDetailPass extends Component<Props, State> {
                     )
                   }
                   passExtenxionDeleteLoading={
-                    this.props.passExtenxionDeleteLoading
+                    this.props.passExtensionDeleteLoading
                   }
                   paymentPack={this.props.selectedConsumerPass.payment_pack}
                   penalties={this.props.consumerPackPenalties}
@@ -613,8 +613,8 @@ export class MemberDetailPass extends Component<Props, State> {
                 <ClickOnConsumerPack classes={this.props.classes} />
               )}
             </Grid>
-            <ConsumerPaymentPackExtensionFormDialog
-              consumerPaymentPack={this.props.selectedConsumerPass}
+            <ConsumerExtensionCreateDialog
+              isLoading={this.props.passExtensionCreationLoading}
               onClose={() => this.props.setOpenCreateExtension(false)}
               onSubmit={(data) => {
                 this.props.createConsumerPaymentPackExtension(
@@ -637,7 +637,7 @@ export class MemberDetailPass extends Component<Props, State> {
                 );
               }}
               open={this.props.openCreateExtension}
-              processing={this.props.passExtensionCreationLoading}
+              passEndingDate={this.props.selectedConsumerPass?.ending_date}
               timezone={this.props.timezone}
             />
             <RevertBookingDialog
@@ -744,7 +744,7 @@ export default compose(
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       passExtensionCreationLoading:
         state.consumerPaymentPack.extension.create.loading,
-      passExtenxionDeleteLoading:
+      passExtensionDeleteLoading:
         state.consumerPaymentPack.extension.delete.loading,
       bookings: getConsumerPackBookingListWithConsumerPack(state),
       bookingCurrentPage: state.booking.byConsumerPack.page,

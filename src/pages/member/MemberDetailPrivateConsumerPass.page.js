@@ -44,7 +44,7 @@ import {
 } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
-import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassExtensionCreateDialog.component';
+import ConsumerExtensionCreateDialog from '../../components/ConsumerExtensionCreateDialog';
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
 import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
@@ -55,6 +55,7 @@ import {
   PrivateConsumerPassExtensionParams,
   PrivateConsumerPassExtensionCreate,
 } from '#libs/private-service/types';
+import { getExpirationDate } from '#libs/private-service/utils';
 
 type Props = {
   fetchPrivateConsumerPassList: (filters: any, params: any) => void,
@@ -204,6 +205,10 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
 
   handleCreateExtension = () => this.props.setOpenCreateExtension(true);
 
+  getPassEndingDate = () =>
+    this.props.privateConsumerPassSelected &&
+    getExpirationDate(this.props.privateConsumerPassSelected);
+
   render() {
     const dataLoading =
       this.props.privateConsumerPassExtensionLoading ||
@@ -315,7 +320,8 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                 />
               ) : null}
             </Grid>
-            <PrivateConsumerPassExtensionCreateDialog
+            <ConsumerExtensionCreateDialog
+              isLoading={this.props.privateConsumerPassExtensionCreationLoading}
               onClose={() => this.props.setOpenCreateExtension(false)}
               onSubmit={(data) => {
                 this.props.createPrivateConsumerPassExtension(
@@ -337,10 +343,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                 );
               }}
               open={this.props.openCreateExtension}
-              privateConsumerPass={this.props.privateConsumerPassSelected}
-              processing={
-                this.props.privateConsumerPassExtensionCreationLoading
-              }
+              passEndingDate={this.getPassEndingDate()}
               timezone={this.props.timezone}
             />
           </Grid>

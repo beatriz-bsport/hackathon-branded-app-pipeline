@@ -162,7 +162,7 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
             noWrap
             className={classes.locationInformation}
             color="textSecondary"
-            variant="body1"
+            variant="subtitle2"
           >
             {locationInformation}
           </Typography>

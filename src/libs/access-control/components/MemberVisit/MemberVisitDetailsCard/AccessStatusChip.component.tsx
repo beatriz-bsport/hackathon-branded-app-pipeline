@@ -40,7 +40,7 @@ const AccessStatusChip: React.FC<Props> = ({
           className={classes.chip}
           icon={<CheckCircleIcon className={classes.icon} />}
           label={t('memberVisitDetails.accessStatus.green')}
-          size="small"
+          size="medium"
         />
       );
     case AccessStatus.RED:
@@ -49,7 +49,7 @@ const AccessStatusChip: React.FC<Props> = ({
           className={classes.chip}
           icon={<CancelIcon className={classes.icon} />}
           label={t('memberVisitDetails.accessStatus.red')}
-          size="small"
+          size="medium"
         />
       );
     case AccessStatus.ORANGE:
@@ -58,7 +58,7 @@ const AccessStatusChip: React.FC<Props> = ({
           className={classes.chip}
           icon={<WarningIcon className={classes.icon} />}
           label={t('memberVisitDetails.accessStatus.orange')}
-          size="small"
+          size="medium"
         />
       );
     default:

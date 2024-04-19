@@ -30,17 +30,19 @@ import video from 'bsport-saas/src/libs/video/reducers';
 import exportableComponent from 'bsport-saas/src/libs/exportable-components/reducers';
 import consumerSpace from 'bsport-saas/src/libs/consumer-space/reducersReworked';
 import spotScheduling from 'bsport-saas/src/libs/spot-scheduling/reducers';
+import relationship from 'bsport-saas/src/libs/relationship/reducers';
 
-import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
-import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
-import { ThemeState } from 'bsport-saas/src/libs/theme/types';
-import { GiftcardState } from 'bsport-saas/src/libs/giftcard/types';
-import { createBrowserHistory } from 'history';
-import { TagState } from 'bsport-saas/src/libs/tag/types';
-import { LevelState } from 'bsport-saas/src/libs/level/types';
-import { ExportableComponentsState } from 'bsport-saas/src/libs/exportable-components/types';
-import { ConsumerStateReworked } from 'bsport-saas/src/libs/consumer-space/types';
-import { SpotSchedulingState } from 'bsport-saas/src/libs/spot-scheduling/types';
+import type { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
+import type { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
+import type { ThemeState } from 'bsport-saas/src/libs/theme/types';
+import type { GiftcardState } from 'bsport-saas/src/libs/giftcard/types';
+import type { createBrowserHistory } from 'history';
+import type { TagState } from 'bsport-saas/src/libs/tag/types';
+import type { LevelState } from 'bsport-saas/src/libs/level/types';
+import type { ExportableComponentsState } from 'bsport-saas/src/libs/exportable-components/types';
+import type { ConsumerStateReworked } from 'bsport-saas/src/libs/consumer-space/types';
+import type { SpotSchedulingState } from 'bsport-saas/src/libs/spot-scheduling/types';
+import type { RelationshipState } from 'bsport-saas/src/libs/relationship/types';
 
 //  -----------------------------------------
 
@@ -82,6 +84,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     exportableComponent,
     consumerReworked: consumerSpace,
     spotScheduling,
+    relationship,
   });
 
 export interface RootState {
@@ -112,6 +115,7 @@ export interface RootState {
   exportableComponent: ExportableComponentsState;
   consumerReworked: ConsumerStateReworked;
   spotScheduling: SpotSchedulingState;
+  relationship: RelationshipState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

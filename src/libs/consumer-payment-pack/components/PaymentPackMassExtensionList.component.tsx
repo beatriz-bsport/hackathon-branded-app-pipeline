@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Paper } from '@material-ui/core';
 
 // @ts-ignore
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
-import PaymentPackMassExtensionListItem from './PaymentPackMassExtensionListItem.component';
+import ExtensionListItem from '#components/ExtensionListItem';
 
 import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
 
@@ -19,6 +19,15 @@ type Props = {
 };
 
 export const PaginatedMassExtensionList = (props: Props) => {
+  const handleDeleteExtension = useCallback(
+    (massExtension: PaymentPackMassExtension) => () => {
+      props.onDelete?.(massExtension);
+    },
+    // prevent passing entire props dict in dependency array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.onDelete],
+  );
+
   if (props.firstLoadDone && props.items.length === 0) {
     return null;
   }
@@ -35,10 +44,11 @@ export const PaginatedMassExtensionList = (props: Props) => {
         page={props.page}
         renderEmpty={() => <></>}
         renderItem={(massExtension: PaymentPackMassExtension) => (
-          <PaymentPackMassExtensionListItem
+          <ExtensionListItem
             key={massExtension.id}
-            massExtension={massExtension}
-            onDelete={props.onDelete}
+            showBottomDivider
+            extension={massExtension}
+            onDelete={handleDeleteExtension(massExtension)}
           />
         )}
       />

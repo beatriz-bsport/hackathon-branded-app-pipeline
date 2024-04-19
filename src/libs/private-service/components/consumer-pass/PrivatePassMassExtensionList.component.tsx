@@ -1,10 +1,9 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Paper } from '@material-ui/core';
 
 // @ts-ignore
 import PaginatedListBase from '../../../../components/PaginatedListBase.component';
-import PrivatePassMassExtensionListItem from './PrivatePassMassExtensionListItem.component';
+import ExtensionListItem from '#components/ExtensionListItem';
 import type { PrivatePassMassExtension } from '../../types';
 
 type Props = {
@@ -19,6 +18,15 @@ type Props = {
 };
 
 export const PrivatePassMassExtensionList = (props: Props) => {
+  const handleDeleteExtension = useCallback(
+    (massExtension: PrivatePassMassExtension) => () => {
+      props.onDelete(massExtension);
+    },
+    // prevent passing entire props dict in dependency array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.onDelete],
+  );
+
   if (props.firstLoadDone && props.items.length === 0) {
     return null;
   }
@@ -33,12 +41,13 @@ export const PrivatePassMassExtensionList = (props: Props) => {
         nbItems={props.nbItems}
         onPageRequested={props.onPageRequested}
         page={props.page}
-        renderEmpty={() => null}
+        renderEmpty={() => <></>}
         renderItem={(massExtension: PrivatePassMassExtension) => (
-          <PrivatePassMassExtensionListItem
+          <ExtensionListItem
             key={massExtension.id}
-            massExtension={massExtension}
-            onDelete={props.onDelete}
+            showBottomDivider
+            extension={massExtension}
+            onDelete={handleDeleteExtension(massExtension)}
           />
         )}
       />

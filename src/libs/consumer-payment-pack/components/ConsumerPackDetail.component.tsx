@@ -17,8 +17,7 @@ import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
-// @ts-expect-error
-import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
+import ExtensionListItem from '#components/ExtensionListItem';
 // @ts-expect-error
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -291,10 +290,9 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
           <Paper className={classes.paper}>
             {!!props.passExtenxionDeleteLoading && <LinearProgress />}
             <List disablePadding>
-              {props.extensions.map((ex) => (
-                <ConsumerPaymentPackExtensionListItem
+              {props.extensions.map((ex, index) => (
+                <ExtensionListItem
                   key={ex.id}
-                  divider
                   extension={ex}
                   onDelete={
                     props.consumerPack &&
@@ -302,6 +300,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                       ? () => props.deleteExtension(ex.id)
                       : null
                   }
+                  showBottomDivider={index !== props.extensions.length - 1}
                 />
               ))}
             </List>

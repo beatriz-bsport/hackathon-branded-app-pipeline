@@ -12,8 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PaginatedListStateful from '#components/PaginatedListStateful.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
-// @ts-expect-error
-import PrivateConsumerPassExtensionListItem from './PrivateConsumerPassExtensionListItem.component';
+import ExtensionListItem from '#components/ExtensionListItem';
 import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { OptionCallback } from '../../../../state/types';
@@ -94,10 +93,9 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
                     <LinearProgress />
                   )}
                   <List disablePadding>
-                    {props.extensions.map((ex) => (
-                      <PrivateConsumerPassExtensionListItem
+                    {props.extensions.map((ex, index) => (
+                      <ExtensionListItem
                         key={ex.id}
-                        divider
                         extension={ex}
                         onDelete={
                           props.private_consumer_pass &&
@@ -105,6 +103,9 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
                             .length
                             ? () => props.deleteExtension(ex.id)
                             : null
+                        }
+                        showBottomDivider={
+                          index !== props.extensions.length - 1
                         }
                       />
                     ))}

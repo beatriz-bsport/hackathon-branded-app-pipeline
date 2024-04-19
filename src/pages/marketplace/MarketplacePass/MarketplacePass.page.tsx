@@ -238,6 +238,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
       company: this.props.companyId,
       manager_only: false,
       include_expired: false,
+      available: true,
     });
     this.props.fetchPaymentPacks({
       company: this.props.companyId,

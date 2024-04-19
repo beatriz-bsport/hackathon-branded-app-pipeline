@@ -129,12 +129,15 @@ export class VideoCheckoutBase extends Component<Props, State> {
 
   componentDidMount() {
     // this.props.retrieveVideo(this.props.id);
-    this.props.fetchPrivatePassList({ video: this.props.id });
+    this.props.fetchPrivatePassList({
+      video: this.props.id,
+      manager_only: false,
+    });
     this.props.fetchPaymentPackList({
       as_consumer: true,
       video: this.props.id,
       manager_only: false,
-      available: true,
+      disabled: false,
       company: this.props.companyId,
     });
     this.props.fetchPaymentComboList({

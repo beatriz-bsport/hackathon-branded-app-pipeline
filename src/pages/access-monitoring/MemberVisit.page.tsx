@@ -384,22 +384,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const connector = connect(
-  (state: RootState) => ({
-    bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
-    establishmentGroups: getAssociatedEstablishmentGroup(state),
-    establishmentsData: getAllEstablishmentsDict(state),
-    establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
-    memberVisitIsLoading: getMemberVisitIsLoading(state),
-    theme: state.theme.theme,
-  }),
-  {
-    checkMemberInEstablishment: checkMemberInEstablishmentAction,
-    fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
-    refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
-    searchMembers: search,
-    setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,
-  },
-);
+const mapStateToProps = (state: RootState) => ({
+  bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
+  establishmentGroups: getAssociatedEstablishmentGroup(state),
+  establishmentsData: getAllEstablishmentsDict(state),
+  establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
+  memberVisitIsLoading: getMemberVisitIsLoading(state),
+  theme: state.theme.theme,
+});
 
-export default compose(connector)(MemberVisit);
+const mapDispatchToProps = {
+  checkMemberInEstablishment: checkMemberInEstablishmentAction,
+  fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
+  refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
+  searchMembers: search,
+  setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,
+};
+
+const connector = connect<
+  ReturnType<typeof mapStateToProps>,
+  typeof mapDispatchToProps
+>(mapStateToProps, mapDispatchToProps);
+
+export default compose<Props, OwnProps>(connector)(MemberVisit);

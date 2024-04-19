@@ -135,7 +135,9 @@ const ContractDetail = (props: Props) => {
         ) : null}
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.description')}</Typography>
-          <TypographyMultiline>{description}</TypographyMultiline>
+          <TypographyMultiline whiteSpace="break-spaces">
+            {description}
+          </TypographyMultiline>
         </div>
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.legal')}</Typography>

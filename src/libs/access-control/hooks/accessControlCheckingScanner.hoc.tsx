@@ -2,7 +2,10 @@ import React, { useCallback } from 'react';
 
 import { useAccessControlBroadcastChannel } from './broadcastChannel';
 import { useNumericCodeScanner } from './codeScanning';
-import { staffMemberCanPerformAccessMonitoring } from '../utils';
+import {
+  getPerformAccessMonitoringUrl,
+  staffMemberCanPerformAccessMonitoring,
+} from '../utils';
 
 import type { UpsellSumup } from '#libs/company/types';
 import type { RolePermission } from '#libs/role/types';
@@ -16,6 +19,7 @@ import type { MemberVisitREST } from '../types';
 export const withAccessControlCheckInScanner = (
   WrappedComponent: React.ComponentType<{
     featureList: Array<UpsellSumup>;
+    location?: Location;
     permissions: RolePermission;
   }>,
 ) => {
@@ -23,6 +27,7 @@ export const withAccessControlCheckInScanner = (
     checkMemberInEstablishment,
     establishmentsSelectedInRole,
     featureList,
+    location,
     permissions,
     ...props
   }: React.PropsWithChildren<
@@ -30,11 +35,16 @@ export const withAccessControlCheckInScanner = (
       checkMemberInEstablishment?: (data: any, options: any) => void;
       establishmentsSelectedInRole?: number[];
       featureList?: Array<UpsellSumup>;
+      location?: Location;
       permissions?: RolePermission;
     }
   >) => {
     const sendToAccessControlBroadcastChannel =
       useAccessControlBroadcastChannel();
+
+    const pathName = location?.pathname ?? '';
+    // If the user is on the access monitoring page, the snackbar should not be displayed.
+    const displaySnackbar = pathName !== getPerformAccessMonitoringUrl();
 
     /**
      * Callback function triggered when a code is scanned.
@@ -46,6 +56,7 @@ export const withAccessControlCheckInScanner = (
           {
             memberBarcode,
             establishmentIds: establishmentsSelectedInRole,
+            displaySnackbar,
           },
           {
             onSuccess: (data: MemberVisitREST) => {
@@ -57,6 +68,7 @@ export const withAccessControlCheckInScanner = (
       [
         checkMemberInEstablishment,
         sendToAccessControlBroadcastChannel,
+        displaySnackbar,
         establishmentsSelectedInRole,
       ],
     );
@@ -73,6 +85,7 @@ export const withAccessControlCheckInScanner = (
       <WrappedComponent
         {...props}
         featureList={featureList}
+        location={location}
         permissions={permissions}
       />
     );

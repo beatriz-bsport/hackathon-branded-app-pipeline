@@ -62,10 +62,12 @@ export const checkMemberInEstablishment = (
     memberId,
     memberBarcode,
     establishmentIds,
+    displaySnackbar = true,
   }: {
     memberId: number;
     memberBarcode?: string;
     establishmentIds?: number[];
+    displaySnackbar?: boolean;
   },
   options?: OptionCallback<MemberVisitREST>,
 ): ThunkAction => {
@@ -80,9 +82,15 @@ export const checkMemberInEstablishment = (
       });
       dispatch(checkMemberInEstablishmentActions.success(response));
       const { data } = response;
-      dispatch(
-        displayAccessControlSnackbar(data.id, data.member, data.access_status),
-      );
+      if (displaySnackbar) {
+        dispatch(
+          displayAccessControlSnackbar(
+            data.id,
+            data.member,
+            data.access_status,
+          ),
+        );
+      }
       options?.onSuccess?.(data);
     } catch (error) {
       dispatch(checkMemberInEstablishmentActions.error(error));

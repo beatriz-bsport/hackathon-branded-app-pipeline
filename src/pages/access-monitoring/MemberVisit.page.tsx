@@ -185,6 +185,7 @@ export const useMemberVisitPageDataManager = ({
         {
           memberId,
           establishmentIds: establishmentsSelectedInRole,
+          displaySnackbar: false,
         },
         {
           onSuccess: (data: MemberVisitREST) => {

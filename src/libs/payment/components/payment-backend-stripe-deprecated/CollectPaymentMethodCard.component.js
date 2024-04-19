@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import {
   CardElement,
@@ -21,38 +22,38 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 
-import { withTranslation, TFunction } from 'react-i18next';
-import type { FeatureList } from '#libs/company/types';
+import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
+import { getCompanyCountry, getStripePkKey } from '../../../theme/selectors';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
-import { getCompanyCountry, getStripePkKey } from '../../../theme/selectors';
 import StripeErrorCode from './StripeErrorCode.component';
+
 import type { BillingDetails } from '../../../marketplace/types';
-import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
+import type { FeatureList } from '#libs/company/types';
 import type { StripeReader } from '#libs/terminal/types';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
 
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
+  addViaTerminal?: boolean,
+  cardBillingDetailsMandatory: boolean,
+  classes: Object,
+  content?: string,
+  defaultEmail?: string,
+  defaultName?: string,
+  elements: StripeElement,
   fullScreen: boolean,
+  labelClose?: string,
+  stripe: Stripe,
+  stripeReaders: StripeReader[],
   t: TFunction,
+  variant?: 'div' | 'modal',
   onClose?: () => void,
   onSuccess: (stripeSetupIntentCallResult: any) => void,
   requestSetupIntentSecret: () => void,
-  stripe: Stripe,
-  elements: StripeElement,
-  classes: Object,
-  variant?: 'div' | 'modal',
-  content?: string,
-  stripeReaders: StripeReader[],
-  addViaTerminal?: boolean,
-  labelClose?: string,
-  defaultName?: string,
-  defaultEmail?: string,
-  cardBillingDetailsMandatory: boolean,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -416,7 +417,7 @@ const styles = (theme: Theme) => ({
 });
 
 const CollectPaymentMethodCompose = compose(
-  withTranslation(['payment']),
+  withTranslation('payment'),
   withStyles(styles),
 )(CollectPaymentMethod);
 

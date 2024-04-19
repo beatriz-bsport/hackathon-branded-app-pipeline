@@ -1,11 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Typography from '@material-ui/core/Typography';
 
 import { AccessStatus } from '#libs/access-control/constants';
 
@@ -24,6 +25,7 @@ const MemberVisitHeadButtons: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('accessControl');
   const classes = useStyles();
+  const theme = useTheme();
 
   if (isLoading) {
     return (
@@ -50,20 +52,24 @@ const MemberVisitHeadButtons: React.FC<Props> = ({
         <Button
           onClick={onClose}
           size="small"
-          startIcon={<CloseIcon />}
+          startIcon={<CloseIcon htmlColor={theme.palette.text.secondary} />}
           variant="outlined"
         >
-          {t('memberVisit.closeMemberVisit')}
+          <Typography className={classes.label} color="textSecondary">
+            {t('memberVisit.closeMemberVisit')}
+          </Typography>
         </Button>
       )}
       {accessStatus !== AccessStatus.GREEN && (
         <Button
           onClick={onRefresh}
           size="small"
-          startIcon={<RefreshIcon />}
+          startIcon={<RefreshIcon htmlColor={theme.palette.text.secondary} />}
           variant="outlined"
         >
-          {t('memberVisit.refreshMemberVisit')}
+          <Typography className={classes.label} color="textSecondary">
+            {t('memberVisit.refreshMemberVisit')}
+          </Typography>
         </Button>
       )}
     </div>
@@ -71,6 +77,9 @@ const MemberVisitHeadButtons: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  label: {
+    fontWeight: 500,
+  },
   root: {
     display: 'flex',
     justifyContent: 'flex-end',

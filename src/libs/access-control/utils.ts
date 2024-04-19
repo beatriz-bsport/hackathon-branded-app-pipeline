@@ -184,3 +184,17 @@ export const formatLocationString = ({
       ?.map((establishment) => establishment.title)
       ?.join(', '),
   ].join(' - ');
+
+/**
+ * Returns the URL for performing access monitoring with optional query parameters.
+ *
+ * @param params - Optional query parameters as key-value pairs.
+ * @returns The access monitoring URL with the specified query parameters.
+ */
+export const getPerformAccessMonitoringUrl = (params?: {
+  [key: string]: any;
+}) => {
+  return `/access-monitoring/perform${
+    params ? `?${new URLSearchParams(params)}` : ''
+  }`;
+};

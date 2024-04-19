@@ -49,7 +49,9 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               {booking.establishment_name}
             </Typography>
             <Typography color="textSecondary" variant="caption">
-              {moment(booking.offer_date_start).format('LLLL')}
+              {`${moment(booking.offer_date_start).format('LT')} - ${moment(
+                booking.offer_date_start,
+              ).format('L')}`}
             </Typography>
           </div>
           {isOpen && (
@@ -101,7 +103,9 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               </Typography>
             )}
             <Typography color="textSecondary" variant="caption">
-              {moment(date_start).format('LLLL')}
+              {`${moment(date_start).format('LT')} - ${moment(
+                date_start,
+              ).format('L')}`}
             </Typography>
           </div>
           {isOpen && (

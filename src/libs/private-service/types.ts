@@ -349,11 +349,23 @@ export type CompatiblePrivateServiceWithIncludedSlots = {
 };
 
 export type PrivateConsumerPassExtension = {
+  date_created: string;
   id: number;
+  nb_days: number;
   note: string;
   private_consumer_pass: number;
-  date_created: string;
-  nd_days: number;
+};
+
+export type PrivateConsumerPassExtensionParams = {
+  page_size?: number;
+  page: number;
+  private_consumer_pass: number;
+};
+
+export type PrivateConsumerPassExtensionCreate = {
+  nb_days: number;
+  note: string;
+  private_consumer_pass: number;
 };
 
 export type PrivatePassMassExtension = {

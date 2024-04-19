@@ -5,11 +5,21 @@ import {
   cancelBookingAsMemberActions,
   cancelBookingOptionAsMemberActions,
   cancelPrivateBookingAsMemberActions,
+  fetchConsumerPassesTabDisplayActions,
+  fetchMyActiveConsumerPaymentPacksAsMemberActions,
+  fetchMyActivePrivateConsumerPassesAsMemberActions,
+  fetchMyActiveUniversalPassesAsMemberActions,
   fetchMyBookingOptionAsMemberActions,
   fetchMyBookingOptionWorkshopAsMemberActions,
+  fetchMyExpiredConsumerPaymentPacksAsMemberActions,
+  fetchMyExpiredPrivateConsumerPassesAsMemberActions,
+  fetchMyExpiredUniversalPassesAsMemberActions,
   fetchMyFutureBookingAsMemberActions,
   fetchMyFutureBookingWorkshopAsMemberActions,
+  fetchMyFutureConsumerPaymentPacksAsMemberActions,
   fetchMyFuturePrivateBookingAsMemberActions,
+  fetchMyFuturePrivateConsumerPassesAsMemberActions,
+  fetchMyFutureUniversalPassesAsMemberActions,
   fetchMyPastBookingAsMemberActions,
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyPastPrivateBookingAsMemberActions,
@@ -175,5 +185,82 @@ export const actionsBinder = () => {
   apiCallHandler.bindActions(
     'MEMBERSHIP_BY_COMPANY',
     retrieveMembershipByCompanyAction,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_PASSES_TABS',
+    fetchConsumerPassesTabDisplayActions,
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_ACTIVE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    fetchMyActiveConsumerPaymentPacksAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_ACTIVE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    fetchMyActivePrivateConsumerPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_ACTIVE_UNIVERSAL_PASSES_AS_MEMBER',
+    fetchMyActiveUniversalPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_EXPIRED_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    fetchMyExpiredConsumerPaymentPacksAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_EXPIRED_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    fetchMyExpiredPrivateConsumerPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_EXPIRED_UNIVERSAL_PASS_AS_MEMBER',
+    fetchMyExpiredUniversalPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_CONSUMER_PAYMENT_PACK_AS_MEMBER',
+    fetchMyFutureConsumerPaymentPacksAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_PRIVATE_CONSUMER_PASS_AS_MEMBER',
+    fetchMyFuturePrivateConsumerPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
+  );
+
+  apiCallHandler.bindActions(
+    'FETCH_FUTURE_UNIVERSAL_PASS_AS_MEMBER',
+    fetchMyFutureUniversalPassesAsMemberActions,
+    {
+      successCallbackExtractFn: extractPaginatedResponseDataResults,
+    },
   );
 };

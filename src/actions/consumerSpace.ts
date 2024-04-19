@@ -1,4 +1,9 @@
 import { createAction } from 'redux-actions';
+import type { PaginatedResponse } from 'bsport-saas/src/state/types';
+import type { UniversalPassREST } from 'bsport-saas/src/libs/universal-pass/types';
+import type { PrivateConsumerPassREST } from 'bsport-saas/src/libs/private-service/types';
+import type { ConsumerPaymentPackREST } from 'bsport-saas/src/libs/consumer-payment-pack/types';
+import type { ConsumerPassesTabDisplay } from 'bsport-saas/src/libs/consumer-space/types';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),
@@ -74,4 +79,120 @@ export const cancelBookingOptionAsMemberActions = {
   success: createAction('BOOKING_OPTION/CANCEL/SUCCESS'),
   isLoading: createAction<boolean>('BOOKING_OPTION/CANCEL/IS_LOADING'),
   error: createAction<Error | null>('BOOKING_OPTION/CANCEL/ERROR'),
+};
+
+export const fetchConsumerPassesTabDisplayActions = {
+  success: createAction<ConsumerPassesTabDisplay>(
+    'REWORKED/MY_PASSES_TABS/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('REWORKED/MY_PASSES_TABS/IS_LOADING'),
+  error: createAction<Error | null>('REWORKED/MY_PASSES_TABS/ERROR'),
+};
+
+export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyActiveUniversalPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredUniversalPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFutureUniversalPassesAsMemberActions = {
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/ERROR',
+  ),
 };

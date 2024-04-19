@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 import EuroIcon from '@material-ui/icons/Euro';
 
-import CheckPermission from '#libs/role/components/CheckPermission.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import AccessStatusChip from './AccessStatusChip.component';
@@ -173,8 +172,10 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
         <div className={classes.photoContainer}>
           <img alt={member.name} className={classes.photo} src={member.photo} />
           <div className={classes.ctaButtonsContainer}>
-            {/* @ts-expect-error */}
-            <CheckPermission requiredPermissions="member.retrieve">
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.search"
+            >
               <Button
                 className={classNames(
                   classes.memberCtaButton,
@@ -187,7 +188,7 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
               >
                 {t('memberVisitDetails.actions.goToProfile')}
               </Button>
-            </CheckPermission>
+            </ObjectLevelPermissionWrapper>
             <ObjectLevelPermissionWrapper
               forcedBehavior="hidden"
               requiredPermission="billing.allowed_actions.createInvoice"

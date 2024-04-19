@@ -25,7 +25,7 @@
         "passIncompatibleWithEstablishments": "The member's pass {{- passName }} is not compatible with your site",
         "passIncompatibleWithAppointmentsInEstablishments": "Appointments that can be booked with the member's pass {{- passName }} are not compatible with your site",
         "numberOfCheckedPasses": "{{- count }} member's pass were checked with no valid result.",
-        "numberOfCheckedPasses_plural": "{{- count }} member's passes were checked with no valid result."
+        "numberOfCheckedPasses_plural": "{{- count }} member's passes were checked with no valid results."
       }
     },
     "liveHistory": {

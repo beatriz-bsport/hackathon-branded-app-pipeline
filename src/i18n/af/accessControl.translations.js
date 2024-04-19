@@ -40,7 +40,7 @@ exports.default = {
       numberOfCheckedPasses:
         "{{- count }} member's pass were checked with no valid result.",
       numberOfCheckedPasses_plural:
-        "{{- count }} member's passes were checked with no valid result.",
+        "{{- count }} member's passes were checked with no valid results.",
     },
   },
   liveHistory: {

@@ -28,6 +28,7 @@ type TabType = 'perform' | 'monitor' | 'settings';
 
 type Props = {
   tab: TabType;
+  location: Location;
 } & ConnectedProps<typeof connector> &
   WithPageHeight &
   WithTranslation;
@@ -38,9 +39,10 @@ type Props = {
  * According to the user permissions, it will render the tabs that the user has access to.
  * If the user has no access to any tab, it will redirect to the home page.
  */
-const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
-  permissions,
-}) => {
+const AccessMonitoringSwitcher: React.FC<{
+  permissions: RolePermission;
+  location: any;
+}> = ({ permissions, location }) => {
   const { accessMonitoring: accessMonitoringPermissions } =
     permissions?.navigationMenu || {};
 
@@ -51,7 +53,7 @@ const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
   };
 
   const components = {
-    perform: <MemberVisit />,
+    perform: <MemberVisit location={location} />,
     monitor: <LiveHistory />,
     settings: <AccessControlSettings />,
   };
@@ -92,6 +94,7 @@ const AccessMonitoringSwitcher: React.FC<{ permissions: RolePermission }> = ({
 const AccessMonitoringRouter: React.FC<Props> = ({
   fetchAllEstablishmentGroup,
   fetchEstablishments,
+  location,
   pageHeight,
   permissions,
   push,
@@ -137,7 +140,10 @@ const AccessMonitoringRouter: React.FC<Props> = ({
       tabsData={hideAppBar ? Immutable([]) : tabsData}
     >
       <div className={classes.container}>
-        <AccessMonitoringSwitcher permissions={permissions} />
+        <AccessMonitoringSwitcher
+          location={location}
+          permissions={permissions}
+        />
       </div>
     </ContentWithAppBar>
   );

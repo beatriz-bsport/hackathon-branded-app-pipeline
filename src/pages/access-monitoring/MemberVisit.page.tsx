@@ -13,7 +13,10 @@ import {
   getAssociatedEstablishmentGroup,
   getEstablishmentsSelectedInRole,
 } from '#libs/establishment/selectors';
-import { getMemberVisitIsLoading } from '#libs/access-control/selectors';
+import {
+  getMemberVisit,
+  getMemberVisitIsLoading,
+} from '#libs/access-control/selectors';
 import { getAllBookingAndPrivateBooking } from '#libs/consumer-space/selectors';
 
 // Actions
@@ -49,14 +52,19 @@ import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
 
 import type { RootState } from '../../reducers';
 
-// Hooks
+// Hooks / hocs
 
 import { useAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
 import type { MemberVisitREST } from '#libs/access-control/types';
+import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 
-export type Props = ConnectedProps<typeof connector>;
+type OwnProps = {
+  location: Location;
+};
+
+export type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export const useMemberVisitPageDataManager = ({
   checkMemberInEstablishment,
@@ -65,6 +73,7 @@ export const useMemberVisitPageDataManager = ({
   establishmentsSelectedInRole,
   fetchBookingsAndPrivateBookings,
   refreshMemberVisitAccessStatus,
+  memberVisitOverride,
   setMemberVisitEntryStatus,
   theme,
 }: Pick<
@@ -75,15 +84,16 @@ export const useMemberVisitPageDataManager = ({
   | 'establishmentsSelectedInRole'
   | 'fetchBookingsAndPrivateBookings'
   | 'refreshMemberVisitAccessStatus'
+  | 'memberVisitOverride'
   | 'setMemberVisitEntryStatus'
   | 'theme'
 >) => {
   /** -------------- STATE --------------- */
 
-  const [isEmptyState, setIsEmptyState] = React.useState(true);
+  const [isEmptyState, setIsEmptyState] = React.useState(!memberVisitOverride);
 
   const [memberVisit, setMemberVisit] = React.useState<MemberVisitREST | null>(
-    null,
+    memberVisitOverride,
   );
 
   // Modals
@@ -275,6 +285,7 @@ const MemberVisit: React.FC<Props> = React.memo(
     establishmentsSelectedInRole,
     fetchBookingsAndPrivateBookings,
     memberVisitIsLoading,
+    memberVisitOverride,
     refreshMemberVisitAccessStatus,
     searchMembers,
     setMemberVisitEntryStatus,
@@ -307,6 +318,7 @@ const MemberVisit: React.FC<Props> = React.memo(
       establishmentsData,
       establishmentsSelectedInRole,
       fetchBookingsAndPrivateBookings,
+      memberVisitOverride,
       refreshMemberVisitAccessStatus,
       setMemberVisitEntryStatus,
       theme,
@@ -384,14 +396,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = (state: RootState) => ({
-  bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
-  establishmentGroups: getAssociatedEstablishmentGroup(state),
-  establishmentsData: getAllEstablishmentsDict(state),
-  establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
-  memberVisitIsLoading: getMemberVisitIsLoading(state),
-  theme: state.theme.theme,
-});
+type WithQueryParamsProps = OwnProps & {
+  memberVisitOverrideId: number;
+};
+
+const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
+  const { memberVisitOverrideId } = props;
+  return {
+    bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
+    establishmentGroups: getAssociatedEstablishmentGroup(state),
+    establishmentsData: getAllEstablishmentsDict(state),
+    establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
+    memberVisitIsLoading: getMemberVisitIsLoading(state),
+    memberVisitOverride: getMemberVisit(state, memberVisitOverrideId),
+    theme: state.theme.theme,
+  };
+};
 
 const mapDispatchToProps = {
   checkMemberInEstablishment: checkMemberInEstablishmentAction,
@@ -403,7 +423,11 @@ const mapDispatchToProps = {
 
 const connector = connect<
   ReturnType<typeof mapStateToProps>,
-  typeof mapDispatchToProps
+  typeof mapDispatchToProps,
+  WithQueryParamsProps
 >(mapStateToProps, mapDispatchToProps);
 
-export default compose<Props, OwnProps>(connector)(MemberVisit);
+export default compose<Props, OwnProps>(
+  withQueryParamsToProps(['id', 'memberVisitOverrideId', 'number']),
+  connector,
+)(MemberVisit);

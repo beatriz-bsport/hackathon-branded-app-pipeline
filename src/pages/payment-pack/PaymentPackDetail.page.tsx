@@ -29,7 +29,9 @@ import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/Pa
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
-import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
+import MassExtensionCreateDialog, {
+  GenericExtensionCreationPayload,
+} from '#components/MassExtensionCreateDialog';
 import themeSelectors from '#libs/theme/selectors';
 
 import {
@@ -275,22 +277,12 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.setState({ paymentPackToDeleteId: null });
   };
 
-  createMassExtension = (data: {
-    minDate: string;
-    maxDate: string;
-    nbDays: number;
-    note: string;
-  }) => {
-    const { minDate, maxDate, nbDays, note } = data;
-
+  createMassExtension = (data: GenericExtensionCreationPayload) => {
     this.props.setLoadingMassExtension(true);
     this.props.createPaymentPackMassExtension(
       {
+        ...data,
         payment_pack: this.props.pack.id,
-        min_ending_date: minDate,
-        max_ending_date: maxDate,
-        nb_days: nbDays,
-        note,
       },
       {
         onSuccess: () => {
@@ -505,7 +497,10 @@ export class PaymentPackDetail extends Component<Props, State> {
                       firstLoadDone
                       itemPerPage={PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE}
                       items={this.props.massExtension.items}
-                      loading={this.props.massExtension.loading}
+                      loading={
+                        this.props.massExtension.loading ||
+                        this.props.massExtension.isDeleteLoading
+                      }
                       nbItems={this.props.massExtension.count}
                       onDelete={this.onDeleteMassExtension}
                       onPageRequested={(page) => {
@@ -556,7 +551,8 @@ export class PaymentPackDetail extends Component<Props, State> {
               open={!!this.state.paymentPackToDeleteId}
               pack={this.props.pack}
             />
-            <PaymentPackMassExtensionDialog
+            <MassExtensionCreateDialog
+              isLoading={this.props.massExtension.isCreateLoading}
               onClose={() => this.props.setOpenMassExtensionDialog(false)}
               onSubmit={this.createMassExtension}
               open={this.props.openMassExtensionDialog}
@@ -661,6 +657,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       count: state.paymentPack.massExtension.count,
       loading: state.paymentPack.massExtension.loading,
       page: state.paymentPack.massExtension.page,
+      isCreateLoading: state.paymentPack.massExtension.create.loading,
+      isDeleteLoading: state.paymentPack.massExtension.delete.loading,
     },
     loading: state.paymentPack.loading || state.establishment.loading,
     pack: withTags(

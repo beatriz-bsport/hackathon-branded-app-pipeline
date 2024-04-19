@@ -66,7 +66,9 @@ import BottomActionsButton from '#components/button/BottomActionsButton.componen
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
+import MassExtensionCreateDialog, {
+  GenericExtensionCreationPayload,
+} from '#components/MassExtensionCreateDialog';
 import type {
   PrivatePassMassExtension,
   PrivatePassCategory,
@@ -193,22 +195,12 @@ export class PrivatePassDetails extends Component<Props> {
     }
   }
 
-  createMassExtension = (data: {
-    minDate: string;
-    maxDate: string;
-    nbDays: number;
-    note: string;
-  }) => {
-    const { minDate, maxDate, nbDays, note } = data;
-
+  createMassExtension = (data: GenericExtensionCreationPayload) => {
     this.props.setLoadingMassExtension(true);
     this.props.createPrivatePassMassExtension(
       {
+        ...data,
         private_pass: this.props.id,
-        min_ending_date: minDate,
-        max_ending_date: maxDate,
-        nb_days: nbDays,
-        note,
       },
       {
         onSuccess: () => {
@@ -392,7 +384,10 @@ export class PrivatePassDetails extends Component<Props> {
                       firstLoadDone
                       itemPerPage={MASS_EXTENSION_PAGINATION_SIZE}
                       items={this.props.massExtension.items}
-                      loading={this.props.massExtension.loading}
+                      loading={
+                        this.props.massExtension.loading ||
+                        this.props.massExtension.isDeleteLoading
+                      }
                       nbItems={this.props.massExtension.count}
                       onDelete={this.onDeleteMassExtension}
                       onPageRequested={(page) => {
@@ -488,7 +483,8 @@ export class PrivatePassDetails extends Component<Props> {
             </Dialog>
 
             {!this.props.privatePass?.template_instance && (
-              <PaymentPackMassExtensionDialog
+              <MassExtensionCreateDialog
+                isLoading={this.props.massExtension.isCreateLoading}
                 onClose={() => this.props.setOpenMassExtensionDialog(false)}
                 onSubmit={this.createMassExtension}
                 open={this.props.openMassExtensionDialog}
@@ -558,6 +554,10 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
     count: state.privateService.privatePass.massExtension.count,
     loading: state.privateService.privatePass.massExtension.loading,
     page: state.privateService.privatePass.massExtension.page,
+    isCreateLoading:
+      state.privateService.privatePass.massExtension.create.loading,
+    isDeleteLoading:
+      state.privateService.privatePass.massExtension.delete.loading,
   },
   compatibleServicePass: getCompatibleServicePass(state),
   privatePassCategories: getPrivatePassCategories(state),

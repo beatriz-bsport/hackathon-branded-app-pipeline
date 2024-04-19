@@ -134,6 +134,9 @@ import {
 } from './types';
 import type {
   PrivateBookingFilterParams,
+  PrivateConsumerPassExtension,
+  PrivateConsumerPassExtensionCreate,
+  PrivateConsumerPassExtensionParams,
   PrivatePassMassExtensionCreate,
   PrivatePassMassExtensionParams,
 } from '#libs/private-service/types';
@@ -147,7 +150,10 @@ import {
 } from '#libs/role/constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';
-import { PRIVATE_PASS_MASS_EXTENSION_PAGE_SIZE } from './constants';
+import {
+  PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE,
+  PRIVATE_PASS_MASS_EXTENSION_PAGE_SIZE,
+} from './constants';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -2385,25 +2391,6 @@ export function deleteRecurrenceRulePrivateBooking(
   };
 }
 
-export const listPrivateConsumerPassExtensionActions = {
-  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/ERROR'),
-  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/LOADING'),
-  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/SUCCESS'),
-  reset: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/RESET'),
-};
-
-export const createPrivateConsumerPassExtensionActions = {
-  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/ERROR'),
-  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/LOADING'),
-  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/SUCCESS'),
-};
-
-export const deletePrivateConsumerPassExtensionActions = {
-  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/ERROR'),
-  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/LOADING'),
-  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/SUCCESS'),
-};
-
 export const fetchPrivatePassMassExtensionListActions = {
   isLoading: createAction<boolean>('PRIVATE_PASS/MASS_EXTENSION/LOADING'),
   error: createAction<Error | null>('PRIVATE_PASS/MASS_EXTENSION/ERROR'),
@@ -2520,75 +2507,118 @@ export function deletePrivatePassMassExtension(
   };
 }
 
-export function deletePrivateConsumerPassExtension(
-  id: number,
-  options: OptionCallback,
+export const fetchPrivateConsumerPassExtensionListActions = {
+  isLoading: createAction<boolean>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION_LIST/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION_LIST/ERROR',
+  ),
+  success: createAction<PaginatedResponse<PrivateConsumerPassExtension>>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION_LIST/SUCCESS',
+  ),
+};
+
+/**
+ * Fetch the list of extensions for a specific private consumer pass
+ * @param params Object containing the required `private_consumer_pass` ID + optional pagination params
+ */
+export function fetchPrivateConsumerPassExtensionList(
+  params: PrivateConsumerPassExtensionParams,
+  options?: OptionCallback<PaginatedResponse<PrivateConsumerPassExtension>>,
 ) {
-  return async (dispatch: Dispatch) => {
-    dispatch(deletePrivateConsumerPassExtensionActions.isLoading(true));
-    dispatch(deletePrivateConsumerPassExtensionActions.error(null));
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchPrivateConsumerPassExtensionListActions.isLoading(true));
+    dispatch(fetchPrivateConsumerPassExtensionListActions.error(null));
+
+    const page =
+      getState().privateService.privateConsumerPass.extension.page ?? 1;
     try {
-      await deletePrivateConsumerPassExtensionAPI(id);
-      dispatch(deletePrivateConsumerPassExtensionActions.success(id));
-      if (options && options.onSuccess) options.onSuccess(id);
-    } catch (err) {
-      console.error(err);
-      dispatch(deletePrivateConsumerPassExtensionActions.error(err));
-      if (options && options.onError) options.onError(err);
+      const response = await fetchPrivateConsumerPassExtensionListAPI({
+        ...params,
+        page: params.page ?? page,
+        page_size: PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE,
+      });
+
+      dispatch(
+        fetchPrivateConsumerPassExtensionListActions.success(response.data),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchPrivateConsumerPassExtensionListActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(fetchPrivateConsumerPassExtensionListActions.isLoading(false));
     }
-    dispatch(deletePrivateConsumerPassExtensionActions.isLoading(false));
   };
 }
 
+export const createPrivateConsumerPassExtensionActions = {
+  isLoading: createAction<boolean>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION/CREATE/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION/CREATE/ERROR',
+  ),
+};
+
+/**
+ * Create an extension for a private consumer pass
+ * @param data The payload sent for the creation of the extension
+ */
 export function createPrivateConsumerPassExtension(
-  data: any,
-  options: OptionCallback,
+  data: PrivateConsumerPassExtensionCreate,
+  options?: OptionCallback<PrivateConsumerPassExtension>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createPrivateConsumerPassExtensionActions.isLoading(true));
     dispatch(createPrivateConsumerPassExtensionActions.error(null));
     try {
       const response = await createPrivateConsumerPassExtensionAPI(data);
-      dispatch(
-        createPrivateConsumerPassExtensionActions.success(response.data),
-      );
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
-    } catch (err) {
-      console.error(err);
-      dispatch(createPrivateConsumerPassExtensionActions.error(err));
-      if (options && options.onError) options.onError(err);
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(createPrivateConsumerPassExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(createPrivateConsumerPassExtensionActions.isLoading(false));
     }
-    dispatch(createPrivateConsumerPassExtensionActions.isLoading(false));
   };
 }
 
-export function fetchPrivateConsumerPassExtensionList(
-  privateConsumerPassId: number,
-  options: OptionCallback,
-): ThunkAction {
+export const deletePrivateConsumerPassExtensionActions = {
+  isLoading: createAction<boolean>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION/DELETE/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PRIVATE_CONSUMER_PASS/EXTENSION/DELETE/ERROR',
+  ),
+};
+
+/**
+ * Delete a private consumer pass extension
+ * @param id The ID of the extension to delete
+ */
+export function deletePrivateConsumerPassExtension(
+  id: number,
+  options?: OptionCallback<number>,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(listPrivateConsumerPassExtensionActions.reset());
-    dispatch(listPrivateConsumerPassExtensionActions.isLoading(true));
-    dispatch(listPrivateConsumerPassExtensionActions.error(null));
+    dispatch(deletePrivateConsumerPassExtensionActions.isLoading(true));
+    dispatch(deletePrivateConsumerPassExtensionActions.error(null));
     try {
-      const response = await fetchPrivateConsumerPassExtensionListAPI(
-        privateConsumerPassId,
-      );
-      // TODO handle pagination
-      dispatch(
-        listPrivateConsumerPassExtensionActions.success(response.data.results),
-      );
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
-      }
-    } catch (err) {
-      console.error(err);
-      dispatch(listPrivateConsumerPassExtensionActions.error(null));
-      if (options && options.onError) options.onError();
+      await deletePrivateConsumerPassExtensionAPI(id);
+
+      options?.onSuccess?.(id);
+    } catch (error) {
+      console.error(error);
+      dispatch(deletePrivateConsumerPassExtensionActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(deletePrivateConsumerPassExtensionActions.isLoading(false));
     }
-    dispatch(listPrivateConsumerPassExtensionActions.isLoading(false));
   };
 }
 

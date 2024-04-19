@@ -64,10 +64,7 @@ import {
   registerContractBackground,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAction,
 } from '#libs/subscription/actions';
-import {
-  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-  fetchMarketplacePacks,
-} from '#libs/payment-packs/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassAsConsumerList,
@@ -783,7 +780,6 @@ const mapDispatchToProps = {
   detachPaymentMethodAction: detachPaymentMethod,
   registerContractBackground,
   fetchPaymentComboList,
-  fetchPaymentPacks: fetchMarketplacePacks,
   fetchPrivatePassAsConsumerList,
   downloadPDFContractTermsForContract:
     downloadPDFContractTermsForContractAction,

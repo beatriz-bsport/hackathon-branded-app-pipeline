@@ -20,10 +20,7 @@ import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
-import {
-  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-  fetchMarketplacePacks,
-} from '#libs/payment-packs/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
@@ -692,7 +689,6 @@ const mapDispatchToProps = {
     return window.close();
   },
   fetchPaymentComboList,
-  fetchPaymentPacks: fetchMarketplacePacks,
   fetchPrivatePassAsConsumerList,
   downloadPDFContractTermsForContract:
     downloadPDFContractTermsForContractAction,

@@ -18,6 +18,9 @@ import type {
   PrivatePassMassExtensionParams,
   PrivatePassMassExtensionCreate,
   PrivatePassMassExtension,
+  PrivateConsumerPassExtensionParams,
+  PrivateConsumerPassExtension,
+  PrivateConsumerPassExtensionCreate,
 } from './types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
@@ -451,28 +454,42 @@ export const updatePrivateConsumerPassCredits = (
   );
 };
 
-export async function fetchPrivateConsumerPassExtensionList(
-  private_consumer_pass: number,
-) {
-  return getAuth(
+/**
+ * Fetch the list of extensions for a specific private consumer pass
+ * @param params Object containing the required `private_consumer_pass` ID + optional pagination params
+ */
+export const fetchPrivateConsumerPassExtensionList = (
+  params: PrivateConsumerPassExtensionParams,
+) => {
+  return getAuth<PaginatedResponse<PrivateConsumerPassExtension>>(
     `${API_V1_URI}/private_service/private_consumer_pass_extension/${buildUrlParams(
-      { private_consumer_pass },
+      params,
     )}`,
   );
-}
+};
 
-export async function createPrivateConsumerPassExtension(data: any) {
-  return postAuth(
+/**
+ * Create an extension for a private consumer pass
+ * @param data The payload sent for the creation of the extension
+ */
+export const createPrivateConsumerPassExtension = (
+  data: PrivateConsumerPassExtensionCreate,
+) => {
+  return postAuth<PrivateConsumerPassExtension>(
     `${API_V1_URI}/private_service/private_consumer_pass_extension/`,
     data,
   );
-}
+};
 
-export async function deletePrivateConsumerPassExtension(id: number) {
+/**
+ * Delete a private consumer pass extension
+ * @param id The ID of the extension to delete
+ */
+export const deletePrivateConsumerPassExtension = (id: number) => {
   return deleteAuth(
     `${API_V1_URI}/private_service/private_consumer_pass_extension/${id}/`,
   );
-}
+};
 
 export const fetchCompatiblePrivatePass = (
   privateSlotId: number,

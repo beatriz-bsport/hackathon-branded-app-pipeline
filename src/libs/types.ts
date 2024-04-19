@@ -49,3 +49,26 @@ export enum UserInteractionKey {
   ESCAPE = 'Escape',
   SPACE = ' ',
 }
+
+/**
+ * Generates a type from 2 input types with
+ * common properties only
+ *
+ * @example
+ * type A = {
+ *   id: number;
+ *   name: string;
+ *   description: string;
+ * }
+ *
+ * type B = {
+ *   name: string;
+ *   price: string;
+ *   description: string;
+ * }
+ *
+ * type C = Common<A, B> // { name: string; description: string; }
+ */
+export type Common<A, B> = {
+  [P in keyof A & keyof B]: A[P] | B[P];
+};

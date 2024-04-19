@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
-import { WithTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import Immutable from 'seamless-immutable';
@@ -22,6 +22,7 @@ import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#libs/establishment/actions';
+import withTitle from '#hocs/with-title.hoc';
 
 type TabType = 'perform' | 'monitor' | 'settings';
 
@@ -169,4 +170,6 @@ export default compose(
     tab: 'tab:string',
   }),
   withPageHeightHOC(),
+  withTranslation('accessControl'),
+  withTitle(({ t }) => t('accessMonitoringTitle')),
 )(AccessMonitoringRouter);

@@ -1,4 +1,5 @@
 exports.default = {
+  accessMonitoringTitle: 'Access monitoring',
   memberEntry: 'Member entry',
   snackbar: {
     message: '<strong>{{- name }}</strong> just checked in.',

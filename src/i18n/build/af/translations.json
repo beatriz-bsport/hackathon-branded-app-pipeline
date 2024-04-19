@@ -11966,7 +11966,10 @@
     "communicationProviderSettings": { "update": { "error": "Unable to save changes", "success": "Registered changes" } },
     "requestCurrentBasket": { "15002": "The recovery of the basket information is already in progress" },
     "refreshInternalAccountPrepaidLines": { "15002": "An operation is already in progress, please wait a few moments" },
-    "removeItem": { "15002": "The item is already being removed from the basket, please wait" },
+    "removeItem": {
+      "15002": "The item is already being removed from the basket, please wait",
+      "15009": "Impossible to remove this item: your basket is still being processed"
+    },
     "smartListPopup": { "send": { "error": "An error has occurred while sending your pop-up." } },
     "instalmentPayment": {
       "16000": "The amount of the first instalment payment needs to be greater than zero",

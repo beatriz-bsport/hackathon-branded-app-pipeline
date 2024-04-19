@@ -168,6 +168,9 @@ const getTranslations = async () => {
     SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION,
   } = await import('@bsport/common/lib/master-data/error-codes/spivi.js');
 
+  const { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } =
+    await import('@bsport/common/lib/master-data/error-codes/basket.js');
+
   return {
     bookkeeping_account: {
       errors: {
@@ -1241,6 +1244,8 @@ const getTranslations = async () => {
     removeItem: {
       [BASKET_LOCK_ACQUISITION_FAILURE]:
         'The item is already being removed from the basket, please wait',
+      [BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS]:
+        'Impossible to remove this item: your basket is still being processed',
     },
     smartListPopup: {
       send: { error: 'An error has occurred while sending your pop-up.' },

@@ -6,6 +6,8 @@ import {
   BASKET_PROCESSING_PAYMENT_EXCEPTION,
 } from '@bsport/common/lib/master-data/error-codes/lock';
 
+import { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } from '@bsport/common/lib/master-data/error-codes/basket';
+
 import {
   addItemToBasket as addItemToBasketAPI,
   fetchCurrentBasket as fetchCurrentBasketAPI,
@@ -287,11 +289,12 @@ export function removeItemFromBasket(
       }
       if (
         isErrorWithCustomCode(error) &&
-        error.response.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+        [
+          BASKET_LOCK_ACQUISITION_FAILURE,
+          BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS,
+        ].includes(error.response.data?.error_code)
       ) {
-        dispatch(
-          snackbarError(`removeItem.${BASKET_LOCK_ACQUISITION_FAILURE}`),
-        );
+        dispatch(snackbarError(`removeItem.${error.response.data.error_code}`));
       }
       dispatch(currentBasket.error(error));
       if (options && options.onError) {

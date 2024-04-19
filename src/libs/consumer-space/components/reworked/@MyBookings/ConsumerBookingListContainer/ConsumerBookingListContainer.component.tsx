@@ -368,6 +368,9 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             }
             isLateCancellation={isLateCancellation}
             isLoading={isLoading}
+            isPaymentPackUnlimited={
+              selectedBooking?.consumer_payment_pack?.payment_pack?.unlimited
+            }
             levelName={
               selectedBooking?.level?.name ||
               selectedPrivateBooking?.private_slot?.name ||

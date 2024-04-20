@@ -19417,6 +19417,68 @@
             "G": "Valide",
             "message": "<strong>{{- name }}</strong> vient de se présenter."
         },
-        "memberEntry": "Entrée membre"
+        "memberEntry": "Entrée membre",
+        "modals": {
+            "accessStatusChangedSuccess": {
+                "message": "Tous les problèmes ont été résolus. Le statut du membre est désormais valide.",
+                "title": "Statut du membre mis à jour"
+            }
+        },
+        "memberVisitDetails": {
+            "atHome": "À domicile",
+            "passExpiration": "Valide jusqu'au {{- expirationDate }}",
+            "manualEntry": {
+                "button": {
+                    "entryRefused": "Entrée refusée",
+                    "entryAllowed": "Entré",
+                    "accept": "Autoriser l'entrée",
+                    "refuse": "Refuser l'entrée"
+                },
+                "description": "Veuillez indiquer si ce membre peut entrer ou non"
+            },
+            "actions": {
+                "billMember": "Facturer",
+                "goToProfile": "Profil",
+                "seePreviousImages": "Voir précédent"
+            },
+            "photoHasChanged": "Photo de profil modifiée récemment",
+            "pass": "Carte:",
+            "spotName": "Emplacement: {{- spotName}}",
+            "teacherName": "Professeur: {{- coachName}}",
+            "nextBooking": "Prochaine réservation:",
+            "lastName": "Nom:",
+            "firstName": "Prénom:",
+            "title": "Information du membre",
+            "accessStatus": {
+                "red": "Non valide",
+                "orange": "Attention",
+                "green": "Valide"
+            }
+        },
+        "memberVisit": {
+            "warnings": {
+                "numberOfCheckedPasses": "{{- count }} carte du membre a été vérifiée sans résultat valide.",
+                "numberOfCheckedPasses_plural": "{{- count }} cartes du membre ont été vérifiées sans résultat valide.",
+                "passIncompatibleWithAppointmentsInEstablishments": "Les rendez-vous qui peuvent être pris avec le pass du membre {{- passName }} ne sont pas compatibles avec votre site",
+                "passIncompatibleWithEstablishments": "La carte du membre {{- passName }} n'est pas compatible avec votre site",
+                "passRestrictedByOffPeakSchedule": "La carte du membre {{- passName }} n'autorise pas l'entrée pendant ce créneau horaire",
+                "passRestrictedToVod": "La carte du membre {{- passName }} est limitée à la VOD seulement",
+                "passLinkedToPausedSubscription": "La carte du membre {{- passName }} est lié à un abonnement en pause",
+                "passIsDisabled": "La carte du membre {{- passName }} est inactive",
+                "noPasses": "Le membre n'a pas de carte active avec des crédits restants",
+                "bookingsInOtherEstablishments": "La réservation du membre {{- bookingName}} est programmée dans un autre établissement : {{- establishmentName }}",
+                "hasUnpaidAppointments": "Le membre a un ou plusieurs RDV non payés",
+                "hasNegativeAccountBalance": "Le solde du membre est négatif",
+                "hasUnpaidInvoices": "Le membre a une ou plusieurs factures impayées"
+            },
+            "refreshMemberVisit": "Actualiser le statut",
+            "closeMemberVisit": "Fermer la page du membre",
+            "emptyState": {
+                "searchMember": "Rechercher des membres par nom ou par numéro",
+                "or": "ou",
+                "establishmentsSelectedInRole": "Vous surveiller l'accès à <strong>{{- address }} - {{- establishments }}</strong>",
+                "waitForScan": "Attendez que le membre scanne son code-barres ou recherchez son nom ou son code-barres manuellement."
+            }
+        }
     }
 }

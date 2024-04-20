@@ -2770,7 +2770,8 @@
             "disconnect": "Opnieuw inloggen"
         },
         "signup": {
-            "title": "Inschrijven"
+            "title": "Inschrijven",
+            "titleAsResgisterBooking": "Reservering registreren"
         },
         "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe bsport uw onderneming ondersteunt.",
         "or": " of ",
@@ -4785,7 +4786,22 @@
         "roomRequiredIsMissing": "U heeft geen factureringsinstelling geselecteerd.",
         "roomRequired": "Zaal *",
         "billingGroup": "Facturatiegroep",
-        "billingGroupRequired": "Facturatiegroep *"
+        "billingGroupRequired": "Facturatiegroep *",
+        "bookkeeping_account": {
+            "modal": {
+                "delete": {
+                    "cancel": "Annuleren",
+                    "confirm": "Verwijderen",
+                    "content": "Je staat op het punt dit account te verwijderen. Weet je zeker dat je door wilt gaan?",
+                    "title": "Verwijderen"
+                }
+            },
+            "header": "Accounts",
+            "table": {
+                "actions": "Acties"
+            },
+            "vat_rate": "btw-percentage"
+        }
     },
     "smartList": {
         "multiSelector": {
@@ -6784,12 +6800,12 @@
                 "submit": "Bevestigen",
                 "help": {
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
-                    "attendance": "als een lid {{notify_booking_nb}} keer heeft gereserveerd.",
+                    "attendance": "Deze melding wordt gestuurd wanneer een lid als een lid {{notify_booking_nb}} keer aanwezig is.",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
                     "text": "Deze melding wordt automatisch verstuurd wanneer een lid",
-                    "notRefunded": "{{notify_booking_nb}} keer te laat heeft geannuleerd.",
-                    "refunded": "{{notify_booking_nb}} te late annulering(en) heeft geregistreerd.",
-                    "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
+                    "notRefunded": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} keer te laat annuleert.",
+                    "refunded": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} teruggestortte annulering(en) heeft.",
+                    "absence": "Deze melding wordt gestuurd wanneer een lid {{notify_booking_nb}} keer afwezig is.",
                     "allEvents": {
                         "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
                         "refunded": "Deze melding wordt bij elke terugbetaalde annulering verstuurd.",
@@ -12144,7 +12160,7 @@
                 "title": "Nieuwe instructeur",
                 "success": "Instructeur toegevoegd"
             },
-            "errorDescription": "De opgegeven beschrijving is te lang (max 500)",
+            "errorDescription": "De opgegeven beschrijving is te lang (max 1.000)",
             "errorLinkLength": "De opgegeven URL is te lang (max 150)",
             "errorInvalidURL": "Voer een geldige URL in"
         },
@@ -13060,7 +13076,10 @@
         "discard": "Weggooien",
         "no": "Nee",
         "yes": "Ja",
-        "saveChanges": "Wijzigingen opslaan"
+        "saveChanges": "Wijzigingen opslaan",
+        "none": "Geen",
+        "numberRequired": "Dit veld moet een nummer zijn",
+        "positiveNumber": "Dit veld moet meer dan 0 zijn."
     },
     "workshop": {
         "modal": {
@@ -16357,7 +16376,8 @@
             "replacement": "Vervanging",
             "inbox": "Inbox",
             "audience": "{{ audienceCamelCase }}",
-            "backToWebshop": "Terug naar Webshop"
+            "backToWebshop": "Terug naar Webshop",
+            "accessMonitoring": "Toegang"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -16502,6 +16522,10 @@
             "communicationSentGroupConfig": {
                 "campaigns": "Campagnes",
                 "general": "Algemeen"
+            },
+            "accessMonitoring": {
+                "settings": "Instellingen",
+                "perform": ""
             }
         },
         "logout": "Loguit",
@@ -19676,6 +19700,57 @@
             "O": "Waarschuwing",
             "G": "Geldig"
         },
-        "memberEntry": "Lid toetreding"
+        "memberEntry": "Lid toetreding",
+        "modals": {
+            "entryStatusChanged": {
+                "stay": "Op ledenprofiel blijven",
+                "close": "Ledenprofiel sluiten"
+            },
+            "accessStatusChangedSuccess": {
+                "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'."
+            }
+        },
+        "memberVisitDetails": {
+            "atHome": "Thuis",
+            "passExpiration": "Geldig tot {{- expirationDate }}",
+            "actions": {
+                "billMember": "Factureren",
+                "goToProfile": "Profiel",
+                "seePreviousImages": "Toon vorige profielfoto"
+            },
+            "photoHasChanged": "Deze profielfoto is recent gewijzigd",
+            "pass": "Kaart:",
+            "spotName": "Plek: {{- spotName}}",
+            "teacherName": "Instructeur: {{- coachName}}",
+            "nextBooking": "Eerstvolgende reservering:",
+            "lastName": "Achternaam:",
+            "firstName": "Voornaam:",
+            "title": "Ledeninformatie",
+            "accessStatus": {
+                "red": "Ongeldig",
+                "orange": "Waarschuwing",
+                "green": "Geldig"
+            }
+        },
+        "memberVisit": {
+            "warnings": {
+                "passIncompatibleWithAppointmentsInEstablishments": "De kaart van dit lid ({{- passName }}) kan niet voor afspraken binnen je vestiging worden gebruikt",
+                "passIncompatibleWithEstablishments": "De kaart van dit lid ({{- passName }}) is niet beschikbaar gesteld voor je vestiging",
+                "passRestrictedByOffPeakSchedule": "De kaart van dit lid ({{- passName }}) kan niet tijdens deze tijden worden gebruikt",
+                "passRestrictedToVod": "De kaart van dit lid ({{- passName }}) kan alleen voor Video on Demand worden gebruikt",
+                "passLinkedToPausedSubscription": "De kaart van dit lid ({{- passName }}) is gekoppeld aan een gepauzeerd abonnement",
+                "passIsDisabled": "De kaart van dit lid is onbeschikbaar ({{- passName }})",
+                "noPasses": "Dit lid heeft geen actieve kaarten of lidmaatschappen met credits",
+                "bookingsInOtherEstablishments": "Deze reservering ({{- bookingName}}) vindt plaats in een andere vestiging ({{- establishmentName }})",
+                "hasUnpaidAppointments": "Dit lid heeft één of meerdere onbetaalde afspraken",
+                "hasNegativeAccountBalance": "Het saldo van dit lid is negatief",
+                "hasUnpaidInvoices": "Dit lid heeft één of meerdere openstaande facturen"
+            },
+            "refreshMemberVisit": "Verversstatus",
+            "closeMemberVisit": "Ledenprofiel sluiten",
+            "emptyState": {
+                "or": "of"
+            }
+        }
     }
 }

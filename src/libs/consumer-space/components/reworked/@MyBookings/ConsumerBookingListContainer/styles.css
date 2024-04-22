@@ -26,6 +26,7 @@
 
 .bs-consumer-page-root__bookings__details-card {
   margin-top: var(--bs-space-size-6);
+  margin-bottom: var(--bs-space-size-6);
 }
 
 .bs-consumer-page-root__bookings__details-card--hidden {

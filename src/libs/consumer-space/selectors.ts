@@ -1079,3 +1079,6 @@ export const getPaidInvoicesNextPage = (state: RootState) =>
   state.consumerReworked.myInvoices.paid.nextPage;
 export const getRefundedInvoicesNextPage = (state: RootState) =>
   state.consumerReworked.myInvoices.refunded.nextPage;
+
+export const getUnpaidInvoicesPage = (state: RootState) =>
+  state.consumerReworked.myInvoices.unpaid.page;

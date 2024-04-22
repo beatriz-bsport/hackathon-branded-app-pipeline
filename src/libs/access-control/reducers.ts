@@ -14,7 +14,7 @@ import {
   setMemberVisitEntryStatusActions,
 } from './actions';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#state/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type {
   AccessControlPolicy,

@@ -7,7 +7,7 @@ import {
 } from '../../http';
 import { EntryStatus } from './constants';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#state/types';
 import type {
   AccessControlPolicy,
   MemberVisitQueryParams,

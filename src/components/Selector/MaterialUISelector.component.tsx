@@ -73,6 +73,7 @@ type BaseProps<T extends OptionTypeBase> = {
   blurOnSelect?: boolean;
   placeholder?: string;
   withoutConfirmButton?: boolean;
+  filterOption?: (option: T, inputValue: string) => boolean;
   openMenuOnFocus?: boolean;
   openMenuOnClear?: boolean;
   closeMenuOnSelect?: boolean;

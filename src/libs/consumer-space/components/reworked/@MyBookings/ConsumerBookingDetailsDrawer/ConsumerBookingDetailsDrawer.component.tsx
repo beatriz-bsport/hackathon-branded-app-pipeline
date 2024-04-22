@@ -3,6 +3,7 @@ import React from 'react';
 import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
+import { useTranslation } from 'react-i18next';
 import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 
@@ -34,6 +35,8 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
   selectedBookingOption,
   handleClose,
 }) => {
+  const { t } = useTranslation('common');
+
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart:
       selectedBooking?.offer?.date_start ||
@@ -67,6 +70,7 @@ const ConsumerBookingDetailsDrawer: React.FC<Props> = ({
         title: 'Activity',
         onClose: handleClose,
         onCancel: handleClose,
+        cancelLabel: t('back'),
       }}
     >
       <ConsumerBookingDetailsCard

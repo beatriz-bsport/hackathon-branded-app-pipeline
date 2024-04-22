@@ -2,18 +2,18 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme, Typography } from '@material-ui/core';
 
-type OwnProps = {
+type Props = {
   isAvailableOnAll: boolean;
   allItemList: Array<any>;
   itemList: Array<any>;
   title: string;
 };
-type Props = OwnProps;
-export const InstalmentPaymentCompatibleItemsList: React.FC<Props> = (
-  props,
-) => {
+
+export const InstalmentPaymentConfigurationCompatibleItemsList: React.FC<
+  Props
+> = ({ itemList, allItemList, isAvailableOnAll, title }) => {
   const classes = useStyles();
-  const { itemList, allItemList, isAvailableOnAll, title } = props;
+
   return (
     <>
       {(!!itemList?.length || isAvailableOnAll) && (
@@ -29,6 +29,7 @@ export const InstalmentPaymentCompatibleItemsList: React.FC<Props> = (
     </>
   );
 };
+
 const useStyles = makeStyles((theme: Theme) => ({
   typo: {
     marginBottom: theme.spacing(1),
@@ -39,4 +40,5 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
 }));
-export default InstalmentPaymentCompatibleItemsList;
+
+export default React.memo(InstalmentPaymentConfigurationCompatibleItemsList);

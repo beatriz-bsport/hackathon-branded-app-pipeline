@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Button, Dialog, Paper, Typography } from '@material-ui/core';
-import { Info, Warning } from '@material-ui/icons';
+
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import Info from '@material-ui/icons/Info';
+import Paper from '@material-ui/core/Paper';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
+import Typography from '@material-ui/core/Typography';
+import Warning from '@material-ui/icons/Warning';
+
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
 import RedButton from '#components/button/RedButton.component';
-import { InstalmentPayment } from '../types';
+import InstalmentPaymentConfigurationCompatibilityDetail from './InstalmentPaymentConfigurationCompatibilityDetail.component';
+import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+
 import {
   generateComboCompatibilityInfo,
   generateDuration,
@@ -16,16 +24,16 @@ import {
   generatePrivatePassCompatibilityInfo,
   generateShopItemCompatibilityInfo,
   identifyCompability,
-} from '../utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import InstalmentPaymentCompatibilityDetail from './InstalmentPaymentConfigurationCompatibilityDetail.component';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Giftcard } from '#libs/giftcard/types';
+} from '#libs/instalment-payment-configuration/utils';
 
-type OwnProps = {
+import type { Giftcard } from '#libs/giftcard/types';
+import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { ShopItem } from '#libs/shop/types';
+
+type Props = {
   instalmentPayment: InstalmentPayment;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
@@ -37,31 +45,37 @@ type OwnProps = {
   shopItemList: Array<ShopItem>;
   giftcardList: Array<Giftcard>;
 };
-type Props = OwnProps;
-export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
+
+export const InstalmentPaymentConfigurationDetail: React.FC<Props> = ({
+  comboList,
+  giftcardList,
+  instalmentPayment,
+  instalmentPaymentId,
+  loading,
+  onDelete,
+  onEdit,
+  paymentPackList,
+  privatePassList,
+  shopItemList,
+}) => {
   const [isCompabilityDialogOpen, setIsCompabilityDialogOpen] =
     React.useState(false);
+
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
     useState(false);
+
   const { t } = useTranslation('instalmentPayment');
+
   const classes = useStyles();
-  const {
-    instalmentPayment,
-    onEdit,
-    onDelete,
-    loading,
-    instalmentPaymentId,
-    paymentPackList,
-    privatePassList,
-    comboList,
-    shopItemList,
-    giftcardList,
-  } = props;
+
+  const noCompatibility = identifyCompability(instalmentPayment);
+
   if (loading && instalmentPaymentId) {
     return (
       <Skeleton animation="wave" height={640} variant="rect" width="100%" />
     );
   }
+
   if (!instalmentPayment) {
     return (
       <div className={classes.containerNothing}>
@@ -70,7 +84,7 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
       </div>
     );
   }
-  const noCompatibility = identifyCompability(instalmentPayment);
+
   return (
     <>
       <Paper>
@@ -218,7 +232,7 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
         open={isCompabilityDialogOpen}
       >
         <div className={classes.dialog}>
-          <InstalmentPaymentCompatibilityDetail
+          <InstalmentPaymentConfigurationCompatibilityDetail
             comboList={comboList}
             giftcardList={giftcardList}
             instalmentPayment={instalmentPayment}
@@ -293,4 +307,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   grey: { color: 'rgba(0, 0, 0, 0.6)' },
 }));
-export default InstalmentPaymentDetail;
+
+export default React.memo(InstalmentPaymentConfigurationDetail);

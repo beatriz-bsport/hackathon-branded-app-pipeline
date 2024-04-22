@@ -8,7 +8,7 @@ import { Formik, FormikHelpers, FormikProps } from 'formik';
 
 import { Button, Divider, LinearProgress } from '@material-ui/core';
 
-import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
+import type { ShopItem } from '#libs/shop/types';
 
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { OptionCallback } from '../../../state/types';
@@ -54,7 +54,7 @@ type OwnProps = {
 };
 type Props = OwnProps;
 
-export const InstalmentPaymentForm = (props: Props) => {
+export const InstalmentPaymentConfiguration = (props: Props) => {
   const {
     initial,
     closeDialog,
@@ -190,7 +190,7 @@ export const InstalmentPaymentForm = (props: Props) => {
   );
 };
 
-InstalmentPaymentForm.defaultProps = {
+InstalmentPaymentConfiguration.defaultProps = {
   initial: {
     id: null,
     name: '',
@@ -235,7 +235,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     marginRight: theme.spacing(-4),
   },
 }));
-export default InstalmentPaymentForm;
+export default InstalmentPaymentConfiguration;
 const instalmentPaymentSchema = Yup.object().shape({
   name: Yup.string().required('common:form.requiredField'),
   frequency: Yup.number().min(1),

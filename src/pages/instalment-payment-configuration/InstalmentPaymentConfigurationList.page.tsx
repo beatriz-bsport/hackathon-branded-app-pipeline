@@ -1,11 +1,8 @@
-// @ts-nocheck
 import React, { Component } from 'react';
-
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { push as pushRouter } from 'connected-react-router';
 
 import {
   WithStyles,
@@ -13,47 +10,51 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { push as pushRouter } from 'connected-react-router';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Info from '@material-ui/icons/Info';
 
-import { Info } from '@material-ui/icons';
-import { Divider, Grid } from '@material-ui/core';
-import { WithHandlerType } from '../../utils/types';
-import {
-  InstalmentPayment,
-  InstalmentPaymentApi,
-} from '#libs/instalment-payment-configuration/types';
-import { RootState } from '../../reducers';
-import withTitle from '#hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import InstalmentPaymentForm from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfiguration.form';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '../../libs/payment-combo/actions';
-import { fetchShopItemAsManager as fetchShopItemAsManagerAction } from '../../libs/shop/actions/shopitem';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '#libs/payment-packs/actions';
 import { fetchPrivatePassList as fetchPrivatePassListAction } from '#libs/private-service/actions';
-import { getEnabledPaymentPacks } from '#libs/payment-packs/selectors';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
-import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { getShopItemsAvailable } from '#libs/shop/selectors';
-import { getGiftcardListActive } from '#libs/giftcard/selectors';
+import { fetchShopItemAsManager as fetchShopItemAsManagerAction } from '#libs/shop/actions/shopitem';
 import {
   createOrUpdateInstalmentPayment as createOrUpdateInstalmentPaymentAction,
   disableInstalmentPayment as disableInstalmentPaymentAction,
   fetchInstalmentPayment as fetchInstalmentPaymentAction,
 } from '#libs/instalment-payment-configuration/actions';
+
+import { getEnabledPaymentPacks } from '#libs/payment-packs/selectors';
+import { getGiftcardListActive } from '#libs/giftcard/selectors';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
+import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
+import { getShopItemsAvailable } from '#libs/shop/selectors';
 import {
   composeWithAllItems,
   getInstalmentPaymentList,
   retrieveInstalmentPayment,
 } from '#libs/instalment-payment-configuration/selectors';
+
+import InstalmentPaymentConfiguration from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfiguration.form';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import InstalmentPaymentListComponent from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationList.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
-import InstalmentPaymentDetail from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
-
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import InstalmentPaymentConfigurationDetail from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+
+import withTitle from '#hocs/with-title.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '#utils/types';
+import type {
+  InstalmentPayment,
+  InstalmentPaymentApi,
+} from '#libs/instalment-payment-configuration/types';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.InstalmentPayment,
@@ -62,7 +63,6 @@ const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
 type OwnProps = {
   title: string;
 };
-type State = {};
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -77,10 +77,9 @@ type Props = OwnProps &
   WithStyles<typeof styles> &
   WithTranslation;
 
-export class InstalmentPaymentList extends Component<Props, State> {
+export class InstalmentPaymentConfigurationList extends Component<Props> {
   componentDidMount() {
     this.props.fetchShopItemAsManager();
-
     this.props.fetchInstalmentPayment(
       {},
       {
@@ -184,7 +183,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
                     </Typography>
                     <Divider />
                   </div>
-                  <InstalmentPaymentDetail
+                  <InstalmentPaymentConfigurationDetail
                     comboList={comboList}
                     giftcardList={giftcardList}
                     instalmentPayment={instalmentPaymentDetailed}
@@ -217,7 +216,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
           title={t('form.create')}
           width="45%"
         >
-          <InstalmentPaymentForm
+          <InstalmentPaymentConfiguration
             isInDrawer
             closeDialog={() => {
               setIsCreationFormOpen(false);
@@ -379,4 +378,4 @@ export default compose(
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connector,
   withHandlers(mapWhithHandlers),
-)(InstalmentPaymentList);
+)(InstalmentPaymentConfigurationList);

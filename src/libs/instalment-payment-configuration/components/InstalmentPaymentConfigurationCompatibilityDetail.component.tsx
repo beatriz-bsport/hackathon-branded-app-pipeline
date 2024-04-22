@@ -1,17 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
-import { InstalmentPayment } from '../types';
-import InstalmentPaymentCompatibleItemsList from './InstalmentPaymentConfigurationCompatibleItemsList.component';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Giftcard } from '#libs/giftcard/types';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 
-type OwnProps = {
+import InstalmentPaymentConfigurationCompatibleItemsList from './InstalmentPaymentConfigurationCompatibleItemsList.component';
+
+import type { Giftcard } from '#libs/giftcard/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { ShopItem } from '#libs/shop/types';
+import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+
+type Props = {
   instalmentPayment: InstalmentPayment;
   paymentPackList: Array<PaymentPack>;
   privatePassList: Array<PrivatePass>;
@@ -19,52 +20,53 @@ type OwnProps = {
   shopItemList: Array<ShopItem>;
   giftcardList: Array<Giftcard>;
 };
-type Props = OwnProps;
-export const InstalmentPaymentCompatibilityDetail: React.FC<Props> = (
-  props,
-) => {
+
+export const InstalmentPaymentConfigurationCompatibilityDetail: React.FC<
+  Props
+> = ({
+  instalmentPayment,
+  paymentPackList,
+  privatePassList,
+  comboList,
+  shopItemList,
+  giftcardList,
+}) => {
   const classes = useStyles();
-  const {
-    instalmentPayment,
-    paymentPackList,
-    privatePassList,
-    comboList,
-    shopItemList,
-    giftcardList,
-  } = props;
+
   const { t } = useTranslation('instalmentPayment');
+
   if (!instalmentPayment) {
     return null;
   }
 
   return (
     <div className={classes.container}>
-      <InstalmentPaymentCompatibleItemsList
+      <InstalmentPaymentConfigurationCompatibleItemsList
         allItemList={paymentPackList}
         isAvailableOnAll={instalmentPayment.is_available_on_all_payment_pack}
         itemList={instalmentPayment.payment_pack_list}
         title={t('detail.paymentPack')}
       />
-      <InstalmentPaymentCompatibleItemsList
+      <InstalmentPaymentConfigurationCompatibleItemsList
         allItemList={privatePassList}
         isAvailableOnAll={instalmentPayment.is_available_on_all_private_pass}
         itemList={instalmentPayment.private_pass_list}
         title={t('detail.privatePass')}
       />
-      <InstalmentPaymentCompatibleItemsList
+      <InstalmentPaymentConfigurationCompatibleItemsList
         allItemList={comboList}
         isAvailableOnAll={instalmentPayment.is_available_on_all_payment_combo}
         itemList={instalmentPayment.payment_combo_list}
         title={t('detail.combo')}
       />
-      <InstalmentPaymentCompatibleItemsList
+      <InstalmentPaymentConfigurationCompatibleItemsList
         allItemList={giftcardList}
         isAvailableOnAll={instalmentPayment.is_available_on_all_giftcard}
         itemList={instalmentPayment.giftcard_list}
         title={t('detail.giftcard')}
       />
 
-      <InstalmentPaymentCompatibleItemsList
+      <InstalmentPaymentConfigurationCompatibleItemsList
         allItemList={shopItemList}
         isAvailableOnAll={instalmentPayment.is_available_on_all_shop_item}
         itemList={instalmentPayment.shop_item_list}
@@ -73,6 +75,7 @@ export const InstalmentPaymentCompatibilityDetail: React.FC<Props> = (
     </div>
   );
 };
+
 const useStyles = makeStyles<Theme>((theme) => ({
   container: {
     display: 'flex',
@@ -80,4 +83,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     justifyContent: 'center',
   },
 }));
-export default InstalmentPaymentCompatibilityDetail;
+
+export default React.memo(InstalmentPaymentConfigurationCompatibilityDetail);

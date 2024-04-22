@@ -1,18 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Grid, Typography } from '@material-ui/core';
-import { DoneAll } from '@material-ui/icons';
-import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
+
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import DoneAll from '@material-ui/icons/DoneAll';
+
 import {
   CheckboxField,
   MaterialUiMultiSelectorField,
 } from '#libs/custom-form/components/GenericFormik.input';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { Giftcard } from '#libs/giftcard/types';
+
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { Giftcard } from '#libs/giftcard/types';
+import type { ShopItem } from '#libs/shop/types';
 
 type OwnProps = {
   paymentPackList: Array<PaymentPack>;
@@ -28,24 +31,26 @@ type OwnProps = {
   isInDrawer: boolean;
   setFieldValue: (field: string, value: any) => void;
 };
+
 type Props = OwnProps;
-export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
+
+export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
+  paymentPackList,
+  privatePassList,
+  comboList,
+  shopItemList,
+  giftcardList,
+  is_available_on_all_payment_pack,
+  is_available_on_all_giftcard,
+  is_available_on_all_payment_combo,
+  is_available_on_all_private_pass,
+  is_available_on_all_shop_item,
+  isInDrawer,
+  setFieldValue,
+}) => {
   const { t } = useTranslation('instalmentPayment');
   const classes = useStyles();
-  const {
-    paymentPackList,
-    privatePassList,
-    comboList,
-    shopItemList,
-    giftcardList,
-    is_available_on_all_payment_pack,
-    is_available_on_all_giftcard,
-    is_available_on_all_payment_combo,
-    is_available_on_all_private_pass,
-    is_available_on_all_shop_item,
-    isInDrawer,
-    setFieldValue,
-  } = props;
+
   const paymentPackOptions = paymentPackList?.length
     ? [...paymentPackList].map((paymentPack) => ({
         value: paymentPack.id,
@@ -80,6 +85,7 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         label: giftcard.name,
       }))
     : [];
+
   return (
     <div className={!isInDrawer ? classes.padding : classes.paddingTop}>
       <Grid container spacing={4}>
@@ -260,4 +266,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     paddingTop: theme.spacing(4),
   },
 }));
-export default InstalmentPaymentCompablityForm;
+
+export default React.memo(InstalmentPaymentConfigurationCompatibility);

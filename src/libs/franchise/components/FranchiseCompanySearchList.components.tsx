@@ -20,7 +20,7 @@ import HighlightedText from '#components/HighlightedText/HighlightedText.compone
 import type { FranchiseCompany, CompanyGroup } from '#libs/franchise/types';
 import type { OptionCallback } from '#state/types';
 
-export type OwnProps = {
+type Props = {
   asManager: boolean;
   companies: FranchiseCompany[];
   companyGroupList: CompanyGroup[];
@@ -33,8 +33,6 @@ export type OwnProps = {
   ) => void;
   handleCompanySelected: (company: number, name: string) => () => void;
 };
-
-type Props = OwnProps;
 
 const FranchiseCompanySearchList: React.FC<Props> = ({
   asManager,

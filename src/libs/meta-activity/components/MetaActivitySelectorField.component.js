@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { Field, ErrorMessage } from 'formik';
 import { withTranslation } from 'react-i18next';
-import { Alert } from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import MetaActivitySelector from './MetaActivitySelector.component';

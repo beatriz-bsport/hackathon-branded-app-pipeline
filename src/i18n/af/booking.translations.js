@@ -316,7 +316,7 @@ const getTranslations = async () => {
       recurrentBookings: 'Recurrent bookings',
       deleteModal: {
         content:
-          'Deleting the recurrence rule will result in the cancelation of future reservations that used this rule.',
+          'The recurrence rule is going to be deleted, do you wish to also cancel the future bookings already done with this rule?',
         title: 'Delete recurrence rule',
         cancel: 'Cancel',
         confirm: 'Delete',
@@ -333,6 +333,7 @@ const getTranslations = async () => {
       blockedBookings:
         'Members can book up to {{days}} days in advance for this activity.\nConsider extending recurrence periods to prevent overcrowding.',
       notifyIfCanceled: 'Send a booking cancellation email',
+      cancelRelatedBookings: 'Cancel the future bookings already done',
       notify: 'Send a confirmation email when booking the member',
       showLess: 'Show less',
       showMore: 'Show more ({{count}})',

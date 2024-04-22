@@ -34,12 +34,28 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
   const { recurrenceRuleBooking, onDelete, onEdit, notShowMember } = props;
   const { member, meta_activity, establishment } = recurrenceRuleBooking;
 
-  const [checked, setChecked] = useState(false);
+  const [notifyIfCanceledChecked, setNotifyIfCanceledChecked] = useState(true);
+  const [cancelBookingsChecked, setCancelBookingsChecked] = useState(true);
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+  const handleNotifyChangeChecked = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { checked } = event.target;
+    setNotifyIfCanceledChecked(checked);
   };
+
+  const handleCancelBookingChecked = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { checked } = event.target;
+      setCancelBookingsChecked(checked);
+      if (!checked) {
+        setNotifyIfCanceledChecked(false);
+      }
+    },
+    [],
+  );
 
   const getHeader = () => {
     if (notShowMember) {
@@ -73,10 +89,22 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={checked}
+                  checked={cancelBookingsChecked}
+                  id="cancel_bookings_checked"
+                  name="cancel_bookings_checked"
+                  onChange={handleCancelBookingChecked}
+                />
+              }
+              label={t('booking:recurrenceRule.cancelRelatedBookings')}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={notifyIfCanceledChecked}
+                  disabled={!cancelBookingsChecked}
                   id="notify_if_canceled"
                   name="notify_if_canceled"
-                  onChange={handleChangeChecked}
+                  onChange={handleNotifyChangeChecked}
                 />
               }
               label={t('booking:recurrenceRule.notifyIfCanceled')}
@@ -91,9 +119,9 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
             color="primary"
             onClick={() => {
               onDelete(recurrenceRuleBooking.id, {
-                notify_if_canceled: checked,
+                notify_if_canceled: notifyIfCanceledChecked,
+                cancel_related_bookings: cancelBookingsChecked,
               });
-
               setDialogOpen(false);
             }}
           >

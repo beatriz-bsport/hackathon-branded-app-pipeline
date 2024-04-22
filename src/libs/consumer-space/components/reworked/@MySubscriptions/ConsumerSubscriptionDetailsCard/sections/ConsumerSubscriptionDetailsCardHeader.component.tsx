@@ -9,10 +9,7 @@ import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
 import Alert from '#Fabrique/Alert';
 
-import {
-  getSubscriptionRecurrenceLabel,
-  getSubscriptionTextBasedOnCouponApplied,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import { getSubscriptionTextBasedOnCouponApplied } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import {
   BellRinging04,
   ClockRefresh,
@@ -20,6 +17,7 @@ import {
 } from '#components/untitledui';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { formatAsDate } from '#utils/datetime';
+import ConsumerSubscriptionRecurrenceLabel from '../../ConsumerSubscriptionRecurrenceLabel';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -56,13 +54,6 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   subtitleDate,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'subscription']);
-  const recurrenceLabel = getSubscriptionRecurrenceLabel(
-    recurrence,
-    price,
-    t,
-    subscriptionInterval,
-  );
-
   const recurrentPriceDisplayed = getSubscriptionTextBasedOnCouponApplied(
     lastInvoiceDateBeforeRenewal,
     recurrence,
@@ -178,7 +169,13 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             ),
           }}
           className="bs-consumer__subscription-details-card__header__list-item__price"
-          label={recurrenceLabel}
+          label={
+            <ConsumerSubscriptionRecurrenceLabel
+              price={price}
+              recurrence={recurrence}
+              subscriptionInterval={subscriptionInterval}
+            />
+          }
         />
       </List>
     </ConsumerCardSection>

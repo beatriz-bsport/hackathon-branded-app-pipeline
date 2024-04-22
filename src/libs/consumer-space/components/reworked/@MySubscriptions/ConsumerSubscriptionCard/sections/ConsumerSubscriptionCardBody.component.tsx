@@ -11,7 +11,7 @@ import type { ConsumerSubscriptionCardProps } from '..';
 
 import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 import { ChevronRight } from '#components/untitledui';
-import { getSubscriptionRecurrenceLabel } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import ConsumerSubscriptionRecurrenceLabel from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionRecurrenceLabel';
 
 type Props = Pick<
   ConsumerSubscriptionCardProps,
@@ -32,12 +32,6 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
   subscriptionNextPaymentDate,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'subscription']);
-  const recurrenceLabel = getSubscriptionRecurrenceLabel(
-    recurrence,
-    price,
-    t,
-    subscriptionInterval,
-  );
 
   return (
     <ConsumerGenericCardBodyContainer className="bs-consumer__subscription-card__container">
@@ -57,7 +51,13 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
             label: 'bs-consumer__subscription-card__list-item__price',
           }}
           className="bs-consumer__subscription-card__list-item"
-          label={recurrenceLabel}
+          label={
+            <ConsumerSubscriptionRecurrenceLabel
+              price={price}
+              recurrence={recurrence}
+              subscriptionInterval={subscriptionInterval}
+            />
+          }
         />
       </List>
       <Button

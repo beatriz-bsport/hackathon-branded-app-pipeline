@@ -367,9 +367,8 @@ exports.default = {
       close: 'Close',
       consumerSubscriptionCard: {
         nextPayment: 'Next payment: {{- nextPayment }}',
-        recurrenceLabelPer: '{{ price }}/{{ interval }}',
-        recurrenceLabelEvery:
-          '{{ price }} every {{ recurrence }} {{ interval }}',
+        recurrenceLabelPer: '/{{ interval }}',
+        recurrenceLabelEvery: 'every {{ recurrence }} {{ interval }}',
         buttonsLabel: {
           seeDetails: 'See details',
           addPaymentMethod: 'Add payment method',

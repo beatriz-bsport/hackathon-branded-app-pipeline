@@ -299,6 +299,7 @@ export class ValidationCheckout extends React.Component<Props> {
                           ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
+                              coachDisplay={this.props.theme.coach_display}
                               hideCoach={this.props.hideCoach}
                               offer={o}
                               offerSpot={o.spot_id}
@@ -342,6 +343,7 @@ export class ValidationCheckout extends React.Component<Props> {
                           ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
+                              coachDisplay={this.props.theme.coach_display}
                               displayPositionInWaitingList={
                                 this.props.waitingListConfiguration
                                   ?.display_member_position &&
@@ -383,6 +385,7 @@ export class ValidationCheckout extends React.Component<Props> {
                             return (
                               <div key={o.id} className={classes.paper}>
                                 <OfferBookableItem
+                                  coachDisplay={this.props.theme.coach_display}
                                   hideCoach={this.props.hideCoach}
                                   offer={o}
                                   offerSpotInformation={o.spot_information}

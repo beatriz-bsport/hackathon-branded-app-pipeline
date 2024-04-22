@@ -263,7 +263,7 @@ type Props = {
   themeLoading: boolean,
   featureListLoading: boolean,
 
-  location: Location,
+  browserLocation: Location,
   fetchSignFormUpConfiguration: () => void,
 
   tempPasswordState: TempPasswordState,
@@ -732,7 +732,7 @@ export class Backoffice extends Component<Props, State> {
 
     if (
       ((this.props.themeLoading || this.props.featureListLoading) &&
-        !this.props.location.pathname.includes('settings')) ||
+        !this.props.browserLocation.pathname.includes('settings')) ||
       this.props.checkingEmailValidation ||
       this.props.rolesLoading ||
       !this.props.permissions
@@ -763,7 +763,7 @@ export class Backoffice extends Component<Props, State> {
     const { language } = i18n;
     const isoLanguage = getCurrentLanguageIsoCode(language);
 
-    const isInboxPath = this.props.location.pathname.includes('/inbox/');
+    const isInboxPath = this.props.browserLocation.pathname.includes('/inbox/');
 
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
@@ -862,11 +862,13 @@ export class Backoffice extends Component<Props, State> {
                   className={clx({
                     [classes.content]: true,
                     [classes.fullContent]:
-                      this.props.location.pathname.includes(
+                      this.props.browserLocation.pathname.includes(
                         '/spot-scheduling',
                       ) ||
-                      this.props.location.pathname.includes('/audience/') ||
-                      this.props.location.pathname.includes('/inbox/'),
+                      this.props.browserLocation.pathname.includes(
+                        '/audience/',
+                      ) ||
+                      this.props.browserLocation.pathname.includes('/inbox/'),
                   })}
                 >
                   <BackofficeRoute

@@ -19,7 +19,7 @@ import type { MemberVisitREST } from '../types';
 export const withAccessControlCheckInScanner = (
   WrappedComponent: React.ComponentType<{
     featureList: Array<UpsellSumup>;
-    location?: Location;
+    browserLocation?: Location;
     permissions: RolePermission;
   }>,
 ) => {
@@ -27,7 +27,7 @@ export const withAccessControlCheckInScanner = (
     checkMemberInEstablishment,
     establishmentsSelectedInRole,
     featureList,
-    location,
+    location: browserLocation,
     permissions,
     ...props
   }: React.PropsWithChildren<
@@ -42,7 +42,7 @@ export const withAccessControlCheckInScanner = (
     const sendToAccessControlBroadcastChannel =
       useAccessControlBroadcastChannel();
 
-    const pathName = location?.pathname ?? '';
+    const pathName = browserLocation?.pathname ?? '';
     // If the user is on the access monitoring page, the snackbar should not be displayed.
     const displaySnackbar = pathName !== getPerformAccessMonitoringUrl();
 
@@ -84,8 +84,8 @@ export const withAccessControlCheckInScanner = (
     return (
       <WrappedComponent
         {...props}
+        browserLocation={browserLocation}
         featureList={featureList}
-        location={location}
         permissions={permissions}
       />
     );

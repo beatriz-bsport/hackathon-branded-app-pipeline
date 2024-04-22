@@ -44,6 +44,16 @@
   padding: 0;
 }
 
+.bs-consumer__subscription-card__body__button__label {
+  color: var(--bs-color-text-brand-main);
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-consumer__subscription-card__body__button:hover
+  .bs-consumer__subscription-card__body__button__label {
+  color: var(--bs-color-text-brand-main-strong);
+}
+
 /* FOOTER */
 
 .bs-consumer__subscription-card__footer {

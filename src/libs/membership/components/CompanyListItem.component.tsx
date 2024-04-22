@@ -1,21 +1,21 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
-import type { Company } from '../../company/types';
+import type { Company } from '#libs/company/types';
+import type { FranchiseCompany } from '#libs/franchise/types';
 
 export const CompanyListItem = (props: {
-  company: Company;
+  company: Company | FranchiseCompany;
   onClick?: () => void;
   selected?: boolean;
   isRedirectLoading?: boolean;
 }) => (
   <ListItem
     divider
-    button={!!props.onClick}
+    button={!!props.onClick as any}
     disabled={props.isRedirectLoading}
     onClick={props.onClick}
     selected={props.selected}
@@ -29,4 +29,5 @@ export const CompanyListItem = (props: {
     />
   </ListItem>
 );
-export default CompanyListItem;
+
+export default React.memo(CompanyListItem);

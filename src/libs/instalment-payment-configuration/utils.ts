@@ -150,8 +150,9 @@ export const generateShopItemCompatibilityInfo = (
   return t('detail.shopItemAvailable', { length, count: length });
 };
 
-export const identifyCompability = (instalmentPayment: InstalmentPayment) =>
-  Boolean(
+export const identifyCompability = (instalmentPayment: InstalmentPayment) => {
+  if (!instalmentPayment) return false;
+  return Boolean(
     !instalmentPayment.private_pass_list?.length &&
       !instalmentPayment.payment_pack_list?.length &&
       !instalmentPayment.payment_combo_list?.length &&
@@ -163,3 +164,4 @@ export const identifyCompability = (instalmentPayment: InstalmentPayment) =>
       !instalmentPayment.is_available_on_all_payment_pack &&
       !instalmentPayment.is_available_on_all_shop_item,
   );
+};

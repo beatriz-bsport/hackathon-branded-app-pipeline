@@ -1,4 +1,3 @@
-import type { PaginatedResponse } from 'src/state/types';
 import {
   API_URI,
   API_V1_URI,
@@ -8,6 +7,7 @@ import {
   buildUrlParams,
 } from '../../http';
 
+import type { PaginatedResponse } from '#state/types';
 import type { BookingREST } from '#libs/booking/types';
 import type { UniversalPassREST } from '#libs/universal-pass/types';
 import type {

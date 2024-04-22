@@ -1,12 +1,6 @@
 import moment from 'moment-timezone';
 import { createAction } from 'redux-actions';
 import type { RootState } from 'src/reducers';
-import type {
-  Dispatch,
-  OptionCallback,
-  ThunkAction,
-  PaginatedResponse,
-} from 'src/state/types';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -32,6 +26,12 @@ import {
 } from '#libs/waiting-list/api';
 import { fetchConsumerPackList as fetchConsumerPaymentPackListAPI } from '#libs/consumer-payment-pack/api';
 
+import type {
+  Dispatch,
+  OptionCallback,
+  ThunkAction,
+  PaginatedResponse,
+} from '#state/types';
 import type {
   BookingOrPrivateBooking,
   ConsumerInvoiceParams,

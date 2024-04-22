@@ -1,22 +1,24 @@
 import React from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { WithTranslation, withTranslation } from 'react-i18next';
+
 import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
+import { fetchCommunicationSentGroupConfigCommunicationSentGroupList as fetchCommunicationSentGroupConfigCommunicationSentGroupListAction } from '#libs/communication/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getAllCommunicationSentGroup } from '#libs/communication/selectors';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import CampaignList from '#libs/communication/components/CampaignList.component';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import type { RootState } from '../../../../reducers';
-import CampaignList from '#libs/communication/components/CampaignList.component';
-import { fetchCommunicationSentGroupConfigCommunicationSentGroupList as fetchCommunicationSentGroupConfigCommunicationSentGroupListAction } from '#libs/communication/actions';
-import { getAllCommunicationSentGroup } from '#libs/communication/selectors';
-import { WithHandlerType } from 'src/utils/types';
+import type { RootState } from 'src/reducers';
+import type { WithHandlerType } from '#utils/types';
 import type { CommunicationSentGroup } from '#libs/communication/types';
-import { OptionCallback, PaginatedResponse } from 'src/state/types';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import type { OptionCallback, PaginatedResponse } from '#state/types';
 
 type OwnProps = {
   campaignId: number;

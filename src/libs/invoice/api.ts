@@ -1,5 +1,4 @@
 import type { AxiosResponse } from 'axios';
-import type { PaginatedResponse } from 'src/state/types';
 import {
   API_V1_URI,
   getAuth,
@@ -9,6 +8,7 @@ import {
   buildUrlParams,
 } from '../../http';
 
+import type { PaginatedResponse } from '#state/types';
 import type {
   Invoice,
   InvoiceAllowedReverseMethods,

@@ -2,7 +2,6 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import { handleActions } from 'redux-actions';
-import type { PaginatedResponse } from 'src/state/types';
 
 import {
   fetchMyPastBookingAsMemberActions,
@@ -39,6 +38,7 @@ import {
   fetchMyFutureSubscriptionsAsMemberActions,
 } from '#libs/consumer-space/actions/subscription-actions';
 
+import type { PaginatedResponse } from '#state/types';
 import type { BookingREST } from '#libs/booking/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';

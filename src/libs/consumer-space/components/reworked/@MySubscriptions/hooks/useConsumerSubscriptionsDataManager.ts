@@ -33,7 +33,6 @@ type Data = {
     page_size?: number,
     options?: OptionCallback<SubscriptionREST[]>,
   ) => void;
-  resetConsumerState: () => void;
   fetchConsumerSubscriptionInvoicesDetails: (
     params: { id: number; page_size?: number },
     options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
@@ -51,7 +50,6 @@ const useConsumerSubscriptionsDataManager = ({
   fetchActiveSubscriptionsList,
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
-  resetConsumerState,
   fetchConsumerSubscriptionInvoicesDetails,
   subscriptionsInvoicesDetailsState,
 }: Data) => {
@@ -138,15 +136,10 @@ const useConsumerSubscriptionsDataManager = ({
     [fetchConsumerSubscriptionInvoicesDetails, selectedSubscription],
   );
 
-  const handleSetSelectedTab = useCallback(
-    (tab: SubscriptionTab) => {
-      resetConsumerState();
-      fetchDataHandlerMap[`${tab}`]();
-      setSelectedTab(tab);
-      setSelectedSubscription(null);
-    },
-    [resetConsumerState, fetchDataHandlerMap],
-  );
+  const handleSetSelectedTab = useCallback((tab: SubscriptionTab) => {
+    setSelectedTab(tab);
+    setSelectedSubscription(null);
+  }, []);
 
   const handleSetSelectedSubscriptions = useCallback(
     (subscriptionId: number | null) => {

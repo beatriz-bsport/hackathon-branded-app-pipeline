@@ -49,7 +49,6 @@ type Props = {
     page_size?: number,
     options?: OptionCallback<SubscriptionREST[]>,
   ) => void;
-  resetConsumerState: () => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
   fetchConsumerSubscriptionInvoicesDetails: (
@@ -94,7 +93,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   fetchActiveSubscriptionsList,
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
-  resetConsumerState,
   fetchConsumerSubscriptionInvoicesDetails,
   subscriptionsInvoicesDetailsState,
   invoiceRetryNumber,
@@ -132,7 +130,6 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchActiveSubscriptionsList,
     fetchFutureSubscriptionsList,
     fetchExpiredSubscriptionsList,
-    resetConsumerState,
     fetchConsumerSubscriptionInvoicesDetails,
     subscriptionsInvoicesDetailsState,
   });

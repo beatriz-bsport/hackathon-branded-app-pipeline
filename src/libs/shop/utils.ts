@@ -36,10 +36,10 @@ export const getShopItemName = ({
   variantCount,
 }: {
   name: string;
-  color: string;
-  size: string;
+  color?: string;
+  size?: string;
   price?: number;
-  variantCount?: number;
+  variantCount?: string;
 }) => {
   if (!name) return '';
 

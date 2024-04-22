@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { ConnectedProps, connect } from 'react-redux';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment-timezone';
 
 /** ACTIONS */
 import { search } from '#libs/member/actions';
@@ -38,16 +39,270 @@ import {
 import { getPermissions } from '#libs/role/selectors';
 
 /** CONSTANTS */
-import { EntryStatus } from '#libs/access-control/constants';
+import { EntryStatus, AccessStatus } from '#libs/access-control/constants';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-
-/** HOOKS */
-import { useLiveHistoryPageDataManager } from '#libs/access-control/hooks/liveHistoryPage';
+import { BookingsAndPrivateBookingsTypeEnum } from '#libs/consumer-space/actions';
 
 /** TYPES */
 import type { RootState } from 'src/reducers';
+import type { MemberVisitREST } from '#libs/access-control/types';
+
+/** HOOKS */
+import { useAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
+import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
 export type Props = ConnectedProps<typeof connector>;
+
+const useLiveHistoryPageDataManager = ({
+  establishmentGroups,
+  establishmentsData,
+  fetchBookingsAndPrivateBookings,
+  getMemberVisitList,
+  manualUpdateMemberVisitFromBroadcastChannel,
+  memberVisitState,
+  permissions,
+  refreshMemberVisitAccessStatus,
+  setMemberVisitEntryStatus,
+  theme,
+}: Pick<
+  Props,
+  | 'establishmentGroups'
+  | 'establishmentsData'
+  | 'fetchBookingsAndPrivateBookings'
+  | 'getMemberVisitList'
+  | 'manualUpdateMemberVisitFromBroadcastChannel'
+  | 'memberVisitState'
+  | 'permissions'
+  | 'refreshMemberVisitAccessStatus'
+  | 'setMemberVisitEntryStatus'
+  | 'theme'
+>) => {
+  const [selectedMemberVisitId, setSelectedMemberVisitId] = useState(null);
+
+  /** STATE */
+
+  const [showStatusChangeSuccessModal, setShowStatusChangeSuccessModal] =
+    useState(false);
+  const [showEntryStatusChangedModal, setShowEntryStatusChangedModal] =
+    useState(false);
+
+  /**
+   * Get the selected member visit directly from the store
+   * This way, we can avoid re-select selectedMemberVisit when selectedMemberVisitId doesn't change
+   */
+  const selectedMemberVisit = useMemo(() => {
+    return memberVisitState.byId?.[selectedMemberVisitId];
+  }, [memberVisitState, selectedMemberVisitId]);
+
+  /** EFFECTS */
+
+  // Fetch today's member visit list
+  const fetchMemberVisitList = useCallback(
+    (params: { page: number; member?: number }) => {
+      // If current time is before 2am, we need to fetch yesterday's data as well
+      const datetime_created_after = moment()
+        .subtract(2, 'hours')
+        .startOf('day')
+        .toISOString();
+
+      // If the staff user has the permission to perform access monitoring, we will only show the member visits performed by him
+      const performed_by_me =
+        permissions?.navigationMenu?.accessMonitoring?.perform;
+
+      getMemberVisitList({
+        ...params,
+        datetime_created_after,
+        ...{ performed_by_me },
+      });
+    },
+    [getMemberVisitList],
+  );
+
+  useEffect(() => {
+    fetchMemberVisitList({ page: 1 });
+  }, [fetchMemberVisitList]);
+
+  /** HOOKS */
+
+  const sendToAccessControlBroadcastChannel = useAccessControlBroadcastChannel(
+    (memberVisit: MemberVisitREST) =>
+      manualUpdateMemberVisitFromBroadcastChannel(memberVisit),
+  );
+
+  const {
+    establishmentObjects,
+    staffLocationAddress,
+    staffLocationEstablishmentGroup,
+  } = useCheckAccessControlLocationSetup({
+    establishmentGroups,
+    establishmentsData,
+    establishmentsToCheck: selectedMemberVisit?.establishments ?? [],
+    enableMultilocalization: theme.enable_multi_localization,
+  });
+
+  /** HANDLERS */
+
+  // Select member visit details
+  const handleCloseMemberVisitDetails = useCallback(() => {
+    setSelectedMemberVisitId(null);
+  }, [setSelectedMemberVisitId]);
+
+  const handleSelectMemberVisit = useCallback(
+    (memberVisit: MemberVisitREST) => {
+      fetchBookingsAndPrivateBookings({
+        member: memberVisit.member.id,
+        date_start: null,
+        type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
+        mine: false,
+        forceRefetch: true,
+      });
+      setSelectedMemberVisitId(memberVisit.id);
+    },
+    [setSelectedMemberVisitId],
+  );
+
+  // Member filter selection
+  const handleSelectMember = useCallback(
+    (memberId: number) => {
+      fetchMemberVisitList({ member: memberId, page: 1 });
+    },
+    [fetchMemberVisitList],
+  );
+
+  // In member visit details
+  const handleRefreshMemberVisitAccessStatus = useCallback(() => {
+    refreshMemberVisitAccessStatus(selectedMemberVisitId, {
+      onSuccess: (data: MemberVisitREST) => {
+        sendToAccessControlBroadcastChannel(data);
+        if (
+          data.access_status !== data.initial_access_status &&
+          data.access_status === AccessStatus.GREEN
+        ) {
+          setShowStatusChangeSuccessModal(true);
+        }
+      },
+    });
+    fetchBookingsAndPrivateBookings({
+      member: selectedMemberVisit.member.id,
+      date_start: null,
+      type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
+      mine: false,
+      forceRefetch: true,
+    });
+  }, [
+    refreshMemberVisitAccessStatus,
+    sendToAccessControlBroadcastChannel,
+    selectedMemberVisit,
+    fetchBookingsAndPrivateBookings,
+  ]);
+
+  // When clearing the member filter
+  const handleRefreshFirstPage = useCallback(() => {
+    fetchMemberVisitList({ page: 1 });
+  }, [fetchMemberVisitList]);
+
+  const handleMemberProfileClick = useCallback((memberId: number) => {
+    window.open(`/member/${memberId}`);
+  }, []);
+
+  const handleMemberBillClick = useCallback(() => {
+    if (selectedMemberVisit?.member?.id) {
+      window.open(`/invoice/bill-member/${selectedMemberVisit.member.id}`);
+    }
+  }, [selectedMemberVisit]);
+
+  const handleSelectedMemberProfileClick = useCallback(() => {
+    if (selectedMemberVisit) {
+      handleMemberProfileClick(selectedMemberVisit?.member?.id);
+    }
+  }, [handleMemberProfileClick, selectedMemberVisit]);
+
+  const handleAllowManualEntry = useCallback(() => {
+    if (selectedMemberVisitId) {
+      setMemberVisitEntryStatus(selectedMemberVisitId, EntryStatus.ENTERED, {
+        onSuccess: (data: MemberVisitREST) => {
+          sendToAccessControlBroadcastChannel(data);
+          setShowEntryStatusChangedModal(true);
+        },
+      });
+    }
+  }, [setMemberVisitEntryStatus, selectedMemberVisitId]);
+
+  const handleRefuseManualEntry = useCallback(() => {
+    if (selectedMemberVisitId) {
+      setMemberVisitEntryStatus(
+        selectedMemberVisitId,
+        EntryStatus.NOT_ENTERED,
+        {
+          onSuccess: (data: MemberVisitREST) => {
+            sendToAccessControlBroadcastChannel(data);
+            setShowEntryStatusChangedModal(true);
+          },
+        },
+      );
+    }
+  }, [setMemberVisitEntryStatus, selectedMemberVisitId]);
+
+  const handleCloseAccessStatusChangeSuccessModal = useCallback(() => {
+    setShowStatusChangeSuccessModal(false);
+  }, [setShowStatusChangeSuccessModal]);
+
+  const handleCloseEntryStatusChangedModal = useCallback(() => {
+    setShowEntryStatusChangedModal(false);
+  }, [setShowEntryStatusChangedModal]);
+
+  /** COMPUTED */
+
+  /**
+   * @example
+   * // Returns "Location Group - Establishment 1, Establishment 2" when
+   *  - staffLocationEstablishmentGroup = { name: "Location Group", ... }
+   *  - staffLocationAddress = null
+   *  - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
+   *
+   * @example
+   * // Returns "Address - Establishment 1, Establishment 2" when
+   * - staffLocationEstablishmentGroup = null
+   * - staffLocationAddress = "Address"
+   * - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
+   */
+  const locationInformation = useMemo(
+    () =>
+      [
+        `${
+          staffLocationEstablishmentGroup?.name ?? staffLocationAddress ?? ''
+        }`,
+        establishmentObjects
+          ?.map((establishment) => establishment.title)
+          ?.join(', '),
+      ].join(' - '),
+    [
+      staffLocationEstablishmentGroup,
+      staffLocationAddress,
+      establishmentObjects,
+    ],
+  );
+
+  return {
+    fetchMemberVisitList,
+    handleAllowManualEntry,
+    handleCloseAccessStatusChangeSuccessModal,
+    handleCloseEntryStatusChangedModal,
+    handleCloseMemberVisitDetails,
+    handleMemberBillClick,
+    handleMemberProfileClick,
+    handleRefreshFirstPage,
+    handleRefreshMemberVisitAccessStatus,
+    handleRefuseManualEntry,
+    handleSelectedMemberProfileClick,
+    handleSelectMember,
+    handleSelectMemberVisit,
+    locationInformation,
+    selectedMemberVisit,
+    showEntryStatusChangedModal,
+    showStatusChangeSuccessModal,
+  };
+};
 
 const LiveHistory: React.FC<Props> = ({
   bookingAndPrivateBooking,

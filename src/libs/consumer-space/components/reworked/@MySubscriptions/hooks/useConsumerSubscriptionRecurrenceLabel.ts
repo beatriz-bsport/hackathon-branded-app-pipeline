@@ -1,0 +1,46 @@
+import { useTranslation } from 'react-i18next';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import type { SubscriptionInterval } from '#libs/subscription/types';
+
+/**
+ * Generates a subscription label with price and recurrence information.
+ *
+ * @param recurrence The number of times the subscription recurs.
+ * @param price The price of the subscription as a string.
+ * @param subscriptionInterval The interval of the subscription (e.g., "month", "year").
+ * @returns An object with formatted price and interval information for the subscription label.
+ */
+const useConsumerSubscriptionRecurrenceLabel = (
+  recurrence: number,
+  price: string,
+  subscriptionInterval: SubscriptionInterval,
+) => {
+  const { t } = useTranslation(['subscription', 'consumerSpace']);
+  return recurrence === 1
+    ? {
+        price: getCurrencyDisplayWithPrice(price),
+        interval: t(
+          'consumerSpace:reworked.mySubscriptions.consumerSubscriptionCard.recurrenceLabelPer',
+          {
+            interval: t(
+              `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+              { count: recurrence },
+            ),
+          },
+        ),
+      }
+    : {
+        price: getCurrencyDisplayWithPrice(price),
+        interval: t(
+          'consumerSpace:reworked.mySubscriptions.consumerSubscriptionCard.recurrenceLabelEvery',
+          {
+            interval: t(
+              `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+              { count: recurrence },
+            ),
+            recurrence,
+          },
+        ),
+      };
+};
+export default useConsumerSubscriptionRecurrenceLabel;

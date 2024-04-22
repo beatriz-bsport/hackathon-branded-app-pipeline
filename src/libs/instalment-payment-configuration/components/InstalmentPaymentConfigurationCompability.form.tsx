@@ -11,6 +11,8 @@ import {
   MaterialUiMultiSelectorField,
 } from '#libs/custom-form/components/GenericFormik.input';
 
+import { getShopItemName } from '#libs/shop/utils';
+
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
@@ -48,7 +50,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
   isInDrawer,
   setFieldValue,
 }) => {
-  const { t } = useTranslation('instalmentPayment');
+  const { t } = useTranslation(['instalmentPayment', 'shop']);
   const classes = useStyles();
 
   const paymentPackOptions = paymentPackList?.length
@@ -75,7 +77,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
   const shopItemOptions = shopItemList?.length
     ? [...shopItemList].map((shopItem) => ({
         value: shopItem.id,
-        label: shopItem.name,
+        label: getShopItemName({
+          name: shopItem?.name ?? '',
+          variantCount:
+            shopItem?.number_of_variants &&
+            t('shop:variantCount', { count: shopItem.number_of_variants }),
+        }),
       }))
     : [];
 
@@ -92,11 +99,15 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         <Grid item xs={12}>
           <div className={classes.row}>
             <DoneAll className={classes.icon} />
-            <Typography variant="h6">{t('form.compatibility')}</Typography>
+            <Typography variant="h6">
+              {t('instalmentPayment:form.compatibility')}
+            </Typography>
           </div>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body2">{t('form.compabilityInfo')}</Typography>
+          <Typography variant="body2">
+            {t('instalmentPayment:form.compabilityInfo')}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
@@ -105,10 +116,10 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
               isDisabled={is_available_on_all_payment_pack}
               name="payment_pack_list"
               options={paymentPackOptions}
-              placeholder={t('form.compability.selectPack')}
+              placeholder={t('instalmentPayment:form.compability.selectPack')}
               title={
                 <Typography className={classes.bold}>
-                  {t('form.compability.pack')}
+                  {t('instalmentPayment:form.compability.pack')}
                 </Typography>
               }
             />
@@ -120,7 +131,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
                 }}
               />
               <Typography className={classes.positionToLeft}>
-                {t('form.compability.allPass')}
+                {t('instalmentPayment:form.compability.allPass')}
               </Typography>
             </div>
           </div>
@@ -132,10 +143,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
               isDisabled={is_available_on_all_private_pass}
               name="private_pass_list"
               options={privatePassOptions}
-              placeholder={t('form.compability.selectPrivatePass')}
+              placeholder={t(
+                'instalmentPayment:form.compability.selectPrivatePass',
+              )}
               title={
                 <Typography className={classes.bold}>
-                  {t('form.compability.privateBooking')}
+                  {t('instalmentPayment:form.compability.privateBooking')}
                 </Typography>
               }
             />
@@ -147,7 +160,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
                 }}
               />
               <Typography className={classes.positionToLeft}>
-                {t('form.compability.allPrivateBooking')}
+                {t('instalmentPayment:form.compability.allPrivateBooking')}
               </Typography>
             </div>
           </div>
@@ -159,10 +172,10 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
               isDisabled={is_available_on_all_payment_combo}
               name="payment_combo_list"
               options={comboOptions}
-              placeholder={t('form.compability.selectCombo')}
+              placeholder={t('instalmentPayment:form.compability.selectCombo')}
               title={
                 <Typography className={classes.bold}>
-                  {t('form.compability.combo')}
+                  {t('instalmentPayment:form.compability.combo')}
                 </Typography>
               }
             />
@@ -174,7 +187,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
                 }}
               />
               <Typography className={classes.positionToLeft}>
-                {t('form.compability.allCombo')}
+                {t('instalmentPayment:form.compability.allCombo')}
               </Typography>
             </div>
           </div>
@@ -186,10 +199,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
               isDisabled={is_available_on_all_shop_item}
               name="shop_item_list"
               options={shopItemOptions}
-              placeholder={t('form.compability.selectShopItem')}
+              placeholder={t(
+                'instalmentPayment:form.compability.selectShopItem',
+              )}
               title={
                 <Typography className={classes.bold}>
-                  {t('form.compability.shopItem')}
+                  {t('instalmentPayment:form.compability.shopItem')}
                 </Typography>
               }
             />
@@ -201,7 +216,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
                 }}
               />
               <Typography className={classes.positionToLeft}>
-                {t('form.compability.allShopItem')}
+                {t('instalmentPayment:form.compability.allShopItem')}
               </Typography>
             </div>
           </div>
@@ -213,10 +228,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
               isDisabled={is_available_on_all_giftcard}
               name="giftcard_list"
               options={giftcardOptions}
-              placeholder={t('form.compability.selectGiftcard')}
+              placeholder={t(
+                'instalmentPayment:form.compability.selectGiftcard',
+              )}
               title={
                 <Typography className={classes.bold}>
-                  {t('form.compability.giftcard')}
+                  {t('instalmentPayment:form.compability.giftcard')}
                 </Typography>
               }
             />
@@ -228,7 +245,7 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
                 }}
               />
               <Typography className={classes.positionToLeft}>
-                {t('form.compability.allGiftcard')}
+                {t('instalmentPayment:form.compability.allGiftcard')}
               </Typography>
             </div>
           </div>

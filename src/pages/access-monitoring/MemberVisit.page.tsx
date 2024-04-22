@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 
-import { WithTranslation, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,7 +56,7 @@ import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/c
 
 import type { MemberVisitREST } from '#libs/access-control/types';
 
-export type Props = ConnectedProps<typeof connector> & WithTranslation;
+export type Props = ConnectedProps<typeof connector>;
 
 export const useMemberVisitPageDataManager = ({
   checkMemberInEstablishment,

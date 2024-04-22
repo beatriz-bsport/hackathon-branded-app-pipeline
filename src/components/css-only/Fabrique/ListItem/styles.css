@@ -68,8 +68,8 @@
 }
 
 .bs-fabrique-listitem__icon--lg svg {
-  width: var(--bs-icon-size-md);
-  height: var(--bs-icon-size-md);
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
 }
 
 .bs-fabrique-listitem__icon--selected {

@@ -456,13 +456,16 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                   <React.Fragment>
                     <Hidden mdUp>
                       <Grid item>
-                        {!!permissions?.member?.search && (
+                        <ObjectLevelPermissionWrapper
+                          forcedBehavior="hidden"
+                          requiredPermission="member.allowed_actions.search"
+                        >
                           <Link to="/search/results">
                             <IconButton>
                               <Search />
                             </IconButton>
                           </Link>
-                        )}
+                        </ObjectLevelPermissionWrapper>
                       </Grid>
                     </Hidden>
                     <Grid item>
@@ -689,13 +692,16 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         <React.Fragment>
                           <Hidden mdUp>
                             <Grid item>
-                              {!!permissions?.member?.search && (
+                              <ObjectLevelPermissionWrapper
+                                forcedBehavior="hidden"
+                                requiredPermission="member.allowed_actions.search"
+                              >
                                 <Link to="/search/results">
                                   <IconButton>
                                     <Search />
                                   </IconButton>
                                 </Link>
-                              )}
+                              </ObjectLevelPermissionWrapper>
                             </Grid>
                           </Hidden>
                           <Grid item>
@@ -762,11 +768,14 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                           <HelpIcon />
                         </IconButton>
                       </Grid>
-                      {permissions?.member?.search && (
+                      <ObjectLevelPermissionWrapper
+                        forcedBehavior="hidden"
+                        requiredPermission="member.allowed_actions.search"
+                      >
                         <Grid item className={classes.searchBar}>
                           <SearchBar changeLocation />
                         </Grid>
-                      )}
+                      </ObjectLevelPermissionWrapper>
                       {renderAdditionalButtons()}
                     </Hidden>
                     <Hidden smUp>

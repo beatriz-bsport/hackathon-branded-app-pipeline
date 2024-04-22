@@ -28,7 +28,6 @@ import CheckPermission from '#libs/role/components/CheckPermission.component';
 import CheckInButton from '#libs/access-control/components/CheckInButton.component';
 
 type Props = {
-  anonimize?: boolean;
   bottomCredit?: boolean;
   disableAccessMonitoringButton?: boolean;
   firstBooking?: boolean;
@@ -48,7 +47,6 @@ type Props = {
 };
 
 export const MemberMinimalListItem: React.FC<Props> = ({
-  anonimize,
   bottomCredit,
   disableAccessMonitoringButton,
   firstBooking,
@@ -107,13 +105,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     );
   }
 
-  let secondaryInfo = '';
-  if (!anonimize) {
-    secondaryInfo +=
-      member.phone || member.email
-        ? `${member.phone || ''} ${member.email || ''}`
-        : '';
-  }
+  const secondaryInfo = [member.phone, member.email].filter(Boolean).join(' ');
 
   let Wrapper = (props: { children: React.ReactNode }) => (
     <div>{props.children}</div>

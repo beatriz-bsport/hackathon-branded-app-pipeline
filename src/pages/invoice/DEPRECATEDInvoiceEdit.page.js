@@ -55,8 +55,8 @@ import type { Member } from '../../libs/member/types';
 
 import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
-import { PermissionContext } from '../../context';
-import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   updatingInvoice: boolean,
@@ -150,15 +150,15 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
 
     return (
       <div>
-        <PermissionContext.Consumer>
-          {(permissions) => (
+        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+          {(hasAccessMemberProfilePermission) => (
             <InvoiceForm
               availableBuyableItems={this.props.availableBuyableItems}
               finalizeInvoice={(options) =>
                 this.props.finalizeInvoice(this.props.uuid, options)
               }
               goToMemberPage={
-                permissions?.member?.retrieve &&
+                hasAccessMemberProfilePermission &&
                 (() => goToMemberPage(invoice.member.id))
               }
               goToSubscription={this.props.goToSubscription}
@@ -184,8 +184,11 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
               updatePaymentMethod={this.props.updatePaymentMethod}
             />
           )}
-        </PermissionContext.Consumer>
-        <CheckPermission requiredPermissions="member.retrieve">
+        </ObjectLevelPermissionProvider>
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="member.allowed_actions.accessProfile"
+        >
           <div className={this.props.classes.navigationButton}>
             <Grow in={this.props.invoice && this.props.invoice.member}>
               <CreditMemberBadge
@@ -209,7 +212,7 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
               </CreditMemberBadge>
             </Grow>
           </div>
-        </CheckPermission>
+        </ObjectLevelPermissionWrapper>
 
         <RevertInvoiceDialog
           hasSubscription={!!invoice.plannedinvoice}

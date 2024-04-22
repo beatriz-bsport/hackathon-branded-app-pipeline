@@ -86,7 +86,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/p
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import InstalmentPaymentDialog from '#libs/payment/components/InstalmentPaymentForm.dialog';
 import CreditMemberBadge from '#libs/member/components/CreditMemberBadge.component';
-import CheckPermission from '#libs/role/components/CheckPermission.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import themeSelectors, {
   getStripeRegion,
@@ -116,7 +116,6 @@ import { getInvoiceIdentifier } from '#libs/invoice/utils';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
 
 import RevalidateMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -761,47 +760,36 @@ export class InvoiceDetail extends React.Component<Props, State> {
             refundBlockingLimit={this.props.companyTheme.refund_blocking_limit}
             stripeBalanceSum={this.props.stripeBalanceSum}
           />
-          <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-            {(hasMemberProfileAccessPermission: boolean) => (
-              <CheckPermission requiredPermissions="member.retrieve">
-                {hasMemberProfileAccessPermission &&
-                  this.props.invoice.member &&
-                  !this.props.invoice.is_member_pos && (
-                    <div className={this.props.classes.navigationButton}>
-                      <Grow
-                        in={this.props.invoice && this.props.invoice.member}
-                      >
-                        <CreditMemberBadge
-                          credit={
-                            this.props.member?.credit_account_balance ?? 0
-                          }
-                          unpaidAmount={
-                            this.props.member?.total_unpaid_amount ?? 0
-                          }
-                        >
-                          <Fab
-                            color="secondary"
-                            onClick={() =>
-                              this.props.goToMemberPage(
-                                this.props.invoice.member.id,
-                              )
-                            }
-                            variant="extended"
-                          >
-                            <PersonIcon />
-                            <Hidden xsDown>
-                              <span className={this.props.classes.rightText}>
-                                {this.props.invoice.member.name}
-                              </span>
-                            </Hidden>
-                          </Fab>
-                        </CreditMemberBadge>
-                      </Grow>
-                    </div>
-                  )}
-              </CheckPermission>
-            )}
-          </ObjectLevelPermissionProvider>
+          {this.props.invoice.member && !this.props.invoice.is_member_pos && (
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.accessProfile"
+            >
+              <div className={this.props.classes.navigationButton}>
+                <Grow in={this.props.invoice && this.props.invoice.member}>
+                  <CreditMemberBadge
+                    credit={this.props.member?.credit_account_balance ?? 0}
+                    unpaidAmount={this.props.member?.total_unpaid_amount ?? 0}
+                  >
+                    <Fab
+                      color="secondary"
+                      onClick={() =>
+                        this.props.goToMemberPage(this.props.invoice.member.id)
+                      }
+                      variant="extended"
+                    >
+                      <PersonIcon />
+                      <Hidden xsDown>
+                        <span className={this.props.classes.rightText}>
+                          {this.props.invoice.member.name}
+                        </span>
+                      </Hidden>
+                    </Fab>
+                  </CreditMemberBadge>
+                </Grow>
+              </div>
+            </ObjectLevelPermissionWrapper>
+          )}
         </div>
       </>
     );

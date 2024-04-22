@@ -32,7 +32,6 @@ import MemberMinimalListItem from '../../libs/member/components/MemberMinimalLis
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
 import type { Offer } from '../../api/types';
-import { PermissionContext } from '../../context';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
@@ -170,28 +169,19 @@ export class OfferCard extends Component<Props, State> {
                 this.props.goToOfferManagement(this.props.offer.id)
               }
             >
-              <PermissionContext.Consumer>
-                {(permissions) => (
-                  <List dense>
-                    {this.props.bookings
-                      .filter((b) => b.booking_status_code === 0)
-                      .map((b) => (
-                        <MemberMinimalListItem
-                          key={b.id}
-                          bottomCredit
-                          anonimize={!permissions?.member?.search}
-                          firstBooking={b.first_in_company}
-                          member={this.props.members.find(
-                            (m) => m.id === b.member,
-                          )}
-                          showVaccinationStatus={
-                            this.props.showVaccinationStatus
-                          }
-                        />
-                      ))}
-                  </List>
-                )}
-              </PermissionContext.Consumer>
+              <List dense>
+                {this.props.bookings
+                  .filter((b) => b.booking_status_code === 0)
+                  .map((b) => (
+                    <MemberMinimalListItem
+                      key={b.id}
+                      bottomCredit
+                      firstBooking={b.first_in_company}
+                      member={this.props.members.find((m) => m.id === b.member)}
+                      showVaccinationStatus={this.props.showVaccinationStatus}
+                    />
+                  ))}
+              </List>
             </ButtonBase>
           ) : (
             <div className={this.props.classes.noBookings}>

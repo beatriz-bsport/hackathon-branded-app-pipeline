@@ -1329,9 +1329,9 @@ export class Planning extends PureComponent<Props, State> {
                         selected={selectedOffer ? selectedOffer.id : null}
                       />
                     </Paper>
-                    <CheckPermission requiredPermissions="offer.create">
-                      {this.renderAddOffersButton()}
-                    </CheckPermission>
+                    {(hasCreateActivityPermission ||
+                      hasCreateWorkshopPermission) &&
+                      this.renderAddOffersButton()}
                     {/* Removed Bloating the ui  */}
                     {/* {!this.props.selectedOffer ? (
                 <div className={this.props.classes.noOfferMessage}>

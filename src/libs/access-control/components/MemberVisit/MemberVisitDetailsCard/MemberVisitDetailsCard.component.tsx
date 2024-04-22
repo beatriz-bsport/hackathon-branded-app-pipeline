@@ -197,7 +197,7 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
           <div className={classes.ctaButtonsContainer}>
             <ObjectLevelPermissionWrapper
               forcedBehavior="hidden"
-              requiredPermission="member.allowed_actions.search"
+              requiredPermission="member.allowed_actions.accessProfile"
             >
               <Button
                 className={classNames(

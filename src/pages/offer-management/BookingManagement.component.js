@@ -53,7 +53,6 @@ import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils
 import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
-import { PermissionContext } from '../../context';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
@@ -185,78 +184,66 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       .filter((b) => b.booking_status_code === BOOKING_STATUS_OK)
       .find((b) => b.member === member.id);
     return (
-      <PermissionContext.Consumer>
-        {(permissions) => (
-          <ObjectLevelPermissionProvider
-            requiredPermission={[
-              'reservation.activity.allowed_actions.create',
-              'reservation.workshop.allowed_actions.create',
-              'reservation.activity.allowed_actions.addToWaitlist',
-              'reservation.workshop.allowed_actions.addToWaitlist',
-              'member.allowed_actions.accessProfile',
-            ]}
-          >
-            {([
-              hasActivityCreateBookingPermission,
-              hasWorkshopCreateBookingPermission,
-              hasActivityRegisterWaitlistPermission,
-              hasWorkshopRegisterWaitlistPermission,
-              hasMemberProfileAccessPermission,
-            ]) => (
-              <MemberBookingHelper
-                key={member.id}
-                anonimize={
-                  !hasMemberProfileAccessPermission ||
-                  !permissions?.member?.search
-                }
-                hasBooked={hasBooked}
-                isFull={this.props.offer.is_full}
-                member={member}
-                onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
-                onClickListItem={
-                  hasBooked
-                    ? () => this.props.addToQuickInvoicePanel(member.id)
-                    : null
-                }
-                onClickOption={() => {
-                  this.props.registerToWaitingList(
-                    this.props.offer.id,
-                    member.id,
-                  );
-                  this.props.clearSearch();
-                }}
-                onClickRegister={() => {
-                  this.props.handleMemberToRegister({
-                    name: member.name,
-                    photo: member.photo,
-                    id: member.id,
-                  });
-                }}
-                shouldHideBookButton={
-                  !getActivityWorkshopPermission(
-                    this.getIsWorkshop(),
-                    hasActivityCreateBookingPermission,
-                    hasWorkshopCreateBookingPermission,
-                  )
-                }
-                shouldHideRegisterWaitlistButton={
-                  !getActivityWorkshopPermission(
-                    this.getIsWorkshop(),
-                    hasActivityRegisterWaitlistPermission,
-                    hasWorkshopRegisterWaitlistPermission,
-                  )
-                }
-                showMember={
-                  hasMemberProfileAccessPermission &&
-                  permissions?.member?.retrieve
-                    ? () => window.open(`/member/${member.id}/`)
-                    : null
-                }
-              />
-            )}
-          </ObjectLevelPermissionProvider>
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'reservation.activity.allowed_actions.create',
+          'reservation.workshop.allowed_actions.create',
+          'reservation.activity.allowed_actions.addToWaitlist',
+          'reservation.workshop.allowed_actions.addToWaitlist',
+          'member.allowed_actions.accessProfile',
+        ]}
+      >
+        {([
+          hasActivityCreateBookingPermission,
+          hasWorkshopCreateBookingPermission,
+          hasActivityRegisterWaitlistPermission,
+          hasWorkshopRegisterWaitlistPermission,
+          hasMemberProfileAccessPermission,
+        ]) => (
+          <MemberBookingHelper
+            key={member.id}
+            hasBooked={hasBooked}
+            isFull={this.props.offer.is_full}
+            member={member}
+            onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
+            onClickListItem={
+              hasBooked
+                ? () => this.props.addToQuickInvoicePanel(member.id)
+                : null
+            }
+            onClickOption={() => {
+              this.props.registerToWaitingList(this.props.offer.id, member.id);
+              this.props.clearSearch();
+            }}
+            onClickRegister={() => {
+              this.props.handleMemberToRegister({
+                name: member.name,
+                photo: member.photo,
+                id: member.id,
+              });
+            }}
+            shouldHideBookButton={
+              !getActivityWorkshopPermission(
+                this.getIsWorkshop(),
+                hasActivityCreateBookingPermission,
+                hasWorkshopCreateBookingPermission,
+              )
+            }
+            shouldHideRegisterWaitlistButton={
+              !getActivityWorkshopPermission(
+                this.getIsWorkshop(),
+                hasActivityRegisterWaitlistPermission,
+                hasWorkshopRegisterWaitlistPermission,
+              )
+            }
+            showMember={
+              hasMemberProfileAccessPermission
+                ? () => window.open(`/member/${member.id}/`)
+                : null
+            }
+          />
         )}
-      </PermissionContext.Consumer>
+      </ObjectLevelPermissionProvider>
     );
   };
 
@@ -572,117 +559,101 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 <div>
                   <div className={classes.bookingsHeader}>
                     <div />
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        flexDirection: 'row',
-                      }}
+                    <ObjectLevelPermissionProvider
+                      requiredPermission={[
+                        'member.allowed_actions.create',
+                        'member.allowed_actions.communication',
+                        'reservation.activity.allowed_actions.create',
+                        'reservation.workshop.allowed_actions.create',
+                      ]}
                     >
-                      <PermissionContext.Consumer>
-                        {(permissions) => (
+                      {([
+                        hasCreatePermission,
+                        hasCommunicationPermission,
+                        hasActivityCreateBookingPermission,
+                        hasWorkshopCreateBookingPermission,
+                      ]) => (
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            flexDirection: 'row',
+                          }}
+                        >
                           <>
-                            <ObjectLevelPermissionProvider
-                              requiredPermission={[
-                                'member.allowed_actions.create',
-                                'member.allowed_actions.communication',
-                                'reservation.activity.allowed_actions.create',
-                                'reservation.workshop.allowed_actions.create',
-                              ]}
-                            >
-                              {([
-                                hasCreatePermission,
-                                hasCommunicationPermission,
+                            {hasCommunicationPermission && (
+                              <>
+                                <IconButton
+                                  color="primary"
+                                  disabled={this.props.bookingLoading}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.props.openMailDialog();
+                                  }}
+                                >
+                                  <MailIcon />
+                                </IconButton>
+                                {(Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                  'dev' ||
+                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                    'local' ||
+                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                    'staging' ||
+                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                    'pool' ||
+                                  this.props.companyId === 498) && (
+                                  <BottomActionsButtonCustom
+                                    buttonsProperties={[
+                                      {
+                                        onClick: (e) => {
+                                          e.stopPropagation();
+                                          this.props.openCommunicationDrawer();
+                                        },
+                                        color: 'primary',
+                                        disabled:
+                                          this.props.bookingLoading ||
+                                          this.props.loading,
+                                        icon: <SendIcon />,
+                                        text: t(
+                                          'communication:generic.communication',
+                                        ),
+                                        keepTextUnderSelectedMinWidth: true,
+                                        badgeValue:
+                                          this.props.numberOfUnreadAnswers,
+                                      },
+                                    ]}
+                                    minWidth="xs"
+                                  />
+                                )}
+                              </>
+                            )}
+                            {hasCreatePermission &&
+                              getActivityWorkshopPermission(
+                                this.getIsWorkshop(),
                                 hasActivityCreateBookingPermission,
                                 hasWorkshopCreateBookingPermission,
-                              ]) => {
-                                return (
-                                  <>
-                                    {hasCommunicationPermission && (
-                                      <>
-                                        <IconButton
-                                          color="primary"
-                                          disabled={this.props.bookingLoading}
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            this.props.openMailDialog();
-                                          }}
-                                        >
-                                          <MailIcon />
-                                        </IconButton>
-                                        {(Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                          'dev' ||
-                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                            'local' ||
-                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                            'staging' ||
-                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                            'pool' ||
-                                          this.props.companyId === 498) && (
-                                          <BottomActionsButtonCustom
-                                            buttonsProperties={[
-                                              {
-                                                onClick: (e) => {
-                                                  e.stopPropagation();
-                                                  this.props.openCommunicationDrawer();
-                                                },
-                                                color: 'primary',
-                                                disabled:
-                                                  this.props.bookingLoading ||
-                                                  this.props.loading,
-                                                icon: <SendIcon />,
-                                                text: t(
-                                                  'communication:generic.communication',
-                                                ),
-                                                keepTextUnderSelectedMinWidth: true,
-                                                badgeValue:
-                                                  this.props
-                                                    .numberOfUnreadAnswers,
-                                              },
-                                            ]}
-                                            minWidth="xs"
-                                          />
-                                        )}
-                                      </>
-                                    )}
-                                    {hasCreatePermission &&
-                                      getActivityWorkshopPermission(
-                                        this.getIsWorkshop(),
-                                        hasActivityCreateBookingPermission,
-                                        hasWorkshopCreateBookingPermission,
-                                      ) && (
-                                        <IconButton
-                                          color="primary"
-                                          onClick={
-                                            this.props.openAddMemberModal
-                                          }
-                                        >
-                                          <PersonAddIcon />
-                                        </IconButton>
-                                      )}
-                                  </>
-                                );
-                              }}
-                            </ObjectLevelPermissionProvider>
-                            <MemberSearchBar
-                              anonimize={!permissions?.member?.search}
-                              memberHistory={this.props.memberHistory || []}
-                              memberHistoryAnchor={
-                                this.state.memberHistoryAnchor
-                              }
-                              onChange={this.onSearchMemberChange}
-                              onClickRegister={this.onSearchMemberClickRegister}
-                              onReset={this.props.clearSearch}
-                              permissions={permissions}
-                              setMemberHistoryAnchor={
-                                this.setMemberHistoryAnchor
-                              }
-                              value={this.props.searchedText}
-                            />
+                              ) && (
+                                <IconButton
+                                  color="primary"
+                                  onClick={this.props.openAddMemberModal}
+                                >
+                                  <PersonAddIcon />
+                                </IconButton>
+                              )}
                           </>
-                        )}
-                      </PermissionContext.Consumer>
-                    </div>
+
+                          <MemberSearchBar
+                            memberHistory={this.props.memberHistory || []}
+                            memberHistoryAnchor={this.state.memberHistoryAnchor}
+                            onChange={this.onSearchMemberChange}
+                            onClickRegister={this.onSearchMemberClickRegister}
+                            onReset={this.props.clearSearch}
+                            setMemberHistoryAnchor={this.setMemberHistoryAnchor}
+                            value={this.props.searchedText}
+                          />
+                        </div>
+                      )}
+                    </ObjectLevelPermissionProvider>
                   </div>
                   <Divider />
                   {this.props.isRollCallMandatory && (
@@ -822,52 +793,40 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     </Typography>
                   </div>
                 )}
-                <PermissionContext.Consumer>
-                  {(permissions) => (
-                    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-                      {(hasMemberProfileAccessPermission: boolean) => (
-                        <BookingTable
-                          newTab
-                          showQuickInvoiceButton
-                          showRevertBookingButton
-                          bookings={this.props.bookings}
-                          confirmBookingAttendance={
-                            this.props.confirmBookingAttendance
-                          }
-                          dateRollCallLastModified={
-                            this.props.offer.date_roll_call_last_modified
-                          }
-                          discardBookingAttendance={
-                            this.props.discardBookingAttendance
-                          }
-                          handleRevert={this.handleBookingRevert}
-                          isRollCallMandatory={this.props.isRollCallMandatory}
-                          loading={this.props.loading}
-                          members={this.props.members}
-                          onClickChangeSpot={this.props.onClickChangeSpot}
-                          onClickNoShowChip={this.openNoShowChipMessageDialog}
-                          onClickWarningIcon={this.openWarningDialog}
-                          onProgramDetailsClick={onProgramDetailsClick}
-                          onQuickInvoiceClick={
-                            this.props.addToQuickInvoicePanel
-                          }
-                          programList={this.props.programList}
-                          redirectToMember={
-                            hasMemberProfileAccessPermission &&
-                            permissions?.member?.retrieve
-                          }
-                          refresh={this.props.refresh}
-                          showVaccinationStatus={
-                            this.props.showVaccinationStatus
-                          }
-                          spotSchedulingEnabled={
-                            !!this.props.offer.room_blueprint
-                          }
-                        />
-                      )}
-                    </ObjectLevelPermissionProvider>
+
+                <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+                  {(hasMemberProfileAccessPermission: boolean) => (
+                    <BookingTable
+                      newTab
+                      showQuickInvoiceButton
+                      showRevertBookingButton
+                      bookings={this.props.bookings}
+                      confirmBookingAttendance={
+                        this.props.confirmBookingAttendance
+                      }
+                      dateRollCallLastModified={
+                        this.props.offer.date_roll_call_last_modified
+                      }
+                      discardBookingAttendance={
+                        this.props.discardBookingAttendance
+                      }
+                      handleRevert={this.handleBookingRevert}
+                      isRollCallMandatory={this.props.isRollCallMandatory}
+                      loading={this.props.loading}
+                      members={this.props.members}
+                      onClickChangeSpot={this.props.onClickChangeSpot}
+                      onClickNoShowChip={this.openNoShowChipMessageDialog}
+                      onClickWarningIcon={this.openWarningDialog}
+                      onProgramDetailsClick={onProgramDetailsClick}
+                      onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                      programList={this.props.programList}
+                      redirectToMember={hasMemberProfileAccessPermission}
+                      refresh={this.props.refresh}
+                      showVaccinationStatus={this.props.showVaccinationStatus}
+                      spotSchedulingEnabled={!!this.props.offer.room_blueprint}
+                    />
                   )}
-                </PermissionContext.Consumer>
+                </ObjectLevelPermissionProvider>
 
                 {this.props.bookingOptionsPending &&
                 this.props.bookingOptionsPending.length ? (
@@ -995,14 +954,14 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         </Typography>
                       </div>
                       <Divider />
-                      <List disablePadding>
-                        {this.props.recurrenceRuleBookingList.map((r) => (
-                          <PermissionContext>
-                            {(permissions) => (
+                      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+                        {(hasMemberAccessProfilePermission: boolean) => (
+                          <List disablePadding>
+                            {this.props.recurrenceRuleBookingList.map((r) => (
                               <RecurrenceRuleBookingListItem
                                 key={r.id}
                                 onClick={
-                                  r.member && permissions?.member?.retrieve
+                                  r.member && hasMemberAccessProfilePermission
                                     ? () =>
                                         this.props.goToMemberBooking(
                                           r.member.id,
@@ -1014,10 +973,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                 }
                                 recurrenceRuleBooking={r}
                               />
-                            )}
-                          </PermissionContext>
-                        ))}
-                      </List>
+                            ))}
+                          </List>
+                        )}
+                      </ObjectLevelPermissionProvider>
                     </div>
                   </div>
                 )}

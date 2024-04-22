@@ -14,8 +14,8 @@ import { makeStyles } from '@material-ui/core';
 
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
-import type { RolePermission } from '#libs/role/types';
 import type { MemberMinimal } from '#libs/member/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   disabled?: boolean;
@@ -25,7 +25,6 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickRegister?: (Member: MemberMinimal) => void;
   onReset: () => void;
-  permissions?: RolePermission;
   placeholder?: string;
   searchedText: string;
   setMemberHistoryAnchor?: (event: HTMLElement) => void;
@@ -39,7 +38,6 @@ const MemberSearchBar: React.FC<Props> = ({
   onChange,
   onClickRegister,
   onReset,
-  permissions,
   placeholder,
   searchedText,
   setMemberHistoryAnchor,
@@ -79,10 +77,16 @@ const MemberSearchBar: React.FC<Props> = ({
                     onClickRegister?.(member);
                   }}
                 >
-                  <ListItemText
-                    primary={member.name}
-                    secondary={permissions?.member?.search ? member.email : ''}
-                  />
+                  <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+                    {(hasMemberReadInfoPermission) => (
+                      <ListItemText
+                        primary={member.name}
+                        secondary={
+                          hasMemberReadInfoPermission ? member.email : ''
+                        }
+                      />
+                    )}
+                  </ObjectLevelPermissionProvider>
                 </ListItem>
               ))}
             </Paper>

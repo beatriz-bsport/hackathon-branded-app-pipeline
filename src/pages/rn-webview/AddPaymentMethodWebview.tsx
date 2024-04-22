@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { Component } from 'react';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withProps } from 'recompose';
 
@@ -9,11 +8,11 @@ import {
   withStyles,
   Theme,
 } from '@material-ui/core/styles';
-import { withTranslation, WithTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { RootState } from '../../reducers';
-import withQueryParams from '../../hocs/with-query-params.hoc';
+// @ts-expect-error
+import withQueryParams from '#hocs/with-query-params.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import { fetchMember } from '#libs/member/actions';
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
@@ -43,10 +42,9 @@ type State = { paymentMethodType: string; isThemeLoading: boolean };
 type Props = RouterProps &
   OwnProps &
   ConnectedProps<typeof connector> &
-  WithStyles<typeof styles> &
-  WithTranslation;
+  WithStyles<typeof styles>;
 
-export class AddPaymentMethodWebview extends Component<Props, State> {
+export class AddPaymentMethodWebview extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -80,6 +78,7 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
   };
 
   onCancel = () => {
+    // @ts-expect-error
     window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'cancel' }));
   };
 
@@ -160,7 +159,6 @@ const styles = (theme: Theme) =>
   });
 
 export default compose<any, OwnProps>(
-  withTranslation(''),
   withQueryParams([
     ['memberId', 'company', 'authToken'],
     'queryParams',

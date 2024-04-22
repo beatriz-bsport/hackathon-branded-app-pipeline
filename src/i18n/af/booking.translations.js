@@ -331,7 +331,7 @@ const getTranslations = async () => {
         create: 'Add a recurrent booking',
       },
       blockedBookings:
-        'Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.',
+        'Members can book up to {{days}} days in advance for this activity.\nConsider extending recurrence periods to prevent overcrowding.',
       notifyIfCanceled: 'Send a booking cancellation email',
       notify: 'Send a confirmation email when booking the member',
       showLess: 'Show less',

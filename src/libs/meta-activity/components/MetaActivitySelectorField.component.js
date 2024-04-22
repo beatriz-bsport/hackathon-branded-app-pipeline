@@ -4,14 +4,16 @@ import omit from 'lodash/omit';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import WarningIcon from '@material-ui/icons/Warning';
 import { Field, ErrorMessage } from 'formik';
 import { withTranslation } from 'react-i18next';
+import { Alert } from '@material-ui/lab';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import MetaActivitySelector from './MetaActivitySelector.component';
 
 export const MetaActivitySelectorField = withTranslation([])((props) => {
   const { t, fullWidth, required, helperText, showHelperText } = props;
+  const classes = useStyles();
   return (
     <Field {...props}>
       {({ field, form: { setFieldValue, touched, errors } }) => {
@@ -61,17 +63,20 @@ export const MetaActivitySelectorField = withTranslation([])((props) => {
             {showHelperText(blockedBookingsDays) &&
               helperText &&
               blockedBookingsDays && (
-                <FormHelperText
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'align-items',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <WarningIcon color="disabled" fontSize="small" />
-                  <Typography variant="caption">
-                    {helperText(blockedBookingsDays)}
-                  </Typography>
+                <FormHelperText>
+                  <Alert
+                    classes={{
+                      root: classes.alertRoot,
+                    }}
+                    severity="warning"
+                  >
+                    <Typography
+                      className={classes.alertMessage}
+                      variant="caption"
+                    >
+                      {helperText(blockedBookingsDays)}
+                    </Typography>
+                  </Alert>
                 </FormHelperText>
               )}
           </FormControl>
@@ -80,5 +85,10 @@ export const MetaActivitySelectorField = withTranslation([])((props) => {
     </Field>
   );
 });
+
+const useStyles = makeStyles(() => ({
+  alertRoot: { display: 'flex', alignItems: 'center' },
+  alertMessage: { whiteSpace: 'pre-line' },
+}));
 
 export default withTranslation()(MetaActivitySelectorField);

@@ -13399,7 +13399,7 @@
                 "info": "Cannot recreate a recurrent booking that already exists",
                 "create": "Add a recurrent booking"
             },
-            "blockedBookings": "Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.",
+            "blockedBookings": "Members can book up to {{days}} days in advance for this activity.\nConsider extending recurrence periods to prevent overcrowding.",
             "notifyIfCanceled": "Send a booking cancellation email",
             "notify": "Send a confirmation email when booking the member",
             "showLess": "Show less",
@@ -17183,7 +17183,7 @@
                     "addTrigger": "Add entry trigger",
                     "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
                     "title": "Entry",
-                    "creationHelper": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. To do this, you will need to select an entry trigger.  If you select multiple triggers, members that correspond to any one of those, will enter the {{ workflowLowerCase }}.",
+                    "creationHelper": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. To do this, you will need to select an entry trigger. If you select multiple triggers, members that correspond to any one of those, will enter the {{ workflowLowerCase }}.",
                     "editionHelper": "Edit the criteria for your members to enter the {{ workflowLowerCase }}. If a member fits any of these, they'll join the {{ workflowLowerCase }}."
                 },
                 "changeInStep": {
@@ -17210,7 +17210,7 @@
                 },
                 "wonTrigger": {
                     "addTrigger": "Add exit trigger",
-                    "helperText": "Set up the global objective of your {{ workflowLowerCase }}. If a member performs one of these exit trigger(s), they will reach the objective and successfully exit the {{ workflowLowerCase }} (no matter the step they are in). This will help you track your performance metrics.",
+                    "helperText": "Set up the global objective of your {{ workflowLowerCase }}. If a member performs one of these exit trigger(s), they will reach the objective and successfully exit the {{ workflowLowerCase }} (no matter the step they are in).This will help you track your performance metrics.",
                     "title": "Successful exit"
                 },
                 "entryAction": {

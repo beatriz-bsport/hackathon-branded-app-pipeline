@@ -143,14 +143,16 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
         />
       </div>
       <div className={classes.field}>
-        <Typography variant="body2">
-          {t('booking:recurrenceRule.explain', {
-            dayOfWeek: t(`datetime:time.weekdayNumber.${values.day_of_week}`),
-            hour: `${values.hour}`.padStart(2, '0'),
-            minute: `${values.minute}`.padStart(2, '0'),
-            delayWeek: values.delay_week,
-          })}
-        </Typography>
+        <Alert className={classes.alertRoot} severity="info">
+          <Typography variant="body2">
+            {t('booking:recurrenceRule.explain', {
+              dayOfWeek: t(`datetime:time.weekdayNumber.${values.day_of_week}`),
+              hour: `${values.hour}`.padStart(2, '0'),
+              minute: `${values.minute}`.padStart(2, '0'),
+              delayWeek: values.delay_week,
+            })}
+          </Typography>
+        </Alert>
       </div>
       {hasActivityGroups && (
         <Alert severity="error" variant="outlined">
@@ -181,6 +183,7 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
   );
 };
 const useStyles = makeStyles((theme) => ({
+  alertRoot: { display: 'flex', alignItems: 'center' },
   rulesContainer: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),

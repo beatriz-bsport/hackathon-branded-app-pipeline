@@ -390,27 +390,10 @@ const styles = (theme: Theme) => ({
     maxWidth: '80vw',
     width: '100%',
   },
-  paymentMethodSelectorContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    marginBottom: theme.spacing(2),
-  },
-  nameAndEmailContainer: {
-    flexDirection: 'column',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: theme.spacing(2),
-  },
-  mandate: {
-    padding: theme.spacing(2),
-  },
   modal: {
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
-    borderRadius: 8,
+    borderRadius: theme.spacing(1),
     overflow: 'auto',
     maxHeight: '100vh',
   },

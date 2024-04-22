@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
-import type { SubShop } from './types';
+import type { ShopItem, SubShop } from './types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 
@@ -97,13 +97,13 @@ const getShopItemSupplierById = (state: RootState) =>
 const getShopItemStandaloneAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.allIds;
 
-export const getShopItemStandaloneById = (state: RootState) =>
+const getShopItemStandaloneById = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.byId;
 
 const getShopItemBaseAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemBase.allIds;
 
-export const getShopItemBaseById = (state: RootState) =>
+const getShopItemBaseById = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemBase.byId;
 
 const getSubshopAllIds = (state: RootState) =>
@@ -229,9 +229,15 @@ export const getShopItemBaseAndStandaloneById = createSelector(
 export const getShopItemBaseAndStandaloneList = createSelector(
   [getShopItemBaseAndStandaloneAllIds, getShopItemBaseAndStandaloneById],
   (shopItemBaseAndStandaloneAllIds, shopItemBaseAndStandaloneById) => {
-    return shopItemBaseAndStandaloneAllIds.map(
-      (id) => shopItemBaseAndStandaloneById[id],
-    );
+    /**
+     * Cast to unknown and then as array of shop item
+     * to prevent having to update all related component props
+     */
+    const shopItemBaseAndStandaloneList: unknown =
+      shopItemBaseAndStandaloneAllIds.map(
+        (id) => shopItemBaseAndStandaloneById[id],
+      );
+    return shopItemBaseAndStandaloneList as ShopItem[];
   },
 );
 

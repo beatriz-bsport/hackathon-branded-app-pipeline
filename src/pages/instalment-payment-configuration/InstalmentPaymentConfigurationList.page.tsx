@@ -20,7 +20,10 @@ import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/act
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '#libs/payment-packs/actions';
 import { fetchPrivatePassList as fetchPrivatePassListAction } from '#libs/private-service/actions';
-import { fetchShopItemAsManager as fetchShopItemAsManagerAction } from '#libs/shop/actions/shopitem';
+import {
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#libs/shop/actions/shopItemReworked';
 import {
   createOrUpdateInstalmentPayment as createOrUpdateInstalmentPaymentAction,
   disableInstalmentPayment as disableInstalmentPaymentAction,
@@ -31,7 +34,7 @@ import { getEnabledPaymentPacks } from '#libs/payment-packs/selectors';
 import { getGiftcardListActive } from '#libs/giftcard/selectors';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { getShopItemsAvailable } from '#libs/shop/selectors';
+import { getShopItemBaseAndStandaloneList } from '#libs/shop/selectors';
 import {
   composeWithAllItems,
   getInstalmentPaymentList,
@@ -79,7 +82,8 @@ type Props = OwnProps &
 
 export class InstalmentPaymentConfigurationList extends Component<Props> {
   componentDidMount() {
-    this.props.fetchShopItemAsManager();
+    this.props.fetchShopItemBaseList();
+    this.props.fetchShopItemStandaloneList();
     this.props.fetchInstalmentPayment(
       {},
       {
@@ -297,7 +301,7 @@ const connector = connect(
     paymentPackList: getEnabledPaymentPacks(state),
     comboList: getPaymentComboList(state),
     privatePassList: getPrivatePassAvailable(state),
-    shopItemList: getShopItemsAvailable(state),
+    shopItemList: getShopItemBaseAndStandaloneList(state),
     giftcardList: getGiftcardListActive(state),
     instalmentPaymentList: getInstalmentPaymentList(
       state,
@@ -315,8 +319,8 @@ const connector = connect(
     fetchPaymentPackList: fetchPaymentPackListAction,
     fetchPaymentComboList: fetchPaymentComboListAction,
     fetchGiftcardList: fetchGiftcardListAction,
-    fetchShopItemAsManager: fetchShopItemAsManagerAction,
-
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
     fetchPrivatePassList: fetchPrivatePassListAction,
     createOrUpdateInstalmentPayment: createOrUpdateInstalmentPaymentAction,
     fetchInstalmentPayment: fetchInstalmentPaymentAction,

@@ -53,6 +53,28 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
 
   const [createGroupOpen, setCreateGroupOpen] = React.useState<boolean>(false);
 
+  const nonEmptyCompanyGroups = React.useMemo(
+    () =>
+      (companyGroupList || []).filter((group) =>
+        companies.some((company) => company.company_group === group.id),
+      ),
+    [companies, companyGroupList],
+  );
+
+  const companiesWithoutGroup = React.useMemo(
+    () => companies.filter((company) => !company.company_group),
+    [companies],
+  );
+
+  const getCompaniesForGroup = React.useCallback(
+    (group: CompanyGroup) =>
+      companies.filter(
+        (company) =>
+          !!company.company_group && company.company_group === group.id,
+      ),
+    [companies],
+  );
+
   return (
     <div>
       <FuzzySearch
@@ -92,44 +114,19 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
           {t('companyGroup.actions.add')}
         </Button>
       )}
-      {(companyGroupList || [])
-        .filter((group) =>
-          companies.some((company) => company.company_group === group.id),
-        )
-        .map((group) => (
-          <div key={group.id} className={classes.companiesContainer}>
-            <div className={classes.rowLarge}>
-              <Typography variant="h4">{group.name}</Typography>
-              {!restrictedFranchisees && (
-                <IconButton
-                  color="primary"
-                  onClick={() => setGroupToEdit(group)}
-                >
-                  <EditIcon />
-                </IconButton>
-              )}
-            </div>
-            <Divider className={classes.divider} />
-            <Paper>
-              {companies
-                .filter((company) => company.company_group === group.id)
-                .map((company) => (
-                  <CompanyListItem
-                    key={company.id}
-                    company={company}
-                    isRedirectLoading={isRedirectLoading}
-                    onClick={handleCompanySelected(company.id, company.name)}
-                    selected={company.id === selectedCompanyId}
-                  />
-                ))}
-            </Paper>
+      {nonEmptyCompanyGroups.map((group) => (
+        <div key={group.id} className={classes.companiesContainer}>
+          <div className={classes.rowLarge}>
+            <Typography variant="h4">{group.name}</Typography>
+            {!restrictedFranchisees && (
+              <IconButton color="primary" onClick={() => setGroupToEdit(group)}>
+                <EditIcon />
+              </IconButton>
+            )}
           </div>
-        ))}
-      <div className={classes.companiesContainer}>
-        <Paper>
-          {companies
-            .filter((company) => !company.company_group)
-            .map((company) => (
+          <Divider className={classes.divider} />
+          <Paper>
+            {getCompaniesForGroup(group).map((company) => (
               <CompanyListItem
                 key={company.id}
                 company={company}
@@ -138,6 +135,20 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
                 selected={company.id === selectedCompanyId}
               />
             ))}
+          </Paper>
+        </div>
+      ))}
+      <div className={classes.companiesContainer}>
+        <Paper>
+          {companiesWithoutGroup.map((company) => (
+            <CompanyListItem
+              key={company.id}
+              company={company}
+              isRedirectLoading={isRedirectLoading}
+              onClick={handleCompanySelected(company.id, company.name)}
+              selected={company.id === selectedCompanyId}
+            />
+          ))}
         </Paper>
       </div>
       {!!groupToEdit && (

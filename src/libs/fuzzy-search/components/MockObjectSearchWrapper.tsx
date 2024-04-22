@@ -1,0 +1,65 @@
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import React from 'react';
+import { API_V1_URI } from '../../../http';
+import { coachPaymentRuleFactory } from '#libs/coach-payment-rules/factories';
+import { couponFactory } from '#libs/coupon/factories';
+import type { ObjectSearchPaginated } from '#libs/fuzzy-search/types';
+
+const generateFakeCoupons = (length: number): ObjectSearchPaginated => ({
+  count: length,
+  next_page: null,
+  results: Array.from({ length }, couponFactory),
+  links: {
+    next: null,
+    previous: null,
+  },
+  page: 1,
+});
+
+const generateFakePaymentRules = (length: number): ObjectSearchPaginated => ({
+  count: length,
+  next_page: null,
+  results: Array.from({ length }, coachPaymentRuleFactory),
+  links: {
+    next: null,
+    previous: null,
+  },
+  page: 1,
+});
+
+const MockObjectSearchWrapper = ({
+  children,
+}: {
+  children?: React.ReactElement | React.ReactElement[];
+}) => {
+  const mock = new MockAdapter(axios);
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{1,10}$`))
+    .reply(200, generateFakeCoupons(10));
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{11,20}$`))
+    .reply(200, generateFakeCoupons(5));
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{21,120}$`))
+    .reply(200, generateFakeCoupons(2));
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{1,10}$`))
+    .reply(200, generateFakePaymentRules(10));
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{11,20}$`))
+    .reply(200, generateFakePaymentRules(5));
+
+  mock
+    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{21,120}$`))
+    .reply(200, generateFakePaymentRules(2));
+
+  return <>{children}</>;
+};
+
+export default React.memo(MockObjectSearchWrapper);

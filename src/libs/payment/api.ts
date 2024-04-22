@@ -19,7 +19,7 @@ import type {
   BookkeepingAccount,
   fetchBookkeepingAccountListFilter,
   StripePayout,
-} from './types';
+} from '#libs/payment/types';
 import type { BillingDetails } from '#libs/marketplace/types';
 
 export const fetchPaymentMethodList = async (
@@ -107,7 +107,7 @@ export const submitInternalPaymentInBackground = (
 };
 
 export const getPaymentGroupStatus = async (id: number) => {
-  return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
+  return getAuth<number>(`${API_V1_URI}/payment/payment_group/${id}/status/`);
 };
 
 export const setEstablishmentBillingGroupOnCompletedPaymentGroupStatus = async (

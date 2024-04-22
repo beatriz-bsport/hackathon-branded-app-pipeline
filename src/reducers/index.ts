@@ -86,6 +86,7 @@ import quicksaleReducers from '#libs/quicksale/reducers';
 import referralReducers from '#libs/referral/reducers';
 import accessControlReducers from '#libs/access-control/reducers';
 import communicationSentGroupConfigReducers from '#libs/communication/reducers/communication-sent-group-config-reducers';
+import objectSearchReducers from '#libs/fuzzy-search/reducers';
 
 import type { AlertingState } from '#libs/alerting/types';
 import type { BackgroundDialogState } from '#libs/background-dialog/types';
@@ -164,6 +165,7 @@ import type { AccessControlState } from '#libs/access-control/types';
 import type { PaymentBackendState } from '#libs/payment/types';
 import type { ActiveCampaignState } from '#libs/active-campaign/types';
 import type { PaymentPackState } from '#libs/payment-packs/types';
+import type { SearchState } from '#libs/fuzzy-search/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -252,6 +254,7 @@ const rootReducer = (history: any) =>
     referral: referralReducers,
     accessControl: accessControlReducers,
     broadcastChannel: broadcastChannelReducers,
+    objectSearch: objectSearchReducers,
   });
 
 export type RootState = {
@@ -343,6 +346,7 @@ export type RootState = {
   datatypeFiltering: DatatypeFilteringState;
   cadence: SequentialMarketingState;
   exportableComponents: ExportableComponentsState;
+  objectSearch: SearchState;
 };
 
 export default (history: any) => (state: any, action: any) => {

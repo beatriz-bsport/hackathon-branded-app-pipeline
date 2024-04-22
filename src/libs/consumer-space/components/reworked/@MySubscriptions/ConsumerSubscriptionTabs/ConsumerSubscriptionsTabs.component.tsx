@@ -8,15 +8,17 @@ import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@
 type Props = {
   selectedTab: SubscriptionTab;
   onChangeSubscriptionTab: (type: SubscriptionTab) => void;
-  activeBookingsCount: number;
-  futureBookingsCount: number;
+  activeSubscriptionsCount: number;
+  futureSubscriptionsCount: number;
+  expiredSubscriptionsCount: number;
 };
 
 export const ConsumerSubscriptionsTabs: React.FC<Props> = ({
   selectedTab,
   onChangeSubscriptionTab,
-  activeBookingsCount,
-  futureBookingsCount,
+  activeSubscriptionsCount,
+  futureSubscriptionsCount,
+  expiredSubscriptionsCount,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -38,31 +40,33 @@ export const ConsumerSubscriptionsTabs: React.FC<Props> = ({
   const tabs = useMemo(
     () => [
       {
-        hasBadge: activeBookingsCount > 0,
+        hasBadge: activeSubscriptionsCount > 0,
         type: SubscriptionTabEnum.ACTIVE,
         label: t('reworked.mySubscriptions.tab.active'),
         onClick: handleSetActiveTab,
-        value: activeBookingsCount,
+        value: activeSubscriptionsCount,
       },
       {
-        hasBadge: futureBookingsCount > 0,
+        hasBadge: futureSubscriptionsCount > 0,
         type: SubscriptionTabEnum.FUTURE,
         label: t('reworked.mySubscriptions.tab.future'),
         onClick: handleSetFutureTab,
-        value: futureBookingsCount,
+        value: futureSubscriptionsCount,
       },
       {
         type: SubscriptionTabEnum.EXPIRED,
         label: t('reworked.mySubscriptions.tab.expired'),
         onClick: handleSetExpiredTab,
+        value: expiredSubscriptionsCount,
       },
     ],
     [
-      activeBookingsCount,
-      futureBookingsCount,
+      activeSubscriptionsCount,
+      futureSubscriptionsCount,
       handleSetActiveTab,
       handleSetFutureTab,
       handleSetExpiredTab,
+      expiredSubscriptionsCount,
       t,
     ],
   );

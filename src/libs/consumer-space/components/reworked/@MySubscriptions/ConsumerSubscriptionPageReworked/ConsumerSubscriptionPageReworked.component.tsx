@@ -196,8 +196,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         selectedSubscription,
         null,
         <ConsumerSubscriptionsTabs
-          activeBookingsCount={activeSubscriptionsState.count}
-          futureBookingsCount={futureSubscriptionsState.count}
+          activeSubscriptionsCount={activeSubscriptionsState.count}
+          expiredSubscriptionsCount={expiredSubscriptionsState.count}
+          futureSubscriptionsCount={futureSubscriptionsState.count}
           onChangeSubscriptionTab={handleSetSelectedTab}
           selectedTab={selectedTab}
         />,

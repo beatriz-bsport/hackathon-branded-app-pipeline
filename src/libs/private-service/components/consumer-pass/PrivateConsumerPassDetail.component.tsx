@@ -5,7 +5,6 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error
@@ -15,6 +14,8 @@ import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.
 import ExtensionListItem from '#components/ExtensionListItem';
 import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+// @ts-expect-error
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import { OptionCallback } from '../../../../state/types';
 import {
   PrivateBooking,
@@ -22,6 +23,8 @@ import {
   PrivateConsumerPassExtension,
 } from '#libs/private-service/types';
 import { Invoice } from '#libs/invoice/types';
+
+import { PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE } from '#libs/private-service/constants';
 
 type Props = {
   private_booking_list: Array<PrivateBooking>;
@@ -31,6 +34,8 @@ type Props = {
   private_consumer_pass?: PrivateConsumerPass;
   onCreateExtension: () => void;
   extensions: Array<PrivateConsumerPassExtension>;
+  extensionsPage: number;
+  extensionsCount: number;
   disablePrivateBooking: (
     id: number,
     data: any,
@@ -47,6 +52,7 @@ type Props = {
   deleteExtension: (extensionId: number) => void;
   privateConsumerPassExtensionDeleteLoading: boolean;
   forceRegularizeUnpaid?: (options: OptionCallback) => void;
+  onExtensionPageRequested: (page: number) => void;
 };
 
 export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
@@ -79,7 +85,7 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
               </div>
             )}
             {!!props.extensionsLoading && <LinearProgress />}
-            {props.extensions && props.extensions.length ? (
+            {!!props.extensions && props.extensionsCount > 0 ? (
               <div className={classes.section}>
                 <Typography
                   className={classes.sectionTitle}
@@ -92,24 +98,34 @@ export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
                   {!!props.privateConsumerPassExtensionDeleteLoading && (
                     <LinearProgress />
                   )}
-                  <List disablePadding>
-                    {props.extensions.map((ex, index) => (
+                  <PaginatedListBase
+                    itemPerPage={PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE}
+                    items={props.extensions}
+                    listProps={{ disablePadding: 'true' }}
+                    loading={props.extensionsLoading}
+                    nbItems={props.extensionsCount}
+                    onPageRequested={props.onExtensionPageRequested}
+                    page={props.extensionsPage}
+                    renderItem={(
+                      extension: PrivateConsumerPassExtension,
+                      index: number,
+                    ) => (
                       <ExtensionListItem
-                        key={ex.id}
-                        extension={ex}
+                        key={extension.id}
+                        extension={extension}
                         onDelete={
                           props.private_consumer_pass &&
                           !props.private_consumer_pass.dst_private_consumer_pass
                             .length
-                            ? () => props.deleteExtension(ex.id)
+                            ? () => props.deleteExtension(extension.id)
                             : null
                         }
                         showBottomDivider={
                           index !== props.extensions.length - 1
                         }
                       />
-                    ))}
-                  </List>
+                    )}
+                  />
                 </Paper>
               </div>
             ) : null}

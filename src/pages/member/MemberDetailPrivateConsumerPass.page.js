@@ -41,6 +41,7 @@ import {
   getPrivateConsumerPass,
   excludeUnPaidPrivateConsumerPass,
   getPrivateConsumerPassExtensionsList,
+  getPrivateConsumerPassExtensionState,
 } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
@@ -82,6 +83,8 @@ type Props = {
   ) => void,
   private_consumer_pass_list: Array<PrivateConsumerPass>,
   privateConsumerPassExtensionList: Array<PrivateConsumerPassExtension>,
+  privateConsumerPassExtensionPage: number,
+  privateConsumerPassExtensionCount: number,
   private_booking_list: Array<PrivateBooking>,
   updatePrivateConsumerPassCredits: (...any) => void,
   privateConsumerPassLoading: boolean,
@@ -209,6 +212,15 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     this.props.privateConsumerPassSelected &&
     getExpirationDate(this.props.privateConsumerPassSelected);
 
+  handleChangeExtensionPage = (page: number) => {
+    if (this.props.privateConsumerPassId) {
+      this.props.fetchPrivateConsumerPassExtensionList({
+        private_consumer_pass: this.props.privateConsumerPassId,
+        page,
+      });
+    }
+  };
+
   render() {
     const dataLoading =
       this.props.privateConsumerPassExtensionLoading ||
@@ -280,6 +292,11 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               {this.props.privateConsumerPassId ? (
                 <PrivateConsumerPassDetail
                   deleteExtension={(id) => {
+                    const currentPage =
+                      this.props.privateConsumerPassExtensionPage;
+                    const isLastItemInPage =
+                      this.props.privateConsumerPassExtensionList?.length === 1;
+
                     this.props.deletePrivateConsumerPassExtension(id, {
                       onSuccess: () => {
                         this.props.fetchPrivateConsumerPass(
@@ -288,6 +305,8 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                         this.props.fetchPrivateConsumerPassExtensionList({
                           private_consumer_pass:
                             this.props.privateConsumerPassId,
+                          /** Fetch the previous page if removing the last page item */
+                          ...(isLastItemInPage && { page: currentPage - 1 }),
                         });
                       },
                     });
@@ -295,9 +314,11 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                   deletePrivateBooking={this.props.deletePrivateBooking}
                   disablePrivateBooking={this.props.disablePrivateBooking}
                   extensions={this.props.privateConsumerPassExtensionList}
+                  extensionsCount={this.props.privateConsumerPassExtensionCount}
                   extensionsLoading={
                     this.props.privateConsumerPassExtensionLoading
                   }
+                  extensionsPage={this.props.privateConsumerPassExtensionPage}
                   fetchPrivateConsumerPass={this.props.fetchPrivateConsumerPass}
                   forceRegularizeUnpaid={this.props.forceRegularizeUnpaid}
                   goToPrivateBooking={(privateBookingId) =>
@@ -310,6 +331,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                   onCreateExtension={
                     hasManageExtensionPermission && this.handleCreateExtension
                   }
+                  onExtensionPageRequested={this.handleChangeExtensionPage}
                   onInvoiceClick={this.props.onInvoiceClick}
                   private_booking_list={this.props.private_booking_list || []}
                   private_consumer_pass={this.props.privateConsumerPassSelected}
@@ -372,6 +394,10 @@ export default compose(
       privateConsumerPassInvoice: getInvoice(state, relatedInvoice),
       privateConsumerPassExtensionList:
         getPrivateConsumerPassExtensionsList(state),
+      privateConsumerPassExtensionPage:
+        getPrivateConsumerPassExtensionState(state).page,
+      privateConsumerPassExtensionCount:
+        getPrivateConsumerPassExtensionState(state).count,
       private_booking_list: getPrivateBookingListBase(state),
       privateConsumerPassExtensionLoading:
         state.privateService.privateConsumerPass.extension.loading,

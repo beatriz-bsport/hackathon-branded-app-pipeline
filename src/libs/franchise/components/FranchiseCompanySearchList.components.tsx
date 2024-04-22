@@ -37,6 +37,39 @@ type Props = {
   handleCompanySelected: (company: number, name: string) => () => void;
 };
 
+type CompanySearchListItemProps = {
+  company: FranchiseCompany;
+  isSelected: boolean;
+  search: string;
+} & Pick<Props, 'handleCompanySelected'>;
+
+const CompanySearchListItem: React.FC<CompanySearchListItemProps> = React.memo(
+  ({ company, isSelected, search, handleCompanySelected }) => {
+    const classes = useStyles();
+    return (
+      <ListItem
+        key={company.id}
+        button
+        divider
+        className={classes.row}
+        onClick={handleCompanySelected(company.id, company.name)}
+        selected={isSelected}
+      >
+        <div className={classes.companyRow}>
+          <Avatar
+            alt={company.name}
+            className={classes.avatar}
+            src={company.cover}
+          />
+          <Typography variant="body1">
+            <HighlightedText highlight={search} text={company.name} />
+          </Typography>
+        </div>
+      </ListItem>
+    );
+  },
+);
+
 const FranchiseCompanySearchList: React.FC<Props> = ({
   asManager,
   companies,
@@ -107,25 +140,13 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
     <div>
       <FuzzySearch
         itemRenderer={(company, search) => (
-          <ListItem
+          <CompanySearchListItem
             key={company.id}
-            button
-            divider
-            className={classes.row}
-            onClick={handleCompanySelected(company.id, company.name)}
-            selected={company.id === selectedCompanyId}
-          >
-            <div className={classes.companyRow}>
-              <Avatar
-                alt={company.name}
-                className={classes.avatar}
-                src={company.cover}
-              />
-              <Typography variant="body1">
-                <HighlightedText highlight={search} text={company.name} />
-              </Typography>
-            </div>
-          </ListItem>
+            company={company}
+            handleCompanySelected={handleCompanySelected}
+            isSelected={company.id === selectedCompanyId}
+            search={search}
+          />
         )}
         items={companies}
         placeholder={t('companies.searchPlaceholder')}

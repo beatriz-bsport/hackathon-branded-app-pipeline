@@ -16,7 +16,11 @@ import CompanyListItem from '#libs/membership/components/CompanyListItem.compone
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import HighlightedText from '#components/HighlightedText/HighlightedText.component';
 
-import type { FranchiseCompany, CompanyGroup } from '#libs/franchise/types';
+import type {
+  FranchiseCompany,
+  CompanyGroup,
+  CreateUpdateCompanyGroupData,
+} from '#libs/franchise/types';
 import type { OptionCallback } from '#state/types';
 
 type Props = {
@@ -27,7 +31,7 @@ type Props = {
   restrictedFranchisees: boolean;
   selectedCompanyId?: number;
   createOrUpdateCompanyGroup: (
-    data: any,
+    data: CreateUpdateCompanyGroupData,
     options: OptionCallback<CompanyGroup>,
   ) => void;
   handleCompanySelected: (company: number, name: string) => () => void;
@@ -74,6 +78,31 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
     [companies],
   );
 
+  const openEditGroupForm = React.useCallback(
+    (group: CompanyGroup) => () => setGroupToEdit(group),
+    [],
+  );
+
+  const closeEditGroupForm = React.useCallback(() => setGroupToEdit(null), []);
+
+  const openCreateGroupForm = React.useCallback(
+    () => setCreateGroupOpen(true),
+    [],
+  );
+
+  const closeCreateGroupForm = React.useCallback(
+    () => setCreateGroupOpen(false),
+    [],
+  );
+
+  const handleCreateOrUpdateCompanyGroup = React.useCallback(
+    (data: CreateUpdateCompanyGroupData) =>
+      createOrUpdateCompanyGroup?.(data, {
+        onSuccess: () => setCreateGroupOpen(false),
+      }),
+    [createOrUpdateCompanyGroup],
+  );
+
   return (
     <div>
       <FuzzySearch
@@ -106,7 +135,7 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
         <Button
           className={classes.categoryButton}
           color="primary"
-          onClick={() => setCreateGroupOpen(true)}
+          onClick={openCreateGroupForm}
           variant="outlined"
         >
           <AddIcon className={classes.iconLeft} />
@@ -118,7 +147,7 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
           <div className={classes.rowLarge}>
             <Typography variant="h4">{group.name}</Typography>
             {!restrictedFranchisees && (
-              <IconButton color="primary" onClick={() => setGroupToEdit(group)}>
+              <IconButton color="primary" onClick={openEditGroupForm(group)}>
                 <EditIcon />
               </IconButton>
             )}
@@ -154,24 +183,16 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
         <CompanyGroupFormDialog
           companyList={companies}
           initial={groupToEdit}
-          onClose={() => setGroupToEdit(null)}
-          onSubmit={(data) =>
-            createOrUpdateCompanyGroup(data, {
-              onSuccess: () => setGroupToEdit(null),
-            })
-          }
+          onClose={closeEditGroupForm}
+          onSubmit={handleCreateOrUpdateCompanyGroup}
           open={!!groupToEdit}
         />
       )}
       {!!createGroupOpen && (
         <CompanyGroupFormDialog
           companyList={companies}
-          onClose={() => setCreateGroupOpen(false)}
-          onSubmit={(data) =>
-            createOrUpdateCompanyGroup(data, {
-              onSuccess: () => setCreateGroupOpen(false),
-            })
-          }
+          onClose={closeCreateGroupForm}
+          onSubmit={handleCreateOrUpdateCompanyGroup}
           open={!!createGroupOpen}
         />
       )}

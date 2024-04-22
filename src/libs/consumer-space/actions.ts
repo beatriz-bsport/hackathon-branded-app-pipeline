@@ -1528,12 +1528,15 @@ export const fetchConsumerPassesTabDisplay =
 export const fetchConsumerUnpaidInvoicesActions = {
   isLoading: createAction<boolean>('CONSUMER_INVOICE/UNPAID/LIST/LOADING'),
   error: createAction<Error | null>('CONSUMER_INVOICE/UNPAID/LIST/ERROR'),
-  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
-    'CONSUMER_INVOICE/UNPAID/LIST/SUCCESS',
-  ),
+  success: createAction<{
+    paginatedResponse: PaginatedResponse<ConsumerInvoiceREST>;
+    uuidsToRefresh: string[];
+  }>('CONSUMER_INVOICE/UNPAID/LIST/SUCCESS'),
 };
+
 export function fetchConsumerUnpaidInvoices(
   { page, page_size = 30, company_id }: ConsumerInvoiceParams,
+  consumerInvoiceUuidsToRefresh?: string[],
   options?: OptionCallback<ConsumerInvoiceREST[]>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -1547,7 +1550,12 @@ export function fetchConsumerUnpaidInvoices(
         page_size,
         company_id,
       });
-      dispatch(fetchConsumerUnpaidInvoicesActions.success(response.data));
+      dispatch(
+        fetchConsumerUnpaidInvoicesActions.success({
+          paginatedResponse: response.data,
+          uuidsToRefresh: consumerInvoiceUuidsToRefresh,
+        }),
+      );
 
       options?.onSuccess?.(response.data.results);
     } catch (error) {

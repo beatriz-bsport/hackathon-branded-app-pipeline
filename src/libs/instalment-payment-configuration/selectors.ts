@@ -6,7 +6,10 @@ import { getPaymentPackById } from '#libs/payment-packs/selectors';
 import { getGiftcardData } from '#libs/giftcard/selectors';
 import { getPaymenComboDataDict } from '../payment-combo/selectors';
 import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
-import { getAllShopItemData } from '../shop/selectors';
+import {
+  getShopItemStandaloneById,
+  getShopItemBaseById,
+} from '../shop/selectors';
 
 const getInstalmentPaymentAllIds = (state: RootState) =>
   state.instalmentPayment.allIds;
@@ -133,8 +136,8 @@ export const withPrivatePass = memoize(
 export const withShopItems = memoize(
   (selector: (state: RootState, id?: number) => any) =>
     createSelector(
-      [selector, getAllShopItemData],
-      (instalmentPaymentList, privatePassData) => {
+      [selector, getShopItemStandaloneById, getShopItemBaseById],
+      (instalmentPaymentList, shopItemStandaloneData, shopItemBaseData) => {
         if (!instalmentPaymentList) {
           return instalmentPaymentList;
         }
@@ -142,14 +145,14 @@ export const withShopItems = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             shop_item_list: instalmentPayment.shop_item_list.map(
-              (id) => privatePassData[id],
+              (id) => shopItemStandaloneData[id] ?? shopItemBaseData[id],
             ),
           }));
         }
         return {
           ...instalmentPaymentList,
           shop_item_list: instalmentPaymentList.shop_item_list.map(
-            (id) => privatePassData[id],
+            (id) => shopItemStandaloneData[id] ?? shopItemBaseData[id],
           ),
         };
       },

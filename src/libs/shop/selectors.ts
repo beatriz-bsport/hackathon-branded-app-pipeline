@@ -97,13 +97,13 @@ const getShopItemSupplierById = (state: RootState) =>
 const getShopItemStandaloneAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.allIds;
 
-const getShopItemStandaloneById = (state: RootState) =>
+export const getShopItemStandaloneById = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.byId;
 
 const getShopItemBaseAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemBase.allIds;
 
-const getShopItemBaseById = (state: RootState) =>
+export const getShopItemBaseById = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemBase.byId;
 
 const getSubshopAllIds = (state: RootState) =>

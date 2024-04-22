@@ -1,0 +1,3 @@
+import ConsumerSubscriptionRecurrenceLabel from './ConsumerSubscriptionRecurrenceLabel.component';
+
+export default ConsumerSubscriptionRecurrenceLabel;

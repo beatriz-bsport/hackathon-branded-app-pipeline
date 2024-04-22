@@ -260,9 +260,7 @@ export type PrivateBooking<
   associated_coach: number;
   associated_establishment: number;
   coach: CoachId;
-  coach_name: string;
   establishment: EstablishmentId;
-  establishment_name: string;
   date_created: string;
   source: number;
   first_in_company: boolean;

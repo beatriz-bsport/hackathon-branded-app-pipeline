@@ -27,6 +27,7 @@ const MemberVisitDetailsCardBookingSection: React.FC<
 
   switch (type) {
     case 'booking': {
+      // @ts-expect-error TODO: Fixed in next commit
       const { spot_information, coach_name } = booking;
       const { name: spotName } = spot_information as SpotInformation;
 
@@ -46,6 +47,7 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               )}
             </div>
             <Typography color="textSecondary" variant="caption">
+              {/* @ts-expect-error TODO: Fixed in next commit */}
               {booking.establishment_name}
             </Typography>
             <Typography color="textSecondary" variant="caption">
@@ -76,6 +78,7 @@ const MemberVisitDetailsCardBookingSection: React.FC<
       );
     }
     case 'privateBooking': {
+      // @ts-expect-error TODO: Fixed in next commit
       const { establishment_name, coach_name, date_start, is_at_home, name } =
         privateBooking;
 

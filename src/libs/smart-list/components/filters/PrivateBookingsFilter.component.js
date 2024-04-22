@@ -34,7 +34,7 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   fetchItems: any,
-  new: boolean,
+  isNew: boolean,
   fetchBulkItems: any,
   private_passes: Array<PrivatePass>,
   private_services: Array<PrivateService>,
@@ -60,7 +60,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
       this.props.fetchBulkItems.private_services(private_services);
     }
     this.props.setNotNullableData(['comparator', 'value', 'value_second']);
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         at_home: false,
         establishments: [],

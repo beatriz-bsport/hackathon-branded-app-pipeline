@@ -40,7 +40,7 @@ type Props = {
   meta_activities: Array<any>,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   payment_packs: Array<any>,
   coaches: Array<any>,
   fetchBulkItems: any,
@@ -68,7 +68,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
       this.props.fetchBulkItems.payment_packs(payment_packs);
     }
     this.props.setNotNullableData(['value']);
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         establishments: [],
         meta_activities: [],

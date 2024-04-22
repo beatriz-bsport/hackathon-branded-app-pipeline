@@ -25,7 +25,7 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   buyable_identifiers: any,
-  new: boolean,
+  isNew: boolean,
   setNotNullableData: (data: Array<string>) => void,
 };
 
@@ -33,7 +33,7 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
   componentDidMount() {
     this.props.setNotNullableData(['comparator', 'value', 'value_second']);
 
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         buyable_identifiers: [],
         comparator: 2,

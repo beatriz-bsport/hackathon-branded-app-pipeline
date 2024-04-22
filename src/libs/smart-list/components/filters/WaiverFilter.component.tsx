@@ -10,7 +10,7 @@ import { MaterialStyleType } from '../../../../utils/types';
 type OwnProps = {
   filter_data: any;
   onChange: (data: any) => void;
-  new: boolean;
+  isNew: boolean;
 };
 
 type Props = OwnProps &
@@ -19,7 +19,7 @@ type Props = OwnProps &
 
 export class WaiverFilter extends Component<Props> {
   componentDidMount() {
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({ value: true });
     }
   }

@@ -12,7 +12,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   setNotNullableData: (data: Array<string>) => void,
 };
 
@@ -20,7 +20,7 @@ export class LastPreviousBookingFilter extends Component<Props, state> {
   componentDidMount() {
     this.props.setNotNullableData(['value']);
 
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({ value: null });
     }
   }

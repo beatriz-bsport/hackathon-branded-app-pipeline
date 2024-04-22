@@ -24,7 +24,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   setNotNullableData: (data: Array<string>) => void,
 };
 
@@ -34,7 +34,7 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
   componentDidMount() {
     this.props.setNotNullableData(['basket_value', 'comparator']);
 
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         basket_value: 1,
         comparator: 2,

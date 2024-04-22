@@ -13,14 +13,14 @@ type Props = {
   t: TFunction,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
 };
 
 const DATE_EXACT = 3;
 
 export class MemberDateJoinedFilter extends Component<Props, state> {
   componentDidMount() {
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         date: moment().format('YYYY-MM-DD'),
         date_second: moment().format('YYYY-MM-DD'),

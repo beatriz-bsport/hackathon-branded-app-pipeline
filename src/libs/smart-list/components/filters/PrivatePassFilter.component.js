@@ -28,7 +28,7 @@ type Props = {
   private_passes: Array<PrivatePass>,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   fetchItems: (any) => void,
   fetchBulkItems: (any) => void,
   renderSelectorWarning: (string, boolean) => void,
@@ -50,7 +50,7 @@ export class PrivatePassFilter extends Component<Props, state> {
       'credit_value',
       'credit_value_second',
     ]);
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         private_passes: null,
         has_pack: true,

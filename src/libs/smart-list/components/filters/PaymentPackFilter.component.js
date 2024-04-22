@@ -32,7 +32,7 @@ type Props = {
   payment_packs: Array<PaymentPack>,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   fetchItems: (any) => void,
   fetchBulkItems: (any) => void,
   renderSelectorWarning: (string, boolean) => void,
@@ -55,7 +55,7 @@ export class PaymentPackFilter extends Component<Props, state> {
       'credit_value',
       'credit_value_second',
     ]);
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         payment_packs: null,
         has_pack: true,

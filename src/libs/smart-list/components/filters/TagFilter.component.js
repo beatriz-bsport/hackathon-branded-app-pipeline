@@ -15,7 +15,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   tags: Array<Tag>,
 };
 
@@ -26,7 +26,7 @@ export class TagFilter extends Component<Props, state> {
   };
 
   componentDidMount() {
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         tags_included: [],
         tags_excluded: [],

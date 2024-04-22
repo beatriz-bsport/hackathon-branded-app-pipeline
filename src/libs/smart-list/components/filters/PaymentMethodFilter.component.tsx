@@ -19,12 +19,12 @@ type Props = {
   t: TFunction;
   classes: Object;
   onChange: (foo: any) => void;
-  new: boolean;
+  isNew: boolean;
 };
 
 export class PaymentMethodFilter extends Component<Props> {
   componentDidMount() {
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         owns_payment_method: 0,
         date: moment().format('YYYY-MM-DD'),

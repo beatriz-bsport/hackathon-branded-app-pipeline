@@ -41,7 +41,7 @@ type Props = {
   payment_packs: Array<any>,
   coaches: Array<any>,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
   fetchBulkItems: any,
   fetchItems: any,
   renderSelectorWarning: (string, boolean) => void,
@@ -65,7 +65,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
     if (payment_packs && payment_packs.length === 1) {
       this.props.fetchBulkItems.payment_packs(payment_packs);
     }
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({
         establishments: [],
         meta_activities: [],

@@ -12,12 +12,12 @@ type Props = {
   t: TFunction,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
+  isNew: boolean,
 };
 
 export class UserHasPasswordFilter extends Component<Props> {
   componentDidMount() {
-    if (this.props.new) {
+    if (this.props.isNew) {
       this.props.onChange({ value: true });
     }
   }

@@ -701,7 +701,7 @@ export class FiltersPanel extends Component<Props, State> {
               ))}
               {this.state.new_filter ? (
                 <FilterCard
-                  new
+                  isNew
                   coaches={this.props.coaches}
                   customForms={this.props.customForms}
                   customLevels={this.props.customLevels}

@@ -180,9 +180,6 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  input: {
-    marginBottom: theme.spacing(2),
-  },
   companiesContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
@@ -200,11 +197,6 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     marginRight: theme.spacing(2),
-  },
-  searchPaperDisplayed: {
-    border: '1px solid',
-    borderColor: theme.palette.primary.main,
-    borderTop: '0px',
   },
   iconLeft: {
     marginRight: theme.spacing(1),

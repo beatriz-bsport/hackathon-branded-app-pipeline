@@ -5,7 +5,6 @@ import { makeStyles, Theme } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -35,6 +34,8 @@ import type { Invoice } from '#libs/invoice/types';
 import type { Member } from '#libs/member/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 
+import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from '#libs/consumer-payment-pack/constants';
+
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
@@ -49,6 +50,8 @@ type Props = {
   invoice: Invoice;
   member: Member;
   extensions: Array<ConsumerPaymentPackExtension>;
+  extensionsPage: number;
+  extensionsCount: number;
   onCreateExtension?: () => void;
   deleteExtension: (id: number) => void;
   extensionsLoading: boolean;
@@ -77,6 +80,7 @@ type Props = {
   isRollCallMandatory: boolean;
   onClickWarningIcon: () => void;
   getBookingOffer: (offerId: number) => void;
+  onExtensionPageRequested: (page: number) => void;
 };
 
 export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
@@ -280,30 +284,38 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
         </div>
       ) : null}
       {props.extensionsLoading ? <LinearProgress /> : null}
-      {props.extensions &&
-      props.extensions.length &&
-      !props.extensionsLoading ? (
+      {!!props.extensions && props.extensionsCount > 0 ? (
         <React.Fragment>
           <Typography component="h2" variant="h5">
             {t('details.extensionsTitle')}
           </Typography>
           <Paper className={classes.paper}>
-            {!!props.passExtenxionDeleteLoading && <LinearProgress />}
-            <List disablePadding>
-              {props.extensions.map((ex, index) => (
+            {props.passExtenxionDeleteLoading && <LinearProgress />}
+            <PaginatedListBase
+              itemPerPage={CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE}
+              items={props.extensions}
+              listProps={{ disablePadding: 'true' }}
+              loading={props.extensionsLoading}
+              nbItems={props.extensionsCount}
+              onPageRequested={props.onExtensionPageRequested}
+              page={props.extensionsPage}
+              renderItem={(
+                extension: ConsumerPaymentPackExtension,
+                index: number,
+              ) => (
                 <ExtensionListItem
-                  key={ex.id}
-                  extension={ex}
+                  key={extension.id}
+                  extension={extension}
                   onDelete={
                     props.consumerPack &&
                     !props.consumerPack.dst_consumer_payment_pack
-                      ? () => props.deleteExtension(ex.id)
+                      ? () => props.deleteExtension(extension.id)
                       : null
                   }
                   showBottomDivider={index !== props.extensions.length - 1}
                 />
-              ))}
-            </List>
+              )}
+            />
           </Paper>
         </React.Fragment>
       ) : null}

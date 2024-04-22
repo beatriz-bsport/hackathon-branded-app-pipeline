@@ -70,6 +70,7 @@ import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/co
 import ConsumerExtensionCreateDialog from '../../components/ConsumerExtensionCreateDialog';
 import {
   getConsumerPaymentPackExtensionList,
+  getConsumerPaymentPackExtensionState,
   getConsumerPack,
   getConsumerPaymentPackByMember,
   withPaymentPack,
@@ -119,6 +120,8 @@ type Props = {
   ) => void,
   refreshConsumerPack: (id: number) => void,
   passExtensions: Array<ConsumerPaymentPackExtension>,
+  passExtensionsPage: number,
+  passExtensionsCount: number,
   consumerPackLoading: boolean,
   consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   selectedConsumerPass: ?ConsumerPaymentPack,
@@ -406,6 +409,15 @@ export class MemberDetailPass extends Component<Props, State> {
 
   handleCreateExtension = () => this.props.setOpenCreateExtension(true);
 
+  handleChangeExtensionPage = (page: number) => {
+    if (this.props.selectedConsumerPass?.id) {
+      this.props.fetchConsumerPaymentPackExtensionList({
+        consumer_payment_pack: this.props.selectedConsumerPass.id,
+        page,
+      });
+    }
+  };
+
   render() {
     const dataLoading =
       this.props.consumerPackLoading ||
@@ -556,6 +568,10 @@ export class MemberDetailPass extends Component<Props, State> {
                   }
                   currentBookingPage={this.props.bookingCurrentPage}
                   deleteExtension={(id) => {
+                    const currentPage = this.props.passExtensionsPage;
+                    const isLastItemInPage =
+                      this.props.passExtensions?.length === 1;
+
                     this.props.deleteConsumerPaymentPackExtension(id, {
                       onSuccess: () => {
                         this.props.refreshConsumerPack(
@@ -564,13 +580,17 @@ export class MemberDetailPass extends Component<Props, State> {
                         this.props.fetchConsumerPaymentPackExtensionList({
                           consumer_payment_pack:
                             this.props.selectedConsumerPass.id,
+                          /** Fetch the previous page if removing the last page item */
+                          ...(isLastItemInPage && { page: currentPage - 1 }),
                         });
                       },
                     });
                   }}
                   discardBookingAttendance={this.props.discardBookingAttendance}
                   extensions={this.props.passExtensions}
+                  extensionsCount={this.props.passExtensionsCount}
                   extensionsLoading={this.props.passExtensionsLoading}
+                  extensionsPage={this.props.passExtensionsPage}
                   getBookingOffer={this.props.getBookingOffer}
                   handleRevert={(bookingToRevert) =>
                     this.setState({ bookingToRevert })
@@ -591,6 +611,7 @@ export class MemberDetailPass extends Component<Props, State> {
                       .consumer_payment_pack_source &&
                     this.handleCreateExtension
                   }
+                  onExtensionPageRequested={this.handleChangeExtensionPage}
                   onInvoiceClick={this.props.goToInvoice}
                   onPageRequested={(page, pageSize) =>
                     this.props.fetchConsumerPaymentPackPenalty(
@@ -741,6 +762,8 @@ export default compose(
       },
       consumerPaymentPacksLoadingById: state.consumerPaymentPack.updatingById,
       passExtensions: getConsumerPaymentPackExtensionList(state),
+      passExtensionsPage: getConsumerPaymentPackExtensionState(state).page,
+      passExtensionsCount: getConsumerPaymentPackExtensionState(state).count,
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       passExtensionCreationLoading:
         state.consumerPaymentPack.extension.create.loading,

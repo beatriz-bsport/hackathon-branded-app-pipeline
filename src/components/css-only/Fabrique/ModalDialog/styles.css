@@ -165,6 +165,11 @@
   display: none;
 }
 
+.bs-fabrique-modal-dialog__footer__actions__cancel--larger,
+.bs-fabrique-modal-dialog__footer__actions__confirm--larger {
+  flex-basis: 100%;
+}
+
 /* .bs-fabrique-modal-dialog__footer__actions__confirm {} */
 
 .bs-fabrique-modal-dialog__footer__actions__confirm--hidden {

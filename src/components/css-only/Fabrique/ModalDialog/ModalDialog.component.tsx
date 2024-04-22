@@ -109,6 +109,8 @@ export const ModalDialog: React.FC<Props> = ({
   const isLeftIconHidden =
     !(leftIcon || defaultLeftIcon) || size === ModalDialogSizeEnum.XS;
 
+  const isThereOnlyOneFooterButton = !onConfirm || !oncancel;
+
   return (
     <div
       className={classNames(
@@ -218,10 +220,13 @@ export const ModalDialog: React.FC<Props> = ({
         >
           <Button
             className={classNames(
-              'bs-fabrique-modal-dialog__footer__actions__cancel',
               {
+                'bs-fabrique-modal-dialog__footer__actions__cancel':
+                  !isThereOnlyOneFooterButton,
                 'bs-fabrique-modal-dialog__footer__actions__cancel--hidden':
                   !onCancel,
+                'bs-fabrique-modal-dialog__footer__actions__cancel--larger':
+                  isThereOnlyOneFooterButton,
               },
               classes?.cancel,
             )}
@@ -235,10 +240,13 @@ export const ModalDialog: React.FC<Props> = ({
           </Button>
           <Button
             className={classNames(
-              'bs-fabrique-modal-dialog__footer__actions__confirm',
               {
+                'bs-fabrique-modal-dialog__footer__actions__confirm':
+                  !isThereOnlyOneFooterButton,
                 'bs-fabrique-modal-dialog__footer__actions__confirm--hidden':
                   !onConfirm,
+                'bs-fabrique-modal-dialog__footer__actions__confirm--larger':
+                  isThereOnlyOneFooterButton,
               },
               classes?.confirm,
             )}

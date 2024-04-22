@@ -50,6 +50,7 @@ import type { MemberVisitREST } from '#libs/access-control/types';
 /** HOOKS */
 import { useAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
+import { formatLocationString } from '#libs/access-control/utils';
 
 export type Props = ConnectedProps<typeof connector>;
 
@@ -253,29 +254,13 @@ const useLiveHistoryPageDataManager = ({
 
   /** COMPUTED */
 
-  /**
-   * @example
-   * // Returns "Location Group - Establishment 1, Establishment 2" when
-   *  - staffLocationEstablishmentGroup = { name: "Location Group", ... }
-   *  - staffLocationAddress = null
-   *  - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
-   *
-   * @example
-   * // Returns "Address - Establishment 1, Establishment 2" when
-   * - staffLocationEstablishmentGroup = null
-   * - staffLocationAddress = "Address"
-   * - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
-   */
   const locationInformation = useMemo(
     () =>
-      [
-        `${
-          staffLocationEstablishmentGroup?.name ?? staffLocationAddress ?? ''
-        }`,
-        establishmentObjects
-          ?.map((establishment) => establishment.title)
-          ?.join(', '),
-      ].join(' - '),
+      formatLocationString({
+        staffLocationEstablishmentGroup,
+        staffLocationAddress,
+        establishmentObjects,
+      }),
     [
       staffLocationEstablishmentGroup,
       staffLocationAddress,

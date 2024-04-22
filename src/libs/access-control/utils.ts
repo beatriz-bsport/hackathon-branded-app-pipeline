@@ -1,4 +1,5 @@
 import type { TFunction } from 'i18next';
+import type { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -6,6 +7,10 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 import type { RolePermission } from '#libs/role/types';
 import type { UpsellSumup } from '#libs/company/types';
 import type { MemberVisitREST, PassCheckResultInclusive } from './types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
 
 /**
  * Checks if a staff member can perform access monitoring based on their permissions and selected establishments.
@@ -143,3 +148,39 @@ export const getMemberVisitWarnings = (
 
   return { warnings, checkOnPassesIsValid, numberOfCheckedPasses };
 };
+
+/**
+ * Formats the location string based on the provided parameters.
+ *
+ * @param staffLocationEstablishmentGroup - The establishment group of the staff's location.
+ * @param staffLocationAddress - The address of the staff's location.
+ * @param establishmentObjects - An array of establishment objects.
+ * @returns The formatted location string.
+ *
+ * @example
+ * // Returns "Location Group - Establishment 1, Establishment 2" when
+ *  - staffLocationEstablishmentGroup = { name: "Location Group", ... }
+ *  - staffLocationAddress = null
+ *  - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
+ *
+ * @example
+ * // Returns "Address - Establishment 1, Establishment 2" when
+ * - staffLocationEstablishmentGroup = null
+ * - staffLocationAddress = "Address"
+ * - establishmentObjects = [{ title: "Establishment 1", ... }, { title: "Establishment 2", ... }]
+ */
+export const formatLocationString = ({
+  staffLocationEstablishmentGroup,
+  staffLocationAddress,
+  establishmentObjects,
+}: {
+  staffLocationEstablishmentGroup: ImmutableObject<EstablishmentGroupAPI>;
+  staffLocationAddress: string;
+  establishmentObjects: ImmutableArray<Establishment>;
+}) =>
+  [
+    `${staffLocationEstablishmentGroup?.name ?? staffLocationAddress ?? ''}`,
+    establishmentObjects
+      ?.map((establishment) => establishment.title)
+      ?.join(', '),
+  ].join(' - ');

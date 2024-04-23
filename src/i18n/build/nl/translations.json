@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -3321,7 +3321,9 @@
             "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)",
             "billing_group_address": "Adress",
             "is_first_visit": "Eerste boeking",
-            "is_from_billing_plan": "Afkomstig van abonnement"
+            "is_from_billing_plan": "Afkomstig van abonnement",
+            "bookkeeping_account_name": "Account naam",
+            "bookkeeping_account_number": "Account nummer"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -4318,7 +4320,7 @@
         },
         "paymentPackTemplateInstance": {
             "deleteForm": {
-                "content": "Leden die gedeelde kaarten bij deze studio hebben gekocht kunnen deze alsnog bij andere studio's gebruiken na het deactiveren van deze specifieke studio/kaart. Verder worden gedeelde kaarten van andere studio's niet meer bij de gedeactiveerde studio geaccepteerd.",
+                "content": "Leden die een pas hebben gekocht bij deze studio kunnen deze leskaart nog steeds gebruiken bij andere compatibele studio's, zelfs nadat deze specifieke studio is gedeactiveerd. Andere gedeelde passen kunnen niet meer gebruikt worden in de gedeactiveerde studio.",
                 "actions": {
                     "submit": "Delen deactiveren",
                     "close": "Sluiten"
@@ -4793,14 +4795,29 @@
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen",
                     "content": "Je staat op het punt dit account te verwijderen. Weet je zeker dat je door wilt gaan?",
-                    "title": "Verwijderen"
+                    "title": "Verwijderen",
+                    "contentLinked": "Deze account is gekoppeld aan de volgende objecten. Als je deze account wilt verwijderen, verwijder deze dan eerst."
                 }
             },
             "header": "Accounts",
             "table": {
                 "actions": "Acties"
             },
-            "vat_rate": "btw-percentage"
+            "vat_rate": "btw-percentage",
+            "helperText": "De rekeningen kunnen worden gekoppeld aan producten zodat het rekeningnummer en btw-tarief automatisch worden ingevuld in de rapporten.",
+            "form": {
+                "titleUpdate": "Account bewerken",
+                "titleCreate": "Account toevoegen"
+            },
+            "add": "Account toevoegen",
+            "select_input": {
+                "placeholder": "Leeg laten om account niet toe te passen",
+                "label": "Boekhoudrekening"
+            },
+            "account_name_required": "Account naam *",
+            "account_name": "Account naam",
+            "account_number_required": "Account nummer *",
+            "account_number": "Account nummer"
         }
     },
     "smartList": {
@@ -9308,10 +9325,10 @@
                 "confirm": "Verwijderen"
             },
             "padBeforeBooking": {
-                "explain4": "[GEDEACTIVEERD] Afspraken worden geaccepteerd en de vestiging wordt 15 minuten voor én na de reservering als bezet gemarkeerd. De eerstvolgende afspraak kan vanaf 11:30 worden gereserveerd.",
-                "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:30.",
+                "explain4": "[GEDEACTIVEERD] De afspraak is mogelijk en de kamer wordt 15 minuten voor en na de reservering geblokkeerd. De volgende afspraak is mogelijk vanaf 11:30 uur.",
+                "explain3": "[GEACTIVEERD] Afspraak is niet mogelijk. De kamer moet beschikbaar zijn van 9:45 tot 11:15 uur. De volgende afspraak is pas mogelijk om 11:30 uur.",
                 "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
-                "explain1": "Activeer deze functie om reserveringen alleen te accepteren als er beschikbaarheid is."
+                "explain1": "Indien geactiveerd, kunnen boekingen alleen worden gemaakt als de kalender beschikbaar is, inclusief de boeking"
             }
         },
         "calendar": {
@@ -9833,7 +9850,7 @@
                     "label": "Accepteer onbetaalde reserveringen"
                 },
                 "pad_before_booking": {
-                    "label": "Met terugwerkende kracht toepassen"
+                    "label": "Met terugwerkende kracht activeren voor deze boeking"
                 }
             },
             "parameters": {
@@ -10477,7 +10494,12 @@
                     "action": {
                         "update": "Voorraad wijzigen"
                     },
-                    "formError": "Voorraadswijzigingen moeten valide nummers zijn"
+                    "formError": "Voorraadswijzigingen moeten valide nummers zijn",
+                    "filterPlaceholder": {
+                        "color": "Selecteer kleur",
+                        "size": "Selecteer maat",
+                        "company": "Selecteer studio"
+                    }
                 },
                 "history": {
                     "invoice": {
@@ -10560,7 +10582,13 @@
             }
         },
         "variantCount": "{{count}} variant",
-        "variantCount_plural": "{{count}} varianten"
+        "variantCount_plural": "{{count}} varianten",
+        "duplicateVariantWarning": "Sommige kleur- en maatcombinaties bestaan al en worden niet opnieuw gemaakt",
+        "saveProductWithVariantCount": "Een product opslaan met {{count}} variant",
+        "saveProductWithVariantCount_plural": "Een product opslaan met {{count}} varianten",
+        "saveVariantCount": "Opslaan {{count}} variant",
+        "saveVariantCount_plural": "Opslaan {{count}} varianten",
+        "startingAtWithPrice": "Vanaf 1{{price}}"
     },
     "paymentRules": {
         "base_percent": "Percentage van de waarde",
@@ -12109,6 +12137,23 @@
             "seeMemberProfile": "Bekijk profiel",
             "content": "Naar beide adressen is een e-mail gestuurd om het lid te informeren",
             "title": "De samenvoeging is geslaagd"
+        },
+        "bookkeeping_account": {
+            "delete": {
+                "success": "De account is succesvol verwijderd.",
+                "error": "Er is een fout opgetreden tijdens het verwijderen van de account."
+            },
+            "update": {
+                "success": "De wijzigingen zijn succesvol opgeslagen.",
+                "error": "Er is een fout opgetreden tijdens het bijwerken van de account."
+            },
+            "create": {
+                "success": "De account is succesvol aangemaakt.",
+                "error": "Er is een fout opgetreden tijdens het aanmaken van de account."
+            },
+            "errors": {
+                "1": "Er bestaat al een account met deze naam."
+            }
         }
     },
     "coach": {
@@ -12978,7 +13023,9 @@
             "staff_commission_amount": "Personeelscommissie inclusief belasting",
             "staff_commission_amount_notax": "Personeelscommissie exclusief btw",
             "invoice_datetime": "Uitgiftedatum factuur",
-            "booking_date_created": "Boeking datum"
+            "booking_date_created": "Boeking datum",
+            "bookkeeping_account_number": "Account nummer",
+            "bookkeeping_account_name": "Account naam"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -15022,7 +15069,13 @@
                     "perform": {
                         "_label": "Toegangscontrole uitvoeren"
                     },
-                    "_label": "Toegangscontrole"
+                    "_label": "Toegangscontrole",
+                    "settings": {
+                        "_label": "Pagina met toegangsinstellingen"
+                    },
+                    "monitor": {
+                        "_label": "Geschiedenis locatiebezoeken openen"
+                    }
                 }
             },
             "member": {
@@ -16525,7 +16578,8 @@
             },
             "accessMonitoring": {
                 "settings": "Instellingen",
-                "perform": ""
+                "perform": "Leden bezoek",
+                "monitor": "Locatie bezoeken"
             }
         },
         "logout": "Loguit",
@@ -19503,7 +19557,7 @@
             "redirectLink": {
                 "title": "Doorverwijslink",
                 "placeholder": "Omleiding URL",
-                "description": "Na registratie wordt het nieuwe lid doorverwezen naar de pagina die wordt aangegeven door je URL. Als je het vakje leeg laat, worden ze doorverwezen naar de pagina voor het kopen van een pas"
+                "description": "Na registratie wordt het nieuwe lid doorverwezen naar de pagina die wordt aangegeven door je URL. Als je het vakje leeg laat, worden ze doorgestuurd naar de pagina voor het kopen van een pas."
             },
             "tag": {
                 "title": "Tag",
@@ -19704,10 +19758,21 @@
         "modals": {
             "entryStatusChanged": {
                 "stay": "Op ledenprofiel blijven",
-                "close": "Ledenprofiel sluiten"
+                "close": "Ledenprofiel sluiten",
+                "N": {
+                    "description": "Je kunt nog steeds waarschuwingen aanpakken en ze binnenlaten via het tabblad Locatiebezoek.",
+                    "message": "Lid werd de toegang geweigerd.",
+                    "title": "Toegang geweigerd"
+                },
+                "Y": {
+                    "description": "Je kunt waarschuwingen nog steeds aanpakken via het tabblad Locatiebezoek.",
+                    "message": "Lid mocht naar binnen met bestaande waarschuwingen.",
+                    "title": "Lid ingevoerd"
+                }
             },
             "accessStatusChangedSuccess": {
-                "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'."
+                "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'.",
+                "title": "Lidstatus bijgewerkt"
             }
         },
         "memberVisitDetails": {
@@ -19730,6 +19795,15 @@
                 "red": "Ongeldig",
                 "orange": "Waarschuwing",
                 "green": "Geldig"
+            },
+            "manualEntry": {
+                "button": {
+                    "entryRefused": "Toegang geweigerd",
+                    "entryAllowed": "Ingevoerd",
+                    "accept": "Toegang toestaan",
+                    "refuse": "Toegang weigeren"
+                },
+                "description": "Geef aan of dit lid mag binnenkomen of niet"
             }
         },
         "memberVisit": {
@@ -19744,12 +19818,17 @@
                 "bookingsInOtherEstablishments": "Deze reservering ({{- bookingName}}) vindt plaats in een andere vestiging ({{- establishmentName }})",
                 "hasUnpaidAppointments": "Dit lid heeft één of meerdere onbetaalde afspraken",
                 "hasNegativeAccountBalance": "Het saldo van dit lid is negatief",
-                "hasUnpaidInvoices": "Dit lid heeft één of meerdere openstaande facturen"
+                "hasUnpaidInvoices": "Dit lid heeft één of meerdere openstaande facturen",
+                "numberOfCheckedPasses": "{{- count }} lid zijn leskaart is gecontroleerd zonder geldig resultaat.",
+                "numberOfCheckedPasses_plural": "{{- count }} leden hun leskaart is gecontroleerd zonder geldig resultaat."
             },
             "refreshMemberVisit": "Verversstatus",
             "closeMemberVisit": "Ledenprofiel sluiten",
             "emptyState": {
-                "or": "of"
+                "or": "of",
+                "searchMember": "Zoek leden op naam of nummer",
+                "establishmentsSelectedInRole": "U controleert de toegang voor <strong>{- adress }} - {{- establishments }}</strong>",
+                "waitForScan": "Wacht tot het lid zijn barcode scant of zoek zijn naam of barcode handmatig."
             }
         }
     }

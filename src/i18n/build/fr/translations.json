@@ -327,10 +327,10 @@
                 "bookingNumberN": "{{notify_booking_nb}}ème réservation",
                 "help": {
                     "text": "Aide : la notification sera envoyée au membre lors de",
-                    "attendance": "sa présence n° {{notify_booking_nb}}",
-                    "absence": "son absence n° {{notify_booking_nb}}",
-                    "refunded": "son annulation remboursée n° {{notify_booking_nb}}",
-                    "notRefunded": "son annulation hors délai n° {{notify_booking_nb}}",
+                    "attendance": "Cette notification sera envoyée pour sa présence n° {{notify_booking_nb}}",
+                    "absence": "Cette notification sera envoyée pour son absence n° {{notify_booking_nb}}",
+                    "refunded": "Cette notification sera envoyée pour son annulation remboursée n° {{notify_booking_nb}}",
+                    "notRefunded": "Cette notification sera envoyée pour son annulation hors délai n° {{notify_booking_nb}}",
                     "allEvents": {
                         "attendance": "Aide : la notification sera envoyée au membre à chacune de ses présences",
                         "absence": "Aide : la notification sera envoyée au membre à chacune de ses absences",
@@ -952,7 +952,7 @@
                 "cancel": "Annuler",
                 "confirm": "Supprimer"
             },
-            "errorDescription": "La description fournie est trop longue (max 500)",
+            "errorDescription": "La description fournie est trop longue (max 1000)",
             "errorLinkLength": "L'URL fourni est trop long (max 150)",
             "errorInvalidURL": "Veuillez rentrer un URL valide"
         },
@@ -1140,7 +1140,10 @@
         "discard": "Rejeter",
         "no": "Non",
         "yes": "Oui",
-        "saveChanges": "Enregistrer les modifications"
+        "saveChanges": "Enregistrer les modifications",
+        "none": "Aucun",
+        "numberRequired": "Ce champ doit être un nombre",
+        "positiveNumber": "Ce champ doit être supérieur à 0."
     },
     "communication": {
         "table": {
@@ -2619,7 +2622,9 @@
             "is_unpaid": "Impayé",
             "dispute_status": "Status de litige",
             "is_no_show": "Absent (no show)",
-            "booking_date_created": "Date de réservation"
+            "booking_date_created": "Date de réservation",
+            "bookkeeping_account_number": "Numéro de compte",
+            "bookkeeping_account_name": "Nom du compte"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Encaissements",
@@ -2960,7 +2965,37 @@
         "roomRequired": "Salle *",
         "roomRequiredIsMissing": "Vous n'avez pas sélectionné d'établissement de facturation.",
         "billingGroup": "Groupes de facturation",
-        "billingGroupRequired": "Groupes de facturation *"
+        "billingGroupRequired": "Groupes de facturation *",
+        "bookkeeping_account": {
+            "select_input": {
+                "placeholder": "Laisser vide pour ne pas assigner de compte",
+                "label": "Compte de comptabilité"
+            },
+            "helperText": "Les comptes peuvent être liés aux produits, de sorte que le numéro de compte et le taux de TVA sont automatiquement indiqués dans les rapports.",
+            "form": {
+                "titleUpdate": "Modifier un compte",
+                "titleCreate": "Ajouter un compte"
+            },
+            "modal": {
+                "delete": {
+                    "contentLinked": "Ce compte est lié aux objets suivants, si vous souhaitez le supprimer, veuillez d'abord les retirer.",
+                    "cancel": "Annuler",
+                    "confirm": "Supprimer",
+                    "content": "Vous êtes sur le point de supprimer ce compte, êtes-vous sûr ?",
+                    "title": "Suppression"
+                }
+            },
+            "header": "Comptes",
+            "add": "Ajouter un compte",
+            "table": {
+                "actions": "Actions"
+            },
+            "vat_rate": "Taux de TVA",
+            "account_name_required": "Nom du compte *",
+            "account_name": "Nom du compte",
+            "account_number_required": "Numéro de compte *",
+            "account_number": "Numéro de compte"
+        }
     },
     "event": {
         "list": {
@@ -4058,7 +4093,8 @@
             "selectYourCurrentEmail": "Sélectionner votre adresse actuelle de connexion."
         },
         "signup": {
-            "title": "Inscription"
+            "title": "Inscription",
+            "titleAsResgisterBooking": "Enregistrer votre réservation"
         },
         "contactUs": "Manager de studio, vous êtes intéressé par notre solution ?\nContactez-nous.",
         "signupCompany": {
@@ -6070,7 +6106,8 @@
             "cadences": "Cadences",
             "inbox": "Boîte de réception",
             "audience": "{{ audienceCamelCase }}",
-            "backToWebshop": "Revenir au magasin"
+            "backToWebshop": "Revenir au magasin",
+            "accessMonitoring": "Accès"
         },
         "multiSession": {
             "title": " Vous semblez utiliser plusieurs onglets simultanément",
@@ -6207,6 +6244,11 @@
             "communicationSentGroupConfig": {
                 "campaigns": "Campagnes",
                 "general": "Général"
+            },
+            "accessMonitoring": {
+                "settings": "Paramètres",
+                "monitor": "Historique des visites",
+                "perform": "Visite du membre"
             }
         },
         "logout": "Déconnexion",
@@ -10501,7 +10543,9 @@
             "margin_value_excluding_sales_tax": "Apport marginal HT",
             "billing_group_address": "Adresse",
             "is_first_visit": "Première réservation",
-            "is_from_billing_plan": "Venant de l'abonnement"
+            "is_from_billing_plan": "Venant de l'abonnement",
+            "bookkeeping_account_name": "Nom du compte",
+            "bookkeeping_account_number": "Numéro de compte"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11210,7 +11254,13 @@
                     "perform": {
                         "_label": "Surveiller les accès"
                     },
-                    "_label": "Surveillance des accès"
+                    "_label": "Surveillance des accès",
+                    "settings": {
+                        "_label": "Page des paramètres d'accès"
+                    },
+                    "monitor": {
+                        "_label": "Accéder à l'historique des visites de localisation"
+                    }
                 }
             },
             "franchiseMenu": {
@@ -12954,7 +13004,12 @@
                     "action": {
                         "update": "Mise à jour de l'inventaire"
                     },
-                    "formError": "Les valeurs de modification des stocks doivent être des nombres valides"
+                    "formError": "Les valeurs de modification des stocks doivent être des nombres valides",
+                    "filterPlaceholder": {
+                        "color": "Choisir la couleur",
+                        "size": "Choisir la taille",
+                        "company": "Sélectionner un studio"
+                    }
                 },
                 "history": {
                     "invoice": {
@@ -13065,7 +13120,13 @@
             }
         },
         "variantCount": "{{count}} variante",
-        "variantCount_plural": "{{count}} variantes"
+        "variantCount_plural": "{{count}} variantes",
+        "duplicateVariantWarning": "Certaines combinaisons de couleurs et de tailles existent déjà et ne seront pas créées à nouveau",
+        "saveProductWithVariantCount": "Sauvegarder un produit avec {{count}} variante",
+        "saveProductWithVariantCount_plural": "Sauvegarder un produit avec {{count}} variantes",
+        "saveVariantCount": "Sauvegarder {{count}} variante",
+        "saveVariantCount_plural": "Sauvegarder {{count}} variantes",
+        "startingAtWithPrice": "À partir de {{price}}"
     },
     "smartList": {
         "duplicate": "Dupliquer",
@@ -14903,6 +14964,23 @@
             "seeMemberProfile": "Voir le membre du profil",
             "content": "Un courrier électronique a été envoyé aux deux adresses pour informer le membre",
             "title": "La fusion a été réalisée avec succès"
+        },
+        "bookkeeping_account": {
+            "delete": {
+                "success": "Le compte a été supprimé avec succès.",
+                "error": "Une erreur s'est produite lors de la suppression du compte."
+            },
+            "update": {
+                "success": "Les modifications ont été enregistrées avec succès.",
+                "error": "Une erreur s'est produite lors de la mise à jour du compte."
+            },
+            "create": {
+                "success": "Le compte a été créé avec succès.",
+                "error": "Une erreur s'est produite lors de la création du compte."
+            },
+            "errors": {
+                "1": "Un compte du même nom existe déjà."
+            }
         }
     },
     "spotScheduling": {
@@ -19422,6 +19500,20 @@
             "accessStatusChangedSuccess": {
                 "message": "Tous les problèmes ont été résolus. Le statut du membre est désormais valide.",
                 "title": "Statut du membre mis à jour"
+            },
+            "entryStatusChanged": {
+                "N": {
+                    "description": "Vous pouvez toujours adresser des avertissements et les laisser entrer depuis l'onglet Historique des visites.",
+                    "message": "L'entrée a été refusée pour ce membre.",
+                    "title": "Entrée refusée"
+                },
+                "stay": "Rester sur la page membre",
+                "close": "Fermer la page membre",
+                "Y": {
+                    "description": "Vous pouvez toujours adresser des avertissements à partir de l'onglet Historique des visites.",
+                    "message": "Le membre a été autorisé à entrer avec les avertissements existants.",
+                    "title": "Membre entré"
+                }
             }
         },
         "memberVisitDetails": {

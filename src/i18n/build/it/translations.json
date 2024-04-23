@@ -3010,10 +3010,10 @@
                 "confirm": "Rimuovi"
             },
             "padBeforeBooking": {
-                "explain4": "NON ATTIVO: l'appuntamento sarà possibile e bloccherà la camera 15 minuti prima e dopo la prenotazione. Il prossimo appuntamento sarà possibile a partire dalle 11:30.",
-                "explain3": "ATTIVO: L'appuntamento non sarà possibile. La sala deve essere disponibile dalle 9.45 alle 11.15. Il prossimo appuntamento sarà possibile solo a partire dalle 11:30.",
-                "explain2": "Esempio: lo stabilimento è disponibile dalle 10 alle 11 e l'appuntamento dura 60 minuti, ma è necessario un blocco di 15 minuti prima e dopo per la pulizia o la manutenzione.",
-                "explain1": "Se attivato, le prenotazioni possono essere fatte solo se il calendario è disponibile, compresa la prenotazione"
+                "explain4": "NON ATTIVO: consente di prenotare l'appuntamento successivo a partire dalle 14:05 (i 5 minuti dopo la fine dell'appuntamento precedente saranno gli stessi 5 minuti necessari prima dell'inizio dell'appuntamento successivo). In questo caso, i tempi di attesa possono sovrapporsi.",
+                "explain3": "ATTIVO: consente di prenotare l'appuntamento successivo a partire dalle 14:10 (5 minuti dopo la fine dell'appuntamento precedente + 5 minuti prima dell'inizio di quello successivo). I tempi di attesa degli appuntamenti non possono sovrapporsi.",
+                "explain2": "Esempio: Un appuntamento è stato prenotato per le 13:00, dura 1 ora e si dispone di un buffer di disponibilità di 5 minuti prima e dopo l'appuntamento (ad esempio per la pulizia della stanza).",
+                "explain1": "Se attivata, il buffer di disponibilità dopo il primo appuntamento e il buffer di disponibilità prima del secondo appuntamento non si sovrapporranno (ci sarà uno spazio maggiore tra due appuntamenti, poiché vengono considerati due buffer di disponibilità). Se non è attivata, il buffer di disponibilità dopo il primo appuntamento si sovrapporrà al buffer di disponibilità prima del secondo appuntamento."
             }
         },
         "privateCoach": {
@@ -3528,7 +3528,7 @@
                     "helperText": "Attivare questa funzione per consentire ai membri di completare le prenotazioni senza pagamenti diretti. I crediti utilizzati saranno automaticamente detratti da qualsiasi pacchetto per appuntamenti futuro acquistato dai membri."
                 },
                 "pad_before_booking": {
-                    "label": "Da prendere in considerazione anche prima di prenotare"
+                    "label": "Attiva per evitare la sovrapposizione dei tempi di buffer di sessioni con orari di fine e inizio vicini"
                 }
             },
             "parameters": {
@@ -4210,7 +4210,8 @@
             },
             "inbox": "Posta in arrivo",
             "audience": "{{ audienceCamelCase }}",
-            "backToWebshop": "Torna allo shop"
+            "backToWebshop": "Torna allo shop",
+            "accessMonitoring": "Accesso"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -4355,6 +4356,11 @@
             "communicationSentGroupConfig": {
                 "campaigns": "Campagne",
                 "general": "Generale"
+            },
+            "accessMonitoring": {
+                "settings": "Impostazioni",
+                "monitor": "Visite in loco",
+                "perform": "Visita dei membri"
             }
         },
         "logout": "Logout",
@@ -6038,6 +6044,23 @@
             "seeMemberProfile": "Vedi il profilo del membro",
             "content": "A entrambi gli indirizzi è stata inviata un'e-mail per informare il membro",
             "title": "L'unione è stata eseguita correttamente"
+        },
+        "bookkeeping_account": {
+            "delete": {
+                "success": "L'account è stato eliminato con successo.",
+                "error": "Si è verificato un errore durante l'eliminazione dell'account."
+            },
+            "update": {
+                "success": "Le modifiche sono state salvate con successo.",
+                "error": "Si è verificato un errore durante l'aggiornamento dell'account."
+            },
+            "create": {
+                "success": "L'account è stato creato con successo.",
+                "error": "Si è verificato un errore durante la creazione dell'account."
+            },
+            "errors": {
+                "1": "Un account con questo nome esiste già."
+            }
         }
     },
     "settings": {
@@ -7017,7 +7040,7 @@
                 "success": "Insegnante creato con successo"
             },
             "error_email_exists": "Un insegnante con questa email esiste già, usa il form di creazione insegnante",
-            "errorDescription": "La descrizione fornita è troppo lunga (max 500)",
+            "errorDescription": "La descrizione fornita è troppo lunga (max 1000)",
             "errorLinkLength": "L'URL fornito è troppo lungo (max 150)",
             "errorInvalidURL": "Inserisci un URL valido"
         },
@@ -8189,7 +8212,9 @@
             "margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)",
             "billing_group_address": "Indirizzo",
             "is_first_visit": "Prima prenotazione",
-            "is_from_billing_plan": "Proveniente da un abbonamento ricorrente"
+            "is_from_billing_plan": "Proveniente da un abbonamento ricorrente",
+            "bookkeeping_account_name": "Nome account",
+            "bookkeeping_account_number": "Numero account"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -10341,11 +10366,11 @@
                 "help": {
                     "text": "Aiuto: la notifica verrà inviata al membro durante",
                     "cancellation": "la sua cancellazione della prenotazione n° {{notify_booking_nb}}",
-                    "attendance": "la sua presenza n° {{notify_booking_nb}}",
+                    "attendance": "Questa notifica verrà inviata quando un membro sarà presente {{notify_booking_nb}} volta/e.",
                     "booking": "la sua prenotazione n° {{notify_booking_nb}}",
-                    "notRefunded": "suo annullamento dopo la scadenza del termine n°{{notify_booking_nb}}",
-                    "refunded": "sua cancellazione rimborsata n° {{notify_booking_nb}}",
-                    "absence": "sua assenza n° {{notify_booking_nb}}",
+                    "notRefunded": "Questa notifica verrà inviata quando un membro registra {{notify_booking_nb}} cancellazione/i tardiva/e.",
+                    "refunded": "Questa notifica sarà inviata quando un membro registra {{notify_booking_nb}} cancellazione/i rimborsata/e.",
+                    "absence": "Questa notifica verrà inviata quando un membro si assenterà {{notify_booking_nb}} volta/e.",
                     "allEvents": {
                         "notRefunded": "Aiuto: la notifica sarà inviata al membro per ciascuno delle cancellazioni annullate",
                         "refunded": "Aiuto: la notifica sarà inviata al membro per ogni sua cancellazione rimborsata",
@@ -12203,7 +12228,37 @@
         "roomRequiredIsMissing": "Non hai selezionato uno stabilimento di contabilizzazione.",
         "roomRequired": "Sala *",
         "billingGroup": "Gruppo di contabilizzazione",
-        "billingGroupRequired": "Gruppo di contabilizzazione *"
+        "billingGroupRequired": "Gruppo di contabilizzazione *",
+        "bookkeeping_account": {
+            "helperText": "Gli account possono essere collegati ai prodotti in modo che il numero dell'account e l'aliquota IVA vengano inseriti automaticamente nei report.",
+            "form": {
+                "titleUpdate": "Modifica account",
+                "titleCreate": "Aggiungi account"
+            },
+            "modal": {
+                "delete": {
+                    "contentLinked": "Questo account è collegato ai seguenti oggetti; se si desidera eliminarlo, si prega prima di rimuoverlo.",
+                    "cancel": "Cancella",
+                    "confirm": "Elimina",
+                    "content": "Stai per cancellare questo account, sei sicuro di voler procedere?",
+                    "title": "Cancellazione"
+                }
+            },
+            "header": "Account",
+            "select_input": {
+                "placeholder": "Lascia vuoto per non applicare l'account",
+                "label": "Numero di contabilità"
+            },
+            "add": "Aggiungi un account",
+            "table": {
+                "actions": "Azioni"
+            },
+            "vat_rate": "Aliquota IVA",
+            "account_name_required": "Nome dell'account *",
+            "account_name": "Nome dell'account",
+            "account_number_required": "Numero dell'account *",
+            "account_number": "Numero dell'account"
+        }
     },
     "datetime": {
         "time": {
@@ -12729,7 +12784,8 @@
             "explain": "La tua sessione è scaduta. Hai effettuato l'accesso simultaneamente a due account diversi o sei uscito da un'altra scheda / finestra?"
         },
         "signup": {
-            "title": "Iscrizione"
+            "title": "Iscrizione",
+            "titleAsResgisterBooking": "Registra la prenotazione"
         },
         "contactUs": "Studio manager, sei interessato alla nostra soluzione?\nContattaci.",
         "or": " o ",
@@ -13176,7 +13232,12 @@
                     "action": {
                         "update": "Aggiorna l'inventario"
                     },
-                    "formError": "I valori di modifica delle scorte devono essere dei numeri validi"
+                    "formError": "I valori di modifica delle scorte devono essere dei numeri validi",
+                    "filterPlaceholder": {
+                        "color": "Seleziona un colore",
+                        "size": "Seleziona una taglia",
+                        "company": "Seleziona uno studio"
+                    }
                 }
             },
             "tab": {
@@ -13243,7 +13304,13 @@
             }
         },
         "variantCount": "{{count}} variante",
-        "variantCount_plural": "{{count}} varianti"
+        "variantCount_plural": "{{count}} varianti",
+        "duplicateVariantWarning": "Alcune combinazioni di colori e dimensioni esistono già e non verranno create di nuovo",
+        "saveProductWithVariantCount": "Salva un prodotto con {{count}} variante",
+        "saveProductWithVariantCount_plural": "Salva un prodotto con {{count}} varianti",
+        "saveVariantCount": "Salva {{count}} variante",
+        "saveVariantCount_plural": "Salva {{count}} varianti",
+        "startingAtWithPrice": "A partire da {{price}}"
     },
     "paymentRules": {
         "save": "Salva",
@@ -13505,7 +13572,10 @@
         "discard": "Elimina",
         "no": "No",
         "yes": "Si",
-        "saveChanges": "Salva modifiche"
+        "saveChanges": "Salva modifiche",
+        "none": "Nessuno",
+        "numberRequired": "Questo campo deve essere un numero",
+        "positiveNumber": "Questo campo deve essere maggiore di 0."
     },
     "titles": {
         "metaActivity": {
@@ -13830,7 +13900,9 @@
             "staff_commission_amount_notax": "Costi provvigionali del personale IVA esclusa",
             "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa",
             "invoice_datetime": "Data di emissione della ricevuta",
-            "booking_date_created": "Data della prenotazione"
+            "booking_date_created": "Data della prenotazione",
+            "bookkeeping_account_number": "Numero dell'account",
+            "bookkeeping_account_name": "Nome dell'account"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -15240,7 +15312,13 @@
                     "perform": {
                         "_label": "Eseguire il monitoraggio degli accessi"
                     },
-                    "_label": "Monitoraggio degli accessi"
+                    "_label": "Monitoraggio degli accessi",
+                    "settings": {
+                        "_label": "Pagina delle impostazioni di accesso"
+                    },
+                    "monitor": {
+                        "_label": "Accesso alla cronologia delle visite alla posizione"
+                    }
                 }
             },
             "member": {
@@ -19654,6 +19732,82 @@
             "G": "Valido",
             "message": "<strong>{{- name }}</strong> ha appena eseguito il check in."
         },
-        "memberEntry": "Ingresso del membro"
+        "memberEntry": "Ingresso del membro",
+        "modals": {
+            "entryStatusChanged": {
+                "N": {
+                    "description": "È comunque possibile indirizzare gli avvisi e farli entrare dalla scheda Visita della località.",
+                    "message": "Al membro è stato rifiutato l'ingresso.",
+                    "title": "Ingresso rifiutato"
+                },
+                "stay": "Rimani sulla pagina del membro",
+                "close": "Chiudi la pagina del membro",
+                "Y": {
+                    "description": "È comunque possibile indirizzare gli avvisi dalla scheda Visita della posizione.",
+                    "message": "Il membro è stato autorizzato a entrare con le avvertenze esistenti.",
+                    "title": "Membro entrato"
+                }
+            },
+            "accessStatusChangedSuccess": {
+                "message": "Tutti i problemi sono stati risolti. Lo stato di membro è aggiornato a valido.",
+                "title": "Stato del membro aggiornato"
+            }
+        },
+        "memberVisitDetails": {
+            "atHome": "A casa",
+            "passExpiration": "Valido fino al {{- expirationDate }}",
+            "manualEntry": {
+                "button": {
+                    "entryRefused": "Ingresso rifiutato",
+                    "entryAllowed": "Entrato",
+                    "accept": "Consenti l'ingresso",
+                    "refuse": "Rifiuta l'ingresso"
+                },
+                "description": "Indica se questo membro può entrare o meno"
+            },
+            "actions": {
+                "billMember": "Acquista",
+                "goToProfile": "Profilo",
+                "seePreviousImages": "Vedi il precedente"
+            },
+            "photoHasChanged": "L'immagine del profilo è stata modificata di recente",
+            "pass": "Pacchetto:",
+            "spotName": "Posto: {{- spotName}}",
+            "teacherName": "Insegnante: {{- coachName}}",
+            "nextBooking": "Prossima prenotazione:",
+            "lastName": "Cognome:",
+            "firstName": "Nome:",
+            "title": "Informazione del membro",
+            "accessStatus": {
+                "red": "Non valido",
+                "orange": "Attenzione",
+                "green": "Valido"
+            }
+        },
+        "memberVisit": {
+            "warnings": {
+                "numberOfCheckedPasses": "{{- count }} pacchetto del membro è stato controllato senza alcun risultato valido.",
+                "numberOfCheckedPasses_plural": "{{- count }} pacchetti del membro sono stati controllati senza alcun risultato valido.",
+                "passIncompatibleWithAppointmentsInEstablishments": "Gli appuntamenti che possono essere prenotati con il pacchetto del membro {{- passName }} non sono compatibili con il sito",
+                "passIncompatibleWithEstablishments": "Il pacchetto del membro {{- passName }} non è compatibile con il sito",
+                "passRestrictedByOffPeakSchedule": "Il pacchetto del membro {{- passName }} non consente l'ingresso in questa fascia oraria",
+                "passRestrictedToVod": "Il pacchetto del membro {{- passName }} è limitato ai soli VOD",
+                "passLinkedToPausedSubscription": "Il pacchetto {{- passName }} del membro è collegato a un abbonamento in pausa",
+                "passIsDisabled": "Il pacchetto {{- passName }} del membro è disabilitato",
+                "noPasses": "Il membro non ha un pacchetto attivo con crediti residui",
+                "bookingsInOtherEstablishments": "La prenotazione del membro {{- bookingName}} è programmata in un altro stabilimento: {{- establishmentName }}",
+                "hasUnpaidAppointments": "Il membro ha uno o più appuntamenti non retribuiti",
+                "hasNegativeAccountBalance": "Il saldo del conto del membro è negativo",
+                "hasUnpaidInvoices": "Il membro ha una o più ricevute non pagate"
+            },
+            "refreshMemberVisit": "Aggiorna lo stato",
+            "closeMemberVisit": "Chiudi la pagina del membro",
+            "emptyState": {
+                "searchMember": "Ricerca dei membri per nome o numero",
+                "or": "o",
+                "establishmentsSelectedInRole": "Stai monitorando l'accesso per <strong>{{- address }} - {{- establishments }}</strong>",
+                "waitForScan": "Attendi la scansione del codice a barre del membro o cerca manualmente il nome o il codice a barre."
+            }
+        }
     }
 }

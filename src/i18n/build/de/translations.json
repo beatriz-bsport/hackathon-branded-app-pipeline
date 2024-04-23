@@ -3740,7 +3740,13 @@
                     "perform": {
                         "_label": "Zugangskontrolle durchführen"
                     },
-                    "_label": "Zugangskontrolle"
+                    "_label": "Zugangskontrolle",
+                    "settings": {
+                        "_label": "Zugang zur Einstellungsseite"
+                    },
+                    "monitor": {
+                        "_label": "Zugriff auf die Historie der Standortbesuche"
+                    }
                 }
             },
             "member": {
@@ -5608,7 +5614,7 @@
             "penalityType": "Art der zu verhängenden Strafe",
             "penalityAccount": "Kontostand des Mitglieds belasten",
             "penalityBlock": "Kurspass vorübergehend sperren",
-            "penalityInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} außerterminliche Stornierungen innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen gibt.",
+            "penalityInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberCancel}} außerterminliche Stornierungen innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen gibt.",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
             "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
@@ -6222,7 +6228,9 @@
             "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)",
             "billing_group_address": "Adresse",
             "is_first_visit": "Erste Reservierung",
-            "is_from_billing_plan": "Aus dem Abonnement"
+            "is_from_billing_plan": "Aus dem Abonnement",
+            "bookkeeping_account_name": "Name des Kontos",
+            "bookkeeping_account_number": "Kontonummer"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7685,6 +7693,23 @@
             "seeMemberProfile": "Siehe Mitgliederprofil",
             "content": "Eine E-Mail wurde an beide Adressen geschickt, um die Mitglieder zu informieren",
             "title": "Die Zusammenführung ist erfolgreich verlaufen"
+        },
+        "bookkeeping_account": {
+            "delete": {
+                "success": "Das Konto wurde erfolgreich gelöscht.",
+                "error": "Beim Löschen des Kontos ist ein Fehler aufgetreten."
+            },
+            "update": {
+                "success": "Die Änderungen wurden erfolgreich gespeichert.",
+                "error": "Beim Aktualisieren des Kontos ist ein Fehler aufgetreten."
+            },
+            "create": {
+                "success": "Das Konto wurde erfolgreich erstellt.",
+                "error": "Beim Erstellen des Kontos ist ein Fehler aufgetreten."
+            },
+            "errors": {
+                "1": "Ein Konto mit diesem Namen existiert bereits."
+            }
         }
     },
     "invoice": {
@@ -8868,7 +8893,12 @@
                     "action": {
                         "update": "Bestand aktualisieren"
                     },
-                    "formError": "Bestandsanpassungswerte müssen gültige Zahlen sein"
+                    "formError": "Bestandsanpassungswerte müssen gültige Zahlen sein",
+                    "filterPlaceholder": {
+                        "color": "Farbe auswählen",
+                        "size": "Größe auswählen",
+                        "company": "Studio auswählen"
+                    }
                 }
             },
             "tab": {
@@ -8935,7 +8965,13 @@
             }
         },
         "variantCount": "{{count}}  Variante",
-        "variantCount_plural": "{{count}}  Varianten"
+        "variantCount_plural": "{{count}}  Varianten",
+        "duplicateVariantWarning": "Einige Farb- und Größenkombinationen existieren bereits und werden nicht neu erstellt",
+        "saveProductWithVariantCount": "Ein Produkt mit {{count}} Variante speichern",
+        "saveProductWithVariantCount_plural": "Ein Produkt mit {{count}} Varianten speichern",
+        "saveVariantCount": "{{count}} Variante speichern",
+        "saveVariantCount_plural": "{{count}} Varianten speichern",
+        "startingAtWithPrice": "Beginnend bei {{Preis}}"
     },
     "datetime": {
         "form": {
@@ -9373,10 +9409,10 @@
                 "sendBeforeMail": "Sende diese Benachrichtigung vor dem Anfang eines Kurses",
                 "explain": "Sie können Ihre Kunden vor oder nach bestimmten Kursen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Besuche, Abwesenheiten oder sogar Stornierungen.",
                 "help": {
-                    "absence": "Anzahl der Abwesenheit: {{notify_booking_nb}}",
-                    "attendance": "ein Mitglied hat {{notify_booking_nb}} mal gebucht.",
-                    "notRefunded": "ein Mitglied hat {{notify_booking_nb}} Stornierungen nach Ablauf der Frist registriert.",
-                    "refunded": "hat {{notify_booking_nb}} Stornierung(en) nach Ablauf der Frist registriert.",
+                    "absence": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied {{notify_booking_nb}} Zeit(en) versäumt.",
+                    "attendance": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied an {{notify_booking_nb}} Zeit(en) teilnimmt.",
+                    "notRefunded": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied {{notify_booking_nb}} verspätete Stornierung(en) einträgt.",
+                    "refunded": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied eine {{notify_booking_nb}} erstattete Stornierung(en) registriert.",
                     "text": "Die Benachrichtigung wird an betreffende Mitglieder gesendet, wenn",
                     "allEvents": {
                         "notRefunded": "Die Benachrichtigung wird dem Mitglied bei jeder Stornierung nach Ablauf der Frist gesendet.",
@@ -10202,7 +10238,10 @@
         "discard": "Verwerfen",
         "no": "Nein",
         "yes": "Ja",
-        "saveChanges": "Änderungen speichern"
+        "saveChanges": "Änderungen speichern",
+        "none": "Keine",
+        "numberRequired": "Dieses Feld muss eine Zahl sein",
+        "positiveNumber": "Dieses Feld muss größer als 0 sein."
     },
     "coupon": {
         "detail": {
@@ -10780,7 +10819,7 @@
                     "title": "Später bezahlen"
                 },
                 "pad_before_booking": {
-                    "label": "Schon vor der Buchung berücksichtigen"
+                    "label": "Aktivieren, um Überschneidungen der Pufferzeiten von Sitzungen mit nahe beieinander liegenden Anfangs- und Endzeiten zu vermeiden"
                 }
             },
             "parameters": {
@@ -11280,10 +11319,10 @@
                 "explain": "Bist Du Dir sicher, dass Du diesen Termin löschen möchtest? Diese Änderung ist unwiderruflich. Bereits registrierte Buchungen werden nicht davon betroffen."
             },
             "padBeforeBooking": {
-                "explain4": "NICHT AKTIVIERT: Das Rendezvous ist möglich, aber der Raum wird 15 Minuten vor und nach der Buchung blockiert. Das nächste Rendezvous ist ab 11:30 Uhr möglich.",
-                "explain3": "AKTIV: Das RDV ist nicht möglich. Der Raum muss von 9:45 bis 11:15 Uhr verfügbar sein. Das nächste Rendezvous ist erst ab 11:30 Uhr möglich.",
-                "explain2": "Beispiel: Der Raum ist von 10:00 bis 11:00 Uhr verfügbar, Ihr Termin dauert 1 Stunde, benötigt aber 15 Minuten vor und nach der Buchung.",
-                "explain1": "Wenn aktiviert, können Buchungen nur vorgenommen werden, wenn der Kalender unter Einbeziehung der Buchung verfügbar ist"
+                "explain4": "NICHT-AKTIV: Der nächste Termin kann ab 14:05 Uhr gebucht werden (die 5 Minuten nach dem Ende des vorherigen Termins sind die gleichen 5 Minuten, die vor dem Beginn des nächsten Termins benötigt werden). Die Pufferzeiten können sich in diesem Fall überschneiden",
+                "explain3": "WENN AKTIV: Der nächste Termin kann ab 14:10 Uhr gebucht werden (5 Minuten nach dem Ende des vorherigen Termins + 5 Minuten vor dem Beginn des nächsten Termins). Die Pufferzeiten der Termine dürfen sich nicht überschneiden",
+                "explain2": "Beispiel: Ein Termin ist für 13:00 Uhr gebucht, dauert 1 Stunde und Sie haben einen Verfügbarkeits-Puffer von 5 Minuten vor und nach dem Termin eingerichtet (z.B. für die Zimmerreinigung).",
+                "explain1": "Wenn diese Option aktiviert ist, überschneiden sich der Verfügbarkeitspuffer nach dem ersten Termin und der Verfügbarkeitspuffer vor dem zweiten Termin nicht (es entsteht eine größere Lücke zwischen zwei Terminen, da zwei Verfügbarkeitspuffer berücksichtigt werden). Wenn er nicht aktiviert ist, überschneiden sich der Verfügbarkeitspuffer nach dem ersten Termin und der Verfügbarkeitspuffer vor dem zweiten Termin."
             }
         },
         "privateSlot": {
@@ -13986,7 +14025,9 @@
             "author": "Autor",
             "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel",
             "invoice_datetime": "Ausstellungsdatum der Rechnung",
-            "booking_date_created": "Reservierungsdatum"
+            "booking_date_created": "Reservierungsdatum",
+            "bookkeeping_account_number": "Kontonummer",
+            "bookkeeping_account_name": "Name des Kundenkontos"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -14232,7 +14273,8 @@
             "cadences": "Kadenz",
             "inbox": "Posteingang",
             "audience": "{{ audienceCamelCase }}",
-            "backToWebshop": "Zurück zum Webshop"
+            "backToWebshop": "Zurück zum Webshop",
+            "accessMonitoring": "Zugang"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -14377,6 +14419,11 @@
             "communicationSentGroupConfig": {
                 "campaigns": "Kampagnen",
                 "general": "Allgemein"
+            },
+            "accessMonitoring": {
+                "settings": "Einstellungen",
+                "monitor": "Besuche am Standort",
+                "perform": "Besuch eines Mitglieds"
             }
         },
         "logout": "Abmelden",
@@ -14472,7 +14519,7 @@
                     "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn Sie eine neue Lehrkraft erstellen."
                 }
             },
-            "errorDescription": "Die Beschreibung ist zu lang (max. 500)",
+            "errorDescription": "Die Beschreibung ist zu lang (max. 1000)",
             "errorLinkLength": "Der angegebene URL ist zu lang (max. 150)",
             "errorInvalidURL": "Bitte geben Sie einen gültigen URL ein"
         },
@@ -14558,7 +14605,8 @@
             "disconnect": "Erneut anmelden"
         },
         "signup": {
-            "title": "Registrierung"
+            "title": "Registrierung",
+            "titleAsResgisterBooking": "Registrieren Sie Ihre Buchung"
         },
         "contactUs": "Sie sind als Studio-Manager an unserer Lösung interessiert? \nBitte kontaktieren Sie uns.",
         "or": " oder ",
@@ -16036,7 +16084,37 @@
         "roomRequired": "Raum *",
         "roomRequiredIsMissing": "Sie haben keine Abrechnungsstelle ausgewählt.",
         "billingGroupRequired": "Rechnungsgruppe*",
-        "billingGroup": "Rechnungsgruppe"
+        "billingGroup": "Rechnungsgruppe",
+        "bookkeeping_account": {
+            "helperText": "Die Konten können mit Produkten verknüpft werden, so dass die Kontonummer und der Mehrwertsteuersatz automatisch in die Berichte eingetragen werden.",
+            "form": {
+                "titleUpdate": "Konto bearbeiten",
+                "titleCreate": "Konto hinzufügen"
+            },
+            "modal": {
+                "delete": {
+                    "contentLinked": "Dieses Konto ist mit den folgenden Objekten verknüpft. Wenn Sie es löschen möchten, entfernen Sie es bitte zuerst.",
+                    "cancel": "Abbrechen",
+                    "confirm": "Löschen",
+                    "content": "Sie sind dabei, dieses Konto zu löschen. Sind Sie sicher, dass Sie dies tun wollen?",
+                    "title": "Löschung"
+                }
+            },
+            "header": "Konten",
+            "add": "Konto hinzufügen",
+            "table": {
+                "actions": "Aktionen"
+            },
+            "select_input": {
+                "placeholder": "Leer lassen, um das Konto nicht anzuwenden",
+                "label": "Buchhaltungskonto"
+            },
+            "vat_rate": "MwSt.-Satz",
+            "account_name_required": "Name des Kontos *",
+            "account_name": "Name des Kontos",
+            "account_number_required": "Kontonummer *",
+            "account_number": "Kontonummer"
+        }
     },
     "checkout": {
         "myBasket": {
@@ -19561,6 +19639,82 @@
             "G": "Gültig",
             "message": "<strong>{{- name }}</strong> hat gerade eingecheckt."
         },
-        "memberEntry": "Mitgliedschaft"
+        "memberEntry": "Mitgliedschaft",
+        "modals": {
+            "entryStatusChanged": {
+                "N": {
+                    "description": "Sie können immer noch Warnungen aussprechen und sie über die Registerkarte Standortbesuch eintreten lassen.",
+                    "message": "Dem Mitglied wurde der Eintritt verweigert.",
+                    "title": "Eintritt verweigert"
+                },
+                "stay": "Auf der Mitgliederseite bleiben",
+                "close": "Mitgliedsseite schließen",
+                "Y": {
+                    "description": "Sie können Warnungen weiterhin über die Registerkarte Standortbesuch ansprechen.",
+                    "message": "Dem Mitglied wurde der Zutritt mit bestehenden Warnungen gestattet.",
+                    "title": "Mitglied eingetreten"
+                }
+            },
+            "accessStatusChangedSuccess": {
+                "message": "Alle Probleme wurden behoben. Der Mitgliedsstatus wurde auf \"gültig\" aktualisiert.",
+                "title": "Mitgliederstatus aktualisiert"
+            }
+        },
+        "memberVisitDetails": {
+            "atHome": "Zu Hause",
+            "passExpiration": "Gültig bis {{- expirationDate }}",
+            "manualEntry": {
+                "button": {
+                    "entryRefused": "Eintritt verweigert",
+                    "entryAllowed": "Betreten",
+                    "accept": "Eintritt zulassen",
+                    "refuse": "Eintritt verweigern"
+                },
+                "description": "Angabe, ob dieses Mitglied eintreten kann oder nicht"
+            },
+            "actions": {
+                "billMember": "Rechnung",
+                "goToProfile": "Profil",
+                "seePreviousImages": "Siehe vorherige"
+            },
+            "photoHasChanged": "Profilbild kürzlich geändert",
+            "pass": "Pass:",
+            "spotName": "Platz: {{- spotName}}",
+            "teacherName": "Lehrer: {{- coachName}}",
+            "nextBooking": "Nächste Buchung:",
+            "lastName": "Nachname:",
+            "firstName": "Vornamen:",
+            "title": "Informationen für Mitglieder",
+            "accessStatus": {
+                "red": "Nicht gültig",
+                "orange": "Warnung",
+                "green": "Gültig"
+            }
+        },
+        "memberVisit": {
+            "warnings": {
+                "numberOfCheckedPasses": "{{- count }} Zugangspass des Mitglieds wurde ohne gültiges Ergebnis geprüft.",
+                "numberOfCheckedPasses_plural": "{{- count }} Zugangpässe des Mitglieder wurden ohne gültiges Ergebnis geprüft.",
+                "passIncompatibleWithAppointmentsInEstablishments": "Termine, die mit dem Zugangspass {{- passName }} gebucht werden können, sind nicht mit Ihrer Einrichtung kompatibel",
+                "passIncompatibleWithEstablishments": "Der Zugangspass {{- passName }} des Mitglieds ist mit Ihrer Einrichtung nicht kompatibe",
+                "passRestrictedByOffPeakSchedule": "Der Zugangspass {{- passName }} des Mitglieds erlaubt den Zugang während dieses Zeitfensters nicht",
+                "passRestrictedToVod": "Der Pass {{- passName }} des Mitglieds ist nur für VOD zugelassen",
+                "passLinkedToPausedSubscription": "Der Pass {{- passName }} des Mitglieds ist mit einem pausierten Abonnement verknüpft",
+                "passIsDisabled": "Der Pass {{- passName }} des Mitglieds ist deaktiviert",
+                "noPasses": "Das Mitglied hat keinen aktiven Pass mit Guthaben übrig",
+                "bookingsInOtherEstablishments": "Die Buchung des Mitglieds {{- bookingName}} ist in einer anderen Einrichtung geplant: {{- establishmentName }}",
+                "hasUnpaidAppointments": "Das Mitglied hat einen oder mehrere unbezahlte Termine",
+                "hasNegativeAccountBalance": "Der Kontostand des Mitglieds ist negativ",
+                "hasUnpaidInvoices": "Das Mitglied hat eine oder mehrere unbezahlte Rechnungen"
+            },
+            "refreshMemberVisit": "Status aktualisieren",
+            "closeMemberVisit": "Mitgliedsseite schließen",
+            "emptyState": {
+                "searchMember": "Mitglieder nach Name oder Nummer suchen",
+                "or": "oder",
+                "establishmentsSelectedInRole": "Sie überwachen den Zugang für <strong>{{- address }} - {{- establishments }}</strong>",
+                "waitForScan": "Warten Sie darauf, dass das Mitglied seinen Barcode scannt, oder suchen Sie manuell nach seinem Namen oder Barcode."
+            }
+        }
     }
 }

@@ -36,11 +36,19 @@ export async function fetchAll(
   return getAuth(`${API_V1_URI}/shop/item/${buildUrlParams(params)}`);
 }
 
-export async function fetchOld(params?: {
-  company: number;
-  id__in?: number[];
-}): Promise<AxiosResponse<PaginatedResponse<ShopItem>>> {
-  return getAuth(`${API_V1_URI}/shop/item/get_all/${buildUrlParams(params)}`);
+export async function fetchOld(
+  params?: ShopItemListFilterParams & {
+    company: number;
+    id__in?: number[];
+  },
+): Promise<AxiosResponse<PaginatedResponse<ShopItem>>> {
+  return getAuth(
+    `${API_V1_URI}/shop/item/get_all/${buildUrlParams({
+      ...params,
+      is_base_item: false,
+      is_variant: false,
+    })}`,
+  );
 }
 
 export async function fetchShopItem(

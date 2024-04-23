@@ -2,18 +2,18 @@ import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { PortalContainer } from '#Fabrique/PortalContainer';
-import { useCloseModal } from '#Fabrique/hooks';
-import getAssociatedDocument from '#Fabrique/utils/getAssociatedDocument';
-import getAssociatedWindow from '#Fabrique/utils/getAssociatedWindow';
-import { getOffsetTop } from '#Fabrique/utils/getOffsetTop';
-import { getOffsetLeft } from '#Fabrique/utils/getOffsetLeft';
-import { getTransformOriginValue } from '#Fabrique/utils/getTransformOriginValue';
+import { useCloseModal, usePopoverPositioning } from '#Fabrique/hooks';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
-import { HorizontalEnum, MENU_MARGIN, VerticalEnum } from './constants';
-import { DELAY_DURATION, MARGIN_THRESHOLD } from '#Fabrique/constants';
+import { MENU_MARGIN } from './constants';
+import {
+  DELAY_DURATION,
+  MARGIN_THRESHOLD,
+  HorizontalEnum,
+  VerticalEnum,
+} from '#Fabrique/constants';
 import './styles.css';
 
-export type MenuProps = {
+type MenuProps = {
   /**
    * An HTML Element used to set the position of the menu.
    */
@@ -114,157 +114,34 @@ const Menu: React.FC<MenuProps> = ({
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   const contentRef = React.useRef<HTMLDivElement>(null);
-
-  const [isPositioned, setIsPositioned] = React.useState(isOpen);
+  const {
+    isPositioned,
+    setIsPositioned,
+    setPositioningStyles,
+    setPositionedToFalse,
+    anchorElementDimensions,
+    isBelowAnchorElement,
+  } = usePopoverPositioning({
+    margin: MENU_MARGIN,
+    margin_threshold: MARGIN_THRESHOLD,
+    ref: menuRef,
+    isOpen,
+    anchorEl,
+    anchorOriginHorizontal,
+    anchorOriginVertical,
+    transformOriginHorizontal,
+    transformOriginVertical,
+  });
   const handleOnClose = React.useCallback(() => {
-    onClose && onClose();
+    onClose?.();
     setIsPositioned(false);
-  }, [onClose]);
-
-  const setPositionedToFalse = React.useCallback(() => {
-    setIsPositioned(false);
-  }, []);
+  }, [onClose, setIsPositioned]);
 
   const { modalRef } = useCloseModal({
     onClose: handleOnClose,
     openMenuRef,
     setPositionedToFalse,
   });
-
-  const isBelowAnchorElement =
-    anchorOriginVertical === VerticalEnum.BOTTOM &&
-    transformOriginVertical === VerticalEnum.TOP;
-
-  const isOnTopOfAnchorElement =
-    anchorOriginVertical === VerticalEnum.TOP &&
-    transformOriginVertical === VerticalEnum.BOTTOM;
-
-  // Returns the top/left offset of the position
-  // to attach to on the anchor element (or body if none is provided)
-  const getAnchorOffset = React.useCallback(() => {
-    // If an anchor element wasn't provided, just use the parent body element of this Popover
-    const anchorElement =
-      anchorEl && anchorEl.nodeType === Node.ELEMENT_NODE
-        ? anchorEl
-        : getAssociatedDocument(menuRef.current).body;
-    const anchorRect = anchorElement.getBoundingClientRect();
-
-    return {
-      top: anchorRect.top + getOffsetTop(anchorRect, anchorOriginVertical),
-      left: anchorRect.left + getOffsetLeft(anchorRect, anchorOriginHorizontal),
-    };
-  }, [anchorEl, anchorOriginHorizontal, anchorOriginVertical, menuRef]);
-
-  // Returns the base transform origin using the element
-  const getTransformOrigin = React.useCallback(
-    (elemRect: DOMRect) => {
-      return {
-        vertical: getOffsetTop(elemRect, transformOriginVertical),
-        horizontal: getOffsetLeft(elemRect, transformOriginHorizontal),
-      };
-    },
-    [transformOriginHorizontal, transformOriginVertical],
-  );
-
-  const getPositioningStyle = React.useCallback(
-    (element: HTMLDivElement) => {
-      const elemRect = {
-        width: element.offsetWidth,
-        height: element.offsetHeight,
-      } as DOMRect;
-
-      // Get the transform origin point on the element itself
-      const elementTransformOrigin = getTransformOrigin(elemRect);
-      // Get the offset of the anchoring element
-      const anchorOffset = getAnchorOffset();
-      // Calculate element positioning
-      let top = anchorOffset.top - elementTransformOrigin.vertical;
-      if (isBelowAnchorElement) {
-        top += MENU_MARGIN;
-      } else if (isOnTopOfAnchorElement) {
-        top -= MENU_MARGIN;
-      }
-      let left = anchorOffset.left - elementTransformOrigin.horizontal;
-      const bottom = top + elemRect.height;
-      const right = left + elemRect.width;
-
-      // Use the parent window of the anchorEl if provided
-      const containerWindow = getAssociatedWindow(anchorEl);
-
-      // Window thresholds taking required margin into account
-      const heightThreshold = containerWindow.innerHeight - MARGIN_THRESHOLD;
-      const widthThreshold = containerWindow.innerWidth - MARGIN_THRESHOLD;
-
-      // Check if the vertical axis needs shifting
-      if (top < MARGIN_THRESHOLD) {
-        const diff = top - MARGIN_THRESHOLD;
-
-        top -= diff;
-
-        elementTransformOrigin.vertical += diff;
-      } else if (bottom > heightThreshold) {
-        const diff = bottom - heightThreshold;
-
-        top -= diff;
-
-        elementTransformOrigin.vertical += diff;
-      }
-
-      // Check if the horizontal axis needs shifting
-      if (left < MARGIN_THRESHOLD) {
-        const diff = left - MARGIN_THRESHOLD;
-        left -= diff;
-        elementTransformOrigin.horizontal += diff;
-      } else if (right > widthThreshold) {
-        const diff = right - widthThreshold;
-        left -= diff;
-        elementTransformOrigin.horizontal += diff;
-      }
-      return {
-        top: `${Math.round(top)}px`,
-        left: `${Math.round(left)}px`,
-        transformOrigin: getTransformOriginValue(elementTransformOrigin),
-      };
-    },
-    [
-      anchorEl,
-      getAnchorOffset,
-      getTransformOrigin,
-      isBelowAnchorElement,
-      isOnTopOfAnchorElement,
-    ],
-  );
-  /**
-   * @description This hook calculates the dimensions of the anchor element in order to properly position a menu using the PortalContainer on the DOM.
-   * To ensure the menu element matches the width of the element it was opened for, the hook uses the anchor element's dimensions provided by the menuRef.
-   *
-   * @returns {{height: number | undefined, width: number | undefined}} An object containing the height and width of the anchor element. Returns undefined if anchorEl is not provided.
-   */
-  const anchorElementDimensions = React.useMemo(
-    () =>
-      anchorEl
-        ? { height: anchorEl.clientHeight, width: anchorEl.clientWidth }
-        : { height: undefined, width: undefined },
-    [anchorEl],
-  );
-  const setPositioningStyles = React.useCallback(() => {
-    const element = menuRef.current;
-
-    if (!element) {
-      return;
-    }
-
-    const positioning = getPositioningStyle(element);
-
-    if (positioning.top !== null) {
-      element.style.top = positioning.top;
-    }
-    if (positioning.left !== null) {
-      element.style.left = positioning.left;
-    }
-    element.style.transformOrigin = positioning.transformOrigin;
-    setIsPositioned(true);
-  }, [getPositioningStyle, menuRef]);
 
   // Need this to recalculate the position when scrolling
   React.useEffect(() => {

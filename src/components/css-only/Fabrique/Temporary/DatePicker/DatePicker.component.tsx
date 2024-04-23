@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import Menu, { MenuProps } from '#Fabrique/Menu';
+import Menu from '#Fabrique/Menu';
 import MarketplaceDatePickerDay from '#libs/marketplace/components/@Date/MarketplaceDatePicker/MarketplaceDatePickerDay.component';
 import {
   ChevronDown,
@@ -16,6 +16,8 @@ import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
 import YearPicker from './YearPicker';
 import Typography from '#Fabrique/Typography';
 import './styles.css';
+
+type MenuProps = React.ComponentProps<typeof Menu>;
 
 export type DatePickerProps = {
   dateSelected: string;

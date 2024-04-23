@@ -11,10 +11,12 @@ import {
   ChevronUp,
 } from '#components/untitledui';
 import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
-import Menu, { MenuProps } from '#Fabrique/Menu';
+import Menu from '#Fabrique/Menu';
 import YearPicker from './YearPicker';
 
 import './styles.css';
+
+type MenuProps = React.ComponentProps<typeof Menu>;
 
 export type DatePickerProps = {
   /** If `true` only the content of the calendar will be returned */

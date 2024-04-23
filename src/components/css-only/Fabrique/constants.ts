@@ -8,3 +8,15 @@ export const DELAY_DURATION = 20;
 
 /** Typography `body-md` 2 lines height for unexpanded collapse */
 export const FABRIQUE_TYPOGRAPHY_BODY_MD_TWO_LINES_HEIGHT = 48;
+
+export enum HorizontalEnum {
+  CENTER = 'center',
+  LEFT = 'left',
+  RIGHT = 'right',
+}
+
+export enum VerticalEnum {
+  BOTTOM = 'bottom',
+  CENTER = 'center',
+  TOP = 'top',
+}

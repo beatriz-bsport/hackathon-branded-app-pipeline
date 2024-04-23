@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import { createAction } from 'redux-actions';
-import type { AxiosResponse } from 'axios';
 import type { RootState } from 'src/reducers';
 import type {
   Dispatch,
@@ -582,7 +581,7 @@ export function fetchBookingsAndPrivateBookings(args: {
 }
 
 export const fetchMyPastBookingAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+  success: createAction<PaginatedResponse<BookingREST>>(
     'BOOKING/PAST/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('BOOKING/PAST/AS_MEMBER/IS_LOADING'),
@@ -616,7 +615,7 @@ export function fetchMyPastBookingAsMember(
         strictly_past_booking: true,
         offer_is_workshop: false,
       });
-      dispatch(fetchMyPastBookingAsMemberActions.success(response));
+      dispatch(fetchMyPastBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -629,7 +628,7 @@ export function fetchMyPastBookingAsMember(
 }
 
 export const fetchMyFutureBookingAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+  success: createAction<PaginatedResponse<BookingREST>>(
     'BOOKING/FUTURE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('BOOKING/FUTURE/AS_MEMBER/IS_LOADING'),
@@ -663,7 +662,7 @@ export function fetchMyFutureBookingAsMember(
         strictly_future_booking: true,
         offer_is_workshop: false,
       });
-      dispatch(fetchMyFutureBookingAsMemberActions.success(response));
+      dispatch(fetchMyFutureBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -676,7 +675,7 @@ export function fetchMyFutureBookingAsMember(
 }
 
 export const fetchMyPastBookingWorkshopAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+  success: createAction<PaginatedResponse<BookingREST>>(
     'WORKSHOP/PAST/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('WORKSHOP/PAST/AS_MEMBER/IS_LOADING'),
@@ -711,7 +710,9 @@ export function fetchMyPastBookingWorkshopAsMember(
         past_booking: true,
         offer_is_workshop: true,
       });
-      dispatch(fetchMyPastBookingWorkshopAsMemberActions.success(response));
+      dispatch(
+        fetchMyPastBookingWorkshopAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -724,7 +725,7 @@ export function fetchMyPastBookingWorkshopAsMember(
 }
 
 export const fetchMyFutureBookingWorkshopAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+  success: createAction<PaginatedResponse<BookingREST>>(
     'WORKSHOP/FUTURE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('WORKSHOP/FUTURE/AS_MEMBER/IS_LOADING'),
@@ -759,7 +760,9 @@ export function fetchMyFutureBookingWorkshopAsMember(
         future_booking: true,
         offer_is_workshop: true,
       });
-      dispatch(fetchMyFutureBookingWorkshopAsMemberActions.success(response));
+      dispatch(
+        fetchMyFutureBookingWorkshopAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -782,9 +785,7 @@ export function resetConsumerState(): ThunkAction {
 }
 
 export const cancelBookingAsMemberActions = {
-  success: createAction<AxiosResponse<BookingREST>>(
-    'BOOKING/CANCEL/AS_MEMBER/SUCCESS',
-  ),
+  success: createAction<BookingREST>('BOOKING/CANCEL/AS_MEMBER/SUCCESS'),
   isLoading: createAction<boolean>('BOOKING/CANCEL/AS_MEMBER/IS_LOADING'),
   error: createAction<Error | null>('BOOKING/CANCEL/AS_MEMBER/ERROR'),
 };
@@ -800,7 +801,7 @@ export function cancelBookingAsMember(
 
     try {
       const response = await cancelBookingV2API(bookingId, restParams);
-      dispatch(cancelBookingAsMemberActions.success(response));
+      dispatch(cancelBookingAsMemberActions.success(response.data));
 
       options?.onSuccess?.(response.data);
     } catch (err) {
@@ -812,7 +813,7 @@ export function cancelBookingAsMember(
 }
 
 export const fetchMyPastPrivateBookingAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<PrivateBooking>>>(
+  success: createAction<PaginatedResponse<PrivateBooking>>(
     'PRIVATE_BOOKING/PAST/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('PRIVATE_BOOKING/PAST/AS_MEMBER/IS_LOADING'),
@@ -838,7 +839,7 @@ export function fetchMyPastPrivateBookingAsMember(
         company,
         past_booking: true,
       });
-      dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response));
+      dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -851,7 +852,7 @@ export function fetchMyPastPrivateBookingAsMember(
 }
 
 export const fetchMyFuturePrivateBookingAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<PrivateBooking>>>(
+  success: createAction<PaginatedResponse<PrivateBooking>>(
     'PRIVATE_BOOKING/FUTURE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
@@ -879,7 +880,9 @@ export function fetchMyFuturePrivateBookingAsMember(
         company,
         future_booking: true,
       });
-      dispatch(fetchMyFuturePrivateBookingAsMemberActions.success(response));
+      dispatch(
+        fetchMyFuturePrivateBookingAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -892,7 +895,7 @@ export function fetchMyFuturePrivateBookingAsMember(
 }
 
 export const cancelPrivateBookingAsMemberActions = {
-  success: createAction<AxiosResponse<PrivateBooking>>(
+  success: createAction<PrivateBooking>(
     'PRIVATE_BOOKING/CANCEL/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
@@ -915,7 +918,7 @@ export function cancelPrivateBookingAsMember(
         privateBookingId,
         restParams,
       );
-      dispatch(cancelPrivateBookingAsMemberActions.success(response));
+      dispatch(cancelPrivateBookingAsMemberActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       dispatch(cancelPrivateBookingAsMemberActions.error(err));
@@ -926,9 +929,9 @@ export function cancelPrivateBookingAsMember(
 }
 
 export const fetchMyBookingOptionAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<WaitingListBookingOption>>
-  >('BOOKING_OPTION/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<WaitingListBookingOption>>(
+    'BOOKING_OPTION/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>('BOOKING_OPTION/AS_MEMBER/IS_LOADING'),
   error: createAction<Error | null>('BOOKING_OPTION/AS_MEMBER/ERROR'),
 };
@@ -957,7 +960,7 @@ export function fetchMyBookingOptionAsMember(
         mine: true,
         offer_is_workshop: false,
       });
-      dispatch(fetchMyBookingOptionAsMemberActions.success(response));
+      dispatch(fetchMyBookingOptionAsMemberActions.success(response.data));
       options?.onSuccess?.(response.data.results);
     } catch (err) {
       dispatch(fetchMyBookingOptionAsMemberActions.error(err));
@@ -968,9 +971,9 @@ export function fetchMyBookingOptionAsMember(
 }
 
 export const fetchMyBookingOptionWorkshopAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<WaitingListBookingOption>>
-  >('BOOKING_OPTION/WORKSHOP/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<WaitingListBookingOption>>(
+    'BOOKING_OPTION/WORKSHOP/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'BOOKING_OPTION/WORKSHOP/AS_MEMBER/IS_LOADING',
   ),
@@ -1001,7 +1004,9 @@ export function fetchMyBookingOptionWorkshopAsMember(
         mine: true,
         offer_is_workshop: true,
       });
-      dispatch(fetchMyBookingOptionWorkshopAsMemberActions.success(response));
+      dispatch(
+        fetchMyBookingOptionWorkshopAsMemberActions.success(response.data),
+      );
       options?.onSuccess?.(response.data.results);
     } catch (err) {
       dispatch(fetchMyBookingOptionWorkshopAsMemberActions.error(err));
@@ -1012,7 +1017,7 @@ export function fetchMyBookingOptionWorkshopAsMember(
 }
 
 export const cancelBookingOptionAsMemberActions = {
-  success: createAction<AxiosResponse<WaitingListBookingOption>>(
+  success: createAction<WaitingListBookingOption>(
     'BOOKING_OPTION/CANCEL/SUCCESS',
   ),
   isLoading: createAction<boolean>('BOOKING_OPTION/CANCEL/IS_LOADING'),
@@ -1033,7 +1038,7 @@ export function cancelBookingOptionAsMember(
         bookingOptionId,
         restParams,
       );
-      dispatch(cancelBookingOptionAsMemberActions.success(response));
+      dispatch(cancelBookingOptionAsMemberActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       dispatch(cancelBookingOptionAsMemberActions.error(err));
@@ -1052,9 +1057,9 @@ type BaseMemberFetchOptions = {
 /** MY PASSES PAGE - CONSUMER PAYMENT PACKS */
 
 export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
-  >('REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/IS_LOADING',
   ),
@@ -1082,7 +1087,7 @@ export const fetchMyActiveConsumerPaymentPacksAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyActiveConsumerPaymentPacksAsMemberActions.success(response),
+        fetchMyActiveConsumerPaymentPacksAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1098,9 +1103,9 @@ export const fetchMyActiveConsumerPaymentPacksAsMember = (
 };
 
 export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
-  >('REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/IS_LOADING',
   ),
@@ -1128,7 +1133,9 @@ export const fetchMyExpiredConsumerPaymentPacksAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyExpiredConsumerPaymentPacksAsMemberActions.success(response),
+        fetchMyExpiredConsumerPaymentPacksAsMemberActions.success(
+          response.data,
+        ),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1146,9 +1153,9 @@ export const fetchMyExpiredConsumerPaymentPacksAsMember = (
 };
 
 export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
-  >('REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<ConsumerPaymentPackREST>>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/IS_LOADING',
   ),
@@ -1177,7 +1184,7 @@ export const fetchMyFutureConsumerPaymentPacksAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyFutureConsumerPaymentPacksAsMemberActions.success(response),
+        fetchMyFutureConsumerPaymentPacksAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1195,9 +1202,9 @@ export const fetchMyFutureConsumerPaymentPacksAsMember = (
 /** MY PASSES PAGE - PRIVATE CONSUMER PASS */
 
 export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
-  >('REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/IS_LOADING',
   ),
@@ -1225,7 +1232,9 @@ export const fetchMyActivePrivateConsumerPassesAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyActivePrivateConsumerPassesAsMemberActions.success(response),
+        fetchMyActivePrivateConsumerPassesAsMemberActions.success(
+          response.data,
+        ),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1243,9 +1252,9 @@ export const fetchMyActivePrivateConsumerPassesAsMember = (
 };
 
 export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
-  >('REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/IS_LOADING',
   ),
@@ -1275,7 +1284,9 @@ export const fetchMyExpiredPrivateConsumerPassesAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyExpiredPrivateConsumerPassesAsMemberActions.success(response),
+        fetchMyExpiredPrivateConsumerPassesAsMemberActions.success(
+          response.data,
+        ),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1293,9 +1304,9 @@ export const fetchMyExpiredPrivateConsumerPassesAsMember = (
 };
 
 export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
-  success: createAction<
-    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
-  >('REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/SUCCESS'),
+  success: createAction<PaginatedResponse<PrivateConsumerPassREST>>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/SUCCESS',
+  ),
   isLoading: createAction<boolean>(
     'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/IS_LOADING',
   ),
@@ -1324,7 +1335,9 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
         is_universal: false,
       });
       dispatch(
-        fetchMyFuturePrivateConsumerPassesAsMemberActions.success(response),
+        fetchMyFuturePrivateConsumerPassesAsMemberActions.success(
+          response.data,
+        ),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1342,7 +1355,7 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
 };
 
 export const fetchMyActiveUniversalPassesAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
     'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
@@ -1371,7 +1384,9 @@ export const fetchMyActiveUniversalPassesAsMember = (
         is_expired: false,
         is_valid_today: true,
       });
-      dispatch(fetchMyActiveUniversalPassesAsMemberActions.success(response));
+      dispatch(
+        fetchMyActiveUniversalPassesAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -1386,7 +1401,7 @@ export const fetchMyActiveUniversalPassesAsMember = (
 };
 
 export const fetchMyExpiredUniversalPassesAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
     'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
@@ -1415,7 +1430,9 @@ export const fetchMyExpiredUniversalPassesAsMember = (
         is_expired: true,
         is_valid_today: false,
       });
-      dispatch(fetchMyExpiredUniversalPassesAsMemberActions.success(response));
+      dispatch(
+        fetchMyExpiredUniversalPassesAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -1430,7 +1447,7 @@ export const fetchMyExpiredUniversalPassesAsMember = (
 };
 
 export const fetchMyFutureUniversalPassesAsMemberActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+  success: createAction<PaginatedResponse<UniversalPassREST>>(
     'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
@@ -1459,7 +1476,9 @@ export const fetchMyFutureUniversalPassesAsMember = (
         is_expired: false,
         is_valid_today: false,
       });
-      dispatch(fetchMyFutureUniversalPassesAsMemberActions.success(response));
+      dispatch(
+        fetchMyFutureUniversalPassesAsMemberActions.success(response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
@@ -1474,7 +1493,7 @@ export const fetchMyFutureUniversalPassesAsMember = (
 };
 
 export const fetchConsumerPassesTabDisplayActions = {
-  success: createAction<AxiosResponse<ConsumerPassesTabDisplay>>(
+  success: createAction<ConsumerPassesTabDisplay>(
     'REWORKED/MY_PASSES_TABS/SUCCESS',
   ),
   isLoading: createAction<boolean>('REWORKED/MY_PASSES_TABS/IS_LOADING'),
@@ -1491,7 +1510,7 @@ export const fetchConsumerPassesTabDisplay =
     dispatch(fetchConsumerPassesTabDisplayActions.error(null));
     try {
       const response = await fetchMyPassesTabsAPI(memberId);
-      dispatch(fetchConsumerPassesTabDisplayActions.success(response));
+      dispatch(fetchConsumerPassesTabDisplayActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }

@@ -2,7 +2,6 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import { handleActions } from 'redux-actions';
-import type { AxiosResponse } from 'axios';
 import type { PaginatedResponse } from 'src/state/types';
 
 import {
@@ -397,9 +396,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyPastBookingAsMemberActions.success.toString()]: (
       state,
-      { payload }: { payload: AxiosResponse<PaginatedResponse<BookingREST>> },
+      { payload }: { payload: PaginatedResponse<BookingREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookings', 'past', 'page'], page)
@@ -450,9 +449,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFutureBookingAsMemberActions.success.toString()]: (
       state,
-      { payload }: { payload: AxiosResponse<PaginatedResponse<BookingREST>> },
+      { payload }: { payload: PaginatedResponse<BookingREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookings', 'future', 'page'], page)
@@ -503,11 +502,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyPastPrivateBookingAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<PrivateBooking>> },
+      { payload }: { payload: PaginatedResponse<PrivateBooking> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'privateBookings', 'past', 'page'], page)
@@ -567,11 +564,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFuturePrivateBookingAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<PrivateBooking>> },
+      { payload }: { payload: PaginatedResponse<PrivateBooking> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'privateBookings', 'future', 'page'], page)
@@ -631,9 +626,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyPastBookingWorkshopAsMemberActions.success.toString()]: (
       state,
-      { payload }: { payload: AxiosResponse<PaginatedResponse<BookingREST>> },
+      { payload }: { payload: PaginatedResponse<BookingREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookingsWorkshop', 'past', 'page'], page)
@@ -687,9 +682,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFutureBookingWorkshopAsMemberActions.success.toString()]: (
       state,
-      { payload }: { payload: AxiosResponse<PaginatedResponse<BookingREST>> },
+      { payload }: { payload: PaginatedResponse<BookingREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookingsWorkshop', 'future', 'page'], page)
@@ -746,10 +741,10 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
       {
         payload,
       }: {
-        payload: AxiosResponse<PaginatedResponse<WaitingListBookingOption>>;
+        payload: PaginatedResponse<WaitingListBookingOption>;
       },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookings', 'waitlist', 'page'], page)
@@ -802,10 +797,10 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
       {
         payload,
       }: {
-        payload: AxiosResponse<PaginatedResponse<WaitingListBookingOption>>;
+        payload: PaginatedResponse<WaitingListBookingOption>;
       },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myBookings', 'bookingsWorkshop', 'waitlist', 'page'], page)
@@ -1079,11 +1074,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyExpiredConsumerPaymentPacksAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>> },
+      { payload }: { payload: PaginatedResponse<ConsumerPaymentPackREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'consumerPaymentPack', 'expired', 'page'], page)
@@ -1137,11 +1130,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyActiveConsumerPaymentPacksAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>> },
+      { payload }: { payload: PaginatedResponse<ConsumerPaymentPackREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'consumerPaymentPack', 'active', 'page'], page)
@@ -1195,11 +1186,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFutureConsumerPaymentPacksAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>> },
+      { payload }: { payload: PaginatedResponse<ConsumerPaymentPackREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'consumerPaymentPack', 'future', 'page'], page)
@@ -1253,11 +1242,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyExpiredPrivateConsumerPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+      { payload }: { payload: PaginatedResponse<PrivateConsumerPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'privateConsumerPass', 'expired', 'page'], page)
@@ -1311,11 +1298,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyActivePrivateConsumerPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+      { payload }: { payload: PaginatedResponse<PrivateConsumerPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'privateConsumerPass', 'active', 'page'], page)
@@ -1369,11 +1354,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFuturePrivateConsumerPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+      { payload }: { payload: PaginatedResponse<PrivateConsumerPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'privateConsumerPass', 'future', 'page'], page)
@@ -1427,11 +1410,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyExpiredUniversalPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<UniversalPassREST>> },
+      { payload }: { payload: PaginatedResponse<UniversalPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'universalPass', 'expired', 'page'], page)
@@ -1483,11 +1464,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyActiveUniversalPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<UniversalPassREST>> },
+      { payload }: { payload: PaginatedResponse<UniversalPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'universalPass', 'active', 'page'], page)
@@ -1539,11 +1518,9 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyFutureUniversalPassesAsMemberActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<UniversalPassREST>> },
+      { payload }: { payload: PaginatedResponse<UniversalPassREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['myPasses', 'universalPass', 'future', 'page'], page)
@@ -1577,10 +1554,10 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchConsumerPassesTabDisplayActions.success.toString()]: (
       state,
-      { payload }: { payload: AxiosResponse<ConsumerPassesTabDisplay> },
+      { payload }: { payload: ConsumerPassesTabDisplay },
     ) => {
       const { consumer_payment_pack, private_consumer_pass, universal_pass } =
-        payload.data;
+        payload;
       return state.setIn(['myPasses', 'tabs', 'data'], {
         consumer_payment_pack,
         private_consumer_pass,
@@ -1611,7 +1588,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         };
       },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { billing_plan_id, data } = payload;
+      const { next_page, results, count, page } = data;
 
       if (results?.length === 0) {
         return state;
@@ -1625,14 +1603,13 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         })) ?? [];
 
       if (
-        state.mySubscriptions.invoices.bySubscriptionId?.[
-          payload?.billing_plan_id
-        ]?.invoices
+        state.mySubscriptions.invoices.bySubscriptionId?.[billing_plan_id]
+          ?.invoices
       ) {
         const mergedInvoices = uniqBy(
           [
             ...state.mySubscriptions.invoices.bySubscriptionId?.[
-              payload?.billing_plan_id
+              billing_plan_id
             ]?.invoices,
             ...newInvoices,
           ],

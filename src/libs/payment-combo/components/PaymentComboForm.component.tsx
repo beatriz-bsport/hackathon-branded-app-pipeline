@@ -50,6 +50,8 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
+import Config from '../../../config';
+
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 import type { BookkeepingAccount } from '#libs/payment/types';
@@ -288,7 +290,18 @@ export const PaymentComboForm: React.FC<Props> = ({
             <div>
               <ShopItemSelector
                 nullCurrentValue
-                helperText={t('form.selectorPlaceholder.shopitem')}
+                helperText={
+                  /**
+                   * Should change placeholder according to company ID
+                   * if "product with variants" is enabled
+                   * BS-3667
+                   */
+                  !['production', 'staging'].includes(
+                    Config.REACT_APP_SENTRY_ENVIRONMENT,
+                  )
+                    ? t('form.selectorPlaceholder.shopItemExcludingvariant')
+                    : t('form.selectorPlaceholder.shopitem')
+                }
                 onChange={(id: number) => {
                   if (id) push(id);
                 }}

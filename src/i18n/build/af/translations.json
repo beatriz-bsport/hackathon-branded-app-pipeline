@@ -6309,7 +6309,12 @@
       "manager_only": { "label": "Unavailable for purchase" },
       "actions": { "submit": "Save", "cancel": "Cancel" },
       "content": "Content",
-      "selectorPlaceholder": { "privatePass": "Appointment passes", "paymentPack": "Passes", "shopitem": "Webshop" },
+      "selectorPlaceholder": {
+        "privatePass": "Appointment passes",
+        "paymentPack": "Passes",
+        "shopitem": "Webshop",
+        "shopItemExcludingvariant": "Webshop (products with variants excluded)"
+      },
       "available_payment_method_identifiers": {
         "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
         "label": "Accepted payment methods"

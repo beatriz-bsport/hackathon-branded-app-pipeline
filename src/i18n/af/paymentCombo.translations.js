@@ -26,6 +26,7 @@ exports.default = {
       privatePass: 'Appointment passes',
       paymentPack: 'Passes',
       shopitem: 'Webshop',
+      shopItemExcludingvariant: 'Webshop (products with variants excluded)',
     },
     available_payment_method_identifiers: {
       helperText:

@@ -16,7 +16,9 @@ import {
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAPI,
 } from '../api';
 
-import { snackbarSuccess } from '#libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+
+import { isErrorWithCustomCode } from '#libs/utils';
 
 import type {
   Dispatch,
@@ -304,6 +306,13 @@ export const createShopItemVariants = ({
       dispatch(createShopItemVariantsActions.success(result.data));
       options?.onSuccess?.(result.data);
     } catch (error) {
+      if (isErrorWithCustomCode(error)) {
+        dispatch(
+          snackbarError(
+            `shop.variant.error.${error.response.data?.error_code}`,
+          ),
+        );
+      }
       dispatch(createShopItemVariantsActions.error(error));
       console.error(error);
       options?.onError?.();

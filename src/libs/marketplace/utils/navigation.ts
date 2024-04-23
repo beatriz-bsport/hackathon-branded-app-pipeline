@@ -7,6 +7,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
 } from '#libs/exportable-components/constants';
+import { MARKETPLACE_PATH_TAB_PRIVATE_SERVICE } from '../constants';
 
 export function urlToMarketplace(companyName: string, companyId: string) {
   return `/m/${encodeURI(companyName)}/${companyId}`;
@@ -42,7 +43,9 @@ export const urlToMarketplaceSessionTab = (
   const appointmentTab = marketplaceConfig?.find(
     (tabConfig) =>
       tabConfig.component_type === EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
-  )?.component_type;
+  )
+    ? MARKETPLACE_PATH_TAB_PRIVATE_SERVICE
+    : '';
   const workshopTab = marketplaceConfig?.find(
     (tabConfig) =>
       tabConfig.component_type === EXPORTABLE_COMPONENT_TYPE_WORKSHOP,

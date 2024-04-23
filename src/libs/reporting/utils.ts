@@ -327,7 +327,7 @@ export const getConverter = (
     ];
     if (datatype === 'int') {
       const shouldBeDivided =
-        reportCategory === 'memberships' &&
+        ['memberships', 'private_cpasses'].includes(reportCategory) &&
         creditsColumns.includes(column.column_identifier || column.identifier);
 
       if (shouldBeDivided) {

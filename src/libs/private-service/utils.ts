@@ -30,6 +30,7 @@ import type {
 import { Member } from '#libs/member/types';
 
 import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -602,9 +603,9 @@ export const getMarketplaceSearchItemIndicator = (
 ) => {
   return privatePass?.credits > 1
     ? t('paymentPack:specifications.nbCredits_plural', {
-        credits: privatePass.credits,
+        credits: getCreditsDividedDisplay(privatePass.credits),
       })
     : t('paymentPack:specifications.nbCredits', {
-        credits: privatePass.credits,
+        credits: getCreditsDividedDisplay(privatePass.credits),
       });
 };

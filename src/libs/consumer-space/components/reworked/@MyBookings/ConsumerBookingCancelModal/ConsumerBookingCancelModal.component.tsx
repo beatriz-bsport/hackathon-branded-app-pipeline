@@ -142,7 +142,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
       {
         count: booking?.credit_consumed
           ? getCreditsDividedValue(booking?.credit_consumed)
-          : privateBooking?.private_slot?.credit,
+          : getCreditsDividedValue(privateBooking?.private_slot?.credit),
       },
     );
   })();

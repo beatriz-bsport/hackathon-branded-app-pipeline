@@ -14,6 +14,10 @@ import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/priva
 import { PrivatePass } from '#libs/private-service/types';
 
 import './styles.list.css';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -41,8 +45,8 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
               <StarIcon />
             </span>
             {t('genericCardDetails.credits.availableCredit', {
-              count: privatePass?.credits,
-              credits: privatePass?.credits,
+              count: getCreditsDividedValue(privatePass?.credits),
+              credits: getCreditsDividedDisplay(privatePass?.credits),
             })}
           </li>
         )}

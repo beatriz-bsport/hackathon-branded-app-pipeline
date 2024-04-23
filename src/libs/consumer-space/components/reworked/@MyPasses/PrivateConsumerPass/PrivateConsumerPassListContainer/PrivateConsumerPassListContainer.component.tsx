@@ -20,6 +20,7 @@ import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@My
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   isLoading?: boolean;
@@ -100,9 +101,9 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item.id}
-              creditsLeft={(
-                item?.private_pass?.credits - item?.used_credits
-              )?.toString()}
+              creditsLeft={getCreditsDividedDisplay(
+                item?.private_pass?.credits - item?.used_credits,
+              )}
               expirationDate={item ? getExpirationDate(item) : null}
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
@@ -116,7 +117,9 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
               isUnlimited={!item?.private_pass?.credits}
               passName={item?.private_pass?.name}
               startDate={item?.date_bought}
-              totalCredits={item?.private_pass?.credits?.toString()}
+              totalCredits={getCreditsDividedDisplay(
+                item?.private_pass?.credits,
+              )}
             />
           )}
         />

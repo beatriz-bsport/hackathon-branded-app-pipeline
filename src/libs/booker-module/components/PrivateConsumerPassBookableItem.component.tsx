@@ -6,6 +6,7 @@ import { PrivateConsumerPass } from '../../private-service/types';
 
 import { getExpirationDate } from '../../private-service/utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 interface Props {
   privateConsumerPass: PrivateConsumerPass;
@@ -21,16 +22,15 @@ const PrivateConsumerPassBookableItem = (props: Props) => {
   return (
     <div className={classes.itemContainer}>
       <Typography color="primary" component="span" variant="h6">
-        {`${
+        {`${getCreditsDividedDisplay(
           privateConsumerPass.private_pass.credits -
-          privateConsumerPass.used_credits
-        }/${privateConsumerPass.private_pass.credits} ${t(
-          'privatePass.parameters.nbCredits',
-          {
-            current_credits: '',
-            count: 0,
-          },
-        )}`}
+            privateConsumerPass.used_credits,
+        )} / ${getCreditsDividedDisplay(
+          privateConsumerPass.private_pass.credits,
+        )} ${t('privatePass.parameters.nbCredits', {
+          current_credits: '',
+          count: 0,
+        })}`}
       </Typography>
       <Typography align="left" color="textSecondary" variant="body1">
         {t('consumerPass.expiresOn', {

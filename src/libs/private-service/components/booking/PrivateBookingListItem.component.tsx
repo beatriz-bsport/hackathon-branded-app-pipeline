@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import { BookingStatusCodeText } from '../../../booking/utils';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
 import { PrivateBooking } from '#libs/private-service/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
@@ -81,14 +82,15 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
                     : `${
                         props.private_booking.private_consumer_pass.private_pass
                           .name
-                      } (${
+                      } (${getCreditsDividedDisplay(
                         props.private_booking.private_consumer_pass.private_pass
                           .credits -
-                        props.private_booking.private_consumer_pass.used_credits
-                      }/${
+                          props.private_booking.private_consumer_pass
+                            .used_credits,
+                      )}/${getCreditsDividedDisplay(
                         props.private_booking.private_consumer_pass.private_pass
-                          .credits
-                      })`}
+                          .credits,
+                      )})`}
                 </Typography>
               )}
             <Typography variant="body2">

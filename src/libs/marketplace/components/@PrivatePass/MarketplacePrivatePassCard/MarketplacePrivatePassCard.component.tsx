@@ -25,6 +25,10 @@ import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 
 import type { PrivatePass } from '#libs/private-service/types';
 import './styles.css';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -46,6 +50,14 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
   const isMobile = useMediaQuery(
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
   );
+
+  const count = getCreditsDividedValue(privatePass?.credits);
+  const credits = getCreditsDividedDisplay(privatePass?.credits);
+
+  const formatedCredits = `${t('genericCard.credits.availableCredit', {
+    count,
+    credits,
+  })}`;
 
   const handleAddToCart = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -83,11 +95,7 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
               {privatePass.name}
             </div>
             {!hideCredits && (
-              <div className="bs-pass-card__subtitle">
-                {t('genericCard.credits.availableCredit', {
-                  count: privatePass.credits,
-                })}
-              </div>
+              <div className="bs-pass-card__subtitle">{formatedCredits}</div>
             )}
             {privatePass.description && (
               <div className="bs-pass-card__description">

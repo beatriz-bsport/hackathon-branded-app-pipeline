@@ -5,6 +5,10 @@ import { PrivatePass } from '../../private-service/types';
 import { getValidityInfo } from '../../private-service/utils';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import {
+  getCreditsDividedDisplay,
+  getCreditsDividedValue,
+} from '#libs/theme/utils';
 
 interface Props {
   privatePass: PrivatePass;
@@ -16,8 +20,8 @@ const PrivatePassBookableItem = (props: Props) => {
   const { t } = useTranslation(['privateService']);
 
   const creditText = t('privatePass.parameters.nbCredits', {
-    credits: props.privatePass.credits,
-    count: props.privatePass.credits,
+    credits: getCreditsDividedDisplay(props.privatePass.credits),
+    count: getCreditsDividedValue(props.privatePass.credits),
   });
 
   const date = getValidityInfo(props.privatePass, t);

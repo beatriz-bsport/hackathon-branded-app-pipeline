@@ -153,10 +153,15 @@ export const getCardInfoFromBuyableItem = (
         id,
         title: buyableItem.name,
         subtitle: `${t('objectCard.subtitle.privatePass')} - ${
-          buyableItem.credits
-        } ${t('objectCard.subtitle.credit', {
-          count: buyableItem.credits,
-        })}`,
+          buyableItem.credits === null
+            ? t('objectCard.subtitle.unlimited')
+            : `${getCreditsDividedDisplay(buyableItem.credits)} ${t(
+                'objectCard.subtitle.credit',
+                {
+                  count: getCreditsDividedValue(buyableItem.credits),
+                },
+              )}`
+        }`,
         price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',

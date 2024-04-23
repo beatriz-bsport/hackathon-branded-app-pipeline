@@ -12,6 +12,7 @@ import type { Theme } from '@material-ui/core/styles';
 import type { PrivatePass } from '../../types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import Tooltip from '#components/Tooltip.component';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   private_pass: PrivatePass;
@@ -34,7 +35,7 @@ export const PrivatePassBookerListItem = (props: Props) => {
           hideCredits
             ? ''
             : t('bookerModule.private_pass.credits', {
-                credits: private_pass.credits,
+                credits: getCreditsDividedDisplay(private_pass.credits),
               })
         }
       />

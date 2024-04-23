@@ -1,4 +1,4 @@
-import { API_V1_URI, buildUrlParams, getAuth } from '../../http';
+import { buildUrlParams, getAuth } from '../../http';
 import type {
   FuzzySearchAPIParams,
   ObjectSearchPaginated,
@@ -9,7 +9,7 @@ export const search = ({
   ...params
 }: FuzzySearchAPIParams) => {
   const response = getAuth<ObjectSearchPaginated>(
-    `${API_V1_URI}/${searchObjectURI}/search/${buildUrlParams(params)}`,
+    `${searchObjectURI}${buildUrlParams(params)}`,
   );
   return response;
 };

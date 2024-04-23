@@ -51,7 +51,6 @@ export type OptionTypeBase =
 
 type BaseProps<T extends OptionTypeBase> = {
   id?: number | string;
-  options: T[] | Immutable.ImmutableArray<T>;
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
   isDisabled?: boolean;
@@ -106,7 +105,12 @@ export type OwnProps<T extends OptionTypeBase> =
       onChange?: (value: T | OptionTypeBase) => void;
     } & BaseProps<T>);
 
-export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T>;
+export type MuiSelectPropsWithoutOptions<T extends OptionTypeBase> =
+  OwnProps<T>;
+
+export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T> & {
+  options: T[] | Immutable.ImmutableArray<T>;
+};
 
 function MaterialUISelector<T extends OptionTypeBase>(
   props: MuiSelectProps<T>,

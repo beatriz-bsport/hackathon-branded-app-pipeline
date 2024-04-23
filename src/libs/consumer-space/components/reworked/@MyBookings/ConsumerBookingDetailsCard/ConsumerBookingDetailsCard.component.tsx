@@ -66,7 +66,6 @@ export type Props = {
   /** The initial number of the pass bought by the member */
   paymentPackTotalCredits: number;
 
-  isPaymentPack?: boolean;
   /** Whether the member's pass has unlimited credits or not */
   isPaymentPackUnlimited?: boolean;
   /** Optional room name to display above of the establishment address */
@@ -116,7 +115,6 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   isLateCancellation,
   paymentPackName,
   isConsumerPaymentPackDisabled,
-  isPaymentPack,
   consumerPaymentPackPenaltyDisabledFrom,
   consumerPaymentPackPenaltyDisabledUntil,
   consumerPaymentPackAvailableCredits,
@@ -184,7 +182,6 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
           }
           consumerPaymentPackUsedCredits={consumerPaymentPackUsedCredits}
           isConsumerPaymentPackDisabled={isConsumerPaymentPackDisabled}
-          isPaymentPack={isPaymentPack}
           isPaymentPackUnlimited={isPaymentPackUnlimited}
           paymentPackName={paymentPackName}
           paymentPackTotalCredits={paymentPackTotalCredits}

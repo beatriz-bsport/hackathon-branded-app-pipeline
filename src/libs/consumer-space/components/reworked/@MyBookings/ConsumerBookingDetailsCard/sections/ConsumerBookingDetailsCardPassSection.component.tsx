@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
 import Typography from '#Fabrique/Typography';
-import { getCreditsDividedValue } from '#libs/theme/utils';
 
 type Props = {
   paymentPackName: string;
@@ -15,13 +14,11 @@ type Props = {
   consumerPaymentPackAvailableCredits: number;
   consumerPaymentPackUsedCredits: number;
   paymentPackTotalCredits: number;
-  isPaymentPack?: boolean;
   isPaymentPackUnlimited?: boolean;
 };
 
 const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
   paymentPackName,
-  isPaymentPack,
   isConsumerPaymentPackDisabled,
   consumerPaymentPackPenaltyDisabledFrom,
   consumerPaymentPackPenaltyDisabledUntil,
@@ -56,9 +53,7 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
             'bs-consumer-booking-details-card__pass-section__content__credit-status',
           )}
           consumerPaymentPackAvailableCredits={
-            isPaymentPack
-              ? getCreditsDividedValue(consumerPaymentPackAvailableCredits)
-              : consumerPaymentPackAvailableCredits
+            consumerPaymentPackAvailableCredits
           }
           consumerPaymentPackPenaltyDisabledFrom={
             consumerPaymentPackPenaltyDisabledFrom
@@ -66,18 +61,10 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
           consumerPaymentPackPenaltyDisabledUntil={
             consumerPaymentPackPenaltyDisabledUntil
           }
-          consumerPaymentPackUsedCredits={
-            isPaymentPack
-              ? getCreditsDividedValue(consumerPaymentPackUsedCredits)
-              : consumerPaymentPackUsedCredits
-          }
+          consumerPaymentPackUsedCredits={consumerPaymentPackUsedCredits}
           isConsumerPaymentPackDisabled={isConsumerPaymentPackDisabled}
           isPaymentPackUnlimited={isPaymentPackUnlimited}
-          paymentPackTotalCredits={
-            isPaymentPack
-              ? getCreditsDividedValue(paymentPackTotalCredits)
-              : paymentPackTotalCredits
-          }
+          paymentPackTotalCredits={paymentPackTotalCredits}
         />
       </div>
     </ConsumerCardSection>

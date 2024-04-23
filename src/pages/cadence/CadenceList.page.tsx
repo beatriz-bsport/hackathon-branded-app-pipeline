@@ -277,7 +277,7 @@ export class CadenceListPage extends React.Component<Props> {
       (!cadenceArchivedList || cadenceArchivedList?.length === 0)
     ) {
       return (
-        <div className={classes.centerHorizontal}>
+        <div className={classes.pageContainer}>
           <UpsellBlocker
             CustomIconComponent={<CustomStarIcon />}
             upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
@@ -674,6 +674,7 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing(12),
       position: 'relative',
       overflow: 'hidden',
+      justifyContent: 'center',
     },
     pageColumn: {
       paddingTop: theme.spacing(2),
@@ -704,15 +705,9 @@ const styles = (theme: Theme) =>
     alertIcon: {
       color: 'black',
     },
-    centerHorizontal: {
-      display: 'flex',
-      justifyContent: 'center',
-      paddingTop: theme.spacing(4),
-    },
     centerVertical: {
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
       alignItems: 'center',
       gap: theme.spacing(4),
       width: '50%',

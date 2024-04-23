@@ -815,6 +815,13 @@ export default compose(
     },
   ),
   withHandlers({
+    onSelectConsumerPass:
+      ({ onSelectConsumerPass, setRelatedInvoice }) =>
+      (memberId, id) => {
+        setRelatedInvoice(null);
+        onSelectConsumerPass(memberId, id);
+      },
+
     fetchInvoice:
       ({ fetchInvoice, setRelatedInvoice }) =>
       (uuid) => {

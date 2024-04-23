@@ -1,0 +1,5 @@
+.bs-consumer-booking-online-warning-modal__dialog__content {
+  display: flex;
+  gap: var(--bs-space-size-1);
+  align-items: center;
+}

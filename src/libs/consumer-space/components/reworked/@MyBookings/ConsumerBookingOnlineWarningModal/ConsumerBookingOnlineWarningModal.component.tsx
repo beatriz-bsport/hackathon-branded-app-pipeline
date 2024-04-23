@@ -5,6 +5,8 @@ import { formatAsDate, formatAsTime } from '#utils/datetime';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Typography from '#Fabrique/Typography';
+import { Clock } from '#components/untitledui';
+import './styles.css';
 
 type Props = {
   /** The selected booking offer date in the modal */
@@ -39,9 +41,12 @@ const ConsumerBookingOnlineWarningModal: React.FC<Props> = ({
         )}
         title={t('consumerSpace:reworked.myBookings.onlineWarningModal.title')}
       >
-        <Typography variant="body-md">
-          {t('consumerSpace:reworked.myBookings.onlineWarningModal.message')}
-        </Typography>
+        <div className="bs-consumer-booking-online-warning-modal__dialog__content">
+          <Clock stroke="currentColor" />
+          <Typography variant="body-md">
+            {t('consumerSpace:reworked.myBookings.onlineWarningModal.message')}
+          </Typography>
+        </div>
       </ModalDialog>
     </Blanket>
   );

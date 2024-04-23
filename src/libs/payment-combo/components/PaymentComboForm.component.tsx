@@ -394,13 +394,14 @@ export const PaymentComboForm: React.FC<Props> = ({
           step={0.005}
         />
       )}
-      <BookkeepingAccountSelector
-        bookkeepingAccountById={bookkeepingAccountById}
-        bookkeepingAccounts={bookkeepingAccounts}
-        selectedBookkeepingAccountId={valuesFormik.bookkeeping_account}
-        setFieldValue={setBookkeepingAccount}
-      />
-
+      {valuesFormik.use_payment_combo_tax_on_items && (
+        <BookkeepingAccountSelector
+          bookkeepingAccountById={bookkeepingAccountById}
+          bookkeepingAccounts={bookkeepingAccounts}
+          selectedBookkeepingAccountId={valuesFormik.bookkeeping_account}
+          setFieldValue={setBookkeepingAccount}
+        />
+      )}
       <SwitchField label={t('form.manager_only.label')} name="manager_only" />
       <SwitchField
         label={t('form.unusableByStaff.label')}

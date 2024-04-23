@@ -171,6 +171,11 @@ const getTranslations = async () => {
   const { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } =
     await import('@bsport/common/lib/master-data/error-codes/basket.js');
 
+  const {
+    CANNOT_ADD_VARIANT_WHILE_SHOP_ITEM_IS_USED_IN_PAYMENT_COMBO,
+    BASE_OR_VARIANT_SHOP_ITEMS_ARE_NOT_ALLOWED_IN_PAYMENT_COMBO,
+  } = await import('@bsport/common/lib/master-data/error-codes/shop.js');
+
   return {
     bookkeeping_account: {
       errors: {
@@ -336,6 +341,14 @@ const getTranslations = async () => {
         delete: {
           error: 'Error deleting supplier',
           success: 'Supplier deleted successfully',
+        },
+      },
+      variant: {
+        error: {
+          [CANNOT_ADD_VARIANT_WHILE_SHOP_ITEM_IS_USED_IN_PAYMENT_COMBO]:
+            'Cannot create variant(s) on a product used in a pack',
+          [BASE_OR_VARIANT_SHOP_ITEMS_ARE_NOT_ALLOWED_IN_PAYMENT_COMBO]:
+            'Cannot create a pack with variant products',
         },
       },
     },

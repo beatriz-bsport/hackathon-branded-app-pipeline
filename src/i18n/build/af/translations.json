@@ -11475,6 +11475,12 @@
         "create": { "error": "Error creating supplier", "success": "Supplier created successfully" },
         "update": { "error": "Error updating supplier", "success": "Supplier updated successfully" },
         "delete": { "error": "Error deleting supplier", "success": "Supplier deleted successfully" }
+      },
+      "variant": {
+        "error": {
+          "11000": "Cannot create variant(s) on a product used in a pack",
+          "11001": "Cannot create a pack with variant products"
+        }
       }
     },
     "role": {

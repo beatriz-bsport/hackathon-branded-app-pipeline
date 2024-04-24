@@ -28,3 +28,13 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   variants: 'variants',
   bookkeeping_account: 'bookkeeping_account',
 };
+
+/**
+ * The associated form to display in inventory tab from the shop item type (details page)
+ * @enum `STANDALONE` A form with only one row to for stock adjustment
+ * @enum `VARIANTS` A form with multiple rows for bulk stock adjustment
+ */
+export enum ShopItemDetailInventoryFormType {
+  STANDALONE = 'standalone',
+  VARIANTS = 'variants',
+}

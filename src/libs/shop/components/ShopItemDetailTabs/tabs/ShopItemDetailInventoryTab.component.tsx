@@ -17,19 +17,26 @@ import type {
   Provision,
   ProvisionBulkCreate,
   ProvisionCreate,
+  ShopItem,
   ShopItemVariant,
 } from '#libs/shop/types';
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { OptionCallback } from '../../../../../state/types';
+import type { ShopItemInventoryFormValues } from '../../ShopItemInventoryUpdateForm/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
-import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#libs/shop/constants';
+import {
+  SHOP_ITEM_VARIANTS_PAGE_SIZE,
+  ShopItemDetailInventoryFormType,
+} from '#libs/shop/constants';
 
 type Props = {
   shopItemVariantList: ShopItemVariant[];
   page: number;
   count: number;
   isUpdatingVariant?: boolean;
+  isStandaloneItem?: boolean;
+  shopItem: ShopItem;
   handleOpenVariantDrawer: () => void;
   fetchShopItemVariantList: (page: number) => void;
   createShopItemProvisionBulk: (
@@ -47,6 +54,8 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   page,
   count,
   isUpdatingVariant,
+  isStandaloneItem,
+  shopItem,
   handleOpenVariantDrawer,
   fetchShopItemVariantList,
   createShopItemProvisionBulk,
@@ -58,6 +67,10 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
+  const formType = isStandaloneItem
+    ? ShopItemDetailInventoryFormType.STANDALONE
+    : ShopItemDetailInventoryFormType.VARIANTS;
+
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
       fetchShopItemVariantList(pageNumber);
@@ -65,7 +78,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
     [fetchShopItemVariantList],
   );
 
-  const handleOnSubmit = useCallback(
+  const handleOnSubmitVariants = useCallback(
     (
       values: ShopItemInventoryBulkUpdateFormValues,
       { resetForm }: FormikHelpers<ShopItemInventoryBulkUpdateFormValues>,
@@ -89,7 +102,34 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
     [createShopItemProvisionBulk],
   );
 
-  if (shopItemVariantList?.length === 0) {
+  const handleOnSubmitStandalone = useCallback(
+    (
+      values: ShopItemInventoryFormValues,
+      { resetForm }: FormikHelpers<ShopItemInventoryFormValues>,
+    ) => {
+      shopItem?.id &&
+        createShopItemProvision(
+          {
+            shop_item: shopItem?.id,
+            qty: parseInt(values.stockAdjustment, 10),
+          },
+          {
+            onSuccess: () => resetForm(),
+          },
+        );
+    },
+    [createShopItemProvision, shopItem?.id],
+  );
+
+  const submitHandlerMapper = {
+    [ShopItemDetailInventoryFormType.STANDALONE]: handleOnSubmitStandalone,
+    [ShopItemDetailInventoryFormType.VARIANTS]: handleOnSubmitVariants,
+  };
+
+  if (
+    shopItemVariantList?.length === 0 &&
+    formType === ShopItemDetailInventoryFormType.VARIANTS
+  ) {
     return (
       <TabPanel
         className={classes.tabPanelContainer}
@@ -125,8 +165,10 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
         />
       ) : (
         <ShopItemDetailInventoryList
-          handleSubmit={handleOnSubmit}
+          formType={formType}
+          handleSubmit={submitHandlerMapper[formType]}
           isUpdatingVariant={isUpdatingVariant}
+          shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
         />
       )}

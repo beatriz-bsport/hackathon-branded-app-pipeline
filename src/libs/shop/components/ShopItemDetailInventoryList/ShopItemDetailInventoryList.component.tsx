@@ -1,127 +1,88 @@
 import React, { useMemo } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { Formik, FormikHelpers } from 'formik';
 
 import ShopItemInventoryBulkUpdateForm from '#libs/shop/components/ShopItemInventoryBulkUpdateForm';
+import ShopItemInventoryUpdateForm from '#libs/shop/components/ShopItemInventoryUpdateForm';
 
 import shopItemInventoryBulkFormValidationSchema from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/shopItemInventoryBulkFormValidationSchema';
+import shopItemInventoryFormValidationSchema from '#libs/shop/components/ShopItemInventoryUpdateForm/shopItemInventoryFormValidationSchema';
 
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { ShopItemVariant } from '#libs/shop/types';
+import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
+import type { ShopItem, ShopItemVariant } from '#libs/shop/types';
+
+import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
 
 type Props = {
-  shopItemVariantList: ShopItemVariant[];
+  formType: `${ShopItemDetailInventoryFormType}`;
   isUpdatingVariant?: boolean;
+  shopItem: ShopItem;
+  shopItemVariantList: ShopItemVariant[];
   handleSubmit: (
-    values: ShopItemInventoryBulkUpdateFormValues,
-    { resetForm }: FormikHelpers<ShopItemInventoryBulkUpdateFormValues>,
+    values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
+    {
+      resetForm,
+    }: FormikHelpers<
+      ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues
+    >,
   ) => void;
 };
-
 const ShopItemDetailInventoryList: React.FC<Props> = ({
-  shopItemVariantList,
+  formType,
   isUpdatingVariant,
+  shopItemVariantList,
+  shopItem,
   handleSubmit,
 }) => {
-  const { t } = useTranslation('shop');
-
-  const classes = useStyles();
+  const validationSchema = {
+    [ShopItemDetailInventoryFormType.STANDALONE]:
+      shopItemInventoryFormValidationSchema,
+    [ShopItemDetailInventoryFormType.VARIANTS]:
+      shopItemInventoryBulkFormValidationSchema,
+  };
 
   const initialValues = useMemo(
     () => ({
-      variants: (shopItemVariantList ?? []).map((shopItemVariant) => ({
-        id: shopItemVariant.id,
-        color: shopItemVariant.color,
-        size: shopItemVariant.size,
-        currentStock: shopItemVariant.current_stock ?? 0,
+      [ShopItemDetailInventoryFormType.STANDALONE]: {
+        currentStock: shopItem?.current_stock ?? 0,
         stockAdjustment: null,
-        totalSales: shopItemVariant.total_sales ?? 0,
-      })),
+        totalSales: shopItem?.total_sales ?? 0,
+      },
+      [ShopItemDetailInventoryFormType.VARIANTS]: {
+        variants: (shopItemVariantList ?? []).map((shopItemVariant) => ({
+          id: shopItemVariant.id,
+          color: shopItemVariant.color,
+          size: shopItemVariant.size,
+          currentStock: shopItemVariant.current_stock ?? 0,
+          stockAdjustment: null,
+          totalSales: shopItemVariant.total_sales ?? 0,
+        })),
+      },
     }),
-    [shopItemVariantList],
+    [shopItem.current_stock, shopItem.total_sales, shopItemVariantList],
   );
 
   return (
     <Formik
       enableReinitialize
       validateOnChange
-      initialValues={initialValues}
+      initialValues={initialValues[formType]}
       onSubmit={handleSubmit}
-      validationSchema={shopItemInventoryBulkFormValidationSchema}
+      validationSchema={validationSchema[formType]}
     >
-      {({
-        errors,
-        isValid,
-      }: FormikProps<ShopItemInventoryBulkUpdateFormValues>) => (
-        <Form noValidate>
-          <TableContainer className={classes.tableContainer}>
-            <div className={classes.tableActionContainer}>
-              {!!errors.variants && (
-                <Alert className={classes.tableErrorContainer} severity="error">
-                  {t('shopItemDetail.table.inventory.formError')}
-                </Alert>
-              )}
-
-              <Button
-                color="primary"
-                disabled={isUpdatingVariant || !isValid}
-                type="submit"
-                variant="contained"
-              >
-                {t('shopItemDetail.table.inventory.action.update')}
-              </Button>
-            </div>
-
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    {t('shopItemDetail.table.inventory.variants')}
-                  </TableCell>
-                  <TableCell>
-                    {t('shopItemDetail.table.inventory.currentStock')}
-                  </TableCell>
-                  <TableCell>
-                    {t('shopItemDetail.table.inventory.stockAdjustment')}
-                  </TableCell>
-                  <TableCell>
-                    {t('shopItemDetail.table.inventory.totalSales')}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
-              <ShopItemInventoryBulkUpdateForm />
-            </Table>
-          </TableContainer>
-        </Form>
-      )}
+      <>
+        {formType === ShopItemDetailInventoryFormType.STANDALONE && (
+          <ShopItemInventoryUpdateForm />
+        )}
+        {formType === ShopItemDetailInventoryFormType.VARIANTS && (
+          <ShopItemInventoryBulkUpdateForm
+            isUpdatingVariant={isUpdatingVariant}
+          />
+        )}
+      </>
     </Formik>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  tableContainer: {
-    paddingBottom: theme.spacing(2),
-  },
-  tableErrorContainer: {
-    height: 36,
-    alignItems: 'center',
-  },
-  tableActionContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: theme.spacing(2),
-    gap: theme.spacing(1),
-  },
-}));
 
 export default React.memo(ShopItemDetailInventoryList);

@@ -132,10 +132,13 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               createShopItemProvisionBulk={createShopItemProvisionBulk}
               fetchShopItemVariantList={fetchShopItemVariantList}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
+              isStandaloneItem={shopItem?.is_standalone_item}
               isUpdatingVariant={isUpdatingVariant}
               page={page}
+              shopItem={shopItem}
               shopItemVariantList={variantList}
             />
+
             <ShopItemDetailVariantsTab
               companyId={companyId}
               count={count}
@@ -150,6 +153,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               shopItemVariantList={variantList}
               updateShopItemVariantBulk={updateShopItemVariantBulk}
             />
+
             {!!shopItem && (
               <ShopItemDetailSettingsTab
                 availablePaymentMethodIdentifiers={

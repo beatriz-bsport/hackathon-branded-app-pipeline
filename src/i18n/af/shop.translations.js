@@ -145,7 +145,7 @@ exports.default = {
           size: 'Select size',
           color: 'Select color',
         },
-        formError: 'Stock adjustment values must be valid numbers',
+        formError: 'Stock adjustment value(s) must be valid numbers',
         action: { update: 'Update inventory' },
         variants: 'Variants',
         currentStock: 'Current stock',

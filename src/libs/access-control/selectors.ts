@@ -25,7 +25,8 @@ export const getAllMemberVisits = createSelector(
 );
 
 export const getMemberVisitIsLoading = (state: RootState) =>
-  state.accessControl.memberVisit.loading;
+  state.accessControl.memberVisit.loading ||
+  state.accessControl.nextBookingOrPrivateBooking.loading;
 
 export const getMemberVisitLiveHistoryIsLoading = (state: RootState) => {
   return (
@@ -37,3 +38,6 @@ export const getMemberVisitLiveHistoryIsLoading = (state: RootState) => {
 
 export const getAccessControlPolicy = (state: RootState) =>
   state.accessControl.policy.policy;
+
+export const getMemberNextBookingOrPrivateBooking = (state: RootState) =>
+  state.accessControl.nextBookingOrPrivateBooking.bookingOrPrivateBooking;

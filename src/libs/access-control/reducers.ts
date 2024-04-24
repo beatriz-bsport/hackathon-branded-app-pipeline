@@ -7,6 +7,7 @@ import type { AxiosResponse } from 'axios';
 import {
   checkMemberInEstablishmentActions,
   getAccessControlPolicyActions,
+  retrieveMemberNextBookingOrPrivateBookingActions,
   getMemberVisitListActions,
   globalMemberVisitActions,
   patchAccessControlPolicyActions,
@@ -17,6 +18,7 @@ import {
 import type { PaginatedResponse } from '#state/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type {
+  AccessControlBookingOrPrivateBooking,
   AccessControlPolicy,
   AccessControlState,
   MemberVisitREST,
@@ -44,6 +46,11 @@ export const initialState: Immutable.Immutable<AccessControlState> =
         booked_session_time_interval_after_visit: '',
         booked_session_time_interval_before_visit: '',
       },
+    },
+    nextBookingOrPrivateBooking: {
+      loading: false,
+      error: null,
+      bookingOrPrivateBooking: null,
     },
   });
 
@@ -280,6 +287,35 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [retrieveMemberNextBookingOrPrivateBookingActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state
+        .setIn(['nextBookingOrPrivateBooking', 'error'], payload)
+        .setIn(
+          ['nextBookingOrPrivateBooking', 'bookingOrPrivateBooking'],
+          null,
+        );
+    },
+    [retrieveMemberNextBookingOrPrivateBookingActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['nextBookingOrPrivateBooking', 'loading'], payload);
+    },
+    [retrieveMemberNextBookingOrPrivateBookingActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<AccessControlBookingOrPrivateBooking> },
+    ) => {
+      const bookingOrPrivateBooking = payload.data;
+      return state.setIn(
+        ['nextBookingOrPrivateBooking', 'bookingOrPrivateBooking'],
+        bookingOrPrivateBooking,
       );
     },
   },

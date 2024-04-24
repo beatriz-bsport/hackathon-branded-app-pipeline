@@ -10,6 +10,7 @@ import {
   getMemberVisitList as getMemberVisitListAPI,
   getAccessControlPolicy as getAccessControlPolicyAPI,
   patchAccessControlPolicy as patchAccessControlPolicyAPI,
+  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAPI,
 } from './api';
 
 import type {
@@ -18,6 +19,7 @@ import type {
   PaginatedResponse,
 } from '../../state/types';
 import type {
+  AccessControlBookingOrPrivateBooking,
   AccessControlPolicy,
   MemberVisitQueryParams,
   MemberVisitREST,
@@ -279,5 +281,40 @@ export const patchAccessControlPolicy = (
       options?.onError?.(error);
     }
     dispatch(patchAccessControlPolicyActions.loading(false));
+  };
+};
+
+export const retrieveMemberNextBookingOrPrivateBookingActions = {
+  success: createAction<AxiosResponse<AccessControlBookingOrPrivateBooking>>(
+    'ACCESS_CONTROL/GET_MEMBER_NEXT_BOOKING_OR_PRIVATE_BOOKING/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/GET_MEMBER_NEXT_BOOKING_OR_PRIVATE_BOOKING/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/GET_MEMBER_NEXT_BOOKING_OR_PRIVATE_BOOKING/ERROR',
+  ),
+};
+
+export const retrieveMemberNextBookingOrPrivateBooking = (
+  memberId: number,
+  options?: OptionCallback<AccessControlBookingOrPrivateBooking>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(retrieveMemberNextBookingOrPrivateBookingActions.loading(true));
+    dispatch(retrieveMemberNextBookingOrPrivateBookingActions.error(null));
+    try {
+      const response = await retrieveMemberNextBookingOrPrivateBookingAPI(
+        memberId,
+      );
+      dispatch(
+        retrieveMemberNextBookingOrPrivateBookingActions.success(response),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(retrieveMemberNextBookingOrPrivateBookingActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(retrieveMemberNextBookingOrPrivateBookingActions.loading(false));
   };
 };

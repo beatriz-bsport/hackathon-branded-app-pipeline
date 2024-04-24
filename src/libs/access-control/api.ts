@@ -9,6 +9,7 @@ import { EntryStatus } from './constants';
 
 import type { PaginatedResponse } from '#state/types';
 import type {
+  AccessControlBookingOrPrivateBooking,
   AccessControlPolicy,
   MemberVisitQueryParams,
   MemberVisitREST,
@@ -78,5 +79,13 @@ export const patchAccessControlPolicy = (
   return patchAuth<AccessControlPolicy>(
     `${API_V1_URI}/access_control/policy/${companyId}/`,
     data,
+  );
+};
+
+export const retrieveMemberNextBookingOrPrivateBooking = (memberId: number) => {
+  return getAuth<AccessControlBookingOrPrivateBooking>(
+    `${API_V1_URI}/access_control/member_visit/today_next_booking_or_private_booking/${buildUrlParams(
+      { member: memberId },
+    )}`,
   );
 };

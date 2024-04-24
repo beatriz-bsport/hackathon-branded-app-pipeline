@@ -410,6 +410,12 @@ export default compose(
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withTranslation(['privateService']),
   withHandlers({
+    goToPrivateConsumerPass:
+      ({ goToPrivateConsumerPass, setRelatedInvoice }) =>
+      (memberId, privateConsumerPassId) => {
+        setRelatedInvoice(null);
+        goToPrivateConsumerPass(memberId, privateConsumerPassId);
+      },
     forceRegularizeUnpaid:
       ({
         forceRegularizeUnpaid,

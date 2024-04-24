@@ -147,3 +147,8 @@ export type FetchItemsType = {
     loading: boolean;
   };
 };
+
+export type SmartListQueryParams = {
+  id__in?: number[];
+  tag?: number;
+};

@@ -39,6 +39,7 @@ import type {
   EstablishmentGroup,
   EstablishmentBillingGroup,
   AssociatedEstablishment,
+  FetchEstablishmentParams,
 } from './types';
 
 export const deleteActions = {
@@ -103,7 +104,10 @@ export const listIsLoading = createAction('ESTABLISHMENTS/LIST/IS_LOADING');
 export const listLoaded = createAction('ESTABLISHMENTS/LIST/LOADED');
 export const listError = createAction('ESTABLISHMENTS/LIST/ERROR');
 
-export function fetchEstablishments(params?: any, options?: OptionCallback) {
+export function fetchEstablishments(
+  params?: FetchEstablishmentParams,
+  options?: OptionCallback,
+) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(listIsLoading(true));
     dispatch(listError(null));

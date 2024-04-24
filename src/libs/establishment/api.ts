@@ -13,6 +13,7 @@ import type {
   EstablishmentAddressInput,
   EstablishmentBillingGroup,
   EstablishmentGroup,
+  FetchEstablishmentParams,
 } from './types';
 
 export async function addEstablishment(data: any) {
@@ -40,7 +41,7 @@ export async function fetchEstablishment(id: number) {
   return getAuth(`${API_URI}/saas/establishment/${id}/`);
 }
 
-export async function fetchEstablishmentList(params: any) {
+export async function fetchEstablishmentList(params: FetchEstablishmentParams) {
   return getAuth(`${API_V1_URI}/establishment/${buildUrlParams(params)}`);
 }
 

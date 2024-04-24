@@ -23,6 +23,7 @@ import type {
   PaymentPackMassExtension,
   PaymentPackMassExtensionCreate,
   PaymentPackMassExtensionParams,
+  PaymentPackQueryParams,
 } from './types';
 
 export async function fetchAllPaymentPacks() {
@@ -84,7 +85,7 @@ export async function disableConsumerPack(id: number) {
   return patchAuth(`${API_URI}/saas/payment-pack/consumer/${id}/disable`, {});
 }
 
-export async function fetchPaymentPackList(params: any) {
+export async function fetchPaymentPackList(params: PaymentPackQueryParams) {
   return getAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams(params)}`,
   );

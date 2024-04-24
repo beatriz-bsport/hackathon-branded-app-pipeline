@@ -669,3 +669,28 @@ export type PrivateConsumerPassReworked = Omit<
     private_services: PrivateServiceCompatibilityPass[];
   };
 };
+
+export type PrivateServiceQueryParams = {
+  mine?: boolean;
+  id__in?: number[];
+  private_service_group__in?: number[];
+  company?: number;
+  available?: boolean;
+  manager_only?: boolean;
+};
+
+export type PrivateSlotQueryParams = {
+  mine?: boolean;
+  id__in?: number[];
+  company?: number;
+  private_service__in?: number[];
+  available?: boolean;
+  private_service?: number;
+};
+
+export type PrivatePassQueryParams = {
+  video?: number;
+  id__in?: number[];
+  include_expired?: boolean;
+  company?: number;
+};

@@ -436,3 +436,17 @@ export type PaymentPackCompatibilitiesData = {
   SCTs: number[];
   establishments: number[];
 };
+export type PaymentPackQueryParams = {
+  id__in?: number[];
+  meta_activity?: number;
+  offer?: number;
+  vod?: boolean;
+  video?: number;
+  include_expired?: boolean;
+  page_size?: number;
+  page?: number;
+  company?: number;
+  manager_only?: boolean;
+  disabled?: boolean;
+  as_consumer?: boolean;
+};

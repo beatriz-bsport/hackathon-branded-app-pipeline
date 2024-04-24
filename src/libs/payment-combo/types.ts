@@ -121,3 +121,11 @@ export type FetchPaymentComboPurchaseListParams = {
 export type PaymentComboFactoryOptions = {
   isHighlightedAsRecommended?: boolean;
 };
+
+export type PaymentComboAPIParams = {
+  id__in?: number[];
+  offer?: number;
+  as_consumer_of_company?: number;
+  video?: number;
+  include_expired?: boolean;
+};

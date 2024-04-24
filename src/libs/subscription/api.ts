@@ -19,6 +19,7 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
   SubscriptionDetailsQueryParams,
+  ContractQueryParams,
 } from './types';
 import { PaginatedResponse } from '../../state/types';
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
@@ -93,7 +94,7 @@ export const fetchPlannedInvoiceList = async (
   );
 };
 
-const fetchContractList = async (params: any = {}) => {
+const fetchContractList = async (params: ContractQueryParams = {}) => {
   return getAuth(`${API_URI}/subscription/contract/${buildUrlParams(params)}`);
 };
 

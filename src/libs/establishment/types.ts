@@ -177,3 +177,14 @@ export type WithEstablishment<T> = T & { establishment: Establishment };
 export type WithEstablishmentBillingGroup<T> = T & {
   establishment_billing_group: EstablishmentBillingGroup;
 };
+
+export type FetchEstablishmentParams = {
+  id__in?: string;
+  associated_establishment__in?: string;
+  meta_activity?: number;
+  company?: number;
+  franchisor?: number;
+  ordering?: string;
+  disabled?: boolean;
+  with_workshop?: boolean;
+};

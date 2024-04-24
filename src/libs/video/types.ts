@@ -89,3 +89,19 @@ export type VideoState = ErrorAndLoading & {
     accessDenied: boolean;
   };
 };
+
+export type VideoQueryParams = {
+  id__in?: number[];
+  mine?: boolean;
+  search?: string;
+  coach?: number;
+  duration_second_range?: number[];
+  similar?: number;
+  my_purchases?: boolean;
+  SCT__pk__in?: number[];
+  coaches__id__in?: number[];
+  level__pk__in?: number[];
+  is_marketplace?: boolean;
+  company?: number;
+  status?: string;
+};

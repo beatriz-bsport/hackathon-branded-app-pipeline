@@ -390,3 +390,11 @@ export type SubscriptionsInvoicesDetailsParams = {
   id: number;
   page_size?: number;
 };
+
+export type ContractQueryParams = {
+  offer?: number;
+  id__in?: number[];
+  company?: number;
+  manager_only?: boolean;
+  disabled?: boolean;
+};

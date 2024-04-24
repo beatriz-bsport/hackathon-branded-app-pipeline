@@ -57,6 +57,12 @@ type Props = {
   onCancel?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   /** Action to perform on close button click */
   onClose?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  /** If `true` the confirm button is disabled */
+  isConfirmButtonDisabled?: boolean;
+  /** If `true` cancel button is disabled */
+  isCancelButtonDisabled?: boolean;
+  /** If `true` close button is disabled */
+  isCloseButtonDisabled?: boolean;
   /** Action to perform on confirm button click */
   onConfirm?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
@@ -92,6 +98,9 @@ export const ModalDialog: React.FC<Props> = ({
   title,
   onCancel,
   onClose,
+  isConfirmButtonDisabled,
+  isCancelButtonDisabled,
+  isCloseButtonDisabled,
   onConfirm,
 }) => {
   const { t } = useTranslation('common');
@@ -185,6 +194,7 @@ export const ModalDialog: React.FC<Props> = ({
             classes?.close,
           )}
           color="grey"
+          isDisabled={isSubmitLoading || isCloseButtonDisabled}
           onClick={onClose}
           variant="text"
         >
@@ -230,6 +240,7 @@ export const ModalDialog: React.FC<Props> = ({
               classes?.cancel,
             )}
             color="grey"
+            isDisabled={isSubmitLoading || isCancelButtonDisabled}
             onClick={onCancel}
             size="md"
             variant="outlined"
@@ -249,7 +260,7 @@ export const ModalDialog: React.FC<Props> = ({
               classes?.confirm,
             )}
             color={confirmButtonColor}
-            isDisabled={isSubmitLoading}
+            isDisabled={isSubmitLoading || isConfirmButtonDisabled}
             onClick={onConfirm}
             size="md"
             variant="contained"

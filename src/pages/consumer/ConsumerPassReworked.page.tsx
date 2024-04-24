@@ -226,7 +226,8 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchMyActiveConsumerPaymentPacksAsMember(
         { memberId: this.props.membership.id },
         {
-          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedConsumerPaymentPackObjects(data.results),
         },
       );
   };
@@ -235,7 +236,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyActivePrivateConsumerPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedPrivateConsumerPassObjects(data.results),
+        },
       );
   };
 
@@ -243,7 +247,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyActiveUniversalPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedUniversalPassObjects(data.results),
+        },
       );
   };
 
@@ -252,7 +259,8 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchMyExpiredConsumerPaymentPacksAsMember(
         { memberId: this.props.membership.id },
         {
-          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedConsumerPaymentPackObjects(data.results),
         },
       );
   };
@@ -261,7 +269,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyExpiredPrivateConsumerPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedPrivateConsumerPassObjects(data.results),
+        },
       );
   };
 
@@ -269,7 +280,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyExpiredUniversalPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedUniversalPassObjects(data.results),
+        },
       );
   };
 
@@ -278,7 +292,8 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchMyFutureConsumerPaymentPacksAsMember(
         { memberId: this.props.membership.id },
         {
-          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedConsumerPaymentPackObjects(data.results),
         },
       );
   };
@@ -287,7 +302,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyFuturePrivateConsumerPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedPrivateConsumerPassObjects(data.results),
+        },
       );
   };
 
@@ -295,7 +313,10 @@ export class ConsumerPassReworked extends React.Component<
     !!this.props.membership?.id &&
       this.props.fetchMyFutureUniversalPassesAsMember(
         { memberId: this.props.membership.id },
-        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+        {
+          onSuccess: (data) =>
+            this.fetchAssociatedUniversalPassObjects(data.results),
+        },
       );
   };
 

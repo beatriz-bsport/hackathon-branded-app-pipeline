@@ -597,7 +597,7 @@ export function fetchMyPastBookingAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<BookingREST[]>,
+  options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyPastBookingAsMemberActions.isLoading(true));
@@ -617,7 +617,7 @@ export function fetchMyPastBookingAsMember(
       });
       dispatch(fetchMyPastBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyPastBookingAsMemberActions.error(err));
@@ -644,7 +644,7 @@ export function fetchMyFutureBookingAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<BookingREST[]>,
+  options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyFutureBookingAsMemberActions.isLoading(true));
@@ -664,7 +664,7 @@ export function fetchMyFutureBookingAsMember(
       });
       dispatch(fetchMyFutureBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFutureBookingAsMemberActions.error(err));
@@ -691,7 +691,7 @@ export function fetchMyPastBookingWorkshopAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<BookingREST[]>,
+  options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyPastBookingWorkshopAsMemberActions.isLoading(true));
@@ -714,7 +714,7 @@ export function fetchMyPastBookingWorkshopAsMember(
         fetchMyPastBookingWorkshopAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyPastBookingWorkshopAsMemberActions.error(err));
@@ -741,7 +741,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
     member: number;
     page_size?: number;
   },
-  options?: OptionCallback<BookingREST[]>,
+  options?: OptionCallback<PaginatedResponse<BookingREST>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyFutureBookingWorkshopAsMemberActions.isLoading(true));
@@ -764,7 +764,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
         fetchMyFutureBookingWorkshopAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFutureBookingWorkshopAsMemberActions.error(err));
@@ -822,7 +822,7 @@ export const fetchMyPastPrivateBookingAsMemberActions = {
 
 export function fetchMyPastPrivateBookingAsMember(
   { member, page_size = 30, company }: PrivateBookingFilterParams,
-  options?: OptionCallback<PrivateBooking[]>,
+  options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyPastPrivateBookingAsMemberActions.isLoading(true));
@@ -841,7 +841,7 @@ export function fetchMyPastPrivateBookingAsMember(
       });
       dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyPastPrivateBookingAsMemberActions.error(err));
@@ -863,7 +863,7 @@ export const fetchMyFuturePrivateBookingAsMemberActions = {
 
 export function fetchMyFuturePrivateBookingAsMember(
   { member, page_size = 30, company }: PrivateBookingFilterParams,
-  options?: OptionCallback<PrivateBooking[]>,
+  options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     dispatch(fetchMyFuturePrivateBookingAsMemberActions.isLoading(true));
@@ -884,7 +884,7 @@ export function fetchMyFuturePrivateBookingAsMember(
         fetchMyFuturePrivateBookingAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFuturePrivateBookingAsMemberActions.error(err));
@@ -1070,7 +1070,7 @@ export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
 
 export const fetchMyActiveConsumerPaymentPacksAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.isLoading(true));
@@ -1090,7 +1090,7 @@ export const fetchMyActiveConsumerPaymentPacksAsMember = (
         fetchMyActiveConsumerPaymentPacksAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.error(err));
@@ -1116,7 +1116,7 @@ export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
 
 export const fetchMyExpiredConsumerPaymentPacksAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading(true));
@@ -1138,7 +1138,7 @@ export const fetchMyExpiredConsumerPaymentPacksAsMember = (
         ),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.error(err));
@@ -1166,7 +1166,7 @@ export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
 
 export const fetchMyFutureConsumerPaymentPacksAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerPaymentPackREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.isLoading(true));
@@ -1187,7 +1187,7 @@ export const fetchMyFutureConsumerPaymentPacksAsMember = (
         fetchMyFutureConsumerPaymentPacksAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.error(err));
@@ -1215,7 +1215,7 @@ export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
 
 export const fetchMyActivePrivateConsumerPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<PrivateConsumerPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.isLoading(true));
@@ -1237,7 +1237,7 @@ export const fetchMyActivePrivateConsumerPassesAsMember = (
         ),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.error(err));
@@ -1265,7 +1265,7 @@ export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
 
 export const fetchMyExpiredPrivateConsumerPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<PrivateConsumerPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(
@@ -1289,7 +1289,7 @@ export const fetchMyExpiredPrivateConsumerPassesAsMember = (
         ),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyExpiredPrivateConsumerPassesAsMemberActions.error(err));
@@ -1317,7 +1317,7 @@ export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
 
 export const fetchMyFuturePrivateConsumerPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<PrivateConsumerPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading(true));
@@ -1340,7 +1340,7 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
         ),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.error(err));
@@ -1368,7 +1368,7 @@ export const fetchMyActiveUniversalPassesAsMemberActions = {
 
 export const fetchMyActiveUniversalPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<UniversalPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyActiveUniversalPassesAsMemberActions.isLoading(true));
@@ -1388,7 +1388,7 @@ export const fetchMyActiveUniversalPassesAsMember = (
         fetchMyActiveUniversalPassesAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyActiveUniversalPassesAsMemberActions.error(err));
@@ -1414,7 +1414,7 @@ export const fetchMyExpiredUniversalPassesAsMemberActions = {
 
 export const fetchMyExpiredUniversalPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<UniversalPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyExpiredUniversalPassesAsMemberActions.isLoading(true));
@@ -1434,7 +1434,7 @@ export const fetchMyExpiredUniversalPassesAsMember = (
         fetchMyExpiredUniversalPassesAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyExpiredUniversalPassesAsMemberActions.error(err));
@@ -1460,7 +1460,7 @@ export const fetchMyFutureUniversalPassesAsMemberActions = {
 
 export const fetchMyFutureUniversalPassesAsMember = (
   { memberId, page_size = 30 }: BaseMemberFetchOptions,
-  options?: OptionCallback<UniversalPassREST[]>,
+  options?: OptionCallback<PaginatedResponse<UniversalPassREST>>,
 ): ThunkAction => {
   return async (dispatch, getState) => {
     dispatch(fetchMyFutureUniversalPassesAsMemberActions.isLoading(true));
@@ -1480,7 +1480,7 @@ export const fetchMyFutureUniversalPassesAsMember = (
         fetchMyFutureUniversalPassesAsMemberActions.success(response.data),
       );
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       dispatch(fetchMyFutureUniversalPassesAsMemberActions.error(err));

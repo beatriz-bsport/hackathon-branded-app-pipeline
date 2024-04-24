@@ -250,7 +250,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
       this.props.fetchMyPastBookingAsMember(
         { member: this.props.membership.id },
         {
-          onSuccess: this.fetchAssociatedBookingsObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedBookingsObjects(data.results),
         },
       );
   };
@@ -262,7 +263,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
           member: this.props.membership.id,
         },
         {
-          onSuccess: this.fetchAssociatedBookingsObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedBookingsObjects(data.results),
         },
       );
   };
@@ -301,7 +303,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
         member: this.props.membership.id,
         company: this.props.companyId,
       },
-      { onSuccess: this.fetchAssociatedPrivateBookingsObjects },
+      {
+        onSuccess: (data) =>
+          this.fetchAssociatedPrivateBookingsObjects(data.results),
+      },
     );
   };
 
@@ -311,7 +316,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
         member: this.props.membership.id,
         company: this.props.companyId,
       },
-      { onSuccess: this.fetchAssociatedPrivateBookingsObjects },
+      {
+        onSuccess: (data) =>
+          this.fetchAssociatedPrivateBookingsObjects(data.results),
+      },
     );
   };
 
@@ -320,7 +328,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
       this.props.fetchMyPastBookingWorkshopAsMember(
         { member: this.props.membership.id },
         {
-          onSuccess: this.fetchAssociatedBookingsObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedBookingsObjects(data.results),
         },
       );
   };
@@ -332,7 +341,8 @@ export class ConsumerBooking extends React.Component<Props, State> {
           member: this.props.membership.id,
         },
         {
-          onSuccess: this.fetchAssociatedBookingsObjects,
+          onSuccess: (data) =>
+            this.fetchAssociatedBookingsObjects(data.results),
         },
       );
   };

@@ -61,7 +61,8 @@ const ConsumerSubscriptionPaymentBottomDrawer: React.FC<Props> = ({
         classes: {
           content: 'bs-consumer-subscription-payment-modal__content',
         },
-        isSubmitLoading: !selectedPaymentMethodId || isProcessing,
+        isSubmitLoading: isProcessing,
+        isConfirmButtonDisabled: !selectedPaymentMethodId,
         title,
         onClose: handleClose,
         onCancel: handleClose,

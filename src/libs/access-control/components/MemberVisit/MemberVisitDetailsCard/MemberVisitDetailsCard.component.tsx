@@ -20,20 +20,17 @@ import MemberVisitDetailsCardBookingSection from './MemberVisitDetailsCardBookin
 import MemberVisitDetailsCardManualEntrySection from './MemberVisitDetailsCardManualEntrySection.component';
 import MemberVisitDetailsCardSkeleton from './MemberVisitDetailsCardSkeleton.component';
 
-import type { MemberVisitREST } from '#libs/access-control/types';
-import type { BookingREST } from '#libs/booking/types';
-import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  AccessControlBookingOrPrivateBooking,
+  MemberVisitREST,
+} from '#libs/access-control/types';
 import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
   isLoading?: boolean;
   locationInformation?: string;
   memberVisit: MemberVisitREST;
-  nextBooking: {
-    type: 'booking' | 'privateBooking';
-    booking?: BookingREST;
-    privateBooking?: PrivateBooking;
-  };
+  nextBooking: AccessControlBookingOrPrivateBooking;
   onAllowManualEntry: () => void;
   onMemberBillClick: () => void;
   onMemberProfileClick: () => void;

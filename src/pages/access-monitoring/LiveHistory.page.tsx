@@ -12,9 +12,9 @@ import {
   getMemberVisitList as getMemberVisitListAction,
   manualUpdateMemberVisitFromBroadcastChannel as manualUpdateMemberVisitFromBroadcastChannelAction,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
+  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
 } from '#libs/access-control/actions';
-import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '#libs/consumer-space/actions';
 
 /** COMPONENTS */
 import MemberVisitSearchMember from '#libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
@@ -28,9 +28,9 @@ import EntryStatusChangedModal from '#libs/access-control/components/MemberVisit
 /** SELECTORS */
 import {
   getAllMemberVisits,
+  getMemberNextBookingOrPrivateBooking,
   getMemberVisitLiveHistoryIsLoading,
 } from '#libs/access-control/selectors';
-import { getAllBookingAndPrivateBooking } from '#libs/consumer-space/selectors';
 import {
   getAllEstablishmentsDict,
   getAssociatedEstablishmentGroup,
@@ -41,7 +41,6 @@ import { getPermissions } from '#libs/role/selectors';
 /** CONSTANTS */
 import { EntryStatus, AccessStatus } from '#libs/access-control/constants';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { BookingsAndPrivateBookingsTypeEnum } from '#libs/consumer-space/actions';
 
 /** TYPES */
 import type { RootState } from 'src/reducers';
@@ -57,24 +56,24 @@ export type Props = ConnectedProps<typeof connector>;
 const useLiveHistoryPageDataManager = ({
   establishmentGroups,
   establishmentsData,
-  fetchBookingsAndPrivateBookings,
   getMemberVisitList,
   manualUpdateMemberVisitFromBroadcastChannel,
   memberVisitState,
   permissions,
   refreshMemberVisitAccessStatus,
+  retrieveMemberNextBookingOrPrivateBooking,
   setMemberVisitEntryStatus,
   theme,
 }: Pick<
   Props,
   | 'establishmentGroups'
   | 'establishmentsData'
-  | 'fetchBookingsAndPrivateBookings'
   | 'getMemberVisitList'
   | 'manualUpdateMemberVisitFromBroadcastChannel'
   | 'memberVisitState'
   | 'permissions'
   | 'refreshMemberVisitAccessStatus'
+  | 'retrieveMemberNextBookingOrPrivateBooking'
   | 'setMemberVisitEntryStatus'
   | 'theme'
 >) => {
@@ -150,16 +149,10 @@ const useLiveHistoryPageDataManager = ({
 
   const handleSelectMemberVisit = useCallback(
     (memberVisit: MemberVisitREST) => {
-      fetchBookingsAndPrivateBookings({
-        member: memberVisit.member.id,
-        date_start: null,
-        type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
-        mine: false,
-        forceRefetch: true,
-      });
+      retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
       setSelectedMemberVisitId(memberVisit.id);
     },
-    [setSelectedMemberVisitId],
+    [setSelectedMemberVisitId, retrieveMemberNextBookingOrPrivateBooking],
   );
 
   // Member filter selection
@@ -183,18 +176,12 @@ const useLiveHistoryPageDataManager = ({
         }
       },
     });
-    fetchBookingsAndPrivateBookings({
-      member: selectedMemberVisit.member.id,
-      date_start: null,
-      type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
-      mine: false,
-      forceRefetch: true,
-    });
+    retrieveMemberNextBookingOrPrivateBooking(selectedMemberVisit.member.id);
   }, [
     refreshMemberVisitAccessStatus,
     sendToAccessControlBroadcastChannel,
     selectedMemberVisit,
-    fetchBookingsAndPrivateBookings,
+    retrieveMemberNextBookingOrPrivateBooking,
   ]);
 
   // When clearing the member filter
@@ -290,17 +277,17 @@ const useLiveHistoryPageDataManager = ({
 };
 
 const LiveHistory: React.FC<Props> = ({
-  bookingAndPrivateBooking,
   establishmentGroups,
   establishmentsData,
-  fetchBookingsAndPrivateBookings,
   getMemberVisitList,
   isLoading,
   manualUpdateMemberVisitFromBroadcastChannel,
+  memberNextBookingOrPrivateBooking,
   memberVisitList,
   memberVisitState,
   permissions,
   refreshMemberVisitAccessStatus,
+  retrieveMemberNextBookingOrPrivateBooking,
   searchMembers,
   setMemberVisitEntryStatus,
   theme,
@@ -329,12 +316,12 @@ const LiveHistory: React.FC<Props> = ({
   } = useLiveHistoryPageDataManager({
     establishmentGroups,
     establishmentsData,
-    fetchBookingsAndPrivateBookings,
     getMemberVisitList,
     manualUpdateMemberVisitFromBroadcastChannel,
     memberVisitState,
     permissions,
     refreshMemberVisitAccessStatus,
+    retrieveMemberNextBookingOrPrivateBooking,
     setMemberVisitEntryStatus,
     theme,
   });
@@ -369,8 +356,7 @@ const LiveHistory: React.FC<Props> = ({
           <MemberVisitDetailsCard
             locationInformation={locationInformation}
             memberVisit={selectedMemberVisit}
-            // @ts-expect-error - correct booking type, from Booking to BookingREST
-            nextBooking={bookingAndPrivateBooking?.[0]}
+            nextBooking={memberNextBookingOrPrivateBooking}
             onAllowManualEntry={handleAllowManualEntry}
             onRefuseManualEntry={handleRefuseManualEntry}
             onMemberBillClick={handleMemberBillClick}
@@ -429,22 +415,24 @@ const useStyles = makeStyles((theme) => ({
 
 const connector = connect(
   (state: RootState) => ({
-    bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
     establishmentGroups: getAssociatedEstablishmentGroup(state),
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     isLoading: getMemberVisitLiveHistoryIsLoading(state),
     memberVisitList: getAllMemberVisits(state),
     memberVisitState: state.accessControl.memberVisit,
+    memberNextBookingOrPrivateBooking:
+      getMemberNextBookingOrPrivateBooking(state),
     permissions: getPermissions(state),
     theme: state.theme.theme,
   }),
   {
-    fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
     getMemberVisitList: getMemberVisitListAction,
     manualUpdateMemberVisitFromBroadcastChannel:
       manualUpdateMemberVisitFromBroadcastChannelAction,
     refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
+    retrieveMemberNextBookingOrPrivateBooking:
+      retrieveMemberNextBookingOrPrivateBookingAction,
     searchMembers: search,
     setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,
   },

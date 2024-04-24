@@ -14,10 +14,10 @@ import {
   getEstablishmentsSelectedInRole,
 } from '#libs/establishment/selectors';
 import {
+  getMemberNextBookingOrPrivateBooking,
   getMemberVisit,
   getMemberVisitIsLoading,
 } from '#libs/access-control/selectors';
-import { getAllBookingAndPrivateBooking } from '#libs/consumer-space/selectors';
 
 // Actions
 
@@ -26,11 +26,8 @@ import {
   checkMemberInEstablishment as checkMemberInEstablishmentAction,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
+  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
 } from '#libs/access-control/actions';
-import {
-  fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction,
-  BookingsAndPrivateBookingsTypeEnum,
-} from '#libs/consumer-space/actions';
 
 // Components
 
@@ -71,9 +68,9 @@ export const useMemberVisitPageDataManager = ({
   establishmentGroups,
   establishmentsData,
   establishmentsSelectedInRole,
-  fetchBookingsAndPrivateBookings,
-  refreshMemberVisitAccessStatus,
   memberVisitOverride,
+  refreshMemberVisitAccessStatus,
+  retrieveMemberNextBookingOrPrivateBooking,
   setMemberVisitEntryStatus,
   theme,
 }: Pick<
@@ -82,9 +79,9 @@ export const useMemberVisitPageDataManager = ({
   | 'establishmentGroups'
   | 'establishmentsData'
   | 'establishmentsSelectedInRole'
-  | 'fetchBookingsAndPrivateBookings'
-  | 'refreshMemberVisitAccessStatus'
   | 'memberVisitOverride'
+  | 'refreshMemberVisitAccessStatus'
+  | 'retrieveMemberNextBookingOrPrivateBooking'
   | 'setMemberVisitEntryStatus'
   | 'theme'
 >) => {
@@ -118,15 +115,9 @@ export const useMemberVisitPageDataManager = ({
   // Fetch member data after check-in
   useEffect(() => {
     if (memberVisit?.member?.id) {
-      fetchBookingsAndPrivateBookings({
-        member: memberVisit.member.id,
-        date_start: null,
-        type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
-        mine: false,
-        forceRefetch: true,
-      });
+      retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
     }
-  }, [fetchBookingsAndPrivateBookings, memberVisit?.member?.id]);
+  }, [retrieveMemberNextBookingOrPrivateBooking, memberVisit?.member?.id]);
 
   /** -------------- HANDLERS --------------- */
 
@@ -173,18 +164,12 @@ export const useMemberVisitPageDataManager = ({
         }
       },
     });
-    fetchBookingsAndPrivateBookings({
-      member: memberVisit.member.id,
-      date_start: null,
-      type: BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly,
-      mine: false,
-      forceRefetch: true,
-    });
+    retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
   }, [
     refreshMemberVisitAccessStatus,
     sendToAccessControlBroadcastChannel,
     memberVisit,
-    fetchBookingsAndPrivateBookings,
+    retrieveMemberNextBookingOrPrivateBooking,
   ]);
 
   // Member check-in
@@ -278,15 +263,15 @@ export const useMemberVisitPageDataManager = ({
 
 const MemberVisit: React.FC<Props> = React.memo(
   ({
-    bookingAndPrivateBooking,
     checkMemberInEstablishment,
     establishmentGroups,
     establishmentsData,
     establishmentsSelectedInRole,
-    fetchBookingsAndPrivateBookings,
+    memberNextBookingOrPrivateBooking,
     memberVisitIsLoading,
     memberVisitOverride,
     refreshMemberVisitAccessStatus,
+    retrieveMemberNextBookingOrPrivateBooking,
     searchMembers,
     setMemberVisitEntryStatus,
     theme,
@@ -317,9 +302,9 @@ const MemberVisit: React.FC<Props> = React.memo(
       establishmentGroups,
       establishmentsData,
       establishmentsSelectedInRole,
-      fetchBookingsAndPrivateBookings,
       memberVisitOverride,
       refreshMemberVisitAccessStatus,
+      retrieveMemberNextBookingOrPrivateBooking,
       setMemberVisitEntryStatus,
       theme,
     });
@@ -359,8 +344,7 @@ const MemberVisit: React.FC<Props> = React.memo(
             <MemberVisitDetailsCard
               isLoading={memberVisitIsLoading}
               memberVisit={memberVisit}
-              // @ts-expect-error
-              nextBooking={bookingAndPrivateBooking?.[0]}
+              nextBooking={memberNextBookingOrPrivateBooking}
               onAllowManualEntry={handleAllowManualEntry}
               onMemberBillClick={handleMemberBillClick}
               onMemberProfileClick={handleMemberProfileClick}
@@ -403,20 +387,22 @@ type WithQueryParamsProps = OwnProps & {
 const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
   const { memberVisitOverrideId } = props;
   return {
-    bookingAndPrivateBooking: getAllBookingAndPrivateBooking(state),
     establishmentGroups: getAssociatedEstablishmentGroup(state),
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     memberVisitIsLoading: getMemberVisitIsLoading(state),
     memberVisitOverride: getMemberVisit(state, memberVisitOverrideId),
+    memberNextBookingOrPrivateBooking:
+      getMemberNextBookingOrPrivateBooking(state),
     theme: state.theme.theme,
   };
 };
 
 const mapDispatchToProps = {
   checkMemberInEstablishment: checkMemberInEstablishmentAction,
-  fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
   refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
+  retrieveMemberNextBookingOrPrivateBooking:
+    retrieveMemberNextBookingOrPrivateBookingAction,
   searchMembers: search,
   setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,
 };

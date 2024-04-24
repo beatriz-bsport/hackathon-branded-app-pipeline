@@ -7,7 +7,6 @@ import { IconButton, Typography } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-import type { SpotInformation } from '#libs/spot-scheduling/types';
 import type { Props as MemberVisitDetailsCardProps } from './MemberVisitDetailsCard.component';
 
 const MemberVisitDetailsCardBookingSection: React.FC<
@@ -23,13 +22,15 @@ const MemberVisitDetailsCardBookingSection: React.FC<
     return <Typography color="textSecondary">{t('common:None')}</Typography>;
   }
 
-  const { type, booking, privateBooking } = nextBooking;
+  const {
+    booking_type,
+    booking,
+    private_booking: privateBooking,
+  } = nextBooking;
 
-  switch (type) {
+  switch (booking_type) {
     case 'booking': {
-      // @ts-expect-error TODO: Fixed in next commit
-      const { spot_information, coach_name } = booking;
-      const { name: spotName } = spot_information as SpotInformation;
+      const { spot_name: spotName, coach_name } = booking;
 
       const displayDropDownArrow = !!spotName || !!coach_name;
 
@@ -47,7 +48,6 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               )}
             </div>
             <Typography color="textSecondary" variant="caption">
-              {/* @ts-expect-error TODO: Fixed in next commit */}
               {booking.establishment_name}
             </Typography>
             <Typography color="textSecondary" variant="caption">
@@ -77,8 +77,7 @@ const MemberVisitDetailsCardBookingSection: React.FC<
         </div>
       );
     }
-    case 'privateBooking': {
-      // @ts-expect-error TODO: Fixed in next commit
+    case 'private_booking': {
       const { establishment_name, coach_name, date_start, is_at_home, name } =
         privateBooking;
 

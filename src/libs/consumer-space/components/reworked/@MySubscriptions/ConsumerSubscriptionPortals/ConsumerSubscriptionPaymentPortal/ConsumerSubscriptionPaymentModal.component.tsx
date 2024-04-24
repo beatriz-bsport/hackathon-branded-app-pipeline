@@ -69,7 +69,8 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
           classes={{
             content: 'bs-consumer-subscription-payment-modal__content',
           }}
-          isSubmitLoading={!selectedPaymentMethodId || isProcessing}
+          isConfirmButtonDisabled={!selectedPaymentMethodId}
+          isSubmitLoading={isProcessing}
           onCancel={handleClose}
           onClose={selectedSubscription && handleClose}
           onConfirm={

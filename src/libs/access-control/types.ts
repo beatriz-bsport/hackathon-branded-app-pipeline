@@ -80,6 +80,26 @@ export type AccessControlPolicy = {
   booked_session_time_interval_after_visit: string;
 };
 
+export type AccessControlBookingOrPrivateBooking = {
+  booking_type: 'booking' | 'private_booking';
+  booking?: {
+    id: number;
+    name: string;
+    offer_date_start: string;
+    coach_name: string;
+    establishment_name: string;
+    spot_name: string;
+  };
+  private_booking?: {
+    id: number;
+    name: string;
+    date_start: string;
+    coach_name: string;
+    establishment_name: string;
+    is_at_home: boolean;
+  };
+};
+
 /** COMMON TYPES */
 
 // TODO: Update
@@ -101,6 +121,9 @@ type StoreSection<ObjectType> = {
 export type AccessControlState = {
   memberVisit: StoreSection<MemberVisitREST>;
   policy: { policy: AccessControlPolicy } & ErrorAndLoading;
+  nextBookingOrPrivateBooking: {
+    bookingOrPrivateBooking?: AccessControlBookingOrPrivateBooking;
+  } & ErrorAndLoading;
 };
 
 /** OTHER TYPES */

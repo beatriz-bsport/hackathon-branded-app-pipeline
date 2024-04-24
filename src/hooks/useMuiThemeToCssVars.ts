@@ -290,6 +290,7 @@ export const useMuiThemeToCssVars = () => {
     /* FABRIQUE SPACING */
     --bs-space-size-1: 4px;
     --bs-space-size-2: 8px;
+    --bs-space-size-4: 16px;
     --bs-space-size-5: 20px;
 
     /* FABRIQUE BORDER RADIUS */
@@ -305,6 +306,11 @@ export const useMuiThemeToCssVars = () => {
     --bs-border-width-thin: 1px;
     --bs-border-width-regular: 2px;
     --bs-border-width-bold: 4px;
+
+    /* FABRIQUE BORDER SHADOW */
+    --bs-border-shadow-thin: 0px 0px 0px var(--bs-border-width-thin);
+    --bs-border-shadow-regular: 0px 0px 0px var(--bs-border-width-regular);
+    --bs-border-shadow-bold: 0px 0px 0px var(--bs-border-width-bold);
 
     /* FABRIQUE TYPOGRAPHY */
     --bs-font-family : "Hanken Grotesk", sans-serif;
@@ -325,6 +331,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-s:  0px 2px 6px rgba(0, 0, 0, 0.08), 0px 0px 6px rgba(0, 0, 0, 0.02);
     --bs-shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
+    --bs-shadow-xl: 0px 16px 24px -8px rgba(75, 83, 81, 0.32);
     --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
     --bs-border-shadow: inset 0px 0px 0px;
     
@@ -530,6 +537,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-border-light-focused: var(--bs-grey-alpha-500a);
     --bs-color-border-weak: var(--bs-grey-alpha-300a);
     --bs-color-border-strong: var(--bs-grey-800);
+    --bs-color-border-stronger: var(--bs-grey-900);
     --bs-color-border-inverse-default: var(--bs-grey-0);
     --bs-color-border-disabled: var(--bs-grey-alpha-400a);
     --bs-color-border-status-info-strong: var(--bs-blue-800);

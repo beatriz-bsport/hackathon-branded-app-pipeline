@@ -23,5 +23,5 @@
 }
 
 .bs-consumer-card-description__collapse__text {
-  white-space: pre-line;
+  white-space: pre-wrap;
 }

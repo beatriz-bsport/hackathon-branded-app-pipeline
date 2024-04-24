@@ -10,6 +10,8 @@ import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 
+import './styles.css';
+
 type Props = {
   cancelLabel: string;
   enabledPaymentGroupMethodIdentifierIds: number[];
@@ -64,6 +66,9 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
       >
         <ModalDialog
           cancelLabel={switchSucceeded && cancelLabel}
+          classes={{
+            content: 'bs-consumer-subscription-payment-modal__content',
+          }}
           isSubmitLoading={!selectedPaymentMethodId || isProcessing}
           onCancel={handleClose}
           onClose={selectedSubscription && handleClose}

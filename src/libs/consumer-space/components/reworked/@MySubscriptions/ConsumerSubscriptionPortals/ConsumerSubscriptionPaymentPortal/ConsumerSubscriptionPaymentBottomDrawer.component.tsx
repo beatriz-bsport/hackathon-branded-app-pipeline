@@ -59,7 +59,7 @@ const ConsumerSubscriptionPaymentBottomDrawer: React.FC<Props> = ({
       className="bs-consumer-booking-details-drawer__root"
       modalDialogProps={{
         classes: {
-          content: 'bs-consumer__subscription__modal-dialog__content',
+          content: 'bs-consumer-subscription-payment-modal__content',
         },
         isSubmitLoading: !selectedPaymentMethodId || isProcessing,
         title,

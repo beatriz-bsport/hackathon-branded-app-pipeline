@@ -47,7 +47,7 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('shop');
 
-  const { isValid, errors } =
+  const { isValid, errors, dirty } =
     useFormikContext<ShopItemInventoryBulkUpdateFormValues>();
 
   const classes = useStyles();
@@ -64,7 +64,7 @@ const ShopItemInventoryBulkUpdateForm: React.FC<Props> = ({
 
           <Button
             color="primary"
-            disabled={isUpdatingVariant || !isValid}
+            disabled={isUpdatingVariant || !isValid || !dirty}
             type="submit"
             variant="contained"
           >

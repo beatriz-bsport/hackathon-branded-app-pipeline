@@ -46,7 +46,7 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
     () => ({
       [ShopItemDetailInventoryFormType.STANDALONE]: {
         currentStock: shopItem?.current_stock ?? 0,
-        stockAdjustment: null,
+        stockAdjustment: '',
         totalSales: shopItem?.total_sales ?? 0,
       },
       [ShopItemDetailInventoryFormType.VARIANTS]: {
@@ -55,7 +55,7 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
           color: shopItemVariant.color,
           size: shopItemVariant.size,
           currentStock: shopItemVariant.current_stock ?? 0,
-          stockAdjustment: null,
+          stockAdjustment: '',
           totalSales: shopItemVariant.total_sales ?? 0,
         })),
       },

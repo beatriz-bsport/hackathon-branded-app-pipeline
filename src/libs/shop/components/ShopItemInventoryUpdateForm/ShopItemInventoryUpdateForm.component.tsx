@@ -18,7 +18,7 @@ import type { ShopItemInventoryFormValues } from './types';
 const ShopItemInventoryUpdateForm: React.FC = () => {
   const { t } = useTranslation('shop');
 
-  const { values, errors, isValid, handleChange } =
+  const { values, errors, isValid, dirty, handleChange } =
     useFormikContext<ShopItemInventoryFormValues>();
 
   const classes = useStyles();
@@ -35,7 +35,7 @@ const ShopItemInventoryUpdateForm: React.FC = () => {
 
           <Button
             color="primary"
-            disabled={!isValid}
+            disabled={!isValid || !dirty}
             type="submit"
             variant="contained"
           >
@@ -66,6 +66,7 @@ const ShopItemInventoryUpdateForm: React.FC = () => {
                   name="stockAdjustment"
                   onChange={handleChange}
                   placeholder="0"
+                  value={values.stockAdjustment}
                 />
               </TableCell>
               <TableCell>{values.totalSales}</TableCell>

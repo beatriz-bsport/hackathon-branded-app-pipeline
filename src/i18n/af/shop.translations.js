@@ -67,8 +67,8 @@ exports.default = {
   startingAtWithPrice: 'Starting at {{price}}',
   variantCount: '{{count}} variant',
   variantCount_plural: '{{count}} variants',
-  saveVariantCount: 'Save {{count}} variant',
-  saveVariantCount_plural: 'Save {{count}} variants',
+  addVariantCount: 'Add {{count}} variant',
+  addVariantCount_plural: 'Add {{count}} variants',
   saveProductWithVariantCount: 'Save a product with {{count}} variant',
   saveProductWithVariantCount_plural: 'Save a product with {{count}} variants',
   duplicateVariantWarning:

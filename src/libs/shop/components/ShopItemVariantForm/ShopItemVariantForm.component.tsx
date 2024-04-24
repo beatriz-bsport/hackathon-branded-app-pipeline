@@ -74,7 +74,7 @@ const ShopItemVariantForm: React.FC<Props> = ({
 
       return {
         submitLabel: shopItemVariantCombinationList.length
-          ? t('saveVariantCount', {
+          ? t('addVariantCount', {
               count:
                 shopItemVariantCombinationList.length -
                 duplicatedCombinationList.length,

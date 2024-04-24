@@ -80,9 +80,18 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
 
       for (let index = 0; index < values.variants.length; index += 1) {
         const variantValues = values.variants[index];
-        if (typeof variantValues.cover !== 'string') {
+        /**
+         * When a variant has no image, cover will always be null
+         * If we did change the image in the form the type is an instance of File
+         * If the variant already has an image uploaded type will be a string
+         */
+        if (
+          variantValues.cover instanceof File &&
+          variantValues.cover !== null
+        ) {
           formData.append(`covers[${index}]`, variantValues.cover);
         }
+
         formData.append(
           `variants_data[${index}]`,
           JSON.stringify({

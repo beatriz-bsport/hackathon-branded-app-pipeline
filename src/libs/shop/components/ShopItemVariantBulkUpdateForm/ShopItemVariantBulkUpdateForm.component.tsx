@@ -61,7 +61,18 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                         type="file"
                       />
                       <label htmlFor={`variant-cover-input-${index}`}>
-                        {typeof values.variants?.[index]?.cover !== 'string' ? (
+                        {typeof values.variants?.[index]?.cover !== 'object' ||
+                        values.variants?.[index]?.cover === null ? (
+                          <Button
+                            color="primary"
+                            component="span"
+                            size="small"
+                            startIcon={<PhotoLibraryIcon />}
+                            variant="outlined"
+                          >
+                            {t('shopItemDetail.table.variants.upload')}
+                          </Button>
+                        ) : (
                           <Tooltip title={field.value?.name ?? ''}>
                             <Chip
                               clickable
@@ -74,16 +85,6 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                               variant="outlined"
                             />
                           </Tooltip>
-                        ) : (
-                          <Button
-                            color="primary"
-                            component="span"
-                            size="small"
-                            startIcon={<PhotoLibraryIcon />}
-                            variant="outlined"
-                          >
-                            {t('shopItemDetail.table.variants.upload')}
-                          </Button>
                         )}
                       </label>
                     </>

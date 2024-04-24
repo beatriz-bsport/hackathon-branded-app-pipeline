@@ -17,7 +17,10 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
 import CustomFormConsumerInput from './CustomFormField.input';
-import { CUSTOM_FORM_FIELDS_WITH_CHOICES } from '../../utils';
+import {
+  CUSTOM_FORM_FIELDS_WITH_CHOICES,
+  SIGNUP_CHECKBOX_FIELDS,
+} from '#libs/custom-form/utils';
 import type {
   CustomFormField,
   CustomFormFieldAnswer,
@@ -206,16 +209,29 @@ export const ConsumerFormFieldsHOC = withFormik({
       return {
         ...initialWithAnswer,
         custom_form_field: initialWithAnswer.custom_form_field?.map(
-          (field: CustomFormFieldAnswer) => ({
-            ...field,
-            // eslint-disable-next-line
-            answer: field.answer
-              ? field.answer
-              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
-                field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
-              ? []
-              : null,
-          }),
+          (field: CustomFormFieldAnswer) => {
+            let answer: string | boolean | any[] | null = field.answer;
+            if (answer) {
+              if (SIGNUP_CHECKBOX_FIELDS.includes(field.signup_question_kind)) {
+                answer = answer === 'True';
+              }
+              return {
+                ...field,
+                answer: answer,
+              };
+            }
+
+            if (
+              CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
+              field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
+            ) {
+              answer = [];
+            } else
+              return {
+                ...field,
+                answer: answer,
+              };
+          },
         ),
       };
     }
@@ -223,16 +239,28 @@ export const ConsumerFormFieldsHOC = withFormik({
       return {
         ...initial,
         custom_form_field: initial.custom_form_field?.map(
-          (field: CustomFormFieldAnswer) => ({
-            ...field,
-            // eslint-disable-next-line
-            answer: field.answer
-              ? field.answer
-              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
-                field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
-              ? []
-              : null,
-          }),
+          (field: CustomFormFieldAnswer) => {
+            let answer: boolean | any[] | null;
+            if (field.answer) {
+              answer = field.answer;
+            } else if (
+              SIGNUP_CHECKBOX_FIELDS.includes(field.signup_question_kind)
+            ) {
+              answer = false;
+            } else if (
+              CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
+              field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
+            ) {
+              answer = [];
+            } else {
+              answer = null;
+            }
+
+            return {
+              ...field,
+              answer: answer,
+            };
+          },
         ),
       };
     }

@@ -447,7 +447,10 @@ import {
   CONSUMER_INVOICE_CARD_CONFIGURATION,
   CONSUMER_INVOICE_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
-
+import {
+  FABRIQUE_TOOLTIP_PREVIEW,
+  FABRIQUE_TOOLTIP_CONFIGURATION,
+} from '#components/css-only/Fabrique/Tooltipv2/custom_css_variant';
 /* TEMPLATE
 
 {
@@ -557,6 +560,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_SELECTOR_CONFIGURATION,
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
         FABRIQUE_BIGICON_CONFIGURATION,
+        FABRIQUE_TOOLTIP_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
@@ -755,6 +759,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_BOTTOM_DRAWER_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFORM]:
         FABRIQUE_TEXTFORM_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_TOOLTIP]:
+        FABRIQUE_TOOLTIP_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR_INPUT]:
         FABRIQUE_SELECTOR_INPUT_PREVIEW,

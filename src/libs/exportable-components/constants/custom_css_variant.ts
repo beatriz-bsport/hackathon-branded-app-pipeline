@@ -113,6 +113,7 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_MODAL_DIALOG = 'fabrique_modal_dialog',
   FABRIQUE_BOTTOM_DRAWER = 'fabrique_bottom_drawer',
   FABRIQUE_TEXTFORM = 'fabrique_textform',
+  FABRIQUE_TOOLTIP = 'fabrique_tooltip',
   FABRIQUE_BIGICON = 'fabrique_big_icon',
   SELECTOR = 'selector',
   SELECTOR_INPUT = 'selector_input',

@@ -56,6 +56,7 @@ type BaseProps<T extends OptionTypeBase> = {
   isDisabled?: boolean;
   isMenuListVirtualized?: boolean;
   isSearchable?: boolean;
+  isLoading?: boolean;
   leftIcon?: React.ReactNode;
   withoutPortal?: Boolean;
   defaultNumberShown?: number;
@@ -76,6 +77,8 @@ type BaseProps<T extends OptionTypeBase> = {
   filterOption?: (option: T, inputValue: string) => boolean;
   openMenuOnFocus?: boolean;
   openMenuOnClear?: boolean;
+  onMenuOpen?: () => void;
+  onMeuClose?: () => void;
   closeMenuOnSelect?: boolean;
   withoutNullValues?: boolean;
   /** Placeholder to display when all the options available are selected */

@@ -152,7 +152,9 @@ const ShopItemDetailSettingsTab: React.FC<Props> = ({
             {t('shopItemDetail.table.settings.vat')}
           </Typography>
           <div className={classes.listItemValue}>
-            {t('shopItemDetail.table.settings.vatValue', { vat: tva })}
+            {t('shopItemDetail.table.settings.vatValue', {
+              vat: parseFloat(tva ?? '0').toFixed(2),
+            })}
           </div>
         </ListItem>
 

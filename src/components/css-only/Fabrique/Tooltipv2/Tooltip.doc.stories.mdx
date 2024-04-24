@@ -1,0 +1,89 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as TooltipStories from './Tooltip.stories'
+
+import {TooltipStorybook as Tooltip} from '.'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/Tooltip/Doc" component={Tooltip} /> 
+
+# Tooltip
+
+## Description 
+
+The `Tooltip` component is used to display informative text when users hover over an element. 
+
+### Positioning
+
+Follows the Menu component positioning logic. It's positioned relative to the children component
+of the tooltip. 
+
+It can be customized thanks to the properties `anchorOriginHorizontal`,  `anchorOriginVertical`, `transformOriginHorizontal` and `transformOriginVertical` 
+Some positions are showcased below but you can customize it even in more to get the position you want.
+
+### Coloring 
+
+Two options for coloring are provided, the `default` also label as `weak` and `strong`.
+It's also possible to override those colors by providing the `className` prop. 
+
+
+#### Default color
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--defaultcolor" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--defaultcolor" />
+
+#### Strong color
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--strongcolor" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--strongcolor" />
+
+#### Top left
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--topleft" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--topleft" />
+
+#### Top right
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--topright" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--topright" />
+
+#### Bottom left
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--bottomleft" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--bottomleft" />
+
+#### Bottom right
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-tooltip-stories--bottomright" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-tooltip-stories--bottomright" />

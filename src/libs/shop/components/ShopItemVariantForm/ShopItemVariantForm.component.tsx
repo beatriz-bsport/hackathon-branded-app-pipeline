@@ -95,6 +95,10 @@ const ShopItemVariantForm: React.FC<Props> = ({
       {({ values }) => (
         <Form noValidate className={classes.form}>
           <ShopItemFormVariantStep
+            isSubmitDisabled={
+              (values.colors ?? []).length === 0 &&
+              (values.sizes ?? []).length === 0
+            }
             onCancel={onCancel}
             submitLabel={
               getVariantFormVariantData(values.colors, values.sizes).submitLabel

@@ -14,6 +14,7 @@ import type { ShopItemFormValues, ShopItemVariantOption } from './types';
 type Props = {
   warningMessage?: string;
   submitLabel?: string;
+  isSubmitDisabled?: boolean;
   handlePreviousStep?: () => void;
   onCancel?: () => void;
 };
@@ -21,6 +22,7 @@ type Props = {
 const ShopItemFormVariantStep: React.FC<Props> = ({
   warningMessage,
   submitLabel,
+  isSubmitDisabled,
   handlePreviousStep,
   onCancel,
 }) => {
@@ -111,7 +113,7 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
         {!!onCancel && <Button onClick={onCancel}>{t('common:cancel')}</Button>}
         <Button
           color="primary"
-          disabled={!isValid}
+          disabled={!isValid || isSubmitDisabled}
           type="submit"
           variant="contained"
         >

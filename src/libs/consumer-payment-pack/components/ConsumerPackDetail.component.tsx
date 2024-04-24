@@ -9,8 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
-import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
 // @ts-expect-error
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
@@ -265,11 +263,9 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
             {props.consumerPack.track_modified_credit.map((modifiedCredit) => (
               <ListItem dense divider>
                 <ListItemIcon>
-                  {modifiedCredit[1] > 0 ? (
-                    <ExposurePlus1Icon />
-                  ) : (
-                    <ExposureNeg1Icon />
-                  )}
+                  {modifiedCredit[1] > 0
+                    ? `+\u00A0${modifiedCredit[1]}`
+                    : modifiedCredit[1]}
                 </ListItemIcon>
                 <ListItemText
                   primary={`${DateTime.fromSeconds(modifiedCredit[0])

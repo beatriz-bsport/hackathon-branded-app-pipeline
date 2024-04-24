@@ -37,6 +37,7 @@ const ConsumerSubscriptionTermsBottomDrawer: React.FC<Props> = ({
         ),
         onClose,
         onCancel: onClose,
+        confirmLabel: t('reworked.mySubscriptions.download'),
         onConfirm: onDownloadClick,
         classes: {
           content: 'bs-consumer__subscription__modal-dialog__content',

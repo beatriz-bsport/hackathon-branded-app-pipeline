@@ -9,9 +9,8 @@ import {
   LIST_ITEM_HEIGHT,
   SubscriptionTabEnum,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import { formatAsDate } from '#utils/datetime';
-
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import { formatAsDate } from '#utils/datetime';
 
 export const getSubscriptionRecurrenceLabel = (
   recurrence: number,
@@ -132,15 +131,16 @@ export const mobileDetailsDisplay = <MobileContent, DesktopContent>(
 export const informationBasedOnCouponApplied = (
   subscription: SubscriptionREST,
   informationToRetrieve: string,
-) =>
-  subscription &&
-  !subscription.has_been_renewed &&
-  subscription.auto_renewal &&
-  parseFloat(subscription.voucher) !== 0 &&
-  subscription.recurrent_price !== subscription.price_to_display_cts
+) => {
+  if (!subscription) return null;
+  return !subscription.has_been_renewed &&
+    subscription.auto_renewal &&
+    parseFloat(subscription.voucher) === 0 &&
+    subscription.recurrent_price !==
+      (subscription.price_to_display_cts / 100).toFixed(2)
     ? informationToRetrieve
     : null;
-
+};
 /** If a "all before first renewal" coupon was applied, we display some informations */
 export const getSubscriptionTextBasedOnCouponApplied = (
   lastInvoiceDateBeforeRenewal: string,
@@ -153,6 +153,10 @@ export const getSubscriptionTextBasedOnCouponApplied = (
     return '';
   }
 
+  const formattedLastInvoiceDateBeforeRenewal = formatAsDate(
+    lastInvoiceDateBeforeRenewal,
+  );
+
   return recurrence === 1
     ? t(
         'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPricePer',
@@ -162,7 +166,7 @@ export const getSubscriptionTextBasedOnCouponApplied = (
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },
           ),
-          date: lastInvoiceDateBeforeRenewal,
+          date: formattedLastInvoiceDateBeforeRenewal,
         },
       )
     : t(
@@ -174,7 +178,7 @@ export const getSubscriptionTextBasedOnCouponApplied = (
             { count: recurrence },
           ),
           recurrence,
-          date: lastInvoiceDateBeforeRenewal,
+          date: formattedLastInvoiceDateBeforeRenewal,
         },
       );
 };

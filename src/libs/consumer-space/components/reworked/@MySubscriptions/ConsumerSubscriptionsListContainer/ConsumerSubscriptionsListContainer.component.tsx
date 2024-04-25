@@ -160,9 +160,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
                 isSelected={item.id === selectedSubscription?.id}
                 onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
                 onDetailsClick={onCardDetailsClick(item.id)}
-                price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(
-                  2,
-                )}
+                price={(item?.price_to_display_cts / 100).toFixed(2)}
                 recurrence={item?.recurrence_basis}
                 subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
                 subscriptionInterval={item?.interval}
@@ -207,7 +205,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         joiningFee={selectedSubscription?.flat_fee}
         lastInvoiceDateBeforeRenewal={informationBasedOnCouponApplied(
           selectedSubscription,
-          selectedSubscription?.last_billing_date,
+          formatAsDate(selectedSubscription?.last_billing_date),
         )}
         onPaymentMethodActionClick={handlePaymentModalOpen}
         onSeeClick={onSeeTermsClick}

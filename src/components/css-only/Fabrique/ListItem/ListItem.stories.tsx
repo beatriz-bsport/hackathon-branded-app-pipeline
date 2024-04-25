@@ -3,7 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ListItemStorybook } from '.';
 import { ListItemSizeEnum, ListItemTypeEnum } from './constants';
-import { ArrowBlockLeft } from '#components/untitledui';
+import { ArrowBlockLeft, FileDownload02 } from '#components/untitledui';
+import IconButton from '../IconButton';
 
 const ListItemStorybookTemplate: ComponentStory<typeof ListItemStorybook> = (
   args,
@@ -21,6 +22,14 @@ const ListItemStorybookNotTextTemplate: ComponentStory<
       isSelected={isSelected}
       {...args}
     />
+  );
+};
+
+const ListIconButton: React.FC = () => {
+  return (
+    <IconButton size="md" color="grey" variant="outlined">
+      <FileDownload02 />
+    </IconButton>
   );
 };
 
@@ -71,6 +80,12 @@ Listitemclickabletexticon.args = {
   ...defaultArgs,
   type: ListItemTypeEnum.CLICKABLETEXT,
   icon: <ArrowBlockLeft />,
+};
+
+export const Listitemwithrightslot = ListItemStorybookTemplate.bind({});
+Listitemwithrightslot.args = {
+  ...defaultArgs,
+  rightSlot: <ListIconButton />,
 };
 
 export default {

@@ -213,9 +213,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         onSeeClick={onSeeTermsClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
         paymentMethodType={paymentMethodUsed?.type}
-        price={(
-          parseFloat(selectedSubscription?.price_to_display_cts) / 100
-        ).toFixed(2)}
+        price={(selectedSubscription?.price_to_display_cts / 100).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
         recurrentPrice={informationBasedOnCouponApplied(

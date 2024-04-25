@@ -361,7 +361,7 @@ export type SubscriptionREST = {
   payment_method: SubscriptionPaymentMethod;
   payment_pack: number;
   planned_invoices: number[] | null;
-  price_to_display_cts: string;
+  price_to_display_cts: number;
   private_pass: number | null;
   recurrence_basis: number;
   recurrent_price: string;

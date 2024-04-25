@@ -51,7 +51,7 @@ import type { RootState } from '../../reducers';
 
 // Hooks / hocs
 
-import { useAccessControlBroadcastChannel } from '#libs/broadcast-channel/hooks';
+import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
 import type { MemberVisitREST } from '#libs/access-control/types';
@@ -101,7 +101,7 @@ export const useMemberVisitPageDataManager = ({
 
   /** -------------- HOOKS --------------- */
 
-  const sendToAccessControlBroadcastChannel = useAccessControlBroadcastChannel(
+  const sendToBroadcastChannel = useBroadcastChannel(
     (_memberVisit: MemberVisitREST) => {
       if (_memberVisit) {
         setMemberVisit(_memberVisit);
@@ -155,7 +155,7 @@ export const useMemberVisitPageDataManager = ({
   const handleRefreshMemberVisitAccessStatus = useCallback(() => {
     refreshMemberVisitAccessStatus(memberVisit.id, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToAccessControlBroadcastChannel(data);
+        sendToBroadcastChannel(data);
         if (
           data.access_status !== data.initial_access_status &&
           data.access_status === AccessStatus.GREEN
@@ -167,7 +167,7 @@ export const useMemberVisitPageDataManager = ({
     retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
   }, [
     refreshMemberVisitAccessStatus,
-    sendToAccessControlBroadcastChannel,
+    sendToBroadcastChannel,
     memberVisit,
     retrieveMemberNextBookingOrPrivateBooking,
   ]);
@@ -184,7 +184,7 @@ export const useMemberVisitPageDataManager = ({
         },
         {
           onSuccess: (data: MemberVisitREST) => {
-            sendToAccessControlBroadcastChannel(data);
+            sendToBroadcastChannel(data);
             setMemberVisit(data);
           },
         },
@@ -194,7 +194,7 @@ export const useMemberVisitPageDataManager = ({
     [
       establishmentsSelectedInRole,
       checkMemberInEstablishment,
-      sendToAccessControlBroadcastChannel,
+      sendToBroadcastChannel,
     ],
   );
 
@@ -203,30 +203,22 @@ export const useMemberVisitPageDataManager = ({
   const handleAllowManualEntry = useCallback(() => {
     setMemberVisitEntryStatus(memberVisit.id, EntryStatus.ENTERED, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToAccessControlBroadcastChannel(data);
+        sendToBroadcastChannel(data);
         setMemberVisit(data);
         setShowEntryStatusChangedModal(true);
       },
     });
-  }, [
-    memberVisit,
-    setMemberVisitEntryStatus,
-    sendToAccessControlBroadcastChannel,
-  ]);
+  }, [memberVisit, setMemberVisitEntryStatus, sendToBroadcastChannel]);
 
   const handleRefuseManualEntry = useCallback(() => {
     setMemberVisitEntryStatus(memberVisit.id, EntryStatus.NOT_ENTERED, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToAccessControlBroadcastChannel(data);
+        sendToBroadcastChannel(data);
         setMemberVisit(data);
         setShowEntryStatusChangedModal(true);
       },
     });
-  }, [
-    memberVisit,
-    setMemberVisitEntryStatus,
-    sendToAccessControlBroadcastChannel,
-  ]);
+  }, [memberVisit, setMemberVisitEntryStatus, sendToBroadcastChannel]);
 
   const {
     showLocationBlocker,

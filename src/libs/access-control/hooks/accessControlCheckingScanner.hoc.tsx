@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { useAccessControlBroadcastChannel } from '#libs/broadcast-channel/hooks';
+import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useNumericCodeScanner } from './codeScanning';
 import {
   getPerformAccessMonitoringUrl,
@@ -39,8 +39,7 @@ export const withAccessControlCheckInScanner = (
       permissions?: RolePermission;
     }
   >) => {
-    const sendToAccessControlBroadcastChannel =
-      useAccessControlBroadcastChannel();
+    const sendToBroadcastChannel = useBroadcastChannel();
 
     const pathName = browserLocation?.pathname ?? '';
     // If the user is on the access monitoring page, the snackbar should not be displayed.
@@ -60,14 +59,14 @@ export const withAccessControlCheckInScanner = (
           },
           {
             onSuccess: (data: MemberVisitREST) => {
-              sendToAccessControlBroadcastChannel?.(data);
+              sendToBroadcastChannel?.(data);
             },
           },
         );
       },
       [
         checkMemberInEstablishment,
-        sendToAccessControlBroadcastChannel,
+        sendToBroadcastChannel,
         displaySnackbar,
         establishmentsSelectedInRole,
       ],

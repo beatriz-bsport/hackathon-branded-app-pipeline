@@ -1,21 +1,15 @@
 import React from 'react';
 
-import { useAccessControlBroadcastChannel } from './hooks';
+import { useBroadcastChannel } from './hooks';
 
-export const withAccessControlBroadcastChannel = <T extends {}>(
+export const withSendToBroadcastChannel = <T extends {}>(
   Component: React.ComponentType<T>,
 ) => {
   return React.memo((props: React.PropsWithChildren<T>) => {
-    const sendToAccessControlBroadcastChannel =
-      useAccessControlBroadcastChannel();
+    const sendToBroadcastChannel = useBroadcastChannel();
 
     return (
-      <Component
-        {...props}
-        sendToAccessControlBroadcastChannel={
-          sendToAccessControlBroadcastChannel
-        }
-      />
+      <Component {...props} sendToBroadcastChannel={sendToBroadcastChannel} />
     );
   });
 };

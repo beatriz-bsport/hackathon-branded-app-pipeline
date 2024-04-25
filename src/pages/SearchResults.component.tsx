@@ -46,7 +46,7 @@ import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
-import { withAccessControlBroadcastChannel } from '#libs/broadcast-channel/hocs';
+import { withSendToBroadcastChannel } from '#libs/broadcast-channel/hocs';
 import type { MemberVisitREST } from '#libs/access-control/types';
 
 type Props = {
@@ -66,7 +66,7 @@ type Props = {
   searchText: string;
   permissions: RolePermission;
   searchForTextInArchive: (tex: string) => void;
-  sendToAccessControlBroadcastChannel: (message: any) => void;
+  sendToBroadcastChannel: (message: any) => void;
 };
 
 type State = {
@@ -213,7 +213,7 @@ export class SearchResults extends React.Component<Props, State> {
       },
       {
         onSuccess: (data: MemberVisitREST) => {
-          this.props.sendToAccessControlBroadcastChannel(data);
+          this.props.sendToBroadcastChannel(data);
         },
       },
     );
@@ -394,5 +394,5 @@ export default compose(
     searchText: getSearchText(state, location),
   })),
   withTitle(({ t }: { t: TFunction }) => t('titles:searchResults')),
-  withAccessControlBroadcastChannel,
+  withSendToBroadcastChannel,
 )(SearchResults);

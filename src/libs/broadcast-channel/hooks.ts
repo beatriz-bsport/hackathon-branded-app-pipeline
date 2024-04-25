@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { getAccessControlBroadcastsChannelId } from '../../http';
 
-export const useAccessControlBroadcastChannel = (
+export const useBroadcastChannel = (
   onMessageCallback?: (data: any) => void,
 ) => {
   // Create a BroadcastChannel instance

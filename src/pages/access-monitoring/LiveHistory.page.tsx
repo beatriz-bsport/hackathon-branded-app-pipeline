@@ -47,7 +47,7 @@ import type { RootState } from 'src/reducers';
 import type { MemberVisitREST } from '#libs/access-control/types';
 
 /** HOOKS */
-import { useAccessControlBroadcastChannel } from '#libs/broadcast-channel/hooks';
+import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 import { formatLocationString } from '#libs/access-control/utils';
 
@@ -124,7 +124,7 @@ const useLiveHistoryPageDataManager = ({
 
   /** HOOKS */
 
-  const sendToAccessControlBroadcastChannel = useAccessControlBroadcastChannel(
+  const sendToBroadcastChannel = useBroadcastChannel(
     (memberVisit: MemberVisitREST) =>
       manualUpdateMemberVisitFromBroadcastChannel(memberVisit),
   );
@@ -167,7 +167,7 @@ const useLiveHistoryPageDataManager = ({
   const handleRefreshMemberVisitAccessStatus = useCallback(() => {
     refreshMemberVisitAccessStatus(selectedMemberVisitId, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToAccessControlBroadcastChannel(data);
+        sendToBroadcastChannel(data);
         if (
           data.access_status !== data.initial_access_status &&
           data.access_status === AccessStatus.GREEN
@@ -179,7 +179,7 @@ const useLiveHistoryPageDataManager = ({
     retrieveMemberNextBookingOrPrivateBooking(selectedMemberVisit.member.id);
   }, [
     refreshMemberVisitAccessStatus,
-    sendToAccessControlBroadcastChannel,
+    sendToBroadcastChannel,
     selectedMemberVisit,
     retrieveMemberNextBookingOrPrivateBooking,
   ]);
@@ -209,12 +209,16 @@ const useLiveHistoryPageDataManager = ({
     if (selectedMemberVisitId) {
       setMemberVisitEntryStatus(selectedMemberVisitId, EntryStatus.ENTERED, {
         onSuccess: (data: MemberVisitREST) => {
-          sendToAccessControlBroadcastChannel(data);
+          sendToBroadcastChannel(data);
           setShowEntryStatusChangedModal(true);
         },
       });
     }
-  }, [setMemberVisitEntryStatus, selectedMemberVisitId]);
+  }, [
+    setMemberVisitEntryStatus,
+    selectedMemberVisitId,
+    sendToBroadcastChannel,
+  ]);
 
   const handleRefuseManualEntry = useCallback(() => {
     if (selectedMemberVisitId) {
@@ -223,13 +227,17 @@ const useLiveHistoryPageDataManager = ({
         EntryStatus.NOT_ENTERED,
         {
           onSuccess: (data: MemberVisitREST) => {
-            sendToAccessControlBroadcastChannel(data);
+            sendToBroadcastChannel(data);
             setShowEntryStatusChangedModal(true);
           },
         },
       );
     }
-  }, [setMemberVisitEntryStatus, selectedMemberVisitId]);
+  }, [
+    setMemberVisitEntryStatus,
+    selectedMemberVisitId,
+    sendToBroadcastChannel,
+  ]);
 
   const handleCloseAccessStatusChangeSuccessModal = useCallback(() => {
     setShowStatusChangeSuccessModal(false);

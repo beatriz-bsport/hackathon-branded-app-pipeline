@@ -30,8 +30,8 @@ type Props = {
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
-  fetchShopItemVariantList: (page: number) => void;
   setIsVariantEditMode: (value: boolean) => void;
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 const ShopItemDetailVariantsTab: React.FC<Props> = ({
@@ -45,8 +45,8 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   handleOpenVariantDrawer,
   onDeleteShopItemVariant,
   updateShopItemVariantBulk,
-  fetchShopItemVariantList,
   setIsVariantEditMode,
+  setQueryParam,
 }) => {
   const { t } = useTranslation(['shop', 'common']);
 
@@ -64,9 +64,9 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
-      fetchShopItemVariantList(pageNumber);
+      setQueryParam('page')(`${pageNumber}`);
     },
-    [fetchShopItemVariantList],
+    [setQueryParam],
   );
 
   const handleShowBarcode = useCallback(

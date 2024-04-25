@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
 // @ts-expect-error
 import Barcode from 'react-barcode';
@@ -15,6 +15,7 @@ import ShopItemDetailTabs from '#libs/shop/components/ShopItemDetailTabs';
 import ShopItemVariantForm from '#libs/shop/components/ShopItemVariantForm';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { ShopModalContextProvider } from '#hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItem,
@@ -40,6 +41,7 @@ const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
 );
 
 type Props = {
+  tab?: string;
   companyId?: number;
   isLoading?: boolean;
   isVariantListLoading?: boolean;
@@ -67,7 +69,6 @@ type Props = {
     data: ShopItemVariantAttributes,
     options?: OptionCallback<ShopItemVariant[]>,
   ) => void;
-  fetchShopItemVariantList: (page: number) => void;
   createShopItemProvision: (
     data: ProvisionCreate,
     options?: OptionCallback<Provision>,
@@ -79,9 +80,11 @@ type Props = {
   deleteShopItemVariant: (id: number) => void;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
+  tab,
   companyId,
   isLoading,
   isVariantListLoading,
@@ -103,10 +106,10 @@ const ShopItemDetail: React.FC<Props> = ({
   updateShopItemVariantBulk,
   deleteShopItem,
   createShopItemVariants,
-  fetchShopItemVariantList,
   deleteShopItemVariant,
   createShopItemProvision,
   createShopItemProvisionBulk,
+  setQueryParam,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -118,6 +121,35 @@ const ShopItemDetail: React.FC<Props> = ({
     label: t('shop:shopItemDetail.tab.inventory'),
     value: ShopItemDetailTab.INVENTORY,
   });
+
+  const variantListCount = count > 0 ? ` (${count})` : '';
+
+  const availableTabListOptions: TabListOption[] = useMemo(
+    () => [
+      {
+        label: t('shop:shopItemDetail.tab.inventory'),
+        value: ShopItemDetailTab.INVENTORY,
+      },
+      {
+        label: `${t('shop:shopItemDetail.tab.variants')}${variantListCount}`,
+        value: ShopItemDetailTab.VARIANTS,
+      },
+      {
+        label: t('shop:shopItemDetail.tab.settings'),
+        value: ShopItemDetailTab.SETTINGS,
+      },
+    ],
+    [t, variantListCount],
+  );
+
+  useEffect(() => {
+    if (tab && selectedTab.value !== tab) {
+      const tabParamOption = availableTabListOptions.find(
+        (option) => option.value === tab,
+      );
+      setSelectedTab(tabParamOption);
+    }
+  }, [availableTabListOptions, selectedTab, t, tab]);
 
   const [isEditShopitemDrawerOpen, setIsEditShopitemDrawerOpen] =
     useState(false);
@@ -205,17 +237,17 @@ const ShopItemDetail: React.FC<Props> = ({
       const isTabRenderingVariants =
         option.value === ShopItemDetailTab.INVENTORY ||
         option.value === ShopItemDetailTab.VARIANTS;
-      /* 
+      /*
        Whenever changing tab, we want to get back to page 1 to prevent
        keeping page number synchronized across tabs. 
        */
       if (page > 1 && isTabRenderingVariants) {
-        fetchShopItemVariantList(1);
+        setQueryParam('page')('1');
       }
       isVariantEditMode && setIsVariantEditMode(false);
       setSelectedTab(option);
     },
-    [fetchShopItemVariantList, isVariantEditMode, page],
+    [isVariantEditMode, page, setQueryParam],
   );
 
   const handleSubmitEditShopItem = useCallback(
@@ -246,26 +278,6 @@ const ShopItemDetail: React.FC<Props> = ({
     return variantList.every((variant) => variant.price === initialPrice);
   }, [shopItem?.price, variantList]);
 
-  const variantListCount = count > 0 ? ` (${count})` : '';
-
-  const availableTabListOptions: TabListOption[] = useMemo(
-    () => [
-      {
-        label: t('shop:shopItemDetail.tab.inventory'),
-        value: ShopItemDetailTab.INVENTORY,
-      },
-      {
-        label: `${t('shop:shopItemDetail.tab.variants')}${variantListCount}`,
-        value: ShopItemDetailTab.VARIANTS,
-      },
-      {
-        label: t('shop:shopItemDetail.tab.settings'),
-        value: ShopItemDetailTab.SETTINGS,
-      },
-    ],
-    [t, variantListCount],
-  );
-
   return (
     <div className={classes.container}>
       <ShopItemDetailProductCard
@@ -292,30 +304,31 @@ const ShopItemDetail: React.FC<Props> = ({
         />
       )}
 
-      <ShopItemDetailTabs
-        availableTabListOptions={availableTabListOptions}
-        companyId={companyId}
-        count={count}
-        createShopItemProvision={createShopItemProvision}
-        createShopItemProvisionBulk={createShopItemProvisionBulk}
-        fetchShopItemVariantList={fetchShopItemVariantList}
-        handleChangeTab={handleChangeTab}
-        handleOpenBarcodeModal={handleOpenBarcodeModal}
-        handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
-        isDeletingVariant={isDeletingVariant}
-        isLoading={isLoading}
-        isUpdatingVariant={isUpdatingVariant}
-        isVariantEditMode={isVariantEditMode}
-        isVariantListLoading={isVariantListLoading}
-        onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
-        page={page}
-        selectedTab={selectedTab}
-        setIsVariantEditMode={setIsVariantEditMode}
-        shopItem={shopItem}
-        shopItemSupplier={shopItemSupplier}
-        updateShopItemVariantBulk={updateShopItemVariantBulk}
-        variantList={variantList}
-      />
+      <ShopModalContextProvider>
+        <ShopItemDetailTabs
+          availableTabListOptions={availableTabListOptions}
+          companyId={companyId}
+          count={count}
+          createShopItemProvision={createShopItemProvision}
+          createShopItemProvisionBulk={createShopItemProvisionBulk}
+          handleOpenBarcodeModal={handleOpenBarcodeModal}
+          handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
+          isDeletingVariant={isDeletingVariant}
+          isLoading={isLoading}
+          isUpdatingVariant={isUpdatingVariant}
+          isVariantEditMode={isVariantEditMode}
+          isVariantListLoading={isVariantListLoading}
+          onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
+          page={page}
+          selectedTab={selectedTab}
+          setIsVariantEditMode={setIsVariantEditMode}
+          setQueryParam={setQueryParam}
+          shopItem={shopItem}
+          shopItemSupplier={shopItemSupplier}
+          updateShopItemVariantBulk={updateShopItemVariantBulk}
+          variantList={variantList}
+        />
+      </ShopModalContextProvider>
 
       <GenericResponsiveDrawer
         onClose={handleCloseEditShopItemDrawer}

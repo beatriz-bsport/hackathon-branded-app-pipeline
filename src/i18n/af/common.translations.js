@@ -71,6 +71,7 @@ exports.default = {
   day: 'day',
   day_plural: 'days',
   discard: 'Discard',
+  discardChanges: 'Discard changes',
   yes: 'Yes',
   no: 'No',
   none: 'None',

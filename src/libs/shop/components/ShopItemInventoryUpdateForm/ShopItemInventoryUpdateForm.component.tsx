@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Form, useFormikContext } from 'formik';
@@ -13,15 +13,47 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 
+import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+
 import type { ShopItemInventoryFormValues } from './types';
 
 const ShopItemInventoryUpdateForm: React.FC = () => {
   const { t } = useTranslation('shop');
 
-  const { values, errors, isValid, dirty, handleChange } =
-    useFormikContext<ShopItemInventoryFormValues>();
+  const {
+    values,
+    errors,
+    isValid,
+    dirty,
+    handleChange,
+    resetForm,
+    submitForm,
+  } = useFormikContext<ShopItemInventoryFormValues>();
 
   const classes = useStyles();
+
+  const {
+    setIsInventoryFormDirty,
+    setHandleLeaveWithoutSaving,
+    setHandleSaveAndLeave,
+  } = useShopDetailTabsModalPrompt();
+
+  useEffect(() => {
+    setIsInventoryFormDirty(dirty);
+    setHandleLeaveWithoutSaving(() => () => resetForm());
+    setHandleSaveAndLeave(() => () => submitForm());
+
+    return () => {
+      setIsInventoryFormDirty(false);
+    };
+  }, [
+    dirty,
+    setHandleLeaveWithoutSaving,
+    setHandleSaveAndLeave,
+    setIsInventoryFormDirty,
+    resetForm,
+    submitForm,
+  ]);
 
   return (
     <Form noValidate>

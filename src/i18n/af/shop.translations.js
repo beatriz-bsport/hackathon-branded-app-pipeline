@@ -145,6 +145,13 @@ exports.default = {
           size: 'Select size',
           color: 'Select color',
         },
+        unsavedChangesModal: {
+          title: 'Unsaved changes',
+          inventory:
+            'Before moving to another page, do you want to update inventory based on the values entered in the “Stock adjustment” column?',
+          default:
+            'Do you want to save your changes before moving to another page?',
+        },
         formError: 'Stock adjustment value(s) must be valid numbers',
         action: { update: 'Update inventory' },
         variants: 'Variants',

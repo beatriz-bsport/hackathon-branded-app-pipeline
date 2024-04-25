@@ -13,10 +13,13 @@ import Tabs from '@material-ui/core/Tabs';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
+import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+
 import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
 import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
 import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';
 import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
+import PromptOnPageLeaveComponent from '#components/Prompt';
 
 import type {
   ProvisionBulkCreate,
@@ -47,10 +50,8 @@ type Props = {
   availableTabListOptions: TabListOption[];
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
-  handleChangeTab: (option: TabListOption) => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   onDeleteShopItemVariant: (id: number) => void;
-  fetchShopItemVariantList: (page: number) => void;
   createShopItemProvision: (
     data: ProvisionCreate,
     options?: OptionCallback<Provision>,
@@ -60,6 +61,7 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   setIsVariantEditMode: (value: boolean) => void;
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -78,41 +80,61 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   availableTabListOptions = [],
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
-  handleChangeTab,
   updateShopItemVariantBulk,
   onDeleteShopItemVariant,
-  fetchShopItemVariantList,
   createShopItemProvision,
   createShopItemProvisionBulk,
   setIsVariantEditMode,
+  setQueryParam,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
+  const {
+    isInventoryFormDirty,
+    isVariantFormDirty,
+    modalTitle,
+    modalDescription,
+    leaveWithoutSavingText,
+    leaveWithSavingText,
+    handleLeaveWithoutSaving,
+    handleSaveAndLeave,
+  } = useShopDetailTabsModalPrompt();
+
   const onChangeTab = useCallback(
     (_: React.ChangeEvent, value: ShopItemDetailTab) => {
-      // find the matching option from the selected value
-      const relatedOption = availableTabListOptions.find(
-        (option) => option.value === value,
-      );
-      handleChangeTab({ label: relatedOption?.label ?? '', value });
+      setQueryParam('tab')(value);
     },
-    [handleChangeTab, availableTabListOptions],
+    [setQueryParam],
   );
 
   return (
     <Card>
       <TabContext value={selectedTab.value}>
+        <PromptOnPageLeaveComponent
+          forceCloseOnLeave
+          openPromptOnPageLeave
+          description={modalDescription}
+          isDataClean={!isInventoryFormDirty && !isVariantFormDirty}
+          leaveWithoutSavingText={leaveWithoutSavingText}
+          leaveWithSavingText={leaveWithSavingText}
+          onLeaveWithoutSaving={handleLeaveWithoutSaving}
+          onLeaveWithSaving={handleSaveAndLeave}
+          title={modalTitle}
+        />
+
         {!isMobile && (
           <Tabs
             classes={{ root: classes.tabsContainer }}
             onChange={onChangeTab}
+            selectionFollowsFocus={false}
             value={selectedTab.value}
           >
             {availableTabListOptions.map((option) => (
               <Tab
                 key={option.value}
+                className={classes.tab}
                 label={option.label}
                 value={option.value}
               />
@@ -130,11 +152,11 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               count={count}
               createShopItemProvision={createShopItemProvision}
               createShopItemProvisionBulk={createShopItemProvisionBulk}
-              fetchShopItemVariantList={fetchShopItemVariantList}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isStandaloneItem={shopItem?.is_standalone_item}
               isUpdatingVariant={isUpdatingVariant}
               page={page}
+              setQueryParam={setQueryParam}
               shopItem={shopItem}
               shopItemVariantList={variantList}
             />
@@ -142,7 +164,6 @@ const ShopItemDetailTabs: React.FC<Props> = ({
             <ShopItemDetailVariantsTab
               companyId={companyId}
               count={count}
-              fetchShopItemVariantList={fetchShopItemVariantList}
               handleOpenBarcodeModal={handleOpenBarcodeModal}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isDeletingVariant={isDeletingVariant}
@@ -150,6 +171,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               onDeleteShopItemVariant={onDeleteShopItemVariant}
               page={page}
               setIsVariantEditMode={setIsVariantEditMode}
+              setQueryParam={setQueryParam}
               shopItemVariantList={variantList}
               updateShopItemVariantBulk={updateShopItemVariantBulk}
             />
@@ -202,6 +224,11 @@ const useStyles = makeStyles((theme) => ({
   },
   tabsContainer: {
     backgroundColor: theme.palette.background.default,
+  },
+  tab: {
+    '&:focus, &:hover': {
+      color: 'inherit',
+    },
   },
   tableContainer: {
     paddingBottom: theme.spacing(2),

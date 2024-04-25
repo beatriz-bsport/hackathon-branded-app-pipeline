@@ -38,7 +38,6 @@ type Props = {
   isStandaloneItem?: boolean;
   shopItem: ShopItem;
   handleOpenVariantDrawer: () => void;
-  fetchShopItemVariantList: (page: number) => void;
   createShopItemProvisionBulk: (
     data: ProvisionBulkCreate,
     options?: OptionCallback,
@@ -47,6 +46,7 @@ type Props = {
     data: ProvisionCreate,
     options?: OptionCallback<Provision>,
   ) => void;
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 const ShopItemDetailInventoryTab: React.FC<Props> = ({
@@ -57,9 +57,9 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   isStandaloneItem,
   shopItem,
   handleOpenVariantDrawer,
-  fetchShopItemVariantList,
   createShopItemProvisionBulk,
   createShopItemProvision,
+  setQueryParam,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -73,9 +73,9 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
-      fetchShopItemVariantList(pageNumber);
+      setQueryParam('page')(`${pageNumber}`);
     },
-    [fetchShopItemVariantList],
+    [setQueryParam],
   );
 
   const handleOnSubmitVariants = useCallback(

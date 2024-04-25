@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { FastField, FieldArray, FieldInputProps, FormikProps } from 'formik';
+import {
+  FastField,
+  FieldArray,
+  FieldInputProps,
+  FormikProps,
+  useFormikContext,
+} from 'formik';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -17,6 +23,8 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import PriceInput from '#components/input/PriceInput.component';
 
+import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+
 import type { ShopItemVariantBulkUpdateFormValues } from './types';
 
 type OwnFieldArrayRenderProps = {
@@ -29,6 +37,31 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
   const emptyFn = () => {};
 
   const classes = useStyles();
+
+  const { dirty, resetForm, submitForm } = useFormikContext();
+
+  const {
+    setIsVariantFormDirty,
+    setHandleLeaveWithoutSaving,
+    setHandleSaveAndLeave,
+  } = useShopDetailTabsModalPrompt();
+
+  useEffect(() => {
+    setIsVariantFormDirty(dirty);
+    setHandleLeaveWithoutSaving(() => () => resetForm());
+    setHandleSaveAndLeave(() => () => submitForm());
+
+    return () => {
+      setIsVariantFormDirty(false);
+    };
+  }, [
+    dirty,
+    setHandleLeaveWithoutSaving,
+    setHandleSaveAndLeave,
+    setIsVariantFormDirty,
+    resetForm,
+    submitForm,
+  ]);
 
   return (
     <TableBody>

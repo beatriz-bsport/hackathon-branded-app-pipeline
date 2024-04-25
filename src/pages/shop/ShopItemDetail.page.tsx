@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
+// @ts-expect-error
+import withQueryParams from '#hocs/with-query-params.hoc';
 
 // --- ACTIONS ---
 import {
@@ -69,9 +71,15 @@ import type { OptionCallback } from '../../state/types';
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 
 type OwnProps = {
   id: number;
+  queryParams: {
+    tab?: string;
+    page?: string;
+  };
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -86,16 +94,40 @@ export class ShopItemDetailPage extends Component<Props> {
       this.props.fetchBookkeepingAccountList();
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.queryParams.page !== this.props.queryParams.page) {
+      this.fetchShopItemVariantList();
+    }
+    /*
+      Whenever changing tab, we want to get back to page 1 to prevent
+      keeping page number synchronized across tabs. 
+    */
+    if (prevProps.queryParams.tab !== this.props.queryParams.tab) {
+      const currentPage = this.props.shopItemVariantState.page;
+      const isTabRenderingVariants =
+        this.props.queryParams.tab === ShopItemDetailTab.INVENTORY ||
+        this.props.queryParams.tab === ShopItemDetailTab.VARIANTS;
+      if (currentPage > 1 && isTabRenderingVariants) {
+        this.props.setQueryParam('page')('1');
+      }
+    }
+  }
+
   retrieveShopItemDetails = () => {
     this.props.retrieveShopItemDetails(this.props.id, {
       onSuccess: () => {
-        this.fetchShopItemVariantList(1);
+        this.fetchShopItemVariantList();
       },
     });
   };
 
-  fetchShopItemVariantList = (page: number) =>
+  fetchShopItemVariantList = () => {
+    const page =
+      parseInt(this.props.queryParams?.page, 10) ||
+      this.props.shopItemVariantState.page ||
+      1;
     this.props.fetchShopItemVariantList({ id: this.props.id, page });
+  };
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
@@ -125,7 +157,7 @@ export class ShopItemDetailPage extends Component<Props> {
       id: this.props.id,
       options: {
         onSuccess: () => {
-          this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+          this.fetchShopItemVariantList();
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -139,7 +171,7 @@ export class ShopItemDetailPage extends Component<Props> {
   ) =>
     this.props.createShopItemProvision(data, {
       onSuccess: () => {
-        this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+        this.fetchShopItemVariantList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -151,7 +183,7 @@ export class ShopItemDetailPage extends Component<Props> {
   ) => {
     this.props.createShopItemProvisionBulk(this.props.id, data, {
       onSuccess: () => {
-        this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+        this.fetchShopItemVariantList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -174,7 +206,7 @@ export class ShopItemDetailPage extends Component<Props> {
       data,
       options: {
         onSuccess: () => {
-          this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
+          this.fetchShopItemVariantList();
           this.props.fetchShopItemVariantCombinationList(this.props.id);
           options?.onSuccess?.();
         },
@@ -184,20 +216,20 @@ export class ShopItemDetailPage extends Component<Props> {
   };
 
   handleDeleteShopItemVariant = (id: number) => {
-    const currentPage = this.props.shopItemVariantState.page;
+    const currentPage = parseInt(this.props.queryParams.page, 10);
     const isLastItemInPage =
       this.props.shopItemVariantState.variants.length === 1;
 
     this.props.deleteShopItemVariant(id, {
       onSuccess: () => {
-        this.fetchShopItemVariantList(
-          /**
-           * When performing a variant deletion, we want to fetch the previous page
-           * if we did delete the last remaining variant in the page. This avoid pagination
-           * number issues (e.g refetching a page that doesnt exist anymore).
-           */
-          isLastItemInPage && currentPage > 1 ? currentPage - 1 : currentPage,
-        );
+        /**
+         * When performing a variant deletion, we want to fetch the previous page
+         * if we did delete the last remaining variant in the page. This avoid pagination
+         * number issues (e.g refetching a page that doesnt exist anymore).
+         */
+        isLastItemInPage &&
+          currentPage &&
+          this.props.setQueryParam('page')((currentPage - 1).toString());
       },
     });
   };
@@ -217,7 +249,6 @@ export class ShopItemDetailPage extends Component<Props> {
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
-        fetchShopItemVariantList={this.fetchShopItemVariantList}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
@@ -226,11 +257,13 @@ export class ShopItemDetailPage extends Component<Props> {
         isVariantListLoading={this.props.isVariantListLoading}
         page={this.props.shopItemVariantState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
+        setQueryParam={this.props.setQueryParam}
         shopItem={this.props.shopItem}
         shopItemSupplier={this.props.getShopItemSupplier(
           this.props.shopItem?.supplier,
         )}
         supplierList={this.props.supplierState.suppliers}
+        tab={this.props.queryParams.tab}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
         variantCombinationList={this.props.variantCombinationList ?? []}
@@ -280,6 +313,7 @@ const connector = connect(
 );
 
 export default compose<Props, OwnProps>(
+  withQueryParams([['tab', 'page'], 'queryParams', 'setQueryParam']),
   routerParamsToProps({ id: 'id:number' }),
   connector,
   withHandlers({

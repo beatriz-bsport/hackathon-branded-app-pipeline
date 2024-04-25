@@ -384,6 +384,7 @@ export type SubscriptionsInvoicesDetailsREST = {
   billing_plan_id: number;
   date: string;
   uuid: string;
+  stripe_invoice_pdf: string | null;
 };
 
 export type SubscriptionsInvoicesDetailsParams = {

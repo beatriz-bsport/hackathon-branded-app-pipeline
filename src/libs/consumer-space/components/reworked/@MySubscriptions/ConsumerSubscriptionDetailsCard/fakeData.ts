@@ -27,15 +27,18 @@ export const fakeSuccessfulInvoices = [
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
     date: NOW,
     uuid: faker.string.uuid(),
+    stripe_invoice_pdf: faker.internet.url(),
   },
   {
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
     date: NOW,
     uuid: faker.string.uuid(),
+    stripe_invoice_pdf: faker.internet.url(),
   },
   {
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
     date: NOW,
     uuid: faker.string.uuid(),
+    stripe_invoice_pdf: faker.internet.url(),
   },
 ];

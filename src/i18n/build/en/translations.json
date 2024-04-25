@@ -16515,7 +16515,8 @@
                 "subscription": "Subscriptions",
                 "pass": "Passes",
                 "common": "Common",
-                "bookingPage": "Booking"
+                "bookingPage": "Booking",
+                "checkoutConfirmationPage": "Confirmation page"
             },
             "components": {
                 "calendar": "Calendar page",

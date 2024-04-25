@@ -14,6 +14,7 @@ import {
   refreshMemberVisitAccessStatusActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
+import { FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 import type { PaginatedResponse } from '#state/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
@@ -60,12 +61,22 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       state,
       { payload }: { payload: MemberVisitREST },
     ) => {
+      let newIds = [];
+
+      if (state.memberVisit.page === 1) {
+        // The new member visit is inserted on top of the list
+        newIds = uniq([payload.id, ...state.memberVisit.allIds]).slice(
+          0,
+          // The last member visit is removed if the list is full
+          FETCH_MEMBER_VISIT_PAGE_SIZE,
+        );
+      } else {
+        newIds = [...state.memberVisit.allIds];
+      }
+
       return state
-        .setIn(
-          ['memberVisit', 'allIds'],
-          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
-          uniq([payload.id, ...state.memberVisit.allIds]),
-        )
+        .setIn(['memberVisit', 'allIds'], newIds)
+        .setIn(['memberVisit', 'count'], state.memberVisit.count + 1)
         .merge(
           {
             memberVisit: {

@@ -14,6 +14,7 @@ import {
   retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
 } from '#libs/access-control/actions';
+import { handleBroadcastChannelMessages as handleBroadcastChannelMessagesAction } from '#libs/broadcast-channel/actions';
 
 /** COMPONENTS */
 import MemberVisitSearchMember from '#libs/access-control/components/MemberVisit/EmptyState/MemberVisitSearchMember.component';
@@ -49,6 +50,7 @@ import type { MemberVisitREST } from '#libs/access-control/types';
 import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 import { formatLocationString } from '#libs/access-control/utils';
+import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
 
 export type Props = ConnectedProps<typeof connector>;
 
@@ -56,6 +58,7 @@ const useLiveHistoryPageDataManager = ({
   establishmentGroups,
   establishmentsData,
   getMemberVisitList,
+  handleBroadcastChannelMessages,
   memberVisitState,
   permissions,
   refreshMemberVisitAccessStatus,
@@ -67,6 +70,7 @@ const useLiveHistoryPageDataManager = ({
   | 'establishmentGroups'
   | 'establishmentsData'
   | 'getMemberVisitList'
+  | 'handleBroadcastChannelMessages'
   | 'memberVisitState'
   | 'permissions'
   | 'refreshMemberVisitAccessStatus'
@@ -121,10 +125,8 @@ const useLiveHistoryPageDataManager = ({
 
   /** HOOKS */
 
-  const sendToBroadcastChannel = useBroadcastChannel(
-    (memberVisit: MemberVisitREST) => {
-      // TODO: next commmits
-    },
+  const sendToBroadcastChannel = useBroadcastChannel<MemberVisitREST>(
+    handleBroadcastChannelMessages,
   );
 
   const {
@@ -165,7 +167,10 @@ const useLiveHistoryPageDataManager = ({
   const handleRefreshMemberVisitAccessStatus = useCallback(() => {
     refreshMemberVisitAccessStatus(selectedMemberVisitId, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToBroadcastChannel(data);
+        sendToBroadcastChannel({
+          type: BroadcastChannelMessageType.accessControlMemberVisitRefresh,
+          payload: data,
+        });
         if (
           data.access_status !== data.initial_access_status &&
           data.access_status === AccessStatus.GREEN
@@ -206,8 +211,11 @@ const useLiveHistoryPageDataManager = ({
   const handleAllowManualEntry = useCallback(() => {
     if (selectedMemberVisitId) {
       setMemberVisitEntryStatus(selectedMemberVisitId, EntryStatus.ENTERED, {
-        onSuccess: (data: MemberVisitREST) => {
-          sendToBroadcastChannel(data);
+        onSuccess: (data) => {
+          sendToBroadcastChannel({
+            type: BroadcastChannelMessageType.accessControlSetEntryStatus,
+            payload: data,
+          });
           setShowEntryStatusChangedModal(true);
         },
       });
@@ -224,8 +232,11 @@ const useLiveHistoryPageDataManager = ({
         selectedMemberVisitId,
         EntryStatus.NOT_ENTERED,
         {
-          onSuccess: (data: MemberVisitREST) => {
-            sendToBroadcastChannel(data);
+          onSuccess: (data) => {
+            sendToBroadcastChannel({
+              type: BroadcastChannelMessageType.accessControlSetEntryStatus,
+              payload: data,
+            });
             setShowEntryStatusChangedModal(true);
           },
         },
@@ -286,6 +297,7 @@ const LiveHistory: React.FC<Props> = ({
   establishmentGroups,
   establishmentsData,
   getMemberVisitList,
+  handleBroadcastChannelMessages,
   isLoading,
   memberNextBookingOrPrivateBooking,
   memberVisitList,
@@ -322,6 +334,7 @@ const LiveHistory: React.FC<Props> = ({
     establishmentGroups,
     establishmentsData,
     getMemberVisitList,
+    handleBroadcastChannelMessages,
     memberVisitState,
     permissions,
     refreshMemberVisitAccessStatus,
@@ -432,6 +445,7 @@ const connector = connect(
   }),
   {
     getMemberVisitList: getMemberVisitListAction,
+    handleBroadcastChannelMessages: handleBroadcastChannelMessagesAction,
     refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
     retrieveMemberNextBookingOrPrivateBooking:
       retrieveMemberNextBookingOrPrivateBookingAction,

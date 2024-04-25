@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { getAccessControlBroadcastsChannelId } from '../../http';
 
-export const useBroadcastChannel = (
-  onMessageCallback?: (data: any) => void,
+import type { BroadcastChannelMessage } from './types';
+
+export const useBroadcastChannel = <PayloadType = any>(
+  onMessageCallback?: (data: BroadcastChannelMessage<PayloadType>) => void,
 ) => {
   // Create a BroadcastChannel instance
   const channelRef = useRef(
@@ -27,7 +29,9 @@ export const useBroadcastChannel = (
   }, [channel]);
 
   // Add a listener to the channel
-  channel.onmessage = (event) => {
+  channel.onmessage = (
+    event: MessageEvent<BroadcastChannelMessage<PayloadType>>,
+  ) => {
     onMessageCallback?.(event.data);
   };
 
@@ -40,7 +44,7 @@ export const useBroadcastChannel = (
 
   // Return a function to send messages through the channel
   return useCallback(
-    (message) => {
+    (message: BroadcastChannelMessage<PayloadType>) => {
       channel.postMessage(message);
     },
     [channel],

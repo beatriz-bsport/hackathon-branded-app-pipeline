@@ -44,17 +44,18 @@ import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/Mem
 // Constants
 
 import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
+import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
 
 // Types
 
 import type { RootState } from '../../reducers';
+import type { MemberVisitREST } from '#libs/access-control/types';
 
 // Hooks / hocs
 
 import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
-import type { MemberVisitREST } from '#libs/access-control/types';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 
 type OwnProps = {
@@ -101,10 +102,13 @@ export const useMemberVisitPageDataManager = ({
 
   /** -------------- HOOKS --------------- */
 
-  const sendToBroadcastChannel = useBroadcastChannel(
-    (_memberVisit: MemberVisitREST) => {
-      if (_memberVisit) {
-        setMemberVisit(_memberVisit);
+  const sendToBroadcastChannel = useBroadcastChannel<MemberVisitREST>(
+    ({ type, payload }) => {
+      if (
+        type === BroadcastChannelMessageType.accessControlMemberVisitCreate &&
+        payload
+      ) {
+        setMemberVisit(payload);
         setIsEmptyState(false);
       }
     },
@@ -154,8 +158,11 @@ export const useMemberVisitPageDataManager = ({
 
   const handleRefreshMemberVisitAccessStatus = useCallback(() => {
     refreshMemberVisitAccessStatus(memberVisit.id, {
-      onSuccess: (data: MemberVisitREST) => {
-        sendToBroadcastChannel(data);
+      onSuccess: (data) => {
+        sendToBroadcastChannel({
+          type: BroadcastChannelMessageType.accessControlMemberVisitRefresh,
+          payload: data,
+        });
         if (
           data.access_status !== data.initial_access_status &&
           data.access_status === AccessStatus.GREEN
@@ -183,8 +190,11 @@ export const useMemberVisitPageDataManager = ({
           displaySnackbar: false,
         },
         {
-          onSuccess: (data: MemberVisitREST) => {
-            sendToBroadcastChannel(data);
+          onSuccess: (data) => {
+            sendToBroadcastChannel({
+              type: BroadcastChannelMessageType.accessControlMemberVisitCreate,
+              payload: data,
+            });
             setMemberVisit(data);
           },
         },
@@ -203,7 +213,10 @@ export const useMemberVisitPageDataManager = ({
   const handleAllowManualEntry = useCallback(() => {
     setMemberVisitEntryStatus(memberVisit.id, EntryStatus.ENTERED, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToBroadcastChannel(data);
+        sendToBroadcastChannel({
+          type: BroadcastChannelMessageType.accessControlSetEntryStatus,
+          payload: data,
+        });
         setMemberVisit(data);
         setShowEntryStatusChangedModal(true);
       },
@@ -213,7 +226,10 @@ export const useMemberVisitPageDataManager = ({
   const handleRefuseManualEntry = useCallback(() => {
     setMemberVisitEntryStatus(memberVisit.id, EntryStatus.NOT_ENTERED, {
       onSuccess: (data: MemberVisitREST) => {
-        sendToBroadcastChannel(data);
+        sendToBroadcastChannel({
+          type: BroadcastChannelMessageType.accessControlSetEntryStatus,
+          payload: data,
+        });
         setMemberVisit(data);
         setShowEntryStatusChangedModal(true);
       },

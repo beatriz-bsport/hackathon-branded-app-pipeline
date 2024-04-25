@@ -48,10 +48,25 @@ import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upse
 import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
 import { withSendToBroadcastChannel } from '#libs/broadcast-channel/hocs';
 import type { MemberVisitREST } from '#libs/access-control/types';
+import {
+  BroadcastChannelMessageType,
+  type BroadcastChannelMessage,
+} from '#libs/broadcast-channel/types';
+import type { OptionCallback } from '#state/types';
 
 type Props = {
   members: MemberMinimal[];
   classes: any;
+  checkMemberInEstablishment: (
+    {
+      memberId,
+      establishmentIds,
+    }: {
+      memberId: number;
+      establishmentIds?: number[];
+    },
+    options?: OptionCallback<MemberVisitREST>,
+  ) => void;
   member: any;
   selected: number;
   pushToMember: (memberId: number) => void;
@@ -66,7 +81,9 @@ type Props = {
   searchText: string;
   permissions: RolePermission;
   searchForTextInArchive: (tex: string) => void;
-  sendToBroadcastChannel: (message: any) => void;
+  sendToBroadcastChannel: (
+    message: BroadcastChannelMessage<MemberVisitREST>,
+  ) => void;
 };
 
 type State = {
@@ -212,8 +229,11 @@ export class SearchResults extends React.Component<Props, State> {
         establishmentIds: this.props.establishmentsSelectedInRole,
       },
       {
-        onSuccess: (data: MemberVisitREST) => {
-          this.props.sendToBroadcastChannel(data);
+        onSuccess: (data) => {
+          this.props.sendToBroadcastChannel({
+            type: BroadcastChannelMessageType.accessControlMemberVisitCreate,
+            payload: data,
+          });
         },
       },
     );

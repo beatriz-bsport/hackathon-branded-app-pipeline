@@ -6,6 +6,7 @@ import {
   getPerformAccessMonitoringUrl,
   staffMemberCanPerformAccessMonitoring,
 } from '../utils';
+import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
 
 import type { UpsellSumup } from '#libs/company/types';
 import type { RolePermission } from '#libs/role/types';
@@ -39,7 +40,7 @@ export const withAccessControlCheckInScanner = (
       permissions?: RolePermission;
     }
   >) => {
-    const sendToBroadcastChannel = useBroadcastChannel();
+    const sendToBroadcastChannel = useBroadcastChannel<MemberVisitREST>();
 
     const pathName = browserLocation?.pathname ?? '';
     // If the user is on the access monitoring page, the snackbar should not be displayed.
@@ -59,7 +60,10 @@ export const withAccessControlCheckInScanner = (
           },
           {
             onSuccess: (data: MemberVisitREST) => {
-              sendToBroadcastChannel?.(data);
+              sendToBroadcastChannel?.({
+                type: BroadcastChannelMessageType.accessControlMemberVisitCreate,
+                payload: data,
+              });
             },
           },
         );

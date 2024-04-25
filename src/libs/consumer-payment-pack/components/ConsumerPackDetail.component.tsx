@@ -308,7 +308,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   extension={extension}
                   onDelete={
                     props.consumerPack &&
-                    !props.consumerPack.dst_consumer_payment_pack
+                    !props.consumerPack.consumer_payment_pack_source
                       ? () => props.deleteExtension(extension.id)
                       : null
                   }

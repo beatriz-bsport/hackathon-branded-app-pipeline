@@ -126,9 +126,11 @@ export const ExtensionListItem: React.FC<Props> = ({
         </Typography>
       </div>
 
-      <IconButton aria-label="close" onClick={onDelete}>
-        <DeleteIcon />
-      </IconButton>
+      {onDelete && (
+        <IconButton aria-label="close" onClick={onDelete}>
+          <DeleteIcon />
+        </IconButton>
+      )}
     </ListItem>
   );
 };

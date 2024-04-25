@@ -27,7 +27,6 @@ import type {
 import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 export const globalMemberVisitActions = {
-  clear: createAction('ACCESS_CONTROL/CLEAR_MEMBER_VISIT'),
   update: createAction<MemberVisitREST>('ACCESS_CONTROL/MEMBER_VISIT/UPDATE'),
   create: createAction<MemberVisitREST>('ACCESS_CONTROL/MEMBER_VISIT/CREATE'),
 };
@@ -175,19 +174,12 @@ export const getMemberVisitList = (
   params: Omit<MemberVisitQueryParams, 'page_size'>,
   options?: OptionCallback<MemberVisitREST[]>,
 ): ThunkAction => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(getMemberVisitListActions.loading(true));
     dispatch(getMemberVisitListActions.error(null));
 
-    const currentState = getState().accessControl.memberVisit;
-    const nextPage = currentState.next_page ?? 1;
-
-    // TODO: Fix member visit live list pagination
-    dispatch(globalMemberVisitActions.clear());
-
     try {
       const response = await getMemberVisitListAPI({
-        page: nextPage,
         ...params,
         page_size: FETCH_MEMBER_VISIT_PAGE_SIZE,
       });

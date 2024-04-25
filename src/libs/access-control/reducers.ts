@@ -56,14 +56,6 @@ export const initialState: Immutable.Immutable<AccessControlState> =
 
 export default handleActions<Immutable.Immutable<AccessControlState>, any>(
   {
-    [globalMemberVisitActions.clear.toString()]: (state) => {
-      return state
-        .setIn(['memberVisit', 'page'], 0)
-        .setIn(['memberVisit', 'next_page'], null)
-        .setIn(['memberVisit', 'count'], 0)
-        .setIn(['memberVisit', 'byId'], {})
-        .setIn(['memberVisit', 'allIds'], []);
-    },
     [globalMemberVisitActions.create.toString()]: (
       state,
       { payload }: { payload: MemberVisitREST },
@@ -167,10 +159,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         .setIn(['memberVisit', 'page'], page)
         .setIn(
           ['memberVisit', 'allIds'],
-          uniq([
-            ...state.memberVisit.allIds,
-            ...results.map((memberVisit) => memberVisit.id),
-          ]),
+          uniq(results.map((memberVisit) => memberVisit.id)),
         )
         .merge(
           {

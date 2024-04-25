@@ -424,6 +424,7 @@ exports.default = {
         },
         billingHistory: 'Billing history',
         emptyInvoices: ' No billing history to show',
+        loadMore: 'Load more',
       },
     },
     myInvoices: {

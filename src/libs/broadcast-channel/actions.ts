@@ -5,6 +5,14 @@ import { BroadcastChannelMessage, BroadcastChannelMessageType } from './types';
 
 import { globalMemberVisitActions } from '#libs/access-control/actions';
 
+/**
+ * Main function to handle the messages received from the broadcast channel.
+ *
+ * Each message must have a type, defined in {@link BroadcastChannelMessageType},
+ * and a payload.
+ *
+ * @param message The message received from the broadcast channel.
+ */
 export const handleBroadcastChannelMessages = (
   message: BroadcastChannelMessage,
 ) => {

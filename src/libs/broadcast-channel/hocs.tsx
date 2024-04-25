@@ -1,6 +1,12 @@
 import React from 'react';
 import { useBroadcastChannel } from './hooks';
 
+/**
+ * This higher-order component provides the `sendToBroadcastChannel` prop to the
+ * wrapped component, using the `useBroadcastChannel` hook (without listener callback).
+ *
+ * @param Component The component to wrap
+ */
 export const withSendToBroadcastChannel = <T extends {}, PayloadType = any>(
   Component: React.ComponentType<T>,
 ) => {

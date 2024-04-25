@@ -9,6 +9,21 @@ import { senderLocalIdActions } from './actions';
 import type { BroadcastChannelMessage } from './types';
 import type { RootState } from '../../reducers';
 
+/**
+ * @hook
+ * This hook provides a function to send messages through a BroadcastChannel.
+ *
+ * @param {function} onMessageCallback - The function that is called when a message is received.
+ * @param {Object} options - An object containing the options for the hook.
+ * @param {boolean} options.listenSelf - If true, the listener will receive messages sent by the same page.
+ *
+ * Each message must have a type, defined in {@link BroadcastChannelMessageType}, and a payload. (See {@link BroadcastChannelMessage})
+ *
+ * The hook also uses a local id to avoid listening to the messages sent by the same page (the sender id is shared in the redux store).
+ * On the contrary, the broadcast channel id is shared in the local storage, i.e., between different tabs or windows.
+ *
+ * @returns {function} A function that can be used to send messages through the BroadcastChannel.
+ */
 export const useBroadcastChannel = <PayloadType = any>(
   onMessageCallback?: (data: BroadcastChannelMessage<PayloadType>) => void,
   { listenSelf }: { listenSelf?: boolean } = {},

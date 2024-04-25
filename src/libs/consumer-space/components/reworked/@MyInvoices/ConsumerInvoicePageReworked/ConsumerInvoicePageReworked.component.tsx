@@ -38,7 +38,8 @@ type Props = {
   fetchMoreInvoices: () => void;
   getInvoice: (uuid: string) => Invoice;
   goToBookSession: () => void;
-  refreshUnpaidInvoices: (uuidsToRefresh: string[]) => void;
+  refreshConsumerInvoices: () => void;
+  refreshMembership: () => void;
 };
 
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
@@ -60,7 +61,8 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   fetchMoreInvoices,
   getInvoice,
   goToBookSession,
-  refreshUnpaidInvoices,
+  refreshConsumerInvoices,
+  refreshMembership,
 }) => {
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
@@ -99,9 +101,11 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   );
 
   const payConsumerInvoice = React.useCallback(
-    (consumerInvoice: ConsumerInvoice) =>
-      setConsumerInvoiceToPay(consumerInvoice),
-    [],
+    (consumerInvoice: ConsumerInvoice) => {
+      refreshMembership?.();
+      setConsumerInvoiceToPay(consumerInvoice);
+    },
+    [refreshMembership],
   );
 
   const closePaymentPortal = React.useCallback(
@@ -118,8 +122,8 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   );
 
   const handleRefreshAfterPayment = React.useCallback(
-    (invoiceUuid: string) => refreshUnpaidInvoices?.([invoiceUuid]),
-    [refreshUnpaidInvoices],
+    () => refreshConsumerInvoices?.(),
+    [refreshConsumerInvoices],
   );
 
   const requestClientSecret = React.useCallback((invoiceUuid: string) => {

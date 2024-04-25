@@ -1678,37 +1678,25 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchConsumerUnpaidInvoicesActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: {
-        payload: {
-          paginatedResponse: PaginatedResponse<ConsumerInvoiceREST>;
-          uuidsToRefresh: string[];
-        };
-      },
+      { payload }: { payload: PaginatedResponse<ConsumerInvoiceREST> },
     ) => {
-      const { paginatedResponse, uuidsToRefresh = [] } = payload;
-      const responseUuids = (paginatedResponse.results || []).map(
-        (consumerInvoice) => consumerInvoice.uuid,
-      );
       return state
-        .setIn(['myInvoices', 'unpaid', 'count'], paginatedResponse.count)
-        .setIn(['myInvoices', 'unpaid', 'page'], paginatedResponse.page)
-        .setIn(
-          ['myInvoices', 'unpaid', 'nextPage'],
-          paginatedResponse.next_page,
-        )
+        .setIn(['myInvoices', 'unpaid', 'count'], payload.count)
+        .setIn(['myInvoices', 'unpaid', 'page'], payload.page)
+        .setIn(['myInvoices', 'unpaid', 'nextPage'], payload.next_page)
         .updateIn(['myInvoices', 'unpaid', 'allUuids'], (allUuids) =>
-          uniq([...allUuids, ...responseUuids]).filter(
-            (uuid) =>
-              !uuidsToRefresh.includes(uuid) || responseUuids.includes(uuid),
-          ),
+          uniq([
+            ...allUuids,
+            ...(payload.results || []).map(
+              (consumerInvoice) => consumerInvoice.uuid,
+            ),
+          ]),
         )
         .merge(
           {
             myInvoices: {
               restByUuid: (
-                paginatedResponse.results || []
+                payload.results || []
               ).reduce<ConsumerInvoiceRESTByUuid>(
                 (accumulator, currentConsumerInvoice) => ({
                   ...accumulator,

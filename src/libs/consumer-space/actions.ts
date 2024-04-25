@@ -1528,16 +1528,14 @@ export const fetchConsumerPassesTabDisplay =
 export const fetchConsumerUnpaidInvoicesActions = {
   isLoading: createAction<boolean>('CONSUMER_INVOICE/UNPAID/LIST/LOADING'),
   error: createAction<Error | null>('CONSUMER_INVOICE/UNPAID/LIST/ERROR'),
-  success: createAction<{
-    paginatedResponse: PaginatedResponse<ConsumerInvoiceREST>;
-    uuidsToRefresh: string[];
-  }>('CONSUMER_INVOICE/UNPAID/LIST/SUCCESS'),
+  success: createAction<PaginatedResponse<ConsumerInvoiceREST>>(
+    'CONSUMER_INVOICE/UNPAID/LIST/SUCCESS',
+  ),
 };
 
 export function fetchConsumerUnpaidInvoices(
   { page, page_size = 30, company_id }: ConsumerInvoiceParams,
-  consumerInvoiceUuidsToRefresh?: string[],
-  options?: OptionCallback<ConsumerInvoiceREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -1550,14 +1548,9 @@ export function fetchConsumerUnpaidInvoices(
         page_size,
         company_id,
       });
-      dispatch(
-        fetchConsumerUnpaidInvoicesActions.success({
-          paginatedResponse: response.data,
-          uuidsToRefresh: consumerInvoiceUuidsToRefresh,
-        }),
-      );
+      dispatch(fetchConsumerUnpaidInvoicesActions.success(response.data));
 
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       options?.onError?.(error);
       dispatch(fetchConsumerUnpaidInvoicesActions.error(error));
@@ -1576,7 +1569,7 @@ export const fetchConsumerPaidInvoicesActions = {
 };
 export function fetchConsumerPaidInvoices(
   { page, page_size = 30, company_id }: ConsumerInvoiceParams,
-  options?: OptionCallback<ConsumerInvoiceREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -1591,7 +1584,7 @@ export function fetchConsumerPaidInvoices(
       });
       dispatch(fetchConsumerPaidInvoicesActions.success(response.data));
 
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       options?.onError?.(error);
       dispatch(fetchConsumerPaidInvoicesActions.error(error));
@@ -1610,7 +1603,7 @@ export const fetchConsumerRefundedInvoicesActions = {
 };
 export function fetchConsumerRefundedInvoices(
   { page, page_size = 30, company_id }: ConsumerInvoiceParams,
-  options?: OptionCallback<ConsumerInvoiceREST[]>,
+  options?: OptionCallback<PaginatedResponse<ConsumerInvoiceREST>>,
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -1625,7 +1618,7 @@ export function fetchConsumerRefundedInvoices(
       });
       dispatch(fetchConsumerRefundedInvoicesActions.success(response.data));
 
-      options?.onSuccess?.(response.data.results);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       options?.onError?.(error);
       dispatch(fetchConsumerRefundedInvoicesActions.error(error));

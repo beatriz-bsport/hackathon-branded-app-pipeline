@@ -16,6 +16,7 @@ import {
   fetchConsumerPaidInvoices as fetchConsumerPaidInvoicesAction,
   fetchConsumerRefundedInvoices as fetchConsumerRefundedInvoicesAction,
   fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAction,
+  resetConsumerState as resetConsumerStateAction,
 } from '#libs/consumer-space/actions';
 import {
   fetchInvoiceList as fetchInvoiceListAction,
@@ -48,6 +49,7 @@ import { getInvoice } from '#libs/invoice/selectors';
 import type { ConsumerInvoice, ConsumerInvoiceREST } from '#libs/invoice/types';
 import type { Membership } from '#libs/membership/types';
 import type { WithHandlerType } from '#utils/types';
+import { PaginatedResponse } from '#state/types';
 
 type OwnProps = {
   membership: Membership;
@@ -77,6 +79,15 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
     this.props.fetchConsumerInvoices(selectedFilter);
   };
 
+  refreshMembership = () =>
+    this.props.fetchMembership(this.props.membership.id);
+
+  refreshConsumerInvoices = () => {
+    this.props.resetConsumerState();
+    this.props.fetchConsumerInvoices(this.state.selectedFilter);
+    this.refreshMembership();
+  };
+
   fetchConsumerInvoicesNextPage = () => {
     const nextPage = this.getInvoiceNextPage(this.state.selectedFilter);
     nextPage &&
@@ -85,9 +96,8 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
 
   applyBalanceToInvoice = (invoiceUuid: string) => {
     this.props.applyBalanceToInvoiceAction(invoiceUuid, {
-      onSuccess: () =>
-        this.props.refreshUnpaidInvoicesCurrentPage([invoiceUuid]),
-      onError: () => this.props.refreshUnpaidInvoicesCurrentPage([invoiceUuid]),
+      onSuccess: () => this.refreshConsumerInvoices(),
+      onError: () => this.refreshConsumerInvoices(),
     });
   };
 
@@ -178,7 +188,8 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
         isLoading={this.props.loading}
         isMultilocationEnabled={this.props.theme.enable_multi_localization}
         membership={this.props.membership}
-        refreshUnpaidInvoices={this.props.refreshUnpaidInvoicesCurrentPage}
+        refreshConsumerInvoices={this.refreshConsumerInvoices}
+        refreshMembership={this.refreshMembership}
         selectedFilter={this.state.selectedFilter}
         stripeId={this.props.theme.stripe_id}
         totalUnpaid={this.props.unpaidInvoicesCount}
@@ -218,6 +229,7 @@ const connector = connect(
     fetchInvoiceList: fetchInvoiceListAction,
     fetchMembership: fetchMembershipAction,
     fetchSpecificInvoice: fetchSpecificInvoiceAction,
+    resetConsumerState: resetConsumerStateAction,
     applyBalanceToInvoiceAction,
     detachPaymentMethodAction,
     fetchPaymentMethodListAction,
@@ -228,7 +240,10 @@ const mapWithHandlers = {
   fetchConsumerInvoices:
     (props: PropsWithConnector) =>
     (filter: InvoicesFiltersEnum, page?: number) => {
-      const onSuccess = (consumerInvoicesREST: ConsumerInvoiceREST[]) => {
+      const onSuccess = (
+        paginatedResponse: PaginatedResponse<ConsumerInvoiceREST>,
+      ) => {
+        const consumerInvoicesREST = paginatedResponse.results;
         if (consumerInvoicesREST?.length > 0) {
           const reverseInvoiceUuids = uniq(
             consumerInvoicesREST.reduce<string[]>(
@@ -257,7 +272,7 @@ const mapWithHandlers = {
       switch (filter) {
         case InvoicesFiltersEnum.UNPAID:
         default:
-          props.fetchConsumerUnpaidInvoices(params, [], { onSuccess });
+          props.fetchConsumerUnpaidInvoices(params, { onSuccess });
           break;
         case InvoicesFiltersEnum.PAID:
           props.fetchConsumerPaidInvoices(params, { onSuccess });
@@ -266,23 +281,6 @@ const mapWithHandlers = {
           props.fetchConsumerRefundedInvoices(params, { onSuccess });
           break;
       }
-    },
-  refreshUnpaidInvoicesCurrentPage:
-    (props: PropsWithConnector) =>
-    (consumerInvoiceUuidsToRefresh: string[]) => {
-      props.fetchMembership(props.membership.id);
-      props.fetchConsumerUnpaidInvoices(
-        { page: props.unpaidInvoicesPage, company_id: props.companyId },
-        consumerInvoiceUuidsToRefresh || [],
-        {
-          onSuccess: (consumerInvoicesREST) =>
-            props.fetchConsumerInvoicesComplementary({
-              uuid__in: (consumerInvoicesREST || []).map(
-                (consumerInvoice) => consumerInvoice.uuid,
-              ),
-            }),
-        },
-      );
     },
   fetchPaymentMethodList: (props: PropsWithConnector) => () =>
     props.fetchPaymentMethodListAction({ company: props.membership.company }),

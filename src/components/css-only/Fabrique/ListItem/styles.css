@@ -103,6 +103,13 @@
   color: var(--bs-color-text-inverse-default);
 }
 
+.bs-fabrique-listitem__root__right-slot {
+}
+
+.bs-fabrique-listitem__root__right-slot--hidden {
+  display: none;
+}
+
 /* .bs-fabrique-listitem__textwrapper {
 } */
 

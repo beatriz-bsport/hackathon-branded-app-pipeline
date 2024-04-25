@@ -38,6 +38,7 @@ type Props = {
   icon?: React.ReactNode;
   type?: ListItemType;
   inputId?: string;
+  rightSlot?: React.ReactElement;
 };
 
 type ListItemTextProps = Required<
@@ -112,6 +113,7 @@ export const ListItem: React.FC<Props> = ({
   type = ListItemTypeEnum.TEXT,
   size = ListItemSizeEnum.LG,
   inputId,
+  rightSlot,
 }) => {
   const isSmall = size === ListItemSizeEnum.SM;
   if (type === ListItemTypeEnum.CLICKABLETEXT) {
@@ -263,6 +265,13 @@ export const ListItem: React.FC<Props> = ({
         isSmall={isSmall}
         label={label}
       />
+      <div
+        className={classNames('bs-fabrique-listitem__root__right-slot', {
+          'bs-fabrique-listitem__root__right-slot--hidden': !rightSlot,
+        })}
+      >
+        {rightSlot}
+      </div>
     </li>
   );
 };

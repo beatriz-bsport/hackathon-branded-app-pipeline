@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { SettingsState } from './types';
+import type { SettingsState, CustomAppNavigationTabsNames } from './types';
 import {
   fetchCustomShopRedirectionsActions,
   createCustomShopRedirectionActions,
@@ -10,6 +10,7 @@ import {
   createCustomMobilePopupActions,
   editCustomMobilePopupActions,
   deleteCustomMobilePopupActions,
+  fetchCustomNavigationTabsNamesActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SettingsState> =
@@ -23,6 +24,17 @@ const initialState: Immutable.Immutable<SettingsState> =
     customMobilePopup: {
       byId: {},
       allIds: [],
+      loading: false,
+      error: null,
+    },
+    customAppNavigation: {
+      tabNames: {
+        bookings: null,
+        schedule: null,
+        activities: null,
+        studio: null,
+        profile: null,
+      },
       loading: false,
       error: null,
     },
@@ -197,6 +209,18 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
         ['customMobilePopup', 'allIds'],
         [...state.customMobilePopup.allIds.filter((p) => p !== payload)],
       ),
+    [fetchCustomNavigationTabsNamesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['customAppNavigation', 'loading'], payload),
+    [fetchCustomNavigationTabsNamesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['customAppNavigation', 'error'], payload),
+    [fetchCustomNavigationTabsNamesActions.success.toString()]: (
+      state,
+      { payload }: { payload: CustomAppNavigationTabsNames },
+    ) => state.setIn(['customAppNavigation', 'tabNames'], payload),
   },
   initialState,
 );

@@ -4,11 +4,15 @@ import Select from 'react-select';
 import { withFormik, Form, FormikProps } from 'formik';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, InputLabel, Paper } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import { CompanyTheme, DefaultPageOption } from '#src/libs/theme/types';
-import { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '#src/state/types';
+import type { CustomAppNavigationTabsNames } from '#src/libs/settings/types';
 
 const DEFAULT_HOME_PAGE = DefaultPageOption.HOME;
 
@@ -16,18 +20,29 @@ interface FormikValues {
   mobile_app_default_page: DefaultPageOption;
 }
 
+type MobileAppPersonalisationFormProps = FormikProps<FormikValues> & {
+  customNavigationTabsNames: CustomAppNavigationTabsNames;
+  loading: boolean;
+};
+
 type Props = {
+  customNavigationTabsNames: CustomAppNavigationTabsNames;
+  loading: boolean;
   theme: CompanyTheme;
   onSubmit: (id: number, data: FormData, options: OptionCallback) => void;
 };
 
-const MobileAppPersonalisationForm: React.FC<FormikProps<FormikValues>> = ({
+const MobileAppPersonalisationForm: React.FC<
+  MobileAppPersonalisationFormProps
+> = ({
   isSubmitting,
   isValid,
   handleSubmit,
   setFieldValue,
   values,
   initialValues,
+  customNavigationTabsNames,
+  loading,
 }) => {
   const { t } = useTranslation('settings');
   const classes = useStyles();
@@ -35,37 +50,47 @@ const MobileAppPersonalisationForm: React.FC<FormikProps<FormikValues>> = ({
   const mobileAppDefaultPageOptions = useMemo(
     () => [
       {
-        label: t(
-          'mobilePersonalization.customize.defaultPage.pageContent.options.membership',
-        ),
+        label:
+          customNavigationTabsNames?.schedule ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.membership',
+          ),
         value: DefaultPageOption.MEMBERSHIP,
       },
       {
-        label: t(
-          'mobilePersonalization.customize.defaultPage.pageContent.options.bookings',
-        ),
+        label:
+          customNavigationTabsNames?.bookings ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.bookings',
+          ),
         value: DefaultPageOption.BOOKINGS,
       },
       {
-        label: t(
-          'mobilePersonalization.customize.defaultPage.pageContent.options.home',
-        ),
+        label:
+          customNavigationTabsNames?.activities ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.home',
+          ),
         value: DefaultPageOption.HOME,
       },
       {
-        label: t(
-          'mobilePersonalization.customize.defaultPage.pageContent.options.marketplace',
-        ),
+        label:
+          customNavigationTabsNames?.studio ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.marketplace',
+          ),
         value: DefaultPageOption.MARKETPLACE,
       },
       {
-        label: t(
-          'mobilePersonalization.customize.defaultPage.pageContent.options.profile',
-        ),
+        label:
+          customNavigationTabsNames?.profile ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.profile',
+          ),
         value: DefaultPageOption.PROFILE,
       },
     ],
-    [t],
+    [customNavigationTabsNames, t],
   );
 
   const pageDisplayCurrent = React.useMemo(
@@ -102,16 +127,20 @@ const MobileAppPersonalisationForm: React.FC<FormikProps<FormikValues>> = ({
           </InputLabel>
           <div className={classes.selector}>
             <div className={classes.selector}>
-              <Select
-                name="mobile_app_default_page"
-                onChange={handleOnChangeDefaultPage}
-                options={mobileAppDefaultPageOptions}
-                placeholder={t(
-                  'mobilePersonalization.customize.defaultPage.pageContent.placeholder',
-                )}
-                value={pageDisplayCurrent}
-                variant="outlined"
-              />
+              {loading ? (
+                <LinearProgress />
+              ) : (
+                <Select
+                  name="mobile_app_default_page"
+                  onChange={handleOnChangeDefaultPage}
+                  options={mobileAppDefaultPageOptions}
+                  placeholder={t(
+                    'mobilePersonalization.customize.defaultPage.pageContent.placeholder',
+                  )}
+                  value={pageDisplayCurrent}
+                  variant="outlined"
+                />
+              )}
             </div>
           </div>
           <Button
@@ -162,14 +191,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MobileAppPersonalisationFormFormikHOC = withFormik<Props, FormikValues>({
-  mapPropsToValues: ({ theme }) => {
+  mapPropsToValues: ({ theme, customNavigationTabsNames, loading }) => {
     if (theme) {
       return {
         mobile_app_default_page: theme.mobile_app_default_page,
+        customNavigationTabsNames,
+        loading,
       };
     }
     return {
       mobile_app_default_page: DEFAULT_HOME_PAGE,
+      customNavigationTabsNames,
+      loading,
     };
   },
   enableReinitialize: true,

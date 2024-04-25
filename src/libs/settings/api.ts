@@ -6,7 +6,11 @@ import {
   patchAuth,
   deleteAuth,
 } from '../../http';
-import { CustomMobilePopup, CustomShopRedirection } from './types';
+import type {
+  CustomAppNavigationTabsNames,
+  CustomMobilePopup,
+  CustomShopRedirection,
+} from './types';
 
 export const fetchCustomShopRedirections = async () =>
   getAuth(`${API_V1_URI}/mobile_app/custom_shop_redirection/`);
@@ -23,8 +27,9 @@ export const editCustomShopRedirection = async (
 export const deleteCustomShopRedirection = async (id: string) =>
   deleteAuth(`${API_V1_URI}/mobile_app/custom_shop_redirection/${id}/`);
 
-export const fetchCustomMobilePopups = async () =>
-  getAuth(`${API_V1_URI}/mobile_app/custom_popup_links/`);
+export const fetchCustomMobilePopups = () => {
+  return getAuth(`${API_V1_URI}/mobile_app/custom_popup_links/`);
+};
 
 export const createCustomMobilePopup = async (
   data: Omit<CustomMobilePopup, 'id'>,
@@ -37,3 +42,9 @@ export const editCustomMobilePopup = async (
 
 export const deleteCustomMobilePopup = async (id: string) =>
   deleteAuth(`${API_V1_URI}/mobile_app/custom_popup_links/${id}/`);
+
+export const fetchCustomNavigationTabsNames = (companyId: number) => {
+  return getAuth<CustomAppNavigationTabsNames>(
+    `${API_V1_URI}/mobile_app/custom_app_configuration/${companyId}/fetch_custom_navigation_tabs_names/`,
+  );
+};

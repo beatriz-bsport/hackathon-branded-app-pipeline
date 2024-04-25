@@ -38,12 +38,15 @@ import {
   createCustomMobilePopup as createCustomMobilePopupAction,
   updateCustomMobilePopup as updateCustomMobilePopupAction,
   deleteCustomMobilePopup as deleteCustomMobilePopupAction,
+  fetchCustomNavigationTabsNames as fetchCustomNavigationTabsNamesAction,
 } from '#src/libs/settings/actions';
 import {
   getCustomMobilePopupsLoading,
   getCustomShopRedirectionsLoading,
+  getCustomAppNavigationLoading,
   getCustomMobilePopupsList,
   getCustomMobileRedirectionsList,
+  getCustomAppNavigationTabsNames,
 } from '#src/libs/settings/selectors';
 import { updateCompanyTheme as updateCompanyThemeAction } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
@@ -68,6 +71,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   companyTheme,
   customMobilePopupsLoading,
   customShopRedirectionsLoading,
+  customNavigationLoading,
   customMobilePopupsList,
   customMobileRedirectionsList,
   companyId,
@@ -85,6 +89,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   createCustomMobilePopup,
   updateCustomMobilePopup,
   deleteCustomMobilePopup,
+  customNavigationTabsNames,
   fetchAllSubShop,
   fetchMarketplaceContractList,
   fetchMarketplacePacks,
@@ -92,6 +97,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   fetchPaymentPackList,
   fetchVideoList,
   fetchGiftcardList,
+  fetchCustomNavigationTabsNames,
   updateCompanyTheme,
   tab,
   push,
@@ -108,6 +114,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
   useEffect(() => {
     fetchCustomShopRedirections();
     fetchCustomMobilePopups();
+    fetchCustomNavigationTabsNames(companyId);
 
     // For Mobile preview
     fetchAllSubShop(companyId);
@@ -127,6 +134,7 @@ const SettingsMobileRouter: React.FC<Props> = ({
     companyId,
     fetchCustomShopRedirections,
     fetchCustomMobilePopups,
+    fetchCustomNavigationTabsNames,
     fetchAllSubShop,
     fetchMarketplaceContractList,
     fetchMarketplacePacks,
@@ -178,6 +186,8 @@ const SettingsMobileRouter: React.FC<Props> = ({
           </Route>
           <Route exact path="/settings/mobile-personalisation/customize">
             <MobileAppPersonalisationForm
+              customNavigationTabsNames={customNavigationTabsNames}
+              loading={customNavigationLoading}
               onSubmit={updateCompanyTheme}
               theme={companyTheme}
             />
@@ -205,8 +215,10 @@ const connector = connect(
   (state: RootState) => ({
     customMobilePopupsLoading: getCustomMobilePopupsLoading(state),
     customShopRedirectionsLoading: getCustomShopRedirectionsLoading(state),
+    customNavigationLoading: getCustomAppNavigationLoading(state),
     customMobilePopupsList: getCustomMobilePopupsList(state),
     customMobileRedirectionsList: getCustomMobileRedirectionsList(state),
+    customNavigationTabsNames: getCustomAppNavigationTabsNames(state),
 
     paymentComboList: getPaymentComboListAvailableOnline(state),
     paymentPackList: getPaymentPackAvailable(state),
@@ -229,6 +241,7 @@ const connector = connect(
     createCustomMobilePopup: createCustomMobilePopupAction,
     updateCustomMobilePopup: updateCustomMobilePopupAction,
     deleteCustomMobilePopup: deleteCustomMobilePopupAction,
+    fetchCustomNavigationTabsNames: fetchCustomNavigationTabsNamesAction,
 
     // For mobile preview
     fetchAllSubShop: fetchAllSubShopAction,

@@ -39,3 +39,9 @@ export const getCustomMobileRedirectionsList = createSelector(
     // properly with heterogeneous first args
   ) => ids.map((id) => data[id]),
 );
+
+export const getCustomAppNavigationLoading = (state: RootState) =>
+  state.settings.customAppNavigation.loading;
+
+export const getCustomAppNavigationTabsNames = (state: RootState) =>
+  state.settings.customAppNavigation.tabNames;

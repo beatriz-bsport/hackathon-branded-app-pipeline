@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { OptionCallback, Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 import {
   fetchCustomShopRedirections as fetchCustomShopRedirectionsAPI,
   createCustomShopRedirection as createCustomShopRedirectionAPI,
@@ -9,9 +9,14 @@ import {
   createCustomMobilePopup as createCustomMobilePopupAPI,
   editCustomMobilePopup as editCustomMobilePopupAPI,
   deleteCustomMobilePopup as deleteCustomMobilePopupAPI,
+  fetchCustomNavigationTabsNames as fetchCustomNavigationTabsNamesAPI,
 } from './api';
 
-import { CustomMobilePopup, CustomShopRedirection } from './types';
+import type {
+  CustomMobilePopup,
+  CustomShopRedirection,
+  CustomAppNavigationTabsNames,
+} from './types';
 
 export const fetchCustomShopRedirectionsActions = {
   isLoading: createAction('SETTINGS/SHOP_REDIRECTION/LIST/IS_LOADING'),
@@ -219,5 +224,37 @@ export function deleteCustomMobilePopup(id: string, options?: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(deleteCustomMobilePopupActions.isLoading(false));
+  };
+}
+
+export const fetchCustomNavigationTabsNamesActions = {
+  isLoading: createAction<boolean>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/FETCH_CUSTOM_TABS_NAMES/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/FETCH_CUSTOM_TABS_NAMES/ERROR',
+  ),
+  success: createAction<CustomAppNavigationTabsNames>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/FETCH_CUSTOM_TABS_NAMES/SUCCESS',
+  ),
+};
+
+export function fetchCustomNavigationTabsNames(
+  companyId: number,
+  options?: OptionCallback<CustomAppNavigationTabsNames>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCustomNavigationTabsNamesActions.isLoading(true));
+    dispatch(fetchCustomNavigationTabsNamesActions.error(null));
+    try {
+      const response = await fetchCustomNavigationTabsNamesAPI(companyId);
+      dispatch(fetchCustomNavigationTabsNamesActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchCustomNavigationTabsNamesActions.error(err));
+      options?.onError && options.onError(err);
+    }
+    dispatch(fetchCustomNavigationTabsNamesActions.isLoading(false));
   };
 }

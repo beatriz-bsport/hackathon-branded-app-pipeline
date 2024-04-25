@@ -17,6 +17,14 @@ export type CustomMobilePopup = {
   date_created: string;
 };
 
+export type CustomAppNavigationTabsNames = {
+  bookings: string | null;
+  schedule: string | null;
+  activities: string | null;
+  studio: string | null;
+  profile: string | null;
+};
+
 export type SettingsState = {
   customShopRedirection: {
     byId: Record<string, CustomShopRedirection>;
@@ -25,5 +33,8 @@ export type SettingsState = {
   customMobilePopup: {
     byId: Record<string, CustomMobilePopup>;
     allIds: string[];
+  } & ErrorAndLoading;
+  customAppNavigation: {
+    tabNames: CustomAppNavigationTabsNames;
   } & ErrorAndLoading;
 };

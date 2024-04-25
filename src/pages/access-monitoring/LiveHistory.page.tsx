@@ -10,7 +10,6 @@ import moment from 'moment-timezone';
 import { search } from '#libs/member/actions';
 import {
   getMemberVisitList as getMemberVisitListAction,
-  manualUpdateMemberVisitFromBroadcastChannel as manualUpdateMemberVisitFromBroadcastChannelAction,
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
   retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
@@ -57,7 +56,6 @@ const useLiveHistoryPageDataManager = ({
   establishmentGroups,
   establishmentsData,
   getMemberVisitList,
-  manualUpdateMemberVisitFromBroadcastChannel,
   memberVisitState,
   permissions,
   refreshMemberVisitAccessStatus,
@@ -69,7 +67,6 @@ const useLiveHistoryPageDataManager = ({
   | 'establishmentGroups'
   | 'establishmentsData'
   | 'getMemberVisitList'
-  | 'manualUpdateMemberVisitFromBroadcastChannel'
   | 'memberVisitState'
   | 'permissions'
   | 'refreshMemberVisitAccessStatus'
@@ -125,8 +122,9 @@ const useLiveHistoryPageDataManager = ({
   /** HOOKS */
 
   const sendToBroadcastChannel = useBroadcastChannel(
-    (memberVisit: MemberVisitREST) =>
-      manualUpdateMemberVisitFromBroadcastChannel(memberVisit),
+    (memberVisit: MemberVisitREST) => {
+      // TODO: next commmits
+    },
   );
 
   const {
@@ -289,7 +287,6 @@ const LiveHistory: React.FC<Props> = ({
   establishmentsData,
   getMemberVisitList,
   isLoading,
-  manualUpdateMemberVisitFromBroadcastChannel,
   memberNextBookingOrPrivateBooking,
   memberVisitList,
   memberVisitState,
@@ -325,7 +322,6 @@ const LiveHistory: React.FC<Props> = ({
     establishmentGroups,
     establishmentsData,
     getMemberVisitList,
-    manualUpdateMemberVisitFromBroadcastChannel,
     memberVisitState,
     permissions,
     refreshMemberVisitAccessStatus,
@@ -436,8 +432,6 @@ const connector = connect(
   }),
   {
     getMemberVisitList: getMemberVisitListAction,
-    manualUpdateMemberVisitFromBroadcastChannel:
-      manualUpdateMemberVisitFromBroadcastChannelAction,
     refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
     retrieveMemberNextBookingOrPrivateBooking:
       retrieveMemberNextBookingOrPrivateBookingAction,

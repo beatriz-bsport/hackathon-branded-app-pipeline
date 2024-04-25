@@ -64,32 +64,44 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         .setIn(['memberVisit', 'byId'], {})
         .setIn(['memberVisit', 'allIds'], []);
     },
-    [globalMemberVisitActions.manualUpdateFromBroadcastChannel.toString()]: (
+    [globalMemberVisitActions.create.toString()]: (
       state,
       { payload }: { payload: MemberVisitREST },
     ) => {
-      const memberVisit = payload;
-      const memberVisitExists = !!state.memberVisit.byId?.[memberVisit.id];
       return state
         .setIn(
           ['memberVisit', 'allIds'],
-          uniq([
-            ...(!memberVisitExists ? [memberVisit.id] : []),
-            ...state.memberVisit.allIds,
-            ...(memberVisitExists ? [] : [memberVisit.id]),
-          ]),
+          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
+          uniq([payload.id, ...state.memberVisit.allIds]),
         )
         .merge(
           {
             memberVisit: {
               byId: {
-                [memberVisit.id]: memberVisit,
+                [payload.id]: payload,
               },
             },
           },
           { deep: true },
         );
     },
+
+    [globalMemberVisitActions.update.toString()]: (
+      state,
+      { payload }: { payload: MemberVisitREST },
+    ) => {
+      return state.merge(
+        {
+          memberVisit: {
+            byId: {
+              [payload.id]: payload,
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+
     [checkMemberInEstablishmentActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
@@ -102,28 +114,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     ) => {
       return state.setIn(['memberVisit', 'loading'], payload);
     },
-    [checkMemberInEstablishmentActions.success.toString()]: (
-      state,
-      { payload }: { payload: AxiosResponse<MemberVisitREST> },
-    ) => {
-      const memberVisit = payload.data;
-      return state
-        .setIn(
-          ['memberVisit', 'allIds'],
-          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
-          uniq([memberVisit.id, ...state.memberVisit.allIds]),
-        )
-        .merge(
-          {
-            memberVisit: {
-              byId: {
-                [memberVisit.id]: memberVisit,
-              },
-            },
-          },
-          { deep: true },
-        );
-    },
+
     [refreshMemberVisitAccessStatusActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
@@ -136,27 +127,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     ) => {
       return state.setIn(['memberVisit', 'loading'], payload);
     },
-    [refreshMemberVisitAccessStatusActions.success.toString()]: (
-      state,
-      { payload }: { payload: AxiosResponse<MemberVisitREST> },
-    ) => {
-      const memberVisit = payload.data;
-      return state
-        .setIn(
-          ['memberVisit', 'allIds'],
-          uniq([...state.memberVisit.allIds, memberVisit.id]),
-        )
-        .merge(
-          {
-            memberVisit: {
-              byId: {
-                [memberVisit.id]: memberVisit,
-              },
-            },
-          },
-          { deep: true },
-        );
-    },
+
     [setMemberVisitEntryStatusActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
@@ -169,28 +140,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     ) => {
       return state.setIn(['memberVisit', 'loading'], payload);
     },
-    [setMemberVisitEntryStatusActions.success.toString()]: (
-      state,
-      { payload }: { payload: AxiosResponse<MemberVisitREST> },
-    ) => {
-      const memberVisit = payload.data;
-      return state
-        .setIn(
-          ['memberVisit', 'allIds'],
-          // TODO: Review pagination. If page != 1, we should not add the new memberVisit to the list
-          uniq([memberVisit.id, ...state.memberVisit.allIds]),
-        )
-        .merge(
-          {
-            memberVisit: {
-              byId: {
-                [memberVisit.id]: memberVisit,
-              },
-            },
-          },
-          { deep: true },
-        );
-    },
+
     [getMemberVisitListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },

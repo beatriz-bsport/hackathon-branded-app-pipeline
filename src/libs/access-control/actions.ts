@@ -28,15 +28,11 @@ import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
 export const globalMemberVisitActions = {
   clear: createAction('ACCESS_CONTROL/CLEAR_MEMBER_VISIT'),
-  manualUpdateFromBroadcastChannel: createAction<MemberVisitREST>(
-    'ACCESS_CONTROL/MANUAL_UPDATE_FROM_BROADCAST_CHANNEL',
-  ),
+  update: createAction<MemberVisitREST>('ACCESS_CONTROL/MEMBER_VISIT/UPDATE'),
+  create: createAction<MemberVisitREST>('ACCESS_CONTROL/MEMBER_VISIT/CREATE'),
 };
 
 export const checkMemberInEstablishmentActions = {
-  success: createAction<AxiosResponse<MemberVisitREST>>(
-    'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/SUCCESS',
-  ),
   loading: createAction<boolean>(
     'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/LOADING',
   ),
@@ -82,8 +78,8 @@ export const checkMemberInEstablishment = (
         memberBarcode,
         establishmentIds,
       });
-      dispatch(checkMemberInEstablishmentActions.success(response));
       const { data } = response;
+      dispatch(globalMemberVisitActions.create(data));
       if (displaySnackbar) {
         dispatch(
           displayAccessControlSnackbar(
@@ -103,9 +99,6 @@ export const checkMemberInEstablishment = (
 };
 
 export const setMemberVisitEntryStatusActions = {
-  success: createAction<AxiosResponse<MemberVisitREST>>(
-    'ACCESS_CONTROL/SET_MEMBER_VISIT_ENTRY_STATUS/SUCCESS',
-  ),
   loading: createAction<boolean>(
     'ACCESS_CONTROL/SET_MEMBER_VISIT_ENTRY_STATUS/LOADING',
   ),
@@ -127,7 +120,7 @@ export const setMemberVisitEntryStatus = (
         memberVisitId,
         entryStatus,
       );
-      dispatch(setMemberVisitEntryStatusActions.success(response));
+      dispatch(globalMemberVisitActions.update(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(setMemberVisitEntryStatusActions.error(error));
@@ -138,9 +131,6 @@ export const setMemberVisitEntryStatus = (
 };
 
 export const refreshMemberVisitAccessStatusActions = {
-  success: createAction<AxiosResponse<MemberVisitREST>>(
-    'ACCESS_CONTROL/REFRESH_MEMBER_VISIT_ACCESS_STATUS/SUCCESS',
-  ),
   loading: createAction<boolean>(
     'ACCESS_CONTROL/REFRESH_MEMBER_VISIT_ACCESS_STATUS/LOADING',
   ),
@@ -158,7 +148,7 @@ export const refreshMemberVisitAccessStatus = (
     dispatch(refreshMemberVisitAccessStatusActions.error(null));
     try {
       const response = await refreshMemberVisitAccessStatusAPI(memberVisitId);
-      dispatch(refreshMemberVisitAccessStatusActions.success(response));
+      dispatch(globalMemberVisitActions.update(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(refreshMemberVisitAccessStatusActions.error(error));
@@ -208,16 +198,6 @@ export const getMemberVisitList = (
       options?.onError?.(error);
     }
     dispatch(getMemberVisitListActions.loading(false));
-  };
-};
-
-export const manualUpdateMemberVisitFromBroadcastChannel = (
-  memberVisit: MemberVisitREST,
-): ThunkAction => {
-  return async (dispatch) => {
-    dispatch(
-      globalMemberVisitActions.manualUpdateFromBroadcastChannel(memberVisit),
-    );
   };
 };
 

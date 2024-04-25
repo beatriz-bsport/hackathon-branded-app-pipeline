@@ -5,7 +5,7 @@ import { ConsumerInvoicePayment } from '.';
 import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
 import Typography from '#Fabrique/Typography';
 
-import type { PlannedPaymentEvent } from '#libs/invoice/types';
+import type { PlannedPaymentEventSerializer } from '#libs/invoice/types';
 import type { PaymentItem } from '#libs/invoice/payment/types';
 
 import '../../styles.css';
@@ -13,7 +13,7 @@ import '../../styles.css';
 type Props = {
   disputedPaymentIds: number[];
   paymentItemList?: PaymentItem[];
-  plannedPaymentErrorList?: PlannedPaymentEvent[];
+  plannedPaymentErrorList?: PlannedPaymentEventSerializer[];
 };
 
 const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
@@ -55,6 +55,7 @@ const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
               price={convertCtsToFullPrice(
                 parseInt(plannedPayment?.amount_cts, 10),
               )}
+              retryDate={plannedPayment.next_retry_date}
             />
           ))}
         </>

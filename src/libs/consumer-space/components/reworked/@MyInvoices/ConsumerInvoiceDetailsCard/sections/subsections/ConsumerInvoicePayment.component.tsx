@@ -20,6 +20,7 @@ type Props = {
   paymentNote?: string;
   paymentReceived?: boolean | null;
   price: string;
+  retryDate?: string | null;
 };
 
 const ConsumerInvoicePayment: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const ConsumerInvoicePayment: React.FC<Props> = ({
   paymentNote,
   paymentReceived,
   price,
+  retryDate,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'payment', 'invoice']);
 
@@ -43,7 +45,11 @@ const ConsumerInvoicePayment: React.FC<Props> = ({
             className="bs-consumer-invoice-details-card__body__payment-section__item-details-date"
             variant="body-xs"
           >
-            {formatAsDatetimeAdapted(date, 'L')}
+            {isPlannedPaymentEvent && !!retryDate
+              ? t('consumerSpace:reworked.myInvoices.detailsCard.retryDate', {
+                  date: formatAsDatetimeAdapted(retryDate, 'L'),
+                })
+              : formatAsDatetimeAdapted(date, 'L')}
           </Typography>
           <Typography
             className="bs-consumer-invoice-details-card__body__payment-section__item-details-label"

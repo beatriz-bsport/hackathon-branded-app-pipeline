@@ -92,7 +92,7 @@ export type ConsumerInvoiceREST = {
   is_quick_invoice: boolean | null;
   member: number;
   payments: PaymentItem[];
-  plannedpaymentevent_set: PlannedPaymentEvent[];
+  plannedpaymentevent_set: PlannedPaymentEventSerializer[];
   reverse_invoices: string[];
   reverted: boolean;
   stripe_invoice_pdf: string | null;

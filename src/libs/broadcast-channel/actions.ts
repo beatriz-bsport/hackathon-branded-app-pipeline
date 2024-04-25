@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions';
+
 import type { Dispatch } from '#state/types';
 import { BroadcastChannelMessage, BroadcastChannelMessageType } from './types';
 
@@ -19,4 +21,8 @@ export const handleBroadcastChannelMessages = (
         break;
     }
   };
+};
+
+export const senderLocalIdActions = {
+  init: createAction<string>('BROADCAST_CHANNEL/SENDER_LOCAL_ID/INIT'),
 };

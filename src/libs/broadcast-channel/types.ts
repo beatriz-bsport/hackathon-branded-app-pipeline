@@ -8,3 +8,8 @@ export type BroadcastChannelMessage<PayloadType = any> = {
   type: BroadcastChannelMessageType;
   payload: PayloadType;
 };
+
+export type BroadcastChannelState = {
+  // This local id is used to avoid listening to the messages sent by the same page
+  senderLocalId: string | null;
+};

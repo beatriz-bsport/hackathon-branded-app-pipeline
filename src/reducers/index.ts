@@ -8,6 +8,7 @@ import authReducers from './auth';
 import backgroundDialogReducer from '#libs/background-dialog/reducers';
 import backgroundTaskReducers from '#libs/background-task/reducers';
 import bookingReducers from '#libs/booking/reducers';
+import broadcastChannelReducers from '#libs/broadcast-channel/reducers';
 import cashBookReducers from '#libs/cashbook/reducers';
 import categoryReducers from '#libs/category/reducers';
 import checkoutReducers from '#libs/checkout/reducers';
@@ -90,6 +91,7 @@ import type { AlertingState } from '#libs/alerting/types';
 import type { BackgroundDialogState } from '#libs/background-dialog/types';
 import type { BackgroundTaskState } from '#libs/background-task/types';
 import type { BookingsState } from '#libs/booking/types';
+import type { BroadcastChannelState } from '#libs/broadcast-channel/types';
 import type { CashBookState } from '#libs/cashbook/types';
 import type { CategoryState } from '#libs/category/types';
 import type { CheckoutState } from '#libs/checkout/types';
@@ -249,6 +251,7 @@ const rootReducer = (history: any) =>
     quicksale: quicksaleReducers,
     referral: referralReducers,
     accessControl: accessControlReducers,
+    broadcastChannel: broadcastChannelReducers,
   });
 
 export type RootState = {
@@ -260,6 +263,7 @@ export type RootState = {
   backgroundDialog: BackgroundDialogState;
   backgroundTask: BackgroundTaskState;
   booking: BookingsState;
+  broadcastChannel: BroadcastChannelState;
   cashbook: CashBookState;
   category: CategoryState;
   checkout: CheckoutState;

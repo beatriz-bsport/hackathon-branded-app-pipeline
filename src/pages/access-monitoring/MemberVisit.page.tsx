@@ -112,6 +112,7 @@ export const useMemberVisitPageDataManager = ({
         setIsEmptyState(false);
       }
     },
+    { listenSelf: true },
   );
 
   /** ------------- EFFECTS --------------- */

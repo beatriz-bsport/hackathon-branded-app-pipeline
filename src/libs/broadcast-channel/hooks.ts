@@ -11,6 +11,7 @@ import type { RootState } from '../../reducers';
 
 export const useBroadcastChannel = <PayloadType = any>(
   onMessageCallback?: (data: BroadcastChannelMessage<PayloadType>) => void,
+  { listenSelf }: { listenSelf?: boolean } = {},
 ) => {
   const dispatch = useDispatch();
   const senderLocalId = useSelector(
@@ -46,7 +47,7 @@ export const useBroadcastChannel = <PayloadType = any>(
       }
     >,
   ) => {
-    if (event.data.senderLocalId === senderLocalId) {
+    if (!listenSelf && event.data.senderLocalId === senderLocalId) {
       return;
     }
     onMessageCallback?.(event.data);

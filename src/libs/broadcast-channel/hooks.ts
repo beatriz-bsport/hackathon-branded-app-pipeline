@@ -1,12 +1,22 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getAccessControlBroadcastsChannelId } from '../../http';
+import { senderLocalIdActions } from './actions';
 
 import type { BroadcastChannelMessage } from './types';
+import type { RootState } from '../../reducers';
 
 export const useBroadcastChannel = <PayloadType = any>(
   onMessageCallback?: (data: BroadcastChannelMessage<PayloadType>) => void,
 ) => {
+  const dispatch = useDispatch();
+  const senderLocalId = useSelector(
+    (state: RootState) => state.broadcastChannel.senderLocalId,
+  );
+
   // Create a BroadcastChannel instance
   const channelRef = useRef(
     new BroadcastChannel(getAccessControlBroadcastsChannelId()),
@@ -30,10 +40,25 @@ export const useBroadcastChannel = <PayloadType = any>(
 
   // Add a listener to the channel
   channel.onmessage = (
-    event: MessageEvent<BroadcastChannelMessage<PayloadType>>,
+    event: MessageEvent<
+      BroadcastChannelMessage<PayloadType> & {
+        senderLocalId: string;
+      }
+    >,
   ) => {
+    if (event.data.senderLocalId === senderLocalId) {
+      return;
+    }
     onMessageCallback?.(event.data);
   };
+
+  useEffect(() => {
+    if (!senderLocalId) {
+      // Initialize the sender local id
+      const uniqueId = uuidv4();
+      dispatch(senderLocalIdActions.init(uniqueId));
+    }
+  }, [dispatch, senderLocalId]);
 
   useEffect(() => {
     // Close the channel when the component unmounts
@@ -45,8 +70,14 @@ export const useBroadcastChannel = <PayloadType = any>(
   // Return a function to send messages through the channel
   return useCallback(
     (message: BroadcastChannelMessage<PayloadType>) => {
-      channel.postMessage(message);
+      if (!senderLocalId) {
+        return;
+      }
+      channel.postMessage({
+        ...message,
+        senderLocalId,
+      });
     },
-    [channel],
+    [channel, senderLocalId],
   );
 };

@@ -12,6 +12,8 @@ import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import CircularProgress from '#components/css-only/CircularProgress';
 import Button from '#Fabrique/ButtonV2';
 import classNames from 'classnames';
+import IconButton from '#components/css-only/Fabrique/IconButton';
+import { FileDownload02 } from '#components/untitledui';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -21,6 +23,14 @@ type Props = Pick<
   | 'selectedSubscriptionInvoiceDetails'
 >;
 
+const DownloadPdfButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+  return (
+    <IconButton size="md" color="grey" variant="outlined" onClick={onClick}>
+      <FileDownload02 stroke="currentColor" />
+    </IconButton>
+  );
+};
+
 const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
   areDetailsLoading,
   selectedSubscriptionInvoiceDetails,
@@ -28,6 +38,11 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
   hasDetailsNextPage,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  const handleDownloadInvoice = (invoicePdf: string) => () => {
+    if (!invoicePdf) return;
+    window.open(invoicePdf);
+  };
 
   return (
     <ConsumerCardSection
@@ -41,7 +56,7 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
       ) : (
         <List>
           {selectedSubscriptionInvoiceDetails?.length ? (
-            selectedSubscriptionInvoiceDetails.map((item) => {
+            selectedSubscriptionInvoiceDetails.map((item) => (
               <ListItem
                 captionText={getCurrencyDisplayWithPrice(
                   (parseFloat(item.amount_paid_cts) / 100).toString(),
@@ -54,8 +69,13 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
                 }}
                 className="bs-consumer__subscription-details-card__failed_payments__section__list-item"
                 label={formatAsDate(item.date)}
-              />;
-            })
+                rightSlot={
+                  <DownloadPdfButton
+                    onClick={handleDownloadInvoice(item.stripe_invoice_pdf)}
+                  />
+                }
+              />
+            ))
           ) : (
             <Typography variant="body-md">
               {t(

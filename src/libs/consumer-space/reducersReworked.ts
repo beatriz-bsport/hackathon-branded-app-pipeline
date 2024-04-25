@@ -1600,6 +1600,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           date: invoice.date,
           uuid: invoice.uuid,
           amount_paid_cts: invoice.amount_paid_cts,
+          stripe_invoice_pdf: invoice.stripe_invoice_pdf,
         })) ?? [];
 
       if (

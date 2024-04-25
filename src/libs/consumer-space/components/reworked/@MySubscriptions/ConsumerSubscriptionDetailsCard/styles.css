@@ -100,6 +100,14 @@
   display: none;
 }
 
+.bs-consumer__subscription-details-card__billing_history__load_button {
+  align-self: center;
+}
+
+.bs-consumer__subscription-details-card__billing_history__load_button--hidden {
+  display: none;
+}
+
 /* PAYMENT METHOD SECTION */
 
 .bs-consumer__subscription-details-card__payment-method__section {

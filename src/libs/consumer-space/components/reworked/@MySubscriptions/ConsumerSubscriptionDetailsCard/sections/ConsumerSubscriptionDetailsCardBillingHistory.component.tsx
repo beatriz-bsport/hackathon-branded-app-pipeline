@@ -8,11 +8,10 @@ import ConsumerCardSection from '#libs/consumer-space/components/reworked/common
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Typography from '#Fabrique/Typography';
-import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import { getBillingHistoryHeight } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
-import type { SubscriptionsInvoicesDetailsREST } from '#libs/subscription/types';
 import CircularProgress from '#components/css-only/CircularProgress';
+import Button from '#Fabrique/ButtonV2';
+import classNames from 'classnames';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -29,18 +28,6 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
   hasDetailsNextPage,
 }) => {
   const { t } = useTranslation('consumerSpace');
-  if (areDetailsLoading) {
-    return (
-      <ConsumerCardSection
-        className="bs-consumer__subscription-details-card__description__section"
-        title={t(
-          'reworked.mySubscriptions.consumerSubscriptionCardDetails.billingHistory',
-        )}
-      >
-        {areDetailsLoading && <CircularProgress size="xs" />}
-      </ConsumerCardSection>
-    );
-  }
 
   return (
     <ConsumerCardSection
@@ -49,19 +36,12 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
         'reworked.mySubscriptions.consumerSubscriptionCardDetails.billingHistory',
       )}
     >
-      <List>
-        {selectedSubscriptionInvoiceDetails?.length ? (
-          <GenericInfiniteScrollEnhancedCssOnly<
-            Omit<SubscriptionsInvoicesDetailsREST, 'billing_plan_id'>
-          >
-            fetchMoreData={handleInvoiceDetailsPaginationFetchMore}
-            items={selectedSubscriptionInvoiceDetails}
-            hasMore={hasDetailsNextPage}
-            height={getBillingHistoryHeight(
-              selectedSubscriptionInvoiceDetails.length,
-            )}
-            loader={<CircularProgress size="xs" />}
-            renderItem={({ item }) => (
+      {areDetailsLoading ? (
+        <CircularProgress size="sm" />
+      ) : (
+        <List>
+          {selectedSubscriptionInvoiceDetails?.length ? (
+            selectedSubscriptionInvoiceDetails.map((item) => {
               <ListItem
                 captionText={getCurrencyDisplayWithPrice(
                   (parseFloat(item.amount_paid_cts) / 100).toString(),
@@ -74,17 +54,32 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
                 }}
                 className="bs-consumer__subscription-details-card__failed_payments__section__list-item"
                 label={formatAsDate(item.date)}
-              />
-            )}
-          />
-        ) : (
-          <Typography variant="body-md">
-            {t(
-              'reworked.mySubscriptions.consumerSubscriptionCardDetails.emptyInvoices',
-            )}
-          </Typography>
+              />;
+            })
+          ) : (
+            <Typography variant="body-md">
+              {t(
+                'reworked.mySubscriptions.consumerSubscriptionCardDetails.emptyInvoices',
+              )}
+            </Typography>
+          )}
+        </List>
+      )}
+
+      <Button
+        className={classNames(
+          'bs-consumer__subscription-details-card__billing_history__load_button',
+          {
+            'bs-consumer__subscription-details-card__billing_history__load_button--hidden':
+              !hasDetailsNextPage,
+          },
         )}
-      </List>
+        color="primary"
+        onClick={handleInvoiceDetailsPaginationFetchMore}
+        variant="text"
+      >
+        {t('reworked.mySubscriptions.consumerSubscriptionCardDetails.loadMore')}
+      </Button>
     </ConsumerCardSection>
   );
 };

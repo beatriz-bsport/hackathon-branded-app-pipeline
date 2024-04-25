@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { useAccessControlBroadcastChannel } from './broadcastChannel';
+import { useAccessControlBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useNumericCodeScanner } from './codeScanning';
 import {
   getPerformAccessMonitoringUrl,

@@ -47,7 +47,7 @@ import type { RootState } from 'src/reducers';
 import type { MemberVisitREST } from '#libs/access-control/types';
 
 /** HOOKS */
-import { useAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
+import { useAccessControlBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 import { formatLocationString } from '#libs/access-control/utils';
 

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-import { getAccessControlBroadcastsChannelId } from '../../../http';
+import { getAccessControlBroadcastsChannelId } from '../../http';
 
 export const useAccessControlBroadcastChannel = (
   onMessageCallback?: (data: any) => void,
@@ -45,22 +45,4 @@ export const useAccessControlBroadcastChannel = (
     },
     [channel],
   );
-};
-
-export const withAccessControlBroadcastChannel = <T extends {}>(
-  Component: React.ComponentType<T>,
-) => {
-  return React.memo((props: React.PropsWithChildren<T>) => {
-    const sendToAccessControlBroadcastChannel =
-      useAccessControlBroadcastChannel();
-
-    return (
-      <Component
-        {...props}
-        sendToAccessControlBroadcastChannel={
-          sendToAccessControlBroadcastChannel
-        }
-      />
-    );
-  });
 };

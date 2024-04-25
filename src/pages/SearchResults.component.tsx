@@ -46,7 +46,7 @@ import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 import { getEstablishmentsSelectedInRole } from '#libs/establishment/selectors';
-import { withAccessControlBroadcastChannel } from '#libs/access-control/hooks/broadcastChannel';
+import { withAccessControlBroadcastChannel } from '#libs/broadcast-channel/hocs';
 import type { MemberVisitREST } from '#libs/access-control/types';
 
 type Props = {

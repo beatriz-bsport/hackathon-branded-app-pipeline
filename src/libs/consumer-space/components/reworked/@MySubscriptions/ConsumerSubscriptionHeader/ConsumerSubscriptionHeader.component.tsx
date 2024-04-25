@@ -52,7 +52,7 @@ export const ConsumerSubscriptionHeader: React.FC<Props> = ({
               ),
               onClick: onGetASubscriptionClick,
               rightIcon: <ChevronRight stroke="currentColor" />,
-              variant: 'outlined' as ButtonVariant,
+              variant: 'contained' as ButtonVariant,
               color: 'primary' as ButtonColor,
             },
           ],

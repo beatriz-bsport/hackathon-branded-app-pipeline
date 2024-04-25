@@ -160,7 +160,9 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
       {isMobile ? (
         <ShopItemDetailInventoryListMobile
           createShopItemProvision={createShopItemProvision}
+          formType={formType}
           isUpdatingVariant={isUpdatingVariant}
+          shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
         />
       ) : (
@@ -173,12 +175,14 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
         />
       )}
 
-      <Pagination
-        className={classes.justifyCenter}
-        count={Math.ceil(count / SHOP_ITEM_VARIANTS_PAGE_SIZE)}
-        onChange={handlePageChange}
-        page={page}
-      />
+      {formType === ShopItemDetailInventoryFormType.VARIANTS && (
+        <Pagination
+          className={classes.justifyCenter}
+          count={Math.ceil(count / SHOP_ITEM_VARIANTS_PAGE_SIZE)}
+          onChange={handlePageChange}
+          page={page}
+        />
+      )}
     </TabPanel>
   );
 };

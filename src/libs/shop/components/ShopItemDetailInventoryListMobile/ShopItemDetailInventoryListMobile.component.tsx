@@ -16,11 +16,16 @@ import useShopItemDetailInventoryFilters from '#libs/shop/hooks/useShopItemDetai
 import type {
   Provision,
   ProvisionCreate,
+  ShopItem,
   ShopItemVariant,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
+import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
+
 type Props = {
+  formType: `${ShopItemDetailInventoryFormType}`;
+  shopItem: ShopItem;
   shopItemVariantList: ShopItemVariant[];
   isUpdatingVariant?: boolean;
   createShopItemProvision: (
@@ -30,6 +35,8 @@ type Props = {
 };
 
 const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
+  formType,
+  shopItem,
   shopItemVariantList,
   isUpdatingVariant,
   createShopItemProvision,
@@ -51,7 +58,8 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   } = useShopItemDetailInventoryFilters(shopItemVariantList);
 
   const getListItemTitle = useCallback(
-    (color, size) => [color, size].filter((string) => !!string).join(' '),
+    (color: string, size: string) =>
+      [color, size].filter((string) => !!string).join(' '),
     [],
   );
 
@@ -85,79 +93,112 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
 
   return (
     <>
-      <div
-        className={classNames(
-          classes.filtersContainer,
-          classes.flexColumn,
-          classes.flexGap,
-        )}
-      >
-        {isMasterAccount && (
-          <Select
-            isClearable
-            className={classes.fullWidth}
-            onChange={handleFilterValueChange('company')}
-            options={companyFilterOptionList}
-            placeholder={t(
-              'shopItemDetail.table.inventory.filterPlaceholder.company',
-            )}
-          />
-        )}
-        <div className={classes.flexGap}>
-          <Select
-            isClearable
-            className={classes.flexGrow}
-            onChange={handleFilterValueChange('size')}
-            options={variantSizeFilterOptionList}
-            placeholder={t(
-              'shopItemDetail.table.inventory.filterPlaceholder.size',
-            )}
-          />
-          <Select
-            isClearable
-            className={classes.flexGrow}
-            onChange={handleFilterValueChange('color')}
-            options={variantColorFilterOptionList}
-            placeholder={t(
-              'shopItemDetail.table.inventory.filterPlaceholder.color',
-            )}
-          />
+      {formType === ShopItemDetailInventoryFormType.VARIANTS && (
+        <div
+          className={classNames(
+            classes.filtersContainer,
+            classes.flexColumn,
+            classes.flexGap,
+          )}
+        >
+          {isMasterAccount && (
+            <Select
+              isClearable
+              className={classes.fullWidth}
+              onChange={handleFilterValueChange('company')}
+              options={companyFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.company',
+              )}
+            />
+          )}
+          <div className={classes.flexGap}>
+            <Select
+              isClearable
+              className={classes.flexGrow}
+              onChange={handleFilterValueChange('size')}
+              options={variantSizeFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.size',
+              )}
+            />
+            <Select
+              isClearable
+              className={classes.flexGrow}
+              onChange={handleFilterValueChange('color')}
+              options={variantColorFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.color',
+              )}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
-      <List className={classes.listContainer}>
-        {filteredVariantList.map((variant) => (
+      {formType === ShopItemDetailInventoryFormType.VARIANTS && (
+        <List className={classes.listContainer}>
+          {filteredVariantList.map((variant) => (
+            <ListItem
+              key={variant.id}
+              className={classNames(
+                classes.listItemContainer,
+                classes.flexColumn,
+              )}
+            >
+              <Typography className={classes.listItemTitle}>
+                {getListItemTitle(variant.color, variant.size)}
+              </Typography>
+
+              <div className={classes.listItemDetails}>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.currentStock',
+                )}: ${variant.current_stock}`}</Typography>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.totalSales',
+                )}: ${variant.total_sales}`}</Typography>
+              </div>
+
+              <Button
+                fullWidth
+                color="primary"
+                onClick={handleOpenProvisionDialog(variant.id)}
+                variant="outlined"
+              >
+                {t('shopItemDetail.table.inventory.stockAdjustment')}
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+      )}
+
+      {formType === ShopItemDetailInventoryFormType.STANDALONE && (
+        <List className={classes.listContainer}>
           <ListItem
-            key={variant.id}
             className={classNames(
               classes.listItemContainer,
               classes.flexColumn,
             )}
           >
-            <Typography className={classes.listItemTitle}>
-              {getListItemTitle(variant.color, variant.size)}
-            </Typography>
-
             <div className={classes.listItemDetails}>
               <Typography>{`${t(
                 'shopItemDetail.table.inventory.currentStock',
-              )}: ${variant.current_stock}`}</Typography>
+              )}: ${shopItem.current_stock}`}</Typography>
               <Typography>{`${t(
                 'shopItemDetail.table.inventory.totalSales',
-              )}: ${variant.total_sales}`}</Typography>
+              )}: ${shopItem.total_sales}`}</Typography>
             </div>
 
             <Button
               fullWidth
               color="primary"
-              onClick={handleOpenProvisionDialog(variant.id)}
+              onClick={handleOpenProvisionDialog(shopItem.id)}
               variant="outlined"
             >
               {t('shopItemDetail.table.inventory.stockAdjustment')}
             </Button>
           </ListItem>
-        ))}
-      </List>
+        </List>
+      )}
 
       <ShopItemUpdateProvisionDialog
         isLoading={isUpdatingVariant}

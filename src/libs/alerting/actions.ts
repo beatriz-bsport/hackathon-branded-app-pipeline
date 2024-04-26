@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import {
@@ -13,11 +12,12 @@ import {
   REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
   type AlertingKind,
 } from '@bsport/common/lib/master-data/alerting_kind';
+import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
+import type { RootState } from 'src/reducers';
+import type { Dispatch, OptionCallback, ThunkAction } from 'src/state/types';
 import api from './api';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-
-import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
-import { RootState } from '../../reducers';
+import type { AlertPayloadSuccess, AlertPayloadLoading } from './types';
 import { updateTutorialLessonUserCompletionStatusAction } from '#libs/platform-tutorial/actions';
 import { flagAsReadActions as updateUnreadCommunicationAsReadAction } from '#libs/communication-v2/actions';
 
@@ -34,9 +34,9 @@ const ALERT_KINDS = [
 ].map((ak) => ak.alert_kind);
 
 export const listActions = {
-  error: createAction('ALERTING/LIST/ERROR'),
-  isLoading: createAction('ALERTING/LIST/IS_LOADING'),
-  success: createAction('ALERTING/LIST/SUCCESS'),
+  error: createAction<Error | null>('ALERTING/LIST/ERROR'),
+  isLoading: createAction<AlertPayloadLoading>('ALERTING/LIST/IS_LOADING'),
+  success: createAction<AlertPayloadSuccess>('ALERTING/LIST/SUCCESS'),
 };
 
 export function fetchAll(): ThunkAction {
@@ -93,7 +93,7 @@ const ACTIONS_DICT = {
 export function deleteAlert(
   alert_kind: number,
   id: number,
-  options?: OptionCallback<number>,
+  options?: OptionCallback<StatusCode>,
 ): ThunkAction {
   const customActions = ACTIONS_DICT[alert_kind];
   return async (dispatch: Dispatch) => {

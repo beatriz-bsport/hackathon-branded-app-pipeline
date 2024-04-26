@@ -5,10 +5,10 @@ import {
   UNEVEN_INVOICE_ALERT,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
+import type { RootState } from 'src/reducers';
 import { getObjectPermissions } from '#libs/role/selectors';
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import type { AlertingState } from './types';
-import type { RootState } from '../../reducers';
 import { AlertKind } from './constants';
 
 const getState = (state: RootState) => state.alerting;

@@ -1,6 +1,6 @@
 import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
+import type { PaginatedResponse } from 'src/state/types';
 import { API_URI, getAuth, postAuth } from '../../http';
-import { PaginatedResponse } from '../../state/types';
 import { Alerting } from './types';
 import { buildUrlParams } from '../../http/utils';
 

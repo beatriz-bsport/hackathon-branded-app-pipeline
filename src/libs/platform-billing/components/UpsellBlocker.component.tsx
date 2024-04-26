@@ -3,10 +3,14 @@ import { useLocation } from 'react-router';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Paper, Button, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import useTheme from '@material-ui/core/styles/useTheme';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#libs/platform-billing/utils';

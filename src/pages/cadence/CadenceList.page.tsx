@@ -671,10 +671,15 @@ const styles = (theme: Theme) =>
       gap: theme.spacing(2),
       width: '100%',
       height: '100vh',
-      paddingBottom: theme.spacing(12),
       position: 'relative',
       overflow: 'hidden',
       justifyContent: 'center',
+      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(2),
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+      },
     },
     pageColumn: {
       paddingTop: theme.spacing(2),

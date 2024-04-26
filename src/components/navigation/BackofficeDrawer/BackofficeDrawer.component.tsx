@@ -1068,15 +1068,8 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
   unscrollableContent: {
     flex: '1 1 auto',
     display: 'flex',
-    flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-    },
-    paddingBottom: theme.spacing(1),
-    paddingTop: theme.spacing(2),
     overflow: 'hidden',
   },
   content: {

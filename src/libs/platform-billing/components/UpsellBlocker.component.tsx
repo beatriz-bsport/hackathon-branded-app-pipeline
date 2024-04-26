@@ -12,6 +12,7 @@ import Dialog from '@material-ui/core/Dialog';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { BLOCKER_FRAME_ID } from '#libs/platform-billing/constant';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   blockerFrame: {
     position: 'absolute',
     left: 0,
+    right: 0,
     top: 0,
     zIndex: 100000 /* some high z-index */,
     width: '100%',
@@ -41,12 +43,10 @@ const useStyles = makeStyles((theme) => ({
   blockerFrameForContentPages: {
     width: 'auto',
     height: 'auto',
-    bottom: `-${theme.spacing(1)}px`,
-    top: `-${theme.spacing(2)}px`,
-    [theme.breakpoints.up('md')]: {
-      left: `-${theme.spacing(3)}px`,
-      right: `-${theme.spacing(3)}px`,
-    },
+    bottom: 0,
+    top: 0,
+    right: 0,
+    left: 0,
   },
   pseudoDialogContainer: {
     width: '100%',
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
   },
-  pseudoDialog: {
+  paperRoot: {
     padding: theme.spacing(1),
   },
   innerPaper: {
@@ -111,6 +111,10 @@ export const UpsellBlockerDialog = React.memo(
     const theme = useTheme();
     const { t } = useTranslation('platformBilling');
 
+    // Here we need to force the rerender of the component because the Dialog is
+    // rendered before its parent which then makes the body his container
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, setForceRerender] = React.useState(false);
     const location = useLocation();
 
     const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
@@ -133,12 +137,22 @@ export const UpsellBlockerDialog = React.memo(
 
     return (
       <div
+        ref={() => setForceRerender(true)}
         className={classNames(classes.blockerFrame, {
           [classes.blockerFrameForContentPages]: isPageContent,
         })}
+        id={BLOCKER_FRAME_ID}
       >
         <div className={classes.pseudoDialogContainer}>
-          <Paper className={classes.pseudoDialog} elevation={3}>
+          <Dialog
+            open
+            BackdropProps={{ invisible: true }}
+            container={document.getElementById(BLOCKER_FRAME_ID)}
+            PaperProps={{
+              elevation: 3,
+              className: classes.paperRoot,
+            }}
+          >
             <div className={classes.innerPaper}>
               <div className={classes.iconContainer}>
                 {CustomIconComponent ? (
@@ -185,7 +199,7 @@ export const UpsellBlockerDialog = React.memo(
                 )}
               </div>
             </div>
-          </Paper>
+          </Dialog>
         </div>
         <FeatureRequestDialog
           onClose={handleCloseFeatureRequestDialog}

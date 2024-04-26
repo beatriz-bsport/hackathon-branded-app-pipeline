@@ -35,6 +35,7 @@ import type { OptionCallback } from '../../../../state/types';
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import type { SelectOption } from '#libs/types';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.ShopItem,
@@ -56,6 +57,14 @@ type Props = {
   page: number;
   count: number;
   variantCombinationList: ShopItemVariantCombination[];
+  shopItemVariantFilterOptionList: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  shopItemVariantFilterOptionValues: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
@@ -81,6 +90,9 @@ type Props = {
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
   setQueryParam: (queryParam: string) => (value: string) => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes',
+  ) => (options: SelectOption[]) => void;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -99,6 +111,8 @@ const ShopItemDetail: React.FC<Props> = ({
   count,
   page,
   variantCombinationList,
+  shopItemVariantFilterOptionList,
+  shopItemVariantFilterOptionValues,
   getIsShopItemUsedInCombo,
   bookkeepingAccounts,
   bookkeepingAccountById,
@@ -110,6 +124,7 @@ const ShopItemDetail: React.FC<Props> = ({
   createShopItemProvision,
   createShopItemProvisionBulk,
   setQueryParam,
+  changeInventoryVariantFilter,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -307,6 +322,7 @@ const ShopItemDetail: React.FC<Props> = ({
       <ShopModalContextProvider>
         <ShopItemDetailTabs
           availableTabListOptions={availableTabListOptions}
+          changeInventoryVariantFilter={changeInventoryVariantFilter}
           companyId={companyId}
           count={count}
           createShopItemProvision={createShopItemProvision}
@@ -325,7 +341,10 @@ const ShopItemDetail: React.FC<Props> = ({
           setQueryParam={setQueryParam}
           shopItem={shopItem}
           shopItemSupplier={shopItemSupplier}
+          shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
+          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues}
           updateShopItemVariantBulk={updateShopItemVariantBulk}
+          variantCombinationListCount={(variantCombinationList ?? []).length}
           variantList={variantList}
         />
       </ShopModalContextProvider>

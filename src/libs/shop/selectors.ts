@@ -1,9 +1,11 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
+import uniqBy from 'lodash/uniqBy';
 
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { ShopItem, SubShop } from './types';
+import type { SelectOption } from '#libs/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 
@@ -302,6 +304,30 @@ export const getShopItemVariantCombinationList = (
       ?.combinationList ?? []
   );
 };
+
+/** Returns a list of all available options for variant filters on inventory tab (color/size/company) */
+export const getShopItemVariantFilterOptionList = createSelector(
+  [getShopItemVariantCombinationList],
+  (variantCombinationList) => {
+    const colorList: SelectOption[] = variantCombinationList
+      .map((variant) => ({
+        label: variant.color,
+        value: variant.color,
+      }))
+      .filter((variantOption) => !!variantOption.value);
+    const sizeList: SelectOption[] = variantCombinationList
+      .map((variant) => ({
+        label: variant.size,
+        value: variant.size,
+      }))
+      .filter((variantOption) => !!variantOption.value);
+
+    return {
+      colors: uniqBy(colorList, 'value'),
+      sizes: uniqBy(sizeList, 'value'),
+    };
+  },
+);
 
 /**
  * Retrieves the list of paginated suppliers for the current company

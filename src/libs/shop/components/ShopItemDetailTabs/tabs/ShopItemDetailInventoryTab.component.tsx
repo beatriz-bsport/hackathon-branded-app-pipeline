@@ -23,6 +23,7 @@ import type {
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { OptionCallback } from '../../../../../state/types';
 import type { ShopItemInventoryFormValues } from '../../ShopItemInventoryUpdateForm/types';
+import type { SelectOption } from '#libs/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import {
@@ -37,6 +38,15 @@ type Props = {
   isUpdatingVariant?: boolean;
   isStandaloneItem?: boolean;
   shopItem: ShopItem;
+  shopItemVariantFilterOptionList: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  shopItemVariantFilterOptionValues: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  variantCombinationListCount: number;
   handleOpenVariantDrawer: () => void;
   createShopItemProvisionBulk: (
     data: ProvisionBulkCreate,
@@ -47,6 +57,9 @@ type Props = {
     options?: OptionCallback<Provision>,
   ) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes',
+  ) => (options: SelectOption[]) => void;
 };
 
 const ShopItemDetailInventoryTab: React.FC<Props> = ({
@@ -56,10 +69,14 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   isUpdatingVariant,
   isStandaloneItem,
   shopItem,
+  shopItemVariantFilterOptionList,
+  shopItemVariantFilterOptionValues,
+  variantCombinationListCount,
   handleOpenVariantDrawer,
   createShopItemProvisionBulk,
   createShopItemProvision,
   setQueryParam,
+  changeInventoryVariantFilter,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -127,7 +144,7 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
   };
 
   if (
-    shopItemVariantList?.length === 0 &&
+    variantCombinationListCount === 0 &&
     formType === ShopItemDetailInventoryFormType.VARIANTS
   ) {
     return (
@@ -167,11 +184,20 @@ const ShopItemDetailInventoryTab: React.FC<Props> = ({
         />
       ) : (
         <ShopItemDetailInventoryList
+          changeInventoryVariantFilter={changeInventoryVariantFilter}
           formType={formType}
           handleSubmit={submitHandlerMapper[formType]}
           isUpdatingVariant={isUpdatingVariant}
           shopItem={shopItem}
           shopItemVariantList={shopItemVariantList}
+          variantColorFilterOptionList={shopItemVariantFilterOptionList.colors}
+          variantColorFilterOptionValueList={
+            shopItemVariantFilterOptionValues.colors
+          }
+          variantSizeFilterOptionList={shopItemVariantFilterOptionList.sizes}
+          variantSizeFilterOptionValueList={
+            shopItemVariantFilterOptionValues.sizes
+          }
         />
       )}
 

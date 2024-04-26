@@ -77,6 +77,8 @@ export type ShopItemVariantFilterParams = {
   base_item_id: number;
   page_size: number;
   page: number;
+  color?: string;
+  size?: string;
 };
 
 export type ShopSupplierFilterParams = {

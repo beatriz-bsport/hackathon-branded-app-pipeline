@@ -40,6 +40,7 @@ import {
   getShopItemSupplier as getShopItemSupplierSelector,
   getShopItemVariantCombinationList,
   getShopSupplierState,
+  getShopItemVariantFilterOptionList,
 } from '#libs/shop/selectors';
 import {
   getBookkeepingAccountList,
@@ -72,12 +73,15 @@ import type { OptionCallback } from '../../state/types';
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import { SelectOption } from '#libs/types';
 
 type OwnProps = {
   id: number;
   queryParams: {
     tab?: string;
     page?: string;
+    color?: string;
+    size?: string;
   };
   setQueryParam: (queryParam: string) => (value: string) => void;
 };
@@ -97,6 +101,20 @@ export class ShopItemDetailPage extends Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.queryParams.page !== this.props.queryParams.page) {
       this.fetchShopItemVariantList();
+    }
+    /*
+      Whenever applying filters, we want to get back to page 1 to prevent
+      fetching filtered pages that doesnt exist.
+    */
+    if (
+      prevProps.queryParams.color !== this.props.queryParams.color ||
+      prevProps.queryParams.size !== this.props.queryParams.size
+    ) {
+      this.props.setQueryParam('page')('1');
+      // if we are applying filters but already on page 1
+      if (this.props.queryParams.page === '1') {
+        this.fetchShopItemVariantList();
+      }
     }
     /*
       Whenever changing tab, we want to get back to page 1 to prevent
@@ -126,8 +144,23 @@ export class ShopItemDetailPage extends Component<Props> {
       parseInt(this.props.queryParams?.page, 10) ||
       this.props.shopItemVariantState.page ||
       1;
-    this.props.fetchShopItemVariantList({ id: this.props.id, page });
+    const colorFilter = this.props.queryParams?.color?.split(',');
+    const sizeFilter = this.props.queryParams?.size?.split(',');
+
+    this.props.fetchShopItemVariantList({
+      id: this.props.id,
+      page,
+      colors: colorFilter,
+      sizes: sizeFilter,
+    });
   };
+
+  handleChangeInventoryVariantFilters =
+    (type: 'colors' | 'sizes') => (options: SelectOption[]) => {
+      const availableOptions = options.map((option) => option.value).join(',');
+      type === 'colors' && this.props.setQueryParam('color')(availableOptions);
+      type === 'sizes' && this.props.setQueryParam('size')(availableOptions);
+    };
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
@@ -237,11 +270,28 @@ export class ShopItemDetailPage extends Component<Props> {
   handleRetrieveShopItemUsedInCombo = (id: number) =>
     this.props.retrieveShopItemUsedInCombo(id);
 
+  /**
+   * Transform the color/size query params into an array of selector options
+   * to set selector options on page render (if any query params)
+   */
+  getVariantFilterOptionValues = () => {
+    const colors: SelectOption[] = (this.props.queryParams.color ?? '')
+      .split(',')
+      .map((value) => ({ label: value, value }))
+      .filter((option) => !!option.value);
+    const sizes: SelectOption[] = (this.props.queryParams.size ?? '')
+      .split(',')
+      .map((value) => ({ label: value, value }))
+      .filter((option) => !!option.value);
+    return { colors, sizes };
+  };
+
   render() {
     return (
       <ShopItemDetail
         bookkeepingAccountById={this.props.bookkeepingAccountById}
         bookkeepingAccounts={this.props.bookkeepingAccounts}
+        changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
         companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
         createShopItemProvision={this.handleCreateShopItemProvision}
@@ -262,6 +312,10 @@ export class ShopItemDetailPage extends Component<Props> {
         shopItemSupplier={this.props.getShopItemSupplier(
           this.props.shopItem?.supplier,
         )}
+        shopItemVariantFilterOptionList={
+          this.props.shopItemVariantFilterOptionList
+        }
+        shopItemVariantFilterOptionValues={this.getVariantFilterOptionValues()}
         supplierList={this.props.supplierState.suppliers}
         tab={this.props.queryParams.tab}
         updateShopItem={this.handleUpdateShopItem}
@@ -280,6 +334,10 @@ const connector = connect(
     isVariantListLoading: getShopItemVariantListLoading(state),
     isDeleteLoading: getShopItemDetailDeleteLoading(state),
     shopItem: getShopItemDetail(state, id),
+    shopItemVariantFilterOptionList: getShopItemVariantFilterOptionList(
+      state,
+      id,
+    ),
     getIsShopItemUsedInCombo: (shopItemId: number) =>
       getIsShopItemUsedInComboSelector(state, shopItemId),
     getShopItemSupplier: (supplierId: number) =>
@@ -313,7 +371,11 @@ const connector = connect(
 );
 
 export default compose<Props, OwnProps>(
-  withQueryParams([['tab', 'page'], 'queryParams', 'setQueryParam']),
+  withQueryParams([
+    ['tab', 'page', 'color', 'size'],
+    'queryParams',
+    'setQueryParam',
+  ]),
   routerParamsToProps({ id: 'id:number' }),
   connector,
   withHandlers({

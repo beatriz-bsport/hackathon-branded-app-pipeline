@@ -31,6 +31,7 @@ import type {
   Provision,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
+import type { SelectOption } from '#libs/types';
 
 import { ShopItemDetailTab } from '../ShopItemDetail/constants';
 
@@ -48,6 +49,15 @@ type Props = {
   count: number;
   isVariantEditMode?: boolean;
   availableTabListOptions: TabListOption[];
+  shopItemVariantFilterOptionList: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  shopItemVariantFilterOptionValues: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  variantCombinationListCount: number;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
@@ -62,6 +72,9 @@ type Props = {
   ) => void;
   setIsVariantEditMode: (value: boolean) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes',
+  ) => (options: SelectOption[]) => void;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -78,6 +91,9 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   count,
   isVariantEditMode,
   availableTabListOptions = [],
+  shopItemVariantFilterOptionList,
+  shopItemVariantFilterOptionValues,
+  variantCombinationListCount,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   updateShopItemVariantBulk,
@@ -86,6 +102,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   createShopItemProvisionBulk,
   setIsVariantEditMode,
   setQueryParam,
+  changeInventoryVariantFilter,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -149,6 +166,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
         {!isLoading && (
           <>
             <ShopItemDetailInventoryTab
+              changeInventoryVariantFilter={changeInventoryVariantFilter}
               count={count}
               createShopItemProvision={createShopItemProvision}
               createShopItemProvisionBulk={createShopItemProvisionBulk}
@@ -158,7 +176,12 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               page={page}
               setQueryParam={setQueryParam}
               shopItem={shopItem}
+              shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
+              shopItemVariantFilterOptionValues={
+                shopItemVariantFilterOptionValues
+              }
               shopItemVariantList={variantList}
+              variantCombinationListCount={variantCombinationListCount}
             />
 
             <ShopItemDetailVariantsTab

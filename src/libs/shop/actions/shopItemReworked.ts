@@ -201,14 +201,20 @@ export const fetchShopItemVariantListActions = {
  * If there are no variants API will return an empty list
  * @param id The ID of the base item
  * @param page The page to fetch
+ * @param colors An optional array of string for filtering
+ * @param sizes An optional array of string for filtering
  */
 export const fetchShopItemVariantList = ({
   id,
   page,
+  colors,
+  sizes,
   options,
 }: {
   id: number;
   page?: number;
+  colors?: string[];
+  sizes?: string[];
   options?: OptionCallback<PaginatedResponse<ShopItemVariant>>;
 }) => {
   return async (dispatch: Dispatch) => {
@@ -216,10 +222,16 @@ export const fetchShopItemVariantList = ({
       dispatch(fetchShopItemVariantListActions.isLoading(true));
       dispatch(fetchShopItemVariantListActions.error(null));
 
+      // parse as string for HTTP GET filter
+      const colorFilter = colors?.length ? { color: colors.join(',') } : {};
+      const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
+
       const result = await retrieveShopItemVariantListAPI({
         base_item_id: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
+        ...colorFilter,
+        ...sizeFilter,
       });
 
       dispatch(

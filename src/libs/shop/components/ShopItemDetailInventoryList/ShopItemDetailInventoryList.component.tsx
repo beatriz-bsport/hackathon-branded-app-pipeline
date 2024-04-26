@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 
 import { Formik, FormikHelpers } from 'formik';
+import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 import ShopItemInventoryBulkUpdateForm from '#libs/shop/components/ShopItemInventoryBulkUpdateForm';
 import ShopItemInventoryUpdateForm from '#libs/shop/components/ShopItemInventoryUpdateForm';
@@ -11,6 +15,7 @@ import shopItemInventoryFormValidationSchema from '#libs/shop/components/ShopIte
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
 import type { ShopItem, ShopItemVariant } from '#libs/shop/types';
+import type { SelectOption } from '#libs/types';
 
 import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
 
@@ -19,6 +24,10 @@ type Props = {
   isUpdatingVariant?: boolean;
   shopItem: ShopItem;
   shopItemVariantList: ShopItemVariant[];
+  variantSizeFilterOptionList: SelectOption[];
+  variantSizeFilterOptionValueList: SelectOption[];
+  variantColorFilterOptionList: SelectOption[];
+  variantColorFilterOptionValueList: SelectOption[];
   handleSubmit: (
     values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
     {
@@ -27,14 +36,26 @@ type Props = {
       ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues
     >,
   ) => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes',
+  ) => (options: SelectOption[]) => void;
 };
+
 const ShopItemDetailInventoryList: React.FC<Props> = ({
   formType,
   isUpdatingVariant,
-  shopItemVariantList,
   shopItem,
+  shopItemVariantList,
+  variantSizeFilterOptionList,
+  variantSizeFilterOptionValueList,
+  variantColorFilterOptionList,
+  variantColorFilterOptionValueList,
   handleSubmit,
+  changeInventoryVariantFilter,
 }) => {
+  const { t } = useTranslation('shop');
+  const classes = useStyles();
+
   const validationSchema = {
     [ShopItemDetailInventoryFormType.STANDALONE]:
       shopItemInventoryFormValidationSchema,
@@ -76,13 +97,55 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
           <ShopItemInventoryUpdateForm />
         )}
         {formType === ShopItemDetailInventoryFormType.VARIANTS && (
-          <ShopItemInventoryBulkUpdateForm
-            isUpdatingVariant={isUpdatingVariant}
-          />
+          <>
+            <div
+              className={classNames(classes.flexGap, classes.filterContainer)}
+            >
+              <Select
+                isClearable
+                isMulti
+                className={classes.flexGrow}
+                onChange={changeInventoryVariantFilter('sizes')}
+                options={variantSizeFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.size',
+                )}
+                value={variantSizeFilterOptionValueList}
+              />
+              <Select
+                isClearable
+                isMulti
+                className={classes.flexGrow}
+                onChange={changeInventoryVariantFilter('colors')}
+                options={variantColorFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.color',
+                )}
+                value={variantColorFilterOptionValueList}
+              />
+            </div>
+
+            <ShopItemInventoryBulkUpdateForm
+              isUpdatingVariant={isUpdatingVariant}
+            />
+          </>
         )}
       </>
     </Formik>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  filterContainer: {
+    marginBottom: theme.spacing(2),
+  },
+  flexGap: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
+  flexGrow: {
+    flex: 1,
+  },
+}));
 
 export default React.memo(ShopItemDetailInventoryList);

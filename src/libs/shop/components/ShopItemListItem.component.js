@@ -37,6 +37,7 @@ export default (props: Props) => {
 
   const itemPrice = (() => {
     const isStandaloneItem = !!props.shopitem?.is_standalone_item;
+    const isVariantItem = !!props.shopitem?.base_item;
     const lowestVariantPrice = parseFloat(
       props.shopitem?.lowest_variant_price,
     ).toFixed(2);
@@ -45,7 +46,7 @@ export default (props: Props) => {
     const price = props.shopitem?.price;
 
     // Standalone item OR base item with same price for all variants
-    if (isStandaloneItem || allVariantsHaveSamePrice) {
+    if (isStandaloneItem || allVariantsHaveSamePrice || isVariantItem) {
       return getCurrencyDisplayWithPrice(price);
     }
     // Base item with dynamic variant prices

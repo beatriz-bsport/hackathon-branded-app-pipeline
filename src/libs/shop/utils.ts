@@ -49,7 +49,7 @@ export const getShopItemName = ({
   }
 
   // standalone/variant item
-  return [name, color, size].filter((text) => !!text).join(' - ');
+  return [name, color, size, price].filter((text) => !!text).join(' - ');
 };
 
 /**

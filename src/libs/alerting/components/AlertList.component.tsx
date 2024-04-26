@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -14,14 +13,14 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
-import { RootState } from '../../../reducers';
+import type { RootState } from 'src/reducers';
+import { compose } from 'recompose';
 import AlertListGroup from './AlertListGroup.component';
 import type { AlertGroup, DeleteAlert } from '../types';
 import { AlertKind } from '../constants';
 import alertingSelectors from '../selectors';
 
-type Props = {
-  alertings: Array<AlertGroup>;
+type OuterProps = {
   pushRouter: (path: string) => void;
   deleteAlert: DeleteAlert;
   onClose?: () => void;
@@ -31,7 +30,12 @@ type Props = {
   hasReadInvoicePermission: boolean;
 };
 
-export const AlertList: React.FC<Props> = ({
+type InnerProps = {
+  alertings: AlertGroup[];
+};
+
+type Props = InnerProps & OuterProps;
+const AlertList: React.FC<Props> = ({
   alertings,
   withCommunicationAlerts,
   onClose,
@@ -47,11 +51,9 @@ export const AlertList: React.FC<Props> = ({
     return alertings.filter((alertingGroup) => {
       if (
         (!withCommunicationAlerts &&
-          alertingGroup.alert_kind ===
-            UNREAD_COMMUNICATION.alert_kind.toString()) ||
+          alertingGroup.alert_kind === UNREAD_COMMUNICATION.alert_kind) ||
         (!hasReadInvoicePermission &&
-          alertingGroup.alert_kind ===
-            UNEVEN_INVOICE_ALERT.alert_kind.toString())
+          alertingGroup.alert_kind === UNEVEN_INVOICE_ALERT.alert_kind)
       ) {
         return false;
       }
@@ -114,8 +116,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default connect((state: RootState, props: Props) => ({
+const connector = connect((state: RootState, props: OuterProps) => ({
   alertings: props.withCommunicationAlerts
     ? alertingSelectors.getOneKind(state, AlertKind.UNREAD_COMMUNICATION)
     : alertingSelectors.getByKind(state),
-}))(AlertList);
+}));
+export default compose<InnerProps, OuterProps>(connector)(
+  React.memo(AlertList),
+);

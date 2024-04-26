@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 
@@ -21,7 +20,7 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type {
   Alerting,
@@ -31,12 +30,15 @@ import type {
   NewOrderAlerting,
   NewTutorialSectionOrLessonAlerting,
   PrivateBookingAlerting,
+  UnpaidPrivateBookingAlerting,
   TaskAlerting,
   UnevenInvoiceAlerting,
+  UnreadCommunicationAlerting,
 } from '../types';
+// @ts-expect-error
 import i18n from '../../../i18n';
 import { buildUrlParams } from '../../../http';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { formatAsDatetimeAdapted } from '#utils/datetime';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
@@ -72,10 +74,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UnevenAlertListItem = (props: {
+const UnevenAlertListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: UnevenInvoiceAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
@@ -118,12 +120,12 @@ const UnevenAlertListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const PrivateBookingIncompleteListItem = (props: {
+const PrivateBookingIncompleteListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: PrivateBookingAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
@@ -163,12 +165,12 @@ const PrivateBookingIncompleteListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const CompanyOnboardingAlertListItem = (props: {
+const CompanyOnboardingAlertListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: CompanyOnboardingAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
@@ -187,11 +189,7 @@ const CompanyOnboardingAlertListItem = (props: {
     content = (
       <Typography component="div" variant="caption">
         <p>
-          <Trans
-            date={date}
-            i18nKey="companyOnboarding.verification.content"
-            t={t}
-          >
+          <Trans i18nKey="companyOnboarding.verification.content" t={t}>
             You have until <strong>{{ date }}</strong>
             to verify your account
           </Trans>
@@ -241,12 +239,12 @@ const CompanyOnboardingAlertListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const NewOrderAlertListItem = (props: {
+const NewOrderAlertListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: NewOrderAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { order, price, name } = alerting.data;
@@ -271,7 +269,7 @@ const NewOrderAlertListItem = (props: {
           </div>
         </div>
         <Typography component="p" variant="caption">
-          <Trans i18nKey="newOrder.explain" name={name} t={t}>
+          <Trans i18nKey="newOrder.explain" t={t}>
             New order paid by <strong>{{ name }}</strong>
           </Trans>
           <br />
@@ -280,12 +278,12 @@ const NewOrderAlertListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const TaskAlertListItem = (props: {
+const TaskAlertListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: TaskAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { name, description, date_due, member } = alerting.data;
@@ -327,13 +325,13 @@ const TaskAlertListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const UnreadCommunicationListItem = (props: {
+const UnreadCommunicationListItem: React.FC<{
   pushRouter: (path: string) => void;
   deleteAlert: (alert_kind: number, id: number) => void;
-  alerting: TaskAlerting;
-}) => {
+  alerting: UnreadCommunicationAlerting;
+}> = React.memo((props) => {
   const { alerting, deleteAlert, pushRouter } = props;
   const classes = useStyles();
   const { name, content, id, photo, member } = alerting.data;
@@ -383,12 +381,12 @@ const UnreadCommunicationListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const UnpaidPrivateBookingIncompleteListItem = (props: {
+const UnpaidPrivateBookingIncompleteListItem: React.FC<{
   pushRouter: (path: string) => void;
-  alerting: PrivateBookingAlerting;
-}) => {
+  alerting: UnpaidPrivateBookingAlerting;
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
@@ -438,13 +436,13 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const NewTutorialSectionOrLessonListItem = (props: {
+const NewTutorialSectionOrLessonListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: NewTutorialSectionOrLessonAlerting;
   deleteAlert: DeleteAlert;
-}) => {
+}> = React.memo((props) => {
   const { alerting, deleteAlert, pushRouter } = props;
   const { t } = useTranslation('alerting');
   const classes = useStyles();
@@ -486,12 +484,12 @@ const NewTutorialSectionOrLessonListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-const LateReplacementRequestListItem = (props: {
+const LateReplacementRequestListItem: React.FC<{
   pushRouter: (path: string) => void;
   alerting: LateReplacementRequestAlerting;
-}) => {
+}> = React.memo((props) => {
   const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { activity_name, date_start, coach } = alerting.data;
@@ -524,46 +522,66 @@ const LateReplacementRequestListItem = (props: {
       </div>
     </ListItem>
   );
-};
+});
 
-export default function AlertList(props: Props) {
+const AlertListItem: React.FC<Props> = (props) => {
   const { alerting, pushRouter, deleteAlert } = props;
   switch (alerting.alert_kind) {
     case UNEVEN_INVOICE_ALERT.alert_kind:
       return (
-        <UnevenAlertListItem alerting={alerting} pushRouter={pushRouter} />
-      );
-    case NEW_ORDER_ALERT.alert_kind:
-      return (
-        <NewOrderAlertListItem alerting={alerting} pushRouter={pushRouter} />
-      );
-    case REMINDER_NOTE_ALERT_KIND.alert_kind:
-      return <TaskAlertListItem alerting={alerting} pushRouter={pushRouter} />;
-    case COMPANY_ONBOARDING_ALERT.alert_kind:
-      return (
-        <CompanyOnboardingAlertListItem
-          alerting={alerting}
+        <UnevenAlertListItem
+          alerting={alerting as UnevenInvoiceAlerting}
           pushRouter={pushRouter}
         />
       );
     case PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind:
       return (
         <PrivateBookingIncompleteListItem
-          alerting={alerting}
+          alerting={alerting as PrivateBookingAlerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case COMPANY_ONBOARDING_ALERT.alert_kind:
+      return (
+        <CompanyOnboardingAlertListItem
+          alerting={alerting as CompanyOnboardingAlerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case NEW_ORDER_ALERT.alert_kind:
+      return (
+        <NewOrderAlertListItem
+          alerting={alerting as NewOrderAlerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case REMINDER_NOTE_ALERT_KIND.alert_kind:
+      return (
+        <TaskAlertListItem
+          alerting={alerting as TaskAlerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case UNREAD_COMMUNICATION.alert_kind:
+      return (
+        <UnreadCommunicationListItem
+          alerting={alerting as UnreadCommunicationAlerting}
+          deleteAlert={deleteAlert}
           pushRouter={pushRouter}
         />
       );
     case UNPAID_PRIVATE_BOOKING_ALERT.alert_kind:
       return (
         <UnpaidPrivateBookingIncompleteListItem
-          alerting={alerting}
+          alerting={alerting as UnpaidPrivateBookingAlerting}
           pushRouter={pushRouter}
         />
       );
+
     case NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind:
       return (
         <NewTutorialSectionOrLessonListItem
-          alerting={alerting}
+          alerting={alerting as NewTutorialSectionOrLessonAlerting}
           deleteAlert={deleteAlert}
           pushRouter={pushRouter}
         />
@@ -571,19 +589,14 @@ export default function AlertList(props: Props) {
     case REPLACEMEMENT_REQUEST_LATE_ALERT_KIND.alert_kind:
       return (
         <LateReplacementRequestListItem
-          alerting={alerting}
+          alerting={alerting as LateReplacementRequestAlerting}
           pushRouter={pushRouter}
         />
       );
-    case UNREAD_COMMUNICATION.alert_kind:
-      return (
-        <UnreadCommunicationListItem
-          alerting={alerting}
-          deleteAlert={deleteAlert}
-          pushRouter={pushRouter}
-        />
-      );
+
     default:
       return null;
   }
-}
+};
+
+export default React.memo(AlertListItem);

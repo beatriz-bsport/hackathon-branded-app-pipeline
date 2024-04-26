@@ -1,7 +1,5 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
-import { createStyles } from '@material-ui/styles';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Button from '@material-ui/core/Button';
@@ -14,41 +12,29 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import HelpIcon from '@material-ui/icons/Help';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-import {
-  useTranslation,
-  withTranslation,
-  WithTranslation,
-} from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { useTranslation } from 'react-i18next';
 import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
-import RedIconButton from '../../../components/button/RedIconButton.component';
+import { openIntercomHelp } from '../../../intercom';
+// @ts-expect-error
+import RedIconButton from '#components/button/RedIconButton.component';
 
 import type { AlertGroup, DeleteAlert } from '../types';
 import AlertListItem from './AlertListItem.component';
-import { MaterialStyleType } from '../../../utils/types';
-import { openIntercomHelp } from '../../../intercom';
 
-type OwnProps = {
+type OuterProps = {
   alert_group: AlertGroup;
   pushRouter: (path: string) => void;
   deleteAlert: DeleteAlert;
   onShowMore: () => void;
 };
 
-type ComposeProps = {
-  isExpanded: boolean;
-  setExpanded: (isExpanded: boolean) => void;
-} & WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OuterProps;
 
-type Props = OwnProps & ComposeProps;
-
-type RealAllButtonProps = {
+type ReadAllButtonProps = {
   alert_group: AlertGroup;
   deleteAlert: DeleteAlert;
 };
@@ -58,20 +44,16 @@ const READ_ALL_ALLOWED_ALERT_KINDS = [
   UNREAD_COMMUNICATION.alert_kind,
 ];
 
-const ReadAllButton = (props: RealAllButtonProps) => {
+const ReadAllButton: React.FC<ReadAllButtonProps> = React.memo((props) => {
   const classes = useReadAllStyles();
   const { t } = useTranslation('alerting');
-  if (
-    READ_ALL_ALLOWED_ALERT_KINDS.includes(
-      parseInt(props.alert_group.alert_kind),
-    )
-  ) {
+  if (READ_ALL_ALLOWED_ALERT_KINDS.includes(props.alert_group.alert_kind)) {
     return (
       <div className={classes.container}>
         <Button
           color="primary"
           onClick={
-            () => props.deleteAlert(parseInt(props.alert_group.alert_kind), -1) // -1 means all alerts of that group
+            () => props.deleteAlert(props.alert_group.alert_kind, -1) // -1 means all alerts of that group
           }
           startIcon={<CheckCircleOutlineIcon />}
         >
@@ -81,7 +63,7 @@ const ReadAllButton = (props: RealAllButtonProps) => {
     );
   }
   return null;
-};
+});
 
 const useReadAllStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -93,26 +75,29 @@ const useReadAllStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const AlertListGroup = (props: Props) => {
+const AlertListGroup: React.FC<Props> = (props) => {
   const handleOpenIntercomHelp = () => {
     openIntercomHelp('paymentLink');
   };
 
+  const [isExpanded, setIsExpanded] = React.useState(true);
+  const classes = useStyles();
+  const { t } = useTranslation('alerting');
   return (
     <List
       disablePadding
       subheader={
         <ListSubheader disableGutters component="h3" style={{ margin: 0 }}>
-          <div className={props.classes.title}>
+          <div className={classes.title}>
             <div>
               <span>
-                {`${props.t(`alert_kind.${props.alert_group.alert_kind}`)} (${
+                {`${t(`alert_kind.${props.alert_group.alert_kind}`)} (${
                   props.alert_group.count
                 })`}
               </span>
               <span>
                 {props.alert_group.count &&
-                props.alert_group.alert_kind === '1' ? (
+                props.alert_group.alert_kind === 1 ? (
                   <RedIconButton
                     color="primary"
                     onClick={handleOpenIntercomHelp}
@@ -124,17 +109,17 @@ export const AlertListGroup = (props: Props) => {
             </div>
             <IconButton
               onClick={() => {
-                props.setExpanded(!props.isExpanded);
+                setIsExpanded((previousValue) => !previousValue);
               }}
             >
-              {props.isExpanded ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+              {isExpanded ? <ExpandMoreIcon /> : <ExpandLessIcon />}
             </IconButton>
           </div>
           <Divider />
         </ListSubheader>
       }
     >
-      <Collapse in={props.isExpanded}>
+      <Collapse in={isExpanded}>
         {props.alert_group.results.map((al) => (
           <AlertListItem
             key={al.id}
@@ -145,11 +130,13 @@ export const AlertListGroup = (props: Props) => {
         ))}
         {props.alert_group.loading ? <LinearProgress /> : null}
         {props.alert_group.next ? (
-          <div
-            className={props.classes.showMoreContainer}
-            disabled={props.alert_group.loading}
-          >
-            <Button onClick={props.onShowMore}>{props.t('showMore')}</Button>
+          <div className={classes.showMoreContainer}>
+            <Button
+              disabled={props.alert_group.loading}
+              onClick={props.onShowMore}
+            >
+              {t('showMore')}
+            </Button>
           </div>
         ) : null}
         <ReadAllButton
@@ -160,27 +147,22 @@ export const AlertListGroup = (props: Props) => {
     </List>
   );
 };
-const styles = (theme: Theme) =>
-  createStyles({
-    title: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      backgroundColor: '#efefef',
-      margin: 0,
-    },
-    showMoreContainer: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(1),
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });
+const useStyles = makeStyles((theme: Theme) => ({
+  title: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    backgroundColor: '#efefef',
+    margin: 0,
+  },
+  showMoreContainer: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
 
-export default compose<any, OwnProps>(
-  withTranslation(['alerting']),
-  withStyles(styles),
-  withState('isExpanded', 'setExpanded', true),
-)(AlertListGroup);
+export default React.memo(AlertListGroup);

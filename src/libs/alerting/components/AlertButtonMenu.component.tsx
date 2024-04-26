@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
@@ -16,23 +14,23 @@ import { useDispatch } from 'react-redux';
 
 import type { DeleteAlert } from '../types';
 import AlertList from './AlertList.component';
-import ObjectLevelPermissionProvider from '../../role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
-  setDialogOpen: (Object) => void,
-  dialogOpen: ?Object,
-  nbAlerting: number,
-  countAlertingCommunication: number,
-  deleteAlert: DeleteAlert,
-  showMore: (alert_kind: number) => void,
-  overrideIcon: any,
-  withCommunicationAlerts?: boolean,
+  setDialogOpen: (dialogOpen: EventTarget) => void;
+  dialogOpen?: EventTarget;
+  nbAlerting: number;
+  countAlertingCommunication: number;
+  deleteAlert: DeleteAlert;
+  showMore: (alert_kind: number) => void;
+  overrideIcon: any;
+  withCommunicationAlerts?: boolean;
 };
 
-export default function AlertButtonMenu(props: Props) {
+const AlertButtonMenu: React.FC<Props> = (props) => {
   const { setDialogOpen, dialogOpen, nbAlerting, overrideIcon } = props;
   const dispatch = useDispatch();
-  const pushRouter = (path) => {
+  const pushRouter = (path: string) => {
     dispatch(push(path));
   };
   const classes = useStyles();
@@ -50,7 +48,7 @@ export default function AlertButtonMenu(props: Props) {
       </IconButton>
       <Popper
         transition
-        anchorEl={dialogOpen}
+        anchorEl={dialogOpen as Element}
         id={dialogOpen ? `simple-popper${overrideIcon}` : null}
         modifiers={{
           placement: 'bottom',
@@ -75,7 +73,7 @@ export default function AlertButtonMenu(props: Props) {
             >
               <Paper square className={classes.menuContainer}>
                 <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
-                  {(hasReadInvoicePermission) => (
+                  {(hasReadInvoicePermission: boolean) => (
                     <AlertList
                       deleteAlert={props.deleteAlert}
                       hasReadInvoicePermission={hasReadInvoicePermission}
@@ -97,7 +95,7 @@ export default function AlertButtonMenu(props: Props) {
       </Popper>
     </div>
   );
-}
+};
 
 const useStyles = makeStyles({
   menuContainer: {
@@ -106,3 +104,5 @@ const useStyles = makeStyles({
     overflowY: 'auto',
   },
 });
+
+export default React.memo(AlertButtonMenu);

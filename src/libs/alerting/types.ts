@@ -1,43 +1,37 @@
+import type { PaginatedResponse } from 'src/state/types';
 import type { LanguageDict } from '#libs/platform-tutorial/types';
-import { Member } from '#libs/member/types';
+import type { MemberMinimalNoPhoto } from '#libs/member/types';
 import {
   AlertKind,
   CompanyOnboardingTypes,
   AlertingActions,
 } from './constants';
 
-export type AlertGroup = {
-  results: Array<Alerting>;
-  loading: boolean;
-  error?: Error;
-  next?: number;
-  count: number;
-  alert_kind: string;
-};
-
-export type Alerting<T = unknown> = {
-  company: number;
-  silenced_at?: string;
-  id: number;
-  alert_kind: AlertKind;
-  data: T;
-};
-
 type PrivateBookingAlertingData = {
   user_name: string;
   date_start: string;
   name: string;
+  private_booking: number;
+  member: MemberMinimalNoPhoto;
 };
 
 export type PrivateBookingAlerting = Alerting<PrivateBookingAlertingData>;
+
+type UnpaidPrivateBookingAlertingData = {
+  credits_due: number;
+} & PrivateBookingAlertingData;
+
+export type UnpaidPrivateBookingAlerting =
+  Alerting<UnpaidPrivateBookingAlertingData>;
 
 type CompanyOnboardingAlertingData = {
   type:
     | CompanyOnboardingTypes.VERIFICATION
     | CompanyOnboardingTypes.CREATION
     | CompanyOnboardingTypes.PAYOUT;
-  date: string;
-  name: string;
+  level: number;
+  date?: string;
+  count?: number;
 };
 
 export type CompanyOnboardingAlerting = Alerting<CompanyOnboardingAlertingData>;
@@ -56,7 +50,6 @@ export type UnevenInvoiceAlerting = Alerting<UnevenInvoiceAlertingData>;
 type NewOrderAlertingData = {
   order: string;
   price: string;
-  member: number;
   name: string;
   actions: [AlertingActions.FINALIZE];
 };
@@ -67,7 +60,7 @@ type TaskAlertingData = {
   name: string;
   description: string;
   date_due: string;
-  member: Member;
+  member: MemberMinimalNoPhoto;
 };
 
 export type TaskAlerting = Alerting<TaskAlertingData>;
@@ -96,18 +89,47 @@ export type NewTutorialSectionOrLessonAlerting =
   Alerting<NewTutorialSectionOrLessonAlertingData>;
 
 type LateReplacementRequestAlertingData = {
-  user_name: string;
+  id?: number;
+  coach: string;
   date_start: string;
-  name: string;
+  activity_name: string;
 };
 
 export type LateReplacementRequestAlerting =
   Alerting<LateReplacementRequestAlertingData>;
 
+type AlertingData =
+  | PrivateBookingAlertingData
+  | UnpaidPrivateBookingAlertingData
+  | CompanyOnboardingAlertingData
+  | UnevenInvoiceAlertingData
+  | NewOrderAlertingData
+  | TaskAlertingData
+  | UnreadCommunicationAlertingData
+  | NewTutorialSectionOrLessonAlertingData
+  | LateReplacementRequestAlertingData;
+
+export type AlertGroup = {
+  results: Alerting[];
+  loading: boolean;
+  error?: Error;
+  next?: number;
+  count: number;
+  alert_kind: number;
+};
+
+export type Alerting<T = AlertingData> = {
+  company?: number;
+  silenced_at?: string;
+  id?: number;
+  alert_kind: AlertKind;
+  data: T;
+};
+
 export type AlertingState = {
   items_by_kind: {
     [alert_kind in AlertKind]: {
-      results: AlertPayloadResult[];
+      results: Alerting[];
       count: number;
       next: number | null;
       loading?: boolean;
@@ -119,31 +141,9 @@ export type AlertingState = {
 
 export type DeleteAlert = (kind: number, id: number) => void;
 
-export type AlertPayloadResult = {
-  data:
-    | PrivateBookingAlertingData
-    | CompanyOnboardingAlertingData
-    | UnevenInvoiceAlertingData
-    | NewOrderAlertingData
-    | TaskAlertingData
-    | UnreadCommunicationAlertingData
-    | NewTutorialSectionOrLessonAlertingData
-    | LateReplacementRequestAlertingData;
-  alert_kind: AlertKind;
-  company: number;
-};
-
 export type AlertPayloadSuccess = {
   alert_kind: AlertKind;
-  results: AlertPayloadResult[];
-  page: number;
-  next_page: number | null;
-  count: number;
-  links: {
-    next: string | null;
-    previous: string | null;
-  };
-};
+} & PaginatedResponse<Alerting>;
 
 export type AlertPayloadLoading = {
   alert_kind: number;

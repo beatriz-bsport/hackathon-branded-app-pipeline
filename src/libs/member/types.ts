@@ -77,6 +77,8 @@ export type MemberMinimal<Tag = number, CA = number> = {
   vaccination_status?: boolean;
 };
 
+export type MemberMinimalNoPhoto = Omit<MemberMinimal, 'photo'>;
+
 export type Member<Tag = number, CA = number> = {
   id: number;
   name: string;

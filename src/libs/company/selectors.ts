@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import alertingSelectors from '../alerting/selectors';
 import { CompanyOnboardingTypes } from '#libs/alerting/constants';
 import type { State } from '../../state/types';
-import { AlertPayloadResult } from '#libs/alerting/types';
+import type { Alerting } from '#libs/alerting/types';
 import { CompanyState } from './types';
 
 const _getState = (state: State) => state.company;
@@ -36,7 +36,7 @@ export const getStripeOnboardingPending = createSelector(
   (state, stripeCompanyData, byKind) =>
     stripeCompanyData &&
     !stripeCompanyData.has_no_need_for_stripe_configuration &&
-    !!byKind[0]?.results?.filter((a: Immutable.Immutable<AlertPayloadResult>) =>
+    !!byKind[0]?.results?.filter((a: Immutable.Immutable<Alerting>) =>
       [
         CompanyOnboardingTypes.VERIFICATION,
         CompanyOnboardingTypes.CREATION,

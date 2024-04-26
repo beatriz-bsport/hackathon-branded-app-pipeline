@@ -55,7 +55,6 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
 import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLessonContent.component';
-// @ts-expect-error
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 

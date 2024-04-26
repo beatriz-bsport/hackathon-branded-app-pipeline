@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,21 +7,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 type Props = {
-  open: boolean,
-  onClose: () => void,
+  open: boolean;
+  onClose: () => void;
 };
 
-export const FeatureRequestDialog = (props: Props) => {
+export const FeatureRequestDialog: React.FC<Props> = ({ open, onClose }) => {
   const { t } = useTranslation(['platformBilling']);
   return (
-    <Dialog disableEnforceFocus open={props.open}>
+    <Dialog disableEnforceFocus open={open}>
       <DialogTitle>{t('featureRequest.title')}</DialogTitle>
       <DialogContent>{t('featureRequest.content')}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>{t('featureRequest.close')}</Button>
+        <Button onClick={onClose}>{t('featureRequest.close')}</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default FeatureRequestDialog;
+export default React.memo(FeatureRequestDialog);

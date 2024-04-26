@@ -53,7 +53,6 @@ import BackofficeLinearProgress from '#components/navigation/BackofficeLinearPro
 // @ts-expect-error
 import CompanyPlatformBillingPaymentDetail from '#libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
 import CompanyPlatformBillinGroupDetail from '#libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
-// @ts-expect-error
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutList from '#libs/payment/components/PayoutList.component';
 // import StripeBalance from '#libs/payment/components/StripeBalance.component';

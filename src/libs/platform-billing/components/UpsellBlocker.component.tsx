@@ -24,7 +24,6 @@ import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
 import type { UpsellPackage } from '#libs/company/types';
-// @ts-expect-error
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 
 const useStyles = makeStyles((theme) => ({

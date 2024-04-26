@@ -29,10 +29,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 
-// import momentTimezonePlugin from '@fullcalendar/moment-timezone';
-
-// import listPlugin from '@fullcalendar/list';
-
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -63,7 +59,6 @@ const SUPPORTED_PLUGINS = Immutable([
   timeGridPlugin,
   resourceTimeGrid,
   dayGridPlugin,
-  // momentTimezonePlugin,
 ]);
 
 const renderEventContent = (eventInfo) => {

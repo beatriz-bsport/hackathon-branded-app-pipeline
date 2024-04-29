@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
@@ -8,7 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import Typography from '@material-ui/core/Typography';
+import type { Theme } from '@material-ui/core';
+import PlaylistListMarketPlace from '#libs/playlist/components/PlaylistListMarketplace.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getPlaylistList } from '#libs/playlist/selectors';
 import {
@@ -16,12 +16,13 @@ import {
   withVideoCoach,
   withVideoCategory,
 } from '#libs/video/selectors';
-
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { urlToMarketplaceTab } from '#libs/marketplace/utils';
 
 import VideoSearchBar from '#libs/video/components/VideoSearchBar.component';
+// @ts-expect-error
 import VideoItemList from '#libs/video/components/VideoItemList.component';
 import {
   fetchVideoList as fetchVideoListAction,
@@ -34,7 +35,6 @@ import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
 
 import themeSelectors from '#libs/theme/selectors';
-import MarketplacePlaylistItem from '#libs/playlist/components/PlaylistItemMarketplace.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
@@ -119,27 +119,10 @@ export class MarketplaceVideo extends React.Component<Props> {
             />
           </div>
           {!!this.props.playlistList.length && (
-            <div className={classes.playlistListContainer}>
-              <Typography component="h3" variant="h6">
-                {this.props.t('playlist.playlist')}
-              </Typography>
-              <div className={classes.playlistItemsContainer}>
-                {this.props.playlistList.map((pl: any) => (
-                  <div className={classes.playlistListItem}>
-                    <MarketplacePlaylistItem
-                      key={pl.id}
-                      description={pl.description}
-                      imageUrl={pl.cover_main}
-                      onClick={() => this.props.openPlaylist(pl.id)}
-                      title={pl.name}
-                      videoCount={this.props.t('video.thumbnailList.count', {
-                        count: pl.videos.length,
-                      })}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <PlaylistListMarketPlace
+              openPlaylist={this.props.openPlaylist}
+              playlistList={this.props.playlistList}
+            />
           )}
         </div>
       </div>
@@ -147,7 +130,7 @@ export class MarketplaceVideo extends React.Component<Props> {
   }
 }
 
-const styles = (theme: any) => ({
+const styles = (theme: Theme) => ({
   container: {
     width: '100%',
   },
@@ -176,48 +159,6 @@ const styles = (theme: any) => ({
   },
   divider: {
     marginBottom: theme.spacing(4),
-  },
-  playlistListContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexBasis: '20%',
-    border: 'solid',
-    borderWidth: 0,
-    borderColor: 'rgba(0, 0, 0, 0.12)',
-    borderTopWidth: 1,
-    paddingTop: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    [theme.breakpoints.up('lg')]: {
-      borderLeftWidth: 1,
-      borderTopWidth: 0,
-      marginLeft: theme.spacing(2),
-      paddingLeft: theme.spacing(2),
-    },
-  },
-  playlistItemsContainer: {
-    marginLeft: -8,
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    [theme.breakpoints.up('lg')]: {
-      flexDirection: 'column',
-      flexWrap: 'no-wrap',
-      maxWidth: 300,
-      marginTop: 20,
-    },
-  },
-  playlistListItem: {
-    padding: 8,
-    display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      flexBasis: `${100 / 3}%`,
-    },
-    [theme.breakpoints.down('sm')]: {
-      flexBasis: '50%',
-    },
-    [theme.breakpoints.down('xs')]: {
-      flexBasis: '100%',
-    },
   },
 });
 const mapStateToProps = (state: RootState) => ({
@@ -308,7 +249,7 @@ const mapHandlers = {
     props.push(
       urlToMarketplaceTab(
         props.companyName,
-        props.companyId,
+        props.companyId.toString(),
         `vod/playlist/${id}`,
       ),
     );
@@ -319,7 +260,7 @@ export const MarketplaceVideoDataProvider = compose<any, OwnProps>(
   marketplaceCssHoc(),
   // @ts-ignore
   withStyles(styles),
-  withTranslation(['video']),
+  withTranslation('video'),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapHandlers),
 );
@@ -328,7 +269,7 @@ export default compose<any, OwnProps>(
   withRouter,
   routerParamsToProps({
     companyId: 'companyId:number',
-    companyName: 'companyName',
+    companyName: 'companyName:string',
   }),
   withQueryParams([
     ['coaches', 'duration_second_range', 'SCTs', 'search', 'levels'],

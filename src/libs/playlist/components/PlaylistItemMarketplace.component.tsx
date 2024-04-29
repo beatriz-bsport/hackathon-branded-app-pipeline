@@ -1,20 +1,63 @@
-// @flow
-
 import React from 'react';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 type Props = {
   title: string;
   description: string;
   imageUrl: string;
-  videoCount: number;
+  videoCountDescription: string;
   onClick: () => void;
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const PlaylistItemMarketplace: React.FC<Props> = (props) => {
+  const { title, description, imageUrl, videoCountDescription, onClick } =
+    props;
+  const classes = useStyles();
+
+  return (
+    <ButtonBase className={classes.container} onClick={onClick}>
+      <div className={classes.container2}>
+        <div className={classes.playlistItem__image_wrapper}>
+          <img alt="playlist" className={classes.img} src={imageUrl} />
+          <div className={classes.image_wrapper__count_wrapper}>
+            <Typography component="h3" variant="h6">
+              {videoCountDescription}
+            </Typography>
+            <VideoLibraryIcon
+              className={classes.image_wrapper__playlist_icon}
+              fontSize="large"
+            />
+          </div>
+        </div>
+
+        <div className={classes.playlist_item__content}>
+          <Typography
+            align="left"
+            className={classes.playlist_item_title}
+            component="h3"
+            variant="h6"
+          >
+            {title}
+          </Typography>
+
+          <Typography
+            align="left"
+            className={classes.playlist_item__description}
+            color="textSecondary"
+            variant="body2"
+          >
+            {description}
+          </Typography>
+        </div>
+      </div>
+    </ButtonBase>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     cursor: 'pointer',
@@ -93,48 +136,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const MarketplacePlaylistItem = (props: Props) => {
-  const { title, description, imageUrl, videoCount, onClick } = props;
-  const classes = useStyles();
-
-  return (
-    <ButtonBase className={classes.container} onClick={onClick}>
-      <div className={classes.container2}>
-        <div className={classes.playlistItem__image_wrapper}>
-          <img alt="playlist" className={classes.img} src={imageUrl} />
-          <div className={classes.image_wrapper__count_wrapper}>
-            <Typography component="h3" variant="h6">
-              {videoCount}
-            </Typography>
-            <VideoLibraryIcon
-              className={classes.image_wrapper__playlist_icon}
-              fontSize="large"
-            />
-          </div>
-        </div>
-
-        <div className={classes.playlist_item__content}>
-          <Typography
-            align="left"
-            className={classes.playlist_item_title}
-            component="h3"
-            variant="h6"
-          >
-            {title}
-          </Typography>
-
-          <Typography
-            align="left"
-            className={classes.playlist_item__description}
-            color="textSecondary"
-            variant="body2"
-          >
-            {description}
-          </Typography>
-        </div>
-      </div>
-    </ButtonBase>
-  );
-};
-
-export default MarketplacePlaylistItem;
+export default React.memo(PlaylistItemMarketplace);

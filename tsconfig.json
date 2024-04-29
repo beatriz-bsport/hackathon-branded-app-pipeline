@@ -26,6 +26,7 @@
     "types": ["react", "node", "jest", "@testing-library/jest-dom"],
     "baseUrl": ".", // This must be specified if paths is.
     "paths": {
+      "#src/*": ["./src/*"],
       "#libs/*": ["./src/libs/*"],
       "#marketplacecomponents/*": ["./src/libs/marketplace/components/*"],
       "#components/*": ["./src/components/*"],

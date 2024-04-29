@@ -10,6 +10,7 @@
       "babel-plugin-module-resolver",
       {
         "alias": {
+          "#src": "./src",
           "#libs": "./src/libs",
           "#components": "./src/components",
           "#marketplacecomponents": "./src/libs/marketplace/components",

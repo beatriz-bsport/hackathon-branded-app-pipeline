@@ -27,6 +27,7 @@ import type {
 import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
+  handleOpenMemberPhotoHistoryModal: () => void;
   isLoading?: boolean;
   locationInformation?: string;
   memberVisit: MemberVisitREST;
@@ -122,6 +123,7 @@ const MemberVisitDetailsCardContent: React.FC<
 };
 
 const MemberVisitDetailsCard: React.FC<Props> = ({
+  handleOpenMemberPhotoHistoryModal,
   isLoading,
   locationInformation,
   memberVisit,
@@ -134,7 +136,11 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
   const { member, access_status, initial_access_status } = memberVisit ?? {};
 
   const { t } = useTranslation('accessControl');
-  const classes = useStyles({ access_status });
+
+  const classes = useStyles({
+    access_status,
+    isPhotoClickable: !!handleOpenMemberPhotoHistoryModal,
+  });
 
   if (isLoading) {
     return <MemberVisitDetailsCardSkeleton />;
@@ -167,7 +173,13 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
       </div>
       <div className={classes.content}>
         <div className={classes.photoContainer}>
-          <img alt={member.name} className={classes.photo} src={member.photo} />
+          <img
+            alt={member.name}
+            aria-hidden="true"
+            className={classes.photo}
+            onClick={handleOpenMemberPhotoHistoryModal}
+            src={member.photo}
+          />
           <div className={classes.ctaButtonsContainer}>
             <ObjectLevelPermissionWrapper
               forcedBehavior="hidden"
@@ -207,21 +219,21 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
           {memberVisit.access_status_data.check_on_member_account
             .last_photo_update_is_not_approved && (
             <Alert
-            action={
+              action={
                 <Button
                   color="inherit"
                   onClick={handleOpenMemberPhotoHistoryModal}
                   size="small"
                 >
-                {t('memberVisitDetails.actions.seePreviousImages')}
-              </Button>
-            }
-            severity="warning"
-            variant="outlined"
-          >
-            <Typography className={classes.alertTitle}>
-              {t('memberVisitDetails.photoHasChanged')}
-            </Typography>
+                  {t('memberVisitDetails.actions.seePreviousImages')}
+                </Button>
+              }
+              severity="warning"
+              variant="outlined"
+            >
+              <Typography className={classes.alertTitle}>
+                {t('memberVisitDetails.photoHasChanged')}
+              </Typography>
             </Alert>
           )}
           <MemberVisitDetailsCardContent
@@ -239,97 +251,100 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<Theme, { access_status?: AccessStatus }>(
-  (theme) => ({
-    root: {
-      padding: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(2),
-      borderColor: ({ access_status }) => {
-        switch (access_status) {
-          case AccessStatus.GREEN:
-            return theme.palette.success.main;
-          case AccessStatus.ORANGE:
-            return theme.palette.warning.main;
-          case AccessStatus.RED:
-            return theme.palette.error.main;
-          default:
-            return theme.palette.grey[300];
-        }
-      },
-      borderWidth: 2,
-      borderRadius: theme.spacing(1),
+const useStyles = makeStyles<
+  Theme,
+  { access_status?: AccessStatus; isPhotoClickable?: boolean }
+>((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    borderColor: ({ access_status }) => {
+      switch (access_status) {
+        case AccessStatus.GREEN:
+          return theme.palette.success.main;
+        case AccessStatus.ORANGE:
+          return theme.palette.warning.main;
+        case AccessStatus.RED:
+          return theme.palette.error.main;
+        default:
+          return theme.palette.grey[300];
+      }
     },
-    titleAndChips: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    chipsContainer: {
-      display: 'flex',
-      gap: theme.spacing(1),
-    },
-    content: {
-      display: 'flex',
-      gap: theme.spacing(2),
-    },
-    photo: {
-      borderRadius: theme.spacing(1),
-      objectFit: 'cover',
-      height: 280,
-    },
-    infoContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(1),
-      flexGrow: 1,
-    },
-    infoTable: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(1),
-    },
-    infoRow: {
-      display: 'flex',
-      gap: theme.spacing(1),
-    },
-    infoLabel: {
-      width: 120,
-    },
-    infoField: {
-      fontWeight: 500,
-    },
-    passInfo: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    alertTitle: {
-      fontWeight: 500,
-    },
-    photoContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(2),
-      width: 280,
-    },
-    ctaButtonsContainer: {
-      display: 'flex',
-      gap: theme.spacing(1),
-    },
-    memberCtaButton: {
-      flex: 1,
-    },
-    profileButton: {
-      color: theme.palette.grey[600],
-    },
-    skeleton: {
-      borderRadius: theme.spacing(1),
-    },
-    locationInformation: {
-      fontWeight: 500,
-    },
-  }),
-);
+    borderWidth: 2,
+    borderRadius: theme.spacing(1),
+  },
+  titleAndChips: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chipsContainer: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
+  content: {
+    display: 'flex',
+    gap: theme.spacing(2),
+  },
+  photo: {
+    borderRadius: theme.spacing(1),
+    objectFit: 'cover',
+    height: 280,
+    cursor: ({ isPhotoClickable }) =>
+      isPhotoClickable ? 'pointer' : 'default',
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    flexGrow: 1,
+  },
+  infoTable: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+  infoRow: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
+  infoLabel: {
+    width: 120,
+  },
+  infoField: {
+    fontWeight: 500,
+  },
+  passInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  alertTitle: {
+    fontWeight: 500,
+  },
+  photoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    width: 280,
+  },
+  ctaButtonsContainer: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
+  memberCtaButton: {
+    flex: 1,
+  },
+  profileButton: {
+    color: theme.palette.grey[600],
+  },
+  skeleton: {
+    borderRadius: theme.spacing(1),
+  },
+  locationInformation: {
+    fontWeight: 500,
+  },
+}));
 
 export default React.memo(MemberVisitDetailsCard);

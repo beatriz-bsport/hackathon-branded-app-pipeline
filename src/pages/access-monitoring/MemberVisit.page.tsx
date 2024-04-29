@@ -17,6 +17,7 @@ import {
   getMemberNextBookingOrPrivateBooking,
   getMemberVisit,
   getMemberVisitIsLoading,
+  getUserPhotoUpdates,
 } from '#libs/access-control/selectors';
 
 // Actions
@@ -27,6 +28,8 @@ import {
   refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
   setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
   retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
+  getUserPhotoUpdates as getUserPhotoUpdatesAction,
+  approvePhotoUpdate as approvePhotoUpdateAction,
 } from '#libs/access-control/actions';
 
 // Components
@@ -40,6 +43,7 @@ import AccessStatusChangedSuccessModal from '#libs/access-control/components/Mem
 import EntryStatusChangedModalComponent from '#libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
 import StaffLocationBlocker from '#libs/access-control/components/MemberVisit/StaffLocationBlocker.component';
 import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
+import MemberPhotoHistoryModal from '#libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
 
 // Constants
 
@@ -65,10 +69,13 @@ type OwnProps = {
 export type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export const useMemberVisitPageDataManager = ({
+  approvePhotoUpdate,
   checkMemberInEstablishment,
   establishmentGroups,
   establishmentsData,
   establishmentsSelectedInRole,
+  getMemberPhotoHistory,
+  memberPhotoHistory,
   memberVisitOverride,
   refreshMemberVisitAccessStatus,
   retrieveMemberNextBookingOrPrivateBooking,
@@ -76,10 +83,13 @@ export const useMemberVisitPageDataManager = ({
   theme,
 }: Pick<
   Props,
+  | 'approvePhotoUpdate'
   | 'checkMemberInEstablishment'
   | 'establishmentGroups'
   | 'establishmentsData'
   | 'establishmentsSelectedInRole'
+  | 'getMemberPhotoHistory'
+  | 'memberPhotoHistory'
   | 'memberVisitOverride'
   | 'refreshMemberVisitAccessStatus'
   | 'retrieveMemberNextBookingOrPrivateBooking'
@@ -93,6 +103,9 @@ export const useMemberVisitPageDataManager = ({
   const [memberVisit, setMemberVisit] = React.useState<MemberVisitREST | null>(
     memberVisitOverride,
   );
+
+  const [showMemberPhotoHistoryModal, setShowMemberPhotoHistoryModal] =
+    React.useState(false);
 
   // Modals
   const [showStatusChangeSuccessModal, setShowStatusChangeSuccessModal] =
@@ -121,8 +134,13 @@ export const useMemberVisitPageDataManager = ({
   useEffect(() => {
     if (memberVisit?.member?.id) {
       retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
+      getMemberPhotoHistory(memberVisit.member.id);
     }
-  }, [retrieveMemberNextBookingOrPrivateBooking, memberVisit?.member?.id]);
+  }, [
+    getMemberPhotoHistory,
+    memberVisit?.member?.id,
+    retrieveMemberNextBookingOrPrivateBooking,
+  ]);
 
   /** -------------- HANDLERS --------------- */
 
@@ -135,6 +153,14 @@ export const useMemberVisitPageDataManager = ({
   const handleCloseEntryStatusChangedModal = useCallback(() => {
     setShowEntryStatusChangedModal(false);
   }, [setShowEntryStatusChangedModal]);
+
+  const handleOpenMemberPhotoHistoryModal = useCallback(() => {
+    setShowMemberPhotoHistoryModal(true);
+  }, [setShowMemberPhotoHistoryModal]);
+
+  const handleCloseMemberPhotoHistoryModal = useCallback(() => {
+    setShowMemberPhotoHistoryModal(false);
+  }, [setShowMemberPhotoHistoryModal]);
 
   // Actions on member
 
@@ -160,6 +186,7 @@ export const useMemberVisitPageDataManager = ({
   const handleRefreshMemberVisitAccessStatus = useCallback(() => {
     refreshMemberVisitAccessStatus(memberVisit.id, {
       onSuccess: (data) => {
+        setMemberVisit(data);
         sendToBroadcastChannel({
           type: BroadcastChannelMessageType.accessControlMemberVisitRefresh,
           payload: data,
@@ -173,11 +200,28 @@ export const useMemberVisitPageDataManager = ({
       },
     });
     retrieveMemberNextBookingOrPrivateBooking(memberVisit.member.id);
+    getMemberPhotoHistory(memberVisit.member.id);
   }, [
-    refreshMemberVisitAccessStatus,
-    sendToBroadcastChannel,
+    getMemberPhotoHistory,
     memberVisit,
+    refreshMemberVisitAccessStatus,
     retrieveMemberNextBookingOrPrivateBooking,
+    sendToBroadcastChannel,
+    setMemberVisit,
+    setShowStatusChangeSuccessModal,
+  ]);
+
+  const handleApprovePhotoUpdate = useCallback(() => {
+    if (memberPhotoHistory.length) {
+      approvePhotoUpdate(memberPhotoHistory[0].id);
+    }
+    handleCloseMemberPhotoHistoryModal();
+    handleRefreshMemberVisitAccessStatus();
+  }, [
+    approvePhotoUpdate,
+    memberPhotoHistory,
+    handleCloseMemberPhotoHistoryModal,
+    handleRefreshMemberVisitAccessStatus,
   ]);
 
   // Member check-in
@@ -203,9 +247,11 @@ export const useMemberVisitPageDataManager = ({
       setIsEmptyState(false);
     },
     [
-      establishmentsSelectedInRole,
       checkMemberInEstablishment,
+      establishmentsSelectedInRole,
       sendToBroadcastChannel,
+      setMemberVisit,
+      setIsEmptyState,
     ],
   );
 
@@ -252,18 +298,22 @@ export const useMemberVisitPageDataManager = ({
   return {
     establishmentsInRole,
     handleAllowManualEntry,
+    handleApprovePhotoUpdate,
     handleCheckInMember,
     handleCloseAccessStatusChangeSuccessModal,
     handleCloseEntryStatusChangedModal,
+    handleCloseMemberPhotoHistoryModal,
     handleCloseMemberVisit,
     handleMemberBillClick,
     handleMemberProfileClick,
+    handleOpenMemberPhotoHistoryModal,
     handleRefreshMemberVisitAccessStatus,
     handleRefuseManualEntry,
     isEmptyState,
     memberVisit,
     showEntryStatusChangedModal,
     showLocationBlocker,
+    showMemberPhotoHistoryModal,
     showStatusChangeSuccessModal,
     staffLocationAddress,
     staffLocationEstablishmentGroup,
@@ -272,11 +322,14 @@ export const useMemberVisitPageDataManager = ({
 
 const MemberVisit: React.FC<Props> = React.memo(
   ({
+    approvePhotoUpdate,
     checkMemberInEstablishment,
     establishmentGroups,
     establishmentsData,
     establishmentsSelectedInRole,
+    getMemberPhotoHistory,
     memberNextBookingOrPrivateBooking,
+    memberPhotoHistory,
     memberVisitIsLoading,
     memberVisitOverride,
     refreshMemberVisitAccessStatus,
@@ -291,26 +344,33 @@ const MemberVisit: React.FC<Props> = React.memo(
     const {
       establishmentsInRole,
       handleAllowManualEntry,
+      handleApprovePhotoUpdate,
       handleCheckInMember,
       handleCloseAccessStatusChangeSuccessModal,
       handleCloseEntryStatusChangedModal,
+      handleCloseMemberPhotoHistoryModal,
       handleCloseMemberVisit,
       handleMemberBillClick,
       handleMemberProfileClick,
+      handleOpenMemberPhotoHistoryModal,
       handleRefreshMemberVisitAccessStatus,
       handleRefuseManualEntry,
       isEmptyState,
       memberVisit,
       showEntryStatusChangedModal,
       showLocationBlocker,
+      showMemberPhotoHistoryModal,
       showStatusChangeSuccessModal,
       staffLocationAddress,
       staffLocationEstablishmentGroup,
     } = useMemberVisitPageDataManager({
+      approvePhotoUpdate,
       checkMemberInEstablishment,
       establishmentGroups,
       establishmentsData,
       establishmentsSelectedInRole,
+      getMemberPhotoHistory,
+      memberPhotoHistory,
       memberVisitOverride,
       refreshMemberVisitAccessStatus,
       retrieveMemberNextBookingOrPrivateBooking,
@@ -351,6 +411,9 @@ const MemberVisit: React.FC<Props> = React.memo(
               onRefresh={handleRefreshMemberVisitAccessStatus}
             />
             <MemberVisitDetailsCard
+              handleOpenMemberPhotoHistoryModal={
+                handleOpenMemberPhotoHistoryModal
+              }
               isLoading={memberVisitIsLoading}
               memberVisit={memberVisit}
               nextBooking={memberNextBookingOrPrivateBooking}
@@ -365,6 +428,18 @@ const MemberVisit: React.FC<Props> = React.memo(
             />
           </>
         )}
+        <MemberPhotoHistoryModal
+          memberPhotoHistory={memberPhotoHistory}
+          onClose={handleCloseMemberPhotoHistoryModal}
+          onValidateIdentity={
+            memberPhotoHistory.length &&
+            memberVisit?.access_status_data?.check_on_member_account
+              ?.last_photo_update_is_not_approved
+              ? handleApprovePhotoUpdate
+              : null
+          }
+          open={showMemberPhotoHistoryModal}
+        />
         <AccessStatusChangedSuccessModal
           onClose={handleCloseAccessStatusChangeSuccessModal}
           open={showStatusChangeSuccessModal}
@@ -399,6 +474,7 @@ const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
     establishmentGroups: getAssociatedEstablishmentGroup(state),
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
+    memberPhotoHistory: getUserPhotoUpdates(state),
     memberVisitIsLoading: getMemberVisitIsLoading(state),
     memberVisitOverride: getMemberVisit(state, memberVisitOverrideId),
     memberNextBookingOrPrivateBooking:
@@ -408,7 +484,9 @@ const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
 };
 
 const mapDispatchToProps = {
+  approvePhotoUpdate: approvePhotoUpdateAction,
   checkMemberInEstablishment: checkMemberInEstablishmentAction,
+  getMemberPhotoHistory: getUserPhotoUpdatesAction,
   refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
   retrieveMemberNextBookingOrPrivateBooking:
     retrieveMemberNextBookingOrPrivateBookingAction,

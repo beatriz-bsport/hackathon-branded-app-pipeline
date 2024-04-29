@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-// import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert';
 
 import PersonIcon from '@material-ui/icons/Person';
 import EuroIcon from '@material-ui/icons/Euro';
@@ -204,10 +204,15 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
           </div>
         </div>
         <div className={classes.infoContainer}>
-          {/* TODO: Hide for the moment */}
-          {/* <Alert
+          {memberVisit.access_status_data.check_on_member_account
+            .last_photo_update_is_not_approved && (
+            <Alert
             action={
-              <Button color="inherit" size="small">
+                <Button
+                  color="inherit"
+                  onClick={handleOpenMemberPhotoHistoryModal}
+                  size="small"
+                >
                 {t('memberVisitDetails.actions.seePreviousImages')}
               </Button>
             }
@@ -217,7 +222,8 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
             <Typography className={classes.alertTitle}>
               {t('memberVisitDetails.photoHasChanged')}
             </Typography>
-          </Alert> */}
+            </Alert>
+          )}
           <MemberVisitDetailsCardContent
             memberVisit={memberVisit}
             nextBooking={nextBooking}

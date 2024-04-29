@@ -53,6 +53,7 @@ export type CheckOnMemberAccount = {
   has_unpaid_invoices: boolean;
   has_negative_account_balance: boolean;
   has_unpaid_appointments: boolean;
+  last_photo_update_is_not_approved: boolean;
 };
 
 export type AccessStatusData = {

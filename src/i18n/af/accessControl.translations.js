@@ -138,5 +138,10 @@ exports.default = {
           'You can still address warnings and let them enter from the Location visit tab.',
       },
     },
+    memberPhotoHistory: {
+      title: 'Previous pictures',
+      uploadedOn: 'Uploaded {{- date}}',
+      validateIdentity: 'Validate identity',
+    },
   },
 };

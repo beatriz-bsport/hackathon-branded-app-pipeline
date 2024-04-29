@@ -95,6 +95,7 @@ exports.default = {
               actions: 'Actions',
               addSupplier: 'Add supplier',
               action: {
+                showInfos: 'View informations',
                 edit: 'Edit',
                 delete: 'Delete',
               },
@@ -106,6 +107,9 @@ exports.default = {
                 name: 'Name *',
                 description: 'Notes',
               },
+            },
+            detailsModal: {
+              title: 'Supplier: {{name}}',
             },
             deleteModal: {
               title: 'Supplier: {{- supplierName }}',

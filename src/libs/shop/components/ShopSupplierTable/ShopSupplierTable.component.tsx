@@ -1,7 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +16,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+
+import useIsTextExpandable from '#hooks/useIsTextExpandable';
 
 import type { ShopSupplier } from '#libs/shop/types';
 
@@ -21,66 +30,149 @@ type Props = {
   handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
 };
 
+type ShopSupplierListItemProps = {
+  supplier: ShopSupplier;
+  handleEditSupplier: (supplier: ShopSupplier) => void;
+  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
+  handleShowSupplierDetails: (supplier: ShopSupplier) => void;
+};
+
+const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
+  ({
+    supplier,
+    handleEditSupplier,
+    handleSelectSupplierForDeletion,
+    handleShowSupplierDetails,
+  }) => {
+    const { t } = useTranslation('shop');
+    const classes = useStyles();
+    const descriptionText = useIsTextExpandable(false);
+
+    const onShowSupplierDetails = useCallback(
+      () => handleShowSupplierDetails(supplier),
+      [handleShowSupplierDetails, supplier],
+    );
+
+    const onEditSupplier = useCallback(
+      () => handleEditSupplier(supplier),
+      [handleEditSupplier, supplier],
+    );
+
+    const onDeleteSupplier = useCallback(
+      () => handleSelectSupplierForDeletion(supplier),
+      [handleSelectSupplierForDeletion, supplier],
+    );
+
+    return (
+      <TableRow key={supplier.id}>
+        <TableCell scope="row">{supplier.name}</TableCell>
+        <TableCell scope="row">
+          <p ref={descriptionText.ref} className={classes.description}>
+            {supplier.description}
+          </p>
+        </TableCell>
+        <TableCell className={classes.rowActions} scope="row">
+          {descriptionText.isExpandable && (
+            <Tooltip
+              title={t(
+                'shopList.tab.settings.section.suppliers.table.action.showInfos',
+              )}
+            >
+              <IconButton onClick={onShowSupplierDetails}>
+                <VisibilityIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          <Tooltip
+            title={t(
+              'shopList.tab.settings.section.suppliers.table.action.edit',
+            )}
+          >
+            <IconButton color="primary" onClick={onEditSupplier}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip
+            title={t(
+              'shopList.tab.settings.section.suppliers.table.action.delete',
+            )}
+          >
+            <IconButton onClick={onDeleteSupplier}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
+    );
+  },
+);
+
 const ShopSupplierTable: React.FC<Props> = ({
   supplierList,
   handleEditSupplier,
   handleSelectSupplierForDeletion,
 }) => {
-  const { t } = useTranslation('shop');
-
-  const classes = useStyles();
-
-  const onEditSupplier = useCallback(
-    (supplier: ShopSupplier) => () => handleEditSupplier(supplier),
-    [handleEditSupplier],
+  const [selectedSupplier, setSelectedSupplier] = useState<ShopSupplier | null>(
+    null,
   );
+  const [isSupplierDetailsModalOpen, setIsSupplierDetailsModalOpen] =
+    useState(false);
+  const { t } = useTranslation(['common', 'shop']);
 
-  const onDeleteSupplier = useCallback(
-    (supplier: ShopSupplier) => () => handleSelectSupplierForDeletion(supplier),
-    [handleSelectSupplierForDeletion],
-  );
+  const handleShowSupplierDetails = useCallback((supplier: ShopSupplier) => {
+    setSelectedSupplier(supplier);
+    setIsSupplierDetailsModalOpen(true);
+  }, []);
+
+  const closeSupplierDetailsModal = useCallback(() => {
+    setIsSupplierDetailsModalOpen(false);
+  }, []);
 
   return (
     <Table>
+      <GenericResponsiveDialog
+        maxWidth="sm"
+        onClose={closeSupplierDetailsModal}
+        open={!!selectedSupplier && isSupplierDetailsModalOpen}
+      >
+        <DialogTitle>
+          {t(
+            'shop:shopList.tab.settings.section.suppliers.detailsModal.title',
+            {
+              name: selectedSupplier?.name,
+            },
+          )}
+        </DialogTitle>
+        <DialogContent>{selectedSupplier?.description}</DialogContent>
+        <DialogActions>
+          <Button onClick={closeSupplierDetailsModal}>
+            {t('common:close')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
+
       <TableHead>
         <TableRow>
           <TableCell>
-            {t('shopList.tab.settings.section.suppliers.table.name')}
+            {t('shop:shopList.tab.settings.section.suppliers.table.name')}
           </TableCell>
           <TableCell>
-            {t('shopList.tab.settings.section.suppliers.table.notes')}
+            {t('shop:shopList.tab.settings.section.suppliers.table.notes')}
           </TableCell>
           <TableCell>
-            {t('shopList.tab.settings.section.suppliers.table.actions')}
+            {t('shop:shopList.tab.settings.section.suppliers.table.actions')}
           </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {(supplierList || []).map((supplier) => (
-          <TableRow key={supplier.id}>
-            <TableCell scope="row">{supplier.name}</TableCell>
-            <TableCell scope="row">{supplier.description}</TableCell>
-            <TableCell className={classes.rowActions} scope="row">
-              <Tooltip
-                title={t(
-                  'shopList.tab.settings.section.suppliers.table.action.edit',
-                )}
-              >
-                <IconButton color="primary" onClick={onEditSupplier(supplier)}>
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title={t(
-                  'shopList.tab.settings.section.suppliers.table.action.delete',
-                )}
-              >
-                <IconButton onClick={onDeleteSupplier(supplier)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </TableCell>
-          </TableRow>
+          <ShopSupplierListItem
+            key={supplier.id}
+            handleEditSupplier={handleEditSupplier}
+            handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
+            handleShowSupplierDetails={handleShowSupplierDetails}
+            supplier={supplier}
+          />
         ))}
       </TableBody>
     </Table>
@@ -88,6 +180,13 @@ const ShopSupplierTable: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles(() => ({
+  description: {
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 1,
+    overflow: 'hidden',
+    margin: 0,
+  },
   rowActions: {
     display: 'flex',
   },

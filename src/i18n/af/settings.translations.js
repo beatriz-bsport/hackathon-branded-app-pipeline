@@ -353,10 +353,10 @@ exports.default = {
             'This option will allow you to choose the default page that users will see upon opening the app.',
           placeholder: 'Select a page',
           options: {
-            membership: 'Schedule',
+            schedule: 'Schedule',
             bookings: 'Bookings',
-            home: 'Activities (default)',
-            marketplace: 'Studio',
+            activities: 'Activities (default)',
+            studio: 'Studio',
             profile: 'Profile',
           },
         },

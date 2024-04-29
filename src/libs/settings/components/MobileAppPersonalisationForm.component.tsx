@@ -14,7 +14,7 @@ import { CompanyTheme, DefaultPageOption } from '#src/libs/theme/types';
 import type { OptionCallback } from '#src/state/types';
 import type { CustomAppNavigationTabsNames } from '#src/libs/settings/types';
 
-const DEFAULT_HOME_PAGE = DefaultPageOption.HOME;
+const DEFAULT_HOME_PAGE = DefaultPageOption.ACTIVITIES;
 
 interface FormikValues {
   mobile_app_default_page: DefaultPageOption;
@@ -53,9 +53,9 @@ const MobileAppPersonalisationForm: React.FC<
         label:
           customNavigationTabsNames?.schedule ||
           t(
-            'mobilePersonalization.customize.defaultPage.pageContent.options.membership',
+            'mobilePersonalization.customize.defaultPage.pageContent.options.schedule',
           ),
-        value: DefaultPageOption.MEMBERSHIP,
+        value: DefaultPageOption.SCHEDULE,
       },
       {
         label:
@@ -69,17 +69,17 @@ const MobileAppPersonalisationForm: React.FC<
         label:
           customNavigationTabsNames?.activities ||
           t(
-            'mobilePersonalization.customize.defaultPage.pageContent.options.home',
+            'mobilePersonalization.customize.defaultPage.pageContent.options.activities',
           ),
-        value: DefaultPageOption.HOME,
+        value: DefaultPageOption.ACTIVITIES,
       },
       {
         label:
           customNavigationTabsNames?.studio ||
           t(
-            'mobilePersonalization.customize.defaultPage.pageContent.options.marketplace',
+            'mobilePersonalization.customize.defaultPage.pageContent.options.studio',
           ),
-        value: DefaultPageOption.MARKETPLACE,
+        value: DefaultPageOption.STUDIO,
       },
       {
         label:

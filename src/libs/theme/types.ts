@@ -6,10 +6,10 @@ import {
 import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 
 export enum DefaultPageOption {
-  MEMBERSHIP = 'Membership',
+  SCHEDULE = 'Membership',
   BOOKINGS = 'Bookings',
-  HOME = 'Home',
-  MARKETPLACE = 'Marketplace',
+  ACTIVITIES = 'Home',
+  STUDIO = 'Marketplace',
   PROFILE = 'Profile',
 }
 

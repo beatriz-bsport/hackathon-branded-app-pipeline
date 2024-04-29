@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { HorizontalEnum, VerticalEnum } from '#Fabrique/constants';
 import { ButtonBaseStorybook } from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
-import { colorEnum } from './constants';
+import { colorEnum, placementEnum } from './constants';
 import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 TooltipStorybook.displayName = 'Tooltip';
 
@@ -40,6 +40,20 @@ export default {
       description: 'The color of the tooltip.',
       control: { type: 'inline-radio' },
       options: [colorEnum.WEAK, colorEnum.STRONG],
+    },
+    placement: {
+      description: 'Simple positioning for the tooltip.',
+      control: { type: 'radio' },
+      options: [
+        placementEnum.TOP,
+        placementEnum.TOP_LEFT,
+        placementEnum.TOP_RIGHT,
+        placementEnum.BOTTOM,
+        placementEnum.BOTTOM_LEFT,
+        placementEnum.BOTTOM_RIGHT,
+        placementEnum.LEFT,
+        placementEnum.RIGHT,
+      ],
     },
     transformOriginHorizontal: {
       description:

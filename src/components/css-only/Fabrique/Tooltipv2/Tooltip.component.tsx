@@ -1,7 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { colorEnum, TOOLTIP_DELAY, TOOLTIP_MARGIN } from './constants';
+import {
+  colorEnum,
+  placementEnum,
+  placementToOrigins,
+  TOOLTIP_DELAY,
+  TOOLTIP_MARGIN,
+} from './constants';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
 import { usePopoverPositioning } from '#Fabrique/hooks';
 import {
@@ -34,6 +40,8 @@ export type TooltipProps = {
    * @default {'bs-fabrique-portal-container'}
    * */
   wrapperId?: string;
+  /** The position of the tooltip relative to the anchor */
+  placement?: placementEnum;
   /**
    * The id used to identify the DOM element where the tooltip will be rendered
    * @default {'bs-setup-variable'}
@@ -58,6 +66,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   classes,
   className,
   targetElementId,
+  placement,
   wrapperId,
   wrapperClass,
   anchorOriginHorizontal = HorizontalEnum.CENTER,
@@ -75,6 +84,17 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [closeTimeoutId, setCloseTimeoutId] =
     React.useState<ReturnType<typeof setTimeout>>(null);
 
+  let anchorHorizontal = anchorOriginHorizontal;
+  let anchorVertical = anchorOriginVertical;
+  let transformHorizontal = transformOriginHorizontal;
+  let transformVertical = transformOriginVertical;
+  if (placement) {
+    const origins = placementToOrigins[placement];
+    anchorHorizontal = origins.anchorOriginHorizontal;
+    anchorVertical = origins.anchorOriginVertical;
+    transformHorizontal = origins.transformOriginHorizontal;
+    transformVertical = origins.transformOriginVertical;
+  }
   const { isPositioned, setPositioningStyles, setPositionedToFalse } =
     usePopoverPositioning({
       margin: TOOLTIP_MARGIN,
@@ -82,10 +102,10 @@ const Tooltip: React.FC<TooltipProps> = ({
       ref: tooltipRef,
       isOpen,
       anchorEl,
-      anchorOriginHorizontal,
-      anchorOriginVertical,
-      transformOriginHorizontal,
-      transformOriginVertical,
+      anchorOriginHorizontal: anchorHorizontal,
+      anchorOriginVertical: anchorVertical,
+      transformOriginHorizontal: transformHorizontal,
+      transformOriginVertical: transformVertical,
     });
 
   const handleMouseEnter = React.useCallback(

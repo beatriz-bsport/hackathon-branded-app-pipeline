@@ -5,6 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import Moment from 'moment-timezone';
 import HttpBackend from 'i18next-http-backend';
+import { Settings } from 'luxon';
 import config from '../config';
 import languages from './languages.json';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
@@ -144,7 +145,23 @@ const availableLanguages = [
   },
 ];
 
+export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ['en-US', 'en-CA'];
+
+const setLuxonLocale = (language: string) => {
+  Settings.defaultLocale = language;
+  if (LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY.includes(language)) {
+    Settings.defaultWeekSettings = {
+      firstDay: 7,
+      minimalDays: 1,
+      weekend: [6, 7],
+    };
+  } else {
+    Settings.defaultWeekSettings = null;
+  }
+};
+
 i18n.on('languageChanged', (lng) => {
+  setLuxonLocale(lng);
   if (lng === 'en-GB') {
     Moment.locale('en-gb');
     return;
@@ -153,6 +170,7 @@ i18n.on('languageChanged', (lng) => {
 });
 
 Moment.locale(i18n.language);
+Settings.defaultLocale = i18n.language;
 
 const setLanguage = (lng: string) => {
   i18n.changeLanguage(lng);
@@ -179,6 +197,7 @@ export {
   setLanguage,
   getLanguage,
   setMomentLocale,
+  setLuxonLocale,
 };
 
 export const browserCountryCode = () => {

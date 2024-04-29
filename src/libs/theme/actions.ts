@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 
 import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi';
+import { Settings } from 'luxon';
 import api from './api';
 // @ts-ignore
 import { Dispatch, OptionCallback } from '../../state/types';
@@ -31,6 +32,7 @@ export function fetchCompanyTheme(
       const response = await api.fetchCompanyTheme(companyId);
       const theme = response.data;
       moment.tz.setDefault(theme.timezone_name);
+      Settings.defaultZone = theme.timezone_name;
       dispatch(themeDetail.success(theme));
       if (options && options.onSuccess) {
         options.onSuccess(theme);

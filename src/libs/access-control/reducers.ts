@@ -302,14 +302,14 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         .setIn(['userPhotoUpdate', 'page'], page)
         .setIn(
           ['userPhotoUpdate', 'allIds'],
-          uniq(results.map((userPhotoUpdate) => userPhotoUpdate.id)),
+          uniq(results.map((userPhotoUpdate) => userPhotoUpdate.uuid)),
         )
         .merge(
           {
             userPhotoUpdate: {
               byId: results.reduce(
-                (acc: Record<number, UserPhotoUpdate>, userPhotoUpdate) => {
-                  acc[userPhotoUpdate.id] = userPhotoUpdate;
+                (acc: Record<string, UserPhotoUpdate>, userPhotoUpdate) => {
+                  acc[userPhotoUpdate.uuid] = userPhotoUpdate;
                   return acc;
                 },
                 {},
@@ -340,7 +340,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         {
           userPhotoUpdate: {
             byId: {
-              [userPhotoUpdate.id]: userPhotoUpdate,
+              [userPhotoUpdate.uuid]: userPhotoUpdate,
             },
           },
         },

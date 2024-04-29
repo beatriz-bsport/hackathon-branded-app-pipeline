@@ -100,9 +100,9 @@ export const getUserPhotoUpdates = (params: {
   );
 };
 
-export const approveUserPhotoUpdate = (userPhotoUpdateId: number) => {
+export const approveUserPhotoUpdate = (userPhotoUpdateUuid: string) => {
   return patchAuth<UserPhotoUpdate>(
-    `${API_V1_URI}/access_control/user_photo_update/${userPhotoUpdateId}/approve/`,
+    `${API_V1_URI}/access_control/user_photo_update/${userPhotoUpdateUuid}/approve/`,
     {},
   );
 };

@@ -339,14 +339,14 @@ export const approvePhotoUpdateActions = {
 };
 
 export const approvePhotoUpdate = (
-  userPhotoUpdateId: number,
+  userPhotoUpdateUuid: string,
   options?: OptionCallback<UserPhotoUpdate>,
 ): ThunkAction => {
   return async (dispatch) => {
     dispatch(approvePhotoUpdateActions.loading(true));
     dispatch(approvePhotoUpdateActions.error(null));
     try {
-      const response = await approvePhotoUpdateAPI(userPhotoUpdateId);
+      const response = await approvePhotoUpdateAPI(userPhotoUpdateUuid);
       dispatch(approvePhotoUpdateActions.success(response));
       options?.onSuccess?.(response.data);
     } catch (error) {

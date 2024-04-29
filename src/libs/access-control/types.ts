@@ -102,7 +102,7 @@ export type AccessControlBookingOrPrivateBooking = {
 };
 
 export type UserPhotoUpdate = {
-  id: number;
+  uuid: string;
   datetime_created: string;
   approved_by_manager: boolean;
   previous_photo: string;
@@ -119,11 +119,9 @@ export type MemberVisit = Omit<MemberVisitREST, 'member' | 'establishment'> & {
 
 /** REDUX STATE TYPE */
 
-type StoreSection<ObjectType> = {
-  allIds: number[];
-  byId: {
-    [id: number]: ObjectType;
-  };
+type StoreSection<ObjectType, IdType extends string | number = number> = {
+  allIds: IdType[];
+  byId: Record<IdType, ObjectType>;
 } & WithPagination &
   ErrorAndLoading;
 
@@ -133,7 +131,7 @@ export type AccessControlState = {
   nextBookingOrPrivateBooking: {
     bookingOrPrivateBooking?: AccessControlBookingOrPrivateBooking;
   } & ErrorAndLoading;
-  userPhotoUpdate: StoreSection<UserPhotoUpdate>;
+  userPhotoUpdate: StoreSection<UserPhotoUpdate, string>;
 };
 
 /** OTHER TYPES */

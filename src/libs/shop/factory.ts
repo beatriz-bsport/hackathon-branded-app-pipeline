@@ -1,5 +1,6 @@
-import { fakerEN as faker } from '@faker-js/faker';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { fakerEN as faker } from '@faker-js/faker';
+import moment from 'moment-timezone';
 
 import {
   generateRandomName,
@@ -8,7 +9,11 @@ import {
 } from '../../utils/factories';
 
 import { FakerTextLength } from '../../utils/types';
-import { ShopItemFactoryOptions } from './types';
+import type { ShopItemFactoryOptions, ShopSupplier } from './types';
+
+const CREATE_DATE = moment().subtract(5, 'days').format();
+const UPDATE_DATE = moment().subtract(3, 'days').format();
+const DELETE_DATE = moment().subtract(8, 'hours').format();
 
 /**
  * Generates a shop item with Faker
@@ -82,4 +87,30 @@ export const shopItemListFactory = (
   options?: ShopItemFactoryOptions,
 ) => {
   return faker.helpers.multiple(() => shopItemFactory(options), { count });
+};
+
+/**
+ * Generates a shop supplier with Faker
+ * @example
+ * const fakeShopSupplier = shopSupplierFactory()
+ */
+export const shopSupplierFactory = (): ShopSupplier => {
+  return {
+    company: faker.number.int({ max: 10000 }),
+    created_at: CREATE_DATE,
+    description: generateRandomDescription(faker),
+    disabled_at: DELETE_DATE,
+    disabled: faker.datatype.boolean(),
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    updated_at: UPDATE_DATE,
+  };
+};
+
+/**
+ * Generates a list of shop supplier with Faker
+ * @param count The number of shop supplier to generate
+ */
+export const shopSupplierListFactory = (count: number): ShopSupplier[] => {
+  return faker.helpers.multiple(shopSupplierFactory, { count });
 };

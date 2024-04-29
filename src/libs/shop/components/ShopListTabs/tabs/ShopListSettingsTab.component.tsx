@@ -6,25 +6,17 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Pagination from '@material-ui/lab/Pagination';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import TabPanel from '@material-ui/lab/TabPanel';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 
 import DeliveryFeeTable from '#libs/order/components/DeliveryFeeTable.component';
 import OrderConfigurationForm from '#libs/order/components/OrderConfigurationForm.component';
+import ShopSupplierTable from '#libs/shop/components/ShopSupplierTable';
 
 import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 import type { ShopSupplier } from '#libs/shop/types';
@@ -100,60 +92,11 @@ const ShopListSettingsTab: React.FC<Props> = ({
 
         <Grid item>
           <Card>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    {t(
-                      'shop:shopList.tab.settings.section.suppliers.table.name',
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {t(
-                      'shop:shopList.tab.settings.section.suppliers.table.notes',
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {t(
-                      'shop:shopList.tab.settings.section.suppliers.table.actions',
-                    )}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {(supplierList || []).map((supplier) => (
-                  <TableRow key={supplier.id}>
-                    <TableCell scope="row">{supplier.name}</TableCell>
-                    <TableCell scope="row">{supplier.description}</TableCell>
-                    <TableCell className={classes.rowActions} scope="row">
-                      <Tooltip
-                        title={t(
-                          'shop:shopList.tab.settings.section.suppliers.table.action.edit',
-                        )}
-                      >
-                        <IconButton
-                          color="primary"
-                          onClick={handleEditSupplier(supplier)}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip
-                        title={t(
-                          'shop:shopList.tab.settings.section.suppliers.table.action.delete',
-                        )}
-                      >
-                        <IconButton
-                          onClick={handleSelectSupplierForDeletion(supplier)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <ShopSupplierTable
+              handleEditSupplier={handleEditSupplier}
+              handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
+              supplierList={supplierList}
+            />
 
             <div className={classes.tableFooter}>
               <Button
@@ -241,9 +184,6 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
-  },
-  rowActions: {
-    display: 'flex',
   },
   tableFooter: {
     width: '100%',

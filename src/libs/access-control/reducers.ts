@@ -5,10 +5,12 @@ import { handleActions } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 
 import {
+  approvePhotoUpdateActions,
   checkMemberInEstablishmentActions,
   getAccessControlPolicyActions,
   retrieveMemberNextBookingOrPrivateBookingActions,
   getMemberVisitListActions,
+  getUserPhotoUpdatesActions,
   globalMemberVisitActions,
   patchAccessControlPolicyActions,
   refreshMemberVisitAccessStatusActions,
@@ -23,6 +25,7 @@ import type {
   AccessControlPolicy,
   AccessControlState,
   MemberVisitREST,
+  UserPhotoUpdate,
 } from './types';
 
 const basePaginationErrorAndLoading: ErrorAndLoading & WithPagination = {
@@ -52,6 +55,11 @@ export const initialState: Immutable.Immutable<AccessControlState> =
       loading: false,
       error: null,
       bookingOrPrivateBooking: null,
+    },
+    userPhotoUpdate: {
+      ...basePaginationErrorAndLoading,
+      byId: {},
+      allIds: [],
     },
   });
 
@@ -266,6 +274,77 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       return state.setIn(
         ['nextBookingOrPrivateBooking', 'bookingOrPrivateBooking'],
         bookingOrPrivateBooking,
+      );
+    },
+    [getUserPhotoUpdatesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userPhotoUpdate', 'error'], payload);
+    },
+    [getUserPhotoUpdatesActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userPhotoUpdate', 'loading'], payload);
+    },
+    [getUserPhotoUpdatesActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<UserPhotoUpdate>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['userPhotoUpdate', 'next_page'], next_page)
+        .setIn(['userPhotoUpdate', 'count'], count)
+        .setIn(['userPhotoUpdate', 'page'], page)
+        .setIn(
+          ['userPhotoUpdate', 'allIds'],
+          uniq(results.map((userPhotoUpdate) => userPhotoUpdate.id)),
+        )
+        .merge(
+          {
+            userPhotoUpdate: {
+              byId: results.reduce(
+                (acc: Record<number, UserPhotoUpdate>, userPhotoUpdate) => {
+                  acc[userPhotoUpdate.id] = userPhotoUpdate;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [approvePhotoUpdateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userPhotoUpdate', 'error'], payload);
+    },
+    [approvePhotoUpdateActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userPhotoUpdate', 'loading'], payload);
+    },
+    [approvePhotoUpdateActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<UserPhotoUpdate> },
+    ) => {
+      const userPhotoUpdate = payload.data;
+      return state.merge(
+        {
+          userPhotoUpdate: {
+            byId: {
+              [userPhotoUpdate.id]: userPhotoUpdate,
+            },
+          },
+        },
+        { deep: true },
       );
     },
   },

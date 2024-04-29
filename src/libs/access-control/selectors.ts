@@ -41,3 +41,18 @@ export const getAccessControlPolicy = (state: RootState) =>
 
 export const getMemberNextBookingOrPrivateBooking = (state: RootState) =>
   state.accessControl.nextBookingOrPrivateBooking.bookingOrPrivateBooking;
+
+const getUserPhotoUpdateIds = (state: RootState) =>
+  state.accessControl.userPhotoUpdate.allIds;
+
+const getUserPhotoUpdateData = (state: RootState) =>
+  state.accessControl.userPhotoUpdate.byId;
+
+export const getUserPhotoUpdates = createSelector(
+  [getUserPhotoUpdateData, getUserPhotoUpdateIds],
+  (userPhotoUpdateData, userPhotoUpdateIds) => {
+    return userPhotoUpdateIds
+      ?.map((id) => userPhotoUpdateData?.[id])
+      ?.filter((userPhotoUpdate) => !!userPhotoUpdate);
+  },
+);

@@ -13,6 +13,7 @@ import type {
   AccessControlPolicy,
   MemberVisitQueryParams,
   MemberVisitREST,
+  UserPhotoUpdate,
 } from './types';
 
 export const retrieveMemberVisit = (memberVisitId: number) => {
@@ -87,5 +88,21 @@ export const retrieveMemberNextBookingOrPrivateBooking = (memberId: number) => {
     `${API_V1_URI}/access_control/member_visit/today_next_booking_or_private_booking/${buildUrlParams(
       { member: memberId },
     )}`,
+  );
+};
+
+export const getUserPhotoUpdates = (params: {
+  member: number;
+  page_size?: number;
+}) => {
+  return getAuth<PaginatedResponse<UserPhotoUpdate>>(
+    `${API_V1_URI}/access_control/user_photo_update/${buildUrlParams(params)}`,
+  );
+};
+
+export const approveUserPhotoUpdate = (userPhotoUpdateId: number) => {
+  return patchAuth<UserPhotoUpdate>(
+    `${API_V1_URI}/access_control/user_photo_update/${userPhotoUpdateId}/approve/`,
+    {},
   );
 };

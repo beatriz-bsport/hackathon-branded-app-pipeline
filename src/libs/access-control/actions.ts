@@ -11,6 +11,8 @@ import {
   getAccessControlPolicy as getAccessControlPolicyAPI,
   patchAccessControlPolicy as patchAccessControlPolicyAPI,
   retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAPI,
+  getUserPhotoUpdates as getUserPhotoUpdatesAPI,
+  approveUserPhotoUpdate as approvePhotoUpdateAPI,
 } from './api';
 
 import type {
@@ -23,6 +25,7 @@ import type {
   AccessControlPolicy,
   MemberVisitQueryParams,
   MemberVisitREST,
+  UserPhotoUpdate,
 } from './types';
 import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
@@ -288,5 +291,68 @@ export const retrieveMemberNextBookingOrPrivateBooking = (
       options?.onError?.(error);
     }
     dispatch(retrieveMemberNextBookingOrPrivateBookingActions.loading(false));
+  };
+};
+
+export const getUserPhotoUpdatesActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<UserPhotoUpdate>>>(
+    'ACCESS_CONTROL/GET_USER_PHOTO_UPDATE/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/GET_USER_PHOTO_UPDATE/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/GET_USER_PHOTO_UPDATE/ERROR',
+  ),
+};
+
+export const getUserPhotoUpdates = (
+  memberId: number,
+  options?: OptionCallback<PaginatedResponse<UserPhotoUpdate>>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(getUserPhotoUpdatesActions.loading(true));
+    dispatch(getUserPhotoUpdatesActions.error(null));
+    try {
+      const response = await getUserPhotoUpdatesAPI({
+        member: memberId,
+        page_size: 6,
+      });
+      dispatch(getUserPhotoUpdatesActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(getUserPhotoUpdatesActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getUserPhotoUpdatesActions.loading(false));
+  };
+};
+
+export const approvePhotoUpdateActions = {
+  success: createAction<AxiosResponse<UserPhotoUpdate>>(
+    'ACCESS_CONTROL/APPROVE_PHOTO_UPDATE/SUCCESS',
+  ),
+  loading: createAction<boolean>('ACCESS_CONTROL/APPROVE_PHOTO_UPDATE/LOADING'),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/APPROVE_PHOTO_UPDATE/ERROR',
+  ),
+};
+
+export const approvePhotoUpdate = (
+  userPhotoUpdateId: number,
+  options?: OptionCallback<UserPhotoUpdate>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(approvePhotoUpdateActions.loading(true));
+    dispatch(approvePhotoUpdateActions.error(null));
+    try {
+      const response = await approvePhotoUpdateAPI(userPhotoUpdateId);
+      dispatch(approvePhotoUpdateActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(approvePhotoUpdateActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(approvePhotoUpdateActions.loading(false));
   };
 };

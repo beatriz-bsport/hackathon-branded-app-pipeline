@@ -100,6 +100,14 @@ export type AccessControlBookingOrPrivateBooking = {
   };
 };
 
+export type UserPhotoUpdate = {
+  id: number;
+  datetime_created: string;
+  approved_by_manager: boolean;
+  previous_photo: string;
+  new_photo: string;
+};
+
 /** COMMON TYPES */
 
 // TODO: Update
@@ -124,6 +132,7 @@ export type AccessControlState = {
   nextBookingOrPrivateBooking: {
     bookingOrPrivateBooking?: AccessControlBookingOrPrivateBooking;
   } & ErrorAndLoading;
+  userPhotoUpdate: StoreSection<UserPhotoUpdate>;
 };
 
 /** OTHER TYPES */

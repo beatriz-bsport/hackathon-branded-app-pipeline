@@ -102,7 +102,7 @@ export const listPlaylistActions = {
 };
 
 export function fetchMorePlaylist(
-  params: { mine?: boolean; company?: number } = {},
+  params: { mine?: boolean; company?: number; page_size?: number } = {},
   options?: OptionCallback<Playlist[]>,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
@@ -114,7 +114,7 @@ export function fetchMorePlaylist(
 }
 
 export function fetchPlaylistList(
-  params: { mine?: boolean; company?: number } = {},
+  params: { mine?: boolean; company?: number; page_size?: number } = {},
   page: number = 1,
   options?: OptionCallback,
 ) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
@@ -12,13 +13,18 @@ type Props = {
     companyId?: number,
     companyName?: string,
   ) => void;
+  onShowMore: () => void;
+  hasMorePlaylist: boolean;
 };
 
 const PlaylistListMarketPlace: React.FC<Props> = ({
   playlistList: playlists,
   openPlaylist,
+  onShowMore,
+  hasMorePlaylist,
 }) => {
   const classes = useStyles();
+
   const { t } = useTranslation('video');
   return (
     <div className={classes.playlistListContainer}>
@@ -40,6 +46,13 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
           </div>
         ))}
       </div>
+      {hasMorePlaylist && (
+        <div className={classes.buttonContainer}>
+          <Button color="primary" onClick={onShowMore} variant="contained">
+            {t('video.showMore')}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
@@ -86,6 +99,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       flexBasis: '100%',
     },
+  },
+  buttonContainer: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

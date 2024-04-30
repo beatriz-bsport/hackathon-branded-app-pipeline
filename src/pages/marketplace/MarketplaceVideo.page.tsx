@@ -29,7 +29,7 @@ import {
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoFilterableParams,
 } from '#libs/video/actions';
-import { fetchPlaylistList } from '#libs/playlist/actions';
+import { fetchPlaylistList, fetchMorePlaylist } from '#libs/playlist/actions';
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
@@ -40,6 +40,7 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { VideoStatusEnum } from '#libs/video/types';
 import { CompanyTheme } from '#libs/theme/types';
+import { PLAYLIST_PAGE_SIZE } from '#libs/playlist/constant';
 
 type OwnProps = {
   companyId: number;
@@ -120,6 +121,8 @@ export class MarketplaceVideo extends React.Component<Props> {
           </div>
           {!!this.props.playlistList.length && (
             <PlaylistListMarketPlace
+              hasMorePlaylist={this.props.hasMorePlaylist}
+              onShowMore={this.props.fetchMorePlaylist}
               openPlaylist={this.props.openPlaylist}
               playlistList={this.props.playlistList}
             />
@@ -168,12 +171,15 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.video.loading,
   videoFilterableParams: state.video.filterableParams.items,
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
+  hasMorePlaylist:
+    state.playlist.list.nextPage && state.playlist.list.nextPage > 1,
   customLevels: getActiveCustomLevels(state),
 });
 
 const mapDispatchToProps = {
   fetchVideoList: fetchVideoListAction,
   fetchPlaylistList,
+  fetchMorePlaylist,
   fetchMoreVideo: fetchMoreVideoAction,
   push: pushRouter,
   fetchVideoFilterableParams,
@@ -226,6 +232,18 @@ const mapHandlers = {
       1,
       options,
     );
+  },
+  fetchPlaylistList: (props: ConnectedProps) => () => {
+    props.fetchPlaylistList({
+      company: props.companyId,
+      page_size: PLAYLIST_PAGE_SIZE,
+    });
+  },
+  fetchMorePlaylist: (props: ConnectedProps) => () => {
+    props.fetchMorePlaylist({
+      company: props.companyId,
+      page_size: PLAYLIST_PAGE_SIZE,
+    });
   },
   openVideo: (props: ConnectedProps) => (videoId: number) => {
     if (props.openVideo) {

@@ -14,6 +14,7 @@ import MemberSearchBar from '#libs/member/components/MemberSearchBar.component';
 import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
+  disabled?: boolean;
   displayDropDownInPopover?: boolean;
   onClearSearch?: () => void;
   onMemberClick: (memberId: number) => void;
@@ -23,6 +24,7 @@ type Props = {
 };
 
 const MemberVisitSearchMember: React.FC<Props> = ({
+  disabled,
   displayDropDownInPopover,
   onClearSearch,
   onMemberClick,
@@ -91,6 +93,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
         <div className={classes.memberSearch}>
           <MemberSearchBar
             fullWidth
+            disabled={disabled}
             onChange={onChange}
             onReset={clearSearch}
             placeholder={t('memberVisit.emptyState.searchMember')}

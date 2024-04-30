@@ -18,6 +18,7 @@ import type { RolePermission } from '#libs/role/types';
 import type { MemberMinimal } from '#libs/member/types';
 
 type Props = {
+  disabled?: boolean;
   fullWidth?: boolean;
   memberHistory?: MemberMinimal[];
   memberHistoryAnchor?: HTMLElement;
@@ -31,6 +32,7 @@ type Props = {
 };
 
 const MemberSearchBar: React.FC<Props> = ({
+  disabled,
   fullWidth,
   memberHistory,
   memberHistoryAnchor,
@@ -90,6 +92,7 @@ const MemberSearchBar: React.FC<Props> = ({
       <DelayedTextField
         fullWidth
         className={classes.field}
+        disabled={disabled}
         InputProps={{
           className: classes.input,
           startAdornment: (

@@ -395,6 +395,7 @@ const MemberVisit: React.FC<Props> = React.memo(
               <>
                 <Divider />
                 <MemberVisitSearchMemberComponent
+                  disabled={showLocationBlocker}
                   onMemberClick={handleCheckInMember}
                   searchMembers={searchMembers}
                   title={t('memberVisit.emptyState.or')}

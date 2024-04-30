@@ -64,14 +64,14 @@ const UserMarketingNotificationsFilterV2: React.FC<OwnProps> = ({
   );
 
   const handleEmailValueChange = React.useCallback(
-    (event: ChangeEvent<{ value: boolean }>) =>
-      onChange({ email_value: event.target.value }),
+    (event: ChangeEvent<{ value: string }>) =>
+      onChange({ email_value: event.target.value === 'true' }),
     [onChange],
   );
 
   const handleConditionAndChange = React.useCallback(
-    (event: ChangeEvent<{ value: boolean }>) =>
-      onChange({ is_condition_and: event.target.value }),
+    (event: ChangeEvent<{ value: string }>) =>
+      onChange({ is_condition_and: event.target.value === 'true' }),
     [onChange],
   );
 
@@ -84,8 +84,8 @@ const UserMarketingNotificationsFilterV2: React.FC<OwnProps> = ({
   );
 
   const handleSmsValueChange = React.useCallback(
-    (event: ChangeEvent<{ value: boolean }>) =>
-      onChange({ sms_value: event.target.value }),
+    (event: ChangeEvent<{ value: string }>) =>
+      onChange({ sms_value: event.target.value === 'true' }),
     [onChange],
   );
 
@@ -115,7 +115,7 @@ const UserMarketingNotificationsFilterV2: React.FC<OwnProps> = ({
             defaultValue
             className={classes.input}
             onChange={handleEmailValueChange}
-            value={filter_data.email_value ? 'true' : 'false'}
+            value={filter_data.email_value}
           >
             <MenuItem key="true" value="true">
               {t(`filters.${filter_data.filter_identifier}.true`)}
@@ -137,7 +137,7 @@ const UserMarketingNotificationsFilterV2: React.FC<OwnProps> = ({
           defaultValue
           className={classes.input}
           onChange={handleConditionAndChange}
-          value={filter_data.is_condition_and ? 'true' : 'false'}
+          value={filter_data.is_condition_and}
         >
           <MenuItem key="true" value="true">
             {t(`filters.${filter_data.filter_identifier}.and`)}
@@ -165,7 +165,7 @@ const UserMarketingNotificationsFilterV2: React.FC<OwnProps> = ({
             defaultValue
             className={classes.input}
             onChange={handleSmsValueChange}
-            value={filter_data.sms_value ? 'true' : 'false'}
+            value={filter_data.sms_value}
           >
             <MenuItem key="true" value="true">
               {t(`filters.${filter_data.filter_identifier}.true`)}

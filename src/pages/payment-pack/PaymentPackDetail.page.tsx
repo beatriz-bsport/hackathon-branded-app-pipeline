@@ -508,10 +508,9 @@ export class PaymentPackDetail extends Component<Props, State> {
                   !!this.props.massExtension.items.length
                 ) && (
                   <React.Fragment>
-                    <Typography variant="h5">
+                    <Typography className={classes.extensionTitle} variant="h5">
                       {this.props.t('paymentPack:section.massExtension')}
                     </Typography>
-                    <Divider className={this.props.classes.divider} />
                     <PaymentPackMassExtensionList
                       firstLoadDone
                       itemPerPage={PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE}
@@ -627,6 +626,9 @@ export class PaymentPackDetail extends Component<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
+  extensionTitle: {
+    marginBottom: theme.spacing(1),
+  },
   emptyContainer: {
     padding: theme.spacing(2),
   },

@@ -306,7 +306,8 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                           private_consumer_pass:
                             this.props.privateConsumerPassId,
                           /** Fetch the previous page if removing the last page item */
-                          ...(isLastItemInPage && { page: currentPage - 1 }),
+                          ...(isLastItemInPage &&
+                            currentPage > 1 && { page: currentPage - 1 }),
                         });
                       },
                     });

@@ -223,7 +223,7 @@ export class PrivatePassDetails extends Component<Props> {
         this.props.fetchPrivatePassMassExtensionList({
           private_pass: this.props.id,
           /** Fetch the previous page if removing the last page item */
-          ...(isLastItemInPage && { page: currentPage - 1 }),
+          ...(isLastItemInPage && currentPage > 1 && { page: currentPage - 1 }),
         });
       },
     });

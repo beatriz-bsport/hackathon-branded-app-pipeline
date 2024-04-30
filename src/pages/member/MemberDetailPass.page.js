@@ -581,7 +581,8 @@ export class MemberDetailPass extends Component<Props, State> {
                           consumer_payment_pack:
                             this.props.selectedConsumerPass.id,
                           /** Fetch the previous page if removing the last page item */
-                          ...(isLastItemInPage && { page: currentPage - 1 }),
+                          ...(isLastItemInPage &&
+                            currentPage > 1 && { page: currentPage - 1 }),
                         });
                       },
                     });

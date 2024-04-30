@@ -305,7 +305,7 @@ export class PaymentPackDetail extends Component<Props, State> {
         this.props.fetchPaymentPackMassExtensionList({
           payment_pack: this.props.id,
           /** Fetch the previous page if removing the last page item */
-          ...(isLastItemInPage && { page: currentPage - 1 }),
+          ...(isLastItemInPage && currentPage > 1 && { page: currentPage - 1 }),
         });
       },
     });
@@ -524,7 +524,7 @@ export class PaymentPackDetail extends Component<Props, State> {
                       onDelete={this.onDeleteMassExtension}
                       onPageRequested={(page) => {
                         this.props.fetchPaymentPackMassExtensionList({
-                          paymentPack: this.props.id,
+                          payment_pack: this.props.id,
                           page,
                         });
                       }}

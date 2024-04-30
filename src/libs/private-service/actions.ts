@@ -113,8 +113,6 @@ import {
 
 import { monitorBackgroundTask } from '../background-task/actions';
 
-import { fetchAll as fetchAlerting } from '../alerting/actions';
-
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   PrivateBooking,
@@ -143,6 +141,17 @@ export const privateBookingAttachCoachActions = {
   isLoading: createAction('PRIVATE_BOOKING/ATTACH_COACH/IS_LOADING'),
   success: createAction('PRIVATE_BOOKING/ATTACH_COACH/SUCCESS'),
 };
+import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import { refreshAlertingByKind } from '../alerting/actions';
+
+export const listTaskByMemberActions = {
+  error: createAction('REMINDER/TASK_BY_MEMBER/ERROR'),
+  isLoading: createAction('REMINDER/TASK_BY_MEMBER/LOADING'),
+  success: createAction('REMINDER/TASK_BY_MEMBER/SUCCESS'),
+};
+
+export const refreshIncompletePrivateBookingAlerting = () =>
+  refreshAlertingByKind(PRIVATE_BOOKING_INCOMPLETE_ALERT);
 
 export function attachCoachToPrivateBooking(
   id: number,
@@ -161,7 +170,7 @@ export function attachCoachToPrivateBooking(
       dispatch(privateBookingAttachCoachActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
-        dispatch(fetchAlerting());
+        dispatch(refreshIncompletePrivateBookingAlerting());
       }
       dispatch(snackbarSuccess('privateBooking.attachCoach.success'));
     } catch (err) {

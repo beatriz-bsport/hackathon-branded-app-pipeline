@@ -15,6 +15,12 @@ import type {
   Order,
 } from '#libs/order/types';
 
+import { NEW_ORDER_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import { refreshAlertingByKind } from '#libs/alerting/actions';
+
+export const refreshNewOrderAlerting = () =>
+  refreshAlertingByKind(NEW_ORDER_ALERT);
+
 export const deliverFeesList = {
   error: createAction<Error | null>('DELIVERY_FEE/LIST/ERROR'),
   isLoading: createAction<boolean>('DELIVERY_FEE/LIST/IS_LOADING'),

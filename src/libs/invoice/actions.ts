@@ -81,7 +81,7 @@ export const invoiceConfigurationPatchActions = {
   error: createAction<Error | null>('INVOICE-CONFIGURATION/PATCH/ERROR'), // not used in reducers
 };
 
-export const refreshUnpaidInvoiceAlerting = () => refreshAlertingByKind(UNEVEN_INVOICE_ALERT);
+export const refreshUnpaidInvoiceAlerting = () => refreshAlertingByKind(UNEVEN_INVOICE_ALERT.alert_kind);
 
 export function patchInvoiceConfiguration(
   data: {

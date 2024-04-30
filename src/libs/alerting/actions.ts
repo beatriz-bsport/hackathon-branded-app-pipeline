@@ -11,6 +11,7 @@ import {
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
   REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
+  type AlertingKind,
 } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
@@ -43,7 +44,7 @@ export function fetchAll(): ThunkAction {
     ALERT_KINDS.map((al) => dispatch(fetch(al, 1)));
 }
 
-export function refreshAlertingByKind(alert_kind: number): ThunkAction {
+export function refreshAlertingByKind(alert_kind: AlertingKind): ThunkAction {
   return async (dispatch: Dispatch) => dispatch(fetch(alert_kind, 1, true));
 }
 

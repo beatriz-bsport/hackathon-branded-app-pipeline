@@ -24,7 +24,7 @@ import { fetchMember } from '#libs/member/actions';
 import { fetchOrder, patchOrder } from '#libs/order/actions';
 import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#libs/invoice/actions';
 import OrderDetailComponent from '#libs/order/components/OrderDetail.component';
-import { fetchAll as fetchAllAlerting } from '#libs/alerting/actions';
+import { refreshNewOrderAlerting } from '#libs/alerting/actions';
 import { sendCommunication } from '#libs/communication/actions';
 import {
   emailTemplateDetail,
@@ -92,7 +92,7 @@ export class OrderDetail extends Component<Props> {
               order.id,
               { state },
               {
-                onSuccess: () => this.props.fetchAllAlerting(),
+                onSuccess: () => this.props.refreshNewOrderAlerting(),
               },
             )
           }
@@ -124,7 +124,7 @@ const connector = connect(
     fetchMember,
     fetchOrder,
     patchOrder,
-    fetchAllAlerting,
+    refreshNewOrderAlerting,
     goToMember: (id: number) => push(`/member/${id}/`),
     onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
   },

@@ -2,19 +2,24 @@
 
 import { createAction } from 'redux-actions';
 
+import { REMINDER_NOTE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind';
 import {
   fetchTaskList as fetchTaskListAPI,
   createOrUpdateTask as createOrUpdateTaskAPI,
   patchTask as patchTaskAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import { fetchAll as fetchAlerting } from '../alerting/actions';
+
+import { refreshAlertingByKind } from '../alerting/actions';
 
 export const listTaskByMemberActions = {
   error: createAction('REMINDER/TASK_BY_MEMBER/ERROR'),
   isLoading: createAction('REMINDER/TASK_BY_MEMBER/LOADING'),
   success: createAction('REMINDER/TASK_BY_MEMBER/SUCCESS'),
 };
+
+export const refreshReminderTaskAlerting = () =>
+  refreshAlertingByKind(REMINDER_NOTE_ALERT_KIND);
 
 export function fetchTaskListByMember(
   member: number,
@@ -57,7 +62,7 @@ export function createOrUpdateTask(data: any, options: OptionCallback) {
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
-      dispatch(fetchAlerting());
+      dispatch(refreshReminderTaskAlerting());
     } catch (error) {
       dispatch(createOrUpdateActions.error(error));
       if (options && options.onError) options.onError(error);
@@ -88,7 +93,7 @@ export function updateTaskStatus(
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
-      dispatch(fetchAlerting());
+      dispatch(refreshReminderTaskAlerting());
     } catch (error) {
       dispatch(updateStatusAction.error(error));
       if (options && options.onError) options.onError(error);

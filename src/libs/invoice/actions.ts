@@ -48,7 +48,8 @@ import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
-import { fetchAll as fetchAlerting } from '#libs/alerting/actions';
+import { refreshAlertingByKind } from '#libs/alerting/actions';
+import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 import { isErrorWithCustomCode } from '#libs/utils';
 
@@ -79,6 +80,8 @@ export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
   error: createAction<Error | null>('INVOICE-CONFIGURATION/PATCH/ERROR'), // not used in reducers
 };
+
+export const refreshUnpaidInvoiceAlerting = () => refreshAlertingByKind(UNEVEN_INVOICE_ALERT);
 
 export function patchInvoiceConfiguration(
   data: {
@@ -213,7 +216,7 @@ export function revertQuickInvoice(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(revertInvoice(uuid, {}, options));
-    dispatch(fetchAlerting());
+    dispatch(refreshUnpaidInvoiceAlerting());
   };
 }
 
@@ -248,7 +251,7 @@ export function revertInvoice(
       }
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
-    dispatch(fetchAlerting());
+    dispatch(refreshUnpaidInvoiceAlerting());
   };
 }
 
@@ -303,7 +306,7 @@ export function createQuickInvoice(
         options.onError(err);
       }
     }
-    dispatch(fetchAlerting());
+    dispatch(refreshUnpaidInvoiceAlerting());
     dispatch(quickInvoiceActions.isLoading(false));
   };
 }
@@ -501,7 +504,7 @@ export function createOrUpdateInvoice(
         }
       }
       dispatch(createOrUpdateInvoiceActions.isLoading(false));
-      dispatch(fetchAlerting());
+      dispatch(refreshUnpaidInvoiceAlerting());
     }
   };
 }
@@ -691,7 +694,7 @@ export function allocateDebt(
       }
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
-    dispatch(fetchAlerting());
+    dispatch(refreshUnpaidInvoiceAlerting());
   };
 }
 

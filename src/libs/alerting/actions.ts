@@ -43,13 +43,21 @@ export function fetchAll(): ThunkAction {
     ALERT_KINDS.map((al) => dispatch(fetch(al, 1)));
 }
 
+export function refreshAlertingByKind(alert_kind: number): ThunkAction {
+  return async (dispatch: Dispatch) => dispatch(fetch(alert_kind, 1, true));
+}
+
 export function fetchMoreAlertingKind(kind: number) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(fetch(kind, getState().alerting.items_by_kind[kind].next));
   };
 }
 
-export function fetch(alert_kind: number, page: number): ThunkAction {
+export function fetch(
+  alert_kind: number,
+  page: number,
+  invalidateCache: bool = false,
+): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     const state = getState();
     if (
@@ -64,7 +72,7 @@ export function fetch(alert_kind: number, page: number): ThunkAction {
     dispatch(listActions.error(null));
 
     try {
-      const response = await api.fetch(alert_kind, page);
+      const response = await api.fetch(alert_kind, page, invalidateCache);
 
       dispatch(listActions.success({ page, alert_kind, ...response.data }));
     } catch (error) {

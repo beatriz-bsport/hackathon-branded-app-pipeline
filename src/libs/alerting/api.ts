@@ -2,12 +2,21 @@ import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-statu
 import { API_URI, getAuth, postAuth } from '../../http';
 import { PaginatedResponse } from '../../state/types';
 import { Alerting } from './types';
+import { buildUrlParams } from '../../http/utils';
 
 const PAGE_SIZE = 10;
 
-const fetch = async (alert_kind: number, page: number) => {
+const fetch = async (
+  alert_kind: number,
+  page: number,
+  invalidateCache: boolean = false,
+) => {
   return getAuth<PaginatedResponse<Alerting>>(
-    `${API_URI}/alerts/${alert_kind}/?page=${page}&page_size=${PAGE_SIZE}`,
+    `${API_URI}/alerts/${alert_kind}/${buildUrlParams({
+      page,
+      page_size: PAGE_SIZE,
+      invalidate_cache: invalidateCache,
+    })}`,
   );
 };
 

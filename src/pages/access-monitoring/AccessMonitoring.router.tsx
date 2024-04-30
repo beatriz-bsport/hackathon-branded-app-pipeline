@@ -134,6 +134,7 @@ const AccessMonitoringRouter: React.FC<Props> = ({
 
   return (
     <ContentWithAppBar
+      customClasses={{ content: classes.relative }}
       onChange={onChange}
       pageHeight={pageHeight}
       tab={tab}
@@ -155,6 +156,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
+  },
+  relative: {
+    position: 'relative',
   },
 }));
 

@@ -947,6 +947,7 @@ const styles = (theme: Object) => ({
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
   },
   fullContent: {
     display: 'flex',

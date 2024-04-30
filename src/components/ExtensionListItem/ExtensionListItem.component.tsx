@@ -70,22 +70,32 @@ export const ExtensionListItem: React.FC<Props> = ({
         <div
           className={classNames(classes.collapseContainer, {
             [classes.flexColumn]: isExtensionNoteExpanded,
-            [classes.widthFiftyChars]: !isExtensionNoteExpanded,
+            [classes.widthFiftyChars]:
+              isNoteExpandable && !isExtensionNoteExpanded,
             [classes.fullWidth]: isExtensionNoteExpanded,
           })}
         >
           {extension.note && (
-            <Collapse
-              className={classNames({
-                [classes.collapsedNote]: !isExtensionNoteExpanded,
-              })}
-              collapsedSize={EXTENSION_LIST_ITEM_COLLAPSED_SIZE}
-              in={isExtensionNoteExpanded}
-            >
-              <Typography className={classes.extensionNote} variant="body2">
-                {extension.note}
-              </Typography>
-            </Collapse>
+            <>
+              {isNoteExpandable ? (
+                <Collapse
+                  className={classNames({
+                    [classes.collapsedNote]: !isExtensionNoteExpanded,
+                  })}
+                  collapsedSize={EXTENSION_LIST_ITEM_COLLAPSED_SIZE}
+                  in={isExtensionNoteExpanded}
+                >
+                  <Typography
+                    className={classes.extensionNoteOverflow}
+                    variant="body2"
+                  >
+                    {extension.note}
+                  </Typography>
+                </Collapse>
+              ) : (
+                <Typography variant="body2">{extension.note}</Typography>
+              )}
+            </>
           )}
           {isNoteExpandable && (
             <Button
@@ -146,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    container: 'bsExtensionListItem',
   },
   itemContent: {
     display: 'flex',
@@ -160,9 +171,10 @@ const useStyles = makeStyles((theme) => ({
   collapseContainer: {
     display: 'flex',
     alignItems: 'baseline',
+    maxWidth: '70cqw',
   },
   widthFiftyChars: {
-    maxWidth: '50ch',
+    width: '50ch',
   },
   fullWidth: {
     width: '100%',
@@ -177,7 +189,7 @@ const useStyles = makeStyles((theme) => ({
   seeMoreButtonLabel: {
     lineHeight: 1,
   },
-  extensionNote: {
+  extensionNoteOverflow: {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },

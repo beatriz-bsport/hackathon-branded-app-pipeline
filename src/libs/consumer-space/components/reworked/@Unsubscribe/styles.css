@@ -1,0 +1,44 @@
+.bs-unsubscribe__container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--bs-space-size-6);
+  padding: 0 var(--bs-space-size-4);
+}
+
+.bs-unsubscribe__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  max-width: 500px;
+}
+.bs-unsubscribe__company-logo__container {
+  position: relative;
+}
+
+.bs-unsubscribe__company-logo__wrapper {
+  position: relative;
+  padding-bottom: 56.2%;
+  text-align: start;
+  display: flex;
+  justify-content: center;
+  width: var(--bs-icon-size-3xl);
+}
+
+.bs-unsubscribe__company-logo {
+  position: absolute;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.bs-unsubscribe__typography {
+  text-align: center;
+}
+
+.bs-unsubscribe__success__title {
+  align-items: center;
+}

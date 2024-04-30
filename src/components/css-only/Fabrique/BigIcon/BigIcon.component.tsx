@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import type { BigIconVariantType } from './types';
+import type { SVGComponentProps } from '#components/untitledui/template';
 import { BigIconEnum } from './constants';
 import {
   AlertTriangle,
@@ -13,7 +14,11 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './styles.css';
 
-type Props = { variant: BigIconVariantType; id?: string };
+type Props = {
+  variant: BigIconVariantType;
+  id?: string;
+  IconComponent?: React.FC<SVGComponentProps>;
+};
 
 const variantClassMapping = {
   [BigIconEnum.SUCCESS]: {
@@ -38,14 +43,19 @@ const variantClassMapping = {
   },
 };
 
-const BigIcon: React.FC<Props> = ({ variant, id }) => {
+const BigIcon: React.FC<Props> = ({ variant, id, IconComponent }) => {
   const { Icon, className } = variantClassMapping[variant];
+
+  const IconDisplay = IconComponent ?? Icon;
   return (
     <span
       className={classNames('bs-fabrique-big-icon__root', className)}
       id={id}
     >
-      <Icon className="bs-fabrique-big-icon--size" stroke="currentColor" />
+      <IconDisplay
+        className="bs-fabrique-big-icon--size"
+        stroke="currentColor"
+      />
     </span>
   );
 };

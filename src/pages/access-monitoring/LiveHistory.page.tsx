@@ -71,7 +71,6 @@ const useLiveHistoryPageDataManager = ({
   refreshMemberVisitAccessStatus,
   retrieveMemberNextBookingOrPrivateBooking,
   setMemberVisitEntryStatus,
-  theme,
 }: Pick<
   Props,
   | 'approvePhotoUpdate'
@@ -86,7 +85,6 @@ const useLiveHistoryPageDataManager = ({
   | 'refreshMemberVisitAccessStatus'
   | 'retrieveMemberNextBookingOrPrivateBooking'
   | 'setMemberVisitEntryStatus'
-  | 'theme'
 >) => {
   const [selectedMemberVisitId, setSelectedMemberVisitId] = useState(null);
 
@@ -149,7 +147,6 @@ const useLiveHistoryPageDataManager = ({
     establishmentGroups,
     establishmentsData,
     establishmentsToCheck: selectedMemberVisit?.establishments ?? [],
-    enableMultilocalization: theme.enable_multi_localization,
   });
 
   /** HANDLERS */
@@ -354,7 +351,6 @@ const LiveHistory: React.FC<Props> = ({
   retrieveMemberNextBookingOrPrivateBooking,
   searchMembers,
   setMemberVisitEntryStatus,
-  theme,
 }) => {
   const { t } = useTranslation('accessControl');
   const classes = useStyles();
@@ -394,7 +390,6 @@ const LiveHistory: React.FC<Props> = ({
     refreshMemberVisitAccessStatus,
     retrieveMemberNextBookingOrPrivateBooking,
     setMemberVisitEntryStatus,
-    theme,
   });
 
   if (selectedMemberVisit) {
@@ -511,7 +506,6 @@ const connector = connect(
     memberNextBookingOrPrivateBooking:
       getMemberNextBookingOrPrivateBooking(state),
     permissions: getPermissions(state),
-    theme: state.theme.theme,
   }),
   {
     approvePhotoUpdate: approvePhotoUpdateAction,

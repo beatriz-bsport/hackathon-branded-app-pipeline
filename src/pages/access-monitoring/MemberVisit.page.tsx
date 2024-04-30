@@ -80,7 +80,6 @@ export const useMemberVisitPageDataManager = ({
   refreshMemberVisitAccessStatus,
   retrieveMemberNextBookingOrPrivateBooking,
   setMemberVisitEntryStatus,
-  theme,
 }: Pick<
   Props,
   | 'approvePhotoUpdate'
@@ -94,7 +93,6 @@ export const useMemberVisitPageDataManager = ({
   | 'refreshMemberVisitAccessStatus'
   | 'retrieveMemberNextBookingOrPrivateBooking'
   | 'setMemberVisitEntryStatus'
-  | 'theme'
 >) => {
   /** -------------- STATE --------------- */
 
@@ -292,7 +290,6 @@ export const useMemberVisitPageDataManager = ({
     establishmentsData,
     establishmentsToCheck: establishmentsSelectedInRole,
     establishmentGroups,
-    enableMultilocalization: theme.enable_multi_localization,
   });
 
   return {
@@ -375,7 +372,6 @@ const MemberVisit: React.FC<Props> = React.memo(
       refreshMemberVisitAccessStatus,
       retrieveMemberNextBookingOrPrivateBooking,
       setMemberVisitEntryStatus,
-      theme,
     });
 
     return (

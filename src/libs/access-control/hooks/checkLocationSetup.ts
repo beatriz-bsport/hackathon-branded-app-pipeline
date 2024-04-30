@@ -16,14 +16,13 @@ import type {
  * This hook checks that the establishments assigned to the staff user share the same location.
  * It can also be used to check and parse the location data of a member visit. (see examples)
  *
- * If there is a mistake in the staff configuration, the location blocker will be displayed.
+ * If and only if the staff has no assigned establishment, the location blocker will be displayed.
  *
  * Finally, the hook returns the location of the staff user, in order to display it.
  *
  * @param {Record<string, Establishment>} establishmentsData - The establishments data of the company
  * @param {number[]} establishmentsToCheck - The establishments we want to check
  * @param {EstablishmentGroupAPI[]} establishmentGroups - The establishment groups of the company
- * @param {boolean} enableMultilocalization - The company has multi-location upsell or not
  *
  * @example
  * // To check the staff location and display the location blocker if needed
@@ -62,12 +61,10 @@ export const useCheckAccessControlLocationSetup = ({
   establishmentsData,
   establishmentsToCheck,
   establishmentGroups,
-  enableMultilocalization,
 }: {
   establishmentsData: Record<string, Establishment>;
   establishmentsToCheck: number[];
   establishmentGroups: EstablishmentGroupAPI[];
-  enableMultilocalization: boolean;
 }) => {
   const [showLocationBlocker, setShowLocationBlocker] = useState(false);
 
@@ -127,27 +124,8 @@ export const useCheckAccessControlLocationSetup = ({
   );
 
   useEffect(() => {
-    if (!establishmentsToCheck?.length) {
-      setShowLocationBlocker(true);
-    } else if (!Object.keys(establishmentsData).length) {
-      setShowLocationBlocker(false);
-    } else if (!enableMultilocalization && !allAddressesAreDefinedAndEqual) {
-      setShowLocationBlocker(true);
-    } else if (
-      enableMultilocalization &&
-      !allEstablishmentsShareOneUniqueLocation
-    ) {
-      setShowLocationBlocker(true);
-    } else {
-      setShowLocationBlocker(false);
-    }
-  }, [
-    establishmentsToCheck,
-    enableMultilocalization,
-    allAddressesAreDefinedAndEqual,
-    allEstablishmentsShareOneUniqueLocation,
-    establishmentsData,
-  ]);
+    setShowLocationBlocker(!establishmentsToCheck?.length);
+  }, [establishmentsToCheck, setShowLocationBlocker]);
 
   return Immutable({
     showLocationBlocker,

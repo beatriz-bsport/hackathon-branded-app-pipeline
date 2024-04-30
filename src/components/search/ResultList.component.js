@@ -16,7 +16,7 @@ type Props = {
   items: *[],
   selectEntity: () => void,
   className: number,
-
+  disableAccessMonitoringButton?: boolean,
   loading: boolean,
   t: TFunction,
   renderListComponent: () => Node,
@@ -50,6 +50,7 @@ export class ResultList extends Component<Props> {
       <MemberMinimalListItem
         key={item.id}
         bottomCredit
+        disableAccessMonitoringButton={this.props.disableAccessMonitoringButton}
         member={item}
         onCheckin={onMemberCheckin ? () => onMemberCheckin(item) : null}
         onClick={() => {

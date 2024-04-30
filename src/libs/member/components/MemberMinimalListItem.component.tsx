@@ -31,6 +31,7 @@ import CheckInButton from '#libs/access-control/components/CheckInButton.compone
 type Props = {
   anonimize?: boolean;
   bottomCredit?: boolean;
+  disableAccessMonitoringButton?: boolean;
   firstBooking?: boolean;
   firstPrivateBooking: boolean;
   isPreventUpdateMetricValue?: boolean;
@@ -50,6 +51,7 @@ type Props = {
 export const MemberMinimalListItem: React.FC<Props> = ({
   anonimize,
   bottomCredit,
+  disableAccessMonitoringButton,
   firstBooking,
   firstPrivateBooking,
   isPreventUpdateMetricValue,
@@ -197,7 +199,10 @@ export const MemberMinimalListItem: React.FC<Props> = ({
               )}
               {!!onCheckin && (
                 <CheckPermission requiredPermissions="navigationMenu.accessMonitoring.perform">
-                  <CheckInButton handleCheckIn={onCheckin} />
+                  <CheckInButton
+                    disabled={disableAccessMonitoringButton}
+                    handleCheckIn={onCheckin}
+                  />
                 </CheckPermission>
               )}
             </ListItemSecondaryAction>

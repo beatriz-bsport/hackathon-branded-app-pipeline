@@ -239,8 +239,11 @@ export class SearchResults extends React.Component<Props, State> {
     );
   };
 
-  hideAccessMonitoring =
+  hideAccessMonitoringButton =
     !hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING) ||
+    !this.props.permissions?.navigationMenu?.accessMonitoring?.perform;
+
+  disableAccessMonitoringButton =
     !this.props.establishmentsSelectedInRole?.length;
 
   render() {
@@ -308,10 +311,13 @@ export class SearchResults extends React.Component<Props, State> {
               </ObjectLevelPermissionProvider>
               <ResultList
                 className={selected && !isLoadingMember ? classes.hidden : ''}
+                disableAccessMonitoringButton={
+                  this.disableAccessMonitoringButton
+                }
                 items={this.props.members}
                 loading={this.props.loading}
                 onMemberCheckin={
-                  !this.hideAccessMonitoring && this.handleCheckinMember
+                  !this.hideAccessMonitoringButton && this.handleCheckinMember
                 }
                 selected={selected}
                 selectEntity={this.selectEntity}

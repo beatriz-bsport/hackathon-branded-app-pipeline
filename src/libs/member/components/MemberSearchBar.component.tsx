@@ -59,13 +59,9 @@ const MemberSearchBar: React.FC<Props> = ({
   return (
     <div className={classNames({ [classes.input]: fullWidth })}>
       <Popover
-        disableAutoFocus
         transition
         anchorEl={memberHistoryAnchor}
-        open={!!memberHistory?.length}
-        // FIXME
-        // @ts-expect-error
-        placement="center"
+        open={!!memberHistoryAnchor && !!memberHistory?.length}
         style={{ zIndex: 1000000 }}
       >
         {({ TransitionProps }) => (

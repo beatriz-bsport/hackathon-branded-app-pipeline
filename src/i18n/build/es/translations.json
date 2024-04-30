@@ -1470,7 +1470,10 @@
             "invoice_datetime": "Fecha de emisión de la factura",
             "booking_date_created": "Fecha de reserva",
             "bookkeeping_account_number": "Número de la cuenta",
-            "bookkeeping_account_name": "Nombre de la cuenta"
+            "bookkeeping_account_name": "Nombre de la cuenta",
+            "billing_group_address": "Dirección",
+            "private_booking_date_created": "Fecha y hora de la reserva",
+            "is_first_visit": "Primera reserva"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -2452,7 +2455,8 @@
                 "paymentPackTemplate": "Tarjeta de curso compartida",
                 "calendarV2": "Calendario",
                 "newsletterV2": "Adquisición de clientes potenciales",
-                "referral": "Referencia"
+                "referral": "Referencia",
+                "consumerBooking": "Mis reservas"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -6688,7 +6692,7 @@
             "recurrentBookings": "Reservas recurrentes",
             "deleteModal": {
                 "title": "Eliminar la regla de recurrencia",
-                "content": "La supresión de la regla de recurrencia dará lugar a la cancelación de futuras reservas que hayan utilizado esta regla.",
+                "content": "Al eliminar la regla de recurrencia se cancelarán las reservas futuras que utilizaban esta regla.",
                 "cancel": "Cancelar",
                 "confirm": "Eliminar",
                 "success": "La reserva recurrente ha sido eliminada"
@@ -6701,11 +6705,17 @@
             "editModal": {
                 "success": "La reserva recurrente ha sido modificada"
             },
-            "blockedBookings": "Sus estudiantes pueden reservar hasta {{days}} días antes del comienzo de las sesiones para esta actividad, por lo que recomendamos que programe la repetición en un período más largo para evitar el hacinamiento.",
+            "blockedBookings": "Los miembros pueden reservar hasta {{días}} de antelación para esta actividad.\nConsidera la posibilidad de ampliar los periodos de repetición para evitar la masificación.",
             "notifyIfCanceled": "Enviar un correo electrónico de cancelación de reserva",
             "notify": "Envíe un correo electrónico de confirmación al registrarse como miembro",
             "showLess": "Mostrar menos",
-            "showMore": "Mostrar más ({{count}})"
+            "showMore": "Mostrar más ({{count}})",
+            "cancelRelatedBookings": "Cancelar las reservas futuras ya realizadas",
+            "offerForm": {
+                "selectAll": "Seleccionar todo",
+                "unselectAll": "Deseleccionar todo",
+                "helperText": "Parece que las sesiones contenidas en la reserva recurrente fueron canceladas anteriormente para este miembro, puede seleccionar aquí las sesiones que permitirá al sistema reservar de nuevo"
+            }
         },
         "memberGraph": {
             "label": "Reservas",
@@ -7000,8 +7010,8 @@
             },
             "credits": {
                 "unlimited": "Ilimitado",
-                "availableCredit": "{{count}} crédito",
-                "availableCredit_plural": "{{count}} créditos"
+                "availableCredit": "{{credits}} crédito",
+                "availableCredit_plural": "{{credits}} créditos"
             },
             "title": {
                 "universalPassMessage": "Tarjeta universal, puede utilizarse para actividades de grupo y citas",
@@ -7103,8 +7113,8 @@
             },
             "credits": {
                 "unlimited": "Ilimitado",
-                "availableCredit": "{{count}} crédito",
-                "availableCredit_plural": "{{count}} créditos"
+                "availableCredit": "{{credits}} crédito",
+                "availableCredit_plural": "{{credits}} créditos"
             },
             "compatibleTimeSlot": "Franjas horarias compatibles"
         },
@@ -9990,7 +10000,8 @@
             "selectorPlaceholder": {
                 "shopitem": "Tienda",
                 "paymentPack": "Bono para clases colectivas",
-                "privatePass": "Tarjeta de cita"
+                "privatePass": "Tarjeta de cita",
+                "shopItemExcludingvariant": "Tienda web (excluidos los productos con variantes)"
             },
             "content": "Contenido",
             "tax": {
@@ -13109,6 +13120,26 @@
                     "error": "No es posible guardar la categoría",
                     "success": "Categoría guardada exitosamente"
                 }
+            },
+            "variant": {
+                "error": {
+                    "11001": "No se puede crear un pack con productos con variantes",
+                    "11000": "No se pueden crear variantes en un producto utilizado en un paquete"
+                }
+            },
+            "supplier": {
+                "delete": {
+                    "success": "Proveedor eliminado con éxito",
+                    "error": "Error al borrar un proveedor"
+                },
+                "update": {
+                    "success": "Proveedor actualizado correctamente",
+                    "error": "Error al actualizar el proveedor"
+                },
+                "create": {
+                    "success": "Proveedor creado con éxito",
+                    "error": "Error al crear un proveedor"
+                }
             }
         },
         "role": {
@@ -13819,7 +13850,8 @@
             "15002": "Se está realizando una operación, espere unos instantes."
         },
         "removeItem": {
-            "15002": "El artículo ya está siendo retirado de la cesta, por favor espere"
+            "15002": "El artículo ya está siendo retirado de la cesta, por favor espere",
+            "15009": "Imposible eliminar este artículo: su cesta aún se está procesando"
         },
         "cadence": {
             "create": {
@@ -19850,7 +19882,7 @@
                 "passRestrictedByOffPeakSchedule": "El bono del miembro {{- passName }} no permite la entrada durante esta franja horaria",
                 "passRestrictedToVod": "El bono del miembro {{- passName }} está restringido sólo a VOD",
                 "passLinkedToPausedSubscription": "El bono del miembro {{- passName }} está vinculado a una suscripción en pausa",
-                "passIsDisabled": "El bono del miembro {{- passName }} está desactivado",
+                "passIsDisabled": "El bono {{- passName }} del miembro está actualmente bloqueado",
                 "noPasses": "Al miembro no le queda ningún bono activo con créditos",
                 "bookingsInOtherEstablishments": "La reserva del miembro {{- bookingName}} está programada en un establecimiento diferente : {{- establishmentName }}",
                 "hasUnpaidAppointments": "El miembro tiene uno o varias citas impagadas",
@@ -19865,6 +19897,39 @@
                 "establishmentsSelectedInRole": "Estás supervisando el acceso para <strong>{{- address }} - {{- establishments }}</strong>",
                 "waitForScan": "Espere a que el miembro escanee su código de barras o busque su nombre o código de barras manualmente."
             }
-        }
+        },
+        "settings": {
+            "errors": {
+                "minutes": {
+                    "max": "Debe ser inferior al 60",
+                    "min": "Debe ser mayor que 0"
+                },
+                "hours": {
+                    "max": "Debe ser inferior a 24",
+                    "min": "Debe ser mayor que 0"
+                },
+                "required": "Este campo es obligatorio"
+            },
+            "isStudioWide": "Los ajustes se aplican a todo el estudio.",
+            "beforeTitle": "Plazo de entrada después del inicio de la sesión",
+            "afterTitle": "Plazo de entrada antes del inicio de la sesión",
+            "minutes": "Minutos",
+            "hours": "Horas",
+            "description": "Fijar el tiempo de entrada de los miembros antes y después del inicio de su sesión en un establecimiento compatible.",
+            "title": "Periodo de entrada de miembros"
+        },
+        "liveHistory": {
+            "breadcrumbTitle": "Ubicación de la visita",
+            "table": {
+                "accessStatus": "Estatus",
+                "time": "Entrada",
+                "session": "Razón de la visita",
+                "member": "Miembro",
+                "entryUnknown": "Especifique si se permitió la entrada del miembro",
+                "entered": "Entró",
+                "refusedEntry": "Entrada denegada"
+            }
+        },
+        "accessMonitoringTitle": "Control de acceso"
     }
 }

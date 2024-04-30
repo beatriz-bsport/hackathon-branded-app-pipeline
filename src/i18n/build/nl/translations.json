@@ -2654,7 +2654,8 @@
             "selectorPlaceholder": {
                 "shopitem": "Webshop",
                 "paymentPack": "Leskaarten",
-                "privatePass": "Afspraakkaarten"
+                "privatePass": "Afspraakkaarten",
+                "shopItemExcludingvariant": "Webshop (producten met varianten uitgesloten)"
             },
             "content": "Inhoud",
             "actions": {
@@ -6959,7 +6960,13 @@
             "notifyIfCanceled": "Stuur een annuleringsmail",
             "notify": "Een bevestigingsmail versturen wanneer een lid zich registreert",
             "showLess": "Toon minder",
-            "showMore": "Toon meer ({{count}})"
+            "showMore": "Toon meer ({{count}})",
+            "cancelRelatedBookings": "Annuleer toekomstige boekingen die al gedaan zijn",
+            "offerForm": {
+                "selectAll": "Alles selecteren",
+                "unselectAll": "Alles deselecteren",
+                "helperText": "Het lijkt erop dat sessies in de terugkerende boeking eerder zijn geannuleerd voor dit lid, je kunt hier de sessies selecteren die het systeem opnieuw mag boeken"
+            }
         },
         "memberGraph": {
             "label": "Reserveringen",
@@ -7258,7 +7265,7 @@
             },
             "credits": {
                 "unlimited": "Onbeperkt",
-                "availableCredit": "{{count}} credit(s)",
+                "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
             }
         },
@@ -7357,8 +7364,8 @@
             },
             "credits": {
                 "unlimited": "Onbeperkt",
-                "availableCredit": "{{count}} credit(s)",
-                "availableCredit_plural": "{{count}} credits"
+                "availableCredit": "{{credits}} credit",
+                "availableCredit_plural": "{{credits}} credits"
             },
             "compatibleTimeSlot": "Compatibele tijdsloten"
         },
@@ -9006,7 +9013,8 @@
                 "paymentPackTemplate": "Gedeelde leskaarten",
                 "calendarV2": "Agenda",
                 "newsletterV2": "Lead-acquisitie",
-                "referral": "Referral"
+                "referral": "Referral",
+                "consumerBooking": "Mijn boekingen"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -11506,6 +11514,26 @@
                     "success": "Product gedupliceerd"
                 },
                 "notFound": "Dit product is niet gevonden. Mogelijk is het gearchiveerd."
+            },
+            "variant": {
+                "error": {
+                    "11001": "Kan geen pakket maken met variantproducten",
+                    "11000": "Kan geen variant(en) maken op een product dat wordt gebruikt in een verpakking"
+                }
+            },
+            "supplier": {
+                "delete": {
+                    "success": "Leverancier succesvol verwijderd",
+                    "error": "Fout bij het verwijderen van leverancier"
+                },
+                "update": {
+                    "success": "Leverancier succesvol bijgewerkt",
+                    "error": "Fout bij het bijwerken van leverancier"
+                },
+                "create": {
+                    "success": "Leverancier succesvol aangemaakt",
+                    "error": "Fout bij het aanmaken van leverancier"
+                }
             }
         },
         "smartlist": {
@@ -12047,7 +12075,8 @@
             "15002": "Het herstel van de informatie over de winkelmandjes is al aan de gang"
         },
         "removeItem": {
-            "15002": "Het artikel wordt reeds uit het winkelmandje verwijderd, even geduld a.u.b."
+            "15002": "Het artikel wordt reeds uit het winkelmandje verwijderd, even geduld a.u.b.",
+            "15009": "Onmogelijk om dit item te verwijderen: uw mandje wordt nog verwerkt"
         },
         "instalmentPayment": {
             "16002": "Het aantal kassabonnen moet gelijk zijn aan 1 om de optie \"Gedeeltelijke betaling\" te activeren",
@@ -13025,7 +13054,10 @@
             "invoice_datetime": "Uitgiftedatum factuur",
             "booking_date_created": "Boeking datum",
             "bookkeeping_account_number": "Account nummer",
-            "bookkeeping_account_name": "Account naam"
+            "bookkeeping_account_name": "Account naam",
+            "billing_group_address": "Adress",
+            "private_booking_date_created": "Datum en tijd van boeking",
+            "is_first_visit": "Eerste boeking"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -19830,6 +19862,39 @@
                 "establishmentsSelectedInRole": "U controleert de toegang voor <strong>{- adress }} - {{- establishments }}</strong>",
                 "waitForScan": "Wacht tot het lid zijn barcode scant of zoek zijn naam of barcode handmatig."
             }
-        }
+        },
+        "settings": {
+            "errors": {
+                "minutes": {
+                    "max": "Moet lager zijn dan 60",
+                    "min": "Moet groter zijn dan 0"
+                },
+                "hours": {
+                    "max": "Moet lager zijn dan 24",
+                    "min": "Moet groter zijn dan 0"
+                },
+                "required": "Dit veld is verplicht"
+            },
+            "isStudioWide": "Instellingen worden studiobreed toegepast.",
+            "beforeTitle": "Inschrijfperiode na aanvang sessie",
+            "afterTitle": "Inschrijfperiode voor aanvang sessie",
+            "minutes": "Minuten",
+            "hours": "Uren",
+            "description": "Stel de tijd in die leden mogen binnenkomen voor en na het begin van hun sessie in een compatibele vestiging.",
+            "title": "Tijdsbestek voor toetreding van leden"
+        },
+        "liveHistory": {
+            "breadcrumbTitle": "Locatie bezoek",
+            "table": {
+                "accessStatus": "Status",
+                "time": "Entree",
+                "session": "Bezoek reden",
+                "member": "Lid",
+                "entryUnknown": "Geef aan of het lid naar binnen mocht",
+                "entered": "Ingevoerd",
+                "refusedEntry": "Toegang geweigerd"
+            }
+        },
+        "accessMonitoringTitle": "Toegangscontrole"
     }
 }

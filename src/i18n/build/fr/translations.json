@@ -100,11 +100,11 @@
             "showLess": "Afficher moins",
             "notify": "Envoyer un mail de confirmation lors de l'inscription du membre",
             "notifyIfCanceled": "Envoyer un mail d'annulation des réservations",
-            "blockedBookings": "Vos élèves peuvent réserver jusqu'à {{days}} jours avant le début des séances de cette activité, par conséquent nous vous recommandons de programmer la récurrence sur une durée plus longue pour éviter le surchargement.",
+            "blockedBookings": "Les membres peuvent réserver jusqu'à {{days}} jours à l'avance pour cette activité.\nPensez à prolonger les périodes de récurrence pour éviter la surpopulation.",
             "deleteModal": {
                 "confirm": "Supprimer",
                 "cancel": "Annuler",
-                "content": "Supprimer la règle de récurrence entrainera l'annulation des réservations futures effectuées via cette règle.",
+                "content": "La règle de récurrence va être supprimée, souhaitez-vous également annuler les réservations futures déjà effectuées avec cette règle ?",
                 "title": "Suppression règle de récurrence",
                 "success": "La réservation récurrente a bien été supprimée"
             },
@@ -153,7 +153,13 @@
                 "close": "Fermer",
                 "save": "Enregistrer"
             },
-            "explain": "Le membre sera toujours inscrit {{ delayWeek }} semaines en avance aux cours du {{ dayOfWeek}} à {{hour}}:{{minute}}. Il ne sera inscrit que s'il possède une carte de cours valide."
+            "explain": "Le membre sera toujours inscrit {{ delayWeek }} semaines en avance aux cours du {{ dayOfWeek}} à {{hour}}:{{minute}}. Il ne sera inscrit que s'il possède une carte de cours valide.",
+            "cancelRelatedBookings": "Annuler les réservations futures déjà effectuées",
+            "offerForm": {
+                "selectAll": "Tout sélectionner",
+                "unselectAll": "Tout désélectionner",
+                "helperText": "Certaines sessions contenues dans la réservation récurrente ont été annulées auparavant pour ce membre, vous pouvez sélectionner ici les sessions pour lesquelles le système tentera de les inscrire à nouveau"
+            }
         },
         "filters": {
             "all": "Toutes les réservations",
@@ -2624,7 +2630,10 @@
             "is_no_show": "Absent (no show)",
             "booking_date_created": "Date de réservation",
             "bookkeeping_account_number": "Numéro de compte",
-            "bookkeeping_account_name": "Nom du compte"
+            "bookkeeping_account_name": "Nom du compte",
+            "billing_group_address": "Adresse",
+            "private_booking_date_created": "Date et heure de la réservation",
+            "is_first_visit": "Première réservation"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Encaissements",
@@ -5223,8 +5232,8 @@
                 }
             },
             "credits": {
-                "availableCredit": "{{count}} crédit",
-                "availableCredit_plural": "{{count}} crédits",
+                "availableCredit": "{{credits}} crédit",
+                "availableCredit_plural": "{{credits}} crédits",
                 "unlimited": "Illimité"
             },
             "restrictions": "Restrictions",
@@ -5299,8 +5308,8 @@
                 "autoRenewal": "Renouvellement automatique"
             },
             "credits": {
-                "availableCredit": "{{count}} crédit",
-                "availableCredit_plural": "{{count}} crédits",
+                "availableCredit": "{{credits}} crédit",
+                "availableCredit_plural": "{{credits}} crédits",
                 "unlimited": "Illimité"
             },
             "details": {
@@ -7519,7 +7528,8 @@
             "selectorPlaceholder": {
                 "privatePass": "Carte RDV",
                 "paymentPack": "Carte cours collectif",
-                "shopitem": "Magasin"
+                "shopitem": "Magasin",
+                "shopItemExcludingvariant": "Magasin (produits avec variantes exclus)"
             },
             "available_payment_method_identifiers": {
                 "label": "Moyens de paiement autorisés",
@@ -12710,7 +12720,8 @@
                 "paymentPackTemplate": "Carte de cours partagée",
                 "calendarV2": "Calendrier",
                 "newsletterV2": "Acquisition de prospects",
-                "referral": "Parrainage"
+                "referral": "Parrainage",
+                "consumerBooking": "Mes réservations"
             },
             "createDialog": {
                 "showAdvanced": "Voir plus d'options",
@@ -14406,6 +14417,26 @@
                     "error": "Erreur lors de la suppression"
                 },
                 "notFound": "Ce produit n'a pas été trouvé, il est possible qu'il ait été archivé."
+            },
+            "variant": {
+                "error": {
+                    "11001": "Impossible de créer un pack avec des variantes de produits",
+                    "11000": "Impossible de créer des variantes sur un produit utilisé dans un pack"
+                }
+            },
+            "supplier": {
+                "delete": {
+                    "success": "Fournisseur supprimé avec succès",
+                    "error": "Erreur lors de la suppression du fournisseur"
+                },
+                "update": {
+                    "success": "Fournisseur mis à jour avec succès",
+                    "error": "Erreur lors de la mise à jour du fournisseur"
+                },
+                "create": {
+                    "success": "Fournisseur créé avec succès",
+                    "error": "Erreur lors de la création du fournisseur"
+                }
             }
         },
         "smartlist": {
@@ -14788,7 +14819,8 @@
             "15002": "Une opération est déjà en cours, veuillez patienter quelques instants"
         },
         "removeItem": {
-            "15002": "L'objet est déjà en train d'être retiré du panier, veuillez patienter"
+            "15002": "L'objet est déjà en train d'être retiré du panier, veuillez patienter",
+            "15009": "Impossible de supprimer cet article : votre panier est en cours de traitement"
         },
         "modifyBasket": {
             "15004": "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes"
@@ -19556,7 +19588,7 @@
                 "passRestrictedByOffPeakSchedule": "La carte du membre {{- passName }} n'autorise pas l'entrée pendant ce créneau horaire",
                 "passRestrictedToVod": "La carte du membre {{- passName }} est limitée à la VOD seulement",
                 "passLinkedToPausedSubscription": "La carte du membre {{- passName }} est lié à un abonnement en pause",
-                "passIsDisabled": "La carte du membre {{- passName }} est inactive",
+                "passIsDisabled": "La carte du membre {{- passName }} est actuellement bloquée",
                 "noPasses": "Le membre n'a pas de carte active avec des crédits restants",
                 "bookingsInOtherEstablishments": "La réservation du membre {{- bookingName}} est programmée dans un autre établissement : {{- establishmentName }}",
                 "hasUnpaidAppointments": "Le membre a un ou plusieurs RDV non payés",
@@ -19571,6 +19603,39 @@
                 "establishmentsSelectedInRole": "Vous surveiller l'accès à <strong>{{- address }} - {{- establishments }}</strong>",
                 "waitForScan": "Attendez que le membre scanne son code-barres ou recherchez son nom ou son code-barres manuellement."
             }
-        }
+        },
+        "settings": {
+            "errors": {
+                "minutes": {
+                    "max": "Doit être inférieur à 60",
+                    "min": "Doit être supérieur à 0"
+                },
+                "hours": {
+                    "min": "Doit être supérieur à 0",
+                    "max": "Doit être inférieur à 24"
+                },
+                "required": "Ce champs est requis"
+            },
+            "isStudioWide": "Ces paramètres sont appliqués à l'échelle du studio.",
+            "beforeTitle": "Période d'entrée après le début de la session",
+            "afterTitle": "Période d'entrée avant le début de la session",
+            "minutes": "Minutes",
+            "hours": "Heures",
+            "description": "Fixer la période de temps d'entrée des membres avant et après le début de leur session dans un établissement compatible.",
+            "title": "Période d'entrée des membres"
+        },
+        "liveHistory": {
+            "breadcrumbTitle": "Historique de visite",
+            "table": {
+                "accessStatus": "Statut",
+                "time": "Entrée",
+                "session": "Motif de la visite",
+                "member": "Membre",
+                "entryUnknown": "Indiquez si le membre a été autorisé à entrer",
+                "entered": "Entré",
+                "refusedEntry": "Entrée refusée"
+            }
+        },
+        "accessMonitoringTitle": "Surveillance des accès"
     }
 }

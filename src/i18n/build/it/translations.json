@@ -2104,7 +2104,8 @@
             "selectorPlaceholder": {
                 "privatePass": "Pacchetto per appuntamenti",
                 "paymentPack": "Pacchetto",
-                "shopitem": "Shop"
+                "shopitem": "Shop",
+                "shopItemExcludingvariant": "Shop (prodotti con varianti escluse)"
             },
             "title": "[Form] Pacchetti Combinati",
             "name": {
@@ -5313,6 +5314,26 @@
                     "success": "Categoria eliminata",
                     "error": "Impossibile eliminare la categoria"
                 }
+            },
+            "variant": {
+                "error": {
+                    "11001": "Impossibile creare un pacchetto combinato con varianti dei prodotti",
+                    "11000": "Impossibile creare varianti su un prodotto utilizzato in un pacchetto combinato"
+                }
+            },
+            "supplier": {
+                "delete": {
+                    "success": "Fornitore cancellato con successo",
+                    "error": "Errore nell'eliminazione del fornitore"
+                },
+                "update": {
+                    "success": "Fornitore aggiornato con successo",
+                    "error": "Errore nell'aggiornamento del fornitore"
+                },
+                "create": {
+                    "success": "Fornitore creato con successo",
+                    "error": "Errore nella creazione del fornitore"
+                }
             }
         },
         "invoice": {
@@ -5954,7 +5975,8 @@
             "15002": "È già in corso un'operazione, attendere qualche istante"
         },
         "removeItem": {
-            "15002": "L'articolo è già in fase di rimozione dal carrello, attendi"
+            "15002": "L'articolo è già in fase di rimozione dal carrello, attendi",
+            "15009": "Impossibile rimuovere questo articolo: il carrello è ancora in fase di elaborazione"
         },
         "instalmentPayment": {
             "16003": "Il numero di ricevute deve essere maggiore di 2 per attivare l'opzione 'Personalizza il primo importo'",
@@ -6223,7 +6245,8 @@
                 "paymentPackTemplate": "Pacchetti condivisi",
                 "calendarV2": "Calendario",
                 "newsletterV2": "Acquisizione contatti",
-                "referral": "Referral"
+                "referral": "Referral",
+                "consumerBooking": "Le mie prenotazioni"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -10490,7 +10513,7 @@
             "recurrentBookings": "Prenotazioni ricorrenti",
             "deleteModal": {
                 "title": "Elimina regola di ricorrenza",
-                "content": "Eliminare la regola ricorrente comporterà la cancellazione delle future prenotazioni effettuate tramite questa regola.",
+                "content": "L'eliminazione della regola di ricorrenza comporta l'annullamento delle prenotazioni future che hanno utilizzato questa regola.",
                 "cancel": "Annulla",
                 "confirm": "Elimina",
                 "success": "La prenotazione ricorrente è stata eliminata"
@@ -10504,11 +10527,17 @@
             "editModal": {
                 "success": "La prenotazione ricorrente è stata modificata"
             },
-            "blockedBookings": "I tuoi studenti possono prenotare fino a {{days}} giorni prima dell'inizio delle sessioni di questa attività, quindi si consiglia di programmare la ricorrenza per un periodo più lungo per evitare il sovraccarico.",
+            "blockedBookings": "I membri possono prenotare fino a {{days}} giorni di anticipo per questa attività.\nConsiderare di estendere i periodi di ricorrenza per evitare il sovraffollamento.",
             "notifyIfCanceled": "Invia una mail di cancellazione delle prenotazioni",
             "notify": "Invia una mail di conferma al momento della registrazione del membro",
             "showLess": "Mostra meno",
-            "showMore": "Mostra dettagli ({{count}})"
+            "showMore": "Mostra dettagli ({{count}})",
+            "cancelRelatedBookings": "Annulla le prenotazioni future già effettuate",
+            "offerForm": {
+                "selectAll": "Seleziona tutto",
+                "unselectAll": "Deseleziona tutto",
+                "helperText": "Sembra che le sessioni contenute nella prenotazione ricorrente siano state cancellate in precedenza per questo membro, è possibile selezionare qui le sessioni che si desidera consentire al sistema di prenotare nuovamente"
+            }
         },
         "memberGraph": {
             "label": "Prenotazioni",
@@ -13902,7 +13931,10 @@
             "invoice_datetime": "Data di emissione della ricevuta",
             "booking_date_created": "Data della prenotazione",
             "bookkeeping_account_number": "Numero dell'account",
-            "bookkeeping_account_name": "Nome dell'account"
+            "bookkeeping_account_name": "Nome dell'account",
+            "billing_group_address": "Indirizzo",
+            "private_booking_date_created": "Data e ora della prenotazione",
+            "is_first_visit": "Prima prenotazione"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -14334,8 +14366,8 @@
             },
             "credits": {
                 "unlimited": "Illimitato",
-                "availableCredit": "{{count}} credito",
-                "availableCredit_plural": "{{count}} crediti"
+                "availableCredit": "{{credits}} credito",
+                "availableCredit_plural": "{{credits}} crediti"
             },
             "title": {
                 "universalPassMessage": "Pacchetto universale, utilizzabile per lezioni di gruppo e appuntamenti",
@@ -19793,7 +19825,7 @@
                 "passRestrictedByOffPeakSchedule": "Il pacchetto del membro {{- passName }} non consente l'ingresso in questa fascia oraria",
                 "passRestrictedToVod": "Il pacchetto del membro {{- passName }} è limitato ai soli VOD",
                 "passLinkedToPausedSubscription": "Il pacchetto {{- passName }} del membro è collegato a un abbonamento in pausa",
-                "passIsDisabled": "Il pacchetto {{- passName }} del membro è disabilitato",
+                "passIsDisabled": "Il pacchetto {{- passName }} del membro è bloccato",
                 "noPasses": "Il membro non ha un pacchetto attivo con crediti residui",
                 "bookingsInOtherEstablishments": "La prenotazione del membro {{- bookingName}} è programmata in un altro stabilimento: {{- establishmentName }}",
                 "hasUnpaidAppointments": "Il membro ha uno o più appuntamenti non retribuiti",
@@ -19808,6 +19840,39 @@
                 "establishmentsSelectedInRole": "Stai monitorando l'accesso per <strong>{{- address }} - {{- establishments }}</strong>",
                 "waitForScan": "Attendi la scansione del codice a barre del membro o cerca manualmente il nome o il codice a barre."
             }
-        }
+        },
+        "settings": {
+            "errors": {
+                "minutes": {
+                    "max": "Deve essere inferiore a 60",
+                    "min": "Deve essere maggiore di 0"
+                },
+                "hours": {
+                    "max": "Deve essere inferiore a 24",
+                    "min": "Deve essere maggiore di 0"
+                },
+                "required": "Questo campo è obbligatorio"
+            },
+            "isStudioWide": "Le impostazioni vengono applicate a tutto lo studio.",
+            "beforeTitle": "Periodo di iscrizione dopo l'inizio della sessione",
+            "afterTitle": "Periodo di iscrizione prima dell'inizio della sessione",
+            "minutes": "Minuti",
+            "hours": "Ore",
+            "description": "Imposta il tempo consentito per l'ingresso dei membri prima e dopo l'inizio della loro sessione in una struttura compatibile.",
+            "title": "Tempistica di ingresso dei membri"
+        },
+        "liveHistory": {
+            "breadcrumbTitle": "Visita alla sede",
+            "table": {
+                "accessStatus": "Status",
+                "time": "Ingresso",
+                "session": "Motivo della visita",
+                "member": "Membro",
+                "entryUnknown": "Specifica se il membro è stato autorizzato a entrare",
+                "entered": "Entrato",
+                "refusedEntry": "Ingresso rifiutato"
+            }
+        },
+        "accessMonitoringTitle": "Monitoraggio degli accessi"
     }
 }

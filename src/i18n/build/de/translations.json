@@ -7176,6 +7176,26 @@
                     "success": "Kategorie gelöscht",
                     "error": "Es ist unmöglich, die Kategorie zu löschen"
                 }
+            },
+            "variant": {
+                "error": {
+                    "11001": "Kann kein Paket mit Variantenprodukten erstellen",
+                    "11000": "Kann keine Variante(n) für ein in einem Paket verwendeten Produkt erstellen"
+                }
+            },
+            "supplier": {
+                "delete": {
+                    "success": "Lieferant erfolgreich gelöscht",
+                    "error": "Fehler beim Löschen des Lieferanten"
+                },
+                "update": {
+                    "success": "Lieferant erfolgreich aktualisiert",
+                    "error": "Fehler bei der Aktualisierung des Lieferanten"
+                },
+                "create": {
+                    "success": "Lieferant erfolgreich erstellt",
+                    "error": "Fehler beim Anlegen des Lieferanten"
+                }
             }
         },
         "privatePass": {
@@ -7597,13 +7617,14 @@
             }
         },
         "refreshInternalAccountPrepaidLines": {
-            "15002": "Eine Vorgang ist bereits im Gange, bitte warten Sie einen Moment"
+            "15002": "Ein Vorgang ist bereits im Gange. Bitte warte einen Moment"
         },
         "requestCurrentBasket": {
             "15002": "Das Abrufen der Informationen aus dem Warenkorb ist bereits im Gange"
         },
         "removeItem": {
-            "15002": "Der Artikel wird bereits aus dem Warenkorb entfernt, bitte warten Sie"
+            "15002": "Der Artikel wird bereits aus dem Warenkorb entfernt, bitte warte",
+            "15009": "Es ist nicht möglich, diesen Artikel zu entfernen: Ihr Warenkorb wird noch bearbeitet"
         },
         "smartListPopup": {
             "send": {
@@ -9472,7 +9493,7 @@
             "deleteModal": {
                 "cancel": "Abbrechen",
                 "confirm": "Löschen",
-                "content": "Die Streichung der Wiederholungsregel wird zur Stornierung künftiger Reservierungen führen, die über diese Regel vorgenommen wurden.",
+                "content": "Soll die wiederkehrende Regel gelöscht werden? Möchten Sie auch die zukünftigen Buchungen, die mit dieser Regel erstellt wurden, stornieren?",
                 "title": "Wiederholungsregel löschen",
                 "success": "Die wiederkehrende Buchung wurde gelöscht"
             },
@@ -9522,11 +9543,17 @@
             "editModal": {
                 "success": "Die wiederkehrende Buchung wurde geändert"
             },
-            "blockedBookings": "Ihre Kunden können bis zu {{days}} Tage vor Beginn des Kurses diese Aktivität buchen. Wir empfehlen daher, die Wiederholung für einen längeren Zeitraum zu planen, um eine Überfüllung zu vermeiden.",
+            "blockedBookings": "Mitglieder können bis zu {{days}} Tage im Voraus für diese Aktivität buchen. Erwägen Sie eine Verlängerung der Wiederholungszeiträume, um eine Überfüllung zu vermeiden.",
             "notifyIfCanceled": "Sende eine Stornierungs-E-Mail",
             "notify": "Sende eine Bestätigungs-E-Mail, wenn ein Mitglied registriert wird",
             "showLess": "Weniger anzeigen",
-            "showMore": "Mehr anzeigen ({{count}})"
+            "showMore": "Mehr anzeigen ({{count}})",
+            "cancelRelatedBookings": "Storniere zukünftige Buchungen, die bereits vorgenommen wurden",
+            "offerForm": {
+                "selectAll": "Alle auswählen",
+                "unselectAll": "Alle abwählen",
+                "helperText": "Es scheint, dass die in der wiederkehrenden Buchung enthaltenen Sitzungen bereits für dieses Mitglied storniert wurden. Sie können hier die Sitzungen auswählen, die Sie dem System erlauben, erneut zu buchen"
+            }
         },
         "memberGraph": {
             "label": "Reservierungen",
@@ -12574,7 +12601,7 @@
             "tab": {
                 "pack": "Kompatible Kurspässe",
                 "general": "Allgemein",
-                "group": "Geschlossene Kurse"
+                "group": "Gruppenkurse"
             },
             "pack": {
                 "paymentPacks": "Kompatible Kurspässe",
@@ -12833,7 +12860,8 @@
             "selectorPlaceholder": {
                 "paymentPack": "Kurspässe",
                 "privatePass": "Terminpass",
-                "shopitem": "Webshop"
+                "shopitem": "Webshop",
+                "shopItemExcludingvariant": "Webshop (ausgenommen Produkte mit Varianten)"
             },
             "content": "Inhalt",
             "actions": {
@@ -14027,7 +14055,10 @@
             "invoice_datetime": "Ausstellungsdatum der Rechnung",
             "booking_date_created": "Reservierungsdatum",
             "bookkeeping_account_number": "Kontonummer",
-            "bookkeeping_account_name": "Name des Kundenkontos"
+            "bookkeeping_account_name": "Name des Kundenkontos",
+            "billing_group_address": "Adresse",
+            "private_booking_date_created": "Datum und Zeit der Buchung",
+            "is_first_visit": "Erste Buchung"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -14949,8 +14980,8 @@
             },
             "credits": {
                 "unlimited": "Unbegrenzt",
-                "availableCredit": "{{count}} Credit",
-                "availableCredit_plural": "{{count}} Credits"
+                "availableCredit": "{{credits}} Credit",
+                "availableCredit_plural": "{{credits}} Credits"
             },
             "restrictions": "Beschränkungen",
             "compatibleTimeSlot": "Kompatible Zeitfenster"
@@ -14978,8 +15009,8 @@
         },
         "genericCard": {
             "credits": {
-                "availableCredit": "{{count}} Credit",
-                "availableCredit_plural": "{{count}} Credits",
+                "availableCredit": "{{credits}} Credit",
+                "availableCredit_plural": "{{credits}} Credits",
                 "unlimited": "Unbegrenzt"
             },
             "details": {
@@ -15679,7 +15710,8 @@
                 "paymentPackTemplate": "Geteilte Kurspässe",
                 "calendarV2": "Kalender",
                 "newsletterV2": "Lead-Akquise",
-                "referral": "Empfehlung"
+                "referral": "Empfehlung",
+                "consumerBooking": "Meine Buchungen"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -19700,7 +19732,7 @@
                 "passRestrictedByOffPeakSchedule": "Der Zugangspass {{- passName }} des Mitglieds erlaubt den Zugang während dieses Zeitfensters nicht",
                 "passRestrictedToVod": "Der Pass {{- passName }} des Mitglieds ist nur für VOD zugelassen",
                 "passLinkedToPausedSubscription": "Der Pass {{- passName }} des Mitglieds ist mit einem pausierten Abonnement verknüpft",
-                "passIsDisabled": "Der Pass {{- passName }} des Mitglieds ist deaktiviert",
+                "passIsDisabled": "Der Pass {{- passName }} des Mitglieds ist momentan gesperrt",
                 "noPasses": "Das Mitglied hat keinen aktiven Pass mit Guthaben übrig",
                 "bookingsInOtherEstablishments": "Die Buchung des Mitglieds {{- bookingName}} ist in einer anderen Einrichtung geplant: {{- establishmentName }}",
                 "hasUnpaidAppointments": "Das Mitglied hat einen oder mehrere unbezahlte Termine",
@@ -19715,6 +19747,39 @@
                 "establishmentsSelectedInRole": "Sie überwachen den Zugang für <strong>{{- address }} - {{- establishments }}</strong>",
                 "waitForScan": "Warten Sie darauf, dass das Mitglied seinen Barcode scannt, oder suchen Sie manuell nach seinem Namen oder Barcode."
             }
-        }
+        },
+        "settings": {
+            "errors": {
+                "minutes": {
+                    "max": "Muss kleiner als 60 sein",
+                    "min": "Muss größer als 0 sein"
+                },
+                "hours": {
+                    "max": "Muss kleiner als 24 sein",
+                    "min": "Muss größer als 0 sein"
+                },
+                "required": "Erforderliches Feld"
+            },
+            "isStudioWide": "Die Einstellungen sind studioübergreifend angewandt.",
+            "minutes": "Minuten",
+            "hours": "Stunden",
+            "description": "Lege die Einlass- und Ausgangszeiten für Mitglieder vor und nach den Sitzungen in einer kompatiblen Einrichtung fest.",
+            "afterTitle": "Aufenthaltsdauer vor dem Start der Sitzung",
+            "beforeTitle": "Aufenthaltsdauer nach dem Start der Sitzung",
+            "title": "Aufenthaltsdauer"
+        },
+        "liveHistory": {
+            "table": {
+                "accessStatus": "Status",
+                "member": "Mitglied",
+                "entryUnknown": "Gebe an, ob das Mitglied beitreten durfte",
+                "time": "Eintritt",
+                "session": "Grund des Besuchs",
+                "entered": "Eingetreten",
+                "refusedEntry": "Eintritt verweigert"
+            },
+            "breadcrumbTitle": "Besuch des Standortes"
+        },
+        "accessMonitoringTitle": "Zugangskontrolle"
     }
 }

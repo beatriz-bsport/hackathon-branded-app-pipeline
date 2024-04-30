@@ -161,7 +161,7 @@ export const refreshMemberVisitAccessStatus = (
 };
 
 export const getMemberVisitListActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<MemberVisitREST>>>(
+  success: createAction<PaginatedResponse<MemberVisitREST>>(
     'ACCESS_CONTROL/FETCH_MEMBER_VISIT/SUCCESS',
   ),
   loading: createAction<boolean>('ACCESS_CONTROL/FETCH_MEMBER_VISIT/LOADING'),
@@ -186,7 +186,7 @@ export const getMemberVisitList = (
         ...params,
         page_size: FETCH_MEMBER_VISIT_PAGE_SIZE,
       });
-      dispatch(getMemberVisitListActions.success(response));
+      dispatch(getMemberVisitListActions.success(response.data));
       options?.onSuccess?.(response.data.results);
     } catch (error) {
       dispatch(getMemberVisitListActions.error(error));
@@ -295,7 +295,7 @@ export const retrieveMemberNextBookingOrPrivateBooking = (
 };
 
 export const getUserPhotoUpdatesActions = {
-  success: createAction<AxiosResponse<PaginatedResponse<UserPhotoUpdate>>>(
+  success: createAction<PaginatedResponse<UserPhotoUpdate>>(
     'ACCESS_CONTROL/GET_USER_PHOTO_UPDATE/SUCCESS',
   ),
   loading: createAction<boolean>(
@@ -318,7 +318,7 @@ export const getUserPhotoUpdates = (
         member: memberId,
         page_size: 6,
       });
-      dispatch(getUserPhotoUpdatesActions.success(response));
+      dispatch(getUserPhotoUpdatesActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(getUserPhotoUpdatesActions.error(error));

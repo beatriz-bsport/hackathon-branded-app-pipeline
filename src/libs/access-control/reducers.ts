@@ -166,11 +166,9 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     },
     [getMemberVisitListActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<MemberVisitREST>> },
+      { payload }: { payload: PaginatedResponse<MemberVisitREST> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['memberVisit', 'next_page'], next_page)
@@ -290,11 +288,9 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     },
     [getUserPhotoUpdatesActions.success.toString()]: (
       state,
-      {
-        payload,
-      }: { payload: AxiosResponse<PaginatedResponse<UserPhotoUpdate>> },
+      { payload }: { payload: PaginatedResponse<UserPhotoUpdate> },
     ) => {
-      const { next_page, results, count, page } = payload.data;
+      const { next_page, results, count, page } = payload;
 
       return state
         .setIn(['userPhotoUpdate', 'next_page'], next_page)

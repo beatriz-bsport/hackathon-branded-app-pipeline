@@ -1,50 +1,43 @@
 import React, { useEffect } from 'react';
-import { TFunction } from 'i18next';
 import { push as pushAction } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
-import { connect, ConnectedProps } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/styles';
-import { createStyles, Theme, WithStyles } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import {
   fetchFranchise as fetchFranchiseAction,
   fetchFranchiseUser as fetchFranchiseUserAction,
-} from '../../libs/franchise/actions';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withTitle from '../../hocs/with-title.hoc';
+} from '#libs/franchise/actions';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import {
   getFranchiseUserById,
   withAllowedFranchisees,
-} from '../../libs/franchise/selectors';
-import FranchiseMemberDetailsCard from '../../libs/franchise/components/FranchiseMemberDetailsCard.components';
-import FranchiseMemberMembership from '../../libs/franchise/components/FranchiseMemberMembership.components';
-import { RootState } from '../../reducers';
+} from '#libs/franchise/selectors';
+import FranchiseMemberDetailsCard from '#libs/franchise/components/FranchiseMemberDetailsCard.components';
+import FranchiseMemberMembership from '#libs/franchise/components/FranchiseMemberMembership.components';
+import type { RootState } from '../../reducers';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 
-type OwnProps = {
+type ParamsProps = {
   userId: number;
 };
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
-  WithStyles<typeof styles>;
+type Props = ParamsProps & ConnectedProps<typeof connector>;
 
-const FranchiseMemberDetails = (props: Props) => {
-  const {
-    userId,
-    user,
-    classes,
-    fetchFranchiseUser,
-    fetchFranchise,
-    navigateAsCompanyAdmin,
-    push,
-  } = props;
+const FranchiseMemberDetailInfo: React.FC<Props> = ({
+  userId,
+  user,
+  fetchFranchiseUser,
+  fetchFranchise,
+  navigateAsCompanyAdmin,
+  push,
+}) => {
+  const classes = useStyles();
 
   useEffect(() => {
     fetchFranchiseUser({ userId });
@@ -67,55 +60,51 @@ const FranchiseMemberDetails = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      {user && (
+      {user ? (
         <>
           <div className={classnames(classes.content, classes.left)}>
             <FranchiseMemberDetailsCard user={user} />
           </div>
           <div className={classes.content}>
             <FranchiseMemberMembership
-              // @ts-expect-error
+              // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
               companies={user?.companies}
               goToCompanyDetails={goToCompanyDetails}
               goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
             />
           </div>
         </>
+      ) : (
+        <LinearProgress />
       )}
-      {!user && <LinearProgress />}
     </div>
   );
 };
 
-const styles = (theme: Theme) =>
-  createStyles({
-    container: {
-      width: '100%',
-      display: 'flex',
-      [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column',
-        padding: theme.spacing(4),
-      },
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: '100%',
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      padding: theme.spacing(4),
     },
-    content: {
-      flex: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  left: {
+    marginRight: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0,
+      marginBottom: theme.spacing(4),
     },
-    loader: {
-      margin: 'auto',
-      marginTop: theme.spacing(4),
-    },
-    left: {
-      marginRight: theme.spacing(4),
-      [theme.breakpoints.down('sm')]: {
-        marginRight: 0,
-        marginBottom: theme.spacing(4),
-      },
-    },
-  });
+  },
+}));
 
 const connector = connect(
   (state: RootState, props: { userId: number }) => ({
-    // @ts-expect-error
+    // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
     user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
   }),
   {
@@ -128,7 +117,6 @@ const connector = connect(
 
 export default compose<Props, {}>(
   React.memo,
-  routerParamsToProps({ userId: 'userId:number', tab: 'tab:string' }),
-  withPageHeightHOC(),
+  routerParamsToProps({ userId: 'userId:number' }),
   connector,
-)(FranchiseMemberDetails);
+)(FranchiseMemberDetailInfo);

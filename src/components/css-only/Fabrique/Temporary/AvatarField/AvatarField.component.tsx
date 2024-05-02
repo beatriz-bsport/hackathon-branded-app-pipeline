@@ -33,18 +33,26 @@ const AvatarField: React.FC<Props> = ({
   const [previewUrl, setPreviewUrl] = useState('');
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, form] = useField<string>(name);
+  const [field, meta, form] = useField<Blob>(name);
   const { setValue } = form;
+
+  React.useEffect(() => {
+    if (typeof field.value === 'string') {
+      setPreviewUrl(field.value);
+    }
+    if (field.value instanceof Blob) {
+      setPreviewUrl(createUrl(field.value));
+    }
+    return () => setPreviewUrl('');
+  }, [field.value]);
 
   const action = previewUrl ? 'edit' : 'add';
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { files } = event.target;
-      if (files.length) {
-        const fileUrl = createUrl(files[0]);
-        setPreviewUrl(fileUrl);
-        setValue(fileUrl);
+      if (files?.length) {
+        setValue(files[0]);
       }
       onChange?.(event);
     },

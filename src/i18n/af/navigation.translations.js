@@ -149,6 +149,7 @@ exports.default = {
       couponTemplates: 'Promotions',
       privatePassTemplates: 'Appointment passes',
       paymentPackTemplates: 'Passes',
+      shopTemplates: 'Webshop',
       label: 'Products',
       giftcardTemplates: 'Gift cards',
     },

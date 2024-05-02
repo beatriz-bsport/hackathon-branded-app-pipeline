@@ -7,7 +7,7 @@ import CustomChip from '#components/chip/CustomChip.component';
 type Props = {
   value: number;
   translation: string;
-  datatype: string;
+  columnName: string;
   row_extra_data?: { [key: string]: number | string };
   chipClass?: string;
 };
@@ -191,7 +191,7 @@ const getSpecs = (theme: Theme, credits: number | null) => {
 };
 
 const ReportConditionChip: React.FC<Props> = ({
-  datatype,
+  columnName,
   row_extra_data,
   value,
   translation,
@@ -202,8 +202,8 @@ const ReportConditionChip: React.FC<Props> = ({
   if (row_extra_data) {
     const specs = getSpecs(theme, Number(row_extra_data?.credits));
 
-    if (specs[datatype]) {
-      const config = specs[datatype];
+    if (specs[columnName]) {
+      const config = specs[columnName];
       return (
         <NumberChip
           chipClass={chipClass}

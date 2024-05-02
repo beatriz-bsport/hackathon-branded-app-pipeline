@@ -39,7 +39,7 @@ const ReportChipsRenderer: React.FC<Props> = ({
         <MenuItem dense disabled={itemProps.isDisabled}>
           <Checkbox checked={itemProps.isSelected} />
           <ReportCellRenderer
-            datatype={itemProps.data.columnName}
+            columnName={itemProps.data.columnName}
             formattedValue={itemProps.data.label}
             reportCategory={reportCategory}
             value={itemProps.data.value}
@@ -60,7 +60,7 @@ const ReportChipsRenderer: React.FC<Props> = ({
   if (chipProps.data?.columnName && isChipsable) {
     return (
       <ReportCellRenderer
-        datatype={chipProps.data.columnName}
+        columnName={chipProps.data.columnName}
         formattedValue={chipProps.data.label}
         onDelete={chipProps.onDelete}
         reportCategory={reportCategory}

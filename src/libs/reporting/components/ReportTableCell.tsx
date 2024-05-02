@@ -44,7 +44,7 @@ const ReportTableCell: React.FC<ReportTableCellProps> = ({
     >
       <ReportCellRenderer
         chipClass={chipClass}
-        datatype={column}
+        columnName={column}
         extra_data={cellValues?.extra_data}
         formattedValue={value}
         reportCategory={reportCategory}

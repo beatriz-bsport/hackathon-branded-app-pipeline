@@ -9,7 +9,7 @@ import { isColumnChipsable } from '../utils';
 type ReportCellRendererProps = {
   reportCategory: string;
   value: number | string | boolean;
-  datatype: string;
+  columnName: string;
   extra_data?: { [key: string]: number | string };
   row_extra_data?: { [key: string]: number | string };
   formattedValue: string | number;
@@ -20,7 +20,7 @@ type ReportCellRendererProps = {
 const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
   reportCategory,
   value,
-  datatype,
+  columnName,
   extra_data,
   row_extra_data,
   formattedValue,
@@ -37,7 +37,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
     isConditionChip,
     isTagChip,
     isChipsable,
-  } = isColumnChipsable(datatype, reportCategory);
+  } = isColumnChipsable(columnName, reportCategory);
 
   let tagColor = null;
   if (isTagChip && extra_data?.color) {
@@ -57,7 +57,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
         (typeof value === 'string' || typeof value === 'number') && (
           <ReportStatusChip
             chipClass={chipClass}
-            datatype={datatype}
+            columnName={columnName}
             extra_data={extra_data}
             onDelete={onDelete}
             row_extra_data={row_extra_data}
@@ -93,7 +93,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
       {isConditionChip && typeof value === 'number' && (
         <ReportConditionChip
           chipClass={chipClass}
-          datatype={datatype}
+          columnName={columnName}
           row_extra_data={row_extra_data}
           translation={displayedValue}
           value={value}

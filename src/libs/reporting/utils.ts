@@ -926,23 +926,23 @@ export const getMultipleValuesLabel = (
 
 /**
  * Returns a boolean to know if the current column cells can be rendered with Chip components
- * @param datatype The optional datatype name found in the renderer data
+ * @param columnName The optional column name found in the renderer data
  * @param reportCategory The associated report category name
  * @returns {boolean}
  */
 export const isColumnChipsable = (
-  datatype: string = '',
+  columnName: string = '',
   reportCategory: string,
 ) => {
-  const isStatusChip = STATUS_CHIPS.includes(datatype);
-  const isBooleanGreenGreyChip = GREEN_GREY_BOOLEAN_CHIPS.includes(datatype);
-  const isBooleanRedGreenChip = RED_GREEN_BOOLEAN_CHIPS.includes(datatype);
+  const isStatusChip = STATUS_CHIPS.includes(columnName);
+  const isBooleanGreenGreyChip = GREEN_GREY_BOOLEAN_CHIPS.includes(columnName);
+  const isBooleanRedGreenChip = RED_GREEN_BOOLEAN_CHIPS.includes(columnName);
   const isBooleanRedGreenInvertedChip =
-    RED_GREEN_INVERTED_BOOLEAN_CHIPS.includes(datatype);
+    RED_GREEN_INVERTED_BOOLEAN_CHIPS.includes(columnName);
   const isConditionChip =
-    CONDITION_CHIPS.includes(datatype) ||
-    (datatype === 'credits' && reportCategory === 'credit');
-  const isTagChip = datatype.substring(0, 4) === 'tag:';
+    CONDITION_CHIPS.includes(columnName) ||
+    (columnName === 'credits' && reportCategory === 'credit');
+  const isTagChip = columnName.substring(0, 4) === 'tag:';
 
   const isChipsable =
     isStatusChip ||

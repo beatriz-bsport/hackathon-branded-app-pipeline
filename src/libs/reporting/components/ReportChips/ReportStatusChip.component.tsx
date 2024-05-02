@@ -37,7 +37,7 @@ import {
 import CustomChip from '#components/chip/CustomChip.component';
 
 type Props = {
-  datatype: string;
+  columnName: string;
   value: string | number;
   translation: string;
   extra_data?: { [key: string]: number | string };
@@ -114,7 +114,7 @@ const createMatches = (theme: Theme): Matches => {
 
 export const ReportStatusChip = (props: Props) => {
   const {
-    datatype,
+    columnName,
     value,
     translation,
     extra_data,
@@ -133,7 +133,7 @@ export const ReportStatusChip = (props: Props) => {
   });
   const allMatches = createMatches(theme);
 
-  const matches = allMatches[datatype];
+  const matches = allMatches[columnName];
 
   let textColor = null;
   let icon = null;
@@ -145,7 +145,7 @@ export const ReportStatusChip = (props: Props) => {
   }
   if (
     row_extra_data &&
-    datatype === 'payout_status' &&
+    columnName === 'payout_status' &&
     row_extra_data?.payout_status
   ) {
     non_casted_value = row_extra_data.payout_status;

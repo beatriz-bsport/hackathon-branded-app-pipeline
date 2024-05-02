@@ -12,6 +12,7 @@ import {
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
 } from '@bsport/common/lib/master-data/error-codes/lock';
 
+import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import {
   revert as revertAPI,
   createQuick as createQuickAPI,
@@ -49,7 +50,6 @@ import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
 import { refreshAlertingByKind } from '#libs/alerting/actions';
-import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 import { isErrorWithCustomCode } from '#libs/utils';
 
@@ -81,7 +81,8 @@ export const invoiceConfigurationPatchActions = {
   error: createAction<Error | null>('INVOICE-CONFIGURATION/PATCH/ERROR'), // not used in reducers
 };
 
-export const refreshUnpaidInvoiceAlerting = () => refreshAlertingByKind(UNEVEN_INVOICE_ALERT.alert_kind);
+export const refreshUnpaidInvoiceAlerting = () =>
+  refreshAlertingByKind(UNEVEN_INVOICE_ALERT);
 
 export function patchInvoiceConfiguration(
   data: {

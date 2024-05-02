@@ -28,7 +28,11 @@ import type {
   ShopSupplierUpdate,
   ShopItemVariantCombination,
   ShopSupplierFilterParams,
+  SubshopTemplateCreate,
+  SubshopTemplate,
+  SubshopTemplateUpdate,
 } from './types';
+import type { PaginationFilterParams } from '#libs/types';
 
 export async function fetchAll(
   params: ShopItemListFilterParams,
@@ -378,4 +382,40 @@ export const fetchShopItemVariantCombinationList = (id: number) => {
   return getAuth<ShopItemVariantCombination[]>(
     `${API_V1_URI}/shop/item/${id}/variants/`,
   );
+};
+
+/**
+ * Fetch the list of existing subshop templates
+ */
+export const fetchSubshopTemplateList = (params?: PaginationFilterParams) => {
+  return getAuth<PaginatedResponse<SubshopTemplate>>(
+    `${API_V1_URI}/shop/subshoptemplate/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Creates a new subshop template
+ * @param data Object containing the name/franchisor/company_ids of the subshop template
+ */
+export const createSubshopTemplate = (data: SubshopTemplateCreate) => {
+  return postAuth<SubshopTemplate>(`${API_V1_URI}/shop/subshoptemplate/`, data);
+};
+
+/**
+ * Updates an existing subshop template
+ * @param data Object containing the updated fields of the subshop template
+ */
+export const updateSubshopTemplate = (data: SubshopTemplateUpdate) => {
+  return patchAuth<SubshopTemplate>(
+    `${API_V1_URI}/shop/subshoptemplate/${data.id}/`,
+    data,
+  );
+};
+
+/**
+ * Deletes an existing subshop template
+ * @param id The ID of the subshop template to delete
+ */
+export const deleteSubshopTemplate = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/shop/subshoptemplate/${id}/`);
 };

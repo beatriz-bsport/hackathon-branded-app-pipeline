@@ -19,7 +19,7 @@ import type {
 import { refreshAlertingByKind } from '#libs/alerting/actions';
 
 export const refreshNewOrderAlerting = () =>
-  refreshAlertingByKind(NEW_ORDER_ALERT);
+  refreshAlertingByKind(NEW_ORDER_ALERT.alert_kind);
 
 export const deliverFeesList = {
   error: createAction<Error | null>('DELIVERY_FEE/LIST/ERROR'),

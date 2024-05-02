@@ -156,7 +156,7 @@ module.exports = [
       devMode
         ? require.resolve('./config.local')
         : require.resolve('./config.production'),
-      './src/index.js',
+      './src/index.tsx',
     ],
     output: {
       path: distDir,

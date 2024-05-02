@@ -9,8 +9,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { VariableSizeList } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import PrivateServiceListItem from './PrivateServiceListItem.component';
@@ -19,6 +17,7 @@ import type {
   PrivateService,
   PrivateServiceGroupWithService,
 } from '#libs/private-service/types';
+import VirtualizeListAutoSize from '#components/virtualize/VirtualListAutoSize.component';
 
 type Props = {
   openServiceGroupToEdit: (
@@ -40,57 +39,6 @@ type PrivateServiceListProps = {
   privateServiceGroupId?: number;
   privateServiceList: PrivateService[];
   setOpenEditForm: (privateService: PrivateService) => void;
-};
-interface VirtualProps {
-  itemCount: number;
-  variableItemSize: (index: number) => number;
-  itemSize: number;
-  minItemsDisplaid?: number;
-  renderRow: (index: number) => React.ReactChild;
-}
-
-const Row: React.FC<{
-  style: React.CSSProperties;
-  children: React.ReactChild;
-}> = ({ style, children }) => <div style={style}>{children}</div>;
-
-const VirtualizedVariableList: React.FC<VirtualProps> = ({
-  itemCount,
-  itemSize = 100,
-  variableItemSize,
-  minItemsDisplaid = 1,
-  renderRow,
-}) => {
-  const minHeight = React.useMemo(() => {
-    return Math.min(itemCount, minItemsDisplaid) * itemSize;
-  }, [itemCount, minItemsDisplaid, itemSize]);
-
-  return (
-    <div
-      style={{
-        flex: 1,
-        minHeight,
-        height: '100%',
-      }}
-    >
-      <AutoSizer>
-        {(dimensions: { height: number; width: number }) => (
-          <VariableSizeList
-            height={dimensions.height}
-            itemCount={itemCount}
-            itemSize={variableItemSize}
-            width={dimensions.width}
-          >
-            {(props: { index: number; style: React.CSSProperties }) => (
-              <Row key={props.index} style={props.style}>
-                {renderRow(props.index)}
-              </Row>
-            )}
-          </VariableSizeList>
-        )}
-      </AutoSizer>
-    </div>
-  );
 };
 
 const VirtualizedPrivateServiceList: React.FC<PrivateServiceListProps> =
@@ -124,9 +72,9 @@ const VirtualizedPrivateServiceList: React.FC<PrivateServiceListProps> =
       );
 
       return (
-        <VirtualizedVariableList
+        <VirtualizeListAutoSize
           itemCount={privateServiceList?.length || 0}
-          itemSize={70}
+          itemSize={73}
           minItemsDisplaid={20}
           renderRow={(index: number) => {
             const privateService = privateServiceList[index];
@@ -143,7 +91,6 @@ const VirtualizedPrivateServiceList: React.FC<PrivateServiceListProps> =
               />
             );
           }}
-          variableItemSize={() => 70}
         />
       );
     },

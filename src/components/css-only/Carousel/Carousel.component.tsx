@@ -222,7 +222,7 @@ const Carousel = <T extends BaseData>({
         <CarouselIndicator
           currentIndex={currentIndex}
           data={data}
-          onClick={(newIndex: number) => !isMobile && setCurrentIndex(newIndex)}
+          onClick={(newIndex: number) => !isMobile && handleNagivate(newIndex)}
         />
       </div>
 

@@ -10,7 +10,12 @@ import MUIDataTable, {
 } from 'mui-datatables';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import type { Theme, WithStyles } from '@material-ui/core';
+import {
+  MuiThemeProvider,
+  createTheme,
+  type Theme,
+  type WithStyles,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -319,6 +324,20 @@ export class MemberTable extends PureComponent<Props, State> {
     this.props.goToMember?.(this.state.members[rowIndex].id);
   };
 
+  getMuiTheme = () =>
+    createTheme({
+      overrides: {
+        MuiTableCell: {
+          root: {
+            maxWidth: 200,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          },
+        },
+      },
+    });
+
   render() {
     const { t } = this.props;
     const { loading } = this.state;
@@ -415,20 +434,22 @@ export class MemberTable extends PureComponent<Props, State> {
     return (
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
         {(hasMemberReadInfoPermission: boolean) => (
-          <MUIDataTable
-            columns={getColumnData(t, hasMemberReadInfoPermission)}
-            data={renderRows(
-              this.state.members?.filter(
-                (mem) => !this.props.disabledMemberId?.includes(mem.id),
-              ),
-              t,
-              this.props.interrogateMemberStatus,
-              hasMemberReadInfoPermission,
-              this.props.goToMember,
-            )}
-            options={options}
-            title=""
-          />
+          <MuiThemeProvider theme={this.getMuiTheme()}>
+            <MUIDataTable
+              columns={getColumnData(t, hasMemberReadInfoPermission)}
+              data={renderRows(
+                this.state.members?.filter(
+                  (member) => !this.props.disabledMemberId?.includes(member.id),
+                ),
+                t,
+                this.props.interrogateMemberStatus,
+                hasMemberReadInfoPermission,
+                this.props.goToMember,
+              )}
+              options={options}
+              title=""
+            />
+          </MuiThemeProvider>
         )}
       </ObjectLevelPermissionProvider>
     );

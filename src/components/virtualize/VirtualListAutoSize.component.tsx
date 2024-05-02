@@ -23,7 +23,12 @@ const VirtualizeListAutoSize: React.FC<Props> = ({
   minItemsDisplaid = 1,
   renderRow,
 }) => (
-  <div style={{ flex: 1, minHeight: minItemsDisplaid * itemSize }}>
+  <div
+    style={{
+      flex: 1,
+      minHeight: Math.min(minItemsDisplaid, itemCount) * itemSize,
+    }}
+  >
     <AutoSizer>
       {(autoSizerProps: { height: number; width: number }) => (
         <List

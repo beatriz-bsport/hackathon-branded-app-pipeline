@@ -100,6 +100,9 @@ export enum ReportFilterableDataType {
   SOURCE_DEVICE = 'source_device',
   STAFF = 'staff',
   BOOKKEEPING_ACCOUNT = 'bookkeeping_account',
+  ACCESS_MONITORING_STATUS = 'access_monitoring_status',
+  ACCESS_MONITORING_ADMISSION = 'access_monitoring_admission',
+  ESTABLISHMENT_GROUP = 'establishment_group',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -145,6 +148,9 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'video',
   'staff',
   'bookkeeping_account',
+  'access_monitoring_status',
+  'access_monitoring_admission',
+  'establishment_group',
 ];
 
 export const DATATYPE_PRESET_INTEGER_VALUE = [
@@ -158,6 +164,8 @@ export const DATATYPE_PRESET_INTEGER_VALUE = [
   'source_device',
   'payment_engine',
   'coupon_type_excluding_referrals',
+  'access_monitoring_status',
+  'access_monitoring_admission',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];
@@ -224,6 +232,7 @@ export const defaultDynamicDataHasBeenLoaded = {
   shop: false,
   subshop: false,
   bookkeeping_account: false,
+  establishment_group: false,
 };
 
 export const DATE_SUBDATA_TYPE = 0;

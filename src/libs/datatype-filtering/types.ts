@@ -57,7 +57,10 @@ export type DataSourceMedadataDataType =
   | 'time'
   | 'user'
   | 'video'
-  | 'bookkeeping_account';
+  | 'bookkeeping_account'
+  | 'access_monitoring_status'
+  | 'access_monitoring_admission'
+  | 'establishment_group';
 
 export type DataSourceMetadata = {
   identifier: string;
@@ -114,7 +117,10 @@ export type DatatypeFilterConfigItemTypeById =
   | 'staff'
   | 'user'
   | 'video'
-  | 'bookkeeping_account';
+  | 'bookkeeping_account'
+  | 'access_monitoring_status'
+  | 'access_monitoring_admission'
+  | 'establishment_group';
 
 export type DatatypeFilterConfigItemComparatorById =
   | typeof FILTER_IN_OPERAND

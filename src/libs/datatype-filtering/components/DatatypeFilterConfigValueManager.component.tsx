@@ -87,6 +87,7 @@ import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelector
 import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 import ReportChipsRenderer from '#libs/reporting/components/ReportChips/ReportChipsRenderer.component';
+import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
 
 type ItemProps = {
   children: string;
@@ -454,6 +455,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'video':
       case 'staff':
       case 'bookkeeping_account':
+      case 'establishment_group':
         return getDataByType(datatype, [], columnName);
 
       case 'payout_status':
@@ -617,6 +619,42 @@ const DatatypeFilterConfigValueList: React.FC<{
             value: i + 1,
             columnName,
           }));
+      case 'access_monitoring_status':
+        return [
+          {
+            value: AccessStatus.RED,
+            label: t('accessControl:filters.accessStatus.red'),
+            columnName,
+          },
+          {
+            value: AccessStatus.ORANGE,
+            label: t('accessControl:filters.accessStatus.orange'),
+            columnName,
+          },
+          {
+            value: AccessStatus.GREEN,
+            label: t('accessControl:filters.accessStatus.green'),
+            columnName,
+          },
+        ];
+      case 'access_monitoring_admission':
+        return [
+          {
+            value: EntryStatus.ENTERED,
+            label: t('accessControl:filters.entryStatus.entered'),
+            columnName,
+          },
+          {
+            value: EntryStatus.NOT_ENTERED,
+            label: t('accessControl:filters.entryStatus.notEntered'),
+            columnName,
+          },
+          {
+            value: EntryStatus.UNKNOWN,
+            label: t('accessControl:filters.entryStatus.unknown'),
+            columnName,
+          },
+        ];
       default:
         return [];
     }

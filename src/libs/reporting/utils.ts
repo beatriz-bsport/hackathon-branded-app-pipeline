@@ -64,6 +64,7 @@ import {
   DiscountMetadataIdentifierEnum,
   PaymentSumupMetadataIdentifierEnum,
   ReferralGrantMetadataIdentifierEnum,
+  AccessMonitoringMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import uniqBy from 'lodash/uniqBy';
 import {
@@ -841,6 +842,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.CONTRACT:
     case ReportFilterableDataType.COUPON:
     case ReportFilterableDataType.ESTABLISHMENT:
+    case ReportFilterableDataType.ESTABLISHMENT_GROUP:
     case ReportFilterableDataType.GIFTCARD:
     case ReportFilterableDataType.PAYMENT_PACK:
     case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
@@ -893,6 +895,10 @@ export const getSingleValueLabel = (
       return t(`payment:method.${value}`);
     case ReportFilterableDataType.DOW:
       return t(`datetime:time.isoWeekdayNumber.${value}`);
+    case ReportFilterableDataType.ACCESS_MONITORING_STATUS:
+      return t(`accessControl:filters.accessStatus.${value}`);
+    case ReportFilterableDataType.ACCESS_MONITORING_ADMISSION:
+      return t(`accessControl:filters.entryStatus.${value}`);
     default:
       return value;
   }
@@ -1161,6 +1167,14 @@ export const ReportColumnPermissions = {
       'member.allowed_actions.readInfo',
     ],
   },
+  [ReportCategoryEnum.ACCESS_MONITORING]: {
+    [AccessMonitoringMetadataIdentifierEnum.MEMBER_EMAIL]: [
+      'member.allowed_actions.readInfo',
+    ],
+    [AccessMonitoringMetadataIdentifierEnum.MEMBER_PHONENUMBER]: [
+      'member.allowed_actions.readInfo',
+    ],
+  },
 };
 // The field 'global_category' coming from the backend on Report instances isn't reliable
 // hence this mapping between categories and global categories
@@ -1189,6 +1203,7 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
   [ReportCategoryEnum.SUBSCRIPTION]: 'Club',
   [ReportCategoryEnum.PRIVATE_SERVICE]: 'Club',
   [ReportCategoryEnum.REFERRAL_GRANTED]: 'Club',
+  [ReportCategoryEnum.ACCESS_MONITORING]: 'Club',
   // ----------------
   [ReportCategoryEnum.DAY_BOOKINGS]: 'Bookings',
   [ReportCategoryEnum.FIRST_BOOKING]: 'Bookings',

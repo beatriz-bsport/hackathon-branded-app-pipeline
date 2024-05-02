@@ -12,6 +12,7 @@ import { getAllCoaches } from '#libs/associated-coach/selectors';
 import {
   getAllEstablishments,
   getEstablishmentBillingroups,
+  getEstablishmentGroups,
 } from '#libs/establishment/selectors';
 import { getAllMembers } from '#libs/member/selectors';
 import { getPrivatePassListBase } from '#libs/private-service/selectors/private-pass';
@@ -42,6 +43,7 @@ import {
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
 } from '#libs/establishment/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
 import {
@@ -105,6 +107,7 @@ const connector = connect(
     paymentPackCategories: getAllPaymentPackCategory(state),
     privatePassCategories: getPrivatePassCategories(state),
     bookkeepingAccounts: getBookkeepingAccountList(state),
+    establishmentGroups: getEstablishmentGroups(state),
   }),
   {
     // Actions for dynamic data
@@ -129,6 +132,7 @@ const connector = connect(
     fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
     fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   },
 );
 
@@ -322,6 +326,13 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
+              case ReportFilterableDataType.ESTABLISHMENT_GROUP:
+                props.fetchAllEstablishmentGroup(props.companyId, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('establishment_group');
+                  },
+                });
+                break;
               default:
             }
           }
@@ -373,6 +384,12 @@ export default function withDatatypeDynamicData(
                   (establishment) =>
                     establishment.id.toString() === stringifiedValue,
                 )?.title;
+
+              case ReportFilterableDataType.ESTABLISHMENT_GROUP:
+                return props.establishmentGroups.find(
+                  (establishmentGroup) =>
+                    establishmentGroup.id.toString() === stringifiedValue,
+                )?.name;
 
               case ReportFilterableDataType.PRIVATE_SERVICE:
                 return props.privateServices.find(
@@ -599,6 +616,12 @@ export default function withDatatypeDynamicData(
               }));
             default:
               return [];
+            case ReportFilterableDataType.ESTABLISHMENT_GROUP:
+              return props.establishmentGroups.map((establishment_group) => ({
+                label: establishment_group.name,
+                value: establishment_group.id,
+                columnName,
+              }));
           }
         },
     }),

@@ -38,6 +38,8 @@ export const STATUS_CHIPS = [
   'dispute_status',
   'payment_status',
   'video_status',
+  'initial_status',
+  'updated_status',
 ];
 
 export const CONDITION_CHIPS = [
@@ -77,6 +79,7 @@ export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
     ReportCategoryEnum.SUBSCRIPTION,
     ReportCategoryEnum.PRIVATE_SERVICE,
     ReportCategoryEnum.REFERRAL_GRANT,
+    ReportCategoryEnum.ACCESS_MONITORING,
   ],
   Bookings: [
     ReportCategoryEnum.DAY_BOOKINGS,

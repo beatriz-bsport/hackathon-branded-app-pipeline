@@ -35,6 +35,7 @@ import {
 } from '@bsport/common/lib/master-data/subscription-status';
 
 import CustomChip from '#components/chip/CustomChip.component';
+import { AccessStatus } from '#libs/access-control/constants';
 
 type Props = {
   columnName: string;
@@ -107,6 +108,16 @@ const createMatches = (theme: Theme): Matches => {
     video_status: {
       Draft: { color: blue, icon: 'Edit' },
       Online: { color: green, icon: 'CloudUpload' },
+    },
+    initial_status: {
+      [AccessStatus.GREEN]: { color: green, icon: 'CheckCircle' },
+      [AccessStatus.ORANGE]: { color: orange, icon: 'Warning' },
+      [AccessStatus.RED]: { color: red, icon: 'Cancel' },
+    },
+    updated_status: {
+      [AccessStatus.GREEN]: { color: green, icon: 'CheckCircle' },
+      [AccessStatus.ORANGE]: { color: orange, icon: 'Warning' },
+      [AccessStatus.RED]: { color: red, icon: 'Cancel' },
     },
   };
   return matches;

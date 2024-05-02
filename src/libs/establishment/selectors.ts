@@ -84,6 +84,16 @@ export const retrieveEstablishmentGroup = (
   id: number,
 ): EstablishmentGroup => state.establishment.establishmentGroup.byId[id];
 
+const getEstablishmentGroupAllIds = (state: RootState) =>
+  state.establishment.establishmentGroup.allIds;
+const getEstablishmentGroupById = (state: RootState) =>
+  state.establishment.establishmentGroup.byId;
+
+export const getEstablishmentGroups = createSelector(
+  [getEstablishmentGroupAllIds, getEstablishmentGroupById],
+  (allIds, byId) => allIds.map((id) => byId[id]),
+);
+
 export const getAllEstablishmentsWithAssociatedId = createSelector(
   [getAllEstablishments, getAllAssociatedEstablishment],
   (establishments, associated_establishments) =>

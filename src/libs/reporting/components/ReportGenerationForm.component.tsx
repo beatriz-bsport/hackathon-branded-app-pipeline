@@ -112,6 +112,7 @@ const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
   ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS,
   ReportCategoryEnum.VIDEO_PURCHASE,
   ReportCategoryEnum.WORKSHOP,
+  ReportCategoryEnum.ACCESS_MONITORING,
 ];
 
 const ReportGenerationSchema = Yup.object().shape({

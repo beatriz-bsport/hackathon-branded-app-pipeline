@@ -17,6 +17,25 @@ export type SubShop = {
   shopItems: ShopItem[];
 };
 
+export type SubshopTemplate = {
+  franchisor: number;
+  id: number;
+  name: string;
+};
+
+export type SubshopTemplateCreate = {
+  company_ids: number[];
+  franchisor: number;
+  name: string;
+};
+
+export type SubshopTemplateUpdate = {
+  company_ids: number[];
+  franchisor?: number;
+  id: number;
+  name?: string;
+};
+
 export type SubShopAPI = {
   id: number;
   name: string;

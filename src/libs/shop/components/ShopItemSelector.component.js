@@ -74,7 +74,8 @@ export function ShopItemSelector(props: Props) {
   const suggestions = useMemo(
     () =>
       shopItemList
-        .toSorted((pp, pp_) => pp.name > pp_.name)
+        .asMutable()
+        .sort((pp, pp_) => pp.name > pp_.name)
         .map((pp) => ({
           value: pp.id,
           label: getShopItemName({

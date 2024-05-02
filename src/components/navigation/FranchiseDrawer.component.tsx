@@ -54,6 +54,7 @@ import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Send from '@material-ui/icons/Send';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { colors } from '@bsport/common/lib/colors';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
@@ -72,6 +73,7 @@ import VersionVisualizer from '../VersionVisualizer.component';
 import { checkRequiredPermissions } from '#libs/role/utils';
 import { FranchiseRolePermission } from '#libs/role/types';
 import FranchiseUserSearchBarComponent from '#libs/franchise/components/FranchiseUserSearchBar.component';
+import Config from '../../config';
 
 // import SearchBar from '../SearchBar.component';
 
@@ -105,6 +107,10 @@ type OwnProps = {
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+
+const isLocalOrDev = !['production', 'staging'].includes(
+  Config.REACT_APP_SENTRY_ENVIRONMENT,
+);
 
 export const FranchiseDrawer = (props: Props) => {
   const {
@@ -495,7 +501,13 @@ export const FranchiseDrawer = (props: Props) => {
                 tempPassword={tempPasswordState.password}
                 tempPasswordExpirationDate={tempPasswordState.expiration_date}
               />
-              <main className={classes.content}>
+              <main
+                className={classNames({
+                  [classes.content]: !location.pathname.includes('/shop'),
+                  [classes.contentWithoutPadding]:
+                    isLocalOrDev && location.pathname.includes('/shop'),
+                })}
+              >
                 {banner}
                 {children}
               </main>
@@ -529,6 +541,7 @@ const getNavigationItems = (props: {
       icon: BusinessCenterIcon,
       text: 'franchiseMenu.products',
       type: 'nested',
+      // @ts-expect-error
       nestedItems: syncMembersAcrossCompanies
         ? [
             'divider',
@@ -542,6 +555,11 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
+            isLocalOrDev && {
+              to: '/f/shop',
+              text: 'franchiseMenu.products.shop',
+              icon: ShoppingCartIcon,
+            },
             {
               to: '/f/giftcard-template',
               text: 'franchiseMenu.products.giftcardTemplates',
@@ -553,7 +571,7 @@ const getNavigationItems = (props: {
               icon:
                 getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             },
-          ]
+          ].filter((item) => !!item)
         : [
             'divider',
             {
@@ -566,13 +584,18 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.privatePassTemplates',
               icon: ScheduleIcon,
             },
+            isLocalOrDev && {
+              to: '/f/shop',
+              text: 'franchiseMenu.products.shopTemplates',
+              icon: ShoppingCartIcon,
+            },
             {
               to: '/f/coupon-template',
               text: 'franchiseMenu.products.couponTemplates',
               icon:
                 getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             },
-          ],
+          ].filter((item) => !!item),
     },
     {
       icon: Email,
@@ -717,6 +740,14 @@ const styles = (theme: Theme) =>
       },
       paddingBottom: theme.spacing(1),
       paddingTop: theme.spacing(2),
+      overflow: 'auto',
+    },
+    contentWithoutPadding: {
+      flex: '1 1 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: theme.palette.background.default,
+      width: '100%',
       overflow: 'auto',
     },
     logo: {

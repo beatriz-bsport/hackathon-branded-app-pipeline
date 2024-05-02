@@ -21,10 +21,13 @@ import {
 import { getOrder, withMember } from '#libs/order/selectors';
 
 import { fetchMember } from '#libs/member/actions';
-import { fetchOrder, patchOrder } from '#libs/order/actions';
+import {
+  fetchOrder,
+  patchOrder,
+  refreshNewOrderAlerting,
+} from '#libs/order/actions';
 import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#libs/invoice/actions';
 import OrderDetailComponent from '#libs/order/components/OrderDetail.component';
-import { refreshNewOrderAlerting } from '#libs/order/actions';
 import { sendCommunication } from '#libs/communication/actions';
 import {
   emailTemplateDetail,

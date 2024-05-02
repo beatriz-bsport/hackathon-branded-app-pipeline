@@ -30,9 +30,14 @@ const MemberVisitDetailsCardBookingSection: React.FC<
 
   switch (booking_type) {
     case 'booking': {
-      const { spot_name: spotName, coach_name } = booking;
+      const {
+        spot_id: spotId,
+        spot_information: spotInformation,
+        coach_name,
+      } = booking;
 
-      const displayDropDownArrow = !!spotName || !!coach_name;
+      const hasSpotSelected = typeof spotId === 'number';
+      const displayDropDownArrow = hasSpotSelected || !!coach_name;
 
       return (
         <div className={classes.bookingDetails}>
@@ -65,12 +70,22 @@ const MemberVisitDetailsCardBookingSection: React.FC<
                   })}
                 </Typography>
               )}
-              {!!spotName && (
-                <Typography color="textSecondary" variant="caption">
-                  {t('memberVisitDetails.spotName', {
-                    spotName,
-                  })}
-                </Typography>
+              {hasSpotSelected && (
+                <div className={classes.spotInformation}>
+                  <Typography color="textSecondary" variant="caption">
+                    {/**
+                     * Examples:
+                     * - Spot: 1
+                     * - Spot: A1
+                     * - Spot: Cycle A1
+                     */}
+                    {t('memberVisitDetails.spotName', {
+                      spotName: `${`${spotInformation?.name} ` || ''}${
+                        spotInformation.prefix
+                      }${spotInformation.indexType}`,
+                    })}
+                  </Typography>
+                </div>
               )}
             </div>
           )}
@@ -147,6 +162,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     gap: theme.spacing(1),
     flex: 1,
+  },
+  spotInformation: {
+    display: 'flex',
   },
 }));
 

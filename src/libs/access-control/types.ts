@@ -3,6 +3,7 @@ import { AccessStatus, EntryStatus } from './constants';
 
 import type { Member, MemberMinimal } from '#libs/member/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
+import type { SpotInformation } from '#libs/spot-scheduling/types';
 
 /** API TYPES */
 
@@ -89,7 +90,8 @@ export type AccessControlBookingOrPrivateBooking = {
     offer_date_start: string;
     coach_name: string;
     establishment_name: string;
-    spot_name: string;
+    spot_id: number;
+    spot_information: SpotInformation;
   };
   private_booking?: {
     id: number;

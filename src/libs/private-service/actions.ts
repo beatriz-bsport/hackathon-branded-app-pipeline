@@ -1,8 +1,10 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
+import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import axios from 'axios';
+import { refreshAlertingByKind } from '../alerting/actions';
 
 import { RootState } from '../../reducers';
 import {
@@ -141,8 +143,6 @@ export const privateBookingAttachCoachActions = {
   isLoading: createAction('PRIVATE_BOOKING/ATTACH_COACH/IS_LOADING'),
   success: createAction('PRIVATE_BOOKING/ATTACH_COACH/SUCCESS'),
 };
-import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
-import { refreshAlertingByKind } from '../alerting/actions';
 
 export const listTaskByMemberActions = {
   error: createAction('REMINDER/TASK_BY_MEMBER/ERROR'),

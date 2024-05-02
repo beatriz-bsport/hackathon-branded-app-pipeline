@@ -57,7 +57,7 @@ export function fetchMoreAlertingKind(kind: number) {
 export function fetch(
   alert_kind: number,
   page: number,
-  invalidateCache: bool = false,
+  invalidateCache: boolean = false,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     const state = getState();

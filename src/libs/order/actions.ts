@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { NEW_ORDER_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import * as api from './api';
 import type {
   Dispatch,
@@ -15,7 +16,6 @@ import type {
   Order,
 } from '#libs/order/types';
 
-import { NEW_ORDER_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import { refreshAlertingByKind } from '#libs/alerting/actions';
 
 export const refreshNewOrderAlerting = () =>

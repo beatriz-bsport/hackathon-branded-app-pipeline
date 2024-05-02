@@ -18,6 +18,11 @@ type Props = {
   title: string;
   subtitle?: string;
   childrenCollapsable?: React.ReactNode;
+  className?: string;
+  classes?: {
+    title?: string;
+    subTitle?: string;
+  };
 };
 
 const TitleVariantClassNameMap: {
@@ -51,6 +56,8 @@ const Title: React.FC<Props> = ({
   title,
   subtitle,
   childrenCollapsable,
+  className,
+  classes,
 }) => {
   const { arrowClassName, titleClassName, subtitleClassName } =
     TitleVariantClassNameMap[variant];
@@ -104,15 +111,15 @@ const Title: React.FC<Props> = ({
   }
 
   return (
-    <div className="bs-fabrique-title__root">
+    <div className={classNames('bs-fabrique-title__root', className)}>
       <Typography
-        className={classNames('bs-fabrique-title__title')}
+        className={classNames('bs-fabrique-title__title', classes?.title)}
         variant={titleClassName}
       >
         {title}
       </Typography>
       <Typography
-        className={classNames('bs-fabrique-title__subtitle')}
+        className={classNames('bs-fabrique-title__subtitle', classes?.subTitle)}
         variant={subtitleClassName}
       >
         {subtitle}

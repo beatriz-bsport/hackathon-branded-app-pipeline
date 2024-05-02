@@ -146,4 +146,22 @@ exports.default = {
       validateIdentity: 'Validate identity',
     },
   },
+  filters: {
+    accessStatus: {
+      green: 'Valid',
+      orange: 'Warning',
+      red: 'Not valid',
+      G: 'Valid',
+      O: 'Warning',
+      R: 'Not valid',
+    },
+    entryStatus: {
+      entered: 'Entered',
+      notEntered: 'Not entered',
+      unknown: 'Unknown',
+      Y: 'Entered',
+      N: 'Not entered',
+      U: 'Unknown',
+    },
+  },
 };

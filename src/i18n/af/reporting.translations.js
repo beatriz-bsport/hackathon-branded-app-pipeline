@@ -103,6 +103,7 @@ const getTranslations = async () => {
       margin_value_pre_tax: 'Marginal value (excl. VAT / Sales Tax)',
       effectif: 'Number of slots',
       total_payments: 'Total payments',
+      studio_address_franchise_only: 'Location/Address',
       sum_margin_value: 'Marginal value (incl. VAT / Sales Tax)',
       sum_margin_value_excluding_sales_tax:
         'Marginal value (excl. VAT / Sales Tax)',
@@ -387,7 +388,22 @@ const getTranslations = async () => {
       coupon_type: 'Type',
       is_first_visit: 'First booking',
       is_from_billing_plan: 'Coming from subscription',
+      member_first_name: 'First name',
+      member_last_name: 'Last name',
+      member_email: 'Email',
+      member_phonenumber: 'Telephone',
+      member_gender: 'Sex',
+      member_membership_id: 'Member ID',
+      visit_date: 'Date of visit',
+      visit_time: 'Time of visit',
+      location: 'Location',
+      establishments_names: 'Establishment',
+      visit_reason: 'Visit reason',
+      initial_status: 'Authorization status',
+      updated_status: 'Updated status',
+      admission: 'Admission',
     },
+
     yes: 'Yes',
     no: 'No',
     payment_method: {
@@ -489,6 +505,7 @@ const getTranslations = async () => {
       billing_plan: 'Subscription',
       members_purchase: "Members' purchases",
       referral_grant: 'Referral',
+      access_monitoring: 'Access Monitoring',
     },
     globalCategories: {
       subheader: { average: 'Average', total: 'Total' },
@@ -706,6 +723,8 @@ const getTranslations = async () => {
       },
     },
     helperText: {
+      access_monitoring:
+        'Visits are filtered on the date and time they occurred.',
       franchise_shared_pass:
         'This report allows you to analyse the bookings made with shared passes over the selected period. When a shared pass is purchased in one studio, the report shows the number of bookings made with this pass in another studio. The number of sessions booked includes bookings for activities, workshops and appointments.',
       billing_plan: 'Subscriptions are filtered on the first billing date.',

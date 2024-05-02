@@ -1,48 +1,86 @@
 import React, { useEffect } from 'react';
-import { TFunction } from 'i18next';
-import { push as pushAction } from 'connected-react-router';
+import Immutable from 'seamless-immutable';
+import { Push, push as pushAction } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/styles';
-import { createStyles, Theme, WithStyles } from '@material-ui/core';
-import classnames from 'classnames';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import Helmet from 'react-helmet';
+import { Route, Switch } from 'react-router-dom';
 
 import {
   fetchFranchise as fetchFranchiseAction,
   fetchFranchiseUser as fetchFranchiseUserAction,
-} from '../../libs/franchise/actions';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withTitle from '../../hocs/with-title.hoc';
+} from '#libs/franchise/actions';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import {
   getFranchiseUserById,
   withAllowedFranchisees,
-} from '../../libs/franchise/selectors';
-import FranchiseMemberDetailsCard from '../../libs/franchise/components/FranchiseMemberDetailsCard.components';
-import FranchiseMemberMembership from '../../libs/franchise/components/FranchiseMemberMembership.components';
+} from '#libs/franchise/selectors';
 import { RootState } from '../../reducers';
 // @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+// @ts-expect-error
+import asyncComponent from '../../AsyncComponent';
+import Config from '../../config';
 
-type OwnProps = {
+const FranchiseMemberDetailInfo = asyncComponent(
+  () => import('./FranchiseMemberDetailInfo.page'),
+);
+const FranchiseMemberDetailPass = asyncComponent(
+  () => import('./FranchiseMemberDetailPass.page'),
+);
+const FranchiseMemberDetailPrivateConsumerPass = asyncComponent(
+  () => import('./FranchiseMemberDetailPrivateConsumerPass.page'),
+);
+const FranchiseMemberDetailGiftcard = asyncComponent(
+  () => import('./FranchiseMemberDetailGiftcard.page'),
+);
+
+type ParamsProps = {
   userId: number;
+  tab: string;
 };
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
-  WithStyles<typeof styles>;
+type WithPageHeightHOC = {
+  pageHeight: number;
+  push: Push;
+};
+
+type Props = ParamsProps & WithPageHeightHOC & ConnectedProps<typeof connector>;
+
+// Hide empty tabs on production
+const isEnvironnementProduction =
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
+
+const tabsData = Immutable(
+  isEnvironnementProduction
+    ? [{ label: 'tab.member.info', value: 'info' }]
+    : [
+        { label: 'tab.member.info', value: 'info' },
+        {
+          label: 'tab.member.paymentPack',
+          value: 'pass',
+        },
+        {
+          label: 'tab.member.privateConsumerPass',
+          value: 'private-consumer-pass',
+        },
+        { label: 'tab.member.giftcard', value: 'giftcard' },
+      ],
+);
 
 const FranchiseMemberDetails = (props: Props) => {
   const {
     userId,
     user,
-    classes,
     fetchFranchiseUser,
     fetchFranchise,
-    navigateAsCompanyAdmin,
+    tab,
+    pageHeight,
     push,
   } = props;
 
@@ -54,67 +92,51 @@ const FranchiseMemberDetails = (props: Props) => {
     fetchFranchise();
   }, [fetchFranchise]);
 
-  const goToCompanyDetails = (companyId: number) => () => {
-    navigateAsCompanyAdmin(
-      companyId,
-      `/member/${user.company_member[companyId]}/info`,
-    );
-  };
+  const pushToTab = (id: number, newTab: string) =>
+    push(`/f/members/${id}/member/${newTab}`);
 
-  const goToFranchiseCompanyDetails = (companyId: number) => () => {
-    push(`/f/franchises/${companyId}`);
+  const handleOnChange = (newTab: string) => {
+    pushToTab(userId, newTab);
   };
 
   return (
-    <div className={classes.container}>
-      {user && (
-        <>
-          <div className={classnames(classes.content, classes.left)}>
-            <FranchiseMemberDetailsCard user={user} />
-          </div>
-          <div className={classes.content}>
-            <FranchiseMemberMembership
-              // @ts-expect-error
-              companies={user?.companies}
-              goToCompanyDetails={goToCompanyDetails}
-              goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
-            />
-          </div>
-        </>
-      )}
-      {!user && <LinearProgress />}
-    </div>
+    <ContentWithAppBar
+      onChange={handleOnChange}
+      pageHeight={pageHeight}
+      tab={tab}
+      tabsData={tabsData}
+    >
+      <Helmet>
+        <title>{user ? user.name : ''}</title>
+      </Helmet>
+      <Switch>
+        <Route
+          exact
+          component={FranchiseMemberDetailInfo}
+          path="/f/members/:userId/member/info"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailPass}
+          path="/f/members/:userId/member/pass"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailPrivateConsumerPass}
+          path="/f/members/:userId/member/private-consumer-pass"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailGiftcard}
+          path="/f/members/:userId/member/giftcard"
+        />
+      </Switch>
+    </ContentWithAppBar>
   );
 };
 
-const styles = (theme: Theme) =>
-  createStyles({
-    container: {
-      width: '100%',
-      display: 'flex',
-      [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column',
-        padding: theme.spacing(4),
-      },
-    },
-    content: {
-      flex: 1,
-    },
-    loader: {
-      margin: 'auto',
-      marginTop: theme.spacing(4),
-    },
-    left: {
-      marginRight: theme.spacing(4),
-      [theme.breakpoints.down('sm')]: {
-        marginRight: 0,
-        marginBottom: theme.spacing(4),
-      },
-    },
-  });
-
 const connector = connect(
-  (state: RootState, props: { userId: number }) => ({
+  (state: RootState, props: { userId: number; tab: string }) => ({
     // @ts-expect-error
     user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
   }),

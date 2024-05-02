@@ -129,6 +129,13 @@ const FranchiseRouter = (props: Props) => {
     return <Redirect to="/login/signout" />;
   }
 
+  const getDefaultFranchiseMemberDetailUrl = (baseUrl: string) => {
+    if (baseUrl.endsWith('/')) {
+      return `${baseUrl}info`;
+    }
+    return `${baseUrl}/info`;
+  };
+
   if (!franchiseId) {
     return <LoadingBackoffice />;
   }
@@ -182,7 +189,18 @@ const FranchiseRouter = (props: Props) => {
             <Route exact component={FranchiseMemberList} path="/f/members" />
             <Route
               component={FranchiseMemberDetails}
-              path="/f/members/:userId/member"
+              path="/f/members/:userId/member/:tab"
+            />
+            <Route
+              exact
+              path="/f/members/:userId/member/"
+              render={() => (
+                <Redirect
+                  to={getDefaultFranchiseMemberDetailUrl(
+                    window.location.pathname,
+                  )}
+                />
+              )}
             />
             <Route
               exact

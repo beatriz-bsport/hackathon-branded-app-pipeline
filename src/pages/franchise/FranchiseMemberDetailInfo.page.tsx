@@ -47,12 +47,15 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
     fetchFranchise();
   }, [fetchFranchise]);
 
-  const goToCompanyDetails = (companyId: number) => () => {
-    navigateAsCompanyAdmin(
-      companyId,
-      `/member/${user.company_member[companyId]}/info`,
-    );
-  };
+  const goToCompanyDetails = React.useCallback(
+    (companyId: number) => () => {
+      navigateAsCompanyAdmin(
+        companyId,
+        `/member/${user?.company_member[companyId]}/info`,
+      );
+    },
+    [navigateAsCompanyAdmin, user?.company_member],
+  );
 
   const goToFranchiseCompanyDetails = (companyId: number) => () => {
     push(`/f/franchises/${companyId}`);

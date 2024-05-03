@@ -15,7 +15,6 @@ import {
 } from '#libs/establishment/selectors';
 import {
   getMemberNextBookingOrPrivateBooking,
-  getMemberVisit,
   getMemberVisitIsLoading,
   getUserPhotoUpdatesList,
 } from '#libs/access-control/selectors';
@@ -24,12 +23,13 @@ import {
 
 import { search } from '#libs/member/actions';
 import {
-  checkMemberInEstablishment as checkMemberInEstablishmentAction,
-  refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
-  setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
-  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
-  getUserPhotoUpdates as getUserPhotoUpdatesAction,
   approvePhotoUpdate as approvePhotoUpdateAction,
+  checkMemberInEstablishment as checkMemberInEstablishmentAction,
+  getUserPhotoUpdates as getUserPhotoUpdatesAction,
+  refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAction,
+  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAction,
+  retrieveMemberVisit as retrieveMemberVisitAction,
+  setMemberVisitEntryStatus as setMemberVisitEntryStatusAction,
 } from '#libs/access-control/actions';
 
 // Components
@@ -66,7 +66,11 @@ type OwnProps = {
   location: Location;
 };
 
-export type Props = OwnProps & ConnectedProps<typeof connector>;
+type WithQueryParamsProps = OwnProps & {
+  memberVisitOverrideId: number;
+};
+
+export type Props = WithQueryParamsProps & ConnectedProps<typeof connector>;
 
 export const useMemberVisitPageDataManager = ({
   approvePhotoUpdate,
@@ -76,9 +80,10 @@ export const useMemberVisitPageDataManager = ({
   establishmentsSelectedInRole,
   getMemberPhotoHistory,
   memberPhotoHistory,
-  memberVisitOverride,
+  memberVisitOverrideId,
   refreshMemberVisitAccessStatus,
   retrieveMemberNextBookingOrPrivateBooking,
+  retrieveMemberVisit,
   setMemberVisitEntryStatus,
 }: Pick<
   Props,
@@ -89,17 +94,20 @@ export const useMemberVisitPageDataManager = ({
   | 'establishmentsSelectedInRole'
   | 'getMemberPhotoHistory'
   | 'memberPhotoHistory'
-  | 'memberVisitOverride'
+  | 'memberVisitOverrideId'
   | 'refreshMemberVisitAccessStatus'
   | 'retrieveMemberNextBookingOrPrivateBooking'
+  | 'retrieveMemberVisit'
   | 'setMemberVisitEntryStatus'
 >) => {
   /** -------------- STATE --------------- */
 
-  const [isEmptyState, setIsEmptyState] = React.useState(!memberVisitOverride);
+  const [isEmptyState, setIsEmptyState] = React.useState(
+    !memberVisitOverrideId,
+  );
 
   const [memberVisit, setMemberVisit] = React.useState<MemberVisitREST | null>(
-    memberVisitOverride,
+    null,
   );
 
   const [showMemberPhotoHistoryModal, setShowMemberPhotoHistoryModal] =
@@ -139,6 +147,20 @@ export const useMemberVisitPageDataManager = ({
     memberVisit?.member?.id,
     retrieveMemberNextBookingOrPrivateBooking,
   ]);
+
+  // If the memberVisitOverrideId is present, fetch the member visit data
+  useEffect(() => {
+    if (memberVisitOverrideId) {
+      retrieveMemberVisit(memberVisitOverrideId, {
+        onSuccess: (data) => {
+          // Remove the ?id=[number] query param from the URL, to avoid re-displaying it on page refresh
+          window.history.replaceState({}, '', window.location.pathname);
+          setMemberVisit(data);
+          setIsEmptyState(false);
+        },
+      });
+    }
+  }, [memberVisitOverrideId, retrieveMemberVisit]);
 
   /** -------------- HANDLERS --------------- */
 
@@ -328,9 +350,10 @@ const MemberVisit: React.FC<Props> = React.memo(
     memberNextBookingOrPrivateBooking,
     memberPhotoHistory,
     memberVisitIsLoading,
-    memberVisitOverride,
+    memberVisitOverrideId,
     refreshMemberVisitAccessStatus,
     retrieveMemberNextBookingOrPrivateBooking,
+    retrieveMemberVisit,
     searchMembers,
     setMemberVisitEntryStatus,
     theme,
@@ -368,9 +391,10 @@ const MemberVisit: React.FC<Props> = React.memo(
       establishmentsSelectedInRole,
       getMemberPhotoHistory,
       memberPhotoHistory,
-      memberVisitOverride,
+      memberVisitOverrideId,
       refreshMemberVisitAccessStatus,
       retrieveMemberNextBookingOrPrivateBooking,
+      retrieveMemberVisit,
       setMemberVisitEntryStatus,
     });
 
@@ -460,20 +484,13 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(2),
   },
 }));
-
-type WithQueryParamsProps = OwnProps & {
-  memberVisitOverrideId: number;
-};
-
-const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
-  const { memberVisitOverrideId } = props;
+const mapStateToProps = (state: RootState) => {
   return {
     establishmentGroups: getAssociatedEstablishmentGroup(state),
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     memberPhotoHistory: getUserPhotoUpdatesList(state),
     memberVisitIsLoading: getMemberVisitIsLoading(state),
-    memberVisitOverride: getMemberVisit(state, memberVisitOverrideId),
     memberNextBookingOrPrivateBooking:
       getMemberNextBookingOrPrivateBooking(state),
     theme: state.theme.theme,
@@ -487,6 +504,7 @@ const mapDispatchToProps = {
   refreshMemberVisitAccessStatus: refreshMemberVisitAccessStatusAction,
   retrieveMemberNextBookingOrPrivateBooking:
     retrieveMemberNextBookingOrPrivateBookingAction,
+  retrieveMemberVisit: retrieveMemberVisitAction,
   searchMembers: search,
   setMemberVisitEntryStatus: setMemberVisitEntryStatusAction,
 };

@@ -25,6 +25,10 @@ import {
   createSubshopActions,
   updateSubshopActions,
   deleteSubshopActions,
+  fetchSubshopTemplateListActions,
+  createSubshopTemplateActions,
+  updateSubshopTemplateActions,
+  deleteSubshopTemplateActions,
 } from './actions/subshopReworked';
 
 import {
@@ -44,6 +48,7 @@ import type {
   ShopStateReworked,
   ShopSupplier,
   SubShop,
+  SubshopTemplate,
 } from '#libs/shop/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
@@ -114,6 +119,21 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         error: null,
         loading: false,
         byId: {},
+      },
+    },
+    /* Franchisor shop state */
+    shopTemplates: {
+      subshopTemplate: {
+        error: null,
+        loading: false,
+        count: 0,
+        next_page: 1,
+        page: 1,
+        byId: {},
+        allIds: [],
+        create: { error: null, loading: false },
+        updateSubshopTemplate: { error: null, loading: false },
+        delete: { error: null, loading: false },
       },
     },
   });
@@ -543,6 +563,54 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           { deep: true },
         );
     },
+    [fetchSubshopTemplateListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'loading'],
+        payload,
+      );
+    },
+    [fetchSubshopTemplateListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'error'],
+        payload,
+      );
+    },
+    [fetchSubshopTemplateListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<SubshopTemplate> },
+    ) => {
+      const { page, count, next_page, results } = payload;
+      return state
+        .setIn(['shopTemplates', 'subshopTemplate', 'page'], page)
+        .setIn(['shopTemplates', 'subshopTemplate', 'count'], count)
+        .setIn(['shopTemplates', 'subshopTemplate', 'next_page'], next_page)
+        .setIn(
+          ['shopTemplates', 'subshopTemplate', 'allIds'],
+          uniq(results.map((subshopTemplate) => subshopTemplate.id)),
+        )
+        .merge(
+          {
+            shopTemplates: {
+              subshopTemplate: {
+                byId: results.reduce<PayloadReduceType<SubshopTemplate>>(
+                  (acc, subshopTemplate) => {
+                    acc[subshopTemplate.id] = subshopTemplate;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
     [createSubshopActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -579,6 +647,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           { deep: true },
         );
     },
+    [createSubshopTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createSubshopTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'create', 'error'],
+        payload,
+      );
+    },
     [updateSubshopActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -608,6 +694,29 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [updateSubshopTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'subshopTemplate',
+          'updateSubshopTemplate',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [updateSubshopTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'updateSubshopTemplate', 'error'],
+        payload,
       );
     },
     [deleteSubshopActions.isLoading.toString()]: (
@@ -642,6 +751,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         .updateIn(['shopItemReworked', 'subshop', 'byId'], (subshopById) =>
           omit(subshopById, payload),
         );
+    },
+    [deleteSubshopTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteSubshopTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'subshopTemplate', 'delete', 'error'],
+        payload,
+      );
     },
     [fetchShopSupplierListActions.isLoading.toString()]: (
       state,

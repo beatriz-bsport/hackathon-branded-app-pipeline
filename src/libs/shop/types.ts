@@ -234,6 +234,19 @@ export type ShopStateReworked = {
       byId: { [key: number]: boolean };
     } & ErrorAndLoading;
   };
+  /* Franchisor shop state */
+  shopTemplates: {
+    subshopTemplate: {
+      byId: {
+        [key: number]: SubshopTemplate;
+      };
+      allIds: number[];
+      create: ErrorAndLoading;
+      updateSubshopTemplate: ErrorAndLoading;
+      delete: ErrorAndLoading;
+    } & WithPagination &
+      ErrorAndLoading;
+  };
 };
 
 export type ShopAPIFilter = {

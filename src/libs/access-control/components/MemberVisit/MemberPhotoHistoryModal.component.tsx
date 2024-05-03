@@ -53,7 +53,7 @@ const MemberPhotoHistoryModal: React.FC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t(`common:close`)}</Button>
-        {onValidateIdentity && (
+        {!!onValidateIdentity && (
           <Button autoFocus color="primary" onClick={onValidateIdentity}>
             {t(`modals.memberPhotoHistory.validateIdentity`)}
           </Button>

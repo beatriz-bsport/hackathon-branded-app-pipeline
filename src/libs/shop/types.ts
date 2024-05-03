@@ -1,4 +1,8 @@
-import { ErrorAndLoading, WithPagination } from '#libs/types';
+import {
+  ErrorAndLoading,
+  PaginationFilterParams,
+  WithPagination,
+} from '#libs/types';
 import { ShopItemDetailTab } from './components/ShopItemDetail/constants';
 
 export type Provision = {
@@ -85,6 +89,16 @@ export type ShopItem = {
   tva: string;
   unlimited_provisions?: boolean;
   bookkeeping_account?: number;
+};
+
+export type ShopItemTemplate = ShopItem & {
+  franchisor: number;
+  sub_shop_template: number;
+  supplier_template: number | null;
+};
+
+export type ShopItemTemplateFilterParams = PaginationFilterParams & {
+  sub_shop_template: number;
 };
 
 /** Represents a variant related to a base shop item */

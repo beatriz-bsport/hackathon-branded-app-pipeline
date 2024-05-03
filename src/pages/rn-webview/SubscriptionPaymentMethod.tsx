@@ -2,6 +2,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 
@@ -24,6 +25,7 @@ import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/a
 import type { Theme } from '#libs/theme/types';
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
 import { Membership } from '#libs/membership/types';
+import type { StripeInit } from '#libs/payment/types';
 
 const SubscriptionPayment = asyncComponent(
   () =>
@@ -45,11 +47,13 @@ type Props = OwnProps &
 
 interface State {
   processing: boolean;
+  stripePromise: StripeInit | null;
 }
 
 class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   state: State = {
     processing: false,
+    stripePromise: null,
   };
 
   componentDidMount() {
@@ -60,7 +64,10 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     this.fetchPaymentMethods();
     this.props.fetchMembership(this.props.query.member, {
       onSuccess: (membership: Membership) => {
-        this.props.fetchCompanyTheme(membership.company);
+        this.props.fetchCompanyTheme(membership.company, {
+          onSuccess: (theme) =>
+            this.setState({ stripePromise: loadStripe(theme.stripe_pk_key) }),
+        });
       },
     });
     this.props.fetchMember(this.props.query.member);
@@ -126,6 +133,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
           savedPaymentMethodList={this.props.savedPaymentMethodList}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
           sepaDefaultName={this.props.member ? this.props.member.name : ''}
+          stripePromise={this.state.stripePromise}
         />
       </div>
     );

@@ -57,9 +57,12 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
     [navigateAsCompanyAdmin, user?.company_member],
   );
 
-  const goToFranchiseCompanyDetails = (companyId: number) => () => {
-    push(`/f/franchises/${companyId}`);
-  };
+  const goToFranchiseCompanyDetails = React.useCallback(
+    (companyId: number) => () => {
+      push(`/f/franchises/${companyId}`);
+    },
+    [push],
+  );
 
   return (
     <div className={classes.container}>

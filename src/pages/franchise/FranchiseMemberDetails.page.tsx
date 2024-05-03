@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Immutable from 'seamless-immutable';
-import { Push, push as pushAction } from 'connected-react-router';
+import { push as pushAction } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
-import {
-  fetchFranchise as fetchFranchiseAction,
-  fetchFranchiseUser as fetchFranchiseUserAction,
-} from '#libs/franchise/actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import {
   getFranchiseUserById,
   withAllowedFranchisees,
 } from '#libs/franchise/selectors';
-import { RootState } from '../../reducers';
-// @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import type { RootState } from '../../reducers';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 // @ts-expect-error
@@ -47,7 +40,6 @@ type ParamsProps = {
 
 type WithPageHeightHOC = {
   pageHeight: number;
-  push: Push;
 };
 
 type Props = ParamsProps & WithPageHeightHOC & ConnectedProps<typeof connector>;
@@ -73,25 +65,13 @@ const tabsData = Immutable(
       ],
 );
 
-const FranchiseMemberDetails = (props: Props) => {
-  const {
-    userId,
-    user,
-    fetchFranchiseUser,
-    fetchFranchise,
-    tab,
-    pageHeight,
-    push,
-  } = props;
-
-  useEffect(() => {
-    fetchFranchiseUser({ userId });
-  }, [fetchFranchiseUser, userId]);
-
-  useEffect(() => {
-    fetchFranchise();
-  }, [fetchFranchise]);
-
+const FranchiseMemberDetails: React.FC<Props> = ({
+  userId,
+  user,
+  tab,
+  pageHeight,
+  push,
+}) => {
   const pushToTab = (id: number, newTab: string) =>
     push(`/f/members/${id}/member/${newTab}`);
 
@@ -137,13 +117,10 @@ const FranchiseMemberDetails = (props: Props) => {
 
 const connector = connect(
   (state: RootState, props: { userId: number; tab: string }) => ({
-    // @ts-expect-error
+    // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
     user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
   }),
   {
-    fetchFranchiseUser: fetchFranchiseUserAction,
-    fetchFranchise: fetchFranchiseAction,
-    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
     push: pushAction,
   },
 );

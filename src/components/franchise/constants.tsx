@@ -1,0 +1,3 @@
+export const MEMBER_PAGE_GRID_CONTAINER_SPACING = 3;
+export const MEMBER_PAGE_GRID_ITEM_LG = 6;
+export const MEMBER_PAGE_GRID_ITEM_XS = 12;

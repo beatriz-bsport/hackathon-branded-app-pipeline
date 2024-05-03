@@ -33,7 +33,7 @@ import {
   getAllMemberVisits,
   getMemberNextBookingOrPrivateBooking,
   getMemberVisitLiveHistoryIsLoading,
-  getUserPhotoUpdates,
+  getUserPhotoUpdatesList,
 } from '#libs/access-control/selectors';
 import {
   getAllEstablishmentsDict,
@@ -505,7 +505,7 @@ const connector = connect(
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     isLoading: getMemberVisitLiveHistoryIsLoading(state),
-    memberPhotoHistory: getUserPhotoUpdates(state),
+    memberPhotoHistory: getUserPhotoUpdatesList(state),
     memberVisitList: getAllMemberVisits(state),
     memberVisitState: state.accessControl.memberVisit,
     memberNextBookingOrPrivateBooking:

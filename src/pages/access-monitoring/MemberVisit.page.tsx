@@ -17,7 +17,7 @@ import {
   getMemberNextBookingOrPrivateBooking,
   getMemberVisit,
   getMemberVisitIsLoading,
-  getUserPhotoUpdates,
+  getUserPhotoUpdatesList,
 } from '#libs/access-control/selectors';
 
 // Actions
@@ -474,7 +474,7 @@ const mapStateToProps = (state: RootState, props: WithQueryParamsProps) => {
     establishmentGroups: getAssociatedEstablishmentGroup(state),
     establishmentsData: getAllEstablishmentsDict(state),
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
-    memberPhotoHistory: getUserPhotoUpdates(state),
+    memberPhotoHistory: getUserPhotoUpdatesList(state),
     memberVisitIsLoading: getMemberVisitIsLoading(state),
     memberVisitOverride: getMemberVisit(state, memberVisitOverrideId),
     memberNextBookingOrPrivateBooking:

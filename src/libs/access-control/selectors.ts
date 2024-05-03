@@ -48,7 +48,7 @@ const getUserPhotoUpdateIds = (state: RootState) =>
 const getUserPhotoUpdateData = (state: RootState) =>
   state.accessControl.userPhotoUpdate.byId;
 
-export const getUserPhotoUpdates = createSelector(
+export const getUserPhotoUpdatesList = createSelector(
   [getUserPhotoUpdateData, getUserPhotoUpdateIds],
   (userPhotoUpdateData, userPhotoUpdateIds) => {
     return userPhotoUpdateIds

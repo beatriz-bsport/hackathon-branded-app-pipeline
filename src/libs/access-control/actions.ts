@@ -27,7 +27,11 @@ import type {
   MemberVisitREST,
   UserPhotoUpdate,
 } from './types';
-import { EntryStatus, FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
+import {
+  EntryStatus,
+  FETCH_MEMBER_VISIT_PAGE_SIZE,
+  MAX_PHOTOS_IN_HISTORY,
+} from './constants';
 
 export const globalMemberVisitActions = {
   update: createAction<MemberVisitREST>('ACCESS_CONTROL/MEMBER_VISIT/UPDATE'),
@@ -316,7 +320,7 @@ export const getUserPhotoUpdates = (
     try {
       const response = await getUserPhotoUpdatesAPI({
         member: memberId,
-        page_size: 6,
+        page_size: MAX_PHOTOS_IN_HISTORY,
       });
       dispatch(getUserPhotoUpdatesActions.success(response.data));
       options?.onSuccess?.(response.data);

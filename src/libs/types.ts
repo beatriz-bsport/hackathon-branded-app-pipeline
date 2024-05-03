@@ -9,6 +9,22 @@ export type WithPagination = {
   next_page?: number;
 };
 
+/**
+ * The default params for paginated endpoints
+ * @property `page_size` The number of items to retrieve in 1 page. If not provided the default viewset number will be used.
+ * @property `page` The page to fetch. If not provided should fallback to page 1.
+ * @example
+ * export type FetchLibItemsFilterParams = PaginationFilterParams & { libProperty: string };
+ * export const fetchLibItems = (params: FetchLibItemsFilterParams) => {
+ *   // ...
+ *   const result = await fetchLibItemsAPI({ ...params, page: params?.page ?? 1 })
+ * };
+ */
+export type PaginationFilterParams = {
+  page_size?: number;
+  page?: number;
+};
+
 export type ModelReducerI<M = unknown> = {
   byId: { [key: string]: M };
   /**

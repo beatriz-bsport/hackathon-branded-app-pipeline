@@ -70,7 +70,8 @@ const FranchiseUserSearch: React.FC<Props> = ({
   const { t } = useTranslation('franchise');
   const classes = useStyles();
   const getFranchiseCompanyList = useCallback(
-    (companies: number[]) => companies.map((id) => companyById?.[id]),
+    (companies: number[]) =>
+      companies.map((id) => companyById?.[id]).filter((company) => !!company),
     [companyById],
   );
 

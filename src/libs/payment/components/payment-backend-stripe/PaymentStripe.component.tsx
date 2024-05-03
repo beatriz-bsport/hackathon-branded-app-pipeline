@@ -25,7 +25,7 @@ import type { OptionCallback } from '#state/types';
 import type { Basket } from '#libs/checkout/types';
 import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import { TermsAndConditionType } from '#libs/payment/types';
+import { TermsAndConditionType, type StripeInit } from '#libs/payment/types';
 
 import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
@@ -53,7 +53,7 @@ import {
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
 } from '#libs/payment/api';
 
-const stripePromise = loadStripe(getStripePkKey());
+const fallbackStripePromise = loadStripe(getStripePkKey());
 
 const SAVE_FOR_LATER_OFF_SESSION = 'off_session';
 
@@ -118,6 +118,7 @@ type PaymentStripeProps = {
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void;
   useInternalAccount?: (amount: number) => void;
+  stripePromise?: StripeInit;
 };
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
@@ -203,6 +204,7 @@ const PaymentStripe: React.FC<
       updateMemberBillingGroup,
       updatePriceCts,
       useInternalAccount,
+      stripePromise,
     },
     ref,
   ) => {
@@ -404,7 +406,10 @@ const PaymentStripe: React.FC<
           <CircularProgress />
         ) : (
           <div className={classes.innerContainer}>
-            <Elements options={elementOptions} stripe={stripePromise}>
+            <Elements
+              options={elementOptions}
+              stripe={stripePromise ?? fallbackStripePromise}
+            >
               <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
                 {(hasAddPaymentMethodPermission) => (
                   <StripePaymentMethodForm

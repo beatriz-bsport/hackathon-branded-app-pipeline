@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { loadStripe } from '@stripe/stripe-js';
 import isNil from 'lodash/isNil';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
@@ -37,7 +38,7 @@ import { fetchCompanyTheme } from '#libs/theme/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { getBasket, getOffersListFromBasket } from '#libs/checkout/selectors';
 import { OptionCallback } from '../../state/types';
-import { PaymentMethod } from '#libs/payment/types';
+import { PaymentMethod, type StripeInit } from '#libs/payment/types';
 import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import { Basket, PrepaidLine } from '#libs/checkout/types';
@@ -127,6 +128,7 @@ type State = {
   isEstablishmentBillingGroupSelected: boolean;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   hideEstablishmentBillingGroupSelector: boolean;
+  stripePromise: StripeInit | null;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -140,6 +142,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       isEstablishmentBillingGroupSelected: true,
       selectedEstablishmentBillingGroup: null,
       hideEstablishmentBillingGroupSelector: false,
+      stripePromise: null,
     };
   }
 
@@ -176,7 +179,10 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
                 params: { company: basket.company },
               });
             }
-            this.setState({ theme });
+            this.setState({
+              theme,
+              stripePromise: loadStripe(theme.stripe_pk_key),
+            });
           },
         });
 
@@ -560,6 +566,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.setSelectedEstablishmentBillingGroup
             }
             stripeId={this.state.theme.stripe_id}
+            stripePromise={this.state.stripePromise}
             updateMemberBillingGroup={this.updateMemberBillingGroup}
             useInternalAccount={this.props.useInternalAccount}
             validateUnpaid={this.validateUnpaid}

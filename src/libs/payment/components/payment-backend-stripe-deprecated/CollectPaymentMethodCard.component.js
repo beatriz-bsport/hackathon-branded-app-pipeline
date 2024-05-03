@@ -34,8 +34,9 @@ import StripeErrorCode from './StripeErrorCode.component';
 import type { BillingDetails } from '../../../marketplace/types';
 import type { FeatureList } from '#libs/company/types';
 import type { StripeReader } from '#libs/terminal/types';
+import type { StripeInit } from '#libs/payment/types';
 
-const stripePromise = loadStripe(getStripePkKey());
+const fallbackStripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   addViaTerminal?: boolean,
@@ -404,16 +405,18 @@ const CollectPaymentMethodCompose = compose(
   withStyles(styles),
 )(CollectPaymentMethod);
 
-export default (props: Props) => (
-  <Elements stripe={stripePromise}>
-    <ElementsConsumer>
-      {({ stripe, elements }) => (
-        <CollectPaymentMethodCompose
-          elements={elements}
-          stripe={stripe}
-          {...props}
-        />
-      )}
-    </ElementsConsumer>
-  </Elements>
-);
+export default (props: Props & { stripePromise?: StripeInit }) => {
+  return (
+    <Elements stripe={props.stripePromise ?? fallbackStripePromise}>
+      <ElementsConsumer>
+        {({ stripe, elements }) => (
+          <CollectPaymentMethodCompose
+            elements={elements}
+            stripe={stripe}
+            {...props}
+          />
+        )}
+      </ElementsConsumer>
+    </Elements>
+  );
+};

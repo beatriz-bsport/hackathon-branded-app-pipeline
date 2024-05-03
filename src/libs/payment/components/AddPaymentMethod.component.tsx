@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
 import type { StripeReader } from '#libs/terminal/types';
+import type { StripeInit } from '#libs/payment/types';
 import CollectPaymentMethod from './CollectPaymentMethod.component';
 import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
 
@@ -21,6 +22,7 @@ type Props = {
   onSuccess?: () => void;
   refreshSavedPaymentMethodList?: () => void;
   requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
+  stripePromise?: StripeInit;
 };
 
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -39,6 +41,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
   onSuccess,
   refreshSavedPaymentMethodList,
   requestSetupIntentSecret,
+  stripePromise,
 }) => {
   const { t } = useTranslation('payment');
 
@@ -70,6 +73,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
         paymentMethodType={paymentMethodType || paymentMethodTypeControlled}
         refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
         requestSetupIntentSecret={requestSetupIntentSecret}
+        stripePromise={stripePromise}
         stripeReaders={stripeReaders || []}
         variant="div"
       />

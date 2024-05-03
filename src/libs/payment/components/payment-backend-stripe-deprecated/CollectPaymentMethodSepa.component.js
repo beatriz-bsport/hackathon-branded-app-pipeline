@@ -21,6 +21,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { loadStripe } from '@stripe/stripe-js';
+import type { StripeInit } from '#libs/payment/types';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
@@ -29,7 +30,7 @@ import { getStripePkKey } from '../../../theme/selectors';
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.sepa_debit;
 
-const stripePromise = loadStripe(getStripePkKey());
+const fallbackStripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   fullScreen: boolean,
@@ -471,8 +472,8 @@ const CollectPaymentMethodCompose = compose(
   withStyles(styles),
 )(CollectPaymentMethod);
 
-export default (props: Props) => (
-  <Elements stripe={stripePromise}>
+export default (props: Props & { stripePromise?: StripeInit }) => (
+  <Elements stripe={props.stripePromise ?? fallbackStripePromise}>
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CollectPaymentMethodCompose

@@ -33,6 +33,7 @@ import { TextField } from '#components/forms';
 import { getStripePkKey } from '../../../theme/selectors';
 import StripeErrorCode from './StripeErrorCode.component';
 import LocaleSelector from '#components/input/LocaleSelector.component';
+import type { StripeInit } from '#libs/payment/types';
 
 const Wrapper = ({
   children,
@@ -390,7 +391,7 @@ const CollectPaymentMethodBacsDebit = ({
   );
 };
 
-const stripePromise = loadStripe(getStripePkKey());
+const fallbackStripePromise = loadStripe(getStripePkKey());
 
 const useStyles = makeStyles((theme) => ({
   actions: {
@@ -427,8 +428,12 @@ const CollectPaymentMethodCompose = compose<any, Omit<Props, 't'>>(
   withTranslation(['payment']),
 )(CollectPaymentMethodBacsDebit);
 
-export default (props: Omit<Props, 't' | 'stripe' | 'elements'>) => (
-  <Elements stripe={stripePromise}>
+export default (
+  props: Omit<Props, 't' | 'stripe' | 'elements'> & {
+    stripePromise?: StripeInit;
+  },
+) => (
+  <Elements stripe={props.stripePromise ?? fallbackStripePromise}>
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CollectPaymentMethodCompose

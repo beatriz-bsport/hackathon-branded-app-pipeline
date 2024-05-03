@@ -9,6 +9,7 @@ import {
   Theme,
 } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { loadStripe } from '@stripe/stripe-js';
 
 import type { RootState } from '../../reducers';
 // @ts-expect-error
@@ -19,6 +20,7 @@ import { fetchMembership as fetchMembershipAction } from '#libs/membership/actio
 import { fetchPaymentMethodList } from '#libs/payment/actions';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import type { StripeInit } from '#libs/payment/types';
 import {
   getCompanyCountry,
   getStripeRegion,
@@ -37,7 +39,11 @@ type RouterProps = {
   company: number;
 };
 
-type State = { paymentMethodType: string; isThemeLoading: boolean };
+type State = {
+  paymentMethodType: string;
+  isThemeLoading: boolean;
+  stripePromise: StripeInit | null;
+};
 
 type Props = RouterProps &
   OwnProps &
@@ -50,13 +56,17 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
     this.state = {
       isThemeLoading: true,
       paymentMethodType: 'card',
+      stripePromise: null,
     };
   }
 
   componentDidMount() {
     this.props.fetchCompanyTheme(this.props.company, {
-      onSuccess: () => {
-        this.setState({ isThemeLoading: false });
+      onSuccess: (theme) => {
+        this.setState({
+          isThemeLoading: false,
+          stripePromise: loadStripe(theme.stripe_pk_key),
+        });
       },
     });
 
@@ -123,6 +133,7 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
           requestSetupIntentSecret={this.requestSetupIntentSecret}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
           sepaDefaultName={this.props.member ? this.props.member.name : ''}
+          stripePromise={this.state.stripePromise}
         />
       </div>
     );

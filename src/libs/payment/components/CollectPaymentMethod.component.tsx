@@ -8,6 +8,7 @@ import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/Collec
 // @ts-expect-error
 import CollectPaymentMethodSepa from './payment-backend-stripe-deprecated/CollectPaymentMethodSepa.component';
 import type { StripeReader } from '#libs/terminal/types';
+import type { StripeInit } from '#libs/payment/types';
 
 type Props = {
   refreshSavedPaymentMethodList?: () => void;
@@ -25,6 +26,7 @@ type Props = {
   fullScreen?: boolean;
   companyId?: number;
   cardBillingDetailsMandatory: boolean;
+  stripePromise?: StripeInit;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -62,6 +64,7 @@ export const CollectPaymentMethod = (props: Props) => {
         onClose={props.onClose}
         onSuccess={onSuccessCard}
         requestSetupIntentSecret={props.requestSetupIntentSecret}
+        stripePromise={props.stripePromise}
         stripeReaders={props.stripeReaders}
         variant={props.variant}
       />
@@ -77,6 +80,7 @@ export const CollectPaymentMethod = (props: Props) => {
         onClose={props.onClose}
         onSuccess={onSuccessDebit}
         requestSetupIntentSecret={props.requestSetupIntentSecret}
+        stripePromise={props.stripePromise}
         userDefaultEmail={props.defaultEmail}
         userDefaultName={props.defaultName}
         variant={props.variant}
@@ -95,6 +99,7 @@ export const CollectPaymentMethod = (props: Props) => {
         onClose={props.onClose}
         onSuccess={onSuccessDebit}
         requestSetupIntentSecret={props.requestSetupIntentSecret}
+        stripePromise={props.stripePromise}
         variant={props.variant}
       />
     );

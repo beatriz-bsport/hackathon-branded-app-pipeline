@@ -31,6 +31,8 @@ import type {
   SubshopTemplateCreate,
   SubshopTemplate,
   SubshopTemplateUpdate,
+  ShopItemTemplate,
+  ShopItemTemplateFilterParams,
 } from './types';
 import type { PaginationFilterParams } from '#libs/types';
 
@@ -418,4 +420,40 @@ export const updateSubshopTemplate = (data: SubshopTemplateUpdate) => {
  */
 export const deleteSubshopTemplate = (id: number) => {
   return deleteAuth(`${API_V1_URI}/shop/subshoptemplate/${id}/`);
+};
+
+/**
+ * Fetch the list of existing shop item templates
+ * @param params An object containing the pagination and required property `subshops` {@link ShopItemTemplateFilterParams}
+ */
+export const fetchShopItemTemplateList = (
+  params: ShopItemTemplateFilterParams,
+) => {
+  return getAuth<PaginatedResponse<ShopItemTemplate>>(
+    `${API_V1_URI}/shop/shopitemtemplate/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Creates a new shop item template. Creates shop item variants template if variant properties are detected (async task).
+ * @param data Form data containing shop item properties and required `sub_shop_template` in addition to `company_ids[n]`
+ */
+export const createShopItemTemplate = (data: FormData) => {
+  return postAuth(`${API_V1_URI}/shop/shopitemtemplate/`, data);
+};
+
+/**
+ * Updates an existing shop item template. If shop item variants templates exist, they will also be updated (async task).
+ * @param data Form data containing the updated fields of the shop item template
+ */
+export const updateShopItemTemplate = (id: number, formData: FormData) => {
+  return patchAuth(`${API_V1_URI}/shop/shopitemtemplate/${id}/`, formData);
+};
+
+/**
+ * Deletes an existing shop item template
+ * @param id The ID of the shop item template to delete
+ */
+export const deleteShopItemTemplate = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/shop/shopitemtemplate/${id}/`);
 };

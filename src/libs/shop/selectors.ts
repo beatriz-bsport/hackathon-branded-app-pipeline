@@ -269,6 +269,44 @@ export const getSubshopList = createSelector(
   },
 );
 
+/** Retrieves the state of subshop template for MA listing */
+export const getSubshopTemplateState = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate;
+
+const getSubshopTemplateAllIds = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.allIds;
+
+const getSubshopTemplateById = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.byId;
+
+/**
+ * Retrieves the list of all subshop templates for MA listing
+ */
+export const getSubshopTemplateList = createSelector(
+  [getSubshopTemplateAllIds, getSubshopTemplateById],
+  (subshopTemplateAllIds, subshopTemplateById) =>
+    (subshopTemplateAllIds ?? [])
+      .map((subshopTemplateId) => subshopTemplateById[subshopTemplateId])
+      .filter((subshopTemplate) => !!subshopTemplate),
+);
+
+/** Returns the loading state when retrieving all subshop templates */
+export const getSubshopTemplateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.loading;
+
+/** Returns the loading state when creating a subshop template */
+export const getSubshopTemplateCreateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.create.loading;
+
+/** Returns the loading state when updating a subshop template */
+export const getSubshopTemplateUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.updateSubshopTemplate
+    .loading;
+
+/** Returns the loading state when deleting a subshop template */
+export const getSubshopTemplateDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.subshopTemplate.delete.loading;
+
 /** Returns the loading state when retrieving all subshop */
 export const getSubshopLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.subshop.loading;

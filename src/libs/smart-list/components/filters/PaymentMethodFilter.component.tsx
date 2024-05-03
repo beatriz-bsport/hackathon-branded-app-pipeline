@@ -15,6 +15,7 @@ import { DateTime } from 'luxon';
 import { Theme } from '@material-ui/core';
 import { DATE_BETWEEN, DATE_BEFORE, DATE_AFTER } from '../constants';
 import CalendarPicker from '../CalendarPicker.component';
+import Config from '#src/config';
 
 type Props = {
   filter_data: any;
@@ -32,6 +33,8 @@ export class PaymentMethodFilter extends Component<Props> {
         date: DateTime.now().toISODate(),
         date_second: DateTime.now().toISODate(),
         date_filter_type: 0,
+        duration: 0,
+        duration_second: 0,
       });
     }
   }
@@ -79,8 +82,11 @@ export class PaymentMethodFilter extends Component<Props> {
             <CalendarPicker
               // @ts-expect-error
               blockValidateOnClickAway
-              hideDurationTab
               filter_data={filter_data}
+              // waiting for stripe migration to be done to enable this feature on prod
+              hideDurationTab={
+                Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+              }
               onChange={onChange}
               overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
             />

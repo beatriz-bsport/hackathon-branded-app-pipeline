@@ -1,7 +1,8 @@
 export const SHOPITEM_PER_PAGE = 10;
 export const SHOP_ITEM_VARIANTS_PAGE_SIZE = 15;
 export const SHOP_SUPPLIER_PAGE_SIZE = 15;
-/** TODO temp param for Retail MVP */
+export const SHOP_ITEM_TEMPLATE_PAGE_SIZE = 15;
+/** Temporary param for Retail MVP */
 export const FRANCHISE_SUBSHOP_TEMPLATE_PAGE_SIZE = 50;
 
 /**

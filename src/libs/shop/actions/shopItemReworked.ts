@@ -14,6 +14,10 @@ import {
   createShopItemProvision as createShopItemProvisionAPI,
   duplicateShopItem as duplicateShopItemAPI,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAPI,
+  fetchShopItemTemplateList as fetchShopItemTemplateListAPI,
+  createShopItemTemplate as createShopItemTemplateAPI,
+  updateShopItemTemplate as updateShopItemTemplateAPI,
+  deleteShopItemTemplate as deleteShopItemTemplateAPI,
 } from '../api';
 
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
@@ -36,8 +40,13 @@ import type {
   ProvisionBulkCreate,
   ProvisionCreate,
   ShopItemVariantCombination,
+  ShopItemTemplate,
+  ShopItemTemplateFilterParams,
 } from '../types';
-import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
+import {
+  SHOP_ITEM_VARIANTS_PAGE_SIZE,
+  SHOP_ITEM_TEMPLATE_PAGE_SIZE,
+} from '#libs/shop/constants';
 
 export const fetchShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
@@ -619,6 +628,173 @@ export const fetchShopItemVariantCombinationList = (
       options?.onError?.();
     } finally {
       dispatch(fetchShopItemVariantCombinationListActions.isLoading(false));
+    }
+  };
+};
+
+export const fetchShopItemTemplateListActions = {
+  isLoading: createAction<{ subshopTemplateId: number; isLoading?: boolean }>(
+    'SHOP_ITEM_TEMPLATE/LIST/LOADING',
+  ),
+  error: createAction<{ subshopTemplateId: number; error: Error | null }>(
+    'SHOP_ITEM_TEMPLATE/LIST/ERROR',
+  ),
+  success: createAction<{
+    subshopTemplateId: number;
+    data: PaginatedResponse<ShopItemTemplate>;
+  }>('SHOP_ITEM_TEMPLATE/LIST/SUCCESS'),
+};
+
+/**
+ * Fetch the list of existing shop item templates
+ * @param params An object containing the pagination and required property `subshops` {@link ShopItemTemplateFilterParams}
+ */
+export const fetchShopItemTemplateList = (
+  params: ShopItemTemplateFilterParams,
+  options?: OptionCallback<PaginatedResponse<ShopItemTemplate>>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        fetchShopItemTemplateListActions.isLoading({
+          subshopTemplateId: params.sub_shop_template,
+          isLoading: true,
+        }),
+      );
+      dispatch(
+        fetchShopItemTemplateListActions.error({
+          subshopTemplateId: params.sub_shop_template,
+          error: null,
+        }),
+      );
+
+      const response = await fetchShopItemTemplateListAPI({
+        ...params,
+        page_size: SHOP_ITEM_TEMPLATE_PAGE_SIZE,
+        page: params.page ?? 1,
+      });
+
+      dispatch(
+        fetchShopItemTemplateListActions.success({
+          subshopTemplateId: params.sub_shop_template,
+          data: response.data,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(
+        fetchShopItemTemplateListActions.error({
+          subshopTemplateId: params.sub_shop_template,
+          error,
+        }),
+      );
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(
+        fetchShopItemTemplateListActions.isLoading({
+          subshopTemplateId: params.sub_shop_template,
+          isLoading: false,
+        }),
+      );
+    }
+  };
+};
+
+export const createShopItemTemplateActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/CREATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/CREATE/ERROR'),
+};
+
+/**
+ * Creates a new shop item template. Creates shop item variants template if variant properties are detected (async task).
+ * @param data Form data containing shop item properties and required `sub_shop_template` in addition to `company_ids[n]`
+ */
+export const createShopItemTemplate = (
+  data: FormData,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createShopItemTemplateActions.isLoading(true));
+      dispatch(createShopItemTemplateActions.error(null));
+
+      await createShopItemTemplateAPI(data);
+
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(createShopItemTemplateActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(createShopItemTemplateActions.isLoading(false));
+    }
+  };
+};
+
+export const updateShopItemTemplateActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/UPDATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/UPDATE/ERROR'),
+};
+
+/**
+ * Updates an existing shop item template. If shop item variants templates exist, they will also be updated (async task).
+ * @param data Form data containing the updated fields of the shop item template
+ */
+export const updateShopItemTemplate = ({
+  formData,
+  id,
+  options,
+}: {
+  formData: FormData;
+  id: number;
+  options?: OptionCallback;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(updateShopItemTemplateActions.isLoading(true));
+      dispatch(updateShopItemTemplateActions.error(null));
+
+      await updateShopItemTemplateAPI(id, formData);
+
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(updateShopItemTemplateActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(updateShopItemTemplateActions.isLoading(false));
+    }
+  };
+};
+
+export const deleteShopItemTemplateActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/DELETE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/DELETE/ERROR'),
+};
+
+/**
+ * Deletes an existing shop item template
+ * @param id The ID of the shop item template to delete
+ */
+export const deleteShopItemTemplate = (
+  id: number,
+  options?: OptionCallback<number>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(deleteShopItemTemplateActions.isLoading(true));
+      dispatch(deleteShopItemTemplateActions.error(null));
+
+      await deleteShopItemTemplateAPI(id);
+
+      options?.onSuccess?.(id);
+    } catch (error) {
+      dispatch(deleteShopItemTemplateActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(deleteShopItemTemplateActions.isLoading(false));
     }
   };
 };

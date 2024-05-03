@@ -116,7 +116,10 @@ const ContentWithAppBar: React.FC<Props> = memo(
     /** If tabsData is null or empty, there will be no appbar */
     if (isTabsDataNullOrEmpty) {
       return (
-        <div ref={fieldRef} className={classes.container}>
+        <div
+          ref={fieldRef}
+          className={classNames(classes.container, customClasses?.container)}
+        >
           <div className={classes.insideContent}>{children}</div>
         </div>
       );

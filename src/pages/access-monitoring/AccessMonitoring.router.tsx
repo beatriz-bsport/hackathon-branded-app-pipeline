@@ -133,20 +133,25 @@ const AccessMonitoringRouter: React.FC<Props> = ({
   const hideAppBar = tabsData.length <= 1;
 
   return (
-    <ContentWithAppBar
-      customClasses={{ content: classes.relative }}
-      onChange={onChange}
-      pageHeight={pageHeight}
-      tab={tab}
-      tabsData={hideAppBar ? Immutable([]) : tabsData}
-    >
-      <div className={classes.container}>
-        <AccessMonitoringSwitcher
-          location={location}
-          permissions={permissions}
-        />
-      </div>
-    </ContentWithAppBar>
+    <div className={classes.fullHeightRelative}>
+      <ContentWithAppBar
+        customClasses={{
+          content: classes.fullHeightRelative,
+          container: classes.fullHeightRelative,
+        }}
+        onChange={onChange}
+        pageHeight={pageHeight}
+        tab={tab}
+        tabsData={hideAppBar ? Immutable([]) : tabsData}
+      >
+        <div className={classes.container}>
+          <AccessMonitoringSwitcher
+            location={location}
+            permissions={permissions}
+          />
+        </div>
+      </ContentWithAppBar>
+    </div>
   );
 };
 
@@ -157,8 +162,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
   },
-  relative: {
+  fullHeightRelative: {
     position: 'relative',
+    height: '100%',
   },
 }));
 

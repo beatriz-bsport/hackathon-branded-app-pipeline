@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withHandlers, compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { withRouter } from 'react-router-dom';
 import moment from 'moment-timezone';
@@ -35,6 +36,7 @@ import {
 } from '#libs/establishment/selectors';
 import { withEstablishment } from '#libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import type { StripeInit } from '#libs/payment/types';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),
@@ -73,6 +75,7 @@ type State = {
   companyId?: number,
   theme: CompanyTheme,
   hideEstablishmentBillingGroupSelector: boolean,
+  stripePromise: StripeInit | null,
 };
 
 export class ContractPayment extends React.Component<Props, State> {
@@ -80,6 +83,7 @@ export class ContractPayment extends React.Component<Props, State> {
     companyId: null,
     theme: null,
     hideEstablishmentBillingGroupSelector: false,
+    stripePromise: null,
   };
 
   componentDidMount() {
@@ -95,6 +99,7 @@ export class ContractPayment extends React.Component<Props, State> {
             }
             this.setState({
               theme,
+              stripePromise: loadStripe(theme.stripe_pk_key),
             });
           },
         });
@@ -191,6 +196,7 @@ export class ContractPayment extends React.Component<Props, State> {
           }}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
+          stripePromise={this.state.stripePromise}
           updateMemberBillingGroup={this.props.updateMemberBillingGroup}
         />
       </div>

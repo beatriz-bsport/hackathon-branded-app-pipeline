@@ -15,6 +15,7 @@ import { PaymentMethod } from '../../types';
 import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
 import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import type { StripeInit } from '#libs/payment/types';
 
 type Props = {
   companyId?: number;
@@ -39,6 +40,7 @@ type Props = {
   setBillingDetails?: React.Dispatch<
     React.SetStateAction<MarketplacePaymentMethodBillingDetails>
   >;
+  stripePromise?: StripeInit;
 };
 
 export const PaymentMethodList = ({
@@ -62,6 +64,7 @@ export const PaymentMethodList = ({
   areInitialBillingDetailsNecessary,
   billingDetails,
   setBillingDetails,
+  stripePromise,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
@@ -144,6 +147,7 @@ export const PaymentMethodList = ({
           paymentMethodType={paymentMethodType}
           refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
           requestSetupIntentSecret={requestSetupIntentSecret}
+          stripePromise={stripePromise}
         />
       )}
     </div>

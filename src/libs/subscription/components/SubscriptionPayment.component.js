@@ -62,6 +62,7 @@ import {
 } from '../../marketplace/types';
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 import EstablishmentBillingGroupSelector from '../../establishment/components/EstablishmentBillingGroupSelector';
+import type { StripeInit } from '#libs/payment/types';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
@@ -118,6 +119,7 @@ type Props = {
   cardBillingDetailsMandatory: boolean,
   defaultBillingGroup?: EstablishmentBillingGroup,
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void,
+  stripePromise?: StripeInit,
 };
 
 type State = {
@@ -473,6 +475,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       withGeneralConditions,
       showContractTermsCheckbox,
       openContractTermsDialog,
+      stripePromise,
     } = this.props;
 
     const areInitialBillingDetailsNecessary =
@@ -742,6 +745,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     }}
                     snackbarErrorMsg={this.props.snackbarErrorMsg}
                     snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                    stripePromise={stripePromise}
                   />
                 )}
             </div>

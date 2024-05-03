@@ -8,12 +8,13 @@ import {
   approvePhotoUpdateActions,
   checkMemberInEstablishmentActions,
   getAccessControlPolicyActions,
-  retrieveMemberNextBookingOrPrivateBookingActions,
   getMemberVisitListActions,
   getUserPhotoUpdatesActions,
   globalMemberVisitActions,
   patchAccessControlPolicyActions,
   refreshMemberVisitAccessStatusActions,
+  retrieveMemberNextBookingOrPrivateBookingActions,
+  retrieveMemberVisitActions,
   setMemberVisitEntryStatusActions,
 } from './actions';
 import { FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
@@ -192,6 +193,18 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
           },
           { deep: true },
         );
+    },
+    [retrieveMemberVisitActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['memberVisit', 'error'], payload);
+    },
+    [retrieveMemberVisitActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['memberVisit', 'loading'], payload);
     },
     [getAccessControlPolicyActions.error.toString()]: (
       state,

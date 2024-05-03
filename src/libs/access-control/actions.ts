@@ -4,15 +4,16 @@ import { createAction } from 'redux-actions';
 import { displayAccessControlSnackbar } from '#libs/snackbar/actions';
 
 import {
-  checkMemberInEstablishment as checkMemberInEstablishmentAPI,
-  setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
-  refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAPI,
-  getMemberVisitList as getMemberVisitListAPI,
-  getAccessControlPolicy as getAccessControlPolicyAPI,
-  patchAccessControlPolicy as patchAccessControlPolicyAPI,
-  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAPI,
-  getUserPhotoUpdates as getUserPhotoUpdatesAPI,
   approveUserPhotoUpdate as approvePhotoUpdateAPI,
+  checkMemberInEstablishment as checkMemberInEstablishmentAPI,
+  getAccessControlPolicy as getAccessControlPolicyAPI,
+  getMemberVisitList as getMemberVisitListAPI,
+  getUserPhotoUpdates as getUserPhotoUpdatesAPI,
+  patchAccessControlPolicy as patchAccessControlPolicyAPI,
+  refreshMemberVisitAccessStatus as refreshMemberVisitAccessStatusAPI,
+  retrieveMemberNextBookingOrPrivateBooking as retrieveMemberNextBookingOrPrivateBookingAPI,
+  retrieveMemberVisit as retrieveMemberVisitAPI,
+  setMemberVisitEntryStatus as setMemberVisitEntryStatusAPI,
 } from './api';
 
 import type {
@@ -197,6 +198,34 @@ export const getMemberVisitList = (
       options?.onError?.(error);
     }
     dispatch(getMemberVisitListActions.loading(false));
+  };
+};
+
+export const retrieveMemberVisitActions = {
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/RETRIEVE_MEMBER_VISIT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/RETRIEVE_MEMBER_VISIT/ERROR',
+  ),
+};
+
+export const retrieveMemberVisit = (
+  memberVisitId: number,
+  options?: OptionCallback<MemberVisitREST>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(retrieveMemberVisitActions.loading(true));
+    dispatch(retrieveMemberVisitActions.error(null));
+    try {
+      const response = await retrieveMemberVisitAPI(memberVisitId);
+      dispatch(globalMemberVisitActions.update(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(retrieveMemberVisitActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(retrieveMemberVisitActions.loading(false));
   };
 };
 

@@ -33,20 +33,22 @@ const MemberPhotoHistoryModal: React.FC<Props> = ({
       <DialogTitle>{t(`modals.memberPhotoHistory.title`)}</DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <div className={classes.photoContainer}>
-          {memberPhotoHistory.map(({ previous_photo, datetime_created }) => (
-            <div className={classes.photoBox} key={datetime_created}>
-              <img
-                alt={previous_photo}
-                className={classes.photo}
-                src={previous_photo}
-              />
-              <Typography className={classes.photoLabel}>
-                {t('modals.memberPhotoHistory.uploadedOn', {
-                  date: moment(datetime_created).format('L'),
-                })}
-              </Typography>
-            </div>
-          ))}
+          {(memberPhotoHistory ?? []).map(
+            ({ previous_photo, datetime_created }) => (
+              <div className={classes.photoBox} key={datetime_created}>
+                <img
+                  alt={previous_photo}
+                  className={classes.photo}
+                  src={previous_photo}
+                />
+                <Typography className={classes.photoLabel}>
+                  {t('modals.memberPhotoHistory.uploadedOn', {
+                    date: moment(datetime_created).format('L'),
+                  })}
+                </Typography>
+              </div>
+            ),
+          )}
         </div>
       </DialogContent>
       <DialogActions>

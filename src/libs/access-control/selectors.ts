@@ -51,8 +51,10 @@ const getUserPhotoUpdateData = (state: RootState) =>
 export const getUserPhotoUpdatesList = createSelector(
   [getUserPhotoUpdateData, getUserPhotoUpdateIds],
   (userPhotoUpdateData, userPhotoUpdateIds) => {
-    return userPhotoUpdateIds
-      ?.map((id) => userPhotoUpdateData?.[id])
-      ?.filter((userPhotoUpdate) => !!userPhotoUpdate);
+    return (
+      userPhotoUpdateIds
+        ?.map((id) => userPhotoUpdateData?.[id])
+        ?.filter((userPhotoUpdate) => !!userPhotoUpdate) ?? []
+    );
   },
 );

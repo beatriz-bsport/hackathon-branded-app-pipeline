@@ -1623,9 +1623,16 @@
         },
         "unsubscriber": {
             "error": "Errore durante l'annullamento dell'iscrizione",
-            "success": "Sei stato cancellato",
+            "success": {
+                "text": "L'iscrizione è stata annullata con successo. Non riceverai più newsletter da {{- companyName}}.",
+                "title": "Hai annullato l'iscrizione."
+            },
             "explain": "Vuoi annullare l'iscrizione a tutte le newsletter del tuo club?",
-            "doUnsubscribe": "Disiscrivimi"
+            "doUnsubscribe": "Disiscrivimi",
+            "explainAction": {
+                "possessive": "Sei sicuro di volerti cancellare dalle newsletter di {{- companyName}}?",
+                "normal": "Sei sicuro di volerti cancellare dalle newsletter di {{- companyName}}?"
+            }
         },
         "actions": {
             "goToCalendar": "Vedi il calendario completo",
@@ -1916,12 +1923,12 @@
             },
             "mySubscriptions": {
                 "consumerSubscriptionCard": {
-                    "recurrenceLabelEvery": "{{ price }} ogni {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelEvery": "ogni {{ recurrence }} {{ interval }}",
                     "buttonsLabel": {
                         "seeDetails": "Vedi dettagli",
                         "addPaymentMethod": "Aggiungi un metodo di pagamento"
                     },
-                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+                    "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Pagamento fallito",
                         "missingPaymentMethod": "Metodo di pagamento mancante",
@@ -1966,7 +1973,8 @@
                     "billingHistory": "Cronologia di contabilizzazione",
                     "failedPaymentReasonWithRetry": "Motivo: {{- note }}. Il pagamento verrà ritentato il {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Poi {{ price }} ogni {{ recurrence }} {{ interval }} dopo {{- date }}",
-                    "beforeRenewalContractPricePer": "Poi {{ price }}/{{ interval }} dopo {{- date }}"
+                    "beforeRenewalContractPricePer": "Poi {{ price }}/{{ interval }} dopo {{- date }}",
+                    "loadMore": "Carica di più"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ottieni un abbonamento ricorrente",
@@ -1994,6 +2002,32 @@
                 "placeholder": {
                     "expired": "Non ci sono ancora abbonamenti ricorrenti scaduti.",
                     "nonExpired": "Sembra che non ci siano abbonamenti ricorrenti attivi."
+                }
+            },
+            "myInvoices": {
+                "card": {
+                    "downloadRefundedInvoice": "Scarica la ricevuta rimborsata",
+                    "downloadReceipt": "Scarica la ricevuta",
+                    "downloadOriginalInvoice": "Scarica la ricevuta originale",
+                    "downloadInvoice": "Scarica la ricevuta",
+                    "download": "Scaricata"
+                },
+                "header": {
+                    "filters": {
+                        "refunded": "Rimborsata",
+                        "paid": "Pagata",
+                        "unpaid": "Non pagata"
+                    },
+                    "buttons": {
+                        "goBack": "Indietro",
+                        "bookSession": "Prenota una sessione"
+                    },
+                    "title": "Le mie ricevute"
+                },
+                "placeholder": {
+                    "refunded": "Non ci sono ancora ricevute rimborsate.",
+                    "paid": "Non ci sono ancora ricevute pagate.",
+                    "unpaid": "Ben fatto, non hai ricevute non pagate."
                 }
             }
         }
@@ -13604,7 +13638,10 @@
         "saveChanges": "Salva modifiche",
         "none": "Nessuno",
         "numberRequired": "Questo campo deve essere un numero",
-        "positiveNumber": "Questo campo deve essere maggiore di 0."
+        "positiveNumber": "Questo campo deve essere maggiore di 0.",
+        "seeMore": "Vedi più",
+        "seeLess": "Vedi meno",
+        "discardChanges": "Scarta le modifiche"
     },
     "titles": {
         "metaActivity": {
@@ -19783,6 +19820,11 @@
             "accessStatusChangedSuccess": {
                 "message": "Tutti i problemi sono stati risolti. Lo stato di membro è aggiornato a valido.",
                 "title": "Stato del membro aggiornato"
+            },
+            "locationBlocker": {
+                "description": "Si trova in Impostazioni > Staff.",
+                "message": "Chiedi allo staff con diritti di amministrazione di assegnare una posizione all'accesso dello staff.",
+                "title": "Sede non assegnata"
             }
         },
         "memberVisitDetails": {
@@ -19819,7 +19861,7 @@
         "memberVisit": {
             "warnings": {
                 "numberOfCheckedPasses": "{{- count }} pacchetto del membro è stato controllato senza alcun risultato valido.",
-                "numberOfCheckedPasses_plural": "{{- count }} pacchetti del membro sono stati controllati senza alcun risultato valido.",
+                "numberOfCheckedPasses_plural": "{{- count }} pacchetti del membro sono stati controllati senza risultati validi.",
                 "passIncompatibleWithAppointmentsInEstablishments": "Gli appuntamenti che possono essere prenotati con il pacchetto del membro {{- passName }} non sono compatibili con il sito",
                 "passIncompatibleWithEstablishments": "Il pacchetto del membro {{- passName }} non è compatibile con il sito",
                 "passRestrictedByOffPeakSchedule": "Il pacchetto del membro {{- passName }} non consente l'ingresso in questa fascia oraria",

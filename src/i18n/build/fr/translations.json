@@ -1149,7 +1149,10 @@
         "saveChanges": "Enregistrer les modifications",
         "none": "Aucun",
         "numberRequired": "Ce champ doit être un nombre",
-        "positiveNumber": "Ce champ doit être supérieur à 0."
+        "positiveNumber": "Ce champ doit être supérieur à 0.",
+        "seeMore": "Voir plus",
+        "seeLess": "Voir moins",
+        "discardChanges": "Abandonner les modifications"
     },
     "communication": {
         "table": {
@@ -1716,7 +1719,14 @@
             "explain": "Voulez-vous vous désinscrire de toutes les newsletter de votre club ?",
             "doUnsubscribe": "Me désinscrire",
             "error": "Erreur lors de la désinscription",
-            "success": "Vous avez bien été désinscrit(e)"
+            "success": {
+                "text": "Vous vous êtes désabonné avec succès. Vous ne recevrez plus de newsletters de la part de {{- companyName}}.",
+                "title": "Vous vous êtes désabonné."
+            },
+            "explainAction": {
+                "possessive": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}}?",
+                "normal": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}}?"
+            }
         },
         "language": {
             "fr": "Français",
@@ -2019,15 +2029,16 @@
                     "billingHistory": "Historique de la facturation",
                     "failedPaymentReasonWithRetry": "Motif : {{- note }}. La tentative de paiement sera réitérée le {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Puis {{ price }} tous les {{ recurrence }}{{ interval }} après le {{- date }}",
-                    "beforeRenewalContractPricePer": "Puis {{ price }}/{{ interval }} après le {{- date }}"
+                    "beforeRenewalContractPricePer": "Puis {{ price }}/{{ interval }} après le {{- date }}",
+                    "loadMore": "En savoir plus"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Voir détails",
                         "addPaymentMethod": "Ajouter un mode de paiement"
                     },
-                    "recurrenceLabelEvery": "{{ price }} tous les {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+                    "recurrenceLabelEvery": "tous les {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Échec du paiement",
                         "missingPaymentMethod": "Mode de paiement manquant",
@@ -2061,6 +2072,28 @@
                 "placeholder": {
                     "expired": "Vous n'avez pas encore d'abonnements expirés.",
                     "nonExpired": "Il semble que vous n'ayez pas d'abonnement actif."
+                }
+            },
+            "myInvoices": {
+                "card": {
+                    "download": "Télécharger"
+                },
+                "header": {
+                    "filters": {
+                        "unpaid": "Impayée",
+                        "refunded": "Remboursée",
+                        "paid": "Payée"
+                    },
+                    "buttons": {
+                        "goBack": "Retour",
+                        "bookSession": "Réserver une séance"
+                    },
+                    "title": "Mes factures"
+                },
+                "placeholder": {
+                    "refunded": "Vous n'avez pas encore de factures remboursées.",
+                    "paid": "Vous n'avez pas encore de factures payées.",
+                    "unpaid": "Bravo, vous n'avez pas de factures impayées."
                 }
             }
         }
@@ -19546,6 +19579,11 @@
                     "message": "Le membre a été autorisé à entrer avec les avertissements existants.",
                     "title": "Membre entré"
                 }
+            },
+            "locationBlocker": {
+                "description": "Se trouve dans Paramètres > Staff.",
+                "message": "Demandez au staff ayant un rôle Admin d'assigner une localisation à l'accès staff.",
+                "title": "Pas de localisation assignée"
             }
         },
         "memberVisitDetails": {

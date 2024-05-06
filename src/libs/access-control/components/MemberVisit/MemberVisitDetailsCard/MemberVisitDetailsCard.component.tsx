@@ -9,11 +9,13 @@ import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import PersonIcon from '@material-ui/icons/Person';
 import EuroIcon from '@material-ui/icons/Euro';
 
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
 import AccessStatusChip from './AccessStatusChip.component';
 import MemberVisitDetailsCardBookingSection from './MemberVisitDetailsCardBookingSection.component';
@@ -173,13 +175,25 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
       </div>
       <div className={classes.content}>
         <div className={classes.photoContainer}>
-          <img
-            alt={member.name}
-            aria-hidden="true"
-            className={classes.photo}
-            onClick={handleOpenMemberPhotoHistoryModal}
-            src={member.photo}
-          />
+          <ConditionalWrapper
+            condition={!handleOpenMemberPhotoHistoryModal}
+            wrapper={(children) => (
+              <Tooltip
+                placement="right"
+                title={t('memberVisitDetails.noPreviousPhoto')}
+              >
+                {children}
+              </Tooltip>
+            )}
+          >
+            <img
+              alt={member.name}
+              aria-hidden="true"
+              className={classes.photo}
+              onClick={handleOpenMemberPhotoHistoryModal}
+              src={member.photo}
+            />
+          </ConditionalWrapper>
           <div className={classes.ctaButtonsContainer}>
             <ObjectLevelPermissionWrapper
               forcedBehavior="hidden"

@@ -252,7 +252,7 @@ export class SearchResults extends React.Component<Props, State> {
     const isLoadingMember = !hasLoaded && selected;
     return (
       <Grid container>
-        <Grid item className={classes.root} md={4} xs={12}>
+        <Grid item className={classes.root} md={6} xs={12}>
           <SearchBar changeLocation className={classes.mobileOnly} />
           {hasLoaded ? (
             <Button

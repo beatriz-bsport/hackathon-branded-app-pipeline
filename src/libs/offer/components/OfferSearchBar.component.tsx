@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 
 import Grid, { GridSize } from '@material-ui/core/Grid';
-import Immutable from 'seamless-immutable';
 import type { ValueType } from 'react-select/lib/types';
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-// @ts-expect-error
-import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
-import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+
+import { useTranslation } from 'react-i18next';
+import {
+  getGroupedEstablishmentOptions,
+  GroupHeading,
+} from '#libs/establishment/components/EstablishmentSelector.component';
 import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
 import SubTeacherRequestSelector from '#libs/offer/components/SubTeacherRequestSelector.component';
 
-import type { Coach } from '#libs/associated-coach/types';
 import type {
-  EstablishmentGroup,
   Establishment,
-  EstablishmentGroupSelectOption,
+  EstablishmentGroup,
+  EstablishmentGroupAPI,
 } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
 import type { CompanyTheme } from '#libs/theme/types';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import type { OfferFilter } from '#libs/offer/types';
+import type { Coach } from '#libs/associated-coach/types';
+import { SelectOption } from '#src/libs/types';
 
 export const FILTER_COACH = 0;
 export const FILTER_ESTABLISHMENT = 1;
@@ -38,18 +40,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
   theme: CompanyTheme;
-  establishmentGroupList: EstablishmentGroup[];
-  allEstablishments: Establishment[];
-  establishmentsLoading: boolean;
-  offerFilters: any;
-  coachesLoading: boolean;
-  metaActivities: MetaActivity[];
-  activitiesLoading: boolean;
   coachesSelectedInRole: Coach[];
-  coaches: Coach[];
+  establishmentGroupList: EstablishmentGroup[];
+  offerFilters: OfferFilter;
   filterVerification: boolean;
   setCalendarFilter: (
-    ev: string | number | Array<number | string>,
+    ev:
+      | { label: string; value: number }[]
+      | string
+      | number
+      | Array<number | string>,
     filterType: number,
   ) => void;
   selectRollCallFilter: (ev: React.SyntheticEvent) => void;
@@ -63,32 +63,21 @@ type Props = {
   showSubTeacherFilter: boolean;
 };
 
-const OfferSearchBar = ({
+const OfferSearchBar: React.FC<Props> = ({
   theme,
   establishmentGroupList,
-  allEstablishments,
-  establishmentsLoading,
   offerFilters,
-  coachesLoading,
-  metaActivities,
-  activitiesLoading,
-  coachesSelectedInRole,
-  coaches,
   filterVerification,
+  coachesSelectedInRole,
   setCalendarFilter,
   selectRollCallFilter,
   selectSubTeacherRequestFilter,
   selectedRollCallStatus,
   showSubTeacherFilter,
-}: Props) => {
+}) => {
   const classes = useStyles();
+  const { t } = useTranslation(['coach', 'establishment', 'metaActivity']);
 
-  const coachBaselist =
-    coachesSelectedInRole?.length > 0 ? coachesSelectedInRole : coaches;
-  const coachList = coachBaselist.map((e) => ({
-    ...e,
-    user: { name: e.name },
-  }));
   const hasMultiLocation =
     theme?.enable_multi_localization &&
     establishmentGroupList &&
@@ -101,28 +90,56 @@ const OfferSearchBar = ({
     mediumSize = 2;
   }
 
-  let filteredEstablishments: Array<Establishment> = [...allEstablishments];
+  const formatEstablishments = useCallback(
+    (establishments: Establishment[]) =>
+      getGroupedEstablishmentOptions([...establishments]),
+    [],
+  );
 
-  if (offerFilters?.establishment_group__in?.length) {
-    const filteredEstablishmentIds: Array<number> = establishmentGroupList
-      .filter((eg: EstablishmentGroup) =>
-        offerFilters.establishment_group__in.includes(eg.id),
-      )
-      .flatMap((eg: EstablishmentGroup) => eg.establishment)
-      .map((e: Establishment) => e.id);
+  const setCoachCalendarFilter = useCallback(
+    (selectedOptions: SelectOption<number>[]) => {
+      setCalendarFilter(selectedOptions, FILTER_COACH);
+    },
+    [setCalendarFilter],
+  );
 
-    const uniqueEstIds = offerFilters.establishments?.length
-      ? [
-          ...new Set(
-            filteredEstablishmentIds.concat(offerFilters.establishments),
-          ),
-        ]
-      : filteredEstablishmentIds;
+  const setEstablishmentGroupCalendarFilter = useCallback(
+    (selectedOptions: SelectOption<number>[]) => {
+      setCalendarFilter(selectedOptions, FILTER_ESTABLISHMENT_GROUP);
+    },
+    [setCalendarFilter],
+  );
 
-    filteredEstablishments = [...allEstablishments].filter((e: Establishment) =>
-      uniqueEstIds.includes(e.id),
-    );
-  }
+  const setEstablishmentCalendarFilter = useCallback(
+    (selectedOptions: SelectOption<number>[]) => {
+      setCalendarFilter(selectedOptions, FILTER_ESTABLISHMENT);
+    },
+    [setCalendarFilter],
+  );
+
+  const setActivityCalendarFilter = useCallback(
+    (selectedOptions: SelectOption<number>[]) => {
+      setCalendarFilter(selectedOptions, FILTER_ACTIVITY);
+    },
+    [setCalendarFilter],
+  );
+
+  const formatEstablishmentGroups = useCallback(
+    (establishmentGroup: Array<EstablishmentGroupAPI>) => {
+      return establishmentGroup.map((group) => {
+        return {
+          label: group.name,
+          value: group.id,
+          establishments: group.establishment,
+        };
+      });
+    },
+    [],
+  );
+
+  const allowedCoaches = useMemo(() => {
+    return coachesSelectedInRole.map((coach) => coach.id);
+  }, [coachesSelectedInRole]);
 
   return (
     <Grid container style={{ overflow: 'auto' }}>
@@ -133,11 +150,15 @@ const OfferSearchBar = ({
         md={mediumSize}
         xs={6}
       >
-        <CoachSelector
-          coaches={Immutable(coachList)}
-          isLoading={coachesLoading}
-          selectedCoaches={filterVerification && offerFilters.coaches}
-          selectOption={(ev: number) => setCalendarFilter(ev, FILTER_COACH)}
+        <ObjectSearchComponent
+          hideSelectedOptions
+          isMulti
+          additionalParams={{ disabled: false, id__in: allowedCoaches }}
+          components={{ GroupHeading }}
+          initialValues={offerFilters.coaches}
+          onChange={setCoachCalendarFilter}
+          placeholder={t('coach:coach')}
+          searchedObjectType="associated_coach"
         />
       </Grid>
       {hasMultiLocation && (
@@ -148,18 +169,14 @@ const OfferSearchBar = ({
           md={mediumSize}
           xs={6}
         >
-          <EstablishmentGroupSelector
-            closeMenuOnSelect
-            establishmentGroups={establishmentGroupList.filter(
-              (group) => group.establishment.length !== 0,
-            )}
-            selectedEstablishmentGroups={
-              filterVerification && offerFilters.establishment_group__in
-            }
-            selectOption={(ev: EstablishmentGroupSelectOption[]) => {
-              // @ts-expect-error
-              setCalendarFilter(ev, FILTER_ESTABLISHMENT_GROUP);
-            }}
+          <ObjectSearchComponent
+            hideSelectedOptions
+            isMulti
+            initialValues={offerFilters.establishment_group__in}
+            onChange={setEstablishmentGroupCalendarFilter}
+            optionsFormatter={formatEstablishmentGroups}
+            placeholder={t('establishment:localisation')}
+            searchedObjectType="establishment_group"
           />
         </Grid>
       )}
@@ -170,15 +187,16 @@ const OfferSearchBar = ({
         md={mediumSize}
         xs={6}
       >
-        <EstablishmentSelector
-          establishments={Immutable(filteredEstablishments)}
-          isLoading={establishmentsLoading}
-          selectedEstablishments={
-            filterVerification && offerFilters.establishments
-          }
-          selectOption={(ev: number) =>
-            setCalendarFilter(ev, FILTER_ESTABLISHMENT)
-          }
+        <ObjectSearchComponent
+          hideSelectedOptions
+          isMulti
+          openMenuOnClick
+          components={{ GroupHeading }}
+          initialValues={offerFilters.establishments}
+          onChange={setEstablishmentCalendarFilter}
+          optionsFormatter={formatEstablishments}
+          placeholder={t('establishment:room')}
+          searchedObjectType="establishment"
         />
       </Grid>
       <Grid
@@ -188,15 +206,17 @@ const OfferSearchBar = ({
         md={mediumSize}
         xs={6}
       >
-        <MetaActivitySelector
-          isLoading={activitiesLoading}
-          metaActivities={metaActivities.filter(
-            (ma) => ma.customer_enabled && !ma.is_workshop,
-          )}
-          selectedMetaActivities={
-            filterVerification && offerFilters.activity__in
-          }
-          selectOption={(ev: number) => setCalendarFilter(ev, FILTER_ACTIVITY)}
+        <ObjectSearchComponent
+          hideSelectedOptions
+          isMulti
+          additionalParams={{
+            is_workshop: false,
+            customer_enabled: true,
+          }}
+          initialValues={offerFilters.activity__in}
+          onChange={setActivityCalendarFilter}
+          placeholder={t('metaActivity:metaActivity')}
+          searchedObjectType="meta_activity"
         />
       </Grid>
       {theme.is_roll_call_mandatory && selectedRollCallStatus && (
@@ -209,6 +229,7 @@ const OfferSearchBar = ({
         >
           <RollCallSelector
             selectedRollCallStatus={
+              // @ts-expect-error type not matching
               filterVerification && offerFilters.roll_call_needs_validation
             }
             selectOption={selectRollCallFilter}
@@ -223,6 +244,7 @@ const OfferSearchBar = ({
           xs={6}
         >
           <SubTeacherRequestSelector
+            // @ts-expect-error type not matching
             selectedFilter={offerFilters.has_active_sub_teacher_request}
             selectSubTeacherRequestFilter={selectSubTeacherRequestFilter}
           />

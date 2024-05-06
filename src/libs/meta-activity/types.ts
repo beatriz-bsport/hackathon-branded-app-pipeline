@@ -85,7 +85,7 @@ export type MetaActivityState = ErrorAndLoading & {
 };
 
 export type MetaActivityFilter = {
-  company: number;
+  company?: number;
   coach__in?: number[];
   establishment__in?: number[];
   establishment_group__in?: number[];

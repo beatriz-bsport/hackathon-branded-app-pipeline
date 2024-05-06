@@ -36,9 +36,9 @@ export type OfferFilter = {
   establishments?: number[];
   coaches?: number[];
   levels?: number[];
-  metaActivities?: number[];
-  establishmentGroup?: number[];
   available?: boolean;
+  activity__in?: number[];
+  establishment_group__in?: number[];
 };
 
 export type OfferFilterData = {

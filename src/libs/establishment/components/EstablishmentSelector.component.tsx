@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import type { SelectComponents } from 'react-select/lib/components';
 import type { Establishment, EstablishmentSelectOption } from '../types';
 
-const GroupHeading = ({ children, ...props }) => {
+export const GroupHeading = ({ children, ...props }) => {
   const theme = useTheme();
   return (
     <components.GroupHeading {...props}>

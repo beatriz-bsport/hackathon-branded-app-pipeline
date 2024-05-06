@@ -117,8 +117,17 @@ const getSubshopById = (state: RootState) =>
 const getShopSupplierAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.allIds;
 
+const getSupplierState = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers;
+
 const getShopSupplierById = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.byId;
+
+const getShopSupplierTemplateAllIds = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.allIds;
+
+const getShopSupplierTemplateById = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.byId;
 
 /** Returns the loading state of the shop item details */
 export const getShopItemDetailLoading = (state: RootState) =>
@@ -353,6 +362,23 @@ export const getShopSupplierUpdateLoading = (state: RootState) =>
 export const getShopSupplierDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.delete.loading;
 
+/** Returns the loading state when retrieving all supplier templates */
+export const getShopSupplierTemplateListLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.loading;
+
+/** Returns the loading state when creating a supplier template */
+export const getShopSupplierTemplateCreateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.create?.loading ?? false;
+
+/** Returns the loading state when updating a supplier template */
+export const getShopSupplierTemplateUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.updateSupplierTemplate
+    ?.loading ?? false;
+
+/** Returns the loading state when deleting a supplier template */
+export const getShopSupplierTemplateDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.delete?.loading ?? false;
+
 /** Returns the existing variant combination list from a base item */
 export const getShopItemVariantCombinationList = (
   state: RootState,
@@ -393,14 +419,31 @@ export const getShopItemVariantFilterOptionList = createSelector(
  * Retrieves the list of paginated suppliers for the current company
  */
 export const getShopSupplierState = createSelector(
-  [getShopSupplierAllIds, getShopSupplierById, (state: RootState) => state],
-  (subshopAllIds, subshopById, state) => {
-    const shopSupplierState = state.shopReworked.shopItemReworked.suppliers;
+  [getShopSupplierAllIds, getShopSupplierById, getSupplierState],
+  (supplierAllIds, supplierById, shopSupplierState) => {
     return {
       page: shopSupplierState.page,
       next_page: shopSupplierState.next_page,
       count: shopSupplierState.count,
-      suppliers: subshopAllIds.map((id) => subshopById[id]),
+      suppliers: supplierAllIds.map((id) => supplierById[id]),
+    };
+  },
+);
+
+/** Retrieves the list of paginated supplier template */
+export const getShopSupplierTemplateState = createSelector(
+  [
+    getShopSupplierTemplateAllIds,
+    getShopSupplierTemplateById,
+    (state: RootState) => state,
+  ],
+  (supplierTemplateAllIds, supplierTemplateById, state) => {
+    const shopSupplierState = state.shopReworked.shopTemplates.supplierTemplate;
+    return {
+      page: shopSupplierState.page,
+      next_page: shopSupplierState.next_page,
+      count: shopSupplierState.count,
+      suppliers: supplierTemplateAllIds.map((id) => supplierTemplateById[id]),
     };
   },
 );

@@ -242,6 +242,7 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
                   {t('memberVisitDetails.actions.seePreviousImages')}
                 </Button>
               }
+              className={classes.alert}
               severity="warning"
               variant="outlined"
             >
@@ -333,6 +334,10 @@ const useStyles = makeStyles<
   passInfo: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  alert: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   alertTitle: {
     fontWeight: 500,

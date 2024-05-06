@@ -152,6 +152,13 @@ export type ShopSupplier = {
   updated_at: string;
 };
 
+export type ShopSupplierTemplate = {
+  description: string;
+  franchisor: number;
+  id: number;
+  name: string;
+};
+
 export type ShopState = {
   subShops: Array<SubShopAPI>;
   shopItem: {
@@ -311,6 +318,11 @@ export type ShopItemVariantAttributes = {
 export type ShopSupplierCreate = {
   name: string;
   description?: string;
+};
+
+/** Represents the payload sent when creating a supplier template */
+export type ShopSupplierTemplateCreate = ShopSupplierCreate & {
+  franchisor: number;
 };
 
 /** Represents the payload sent when updating a supplier */

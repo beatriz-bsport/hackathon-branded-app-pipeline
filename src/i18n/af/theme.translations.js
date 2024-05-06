@@ -286,6 +286,14 @@ const getTranslations = async () => {
           'Show past sessions on the calendar of your members',
         startWeekOnToday:
           'Start the calendar of your members on today’s date if the display is in week view card mode',
+        memberProfile: {
+          myProfile: {
+            title: 'My profile',
+            showMemberAccountBalance: 'Show member account balance',
+            showBarcodeButton: 'Show barcode button',
+            showMembershipNumber: 'Show membership number',
+          },
+        },
       },
       cover: {
         label: 'Logo',

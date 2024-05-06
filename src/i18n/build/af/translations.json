@@ -5402,7 +5402,8 @@
       "metaActivity": { "group": "Grouped session", "pack": "Compatible passes", "general": "General" },
       "quicksale": { "access": "Access creation", "configuration": "Personalising categories" },
       "appSettings": { "links": "External links", "popups": "Startup pop-up", "customize": "Personalisation" },
-      "communicationSentGroupConfig": { "general": "General", "campaigns": "Campaigns" }
+      "communicationSentGroupConfig": { "general": "General", "campaigns": "Campaigns" },
+      "settings": { "theme": { "general": "General", "memberProfile": "Member Profile" } }
     }
   },
   "notificationRule": {
@@ -13414,7 +13415,15 @@
         },
         "doubleBookingDisabledWithSpivi": "Double booking not compatible with Spivi integration",
         "showPastSessionsCalendar": "Show past sessions on the calendar of your members",
-        "startWeekOnToday": "Start the calendar of your members on today’s date if the display is in week view card mode"
+        "startWeekOnToday": "Start the calendar of your members on today’s date if the display is in week view card mode",
+        "memberProfile": {
+          "myProfile": {
+            "title": "My profile",
+            "showMemberAccountBalance": "Show member account balance",
+            "showBarcodeButton": "Show barcode button",
+            "showMembershipNumber": "Show membership number"
+          }
+        }
       },
       "cover": { "label": "Logo", "helperText": "Upload here your logo with a transparent background (use a .PNG file)." },
       "primary_color": { "label": "Primary color", "helperText": "Choose a theme color (avoid a monochrome setup)." },

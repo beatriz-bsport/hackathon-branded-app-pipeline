@@ -253,5 +253,11 @@ exports.default = {
       general: 'General',
       campaigns: 'Campaigns',
     },
+    settings: {
+      theme: {
+        general: 'General',
+        memberProfile: 'Member Profile',
+      },
+    },
   },
 };

@@ -133,6 +133,10 @@ export type Theme = {
   latest_hour_to_send_communications: number;
   first_warning_payment_method_expiration_days: string;
   second_warning_payment_method_expiration_days: string;
+  // Member profile
+  show_member_account_balance: boolean;
+  show_barcode_button: boolean;
+  show_membership_number: boolean;
 };
 
 export type ThemeState = {
@@ -167,3 +171,10 @@ export type WidgetCustomCSS = {
 };
 
 export type CompanyTheme = Theme;
+
+export type MemberProfileSettingsPayload = Pick<
+  CompanyTheme,
+  | 'show_member_account_balance'
+  | 'show_barcode_button'
+  | 'show_membership_number'
+>;

@@ -17,6 +17,7 @@ const CheckInButton: React.FC<Props> = ({ disabled, handleCheckIn }) => {
       disabled={disabled}
       onClick={handleCheckIn}
       startIcon={<MeetingRoomIcon />}
+      style={{ width: 'max-content' }}
     >
       <Typography>{t('memberEntry')}</Typography>
     </Button>

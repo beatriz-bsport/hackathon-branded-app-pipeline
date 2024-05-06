@@ -1,18 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import type { OptionCallback } from '#state/types';
 import type {
   FuzzySearchAPIParams,
   ObjectSearchArray,
   ObjectSearchPaginated,
+  ObjectSearchProps,
+  ResultsMap,
   SearchObjectType,
+  SelectOptions,
 } from '#libs/fuzzy-search/types';
 import { getSearchObjectURI } from '#libs/fuzzy-search/utils/getURIFromObjectType';
 import { getLabelFromItem } from '#libs/fuzzy-search/utils/labelExtractor';
 
 const DEBOUNCE_TIME = 500;
 
-type ObjectSearchProps = {
+const defaultFormatter = <T extends SearchObjectType>(
+  searchedObjectType: T,
+  rawResults: ResultsMap[T]['array'],
+) =>
+  (rawResults ?? []).map((result: ResultsMap[T]['result']) => ({
+    label: getLabelFromItem({
+      item: result,
+      searchedObjectType,
+    }),
+    value: result.id,
+  }));
+
+type HookProps = {
   searchObjects: (
     args: {
       params: FuzzySearchAPIParams;
@@ -23,7 +38,9 @@ type ObjectSearchProps = {
   rawResults: ObjectSearchArray;
   searchedObjectType: SearchObjectType;
   resetSearch: (searchedObjectType: SearchObjectType) => void;
-  additionalParams?: Record<string, any>;
+  additionalParams?: ObjectSearchProps['additionalParams'];
+  optionsFormatter: (results: ObjectSearchArray) => SelectOptions;
+  hasHydratedResults: boolean;
 };
 
 export const useObjectSearch = ({
@@ -31,11 +48,20 @@ export const useObjectSearch = ({
   rawResults,
   searchedObjectType,
   resetSearch,
-
   additionalParams,
-}: ObjectSearchProps) => {
-  const [isLoadingFirstResults, setIsLoadingFirstResults] = useState(false);
-  const [hasFetchedFirstResults, setHasFetchedFirstResults] = useState(false);
+  hasHydratedResults,
+  optionsFormatter,
+}: HookProps) => {
+  const hydrateOptions = useCallback(() => {
+    searchObjects({
+      params: {
+        searchObjectURI: getSearchObjectURI(searchedObjectType),
+        q: 'abcd',
+        ...additionalParams,
+      },
+      searchedObjectType,
+    });
+  }, [additionalParams, searchObjects, searchedObjectType]);
 
   const handleInputChange = debounce((text: string) => {
     searchObjects({
@@ -46,32 +72,22 @@ export const useObjectSearch = ({
       },
       searchedObjectType,
     });
-    setIsLoadingFirstResults(false);
   }, DEBOUNCE_TIME);
-
-  const searchFirstResults = () => {
-    if (hasFetchedFirstResults) return;
-    setIsLoadingFirstResults(true);
-    handleInputChange('');
-    setHasFetchedFirstResults(true);
-  };
 
   useEffect(() => {
     resetSearch(searchedObjectType);
-  }, [resetSearch, searchedObjectType]);
+    if (hasHydratedResults) {
+      hydrateOptions();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydration should only be done on mount
+  }, [searchedObjectType, hasHydratedResults]);
 
-  const formattedResults = (rawResults ?? []).map((result) => ({
-    label: getLabelFromItem({
-      item: result,
-      searchedObjectType,
-    }),
-    value: result.id,
-  }));
+  const formattedResults = optionsFormatter
+    ? optionsFormatter(rawResults)
+    : defaultFormatter(searchedObjectType, rawResults);
 
   return {
     handleInputChange,
     formattedResults,
-    searchFirstResults,
-    isLoadingFirstResults,
   };
 };

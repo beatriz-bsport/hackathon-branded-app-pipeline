@@ -50,7 +50,15 @@ export default handleActions(
     ) => {
       return state.merge(
         {
-          [payload]: initialState[payload as SearchObjectType],
+          [payload]: {
+            error: null,
+            isLoading: false,
+            results: {
+              page: 0,
+              count: 0,
+              currentResults: [], // not resetting allIds and byId because those could be used to display initial values
+            },
+          },
         },
         { deep: true },
       );

@@ -1,3 +1,4 @@
+import { OptionsType } from 'react-select/lib/types';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Coupon, FetchCouponsParams } from '#libs/coupon/types';
 import type { PaginatedResponse } from '#state/types';
@@ -155,10 +156,22 @@ export type ResultsMap = { [key in SearchObjectType]: ResultTypeMap<key> };
  * The different props that can be passed to the ObjectSearch component depending on the searched object
  */
 
+export type SelectOptions =
+  | OptionsType<{
+      label: string;
+      value: number;
+    }>
+  | OptionsType<{
+      label: string;
+      options: { label: string; value: number }[];
+    }>;
+
 export type ObjectSearchProps = {
   [key in SearchObjectType]: {
     searchedObjectType: key;
+    optionsFormatter?: (results: ResultsMap[key]['array']) => SelectOptions;
     additionalParams?: CommonParams & APIParamsMap[key];
+    initialValues?: number[];
   };
 }[SearchObjectType];
 

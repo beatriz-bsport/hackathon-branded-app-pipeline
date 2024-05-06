@@ -79,6 +79,7 @@ type BaseProps<T extends OptionTypeBase> = {
   openMenuOnClear?: boolean;
   onMenuOpen?: () => void;
   onMeuClose?: () => void;
+  options: T[] | Immutable.ImmutableArray<T>;
   closeMenuOnSelect?: boolean;
   withoutNullValues?: boolean;
   /** Placeholder to display when all the options available are selected */
@@ -109,12 +110,7 @@ export type OwnProps<T extends OptionTypeBase> =
       onChange?: (value: T | OptionTypeBase) => void;
     } & BaseProps<T>);
 
-export type MuiSelectPropsWithoutOptions<T extends OptionTypeBase> =
-  OwnProps<T>;
-
-export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T> & {
-  options: T[] | Immutable.ImmutableArray<T>;
-};
+export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T>;
 
 function MaterialUISelector<T extends OptionTypeBase>(
   props: MuiSelectProps<T>,

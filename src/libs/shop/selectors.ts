@@ -311,6 +311,28 @@ export const getSubshopTemplateDeleteLoading = (state: RootState) =>
 export const getSubshopLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.subshop.loading;
 
+/** Retrieves the state of shop item template for MA listing */
+export const getShopItemTemplateState = (
+  state: RootState,
+  subshopTemplateId: number,
+) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.bySubshopTemplateId[
+    subshopTemplateId
+  ];
+
+/** Returns the loading state when creating a shop item template */
+export const getShopItemTemplateCreateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.create.loading;
+
+/** Returns the loading state when updating a shop item template */
+export const getShopItemTemplateUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.updateShopItemTemplate
+    .loading;
+
+/** Returns the loading state when deleting a shop item template */
+export const getShopItemTemplateDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.delete.loading;
+
 /** Returns the loading state when retrieving all subshop */
 export const getShopItemStandaloneLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.loading;

@@ -41,9 +41,13 @@ import {
   createShopSupplierActions,
   updateShopSupplierActions,
   deleteShopSupplierActions,
+  fetchShopSupplierTemplateListActions,
+  createShopSupplierTemplateActions,
+  updateShopSupplierTemplateActions,
+  deleteShopSupplierTemplateActions,
 } from './actions/supplier';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#state/types';
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
@@ -52,6 +56,7 @@ import type {
   ShopItemVariantCombination,
   ShopStateReworked,
   ShopSupplier,
+  ShopSupplierTemplate,
   SubShop,
   SubshopTemplate,
 } from '#libs/shop/types';
@@ -144,6 +149,18 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         bySubshopTemplateId: {},
         create: { error: null, loading: false },
         updateShopItemTemplate: { error: null, loading: false },
+        delete: { error: null, loading: false },
+      },
+      supplierTemplate: {
+        error: null,
+        loading: false,
+        count: 0,
+        next_page: 1,
+        page: 1,
+        byId: {},
+        allIds: [],
+        create: { error: null, loading: false },
+        updateSupplierTemplate: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
     },
@@ -995,6 +1012,117 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopItemReworked', 'suppliers', 'delete', 'error'],
+        payload,
+      );
+    },
+    [fetchShopSupplierTemplateListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopSupplierTemplateListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'error'],
+        payload,
+      );
+    },
+    [fetchShopSupplierTemplateListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ShopSupplierTemplate> },
+    ) => {
+      const { page, count, results, next_page } = payload;
+      return state
+        .setIn(['shopTemplates', 'supplierTemplate'], {
+          page,
+          count,
+          next_page,
+          allIds: results.map((supplierTemplate) => supplierTemplate.id),
+        })
+        .merge(
+          {
+            shopTemplates: {
+              supplierTemplate: {
+                byId: results.reduce<PayloadReduceType<ShopSupplierTemplate>>(
+                  (acc, supplierTemplate) => {
+                    acc[supplierTemplate.id] = supplierTemplate;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createShopSupplierTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createShopSupplierTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'create', 'error'],
+        payload,
+      );
+    },
+    [updateShopSupplierTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'supplierTemplate',
+          'updateSupplierTemplate',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [updateShopSupplierTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'supplierTemplate',
+          'updateSupplierTemplate',
+          'error',
+        ],
+        payload,
+      );
+    },
+    [deleteShopSupplierTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteShopSupplierTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'supplierTemplate', 'delete', 'error'],
         payload,
       );
     },

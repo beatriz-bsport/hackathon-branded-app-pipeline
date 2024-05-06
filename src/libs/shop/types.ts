@@ -276,6 +276,16 @@ export type ShopStateReworked = {
       updateShopItemTemplate: ErrorAndLoading;
       delete: ErrorAndLoading;
     };
+    supplierTemplate: {
+      byId: {
+        [key: number]: ShopSupplierTemplate;
+      };
+      allIds: number[];
+      create: ErrorAndLoading;
+      updateSupplierTemplate: ErrorAndLoading;
+      delete: ErrorAndLoading;
+    } & WithPagination &
+      ErrorAndLoading;
   };
 };
 

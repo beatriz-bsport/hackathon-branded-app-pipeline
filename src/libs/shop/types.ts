@@ -3,6 +3,7 @@ import {
   PaginationFilterParams,
   WithPagination,
 } from '#libs/types';
+import { PaginatedResponse } from '#state/types';
 import { ShopItemDetailTab } from './components/ShopItemDetail/constants';
 
 export type Provision = {
@@ -260,6 +261,14 @@ export type ShopStateReworked = {
       delete: ErrorAndLoading;
     } & WithPagination &
       ErrorAndLoading;
+    shopItemTemplate: {
+      bySubshopTemplateId: {
+        [key: number]: ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
+      };
+      create: ErrorAndLoading;
+      updateShopItemTemplate: ErrorAndLoading;
+      delete: ErrorAndLoading;
+    };
   };
 };
 

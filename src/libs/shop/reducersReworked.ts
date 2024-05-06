@@ -18,6 +18,10 @@ import {
   createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
   fetchShopItemVariantCombinationListActions,
+  fetchShopItemTemplateListActions,
+  deleteShopItemTemplateActions,
+  updateShopItemTemplateActions,
+  createShopItemTemplateActions,
 } from './actions/shopItemReworked';
 
 import {
@@ -43,6 +47,7 @@ import type { PaginatedResponse } from '../../state/types';
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
+  ShopItemTemplate,
   ShopItemVariant,
   ShopItemVariantCombination,
   ShopStateReworked,
@@ -133,6 +138,12 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         allIds: [],
         create: { error: null, loading: false },
         updateSubshopTemplate: { error: null, loading: false },
+        delete: { error: null, loading: false },
+      },
+      shopItemTemplate: {
+        bySubshopTemplateId: {},
+        create: { error: null, loading: false },
+        updateShopItemTemplate: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
     },
@@ -461,6 +472,128 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopItemReworked', 'itemVariant', 'delete', 'error'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateListActions.isLoading.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { subshopTemplateId: number; isLoading?: boolean } },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'bySubshopTemplateId',
+          `${payload.subshopTemplateId}`,
+          'loading',
+        ],
+        payload.isLoading,
+      );
+    },
+    [fetchShopItemTemplateListActions.error.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { subshopTemplateId: number; error: Error | null } },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'bySubshopTemplateId',
+          `${payload.subshopTemplateId}`,
+          'error',
+        ],
+        payload.error,
+      );
+    },
+    [fetchShopItemTemplateListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          subshopTemplateId: number;
+          data: PaginatedResponse<ShopItemTemplate>;
+        };
+      },
+    ) => {
+      return state.merge(
+        {
+          shopTemplates: {
+            shopItemTemplate: {
+              bySubshopTemplateId: {
+                [payload.subshopTemplateId]: payload.data,
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [createShopItemTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createShopItemTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'create', 'error'],
+        payload,
+      );
+    },
+    [updateShopItemTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'updateShopItemTemplate',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [updateShopItemTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'updateShopItemTemplate',
+          'error',
+        ],
+        payload,
+      );
+    },
+    [deleteShopItemTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteShopItemTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'delete', 'error'],
         payload,
       );
     },

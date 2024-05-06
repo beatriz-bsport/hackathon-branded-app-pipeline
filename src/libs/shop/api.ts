@@ -33,6 +33,8 @@ import type {
   SubshopTemplateUpdate,
   ShopItemTemplate,
   ShopItemTemplateFilterParams,
+  ShopSupplierTemplate,
+  ShopSupplierTemplateCreate,
 } from './types';
 import type { PaginationFilterParams } from '#libs/types';
 
@@ -320,6 +322,53 @@ export const updateShopSupplier = (data: ShopSupplierUpdate) => {
  */
 export const deleteShopSupplier = (id: number) => {
   return deleteAuth(`${API_V1_URI}/shop/supplier/${id}`);
+};
+
+/**
+ * Fetch the list of all shop supplier templates
+ * @param params Default pagination params {@link PaginationFilterParams}
+ */
+export const fetchShopSupplierTemplateList = (
+  params: PaginationFilterParams,
+) => {
+  return getAuth<PaginatedResponse<ShopSupplierTemplate>>(
+    `${API_V1_URI}/shop/suppliertemplate/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Creates a new shop supplier template
+ * @param data The payload sent to the API
+ */
+export const createShopSupplierTemplate = (
+  data: ShopSupplierTemplateCreate,
+) => {
+  return postAuth<ShopSupplierTemplate>(
+    `${API_V1_URI}/shop/suppliertemplate/`,
+    data,
+  );
+};
+
+/**
+ * Updates an existing shop supplier template
+ * @param data The payload sent to the API
+ */
+export const updateShopSupplierTemplate = (data: ShopSupplierUpdate) => {
+  return patchAuth<ShopSupplierTemplate>(
+    `${API_V1_URI}/shop/suppliertemplate/${data.id}/`,
+    {
+      name: data.name,
+      description: data.description,
+    },
+  );
+};
+
+/**
+ * Deletes an existing shop supplier template
+ * @param id The ID of the supplier template to delete
+ */
+export const deleteShopSupplierTemplate = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/shop/suppliertemplate/${id}`);
 };
 
 /**

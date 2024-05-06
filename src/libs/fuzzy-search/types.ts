@@ -5,6 +5,7 @@ import type { PaginatedResponse } from '#state/types';
 import type { EmailTemplate } from '#libs/email-editor/types';
 import type {
   Establishment,
+  EstablishmentGroupAPI,
   FetchEstablishmentParams,
 } from '#libs/establishment/types';
 import type { Giftcard } from '#libs/giftcard/types';
@@ -44,6 +45,7 @@ import type { SmartList, SmartListQueryParams } from '#libs/smart-list/types';
 import type { Contract, ContractQueryParams } from '#libs/subscription/types';
 import type { Tag } from '#libs/tag/types';
 import type { Video, VideoQueryParams } from '#libs/video/types';
+import { AssociatedCoachFilters, Coach } from '#libs/associated-coach/types';
 
 export type ObjectSearchResult = ResultsMap[SearchObjectType]['result'];
 export type ObjectSearchArray = ResultsMap[SearchObjectType]['array'];
@@ -98,6 +100,8 @@ export const searchObjectIdentifiers = [
   'contract',
   'tag',
   'video',
+  'associated_coach',
+  'establishment_group',
 ] as const;
 
 export type SearchObjectType = (typeof searchObjectIdentifiers)[number];
@@ -135,6 +139,8 @@ type ResultsTypes = {
   contract: Contract;
   tag: Tag;
   video: Video;
+  associated_coach: Coach;
+  establishment_group: EstablishmentGroupAPI;
 };
 
 type ResultTypeMap<T extends SearchObjectType> = {
@@ -190,6 +196,8 @@ type APIParamsMap = {
   tag: TagAPIParams;
   video: VideoAPIParams;
   report: ReportAPIParams;
+  associated_coach: AssociatedCoachAPIParams;
+  establishment_group: EstablishmentGroupAPIParams;
 };
 
 export type FuzzySearchAPIParams = APIParamsMap[SearchObjectType] & {
@@ -201,6 +209,8 @@ type CommonParams = {
   page_size?: number;
   page?: number;
 };
+
+type AssociatedCoachAPIParams = CommonParams & AssociatedCoachFilters;
 
 type CoachPaymentRuleAPIParams = CommonParams;
 
@@ -263,3 +273,5 @@ type TagAPIParams = CommonParams;
 type VideoAPIParams = CommonParams & VideoQueryParams;
 
 type ReportAPIParams = CommonParams;
+
+type EstablishmentGroupAPIParams = CommonParams & { id__in?: number[] };

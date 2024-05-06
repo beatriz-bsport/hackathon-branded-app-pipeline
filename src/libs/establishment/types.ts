@@ -179,7 +179,7 @@ export type WithEstablishmentBillingGroup<T> = T & {
 };
 
 export type FetchEstablishmentParams = {
-  id__in?: string;
+  id__in?: number[];
   associated_establishment__in?: string;
   meta_activity?: number;
   company?: number;

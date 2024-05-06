@@ -131,3 +131,11 @@ export type UpdateCoachPrivateSlotsPaymentRuleData = {
     coach_payment_rule: number;
   }>;
 };
+
+export type AssociatedCoachFilters = {
+  company?: number;
+  disabled?: boolean;
+  with_workshop?: boolean;
+  id__in?: number[];
+  associated_coach__in?: number[];
+};

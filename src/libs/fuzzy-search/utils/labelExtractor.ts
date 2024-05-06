@@ -1,7 +1,11 @@
+import type { Coach } from '#libs/associated-coach/types';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Coupon } from '#libs/coupon/types';
 import type { EmailTemplate } from '#libs/email-editor/types';
-import type { Establishment } from '#libs/establishment/types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
 import type {
   ObjectSearchResult,
   SearchObjectType,
@@ -64,6 +68,8 @@ const labelExtractorMap: Record<
   sub_shop_template: (subShop: SubShop) => subShop.name,
   tag: (tag: Tag) => tag.name,
   video: (video: Video) => video.name,
+  associated_coach: (coach: Coach) => `${coach.firstname} ${coach.lastname}`,
+  establishment_group: (group: EstablishmentGroupAPI) => group.name,
 };
 
 export const getLabelFromItem = ({

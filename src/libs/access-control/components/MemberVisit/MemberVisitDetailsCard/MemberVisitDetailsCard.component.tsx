@@ -27,7 +27,7 @@ import type {
 import { AccessStatus } from '#libs/access-control/constants';
 
 export type Props = {
-  handleOpenMemberPhotoHistoryModal: () => void;
+  handleOpenMemberPhotoHistoryModal?: () => void;
   isLoading?: boolean;
   locationInformation?: string;
   memberVisit: MemberVisitREST;

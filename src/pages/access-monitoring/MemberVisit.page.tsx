@@ -433,6 +433,7 @@ const MemberVisit: React.FC<Props> = React.memo(
             />
             <MemberVisitDetailsCard
               handleOpenMemberPhotoHistoryModal={
+                !!memberPhotoHistory?.length &&
                 handleOpenMemberPhotoHistoryModal
               }
               isLoading={memberVisitIsLoading}

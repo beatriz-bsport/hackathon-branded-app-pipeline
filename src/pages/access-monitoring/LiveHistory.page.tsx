@@ -425,7 +425,7 @@ const LiveHistory: React.FC<Props> = ({
             nextBooking={memberNextBookingOrPrivateBooking}
             onAllowManualEntry={handleAllowManualEntry}
             handleOpenMemberPhotoHistoryModal={
-              handleOpenMemberPhotoHistoryModal
+              !!memberPhotoHistory.length && handleOpenMemberPhotoHistoryModal
             }
             onRefuseManualEntry={handleRefuseManualEntry}
             onMemberBillClick={handleMemberBillClick}

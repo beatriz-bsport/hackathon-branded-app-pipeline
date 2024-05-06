@@ -70,6 +70,7 @@ exports.default = {
     noSpotAllocated: 'No spot allocated',
     pass: 'Pass:',
     photoHasChanged: 'Profile picture changed recently',
+    noPreviousPhoto: "Member doesn't have any previous pictures",
     actions: {
       seePreviousImages: 'See previous',
       goToProfile: 'Profile',

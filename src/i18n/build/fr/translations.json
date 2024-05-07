@@ -2076,7 +2076,28 @@
             },
             "myInvoices": {
                 "card": {
-                    "download": "Télécharger"
+                    "download": "Télécharger",
+                    "chip": {
+                        "refunded": "Remboursée",
+                        "plannedPayments": "Paiements prévus",
+                        "partiallyPaid": "Partiellement payée",
+                        "dispute": "Litige",
+                        "cancelled": "Annulée"
+                    },
+                    "title": "Facture N°{{ identifier }}",
+                    "seeDetails": "Voir détails",
+                    "refundedInvoice": "Facture remboursée",
+                    "receipt": "Reçu",
+                    "pay": "Payer maintenant",
+                    "otherItems": "+{{ count }} éléments",
+                    "originalInvoice": "Facture originale",
+                    "location": "Localisation: {{ name }}",
+                    "invoice": "Facture",
+                    "downloads": "Téléchargements",
+                    "downloadRefundedInvoice": "Télécharger la facture remboursée",
+                    "downloadReceipt": "Télécharger le reçu",
+                    "downloadOriginalInvoice": "Télécharger la facture originale",
+                    "downloadInvoice": "Télécharger la facture"
                 },
                 "header": {
                     "filters": {
@@ -2094,6 +2115,40 @@
                     "refunded": "Vous n'avez pas encore de factures remboursées.",
                     "paid": "Vous n'avez pas encore de factures payées.",
                     "unpaid": "Bravo, vous n'avez pas de factures impayées."
+                },
+                "payment": {
+                    "useBalance": "Utiliser",
+                    "title": "Paiement de la facture",
+                    "successMessage": "Le paiement a été effectué avec succès",
+                    "myBalance": "Mon solde interne",
+                    "method": "Méthode de paiement",
+                    "details": "Détails de paiement",
+                    "confirm": "Confirmer",
+                    "addPaymentMethod": "Ajouter un mode de paiement"
+                },
+                "detailsCard": {
+                    "total": "Total",
+                    "retryDate": "Le paiement sera retenté le {{ date }}",
+                    "refunded": "Remboursée",
+                    "products": "Mes produits",
+                    "plannedPayments": "Paiements prévus",
+                    "placeholder": "Sélectionnez une facture pour en voir les détails.",
+                    "paymentHistory": "Historique des paiements",
+                    "paymentErrorWithReason": "Ce paiement n'a pas abouti. Raison: { {{ reason }} }.",
+                    "paymentError": "Ce paiement n'a pas abouti.",
+                    "pay": "Payer maintenant",
+                    "paid": "Payé",
+                    "noPaymentRegistered": "Il n'y a pas encore de paiement enregistré.",
+                    "due": "Due",
+                    "downloadRefundedInvoice": "Télécharger la facture remboursée",
+                    "downloadReceipt": "Télécharger le reçu",
+                    "downloadOriginalInvoice": "Télécharger la facture originale",
+                    "download": "Télécharger la facture",
+                    "dispute": {
+                        "lost": "Litige perdu",
+                        "won": "Litige gagné",
+                        "processing": "En cours"
+                    }
                 }
             }
         }
@@ -3314,6 +3369,10 @@
                 },
                 "visibility": "Invisible pour les clients"
             }
+        },
+        "search": {
+            "usersTableTitle": "Utilisateurs",
+            "pageTitle": "Rechercher"
         }
     },
     "giftcard": {
@@ -7400,7 +7459,8 @@
             "60": "Giropay",
             "70": "Bacs Direct Debit",
             "label": "Moyen de paiement",
-            "disputeWon": "Résolu"
+            "disputeWon": "Résolu",
+            "3": "Carte de cours"
         },
         "actions": {
             "addThisPaymentItem": "Ajouter ce moyen de paiement"
@@ -7694,7 +7754,7 @@
         },
         "multipleBookingTooltip": "Réservations multiples",
         "section": {
-            "massExtension": "Extensions"
+            "massExtension": "Extension de validité"
         },
         "actions": {
             "massExtension": "Ajouter une extension",
@@ -7840,8 +7900,9 @@
         },
         "search": "Rechercher une carte",
         "extension": {
-            "nbDaysAdded": "+{{nb_days}}j",
-            "addedOn": "Ajouté le ",
+            "nbDaysAdded": "+{{count}} jour",
+            "nbDaysAdded_plural": "+{{count}} jours",
+            "addedOn": "Ajouté le: ",
             "delete": {
                 "title": "Suppression de l'extension",
                 "explain": "Êtes-vous sûr de vouloir supprimer l'extension de validité ?",
@@ -7849,7 +7910,7 @@
                 "confirm": "Confirmer"
             },
             "create": {
-                "title": "Extension d'une carte",
+                "title": "Prolonger la validité de la carte",
                 "cancel": "Annuler",
                 "submit": "Créer",
                 "explain": {
@@ -7870,7 +7931,9 @@
             "options": {
                 "addNumberOfDays": "Étendre la validité en ajoutant un certain nombre de jours",
                 "selectNewEndDate": "Définir une nouvelle date de fin de validité"
-            }
+            },
+            "seeMore": "Voir plus",
+            "seeLess": "Voir moins"
         },
         "form": {
             "paymentPack": {
@@ -8273,16 +8336,28 @@
         },
         "blockedCpp": "Carte bloquée du {{-blocked_from}} au {{-blocked_until}}",
         "massExtension": {
-            "helpText": "Vous pouvez ici étendre toutes les cartes de cours de vos membres. Cette opération est réversible.",
+            "helpText": "Cette opération est irréversible.",
             "dateHelpText": "N'étendre que les cartes de cours expirant entre le",
             "minDate": "Au plus tôt le",
             "maxDate": "Au plus tard le",
-            "title": "Ajouter une extension à tous les membres",
+            "title": "Ajouter une extension",
             "submit": "Valider",
             "cancel": "Annuler",
             "listItemDate": "Expirant entre le {{ minDate }} et le {{ maxDate }}",
             "createdAt": "Ajouté le {{date}}",
-            "listItemNbDays": "+{{nbDays}} jours"
+            "listItemNbDays": "+{{ count }} jour",
+            "listItemNbDays_plural": "+{{ count }} jours",
+            "listItem": {
+                "seeLess": "Voir moins",
+                "seeMore": "Voir plus"
+            },
+            "error": {
+                "note": "Le nombre maximum de caractères pour ce champ est de 500",
+                "nbDays": "Veuillez saisir un nombre positif",
+                "maxEndingDate": "Veuillez saisir une date maximale valide",
+                "minEndingDate": "Veuillez saisir une date minimale valide"
+            },
+            "titleDialog": "Ajouter une extension pour tous les membres"
         },
         "detailTitles": {
             "credit_quantity": "Nombre de crédits",
@@ -9356,7 +9431,7 @@
             "detail": {
                 "invoice": "Facture liée",
                 "booking": "Réservations RDV liées",
-                "extensionsTitle": "Extensions de validité"
+                "extensionsTitle": "Extension de validité"
             },
             "isFromShare": "Partagé depuis un autre compte",
             "isOwnerOfShares": "Partagé (carte RDV maître)",
@@ -12754,7 +12829,8 @@
                 "calendarV2": "Calendrier",
                 "newsletterV2": "Acquisition de prospects",
                 "referral": "Parrainage",
-                "consumerBooking": "Mes réservations"
+                "consumerBooking": "Mes réservations",
+                "consumerPass": "Mes cartes de cours"
             },
             "createDialog": {
                 "showAdvanced": "Voir plus d'options",
@@ -13053,6 +13129,11 @@
                         "color": "Choisir la couleur",
                         "size": "Choisir la taille",
                         "company": "Sélectionner un studio"
+                    },
+                    "unsavedChangesModal": {
+                        "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?",
+                        "inventory": "Avant de passer à une autre page, souhaitez-vous mettre à jour l'inventaire en fonction des valeurs introduites dans la colonne « Modification des stocks » ?",
+                        "title": "Modifications non sauvegardées"
                     }
                 },
                 "history": {
@@ -13170,7 +13251,9 @@
         "saveProductWithVariantCount_plural": "Sauvegarder un produit avec {{count}} variantes",
         "saveVariantCount": "Sauvegarder {{count}} variante",
         "saveVariantCount_plural": "Sauvegarder {{count}} variantes",
-        "startingAtWithPrice": "À partir de {{price}}"
+        "startingAtWithPrice": "À partir de {{price}}",
+        "addVariantCount": "Ajouter {{count}} variante",
+        "addVariantCount_plural": "Ajouter {{count}} variantes"
     },
     "smartList": {
         "duplicate": "Dupliquer",
@@ -13443,7 +13526,9 @@
                 "attendance": "avec le statut",
                 "level": {
                     "first": "de niveau "
-                }
+                },
+                "second_singular_v2": "th séance",
+                "first_v2": "Membres ayant reservé leur "
             },
             "22": {
                 "name": "Nombre de réservations",
@@ -13577,7 +13662,8 @@
                 "explanation": "A complété X formulaires à A% à la date B ",
                 "date": {
                     "first": "complété pour la dernière fois"
-                }
+                },
+                "first": "A complété"
             },
             "103": {
                 "name": "Notifications",
@@ -13587,7 +13673,9 @@
                 "false": "N'accepte pas",
                 "sms": "de recevoir des notifications par SMS",
                 "email": "de recevoir des notifications par email",
-                "explanation": "Accepte les notifications par SMS/Email"
+                "explanation": "Accepte les notifications par SMS/Email",
+                "or": "Ou",
+                "and": "Et"
             },
             "104": {
                 "name": "Notes",
@@ -14220,6 +14308,9 @@
                     "success": "Catégorie supprimée",
                     "error": "Impossible de supprimer la catégorie"
                 }
+            },
+            "compatibilitiesUpdate": {
+                "fail": "Erreur lors de la mise à jour des compatibilités des cartes de cours"
             }
         },
         "paymentMethod": {
@@ -18195,6 +18286,12 @@
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Retirer automatiquement le membre de la liste d'attente si, lorsque son créneau se libère, il n'a plus de carte de cours valide",
                 "helper": "Un membre peut utiliser ses crédits pour une autre séance pendant qu'il attend sur la liste d'attente. Avec ce paramètre activé, si cela se produit, sa place sur la liste d'attente sera automatiquement annulée lorsque ce sera à son tour de s'inscrire."
+            },
+            "errors": {
+                "lastDelayBeforeAutoConsumeError": "Les minutes doivent être comprises entre 0 et 240",
+                "autokickDelayError": "Un nombre est demandé",
+                "smartDelayPercentageError": "Le pourcentage doit être compris entre 10 et 100",
+                "dumbDelayMinutesError": "Le nombre de minutes entre les rappels doit être supérieur à 15"
             }
         },
         "explainWaitingListConf": "ex : Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
@@ -18474,7 +18571,9 @@
                 "consumer_subscription_details_card": "Carte du détail de l'abonnement du consommateur",
                 "fabrique_big_icon": "Grande icône",
                 "referral_details": "Détails du parrain",
-                "fabrique_title": "Titre"
+                "fabrique_title": "Titre",
+                "consumer_invoice_details_card": "Carte de détails de la facture (pour le membre)",
+                "consumer_invoice_card": "Carte de facturation (pour le membre)"
             },
             "page": {
                 "common": "Commun",
@@ -18629,7 +18728,9 @@
                     "state": "État",
                     "showSuccessText": "Montrer le texte de confirmation",
                     "showSuccessTitle": "Montrer le titre de la confirmation",
-                    "isCollapsable": "Type de titre"
+                    "isCollapsable": "Type de titre",
+                    "isMultilocationEnabled": "Afficher le lieu de facturation",
+                    "invoiceType": "Type de facture"
                 },
                 "option": {
                     "true": "Oui",
@@ -18732,7 +18833,10 @@
                     "authenticated": "Vérifié",
                     "unknownError": "Erreur inconnue",
                     "NotCollapsable": "Non repliable",
-                    "Collapsable": "Repliable"
+                    "Collapsable": "Repliable",
+                    "refunded": "Remboursé",
+                    "paid": "Payé",
+                    "unpaid": "Impayé"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",

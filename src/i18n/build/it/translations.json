@@ -2010,7 +2010,24 @@
                     "downloadReceipt": "Scarica la ricevuta",
                     "downloadOriginalInvoice": "Scarica la ricevuta originale",
                     "downloadInvoice": "Scarica la ricevuta",
-                    "download": "Scaricata"
+                    "download": "Scaricata",
+                    "chip": {
+                        "refunded": "Rimborsato",
+                        "plannedPayments": "Pagamento pianifcato",
+                        "partiallyPaid": "Pagata parzialmente",
+                        "dispute": "Controversia",
+                        "cancelled": "Cancellata"
+                    },
+                    "title": "RIcevuta N°{{ identifier }}",
+                    "seeDetails": "Vedi dettagli",
+                    "refundedInvoice": "Ricevuta rimborsata",
+                    "receipt": "Ricevuta",
+                    "pay": "Paga ora",
+                    "otherItems": "+{{ count }} articoli",
+                    "originalInvoice": "Ricevuta originale",
+                    "location": "Sede: {{ name }}",
+                    "invoice": "Ricevuta",
+                    "downloads": "Download"
                 },
                 "header": {
                     "filters": {
@@ -2028,6 +2045,40 @@
                     "refunded": "Non ci sono ancora ricevute rimborsate.",
                     "paid": "Non ci sono ancora ricevute pagate.",
                     "unpaid": "Ben fatto, non hai ricevute non pagate."
+                },
+                "payment": {
+                    "useBalance": "Utilizza",
+                    "title": "Pagamento della ricevuta",
+                    "successMessage": "Il pagamento è andato a buon fine",
+                    "myBalance": "Il saldo del mio conto interno",
+                    "method": "Metodo di pagamento",
+                    "details": "Dettagli del pagamento",
+                    "confirm": "Conferma",
+                    "addPaymentMethod": "Aggiungi metodo di pagamento"
+                },
+                "detailsCard": {
+                    "total": "Totale",
+                    "retryDate": "Il pagamento verrà riproposto il {{ date }}",
+                    "refunded": "Rimborsato",
+                    "products": "I miei prodotti",
+                    "plannedPayments": "Pagamenti pianificati",
+                    "placeholder": "Seleziona una ricevuta per vedere i dettagli.",
+                    "paymentHistory": "Cronologia dei pagamenti",
+                    "paymentErrorWithReason": "Questo pagamento non è andato a buon fine. Motivo: { {{ reason }} }.",
+                    "paymentError": "Questo pagamento non è andato a buon fine.",
+                    "pay": "Paga ora",
+                    "paid": "Pagata",
+                    "noPaymentRegistered": "Per il momento non ci sono pagamenti registrati.",
+                    "due": "Dovuto",
+                    "downloadRefundedInvoice": "Scarica ricevuta rimborsata",
+                    "downloadReceipt": "Scarica ricevuta",
+                    "downloadOriginalInvoice": "Scarica ricevuta originale",
+                    "download": "Scarica ricevuta",
+                    "dispute": {
+                        "lost": "Persa",
+                        "won": "Vinta",
+                        "processing": "In elaborazione"
+                    }
                 }
             }
         }
@@ -2816,12 +2867,12 @@
                 }
             },
             "actions": {
-                "addExtension": "Aggiungi un'estensione"
+                "addExtension": "Estendi la validità"
             },
             "detail": {
                 "booking": "Prenotazioni di appuntamenti collegati",
                 "invoice": "Ricevuta correlata",
-                "extensionsTitle": "Estensioni di validità"
+                "extensionsTitle": "Estensione della validità"
             },
             "isReverted": "Ricevuta annullata",
             "expiresOn": "Scade il {{date}}",
@@ -5266,6 +5317,9 @@
                     "success": "Categoria modificata con successo",
                     "error": "Impossibile cambiare la categoria"
                 }
+            },
+            "compatibilitiesUpdate": {
+                "fail": "Errore durante l'aggiornamento delle compatibilità dei pacchetti"
             }
         },
         "coupon": {
@@ -6280,7 +6334,8 @@
                 "calendarV2": "Calendario",
                 "newsletterV2": "Acquisizione contatti",
                 "referral": "Referral",
-                "consumerBooking": "Le mie prenotazioni"
+                "consumerBooking": "Le mie prenotazioni",
+                "consumerPass": "I miei pacchetti"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -8912,7 +8967,7 @@
         "extension": {
             "create": {
                 "warning": "Verificare che la nuova data non superi il periodo fiscale di questo pacchetto. In tal caso, verificare con il proprio commercialista la pertinenza di questa operazione.",
-                "title": "Estensione della validità del pacchetto",
+                "title": "Estendi la validità del pacchetto",
                 "cancel": "Annulla",
                 "nbDays": {
                     "label": "Numero di giorni aggiuntivi"
@@ -8929,8 +8984,9 @@
                     "label": "Nuova data"
                 }
             },
-            "nbDaysAdded": "+ {{nb_days}}g",
-            "addedOn": "Aggiungi il ",
+            "nbDaysAdded": "+{{count}} giorno",
+            "nbDaysAdded_plural": "+{{count}} giorni",
+            "addedOn": "Aggiunto il: ",
             "delete": {
                 "title": "Rimozione dell'estensione",
                 "explain": "Sei sicuro di voler eliminare l'estensione di validità?",
@@ -8940,7 +8996,9 @@
             "options": {
                 "addNumberOfDays": "Estendi la validità aggiungendo un numero di giorni",
                 "selectNewEndDate": "Imposta una nuova data di scadenza"
-            }
+            },
+            "seeMore": "Vedi più",
+            "seeLess": "Vedi meno"
         },
         "actions": {
             "edit": "Modifica",
@@ -9271,19 +9329,31 @@
             "title": "Politica di cancellazione"
         },
         "massExtension": {
-            "listItemNbDays": "+{{nbDays}} giorni",
+            "listItemNbDays": "+{{ count }} giorno",
+            "listItemNbDays_plural": "+{{ count }} giorni",
             "createdAt": "Aggiunto il {{date}}",
             "listItemDate": "Con scadenza tra {{ minDate }} e {{ maxDate }}",
             "cancel": "Cancella",
             "submit": "Convalidare",
-            "title": "Aggiungere un'estensione a tutti i membri",
+            "title": "Estendi la validità",
             "maxDate": "Entro e non oltre",
             "minDate": "Al più presto il",
             "dateHelpText": "Estendere solo i pacchetti che scadono tra il",
-            "helpText": "Qui puoi estendere tutti i pacchetti dei tuoi membri. Questa operazione è reversibile."
+            "helpText": "Questa operazione non può essere annullata",
+            "listItem": {
+                "seeLess": "Vedi meno",
+                "seeMore": "Vedi più"
+            },
+            "error": {
+                "note": "Il numero massimo di caratteri per questo campo è 500",
+                "nbDays": "Inserisci un numero positivo",
+                "maxEndingDate": "Inserisci una data massima valida",
+                "minEndingDate": "Inserisci una data minima valida"
+            },
+            "titleDialog": "Estendi la validità per tutti i membri"
         },
         "section": {
-            "massExtension": "Estensioni"
+            "massExtension": "Estensione della validità"
         },
         "category": {
             "form": {
@@ -11057,7 +11127,9 @@
                 "attendance": "con lo status",
                 "level": {
                     "first": "livello "
-                }
+                },
+                "second_singular_v2": "sessione",
+                "first_v2": "I membri che hanno prenotato il loro "
             },
             "400": {
                 "explain": "ha una password su bsport",
@@ -11268,7 +11340,8 @@
                 "to": "a",
                 "second": "tra",
                 "third": "ad una percentuale",
-                "between": "e"
+                "between": "e",
+                "first": "Ha completato"
             },
             "103": {
                 "name": "Notifiche",
@@ -11278,7 +11351,9 @@
                 "false": "Non accettato",
                 "sms": "per ricevere notifiche SMS",
                 "email": "per ricevere le notifiche via e-mail",
-                "explanation": "Accetta notifiche SMS/e-mail"
+                "explanation": "Accetta notifiche SMS/e-mail",
+                "or": "O",
+                "and": "E"
             },
             "107": {
                 "false": "Non ha accettato",
@@ -12485,7 +12560,8 @@
             "30": "Sofort",
             "20": "Bancontact",
             "disputeWon": "Risolta",
-            "70": "Bacs Direct Debit"
+            "70": "Bacs Direct Debit",
+            "3": "Pacchetto"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -13098,6 +13174,12 @@
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Rimuovi automaticamente il membro dalla lista d'attesa se, quando i suoi posti diventano disponibili, non ha più un pacchetto valido",
                 "helper": "Un membro potrebbe utilizzare i suoi crediti per un'altra sessione mentre è in lista d'attesa. Con questa impostazione attivata, se ciò accade, il suo posto in lista d'attesa verrà automaticamente cancellato quando sarà il suo turno di iscriversi."
+            },
+            "errors": {
+                "lastDelayBeforeAutoConsumeError": "I minuti devono essere compresi tra 0 e 240",
+                "autokickDelayError": "È richiesto un numero",
+                "smartDelayPercentageError": "La percentuale deve essere compresa tra 10 e 100",
+                "dumbDelayMinutesError": "I minuti tra i richiami devono essere superiori a 15"
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",
@@ -13295,11 +13377,16 @@
                     "action": {
                         "update": "Aggiorna l'inventario"
                     },
-                    "formError": "I valori di modifica delle scorte devono essere dei numeri validi",
+                    "formError": "I/il valore/i di modifica delle scorte devono essere dei numeri validi",
                     "filterPlaceholder": {
                         "color": "Seleziona un colore",
                         "size": "Seleziona una taglia",
                         "company": "Seleziona uno studio"
+                    },
+                    "unsavedChangesModal": {
+                        "default": "Vuoi salvare le modifiche prima di passare a un'altra pagina?",
+                        "inventory": "Prima di passare a un'altra pagina, si desidera aggiornare l'inventario in base ai valori inseriti nella colonna “Adeguamento scorte”?",
+                        "title": "Modifiche non salvate"
                     }
                 }
             },
@@ -13373,7 +13460,9 @@
         "saveProductWithVariantCount_plural": "Salva un prodotto con {{count}} varianti",
         "saveVariantCount": "Salva {{count}} variante",
         "saveVariantCount_plural": "Salva {{count}} varianti",
-        "startingAtWithPrice": "A partire da {{price}}"
+        "startingAtWithPrice": "A partire da {{price}}",
+        "addVariantCount": "Aggiungi {{count}} variante",
+        "addVariantCount_plural": "Aggiungi {{count}} varianti"
     },
     "paymentRules": {
         "save": "Salva",
@@ -16875,7 +16964,9 @@
                 "consumer_subscription_card": "Card abbonamento dei clienti",
                 "fabrique_big_icon": "Icona grande",
                 "referral_details": "Dettagli del referral",
-                "fabrique_title": "Titolo"
+                "fabrique_title": "Titolo",
+                "consumer_invoice_details_card": "Scheda dei dettagli della ricevuta (per i membri)",
+                "consumer_invoice_card": "Scheda della ricevuta (per i membri)"
             },
             "cssConfig": {
                 "title": {
@@ -17012,7 +17103,9 @@
                     "state": "Stato",
                     "showSuccessText": "Mostra il testo di conferma",
                     "showSuccessTitle": "Mostra il titolo di conferma",
-                    "isCollapsable": "Tipo di titolo"
+                    "isCollapsable": "Tipo di titolo",
+                    "isMultilocationEnabled": "Visualizza la sede di contabilizzazione",
+                    "invoiceType": "Tipo di ricevuta"
                 },
                 "option": {
                     "false": "No",
@@ -17115,7 +17208,10 @@
                     "authenticated": "Autenticato",
                     "unknownError": "Errore sconosciuto",
                     "NotCollapsable": "Non richiudibile",
-                    "Collapsable": "Richiudibile"
+                    "Collapsable": "Richiudibile",
+                    "refunded": "RImborsata",
+                    "paid": "Pagata",
+                    "unpaid": "Non pagata"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
@@ -18373,6 +18469,10 @@
             "roleTabTitle": "Ruoli",
             "explainStaff": "Con l'accesso dello staff all'account principale, si può selezionare a quali franchisee lo staff avrà accesso e quali azioni potrà eseguire. L'accesso dello staff non consente di collegarsi all'applicazione mobile.",
             "staffAccountTabTitle": "Account del personale"
+        },
+        "search": {
+            "usersTableTitle": "Utenti",
+            "pageTitle": "Cerca"
         }
     },
     "giftcard": {

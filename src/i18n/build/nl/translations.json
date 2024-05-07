@@ -125,10 +125,17 @@
             "goBack": "Retour"
         },
         "unsubscriber": {
-            "success": "Je bent uitgeschreven.",
+            "success": {
+                "text": "Je hebt je succesvol uitgeschreven. U zult niet langer nieuwsbrieven ontvangen van {{- companyName}}.",
+                "title": "Je hebt afgemeld."
+            },
             "error": "Fout tijdens het uitschrijven",
             "doUnsubscribe": "Uitschrijven",
-            "explain": "Weet je zeker dat je je voor alle nieuwsbrieven van deze studio wilt uitschrijven?"
+            "explain": "Weet je zeker dat je je voor alle nieuwsbrieven van deze studio wilt uitschrijven?",
+            "explainAction": {
+                "possessive": "Weet je zeker dat je je wilt afmelden voor de nieuwsbrieven van {{- companyName}}?",
+                "normal": "Weet je zeker dat je je wilt afmelden voor de nieuwsbrieven van {{- companyName}}?"
+            }
         },
         "myVideos": {
             "title": "Mijn video's",
@@ -445,15 +452,16 @@
                     "billingHistory": "Facturatie geschiedenis",
                     "failedPaymentReasonWithRetry": "Reden: {{- note }}. De betaling wordt opnieuw geprobeerd op {{- nextRetryDate}}",
                     "beforeRenewalContractPriceEvery": "Dan {{ price }} iedere {{ recurrence }}{{ interval }} na {{- date }}",
-                    "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}"
+                    "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}",
+                    "loadMore": "Laad meer"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Zie details",
                         "addPaymentMethod": "Een betaalmethode toevoegen"
                     },
-                    "recurrenceLabelEvery": "{{ price }} iedere {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+                    "recurrenceLabelEvery": "iedere {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Betaling mislukt",
                         "missingPaymentMethod": "Er ontbreekt een betaalmethode",
@@ -487,6 +495,83 @@
                 "placeholder": {
                     "expired": "Je hebt nog geen verlopen abonnementen.",
                     "nonExpired": "Het lijkt erop dat je geen actieve abonnementen hebt."
+                }
+            },
+            "myInvoices": {
+                "payment": {
+                    "useBalance": "Gebruik",
+                    "title": "Betaling factuur",
+                    "successMessage": "De betaling was succesvol",
+                    "myBalance": "Mijn interne rekening balans",
+                    "method": "Betaalmethode",
+                    "details": "Betaaldetails",
+                    "confirm": "Bevestig",
+                    "addPaymentMethod": "Voeg betaalmethode toe"
+                },
+                "detailsCard": {
+                    "total": "Totaal",
+                    "retryDate": "De betaling wordt opnieuw geprobeerd op {{ date }}",
+                    "refunded": "Geannuleerd",
+                    "products": "Mijn producten",
+                    "plannedPayments": "Geplande betalingen",
+                    "placeholder": "Kies een factuur om de details te bekijken.",
+                    "paymentHistory": "Betaal geschiedenis",
+                    "paymentErrorWithReason": "Deze betaling is mislukt. Reden: { {{ reason }} }.",
+                    "paymentError": "Deze betaling was niet succesvol.",
+                    "pay": "Betaal nu",
+                    "paid": "Betaald",
+                    "noPaymentRegistered": "Er is voorlopig geen geregistreerde betaling.",
+                    "due": "Due",
+                    "downloadRefundedInvoice": "Terugbetaalde factuur downloaden",
+                    "downloadReceipt": "Download ontvangst",
+                    "downloadOriginalInvoice": "Download de originele factuur",
+                    "download": "Factuur downloaden",
+                    "dispute": {
+                        "lost": "Verloren",
+                        "won": "Gewonnen",
+                        "processing": "Verwerking"
+                    }
+                },
+                "card": {
+                    "chip": {
+                        "refunded": "Gerefund",
+                        "plannedPayments": "Geplande betalingen",
+                        "partiallyPaid": "Gedeeltelijk betaald",
+                        "dispute": "Geschil",
+                        "cancelled": "Geannuleerd"
+                    },
+                    "title": "Factuur N°{{ identifier }}",
+                    "seeDetails": "Zie details",
+                    "refundedInvoice": "Terugbetaalde factuur",
+                    "receipt": "Ontvangstbewijs",
+                    "pay": "Betaal nu",
+                    "otherItems": "+{{ count }} item",
+                    "originalInvoice": "Originele factuur",
+                    "location": "Locatie: {{ name }}",
+                    "invoice": "Factuur",
+                    "downloads": "Downloads",
+                    "downloadRefundedInvoice": "Terugbetaalde factuur downloaden",
+                    "downloadReceipt": "Download ontvangst",
+                    "downloadOriginalInvoice": "Download de originele factuur",
+                    "downloadInvoice": "Download factuur",
+                    "download": "Download"
+                },
+                "header": {
+                    "filters": {
+                        "refunded": "Terugbetaald",
+                        "paid": "Betaald",
+                        "unpaid": "Onbetaald"
+                    },
+                    "buttons": {
+                        "goBack": "Terug",
+                        "bookSession": "Boek een sessie"
+                    },
+                    "title": "Mijn facturen"
+                },
+                "placeholder": {
+                    "refunded": "Je hebt nog geen terugbetaalde facturen.",
+                    "paid": "Je hebt nog geen betaalde facturen.",
+                    "unpaid": "Goed gedaan, je hebt geen onbetaalde facturen."
                 }
             }
         }
@@ -3922,8 +4007,9 @@
         },
         "search": "Zoek een leskaart",
         "extension": {
-            "nbDaysAdded": "+ {{nb_days}} d",
-            "addedOn": "Toegevoegd op ",
+            "nbDaysAdded": "{{count}} dag",
+            "nbDaysAdded_plural": "{{count}} dagen",
+            "addedOn": "Toegevoegd op: ",
             "delete": {
                 "title": "Verwijder verlenging van geldigheidsduur",
                 "explain": "Weet je zeker dat je de verlenging van de geldigheidsduur wilt verwijderen?",
@@ -3943,7 +4029,7 @@
                 "nbDays": {
                     "label": "Aantal extra dagen"
                 },
-                "title": "Leskaart verlengen",
+                "title": "Verleng de geldigheid van de pas",
                 "cancel": "Annuleren",
                 "datePicker": {
                     "label": "Nieuwe datum"
@@ -3952,7 +4038,9 @@
             "options": {
                 "addNumberOfDays": "De geldigheid verlengen door een bepaald aantal dagen toe te voegen",
                 "selectNewEndDate": "Stel een nieuwe vervaldatum in"
-            }
+            },
+            "seeMore": "Zie meer",
+            "seeLess": "Zie minder"
         },
         "form": {
             "paymentPack": {
@@ -4275,19 +4363,31 @@
         },
         "only_vod_access": "Alleen geschikt voor Video On Demand",
         "massExtension": {
-            "title": "Geldigheid voor iedereen verlengen",
+            "title": "Geldigheid verlengen",
             "minDate": "Niet eerder dan",
             "dateHelpText": "Verleng alle kaarten die tussen X en Y verlopen",
-            "helpText": "Hier kun je de geldigheid van deze kaart voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
-            "listItemNbDays": "+ {{nbDays}} dag(en)",
+            "helpText": "Deze bewerking kan niet worden teruggedraaid",
+            "listItemNbDays": "+{{ count }} dag",
+            "listItemNbDays_plural": "+{{ count }} dagen",
             "createdAt": "Toegevoegd op: {{date}}",
             "listItemDate": "Verloopt tussen {{ minDate }} en {{ maxDate }}",
             "cancel": "Annuleer",
             "submit": "Bevestigen",
-            "maxDate": "Niet later dan"
+            "maxDate": "Niet later dan",
+            "listItem": {
+                "seeLess": "Zie minder",
+                "seeMore": "Zie meer"
+            },
+            "error": {
+                "note": "Het maximum aantal tekens voor dit veld is 500",
+                "nbDays": "Voer een positief getal in",
+                "maxEndingDate": "Voer een geldige maximumdatum in",
+                "minEndingDate": "Voer een geldige minimumdatum in"
+            },
+            "titleDialog": "Verleng de geldigheid voor alle leden"
         },
         "section": {
-            "massExtension": "Verlenging"
+            "massExtension": "Geldigheidsuitbreiding"
         },
         "category": {
             "deleteModal": {
@@ -5080,7 +5180,9 @@
                 "attendance": "status:",
                 "level": {
                     "first": "niveau "
-                }
+                },
+                "second_singular_v2": "De sessie",
+                "first_v2": "Leden die hun "
             },
             "22": {
                 "name": "Aantal reserveringen",
@@ -5446,7 +5548,9 @@
                 "true": "Accepteer",
                 "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
                 "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
-                "name": "Notificaties"
+                "name": "Notificaties",
+                "or": "Of",
+                "and": "En"
             },
             "102": {
                 "date": {
@@ -5463,7 +5567,8 @@
                 "atLeastOne": "ten minste één formulier",
                 "hasNotCompleted": "Heeft niet voltooid",
                 "hasCompleted": "Heeft voltooid",
-                "name": "Formulieren"
+                "name": "Formulieren",
+                "first": "Heeft gecomplete"
             },
             "101": {
                 "explanation": "Is minder/meer/precies...",
@@ -9014,7 +9119,8 @@
                 "calendarV2": "Agenda",
                 "newsletterV2": "Lead-acquisitie",
                 "referral": "Referral",
-                "consumerBooking": "Mijn boekingen"
+                "consumerBooking": "Mijn boekingen",
+                "consumerPass": "Mijn leskaarten"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -10507,6 +10613,11 @@
                         "color": "Selecteer kleur",
                         "size": "Selecteer maat",
                         "company": "Selecteer studio"
+                    },
+                    "unsavedChangesModal": {
+                        "default": "Wil je je wijzigingen opslaan voordat je naar een andere pagina gaat?",
+                        "inventory": "Wil je, voordat je naar een andere pagina gaat, de inventaris bijwerken op basis van de waarden die zijn ingevoerd in de kolom “Voorraadaanpassing”?",
+                        "title": "Niet-opgeslagen wijzigingen"
                     }
                 },
                 "history": {
@@ -10596,7 +10707,9 @@
         "saveProductWithVariantCount_plural": "Een product opslaan met {{count}} varianten",
         "saveVariantCount": "Opslaan {{count}} variant",
         "saveVariantCount_plural": "Opslaan {{count}} varianten",
-        "startingAtWithPrice": "Vanaf 1{{price}}"
+        "startingAtWithPrice": "Vanaf 1{{price}}",
+        "addVariantCount": "Variant {{count}} toevoegen",
+        "addVariantCount_plural": "Varianten {{count}} toevoegen"
     },
     "paymentRules": {
         "base_percent": "Percentage van de waarde",
@@ -10808,7 +10921,8 @@
             "30": "Sofort",
             "20": "Bancontact",
             "disputeWon": "Gewonnen",
-            "70": "Bacs Automatische Incasso"
+            "70": "Bacs Automatische Incasso",
+            "3": "Kaart"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
@@ -11183,6 +11297,9 @@
                     "error": "De categorie kan niet worden bewerkt",
                     "success": "De categorie is succesvol gewijzigd"
                 }
+            },
+            "compatibilitiesUpdate": {
+                "fail": "Fout bij het bijwerken van pascompatibiliteiten"
             }
         },
         "coupon": {
@@ -13158,7 +13275,10 @@
         "saveChanges": "Wijzigingen opslaan",
         "none": "Geen",
         "numberRequired": "Dit veld moet een nummer zijn",
-        "positiveNumber": "Dit veld moet meer dan 0 zijn."
+        "positiveNumber": "Dit veld moet meer dan 0 zijn.",
+        "seeMore": "Zie meer",
+        "seeLess": "Zie minder",
+        "discardChanges": "Wijzigingen weggooien"
     },
     "workshop": {
         "modal": {
@@ -14649,6 +14769,12 @@
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Het lid automatisch van de wachtlijst verwijderen als hij geen geldige pas meer heeft wanneer hij aan de beurt is",
                 "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren."
+            },
+            "errors": {
+                "lastDelayBeforeAutoConsumeError": "Minuten moeten tussen 0 en 240 liggen",
+                "autokickDelayError": "Een nummer is vereist",
+                "smartDelayPercentageError": "Het percentage moet tussen 10 en 100 liggen",
+                "dumbDelayMinutesError": "Minuten tussen terugroepacties moeten hoger zijn dan 15"
             }
         },
         "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
@@ -16805,7 +16931,10 @@
                     "authenticated": "Geverifieerd",
                     "unknownError": "Onbekende fout",
                     "NotCollapsable": "Niet inklapbaar",
-                    "Collapsable": "Inklapbaar"
+                    "Collapsable": "Inklapbaar",
+                    "refunded": "Gerefund",
+                    "paid": "Betaald",
+                    "unpaid": "Onbetaald"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -16941,7 +17070,9 @@
                     "state": "Staat",
                     "showSuccessText": "Toon bevestigingstekst",
                     "showSuccessTitle": "Toon bevestigingstitel",
-                    "isCollapsable": "Type titel"
+                    "isCollapsable": "Type titel",
+                    "isMultilocationEnabled": "Factureringslocatie weergeven",
+                    "invoiceType": "Factuur type"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -17103,7 +17234,9 @@
                 "consumer_subscription_card": "Consumentenabonnementskaart",
                 "fabrique_big_icon": "Groot logo",
                 "referral_details": "Details verwijzing",
-                "fabrique_title": "Titel"
+                "fabrique_title": "Titel",
+                "consumer_invoice_details_card": "Kaart met factuurgegevens (voor lid)",
+                "consumer_invoice_card": "Factuurkaart (voor lid)"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -18357,6 +18490,10 @@
                     "title": "Deactivatie"
                 }
             }
+        },
+        "search": {
+            "usersTableTitle": "Gebruikers",
+            "pageTitle": "Zoek"
         }
     },
     "giftcard": {
@@ -19805,6 +19942,11 @@
             "accessStatusChangedSuccess": {
                 "message": "Alle problemen zijn verholpen en de status van het lid is nu 'Geldig'.",
                 "title": "Lidstatus bijgewerkt"
+            },
+            "locationBlocker": {
+                "description": "Te vinden onder Instellingen > Personeel.",
+                "message": "Vraag personeel met beheerdersrechten om een locatie toe te wijzen aan de toegang voor personeel.",
+                "title": "Locatie niet toegewezen"
             }
         },
         "memberVisitDetails": {

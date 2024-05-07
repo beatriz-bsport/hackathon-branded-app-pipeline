@@ -2456,7 +2456,8 @@
                 "calendarV2": "Calendario",
                 "newsletterV2": "Adquisición de clientes potenciales",
                 "referral": "Referencia",
-                "consumerBooking": "Mis reservas"
+                "consumerBooking": "Mis reservas",
+                "consumerPass": "Mis bonos"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -2872,6 +2873,11 @@
                         "color": "Seleccionar color",
                         "size": "Selecciona la talla",
                         "company": "Seleccionar estudio"
+                    },
+                    "unsavedChangesModal": {
+                        "default": "¿Quieres guardar los cambios antes de pasar a otra página?",
+                        "inventory": "Antes de pasar a otra página, ¿desea actualizar el inventario en función de los valores introducidos en la columna \"Ajuste de existencias\"?",
+                        "title": "Cambios sin guardar"
                     }
                 }
             },
@@ -2945,7 +2951,9 @@
         "saveProductWithVariantCount_plural": "Guardar un producto con {{count}} variantes",
         "saveVariantCount": "Guardar {{cuenta}} variante",
         "saveVariantCount_plural": "Guardar {{count}} variantes",
-        "startingAtWithPrice": "A partir de {{price}}"
+        "startingAtWithPrice": "A partir de {{price}}",
+        "addVariantCount": "Añadir {{count}} variante",
+        "addVariantCount_plural": "Añadir {{count}} variantes"
     },
     "payment": {
         "explainOption": "Estaria previsto cuanda se libere un hueco",
@@ -3063,7 +3071,8 @@
             "30": "Sofort",
             "20": "Bancontact",
             "disputeWon": "Resuelto",
-            "70": "Bacs Direct Debit"
+            "70": "Bacs Direct Debit",
+            "3": "Bono"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -7703,10 +7712,17 @@
             "content": "¡Tu compra ha sido registrada!"
         },
         "unsubscriber": {
-            "success": "Te has dado de baja",
+            "success": {
+                "text": "Se ha dado de baja correctamente. Ya no recibirá más boletines de {{- companyName}}.",
+                "title": "Has cancelado tu suscripción."
+            },
             "error": "Error al darse de baja",
             "doUnsubscribe": "Darme de baja",
-            "explain": "¿Quieres darte de baja de todas las newsletters de tu club?"
+            "explain": "¿Quieres darte de baja de todas las newsletters de tu club?",
+            "explainAction": {
+                "possessive": "¿Está seguro de que desea darse de baja de los boletines de {{- companyName}}?",
+                "normal": "¿Está seguro de que desea darse de baja de los boletines de {{- companyName}}?"
+            }
         },
         "myVideos": {
             "title": "Mis videos",
@@ -8023,15 +8039,16 @@
                     "billingHistory": "Histórico de facturación",
                     "failedPaymentReasonWithRetry": "Motivo: {{- note }}. El pago se volverá a intentar en {{- nextRetryDate}}.",
                     "beforeRenewalContractPriceEvery": "Entonces {{ price }} cada {{ recurrence }} {{ interval }} después de {{- date }}",
-                    "beforeRenewalContractPricePer": "Entonces {{ price }}/{ interval }} después de {{- date }}"
+                    "beforeRenewalContractPricePer": "Entonces {{ price }}/{ interval }} después de {{- date }}",
+                    "loadMore": "Cargar más"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Ver detalles",
                         "addPaymentMethod": "Añadir método de pago"
                     },
-                    "recurrenceLabelEvery": "{{ price }} cada {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+                    "recurrenceLabelEvery": "cada {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Pago fallido",
                         "missingPaymentMethod": "Falta el método de pago",
@@ -8065,6 +8082,83 @@
                 "placeholder": {
                     "expired": "Aún no tiene suscripciones caducadas.",
                     "nonExpired": "Parece que no tienes ninguna suscripción activa."
+                }
+            },
+            "myInvoices": {
+                "payment": {
+                    "useBalance": "Usar",
+                    "title": "Pago de la factura",
+                    "successMessage": "El pago se ha realizado correctamente",
+                    "myBalance": "El saldo de mi cuenta interna",
+                    "method": "Método de pago",
+                    "details": "Detalles de pago",
+                    "confirm": "Confirmar",
+                    "addPaymentMethod": "Añadir método de pago"
+                },
+                "detailsCard": {
+                    "total": "Total",
+                    "retryDate": "El pago se reintentará en {{ date }}",
+                    "refunded": "Reembolsada",
+                    "products": "Mis productos",
+                    "plannedPayments": "Pagos programados",
+                    "placeholder": "Seleccione una factura para ver los detalles.",
+                    "paymentHistory": "Historial de pagos",
+                    "paymentErrorWithReason": "Este pago no se ha realizado correctamente. Motivo: { {{ reason }} }.",
+                    "paymentError": "Este pago no se ha realizado correctamente.",
+                    "pay": "Pagar ahora",
+                    "paid": "Pagada",
+                    "noPaymentRegistered": "Por ahora no hay ningún pago registrado.",
+                    "due": "Debido",
+                    "downloadRefundedInvoice": "Descargar la factura reembolsada",
+                    "downloadReceipt": "Descargar recibo",
+                    "downloadOriginalInvoice": "Descargar la factura original",
+                    "download": "Descargar factura",
+                    "dispute": {
+                        "lost": "Perdida",
+                        "won": "Ganada",
+                        "processing": "Procesando"
+                    }
+                },
+                "card": {
+                    "chip": {
+                        "refunded": "Reembolsada",
+                        "plannedPayments": "Pagos programados",
+                        "partiallyPaid": "Pagada parcialmente",
+                        "dispute": "Disputa",
+                        "cancelled": "Cancelada"
+                    },
+                    "title": "Factura N°{{ identifier }}",
+                    "seeDetails": "Ver detalle",
+                    "refundedInvoice": "Factura reembolsada",
+                    "receipt": "Recibo",
+                    "pay": "Pagar ahora",
+                    "otherItems": "+{{ count }} artículos",
+                    "originalInvoice": "Factura original",
+                    "location": "Ubicación: {{ name }}",
+                    "invoice": "Factura",
+                    "downloads": "Descargas",
+                    "downloadRefundedInvoice": "Descargar la factura reembolsada",
+                    "downloadReceipt": "Descargar recibo",
+                    "downloadOriginalInvoice": "Descargar la factura original",
+                    "downloadInvoice": "Descargar factura",
+                    "download": "Descargar"
+                },
+                "header": {
+                    "filters": {
+                        "refunded": "Reembolsadas",
+                        "paid": "Pagadas",
+                        "unpaid": "Impagadas"
+                    },
+                    "buttons": {
+                        "goBack": "Atrás",
+                        "bookSession": "Reservar una sesión"
+                    },
+                    "title": "Mis facturas"
+                },
+                "placeholder": {
+                    "refunded": "Aún no tiene facturas reembolsadas.",
+                    "paid": "Aún no tiene facturas pagadas.",
+                    "unpaid": "Bien hecho, no tienes ninguna factura impagada."
                 }
             }
         }
@@ -8800,14 +8894,14 @@
         "consumerPass": {
             "detail": {
                 "invoice": "Factura vinculada",
-                "extensionsTitle": "Extensiones de validez",
+                "extensionsTitle": "Extensión de la validez",
                 "booking": "Reservas citas vinculadas"
             },
             "isReverted": "Factura cancelada",
             "current_credits": "{{ current_credits }}/{{credits}} créditos",
             "expiresOn": "Expira el {{ date }}",
             "actions": {
-                "addExtension": "Añadir una extensión"
+                "addExtension": "Extender la validez"
             },
             "extension": {
                 "create": {
@@ -12697,6 +12791,12 @@
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Eliminar automáticamente al miembro de la lista de espera si, cuando sus plazas queden libres, ya no dispone de un pase válido.",
                 "helper": "Un miembro puede utilizar sus créditos en otra sesión mientras espera en la lista de espera. Con esta configuración activada, si eso ocurre, su plaza en la lista de espera se cancelará automáticamente cuando le toque inscribirse."
+            },
+            "errors": {
+                "lastDelayBeforeAutoConsumeError": "Los minutos deben estar entre 0 y 240",
+                "autokickDelayError": "Se requiere un número",
+                "smartDelayPercentageError": "El porcentaje debe estar comprendido entre 10 y 100",
+                "dumbDelayMinutesError": "Los minutos entre retiradas deben ser superiores a 15"
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
@@ -12842,7 +12942,10 @@
         "saveChanges": "Guardar cambios",
         "none": "Ninguno",
         "numberRequired": "Este campo debe ser un número",
-        "positiveNumber": "Este campo debe ser superior a 0."
+        "positiveNumber": "Este campo debe ser superior a 0.",
+        "seeMore": "Ver más",
+        "seeLess": "Ver menos",
+        "discardChanges": "Descartar cambios"
     },
     "snackbar": {
         "invoice": {
@@ -13288,6 +13391,9 @@
                     "success": "Categoría eliminada",
                     "error": "No se puede eliminar la categoría"
                 }
+            },
+            "compatibilitiesUpdate": {
+                "fail": "Error al actualizar las compatibilidades de los bonos"
             }
         },
         "coupon": {
@@ -14201,7 +14307,7 @@
                 },
                 "submit": "Crear",
                 "cancel": "Cancelar",
-                "title": "Extensión de una tarjeta",
+                "title": "Ampliar la validez del bono",
                 "datePicker": {
                     "label": "Nueva fecha"
                 }
@@ -14212,12 +14318,15 @@
                 "explain": "¿Estás seguro de que quieres suprimir la extensión?",
                 "title": "Supresión de la extensión"
             },
-            "addedOn": "Añadido el ",
-            "nbDaysAdded": "+{{nb_days}}j",
+            "addedOn": "Añadido el: ",
+            "nbDaysAdded": "+{{count}} día",
+            "nbDaysAdded_plural": "+{{count}} días",
             "options": {
                 "addNumberOfDays": "Ampliar la validez añadiendo un número de días",
                 "selectNewEndDate": "Fijar una nueva fecha de fin de validez"
-            }
+            },
+            "seeMore": "Ver más",
+            "seeLess": "Ver menos"
         },
         "search": "Buscar una tarjeta",
         "notification": {
@@ -14443,19 +14552,31 @@
         "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}",
         "only_vod_access": "Disponible sólo para VOD",
         "massExtension": {
-            "listItemNbDays": "+{{nbDays}} días",
+            "listItemNbDays": "+{{ count }} día",
+            "listItemNbDays_plural": "+{{ count }} días",
             "createdAt": "Se ha añadido la {{date}}",
             "listItemDate": "Que expira entre el {{ minDate }} y el {{ maxDate }}",
             "cancel": "Cancelar",
             "submit": "Validar",
-            "title": "Ampliar la validez para todos los clientes",
+            "title": "Ampliar la validez",
             "maxDate": "El último de los",
             "minDate": "Lo más pronto que el",
             "dateHelpText": "Sólo se extienden los bonos que expiran entre el",
-            "helpText": "Está a punto de prolongar toda la validez de los bonos de su miembros. Cuidado, esta operación no se puede revertir."
+            "helpText": "Esta operación no puede revertirse",
+            "listItem": {
+                "seeLess": "Ver menos",
+                "seeMore": "Ver más"
+            },
+            "error": {
+                "note": "El número máximo de caracteres para este campo es 500",
+                "nbDays": "Introduzca un número positivo",
+                "maxEndingDate": "Introduzca una fecha máxima válida",
+                "minEndingDate": "Introduzca una fecha mínima válida"
+            },
+            "titleDialog": "Ampliar la validez para todos los miembros"
         },
         "section": {
-            "massExtension": "Extensión"
+            "massExtension": "Extensión de la validez"
         },
         "category": {
             "form": {
@@ -15867,7 +15988,9 @@
                 "attendance": "con estado",
                 "level": {
                     "first": "nivel "
-                }
+                },
+                "second_singular_v2": "ª sesión",
+                "first_v2": "Miembros que reservaron su "
             },
             "20": {
                 "explanation": "Ha abandonado una cesta de cantidad…",
@@ -16093,7 +16216,9 @@
                 "true": "Acepta",
                 "oneNeeded": "Debe llenar al menos una de las condiciones activadas",
                 "allNeeded": "Deben llenar todas las condiciones activadas",
-                "name": "Notificaciones"
+                "name": "Notificaciones",
+                "or": "O",
+                "and": "Y"
             },
             "102": {
                 "date": {
@@ -16110,7 +16235,8 @@
                 "atLeastOne": "al menos un formulario",
                 "hasNotCompleted": "No completó",
                 "hasCompleted": "Completó",
-                "name": "Formularios"
+                "name": "Formularios",
+                "first": "Ha completado"
             },
             "101": {
                 "explanation": "Es menos/más/exactamente...",
@@ -16840,7 +16966,10 @@
                     "authenticated": "Autentificado",
                     "unknownError": "Error desconocido",
                     "NotCollapsable": "No plegable",
-                    "Collapsable": "Plegable"
+                    "Collapsable": "Plegable",
+                    "refunded": "Reembolsado",
+                    "paid": "Pagado",
+                    "unpaid": "Sin pagar"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -16976,7 +17105,9 @@
                     "state": "Estado",
                     "showSuccessText": "Mostrar texto de confirmación",
                     "showSuccessTitle": "Mostrar título de confirmación",
-                    "isCollapsable": "Tipo de título"
+                    "isCollapsable": "Tipo de título",
+                    "isMultilocationEnabled": "Mostrar la ubicación de facturación",
+                    "invoiceType": "Tipo de factura"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -17138,7 +17269,9 @@
                 "consumer_subscription_card": "Tarjeta de suscripción del consumidor",
                 "fabrique_big_icon": "Icono grande",
                 "referral_details": "Detalles de la referencia",
-                "fabrique_title": "Título"
+                "fabrique_title": "Título",
+                "consumer_invoice_details_card": "Tarjeta de datos de la factura (para el miembro)",
+                "consumer_invoice_card": "Tarjeta de factura (para el miembro)"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -18392,6 +18525,10 @@
                     "title": "Desactivación"
                 }
             }
+        },
+        "search": {
+            "usersTableTitle": "Usuarios",
+            "pageTitle": "Buscar"
         }
     },
     "giftcard": {
@@ -19840,6 +19977,11 @@
             "accessStatusChangedSuccess": {
                 "message": "Todas las incidencias han sido resueltas. El estado del miembro se ha actualizado a válido.",
                 "title": "Estado del miembro actualizado"
+            },
+            "locationBlocker": {
+                "description": "Se encuentra en Ajustes > Personal.",
+                "message": "Pida al personal con derechos de administrador que asigne una ubicación a su acceso de personal.",
+                "title": "Ubicación no asignada"
             }
         },
         "memberVisitDetails": {

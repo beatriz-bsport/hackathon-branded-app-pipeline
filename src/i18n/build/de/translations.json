@@ -53,6 +53,12 @@
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Automatisches Streichen des Mitglieds von der Warteliste, wenn es keinen gültigen Kurspass mehr hat, wenn sein Platz frei wird",
                 "helper": "Ein Mitglied könnte sein Guthaben für einen anderen Kurs verwenden, während es auf der Warteliste steht. Wenn diese Einstellung aktiviert ist, wird sein Platz auf der Warteliste automatisch gelöscht, wenn er an der Reihe ist, sich anzumelden."
+            },
+            "errors": {
+                "lastDelayBeforeAutoConsumeError": "Minuten sollten zwischen 0 und 240 liegen",
+                "autokickDelayError": "Eine Nummer ist erforderlich",
+                "smartDelayPercentageError": "Der Prozentsatz muss zwischen 10 und 100 liegen",
+                "dumbDelayMinutesError": "Abstand zwischen den Rückrufen sollte mehr als 15 Minuten betragen"
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -2304,7 +2310,9 @@
                 "attendance": "mit Status",
                 "level": {
                     "first": "Niveau "
-                }
+                },
+                "second_singular_v2": "ter Kurs",
+                "first_v2": "Mitglieder, die ihren Kurs gebucht haben "
             },
             "20": {
                 "date": {
@@ -2511,7 +2519,9 @@
                 "sms": "um Benachrichtigungen per SMS zu erhalten",
                 "true": "Akzeptieren",
                 "email": "um Benachrichtigungen per E-Mail zu erhalten",
-                "false": "Nicht Akzeptieren"
+                "false": "Nicht Akzeptieren",
+                "or": "Oder",
+                "and": "Und"
             },
             "105": {
                 "receiveCopyOfEmail": {
@@ -2575,7 +2585,8 @@
                 "hasNotCompleted": "nicht abgeschlossen",
                 "between": "und",
                 "name": "Formulare",
-                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt "
+                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt ",
+                "first": "Hat beendet"
             },
             "106": {
                 "true": "Ausgefüllt",
@@ -5410,7 +5421,7 @@
                     "label": "Anzahl der zusätzlichen Tage"
                 },
                 "warning": "Bitte prüfen Sie, ob das neue Datum in dasselbe Geschäftsjahr fällt wie das alte. Ist dies nicht der Fall, überprüfen Sie bitte mit Ihrer Buchhaltung, ob dieser Vorgang korrekt ist.",
-                "title": "Verlängerung einer Karte",
+                "title": "Verlängerung der Gültigkeit einer Karte",
                 "cancel": "Abbrechen",
                 "submit": "Erstellen",
                 "note": {
@@ -5420,18 +5431,21 @@
                     "label": "Neues Datum"
                 }
             },
-            "addedOn": "Hinzugefügt, am ",
+            "addedOn": "Hinzugefügt, am: ",
             "delete": {
                 "title": "Verlängerung löschen",
                 "explain": "Bist Du Dir sicher, dass Du diese Gültigkeitsverlängerung löschen möchtest?",
                 "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
             },
-            "nbDaysAdded": "+ {{nb_days}} Tag(e)",
+            "nbDaysAdded": "+ {{count}} day Tag(e)",
+            "nbDaysAdded_plural": "+{{count}} days",
             "options": {
                 "addNumberOfDays": "Gültigkeit durch Hinzufügen einer bestimmten Anzahl von Tagen erweitern",
                 "selectNewEndDate": "Neues Enddatum festlegen"
-            }
+            },
+            "seeMore": "Mehr sehen",
+            "seeLess": "Weniger sehen"
         },
         "search": "Eine Karte suchen",
         "notificationToolTip": "Für diese Karte sind Benachrichtigungen definiert",
@@ -5470,19 +5484,31 @@
         },
         "only_vod_access": "Nur für VOD verfügbar",
         "massExtension": {
-            "listItemNbDays": "+ {{nbDays}} Tage",
+            "listItemNbDays": "+ {{nbDays}} Tag",
+            "listItemNbDays_plural": "+{{nbDays}} Tage",
             "createdAt": "Hinzugefügt am {{date}}",
             "listItemDate": "Ablaufen zwischen {{minDate}} und {{maxDate}}",
             "cancel": "Abbrechen",
             "submit": "Bestätigen",
-            "title": "Füge allen Mitgliedern eine Verlängerung hinzu",
+            "title": "Gültigkeit verlängern",
             "maxDate": "Spätestens",
             "minDate": "Nicht früher als",
             "dateHelpText": "Verlängere nur Kurspässe, die dazwischen ablaufen",
-            "helpText": "Hier können Sie alle Kurspässe Ihrer Mitglieder verlängern. Dieser Vorgang kann nicht rückgängig gemacht werden."
+            "helpText": "Dieser Vorgang kann nicht rückgängig gemacht werden.",
+            "listItem": {
+                "seeLess": "Weniger sehen",
+                "seeMore": "Mehr sehen"
+            },
+            "error": {
+                "note": "Die maximale Anzahl von Zeichen für dieses Feld beträgt 500",
+                "nbDays": "Bitte gebe eine positive Zahl ein",
+                "maxEndingDate": "Bitte geben Sie ein gültiges maximales Datum ein",
+                "minEndingDate": "Bitte geben Sie ein gültiges Mindestdatum ein"
+            },
+            "titleDialog": "Verlängern Sie die Gültigkeit für alle Mitglieder"
         },
         "section": {
-            "massExtension": "Verlängerung"
+            "massExtension": "Gültigkeitsverlängerung"
         },
         "category": {
             "deleteModal": {
@@ -6700,6 +6726,9 @@
                     "error": "Kategorie kann nicht bearbeitet werden",
                     "success": "Kategorie erfolgreich geändert"
                 }
+            },
+            "compatibilitiesUpdate": {
+                "fail": "Fehler beim Aktualisieren der Passkompatibilitäten"
             }
         },
         "paymentRules": {
@@ -8334,7 +8363,8 @@
             "30": "SOFORT",
             "20": "Bancontact",
             "disputeWon": "Gewonnen",
-            "70": "Bacs-Lastschriftverfahren"
+            "70": "Bacs-Lastschriftverfahren",
+            "3": "Pass"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -8919,6 +8949,11 @@
                         "color": "Farbe auswählen",
                         "size": "Größe auswählen",
                         "company": "Studio auswählen"
+                    },
+                    "unsavedChangesModal": {
+                        "default": "Möchten Sie Ihre Änderungen speichern, bevor Sie zu einer anderen Seite wechseln?",
+                        "inventory": "Bevor Sie zu einer anderen Seite wechseln, möchten Sie den Bestand auf der Grundlage der in der Spalte \"Bestandsanpassung\" eingegebenen Werte aktualisieren?",
+                        "title": "Ungespeicherte Änderungen"
                     }
                 }
             },
@@ -8992,7 +9027,9 @@
         "saveProductWithVariantCount_plural": "Ein Produkt mit {{count}} Varianten speichern",
         "saveVariantCount": "{{count}} Variante speichern",
         "saveVariantCount_plural": "{{count}} Varianten speichern",
-        "startingAtWithPrice": "Beginnend bei {{Preis}}"
+        "startingAtWithPrice": "Beginnend bei {{Preis}}",
+        "addVariantCount": "{{count}} variante hinzufügen",
+        "addVariantCount_plural": "{{count}} varianten hinzufügen"
     },
     "datetime": {
         "form": {
@@ -10268,7 +10305,10 @@
         "saveChanges": "Änderungen speichern",
         "none": "Keine",
         "numberRequired": "Dieses Feld muss eine Zahl sein",
-        "positiveNumber": "Dieses Feld muss größer als 0 sein."
+        "positiveNumber": "Dieses Feld muss größer als 0 sein.",
+        "seeMore": "Mehr sehen",
+        "seeLess": "Weniger sehen",
+        "discardChanges": "Änderungen verwerfen"
     },
     "coupon": {
         "detail": {
@@ -11212,7 +11252,7 @@
             "isReverted": "Rechnung storniert",
             "expiresOn": "Läuft am {{ date }} ab",
             "actions": {
-                "addExtension": "Eine Verlängerung hinzufügen"
+                "addExtension": "Gültigkeitsverlängerung"
             },
             "extension": {
                 "create": {
@@ -12205,7 +12245,14 @@
             "explain": "Möchten Sie sich von allen Newslettern Ihres Studios abmelden?",
             "doUnsubscribe": "Abonnement stornieren",
             "error": "Fehler beim Stornierung des Abonnements",
-            "success": "Sie haben Ihr Abonnement abgebrochen."
+            "success": {
+                "text": "Sie haben sich erfolgreich abgemeldet. Sie werden keine Newsletter mehr von {{- companyName}} erhalten.",
+                "title": "Sie haben sich abgemeldet."
+            },
+            "explainAction": {
+                "possessive": "Sind Sie sicher, dass Sie den Newsletter von {{- companyName}} abbestellen möchten?",
+                "normal": "Sind Sie sicher, dass Sie den Newsletter von {{- companyName}} abbestellen möchten?"
+            }
         },
         "myVideos": {
             "gotToVOD": "Alle Videos anzeigen",
@@ -12522,15 +12569,16 @@
                     "billingHistory": "Rechnungshistorie",
                     "failedPaymentReasonWithRetry": "Grund: {{- note }}. Die Zahlung wird am {{- nextRetryDate}} erneut versucht.",
                     "beforeRenewalContractPriceEvery": "Dann {{ price }} every {{ recurrence }} {{ interval }} nach  {{- date }}",
-                    "beforeRenewalContractPricePer": "Dann{{ price }}/{{ interval }} nach {{- date }}"
+                    "beforeRenewalContractPricePer": "Dann{{ price }}/{{ interval }} nach {{- date }}",
+                    "loadMore": "Mehr laden"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Details ansehen",
                         "addPaymentMethod": "Zahlungsmethode hinzufügen"
                     },
-                    "recurrenceLabelEvery": "{{ price }} alle {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+                    "recurrenceLabelEvery": "Alle {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Zahlung fehlgeschlagen",
                         "missingPaymentMethod": "Fehlende Zahlungsmethode",
@@ -12564,6 +12612,83 @@
                 "placeholder": {
                     "expired": "Sie haben noch keine abgelaufenen Abonnements.",
                     "nonExpired": "Sieht so aus, als hätten Sie keine aktiven Abonnements."
+                }
+            },
+            "myInvoices": {
+                "payment": {
+                    "useBalance": "Nutzen",
+                    "title": "Zahlung der Rechnung",
+                    "successMessage": "Die Zahlung war erfolgreich",
+                    "myBalance": "Mein interner Kontostand",
+                    "method": "Zahlungsmethode",
+                    "details": "Angaben zur Zahlung",
+                    "confirm": "Bestätigen",
+                    "addPaymentMethod": "Zahlungsmethode hinzufügen"
+                },
+                "detailsCard": {
+                    "total": "Insgesamt",
+                    "retryDate": "Die Zahlung wird am {{ date }} erneut versucht",
+                    "refunded": "Erstattet",
+                    "products": "Meine Produkte",
+                    "plannedPayments": "Geplante Zahlungen",
+                    "placeholder": "Wähle eine Rechnung aus, um Details zu sehen.",
+                    "paymentHistory": "Zahlungsverlauf",
+                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: { {{ reason }} }.",
+                    "paymentError": "Diese Zahlung war nicht erfolgreich.",
+                    "pay": "Jetzt bezahlen",
+                    "paid": "Bezahlt",
+                    "noPaymentRegistered": "Zurzeit gibt es keine registrierte Zahlung.",
+                    "due": "Fällt an",
+                    "downloadRefundedInvoice": "Erstattete Rechnung herunterladen",
+                    "downloadReceipt": "Quittung herunterladen",
+                    "downloadOriginalInvoice": "Original-Rechnung herunterladen",
+                    "download": "Rechnung herunterladen",
+                    "dispute": {
+                        "lost": "Verloren",
+                        "won": "Gewonnen",
+                        "processing": "Wird bearbeitet"
+                    }
+                },
+                "card": {
+                    "chip": {
+                        "refunded": "Erstattet",
+                        "plannedPayments": "Geplante Zahlungen",
+                        "partiallyPaid": "Teilweise bezahlt",
+                        "dispute": "Anfechten",
+                        "cancelled": "Abgebrochen"
+                    },
+                    "title": "Rechnung Nr.{{ identifier }}",
+                    "seeDetails": "Siehe Details",
+                    "refundedInvoice": "Erstattete Rechnung",
+                    "receipt": "Quittung",
+                    "pay": "Jetzt bezahlen",
+                    "otherItems": "+{{ count }} Produkte",
+                    "originalInvoice": "Original-Rechnung",
+                    "location": "Standort: {{ name }}",
+                    "invoice": "Rechnung",
+                    "downloads": "Herunterladen",
+                    "downloadRefundedInvoice": "Erstattete Rechnungen herunterladen",
+                    "downloadReceipt": "Beleg herunterladen",
+                    "downloadOriginalInvoice": "Originalrechnung herunterladen",
+                    "downloadInvoice": "Rechnung herunterladen",
+                    "download": "Herunterladen"
+                },
+                "header": {
+                    "filters": {
+                        "refunded": "Erstattet",
+                        "paid": "Bezahlt",
+                        "unpaid": "Unbezahlt"
+                    },
+                    "buttons": {
+                        "goBack": "Zurück",
+                        "bookSession": "Eine Sitzung buchen"
+                    },
+                    "title": "Meine Rechnungen"
+                },
+                "placeholder": {
+                    "refunded": "Sie haben noch keine erstatteten Rechnungen.",
+                    "paid": "Sie haben noch keine bezahlten Rechnungen.",
+                    "unpaid": "Gut gemacht, Sie haben keine unbezahlten Rechnungen mehr."
                 }
             }
         }
@@ -15711,7 +15836,8 @@
                 "calendarV2": "Kalender",
                 "newsletterV2": "Lead-Akquise",
                 "referral": "Empfehlung",
-                "consumerBooking": "Meine Buchungen"
+                "consumerBooking": "Meine Buchungen",
+                "consumerPass": "Meine Karten"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -16830,7 +16956,9 @@
                 "consumer_subscription_card": "Abonnementkarte für Verbraucher",
                 "fabrique_big_icon": "Großes Symbol",
                 "referral_details": "Details zur Empfehlung",
-                "fabrique_title": "Titel"
+                "fabrique_title": "Titel",
+                "consumer_invoice_details_card": "Karte mit Rechnungsangaben (für Mitglieder)",
+                "consumer_invoice_card": "Rechnungskarte (für Mitglieder)"
             },
             "page": {
                 "calendar": "Kalender",
@@ -16984,7 +17112,9 @@
                     "state": "Zustand",
                     "showSuccessText": "Bestätigungstitel anzeigen",
                     "showSuccessTitle": "Bestätigungstitel anzeigen",
-                    "isCollapsable": "Art des Titels"
+                    "isCollapsable": "Art des Titels",
+                    "isMultilocationEnabled": "Rechnungsort anzeigen",
+                    "invoiceType": "Rechnungsart"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -17087,7 +17217,10 @@
                     "authenticated": "Authentifiziert",
                     "unknownError": "Unbekannter Fehler",
                     "NotCollapsable": "Nicht zusammenklappbar",
-                    "Collapsable": "Zusammenklappbar"
+                    "Collapsable": "Zusammenklappbar",
+                    "refunded": "Erstattet",
+                    "paid": "Bezahlt",
+                    "unpaid": "Unbezahlt"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -18243,6 +18376,10 @@
             "explainStaff": "Mit dem Mitarbeiterzugang des Master Accounts wählen Sie aus, welche Franchisenehmer Zugriff auf Ihr Personal haben und welche Aktionen sie durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
             "roleTabTitle": "Aufgaben",
             "staffAccountTabTitle": "Mitarbeiter-Accounts"
+        },
+        "search": {
+            "usersTableTitle": "Benutzer",
+            "pageTitle": "Suchen"
         }
     },
     "giftcard": {
@@ -19690,6 +19827,11 @@
             "accessStatusChangedSuccess": {
                 "message": "Alle Probleme wurden behoben. Der Mitgliedsstatus wurde auf \"gültig\" aktualisiert.",
                 "title": "Mitgliederstatus aktualisiert"
+            },
+            "locationBlocker": {
+                "description": "Zu finden unter Einstellungen > Mitarbeiter.",
+                "message": "Bitte Mitarbeiter mit Administratorrechten, Ihrem Mitarbeiterzugang einen Standort zuzuweisen.",
+                "title": "Standort nicht zugewiesen"
             }
         },
         "memberVisitDetails": {

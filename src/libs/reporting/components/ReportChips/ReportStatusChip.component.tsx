@@ -167,6 +167,9 @@ export const ReportStatusChip = (props: Props) => {
     icon = match.icon;
     iconColor = match.color.main;
   }
+  if (!value) {
+    return null;
+  }
 
   return (
     <CustomChip

@@ -43,6 +43,14 @@ type HookProps = {
   hasHydratedResults: boolean;
 };
 
+/**
+ *
+ * This hook is used to search the objects and format the resulting options.
+ * It performs a first search on mount to have initial options (hydration), then
+ * it debounces the search to avoid performing too many requests.
+ *
+ */
+
 export const useObjectSearch = ({
   searchObjects,
   rawResults,

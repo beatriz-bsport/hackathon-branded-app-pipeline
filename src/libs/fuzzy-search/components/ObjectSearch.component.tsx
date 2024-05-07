@@ -27,6 +27,24 @@ export type Props = OwnProps & ConnectedProps<typeof connector>;
 
 type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
 
+/**
+ * A generic select component used to perform fuzzySearch on a specific type of objects.
+ * The component uses Select from react-select to display the search results.
+ * Any prop from react-select can be passed to this component and overriden.
+ * @info - It is by default uncontrolled, meaning you can invoke it right away without passing any value and start
+ * performing searches.
+ * - If you need to access the results and want to keep it uncontrolled for convenience, use the useSearchResults hook.
+ * @properties
+ * - searchedObjectType: The type of object that is being searched
+ * - optionsFormatter (optional): A function that formats the search results into options
+ * - additionalParams (optional): Additional query parameters that can be passed to the API to filter the search results
+ * - initialValues (optional): The initial values that need to be hydrated
+ *
+ * The rest of the props are passed to the Select component. For initial values use the initialValues prop (not defaultValues), except if you
+ * want to override the default behaviour of the component.
+ *
+ */
+
 const ObjectSearch: React.FC<Props> = ({
   results,
   resultsById,

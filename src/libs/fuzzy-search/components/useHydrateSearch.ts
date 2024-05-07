@@ -22,6 +22,17 @@ type HookProps = {
   ) => Promise<void>;
 };
 
+/**
+ *
+ * This hook is used to load the search results with the initial values given.
+ * @param searchedObjectType: The type of object that is being searched
+ * @param initialValues: The initial values that need to be hydrated
+ * @param resultsById: The search results that are present in the store
+ * @param searchObjects: The function that is used to search the objects
+ * @returns formattedInitialValues: The initial values that are obtained post-hydration
+ * @returns hasHydratedResults: A boolean that indicates if the initial values have been hydrated
+ *
+ */
 export const useHydrateSearch = ({
   searchObjects,
   searchedObjectType,

@@ -42,6 +42,8 @@ import Quicksale from './quicksale';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import SettingsMobileRouter from './SettingsMobile.router';
+import SettingsPersonalization from './SettingsPersonalization.router';
+import { displayReworkedMemberProfile } from '#libs/consumer-space/constants';
 
 type Props = {};
 
@@ -101,11 +103,18 @@ export const Settings = () => {
       />
       <Route exact component={ShopConfigurationPage} path="/settings/shop" />
       <Route exact component={ThemeConfigurationPage} path="/settings/theme" />
-      <Route
-        exact
-        component={SettingsPersonalizePage}
-        path="/settings/personalization"
-      />
+      {displayReworkedMemberProfile ? (
+        <Route
+          component={SettingsPersonalization}
+          path={['/settings/personalization/:tab', '/settings/personalization']}
+        />
+      ) : (
+        <Route
+          exact
+          component={SettingsPersonalizePage}
+          path="/settings/personalization"
+        />
+      )}
       <Route
         component={SettingsMobileRouter}
         path="/settings/mobile-personalisation/:tab"

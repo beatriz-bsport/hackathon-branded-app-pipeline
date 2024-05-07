@@ -200,7 +200,7 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       pauseEndDate={NEXTBILLINGDATE}
       price={SUBSCRIPTION.recurrent_price.toString()}
       readableIdentifier="4242"
-      recurrence={SUBSCRIPTION.recurrence_basis}
+      recurrenceBasis={SUBSCRIPTION.recurrence_basis}
       recurrentPrice={
         componentProps.hasAutoRenewal && SUBSCRIPTION.recurrent_price.toString()
       }

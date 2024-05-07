@@ -28,7 +28,7 @@ type Props = Pick<
   | 'lastInvoiceDateBeforeRenewal'
   | 'pauseEndDate'
   | 'price'
-  | 'recurrence'
+  | 'recurrenceBasis'
   | 'recurrentPrice'
   | 'selectedSubscriptionsFuturePauses'
   | 'subscriptionInterval'
@@ -45,7 +45,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   lastInvoiceDateBeforeRenewal,
   pauseEndDate,
   price,
-  recurrence,
+  recurrenceBasis,
   recurrentPrice,
   selectedSubscriptionsFuturePauses,
   subscriptionInterval,
@@ -56,7 +56,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   const { t } = useTranslation(['consumerSpace', 'subscription']);
   const recurrentPriceDisplayed = getSubscriptionTextBasedOnCouponApplied(
     lastInvoiceDateBeforeRenewal,
-    recurrence,
+    recurrenceBasis,
     recurrentPrice,
     subscriptionInterval,
     t,
@@ -172,7 +172,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
           label={
             <ConsumerSubscriptionRecurrenceLabel
               price={price}
-              recurrence={recurrence}
+              recurrenceBasis={recurrenceBasis}
               subscriptionInterval={subscriptionInterval}
             />
           }

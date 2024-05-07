@@ -5,18 +5,18 @@ import type { SubscriptionInterval } from '#libs/subscription/types';
 import './styles.css';
 
 type Props = {
-  recurrence: number;
+  recurrenceBasis: number;
   price: string;
   subscriptionInterval: SubscriptionInterval;
 };
 
 const ConsumerSubscriptionRecurrenceLabel: React.FC<Props> = ({
-  recurrence,
+  recurrenceBasis,
   price,
   subscriptionInterval,
 }) => {
   const subscriptionRecurrenceLabel = useConsumerSubscriptionRecurrenceLabel(
-    recurrence,
+    recurrenceBasis,
     price,
     subscriptionInterval,
   );

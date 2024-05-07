@@ -14,7 +14,7 @@ const ConsumerSubscriptionCardTemplate: ComponentStory<
 };
 
 const defaultArgs = {
-  recurrence: SUBSCRIPTION.recurrence_basis,
+  recurrenceBasis: SUBSCRIPTION.recurrence_basis,
   subscriptionName: SUBSCRIPTION.name_without_member_name,
   subscriptionDate: DateTime.fromISO(SUBSCRIPTION.first_billing_date).toFormat(
     'D',
@@ -100,8 +100,8 @@ export default {
       defaultValue: false,
     },
     price: { description: 'Price displayed ', control: 'text' },
-    recurrence: {
-      description: 'Recurrence of the subscription',
+    recurrenceBasis: {
+      description: 'recurrenceBasis of the subscription',
       control: 'number',
     },
     subscriptionDate: {

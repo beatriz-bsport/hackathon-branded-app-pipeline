@@ -159,7 +159,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
                 onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
                 onDetailsClick={onCardDetailsClick(item.id)}
                 price={(item?.price_to_display_cts / 100).toFixed(2)}
-                recurrence={item?.recurrence_basis}
+                recurrenceBasis={item?.recurrence_basis}
                 subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
                 subscriptionInterval={item?.interval}
                 subscriptionName={item?.name_without_member_name}
@@ -211,7 +211,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         paymentMethodType={paymentMethodUsed?.type}
         price={(selectedSubscription?.price_to_display_cts / 100).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
-        recurrence={selectedSubscription?.recurrence_basis}
+        recurrenceBasis={selectedSubscription?.recurrence_basis}
         recurrentPrice={informationBasedOnCouponApplied(
           selectedSubscription,
           selectedSubscription?.recurrent_price,

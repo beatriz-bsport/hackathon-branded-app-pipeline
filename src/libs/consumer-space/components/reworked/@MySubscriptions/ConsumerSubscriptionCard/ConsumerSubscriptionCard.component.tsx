@@ -34,7 +34,7 @@ type Props = {
   /** Price to display and can depend on coupons applied */
   price: string;
   /** Number of payment per subscription interval */
-  recurrence: number;
+  recurrenceBasis: number;
   /** Date of the subscription displayed as the main subtitle */
   subscriptionDate: string;
   /** Interval of the subscription */
@@ -56,7 +56,7 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
   onAddPaymentMethodClick,
   onDetailsClick,
   price,
-  recurrence,
+  recurrenceBasis,
   subscriptionDate,
   subscriptionInterval,
   subscriptionName,
@@ -81,7 +81,7 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
         isDetailsDisabled={isDetailsDisabled}
         onDetailsClick={onDetailsClick}
         price={price}
-        recurrence={recurrence}
+        recurrenceBasis={recurrenceBasis}
         subscriptionInterval={subscriptionInterval}
         subscriptionNextPaymentDate={
           !hasFailedPayments && subscriptionNextPaymentDate

@@ -113,8 +113,8 @@ export default {
       control: 'text',
       defaultValue: SUBSCRIPTION.recurrent_price.toString(),
     },
-    recurrence: {
-      description: 'Recurrence of the subscription',
+    recurrenceBasis: {
+      description: 'recurrenceBasis of the subscription',
       control: 'number',
       defaultValue: SUBSCRIPTION.recurrence_basis,
     },

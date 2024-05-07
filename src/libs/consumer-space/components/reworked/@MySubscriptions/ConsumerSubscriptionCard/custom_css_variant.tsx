@@ -134,7 +134,7 @@ export const CONSUMER_SUBSCRIPTION_CARD_PREVIEW: React.FC<{
       onAddPaymentMethodClick={emptyFn}
       onDetailsClick={emptyFn}
       price={SUBSCRIPTION.recurrent_price.toString()}
-      recurrence={SUBSCRIPTION.recurrence_basis}
+      recurrenceBasis={SUBSCRIPTION.recurrence_basis}
       subscriptionDate={SUBSCRIPTIONDATE}
       subscriptionInterval={SUBSCRIPTION.interval}
       subscriptionName={SUBSCRIPTION.name_without_member_name}

@@ -73,7 +73,7 @@ type Props = {
   /** Readable identifier of the payment method */
   readableIdentifier: string;
   /** Number of payment per subscription interval */
-  recurrence: number;
+  recurrenceBasis: number;
   /** Recurrent price to be displayed if it has not been renewed yet and a coupon has been applied for all billings before first renewal */
   recurrentPrice: string | null;
   /** Indicates if any subscriptions were selected : needed for mobile display */
@@ -122,7 +122,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   paymentMethodType,
   price,
   readableIdentifier,
-  recurrence,
+  recurrenceBasis,
   recurrentPrice,
   selected,
   selectedSubscriptionInvoiceDetails,
@@ -170,7 +170,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         lastInvoiceDateBeforeRenewal={lastInvoiceDateBeforeRenewal}
         pauseEndDate={pauseEndDate}
         price={price}
-        recurrence={recurrence}
+        recurrenceBasis={recurrenceBasis}
         recurrentPrice={recurrentPrice}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         subscriptionInterval={subscriptionInterval}

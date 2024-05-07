@@ -18,7 +18,7 @@ type Props = Pick<
   | 'isDetailsDisabled'
   | 'onDetailsClick'
   | 'price'
-  | 'recurrence'
+  | 'recurrenceBasis'
   | 'subscriptionInterval'
   | 'subscriptionNextPaymentDate'
 >;
@@ -27,7 +27,7 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
   isDetailsDisabled,
   onDetailsClick,
   price,
-  recurrence,
+  recurrenceBasis,
   subscriptionInterval,
   subscriptionNextPaymentDate,
 }) => {
@@ -54,7 +54,7 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
           label={
             <ConsumerSubscriptionRecurrenceLabel
               price={price}
-              recurrence={recurrence}
+              recurrenceBasis={recurrenceBasis}
               subscriptionInterval={subscriptionInterval}
             />
           }

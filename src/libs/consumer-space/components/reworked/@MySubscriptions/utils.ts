@@ -13,19 +13,19 @@ import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@
 import { formatAsDate } from '#utils/datetime';
 
 export const getSubscriptionRecurrenceLabel = (
-  recurrence: number,
+  recurrenceBasis: number,
   price: string,
   t: TFunction,
   subscriptionInterval: SubscriptionInterval,
 ) =>
-  recurrence === 1
+  recurrenceBasis === 1
     ? t(
         'reworked.mySubscriptions.consumerSubscriptionCard.recurrenceLabelPer',
         {
           price: getCurrencyDisplayWithPrice(price),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
-            { count: recurrence },
+            { count: recurrenceBasis },
           ),
         },
       )
@@ -35,9 +35,9 @@ export const getSubscriptionRecurrenceLabel = (
           price: getCurrencyDisplayWithPrice(price),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
-            { count: recurrence },
+            { count: recurrenceBasis },
           ),
-          recurrence,
+          recurrenceBasis,
         },
       );
 
@@ -144,7 +144,7 @@ export const informationBasedOnCouponApplied = (
 /** If a "all before first renewal" coupon was applied, we display some informations */
 export const getSubscriptionTextBasedOnCouponApplied = (
   lastInvoiceDateBeforeRenewal: string,
-  recurrence: number,
+  recurrenceBasis: number,
   recurrentPrice: string,
   subscriptionInterval: SubscriptionInterval,
   t: TFunction,
@@ -157,14 +157,14 @@ export const getSubscriptionTextBasedOnCouponApplied = (
     lastInvoiceDateBeforeRenewal,
   );
 
-  return recurrence === 1
+  return recurrenceBasis === 1
     ? t(
         'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPricePer',
         {
           price: getCurrencyDisplayWithPrice(recurrentPrice),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
-            { count: recurrence },
+            { count: recurrenceBasis },
           ),
           date: formattedLastInvoiceDateBeforeRenewal,
         },
@@ -175,9 +175,9 @@ export const getSubscriptionTextBasedOnCouponApplied = (
           price: getCurrencyDisplayWithPrice(recurrentPrice),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
-            { count: recurrence },
+            { count: recurrenceBasis },
           ),
-          recurrence,
+          recurrenceBasis,
           date: formattedLastInvoiceDateBeforeRenewal,
         },
       );

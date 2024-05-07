@@ -19660,7 +19660,7 @@
     "accessControl": {
         "snackbar": {
             "R": "Non valide",
-            "O": "Attention",
+            "O": "Avertissement",
             "G": "Valide",
             "message": "<strong>{{- name }}</strong> vient de se présenter."
         },
@@ -19717,7 +19717,7 @@
             "title": "Information du membre",
             "accessStatus": {
                 "red": "Non valide",
-                "orange": "Attention",
+                "orange": "Avertissement",
                 "green": "Valide"
             }
         },

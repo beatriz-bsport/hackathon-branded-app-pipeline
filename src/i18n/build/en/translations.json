@@ -11800,10 +11800,10 @@
             "dateHelpText": "Only extend the passes expiring between the",
             "helpText": "This operation can not be reverted",
             "error": {
-              "minEndingDate": "Please enter a valid minimum date",
-              "maxEndingDate": "Please enter a valid maximum date",
-              "nbDays": "Please enter a positive number",
-              "note": "The maximum number of characters for this field is 500"
+                "minEndingDate": "Please enter a valid minimum date",
+                "maxEndingDate": "Please enter a valid maximum date",
+                "nbDays": "Please enter a positive number",
+                "note": "The maximum number of characters for this field is 500"
             }
         },
         "section": {
@@ -14587,8 +14587,8 @@
             },
             "600": {
                 "expiryDateLabel": "Expiration date",
-                "owns": "Select at least one payment method",
-                "does_not_own": "There are no saved payment methods to display",
+                "owns": "With at least one saved payment method",
+                "does_not_own": "Without any saved payment method",
                 "labelFirst": "Only filter on members",
                 "title": "Saved payment method",
                 "explanation": "Display an overview of members' saved payment methods and their expiration dates",

@@ -512,5 +512,17 @@ exports.default = {
         useBalance: 'Use',
       },
     },
+    myProfile: {
+      barCode: {
+        scan: 'Scan barcode',
+        scanInfo:
+          'Scan this barcode to enter the studio or to check-in for your class.',
+      },
+      detachPayment: {
+        title: 'Delete payment method',
+        subtitle:
+          "Remember you can't delete payment methods used in recurring payments.",
+      },
+    },
   },
 };

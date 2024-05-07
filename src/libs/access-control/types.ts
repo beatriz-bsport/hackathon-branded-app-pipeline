@@ -92,6 +92,7 @@ export type AccessControlBookingOrPrivateBooking = {
     establishment_name: string;
     spot_id: number;
     spot_information: SpotInformation;
+    is_spot_scheduling_enabled: boolean;
   };
   private_booking?: {
     id: number;

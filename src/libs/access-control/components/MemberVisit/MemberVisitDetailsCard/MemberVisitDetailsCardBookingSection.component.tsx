@@ -33,11 +33,12 @@ const MemberVisitDetailsCardBookingSection: React.FC<
       const {
         spot_id: spotId,
         spot_information: spotInformation,
+        is_spot_scheduling_enabled: isSpotSchedulingEnabled,
         coach_name,
       } = booking;
 
       const hasSpotSelected = typeof spotId === 'number';
-      const displayDropDownArrow = hasSpotSelected || !!coach_name;
+      const displayDropDownArrow = isSpotSchedulingEnabled || !!coach_name;
 
       return (
         <div className={classes.bookingDetails}>
@@ -70,7 +71,7 @@ const MemberVisitDetailsCardBookingSection: React.FC<
                   })}
                 </Typography>
               )}
-              {hasSpotSelected && (
+              {isSpotSchedulingEnabled && (
                 <div className={classes.spotInformation}>
                   <Typography color="textSecondary" variant="caption">
                     {/**
@@ -79,11 +80,13 @@ const MemberVisitDetailsCardBookingSection: React.FC<
                      * - Spot: A1
                      * - Spot: Cycle A1
                      */}
-                    {t('memberVisitDetails.spotName', {
-                      spotName: `${`${spotInformation?.name} ` || ''}${
-                        spotInformation.prefix
-                      }${spotInformation.indexType}`,
-                    })}
+                    {hasSpotSelected
+                      ? t('memberVisitDetails.spotName', {
+                          spotName: `${`${spotInformation?.name} ` || ''}${
+                            spotInformation.prefix
+                          }${spotInformation.indexType}`,
+                        })
+                      : t('memberVisitDetails.noSpotAllocated')}
                   </Typography>
                 </div>
               )}

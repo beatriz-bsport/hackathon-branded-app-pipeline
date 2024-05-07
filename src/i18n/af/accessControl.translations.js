@@ -67,6 +67,7 @@ exports.default = {
     nextBooking: 'Next booking:',
     teacherName: 'Teacher: {{- coachName}}',
     spotName: 'Spot: {{- spotName}}',
+    noSpotAllocated: 'No spot allocated',
     pass: 'Pass:',
     photoHasChanged: 'Profile picture changed recently',
     actions: {

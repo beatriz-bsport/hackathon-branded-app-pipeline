@@ -19,9 +19,9 @@ import type {
 } from '#libs/establishment/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { OfferFilter } from '#libs/offer/types';
+import type { OfferFilter } from '../types';
 import type { Coach } from '#libs/associated-coach/types';
-import { SelectOption } from '#src/libs/types';
+import type { SelectOption } from '#src/libs/types';
 
 export const FILTER_COACH = 0;
 export const FILTER_ESTABLISHMENT = 1;
@@ -45,14 +45,10 @@ type Props = {
   offerFilters: OfferFilter;
   filterVerification: boolean;
   setCalendarFilter: (
-    ev:
-      | { label: string; value: number }[]
-      | string
-      | number
-      | Array<number | string>,
+    newValues: SelectOption<number | string>[],
     filterType: number,
   ) => void;
-  selectRollCallFilter: (ev: React.SyntheticEvent) => void;
+  selectRollCallFilter: (event: React.SyntheticEvent) => void;
   selectSubTeacherRequestFilter: (
     value: ValueType<{
       value: string;

@@ -395,3 +395,40 @@ export const getCheckoutItemPrice = ({
 
   return '';
 };
+
+// check_payment_intent may be 'false' in the case when onFail from CheckPaymentStatus is triggered.
+// In this case, we don't want to retrieve the secret as the payment is failed nor check the payment status.
+export const shouldNotRetrieveSecret = (queryParams: {
+  check_payment_intent?: 'true' | 'false';
+  redirect_status?: 'succeeded' | 'pending' | 'failed';
+}): boolean => {
+  return (
+    queryParams &&
+    queryParams.check_payment_intent &&
+    (queryParams.redirect_status === 'succeeded' ||
+      queryParams.redirect_status === 'pending')
+  );
+};
+
+export const shouldCheckPaymentStatus = (queryParams: {
+  check_payment_intent?: 'true' | 'false';
+  redirect_status?: 'succeeded' | 'pending' | 'failed';
+}): boolean => {
+  return (
+    queryParams &&
+    queryParams.check_payment_intent === 'true' &&
+    (queryParams.redirect_status === 'succeeded' ||
+      queryParams.redirect_status === 'pending')
+  );
+};
+
+export const hasRedirectionFailed = (queryParams: {
+  check_payment_intent?: 'true' | 'false';
+  redirect_status?: 'succeeded' | 'pending' | 'failed';
+}): boolean => {
+  return (
+    queryParams &&
+    queryParams.check_payment_intent === 'true' &&
+    queryParams.redirect_status === 'failed'
+  );
+};

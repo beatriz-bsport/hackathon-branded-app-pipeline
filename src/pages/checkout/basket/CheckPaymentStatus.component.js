@@ -18,6 +18,8 @@ export class CheckPaymentStatus extends React.Component<Props> {
               if ([200, 400].includes(r.data)) {
                 this.props.onSuccess();
               } else if ([300, 600].includes(r.data)) {
+                // due to backend issue, we never get through this case,
+                // see https://bsporttest.atlassian.net/browse/BS-3786 for more information
                 clearInterval(this.interval);
                 this.props.onFail();
               }

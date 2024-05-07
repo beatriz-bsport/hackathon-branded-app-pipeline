@@ -18,6 +18,7 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -45,7 +46,12 @@ import PrepaidLineListItem from '#libs/checkout/components/PrepaidLineListItem.c
 import type { CompanyTheme } from '#libs/theme/types';
 import type { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
-import { getSubTotal } from '#libs/checkout/utils';
+import {
+  getSubTotal,
+  hasRedirectionFailed,
+  shouldCheckPaymentStatus,
+  shouldNotRetrieveSecret,
+} from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
@@ -56,10 +62,15 @@ import {
 import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
 
-import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
+import {
+  snackbarWarning,
+  snackbarSuccess,
+  snackbarError,
+} from '#libs/snackbar/actions';
 import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
+import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
 import { isErrorWithCustomCode } from '#libs/utils';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
@@ -149,6 +160,13 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    if (hasRedirectionFailed(this.props.queryParams)) {
+      this.props.snackbarError(
+        this.props.t(
+          'validation.sections.confirmationStatusTitle.errors.generic',
+        ),
+      );
+    }
     this.props.fetchBasket(this.props.basketId, {
       onSuccess: (basket) => {
         this.props.fetchCompanyTheme(basket.company, {
@@ -215,6 +233,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   }
 
   getSecret = () => {
+    if (shouldNotRetrieveSecret(this.props.queryParams)) {
+      return;
+    }
     this.setState({ clientSecretLoading: true });
     requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_BASKET, {
       basket: this.props.basketId,
@@ -248,6 +269,15 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         },
       );
     }
+  };
+
+  onFail = () => {
+    this.props.snackbarError(
+      this.props.t(
+        'validation.sections.confirmationStatusTitle.errors.generic',
+      ),
+    );
+    this.props.setQueryParams('check_payment_intent', 'false');
   };
 
   onSuccess = () => {
@@ -369,6 +399,15 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             <Typography>{t('myBasket.isFinalized')}</Typography>
           </div>
         </div>
+      );
+    }
+    if (shouldCheckPaymentStatus(this.props.queryParams)) {
+      return (
+        <CheckPaymentStatus
+          onFail={this.onFail}
+          onSuccess={this.onSuccess}
+          paymentIntent={this.props.queryParams.payment_intent}
+        />
       );
     }
     const basketPriceExcludingTax = getSubTotal(this.props.basket);
@@ -618,6 +657,7 @@ const connector = connect(
     fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
     assignInstalmentPayment: assignInstalmentPaymentAction,
     fetchCompanyTheme,
+    snackbarError,
     createOrRefreshInternalAccountPrepaidLine:
       createOrRefreshInternalAccountPrepaidLineAction,
     fetchMembershipByBasket,
@@ -638,6 +678,12 @@ export default compose(
   withState('basketError', 'setBasketError', null),
   withState('paymentProcessing', 'setPaymentProcessing', false),
   connector,
+
+  withQueryParams([
+    ['check_payment_intent', 'payment_intent', 'redirect_status'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   withProps(({ attachPayment, setBasketError, basketId }) => ({
     submitPaymentIntent: (data: any, options: OptionCallback) =>
       attachPayment(data, basketId, {

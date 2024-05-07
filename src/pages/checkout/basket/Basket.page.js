@@ -106,6 +106,11 @@ import {
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
 } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
+import {
+  shouldNotRetrieveSecret,
+  hasRedirectionFailed,
+  shouldCheckPaymentStatus,
+} from '#libs/checkout/utils';
 import { fetchMembership } from '#libs/membership/actions';
 import { CheckoutContext } from './CheckoutContext';
 import {
@@ -135,6 +140,7 @@ type Props = {
   companyCountry: ?string,
   classes: Object,
 
+  t: TFunction,
   patchCurrentBasket: (
     basketAddress: BasketAddress,
     options: OptionCallback,
@@ -308,12 +314,7 @@ export class BasketPage extends React.Component<Props> {
   }
 
   getSecret = () => {
-    if (
-      this.props.queryParams &&
-      this.props.queryParams.check_payment_intent &&
-      (this.props.queryParams.redirect_status === 'succeeded' ||
-        this.props.queryParams.redirect_status === 'pending')
-    ) {
+    if (shouldNotRetrieveSecret(this.props.queryParams)) {
       return;
     }
     this.setState({ clientSecretLoading: true });
@@ -478,30 +479,30 @@ export class BasketPage extends React.Component<Props> {
         </div>
       );
     }
-    if (
-      this.props.queryParams &&
-      this.props.queryParams.check_payment_intent === 'true'
-    ) {
-      if (
-        ['succeeded', 'pending'].includes(
-          this.props.queryParams.redirect_status,
-        )
-      ) {
-        return (
-          <CheckPaymentStatus
-            onFail={() => {
-              this.props.setQueryParams('check_payment_intent', 'false');
-              this.props.snackbarError('payment:failed');
-            }}
-            onSuccess={this.props.onSuccess}
-            paymentIntent={this.props.queryParams.payment_intent}
-          />
-        );
-      }
-      if (this.props.queryParams.redirect_status === 'failed') {
-        this.props.snackbarError('payment:failed');
-      }
+    if (shouldCheckPaymentStatus(this.props.queryParams)) {
+      return (
+        <CheckPaymentStatus
+          onFail={() => {
+            this.props.setQueryParams('check_payment_intent', 'false');
+            this.props.snackbarError(
+              this.props.t(
+                'validation.sections.confirmationStatusTitle.errors.generic',
+              ),
+            );
+          }}
+          onSuccess={this.props.onSuccess}
+          paymentIntent={this.props.queryParams.payment_intent}
+        />
+      );
     }
+    if (hasRedirectionFailed(this.props.queryParams)) {
+      this.props.snackbarError(
+        this.props.t(
+          'validation.sections.confirmationStatusTitle.errors.generic',
+        ),
+      );
+    }
+
     const termsAndConditionsAccepted =
       this.state.termsAndConditionsAccepted ||
       !this.props.theme.general_terms_and_conditions;

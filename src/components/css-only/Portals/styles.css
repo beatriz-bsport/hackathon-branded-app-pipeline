@@ -1,0 +1,16 @@
+.bs-portals-blanket,
+.bs-portals-modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BARCODE PORTAL*/
+.bs-barcode-drawer__root {
+}
+
+.bs-barcode-portal-container {
+}
+
+.bs-barcode-modal {
+}

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 
 import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
@@ -372,7 +372,9 @@ const formikFormWrapper = withFormik<
       props.offer?.credit_price !== undefined
         ? props.offer?.credit_price / props.creditScaleFactor
         : props.offer?.credits / props.creditScaleFactor,
-    dateIntervalStart: moment(props.offer?.date_start),
+    dateIntervalStart: props.offer
+      ? DateTime.fromISO(props.offer.date_start)
+      : DateTime.now(),
     durationMinute: props.offer?.duration_minute,
     effectif: props.offer?.effectif,
     establishment: props.offer?.establishment.id,

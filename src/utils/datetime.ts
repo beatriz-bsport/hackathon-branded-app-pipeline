@@ -1,7 +1,7 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
-
+import { DateTime } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import type { Theme } from '#libs/theme/types';
@@ -193,8 +193,13 @@ export function formatWeekDay(weekDay: string, theme: Theme) {
   }
 }
 
-export function isAmPmTimeFormat() {
+export function isAmPmTimeFormatDEPRECATED() {
   const time = moment().format('LT');
+  return time.includes('AM') || time.includes('PM');
+}
+
+export function isAmPmTimeFormat() {
+  const time = DateTime.now().toFormat('t');
   return time.includes('AM') || time.includes('PM');
 }
 

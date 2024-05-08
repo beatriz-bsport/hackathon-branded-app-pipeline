@@ -1,16 +1,25 @@
-import moment, { Moment } from 'moment-timezone';
 import { _generateRecurrenceDates, getOfferRecurrenceDates } from '../utils';
 import { OFFER_RECURRENCE } from '../constants';
+import { DateTime } from 'luxon';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
+import type { LuxonDateTime } from '#src/types';
 
 const invalidDates = ['2023-02-29', '1700-12-32', '1234-56-78', '2025-99-70'];
 const randomInvalidDate =
   invalidDates[Math.floor(Math.random() * invalidDates.length)];
 
-const INVALID_DATE = moment(randomInvalidDate);
-const MOMENT_TODAY = moment('2023-05-04 10:30');
-const MOMENT_ONE_WEEK_AHEAD = moment(MOMENT_TODAY).add(1, 'week');
-const MOMENT_TWO_DAYS_AHEAD = moment(MOMENT_TODAY).add(2, 'days');
-const MOMENT_FIVE_YEARS_AHEAD = moment(MOMENT_TODAY).add(5, 'years');
+const INVALID_DATE = DateTime.fromFormat(
+  randomInvalidDate,
+  LUXON_ISO_SHORT_DATE,
+);
+const TODAY = DateTime.fromFormat('2023-05-04', LUXON_ISO_SHORT_DATE).set({
+  hour: 10,
+  minute: 30,
+});
+
+const ONE_WEEK_AHEAD = TODAY.plus({ week: 1 });
+const TWO_DAYS_AHEAD = TODAY.plus({ days: 2 });
+const FIVE_YEARS_AHEAD = TODAY.plus({ year: 5 });
 const TIMEZONE = 'Europe/Paris';
 const ISO_WEEKDAY_RECURRENCE_STATE = {
   '1': false,
@@ -21,13 +30,10 @@ const ISO_WEEKDAY_RECURRENCE_STATE = {
   '6': true,
   '7': false,
 };
-const SELECTED_ISO_WEEKDAY_RECURRENCE = [
-  MOMENT_TODAY.isoWeekday(),
-  MOMENT_TWO_DAYS_AHEAD.isoWeekday(),
-];
+const SELECTED_ISO_WEEKDAY_RECURRENCE = [TODAY.weekday, TWO_DAYS_AHEAD.weekday];
 
-const parseToUnix = (dates: Moment[]) => {
-  return dates.map((date) => date.unix());
+const parseToUnix = (dates: LuxonDateTime[]) => {
+  return dates.map((date) => date.toUnixInteger());
 };
 
 describe('Check offer form dates generation', () => {
@@ -36,28 +42,28 @@ describe('Check offer form dates generation', () => {
       {
         recurrence: OFFER_RECURRENCE.WEEKLY,
         recurrenceWeekDay: ISO_WEEKDAY_RECURRENCE_STATE,
-        dateIntervalStart: MOMENT_TODAY,
-        dateIntervalEnd: MOMENT_ONE_WEEK_AHEAD,
+        dateIntervalStart: TODAY,
+        dateIntervalEnd: ONE_WEEK_AHEAD,
       },
       TIMEZONE,
     );
     const datesOneWeekAheadGenerateOnly = _generateRecurrenceDates(
-      MOMENT_TODAY,
-      MOMENT_ONE_WEEK_AHEAD,
+      TODAY,
+      ONE_WEEK_AHEAD,
       OFFER_RECURRENCE.WEEKLY,
       TIMEZONE,
       SELECTED_ISO_WEEKDAY_RECURRENCE,
     );
 
     expect(parseToUnix(datesOneWeekAhead)).toStrictEqual([
-      MOMENT_TODAY.unix(),
-      MOMENT_TWO_DAYS_AHEAD.unix(),
-      MOMENT_ONE_WEEK_AHEAD.unix(),
+      TODAY.toUnixInteger(),
+      TWO_DAYS_AHEAD.toUnixInteger(),
+      ONE_WEEK_AHEAD.toUnixInteger(),
     ]);
     expect(parseToUnix(datesOneWeekAheadGenerateOnly)).toStrictEqual([
-      MOMENT_TODAY.unix(),
-      MOMENT_TWO_DAYS_AHEAD.unix(),
-      MOMENT_ONE_WEEK_AHEAD.unix(),
+      TODAY.toUnixInteger(),
+      TWO_DAYS_AHEAD.toUnixInteger(),
+      ONE_WEEK_AHEAD.toUnixInteger(),
     ]);
   });
 
@@ -67,13 +73,13 @@ describe('Check offer form dates generation', () => {
         recurrence: OFFER_RECURRENCE.WEEKLY,
         recurrenceWeekDay: ISO_WEEKDAY_RECURRENCE_STATE,
         dateIntervalStart: INVALID_DATE,
-        dateIntervalEnd: MOMENT_ONE_WEEK_AHEAD,
+        dateIntervalEnd: ONE_WEEK_AHEAD,
       },
       TIMEZONE,
     );
     const datesInvalidStartDateGenerateOnly = _generateRecurrenceDates(
       INVALID_DATE,
-      MOMENT_ONE_WEEK_AHEAD,
+      ONE_WEEK_AHEAD,
       OFFER_RECURRENCE.WEEKLY,
       TIMEZONE,
       SELECTED_ISO_WEEKDAY_RECURRENCE,
@@ -83,14 +89,14 @@ describe('Check offer form dates generation', () => {
       {
         recurrence: OFFER_RECURRENCE.WEEKLY,
         recurrenceWeekDay: ISO_WEEKDAY_RECURRENCE_STATE,
-        dateIntervalStart: MOMENT_TODAY,
-        dateIntervalEnd: MOMENT_FIVE_YEARS_AHEAD,
+        dateIntervalStart: TODAY,
+        dateIntervalEnd: FIVE_YEARS_AHEAD,
       },
       TIMEZONE,
     );
     const datesInvalidEndDateGenerateOnly = _generateRecurrenceDates(
-      MOMENT_TODAY,
-      MOMENT_FIVE_YEARS_AHEAD,
+      TODAY,
+      FIVE_YEARS_AHEAD,
       OFFER_RECURRENCE.WEEKLY,
       TIMEZONE,
       SELECTED_ISO_WEEKDAY_RECURRENCE,
@@ -101,14 +107,14 @@ describe('Check offer form dates generation', () => {
         // @ts-ignore
         recurrence: 'quarters',
         recurrenceWeekDay: ISO_WEEKDAY_RECURRENCE_STATE,
-        dateIntervalStart: MOMENT_TODAY,
-        dateIntervalEnd: MOMENT_ONE_WEEK_AHEAD,
+        dateIntervalStart: TODAY,
+        dateIntervalEnd: ONE_WEEK_AHEAD,
       },
       TIMEZONE,
     );
     const datesInvalidRecurrenceGenerateOnly = _generateRecurrenceDates(
-      MOMENT_TODAY,
-      MOMENT_ONE_WEEK_AHEAD,
+      TODAY,
+      ONE_WEEK_AHEAD,
       // @ts-ignore
       'quarters',
       TIMEZONE,
@@ -120,14 +126,14 @@ describe('Check offer form dates generation', () => {
         recurrence: OFFER_RECURRENCE.WEEKLY,
         // @ts-ignore
         recurrenceWeekDay: {},
-        dateIntervalStart: MOMENT_TODAY,
-        dateIntervalEnd: MOMENT_ONE_WEEK_AHEAD,
+        dateIntervalStart: TODAY,
+        dateIntervalEnd: ONE_WEEK_AHEAD,
       },
       TIMEZONE,
     );
     const datesInvalidIsoWeekdayGenerateOnly = _generateRecurrenceDates(
-      MOMENT_TODAY,
-      MOMENT_ONE_WEEK_AHEAD,
+      TODAY,
+      ONE_WEEK_AHEAD,
       OFFER_RECURRENCE.WEEKLY,
       TIMEZONE,
       [],
@@ -137,17 +143,17 @@ describe('Check offer form dates generation', () => {
     expect(datesInvalidStartDateGenerateOnly).toStrictEqual([]);
 
     expect(parseToUnix(datesInvalidEndDate)).toStrictEqual([
-      MOMENT_TODAY.unix(),
+      TODAY.toUnixInteger(),
     ]);
     expect(parseToUnix(datesInvalidEndDateGenerateOnly)).toStrictEqual([
-      MOMENT_TODAY.unix(),
+      TODAY.toUnixInteger(),
     ]);
 
     expect(parseToUnix(datesInvalidRecurrence)).toStrictEqual([
-      MOMENT_TODAY.unix(),
+      TODAY.toUnixInteger(),
     ]);
     expect(parseToUnix(datesInvalidRecurrenceGenerateOnly)).toStrictEqual([
-      MOMENT_TODAY.unix(),
+      TODAY.toUnixInteger(),
     ]);
 
     expect(parseToUnix(datesInvalidIsoWeekday)).toStrictEqual([]);

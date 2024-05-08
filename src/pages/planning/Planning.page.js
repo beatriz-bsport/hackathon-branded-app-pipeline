@@ -28,7 +28,6 @@ import {
   goBack as goBackRouter,
 } from 'connected-react-router';
 
-import moment from 'moment-timezone';
 import { DateTime } from 'luxon';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
@@ -141,7 +140,7 @@ import OfferSearchBar, {
 } from '#libs/offer/components/OfferSearchBar.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
-import { DATE_FORMAT, LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
+import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 
 import CheckPermission from '#libs/role/components/CheckPermission.component';
 import {
@@ -864,7 +863,10 @@ export class Planning extends PureComponent<Props, State> {
             onSubmit={this.createOffers}
             processing={this.props.creatingOffers}
             roomBlueprints={this.props.roomBlueprints}
-            selectedDate={moment(this.props.date, DATE_FORMAT)}
+            selectedDate={DateTime.fromFormat(
+              this.props.date,
+              LUXON_ISO_SHORT_DATE,
+            )}
             showPartnership={this.props.showPartnership}
             tagList={allTagsWithTagGroup}
             timezone={this.props.theme.timezone_name}

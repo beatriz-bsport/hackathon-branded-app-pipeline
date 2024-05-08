@@ -1,5 +1,3 @@
-import { Moment } from 'moment-timezone';
-
 /*
  * TODO update offer waiting list status codes
  *https://gitlab.com/bsport/bsport-saas/-/issues/2106
@@ -32,6 +30,7 @@ import { OFFER_RECURRENCE } from './constants';
 import { SpotInformation } from '#libs/spot-scheduling/types';
 import { Level } from '#libs/level/types';
 import { BroadcastInfo } from '#libs/booking/types';
+import type { LuxonDateTime } from '#src/types';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -368,8 +367,8 @@ export type OfferFormValues = {
   establishment: number;
   broadcastLink: string | null;
   credits: number;
-  dateIntervalStart: Moment;
-  dateIntervalEnd?: Moment | null;
+  dateIntervalStart: LuxonDateTime;
+  dateIntervalEnd?: LuxonDateTime | null;
   durationMinute: number;
   isRecurrence?: boolean;
   recurrence?:
@@ -468,7 +467,7 @@ export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {
   propagate_coach_override_value: number;
   meta_activity: number;
   credit_price_override?: number;
-  date_start: Moment;
+  date_start: LuxonDateTime;
   coach_override: number | null;
   credits?: number;
   additional_coaches: number[];

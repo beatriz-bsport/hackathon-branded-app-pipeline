@@ -62,7 +62,10 @@ import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
-import { formatAsDatetimeAdapted, isAmPmTimeFormat } from '#utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  isAmPmTimeFormatDEPRECATED,
+} from '#utils/datetime';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
 import CustomMuiThemeWrapper from '#components/wrappers/CustomMuiThemeWrapper.component';
@@ -1122,7 +1125,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             <TimePicker
                               required
                               adornmentPosition="start"
-                              ampm={isAmPmTimeFormat()}
+                              ampm={isAmPmTimeFormatDEPRECATED()}
                               className={classes.dateAndTimePickers}
                               InputProps={{
                                 startAdornment: (

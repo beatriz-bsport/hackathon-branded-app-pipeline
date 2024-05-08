@@ -70,6 +70,7 @@ const initialValues: OfferFormValues = {
   establishment: establishments[0].id,
   broadcastLink: 'https://zoom.us/123456789',
   credits: offer.credit_price,
+  // @ts-expect-error TODO move to luxon to fix type
   dateIntervalStart: moment(offer.date_start),
   durationMinute: offer.duration_minute,
   coach: coaches[0].id,

@@ -4,9 +4,9 @@ import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
-import moment, { Moment } from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 
+import { DateTime } from 'luxon';
 import OfferFormRecurrencePreview from '#libs/offer/form/OfferFormRecurrencePreview.dialog';
 import OfferFormSkeleton from '#libs/offer/components/OfferFormSkeleton.component';
 import OfferFormBanner from '#libs/offer/form/OfferFormBanner.component';
@@ -31,6 +31,7 @@ import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { OFFER_RECURRENCE } from '#libs/offer/constants';
+import type { LuxonDateTime } from '#src/types';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
@@ -75,7 +76,7 @@ type ComponentProps = {
 };
 
 type FormProps = {
-  selectedDate: Moment;
+  selectedDate: LuxonDateTime;
   onSubmit: (data: OfferCreate) => void;
 };
 
@@ -256,19 +257,23 @@ const formikFormWrapper = withFormik<
   OfferFormValues
 >({
   mapPropsToValues: (props: ComponentProps & FormProps) => {
-    const dateIntervalStart = moment(props.selectedDate ?? undefined).startOf(
-      'day',
-    );
-    const recurrenceIsoWeekDay = dateIntervalStart.isoWeekday();
+    const sanitizedSelectedDate =
+      props.selectedDate && props.selectedDate.isValid
+        ? props.selectedDate
+        : DateTime.now();
+
+    const dateIntervalStart = sanitizedSelectedDate.startOf('day');
+
+    const recurrenceIsoWeekDay = dateIntervalStart.weekday;
     return {
       allowGuestOffer: true,
       availableOnPartnership: !props.isOfferInGroup,
       broadcastLink: '',
-      calendarSelectedDate: moment(props.selectedDate ?? undefined).format(),
+      calendarSelectedDate: sanitizedSelectedDate.toISO(),
       coach: null,
       coachPaymentRule: null,
       credits: 1,
-      dateIntervalEnd: moment(props.selectedDate ?? undefined).add(1, 'day'),
+      dateIntervalEnd: sanitizedSelectedDate.plus({ day: 1 }),
       dateIntervalStart,
       dates: [],
       durationMinute: 60,
@@ -358,7 +363,7 @@ const formikFormWrapper = withFormik<
           dateIntervalEnd: values.dateIntervalEnd,
         },
         timezone,
-      ).map((d: Moment) => d.unix()),
+      ).map((d: LuxonDateTime) => d.toUnixInteger()),
       establishment,
       coach,
       additional_coaches: additionalCoaches,

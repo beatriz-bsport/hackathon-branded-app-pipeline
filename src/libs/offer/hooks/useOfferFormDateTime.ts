@@ -1,14 +1,10 @@
 import { useCallback } from 'react';
-import moment, { Moment } from 'moment-timezone';
+import type { LuxonDateTime } from '#src/types';
 
 const useOfferFormDateTime = (timezone: string) => {
   const rebuildDatetime = useCallback(
-    (date: Moment, hour: number, minute: number) => {
-      return moment(date)
-        .tz(timezone)
-        .set('hour', hour)
-        .set('minute', minute)
-        .format();
+    (datetime: LuxonDateTime, hour: number, minute: number) => {
+      return datetime.setZone(timezone).set({ hour, minute }).toISO();
     },
     [timezone],
   );

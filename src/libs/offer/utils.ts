@@ -1,4 +1,5 @@
-import moment, { Moment, MomentInput } from 'moment-timezone';
+import moment, { MomentInput } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import type {
   Offer,
   OfferDataListItem,
@@ -11,6 +12,7 @@ import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Level } from '#libs/level/types';
+import type { LuxonDateTime } from '#src/types';
 
 export function isDateTooFar(date: MomentInput) {
   return moment(date).diff(moment(), 'years', true) > 3;
@@ -41,7 +43,7 @@ export function getOfferRecurrenceDates(
       OFFER_RECURRENCE.MONTHLY,
       OFFER_RECURRENCE.DAILY,
     ].includes(recurrence) ||
-    moment(dateIntervalEnd).diff(moment(), 'years', true) > 3
+    dateIntervalEnd.diff(DateTime.now()).years > 3
   ) {
     return [dateIntervalStart];
   }
@@ -60,13 +62,13 @@ export function getOfferRecurrenceDates(
 }
 
 export function _generateRecurrenceDates(
-  start: Moment,
-  end: Moment,
+  start: LuxonDateTime,
+  end: LuxonDateTime,
   recurrence: OFFER_RECURRENCE,
   timezone: string,
   isoWeekdayRecurrenceArray?: number[],
 ) {
-  const dates: Moment[] = [];
+  const dates: LuxonDateTime[] = [];
 
   if (
     !recurrence ||
@@ -75,30 +77,31 @@ export function _generateRecurrenceDates(
       OFFER_RECURRENCE.MONTHLY,
       OFFER_RECURRENCE.DAILY,
     ].includes(recurrence) ||
-    moment(end).diff(moment(), 'years', true) > 3
+    end.diff(DateTime.now()).years > 3
   ) {
     return [start];
   }
 
-  const dateIteration = moment(start).tz(timezone);
+  let dateIteration = start.setZone(timezone);
 
-  while (dateIteration.isSameOrBefore(end, 'day')) {
+  while (dateIteration.startOf('day') <= end.startOf('day')) {
     if (recurrence === OFFER_RECURRENCE.WEEKLY) {
+      // eslint-disable-next-line
       [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
-        const currentDateOfTheWeek = dateIteration.clone().add(i, 'day');
+        const currentDateOfTheWeek = dateIteration.plus({ days: i });
         if (
-          currentDateOfTheWeek.isSameOrAfter(start, 'day') &&
-          currentDateOfTheWeek.isSameOrBefore(end, 'day') &&
-          isoWeekdayRecurrenceArray.includes(currentDateOfTheWeek.isoWeekday())
+          currentDateOfTheWeek.startOf('day') >= start.startOf('day') &&
+          currentDateOfTheWeek.startOf('day') <= end.startOf('day') &&
+          isoWeekdayRecurrenceArray.includes(currentDateOfTheWeek.weekday)
         ) {
           dates.push(currentDateOfTheWeek);
         }
       });
     } else {
-      dates.push(dateIteration.clone());
+      dates.push(dateIteration);
     }
 
-    dateIteration.add(1, recurrence);
+    dateIteration = dateIteration.plus({ [recurrence]: 1 });
   }
 
   return dates;

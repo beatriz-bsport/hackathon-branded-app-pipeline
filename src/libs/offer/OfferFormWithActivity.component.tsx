@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Moment } from 'moment-timezone';
 
 import { OfferCreate } from '#libs/offer/types';
 import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
@@ -18,6 +17,7 @@ import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { ZoomApp } from '#libs/zoom-app/types';
 import OfferFormBanner from '#libs/offer/form/OfferFormBanner.component';
+import type { LuxonDateTime } from '#src/types';
 
 type Props = {
   metaActivities: MetaActivity[];
@@ -28,7 +28,7 @@ type Props = {
   processing: boolean;
   activitiesLoading: boolean;
   onSubmit: (metaActivityId: number, data: OfferCreate) => void;
-  selectedDate: Moment;
+  selectedDate: LuxonDateTime;
   is_whereby_integration_enabled: boolean;
   timezone: string;
   coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };

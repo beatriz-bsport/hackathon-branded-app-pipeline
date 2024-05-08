@@ -14,14 +14,14 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import moment, { Moment } from 'moment-timezone';
 import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import MomentUtils from '@date-io/moment';
 
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Settings } from 'luxon';
 import FormSection from '#components/forms/FormSection';
 import useOfferFormStyles from '#libs/offer/hooks/useOfferFormStyles';
 import OfferFormField from '#libs/offer/form/OfferFormField.component';
@@ -35,7 +35,7 @@ import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
 import { OfferFormRecurrenceWeekDay, OfferFormValues } from '#libs/offer/types';
 import { getOfferRecurrenceDates } from '#libs/offer/utils';
-import { DATE_PICKER_MASK } from '../../../../constants';
+import type { LuxonDateTime } from '#src/types';
 
 type Props = {
   timezone: string;
@@ -65,31 +65,29 @@ const OfferFormDateTime = (props: Props) => {
   const handleChangeDate = useCallback(
     (
       stateKey: 'dateIntervalStart' | 'dateIntervalEnd',
-      dateValue: Moment,
-      dateState: Moment,
+      dateValue: LuxonDateTime,
+      dateState: LuxonDateTime,
     ) => {
       const newDate = rebuildDatetime(
         dateValue,
-        moment(dateState).tz(timezone).get('hour'),
-        moment(dateState).tz(timezone).get('minute'),
+        dateState.setZone(timezone).hour,
+        dateState.setZone(timezone).minute,
       );
 
-      setFieldValue(stateKey, moment(newDate));
+      setFieldValue(stateKey, DateTime.fromISO(newDate));
     },
     [rebuildDatetime, setFieldValue, timezone],
   );
 
-  const getStartDateWeekDay = (date: Moment) => {
-    const startDateWeekDay = moment(date).isoWeekday();
+  const getStartDateWeekDay = (datetime: LuxonDateTime) => {
+    const startDateWeekDay = datetime.weekday;
     return startDateWeekDay.toString() as OfferFormRecurrenceWeekDay;
   };
 
   const handleChangeDateStart = useCallback(
-    (date: Moment) => {
-      const isDateEqualOrAfterEndDate = moment(date).isSameOrAfter(
-        moment(dateIntervalEnd),
-      );
-      handleChangeDate('dateIntervalStart', date, moment(dateIntervalStart));
+    (datetime: LuxonDateTime) => {
+      const isDateEqualOrAfterEndDate = datetime >= dateIntervalEnd;
+      handleChangeDate('dateIntervalStart', datetime, dateIntervalStart);
       const newRecurrenceWeekDay = {
         '1': false,
         '2': false,
@@ -99,34 +97,37 @@ const OfferFormDateTime = (props: Props) => {
         '6': false,
         '7': false,
       };
-      const startDateWeekDay = getStartDateWeekDay(date);
+      const startDateWeekDay = getStartDateWeekDay(datetime);
       newRecurrenceWeekDay[startDateWeekDay] = true;
       setFieldValue('recurrenceWeekDay', newRecurrenceWeekDay);
       if (isDateEqualOrAfterEndDate) {
-        setFieldValue('dateIntervalEnd', moment(date).add(1, 'day'));
+        setFieldValue('dateIntervalEnd', datetime.plus({ day: 1 }));
       }
     },
     [dateIntervalEnd, dateIntervalStart, handleChangeDate, setFieldValue],
   );
 
   const handleChangeDateEnd = useCallback(
-    (date: Moment) =>
-      handleChangeDate('dateIntervalEnd', date, moment(dateIntervalEnd)),
+    (datetime: LuxonDateTime) =>
+      handleChangeDate('dateIntervalEnd', datetime, dateIntervalEnd),
     [dateIntervalEnd, handleChangeDate],
   );
 
   const handleChangeStartTime = useCallback(
-    (time: Moment) => {
-      const hour = time.hour();
-      const minute = time.minute();
+    (datetime: LuxonDateTime) => {
+      const hour = datetime.hour;
+      const minute = datetime.minute;
 
-      const newDateIntervalStart = rebuildDatetime(
+      const newDateIntervalStartISOString = rebuildDatetime(
         dateIntervalStart,
         hour,
         minute,
       );
 
-      setFieldValue('dateIntervalStart', moment(newDateIntervalStart));
+      setFieldValue(
+        'dateIntervalStart',
+        DateTime.fromISO(newDateIntervalStartISOString),
+      );
     },
     [dateIntervalStart, rebuildDatetime, setFieldValue],
   );
@@ -161,13 +162,6 @@ const OfferFormDateTime = (props: Props) => {
       handleChangeDurationMinute(null, null, parseInt(event.target.value)),
     [handleChangeDurationMinute],
   );
-
-  const getDatePickerMask = useCallback((value) => {
-    if (value) {
-      return DATE_PICKER_MASK;
-    }
-    return [];
-  }, []);
 
   const handleOpenRecurrencePreviewDialog = useCallback(() => {
     setFieldValue('isRecurrenceWeekDayDialogOpen', true);
@@ -223,160 +217,156 @@ const OfferFormDateTime = (props: Props) => {
     return availableOptions;
   }, [isOfferInGroup, t]);
 
-  const datePickerPlaceholder = useMemo(() => moment().format('L'), []);
+  const datePickerPlaceholder = useMemo(() => DateTime.now().toFormat('D'), []);
 
   return (
-    <FormSection
-      id="offer-form-datetime-section"
-      sectionCustomIconStyle={classes.sectionIcon}
-      sectionIcon={DateRange}
-      sectionIconContainerStyle={classes.sectionIconContainer}
-      sectionTitle={t('offer:form.section.dateTime.title')}
-    >
-      <div className={classes.formFieldColumns}>
-        <OfferFormField
-          isRequired
-          id="offer-form-date-start-time-field"
-          label={t('offer:form.section.dateTime.field.dateIntervalStartTime')}
-        >
-          <TimePicker
-            required
-            adornmentPosition="start"
-            ampm={isAmPmTimeFormat()}
-            className={classNames(classes.timeInput)}
-            disabled={!!disabled}
-            error={
-              typeof errors.dateIntervalStart === 'string' &&
-              errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
-            }
-            id="offer-form-date-start-time-input"
-            InputProps={{
-              classes: {
-                adornedEnd: classes.dateInputAdornedEnd,
-                adornedStart: classes.dateInputAdornedStart,
-              },
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton className={classes.inputIconAdornment}>
-                    <AccessTime />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleChangeStartTime}
-            placeholder="00:00"
-            size="small"
-            value={moment(dateIntervalStart).tz(timezone)}
-            variant="outlined"
-          />
-        </OfferFormField>
-
-        <OfferFormField
-          isRequired
-          label={t('offer:form.section.dateTime.field.durationMinute')}
-        >
-          <div className={classes.durationField}>
-            <div className={classes.durationFieldInputWithIndicator}>
-              <NumericInput
-                disabled={!!disabled}
-                error={!!errors.durationMinute}
-                id="offer-form-duration-hours-input"
-                inputClass={classes.smallWidth}
-                InputProps={{
-                  disableUnderline: true,
-                  inputProps: { min: 0 },
-                  endAdornment: (
-                    <InputAdornment
-                      className={classes.numericInputAdornment}
-                      position="end"
-                    >
-                      {t('translation:common.daySmall')}
-                    </InputAdornment>
-                  ),
-                }}
-                name="durationMinute"
-                onChange={handleChangeDays}
-                placeholder="0"
-                size="small"
-                value={getDays(durationMinute)}
-              />
-            </div>
-
-            <div className={classes.durationFieldInputWithIndicator}>
-              <NumericInput
-                disabled={!!disabled}
-                error={!!errors.durationMinute}
-                id="offer-form-duration-hours-input"
-                inputClass={classes.smallWidth}
-                InputProps={{
-                  disableUnderline: true,
-                  inputProps: { min: 0, max: 23 },
-                  endAdornment: (
-                    <InputAdornment
-                      className={classes.numericInputAdornment}
-                      position="end"
-                    >
-                      {t('translation:common.hourSmall')}
-                    </InputAdornment>
-                  ),
-                }}
-                name="durationMinute"
-                onChange={handleChangeHours}
-                placeholder="1"
-                size="small"
-                value={getHours(durationMinute)}
-              />
-            </div>
-
-            <div className={classes.durationFieldInputWithIndicator}>
-              <NumericInput
-                disabled={!!disabled}
-                error={!!errors.durationMinute}
-                id="offer-form-duration-minutes-input"
-                inputClass={classes.minutesInput}
-                InputProps={{
-                  disableUnderline: true,
-                  inputProps: { min: 0, max: 59 },
-                  endAdornment: (
-                    <InputAdornment
-                      className={classes.numericInputAdornment}
-                      position="end"
-                    >
-                      {t('translation:common.minuteSmall')}
-                    </InputAdornment>
-                  ),
-                }}
-                name="durationMinute"
-                onChange={handleChangeMinutes}
-                placeholder="00"
-                size="small"
-                value={getMinutes(durationMinute)}
-              />
-            </div>
-          </div>
-        </OfferFormField>
-      </div>
-
-      {!!errors.durationMinute && (
-        <div>
-          <Typography color="error" variant="caption">
-            {t(errors.durationMinute)}
-          </Typography>
-        </div>
-      )}
-
-      <OfferFormField
-        isRequired
-        id="offer-form-date-start-field"
-        isError={!!errors.dateIntervalStart}
-        label={t('offer:form.section.dateTime.field.dateIntervalStart')}
+    <MuiPickersUtilsProvider locale={Settings.defaultLocale} utils={LuxonUtils}>
+      <FormSection
+        id="offer-form-datetime-section"
+        sectionCustomIconStyle={classes.sectionIcon}
+        sectionIcon={DateRange}
+        sectionIconContainerStyle={classes.sectionIconContainer}
+        sectionTitle={t('offer:form.section.dateTime.title')}
       >
-        <div className={classes.errorContainer}>
-          <MuiPickersUtilsProvider
-            locale={moment.locale()}
-            moment={moment}
-            utils={MomentUtils}
+        <div className={classes.formFieldColumns}>
+          <OfferFormField
+            isRequired
+            id="offer-form-date-start-time-field"
+            label={t('offer:form.section.dateTime.field.dateIntervalStartTime')}
           >
+            <TimePicker
+              required
+              adornmentPosition="start"
+              ampm={isAmPmTimeFormat()}
+              className={classNames(classes.timeInput)}
+              disabled={!!disabled}
+              error={
+                typeof errors.dateIntervalStart === 'string' &&
+                errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
+              }
+              id="offer-form-date-start-time-input"
+              InputProps={{
+                classes: {
+                  adornedEnd: classes.dateInputAdornedEnd,
+                  adornedStart: classes.dateInputAdornedStart,
+                },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton className={classes.inputIconAdornment}>
+                      <AccessTime />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleChangeStartTime}
+              placeholder="00:00"
+              size="small"
+              value={dateIntervalStart.setZone(timezone)}
+              variant="outlined"
+            />
+          </OfferFormField>
+
+          <OfferFormField
+            isRequired
+            label={t('offer:form.section.dateTime.field.durationMinute')}
+          >
+            <div className={classes.durationField}>
+              <div className={classes.durationFieldInputWithIndicator}>
+                <NumericInput
+                  disabled={!!disabled}
+                  error={!!errors.durationMinute}
+                  id="offer-form-duration-hours-input"
+                  inputClass={classes.smallWidth}
+                  InputProps={{
+                    disableUnderline: true,
+                    inputProps: { min: 0 },
+                    endAdornment: (
+                      <InputAdornment
+                        className={classes.numericInputAdornment}
+                        position="end"
+                      >
+                        {t('translation:common.daySmall')}
+                      </InputAdornment>
+                    ),
+                  }}
+                  name="durationMinute"
+                  onChange={handleChangeDays}
+                  placeholder="0"
+                  size="small"
+                  value={getDays(durationMinute)}
+                />
+              </div>
+
+              <div className={classes.durationFieldInputWithIndicator}>
+                <NumericInput
+                  disabled={!!disabled}
+                  error={!!errors.durationMinute}
+                  id="offer-form-duration-hours-input"
+                  inputClass={classes.smallWidth}
+                  InputProps={{
+                    disableUnderline: true,
+                    inputProps: { min: 0, max: 23 },
+                    endAdornment: (
+                      <InputAdornment
+                        className={classes.numericInputAdornment}
+                        position="end"
+                      >
+                        {t('translation:common.hourSmall')}
+                      </InputAdornment>
+                    ),
+                  }}
+                  name="durationMinute"
+                  onChange={handleChangeHours}
+                  placeholder="1"
+                  size="small"
+                  value={getHours(durationMinute)}
+                />
+              </div>
+
+              <div className={classes.durationFieldInputWithIndicator}>
+                <NumericInput
+                  disabled={!!disabled}
+                  error={!!errors.durationMinute}
+                  id="offer-form-duration-minutes-input"
+                  inputClass={classes.minutesInput}
+                  InputProps={{
+                    disableUnderline: true,
+                    inputProps: { min: 0, max: 59 },
+                    endAdornment: (
+                      <InputAdornment
+                        className={classes.numericInputAdornment}
+                        position="end"
+                      >
+                        {t('translation:common.minuteSmall')}
+                      </InputAdornment>
+                    ),
+                  }}
+                  name="durationMinute"
+                  onChange={handleChangeMinutes}
+                  placeholder="00"
+                  size="small"
+                  value={getMinutes(durationMinute)}
+                />
+              </div>
+            </div>
+          </OfferFormField>
+        </div>
+
+        {!!errors.durationMinute && (
+          <div>
+            <Typography color="error" variant="caption">
+              {t(errors.durationMinute)}
+            </Typography>
+          </div>
+        )}
+
+        <OfferFormField
+          isRequired
+          id="offer-form-date-start-field"
+          isError={!!errors.dateIntervalStart}
+          label={t('offer:form.section.dateTime.field.dateIntervalStart')}
+        >
+          <div className={classes.errorContainer}>
             <DatePicker
               required
               adornmentPosition="start"
@@ -386,7 +376,7 @@ const OfferFormDateTime = (props: Props) => {
                 typeof errors.dateIntervalStart === 'string' &&
                 errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
               }
-              format="L"
+              format="D"
               helperText={null}
               id="offer-form-date-start-input"
               InputProps={{
@@ -402,85 +392,80 @@ const OfferFormDateTime = (props: Props) => {
                   </InputAdornment>
                 ),
               }}
-              mask={getDatePickerMask}
               onChange={handleChangeDateStart}
               placeholder={datePickerPlaceholder}
               size="small"
-              value={moment(dateIntervalStart)}
+              value={dateIntervalStart}
               variant="outlined"
             />
-          </MuiPickersUtilsProvider>
 
-          {!!errors.dateIntervalStart &&
-            typeof errors.dateIntervalStart === 'string' && (
-              <Typography color="error" variant="caption">
-                {t(errors.dateIntervalStart)}
-              </Typography>
-            )}
-        </div>
-      </OfferFormField>
+            {!!errors.dateIntervalStart &&
+              typeof errors.dateIntervalStart === 'string' && (
+                <Typography color="error" variant="caption">
+                  {t(errors.dateIntervalStart)}
+                </Typography>
+              )}
+          </div>
+        </OfferFormField>
 
-      {!isEditOffer && (
-        <>
-          <SwitchField
-            id="offer-form-recurrence-switch"
-            label={t('offer:form.section.dateTime.field.recurrence.title')}
-            name="isRecurrence"
-            switchColor="secondary"
-          />
+        {!isEditOffer && (
+          <>
+            <SwitchField
+              id="offer-form-recurrence-switch"
+              label={t('offer:form.section.dateTime.field.recurrence.title')}
+              name="isRecurrence"
+              switchColor="secondary"
+            />
 
-          <div className={classes.formFieldColumns}>
-            {isRecurrence && (
-              <OfferFormField
-                isRequired
-                id="offer-form-recurrence-field"
-                isError={!!errors.recurrence}
-                label={t('offer:form.section.dateTime.field.recurrence.title')}
-              >
-                <div
-                  className={classNames(
-                    classes.bigWidth,
-                    classes.errorContainer,
+            <div className={classes.formFieldColumns}>
+              {isRecurrence && (
+                <OfferFormField
+                  isRequired
+                  id="offer-form-recurrence-field"
+                  isError={!!errors.recurrence}
+                  label={t(
+                    'offer:form.section.dateTime.field.recurrence.title',
                   )}
                 >
-                  <OfferFormSelector
-                    className={classes.bigWidth}
-                    id="offer-form-recurrence-selector"
-                    isError={!!errors.recurrence}
-                    name="recurrence"
-                    options={availableRecurrenceOptions}
-                    placeholder={t(
-                      'offer:form.section.dateTime.field.recurrence.placeholder',
+                  <div
+                    className={classNames(
+                      classes.bigWidth,
+                      classes.errorContainer,
                     )}
-                  />
-
-                  {!!errors.recurrence && (
-                    <Typography color="error" variant="caption">
-                      {t(errors.recurrence)}
-                    </Typography>
-                  )}
-                </div>
-              </OfferFormField>
-            )}
-            {isRecurrence && (
-              <OfferFormField
-                isRequired
-                id="offer-form-date-end-field"
-                isError={!!errors.dateIntervalEnd}
-                label={t('offer:form.section.dateTime.field.dateIntervalEnd')}
-              >
-                <div className={classes.errorContainer}>
-                  <MuiPickersUtilsProvider
-                    locale={moment.locale()}
-                    moment={moment}
-                    utils={MomentUtils}
                   >
+                    <OfferFormSelector
+                      className={classes.bigWidth}
+                      id="offer-form-recurrence-selector"
+                      isError={!!errors.recurrence}
+                      name="recurrence"
+                      options={availableRecurrenceOptions}
+                      placeholder={t(
+                        'offer:form.section.dateTime.field.recurrence.placeholder',
+                      )}
+                    />
+
+                    {!!errors.recurrence && (
+                      <Typography color="error" variant="caption">
+                        {t(errors.recurrence)}
+                      </Typography>
+                    )}
+                  </div>
+                </OfferFormField>
+              )}
+              {isRecurrence && (
+                <OfferFormField
+                  isRequired
+                  id="offer-form-date-end-field"
+                  isError={!!errors.dateIntervalEnd}
+                  label={t('offer:form.section.dateTime.field.dateIntervalEnd')}
+                >
+                  <div className={classes.errorContainer}>
                     <DatePicker
                       keyboard
                       required
                       className={classes.dateInput}
                       error={!!errors.dateIntervalEnd}
-                      format="L"
+                      format="D"
                       helperText={null}
                       id="offer-form-date-end-input"
                       InputProps={{
@@ -489,7 +474,6 @@ const OfferFormDateTime = (props: Props) => {
                         },
                       }}
                       keyboardIcon={<CalendarToday />}
-                      mask={getDatePickerMask}
                       minDate={dateIntervalStart}
                       onChange={handleChangeDateEnd}
                       placeholder={datePickerPlaceholder}
@@ -497,52 +481,57 @@ const OfferFormDateTime = (props: Props) => {
                       value={dateIntervalEnd}
                       variant="outlined"
                     />
-                  </MuiPickersUtilsProvider>
 
-                  {!!errors.dateIntervalEnd &&
-                    typeof errors.dateIntervalEnd === 'string' && (
-                      <Typography color="error" variant="caption">
-                        {t(errors.dateIntervalEnd)}
-                      </Typography>
-                    )}
-                </div>
-              </OfferFormField>
+                    {!!errors.dateIntervalEnd &&
+                      typeof errors.dateIntervalEnd === 'string' && (
+                        <Typography color="error" variant="caption">
+                          {t(errors.dateIntervalEnd)}
+                        </Typography>
+                      )}
+                  </div>
+                </OfferFormField>
+              )}
+            </div>
+
+            {isRecurrence && recurrence === OFFER_RECURRENCE.WEEKLY && (
+              <OfferFormWeeklyRecurrenceDays
+                id="offer-form-recurrence-week-days"
+                timezone={timezone}
+              />
             )}
-          </div>
 
-          {isRecurrence && recurrence === OFFER_RECURRENCE.WEEKLY && (
-            <OfferFormWeeklyRecurrenceDays
-              id="offer-form-recurrence-week-days"
-              timezone={timezone}
-            />
-          )}
-
-          {isRecurrence && (
-            <Alert
-              action={
-                isMobile ? (
-                  <RemoveRedEye onClick={handleOpenRecurrencePreviewDialog} />
-                ) : (
-                  <Button
-                    color="inherit"
-                    onClick={handleOpenRecurrencePreviewDialog}
-                    startIcon={<RemoveRedEye />}
-                  >
-                    {t('offer:form.section.dateTime.field.recurrence.preview')}
-                  </Button>
-                )
-              }
-              className={classes.recurrencePreviewAlert}
-              severity="info"
-            >
-              {t('offer:form.section.dateTime.field.recurrence.previewCount', {
-                count: offerRecurrencePreviewCount,
-              })}
-            </Alert>
-          )}
-        </>
-      )}
-    </FormSection>
+            {isRecurrence && (
+              <Alert
+                action={
+                  isMobile ? (
+                    <RemoveRedEye onClick={handleOpenRecurrencePreviewDialog} />
+                  ) : (
+                    <Button
+                      color="inherit"
+                      onClick={handleOpenRecurrencePreviewDialog}
+                      startIcon={<RemoveRedEye />}
+                    >
+                      {t(
+                        'offer:form.section.dateTime.field.recurrence.preview',
+                      )}
+                    </Button>
+                  )
+                }
+                className={classes.recurrencePreviewAlert}
+                severity="info"
+              >
+                {t(
+                  'offer:form.section.dateTime.field.recurrence.previewCount',
+                  {
+                    count: offerRecurrencePreviewCount,
+                  },
+                )}
+              </Alert>
+            )}
+          </>
+        )}
+      </FormSection>
+    </MuiPickersUtilsProvider>
   );
 };
 

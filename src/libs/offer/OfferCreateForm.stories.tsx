@@ -2,7 +2,6 @@ import React from 'react';
 
 import { action } from '@storybook/addon-actions';
 import { ComponentStory, Meta } from '@storybook/react';
-import moment from 'moment-timezone';
 import { within, screen, userEvent } from '@storybook/testing-library';
 import { Grid, Paper } from '@material-ui/core';
 import { expect } from '@storybook/jest';
@@ -31,6 +30,7 @@ import { coachPaymentRulesByKindFactory } from '#libs/coach-payment-rules/factor
 import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { getIsoWeekDay } from '#libs/offer/utils';
+import { DateTime } from 'luxon';
 
 const requiredFieldError = i18n.t('offer:form.errors.required');
 const positiveNumberError = i18n.t('offer:form.errors.positiveNumber');
@@ -69,8 +69,8 @@ const initialValues: OfferFormValues = {
   level: 1,
   broadcastLink: '',
   credits: 1,
-  dateIntervalStart: moment().startOf('day'),
-  dateIntervalEnd: moment().add(initialDateIntervalEndDays, 'day'),
+  dateIntervalStart: DateTime.now().startOf('day'),
+  dateIntervalEnd: DateTime.now().plus({ day: initialDateIntervalEndDays }),
   durationMinute: 60,
   isRecurrence: false,
   recurrence: OFFER_RECURRENCE.WEEKLY,
@@ -83,7 +83,7 @@ const initialValues: OfferFormValues = {
     '6': isoWeekDay === 6,
     '7': isoWeekDay === 7,
   },
-  calendarSelectedDate: moment().format(),
+  calendarSelectedDate: DateTime.now().toISO(),
   isRecurrenceWeekDayDialogOpen: false,
   coach: null,
   additionalCoaches: [],
@@ -125,7 +125,7 @@ const OfferFormMeta: Meta<typeof OfferCreateForm> = {
   args: {
     metaActivity,
     tagList,
-    selectedDate: moment().format(),
+    selectedDate: DateTime.now().toISO(),
     activeCustomLevels,
     allCustomLevels: levelListFactory(8),
     availableEstablishments,
@@ -481,7 +481,7 @@ DateTimeSectionInteractions.play = async ({ canvasElement }) => {
   userEvent.click(dateStartPickerButton);
   await sleep(100);
   const dateStartPickerDialogText = await screen.findByText(
-    moment().format('MMMM YYYY'),
+    DateTime.now().toFormat('MMMM yyyy'),
   );
   expect(dateStartPickerDialogText).toBeInTheDocument();
   const dateStartPickerDialogCancelButton = await screen.findByText('Cancel');
@@ -508,7 +508,7 @@ DateTimeSectionInteractions.play = async ({ canvasElement }) => {
   userEvent.click(dateEndPickerButton);
   await sleep(100);
   const dateEndPickerDialogText = await screen.findByText(
-    moment().format('MMMM YYYY'),
+    DateTime.now().toFormat('MMMM yyyy'),
   );
   expect(dateEndPickerDialogText).toBeInTheDocument();
   const dateEndPickerDialogCancelButton = await screen.findByText('Cancel');
@@ -802,9 +802,9 @@ DateTimeSectionErrors.play = async ({ canvasElement }) => {
 
   // Date start field - user should not be able to submit if date selected is more than 3 years ahead of current date
   const numberOfYearsAhead = 4;
-  const dateFourYearsAhead = moment()
-    .add(numberOfYearsAhead, 'years')
-    .format('L');
+  const dateFourYearsAhead = DateTime.now()
+    .plus({ year: numberOfYearsAhead })
+    .toFormat('D');
   const dateStartInput = offerForm.querySelector(
     '#offer-form-date-start-input',
   );

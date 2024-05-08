@@ -84,7 +84,6 @@ const ObjectSearch: React.FC<Props> = ({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filterOption={(_option, _text) => true}
       isLoading={isLoading}
-      menuPortalTarget={document.querySelector('body')}
       onInputChange={handleInputChange}
       options={[...formattedResults] as SelectOptions}
       {...selectorProps}

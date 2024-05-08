@@ -152,6 +152,7 @@ const OfferSearchBar: React.FC<Props> = ({
           additionalParams={{ disabled: false, id__in: allowedCoaches }}
           components={{ GroupHeading }}
           initialValues={offerFilters.coaches}
+          menuPortalTarget={document.querySelector('body')}
           onChange={setCoachCalendarFilter}
           placeholder={t('coach:coach')}
           searchedObjectType="associated_coach"
@@ -169,6 +170,7 @@ const OfferSearchBar: React.FC<Props> = ({
             hideSelectedOptions
             isMulti
             initialValues={offerFilters.establishment_group__in}
+            menuPortalTarget={document.querySelector('body')}
             onChange={setEstablishmentGroupCalendarFilter}
             optionsFormatter={formatEstablishmentGroups}
             placeholder={t('establishment:localisation')}
@@ -189,6 +191,7 @@ const OfferSearchBar: React.FC<Props> = ({
           openMenuOnClick
           components={{ GroupHeading }}
           initialValues={offerFilters.establishments}
+          menuPortalTarget={document.querySelector('body')}
           onChange={setEstablishmentCalendarFilter}
           optionsFormatter={formatEstablishments}
           placeholder={t('establishment:room')}
@@ -210,6 +213,7 @@ const OfferSearchBar: React.FC<Props> = ({
             customer_enabled: true,
           }}
           initialValues={offerFilters.activity__in}
+          menuPortalTarget={document.querySelector('body')}
           onChange={setActivityCalendarFilter}
           placeholder={t('metaActivity:metaActivity')}
           searchedObjectType="meta_activity"

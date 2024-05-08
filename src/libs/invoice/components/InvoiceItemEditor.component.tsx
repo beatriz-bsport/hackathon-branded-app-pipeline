@@ -24,12 +24,10 @@ import {
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import GiftcardSelector from '../../giftcard/components/GiftcardSelector.component';
-// @ts-expect-error
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
@@ -61,6 +59,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
       case BUYABLE_ITEM_SHOP_ITEM:
         return (
           <ShopItemSelector
+            // @ts-expect-error
             autofocus
             onChange={onSelect}
             shopItemList={availableBuyableItems[buyableItemIdentifier]}
@@ -70,6 +69,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
       case BUYABLE_ITEM_PRIVATE_PASS:
         return (
           <PrivatePassSelector
+            // @ts-expect-error
             autofocus
             onChange={onSelect}
             privatePassList={availableBuyableItems[buyableItemIdentifier]}

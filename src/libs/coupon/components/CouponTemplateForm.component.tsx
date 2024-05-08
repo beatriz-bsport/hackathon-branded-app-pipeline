@@ -33,7 +33,6 @@ import CouponTemplateUpdateWarningDialog from '#libs/coupon/components/CouponTem
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
-// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import {
   PriceField,
@@ -306,6 +305,7 @@ export const CouponTemplateForm = (props: Props) => {
               />
               <div className={classes.fullWidth}>
                 <PrivatePassSelector
+                  // @ts-expect-error
                   nullCurrentValue
                   helperText={t('form.selectorPlaceholder.privatePass')}
                   onChange={(id: number) => {

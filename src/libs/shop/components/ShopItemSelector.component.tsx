@@ -1,11 +1,12 @@
-// @flow
 import React, { useMemo } from 'react';
 
 import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
+import { TFunction } from 'i18next';
+// @ts-expect-error
 import ShopItemListItem from './ShopItemListItem.component';
-
+// @ts-expect-error
 import Selector from '../../../components/Selector.component';
 
 import { getShopItemName } from '../utils';
@@ -13,29 +14,30 @@ import { getShopItemName } from '../utils';
 import type { ShopItem } from '../types';
 
 type Props = {
-  classes: Object,
-  shopItemList: Array<ShopItem>,
-  onChange: (id?: number) => void,
-  helperText: string,
-  nullCurrentValue?: boolean,
-  value: ?number,
-  selectorClass: string,
-  t: TFunction,
-  autofocus: boolean,
-  disabled?: boolean,
+  classes: Object;
+  shopItemList: Array<ShopItem>;
+  onChange: (id?: number) => void;
+  helperText: string;
+  nullCurrentValue?: boolean;
+  value?: number;
+  selectorClass: string;
+  t: TFunction;
+  autofocus: boolean;
+  disabled?: boolean;
 };
 
 type OptionProps = {
-  data: Object,
-  innerRef: Object,
-  innerProps: Object,
-  isSelected?: boolean,
-  isFocused: boolean,
+  data: Object;
+  innerRef: Object;
+  innerProps: Object;
+  isSelected?: boolean;
+  isFocused: boolean;
 };
 
-function shopItemOption(props: OptionProps) {
+export function shopItemOption(props: OptionProps) {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
+    // @ts-expect-error
     <div ref={innerRef} {...innerProps}>
       <ShopItemListItem
         button
@@ -43,12 +45,13 @@ function shopItemOption(props: OptionProps) {
         noDivider
         isFocused={isFocused}
         selected={isSelected}
+        // @ts-expect-error
         shopitem={data.pp}
       />
     </div>
   );
 }
-
+// @ts-expect-error
 const filterShopItem = (option, text) => {
   const searchtextLower = text.toLowerCase();
   if (
@@ -74,8 +77,11 @@ export function ShopItemSelector(props: Props) {
   const suggestions = useMemo(
     () =>
       shopItemList
+        // @ts-expect-error
         .asMutable()
+        // @ts-expect-error
         .sort((pp, pp_) => pp.name > pp_.name)
+        // @ts-expect-error
         .map((pp) => ({
           value: pp.id,
           label: getShopItemName({
@@ -97,6 +103,7 @@ export function ShopItemSelector(props: Props) {
       filterOption={filterShopItem}
       isDisabled={!!props.disabled}
       nullCurrentValue={nullCurrentValue}
+      // @ts-expect-error
       onChange={(event) => onChange(event.value)}
       placeholder={helperText || props.t('shopitem.selector.placeholder')}
       selected={value}
@@ -104,5 +111,5 @@ export function ShopItemSelector(props: Props) {
     />
   );
 }
-
+// @ts-expect-error
 export default withTranslation(['shop'])(ShopItemSelector);

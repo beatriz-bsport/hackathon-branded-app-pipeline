@@ -33,7 +33,7 @@ type OptionProps = {
   isFocused: boolean;
 };
 
-function paymentPackOption(props: OptionProps) {
+export function paymentPackOption(props: OptionProps) {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     // @ts-expect-error

@@ -15,7 +15,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
@@ -290,6 +289,7 @@ export class SubscriptionCreate extends Component<Props, State> {
           />
 
           <PrivatePassSelector
+            // @ts-expect-error
             helperText={t('parameters.privatePass')}
             nullCurrentValue={
               typeof this.state.payment_pack === 'number' ||

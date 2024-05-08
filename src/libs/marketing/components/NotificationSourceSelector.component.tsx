@@ -20,7 +20,6 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
 import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
@@ -250,6 +249,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
             {identifier === 'private_pass' && (
               <PrivatePassSelector
+                // @ts-expect-error
                 helperText={t('notifications.privatePassPlaceholder')}
                 isMulti={false}
                 onChange={(value: number) =>

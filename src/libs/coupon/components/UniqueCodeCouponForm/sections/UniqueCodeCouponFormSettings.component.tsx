@@ -16,11 +16,9 @@ import FormSection from '#components/forms/FormSection';
 
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
-// @ts-expect-error
 import ShopItemSelector from '#libs/shop/components/ShopItemSelector.component';
 // @ts-expect-error
 import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
-// @ts-expect-error
 import PrivatePassSelector from '#libs/private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
 // @ts-expect-error
@@ -241,6 +239,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             id="unique-code-coupon-form-shop-item-selector"
           >
             <ShopItemSelector
+              // @ts-expect-error prop typing
               nullCurrentValue
               disabled={isProcessing}
               helperText={t(
@@ -276,6 +275,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             id="unique-code-coupon-form-private-pass-selector"
           >
             <PrivatePassSelector
+              // @ts-expect-error prop typing
               nullCurrentValue
               disabled={isProcessing}
               helperText={t(

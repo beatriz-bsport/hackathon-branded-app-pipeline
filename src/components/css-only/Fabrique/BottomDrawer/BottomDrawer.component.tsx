@@ -12,7 +12,7 @@ export type Props = {
   /** If `true` the drawer dialog takes all of the screen */
   isExpanded?: boolean;
   /** Content displayed in the dialog */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Optional CSS class name to pass to blanket element (overrides `blanketProps.className`) */
   className?: string;
   /** Blanket component props */

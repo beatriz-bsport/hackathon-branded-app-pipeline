@@ -1,5 +1,5 @@
 import { CompanyWithTheme, Company } from '#libs/company/types';
-import { PaymentPackTemplate } from '#libs/payment-packs/types';
+import { PaymentPack, PaymentPackTemplate } from '#libs/payment-packs/types';
 import { PrivatePassTemplate } from '#libs/private-service/types';
 import { CouponTemplate } from '#libs/coupon/types';
 import { GiftcardTemplate } from '#libs/giftcard/types';
@@ -33,6 +33,17 @@ export type FranchiseState = {
     byId: { [id: number]: CompanyGroup };
     loading: boolean;
     error: Error | null;
+  };
+  userProfile: {
+    passes: {
+      page: number;
+      next_page: number;
+      count: number;
+      allIds: number[];
+      byId: Record<number, FranchiseUserPass>;
+      loading: boolean;
+      error: Error | null;
+    };
   };
 };
 
@@ -122,3 +133,72 @@ export type SearchUsersPayload = {
   text: string;
   count?: number;
 };
+
+export type PassesPaginatedQueryParams = {
+  page?: number;
+  page_size?: number;
+  filters?: FranchisePassFilters;
+};
+
+export type FranchiseUserPassesQueryParams = {
+  user_id: number;
+} & PassesPaginatedQueryParams;
+
+export type FranchiseUserPass = {
+  id: number;
+  used_credits: number;
+  initial_price: number;
+  payment_pack_id: string;
+  payment_pack_name: string;
+  payment_pack: number;
+  starting_date: string;
+  ending_date: string;
+  member_id: number;
+  disabled: boolean;
+  reverted: boolean;
+  invoice: string;
+  created_from_payment_pack_template_instance: number;
+  consumer_payment_pack_source: number | null;
+  company_source_id: string;
+  company_source_name: string;
+  company_source_primary_color: string;
+};
+
+export type FranchiseUserPassWithPaymentPack = {
+  id: number;
+  used_credits: number;
+  initial_price: number;
+  payment_pack_id: string;
+  payment_pack_name: string;
+  payment_pack: PaymentPack;
+  starting_date: string;
+  ending_date: string;
+  member_id: number;
+  disabled: boolean;
+  reverted: boolean;
+  invoice: string;
+  created_from_payment_pack_template_instance: number;
+  consumer_payment_pack_source: number | null;
+  company_source_id: string;
+  company_source_name: string;
+  company_source_primary_color: string;
+};
+
+export type FranchisePassFilters = {
+  is_expired?: boolean;
+  is_valid_today?: boolean;
+  reverted?: boolean;
+  has_credit_left?: boolean;
+  company__in?: number[];
+  company_group__in?: number[];
+};
+
+export type FranchisePassFiltersOpener = {
+  expiration?: boolean;
+  reverted?: boolean;
+  credit_left?: boolean;
+  companies?: boolean;
+  company_groups?: boolean;
+};
+
+export type CompanyOptionTypeBase = { label: string; value: string };

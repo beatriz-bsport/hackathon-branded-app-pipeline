@@ -29,12 +29,14 @@ import {
 } from 'connected-react-router';
 
 import moment from 'moment-timezone';
-
+import { DateTime } from 'luxon';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
 } from '@bsport/common/lib/master-data/booking_status_code';
+import type { LuxonDateTime } from '#src/types';
+
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 
@@ -139,7 +141,7 @@ import OfferSearchBar, {
 } from '#libs/offer/components/OfferSearchBar.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
-import { DATE_FORMAT } from '../../utils/datetime';
+import { DATE_FORMAT, LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 
 import CheckPermission from '#libs/role/components/CheckPermission.component';
 import {
@@ -234,7 +236,7 @@ export const omit_list = (offerFilters: OfferFilter, available: boolean) => {
 export const getDayOffers = memoize((events, showCancelledOffers = false) => {
   const events_ = {};
   events?.forEach((o) => {
-    const midnight = moment(o.date_start).startOf('day');
+    const midnight = DateTime.fromISO(o.date_start).startOf('day');
     if (!events_[midnight]) {
       events_[midnight] = [];
     }
@@ -287,8 +289,6 @@ type Props = {
       Immutable.Immutable<StatisticPoint>,
     >,
     offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
-    start: Moment,
-    end: Moment,
   }>,
   companyId: number,
 
@@ -525,7 +525,10 @@ export class Planning extends PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       prevProps.date !== this.props.date &&
-      !moment(prevProps.date).isSame(moment(this.props.date), 'month')
+      !DateTime.fromFormat(prevProps.date, LUXON_ISO_SHORT_DATE).hasSame(
+        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE),
+        'month',
+      )
     ) {
       this.fetchData();
     }
@@ -547,7 +550,12 @@ export class Planning extends PureComponent<Props, State> {
     if (prevProps.selectedOffer && !this.props.selectedOffer) {
       this.props.fetchBookingStatsOfTheWeek();
     }
-    if (!moment(prevProps.date).isSame(moment(this.props.date), 'week')) {
+    if (
+      !DateTime.fromFormat(prevProps.date, LUXON_ISO_SHORT_DATE).hasSame(
+        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE),
+        'week',
+      )
+    ) {
       this.props.fetchBookingStatsOfTheWeek();
     }
   }
@@ -559,10 +567,13 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   loadDayData = (day?: string) => {
-    const date = moment(day || this.props.date, DATE_FORMAT);
-    const base = `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${
-      this.props.offerId ?? ''
-    }`;
+    const datetime = DateTime.fromFormat(
+      day || this.props.date,
+      LUXON_ISO_SHORT_DATE,
+    );
+    const base = `/calendar/${datetime.year}/${datetime.month}/${
+      datetime.day
+    }/${this.props.offerId ?? ''}`;
 
     if (!platformTutorialActivated()) {
       this.props.replaceRouter(base);
@@ -577,7 +588,7 @@ export class Planning extends PureComponent<Props, State> {
     } else {
       this.props.replaceRouter(base);
     }
-    this.fetchOffersOfDate(date);
+    this.fetchOffersOfDate(datetime);
   };
 
   onModifyTags = (offer) => {
@@ -1103,11 +1114,11 @@ export class Planning extends PureComponent<Props, State> {
     }>,
   ) => this.setCalendarFilter(value, FILTER_SUB_REQUEST_TEACHER);
 
-  fetchOffersOfDate = (date) => {
+  fetchOffersOfDate = (datetime: LuxonDateTime) => {
     this.props.fetchOffersByDay({
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date(),
+      year: datetime.year,
+      month: datetime.month,
+      day: datetime.day,
       ...omit(
         this.props.offerFilters || {},
         omit_list(this.props.offerFilters, false),
@@ -1116,8 +1127,8 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   fetchOffersOfSelectedDate = () => {
-    const date = moment(this.props.date, DATE_FORMAT);
-    this.fetchOffersOfDate(date);
+    const datetime = DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE);
+    this.fetchOffersOfDate(datetime);
   };
 
   renderRollCallDrawer = () => {
@@ -1549,8 +1560,12 @@ export default compose(
       ),
       bookingStatistics: getStats(
         state,
-        moment(date).startOf('week').format(),
-        moment(date).endOf('week').format(),
+        DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          .startOf('week', { useLocaleWeeks: true })
+          .toISO(),
+        DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          .endOf('week', { useLocaleWeeks: true })
+          .toISO(),
       ),
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
@@ -1628,26 +1643,26 @@ export default compose(
       ({ fetchAllOffers, theme, fetchBookedGender, offerFilters, date }) =>
       () => {
         fetchAllOffers({
-          min_date: moment(date)
+          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
             .startOf('month')
-            .startOf('week')
-            .format('YYYY-MM-DD'),
-          max_date: moment(date)
+            .startOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
+          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
             .endOf('month')
-            .endOf('week')
-            .format('YYYY-MM-DD'),
+            .endOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),
         });
         if (theme && theme.show_booked_gender_offer) {
           fetchBookedGender({
-            min_date: moment(date)
+            min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
               .startOf('month')
-              .startOf('week')
-              .format('YYYY-MM-DD'),
-            max_date: moment(date)
+              .startOf('week', { useLocaleWeeks: true })
+              .toFormat(LUXON_ISO_SHORT_DATE),
+            max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
               .endOf('month')
-              .endOf('week')
-              .format('YYYY-MM-DD'),
+              .endOf('week', { useLocaleWeeks: true })
+              .toFormat(LUXON_ISO_SHORT_DATE),
             ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           });
         }
@@ -1681,15 +1696,23 @@ export default compose(
       }) =>
       () => {
         fetchBookingStatistics('createdBookings', {
-          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
-          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .startOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
+          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .endOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           date_field: 'offer__date_start',
           kind: 'count',
         });
         fetchBookingStatistics('cancelledBookings', {
-          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
-          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .startOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
+          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .endOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
           booking_status_code__in: [
             BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
             BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
@@ -1700,8 +1723,12 @@ export default compose(
           kind: 'count',
         });
         fetchOffersWaitingListStatistics('waitingLists', {
-          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
-          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .startOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
+          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .endOf('week', { useLocaleWeeks: true })
+            .toFormat(LUXON_ISO_SHORT_DATE),
           date_field: 'offer__date_start',
           kind: 'count',
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),

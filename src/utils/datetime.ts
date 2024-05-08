@@ -7,6 +7,7 @@ import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/per
 import type { Theme } from '#libs/theme/types';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
+export const LUXON_ISO_SHORT_DATE = 'yyyy-MM-dd';
 
 export function formatAsDate(date: string, tzname?: string) {
   const momentDate = tzname ? moment(date).tz(tzname) : moment(date);

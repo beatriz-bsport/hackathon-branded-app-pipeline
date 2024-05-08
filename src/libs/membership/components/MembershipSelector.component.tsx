@@ -120,17 +120,14 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = React.memo(
 
     useEffect(() => {
       handleTextChange('');
-    });
+    }, [handleTextChange]);
+
     const onTextFieldChange = useCallback(
       (ev: ChangeEvent<HTMLInputElement>) => {
         handleTextChange(ev.target.value);
       },
       [handleTextChange],
     );
-
-    useEffect(() => {
-      handleTextChange('');
-    });
 
     const selectCompany = useCallback(
       (company: Company) => () => {

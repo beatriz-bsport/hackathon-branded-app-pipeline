@@ -324,6 +324,7 @@ export type SubshopFactoryOptions = {
 };
 
 export type ShopItemListFilterParams = ShopAPIFilter & {
+  id__not_in?: number[];
   is_variant?: boolean;
   is_base_item?: boolean;
   is_standalone_item?: boolean;

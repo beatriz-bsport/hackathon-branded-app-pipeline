@@ -445,6 +445,7 @@ export type PaymentPackCompatibilitiesData = {
 };
 export type PaymentPackQueryParams = {
   id__in?: number[];
+  id__not_in?: number[];
   meta_activity?: number;
   offer?: number;
   vod?: boolean;

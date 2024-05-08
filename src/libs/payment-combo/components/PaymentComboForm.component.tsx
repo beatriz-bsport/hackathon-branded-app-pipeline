@@ -54,10 +54,13 @@ import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 import type { BookkeepingAccount } from '#libs/payment/types';
 import { PaymentPack } from '#libs/payment-packs/types';
-import { ShopItem } from '#libs/shop/types';
-import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
-import { ShopItemSelector } from '#libs/shop/components/ShopItemSelector.component';
-import { PrivatePassSelector } from '#libs/private-service/components/pass/PrivatePassSelector.component';
+import { paymentPackOption } from '#libs/payment-packs/components/PaymentPackSelector.component';
+import { shopItemOption } from '#libs/shop/components/ShopItemSelector.component';
+import { privatePassOption } from '#libs/private-service/components/pass/PrivatePassSelector.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import { SelectOption } from '#libs/types';
+import { useObjectSearch } from '#libs/fuzzy-search/hooks/useObjectSearch';
+import { ShopItem } from '#src/libs/shop/types';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -66,9 +69,6 @@ const { trackFormAdd, trackFormSuccess } =
 
 type Props = {
   provincialTax: number;
-  paymentPackList: Array<PaymentPack>;
-  shopItemList: Array<ShopItem>;
-  privatePassList: Array<PrivatePass>;
   values: PaymentCombo;
   privatePassListLoading: boolean;
   relatedPrivatePassList: Array<PrivatePass>;
@@ -94,9 +94,6 @@ const repeatQuantity = (combo_items: PaymentComboItem[]) => [
 
 export const PaymentComboForm: React.FC<Props> = ({
   provincialTax,
-  paymentPackList,
-  shopItemList,
-  privatePassList,
   values,
   privatePassListLoading,
   relatedPrivatePassList,
@@ -124,33 +121,7 @@ export const PaymentComboForm: React.FC<Props> = ({
 
   const { values: valuesFormik, setFieldValue } = useFormikContext();
 
-  const selectablePaymentPacks = React.useMemo(
-    () =>
-      paymentPackList
-        ? paymentPackList.filter(
-            (pp: PaymentPack) =>
-              !pp.linked_private_pass ||
-              // @ts-expect-error
-              !valuesFormik.private_pass_ids.includes(pp.linked_private_pass),
-          )
-        : [],
-    // @ts-expect-error
-    [paymentPackList, valuesFormik.private_pass_ids],
-  );
-
-  const selectablePrivatePasses = React.useMemo(
-    () =>
-      privatePassList
-        ? privatePassList.filter(
-            (pp: PrivatePass) =>
-              !pp.linked_payment_pack ||
-              // @ts-expect-error
-              !valuesFormik.payment_pack_ids.includes(pp.linked_payment_pack),
-          )
-        : [],
-    // @ts-expect-error
-    [privatePassList, valuesFormik.payment_pack_ids],
-  );
+  const { getResultsById } = useObjectSearch();
 
   const isEmpty =
     // @ts-expect-error
@@ -168,6 +139,17 @@ export const PaymentComboForm: React.FC<Props> = ({
       );
     },
     [setFieldValue],
+  );
+
+  const formatOptions = React.useCallback(
+    (options: PrivatePass[] | ShopItem[] | PaymentPack[]) => {
+      return options.map((option) => ({
+        label: option.name,
+        value: option.id,
+        pp: option,
+      }));
+    },
+    [],
   );
 
   const setBookkeepingAccount = React.useCallback(
@@ -205,21 +187,29 @@ export const PaymentComboForm: React.FC<Props> = ({
   );
 
   const allPackTagIds = React.useMemo(() => {
-    const selectedPaymentPackTags = selectablePaymentPacks
-      // @ts-expect-error
-      .filter((paymentPack) => values.payment_pack_ids.includes(paymentPack.id))
+    const selectedPaymentPackTags = (values.payment_packs ?? [])
+      .map(
+        (paymentComboItem) =>
+          getResultsById('payment_pack')[paymentComboItem.id],
+      )
+      .filter((paymentPack) => !!paymentPack)
       .map((paymentPack) => paymentPack?.tags_on_consumer_item_creation)
       .flat();
 
-    const selectedShopItemTags = shopItemList
-      // @ts-expect-error
-      .filter((shopItem) => values.shop_item_ids.includes(shopItem.id))
+    const selectedShopItemTags = (values.shop_items ?? [])
+      .map(
+        (paymentComboItem) => getResultsById('shop_item')[paymentComboItem.id],
+      )
+      .filter((shopItem) => !!shopItem)
       .map((shopItem) => shopItem?.tags_on_purchase)
       .flat();
 
-    const selectedPrivatePassTags = selectablePrivatePasses
-      // @ts-expect-error
-      .filter((privatePass) => values.private_pass_ids.includes(privatePass.id))
+    const selectedPrivatePassTags = (values.private_passes ?? [])
+      .map(
+        (paymentComboItem) =>
+          getResultsById('private_pass')[paymentComboItem.id],
+      )
+      .filter((privatePass) => !!privatePass)
       .map((privatePass) => privatePass?.tags_on_consumer_item_creation)
       .flat();
 
@@ -232,16 +222,11 @@ export const PaymentComboForm: React.FC<Props> = ({
 
     return [...new Set(allPackTags)];
   }, [
-    selectablePaymentPacks,
-    selectablePrivatePasses,
-    shopItemList,
-    // @ts-expect-error
-    values.payment_pack_ids,
-    // @ts-expect-error
-    values.private_pass_ids,
-    // @ts-expect-error
-    values.shop_item_ids,
-    values.tags_on_consumer_item_creation,
+    getResultsById,
+    values.payment_packs,
+    values.private_passes,
+    values.shop_items,
+    values?.tags_on_consumer_item_creation,
   ]);
 
   const hasItemsWithTagsSameGroup = useHasTagsSameGroup({
@@ -275,13 +260,21 @@ export const PaymentComboForm: React.FC<Props> = ({
         <FieldArray name="payment_pack_ids">
           {(f) => (
             <div>
-              <PaymentPackSelector
-                nullCurrentValue
-                helperText={t('form.selectorPlaceholder.paymentPack')}
-                onChange={(id: number) => {
-                  if (id) f.push(id);
+              <ObjectSearchComponent
+                additionalParams={{
+                  id__not_in: f.form.values.payment_pack_ids,
                 }}
-                paymentPacks={selectablePaymentPacks}
+                components={{
+                  Option: paymentPackOption,
+                }}
+                initialValues={f.form.values.payment_pack_ids}
+                onChange={({ value }: SelectOption<number>) => {
+                  f.push(value);
+                }}
+                optionsFormatter={formatOptions}
+                placeholder={t('form.selectorPlaceholder.paymentPack')}
+                searchedObjectType="payment_pack"
+                value={[]}
               />
               {f.form.values.payment_pack_ids.map((id: number, i: number) => (
                 <PaymentPackListItem
@@ -289,7 +282,7 @@ export const PaymentComboForm: React.FC<Props> = ({
                   dense
                   isPaperVariant
                   onDelete={() => f.remove(i)}
-                  pack={paymentPackList.find((pp) => pp.id === id)}
+                  pack={getResultsById('payment_pack')[id]}
                 />
               ))}
             </div>
@@ -304,24 +297,27 @@ export const PaymentComboForm: React.FC<Props> = ({
             },
           }) => (
             <div>
-              <ShopItemSelector
-                nullCurrentValue
-                helperText={
-                  /**
-                   * Should change placeholder according to company ID
-                   * if "product with variants" is enabled
-                   * BS-3667
-                   */
+              <ObjectSearchComponent
+                additionalParams={{
+                  disabled: false,
+                  id__not_in: shop_item_ids,
+                }}
+                components={{
+                  Option: shopItemOption,
+                }}
+                onChange={({ value }: SelectOption<number>) => {
+                  push(value);
+                }}
+                optionsFormatter={formatOptions}
+                placeholder={
                   !['production', 'staging'].includes(
                     Config.REACT_APP_SENTRY_ENVIRONMENT,
                   )
                     ? t('form.selectorPlaceholder.shopItemExcludingvariant')
                     : t('form.selectorPlaceholder.shopitem')
                 }
-                onChange={(id: number) => {
-                  if (id) push(id);
-                }}
-                shopItemList={shopItemList.filter((item) => !item.disabled)}
+                searchedObjectType="shop_item"
+                value={[]}
               />
               {shop_item_ids.map((id: number, i: number) => (
                 <ShopItemListItem
@@ -329,7 +325,7 @@ export const PaymentComboForm: React.FC<Props> = ({
                   dense
                   isPaperVariant
                   onDelete={() => remove(i)}
-                  shopitem={shopItemList.find((si) => si.id === id)}
+                  shopitem={getResultsById('shop_item')[id]}
                 />
               ))}
             </div>
@@ -344,22 +340,30 @@ export const PaymentComboForm: React.FC<Props> = ({
             },
           }) => (
             <div>
-              <PrivatePassSelector
-                nullCurrentValue
-                helperText={t('form.selectorPlaceholder.privatePass')}
-                onChange={(id: number) => {
-                  if (id) push(id);
+              <ObjectSearchComponent
+                additionalParams={{ id__not_in: private_pass_ids }}
+                components={{
+                  Option: privatePassOption,
                 }}
-                privatePassList={selectablePrivatePasses}
+                getOptionLabel={(option) => option.label}
+                onChange={({ value }: SelectOption<number>) => {
+                  push(value);
+                }}
+                optionsFormatter={formatOptions}
+                placeholder={t('form.selectorPlaceholder.privatePass')}
+                searchedObjectType="private_pass"
+                value={[]}
               />
+
               {privatePassListLoading ? (
                 <div>{relatedPrivatePassList && <CircularProgress />}</div>
               ) : (
                 private_pass_ids.map((id: number, i: number) => {
-                  const passes = Object.values(relatedPrivatePassList).concat(
-                    Object.values(privatePassList),
-                  );
-                  const pass = passes.find((pp) => pp.id === id);
+                  const pass =
+                    getResultsById('private_pass')[id] ||
+                    Object.values(relatedPrivatePassList).find(
+                      (p) => p.id === id,
+                    );
                   if (pass) {
                     return (
                       <PrivatePassListItem

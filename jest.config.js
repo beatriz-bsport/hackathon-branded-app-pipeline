@@ -13,7 +13,8 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './.jest.babelrc' }],
   },
   transformIgnorePatterns: [
-    '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$',
+    // Ignore all node_modules, except @bsport/common
+    'node_modules/(?!(@bsport)/)',
   ],
   moduleNameMapper: {
     '^react-native$': 'react-native-web',

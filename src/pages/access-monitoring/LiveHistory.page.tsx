@@ -27,6 +27,7 @@ import MemberVisitWarnings from '#libs/access-control/components/MemberVisit/Mem
 import AccessStatusChangedSuccessModal from '#libs/access-control/components/MemberVisit/AccessStatusChangedSuccessModal.component';
 import EntryStatusChangedModal from '#libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
 import MemberPhotoHistoryModal from '#libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 /** SELECTORS */
 import {
@@ -464,13 +465,18 @@ const LiveHistory: React.FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <MemberVisitSearchMember
-        displayDropDownInPopover
-        reducedWidth
-        searchMembers={searchMembers}
-        onMemberClick={handleSelectMember}
-        onClearSearch={handleRefreshFirstPage}
-      />
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.search"
+      >
+        <MemberVisitSearchMember
+          displayDropDownInPopover
+          reducedWidth
+          searchMembers={searchMembers}
+          onMemberClick={handleSelectMember}
+          onClearSearch={handleRefreshFirstPage}
+        />
+      </ObjectLevelPermissionWrapper>
       <MemberVisitLiveHistoryTable
         isLoading={isLoading}
         handleSelectMemberVisit={handleSelectMemberVisit}

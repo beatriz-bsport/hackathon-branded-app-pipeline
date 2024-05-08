@@ -29,13 +29,11 @@ export const getMemberVisitIsLoading = (state: RootState) =>
   state.accessControl.nextBookingOrPrivateBooking.loading ||
   state.accessControl.userPhotoUpdate.loading;
 
-export const getMemberVisitLiveHistoryIsLoading = (state: RootState) => {
-  return (
-    state.accessControl.memberVisit.loading ||
-    state.establishment.loading ||
-    state.establishment.establishmentGroup.loading
-  );
-};
+export const getMemberVisitLiveHistoryIsLoading = (state: RootState) =>
+  state.accessControl.memberVisit.loading ||
+  state.establishment.loading ||
+  state.establishment.establishmentGroup.loading ||
+  getMemberVisitIsLoading(state);
 
 export const getAccessControlPolicy = (state: RootState) =>
   state.accessControl.policy.policy;

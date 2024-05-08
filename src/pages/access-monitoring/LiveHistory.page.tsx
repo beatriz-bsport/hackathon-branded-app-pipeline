@@ -431,9 +431,10 @@ const LiveHistory: React.FC<Props> = ({
             onRefuseManualEntry={handleRefuseManualEntry}
             onMemberBillClick={handleMemberBillClick}
             onMemberProfileClick={handleSelectedMemberProfileClick}
+            isLoading={isLoading}
           />
           <MemberVisitWarnings
-            isLoading={false}
+            isLoading={isLoading}
             memberVisit={selectedMemberVisit}
           />
         </div>

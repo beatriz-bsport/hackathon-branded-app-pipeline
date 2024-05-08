@@ -5,9 +5,9 @@ import { Route, Switch, Redirect, withRouter } from 'react-router';
 import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
+import { DateTime } from 'luxon';
 import Planning from './Planning.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { Moment } from '../../i18n';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -32,19 +32,18 @@ import { withGroup } from '#libs/group-offer/selectors';
 
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
+import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 
-const formatDate = (date) => {
-  const formatedDate = Moment(date);
-  return formatedDate.isValid() ? formatedDate : Moment();
+const formatDate = (date: string) => {
+  const formattedDate = DateTime.fromFormat(date, 'yyyy-MM-dd');
+  return formattedDate.isValid ? formattedDate : DateTime.now();
 };
 
 export function PlanningRouter({ location }: { location: Location }) {
-  const momentDate = Moment();
+  const now = DateTime.now();
 
   const getfallBack = () => {
-    const base = `/calendar/${momentDate.year()}/${
-      momentDate.month() + 1
-    }/${momentDate.date()}`;
+    const base = `/calendar/${now.year}/${now.month}/${now.day}`;
     if (!platformTutorialActivated()) {
       return base;
     }
@@ -165,7 +164,7 @@ const PlanningWithDateAndOffer = compose(
           )
         : null;
     return {
-      date: date.format('YYYY-MM-DD'),
+      date: date.toFormat(LUXON_ISO_SHORT_DATE),
       selectedOffer,
       hybridOfferLinkedToSelectedOffer,
     };

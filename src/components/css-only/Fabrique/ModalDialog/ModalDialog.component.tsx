@@ -13,6 +13,7 @@ import type { ModalDialogColor, ModalDialogSize } from './types';
 import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
 import { useModalDialogDefaultLeftIcon } from './hooks';
 
+import type { ButtonColor } from '../ButtonV2/types';
 import './styles.css';
 
 type Props = {
@@ -37,6 +38,10 @@ type Props = {
     cancel?: string;
     confirm?: string;
   };
+  /*
+   * Use this props to override the color of the confirm button
+   */
+  confirmButtonColor?: ButtonColor;
   /** The text to display inside the confirm button. Fallback to 'Confirm' if not provided */
   confirmLabel?: string;
   /** If set to `true` the root element width is set to `100%` */
@@ -88,6 +93,7 @@ export const ModalDialog: React.FC<Props> = ({
   classes,
   className,
   color = ModalDialogColorEnum.PRIMARY,
+  confirmButtonColor,
   confirmLabel,
   isFullWidth,
   isSubmitLoading,
@@ -108,7 +114,7 @@ export const ModalDialog: React.FC<Props> = ({
   const modalDialogColorClassName = ModalDialogColorClassNameMap[color];
   const modalDialogSizeClassName = ModalDialogSizeClassNameMap[size];
 
-  const confirmButtonColor = useMemo(() => {
+  const harmonizedConfirmButtonColor = useMemo(() => {
     if (color === ModalDialogColorEnum.SUCCESS) {
       return 'primary';
     }
@@ -259,7 +265,7 @@ export const ModalDialog: React.FC<Props> = ({
               },
               classes?.confirm,
             )}
-            color={confirmButtonColor}
+            color={confirmButtonColor ?? harmonizedConfirmButtonColor}
             isDisabled={isSubmitLoading || isConfirmButtonDisabled}
             onClick={onConfirm}
             size="md"

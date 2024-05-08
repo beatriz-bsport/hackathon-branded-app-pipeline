@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import { loadStripe } from '@stripe/stripe-js';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
@@ -7,6 +8,8 @@ import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
 } from '#libs/marketplace/types';
+
+export type StripeInit = ReturnType<typeof loadStripe>;
 
 export type PaymentBackendState = {
   // TODO: Add more properties and remove next line

@@ -233,10 +233,11 @@ export const useMemberVisitPageDataManager = ({
 
   const handleApprovePhotoUpdate = useCallback(() => {
     if (memberPhotoHistory.length) {
-      approvePhotoUpdate(memberPhotoHistory[0].uuid);
+      approvePhotoUpdate(memberPhotoHistory[0].uuid, {
+        onSuccess: handleRefreshMemberVisitAccessStatus,
+      });
     }
     handleCloseMemberPhotoHistoryModal();
-    handleRefreshMemberVisitAccessStatus();
   }, [
     approvePhotoUpdate,
     memberPhotoHistory,

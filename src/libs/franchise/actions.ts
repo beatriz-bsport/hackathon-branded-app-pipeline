@@ -1,7 +1,7 @@
 import type { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import { push as pushRouter } from 'connected-react-router';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback, PaginatedResponse } from '#state/types';
 
 import {
   fetchFranchise as fetchFranchiseAPI,
@@ -13,6 +13,7 @@ import {
   retrieveFranchise as retrieveFranchiseAPI,
   createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
   searchFranchiseUsers as searchFranchiseUsersAPI,
+  fetchFranchiseUserPasses as fetchFranchiseUserPassesAPI,
 } from './api';
 import type {
   Franchise,
@@ -20,7 +21,10 @@ import type {
   CreateUpdateCompanyGroupData,
   SearchUsersPayload,
   FranchiseUser,
+  FranchiseUserPass,
+  FranchiseUserPassesQueryParams,
 } from './types';
+import { FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE } from './constants';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -297,5 +301,45 @@ export function searchFranchiseUsers(
     }
 
     dispatch(searchFranchiseUsersActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserPassesActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/PASSES/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/PASSES/ERROR'),
+  success: createAction<PaginatedResponse<FranchiseUserPass>>(
+    'FRANCHISE/USER/PASSES/SUCCESS',
+  ),
+};
+
+export function fetchFranchiseUserPasses(
+  params: Omit<FranchiseUserPassesQueryParams, 'page_size'>,
+  options?: OptionCallback<PaginatedResponse<FranchiseUserPass>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchiseUserPassesActions.isLoading(true));
+    dispatch(fetchFranchiseUserPassesActions.error(null));
+    try {
+      const paginated_params = {
+        page: params.page,
+        page_size: FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
+        ...params.filters,
+      };
+      const response = await fetchFranchiseUserPassesAPI(
+        params.user_id,
+        paginated_params,
+      );
+      dispatch(fetchFranchiseUserPassesActions.success(response.data));
+      if (options?.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchFranchiseUserPassesActions.error(err));
+      if (options?.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchFranchiseUserPassesActions.isLoading(false));
   };
 }

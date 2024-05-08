@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import uniq from 'lodash/uniq';
 
 import {
   fetchFranchiseActions,
@@ -10,13 +11,16 @@ import {
   createOrUpdateCompanyGroupActions,
   themeUpdate,
   searchFranchiseUsersActions,
+  fetchFranchiseUserPassesActions,
 } from './actions';
-import {
+import type {
   FranchiseCompany,
   FranchiseState,
   FranchiseUser,
   CompanyGroup,
+  FranchiseUserPass,
 } from './types';
+import type { PaginatedResponse } from '#state/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
@@ -46,6 +50,17 @@ const initialState: Immutable.Immutable<FranchiseState> =
       byId: {},
       loading: false,
       error: null,
+    },
+    userProfile: {
+      passes: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
     },
   });
 
@@ -274,6 +289,52 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
       { payload },
     ) => {
       return state.setIn(['searchedUsers', 'results'], payload);
+    },
+
+    // ---- User profile ----
+    // User passes
+    [fetchFranchiseUserPassesActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['userProfile', 'passes', 'loading'], payload);
+    },
+    [fetchFranchiseUserPassesActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['userProfile', 'passes', 'error'], payload);
+    },
+    [fetchFranchiseUserPassesActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<FranchiseUserPass> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+
+      return state
+        .setIn(['userProfile', 'passes', 'page'], page)
+        .setIn(['userProfile', 'passes', 'next_page'], next_page)
+        .setIn(['userProfile', 'passes', 'count'], count)
+        .setIn(
+          ['userProfile', 'passes', 'allIds'],
+          uniq((results || []).map((pass) => pass.id)),
+        )
+        .merge(
+          {
+            userProfile: {
+              passes: {
+                byId: results.reduce(
+                  (acc: Record<number, FranchiseUserPass>, pass) => {
+                    acc[pass.id] = pass;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

@@ -195,3 +195,17 @@ export const getCompanyGroupList = createSelector(
   [_getCompanyGroupAllIds, _getCompanyGroupById],
   (ids, data) => ids.map((id) => data[id]),
 );
+
+export const _getFranchiseUserPassesById = (state: RootState) =>
+  getState(state).userProfile.passes.byId;
+
+export const _getFranchiseUserPassesAllIds = (state: RootState) =>
+  getState(state).userProfile.passes.allIds;
+
+export const getFranchiseUserPassesList = createSelector(
+  [_getFranchiseUserPassesAllIds, _getFranchiseUserPassesById],
+  (passesIds, passesData) =>
+    (passesIds ?? [])
+      .map((passId) => passesData[passId])
+      .filter((pass) => !!pass),
+);

@@ -16,7 +16,10 @@ import type {
   CompanyGroup,
   CreateUpdateCompanyGroupData,
   SearchUsersPayload,
+  FranchiseUserPass,
+  PassesPaginatedQueryParams,
 } from './types';
+import { PaginatedResponse } from '#state/types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me/`);
@@ -85,4 +88,15 @@ export const createOrUpdateCompanyGroup = (
 
 export const searchFranchiseUsers = async (payload: SearchUsersPayload) => {
   return postAuth<FranchiseUser[]>(`${API_V1_URI}/user/search/`, payload);
+};
+
+export const fetchFranchiseUserPasses = (
+  user_id: number,
+  paginated_params: PassesPaginatedQueryParams,
+) => {
+  return getAuth<PaginatedResponse<FranchiseUserPass>>(
+    `${API_V1_URI}/payment-pack/franchise_user_profile/${user_id}/consumer_payment_pack/${buildUrlParams(
+      paginated_params,
+    )}`,
+  );
 };

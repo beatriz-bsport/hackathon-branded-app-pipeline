@@ -198,21 +198,39 @@ const basketEmptyQuantity: Basket = {
   prepaid_lines: [],
 };
 
+const getCheckoutItemPriceExcludingTax = (checkoutItem: CheckoutItem) => {
+  const priceAsFloat =
+    checkoutItem.unit_price < 0
+      ? checkoutItem.unit_price * checkoutItem.quantity
+      : checkoutItem.quantity *
+        parseFloat(
+          (checkoutItem.unit_price / (1 + checkoutItem.tax / 100)).toFixed(2),
+        );
+
+  return priceAsFloat.toFixed(2);
+};
+
 describe('TEST getSubTotal', () => {
-  it('Should calcul tax correctly', () => {
+  it('Should compute tax correctly', () => {
     expect(getSubTotal(basket)).toBe(
-      (
-        parseFloat(basket.total_price) /
-        (1 +
-          (30 * 0.1 + 20 * 2 * 0.12 + 10 * 3 * 0.15) / (30 + 20 * 2 + 10 * 3))
-      ).toFixed(2),
+      checkoutItems
+        .reduce(
+          (sumExcludingTax, checkoutItem) =>
+            sumExcludingTax +
+            parseFloat(getCheckoutItemPriceExcludingTax(checkoutItem)),
+          0,
+        )
+        .toFixed(2),
     );
     expect(getSubTotal(basketWithVoucher)).toBe(
-      (
-        parseFloat(basketWithVoucher.total_price) /
-        (1 +
-          (30 * 0.1 + 20 * 2 * 0.12 + 10 * 3 * 0.15) / (30 + 20 * 2 + 10 * 3))
-      ).toFixed(2),
+      checkoutItemsWithVoucher
+        .reduce(
+          (sumExcludingTax, checkoutItem) =>
+            sumExcludingTax +
+            parseFloat(getCheckoutItemPriceExcludingTax(checkoutItem)),
+          0,
+        )
+        .toFixed(2),
     );
   });
   it('Should not calcul ', () => {

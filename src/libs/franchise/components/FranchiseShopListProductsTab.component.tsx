@@ -1,0 +1,208 @@
+import React, { useCallback, useState } from 'react';
+
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TabPanel from '@material-ui/lab/TabPanel';
+
+import AddIcon from '@material-ui/icons/Add';
+
+import FranchiseSubshopTemplateList from '#libs/franchise/components/FranchiseSubshopTemplateList';
+import FranchiseSubshopTemplateDialog from '#libs/franchise/components/FranchiseSubshopTemplateDialog';
+
+import type { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { OptionCallback, PaginatedResponse } from '#state/types';
+import type { ErrorAndLoading } from '#src/libs/types';
+
+import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
+
+type Props = {
+  subshopTemplateList: SubshopTemplate[];
+  getShopItemTemplateState: (
+    subshopTemplateId: number,
+  ) => ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
+  createSubshopTemplate: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubshopTemplate>,
+  ) => void;
+  updateSubshopTemplate: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubshopTemplate>,
+  ) => void;
+  deleteSubshopTemplate: (id: number, options?: OptionCallback<number>) => void;
+  fetchShopItemTemplateList: (
+    subshopTemplateId: number,
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<ShopItemTemplate>>,
+  ) => void;
+};
+
+const FranchiseShopListProductsTab: React.FC<Props> = ({
+  subshopTemplateList,
+  getShopItemTemplateState,
+  createSubshopTemplate,
+  updateSubshopTemplate,
+  deleteSubshopTemplate,
+  fetchShopItemTemplateList,
+}) => {
+  const { t } = useTranslation(['shop', 'common']);
+
+  const [selectedSubshopTemplate, setSelectedSubshopTemplate] =
+    useState<SubshopTemplate | null>(null);
+
+  const [showFranchiseSubshopDialog, setShowFranchiseSubshopDialog] =
+    useState(false);
+
+  // used to know the context of the dialog being displayed
+  const [
+    franchiseSubshopTemplateDialogType,
+    setFranchiseSubshopTemplateDialogType,
+  ] = useState<FranchiseSubshopTemplateDialogEnum | null>(null);
+
+  const classes = useStyles();
+
+  const handleSetSelectedSubshopTemplate = useCallback(
+    (subshopTemplate: SubshopTemplate) =>
+      setSelectedSubshopTemplate(subshopTemplate),
+    [],
+  );
+
+  const handleSetFranchiseSubshopDialogType = useCallback(
+    (type: FranchiseSubshopTemplateDialogEnum) =>
+      setFranchiseSubshopTemplateDialogType(type),
+    [],
+  );
+
+  const handleHideFranchiseSubshopDialog = useCallback(
+    () => setShowFranchiseSubshopDialog(false),
+    [],
+  );
+
+  /**
+   * Handler whenever a user click on a subshop template menu action for create/update/delete
+   * @param dialogType The type to set used for the dialog content
+   * @param subshopTemplate The optional initial subshop template to set in formik
+   * @param extraActions An optional function fired just after opening the dialog
+   */
+  const handleOpenSubshopTemplateDialog = useCallback(
+    (
+      dialogType: FranchiseSubshopTemplateDialogEnum,
+      subshopTemplate?: SubshopTemplate,
+      extraActions?: () => void,
+    ) => {
+      handleSetFranchiseSubshopDialogType(null);
+      handleSetSelectedSubshopTemplate(subshopTemplate ?? null);
+      handleSetFranchiseSubshopDialogType(dialogType);
+      setShowFranchiseSubshopDialog(true);
+      extraActions?.();
+    },
+    [handleSetFranchiseSubshopDialogType, handleSetSelectedSubshopTemplate],
+  );
+
+  const handleSubshopTemplateSubmit = useCallback(
+    (values: ShopListSubshopFormValues) => {
+      switch (franchiseSubshopTemplateDialogType) {
+        case FranchiseSubshopTemplateDialogEnum.CREATE:
+          createSubshopTemplate(values, {
+            onSuccess: handleHideFranchiseSubshopDialog,
+          });
+          break;
+        case FranchiseSubshopTemplateDialogEnum.UPDATE:
+          values.id &&
+            updateSubshopTemplate(values, {
+              onSuccess: handleHideFranchiseSubshopDialog,
+            });
+          break;
+        case FranchiseSubshopTemplateDialogEnum.DELETE:
+          deleteSubshopTemplate(values.id, {
+            onSuccess: handleHideFranchiseSubshopDialog,
+          });
+          break;
+        default:
+      }
+    },
+    [
+      franchiseSubshopTemplateDialogType,
+      createSubshopTemplate,
+      handleHideFranchiseSubshopDialog,
+      updateSubshopTemplate,
+      deleteSubshopTemplate,
+    ],
+  );
+
+  const handleCreateSubshopTemplateClick = useCallback(
+    () =>
+      handleOpenSubshopTemplateDialog(
+        FranchiseSubshopTemplateDialogEnum.CREATE,
+      ),
+    [handleOpenSubshopTemplateDialog],
+  );
+
+  return (
+    <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
+      <div className={classes.searchContainer}>
+        <Button
+          color="primary"
+          onClick={handleCreateSubshopTemplateClick}
+          startIcon={<AddIcon color="primary" />}
+          variant="outlined"
+        >
+          {t('shop:shopList.tab.products.subshopForm.title')}
+        </Button>
+      </div>
+
+      <FranchiseSubshopTemplateList
+        fetchShopItemTemplateList={fetchShopItemTemplateList}
+        getShopItemTemplateState={getShopItemTemplateState}
+        handleOpenSubshopTemplateDialog={handleOpenSubshopTemplateDialog}
+        subshopTemplateList={subshopTemplateList}
+      />
+
+      <FranchiseSubshopTemplateDialog
+        dialogType={franchiseSubshopTemplateDialogType}
+        handleClose={handleHideFranchiseSubshopDialog}
+        handleSubmit={handleSubshopTemplateSubmit}
+        isOpen={
+          showFranchiseSubshopDialog && !!franchiseSubshopTemplateDialogType
+        }
+        selectedSubshopTemplate={selectedSubshopTemplate}
+      />
+    </TabPanel>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  contentContainer: {
+    paddingTop: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+  },
+  searchContainer: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
+  fuzeSearchContainer: { flex: 1 },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.palette.primary.main,
+    borderTop: 0,
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.palette.primary.main,
+    borderTop: 0,
+    borderBottom: 0,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+export default React.memo(FranchiseShopListProductsTab);

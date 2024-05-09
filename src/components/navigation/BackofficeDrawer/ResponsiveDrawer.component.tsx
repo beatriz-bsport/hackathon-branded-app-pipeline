@@ -202,7 +202,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   );
 
   const accessMonitoringItem = React.useMemo(() => {
-    if (!hasUpsellIdentifier(UPSELL_IDENTIFIER_ACCESS_MONITORING)) {
+    if (!hasUpsellIdentifier(UPSELL_IDENTIFIER_ACCESS_MONITORING, true)) {
       return [];
     }
     let to_path;

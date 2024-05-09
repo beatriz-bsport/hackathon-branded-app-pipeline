@@ -72,6 +72,15 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     tags_on_purchase: faker.helpers.multiple(() => faker.number.int(10000), {
       count: faker.number.int(5),
     }),
+    ...(options?.isFranchise && {
+      franchisor: faker.number.int({ max: 10000 }),
+    }),
+    ...(options?.isFranchise && {
+      sub_shop_template: faker.number.int({ max: 10000 }),
+    }),
+    ...(options?.isFranchise && {
+      supplier_template: faker.number.int({ max: 10000 }),
+    }),
   };
 };
 

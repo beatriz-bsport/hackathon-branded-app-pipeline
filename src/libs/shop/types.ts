@@ -310,6 +310,8 @@ export type ShopItemFactoryOptions = {
   isDeliverable?: boolean;
   isDisabled?: boolean;
   allVariantsFollowBasePrice?: boolean;
+  /** If `true` the factory will return a {@link ShopItemTemplate} instance */
+  isFranchise?: boolean;
 };
 
 export type ShopItemListFilterParams = ShopAPIFilter & {

@@ -314,6 +314,11 @@ export type ShopItemFactoryOptions = {
   isFranchise?: boolean;
 };
 
+export type SubshopFactoryOptions = {
+  /** If `true` the factory will return a {@link SubshopTemplate} instance */
+  isFranchise?: boolean;
+};
+
 export type ShopItemListFilterParams = ShopAPIFilter & {
   is_variant?: boolean;
   is_base_item?: boolean;

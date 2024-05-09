@@ -5,14 +5,55 @@ import {
   generateRandomName,
   generateRandomDescription,
   generateRandomPrice,
-} from '../../utils/factories';
+} from '#utils/factories';
 
-import { FakerTextLength } from '../../utils/types';
-import type { ShopItemFactoryOptions, ShopSupplier } from './types';
+import { FakerTextLength } from '#utils/types';
+import type {
+  ShopItemFactoryOptions,
+  ShopSupplier,
+  SubshopFactoryOptions,
+} from './types';
 
 const CREATE_DATE = DateTime.now().minus({ days: 5 }).toISODate();
 const UPDATE_DATE = DateTime.now().minus({ days: 3 }).toISODate();
 const DELETE_DATE = DateTime.now().minus({ hours: 8 }).toISODate();
+
+/**
+ * Generates a subshop with Faker
+ * @returns {SubShop}
+ * @example
+ * const fakeSubshop = subshopFactory();
+ */
+export const subshopFactory = (options?: SubshopFactoryOptions) => {
+  return {
+    id: faker.number.int({ max: 10000 }),
+    name: generateRandomName(faker),
+    ...(!options?.isFranchise && {
+      company: faker.number.int({ max: 10000 }),
+    }),
+    ...(!options?.isFranchise && {
+      shopItems: faker.helpers.multiple(() => faker.number.int(10000), {
+        count: faker.number.int(5),
+      }),
+    }),
+    ...(options?.isFranchise && {
+      franchisor: faker.number.int({ max: 10000 }),
+    }),
+  };
+};
+
+/**
+ * Generates a list of subshop with Faker
+ * @param count The number of subshop to generate
+ * @param options The options given to alter properties of generated subshop
+ * @returns {SubShop[]}
+ */
+export const subshopListFactory = (
+  count: number,
+  options?: SubshopFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => subshopFactory(options), { count });
+};
 
 /**
  * Generates a shop item with Faker

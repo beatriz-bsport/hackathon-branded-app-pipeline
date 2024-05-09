@@ -10,7 +10,7 @@ import { checkRequiredPermissions } from '../utils';
 
 type OwnProps = {
   check?: (permissions: RolePermission) => boolean;
-  /** e.g: "member.allowed_actions.accessProfile" */
+  /** e.g: navigationMenu.accessMonitoring.perform" */
   requiredPermissions?: string;
 };
 

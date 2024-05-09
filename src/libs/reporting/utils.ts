@@ -1080,7 +1080,7 @@ export const ReportColumnPermissions = {
   },
   [ReportCategoryEnum.BASKET]: {
     [BasketMetadataIdentifierEnum.EMAIL]: ['member.allowed_actions.readInfo'],
-    [BasketMetadataIdentifierEnum.PHONENUMBER]: [
+    [BasketMetadataIdentifierEnum.PHONE_NUMBER]: [
       'member.allowed_actions.readInfo',
     ],
   },
@@ -1141,9 +1141,27 @@ export const ReportColumnPermissions = {
     [VideoPurchaseMetadataIdentifierEnum.EMAIL]: [
       'member.allowed_actions.readInfo',
     ],
+    [VideoPurchaseMetadataIdentifierEnum.PHONENUMBER]: [
+      'member.allowed_actions.readInfo',
+    ],
+  },
+  [ReportCategoryEnum.PRIVATE_CONSUMER_PASS]: {
+    [PrivateConsumerPassMetadataIdentifierEnum.EMAIL]: [
+      'member.allowed_actions.readInfo',
+    ],
+    [PrivateConsumerPassMetadataIdentifierEnum.PHONENUMBER]: [
+      'member.allowed_actions.readInfo',
+    ],
+  },
+  [ReportCategoryEnum.PRIVATE_BOOKINGS]: {
+    [PrivateBookingMetadataIdentifierEnum.EMAIL]: [
+      'member.allowed_actions.readInfo',
+    ],
+    [PrivateBookingMetadataIdentifierEnum.PHONENUMBER]: [
+      'member.allowed_actions.readInfo',
+    ],
   },
 };
-
 // The field 'global_category' coming from the backend on Report instances isn't reliable
 // hence this mapping between categories and global categories
 const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {

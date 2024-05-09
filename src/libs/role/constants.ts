@@ -20,6 +20,7 @@ import {
   ObjectLevelPermissions,
 } from './types';
 
+// @ts-expect-error
 export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   // give calendar and schedule priority for redirection
   '/calendar': ['navigationMenu.calendar'],
@@ -61,8 +62,9 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/marketing/strategies': ['navigationMenu.marketing.strategies'],
   '/marketing/tags': ['navigationMenu.marketing.tags'],
   '/member': ['navigationMenu.member'],
-  '/member/add': ['member.allowed_actions.create'],
-  '/member/edit': ['member.allowed_actions.create'],
+  // TODO: make URLS_PERMISSIONS compatible with the new object level permissions
+  // '/member/add': ['member.allowed_actions.create'],
+  // '/member/edit': ['member.allowed_actions.editInfo'],
   '/offer': ['navigationMenu.schedule', 'navigationMenu.calendar'],
   '/order': ['navigationMenu.payments.orders'],
   '/payment-pack': ['navigationMenu.products.paymentPack'],
@@ -75,8 +77,8 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/replacement/discipline-group': ['navigationMenu.myClub.replacement'],
   '/replacement/management': ['navigationMenu.myClub.replacement'],
   '/reporting': ['navigationMenu.reporting'],
-  '/search': ['member.allowed_actions.accessProfile'],
-  '/search/results': ['member.allowed_actions.search'],
+  // '/search': ['member.allowed_actions.accessProfile'],
+  // '/search/results': ['member.allowed_actions.search'],
   '/settings/active-campaign': ['navigationMenu.settings.activeCampaign'],
   '/settings/broadcast': ['navigationMenu.settings.liveStreaming'],
   '/settings/coach-userspace': ['navigationMenu.settings.coachUserspace'],

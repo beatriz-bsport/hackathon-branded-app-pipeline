@@ -813,11 +813,16 @@ export class Planning extends PureComponent<Props, State> {
       classes,
     } = this.props;
     const { createOfferModalOpened } = this.state;
-    const metaActivitiesFiltered = metaActivities.filter((metaActivity) =>
-      metaActivity.is_workshop
-        ? canCreateWorkshopSessions
-        : canCreateActivitySessions,
-    );
+    const metaActivitiesFiltered = metaActivities.filter((metaActivity) => {
+      let canSeeActivity = true;
+      if (!canCreateActivitySessions) {
+        canSeeActivity = metaActivity.is_workshop;
+      }
+      if (!canCreateWorkshopSessions) {
+        canSeeActivity = !metaActivity.is_workshop;
+      }
+      return canSeeActivity;
+    });
     return (
       <GenericResponsiveDrawer
         withoutHeaderContainer

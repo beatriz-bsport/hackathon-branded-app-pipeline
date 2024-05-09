@@ -28,6 +28,7 @@ import type { MemberFormData, MemberMinimal } from '#libs/member/types';
 import type { OptionCallback } from '../../../../state/types';
 
 import useStyles from './styles';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type ListItemProps = {
   member: MemberMinimal;
@@ -51,34 +52,38 @@ const ListItem: React.FC<ListItemProps> = ({ member, selected, onClick }) => {
   const classes = useStyles({ selected });
 
   return (
-    <div
-      className={classes.listItemContainer}
-      onClick={onClickItem}
-      onKeyDown={stopPropagation}
-      role="button"
-      tabIndex={0}
-    >
-      <div className={classes.listItemInfo}>
-        <Avatar className={classes.avatar}>
-          <img alt={member.name} height={32} src={member.photo} />
-        </Avatar>
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
+      {(hasMemberReadInfoPermission: boolean) => (
+        <div
+          className={classes.listItemContainer}
+          onClick={onClickItem}
+          onKeyDown={stopPropagation}
+          role="button"
+          tabIndex={0}
+        >
+          <div className={classes.listItemInfo}>
+            <Avatar className={classes.avatar}>
+              <img alt={member.name} height={32} src={member.photo} />
+            </Avatar>
 
-        <div className={classes.memberInfo}>
-          <Typography variant="body1">{member.name}</Typography>
+            <div className={classes.memberInfo}>
+              <Typography variant="body1">{member.name}</Typography>
 
-          <div className={classes.memberEmailAndPhone}>
-            {member.email ? (
-              <Chip icon={<Mail />} label={member.email} size="small" />
-            ) : null}
-            {member.phone ? (
-              <Chip icon={<Phone />} label={member.phone} size="small" />
-            ) : null}
+              <div className={classes.memberEmailAndPhone}>
+                {hasMemberReadInfoPermission && member.email ? (
+                  <Chip icon={<Mail />} label={member.email} size="small" />
+                ) : null}
+                {hasMemberReadInfoPermission && member.phone ? (
+                  <Chip icon={<Phone />} label={member.phone} size="small" />
+                ) : null}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {selected && <Check />}
-    </div>
+          {selected && <Check />}
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

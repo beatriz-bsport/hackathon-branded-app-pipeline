@@ -12,6 +12,7 @@ import DelayedTextField from '#components/DelayedTextField.component';
 import InboxThreadContextSelector from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
 import { threadFilteringChoices } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type selectorStyle = { option: any };
 
@@ -72,14 +73,19 @@ const InboxThreadLookup: React.FC<Props> = ({
             placeholder={t('thread.search')}
             variant="outlined"
           />
-          <div className={classes.newThreadContainer}>
-            <IconButton
-              className={classes.newThreadBackground}
-              onClick={createNewThread}
-            >
-              <EditIcon className={classes.newThread} fontSize="medium" />
-            </IconButton>
-          </div>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.communication"
+          >
+            <div className={classes.newThreadContainer}>
+              <IconButton
+                className={classes.newThreadBackground}
+                onClick={createNewThread}
+              >
+                <EditIcon className={classes.newThread} fontSize="medium" />
+              </IconButton>
+            </div>
+          </ObjectLevelPermissionWrapper>
         </div>
 
         <Select

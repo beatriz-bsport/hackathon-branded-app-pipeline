@@ -53,6 +53,7 @@ import {
 } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   actionType: number;
@@ -111,229 +112,243 @@ const BottomBarIcons: React.FC<Props> = ({
   }, [sendMessage]);
 
   return (
-    <Toolbar className={classes.bottomActionsContainer}>
-      <div className={classes.bottomFlexContainer}>
-        <Tooltip placement="top" title={t('sendMessage.icons.mail')}>
-          <IconButton
-            className={classes.iconButton}
-            color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
-            onClick={() => setActionType(WRITE_EMAIL)}
-          >
-            {actionType === WRITE_EMAIL ? <MailIcon /> : <MailOutlinedIcon />}
-          </IconButton>
-        </Tooltip>
-        <FeatureListProvider>
-          {(featureList: FeatureList) => (
-            <>
-              <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
-                <IconButton
-                  className={classes.iconButton}
-                  color={actionType === WRITE_SMS ? 'primary' : 'default'}
-                  disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
-                  onClick={() => setActionType(WRITE_SMS)}
-                >
-                  {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
-                </IconButton>
-              </Tooltip>
-              <CommunicationSMSCostReminderModal
-                handleClose={handleCostReminderModalOnClose}
-                open={isSmsCostReminderModalOpen}
-                sendMessageOnClick={handleSendSmsOnClick}
-              />
-            </>
-          )}
-        </FeatureListProvider>
-        <FeatureListProvider>
-          {(featureList: FeatureList) => (
-            <Tooltip
-              placement="top"
-              title={t('sendMessage.icons.notification')}
-            >
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.communication">
+      {(hasCommunicationPermission: boolean) => (
+        <Toolbar className={classes.bottomActionsContainer}>
+          <div className={classes.bottomFlexContainer}>
+            <Tooltip placement="top" title={t('sendMessage.icons.mail')}>
               <IconButton
                 className={classes.iconButton}
-                color={
-                  actionType === WRITE_PUSH_NOTIFICATION ? 'primary' : 'default'
-                }
-                disabled={
-                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
-                }
-                onClick={() => setActionType(WRITE_PUSH_NOTIFICATION)}
+                color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
+                onClick={() => setActionType(WRITE_EMAIL)}
               >
-                {actionType === WRITE_PUSH_NOTIFICATION ? (
-                  <NotificationIcon />
+                {actionType === WRITE_EMAIL ? (
+                  <MailIcon />
                 ) : (
-                  <NotificationOutlinedIcon />
+                  <MailOutlinedIcon />
                 )}
               </IconButton>
             </Tooltip>
-          )}
-        </FeatureListProvider>
-        <Hidden xsDown>
-          <Divider
-            flexItem
-            className={classes.divider}
-            orientation="vertical"
-          />
-          {actionType === WRITE_EMAIL && (
-            <Tooltip placement="top" title={t('sendMessage.icons.template')}>
-              <IconButton onClick={handleSelectTemplate}>
-                <TemplateIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-          <Tooltip placement="top" title={t('sendMessage.icons.balise')}>
-            <IconButton
-              onClick={(event) => setMenuBalisesAnchorEl(event.currentTarget)}
-            >
-              <BaliseIcon />
-            </IconButton>
-          </Tooltip>
-
-          {contextIdentifier === CONTEXT_SMARTLIST &&
-            actionType === WRITE_EMAIL &&
-            openResendConfigDialog && (
-              <Tooltip
-                placement="top"
-                title={t('sendMessage.icons.autoResend')}
-              >
-                <IconButton onClick={openResendConfigDialog}>
-                  <RepeatIcon />
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <>
+                  <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
+                    <IconButton
+                      className={classes.iconButton}
+                      color={actionType === WRITE_SMS ? 'primary' : 'default'}
+                      disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
+                      onClick={() => setActionType(WRITE_SMS)}
+                    >
+                      {actionType === WRITE_SMS ? (
+                        <SmsIcon />
+                      ) : (
+                        <SmsOutlinedIcon />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                  <CommunicationSMSCostReminderModal
+                    handleClose={handleCostReminderModalOnClose}
+                    open={isSmsCostReminderModalOpen}
+                    sendMessageOnClick={handleSendSmsOnClick}
+                  />
+                </>
+              )}
+            </FeatureListProvider>
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <Tooltip
+                  placement="top"
+                  title={t('sendMessage.icons.notification')}
+                >
+                  <IconButton
+                    className={classes.iconButton}
+                    color={
+                      actionType === WRITE_PUSH_NOTIFICATION
+                        ? 'primary'
+                        : 'default'
+                    }
+                    disabled={
+                      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                      !hasUpsell(
+                        featureList,
+                        UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+                      )
+                    }
+                    onClick={() => setActionType(WRITE_PUSH_NOTIFICATION)}
+                  >
+                    {actionType === WRITE_PUSH_NOTIFICATION ? (
+                      <NotificationIcon />
+                    ) : (
+                      <NotificationOutlinedIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              )}
+            </FeatureListProvider>
+            <Hidden xsDown>
+              <Divider
+                flexItem
+                className={classes.divider}
+                orientation="vertical"
+              />
+              {actionType === WRITE_EMAIL && (
+                <Tooltip
+                  placement="top"
+                  title={t('sendMessage.icons.template')}
+                >
+                  <IconButton onClick={handleSelectTemplate}>
+                    <TemplateIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              <Tooltip placement="top" title={t('sendMessage.icons.balise')}>
+                <IconButton
+                  onClick={(event) =>
+                    setMenuBalisesAnchorEl(event.currentTarget)
+                  }
+                >
+                  <BaliseIcon />
                 </IconButton>
               </Tooltip>
-            )}
 
-          <NestedList
-            forTagsSelector
-            anchorElMenu={menuBalisesAnchorEl}
-            dataRecord={tags}
-            handleCloseMenu={handleCloseMenuBalises}
-            onItemClick={onBaliseItemClick}
-          />
-        </Hidden>
-        <Hidden smUp>
-          <IconButton
-            className={classes.iconButton}
-            onClick={(event) => setMenuAnchorEl(event.currentTarget)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            keepMounted
-            anchorEl={menuAnchorEl}
-            id="simple-menu"
-            MenuListProps={{
-              disablePadding: true,
-            }}
-            onClose={handleCloseMenu}
-            open={Boolean(menuAnchorEl)}
-          >
-            {actionType === WRITE_EMAIL && (
-              <MenuItem
-                className={classes.mobileMenuItem}
-                onClick={handleSelectTemplate}
+              {contextIdentifier === CONTEXT_SMARTLIST &&
+                actionType === WRITE_EMAIL &&
+                openResendConfigDialog && (
+                  <Tooltip
+                    placement="top"
+                    title={t('sendMessage.icons.autoResend')}
+                  >
+                    <IconButton onClick={openResendConfigDialog}>
+                      <RepeatIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
+              <NestedList
+                forTagsSelector
+                anchorElMenu={menuBalisesAnchorEl}
+                dataRecord={tags}
+                handleCloseMenu={handleCloseMenuBalises}
+                onItemClick={onBaliseItemClick}
+              />
+            </Hidden>
+            <Hidden smUp>
+              <IconButton
+                className={classes.iconButton}
+                onClick={(event) => setMenuAnchorEl(event.currentTarget)}
               >
-                <TemplateIcon className={classes.mobileIcon} />
-                <Typography variant="caption">
-                  {t('sendMessage.icons.template')}
-                </Typography>
-              </MenuItem>
-            )}
-            <MenuItem
-              className={classes.mobileMenuItem}
-              onClick={(event) => setMenuBalisesAnchorEl(event.currentTarget)}
-            >
-              <BaliseIcon className={classes.mobileIcon} />
-              <Typography variant="caption">
-                {t('sendMessage.icons.balise')}
-              </Typography>
-            </MenuItem>
-
-            {contextIdentifier === CONTEXT_SMARTLIST &&
-              actionType === WRITE_EMAIL &&
-              openResendConfigDialog && (
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                keepMounted
+                anchorEl={menuAnchorEl}
+                id="simple-menu"
+                MenuListProps={{
+                  disablePadding: true,
+                }}
+                onClose={handleCloseMenu}
+                open={Boolean(menuAnchorEl)}
+              >
+                {actionType === WRITE_EMAIL && (
+                  <MenuItem
+                    className={classes.mobileMenuItem}
+                    onClick={handleSelectTemplate}
+                  >
+                    <TemplateIcon className={classes.mobileIcon} />
+                    <Typography variant="caption">
+                      {t('sendMessage.icons.template')}
+                    </Typography>
+                  </MenuItem>
+                )}
                 <MenuItem
                   className={classes.mobileMenuItem}
-                  onClick={openResendConfigDialog}
+                  onClick={(event) =>
+                    setMenuBalisesAnchorEl(event.currentTarget)
+                  }
                 >
-                  <RepeatIcon className={classes.mobileIcon} />
+                  <BaliseIcon className={classes.mobileIcon} />
                   <Typography variant="caption">
-                    {t('sendMessage.icons.autoResend')}
+                    {t('sendMessage.icons.balise')}
                   </Typography>
                 </MenuItem>
-              )}
 
-            <NestedList
-              forTagsSelector
-              anchorElMenu={menuBalisesAnchorEl}
-              dataRecord={tags}
-              handleCloseMenu={handleCloseMenuBalises}
-              onItemClick={onBaliseItemClick}
-            />
-          </Menu>
-        </Hidden>
-      </div>
-      <div className={classes.bottomFlexContainer}>
-        {!directMember && (
-          <ButtonBase
-            className={classNames(
-              classes.bottomRecipientSelector,
-              classes.bottomFlexContainer,
-            )}
-            onClick={handleSelectRecipients}
-          >
-            {selectedRecipientsCount ? (
-              <CommunicationMessageNumberRecipients
-                compactText
-                compactAvatars={fullScreen}
-                loading={memberListLoading}
-                members={
-                  memberList?.slice(
-                    0,
-                    Math.min(MAX_DISPLAY, memberList.length),
-                  ) ?? []
-                }
-                numberRecipients={selectedRecipientsCount}
-              />
-            ) : (
-              <>
-                <PeopleIcon className={classes.bottomRecipientSelectorIcon} />
-                <Typography
-                  className={classes.bottomRecipientSelectorText}
-                  variant="caption"
-                >
-                  <Hidden xsDown>
-                    {t('sendMessage.buttons.selectRecipients')}
-                  </Hidden>
-                  <Hidden smUp>
-                    {t('sendMessage.buttons.selectRecipientsMobile')}
-                  </Hidden>
-                </Typography>
-              </>
-            )}
-          </ButtonBase>
-        )}
-        {validity === CAN_SEND_MESSAGE ? (
-          <Button
-            color="primary"
-            onClick={
-              actionType === WRITE_SMS && contextIdentifier !== CONTEXT_MEMBER
-                ? handleCostReminderModalOpen
-                : sendMessage
-            }
-            variant="contained"
-          >
-            <Hidden xsDown>
-              <p className={classes.buttonSendText}>
-                {t('sendMessage.buttons.send')}
-              </p>
+                {contextIdentifier === CONTEXT_SMARTLIST &&
+                  actionType === WRITE_EMAIL &&
+                  openResendConfigDialog && (
+                    <MenuItem
+                      className={classes.mobileMenuItem}
+                      onClick={openResendConfigDialog}
+                    >
+                      <RepeatIcon className={classes.mobileIcon} />
+                      <Typography variant="caption">
+                        {t('sendMessage.icons.autoResend')}
+                      </Typography>
+                    </MenuItem>
+                  )}
+
+                <NestedList
+                  forTagsSelector
+                  anchorElMenu={menuBalisesAnchorEl}
+                  dataRecord={tags}
+                  handleCloseMenu={handleCloseMenuBalises}
+                  onItemClick={onBaliseItemClick}
+                />
+              </Menu>
             </Hidden>
-            <SendIcon fontSize="small" />
-          </Button>
-        ) : (
-          <Tooltip title={getValidityTooltipMessage(validity, t)}>
-            <span id="need-this-span-to-display-tooltip-with-disabled-button">
-              <Button disabled color="primary" variant="contained">
+          </div>
+          <div className={classes.bottomFlexContainer}>
+            {!directMember && (
+              <ButtonBase
+                className={classNames(
+                  classes.bottomRecipientSelector,
+                  classes.bottomFlexContainer,
+                )}
+                onClick={handleSelectRecipients}
+              >
+                {selectedRecipientsCount ? (
+                  <CommunicationMessageNumberRecipients
+                    compactText
+                    compactAvatars={fullScreen}
+                    loading={memberListLoading}
+                    members={
+                      memberList?.slice(
+                        0,
+                        Math.min(MAX_DISPLAY, memberList.length),
+                      ) ?? []
+                    }
+                    numberRecipients={selectedRecipientsCount}
+                  />
+                ) : (
+                  <>
+                    <PeopleIcon
+                      className={classes.bottomRecipientSelectorIcon}
+                    />
+                    <Typography
+                      className={classes.bottomRecipientSelectorText}
+                      variant="caption"
+                    >
+                      <Hidden xsDown>
+                        {t('sendMessage.buttons.selectRecipients')}
+                      </Hidden>
+                      <Hidden smUp>
+                        {t('sendMessage.buttons.selectRecipientsMobile')}
+                      </Hidden>
+                    </Typography>
+                  </>
+                )}
+              </ButtonBase>
+            )}
+            {validity === CAN_SEND_MESSAGE && hasCommunicationPermission ? (
+              <Button
+                color="primary"
+                onClick={
+                  actionType === WRITE_SMS &&
+                  contextIdentifier !== CONTEXT_MEMBER
+                    ? handleCostReminderModalOpen
+                    : sendMessage
+                }
+                variant="contained"
+              >
                 <Hidden xsDown>
                   <p className={classes.buttonSendText}>
                     {t('sendMessage.buttons.send')}
@@ -341,11 +356,24 @@ const BottomBarIcons: React.FC<Props> = ({
                 </Hidden>
                 <SendIcon fontSize="small" />
               </Button>
-            </span>
-          </Tooltip>
-        )}
-      </div>
-    </Toolbar>
+            ) : (
+              <Tooltip title={getValidityTooltipMessage(validity, t)}>
+                <span id="need-this-span-to-display-tooltip-with-disabled-button">
+                  <Button disabled color="primary" variant="contained">
+                    <Hidden xsDown>
+                      <p className={classes.buttonSendText}>
+                        {t('sendMessage.buttons.send')}
+                      </p>
+                    </Hidden>
+                    <SendIcon fontSize="small" />
+                  </Button>
+                </span>
+              </Tooltip>
+            )}
+          </div>
+        </Toolbar>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

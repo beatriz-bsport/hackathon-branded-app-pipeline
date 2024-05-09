@@ -573,13 +573,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         hasActivityCreateBookingPermission,
                         hasWorkshopCreateBookingPermission,
                       ]) => (
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            flexDirection: 'row',
-                          }}
-                        >
+                        <div className={classes.actionsContainer}>
                           <>
                             {hasCommunicationPermission && (
                               <>
@@ -1062,6 +1056,11 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  actionsContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
   },
   autoScroll: {
     overflowY: 'auto',

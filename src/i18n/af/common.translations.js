@@ -54,6 +54,7 @@ exports.default = {
   },
   saveRecord: 'Save',
   saveChanges: 'Save changes',
+  rename: 'Rename',
   delete: 'Delete',
   duration: {
     minute: '{{ count }} minute',

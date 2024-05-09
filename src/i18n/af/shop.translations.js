@@ -77,12 +77,25 @@ exports.default = {
     tab: {
       products: {
         title: 'Products',
+        addProduct: 'Add product',
         subshopForm: {
           title: 'Add a category',
           field: {
             name: 'Name',
           },
         },
+        franchiseSubshopDialog: {
+          inputPlaceholder: 'Name of the category',
+          create: 'Add category',
+          update: 'Rename category',
+          delete: 'Delete category',
+          deleteInfo:
+            'Are you sure that you want to delete this category ? All associated elements will also be deleted.',
+          info: 'The categories will appear on the marketplace and the mobile application for items available for sale.',
+        },
+        storeOnly: 'Store only',
+        online: 'Online',
+        emptySubshopList: 'There are no products created yet in this category.',
       },
       settings: {
         title: 'Settings',

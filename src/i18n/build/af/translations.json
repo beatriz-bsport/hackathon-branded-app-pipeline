@@ -1093,6 +1093,7 @@
     },
     "saveRecord": "Save",
     "saveChanges": "Save changes",
+    "rename": "Rename",
     "delete": "Delete",
     "duration": {
       "minute": "{{ count }} minute",
@@ -10952,7 +10953,22 @@
     "duplicateVariantWarning": "Some colour and size combinations already exist and will not be created again",
     "shopList": {
       "tab": {
-        "products": { "title": "Products", "subshopForm": { "title": "Add a category", "field": { "name": "Name" } } },
+        "products": {
+          "title": "Products",
+          "addProduct": "Add product",
+          "subshopForm": { "title": "Add a category", "field": { "name": "Name" } },
+          "franchiseSubshopDialog": {
+            "inputPlaceholder": "Name of the category",
+            "create": "Add category",
+            "update": "Rename category",
+            "delete": "Delete category",
+            "deleteInfo": "Are you sure that you want to delete this category ? All associated elements will also be deleted.",
+            "info": "The categories will appear on the marketplace and the mobile application for items available for sale."
+          },
+          "storeOnly": "Store only",
+          "online": "Online",
+          "emptySubshopList": "There are no products created yet in this category."
+        },
         "settings": {
           "title": "Settings",
           "section": {

@@ -17,8 +17,11 @@ import type {
   FranchiseUserPass,
   PassesPaginatedQueryParams,
   FranchiseUserMember,
+  SharedConsumerGiftcard,
+  GiftcardsPaginatedQueryParams,
 } from '#src/libs/franchise/types';
 import type { PaginatedResponse } from '#src/state/types';
+import { cleanParams } from '#src/utils/createUrlHandlers';
 
 export const fetchFranchise = async () => {
   return getAuth<FranchiseDetails>(`${API_V1_URI}/franchisor/franchisor/me/`);
@@ -110,6 +113,18 @@ export const fetchFranchiseUserMembers = (
   return getAuth<PaginatedResponse<FranchiseUserMember>>(
     `${API_V1_URI}/franchise_user_profile/${user_id}/get_user_members_in_franchise/${buildUrlParams(
       paginated_params,
+    )}`,
+  );
+};
+
+export const fetchSharedConsumerGiftcards = async (
+  userId: number,
+  params?: GiftcardsPaginatedQueryParams,
+) => {
+  const cleanedParams = cleanParams(params);
+  return getAuth<PaginatedResponse<SharedConsumerGiftcard>>(
+    `${API_V1_URI}/giftcard/franchise_user_profile/${userId}/consumer_giftcards/${buildUrlParams(
+      cleanedParams,
     )}`,
   );
 };

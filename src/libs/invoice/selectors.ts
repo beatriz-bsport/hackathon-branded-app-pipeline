@@ -72,7 +72,7 @@ export const getBuyableItem = createSelector(
   }),
 );
 
-const _getInvoiceData = (state: RootState) => getState(state).byId;
+export const getInvoiceData = (state: RootState) => getState(state).byId;
 
 export const getInvoice = (state: RootState, uuid: string) => {
   return getState(state).byId[uuid];
@@ -83,7 +83,7 @@ const _getInvoiceListIds = (state: RootState) => {
 };
 
 export const getInvoiceList = createSelector(
-  [_getInvoiceData, _getInvoiceListIds],
+  [getInvoiceData, _getInvoiceListIds],
   (data, ids) => ids.map((id: string) => data[id]),
 );
 
@@ -341,7 +341,7 @@ export const getPaymentListInInvoice = createSelector(
 );
 
 export const getAllQuickCreatedInvoices = createSelector(
-  [_getInvoiceListIds, _getInvoiceData],
+  [_getInvoiceListIds, getInvoiceData],
   (ids: string[], data: { [key: string]: Invoice }) =>
     ids
       .map((id: string) => data[id])

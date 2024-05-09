@@ -15,6 +15,8 @@ import {
   fetchFranchiseUserPassesActions,
   fetchFranchiseUserMembersActions,
   fetchFranchiseUserInfoActions,
+  fetchReceivedSharedConsumerGiftcardsActions,
+  fetchSentSharedConsumerGiftcardsActions,
 } from '#src/libs/franchise/actions';
 
 import type {
@@ -25,6 +27,7 @@ import type {
   CompanyGroup,
   FranchiseUserPass,
   FranchiseUserMember,
+  SharedConsumerGiftcard,
 } from '#src/libs/franchise/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
@@ -86,6 +89,24 @@ const initialState: Immutable.Immutable<FranchiseState> =
         byId: {},
         loading: false,
         error: null,
+      },
+      sharedConsumerGiftcards: {
+        asReceiver: {
+          allIds: [],
+          byId: {},
+          loading: false,
+          error: null,
+          count: 0,
+          page: 1,
+        },
+        asSender: {
+          allIds: [],
+          byId: {},
+          loading: false,
+          error: null,
+          count: 0,
+          page: 1,
+        },
       },
     },
   });
@@ -472,17 +493,137 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
           ['userProfile', 'passes', 'allIds'],
           uniq((results || []).map((pass) => pass.id)),
         )
+        .merge({
+          userProfile: {
+            passes: {
+              byId: results.reduce(
+                (acc: Record<number, FranchiseUserPass>, pass) => {
+                  acc[pass.id] = pass;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+        });
+    },
+    // Consumer Giftcards
+    [fetchReceivedSharedConsumerGiftcardsActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'sharedConsumerGiftcards', 'asReceiver', 'loading'],
+        payload,
+      );
+    },
+    [fetchReceivedSharedConsumerGiftcardsActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'sharedConsumerGiftcards', 'asReceiver', 'error'],
+        payload,
+      );
+    },
+    [fetchReceivedSharedConsumerGiftcardsActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<SharedConsumerGiftcard> },
+    ) => {
+      const { results, page, count } = payload;
+
+      return state
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asReceiver', 'page'],
+          page,
+        )
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asReceiver', 'count'],
+          count,
+        )
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asReceiver', 'allIds'],
+          results.map((giftcard: SharedConsumerGiftcard) => giftcard.id),
+        )
         .merge(
           {
             userProfile: {
-              passes: {
-                byId: results.reduce(
-                  (acc: Record<number, FranchiseUserPass>, pass) => {
-                    acc[pass.id] = pass;
-                    return acc;
-                  },
-                  {},
-                ),
+              sharedConsumerGiftcards: {
+                asReceiver: {
+                  byId: results.reduce(
+                    (
+                      acc: {
+                        [consumerGiftcardId: number]: SharedConsumerGiftcard;
+                      },
+                      consumerGiftcard: SharedConsumerGiftcard,
+                    ) => {
+                      acc[consumerGiftcard.id] = consumerGiftcard;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchSentSharedConsumerGiftcardsActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'sharedConsumerGiftcards', 'asSender', 'loading'],
+        payload,
+      );
+    },
+    [fetchSentSharedConsumerGiftcardsActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'sharedConsumerGiftcards', 'asSender', 'error'],
+        payload,
+      );
+    },
+    [fetchSentSharedConsumerGiftcardsActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<SharedConsumerGiftcard> },
+    ) => {
+      const { results, page, count } = payload;
+
+      return state
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asSender', 'page'],
+          page,
+        )
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asSender', 'count'],
+          count,
+        )
+        .setIn(
+          ['userProfile', 'sharedConsumerGiftcards', 'asSender', 'allIds'],
+          results.map((giftcard: SharedConsumerGiftcard) => giftcard.id),
+        )
+        .merge(
+          {
+            userProfile: {
+              sharedConsumerGiftcards: {
+                asSender: {
+                  byId: results.reduce(
+                    (
+                      acc: {
+                        [consumerGiftcardId: number]: SharedConsumerGiftcard;
+                      },
+                      consumerGiftcard: SharedConsumerGiftcard,
+                    ) => {
+                      acc[consumerGiftcard.id] = consumerGiftcard;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
               },
             },
           },

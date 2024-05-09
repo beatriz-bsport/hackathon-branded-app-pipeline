@@ -5,8 +5,12 @@ import type {
 } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { CouponTemplate } from '#src/libs/coupon/types';
-import type { GiftcardTemplate } from '#src/libs/giftcard/types';
 import type { PaginationFilterParams } from '#src/libs/types';
+import type {
+  ConsumerGiftcard,
+  GiftcardTemplate,
+} from '#src/libs/giftcard/types';
+import type { ConsumerInvoiceREST } from '#src/libs/invoice/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -59,9 +63,26 @@ export type FranchiseState = {
       loading: boolean;
       error: Error | null;
     };
+    sharedConsumerGiftcards: {
+      asReceiver: {
+        allIds: number[];
+        byId: { [consumerGiftcardId: number]: SharedConsumerGiftcard };
+        loading: boolean;
+        error: Error | null;
+        page: number;
+        count: number;
+      };
+      asSender: {
+        allIds: number[];
+        byId: { [consumerGiftcardId: number]: SharedConsumerGiftcard };
+        loading: boolean;
+        error: Error | null;
+        page: number;
+        count: number;
+      };
+    };
   };
 };
-
 export type Franchise = {
   id: number;
   name: string;
@@ -268,3 +289,15 @@ export type FranchiseUserMember = {
 export type FranchiseUserMembersQueryParams = {
   user_id: number;
 } & PaginationFilterParams;
+
+export type SharedConsumerGiftcard = ConsumerGiftcard & {
+  invoice_id: string;
+};
+
+export type GiftcardsPaginatedQueryParams = {
+  page?: number;
+  page_size?: number;
+  current_item_id?: number;
+};
+
+export type WithInvoice<T> = T & { invoice: ConsumerInvoiceREST };

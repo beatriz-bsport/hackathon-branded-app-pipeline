@@ -73,6 +73,7 @@ export type MemberMinimal<Tag = number, CA = number> = {
   phone: string;
   photo: string;
   tags: Array<Tag>;
+  user_id: number;
   total_unpaid_amount: string;
   vaccination_status?: boolean;
 };
@@ -81,6 +82,7 @@ export type MemberMinimalNoPhoto = Omit<MemberMinimal, 'photo'>;
 
 export type Member<Tag = number, CA = number> = {
   id: number;
+  user_id: number;
   name: string;
   consumer: number;
   firstname: string;

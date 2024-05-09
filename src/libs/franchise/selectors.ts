@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
-
 // @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#src/libs/role/role-types';
 import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
@@ -256,3 +255,129 @@ export const getFranchiseUserPassesList = createSelector(
       .map((passId) => passesData[passId])
       .filter((pass) => !!pass),
 );
+const _getSentSharedConsumerGiftcardsById = (state: RootState) =>
+  getState(state).userProfile.sharedConsumerGiftcards.asSender.byId;
+
+const _getSentSharedConsumerGiftcardsAllIds = (state: RootState) =>
+  getState(state).userProfile.sharedConsumerGiftcards.asSender.allIds;
+
+export const getSentSharedConsumerGiftcardList = createSelector(
+  [_getSentSharedConsumerGiftcardsAllIds, _getSentSharedConsumerGiftcardsById],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
+const _getReceivedSharedConsumerGiftcardsById = (state: RootState) =>
+  getState(state).userProfile.sharedConsumerGiftcards.asReceiver.byId;
+
+export const getReceivedSharedConsumerGiftcardsAllIds = (state: RootState) =>
+  getState(state).userProfile.sharedConsumerGiftcards.asReceiver.allIds;
+
+export const getReceivedSharedConsumerGiftcardList = createSelector(
+  [
+    getReceivedSharedConsumerGiftcardsAllIds,
+    _getReceivedSharedConsumerGiftcardsById,
+  ],
+  (ids, data) => ids.map((id) => data[id]),
+);
+export const getAllDistinctGiftcardIds = createSelector(
+  [
+    _getSentSharedConsumerGiftcardsAllIds,
+    _getSentSharedConsumerGiftcardsById,
+    getReceivedSharedConsumerGiftcardsAllIds,
+    _getReceivedSharedConsumerGiftcardsById,
+  ],
+  (
+    sentSharedConsumerGiftcardAllIds,
+    sentSharedConsumerGiftcards,
+    receivedSharedConsumerGiftcardAllIds,
+    receivedSharedConsumerGiftcards,
+  ) => {
+    const allGiftcardIds = [
+      ...sentSharedConsumerGiftcardAllIds,
+      ...receivedSharedConsumerGiftcardAllIds,
+    ]
+      .map(
+        (id) =>
+          sentSharedConsumerGiftcards[id]?.giftcard ||
+          receivedSharedConsumerGiftcards[id]?.giftcard,
+      )
+      .filter(Boolean);
+    return Immutable([...new Set(allGiftcardIds)]);
+  },
+);
+
+export const getAllDistinctMemberIds = createSelector(
+  [
+    _getSentSharedConsumerGiftcardsAllIds,
+    _getSentSharedConsumerGiftcardsById,
+    getReceivedSharedConsumerGiftcardsAllIds,
+    _getReceivedSharedConsumerGiftcardsById,
+  ],
+  (
+    sentSharedConsumerGiftcardAllIds,
+    sentSharedConsumerGiftcards,
+    receivedSharedConsumerGiftcardAllIds,
+    receivedSharedConsumerGiftcards,
+  ) => {
+    const allSharedConsumerGiftcardIds = [
+      ...sentSharedConsumerGiftcardAllIds,
+      ...receivedSharedConsumerGiftcardAllIds,
+    ];
+    const allMemberIds = allSharedConsumerGiftcardIds
+      .flatMap((id) => {
+        const sentSharedConsumerGiftcard = sentSharedConsumerGiftcards[id];
+        const receivedSharedConsumerGiftcard =
+          receivedSharedConsumerGiftcards[id];
+        const members = [];
+        if (sentSharedConsumerGiftcard) {
+          members.push(
+            sentSharedConsumerGiftcard.src_member,
+            sentSharedConsumerGiftcard.dst_member,
+          );
+        }
+        if (receivedSharedConsumerGiftcard) {
+          members.push(
+            receivedSharedConsumerGiftcard.src_member,
+            receivedSharedConsumerGiftcard.dst_member,
+          );
+        }
+        return members;
+      })
+      .filter(Boolean);
+    return Immutable([...new Set(allMemberIds)]);
+  },
+);
+
+export const getAllDistinctInvoiceIds = createSelector(
+  [
+    _getSentSharedConsumerGiftcardsAllIds,
+    _getSentSharedConsumerGiftcardsById,
+    getReceivedSharedConsumerGiftcardsAllIds,
+    _getReceivedSharedConsumerGiftcardsById,
+  ],
+  (
+    sentSharedConsumerGiftcardAllIds,
+    sentSharedConsumerGiftcards,
+    receivedSharedConsumerGiftcardAllIds,
+    receivedSharedConsumerGiftcards,
+  ) => {
+    const allInvoiceIds = [
+      ...sentSharedConsumerGiftcardAllIds,
+      ...receivedSharedConsumerGiftcardAllIds,
+    ]
+      .map(
+        (id) =>
+          sentSharedConsumerGiftcards[id]?.invoice_id ||
+          receivedSharedConsumerGiftcards[id]?.invoice_id,
+      )
+      .filter(Boolean);
+    return Immutable([...new Set(allInvoiceIds)]);
+  },
+);
+
+export const getSharedConsumerGiftcardById = (state: RootState, id: number) => {
+  return (
+    getState(state).userProfile.sharedConsumerGiftcards.asSender.byId[id] ||
+    getState(state).userProfile.sharedConsumerGiftcards.asReceiver.byId[id]
+  );
+};

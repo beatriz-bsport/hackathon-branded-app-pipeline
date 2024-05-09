@@ -10,6 +10,7 @@ import {
   updateFranchiseTheme as updateFranchiseThemeAPI,
   fetchFranchiseTheme as fetchFranchiseThemeAPI,
   fetchCompanyGroupList as fetchCompanyGroupListAPI,
+  fetchSharedConsumerGiftcards as fetchSharedConsumerGiftcardsAPI,
   retrieveFranchise as retrieveFranchiseAPI,
   createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
   searchFranchiseUsers as searchFranchiseUsersAPI,
@@ -26,7 +27,9 @@ import type {
   FranchiseUserPassesQueryParams,
   FranchiseUserMembersQueryParams,
   FranchiseUserMember,
-  FranchiseDetails
+  SharedConsumerGiftcard,
+  GiftcardsPaginatedQueryParams,
+  FranchiseDetails,
 } from '#src/libs/franchise/types';
 import {
   FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
@@ -410,5 +413,87 @@ export function fetchFranchiseUserMembers(
       options?.onError?.(error);
     }
     dispatch(fetchFranchiseUserMembersActions.isLoading(false));
+  };
+}
+
+export const fetchReceivedSharedConsumerGiftcardsActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_RECEIVED/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_RECEIVED/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<SharedConsumerGiftcard>>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_RECEIVED/SUCCESS',
+  ),
+};
+
+export function fetchReceivedSharedConsumerGiftcards(
+  userId: number,
+  params?: GiftcardsPaginatedQueryParams,
+  options?: OptionCallback<SharedConsumerGiftcard[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchReceivedSharedConsumerGiftcardsActions.isLoading(true));
+    dispatch(fetchReceivedSharedConsumerGiftcardsActions.error(null));
+
+    const updatedParams = { ...params, as_sender: false };
+
+    try {
+      const response = await fetchSharedConsumerGiftcardsAPI(
+        userId,
+        updatedParams,
+      );
+      dispatch(
+        fetchReceivedSharedConsumerGiftcardsActions.success(response.data),
+      );
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchReceivedSharedConsumerGiftcardsActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchReceivedSharedConsumerGiftcardsActions.isLoading(false));
+  };
+}
+
+export const fetchSentSharedConsumerGiftcardsActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_BOUGHT/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_BOUGHT/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<SharedConsumerGiftcard>>(
+    'FRANCHISE/SHARED_GIFTCARDS/LIST_BOUGHT/SUCCESS',
+  ),
+};
+
+export function fetchSentSharedConsumerGiftcards(
+  userId: number,
+  params?: GiftcardsPaginatedQueryParams,
+  options?: OptionCallback<SharedConsumerGiftcard[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchSentSharedConsumerGiftcardsActions.isLoading(true));
+    dispatch(fetchSentSharedConsumerGiftcardsActions.error(null));
+
+    const updatedParams = { ...params, as_sender: true };
+
+    try {
+      const response = await fetchSharedConsumerGiftcardsAPI(
+        userId,
+        updatedParams,
+      );
+      dispatch(fetchSentSharedConsumerGiftcardsActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchSentSharedConsumerGiftcardsActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchSentSharedConsumerGiftcardsActions.isLoading(false));
   };
 }

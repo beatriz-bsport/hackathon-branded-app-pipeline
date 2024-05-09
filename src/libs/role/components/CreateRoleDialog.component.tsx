@@ -83,6 +83,25 @@ const hideAccessMonitoring = (
   return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
 };
 
+/**
+ * `hideAccessMonitoringStudioOnly` is a function that determines whether to hide the access monitoring permission for studios.
+ * If the user is a franchisor, it will return false.
+ *
+ * @function
+ * @param {FeatureList} featureList - The list of upsells the company have. If the user is a franchisor, it will be undefined.
+ * @param {boolean} isFranchisor - A flag indicating whether the user is a franchisor.
+ * @returns {boolean} Returns false if the user is a franchisor, otherwise it checks if the company has the upsell.
+ */
+const hideAccessMonitoringStudioOnly = (
+  featureList: FeatureList,
+  isFranchisor: boolean,
+) => {
+  if (isFranchisor) {
+    return false;
+  }
+  return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+};
+
 const getDefaultPermissions = (
   featureList: FeatureList,
   isFranchisor: boolean,
@@ -239,6 +258,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
           setAllValuesInObject(DEFAULT_OBJECT_LEVEL_PERMISSIONS, true),
         ) as ObjectLevelPermissions;
       }
+    }
+    if (
+      hideAccessMonitoringStudioOnly(props.featureList, props.isFranchisor) &&
+      !!state.objectLevelPermissions.report.Club?.access_monitoring
+    ) {
+      delete state.objectLevelPermissions.report.Club.access_monitoring;
     }
 
     if (!state.permissions.restrictedPaths) {

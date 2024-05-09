@@ -525,6 +525,15 @@ const getTranslations = async () => {
             },
             _label: 'Referral grants',
           },
+          access_monitoring: {
+            allowed_actions: {
+              create: { _label: 'Create' },
+              read: { _label: 'See' },
+              delete: { _label: 'Delete' },
+              edit: { _label: 'Edit' },
+            },
+            _label: 'Access monitoring',
+          },
         },
         Payments: {
           video_purchase: {

@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
+
 // @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#src/libs/role/role-types';
 import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
@@ -10,6 +12,11 @@ import type {
 } from '#src/libs/franchise/types';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
+
+type FranchiseCompanyWithAllowed =
+  | Immutable.ImmutableArray<FranchiseCompany & { isAllowed: boolean }>
+  | (FranchiseCompany & { isAllowed: boolean })
+  | [];
 
 // Franchise
 
@@ -51,8 +58,7 @@ export const getFranchiseTheme = (state: RootState) => {
 
 export const getFranchiseThemeLoading = (state: RootState) => {
   if (getState(state)?.franchisor) {
-    // @ts-expect-error
-    return getState(state).loading.loading;
+    return getState(state).loading;
   }
   return null;
 };
@@ -69,7 +75,7 @@ export const withAllowed = memoize(
     companies: number | number[],
     allowed_franchisee_ids: number[],
     companyById: Record<number, FranchiseCompany>,
-  ) => {
+  ): FranchiseCompanyWithAllowed => {
     if (!companies) return null;
     if (Array.isArray(companies)) {
       return sortCompanyListByIsAllowedAndName(
@@ -181,12 +187,17 @@ export const getFranchiseCompanies = (state: RootState) => {
   return [];
 };
 
-export const getAllowedFranchiseCompanies = (state: RootState) =>
-  // @ts-expect-error
-  getFranchiseCompanies(state).filter((c: FranchiseCompany) => c.isAllowed);
+export const getAllowedFranchiseCompanies = (state: RootState) => {
+  const companies = getFranchiseCompanies(state);
+  if (Array.isArray(companies)) {
+    return companies.filter((c: FranchiseCompany) => c.isAllowed);
+  }
+  return [companies].filter((c: FranchiseCompany) => c.isAllowed);
+};
 
-// @ts-expect-error
-export const getAllFranchiseCompanies = (state: RootState) => {
+export const getAllFranchiseCompanies = (
+  state: RootState,
+): FranchiseCompanyWithAllowed => {
   if (getState(state).companies?.allIds) {
     const companies = getState(state).companies?.allIds;
     return withAllowed(companies, [], getFranchiseCompanyById(state));

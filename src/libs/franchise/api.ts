@@ -1,8 +1,4 @@
-import { AxiosResponse } from 'axios';
-import type {
-  GenericPaginationResults,
-  PaginationFilterParams,
-} from '#src/libs/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 import {
   API_V1_URI,
   buildUrlParams,
@@ -14,7 +10,6 @@ import {
 } from '#src/http';
 import type {
   FranchiseUser,
-  Franchise,
   FranchiseDetails,
   CompanyGroup,
   CreateUpdateCompanyGroupData,
@@ -25,14 +20,14 @@ import type {
 } from '#src/libs/franchise/types';
 import type { PaginatedResponse } from '#src/state/types';
 
-export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
-  return getAuth(`${API_V1_URI}/franchisor/franchisor/me/`);
+export const fetchFranchise = async () => {
+  return getAuth<FranchiseDetails>(`${API_V1_URI}/franchisor/franchisor/me/`);
 };
 
-export const retrieveFranchise = async (
-  id: number,
-): Promise<AxiosResponse<Franchise>> => {
-  return getAuth(`${API_V1_URI}/franchisor/franchisor/${id}/`);
+export const retrieveFranchise = async (id: number) => {
+  return getAuth<FranchiseDetails>(
+    `${API_V1_URI}/franchisor/franchisor/${id}/`,
+  );
 };
 
 export const fetchFranchiseUsers = async (params: {
@@ -40,36 +35,34 @@ export const fetchFranchiseUsers = async (params: {
   page_size: number;
   exclude_archived: boolean;
   email_confirmed?: boolean;
-}): Promise<AxiosResponse<GenericPaginationResults<FranchiseUser>>> => {
-  return getAuth(`${API_V1_URI}/user/${buildUrlParams(params)}`);
+}) => {
+  return getAuth<PaginatedResponse<FranchiseUser>>(
+    `${API_V1_URI}/user/${buildUrlParams(params)}`,
+  );
 };
 
-export const fetchFranchiseUser = async (
-  userId: number,
-): Promise<AxiosResponse<FranchiseUser>> => {
-  return getAuth(`${API_V1_URI}/user/${userId}`);
+export const fetchFranchiseUser = async (userId: number) => {
+  return getAuth<FranchiseUser>(`${API_V1_URI}/user/${userId}`);
 };
 
 export const updateFranchiseTheme = async (
   franchiseId: number,
   data: FormData,
 ) => {
-  return patchAuth<Franchise>(
+  return patchAuth<FranchiseDetails, FormData>(
     `${API_V1_URI}/franchisor/franchisor/${franchiseId}/`,
     data,
   );
 };
 
-export const fetchFranchiseTheme = async (
-  franchiseId: number,
-): Promise<AxiosResponse<FranchiseDetails>> => {
-  return get(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`);
+export const fetchFranchiseTheme = async (franchiseId: number) => {
+  return get<FranchiseDetails>(
+    `${API_V1_URI}/franchisor/franchisor/${franchiseId}/`,
+  );
 };
 
-export const fetchCompanyGroupList = async (
-  params: any,
-): Promise<AxiosResponse<CompanyGroup[]>> => {
-  return getAuth(
+export const fetchCompanyGroupList = async (params: { company?: number }) => {
+  return getAuth<CompanyGroup[]>(
     `${API_V1_URI}/franchisor/company_group/${buildUrlParams(params)}`,
   );
 };

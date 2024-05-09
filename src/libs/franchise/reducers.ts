@@ -18,11 +18,11 @@ import {
 } from '#src/libs/franchise/actions';
 
 import type {
+  FranchiseDetails,
   FranchiseCompany,
   FranchiseState,
   FranchiseUser,
   CompanyGroup,
-  Franchise,
   FranchiseUserPass,
   FranchiseUserMember,
 } from '#src/libs/franchise/types';
@@ -30,7 +30,6 @@ import type {
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
     error: false,
-    // @ts-expect-error
     loading: false,
     franchisor: undefined,
     users: {
@@ -91,16 +90,31 @@ const initialState: Immutable.Immutable<FranchiseState> =
     },
   });
 
-export default handleActions<Immutable.Immutable<FranchiseState>>(
+export default handleActions<Immutable.Immutable<FranchiseState>, any>(
   {
     // FRANCHISE
-    [fetchFranchiseActions.isLoading.toString()]: (state, { payload }) => {
+    [fetchFranchiseActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload);
     },
-    [fetchFranchiseActions.error.toString()]: (state, { payload }) => {
+    [fetchFranchiseActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload);
     },
-    [fetchFranchiseActions.success.toString()]: (state, { payload }: any) => {
+    [fetchFranchiseActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          franchisor: FranchiseDetails;
+        };
+      },
+    ) => {
       const { franchisor } = payload;
 
       return state
@@ -130,15 +144,21 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         );
     },
 
-    [fetchFranchiseThemeActions.isLoading.toString()]: (state, { payload }) => {
+    [fetchFranchiseThemeActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload).set('error', null);
     },
-    [fetchFranchiseThemeActions.error.toString()]: (state, { payload }) => {
+    [fetchFranchiseThemeActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseThemeActions.success.toString()]: (
       state,
-      { payload }: any,
+      { payload }: { payload: { franchisor: FranchiseDetails } },
     ) => {
       const { franchisor } = payload;
 
@@ -183,7 +203,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
     [updateFranchiseThemeActions.success.toString()]: (
       state,
-      { payload }: { payload: Franchise },
+      { payload }: { payload: FranchiseDetails },
     ) => {
       return state
         .set('loading', false)
@@ -192,15 +212,21 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
 
     // USERS
-    [fetchFranchiseUsersActions.isLoading.toString()]: (state, { payload }) => {
+    [fetchFranchiseUsersActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['users', 'loading'], payload).set('error', null);
     },
-    [fetchFranchiseUsersActions.error.toString()]: (state, { payload }) => {
+    [fetchFranchiseUsersActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseUsersActions.success.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
-      { payload }: any,
+      { payload }: { payload: PaginatedResponse<FranchiseUser> },
     ) => {
       const { page, count, results } = payload;
 
@@ -230,29 +256,30 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
     [createOrUpdateCompanyGroupActions.success.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: CompanyGroup },
     ) => {
-      return (
-        state
-          // @ts-expect-error
-          .setIn(['companyGroup', 'byId', payload.id], payload)
-          .setIn(
-            ['companyGroup', 'allIds'],
-            // @ts-expect-error
-            [payload.id, ...state.companyGroup.allIds],
-          )
-      );
+      return state
+        .setIn(['companyGroup', 'byId', payload.id], payload)
+        .setIn(
+          ['companyGroup', 'allIds'],
+          [payload.id, ...state.companyGroup.allIds],
+        );
     },
-    [listCompanyGroupActions.isLoading.toString()]: (state, { payload }) => {
+    [listCompanyGroupActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['companyGroup', 'loading'], payload);
     },
-    [listCompanyGroupActions.error.toString()]: (state, { payload }) => {
+    [listCompanyGroupActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['companyGroup', 'error'], payload);
     },
     [listCompanyGroupActions.success.toString()]: (
       state,
-      // @ts-expect-error
-      { payload }: Array<CompanyGroup>,
+      { payload }: { payload: CompanyGroup[] },
     ) => {
       return state
         .setIn(
@@ -275,15 +302,28 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         );
     },
 
-    [fetchFranchiseUserActions.isLoading.toString()]: (state, { payload }) => {
+    [fetchFranchiseUserActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload).set('error', null);
     },
-    [fetchFranchiseUserActions.error.toString()]: (state, { payload }) => {
+    [fetchFranchiseUserActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseUserActions.success.toString()]: (
-      state: Immutable.Immutable<FranchiseState>,
-      { payload }: any,
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          results: FranchiseUser;
+          userId: number;
+        };
+      },
     ) => {
       const { userId, results } = payload;
 
@@ -301,25 +341,25 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
     [searchFranchiseUsersActions.previousURI.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
-      { payload },
+      { payload }: { payload: string },
     ) => {
       return state.setIn(['searchedUsers', 'previousURI'], payload);
     },
     [searchFranchiseUsersActions.isLoading.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(['searchedUsers', 'loading'], payload);
     },
     [searchFranchiseUsersActions.error.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['searchedUsers', 'error'], payload);
     },
     [searchFranchiseUsersActions.success.toString()]: (
       state: Immutable.Immutable<FranchiseState>,
-      { payload },
+      { payload }: { payload: FranchiseUser[] },
     ) => {
       return state.setIn(['searchedUsers', 'results'], payload);
     },

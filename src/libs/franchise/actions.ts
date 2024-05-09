@@ -18,7 +18,6 @@ import {
   fetchFranchiseUserMembers as fetchFranchiseUserMembersAPI,
 } from '#src/libs/franchise/api';
 import type {
-  Franchise,
   CompanyGroup,
   CreateUpdateCompanyGroupData,
   SearchUsersPayload,
@@ -27,6 +26,7 @@ import type {
   FranchiseUserPassesQueryParams,
   FranchiseUserMembersQueryParams,
   FranchiseUserMember,
+  FranchiseDetails
 } from '#src/libs/franchise/types';
 import {
   FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
@@ -35,9 +35,11 @@ import {
 import type { RootState } from '#src/reducers';
 
 export const fetchFranchiseActions = {
-  error: createAction('FRANCHISE/ME/ERROR'),
-  isLoading: createAction('FRANCHISE/ME/IS_LOADING'),
-  success: createAction('FRANCHISE/ME/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/ME/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/ME/IS_LOADING'),
+  success: createAction<{ franchisor: FranchiseDetails }>(
+    'FRANCHISE/ME/SUCCESS',
+  ),
 };
 
 export function fetchFranchise(options?: OptionCallback) {
@@ -61,7 +63,7 @@ export function fetchFranchise(options?: OptionCallback) {
 
 export function retrieveFranchise(
   id: number,
-  options?: OptionCallback<Franchise>,
+  options?: OptionCallback<FranchiseDetails>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchFranchiseActions.isLoading(true));
@@ -82,9 +84,11 @@ export function retrieveFranchise(
 }
 
 export const fetchFranchiseThemeActions = {
-  error: createAction('FRANCHISE/THEME/ERROR'),
-  isLoading: createAction('FRANCHISE/THEME/IS_LOADING'),
-  success: createAction('FRANCHISE/THEME/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/THEME/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/THEME/IS_LOADING'),
+  success: createAction<{ franchisor: FranchiseDetails }>(
+    'FRANCHISE/THEME/SUCCESS',
+  ),
 };
 
 export function fetchFranchiseTheme(
@@ -113,9 +117,11 @@ export function fetchFranchiseTheme(
 // Users
 
 export const fetchFranchiseUsersActions = {
-  error: createAction('FRANCHISE/USERS/ERROR'),
-  isLoading: createAction('FRANCHISE/USERS/IS_LOADING'),
-  success: createAction('FRANCHISE/USERS/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/USERS/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/USERS/IS_LOADING'),
+  success: createAction<PaginatedResponse<FranchiseUser>>(
+    'FRANCHISE/USERS/SUCCESS',
+  ),
 };
 
 export function fetchFranchiseUsers(props: {
@@ -151,9 +157,12 @@ export function fetchFranchiseUsers(props: {
 }
 
 export const fetchFranchiseUserActions = {
-  error: createAction('FRANCHISE/USER/ERROR'),
-  isLoading: createAction('FRANCHISE/USER/IS_LOADING'),
-  success: createAction('FRANCHISE/USER/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/USER/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/USER/IS_LOADING'),
+  success: createAction<{
+    results: FranchiseUser;
+    userId: number;
+  }>('FRANCHISE/USER/SUCCESS'),
 };
 
 export function fetchFranchiseUser(props: {
@@ -186,13 +195,13 @@ export function fetchFranchiseUser(props: {
 export const updateFranchiseThemeActions = {
   error: createAction<Error | null>('FRANCHISE/THEME_UPDATE/ERROR'),
   isLoading: createAction<boolean>('FRANCHISE/THEME_UPDATE/IS_LOADING'),
-  success: createAction<Franchise>('FRANCHISE/THEME_UPDATE/SUCCESS'),
+  success: createAction<FranchiseDetails>('FRANCHISE/THEME_UPDATE/SUCCESS'),
 };
 
 export function updateFranchiseTheme(
   franchiseId: number,
   data: FormData,
-  options?: OptionCallback<Franchise>,
+  options?: OptionCallback<FranchiseDetails>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updateFranchiseThemeActions.isLoading(true));
@@ -210,14 +219,14 @@ export function updateFranchiseTheme(
 }
 
 export const listCompanyGroupActions = {
-  error: createAction('FRANCHISE/COMPANY_GROUP_LIST/ERROR'),
-  isLoading: createAction('FRANCHISE/COMPANY_GROUP_LIST/IS_LOADING'),
-  success: createAction('FRANCHISE/COMPANY_GROUP_LIST/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/COMPANY_GROUP_LIST/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/COMPANY_GROUP_LIST/IS_LOADING'),
+  success: createAction<CompanyGroup[]>('FRANCHISE/COMPANY_GROUP_LIST/SUCCESS'),
 };
 
 export function fetchCompanyGroupList(
   company?: number,
-  options?: OptionCallback<Array<CompanyGroup>>,
+  options?: OptionCallback<CompanyGroup[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listCompanyGroupActions.isLoading(true));

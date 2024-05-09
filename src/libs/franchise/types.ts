@@ -1,4 +1,4 @@
-import type { CompanyWithTheme, Company } from '#src/libs/company/types';
+import type { Company } from '#src/libs/company/types';
 import type {
   PaymentPack,
   PaymentPackTemplate,
@@ -10,10 +10,7 @@ import type { PaginationFilterParams } from '#src/libs/types';
 
 export type FranchiseState = {
   error: null | boolean;
-  loading: {
-    payload: boolean;
-    type: string;
-  };
+  loading: boolean;
   franchisor?: Franchise | FranchiseDetails;
   searchedUsers: {
     results: FranchiseUser[];
@@ -33,7 +30,7 @@ export type FranchiseState = {
     allIds: number[];
   };
   companyGroup: {
-    allIds: Array<number>;
+    allIds: number[];
     byId: { [id: number]: CompanyGroup };
     loading: boolean;
     error: Error | null;
@@ -106,7 +103,7 @@ export type FranchiseUser = {
 
 export type FranchiseProductTemplateQueryParams = {
   franchisor?: number;
-  id__in?: Array<number>;
+  id__in?: number[];
   manager_only?: boolean;
   is_usable_by_staff?: boolean;
   available_for_sale?: boolean;
@@ -125,7 +122,7 @@ export type FranchiseCompany = {
 };
 
 export type FranchiseDetails = Franchise & {
-  companies: Array<CompanyWithTheme>;
+  companies: FranchiseCompany[];
   primary_color: string;
   secondary_color: string;
 };
@@ -137,11 +134,15 @@ export type GenericProductTemplate =
   | GiftcardTemplate;
 
 export type WithFranchiseCompanies<T> = T & {
-  companies: Array<FranchiseCompany>;
+  companies: FranchiseCompany[];
 };
 
 export type FranchiseTheme = Franchise | FranchiseDetails | FranchiseCompany;
-
+export type FranchiseThemeData = {
+  primary_color: string;
+  secondary_color: string;
+  cover: File;
+};
 export type CreateUpdateCompanyGroupData = {
   id?: number;
   name: string;

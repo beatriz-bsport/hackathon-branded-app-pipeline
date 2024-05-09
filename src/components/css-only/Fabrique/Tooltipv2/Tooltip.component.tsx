@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import {
   colorEnum,
-  placementEnum,
   placementToOrigins,
   TOOLTIP_DELAY,
   TOOLTIP_MARGIN,
@@ -18,6 +17,7 @@ import {
 } from '#Fabrique/constants';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Typography from '#Fabrique/Typography';
+import type { PlacementsType } from '#Fabrique/Types/positions';
 import './styles.css';
 
 export type TooltipProps = {
@@ -41,7 +41,7 @@ export type TooltipProps = {
    * */
   wrapperId?: string;
   /** The position of the tooltip relative to the anchor */
-  placement?: placementEnum;
+  placement?: PlacementsType;
   /**
    * The id used to identify the DOM element where the tooltip will be rendered
    * @default {'bs-setup-variable'}

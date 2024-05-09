@@ -38,7 +38,7 @@ export const getShopItemName = ({
   name: string;
   color?: string;
   size?: string;
-  price?: number;
+  price?: string;
   variantCount?: string;
 }) => {
   if (!name) return '';

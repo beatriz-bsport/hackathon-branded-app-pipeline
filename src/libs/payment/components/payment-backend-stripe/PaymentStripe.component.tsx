@@ -383,7 +383,6 @@ const PaymentStripe: React.FC<
             selectPaymentMethod={handleSelectPaymentMethod}
           />
           {instalmentPaymentConfigurationList?.length > 0 &&
-            !!instalmentPaymentSelectedId &&
             !!onSelectInstalmentPayment && (
               <InstalmentPaymentSelector
                 basketPriceCts={

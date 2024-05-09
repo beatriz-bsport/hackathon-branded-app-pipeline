@@ -46,6 +46,8 @@ const offer: Offer = {
   linked_hybrid_offer_id: 1,
   is_broadcast: false,
   source: BOOKING_SOURCE_SAAS.id,
+  custom_level: 1,
+  validated_booking_count: 10,
 };
 
 const offerPassed: Offer = {

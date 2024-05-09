@@ -28,6 +28,7 @@ const permissionState: Partial<ObjectLevelPermissions> = {
       partialRefundAsDiscount: false,
       partialRefundAsCredit: false,
       createManualDiscount: false,
+      editBalanceWithoutInvoice: false,
     },
   },
   export: {
@@ -48,11 +49,11 @@ const permissionState: Partial<ObjectLevelPermissions> = {
 describe('TEST hasObjectLevelPermission', () => {
   it('Returns a boolean when checking a particular permission', () => {
     const hasMemberCreatePermission = hasObjectLevelPermission(
-      permissionState,
+      permissionState as ObjectLevelPermissions,
       'member.allowed_actions.create',
     );
     const hasBillingReadInvoicesPermission = hasObjectLevelPermission(
-      permissionState,
+      permissionState as ObjectLevelPermissions,
       'billing.allowed_actions.readInvoices',
     );
     expect(hasMemberCreatePermission).toBe(true);
@@ -61,7 +62,7 @@ describe('TEST hasObjectLevelPermission', () => {
 
   it('Returns a boolean when checking all permissions', () => {
     const hasExportManagePermission = hasObjectLevelPermission(
-      permissionState,
+      permissionState as ObjectLevelPermissions,
       'export.allowed_actions',
     );
     expect(hasExportManagePermission).toBe(true);

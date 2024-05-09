@@ -1,0 +1,23 @@
+/*Bottom drawer*/
+.bs-info-button__icon-button {
+  border-radius: var(--bs-border-radius-circle);
+}
+
+.bs-info-button__bottom-drawer {
+}
+
+/* Tooltip */
+.bs-info-button__tooltip__icon__container {
+}
+
+.bs-info-button__tooltip__icon--info {
+  color: var(--bs-color-text-info-weak);
+}
+
+.bs-info-button__tooltip__icon--error {
+  color: var(--bs-color-text-error-weak);
+}
+
+.bs-info-button__tooltip__icon--warning {
+  color: var(--bs-color-text-warning-weak);
+}

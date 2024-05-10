@@ -1,26 +1,29 @@
 import React from 'react';
+import { Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Blanket from '#Fabrique/Blanket';
-import { PortalContainer } from '#components/css-only/Fabrique/PortalContainer';
-
-import CustomFormViewForm from '#libs/custom-form/components/consumer-form/CustomFormView.form';
-import type { CustomFormDialogProps } from './types';
+import { PortalContainer } from '#Fabrique/PortalContainer';
+import Alert from '#Fabrique/Alert';
+import ConsumerFormFields from '#src/libs/custom-form/components/consumer-form/CustomForm.formik-hoc';
+import type { CustomFormModalsProps } from './types';
 import './styles.css';
 
-const CustomFormDialog: React.FC<CustomFormDialogProps> = ({
+const CustomFormDialog: React.FC<CustomFormModalsProps> = ({
   onClose,
-  open,
+  cancelLabel,
+  confirmLabel,
+  isOpen,
   title,
-  generalTermsAndConditions,
-  initial,
-  isCssVariantActivated,
-  layouts,
-  onSubmit,
-  onSubmitDraft,
-  waiver,
+  onCancel,
+  onClickSubmit,
+  size,
+  subtitle,
+  isSubmitting,
+  ...restProps
 }) => {
-  const { t } = useTranslation('payment');
+  const { t } = useTranslation('marketing');
+
   return (
     <PortalContainer wrapperId="bs-fabrique-custom-form-view-portal-container">
       <Blanket
@@ -28,26 +31,30 @@ const CustomFormDialog: React.FC<CustomFormDialogProps> = ({
           content: 'bs-fabrique-custom-form-view-blanket-content',
         }}
         className="bs-fabrique-custom-form-view-blanket"
-        isOpen={open}
+        isOpen={isOpen}
       >
-        <ModalDialog
-          cancelLabel={t('generalTermsAndConditions.close')}
-          className="bs-fabrique-custom-form-view-modal"
-          onClose={onClose}
-          size="xl"
-          title={title}
-        >
-          <CustomFormViewForm
-            general_terms_and_conditions={generalTermsAndConditions}
-            initial={initial}
-            isCssVariantActivated={isCssVariantActivated}
-            layouts={layouts}
-            onCancel={onClose}
-            onSubmit={onSubmit}
-            onSubmitDraft={onSubmitDraft}
-            waiver={waiver}
-          />
-        </ModalDialog>
+        {restProps.initial?.custom_form_field?.length === 0 ? (
+          <Alert color="info" onClose={onClose} title={title}>
+            {t('customForm.emptyCustomForm')}
+          </Alert>
+        ) : (
+          <ModalDialog
+            cancelLabel={cancelLabel}
+            className="bs-fabrique-custom-form-view-modal"
+            confirmLabel={confirmLabel}
+            isSubmitLoading={isSubmitting}
+            onCancel={onCancel}
+            onClose={onClose}
+            onConfirm={onClickSubmit}
+            size={size ?? 'xl'}
+            subtitle={subtitle}
+            title={title}
+          >
+            <Form>
+              <ConsumerFormFields {...restProps} />
+            </Form>
+          </ModalDialog>
+        )}
       </Blanket>
     </PortalContainer>
   );

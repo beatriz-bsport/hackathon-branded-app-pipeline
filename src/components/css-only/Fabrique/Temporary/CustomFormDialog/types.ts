@@ -5,17 +5,46 @@ import type {
   ResponsiveLayouts,
 } from '#libs/custom-form/types';
 import type { OptionCallback } from '../../../../../state/types';
+import type { ModalDialogSize } from '#Fabrique/ModalDialog/types';
 
-export type CustomFormDialogProps = {
-  isFullWidth?: boolean;
-  onClose: () => void;
-  open: boolean;
-  title: string;
+export type CustomFormPortalProps = {
+  asManager?: boolean;
+  disconnectOnCancel?: boolean;
+  fieldsAreIndependent?: boolean;
   generalTermsAndConditions?: string;
+  hideBackButton?: boolean;
   initial?: CustomForm;
+  initialWithAnswer?: CustomFormFieldAnswer;
   isCssVariantActivated?: boolean;
+  isEditionForm?: boolean;
+  isMobile?: boolean;
+  isMulti?: boolean;
+  isOpen: boolean;
   layouts?: ResponsiveLayouts;
-  onSubmit?: (data: CustomFormFieldAnswer, options: OptionCallback) => void;
+  measureBeforeMount?: boolean;
+  onCancel?: (data?: CustomFormFilled) => void;
+  onClose: () => void;
+  onSubmit?: (data: CustomFormFilled, options: OptionCallback) => void;
   onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
+  refreshLoading?: boolean;
+  rowHeight?: number;
+  shouldWrapLayerInCssHoc?: boolean;
+  simplifyUI?: boolean;
+  size?: ModalDialogSize;
+  subtitle?: string;
+  title: string;
+  userStatus?: number;
   waiver?: string;
+};
+
+export type CustomFormModalsProps = Omit<
+  CustomFormPortalProps,
+  'cancelLabel' | 'confirmLabel' | 'onClose' | 'onSubmit' | 'onCancel'
+> & {
+  cancelLabel?: string;
+  confirmLabel?: string;
+  isSubmitting?: boolean;
+  onCancel: () => void;
+  onClickSubmit: () => void;
+  onClose: () => void;
 };

@@ -1,8 +1,10 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
-import { DateTime } from 'luxon';
+import { DateTime, Info, Settings } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
+// @ts-expect-error
+import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../i18n';
 
 import type { Theme } from '#libs/theme/types';
 
@@ -235,3 +237,34 @@ export function isDateInThePast(date: string) {
   if (!date) return false;
   return moment(date).isBefore(moment());
 }
+
+/**
+ * Returns an array containing formatted weekdays depending on the
+ * active locale
+ *
+ * @param {('narrow' | 'short' | 'long')} length The format to use
+ * @example
+ * // returns ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+ * getLocaleWeekdays('short')
+ *
+ * // returns ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+ * getLocaleWeekdays('long')
+ *
+ * // returns ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+ * getLocaleWeekdays('narrow')
+ */
+export const getLocaleWeekdays = (length: 'narrow' | 'short' | 'long') => {
+  const weekdays = Info.weekdays(length);
+  if (Info.features().localeWeek) {
+    // this environment supports different weekdays for the start of the week based on the locale
+    return weekdays;
+  }
+
+  if (
+    LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY.includes(Settings.defaultLocale)
+  ) {
+    return [weekdays[6], ...weekdays.slice(0, 6)];
+  }
+
+  return weekdays;
+};

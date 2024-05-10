@@ -81,7 +81,7 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
         })),
       },
     }),
-    [shopItem.current_stock, shopItem.total_sales, shopItemVariantList],
+    [shopItem?.current_stock, shopItem?.total_sales, shopItemVariantList],
   );
 
   return (

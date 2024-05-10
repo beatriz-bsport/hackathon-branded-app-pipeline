@@ -30,7 +30,7 @@ import Login from '#csscomponents/Login/Login.component';
 import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#components/analytics/Analytics.component';
-import CustomFormDialog from '#Fabrique/Temporary/CustomFormDialog';
+import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 import { parseQueryString } from '../../http';
 
 import {
@@ -644,12 +644,17 @@ export class MarketPlace extends Component<Props, State> {
               </DialogContent>
             </GenericResponsiveDialog>
             {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
-              <CustomFormDialog
+              <CustomFormPortal
                 generalTermsAndConditions={
                   this.props.theme.general_terms_of_use
                 }
                 initial={this.props.signUpCustomForm}
                 isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                isOpen={
+                  this.state.signupDialogOpen &&
+                  !this.props.auth.authenticated &&
+                  this.props.signUpCustomForm
+                }
                 layouts={
                   this.props.signUpCustomForm
                     ? this.props.signUpCustomForm.layout
@@ -659,11 +664,6 @@ export class MarketPlace extends Component<Props, State> {
                 onClose={this.closeSignup}
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.handleSubmitDraft}
-                open={
-                  this.state.signupDialogOpen &&
-                  !this.props.auth.authenticated &&
-                  this.props.signUpCustomForm
-                }
                 title={t('form.signUpTitle')}
                 waiver={this.props.theme.waiver}
               />

@@ -1,6 +1,5 @@
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { fakerEN as faker } from '@faker-js/faker';
-import { DateTime } from 'luxon';
 import {
   generateRandomName,
   generateRandomDescription,
@@ -10,13 +9,9 @@ import {
 import { FakerTextLength } from '#utils/types';
 import type {
   ShopItemFactoryOptions,
-  ShopSupplier,
+  ShopSupplierFactoryOptions,
   SubshopFactoryOptions,
 } from './types';
-
-const CREATE_DATE = DateTime.now().minus({ days: 5 }).toISODate();
-const UPDATE_DATE = DateTime.now().minus({ days: 3 }).toISODate();
-const DELETE_DATE = DateTime.now().minus({ hours: 8 }).toISODate();
 
 /**
  * Generates a subshop with Faker
@@ -143,16 +138,14 @@ export const shopItemListFactory = (
  * @example
  * const fakeShopSupplier = shopSupplierFactory()
  */
-export const shopSupplierFactory = (): ShopSupplier => {
+export const shopSupplierFactory = (options?: ShopSupplierFactoryOptions) => {
   return {
-    company: faker.number.int({ max: 10000 }),
-    created_at: CREATE_DATE,
     description: generateRandomDescription(faker),
-    disabled_at: DELETE_DATE,
-    disabled: faker.datatype.boolean(),
     id: parseInt(faker.finance.accountNumber(4), 10),
     name: generateRandomName(faker),
-    updated_at: UPDATE_DATE,
+    ...(options.isFranchise && {
+      franchisor: faker.number.int({ max: 10000 }),
+    }),
   };
 };
 
@@ -160,6 +153,9 @@ export const shopSupplierFactory = (): ShopSupplier => {
  * Generates a list of shop supplier with Faker
  * @param count The number of shop supplier to generate
  */
-export const shopSupplierListFactory = (count: number): ShopSupplier[] => {
-  return faker.helpers.multiple(shopSupplierFactory, { count });
+export const shopSupplierListFactory = (
+  count: number,
+  options?: ShopSupplierFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => shopSupplierFactory(options), { count });
 };

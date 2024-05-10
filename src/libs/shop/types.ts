@@ -142,21 +142,18 @@ export type ShopItemCreate = {
 export type ShopItemEdit = Partial<ShopItemCreate>;
 
 export type ShopSupplier = {
-  company: number;
-  created_at: string;
   description: string;
-  disabled_at: string;
-  disabled: boolean;
   id: number;
   name: string;
-  updated_at: string;
 };
 
-export type ShopSupplierTemplate = {
-  description: string;
+export type ShopSupplierTemplate = ShopSupplier & {
   franchisor: number;
-  id: number;
-  name: string;
+};
+
+export type ShopSupplierFactoryOptions = {
+  /** If `true` the factory will return a {@link ShopSupplierTemplate} instance */
+  isFranchise?: boolean;
 };
 
 export type ShopState = {

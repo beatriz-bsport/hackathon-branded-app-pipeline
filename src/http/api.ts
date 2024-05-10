@@ -20,6 +20,10 @@ import type {
   PostBaseAuth,
   PutAuth,
 } from './types';
+import { AxiosSafeLock } from './axiosSafeLock';
+
+const safeClient = new AxiosSafeLock(axios);
+safeClient.installLock();
 
 /**
  * @deprecated This version is not type safe.

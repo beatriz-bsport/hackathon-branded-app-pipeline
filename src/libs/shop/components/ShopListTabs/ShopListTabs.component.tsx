@@ -31,8 +31,8 @@ type Props = {
   duplicateShopItem: (id: number, suffix: string) => void;
   setShopItemToDelete: (shopItem: ShopItem) => void;
   handleChangeTab: (tab: ShopListTab) => void;
-  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => () => void;
-  handleEditSupplier: (supplier: ShopSupplier) => () => void;
+  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
+  handleEditSupplier: (supplier: ShopSupplier) => void;
   handleOpenSupplierModal: () => void;
   createSubshop: (
     values: ShopListSubshopFormValues,

@@ -218,7 +218,7 @@ const ShopListReworked: React.FC<Props> = ({
   }, [deleteSupplier, handleCloseSupplierDeleteModal, selectedSupplier?.id]);
 
   const handleSelectSupplierForDeletion = useCallback(
-    (supplier: ShopSupplier) => () => {
+    (supplier: ShopSupplier) => {
       setSelectedSupplier(supplier);
       handleOpenSupplierDeleteModal();
     },
@@ -226,7 +226,7 @@ const ShopListReworked: React.FC<Props> = ({
   );
 
   const handleEditSupplier = useCallback(
-    (supplier: ShopSupplier) => () => {
+    (supplier: ShopSupplier) => {
       setSelectedSupplier(supplier);
       handleOpenSupplierModal();
     },

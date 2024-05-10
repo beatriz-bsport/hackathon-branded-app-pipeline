@@ -34,8 +34,8 @@ type Props = {
   deliveryFees: DeliveryFee[];
   isOrderConfigurationLoading?: boolean;
   isOrderConfigurationUpdateLoading?: boolean;
-  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => () => void;
-  handleEditSupplier: (supplier: ShopSupplier) => () => void;
+  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
+  handleEditSupplier: (supplier: ShopSupplier) => void;
   handleOpenSupplierModal: () => void;
   handleOpenDeliveryFeeModal: () => void;
   handleEditDeliveryFee: (deliveryFee: DeliveryFee) => void;

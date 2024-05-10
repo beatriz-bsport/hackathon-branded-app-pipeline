@@ -8,6 +8,7 @@ import { Field, ErrorMessage, useField } from 'formik';
 
 import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 
+import LuxonUtils from '@date-io/luxon';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
@@ -28,7 +29,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import moment from 'moment-timezone';
+import { DateTime, Settings } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 
 import * as Yup from 'yup';
@@ -38,6 +39,7 @@ import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneInput from 'react-phone-number-input';
+import { LUXON_ISO_SHORT_DATE, formatAsTime } from '../utils/datetime';
 import TagSelector from '../libs/tag/components/TagSelector.selector';
 import type { Tag } from '../libs/tag/types';
 
@@ -47,7 +49,6 @@ import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
 import IconInput from './input/IconInput.component';
-import { formatAsTime } from '../utils/datetime';
 import 'react-phone-number-input/style.css';
 import './phone_number_input.css';
 
@@ -321,7 +322,11 @@ export const DateField = (
 ) => {
   const { t } = useTranslation();
   const classes = useDateFieldStyles();
-  const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
+
+  const now = DateTime.now()
+    .startOf('year')
+    .minus({ year: 30 })
+    .toFormat(LUXON_ISO_SHORT_DATE);
 
   return (
     <Field {...props}>
@@ -331,15 +336,14 @@ export const DateField = (
         form: { setFieldValue, setFieldTouched },
       }) => (
         <MuiPickersUtilsProvider
-          locale={Moment.locale()}
-          moment={Moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <DatePicker
             {...field}
             {...props}
             error={!!(touched && error)}
-            format="L"
+            format="D"
             label={
               touched &&
               error &&
@@ -357,7 +361,9 @@ export const DateField = (
               setFieldTouched(props.name);
               setFieldValue(
                 props.name,
-                props.parseAsString ? moment(date).format('YYYY-MM-DD') : date,
+                props.parseAsString
+                  ? date.toFormat(LUXON_ISO_SHORT_DATE)
+                  : date,
               );
             }}
             style={{ minWidth: 120 }}

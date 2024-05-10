@@ -29,7 +29,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { push as routerPush } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -53,6 +53,7 @@ import {
   formatAsDate,
   formatAsTime,
   formatAsDatetimeAdapted,
+  LUXON_ISO_SHORT_DATE,
 } from '#utils/datetime';
 
 import type { Member } from '#libs/member/types';
@@ -113,7 +114,8 @@ const getPackDate = (consumerPack) => {
   const { ending_date, starting_date } = consumerPack;
   return [
     `${formatAsDate(starting_date)}→${formatAsDate(ending_date)}`,
-    moment(ending_date).isBefore(moment().add(6, 'day')),
+    DateTime.fromFormat(ending_date, LUXON_ISO_SHORT_DATE) <
+      DateTime.now().plus({ day: 6 }),
   ];
 };
 
@@ -764,8 +766,11 @@ export class BookingItemForManager extends Component<Props, State> {
     }
 
     const isBirthday = this.props.member?.birthday
-      ? moment().format('MM-DD') ===
-        moment(this.props.member.birthday).format('MM-DD')
+      ? DateTime.now().toFormat('MM-dd') ===
+        DateTime.fromFormat(
+          this.props.member.birthday,
+          LUXON_ISO_SHORT_DATE,
+        ).toFormat('MM-DD')
       : false;
 
     return this.wrapToolTip(

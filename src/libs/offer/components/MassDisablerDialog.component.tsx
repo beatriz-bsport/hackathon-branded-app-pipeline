@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Theme } from '@material-ui/core/styles';
@@ -13,7 +12,7 @@ import {
   Collapse,
   ButtonBase,
 } from '@material-ui/core';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowForwardIos,
@@ -25,17 +24,19 @@ import { Alert } from '@material-ui/lab';
 import InfoIcon from '@material-ui/icons/Info';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import type { LuxonDateTime } from '#src/types';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 import {
   DateField,
   TextFieldEnhancedLabelWithError,
+  // @ts-expect-error
 } from '../../../components/forms';
 import { OptionCallback } from '../../../state/types';
 import RedButtonComponent from '#components/button/RedButton.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { Offer } from '../types';
 import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   onClose: () => void;
@@ -57,7 +58,11 @@ type Props = OwnProps;
 export const MassDisablerDialog = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('offer');
-  const initialValues = { startDate: moment(), endDate: moment() };
+  const initialValues = {
+    startDate: DateTime.now(),
+    endDate: DateTime.now(),
+    confirmation: '',
+  };
   const [secondWarningOpen, setSecondWarningOpen] = React.useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
   const [showOfferGroup, setShowOfferGroup] = React.useState(true);
@@ -71,8 +76,8 @@ export const MassDisablerDialog = (props: Props) => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           props.onSubmit({
-            start: moment(values.startDate).format('YYYY-MM-DD'),
-            end: moment(values.endDate).format('YYYY-MM-DD'),
+            start: values.startDate.toFormat(LUXON_ISO_SHORT_DATE),
+            end: values.endDate.toFormat(LUXON_ISO_SHORT_DATE),
           });
 
           actions.setSubmitting(false);
@@ -82,8 +87,8 @@ export const MassDisablerDialog = (props: Props) => {
       >
         {(
           formikProps: FormikProps<{
-            startDate: Moment;
-            endDate: Moment;
+            startDate: LuxonDateTime;
+            endDate: LuxonDateTime;
             confirmation: string;
           }>,
         ) => {
@@ -145,11 +150,12 @@ export const MassDisablerDialog = (props: Props) => {
                       disabled={!formikProps.isValid}
                       onClick={() => {
                         props.retrieveNumberOfDeletedOffer({
-                          start: moment(formikProps.values.startDate).format(
-                            'YYYY-MM-DD',
-                          ),
-                          end: moment(formikProps.values.endDate).format(
-                            'YYYY-MM-DD',
+                          start:
+                            formikProps.values.startDate.toFormat(
+                              LUXON_ISO_SHORT_DATE,
+                            ),
+                          end: formikProps.values.endDate.toFormat(
+                            LUXON_ISO_SHORT_DATE,
                           ),
                         });
                         setSecondWarningOpen(true);
@@ -174,14 +180,8 @@ export const MassDisablerDialog = (props: Props) => {
 
                   <Typography>
                     {t('massDisabler.confirmInfo', {
-                      start_date: formatAsDatetimeAdapted(
-                        formikProps.values.startDate,
-                        'LL',
-                      ),
-                      end_date: formatAsDatetimeAdapted(
-                        formikProps.values.endDate,
-                        'LL',
-                      ),
+                      start_date: formikProps.values.startDate.toFormat('DD'),
+                      end_date: formikProps.values.endDate.toFormat('DD'),
                       number_of_deleted_offer:
                         props.numberOfMassDisabledOffer -
                         numberOfMassDisabledOfferInGroup,
@@ -227,6 +227,7 @@ export const MassDisablerDialog = (props: Props) => {
                               disabled
                               similarOffer
                               handleChange={null}
+                              // @ts-ignore fixme
                               offer={so}
                             />
                           ))}
@@ -292,14 +293,8 @@ export const MassDisablerDialog = (props: Props) => {
                   </div>
                   <Typography>
                     {t('massDisabler.successInfo', {
-                      start_date: formatAsDatetimeAdapted(
-                        formikProps.values.startDate,
-                        'LL',
-                      ),
-                      end_date: formatAsDatetimeAdapted(
-                        formikProps.values.endDate,
-                        'LL',
-                      ),
+                      start_date: formikProps.values.startDate.toFormat('DD'),
+                      end_date: formikProps.values.endDate.toFormat('DD'),
                     })}
                   </Typography>
                   <div className={classes.actions}>

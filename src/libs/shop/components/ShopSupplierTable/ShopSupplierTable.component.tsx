@@ -65,7 +65,9 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
 
     return (
       <TableRow key={supplier.id}>
-        <TableCell scope="row">{supplier.name}</TableCell>
+        <TableCell className={classes.noWrap} scope="row">
+          {supplier.name}
+        </TableCell>
         <TableCell scope="row">
           <p ref={descriptionText.ref} className={classes.description}>
             {supplier.description}
@@ -189,6 +191,9 @@ const useStyles = makeStyles(() => ({
   },
   rowActions: {
     display: 'flex',
+  },
+  noWrap: {
+    whiteSpace: 'nowrap',
   },
 }));
 

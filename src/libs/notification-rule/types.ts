@@ -46,15 +46,17 @@ export type NotificationRuleState = {
     data: NotificationRuleEventType[];
   };
   settings: ErrorAndLoading & {
-    data:
-      | [
-          {
-            company: number;
-            id: number;
-            settings: Record<number, NotificationRuleSettings>;
-          },
-        ]
-      | [];
+    data: NotificationRuleSettingsData;
     update: ErrorAndLoading;
   };
 };
+
+export type NotificationRuleSettingsData =
+  | [
+      {
+        company: number;
+        id: number;
+        settings: Record<number, NotificationRuleSettings>;
+      },
+    ]
+  | [];

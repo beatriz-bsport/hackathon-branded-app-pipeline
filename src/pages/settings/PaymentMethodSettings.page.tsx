@@ -6,6 +6,8 @@ import { withStyles, Theme, Paper } from '@material-ui/core';
 import {
   NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
   NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
+  NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING,
+  NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import { updateCompanyTheme } from '#src/libs/theme/actions';
@@ -16,6 +18,7 @@ import PaymentMethodsForm from '#src/libs/settings/components/PaymentMethodsForm
 import { fetchSettingsList as fetchSettingsListAction } from '#src/libs/notification-rule/actions';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
+import type { NotificationRuleSettingsData } from '#src/libs/notification-rule/types';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -32,6 +35,35 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
   componentDidMount(): void {
     this.props.fetchSettingsList();
   }
+
+  /**
+   * Method that will return wether the company has enabled the email notifications
+   * for the payment method expirations warnings.
+   */
+  arePaymentMethodExpirationRemindersMailsEnabled = (
+    settingsData: NotificationRuleSettingsData,
+  ) => {
+    if (!settingsData.length) {
+      return [true, true];
+    }
+    const settings = settingsData[0].settings;
+
+    // first reminder
+    const isFirstReminderMailEnabled =
+      settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]?.disabled &&
+      settings[
+        NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING
+      ]?.disabled;
+
+    // second reminder
+    const isSecondReminderMailEnabled =
+      settings[NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]?.disabled &&
+      settings[
+        NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING
+      ]?.disabled;
+
+    return [isFirstReminderMailEnabled, isSecondReminderMailEnabled];
+  };
 
   render() {
     const { classes } = this.props;
@@ -57,22 +89,10 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
         this.props.theme.payment_method_available_subscription;
     }
 
-    /*
-     * This checks if the user has enabled the send of emails about payment method
-     *  expiration, and disable inputs accordingly.
-     */
-    const notificationRulePaymentExpiredFirstWarningIsDisabled =
-      this.props.settingsData?.length > 0
-        ? this.props.settingsData[0].settings[
-            NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING
-          ]?.disabled ?? false
-        : false;
-    const notificationRulePaymentExpiredSecondWarningIsDisabled =
-      this.props.settingsData?.length > 0
-        ? this.props.settingsData[0].settings[
-            NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING
-          ]?.disabled ?? false
-        : false;
+    const [isFirstReminderMailEnabled, isSecondReminderMailEnabled] =
+      this.arePaymentMethodExpirationRemindersMailsEnabled(
+        this.props.settingsData,
+      );
 
     return (
       <div className={classes.container}>
@@ -81,12 +101,9 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
             cardBillingDetailsMandatory={
               this.props.theme.force_billing_details_on_cards
             }
-            disablePaymentExpiredFirstWarning={
-              notificationRulePaymentExpiredFirstWarningIsDisabled
-            }
+            disablePaymentExpiredFirstWarning={!isFirstReminderMailEnabled}
             disablePaymentExpiredSecondWarning={
-              notificationRulePaymentExpiredSecondWarningIsDisabled ||
-              notificationRulePaymentExpiredFirstWarningIsDisabled
+              !isFirstReminderMailEnabled || !isSecondReminderMailEnabled
             }
             first_warning_payment_method_expiration_days={parseInt(
               this.props.theme.first_warning_payment_method_expiration_days,

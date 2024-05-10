@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React, { PureComponent } from 'react';
-import { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -21,12 +20,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import { Moment } from '../../i18n';
+import { getLocaleWeekdays, LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
-import { DATE_FORMAT } from '../../utils/datetime';
 import { CalendarDay } from './CalendarDay.component';
 import { CalendarHeader } from './CalendarHeader.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { LuxonDateTime } from '#src/types';
 
 export const WEEKMODE = 0;
 export const MONTHMODE = 1;
@@ -76,10 +75,10 @@ class Calendar extends PureComponent<Props, State> {
   }
 
   getDateSelected = () => {
-    return Moment(this.props.date, DATE_FORMAT).clone();
+    return DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE);
   };
 
-  renderDay = (day: MomentType) => {
+  renderDay = (day: LuxonDateTime) => {
     const dateSelected = this.getDateSelected();
     return (
       <CalendarDay
@@ -87,6 +86,7 @@ class Calendar extends PureComponent<Props, State> {
         dateSelected={dateSelected}
         day={day}
         displayMode={this.state.displayMode}
+        // @ts-ignore fix me
         events={this.props.events}
         onDateChange={this.props.onDateChange}
         previewOnly={this.props.previewOnly}
@@ -104,8 +104,10 @@ class Calendar extends PureComponent<Props, State> {
 
     this.props.onDateChange(
       dateSelected
-        .add(1, this.state.displayMode === MONTHMODE ? 'months' : 'weeks')
-        .format(DATE_FORMAT),
+        .plus({
+          [this.state.displayMode === MONTHMODE ? 'months' : 'weeks']: 1,
+        })
+        .toFormat(LUXON_ISO_SHORT_DATE),
     );
   };
 
@@ -116,8 +118,10 @@ class Calendar extends PureComponent<Props, State> {
 
     this.props.onDateChange(
       dateSelected
-        .add(-1, this.state.displayMode === MONTHMODE ? 'months' : 'weeks')
-        .format(DATE_FORMAT),
+        .minus({
+          [this.state.displayMode === MONTHMODE ? 'months' : 'weeks']: 1,
+        })
+        .toFormat(LUXON_ISO_SHORT_DATE),
     );
   };
 
@@ -171,9 +175,10 @@ class Calendar extends PureComponent<Props, State> {
           hasBulkCancellationsPermission,
           hasReadCancellationsPermission,
           hasExportPermission,
-        ]) => (
+        ]: boolean[]) => (
           <Menu
             keepMounted
+            // @ts-ignore fix me
             anchorEl={this.anchorRef?.current}
             onClose={this.handleCloseMenu}
             open={!!this.anchorRef && this.state.isMenuOpen}
@@ -239,7 +244,7 @@ class Calendar extends PureComponent<Props, State> {
     );
   };
 
-  renderWeekFrom = (firstDayWeek: MomentType) => {
+  renderWeekFrom = (firstDayWeek: LuxonDateTime) => {
     return (
       <div
         className={classNames(
@@ -247,22 +252,27 @@ class Calendar extends PureComponent<Props, State> {
           this.props.classes.weekRowContainer,
         )}
       >
-        {this.renderDay(firstDayWeek.clone().add(0, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(1, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(2, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(3, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(4, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(5, 'days'))}
-        {this.renderDay(firstDayWeek.clone().add(6, 'days'))}
+        {this.renderDay(firstDayWeek.plus({ day: 0 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 1 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 2 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 3 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 4 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 5 }))}
+        {this.renderDay(firstDayWeek.plus({ day: 6 }))}
       </div>
     );
   };
 
-  renderMonthFrom = (firstDayMonth: MomentType) => {
+  renderMonthFrom = (firstDayMonth: LuxonDateTime) => {
     const weekRows = [];
     for (let i = 0; i < 6; i += 1) {
-      const firstDayInRow = firstDayMonth.clone().add(i * 7, 'days');
-      if (firstDayInRow.isSameOrBefore(this.props.date, 'month')) {
+      const firstDayInRow = firstDayMonth.plus({ day: i * 7 });
+      if (
+        firstDayInRow.startOf('month') <=
+        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE).startOf(
+          'month',
+        )
+      ) {
         weekRows.push(
           <div key={`week-${i}`} className={this.props.classes.weekRow}>
             {this.renderWeekFrom(firstDayInRow)}
@@ -274,7 +284,7 @@ class Calendar extends PureComponent<Props, State> {
     return (
       <Grid container alignItems="stretch" direction="column">
         <Grid item className={this.props.classes.weekdayNameRow}>
-          {Moment.weekdaysShort(true).map((wds: string) => (
+          {getLocaleWeekdays('short').map((wds: string) => (
             <div
               key={wds}
               style={{
@@ -296,6 +306,7 @@ class Calendar extends PureComponent<Props, State> {
   renderSearchBar = () => {
     let DividerComponent = Divider;
     if (this.props.loading) {
+      // @ts-ignore fix me
       DividerComponent = LinearProgress;
     }
     if (this.props.searchBar) {
@@ -322,7 +333,7 @@ class Calendar extends PureComponent<Props, State> {
           <>
             {!this.props.showDayName && (
               <div className={this.props.classes.weekRowContainer}>
-                {Moment.weekdaysShort(true).map((wds: string) => (
+                {getLocaleWeekdays('short').map((wds: string) => (
                   <div key={wds} className={this.props.classes.weekDayShort}>
                     <Typography color="textSecondary" variant="caption">
                       {wds[0]}
@@ -331,13 +342,17 @@ class Calendar extends PureComponent<Props, State> {
                 ))}
               </div>
             )}
-            {this.renderWeekFrom(dateSelected.clone().startOf('week'))}
+            {this.renderWeekFrom(
+              dateSelected.startOf('week', { useLocaleWeeks: true }),
+            )}
           </>
         );
       case MONTHMODE:
       default:
         return this.renderMonthFrom(
-          dateSelected.clone().startOf('month').startOf('week'),
+          dateSelected
+            .startOf('month')
+            .startOf('week', { useLocaleWeeks: true }),
         );
     }
   };

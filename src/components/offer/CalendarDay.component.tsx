@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import classNames from 'classnames';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { pure } from 'recompose';
 import chroma from 'chroma-js';
 
@@ -9,13 +8,14 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import { DATE_FORMAT } from '../../utils/datetime';
+import { LUXON_ISO_SHORT_DATE, getLocaleWeekdays } from '../../utils/datetime';
 import { WEEKMODE } from './Calendar.component';
+import type { LuxonDateTime } from '#src/types';
 
 type Props = {
-  dateSelected: Moment;
+  dateSelected: LuxonDateTime;
   ranges?: [string, string][];
-  day: Moment;
+  day: LuxonDateTime;
   events?: { [key: string]: Array<any> };
   showDayName: boolean;
   displayMode: number;
@@ -27,7 +27,7 @@ type Props = {
 
 export const CalendarDay: React.FC<Props> = ({
   events = {},
-  ranges = [],
+  ranges = [], // list of tuples of strings formatted with LUXON_ISO_SHORT_DATE
   dateSelected,
   day,
   showDayName,
@@ -37,23 +37,31 @@ export const CalendarDay: React.FC<Props> = ({
   activeWrapperStyle,
   onDateChange,
 }) => {
-  const isDayInRangeOf = ranges.filter(
-    ([start, end]) =>
-      moment(day).isSameOrBefore(end) && moment(day).isSameOrAfter(start),
-  );
+  const isDayInRangeOf = ranges.filter(([start, end]) => {
+    const startDatetime = DateTime.fromFormat(start, LUXON_ISO_SHORT_DATE);
+    const endDatetime = DateTime.fromFormat(end, LUXON_ISO_SHORT_DATE);
+    return day <= endDatetime && day >= startDatetime;
+  });
+
   const isDayInRange = isDayInRangeOf?.length > 0 ?? false;
   const classes = useStyles(isDayInRangeOf?.length ?? 0)();
 
-  const isDisabled = !day.isSame(dateSelected, 'months');
-  const isSelected = day.isSame(dateSelected, 'days');
+  const isDisabled = !day.hasSame(dateSelected, 'month');
+  const isSelected = day.hasSame(dateSelected, 'day');
 
   const isFirstDayOfRange =
+    isDayInRange &&
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    isDayInRange && ranges.some(([start, end]) => moment(start).isSame(day));
+    ranges.some(([start, end]) =>
+      DateTime.fromFormat(start, LUXON_ISO_SHORT_DATE).hasSame(day, 'day'),
+    );
 
   const isLastDayOfRange =
+    isDayInRange &&
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    isDayInRange && ranges.some(([start, end]) => moment(end).isSame(day));
+    ranges.some(([start, end]) =>
+      DateTime.fromFormat(end, LUXON_ISO_SHORT_DATE).hasSame(day, 'day'),
+    );
 
   if (previewOnly && wrapperStyle) {
     return (
@@ -65,10 +73,10 @@ export const CalendarDay: React.FC<Props> = ({
             })}
           >
             {displayMode === WEEKMODE && showDayName
-              ? moment.weekdaysShort(true)?.[day.weekday()]?.[0]
+              ? getLocaleWeekdays('narrow')[day.weekday - 1]
               : null}
             <Typography color="inherit" variant="subtitle1">
-              {day.date()}
+              {day.day}
             </Typography>
           </div>
         )}
@@ -78,7 +86,7 @@ export const CalendarDay: React.FC<Props> = ({
 
   return (
     <ButtonBase
-      key={`calendar-day-${day.format(DATE_FORMAT)}`}
+      key={`calendar-day-${day.toFormat(LUXON_ISO_SHORT_DATE)}`}
       className={classNames(classes.dayButton, {
         [classes.dayButtonSelected]: isSelected,
         [classes.dayButtonDisabled]: isDisabled,
@@ -87,24 +95,29 @@ export const CalendarDay: React.FC<Props> = ({
         [classes.dayButonEndRange]: isLastDayOfRange,
       })}
       color="primary"
-      id={`calendar-day-${day.format(DATE_FORMAT)}`}
+      id={`calendar-day-${day.toFormat(LUXON_ISO_SHORT_DATE)}`}
       onClick={() => {
-        onDateChange(day.format(DATE_FORMAT));
+        onDateChange(day.toFormat(LUXON_ISO_SHORT_DATE));
       }}
     >
       <div />
       <div className={classes.wrapper}>
         {displayMode === WEEKMODE && showDayName
-          ? moment.weekdaysShort(true)[day.weekday()]?.[0]?.toUpperCase()
+          ? getLocaleWeekdays('narrow')[day.weekday - 1].toUpperCase()
           : null}
         <Typography color="inherit" variant="subtitle1">
-          {day.date()}
+          {day.day}
         </Typography>
         <div className={classes.dots}>
           <div className={classes.row}>
-            {(events?.[day.startOf('day')] ?? []).slice(0, 3).map((_, idx) => (
-              <div key={`${day.format(DATE_FORMAT)}-${idx}`}> • </div>
-            ))}
+            {(events?.[day.startOf('day').toISO()] ?? [])
+              .slice(0, 3)
+              .map((_, idx) => (
+                <div key={`${day.toFormat(LUXON_ISO_SHORT_DATE)}-${idx}`}>
+                  {' '}
+                  •{' '}
+                </div>
+              ))}
           </div>
         </div>
       </div>

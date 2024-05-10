@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React, { forwardRef, useCallback, useState } from 'react';
-import moment, { Moment as MomentType } from 'moment-timezone';
+import { DateTime, Info, Settings } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import {
   Theme,
@@ -11,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
 import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -20,8 +19,8 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import TodayIcon from '@material-ui/icons/Today';
 import classNames from 'classnames';
 import { MONTHMODE } from './Calendar.component';
-import { DATE_FORMAT, formatAsTitle } from '../../utils/datetime';
-import { Moment } from '../../i18n';
+import { LUXON_ISO_SHORT_DATE, formatAsTitle } from '../../utils/datetime';
+import type { LuxonDateTime } from '#src/types';
 
 type Props = {
   forceMonthDisplay: boolean;
@@ -32,7 +31,7 @@ type Props = {
   searchBar?: any;
   toggleSearchBar?: () => void;
   displayMode: 0 | 1;
-  getDateSelected: () => MomentType;
+  getDateSelected: () => LuxonDateTime;
   dateSelected: string;
   handleOpenMenu: () => void;
   showPrevious: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -57,25 +56,25 @@ export const CalendarHeader = forwardRef(
       const dateSelected = getDateSelected();
 
       if (displayMode === MONTHMODE) {
-        const dateMonth = Moment.months()[dateSelected.month()];
-        const dateYear = dateSelected.year();
+        const dateMonth = Info.months()[dateSelected.month - 1];
+        const dateYear = dateSelected.year;
         return `${dateMonth} ${dateYear}`;
       }
 
-      const startDate = dateSelected.clone().startOf('week');
-      const endDate = startDate.clone().add(6, 'days');
-      return `${formatAsTitle(startDate.format(DATE_FORMAT))} - ${formatAsTitle(
-        endDate.format(DATE_FORMAT),
-      )}`;
+      const startDate = dateSelected.startOf('week', { useLocaleWeeks: true });
+      const endDate = startDate.plus({ day: 6 });
+      return `${formatAsTitle(
+        startDate.toFormat(LUXON_ISO_SHORT_DATE),
+      )} - ${formatAsTitle(endDate.toFormat(LUXON_ISO_SHORT_DATE))}`;
     }, [getDateSelected, displayMode]);
 
     const goToToday = useCallback(() => {
-      onDateChange(moment().format(DATE_FORMAT));
+      onDateChange(DateTime.now().toFormat(LUXON_ISO_SHORT_DATE));
     }, [onDateChange]);
 
     const setNewDate = useCallback(
-      (newDate) => {
-        onDateChange(moment(newDate).format(DATE_FORMAT));
+      (newDate: LuxonDateTime) => {
+        onDateChange(newDate.toFormat(LUXON_ISO_SHORT_DATE));
       },
       [onDateChange],
     );
@@ -146,16 +145,16 @@ export const CalendarHeader = forwardRef(
           </IconButton>
           <div>
             <MuiPickersUtilsProvider
-              locale={moment.locale()}
-              moment={moment}
-              utils={MomentUtils}
+              locale={Settings.defaultLocale}
+              utils={LuxonUtils}
             >
               <DatePicker
                 DialogProps={{ open }}
+                format={LUXON_ISO_SHORT_DATE}
                 initialFocusedDate={
                   props.dateSelected
-                    ? moment(props.dateSelected).format(DATE_FORMAT)
-                    : moment().format(DATE_FORMAT)
+                    ? props.dateSelected
+                    : DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
                 }
                 onChange={setNewDate}
                 onClose={closePicker}
@@ -171,8 +170,8 @@ export const CalendarHeader = forwardRef(
             <Button
               className={classes.showOnWideScreen}
               disabled={
-                moment(props.dateSelected).format(DATE_FORMAT) ===
-                moment().format(DATE_FORMAT)
+                props.dateSelected ===
+                DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
               }
               onClick={goToToday}
               variant="outlined"
@@ -182,8 +181,8 @@ export const CalendarHeader = forwardRef(
             <IconButton
               className={classes.showOnNarrowScreen}
               disabled={
-                moment(props.dateSelected).format(DATE_FORMAT) ===
-                moment().format(DATE_FORMAT)
+                props.dateSelected ===
+                DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
               }
               onClick={goToToday}
             >

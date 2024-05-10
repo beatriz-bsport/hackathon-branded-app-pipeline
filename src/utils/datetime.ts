@@ -1,4 +1,3 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import { DateTime, Info, Settings } from 'luxon';
@@ -84,7 +83,7 @@ export function formatAsDatetimeAdapted(
   isUnix?: boolean,
 ) {
   const formatNeedsAdaptation = !MOMENT_VALID_EN_GB_FORMATS.includes(format);
-  const dateInput = isUnix ? moment.unix(date) : date;
+  const dateInput = isUnix ? moment.unix(parseInt(date as string)) : date;
   if (
     formatNeedsAdaptation &&
     (moment().locale() === 'en-gb' || moment().locale() === 'en-US')
@@ -128,8 +127,8 @@ export function formatMinutes(
   const minutesMinusDays = minutesNumber % (60 * 24);
   const minutesMinusHours = minutesNumber % 60;
 
-  const days = parseInt(minutesNumber / (60 * 24), 0);
-  const hours = parseInt(minutesMinusDays / 60, 10);
+  const days = parseInt((minutesNumber / (60 * 24)).toString(), 0);
+  const hours = parseInt((minutesMinusDays / 60).toString(), 10);
 
   let readableDuration = '';
   if (days) {

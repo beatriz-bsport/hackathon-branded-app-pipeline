@@ -40,6 +40,8 @@ const getTranslations = async () => {
     NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY,
     NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
     NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
+    NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING,
+    NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING,
     NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH,
     NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER,
     NOTIFICATION_PAYMENT_INSTALMENT_PREPARED,
@@ -255,6 +257,8 @@ const getTranslations = async () => {
           invoice_sum_up: 'Invoice summary',
           invoice_date: 'Billing date',
           invoice_download_link: 'Download link',
+          days_until_payment_method_expiration_planned_payment_event:
+            'Days before expiration of the payment method',
         },
       },
       GiftCard: {
@@ -451,6 +455,10 @@ const getTranslations = async () => {
         'Subscription payment method about to expire (first warning)',
       [NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]:
         'Subscription payment method about to expire (second warning)',
+      [NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_FIRST_WARNING]:
+        'Payment method expiration first reminder for payments by installment',
+      [NOTIFICATION_INSTALMENT_PAYMENT_PAYMENT_METHOD_ABOUT_TO_EXPIRE_SECOND_WARNING]:
+        'Payment method expiration second reminder for payments by installment',
     },
     pageTitle: 'Transactional notifications',
     caption: {

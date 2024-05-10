@@ -5635,7 +5635,8 @@
           "invoice_price": "Invoice amount",
           "invoice_sum_up": "Invoice summary",
           "invoice_date": "Billing date",
-          "invoice_download_link": "Download link"
+          "invoice_download_link": "Download link",
+          "days_until_payment_method_expiration_planned_payment_event": "Days before expiration of the payment method"
         }
       },
       "GiftCard": {
@@ -5772,7 +5773,9 @@
       "1002": "Spinning session performance",
       "1003": "Spivi account created (for teachers)",
       "1101": "Referral grant available (referred member)",
-      "1102": "Referral grant available (referring member)"
+      "1102": "Referral grant available (referring member)",
+      "1200": "Payment method expiration first reminder for payments by installment",
+      "1201": "Payment method expiration second reminder for payments by installment"
     },
     "pageTitle": "Transactional notifications",
     "caption": {
@@ -10814,7 +10817,7 @@
       "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory.",
       "DaysBeforeNotificationInputs": {
         "title": "Choose the number of days before the payment method expiration date to send an email notification.",
-        "helpText": "If you have the transactional notifications enabled for “payment method expiration reminders” in the “Billing” and “Subscriptions” sections you can customise the number of days here.",
+        "helpText": "If you have the “Payment method expiration reminders” enabled for transactional notifications on Subscriptions and Billing, you can customize the number of days here.",
         "labels": {
           "daysBeforeFirstNotification": "First notification (days before expiration date)",
           "daysBeforeSecondNotification": "Second notification (days before expiration date)"

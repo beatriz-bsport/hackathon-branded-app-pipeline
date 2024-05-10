@@ -206,7 +206,7 @@ exports.default = {
       title:
         'Choose the number of days before the payment method expiration date to send an email notification.',
       helpText:
-        'If you have the transactional notifications enabled for “payment method expiration reminders” in the “Billing” and “Subscriptions” sections you can customise the number of days here.',
+        'If you have the “Payment method expiration reminders” enabled for transactional notifications on Subscriptions and Billing, you can customize the number of days here.',
       labels: {
         daysBeforeFirstNotification:
           'First notification (days before expiration date)',

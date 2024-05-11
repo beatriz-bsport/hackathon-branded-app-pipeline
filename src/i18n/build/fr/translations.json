@@ -19705,7 +19705,7 @@
             "actions": {
                 "billMember": "Facturer",
                 "goToProfile": "Profil",
-                "seePreviousImages": "Voir précédent"
+                "seePreviousImages": "Voir plus"
             },
             "photoHasChanged": "Photo de profil modifiée récemment",
             "pass": "Carte:",

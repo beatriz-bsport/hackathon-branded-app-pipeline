@@ -3093,8 +3093,8 @@
                     "sendMailHelpText": "Zum Aktivieren/Deaktivieren der E-Mail gehen Sie bitte zu Einstellungen> Transaktionsbenachrichtigungen> Strafen> Abwesenheitsbenachrichtigung",
                     "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als Abwesenheit gilt, muss größer als 0 sein",
                     "alert": "Diese Einstellungen gelten nur für Abwesenheiten bei unbegrenzten Pässen. Um die folgenden Zählungen auszulösen, müssen Sie die Zählung für jede Sitzung aufrufen.",
-                    "daysBeforeNoShow": "Betrachten Sie das Mitglied als (abwesend) <0/> <1/> nach dem Appell der Einheiten, in denen es als abwesend aufgeführt wurde.",
-                    "sendMail": "Senden Sie nach dem Appell eine E-Mail <0/> <1/>, um das Mitglied darüber zu informieren, dass es als abwesend gilt, wenn es als abwesend angegeben wurde.",
+                    "daysBeforeNoShow": "Betrachten Sie das Mitglied als (abwesend) <0/> <1/> nach der Bestätigung der Anwesenheit der Einheiten, in denen es als abwesend aufgeführt wurde.",
+                    "sendMail": "Senden Sie nach der Bestätigung der Anwesenheit eine E-Mail <0/> <1/>, um das Mitglied darüber zu informieren, dass es als abwesend gilt, wenn es als abwesend angegeben wurde.",
                     "error": "Die E-Mail zur Benachrichtigung über die Abwesenheit kann nicht mehr gesendet werden, nachdem das Mitglied als abwesend betrachtet wird.",
                     "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail mit der Warnung an das Mitglied gesendet wird, dass seine Buchung als \"Abwesenheit\" betrachtet wird, muss größer als 0 sein",
                     "notAvailable": "Die Verwaltung von Abwesenheiten (No-Show) ist nicht verfügbar. Um sie zu aktivieren, müssen Sie zunächst einen unbegrenzten Kurspass mit Abzügen für Abwesenheiten (No-Show) erstellen.",
@@ -4006,7 +4006,7 @@
                 "activity": {
                     "allowed_actions": {
                         "rollcall": {
-                            "_label": "Appell validieren"
+                            "_label": "Anwesenheit bestätigen"
                         },
                         "delete": {
                             "_label": "Buchungen stornieren"
@@ -4042,7 +4042,7 @@
                             "_label": "Buchungen stornieren"
                         },
                         "rollcall": {
-                            "_label": "Appell validieren"
+                            "_label": "Anwesenheit bestätigen"
                         },
                         "removeFromWaitlist": {
                             "_label": "Mitglieder von der Warteliste entfernen"
@@ -5247,7 +5247,7 @@
                     "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen gibt",
                     "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) in einem Zeitraum von {{penalityNumberNoShow}} Tagen gibt",
                     "noShowDialog": {
-                        "text": "Sie haben soeben Strafen für Abwesenheit erstellt.  Wir haben die Funktion \"Appell\" aktiviert. Sie müssen nun für jeden Kurs einen Namensaufruf durchführen, um die Strafe zu aktivieren.",
+                        "text": "Sie haben soeben Strafen für Abwesenheit erstellt.  Wir haben die Funktion \"Anwesenheiten\" aktiviert. Sie müssen nun für jeden Kurs einen Namensaufruf durchführen, um die Strafe zu aktivieren.",
                         "title": "Strafen bei Abwesenheit",
                         "alert": "Sie können die Bedingungen für Abwesenheit in den Personalisierungseinstellungen festlegen."
                     },
@@ -5259,7 +5259,7 @@
                     "bothPenaltiesNumber": "Anzahl der Stornierungen und Abwesenheiten (no show)",
                     "deleteNoShowDialog": {
                         "title": "Strafen aufgehoben",
-                        "text": "Es gibt keine unbegrenzten Pässe mehr mit Strafen für Nicht-Erscheinen. Wir haben die Funktion \"Zählappell\" deaktiviert, so dass Sie nicht mehr für jede Sitzung die Zählappelle aufrufen müssen."
+                        "text": "Es gibt keine unbegrenzten Pässe mehr mit Strafen für Nicht-Erscheinen. Wir haben die Funktion \"Anwesenheit bestätigen\" deaktiviert, so dass Sie nicht mehr für jede Sitzung die Anwesenheitsbestätigung aufrufen müssen."
                     },
                     "label": "Eine Strafe anwenden",
                     "noShowCheckbox": "Zu viele Abwesenheiten (no show)",
@@ -6166,7 +6166,7 @@
             "unpaid_amount": "Unbezahlter Betrag insgesamt",
             "dispute_status": "Status Streitfall",
             "amount_due": "Geschuldeter Betrag",
-            "date_roll_call_last_modified": "Datum der letzten Änderung des Appells",
+            "date_roll_call_last_modified": "Datum der letzten Änderung der Anwesenheit",
             "establishment_title": "Raum",
             "no_show": "Abwesenheit",
             "payout_status": "Status der Überweisung",
@@ -6199,7 +6199,7 @@
             "plan_status": "Status des Abonnements",
             "plan_flat_fee": "Anmeldegebühr",
             "plan_recurrent_price": "Wiederkehrender Zahlungsbetrag",
-            "roll_call_needs_validation": "Der Appell muss freigegeben werden",
+            "roll_call_needs_validation": "Die Anwesenheit muss freigegeben werden",
             "selectAll": "Alles auswählen",
             "total_payments_made": "Gesamtzahl der Zahlungseingänge",
             "src_company": "Einkaufsstudio",
@@ -15444,45 +15444,45 @@
         "tagManagementInfo": "{{authorized}} erlaubte(r) Tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)",
         "rollCall": {
             "warningText": {
-                "notValidatedRollCall": "Der Appell wurde nicht validiert",
-                "rollCallsLeftToValidate": "{{ number }} Appell erfordert eine Bestätigung",
-                "rollCallsLeftToValidate_plural": "{{ number }} Appelle erfordern eine Bestätigung",
-                "modifiedRollCall": "Der Appell wurde bearbeitet, Sie müssen ihn erneut validieren",
+                "notValidatedRollCall": "Die Anwesenheit wurde nicht bestätigt",
+                "rollCallsLeftToValidate": "{{ number }} Anwesenheit erfordert eine Bestätigung",
+                "rollCallsLeftToValidate_plural": "{{ number }} Anwesenheiten erfordern eine Bestätigung",
+                "modifiedRollCall": "Die Anwesenheit wurde bearbeitet, Sie müssen sie erneut bestätigen",
                 "validatedDate": "Validiert am {{- date }} um {{ time }}",
-                "noRollCallLeft": "Alle Appelle wurden validiert",
-                "lastValidatedRollCall": "Letzter validierter Appell am {{- date }} {{ time }}"
+                "noRollCallLeft": "Alle Anwesenheiten wurden bestätigt",
+                "lastValidatedRollCall": "Letzter Anwesenheit bestätigt am {{- date }} {{ time }}"
             },
             "dialog": {
                 "confirmationRollCall": "Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie den Aufruf bestätigen möchten?",
                 "confirmationRollCall_plural": "Sie sind dabei, den Aufruf für alle Kurse des Tages zu validieren. Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie alle Aufrufe bestätigen wollen?",
-                "validationRollCall": "Appell validieren",
-                "validatedRollCall": "Validierter Appell",
-                "validatedRollCall_plural": "Validierte Appelle",
-                "savedRollCall": "Der Appell wurde erfolgreich aufgezeichnet.",
-                "savedRollCall_plural": "Die Appelle wurden erfolgreich aufgezeichnet."
+                "validationRollCall": "Anwesenheit bestätigen",
+                "validatedRollCall": "Bestätigte Anwesenheit",
+                "validatedRollCall_plural": "Bestätigte Anwesenheiten",
+                "savedRollCall": "Die Anwesenheit wurde erfolgreich gespeichert.",
+                "savedRollCall_plural": "Die Anwesenheiten wurden erfolgreich gespeichert."
             },
             "warningIcon": {
                 "stateChangedTitle": "Status nicht validiert",
                 "stateChanged": "Der Status wurde geändert, aber nicht validiert"
             },
             "button": {
-                "validationRollCall": "Appell validieren",
-                "validationRollCall_plural": "Appelle validieren",
-                "validationRollCallZero": "Appell validieren"
+                "validationRollCall": "Anwesenheit bestätigen",
+                "validationRollCall_plural": "Anwesenheiten bestätigen",
+                "validationRollCallZero": "Anwesenheit bestätigen"
             },
             "chip": {
-                "notValidatedRollCall": "Appell nicht freigegeben",
-                "validatedRollCall": "Appell freigegeben am {{- date }} {{ time }}"
+                "notValidatedRollCall": "Anweseheit nicht bestätigt",
+                "validatedRollCall": "Anwesenheit bestätigt am {{- date }} {{ time }}"
             },
             "drawer": {
-                "rollCall": "Appell",
-                "info": "Mit der Freigabe des Appells beginnt der Countdown für die Strafe bei Nichterscheinen.",
+                "rollCall": "Anwesenheit",
+                "info": "Mit der Freigabe der Anwesenheiten beginnt der Countdown für die Strafe bei Nichterscheinen.",
                 "listMembers": "Liste der eingeschriebenen Mitglieder"
             },
             "filter": {
-                "validated": "Appell validiert",
-                "notValidated": "Appell wurde nicht validiert",
-                "placeholder": "Status des Appells"
+                "validated": "Anwesenheit bestätigt",
+                "notValidated": "Anwesenheit wurde nicht bestätigt",
+                "placeholder": "Anwesenheitsstatus"
             }
         },
         "recurrenceIndex": "Wiederholung: {{ index }}",

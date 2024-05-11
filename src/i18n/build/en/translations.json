@@ -6377,7 +6377,7 @@
                             "_label": "Delete availabilities"
                         },
                         "createAvailability": {
-                            "_label": "See availabilities"
+                            "_label": "Add availabilities"
                         }
                     },
                     "_label": "Availabilities"
@@ -6496,7 +6496,7 @@
                             "_label": "Create a personalized subscription"
                         },
                         "editPassBillingPlan": {
-                            "_label": "Modify the cards of a subscription"
+                            "_label": "Modify the passes of a subscription"
                         },
                         "create": {
                             "_label": "Create a contract"

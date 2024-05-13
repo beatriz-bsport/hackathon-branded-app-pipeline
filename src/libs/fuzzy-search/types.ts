@@ -1,4 +1,5 @@
 import { OptionsType } from 'react-select/lib/types';
+import { ImmutableArray } from 'seamless-immutable';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Coupon, FetchCouponsParams } from '#libs/coupon/types';
 import type { PaginatedResponse } from '#state/types';
@@ -170,7 +171,7 @@ export type ObjectSearchProps = {
   [key in SearchObjectType]: {
     searchedObjectType: key;
     optionsFormatter?: (results: ResultsMap[key]['array']) => SelectOptions;
-    additionalParams?: CommonParams & APIParamsMap[key];
+    additionalParams?: ReplaceArrayTypes<CommonParams & APIParamsMap[key]>;
     initialValues?: number[];
   };
 }[SearchObjectType];
@@ -288,3 +289,15 @@ type VideoAPIParams = CommonParams & VideoQueryParams;
 type ReportAPIParams = CommonParams;
 
 type EstablishmentGroupAPIParams = CommonParams & { id__in?: number[] };
+
+type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
+
+type ReplaceArrayTypes<T> = T extends Array<infer U>
+  ? ExtendedArray<U>
+  : T extends ReadonlyArray<infer U>
+  ? ExtendedArray<U>
+  : T extends ImmutableArray<infer U>
+  ? ExtendedArray<U>
+  : T extends object
+  ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
+  : T;

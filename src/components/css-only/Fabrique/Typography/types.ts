@@ -29,4 +29,5 @@ export type TypographyColorType =
   | `${TypographyColor.DEFAULT}`
   | `${TypographyColor.ERROR}`
   | `${TypographyColor.PRIMARY}`
-  | `${TypographyColor.SECONDARY}`;
+  | `${TypographyColor.SECONDARY}`
+  | `${TypographyColor.SUCCESS}`;

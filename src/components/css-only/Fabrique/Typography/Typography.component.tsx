@@ -64,6 +64,7 @@ const TypographyColorClassNameMap = {
   [TypographyColor.ERROR]: 'bs-typography-color-error',
   [TypographyColor.PRIMARY]: 'bs-typography-color-primary',
   [TypographyColor.SECONDARY]: 'bs-typography-color-secondary',
+  [TypographyColor.SUCCESS]: 'bs-typography-color-success',
 };
 
 export const Typography: React.FC<Props> = ({

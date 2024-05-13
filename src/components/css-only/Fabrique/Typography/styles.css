@@ -125,6 +125,10 @@
   color: var(--bs-color-text-brand-secondary);
 }
 
+.bs-typography-color-success {
+  color: var(--bs-color-text-success-weak);
+}
+
 .bs-typography-text-align-inherit {
   text-align: inherit;
 }

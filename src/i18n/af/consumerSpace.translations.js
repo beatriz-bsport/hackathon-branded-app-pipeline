@@ -517,6 +517,7 @@ exports.default = {
         scan: 'Scan barcode',
         scanInfo:
           'Scan this barcode to enter the studio or to check-in for your class.',
+        entryBarcode: 'Entry barcode',
       },
       detachPayment: {
         title: 'Delete payment method',

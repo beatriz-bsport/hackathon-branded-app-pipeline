@@ -39,4 +39,5 @@ export enum TypographyColor {
   ERROR = 'error',
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
+  SUCCESS = 'success',
 }

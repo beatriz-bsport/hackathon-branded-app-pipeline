@@ -1,6 +1,40 @@
+/* CONSUMER SUMMARY CARD */
+.bs-consumer-summary-card__container {
+  container: bsConsumerSummaryCard / inline-size;
+  max-width: 800px;
+  min-width: 300px;
+}
+
+.bs-consumer-summary-card__root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'header header '
+    'info address'
+    'info spivi'
+    'notification .'
+    'membership .';
+  column-gap: var(--bs-space-size-4);
+}
+
+/* GENERAL */
+.bs-consumer-summary-card-section {
+  align-self: start;
+  min-width: 220px;
+}
+
 /* INFO SECTION */
 .bs-consumer-summary-card__info-section {
+  grid-area: info;
+  gap: var(--bs-space-size-4);
+}
+
+/* ADDRESS SECTION */
+.bs-consumer-summary-card__address-section {
+  grid-area: address;
   gap: var(--bs-space-size-1);
+  align-self: stretch;
 }
 
 /* ADDRESS SECTION */
@@ -66,31 +100,58 @@
 
 /* SPIVI SECTION */
 .bs-consumer-summary-card__spivi-section {
+  grid-area: spivi;
 }
 
 /* HEADER SECTION */
 .bs-consumer-summary-card__header-section {
+  grid-area: header;
+  gap: var(--bs-space-size-4);
 }
 
 .bs-consumer-summary-card__profile-header {
   display: flex;
-}
-
-.bs-consumer-summary-card__profile-header--mobile {
-  flex-direction: column;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+  overflow: hidden;
 }
 
 .bs-consumer-summary-card__profile-header__username {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
 }
 
 .bs-consumer-summary-card__account-balance {
   display: flex;
   gap: var(--bs-space-size-1);
+  align-items: center;
 }
 
 .bs-consumer-summary-card__barcode-button {
 }
 
-.bs-consumer-summary-card__barcode-button--isMobile {
-  width: 100%;
+/* MEMBERSHIP SECTION */
+.bs-consumer-summary-card__membership-section {
+  grid-area: membership;
+}
+.bs-consumer-summary-card__membership-section:not(:last-of-type) {
+  border-bottom: none;
+  margin-bottom: unset;
+}
+
+@container bsConsumerSummaryCard (width < 500px) {
+  .bs-consumer-summary-card__root {
+    display: flex;
+    flex-direction: column;
+    height: 100;
+  }
+}
+
+@container bsConsumerSummaryCard (width < 400px) {
+  .bs-consumer-summary-card__profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

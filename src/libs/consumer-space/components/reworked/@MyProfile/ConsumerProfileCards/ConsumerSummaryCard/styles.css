@@ -1,5 +1,6 @@
 /* INFO SECTION */
 .bs-consumer-summary-card__info-section {
+  gap: var(--bs-space-size-1);
 }
 
 /* ADDRESS SECTION */
@@ -63,10 +64,6 @@
   color: var(--bs-color-text-error-strong);
 }
 
-.bs-consumer-summary-card__info-section {
-  gap: var(--bs-space-size-1);
-}
-
-.bs-consumer-summary-card__address-section__address {
-  color: var(--bs-color-text-weak);
+/* SPIVI SECTION */
+.bs-consumer-summary-card__spivi-section {
 }

@@ -3640,7 +3640,7 @@
                         "_label": "Tags"
                     },
                     "cadence": {
-                        "_label": "Kadenz"
+                        "_label": "Publikum"
                     },
                     "audience": {
                         "_label": "Audience"
@@ -4134,7 +4134,7 @@
                             "_label": "Verfügbarkeiten löschen"
                         },
                         "createAvailability": {
-                            "_label": "Verfügbarkeiten ansehen"
+                            "_label": "Verfügbarkeiten hinzufügen"
                         },
                         "readAvailabilityDetail": {
                             "_label": "Details der Verfügbarkeiten ansehen"
@@ -4830,6 +4830,23 @@
                             },
                             "read": {
                                 "_label": "Siehe"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        }
+                    },
+                    "access_monitoring": {
+                        "_label": "Zugangsüberwachung",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "read": {
+                                "_label": "Sehen"
                             },
                             "create": {
                                 "_label": "Erstellen"
@@ -6256,7 +6273,22 @@
             "is_first_visit": "Erste Reservierung",
             "is_from_billing_plan": "Aus dem Abonnement",
             "bookkeeping_account_name": "Name des Kontos",
-            "bookkeeping_account_number": "Kontonummer"
+            "bookkeeping_account_number": "Kontonummer",
+            "admission": "Zulassung",
+            "updated_status": "Aktualisierter Status",
+            "initial_status": "Berechtigungsstatus",
+            "visit_reason": "Grund des Besuchs",
+            "establishments_names": "Standort",
+            "location": "Ort",
+            "visit_time": "Zeit des Besuches",
+            "visit_date": "Datum des Besuchs",
+            "member_membership_id": "Mitglieder ID",
+            "member_gender": "Geschlecht",
+            "member_phonenumber": "Telefon",
+            "member_email": "Email",
+            "member_last_name": "Nachname",
+            "member_first_name": "Vorname",
+            "studio_address_franchise_only": "Ort/Adresse"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -6315,7 +6347,8 @@
             "dispute": "Streitfrage",
             "billing_plan": "Abonnement",
             "members_purchase": "Einkäufe der Mitglieder",
-            "referral_grant": "Empfehlung"
+            "referral_grant": "Empfehlung",
+            "access_monitoring": "Zugangsüberwachung"
         },
         "globalCategories": {
             "subheader": {
@@ -6592,7 +6625,8 @@
             "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert.",
             "referral_grant": "Empfehlungslinks werden nach dem Erstellungsdatum des gesponserten Mitglieds gefiltert",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "In diesem Bericht werden die Einkäufe nach der Methode der periodengerechten Buchführung ausgewiesen. Das heißt, Überweisungen auf den internen Kontostand und Käufe von Geschenkkarten sind nicht enthalten. <0>Weitere Informationen finden Sie in unserem Hilfe-Zentrum.</0> Um den Kauf von Gutscheinen zu verfolgen, verwenden Sie den Bericht {{ purchasedGiftcardReport }}."
+            "invoicesAccrualMethod": "In diesem Bericht werden die Einkäufe nach der Methode der periodengerechten Buchführung ausgewiesen. Das heißt, Überweisungen auf den internen Kontostand und Käufe von Geschenkkarten sind nicht enthalten. <0>Weitere Informationen finden Sie in unserem Hilfe-Zentrum.</0> Um den Kauf von Gutscheinen zu verfolgen, verwenden Sie den Bericht {{ purchasedGiftcardReport }}.",
+            "access_monitoring": "Die Besuche werden nach Datum und Uhrzeit gefiltert, zu der sie stattgefunden haben."
         },
         "franchiseWarning": {
             "part1": "Aufgrund der großen Datenmenge kann es einige Minuten dauern, bis der Bericht erstellt wird.",
@@ -8997,14 +9031,18 @@
                             "table": {
                                 "action": {
                                     "delete": "Löschen",
-                                    "edit": "bearbeiten"
+                                    "edit": "bearbeiten",
+                                    "showInfos": "Informationen ansehen"
                                 },
                                 "addSupplier": "Anbieter hinzufügen",
                                 "actions": "Aktionen",
                                 "notes": "Anmerkungen",
                                 "name": "Name"
                             },
-                            "title": "Anbieter"
+                            "title": "Anbieter",
+                            "detailsModal": {
+                                "title": "Lieferant: {{name}}"
+                            }
                         }
                     },
                     "title": "Einstellungen"
@@ -12299,7 +12337,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} Verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -16958,7 +16996,8 @@
                 "referral_details": "Details zur Empfehlung",
                 "fabrique_title": "Titel",
                 "consumer_invoice_details_card": "Karte mit Rechnungsangaben (für Mitglieder)",
-                "consumer_invoice_card": "Rechnungskarte (für Mitglieder)"
+                "consumer_invoice_card": "Rechnungskarte (für Mitglieder)",
+                "fabrique_tooltip": "Werkzeugsinformation"
             },
             "page": {
                 "calendar": "Kalender",
@@ -19832,6 +19871,11 @@
                 "description": "Zu finden unter Einstellungen > Mitarbeiter.",
                 "message": "Bitte Mitarbeiter mit Administratorrechten, Ihrem Mitarbeiterzugang einen Standort zuzuweisen.",
                 "title": "Standort nicht zugewiesen"
+            },
+            "memberPhotoHistory": {
+                "validateIdentity": "Identität bestätigen",
+                "uploadedOn": "Hochgeladen {{- date}}",
+                "title": "Vorherige Bilder"
             }
         },
         "memberVisitDetails": {
@@ -19863,7 +19907,9 @@
                 "red": "Nicht gültig",
                 "orange": "Warnung",
                 "green": "Gültig"
-            }
+            },
+            "noPreviousPhoto": "Mitglied hat keine früheren Bilder",
+            "noSpotAllocated": "Kein Platz zugewiesen"
         },
         "memberVisit": {
             "warnings": {
@@ -19922,6 +19968,24 @@
             },
             "breadcrumbTitle": "Besuch des Standortes"
         },
-        "accessMonitoringTitle": "Zugangskontrolle"
+        "accessMonitoringTitle": "Zugangskontrolle",
+        "filters": {
+            "entryStatus": {
+                "U": "Unbekannt",
+                "N": "Nicht eingegeben",
+                "Y": "Eingegeben",
+                "unknown": "Unbekannt",
+                "notEntered": "Nicht eingegeben",
+                "entered": "Eingegeben"
+            },
+            "accessStatus": {
+                "R": "Ungültig",
+                "O": "Warnung",
+                "red": "Ungültig",
+                "G": "Gültig",
+                "orange": "Warnung",
+                "green": "Gültig"
+            }
+        }
     }
 }

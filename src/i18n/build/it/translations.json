@@ -8326,7 +8326,22 @@
             "is_first_visit": "Prima prenotazione",
             "is_from_billing_plan": "Proveniente da un abbonamento ricorrente",
             "bookkeeping_account_name": "Nome account",
-            "bookkeeping_account_number": "Numero account"
+            "bookkeeping_account_number": "Numero account",
+            "admission": "Ammissione",
+            "updated_status": "Stato aggiornato",
+            "initial_status": "Stato dell'autorizzazione",
+            "visit_reason": "Motivo della visita",
+            "establishments_names": "Stabilimento",
+            "location": "Sede",
+            "visit_time": "Orario della visita",
+            "visit_date": "Data della visita",
+            "member_membership_id": "ID membro",
+            "member_gender": "Sesso",
+            "member_phonenumber": "Telefono",
+            "member_email": "Email",
+            "member_last_name": "Cognome",
+            "member_first_name": "Nome",
+            "studio_address_franchise_only": "Sede/Indirizzo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -8430,7 +8445,8 @@
             "franchise_shared_pass": "Utilizzo del pacchetto condiviso",
             "billing_plan": "Abbonamento ricorrente",
             "members_purchase": "Acquisti dei membri",
-            "referral_grant": "Referral"
+            "referral_grant": "Referral",
+            "access_monitoring": "Monitoraggio degli accessi"
         },
         "globalCategories": {
             "subheader": {
@@ -8712,7 +8728,8 @@
             "members": "I membri sono filtrati in base alla loro data di iscrizione.",
             "referral_grant": "I link di sponsorizzazione sono filtrati in base alla data di creazione del membro sponsorizzato",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "Questo report visualizza gli acquisti in base al metodo di contabilità per competenza. Non sono quindi inclusi i trasferimenti di denaro al saldo del conto interno e gli acquisti di gift card. <0>Per monitorare gli acquisti di gift card, utilizzare il report {{ purchasedGiftcardReport }}."
+            "invoicesAccrualMethod": "Questo report visualizza gli acquisti in base al metodo di contabilità per competenza. Non sono quindi inclusi i trasferimenti di denaro al saldo del conto interno e gli acquisti di gift card. <0>Per monitorare gli acquisti di gift card, utilizzare il report {{ purchasedGiftcardReport }}.",
+            "access_monitoring": "Le visite vengono filtrate in base alla data e all'ora in cui si sono verificate."
         },
         "last_invoice_status": {
             "": [
@@ -13430,14 +13447,18 @@
                             "table": {
                                 "action": {
                                     "delete": "Elimina",
-                                    "edit": "Modifica"
+                                    "edit": "Modifica",
+                                    "showInfos": "Vedi informazioni"
                                 },
                                 "addSupplier": "Aggiungi fornitore",
                                 "actions": "Azioni",
                                 "notes": "Note",
                                 "name": "Nome"
                             },
-                            "title": "Fornitori"
+                            "title": "Fornitori",
+                            "detailsModal": {
+                                "title": "Fornitore: {{name}}"
+                            }
                         }
                     },
                     "title": "Impostazioni"
@@ -15359,7 +15380,7 @@
                         "_label": "E-mail"
                     },
                     "cadence": {
-                        "_label": "Cadenza"
+                        "_label": "Audience"
                     },
                     "audience": {
                         "_label": "Audience"
@@ -16228,6 +16249,23 @@
                                 "_label": "Crea"
                             }
                         }
+                    },
+                    "access_monitoring": {
+                        "_label": "Monitoraggio degli accessi",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        }
                     }
                 },
                 "Bookings": {
@@ -16546,7 +16584,7 @@
                     "_label": "Disponibilità",
                     "allowed_actions": {
                         "createAvailability": {
-                            "_label": "Vedi le disponibilità"
+                            "_label": "Aggiungi disponibilità"
                         },
                         "deleteAvailability": {
                             "_label": "Elimina disponibilità"
@@ -16824,7 +16862,8 @@
                 "element": "Elemento",
                 "unsavedChanges": "Non sono state riscontrate modifiche",
                 "savedChanges": "Ultime modifiche salvate",
-                "save": "Salva"
+                "save": "Salva",
+                "tooltipHover": "Passare il mouse per mostrare il tooltip"
             },
             "components": {
                 "filter": "Filtro unico",
@@ -16966,7 +17005,8 @@
                 "referral_details": "Dettagli del referral",
                 "fabrique_title": "Titolo",
                 "consumer_invoice_details_card": "Scheda dei dettagli della ricevuta (per i membri)",
-                "consumer_invoice_card": "Scheda della ricevuta (per i membri)"
+                "consumer_invoice_card": "Scheda della ricevuta (per i membri)",
+                "fabrique_tooltip": "Tooltip"
             },
             "cssConfig": {
                 "title": {
@@ -19925,6 +19965,11 @@
                 "description": "Si trova in Impostazioni > Staff.",
                 "message": "Chiedi allo staff con diritti di amministrazione di assegnare una posizione all'accesso dello staff.",
                 "title": "Sede non assegnata"
+            },
+            "memberPhotoHistory": {
+                "validateIdentity": "Convalida l'identità",
+                "uploadedOn": "Caricata il {{- date}}",
+                "title": "Immagini precedenti"
             }
         },
         "memberVisitDetails": {
@@ -19956,7 +20001,9 @@
                 "red": "Non valido",
                 "orange": "Attenzione",
                 "green": "Valido"
-            }
+            },
+            "noPreviousPhoto": "Il membro non ha immagini precedenti",
+            "noSpotAllocated": "Nessun posto assegnato"
         },
         "memberVisit": {
             "warnings": {
@@ -20015,6 +20062,24 @@
                 "refusedEntry": "Ingresso rifiutato"
             }
         },
-        "accessMonitoringTitle": "Monitoraggio degli accessi"
+        "accessMonitoringTitle": "Monitoraggio degli accessi",
+        "filters": {
+            "entryStatus": {
+                "U": "Sconosciuto",
+                "N": "Non entrato",
+                "Y": "Entrato",
+                "unknown": "Sconosciuto",
+                "notEntered": "Non entrato",
+                "entered": "Entrato"
+            },
+            "accessStatus": {
+                "R": "Non valido",
+                "O": "Attenzione",
+                "G": "Valido",
+                "red": "Non valido",
+                "orange": "Attenzione",
+                "green": "Valido"
+            }
+        }
     }
 }

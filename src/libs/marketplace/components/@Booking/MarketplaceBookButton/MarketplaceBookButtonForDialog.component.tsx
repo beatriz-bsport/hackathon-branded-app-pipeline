@@ -56,7 +56,12 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
         <DoneAllIcon className="bs-book-button__inner__icon__already-booked" />
       )}
       <div className="bs-book-button__inner__text">
-        {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
+        {getBookingButtonTraduction(
+          { ...offer, group },
+          metaActivity,
+          isRegistered,
+          t,
+        )}
       </div>
     </Button>
   );

@@ -98,8 +98,13 @@ const MarketplaceBookButton: React.FC<Props> = ({
               : 'book-button__inner__text'
           }
         >
-          {/* @ts-expect-error */}
-          {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
+          {getBookingButtonTraduction(
+            // @ts-expect-error offer should be of type Offer_full but is type as Offer here
+            { ...offer, group },
+            metaActivity,
+            isRegistered,
+            t,
+          )}
         </div>
       </div>
     </div>

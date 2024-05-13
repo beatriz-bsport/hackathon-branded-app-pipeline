@@ -53,7 +53,7 @@ const ShopListSettingsSupplierModal: React.FC<Props> = ({
   );
 
   return (
-    <GenericResponsiveDialog maxWidth="sm" open={open}>
+    <GenericResponsiveDialog maxWidth="sm" onClose={handleCancel} open={open}>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -79,6 +79,7 @@ const ShopListSettingsSupplierModal: React.FC<Props> = ({
                 <Grid container className={classes.fieldsContainer} spacing={3}>
                   <Grid item xs={12}>
                     <TextField
+                      autoFocus
                       className={classes.field}
                       error={!!errors.name}
                       helperText={!!errors.name && t(errors.name)}

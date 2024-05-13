@@ -19,7 +19,7 @@ import {
 } from '#libs/shop/actions/shopItemReworked';
 
 import {
-  fetchShopSupplierList as fetchShopSupplierListAction,
+  fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction,
   createShopSupplierTemplate as createShopSupplierTemplateAction,
   updateShopSupplierTemplate as updateShopSupplierTemplateAction,
   deleteShopSupplierTemplate as deleteShopSupplierTemplateAction,
@@ -50,13 +50,20 @@ import FranchiseShopList from '#src/libs/franchise/components/FranchiseShopList.
 import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
-import type { ShopItemTemplate, SubshopTemplate } from '#src/libs/shop/types';
+import type {
+  ShopItemTemplate,
+  ShopSupplierTemplate,
+  ShopSupplierTemplateCreate,
+  ShopSupplierUpdate,
+  SubshopTemplate,
+} from '#src/libs/shop/types';
 
 type Props = ConnectedProps<typeof connector>;
 
 export class FranchiseShopListPage extends PureComponent<Props> {
   componentDidMount() {
     this.props.fetchSubshopTemplateList();
+    this.handleFetchShopSupplierTemplateList();
   }
 
   handleCreateSubshopTemplate = (
@@ -123,15 +130,83 @@ export class FranchiseShopListPage extends PureComponent<Props> {
     );
   };
 
+  handleFetchShopSupplierTemplateList = (page?: number) => {
+    this.props.fetchShopSupplierTemplateList({
+      page: page ?? this.props.shopSupplierTemplateState.page,
+    });
+  };
+
+  handleChangeSupplierTemplatePage = (page: number) =>
+    this.handleFetchShopSupplierTemplateList(page);
+
+  handleCreateSupplierTemplate = (
+    values: ShopSupplierTemplateCreate,
+    options?: OptionCallback<ShopSupplierTemplate>,
+  ) => {
+    this.props.createShopSupplierTemplate(values, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierTemplateList();
+        options?.onSuccess?.();
+      },
+    });
+  };
+
+  handleUpdateSupplierTemplate = (
+    values: ShopSupplierUpdate,
+    options?: OptionCallback<ShopSupplierTemplate>,
+  ) => {
+    this.props.updateShopSupplierTemplate(values, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierTemplateList();
+        options?.onSuccess?.();
+      },
+    });
+  };
+
+  handleDeleteSupplierTemplate = (
+    id: number,
+    options?: OptionCallback<number>,
+  ) => {
+    const suppliersPage = this.props.shopSupplierTemplateState.page;
+    const isRemovingLastListItem =
+      (this.props.shopSupplierTemplateState.suppliers ?? []).length === 1 &&
+      suppliersPage > 1;
+
+    this.props.deleteShopSupplierTemplate(id, {
+      onError: options?.onError,
+      onSuccess: () => {
+        this.handleFetchShopSupplierTemplateList(
+          isRemovingLastListItem ? suppliersPage - 1 : suppliersPage,
+        );
+        options?.onSuccess?.();
+      },
+    });
+  };
+
   render() {
     return (
       <FranchiseShopList
+        changeSupplierTemplatePage={this.handleChangeSupplierTemplatePage}
         createSubshopTemplate={this.handleCreateSubshopTemplate}
+        createSupplierTemplate={this.handleCreateSupplierTemplate}
         deleteSubshopTemplate={this.handleDeleteSubshopTemplate}
+        deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}
         getShopItemTemplateState={this.props.getShopItemTemplateState}
         subshopTemplateList={this.props.subshopTemplateList}
+        supplierTemplateList={
+          this.props.shopSupplierTemplateState.suppliers ?? []
+        }
+        supplierTemplateListCount={
+          this.props.shopSupplierTemplateState.count ?? 0
+        }
+        supplierTemplateListPage={
+          this.props.shopSupplierTemplateState.page ?? 1
+        }
         updateSubshopTemplate={this.handleUpdateSubshopTemplate}
+        updateSupplierTemplate={this.handleUpdateSupplierTemplate}
       />
     );
   }
@@ -176,7 +251,7 @@ const connector = connect(
     updateShopItemTemplate: updateShopItemTemplateAction,
     deleteShopItemTemplate: deleteShopItemTemplateAction,
     // shop supplier template actions
-    fetchShopSupplierList: fetchShopSupplierListAction,
+    fetchShopSupplierTemplateList: fetchShopSupplierTemplateListAction,
     createShopSupplierTemplate: createShopSupplierTemplateAction,
     updateShopSupplierTemplate: updateShopSupplierTemplateAction,
     deleteShopSupplierTemplate: deleteShopSupplierTemplateAction,

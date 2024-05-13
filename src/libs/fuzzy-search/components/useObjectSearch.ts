@@ -64,7 +64,7 @@ export const useObjectSearch = ({
     searchObjects({
       params: {
         searchObjectURI: getSearchObjectURI(searchedObjectType),
-        q: 'abcd',
+        q: '',
         ...additionalParams,
       },
       searchedObjectType,
@@ -75,7 +75,7 @@ export const useObjectSearch = ({
     searchObjects({
       params: {
         searchObjectURI: getSearchObjectURI(searchedObjectType),
-        q: text === '' ? 'abcd' : text,
+        q: text,
         ...additionalParams,
       },
       searchedObjectType,

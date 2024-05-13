@@ -47,7 +47,7 @@ export const useHydrateSearch = ({
       {
         params: {
           searchObjectURI: getSearchObjectURI(searchedObjectType),
-          q: 'abcd',
+          q: '',
           id__in: initialValues ?? [],
         },
         searchedObjectType,

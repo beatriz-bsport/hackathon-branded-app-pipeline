@@ -1,3 +1,72 @@
 /* INFO SECTION */
 .bs-consumer-summary-card__info-section {
 }
+
+/* ADDRESS SECTION */
+.bs-consumer-summary-card__address-section__address {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-1 {
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-1--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-2 {
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-2--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--city {
+}
+
+.bs-consumer-summary-card__address-section__address--city--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--country {
+}
+
+.bs-consumer-summary-card__address-section__address--country--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--state {
+}
+
+.bs-consumer-summary-card__address-section__address--state--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--zipcode {
+}
+
+.bs-consumer-summary-card__address-section__address--zipcode--hidden {
+  display: none;
+}
+
+/* NOTIFICATION SECTION */
+
+.bs-consumer-summary-card__notification-section {
+  grid-area: notification;
+}
+
+.bs-consumer-summary-card__notification-section__accepted-notification {
+  color: var(--bs-color-text-success-weak);
+}
+
+.bs-consumer-summary-card__notification-section__refused-notification {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-consumer-summary-card__info-section {
+  gap: var(--bs-space-size-1);
+}
+
+.bs-consumer-summary-card__address-section__address {
+  color: var(--bs-color-text-weak);
+}

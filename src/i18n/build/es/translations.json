@@ -2921,14 +2921,18 @@
                             "table": {
                                 "action": {
                                     "delete": "Borrar",
-                                    "edit": "Editar"
+                                    "edit": "Editar",
+                                    "showInfos": "Ver información"
                                 },
                                 "addSupplier": "Añadir un proveedor",
                                 "actions": "Acciones",
                                 "notes": "Notas",
                                 "name": "Nombre"
                             },
-                            "title": "Proveedores"
+                            "title": "Proveedores",
+                            "detailsModal": {
+                                "title": "Proveedor: {{name}}"
+                            }
                         }
                     },
                     "title": "Parámetros"
@@ -5106,7 +5110,22 @@
             "is_first_visit": "Primera reserva",
             "is_from_billing_plan": "Procedente de la suscripción",
             "bookkeeping_account_name": "Nombre de la cuenta",
-            "bookkeeping_account_number": "Número de cuenta"
+            "bookkeeping_account_number": "Número de cuenta",
+            "admission": "Admisión",
+            "updated_status": "Estado actualizado",
+            "initial_status": "Estado de la autorización",
+            "visit_reason": "Motivo de la visita",
+            "establishments_names": "Establecimiento",
+            "location": "Ubicación",
+            "visit_time": "Hora de la visita",
+            "visit_date": "Fecha de la visita",
+            "member_membership_id": "ID de miembro",
+            "member_gender": "Sexo",
+            "member_phonenumber": "Teléfono",
+            "member_email": "Email",
+            "member_last_name": "Apellido",
+            "member_first_name": "Nombre",
+            "studio_address_franchise_only": "Ubicación/Dirección"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5210,7 +5229,8 @@
             "dispute": "Litigio sobre el pago",
             "billing_plan": "Suscripción",
             "members_purchase": "Compras de los miembros",
-            "referral_grant": "Referencia"
+            "referral_grant": "Referencia",
+            "access_monitoring": "Control de Acceso"
         },
         "globalCategories": {
             "subheader": {
@@ -5488,7 +5508,8 @@
             "members": "Los miembros son filtrados en función de su fecha de inscripción.",
             "referral_grant": "Los enlaces de referencia se filtran en función de la fecha de registro del miembro referido",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "Este informe muestra las compras basadas en el método contable de devengo. Es decir, no se incluyen las transferencias de dinero al saldo de la cuenta interna ni las compras de tarjetas regalo. <0>Consulte nuestra hoja de ayuda para obtener más información.</0> Para realizar un seguimiento de las compras de tarjetas regalo, utilice el informe {{ purchasedGiftcardReport }}."
+            "invoicesAccrualMethod": "Este informe muestra las compras basadas en el método contable de devengo. Es decir, no se incluyen las transferencias de dinero al saldo de la cuenta interna ni las compras de tarjetas regalo. <0>Consulte nuestra hoja de ayuda para obtener más información.</0> Para realizar un seguimiento de las compras de tarjetas regalo, utilice el informe {{ purchasedGiftcardReport }}.",
+            "access_monitoring": "Las visitas se filtran en función de la fecha y hora en que se produjeron."
         },
         "franchiseWarning": {
             "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
@@ -10921,7 +10942,7 @@
                         "_label": "Tags"
                     },
                     "cadence": {
-                        "_label": "Cadencia"
+                        "_label": "Audiencia"
                     },
                     "audience": {
                         "_label": "Audience"
@@ -11364,7 +11385,7 @@
                     "_label": "Disponibilidades",
                     "allowed_actions": {
                         "createAvailability": {
-                            "_label": "Ver disponibilidades"
+                            "_label": "Añadir disponibilidades"
                         },
                         "deleteAvailability": {
                             "_label": "Borrar disponibilidades"
@@ -11772,6 +11793,23 @@
                     },
                     "referral_grant": {
                         "_label": "Bonificaciones de referencia",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "delete": {
+                                "_label": "Borrar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Crear"
+                            }
+                        }
+                    },
+                    "access_monitoring": {
+                        "_label": "Control de acceso",
                         "allowed_actions": {
                             "edit": {
                                 "_label": "Editar"
@@ -17271,7 +17309,8 @@
                 "referral_details": "Detalles de la referencia",
                 "fabrique_title": "Título",
                 "consumer_invoice_details_card": "Tarjeta de datos de la factura (para el miembro)",
-                "consumer_invoice_card": "Tarjeta de factura (para el miembro)"
+                "consumer_invoice_card": "Tarjeta de factura (para el miembro)",
+                "fabrique_tooltip": "Información sobre herramientas"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -17294,7 +17333,8 @@
                 "unsavedChanges": "Algunos cambios no se han guardado",
                 "element": "Elemento",
                 "preview": "Vista previa - {{-name}}",
-                "CSS": "CSS"
+                "CSS": "CSS",
+                "tooltipHover": "Pasar el ratón por encima para mostrar información sobre herramientas"
             },
             "newsletterV2": {
                 "showSubtitle": "Mostrar subtítulo",
@@ -19982,6 +20022,11 @@
                 "description": "Se encuentra en Ajustes > Personal.",
                 "message": "Pida al personal con derechos de administrador que asigne una ubicación a su acceso de personal.",
                 "title": "Ubicación no asignada"
+            },
+            "memberPhotoHistory": {
+                "validateIdentity": "Validar la identidad",
+                "uploadedOn": "Subido {{- date}}",
+                "title": "Fotos anteriores"
             }
         },
         "memberVisitDetails": {
@@ -20013,7 +20058,9 @@
                 "red": "Inválido",
                 "orange": "Atención",
                 "green": "Válido"
-            }
+            },
+            "noPreviousPhoto": "El miembro no tiene fotos anteriores",
+            "noSpotAllocated": "Sin plaza asignada"
         },
         "memberVisit": {
             "warnings": {
@@ -20072,6 +20119,24 @@
                 "refusedEntry": "Entrada denegada"
             }
         },
-        "accessMonitoringTitle": "Control de acceso"
+        "accessMonitoringTitle": "Control de acceso",
+        "filters": {
+            "entryStatus": {
+                "U": "Desconocido",
+                "N": "No entrado",
+                "Y": "Entrado",
+                "unknown": "Desconocido",
+                "notEntered": "No entrado",
+                "entered": "Entrado"
+            },
+            "accessStatus": {
+                "R": "No válido",
+                "O": "Advertencia",
+                "G": "Válido",
+                "red": "No válido",
+                "orange": "Advertencia",
+                "green": "Válido"
+            }
+        }
     }
 }

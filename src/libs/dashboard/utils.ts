@@ -1,5 +1,5 @@
 // @ts-nocheck
-import moment, { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 import { v4 as uuidv4 } from 'uuid';
 import { TFunction } from 'i18next';
@@ -28,20 +28,20 @@ export const replaceDates: (graphList: Array<Graph>) => Array<Graph> = (
     if (dateRange.kind !== 'custom') {
       switch (dateRange.kind) {
         case 'current_year':
-          dateRange.start = moment().subtract(1, 'years').format('YYYY-MM-DD');
-          dateRange.end = moment().format('YYYY-MM-DD');
+          dateRange.start = DateTime.now().minus({ year: 1 }).toISODate();
+          dateRange.end = DateTime.now().toISODate();
           break;
         case 'last_three_months':
-          dateRange.start = moment().subtract(3, 'months').format('YYYY-MM-DD');
-          dateRange.end = moment().format('YYYY-MM-DD');
+          dateRange.start = DateTime.now().minus({ month: 3 }).toISODate();
+          dateRange.end = DateTime.now().toISODate();
           break;
         case 'current_month':
-          dateRange.start = moment().subtract(1, 'months').format('YYYY-MM-DD');
-          dateRange.end = moment().format('YYYY-MM-DD');
+          dateRange.start = DateTime.now().minus({ month: 1 }).toISODate();
+          dateRange.end = DateTime.now().toISODate();
           break;
         case 'current_week':
-          dateRange.start = moment().subtract(1, 'weeks').format('YYYY-MM-DD');
-          dateRange.end = moment().format('YYYY-MM-DD');
+          dateRange.start = DateTime.now().minus({ week: 1 }).toISODate();
+          dateRange.end = DateTime.now().toISODate();
           break;
         default:
           break;
@@ -55,31 +55,38 @@ export const replaceDates: (graphList: Array<Graph>) => Array<Graph> = (
 // Extract date range from graph date_filter_config's filters_data to display as a chip
 export const getDateRangeFromGraphFilter = (
   graph: DataSourceDashboardGraph,
-): { timePeriod: string; start: MomentType; end: MomentType } | null => {
-  const { date_filter_config: dateFilterConfig } = graph;
-  const dateFilterDict = dateFilterConfig.groups?.at(0)?.filters_data?.at(0);
+): {
+  timePeriod: string;
+  start: DateTime;
+  end: DateTime;
+} | null => {
+  const {
+    date_filter_config: { groups },
+  } = graph;
+  const dateFilterDict = groups?.[0]?.filters_data?.[0];
   if (!dateFilterDict) return null;
+
   let start;
-  let end = moment();
+  let end = DateTime.now();
   let startTimestamp;
   let endTimestamp;
   switch (dateFilterDict.time_period) {
     case 'year':
-      start = moment(end).subtract(1, 'year');
+      start = end.minus({ year: 1 });
       break;
     case 'trimester':
-      start = moment(end).subtract(3, 'months');
+      start = end.minus({ month: 3 });
       break;
     case 'month':
-      start = moment(end).subtract(1, 'month');
+      start = end.minus({ month: 1 });
       break;
     case 'week':
-      start = moment(end).subtract(1, 'week');
+      start = end.minus({ week: 1 });
       break;
     default:
       [startTimestamp, endTimestamp] = dateFilterDict.value;
-      start = moment(startTimestamp.toString(), 'X');
-      end = moment(endTimestamp.toString(), 'X');
+      start = DateTime.fromSeconds(startTimestamp);
+      end = DateTime.fromSeconds(endTimestamp);
   }
   return { timePeriod: dateFilterDict.time_period, start, end };
 };

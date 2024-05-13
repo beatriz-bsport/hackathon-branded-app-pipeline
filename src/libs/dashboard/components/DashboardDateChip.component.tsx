@@ -35,7 +35,7 @@ export const DashboardDateChip: React.FC<Props> = ({
   if (timePeriod && timePeriod !== 'custom') {
     chipLabel = t(`header.helper.${timePeriod}`);
   } else if (timePeriod === 'custom') {
-    chipLabel = `${start.format('L')} -> ${end.format('L')}`;
+    chipLabel = `${start.toFormat('D')} -> ${end.toFormat('D')}`;
   }
 
   return (

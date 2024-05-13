@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -34,23 +34,23 @@ type State = {
 export const quickRanges = [
   {
     key: 'current_week',
-    start: moment().subtract(7, 'days').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
+    start: DateTime.now().minus({ day: 7 }).toISODate(),
+    end: DateTime.now().toISODate(),
   },
   {
     key: 'current_month',
-    start: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
+    start: DateTime.now().minus({ month: 1 }).toISODate(),
+    end: DateTime.now().toISODate(),
   },
   {
     key: 'last_three_months',
-    start: moment().subtract(3, 'months').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
+    start: DateTime.now().minus({ month: 3 }).toISODate(),
+    end: DateTime.now().toISODate(),
   },
   {
     key: 'current_year',
-    start: moment().subtract(1, 'year').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
+    start: DateTime.now().minus({ year: 1 }).toISODate(),
+    end: DateTime.now().toISODate(),
   },
 ];
 
@@ -89,9 +89,9 @@ class ChartRange extends React.Component<Props, State> {
           label={
             kind !== 'custom'
               ? `${this.props.t(kind)}`
-              : `${moment(start_date).format('L')} -> ${moment(end_date).format(
-                  'L',
-                )}`
+              : `${DateTime.fromISO(start_date).toFormat(
+                  'D',
+                )} -> ${DateTime.fromISO(end_date).toFormat('D')}`
           }
           onClick={this.handleClick}
           size="small"
@@ -122,11 +122,7 @@ class ChartRange extends React.Component<Props, State> {
             }}
             label={this.props.t('dateRange.start')}
             onChange={(value) =>
-              this.handleChangeInterval(
-                value.format('YYYY-MM-DD'),
-                end_date,
-                'custom',
-              )
+              this.handleChangeInterval(value, end_date, 'custom')
             }
             type="date"
             value={start_date}
@@ -138,11 +134,7 @@ class ChartRange extends React.Component<Props, State> {
             }}
             label={this.props.t('dateRange.end')}
             onChange={(value) =>
-              this.handleChangeInterval(
-                start_date,
-                value.format('YYYY-MM-DD'),
-                'custom',
-              )
+              this.handleChangeInterval(start_date, value, 'custom')
             }
             type="date"
             value={end_date}

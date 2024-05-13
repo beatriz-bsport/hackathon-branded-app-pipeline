@@ -1,13 +1,8 @@
 // @ts-nocheck
 import React, { useMemo, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
-// import {
-//   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-//   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-//   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-// } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import {
   PAYOUT_STATUS_CANCELED,
   PAYOUT_STATUS_FAILED,
@@ -301,14 +296,16 @@ const TimeInputFormik: React.FC<{
           onChange={(ev) => {
             setFieldValue(
               name,
-              moment()
-                .hours(ev.target.value.split(':')[0])
-                .minutes(ev.target.value.split(':')[1])
-                .unix(),
+              DateTime.now()
+                .set({
+                  hour: ev.target.value.split(':')[0],
+                  minute: ev.target.value.split(':')[1],
+                })
+                .toUnixInteger(),
             );
           }}
           type="time"
-          value={moment.unix(value).format('HH:mm')}
+          value={DateTime.fromSeconds(value).toFormat('HH:mm')}
         />
       )}
     </Field>
@@ -613,9 +610,9 @@ const DatatypeFilterConfigValueList: React.FC<{
         return Array(7)
           .fill(0)
           .map((_, i) => ({
-            label: moment()
-              .isoWeekday(i + 1)
-              .format('dddd'),
+            label: DateTime.now()
+              .set({ weekday: i + 1 })
+              .toFormat('cccc'),
             value: i + 1,
             columnName,
           }));

@@ -1,7 +1,6 @@
-// @ts-nocheck
 import { v4 as uuidv4 } from 'uuid';
 import memoize from 'memoize-one';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   DATATYPE_FILTERABLE_BY_DATE,
@@ -133,11 +132,14 @@ export const getDefaultValueForComparator = (details: {
       if (getIsTimestamp(currentValue[0]) && getIsTimestamp(currentValue[1]))
         return currentValue;
 
-      return [moment().startOf('day').unix(), moment().endOf('day').unix()];
+      return [
+        DateTime.now().startOf('day').toUnixInteger(),
+        DateTime.now().endOf('day').toUnixInteger(),
+      ];
     }
 
     if (getIsTimestamp(currentValue)) return currentValue;
-    return moment().startOf('day').unix();
+    return DateTime.now().startOf('day').toUnixInteger();
   }
 
   if (datatype === 'time') {
@@ -149,13 +151,13 @@ export const getDefaultValueForComparator = (details: {
         return currentValue;
 
       return [
-        moment().hours(8).minutes(0).unix(),
-        moment().hours(20).minutes(0).unix(),
+        DateTime.now().set({ hour: 8, minute: 0 }).toUnixInteger(),
+        DateTime.now().set({ hour: 20, minute: 0 }).toUnixInteger(),
       ];
     }
 
     if (getIsTimestamp(currentValue)) return currentValue;
-    return moment().hours(8).minutes(0).unix();
+    return DateTime.now().set({ hour: 8, minute: 0 }).toUnixInteger();
   }
 
   return null;
@@ -229,18 +231,22 @@ export const generateNewFilterItem = (
     datatype === 'datetime' || datatype === 'date' ? DATE_SUBDATA_TYPE : null;
 
   return {
+    // @ts-ignore
     datatype,
     sub_datatype,
     comparator,
     identifier: metadata.identifier,
+    // @ts-ignore
     time_period: getDefaultValueForTimePeriod({
       comparator,
       sub_datatype,
+      // @ts-ignore
       datatype,
       currentTimePeriod: null,
     }),
     value: getDefaultValueForComparator({
       comparator,
+      // @ts-ignore
       datatype,
       currentValue: null,
     }),
@@ -287,23 +293,23 @@ const getDateRangeValueForTimePeriod = (
   switch (timePeriod) {
     case 'week':
       return [
-        moment().subtract(1, 'week').startOf('day').unix(),
-        moment().endOf('day').unix(),
+        DateTime.now().minus({ week: 1 }).startOf('day').toUnixInteger(),
+        DateTime.now().endOf('day').toUnixInteger(),
       ];
     case 'month':
       return [
-        moment().subtract(1, 'month').startOf('day').unix(),
-        moment().endOf('day').unix(),
+        DateTime.now().minus({ month: 1 }).startOf('day').toUnixInteger(),
+        DateTime.now().endOf('day').toUnixInteger(),
       ];
     case 'trimester':
       return [
-        moment().subtract(3, 'month').startOf('day').unix(),
-        moment().endOf('day').unix(),
+        DateTime.now().minus({ month: 3 }).startOf('day').toUnixInteger(),
+        DateTime.now().endOf('day').toUnixInteger(),
       ];
     default:
       return [
-        moment().subtract(1, 'year').startOf('day').unix(),
-        moment().endOf('day').unix(),
+        DateTime.now().minus({ year: 1 }).startOf('day').toUnixInteger(),
+        DateTime.now().endOf('day').toUnixInteger(),
       ];
   }
 };

@@ -22,19 +22,25 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 
 import useIsTextExpandable from '#hooks/useIsTextExpandable';
 
-import type { ShopSupplier } from '#libs/shop/types';
+import type { ShopSupplier, ShopSupplierTemplate } from '#libs/shop/types';
 
 type Props = {
-  supplierList: ShopSupplier[];
-  handleEditSupplier: (supplier: ShopSupplier) => void;
-  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
+  supplierList: ShopSupplier[] | ShopSupplierTemplate[];
+  handleEditSupplier: (supplier: ShopSupplier | ShopSupplierTemplate) => void;
+  handleSelectSupplierForDeletion: (
+    supplier: ShopSupplier | ShopSupplierTemplate,
+  ) => void;
 };
 
 type ShopSupplierListItemProps = {
-  supplier: ShopSupplier;
-  handleEditSupplier: (supplier: ShopSupplier) => void;
-  handleSelectSupplierForDeletion: (supplier: ShopSupplier) => void;
-  handleShowSupplierDetails: (supplier: ShopSupplier) => void;
+  supplier: ShopSupplier | ShopSupplierTemplate;
+  handleEditSupplier: (supplier: ShopSupplier | ShopSupplierTemplate) => void;
+  handleSelectSupplierForDeletion: (
+    supplier: ShopSupplier | ShopSupplierTemplate,
+  ) => void;
+  handleShowSupplierDetails: (
+    supplier: ShopSupplier | ShopSupplierTemplate,
+  ) => void;
 };
 
 const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(

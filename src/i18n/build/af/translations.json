@@ -1935,6 +1935,43 @@
         "detachPayment": {
           "title": "Delete payment method",
           "subtitle": "Remember you can't delete payment methods used in recurring payments."
+        },
+        "gender": "Gender",
+        "birthday": "Birthday",
+        "identityDocument": "Identity document",
+        "phone": "Phone number",
+        "emergencyNumber": "Emergency number",
+        "address": "Address",
+        "notifications": {
+          "title": "Notifications",
+          "phoneAllowed": "Phone notifications allowed",
+          "phoneNotAllowed": "Phone notifications not allowed",
+          "emailAllowed": "Email notifications allowed",
+          "emailNotAllowed": "Email notifications not allowed"
+        },
+        "spivi": {
+          "title": "Spinning data",
+          "displayData": "Display my data in real time",
+          "drawerTitle": "Display data",
+          "information": "If activated, your data (speed, calories burned, etc.) will be displayed in real-time during your session. Otherwise, you will receive a summary by e-mail at the end of the session."
+        },
+        "accountBalance": "Account balance",
+        "membershipId": "Membership number",
+        "paymentMethods": {
+          "title": "Saved payment methods",
+          "cards": "Cards",
+          "directPayments": "Direct payments",
+          "empty": "Once you save a payment, it will appear here.",
+          "paymentMethodLabel": "Ends with <strong>{{- identifier}}</strong>",
+          "cardItemCaptionText": "Expires: {{- additionalInfo}}",
+          "add": "Add payment method"
+        },
+        "termsAndConditions": {
+          "title": "Terms and conditions",
+          "subtitle": "Member since {{- dateJoined}}",
+          "termOfuse": "Terms of use",
+          "generalTerms": "General terms",
+          "accepted": "Accepted on {{- dateAccepted}}"
         }
       }
     }

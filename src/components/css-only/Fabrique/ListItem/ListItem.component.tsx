@@ -246,6 +246,13 @@ export const ListItem: React.FC<Props> = ({
             )}
           </div>
         </ButtonBase>
+        <div
+          className={classNames('bs-fabrique-listitem__root__right-slot', {
+            'bs-fabrique-listitem__root__right-slot--hidden': !rightSlot,
+          })}
+        >
+          {rightSlot}
+        </div>
       </li>
     );
   }

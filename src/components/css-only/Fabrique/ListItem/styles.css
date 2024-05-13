@@ -5,6 +5,7 @@
   margin: 0;
   border-radius: var(--bs-border-radius-sm);
   width: 100%;
+  align-items: center;
 }
 
 .bs-fabrique-listitem__container {

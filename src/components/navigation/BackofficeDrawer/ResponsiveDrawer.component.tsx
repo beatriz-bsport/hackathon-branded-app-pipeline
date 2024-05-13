@@ -49,12 +49,14 @@ import Divider from '@material-ui/core/Divider';
 import Immutable from 'seamless-immutable';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
-import Config from '../../../config';
 
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
-import { checkRequiredPermissions } from '#libs/role/utils';
+import {
+  checkRequiredPermissions,
+  hasUpsellIdentifier,
+} from '#libs/role/utils';
 import VersionVisualizer from '../../VersionVisualizer.component';
 
 import {
@@ -187,22 +189,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
     handleUserSetDrawerIconsOnly && handleUserSetDrawerIconsOnly(!iconsOnly);
   };
   const prevIconOnly = usePrevious(iconsOnly);
-  const hasUpsellIdentifier = React.useCallback(
-    (identifier: number, forceOnAllEnvs: boolean = false) => {
-      if (forceOnAllEnvs)
-        return featureList
-          .map((ups) => ups.upsell_identifier)
-          .includes(identifier);
-      return (
-        Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-        featureList.map((ups) => ups.upsell_identifier).includes(identifier)
-      );
-    },
-    [featureList],
-  );
 
   const accessMonitoringItem = React.useMemo(() => {
-    if (!hasUpsellIdentifier(UPSELL_IDENTIFIER_ACCESS_MONITORING, true)) {
+    if (
+      !hasUpsellIdentifier(
+        UPSELL_IDENTIFIER_ACCESS_MONITORING,
+        featureList,
+        true,
+      )
+    ) {
       return [];
     }
     let to_path;
@@ -226,7 +221,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         openInNewTab,
       } as DrawerItemDefault,
     ]);
-  }, [t, hasUpsellIdentifier, permissions]);
+  }, [t, permissions, featureList]);
 
   const items: DrawerItem[] = React.useMemo(() => {
     return [
@@ -287,7 +282,10 @@ const ResponsiveDrawer: React.FC<Props> = ({
             text: t('backofficeMenu.establishment'),
           } as DrawerItemDefault,
           ...(![634, 631, 632, 633, 630].includes(companyId) &&
-          !hasUpsellIdentifier(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
+          !hasUpsellIdentifier(
+            UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
+            featureList,
+          )
             ? []
             : [
                 {
@@ -296,7 +294,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   text: t('backofficeMenu.programs'),
                 } as DrawerItemDefault,
               ]),
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_SUBTEACHER_TOOL, true) &&
+          ...(hasUpsellIdentifier(
+            UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+            featureList,
+            true,
+          ) &&
           hasObjectLevelPermission(
             objectLevelPermissions,
             'management.coach.allowed_actions.substitution',
@@ -408,7 +410,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: DoubleArrow,
             text: t('backofficeMenu.instalmentPayment'),
           } as DrawerItemDefault,
-          ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) ||
+          ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN, featureList) ||
           !(
             checkRequiredPermissions(
               'navigationMenu.payments.clockIn.clockInForOther',
@@ -461,7 +463,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE) ||
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE, featureList) ||
           hasLimitedAccesToAudience
             ? [
                 {
@@ -545,7 +547,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.personalization'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP, featureList)
             ? [
                 {
                   to: '/settings/mobile-personalisation/links',
@@ -615,7 +617,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.partnership'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKBOOKS, true)
+          ...(hasUpsellIdentifier(
+            UPSELL_IDENTIFIER_QUICKBOOKS,
+            featureList,
+            true,
+          )
             ? [
                 {
                   to: '/settings/quickbooks',
@@ -639,7 +645,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.platform_billing'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE)
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE, featureList)
             ? [
                 {
                   to: '/settings/quicksale',
@@ -672,12 +678,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
     classes,
     companyId,
     disconnect,
-    hasUpsellIdentifier,
     iconsOnly,
     permissions,
     setDrawerIconsOnly,
     objectLevelPermissions,
     hasLimitedAccesToAudience,
+    featureList,
     t,
   ]);
 

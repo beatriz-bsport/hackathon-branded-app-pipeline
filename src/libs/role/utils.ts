@@ -17,11 +17,12 @@ import type {
   ObjectLevelPermissions,
 } from './types';
 import type { Coach } from '#libs/associated-coach/types';
-import type { Company } from '#libs/company/types';
+import type { Company, UpsellSumup } from '#libs/company/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
+import Config from '#src/config';
 
 export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {
@@ -470,4 +471,28 @@ export const getEstablishmentOptionsFromSelectedSites = ({
           label: establishment.title,
         }))
     : [];
+};
+
+/**
+ * Returns a boolean whether the user has subscribed to the upsell with the given identifier.
+ * @param {number} identifier - The identifier of the upsell to check.
+ * @param {UpsellSumup[]} subscribedUpsells - The list of subscribed upsells (from state).
+ * @param {boolean} forceOnAllEnvs - A flag to force the check on all environments, and not
+ * only production (by default).
+ */
+export const hasUpsellIdentifier = (
+  identifier: number,
+  subscribedUpsells: UpsellSumup[],
+  forceOnAllEnvs: boolean = false,
+): boolean => {
+  if (forceOnAllEnvs)
+    return subscribedUpsells
+      .map((upsell) => upsell.upsell_identifier)
+      .includes(identifier);
+  return (
+    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+    subscribedUpsells
+      .map((upsell) => upsell.upsell_identifier)
+      .includes(identifier)
+  );
 };

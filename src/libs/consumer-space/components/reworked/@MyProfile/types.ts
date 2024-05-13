@@ -1,0 +1,30 @@
+export type ConsumerSummaryCardProps = {
+  acceptEmail: boolean;
+  acceptSms: boolean;
+  address: {
+    address_line_1: string;
+    address_line_2: string;
+    city: string;
+    country: string;
+    state: string;
+    zipcode: string;
+  };
+  birthday: string;
+  creditAccountBalance: number;
+  email: string;
+  emergencyContact: string;
+  firstName: string;
+  gender: string;
+  handleToggleBarcodeModal: () => void;
+  isMobile: boolean;
+  lastName: string;
+  memberId: number;
+  membershipId: string;
+  officialDocumentId: string;
+  phoneNumber: string;
+  photo: string;
+  spiviPrivacySettingsAccepted: boolean;
+  spiviPrivacySettingsLoading: boolean;
+  totalUnpaidAmount: string;
+  updateSpiviPrivacySettings: (memberId: number, value: boolean) => void;
+};

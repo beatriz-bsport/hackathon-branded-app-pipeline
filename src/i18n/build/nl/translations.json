@@ -3409,7 +3409,22 @@
             "is_first_visit": "Eerste boeking",
             "is_from_billing_plan": "Afkomstig van abonnement",
             "bookkeeping_account_name": "Account naam",
-            "bookkeeping_account_number": "Account nummer"
+            "bookkeeping_account_number": "Account nummer",
+            "admission": "Admissie",
+            "updated_status": "Bijgewerkte status",
+            "initial_status": "Autorisatiestatus",
+            "visit_reason": "Bezoek reden",
+            "establishments_names": "Vestiging",
+            "location": "Locatie",
+            "visit_time": "Tijd van bezoek",
+            "visit_date": "Datum van bezoek",
+            "member_membership_id": "Leden ID",
+            "member_gender": "Geslacht",
+            "member_phonenumber": "Telefoon",
+            "member_email": "Email",
+            "member_last_name": "Achternaam",
+            "member_first_name": "Voornaam",
+            "studio_address_franchise_only": "Locatie/Adres"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -3464,7 +3479,8 @@
             "dispute": "Geschil",
             "billing_plan": "Abonnement",
             "members_purchase": "Aankopen van leden",
-            "referral_grant": "Doorverwijzer"
+            "referral_grant": "Doorverwijzer",
+            "access_monitoring": "Toegangscontrole"
         },
         "globalCategories": {
             "subheader": {
@@ -3742,7 +3758,8 @@
             "members": "De leden worden gefilterd op datum van inschrijving.",
             "referral_grant": "Doorverwijzingslinks worden gefilterd aan de hand van de inschrijfdatum van de ontvanger",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "Dit rapport geeft aankopen weer op basis van de boekhoudmethode op transactiebasis. Dat wil zeggen dat overschrijvingen van geld naar het interne rekeningsaldo en aankopen van cadeaubonnen niet worden meegenomen. <0>Zie onze hulppagina voor meer informatie.</0> Gebruik het rapport {{ purchasedGiftcardReport }} om aankopen van cadeaubonnen bij te houden."
+            "invoicesAccrualMethod": "Dit rapport geeft aankopen weer op basis van de boekhoudmethode op transactiebasis. Dat wil zeggen dat overschrijvingen van geld naar het interne rekeningsaldo en aankopen van cadeaubonnen niet worden meegenomen. <0>Zie onze hulppagina voor meer informatie.</0> Gebruik het rapport {{ purchasedGiftcardReport }} om aankopen van cadeaubonnen bij te houden.",
+            "access_monitoring": "Bezoeken worden gefilterd op datum en tijd."
         },
         "franchiseWarning": {
             "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
@@ -10677,14 +10694,18 @@
                             "table": {
                                 "action": {
                                     "delete": "Verwijderen",
-                                    "edit": "Bewerken"
+                                    "edit": "Bewerken",
+                                    "showInfos": "Bekijk informatie"
                                 },
                                 "addSupplier": "Een leverancier toevoegen",
                                 "actions": "Acties",
                                 "notes": "Notities",
                                 "name": "Naam"
                             },
-                            "title": "Leveranciers"
+                            "title": "Leveranciers",
+                            "detailsModal": {
+                                "title": "Leverancier: {{name}}"
+                            }
                         }
                     },
                     "title": "Instellingen"
@@ -15116,7 +15137,7 @@
                         "_label": "Tags"
                     },
                     "cadence": {
-                        "_label": "Kadens"
+                        "_label": "Publiek"
                     },
                     "audience": {
                         "_label": "Doelgroep"
@@ -15980,6 +16001,23 @@
                                 "_label": "Creeër"
                             }
                         }
+                    },
+                    "access_monitoring": {
+                        "_label": "Toegangscontrole",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Bewerk"
+                            },
+                            "delete": {
+                                "_label": "Verwijder"
+                            },
+                            "read": {
+                                "_label": "Zie"
+                            },
+                            "create": {
+                                "_label": "Creëer"
+                            }
+                        }
                     }
                 },
                 "Payments": {
@@ -16201,7 +16239,7 @@
                             "_label": "Beschikbaarheid verwijderen"
                         },
                         "createAvailability": {
-                            "_label": "Beschikbaarheid toevoegen"
+                            "_label": "Zie beschikbaarheden"
                         }
                     },
                     "_label": "Beschikbaarheid"
@@ -19947,6 +19985,11 @@
                 "description": "Te vinden onder Instellingen > Personeel.",
                 "message": "Vraag personeel met beheerdersrechten om een locatie toe te wijzen aan de toegang voor personeel.",
                 "title": "Locatie niet toegewezen"
+            },
+            "memberPhotoHistory": {
+                "validateIdentity": "Identiteit valideren",
+                "uploadedOn": "Uploaded {{- date}}",
+                "title": "Vorige foto's"
             }
         },
         "memberVisitDetails": {
@@ -19978,7 +20021,9 @@
                     "refuse": "Toegang weigeren"
                 },
                 "description": "Geef aan of dit lid mag binnenkomen of niet"
-            }
+            },
+            "noPreviousPhoto": "Lid heeft geen eerdere foto's",
+            "noSpotAllocated": "Geen plaats toegewezen"
         },
         "memberVisit": {
             "warnings": {
@@ -20037,6 +20082,24 @@
                 "refusedEntry": "Toegang geweigerd"
             }
         },
-        "accessMonitoringTitle": "Toegangscontrole"
+        "accessMonitoringTitle": "Toegangscontrole",
+        "filters": {
+            "entryStatus": {
+                "U": "Onbekend",
+                "N": "Niet ingevuld",
+                "Y": "Ingevuld",
+                "unknown": "Onbekend",
+                "notEntered": "Niet ingevoerd",
+                "entered": "Ingevoerd"
+            },
+            "accessStatus": {
+                "R": "Niet geldig",
+                "O": "Waarschuwing",
+                "G": "Geldig",
+                "red": "Niet geldig",
+                "orange": "Waarschuwing",
+                "green": "Geldig"
+            }
+        }
     }
 }

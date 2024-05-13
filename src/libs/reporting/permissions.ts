@@ -1,0 +1,29 @@
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+
+import type { UpsellSumup } from '#libs/company/types';
+import { hasUpsellIdentifier } from '#libs/role/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+
+/**
+ * Checks whether the report should be displayed based on the upsells the studio has.
+ * No checks are permormed for the Master Account.
+ * @param reportCategory the category of the report.
+ * @param subscribedUpsells the upsells the user has.
+ * @returns true if the report should be displayed, false otherwise.
+ */
+export const filter_reports_by_upsells = (
+  reportCategory: ReportCategoryEnum,
+  subscribedUpsells: UpsellSumup[],
+) => {
+  switch (reportCategory) {
+    case ReportCategoryEnum.ACCESS_MONITORING:
+      return hasUpsellIdentifier(
+        UPSELL_IDENTIFIER_ACCESS_MONITORING,
+        subscribedUpsells,
+        true,
+      );
+
+    default:
+      return true;
+  }
+};

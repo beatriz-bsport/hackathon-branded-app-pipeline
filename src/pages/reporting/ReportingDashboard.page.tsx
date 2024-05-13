@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -24,6 +23,8 @@ import { RootState } from '../../reducers';
 import { getReportMetadata, getReports } from '../../libs/reporting/selectors';
 import { OptionCallback } from '../../state/types';
 import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
+import { filter_reports_by_upsells } from '#src/libs/reporting/permissions';
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 const ReportingDashboard = (props: Props) => {
@@ -32,6 +33,7 @@ const ReportingDashboard = (props: Props) => {
     createReport,
     updateReport,
     goToReport,
+    subscribedUpsells,
     metadata,
     deleteReport,
     fetchReports,
@@ -46,6 +48,14 @@ const ReportingDashboard = (props: Props) => {
   if (metadata.loading || !metadata.results || reports.loading) {
     return <LinearProgress />;
   }
+
+  const filteredReportConfigurations = (reports?.results ?? []).filter(
+    (report) => filter_reports_by_upsells(report.category, subscribedUpsells),
+  );
+
+  const filteredMetadata = (metadata?.results ?? []).filter((reportMetadata) =>
+    filter_reports_by_upsells(reportMetadata.category, subscribedUpsells),
+  );
 
   const handleUpsert = (value: {
     reportId: number;
@@ -65,16 +75,17 @@ const ReportingDashboard = (props: Props) => {
 
     createReport({
       data,
+      // @ts-expect-error
       options,
     });
   };
   return (
     <div>
       <ReportDashboard
-        metadata={metadata.results}
+        metadata={filteredMetadata}
         onDeleteReport={deleteReport}
         onReportDetail={goToReport}
-        reportConfigurations={reports.results ?? []}
+        reportConfigurations={filteredReportConfigurations}
         upsertReportConfiguration={handleUpsert}
       />
     </div>
@@ -85,6 +96,7 @@ const connector = connect(
   (state: RootState) => ({
     metadata: getReportMetadata(state),
     reports: getReports(state),
+    subscribedUpsells: getCompanyUpsellData(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,

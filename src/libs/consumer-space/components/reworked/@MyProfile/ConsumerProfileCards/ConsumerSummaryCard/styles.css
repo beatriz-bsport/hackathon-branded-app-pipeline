@@ -67,3 +67,30 @@
 /* SPIVI SECTION */
 .bs-consumer-summary-card__spivi-section {
 }
+
+/* HEADER SECTION */
+.bs-consumer-summary-card__header-section {
+}
+
+.bs-consumer-summary-card__profile-header {
+  display: flex;
+}
+
+.bs-consumer-summary-card__profile-header--mobile {
+  flex-direction: column;
+}
+
+.bs-consumer-summary-card__profile-header__username {
+}
+
+.bs-consumer-summary-card__account-balance {
+  display: flex;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-consumer-summary-card__barcode-button {
+}
+
+.bs-consumer-summary-card__barcode-button--isMobile {
+  width: 100%;
+}

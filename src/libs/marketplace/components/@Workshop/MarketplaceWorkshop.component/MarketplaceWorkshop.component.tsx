@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React, { useRef } from 'react';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -131,6 +129,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
                 getCoach={getCoach}
                 getEstablishment={getEstablishment}
                 getGroup={getGroup}
+                // @ts-ignore
                 getLevel={getLevel}
                 getOffersListByGroup={getOffersListByGroup}
                 hideCoach={hideCoach}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +6,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import MarketplaceOfferListItem from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
-import { formatMinutes } from '../../../../../utils/datetime';
+import { formatMinutes, isDateInThePast } from '#src/utils/datetime';
 import { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import UnfoldableText from '#components/typo/UnfoldableText.component';
@@ -17,8 +16,6 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
 import MarketplaceGroupOfferListItem from '#marketplacecomponents/@Offer/MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
-
-import { isOfferInThePast } from '#libs/marketplace/utils';
 
 import './MarketplaceWorkshopCard.css';
 
@@ -68,6 +65,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['marketplace', 'datetime', 'metaActivity']);
 
+  // @ts-ignore
   if (loading && !offers?.items?.length > 0) {
     return (
       <div className="bs-workshop-card bs-workshop-card--loading">
@@ -162,6 +160,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                   loading
                   withoutBookButton
                   bookedOffers={[]}
+                  // @ts-ignore
                   customLevel={{}}
                   getCoach={getCoach}
                   getEstablishment={getEstablishment}
@@ -191,7 +190,9 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 loading={offerDetailsloading || groupsLoading}
                 metaActivity={metaActivity}
                 offers={offersGroup}
+                // @ts-ignore
                 onBook={onBook}
+                // @ts-ignore
                 onBookOption={onBookOption}
                 showOfferFilling={showOfferFilling}
                 showOfferGender={showOfferGender}
@@ -205,15 +206,20 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               isWorkshop
               showDate
               additionalCoaches={offer.additional_coaches.map((coachId) =>
+                // @ts-ignore
                 getCoach(coachId),
               )}
+              // @ts-ignore
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel[offer.custom_level]}
+              // @ts-ignore
               establishment={getEstablishment(offer.establishment)}
               getLevel={getLevel}
               hideCoach={hideCoach}
-              isBookingDisabled={!offer.available || isOfferInThePast(offer)}
-              isOfferPassed={isOfferInThePast(offer)}
+              isBookingDisabled={
+                !offer.available || isDateInThePast(offer.date_start)
+              }
+              isOfferPassed={isDateInThePast(offer.date_start)}
               isRegistered={
                 bookedOffers?.length ? bookedOffers.includes(offer.id) : false
               }
@@ -221,10 +227,13 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               metaActivity={metaActivity}
               offer={{
                 ...offer,
+                // @ts-ignore
                 meta_activity: metaActivity,
               }}
+              // @ts-ignore
               onBook={onBook}
               onBookOption={onBookOption}
+              // @ts-ignore
               onClick={onBook}
               showOfferFilling={showOfferFilling}
               showOfferGender={showOfferGender}

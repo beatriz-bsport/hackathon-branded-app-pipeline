@@ -475,7 +475,7 @@ export const PaymentPackForm: React.FC<Props> = ({
               closeForm?.();
             },
             onError: () => {
-              actions.setSubmitting(false);
+          // @ts-ignore
               clearPaymentPackToEdit?.();
               closeForm?.();
             },

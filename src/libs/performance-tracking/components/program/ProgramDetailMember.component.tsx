@@ -4,9 +4,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
 
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { DateTime } from 'luxon';
 import MemberProgramIconWithDetail from '#libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-ignore
@@ -82,10 +81,9 @@ export const ProgramDetailMember: React.FC<Props> = ({
               />
             </div>
             <div className={classes.listItemThirdPart}>
-              {formatAsDatetimeAdapted(
-                moment.unix(item?.metric_record?.general?.date_created),
-                'LL',
-              )}
+              {DateTime.fromSeconds(
+                item?.metric_record?.general?.date_created,
+              ).toFormat('DDD')}
             </div>
           </ListItem>
         )}

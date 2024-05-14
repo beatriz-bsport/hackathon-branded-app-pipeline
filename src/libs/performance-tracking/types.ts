@@ -45,6 +45,7 @@ export type MetricRecord<Metric = PerformanceTrackingMetric> = {
       metric_id: number;
     }>;
     creationDate: string;
+    date_created: number;
     metric_ids: Array<number>;
   };
 };

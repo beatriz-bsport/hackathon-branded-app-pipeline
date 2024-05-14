@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
@@ -49,7 +49,9 @@ FactoryBot.define('MemberProgram', {
         metric,
         value: metric.default_value,
       })),
-      creationDate: moment(faker.date.past().toString()).format('DD/MM/YYYY'),
+      creationDate: DateTime.fromISO(faker.date.past().toString()).toFormat(
+        'D',
+      ),
     },
   }),
 });

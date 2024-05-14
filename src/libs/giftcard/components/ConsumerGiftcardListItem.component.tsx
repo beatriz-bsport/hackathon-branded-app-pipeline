@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,6 +51,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
 
     const handleOnClickSender = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberSender.id),
+      // @ts-ignore
       [consumerGiftcard?.id, isClickable, memberSender?.id, onClick],
     );
 
@@ -64,6 +64,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
         {(hasMemberProfileAccessPermission: boolean) => (
           <ListItem
+            // @ts-ignore
             button={isClickable && hasMemberProfileAccessPermission}
             disabled={
               disableItemIfNoMember &&
@@ -189,6 +190,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
 
     const handleOnClickReceiver = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberReceiver.id),
+      // @ts-ignore
       [consumerGiftcard?.id, isClickable, memberReceiver?.id, onClick],
     );
 
@@ -201,6 +203,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
         {(hasMemberProfileAccessPermission: boolean) => (
           <ListItem
+            // @ts-ignore
             button={isClickable && hasMemberProfileAccessPermission}
             disabled={
               disableItemIfNoMember &&

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { generateRandomInt } from '../../utils/factories';
@@ -118,6 +117,7 @@ export function consumer_giftcard_factory(
 ): Array<ConsumerGiftcard> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   const RECIPIENTS = giftcard_recipient_factory(num_el);
+  // @ts-ignore
   return GIFTCARD_IDS.map((id) => {
     return {
       id: generateRandomInt(1000),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -7,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-
+// @ts-ignore
 import { TextField, DateField, TimeField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard, GiftcardBackgroundImage } from '../types';
@@ -87,6 +86,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
         variant="outlined"
       />
       {props.giftcardBackgroundImageList.length > 0 && (
+        // @ts-ignore
         <CarouselInputField
           handleSelectedImage={handleSelectedImage}
           imagesArr={props.giftcardBackgroundImageList.map((img) => img.image)}
@@ -96,7 +96,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
           title={t('consumerGiftcard.form.select_image')}
         />
       )}
-
+      {/* @ts-ignore */}
       <EmailInputWithChipsField
         emailList={props.values.recipients}
         textFieldLabel={t('consumerGiftcard.form.recipients.label')}
@@ -181,6 +181,7 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
 
 export const ConsumerGiftcardFormFieldHOC = withFormik({
   // eslint-disable-next-line
+  // @ts-ignore
   mapPropsToValues: ({ giftcard }) => ({
     ...{
       message_is_from: '',
@@ -200,6 +201,7 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
   validationSchema: ConsumerGiftcardSchema,
   handleSubmit: (
     values,
+    // @ts-ignore
     { props: { onSubmit, onSuccess, onError }, setSubmitting },
   ) => {
     // eslint-disable-next-line
@@ -221,4 +223,5 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
 });
 
 export const ConsumerGiftcardFormComposed =
+  // @ts-ignore
   ConsumerGiftcardFormFieldHOC(ConsumerGiftcardForm);

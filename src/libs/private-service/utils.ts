@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
+import { DateTime } from 'luxon';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
@@ -45,6 +45,7 @@ export const getMissingResourceForBooking = (
     service.establishments.length &&
     !data.establishment &&
     (asManager ||
+      // @ts-ignore
       service.establishment_attribution === ResourceAttributionEnum.consumer)
   ) {
     missing.push('establishment');
@@ -63,29 +64,30 @@ export const getMissingResourceForBooking = (
 };
 
 export const splitIntervalList = (
-  interval_list: Array<Array<string>>,
+  interval_list: string[][],
   duration_minutes = 0,
   booking_interval = 15,
 ) => {
-  const slots: any[] = [];
+  const slots: string[] = [];
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
         // @ts-ignore
-        (moment(end) - moment(start)) / (1000 * 60 * booking_interval),
+        (DateTime.fromISO(end) - DateTime.fromISO(start)) /
+          (1000 * 60 * booking_interval),
         10,
       ) + 1;
     let n = 0;
     while (
       n < slotToGenerate &&
-      moment(start)
-        .add(n * booking_interval + duration_minutes, 'minutes')
-        .isSameOrBefore(moment(end))
+      DateTime.fromISO(start).plus({
+        minutes: n * booking_interval + duration_minutes,
+      }) <= DateTime.fromISO(end)
     ) {
       slots.push(
-        moment(start)
-          .add(n * booking_interval, 'minutes')
-          .format(),
+        DateTime.fromISO(start)
+          .plus({ minutes: n * booking_interval })
+          .toString(),
       );
       n += 1;
     }
@@ -100,20 +102,20 @@ export const groupSessionsByDayMoment = (
   date: string,
 ) => {
   const morningGroup = sessionList.filter(
-    (d) => moment(d).tz(timezoneName).hour() < 12,
+    (d) => DateTime.fromISO(d).setZone(timezoneName).hour < 12,
   );
   const noonGroup = sessionList.filter(
     (d) =>
-      moment(d).tz(timezoneName).hour() < 15 &&
-      moment(d).tz(timezoneName).hour() >= 12,
+      DateTime.fromISO(d).setZone(timezoneName).hour < 15 &&
+      DateTime.fromISO(d).setZone(timezoneName).hour >= 12,
   );
   const afternoonGroup = sessionList.filter(
     (d) =>
-      moment(d).tz(timezoneName).hour() < 18 &&
-      moment(d).tz(timezoneName).hour() >= 15,
+      DateTime.fromISO(d).setZone(timezoneName).hour < 18 &&
+      DateTime.fromISO(d).setZone(timezoneName).hour >= 15,
   );
   const eveningGroup = sessionList.filter(
-    (d) => moment(d).tz(timezoneName).hour() >= 18,
+    (d) => DateTime.fromISO(d).setZone(timezoneName).hour >= 18,
   );
 
   return [
@@ -226,6 +228,7 @@ export const getFormInitial = (
     delete initialPass.private_services;
     return initialPass;
   }
+  // @ts-ignore
   const updatedPass = { ...pass, compatibility: [] };
   delete updatedPass.private_services;
   return updatedPass;
@@ -576,9 +579,12 @@ export const formatSlotDetailData = memoize(
     const res = {};
 
     // Only include resource types that are not empty in result
+    // @ts-ignore
     if (associated_coach.length) res.associated_coach = associated_coach;
     if (associated_establishment.length)
+      // @ts-ignore
       res.associated_establishment = associated_establishment;
+    // @ts-ignore
     if (private_service.length) res.private_service = private_service;
 
     return res;

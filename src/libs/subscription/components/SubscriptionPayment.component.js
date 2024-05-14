@@ -10,7 +10,6 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import moment from 'moment-timezone';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -34,19 +33,19 @@ import { Alert } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import MomentUtils from '@date-io/moment';
+import { DateTime, Settings } from 'luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import LuxonUtils from '@date-io/luxon';
 import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import { Moment } from '../../../i18n';
 import type { EstablishmentBillingGroup } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
@@ -204,7 +203,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       this.setState({
         theoricalAmountValuePastInvoices:
           Math.ceil(
-            Math.abs(moment(this.props.date).diff(moment(), 'months', true)),
+            Math.abs(
+              DateTime.fromISO(this.props.date).diffNow('months').months,
+            ),
           ) *
             parseFloat(
               this.props?.contract?.recurrent_price ||
@@ -388,7 +389,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       contract: this.props.contract.id,
       member: this.props.member?.id || this.props.memberId,
       with_prorata: !!this.props.contract?.month_billing_day,
-      from_timestamp: moment(this.props.date).unix(),
+      from_timestamp: DateTime.fromISO(this.props.date).toUnixInteger(),
     })
       .then(({ data }) => {
         if (data.can_be_applied) {
@@ -530,14 +531,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 </Typography>
                 <div className={classes.column}>
                   <MuiPickersUtilsProvider
-                    locale={Moment.locale()}
-                    moment={Moment}
-                    utils={MomentUtils}
+                    locale={Settings.defaultLocale}
+                    utils={LuxonUtils}
                   >
                     <DatePicker
                       disablePast
                       required
-                      format="L"
+                      format="D"
                       mask={(value) => {
                         if (value) {
                           return [
@@ -572,7 +572,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 priceWithCurrency: getCurrencyDisplayWithPrice(
                   this.getPriceDisplay(),
                 ),
-                firstBillingDate: moment(date).format('L'),
+                firstBillingDate: DateTime.fromISO(date).toFormat('D'),
                 recurrentPrice: `${getCurrencyDisplayWithPrice(
                   parseFloat(this.props.contract.recurrent_price).toFixed(2),
                 )}`,
@@ -893,12 +893,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               id="stripe-pay"
               onClick={() => {
                 this.setState({
-                  lastConfirmDifferentMonth: !moment(this.props.date).isSame(
-                    moment(),
-                    'month',
-                  ),
+                  lastConfirmDifferentMonth: !DateTime.fromISO(
+                    this.props.date,
+                  ).hasSame(DateTime.now(), 'month'),
                 });
-                if (moment(this.props.date).isSameOrAfter(moment(), 'month')) {
+                if (
+                  DateTime.fromISO(this.props.date).startOf('month') >=
+                  DateTime.now().startOf('month')
+                ) {
                   this.submit(false, !areInitialBillingDetailsNecessary);
                 }
               }}

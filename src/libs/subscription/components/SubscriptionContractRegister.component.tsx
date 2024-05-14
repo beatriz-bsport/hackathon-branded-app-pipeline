@@ -2,8 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withState, withHandlers, compose } from 'recompose';
-import moment from 'moment-timezone';
-import MomentUtils from '@date-io/moment';
 import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
@@ -17,8 +15,8 @@ import Button from '@material-ui/core/Button';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
-// @ts-expect-error
-import { Moment } from '../../../i18n';
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 // @ts-expect-error
@@ -35,6 +33,7 @@ import type { PaymentMethod } from '../../payment/types';
 import type { OptionCallback } from '../../../state/types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { LuxonDateTime } from '#src/types';
 
 type OwnProps = {
   member: Member | null;
@@ -76,8 +75,8 @@ type OwnProps = {
 
 type Props = OwnProps & {
   classes: { [className: string]: string };
-  date: string | Moment;
-  setDate: (date: string | Moment) => void;
+  date: string;
+  setDate: (date: string) => void;
   processing: boolean;
   onSubmit: (token: string) => void;
 };
@@ -149,10 +148,10 @@ export const SubscriptionContractRegister = (props: Props) => {
 
   useMemo(() => {
     setAlertPickedDateInThePast(
-      moment(props.date).isBefore(moment().startOf('day')),
+      DateTime.fromISO(props.date) < DateTime.now().startOf('day'),
     );
     setPickedDateInThePast(
-      moment(props.date).isBefore(moment().startOf('day')),
+      DateTime.fromISO(props.date) < DateTime.now().startOf('day'),
     );
   }, [props.date]);
 
@@ -174,21 +173,24 @@ export const SubscriptionContractRegister = (props: Props) => {
   );
 
   const handleSetDate = useCallback(
-    (selectedDate: Moment) => {
-      const formatedDate = selectedDate
+    (selectedDate: LuxonDateTime) => {
+      const formattedDate = selectedDate
         .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-        .format('YYYY-MM-DD');
-      props.setDate(formatedDate);
+        .toISODate();
+      props.setDate(formattedDate);
     },
     [props],
   );
 
   const handleResetDate = useCallback(() => {
-    props.setDate(
-      moment().set(PLANNED_INVOICE_TIME_CONFIGURATION).format('YYYY-MM-DD'),
-    );
+    const formattedDate = DateTime.now()
+      .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+      .toISODate();
+    props.setDate(formattedDate);
   }, [props]);
 
+  const currentDate = DateTime.now();
+  const selectedDate = DateTime.fromISO(props.date);
   if (!props.member) {
     return (
       <MemberSearchModal
@@ -238,9 +240,11 @@ export const SubscriptionContractRegister = (props: Props) => {
           <DialogTitle>{t('contract.pastDate.title')}</DialogTitle>
 
           <DialogContent>
-            {moment(props.date).isSame(moment(), 'month') ? (
+            {currentDate.hasSame(selectedDate, 'month') ? (
               t('contract.pastDate.alertSameMonth', {
-                lostDays: moment().diff(moment(props.date), 'days'),
+                lostDays: currentDate
+                  .startOf('day')
+                  .diff(selectedDate.startOf('day'), 'days').days,
               })
             ) : (
               <div className={props.classes.alertContent}>
@@ -268,31 +272,13 @@ export const SubscriptionContractRegister = (props: Props) => {
             {t('contract.actions.iwanttostarton')}
           </Typography>
           <MuiPickersUtilsProvider
-            locale={Moment.locale()}
-            moment={Moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <DatePicker
               required
-              format="L"
-              mask={(value) => {
-                if (value) {
-                  return [
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ];
-                }
-                return [];
-              }}
-              minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
+              format="D"
+              minDate={DateTime.now().minus({ years: 1 }).toISODate()}
               onChange={handleSetDate}
               value={props.date}
             />
@@ -362,7 +348,7 @@ const styles = (theme: Theme) => ({
 
 export default compose<Props, OwnProps>(
   withStyles(styles),
-  withState('date', 'setDate', moment().format('YYYY-MM-DD')),
+  withState('date', 'setDate', DateTime.now().toISODate()),
   withState('processing', 'setProcessing', false),
   withHandlers({
     onSubmit:
@@ -384,7 +370,10 @@ export default compose<Props, OwnProps>(
         note: string | null,
         establishment_billing_group_id: number | null,
       ) => {
-        const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
+        const first_billing_timestamp = DateTime.fromFormat(
+          date,
+          'yyyy-MM-dd',
+        ).toUnixInteger();
 
         setProcessing(true);
         const data = {

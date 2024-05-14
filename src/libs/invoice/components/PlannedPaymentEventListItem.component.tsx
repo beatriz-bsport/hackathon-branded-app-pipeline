@@ -3,7 +3,6 @@ import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
@@ -27,6 +26,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
+import { DateTime } from 'luxon';
 import RedButton from '#components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
@@ -52,13 +52,14 @@ const onlyIfFuture =
   ) =>
   () => {
     if (
-      moment(
+      DateTime.fromISO(
         plannedPaymentEvent.next_retry_date || plannedPaymentEvent.future_date,
-      ).isSameOrBefore(moment())
+      ) <= DateTime.now()
     ) {
       if (
         Math.abs(
-          moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
+          DateTime.fromISO(plannedPaymentEvent.date_created).diffNow('minutes')
+            .minutes,
         ) > 30
       ) {
         // eslint-disable-next-line no-alert
@@ -174,11 +175,12 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 }
                 variant="caption"
               >
-                {moment(plannedPaymentEvent.future_date).isSameOrBefore(
-                  moment(),
-                )
-                  ? moment().format('L')
-                  : moment(plannedPaymentEvent.future_date).format('L')}
+                {DateTime.fromISO(plannedPaymentEvent.future_date) <=
+                DateTime.now()
+                  ? DateTime.now().toFormat('D')
+                  : DateTime.fromISO(plannedPaymentEvent.future_date).toFormat(
+                      'D',
+                    )}
               </Typography>
             </div>
           )}

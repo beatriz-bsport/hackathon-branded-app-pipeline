@@ -3975,7 +3975,7 @@
             "stopExplain": "Los próximos serian cancelada y las facturas suprimidas. Si habia abonos o reservas, serian suprimidos.",
             "revertCurrentExplainHelper": "Si el pago es válido, se creará un crédito, puedes reembolsarlo al cliente ingresando la factura y haciendo clic en \"Reembolsar\". Si el pago hubiera fallado, la deuda será cancelada.",
             "revertCurrentExplain": "Cancelar la última factura guardada y bloquear el bono",
-            "planStop": "Programe la terminación de la suscripción"
+            "planStop": "Finalizar"
         },
         "parameters": {
             "parameters": "Parámetros",

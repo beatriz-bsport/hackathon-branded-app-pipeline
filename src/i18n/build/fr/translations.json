@@ -10321,7 +10321,8 @@
             "members_purchase": "Achats des membres",
             "billing_plan": "Souscription",
             "franchise_shared_pass": "Utilisations cartes partagées",
-            "referral_grant": "Parrainage"
+            "referral_grant": "Parrainage",
+            "access_monitoring": "Surveillance des accès"
         },
         "header": {
             "sum": "Somme",
@@ -10663,7 +10664,22 @@
             "is_first_visit": "Première réservation",
             "is_from_billing_plan": "Venant de l'abonnement",
             "bookkeeping_account_name": "Nom du compte",
-            "bookkeeping_account_number": "Numéro de compte"
+            "bookkeeping_account_number": "Numéro de compte",
+            "admission": "Admission",
+            "initial_status": "Statut d'autorisation",
+            "updated_status": "Statut mis à jour",
+            "visit_reason": "Raison de la visite",
+            "establishments_names": "Établissement",
+            "location": "Localisation",
+            "visit_time": "Heure de visite",
+            "visit_date": "Date de visite",
+            "member_membership_id": "ID du membre",
+            "member_gender": "Sexe",
+            "member_phonenumber": "Téléphone",
+            "member_email": "Email",
+            "member_last_name": "Nom",
+            "member_first_name": "Prénom",
+            "studio_address_franchise_only": "Localisation/Adresse"
         },
         "yes": "Oui",
         "no": "Non",
@@ -10973,7 +10989,8 @@
             "video_purchase": "Les vidéos sont filtrées sur leur date d'achat.",
             "invoices": "Les achats sont filtrés sur la date d'émission de la facture associée.",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "Ce rapport affiche les achats sur la base de la méthode de comptabilité d'exercice. En d'autres termes, les transferts d'argent vers le solde client et les achats de cartes-cadeaux ne sont pas inclus. <0> Voir notre fiche d'aide pour plus d'informations.</0> Pour suivre les achats de carte cadeaux, utilisez le rapport {{ purchasedGiftcardReport }}."
+            "invoicesAccrualMethod": "Ce rapport affiche les achats sur la base de la méthode de comptabilité d'exercice. En d'autres termes, les transferts d'argent vers le solde client et les achats de cartes-cadeaux ne sont pas inclus. <0> Voir notre fiche d'aide pour plus d'informations.</0> Pour suivre les achats de carte cadeaux, utilisez le rapport {{ purchasedGiftcardReport }}.",
+            "access_monitoring": "Les visites sont filtrées en fonction de la date et de l'heure auxquelles elles ont eu lieu."
         },
         "readPermissionDenied": "Accès refusé"
     },
@@ -11269,7 +11286,7 @@
                         "_label": "Tags"
                     },
                     "cadence": {
-                        "_label": "Cadence"
+                        "_label": "Audience"
                     },
                     "audience": {
                         "_label": "Audience"
@@ -11496,7 +11513,7 @@
                             "_label": "Valider l'appel"
                         },
                         "addToWaitlist": {
-                            "_label": "Ajouter des membres dans la file d'attente"
+                            "_label": "Ajouter des membres à la liste d'attente"
                         },
                         "create": {
                             "_label": "Créer des réservations"
@@ -11505,7 +11522,7 @@
                             "_label": "Annuler des réservations"
                         },
                         "removeFromWaitlist": {
-                            "_label": "Supprimer des membres de la file d'attente"
+                            "_label": "Supprimer des membres de la liste d'attente"
                         },
                         "attendance": {
                             "_label": "Editer les présences / absences"
@@ -11525,7 +11542,7 @@
                             "_label": "Valider l'appel"
                         },
                         "addToWaitlist": {
-                            "_label": "Ajouter des membres dans la file d'attente"
+                            "_label": "Ajouter des membres à la liste d'attente"
                         },
                         "create": {
                             "_label": "Créer des réservations"
@@ -11534,7 +11551,7 @@
                             "_label": "Annuler des réservations"
                         },
                         "removeFromWaitlist": {
-                            "_label": "Supprimer des membres de la file d'attente"
+                            "_label": "Supprimer des membres de la liste d'attente"
                         },
                         "attendance": {
                             "_label": "Editer les présences / absences"
@@ -11829,7 +11846,7 @@
                     "_label": "Disponibilités",
                     "allowed_actions": {
                         "createAvailability": {
-                            "_label": "Voir les disponibilités"
+                            "_label": "Ajouter les disponibilités"
                         },
                         "deleteAvailability": {
                             "_label": "Supprimer les disponibilités"
@@ -12223,6 +12240,23 @@
                     },
                     "referral_grant": {
                         "_label": "Bonus de parrainage",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifier"
+                            },
+                            "delete": {
+                                "_label": "Supprimer"
+                            },
+                            "read": {
+                                "_label": "Voir"
+                            },
+                            "create": {
+                                "_label": "Créer"
+                            }
+                        }
+                    },
+                    "access_monitoring": {
+                        "_label": "Surveillance des accès",
                         "allowed_actions": {
                             "edit": {
                                 "_label": "Modifier"
@@ -13221,14 +13255,18 @@
                             "table": {
                                 "action": {
                                     "delete": "Supprimer",
-                                    "edit": "Éditer"
+                                    "edit": "Éditer",
+                                    "showInfos": "Voir les informations"
                                 },
                                 "addSupplier": "Ajouter un fournisseur",
                                 "actions": "Actions",
                                 "notes": "Notes",
                                 "name": "Nom"
                             },
-                            "title": "Fournisseurs"
+                            "title": "Fournisseurs",
+                            "detailsModal": {
+                                "title": "Fournisseur: {{name}}"
+                            }
                         }
                     },
                     "title": "Paramètres"
@@ -15795,7 +15833,7 @@
         },
         "action": {
             "stop": "Arrêter",
-            "planStop": "Programmer l'arrêt de la souscription",
+            "planStop": "Mettre fin à la souscription",
             "revertCurrentExplain": "Annuler la dernière facture enregistrée et bloquer la carte de cours",
             "revertCurrentExplainHelper": "Si le paiement est valide, un crédit sera créé, vous pouvez le rembourser au client en entrant dans la facture et en cliquant \"Rembourser\". Si le paiement avait échoué, la dette sera annulée.",
             "stopExplain": "Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée."
@@ -18460,7 +18498,8 @@
                 "infoMultiplePage": "Cet élément est présent sur plusieurs widgets, les modifications s’appliqueront sur les widgets suivants :",
                 "showBsportCode": "Afficher le style de bsport",
                 "baseCode": "Style de bsport",
-                "yourCode": "Votre implémentation complémentaire :"
+                "yourCode": "Votre implémentation complémentaire :",
+                "tooltipHover": "Survoler pour afficher la bulle d'aide"
             },
             "components": {
                 "marketplace_search": "Filtre de recherche",
@@ -18573,7 +18612,8 @@
                 "referral_details": "Détails du parrain",
                 "fabrique_title": "Titre",
                 "consumer_invoice_details_card": "Carte de détails de la facture (pour le membre)",
-                "consumer_invoice_card": "Carte de facturation (pour le membre)"
+                "consumer_invoice_card": "Carte de facturation (pour le membre)",
+                "fabrique_tooltip": "Bulle d'aide"
             },
             "page": {
                 "common": "Commun",
@@ -19672,7 +19712,7 @@
             },
             "entryStatusChanged": {
                 "N": {
-                    "description": "Vous pouvez toujours adresser des avertissements et les laisser entrer depuis l'onglet Historique des visites.",
+                    "description": "Vous pouvez toujours adresser les avertissements et/ou laisser le membre entrer depuis l'onglet Historique des visites.",
                     "message": "L'entrée a été refusée pour ce membre.",
                     "title": "Entrée refusée"
                 },
@@ -19688,6 +19728,11 @@
                 "description": "Se trouve dans Paramètres > Staff.",
                 "message": "Demandez au staff ayant un rôle Admin d'assigner une localisation à l'accès staff.",
                 "title": "Pas de localisation assignée"
+            },
+            "memberPhotoHistory": {
+                "validateIdentity": "Valider l'identité",
+                "uploadedOn": "Téléchargée {{- date}}",
+                "title": "Photos antèrieures"
             }
         },
         "memberVisitDetails": {
@@ -19719,7 +19764,9 @@
                 "red": "Non valide",
                 "orange": "Avertissement",
                 "green": "Valide"
-            }
+            },
+            "noPreviousPhoto": "Le membre n'a pas de photos antérieures",
+            "noSpotAllocated": "Pas d'emplacement attribué"
         },
         "memberVisit": {
             "warnings": {
@@ -19731,7 +19778,7 @@
                 "passRestrictedToVod": "La carte du membre {{- passName }} est limitée à la VOD seulement",
                 "passLinkedToPausedSubscription": "La carte du membre {{- passName }} est lié à un abonnement en pause",
                 "passIsDisabled": "La carte du membre {{- passName }} est actuellement bloquée",
-                "noPasses": "Le membre n'a pas de carte active avec des crédits restants",
+                "noPasses": "Le membre n'a pas de carte active avec crédits restants",
                 "bookingsInOtherEstablishments": "La réservation du membre {{- bookingName}} est programmée dans un autre établissement : {{- establishmentName }}",
                 "hasUnpaidAppointments": "Le membre a un ou plusieurs RDV non payés",
                 "hasNegativeAccountBalance": "Le solde du membre est négatif",
@@ -19778,6 +19825,24 @@
                 "refusedEntry": "Entrée refusée"
             }
         },
-        "accessMonitoringTitle": "Surveillance des accès"
+        "accessMonitoringTitle": "Surveillance des accès",
+        "filters": {
+            "entryStatus": {
+                "U": "Inconnu",
+                "N": "Non entré",
+                "Y": "Entré",
+                "unknown": "Inconnu",
+                "notEntered": "Non entré",
+                "entered": "Entré"
+            },
+            "accessStatus": {
+                "R": "Non valide",
+                "O": "Avertissement",
+                "G": "Valide",
+                "red": "Non valide",
+                "orange": "Avertissement",
+                "green": "Valide"
+            }
+        }
     }
 }

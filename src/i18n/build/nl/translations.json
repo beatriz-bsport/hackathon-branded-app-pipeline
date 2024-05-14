@@ -17274,7 +17274,8 @@
                 "referral_details": "Details verwijzing",
                 "fabrique_title": "Titel",
                 "consumer_invoice_details_card": "Kaart met factuurgegevens (voor lid)",
-                "consumer_invoice_card": "Factuurkaart (voor lid)"
+                "consumer_invoice_card": "Factuurkaart (voor lid)",
+                "fabrique_tooltip": "Tooltip"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -17297,7 +17298,8 @@
                 "unsavedChanges": "Er zijn geen wijzigingen geregistreerd",
                 "element": "Element",
                 "preview": "Voorbeeld - {{-name}}",
-                "CSS": "CSS"
+                "CSS": "CSS",
+                "tooltipHover": "Hover om tooltip te tonen"
             },
             "newsletterV2": {
                 "showSubtitle": "Toon ondertitel",

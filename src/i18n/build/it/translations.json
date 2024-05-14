@@ -7660,7 +7660,7 @@
             "revertCurrentExplain": "Annulla l'ultima ricevuta registrata e blocca il pacchetto",
             "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la ricevuta e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
             "stop": "Stop",
-            "planStop": "Programma la risoluzione dell'iscrizione"
+            "planStop": "Termina"
         },
         "cancel": "annulla",
         "schedule": {
@@ -12772,7 +12772,7 @@
                 "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento ricorrente nella tua area membri.",
                 "text_content_funnel": "Il tuo acquisto è stato elaborato, clicca su continua per finalizzare la tua prenotazione. Il pacchetto collegato al tuo abbonamento ricorrente è stato aggiunto alla sezione \"I miei pacchetti\", selezionala per prenotare.",
                 "title": "Congratulazioni! Il pagamento è stato elaborato con successo.",
-                "contract": "Il mio contratto",
+                "contract": "Il mio abbonamento ricorrente",
                 "recap": "Riassunto"
             },
             "title": "Comprare un abbonamento ricorrente"
@@ -12802,7 +12802,7 @@
             "activateBarcode": "Scan codice a barre",
             "emptyList": "Nessun allievo è iscritto a questo corso",
             "cancelRegistration": "Annulla",
-            "noConsumerPaymentPack": "Nessuna carta del corso valida!",
+            "noConsumerPaymentPack": "Per completare questa prenotazione non è necessario possedere un abbonamento valido.",
             "isFull": "Pieno",
             "backToOfferList": "Torna alle sessioni",
             "actions": {

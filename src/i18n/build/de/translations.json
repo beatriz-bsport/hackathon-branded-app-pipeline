@@ -566,7 +566,7 @@
             "revertCurrentExplain": "Die letzte gespeicherte Rechnung stornieren und den Kurspass sperren",
             "revertCurrentExplainHelper": "Wenn die Zahlung gültig ist, wird eine Gutschrift erstellt, die Du dem Kunden zurückerstatten kannst, indem Du die Rechnung eingeben und auf \"Zurückzahlen\" klickst. Wenn die Zahlung fehlgeschlagen ist, wird die Schuld storniert.",
             "stopExplain": "Die zukünftigen Zahlungen werden storniert und die entsprechenden Rechnungen werden gelöscht. Wenn eine Buchung mit einem Abonnement gebucht wurde, dessen Rechnung storniert wurde, wird diese ebenfalls storniert.",
-            "planStop": "Plane die Beendigung des Abonnements"
+            "planStop": "Beenden"
         },
         "mandate": {
             "name": "Name und Vorname des Inhabers",
@@ -16744,7 +16744,7 @@
                 "succeeded": "Erfolgreiche Zahlung",
                 "missing_charge": "Keine Zahlung versucht"
             },
-            "bill": "Legalisieren Sie"
+            "bill": "Zahlung vervollständigen"
         }
     },
     "widget": {
@@ -16854,7 +16854,8 @@
                 "snackbarSuccessSave": "Ihr Symbol wurde erfolgreich gespeichert",
                 "snackbarSuccessResetAll": "Alle Ihre Konfigurationen wurden erfolgreich zurückgesetzt",
                 "baseCode": "Bsport-Style",
-                "yourCode": "Ihre ergänzende Implementierung:"
+                "yourCode": "Ihre ergänzende Implementierung:",
+                "tooltipHover": "Maus darüber fahren, um Werkzeuginformation anzuzeigen"
             },
             "components": {
                 "filter": "Einzelner Filter",

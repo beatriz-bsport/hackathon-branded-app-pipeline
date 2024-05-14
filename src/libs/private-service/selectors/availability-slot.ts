@@ -1,5 +1,5 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import pickBy from 'lodash/pickBy';
 import groupBy from 'lodash/groupBy';
 import flatten from 'lodash/flatten';
@@ -9,6 +9,8 @@ import Immutable from 'seamless-immutable';
 import { RootState } from '../../../reducers';
 import { AvailabilitySlot, PrivateServiceState } from '../types';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+
+type Period = { start: string; end: string };
 
 export const DEFAULT_EXIST_CHECK: {
   loading: boolean;
@@ -49,7 +51,8 @@ export const getResourceSlotsExistState = (
   return DEFAULT_EXIST_CHECK;
 };
 
-const periodFilterExtractor = (state, periodFilter) => periodFilter;
+const periodFilterExtractor = (state: RootState, periodFilter: Period) =>
+  periodFilter;
 
 export const getAvailabilitySlots = createSelector(
   [_getAvailabilitySlotsData, periodFilterExtractor],
@@ -57,7 +60,7 @@ export const getAvailabilitySlots = createSelector(
     if (periodFilter) {
       return Immutable(
         Object.values(slotsData).filter(
-          (v: any) =>
+          (v) =>
             moment(v.date_start).isSameOrAfter(periodFilter.start) &&
             moment(v.date_start).isSameOrBefore(periodFilter.end),
         ),
@@ -89,15 +92,14 @@ export const getMyAvailabilitySlots = createSelector(
   },
 );
 
-// @ts-ignore
-export const getCoachAvailabilitySlots: (
-  State,
-  number,
-  PeriodFilter,
-) => Array<AvailabilitySlot> = (state, coach, periodFilter) => {
+export const getCoachAvailabilitySlots = (
+  state: RootState,
+  coach: number,
+  periodFilter: Period,
+): Immutable.ImmutableArray<AvailabilitySlot> => {
   if (coach) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      (s: AvailabilitySlot) => s.coach === coach,
+      (s) => s.coach === coach,
     );
   }
   return getAvailabilitySlots(state, periodFilter);
@@ -124,12 +126,11 @@ export const getResourceDataList = createSelector(
   (data, ids) => groupByResourceDatatype(ids.map((id) => data[id])),
 );
 
-// @ts-ignore
-export const getEstablishmentAvailabilitySlots: (
-  State,
-  number,
-  PeriodFilter,
-) => Array<AvailabilitySlot> = (state, establishment, periodFilter) => {
+export const getEstablishmentAvailabilitySlots = (
+  state: RootState,
+  establishment: number,
+  periodFilter: Period,
+): Immutable.ImmutableArray<AvailabilitySlot> => {
   if (establishment) {
     return getAvailabilitySlots(state, periodFilter).filter(
       // @ts-ignore
@@ -139,12 +140,11 @@ export const getEstablishmentAvailabilitySlots: (
   return getAvailabilitySlots(state, periodFilter);
 };
 
-// @ts-ignore
-export const getPrivateServiceAvailabilitySlots: (
-  State,
-  number,
-  PeriodFilter,
-) => Array<AvailabilitySlot> = (state, privateServiceId, periodFilter) => {
+export const getPrivateServiceAvailabilitySlots = (
+  state: RootState,
+  privateServiceId: number,
+  periodFilter: Period,
+): Immutable.ImmutableArray<AvailabilitySlot> => {
   if (privateServiceId) {
     return getAvailabilitySlots(state, periodFilter).filter(
       // @ts-ignore
@@ -164,7 +164,6 @@ export const getFilteredAvailabilitySlots = createSelector(
     if (resourceIdentifierList) {
       return slotsData
         .filter((slot) =>
-          // @ts-ignore
           resourceIdentifierList.includes(slot.resource_identifier),
         )
         .map((s) => {
@@ -179,17 +178,17 @@ export const getFilteredAvailabilitySlots = createSelector(
   },
 );
 
-const _getSearchedSlotRaw = (state) =>
+const _getSearchedSlotRaw = (state: RootState) =>
   state.privateService.availabilitySlot.searched.items;
 
 export const getSearchedSlots: (state: RootState) => {
-  [key: string]: Array<Array<string>>;
+  [key: string]: string[][];
 } = createSelector(_getSearchedSlotRaw, (slotByResourceList) => {
-  const slotByDate = {};
+  const slotByDate: { [key: string]: string[][] } = {};
   slotByResourceList.map((slotByResource) =>
     // eslint-disable-next-line
     slotByResource.slots.map((interval) => {
-      const date = moment(interval[0]).format('YYYY-MM-DD');
+      const date = DateTime.fromISO(interval[0]).toISODate();
       if (slotByDate[date]) {
         slotByDate[date].push(interval);
       } else {
@@ -200,7 +199,7 @@ export const getSearchedSlots: (state: RootState) => {
   return slotByDate;
 });
 
-const _getCalendarEventData = (state) =>
+const _getCalendarEventData = (state: RootState) =>
   state.privateService.calendarEvent.byId;
 
 export const getFilteredCalendarEvents = createSelector(
@@ -219,7 +218,10 @@ export const getFilteredCalendarEvents = createSelector(
   },
 );
 
-export const getSlotsByResourceIdentifier = (state, identifier) =>
+export const getSlotsByResourceIdentifier = (
+  state: RootState,
+  identifier: string,
+) =>
   flatten(
     state.privateService.availabilitySlot.searched.items
       .filter((a) => a.resource_identifier === identifier)

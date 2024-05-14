@@ -173,6 +173,11 @@ export type PaymentPackTemplateAPI = {
   only_vod_access: boolean;
   full_vod_access: boolean;
   is_usable_by_staff: boolean;
+  penalty_kind: 0 | 1;
+  penalty_active: boolean;
+  no_show_penalty_kind: 0 | 1;
+  no_show_penalty_active: boolean;
+  expiration_date: string;
   off_peak_schedule: Record<string, string[][]>;
 };
 

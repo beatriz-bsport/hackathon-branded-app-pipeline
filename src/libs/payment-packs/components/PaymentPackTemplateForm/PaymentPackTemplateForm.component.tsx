@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { memo } from 'react';
 import pick from 'lodash/pick';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -25,6 +24,8 @@ import {
 } from '#libs/payment-packs/utils';
 import { offPeakScheduleSchemaValidation } from '../PaymentPackForm/PaymentPackForm.component';
 import { ALMOST_100 } from '../../../../constants';
+import type { PaymentPackTemplate } from '../../types';
+import type { OptionCallback } from '#src/state/types';
 
 export const VALID_BY_DURATION = 'VALID_BY_DURATION';
 export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
@@ -34,7 +35,11 @@ const penaltyKindDict = {
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
 
-type Props = {};
+type Props = {
+  initial: PaymentPackTemplate;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onSubmit: (data: PaymentPackTemplate, options: OptionCallback) => void;
+};
 
 const offPeakGroupDefaultValue = [offPeakGroupDefault()];
 
@@ -248,7 +253,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
-  mapPropsToValues: ({ initial }) =>
+  mapPropsToValues: ({ initial }: Props) =>
     Object.assign(
       {
         name: '',
@@ -307,7 +312,9 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         credit_number: initial?.unlimited ? 'unlimited' : 'limited',
         credits: initial?.credits || 0,
         start_date_method: `${initial.start_date_method}`,
+        // @ts-ignore
         categories: initial.categories || [],
+        // @ts-ignore
         establishments: initial.establishments || [],
         penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
         no_show_penalty_kind:
@@ -337,7 +344,14 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         {},
     ),
   validationSchema: PaymentPackTemplateSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  // @ts-ignore
+  handleSubmit: (
+    values,
+    {
+      props: { onSubmit },
+      setSubmitting,
+    }: { props: Props; setSubmitting: (value: boolean) => void },
+  ) => {
     const keys = [
       'name',
       'price',
@@ -443,6 +457,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     } else {
       data.off_peak_schedule = {};
     }
+    // @ts-ignore
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -17,13 +16,13 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
-import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
   DateField,
+  // @ts-ignore
 } from '../../../../components/forms';
 import { SCT } from '#libs/category/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
@@ -203,7 +202,6 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 allowNullValue
                 disabled={!!initial?.template_instance}
                 format="L"
-                minDate={moment.now()}
                 name="expiration_date"
               />
             </Collapse>
@@ -232,7 +230,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 <ButtonBase
                   className={classes.buttonAdd}
                   color="primary"
-                  disabled={initial?.template_instance}
+                  disabled={!!initial?.template_instance}
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />
@@ -264,7 +262,6 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                       onDelete: () => void;
                     }) => (
                       <SCTChip
-                        color="primary"
                         onDelete={chipProps.onDelete}
                         parentCategory={chipProps.data.parentCategory}
                         SCTName={chipProps.data.label}
@@ -276,6 +273,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     onChange={(options) => {
                       setFieldValue(
                         'categories',
+                        // @ts-ignore
                         options?.map((option) => option.value),
                       );
                     }}
@@ -325,6 +323,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     onChange={(options) => {
                       setFieldValue(
                         'establishments',
+                        // @ts-ignore
                         options?.map((option) => option.value),
                       );
                     }}
@@ -355,6 +354,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     inScrollBar
                     isMulti
                     chipsRenderer={(chipProps: {
+                      // @ts-ignore
                       data;
                       onDelete: () => void;
                     }) => (

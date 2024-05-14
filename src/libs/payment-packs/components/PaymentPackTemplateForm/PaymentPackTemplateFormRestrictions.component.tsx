@@ -11,8 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
-import moment from 'moment-timezone';
-import { PaymentPack, PaymentPackFormValues } from '../../types';
+import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
@@ -20,14 +19,13 @@ import {
   // @ts-expect-error
 } from '#components/forms';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import ToolTip from '#components/Tooltip.component';
 import { offPeakGroupDefault } from '#libs/payment-packs/utils';
 import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 
 type Props = {
-  initial: PaymentPack<PrivatePass>;
+  initial: PaymentPackTemplate;
 };
 export const PaymentPackFormRestrictions = (props: Props) => {
   const { initial } = props;
@@ -156,12 +154,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <InputLabel className={classes.inputLabelExpirationDate}>
                 {t('addPaymentPack.expiration_date.helperText')}
               </InputLabel>
-              <DateField
-                allowNullValue
-                format="L"
-                minDate={moment.now()}
-                name="expiration_date"
-              />
+              <DateField allowNullValue format="L" name="expiration_date" />
             </Collapse>
             <div className={classes.row}>
               <SwitchField

@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
 
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -13,9 +15,8 @@ import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment-timezone';
-import { useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
 import type { CheckoutItem } from '../types';
 import CountDown from '../../../components/time/CountDown.component';
 import ReferralCouponHelpText from './ReferralCouponHelpText.component';
@@ -27,19 +28,30 @@ import {
 
 import { getShopItemName } from '../../shop/utils';
 
-export const CheckoutItemListItem = (props: {
+type Props = {
   checkout_item: CheckoutItem,
-  onAddOne: () => void,
-  onRemoveOne: () => void,
   dense: ?boolean,
   hideExtraData: ?boolean,
-  onItemExpire?: (item: CheckoutItem) => void,
-  loading?: boolean,
   isExcludingTax?: boolean,
+  loading?: boolean,
+  onAddOne: () => void,
+  onItemExpire?: (item: CheckoutItem) => void,
+  onRemoveOne: () => void,
+};
+
+export const CheckoutItemListItem: React.FC<Props> = ({
+  checkout_item,
+  dense,
+  hideExtraData,
+  isExcludingTax,
+  loading,
+  onAddOne,
+  onItemExpire,
+  onRemoveOne,
 }) => {
-  const isApplied = getIsCheckoutItemApplied(props.checkout_item.extra_data);
+  const isApplied = getIsCheckoutItemApplied(checkout_item.extra_data);
   const isReferralCouponItem = getIsCheckoutItemReferralItem(
-    props.checkout_item.extra_data,
+    checkout_item.extra_data,
   );
   const classes = useStyles({ isApplied });
 
@@ -47,59 +59,48 @@ export const CheckoutItemListItem = (props: {
 
   return (
     <React.Fragment>
-      <ListItem divider className={classes.container} dense={!!props.dense}>
+      <ListItem divider className={classes.container} dense={!!dense}>
         <div className={classes.itemContainer}>
+          {' '}
           <div className={classes.itemContent} id="itemContent">
             <ListItemAvatar>
               <Avatar className={classes.quantity}>
-                {`x${props.checkout_item.quantity}`}
+                {`x${checkout_item.quantity}`}
               </Avatar>
             </ListItemAvatar>
             <div>
               <ListItemText
                 classes={{ secondary: classes.checkoutItemPrice }}
                 primary={getShopItemName({
-                  name: props.checkout_item?.name ?? '',
-                  color: props.checkout_item?.color ?? '',
-                  size: props.checkout_item?.size ?? '',
+                  name: checkout_item?.name ?? '',
+                  color: checkout_item?.color ?? '',
+                  size: checkout_item?.size ?? '',
                 })}
                 secondary={getCheckoutItemPrice({
-                  checkoutItem: props.checkout_item,
-                  isExcludingTax: props.isExcludingTax,
+                  checkoutItem: checkout_item,
+                  isExcludingTax,
                 })}
               />
             </div>
-            {props.checkout_item.editable &&
-            props.onRemoveOne &&
-            props.onAddOne ? (
+            {checkout_item.editable && onRemoveOne && onAddOne ? (
               <div className={classes.actionButtons}>
-                {!!props.onRemoveOne && (
-                  <IconButton
-                    disabled={props.loading}
-                    onClick={props.onRemoveOne}
-                  >
+                {!!onRemoveOne && (
+                  <IconButton disabled={loading} onClick={onRemoveOne}>
                     <ExposureNeg1Icon />
                   </IconButton>
                 )}
-                {!!props.onAddOne &&
-                  !props.checkout_item?.sub_items?.length && (
-                    <IconButton
-                      disabled={props.loading}
-                      onClick={props.onAddOne}
-                    >
-                      <ExposurePlus1Icon />
-                    </IconButton>
-                  )}
+                {!!onAddOne && !checkout_item?.sub_items?.length && (
+                  <IconButton disabled={loading} onClick={onAddOne}>
+                    <ExposurePlus1Icon />
+                  </IconButton>
+                )}
               </div>
             ) : null}
-            {props.checkout_item.clearable &&
-            !props.checkout_item.editable &&
-            props.onRemoveOne ? (
+            {checkout_item.clearable &&
+            !checkout_item.editable &&
+            onRemoveOne ? (
               <ListItemSecondaryAction>
-                <IconButton
-                  disabled={props.loading}
-                  onClick={props.onRemoveOne}
-                >
+                <IconButton disabled={loading} onClick={onRemoveOne}>
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -109,23 +110,22 @@ export const CheckoutItemListItem = (props: {
             <div className={classes.errorContainer}>
               <ReferralCouponHelpText
                 hasReachedMaxUses={
-                  props.checkout_item.extra_data?.has_reached_max_uses
+                  checkout_item.extra_data?.has_reached_max_uses
                 }
                 missingAmountBeforeApplication={
-                  props.checkout_item.extra_data
-                    ?.missing_amount_before_application
+                  checkout_item.extra_data?.missing_amount_before_application
                 }
               />
             </div>
           )}
         </div>
       </ListItem>
-      {!props.hideExtraData && props.checkout_item.expiration_datetime && (
+      {!hideExtraData && checkout_item.expiration_datetime && (
         <CountDown
-          onFinish={() =>
-            props.onItemExpire && props.onItemExpire(props.checkout_item)
-          }
-          timestamp={moment(props.checkout_item.expiration_datetime).unix()}
+          onFinish={() => onItemExpire && onItemExpire(checkout_item)}
+          timestamp={DateTime.fromISO(
+            checkout_item.expiration_datetime,
+          ).toUnixInteger()}
         >
           {(countdown) => {
             if (countdown) {
@@ -146,8 +146,8 @@ export const CheckoutItemListItem = (props: {
         </CountDown>
       )}
 
-      {!props.hideExtraData &&
-        (props.checkout_item.sub_items || []).map((sub_item, idx) => (
+      {!hideExtraData &&
+        (checkout_item.sub_items || []).map((sub_item, idx) => (
           <ListItem key={idx} dense divider>
             <ListItemIcon>
               <CalendarIcon color="textSecondary" />

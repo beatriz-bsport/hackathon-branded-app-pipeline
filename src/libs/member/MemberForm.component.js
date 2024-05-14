@@ -16,7 +16,8 @@ import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { browserCountryCode, Moment } from '../../i18n';
+import { DateTime } from 'luxon';
+import { browserCountryCode } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
 
@@ -33,7 +34,6 @@ import {
   TextFieldEnhancedLabelWithError,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
-import { DATE_FORMAT } from '../../utils/datetime';
 import withConfirm from '../../hocs/with-confirm.hoc';
 import ToolTip from '#components/Tooltip.component';
 
@@ -418,7 +418,8 @@ export function MemberForm(props: Props) {
                     cancelLabel={t('translation:common.cancel')}
                     clearLabel={t('translation:form.clearDate')}
                     disabled={disabled || !asManager}
-                    format="L"
+                    format="D"
+                    // TODO : This is not working as expected
                     initialFocusedDate="1990/01/01"
                     label={t('translation:form.birthday')}
                     name="birthday"
@@ -433,7 +434,7 @@ export function MemberForm(props: Props) {
                       keyboard
                       cancelLabel={t('translation:common.cancel')}
                       disabled={disabled}
-                      format="YYYY-MM-DD"
+                      format="D"
                       label={t('member:date_joined')}
                       name="date_joined"
                       returnMoment={false}
@@ -737,7 +738,7 @@ export default compose(
         birthday: null,
         membership_ID: '',
         barcode: '',
-        date_joined: Moment().format(DATE_FORMAT),
+        date_joined: DateTime.now().toISODate(),
         accept_sms: true,
         accept_email: true,
         waiver: false,
@@ -784,7 +785,7 @@ export default compose(
         birthday:
           values &&
           values.birthday &&
-          Moment(values.birthday).format('YYYY-MM-DD'),
+          DateTime.fromISO(values.birthday).toISODate(),
       };
       onSubmit(data, {
         onSuccess: () => {

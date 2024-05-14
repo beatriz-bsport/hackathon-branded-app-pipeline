@@ -4,6 +4,7 @@ import alertingSelectors from '../alerting/selectors';
 import { CompanyOnboardingTypes } from '#libs/alerting/constants';
 import type { State } from '../../state/types';
 import type { Alerting } from '#libs/alerting/types';
+import type { RootState } from '#src/reducers';
 import { CompanyState } from './types';
 import { RootState } from '#src/reducers';
 
@@ -22,7 +23,7 @@ export const getSearchedCompanyList = createSelector(
 export const getCompanyFeatureState = (state: State) =>
   _getState(state).feature;
 
-export const getCompanyCountry = (state: State) =>
+export const getCompanyCountry = (state: RootState) =>
   state.theme?.theme?.locale.split('_')[1];
 
 const getStripeCompanyData = (state: CompanyState) =>

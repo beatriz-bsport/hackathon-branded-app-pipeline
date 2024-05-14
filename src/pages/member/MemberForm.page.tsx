@@ -1,17 +1,17 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { replace, push as pushRouter, goBack } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
-import moment from 'moment-timezone';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import type { OptionCallback } from '../../../state/types';
-import type { RootState } from '../../reducers';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { DateTime } from 'luxon';
+import type { OptionCallback } from '#state/types';
+import type { RootState } from '#src/reducers';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { snackbar } from '#libs/snackbar/actions';
+// @ts-expect-error
 import MemberForm from '#libs/member/MemberForm.component';
 import {
   createOrUpdateMember,
@@ -24,14 +24,14 @@ import { getMember } from '#libs/member/selectors';
 import { getLatest as getLatestMember } from '#libs/member/api';
 import { MemberMap } from '#libs/member/utils';
 import themeSelectors from '#libs/theme/selectors';
-
-import { mapFormData, unmap } from '../form.utils';
-import withTitle from '../../hocs/with-title.hoc';
-import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import { getAuth, API_URI } from '../../http';
+// @ts-expect-error
+import { mapFormData, unmap } from '#pages/form.utils';
+import withTitle from '#hocs/with-title.hoc';
+import { withMemberBannerHOC } from '#hocs/banner.hoc';
+import { getAuth, API_URI } from '#src/http';
 import MemberChangeEmailDialog from '#libs/member/components/MemberChangeEmailDialog.component';
 import { getCompanyCountry } from '#libs/company/selectors';
-import type { WithHandlerType } from '../../utils/types';
+import type { WithHandlerType } from '#utils/types';
 import type { Member } from '#libs/member/types';
 
 type OwnProps = {
@@ -153,7 +153,7 @@ export class MemberFormPage extends Component<Props> {
     const initialData = initial
       ? {
           ...unmap(initial, MemberMap),
-          date_joined: moment(initial.date_joined),
+          date_joined: DateTime.fromISO(initial.date_joined),
           waiver: !!initial.waiver_accepted,
           pending_email: initial?.pending_email,
         }

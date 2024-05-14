@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -10,6 +9,7 @@ import moment from 'moment-timezone';
 import { formatAsDatetimeAdapted } from '#utils/datetime';
 import MemberProgramIconWithDetail from '#libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+// @ts-ignore
 import PaginatedListBase from '#components/PaginatedListBase.component';
 
 import type { Member } from '#libs/member/types';
@@ -62,6 +62,7 @@ export const ProgramDetailMember: React.FC<Props> = ({
             key={item.id}
             dense
             divider
+            // @ts-ignore
             button={!!onClickMember && hasMemberProfileAccessPermission}
             className={classes.listItem}
             disabled={loading}

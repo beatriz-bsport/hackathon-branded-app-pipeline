@@ -170,7 +170,7 @@ i18n.on('languageChanged', (lng) => {
 });
 
 Moment.locale(i18n.language);
-Settings.defaultLocale = i18n.language;
+setLuxonLocale(i18n.language);
 
 const setLanguage = (lng: string) => {
   i18n.changeLanguage(lng);

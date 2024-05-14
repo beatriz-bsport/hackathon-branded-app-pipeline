@@ -517,7 +517,7 @@ export class Backoffice extends Component<Props, State> {
     const { language } = i18n;
     const isoLanguage = getCurrentLanguageIsoCode(language);
     setMomentLocale(isoLanguage);
-    setLuxonLocale(isoLanguage);
+    setLuxonLocale(language);
   }
 
   componentDidUpdate(prevProps: Props) {

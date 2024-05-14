@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
+import { DateTime, Info } from 'luxon';
 import { pure } from 'recompose';
 import chroma from 'chroma-js';
 
@@ -8,7 +8,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import { LUXON_ISO_SHORT_DATE, getLocaleWeekdays } from '../../utils/datetime';
+import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 import { WEEKMODE } from './Calendar.component';
 import type { LuxonDateTime } from '#src/types';
 
@@ -73,7 +73,7 @@ export const CalendarDay: React.FC<Props> = ({
             })}
           >
             {displayMode === WEEKMODE && showDayName
-              ? getLocaleWeekdays('narrow')[day.weekday - 1]
+              ? Info.weekdays('narrow')[day.weekday - 1]
               : null}
             <Typography color="inherit" variant="subtitle1">
               {day.day}
@@ -103,7 +103,7 @@ export const CalendarDay: React.FC<Props> = ({
       <div />
       <div className={classes.wrapper}>
         {displayMode === WEEKMODE && showDayName
-          ? getLocaleWeekdays('narrow')[day.weekday - 1].toUpperCase()
+          ? Info.weekdays('narrow')[day.weekday - 1].toUpperCase()
           : null}
         <Typography color="inherit" variant="subtitle1">
           {day.day}

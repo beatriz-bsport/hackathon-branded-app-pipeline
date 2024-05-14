@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import moment from 'moment-timezone';
 import { DateTime } from 'luxon';
-
 import { compose } from 'recompose';
 
 import * as Yup from 'yup';
@@ -117,8 +115,8 @@ const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
 ];
 
 const ReportGenerationSchema = Yup.object().shape({
-  dateStart: Yup.date().required('required'),
-  dateEnd: Yup.date()
+  dateStart: Yup.string().required('required'),
+  dateEnd: Yup.string()
     .required('required')
     .test(
       'is-after-start',
@@ -127,9 +125,11 @@ const ReportGenerationSchema = Yup.object().shape({
         const { dateStart } = this.parent;
         const { dateType } = this.parent;
 
+        const startDateTime = DateTime.fromISO(dateStart);
+        const endDateTime = DateTime.fromISO(dateEnd);
+
         return (
-          (dateType === 'range' &&
-            moment(dateStart).isSameOrBefore(moment(dateEnd))) ||
+          (dateType === 'range' && startDateTime <= endDateTime) ||
           dateType === 'single' ||
           dateType === 'none'
         );
@@ -170,8 +170,8 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
       disabled={isSubmitting_ || isExporting}
       onClick={() => {
         handleExcelExportation({
-          dateStart: moment(values.dateStart).unix(),
-          dateEnd: moment(values.dateEnd).unix(),
+          dateStart: values.dateStart,
+          dateEnd: values.dateStart,
           ...(timeWindowFilteringEnabled
             ? {
                 timeStart: values?.timeStart,
@@ -312,18 +312,12 @@ const ReportGenerationForm: React.FC<Props> = ({
             {/* @ts-ignore */}
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
-                date_end={moment(values.dateEnd).unix()}
-                date_start={moment(values.dateStart).unix()}
+                date_end={DateTime.fromISO(values.dateEnd).toUnixInteger()}
+                date_start={DateTime.fromISO(values.dateStart).toUnixInteger()}
                 isDisabled={!!isDisabled}
                 onSubmit={(_values) => {
-                  setFieldValue(
-                    'dateStart',
-                    _values.dateStart.format('YYYY-MM-DD'),
-                  );
-                  setFieldValue(
-                    'dateEnd',
-                    _values.dateEnd.format('YYYY-MM-DD'),
-                  );
+                  setFieldValue('dateStart', _values.dateStart.toISODate());
+                  setFieldValue('dateEnd', _values.dateEnd.toISODate());
                   setFieldValue('timePeriod', _values.timePeriod);
                 }}
                 timePeriod={values.time_period}
@@ -333,7 +327,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             {reportConfiguration.date_type === 'single' && (
               // @ts-ignore
               <DatePickerSelector
-                date={moment(values.dateStart).unix()}
+                date={DateTime.fromISO(values.dateEnd).toUnixInteger()}
                 isDisabled={!!isDisabled}
                 onSubmit={(_values) => {
                   setFieldValue(
@@ -463,8 +457,9 @@ export default compose(
           timeStart: reportConfiguration.time_window_start || '00:00',
           timeEnd: reportConfiguration.time_window_end || '23:59',
           timeWindowPeriod: 'custom',
-          dateStart: moment(reportConfiguration.date_start),
-          dateEnd: moment(reportConfiguration.date_end),
+          dateStart:
+            reportConfiguration.date_start || DateTime.now().toISODate(),
+          dateEnd: reportConfiguration.date_end || DateTime.now().toISODate(),
           dateType: reportConfiguration.date_type,
           time_period: 'custom',
           reportFilterConfigId:

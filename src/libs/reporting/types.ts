@@ -84,10 +84,16 @@ export type ReportConfiguration = {
   global_category: ReportGlobalCategoryEnum;
   description: string;
   columns: string[];
-  date_start: Date;
-  date_end: Date;
+  date_start: string;
+  date_end: string;
   report_filter_config_id: number | null;
   time_period: DateFilterRangeEnum | DateFilterEnum | null;
+  time_window_end?: string;
+  time_window_start?: string;
+  date_type?: string;
+  time_start?: string;
+  time_end?: string;
+  time_window_period?: string;
 };
 
 export type ReportCategory = {

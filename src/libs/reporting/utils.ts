@@ -1,8 +1,7 @@
-// @ts-nocheck
 import React from 'react';
-import moment from 'moment-timezone';
 import get from 'lodash/get';
 
+import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 import { ClassNameMap } from '@material-ui/styles';
 import PeopleIcon from '@material-ui/icons/People';
@@ -118,6 +117,7 @@ import {
   CONDITION_CHIPS,
 } from './constants';
 import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
+import { getLocaleWeekdays } from '#src/utils/datetime';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -158,11 +158,13 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'credit',
+    // @ts-ignore
     name: 'Crédit',
     icon: getCurrencyDisplay() === '€' ? EuroIcon : AttachMoneyIcon,
   },
   {
     id: 'payment_sumup',
+    // @ts-ignore
     name: 'Totaux paiements',
     icon: ReceiptIcon,
   },
@@ -212,6 +214,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'workshop',
+    // @ts-ignore
     name: 'Ateliers ',
     icon: WorkshopIcon,
   },
@@ -294,6 +297,8 @@ export const getConverter = (
     return (value: any) => ({ value });
   }
   const { datatype } = column;
+
+  // @ts-ignore
   return (value: any) => {
     if (datatype === 'price') {
       if (typeof value === 'number' || !value) {
@@ -329,6 +334,7 @@ export const getConverter = (
     if (datatype === 'int') {
       const shouldBeDivided =
         ['memberships', 'private_cpasses'].includes(reportCategory) &&
+        // @ts-ignore
         creditsColumns.includes(column.column_identifier || column.identifier);
 
       if (shouldBeDivided) {
@@ -362,12 +368,12 @@ export const getConverter = (
     }
     if (datatype === 'date') {
       return {
-        value: value ? moment(value, 'YYYY-MM-DD').format('L') : '',
+        value: value ? DateTime.fromISO(value).toFormat('D') : '',
       };
     }
     if (datatype === 'dow') {
       return {
-        value: moment.weekdays()[(parseInt(value, 10) + 1) % 7],
+        value: getLocaleWeekdays('long')[(parseInt(value, 10) + 1) % 7],
       };
     }
     if (datatype === 'boolean') {
@@ -379,7 +385,9 @@ export const getConverter = (
     if (datatype === 'datetime') {
       if (value) {
         return {
-          value: moment(value, 'YYYY-MM-DD[,] HH[:]mm').format('L HH[h]mm'),
+          value: DateTime.fromFormat(value, "yyyy-MM-dd',' HH:mm:ss").toFormat(
+            "D HH'h'mm",
+          ),
         };
       }
       return '';
@@ -393,6 +401,8 @@ export const getConverter = (
         return {
           value: (value || '')
             .split(',')
+
+            // @ts-ignore
             .map((v) => t(`payment_method.${v}`))
             .join(', '),
         };
@@ -413,7 +423,7 @@ export const getConverter = (
 };
 
 const dateConverterToLink = (date: string): string => {
-  return moment(date, 'YYYY-MM-DD[,] HH[:]mm').format('YYYY/MM/DD');
+  return DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('yyyy/MM/dd');
 };
 
 type GenerateRowLinkProps = {
@@ -487,6 +497,7 @@ export const generateRowLink = ({
     case ReportCategoryEnum.DAY_BOOKINGS:
       if (rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE]) {
         const date = dateConverterToLink(
+          // @ts-ignore
           rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE],
         );
         return `/calendar/${date}`;
@@ -853,15 +864,20 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.SUBSHOP:
     case ReportFilterableDataType.VIDEO:
     case ReportFilterableDataType.STAFF:
+      // @ts-ignore
       return `${getDataByTypeAndId(datatype, value) ?? ''}`;
     // Those above are the ones filterable by ID
     case ReportFilterableDataType.DATE:
     case ReportFilterableDataType.TIME:
     case ReportFilterableDataType.DATETIME:
       if (subDataType === HOUR_SUBDATA_TYPE) {
-        return moment.unix(value as number).format('LT');
+        return typeof value === 'number'
+          ? DateTime.fromSeconds(value as number).toFormat('t')
+          : DateTime.now().toFormat('t');
       }
-      return moment.unix(value as number).format('L');
+      return typeof value === 'number'
+        ? DateTime.fromSeconds(value as number).toFormat('D')
+        : DateTime.now().toFormat('D');
     case ReportFilterableDataType.BOOLEAN:
       return value === true ? t('yes') : t('no');
     case ReportFilterableDataType.PAYOUT_STATUS:
@@ -917,13 +933,13 @@ export const getMultipleValuesLabel = (
     case ReportFilterableDataType.TIME:
     case ReportFilterableDataType.DATETIME:
       if (subDataType === HOUR_SUBDATA_TYPE) {
-        return `: ${moment.unix(value[0]).format('LT')} → ${moment
-          .unix(value[1])
-          .format('LT')}`;
+        return `: ${DateTime.fromSeconds(value[0]).toFormat(
+          't',
+        )} → ${DateTime.fromSeconds(value[1]).toFormat('t')}`;
       }
-      return `: ${moment.unix(value[0]).format('L')} → ${moment
-        .unix(value[1])
-        .format('L')}`;
+      return `: ${DateTime.fromSeconds(value[0]).toFormat(
+        'D',
+      )} → ${DateTime.fromSeconds(value[1]).toFormat('D')}`;
 
     default:
       return `(${value?.length})`;
@@ -1069,9 +1085,12 @@ export const ReportColumnPermissions = {
     ],
   },
   [ReportCategoryEnum.PRIVATE_SERVICE]: {
+    // @ts-ignore
     [PrivateServiceMetadataIdentifierEnum.EMAIL]: [
       'member.allowed_actions.readInfo',
     ],
+
+    // @ts-ignore
     [PrivateServiceMetadataIdentifierEnum.PHONENUMBER]: [
       'member.allowed_actions.readInfo',
     ],
@@ -1202,7 +1221,7 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
   [ReportCategoryEnum.OFFERS]: 'Club',
   [ReportCategoryEnum.SUBSCRIPTION]: 'Club',
   [ReportCategoryEnum.PRIVATE_SERVICE]: 'Club',
-  [ReportCategoryEnum.REFERRAL_GRANTED]: 'Club',
+  [ReportCategoryEnum.REFERRAL_GRANT]: 'Club',
   [ReportCategoryEnum.ACCESS_MONITORING]: 'Club',
   // ----------------
   [ReportCategoryEnum.DAY_BOOKINGS]: 'Bookings',
@@ -1226,6 +1245,8 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
 
 export const getReportGlobalCategoryFromCategory = (
   category: ReportCategoryEnum,
+
+  // @ts-ignore
 ): string => MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES[category];
 
 export const getReportObjectPermissions = (
@@ -1234,6 +1255,7 @@ export const getReportObjectPermissions = (
 ): ReportObjectPermissions => {
   const globalCategory = getReportGlobalCategoryFromCategory(report.category);
 
+  // @ts-ignore
   return get(
     objectLevelPermissions,
     ['report', globalCategory, report.category, 'allowed_actions'],

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import { Fade, Typography, Tab, Tabs, Paper } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -11,7 +10,6 @@ import SessionForCoachSelector from './SessionForCoachSelector.component';
 import {
   groupSessionsByDayMoment,
   splitIntervalList,
-  // @ts-ignore
 } from '../../../../../libs/private-service/utils';
 import { ArrayElement } from '../../../../../utils/types';
 import { Establishment } from '../../../../../libs/establishment/types';
@@ -35,7 +33,7 @@ type Props = {
   ) => void;
   availabilitySlot: {
     resource_identifier: string;
-    slots: Array<Array<string>>;
+    slots: string[][];
   }[];
   coachDisplay?: MarketPlaceCoachDisplay;
 };
@@ -140,13 +138,12 @@ const SessionSelector: React.FC<Props> = (props) => {
 
   let coaches: Array<Coach | null> = [null];
 
+  // @ts-ignore
   if (props.showCoach || props.choseCoach) {
-    /* eslint-disable */
     coaches = props.coaches;
     if (!props.coaches.length) {
       coaches = null;
     }
-    /* eslint-enable */
   }
 
   const classes = useStyles();
@@ -215,6 +212,7 @@ const SessionSelector: React.FC<Props> = (props) => {
             ) : (
               <div className={classes.sessionItemContainer}>
                 <SessionForCoachSelector
+                  coach={null}
                   durationMinutes={props.durationMinutes}
                   establishment={selectedEstablishment}
                   onSessionSelect={props.onSessionSelect}
@@ -277,4 +275,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SessionSelector;
+export default React.memo(SessionSelector);

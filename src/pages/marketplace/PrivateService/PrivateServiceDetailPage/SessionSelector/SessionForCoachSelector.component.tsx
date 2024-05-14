@@ -1,16 +1,12 @@
-// @ts-nocheck
 import React from 'react';
+import { DateTime } from 'luxon';
 import { ButtonBase, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import moment from 'moment-timezone';
-
-// @ts-ignore
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import CoachChip from '../../../../../libs/associated-coach/components/CoachChip.component';
-import { Establishment } from '../../../../../libs/establishment/types';
-import { Coach } from '../../../../../libs/associated-coach/types';
-import { formatAsTime } from '../../../../../utils/datetime';
+import CoachChip from '#libs/associated-coach/components/CoachChip.component';
+import { Establishment } from '#libs/establishment/types';
+import { Coach } from '#libs/associated-coach/types';
 
 type Props = {
   coach: Coach | null;
@@ -41,24 +37,25 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
     >
       {!!props.coach?.id && (
         <div className={classes.coachContainer}>
-          <CoachChip coach={props.coach} coachDisplay={props.coachDisplay} />
+          <CoachChip
+            coach={props.coach}
+            coachDisplay={props.coachDisplay}
+            loading={false}
+          />
         </div>
       )}
 
       <div className={classes.sessionsContainer}>
         {props.sessions.map((session) => {
-          const start = formatAsTime(session, props.timezoneName);
+          const start = DateTime.fromISO(session)
+            .setZone(props.timezoneName)
+            .toLocaleString(DateTime.TIME_SIMPLE);
 
-          const momentEnd = moment(session)
-            .tz(props.timezoneName)
-            .add(props.durationMinutes, 'minutes');
-          if (
-            momentEnd.locale() === 'en-gb' ||
-            momentEnd.locale() === 'en-US'
-          ) {
-            momentEnd.locale('en');
-          }
-          const end = `${momentEnd.format('LT')}`;
+          const datetimeEnd = DateTime.fromISO(session)
+            .setZone(props.timezoneName)
+            .plus({ minutes: props.durationMinutes });
+
+          const end = datetimeEnd.toLocaleString(DateTime.TIME_SIMPLE);
 
           return (
             <div key={session} className={classes.sessionItemContainer}>
@@ -141,4 +138,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SessionForCoachSelector;
+export default React.memo(SessionForCoachSelector);

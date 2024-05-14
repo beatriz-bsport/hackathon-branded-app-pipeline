@@ -27,13 +27,13 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import InfoIcon from '@material-ui/icons/Info';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { DateTime, Info, Settings } from 'luxon';
 
-import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
@@ -46,10 +46,9 @@ import {
 
 import './main.scss';
 import './custom.scss';
-import i18n, { Moment } from '../../../i18n';
+import i18n from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
-import { DATE_FORMAT } from '../../../utils/datetime';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
 
@@ -186,9 +185,9 @@ const offerAsEvent =
     return {
       start: offer.date_start,
       allDay: offer.duration_minute > 60 * 10,
-      end: moment(offer.date_start)
-        .add(offer.duration_minute, 'minutes')
-        .format(),
+      end: DateTime.fromISO(offer.date_start)
+        .plus({ minutes: offer.duration_minute })
+        .toISO(),
       title: offer?.name_override || offer?.meta_activity?.name || '',
       editable: false,
       extendedProps: {
@@ -431,15 +430,15 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
 
     const { startStr, endStr } = eventSlotSelected;
 
-    const start = moment.tz(startStr, this.props.timezone);
-    const end = moment.tz(endStr, this.props.timezone);
+    const start = DateTime.fromISO(startStr).setZone(this.props.timezone);
+    const end = DateTime.fromISO(endStr).setZone(this.props.timezone);
 
-    if (!start.isSame(end) && start.isSame(end, 'day')) {
+    if (!start.equals(end) && start.hasSame(end, 'day')) {
       this.setState({
         eventSlotSelected: {
           ...eventSlotSelected,
-          startStr: start.format(),
-          endStr: end.format(),
+          startStr: start.toISO(),
+          endStr: end.toISO(),
         },
       });
     }
@@ -482,7 +481,9 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     });
 
   dateClick = (eventSlotSelected: EventSlot) => {
-    const start = moment.tz(eventSlotSelected.dateStr, this.props.timezone);
+    const start = DateTime.fromISO(eventSlotSelected.dateStr).setZone(
+      this.props.timezone,
+    );
     const zoomLevel =
       this.props.scheduleFilter.zoomLevel === 0
         ? 0.5
@@ -491,8 +492,8 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     this.setState({
       eventSlotSelected: {
         ...eventSlotSelected,
-        startStr: start.format(),
-        endStr: start.add(30 * zoomLevel, 'minutes').format(),
+        startStr: start.toISO(),
+        endStr: start.plus({ minutes: 30 * zoomLevel }).toISO(),
       },
     });
   };
@@ -593,15 +594,24 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     this.setState({ eventSlotSelected: null });
   };
 
-  createRecurrence = (recurrence_until: string, eventSlot: any) => {
+  createRecurrence = (recurrence_until: string, eventSlot: EventSlot) => {
     const { enableWithRecurrence } = this.state;
-    const endDate = moment(recurrence_until);
+    const endDate = DateTime.fromISO(recurrence_until);
+
     const all_date_start = [];
     let i = 0;
+
     while (
-      moment(eventSlot?.startStr).add(i, 'week').isSameOrBefore(endDate, 'day')
+      (eventSlot.startStr
+        ? DateTime.fromISO(eventSlot.startStr).plus({ weeks: i }).startOf('day')
+        : DateTime.now().plus({ weeks: i }).startOf('day')) <=
+      endDate.startOf('day')
     ) {
-      all_date_start.push(moment(eventSlot?.startStr).add(i, 'week'));
+      all_date_start.push(
+        eventSlot.startStr
+          ? DateTime.fromISO(eventSlot.startStr).plus({ weeks: i })
+          : DateTime.now().plus({ weeks: i }),
+      );
       i += 1;
     }
 
@@ -641,14 +651,13 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
         timeGrid: view.type,
       });
     }
+    const date_start = DateTime.fromISO(startStr)
+      .setZone(this.props.timezone)
+      .toISODate();
 
-    const date_start = moment
-      .tz(startStr, this.props.timezone)
-      .format('YYYY-MM-DD');
-
-    const date_end = moment
-      .tz(endStr, this.props.timezone)
-      .format('YYYY-MM-DD');
+    const date_end = DateTime.fromISO(endStr)
+      .setZone(this.props.timezone)
+      .toISODate();
 
     if (
       this.state.date_start !== date_start &&
@@ -684,27 +693,29 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
   });
 
   getSimilarDateDisplayAsFullCalendar = () => {
-    const dateStart = moment(this.state.date_start);
-    const dateEnd = moment(this.state.date_end).subtract(1, 'days');
+    const dateStart = this.state.date_start
+      ? DateTime.fromISO(this.state.date_start)
+      : DateTime.now();
+    const dateEnd = this.state.date_end
+      ? DateTime.fromISO(this.state.date_end).minus({ days: 1 })
+      : DateTime.now();
 
     if (this.props.scheduleFilter?.timeGrid === 'timeGridDay') {
-      return dateStart.format('DD MMM YYYY');
+      return dateStart.toLocaleString(DateTime.DATE_FULL);
     }
     if (this.props.scheduleFilter?.timeGrid === 'dayGridMonth') {
-      return dateStart.format('MMM YYYY');
+      return dateStart.toFormat('LLL y');
     }
 
-    if (dateStart.month() === dateEnd.month()) {
-      return `${dateStart.format('DD')} - ${dateEnd.format('DD MMM YYYY')}`;
+    if (dateStart.month === dateEnd.month) {
+      return `${dateStart.toFormat('dd')} - ${dateEnd.toFormat('dd LLLL y')}`;
     }
 
-    return `${dateStart.format('DD MMM')} - ${dateEnd.format('DD MMM YYYY')}`;
+    return `${dateStart.toFormat('dd LLLL')} - ${dateEnd.toFormat('DDD')}`;
   };
 
-  setNewDate = (newDate) => {
-    this.calendarRef.current
-      .getApi()
-      .gotoDate(moment(newDate).format(DATE_FORMAT));
+  setNewDate = (newDate: DateTime) => {
+    this.calendarRef.current.getApi().gotoDate(newDate.toISODate());
   };
 
   onCloseDatePicker = () => {
@@ -802,18 +813,17 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
         )}
         <div>
           <MuiPickersUtilsProvider
-            locale={moment.locale()}
-            moment={moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <DatePicker
               DialogProps={{ open: this.state.datePickerOpen }}
               initialFocusedDate={
                 this.calendarRef.current
-                  ? moment(this.calendarRef.current.getApi().getDate()).format(
-                      DATE_FORMAT,
-                    )
-                  : moment().format(DATE_FORMAT)
+                  ? DateTime.fromJSDate(
+                      this.calendarRef?.current?.getApi().getDate(),
+                    ).toISODate()
+                  : DateTime.now().toISODate()
               }
               onChange={this.setNewDate}
               onClose={this.onCloseDatePicker}
@@ -835,7 +845,7 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           eventClick={this.handleEventClick}
           eventContent={renderEventContent}
           events={events}
-          firstDay={Moment.localeData()._week.dow}
+          firstDay={Info.getStartOfWeek()}
           headerToolbar={this.getHeaderToolbar()}
           initialView={this.getInitialView()}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
@@ -849,14 +859,18 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           }:00`}
           slotMaxTime={
             this.props.scheduleTimerangeEnd
-              ? `${moment(this.props.scheduleTimerangeEnd).format('HH')}:00:00`
+              ? `${DateTime.fromFormat(
+                  this.props.scheduleTimerangeEnd,
+                  'yyyy-MM-dd HH:mm',
+                ).toFormat('HH')}:00:00`
               : '23:00:00'
           }
           slotMinTime={
             this.props.scheduleTimerangeBegin
-              ? `${moment(this.props.scheduleTimerangeBegin).format(
-                  'HH',
-                )}:00:00`
+              ? `${DateTime.fromFormat(
+                  this.props.scheduleTimerangeBegin,
+                  'yyyy-MM-dd HH:mm',
+                ).toFormat('HH')}:00:00`
               : '06:00:00'
           }
           timeZone={this.props.timezone}

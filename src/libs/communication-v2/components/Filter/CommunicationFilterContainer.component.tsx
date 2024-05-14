@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import {
   Collapse,
@@ -105,14 +105,14 @@ export class CommunicationFilterContainer extends React.Component<
       showFilterModal: false,
       allPreviousFilters: {
         filters: filtersNumbers,
-        dateStart: previousState.dateStart?.unix() ?? null,
-        dateEnd: previousState.dateEnd?.unix() ?? null,
+        dateStart: previousState.dateStart?.toUnixInteger() ?? null,
+        dateEnd: previousState.dateEnd?.toUnixInteger() ?? null,
       },
     }));
     this.props.handleFilters(
       filtersNumbers,
-      this.state.dateStart?.unix() ?? null,
-      this.state.dateEnd?.unix() ?? null,
+      this.state.dateStart?.toUnixInteger() ?? null,
+      this.state.dateEnd?.toUnixInteger() ?? null,
     );
   };
 
@@ -330,9 +330,9 @@ export class CommunicationFilterContainer extends React.Component<
       this.setState({ sendParameterFilterValues: newValues });
     const updateSrcOrDstFilterValues = (newValues: SelectFieldItem[]) =>
       this.setState({ srcOrDstFilterValues: newValues });
-    const updateDateStartValue = (newDate: MomentType) =>
+    const updateDateStartValue = (newDate: DateTime) =>
       this.setState({ dateStart: newDate });
-    const updateDateEndValue = (newDate: MomentType) =>
+    const updateDateEndValue = (newDate: DateTime) =>
       this.setState({ dateEnd: newDate });
     return (
       <div className={classes.container}>

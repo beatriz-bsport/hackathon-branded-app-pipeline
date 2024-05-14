@@ -3,7 +3,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
-import type { Moment as MomentType } from 'moment-timezone';
+import type { DateTime } from 'luxon';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { OptionCallback } from '../../../../state/types';
@@ -156,8 +156,8 @@ type WithHandlers = {
     values: SelectFieldItem[],
     options?: () => void,
   ) => void;
-  dateStartSetter: (dateStart: MomentType, options?: () => void) => void;
-  dateEndSetter: (dateStart: MomentType, options?: () => void) => void;
+  dateStartSetter: (dateStart: DateTime, options?: () => void) => void;
+  dateEndSetter: (dateStart: DateTime, options?: () => void) => void;
   setShowFilterModal: (showFilterModal: boolean, options?: () => void) => void;
   setCommunicationKindBeingWritten: (
     kind: number,
@@ -483,8 +483,9 @@ export default function withInboxThreadData(
           showFilterModal: false,
           allPreviousFilters: {
             filters: filtersNumbers,
-            dateStart: props.inboxContainerState.dateStart?.unix() ?? null,
-            dateEnd: props.inboxContainerState.dateEnd?.unix() ?? null,
+            dateStart:
+              props.inboxContainerState.dateStart?.toUnixInteger() ?? null,
+            dateEnd: props.inboxContainerState.dateEnd?.toUnixInteger() ?? null,
           },
         });
 
@@ -537,7 +538,7 @@ export default function withInboxThreadData(
         },
       dateStartSetter:
         (props: InboxConnectedProps) =>
-        (dateStart: MomentType, options?: () => void) => {
+        (dateStart: DateTime, options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,
@@ -548,7 +549,7 @@ export default function withInboxThreadData(
         },
       dateEndSetter:
         (props: InboxConnectedProps) =>
-        (dateEnd: MomentType, options?: () => void) => {
+        (dateEnd: DateTime, options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,

@@ -179,8 +179,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
     this.handleFilterChange(
       filtersNumbers,
-      this.props.inboxContainerState.dateStart?.unix() ?? null,
-      this.props.inboxContainerState.dateEnd?.unix() ?? null,
+      this.props.inboxContainerState.dateStart?.toUnixInteger() ?? null,
+      this.props.inboxContainerState.dateEnd?.toUnixInteger() ?? null,
     );
   };
 

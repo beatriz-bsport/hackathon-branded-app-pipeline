@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import DateInput from '#components/input/DateInput.component';
 import { OptionCallback } from '../../../state/types';
@@ -18,19 +18,17 @@ type Props = {
   onClose: () => void;
 };
 
-const getDateAtNowHour = (date?: Moment) => {
-  return (date || moment())
-    .set({
-      hour: moment().hour(),
-      minute: moment().minute(),
-    })
-    .format();
+const getDateAtNowHour = (date?: DateTime) => {
+  const now = DateTime.now();
+  return (
+    date ? date.set({ hour: now.hour, minute: now.minute }) : now
+  ).toISO();
 };
 
 const InvoiceDateDialog = (props: Props) => {
   const { open, onSubmit, onClose } = props;
   const { t } = useTranslation();
-  const [date, setDate] = useState<string>();
+  const [date, setDate] = useState<DateTime>();
   const [processing, setProcessing] = useState(false);
 
   return (
@@ -48,7 +46,7 @@ const InvoiceDateDialog = (props: Props) => {
             className=""
             disabled={processing}
             onChange={setDate}
-            value={moment(date)}
+            value={date}
           />
         </div>
       </DialogContent>
@@ -64,7 +62,7 @@ const InvoiceDateDialog = (props: Props) => {
             color="primary"
             onClick={() => {
               setProcessing(true);
-              onSubmit(getDateAtNowHour(moment(date)), {
+              onSubmit(getDateAtNowHour(date), {
                 onSuccess: () => setProcessing(false),
                 onError: () => setProcessing(false),
               });

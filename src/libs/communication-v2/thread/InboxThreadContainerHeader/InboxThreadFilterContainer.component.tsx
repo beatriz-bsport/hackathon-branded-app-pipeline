@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 
-import type { Moment as MomentType } from 'moment-timezone';
+import type { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Hidden from '@material-ui/core/Hidden';
@@ -23,10 +23,10 @@ type Props = {
   kindFilterValues: SelectFieldItem[];
   kindFilterSetter?: (args: SelectFieldItem[]) => void;
   popKindFilterValue: (index: number) => void;
-  dateStart: MomentType;
-  dateStartSetter?: (newDate: MomentType) => void;
-  dateEnd: MomentType;
-  dateEndSetter?: (newDate: MomentType) => void;
+  dateStart: DateTime;
+  dateStartSetter?: (newDate: DateTime) => void;
+  dateEnd: DateTime;
+  dateEndSetter?: (newDate: DateTime) => void;
   resetPeriodFilter: () => void;
   channelFilterValues?: SelectFieldItem[];
   popChannelFilterValue?: (index: number) => void;

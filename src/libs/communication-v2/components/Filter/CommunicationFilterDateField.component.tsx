@@ -1,19 +1,21 @@
 import React from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { Typography, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { KeyboardArrowDown } from '@material-ui/icons';
-import { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
+
 import DateInput from '#components/input/DateInput.component';
 
-type DateProps = {
-  fieldStartValue: MomentType;
-  fieldStartSetter: (newDate: MomentType) => void;
-  fieldEndValue: MomentType;
-  fieldEndSetter: (newDate: MomentType) => void;
+type Props = {
+  fieldStartValue: DateTime;
+  fieldStartSetter: (newDate: DateTime) => void;
+  fieldEndValue: DateTime;
+  fieldEndSetter: (newDate: DateTime) => void;
 };
 
-export const CommunicationFilterDateField = (props: DateProps) => {
+export const CommunicationFilterDateField = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Typography } from '@material-ui/core';
 import DateInput from '#components/input/DateInput.component';
@@ -23,25 +23,25 @@ export const PauseFormDateRange = (props: Props) => {
         className={classes.dateInput}
         disabled={!props.setFromDate}
         label={t('pauseV2.common.form.duration.start')}
-        minDate={moment()}
-        onChange={(value: Moment) => {
-          !!props.setFromDate && props.setFromDate(value.format());
-          if (value.isAfter(props.untilDate))
-            props.setUntilDate(value.format());
+        minDate={DateTime.now()}
+        onChange={(value: DateTime) => {
+          !!props.setFromDate && props.setFromDate(value.toISO());
+          if (value > DateTime.fromISO(props.untilDate))
+            props.setUntilDate(value.toISO());
         }}
-        value={moment(props.fromDate)}
+        value={DateTime.fromISO(props.fromDate)}
       />
       <DateInput
         className={classes.dateInput}
         error={!props.isDateRangeValid}
         label={t('pauseV2.common.form.duration.end')}
-        minDate={moment()}
-        onChange={(value: Moment) => {
-          props.setUntilDate(value.format());
-          if (value.isBefore(props.fromDate) && !!props.setFromDate)
-            props.setFromDate(value.format());
+        minDate={DateTime.now()}
+        onChange={(value: DateTime) => {
+          props.setUntilDate(value.toISO());
+          if (value < DateTime.fromISO(props.fromDate) && !!props.setFromDate)
+            props.setFromDate(value.toISO());
         }}
-        value={moment(props.untilDate)}
+        value={DateTime.fromISO(props.untilDate)}
       />
       {!props.isDateRangeValid && (
         <Typography color="error" variant="caption">

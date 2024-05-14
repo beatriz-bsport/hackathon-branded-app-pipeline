@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { Form, useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
@@ -44,8 +44,10 @@ const ConsumerExtensionCreateForm: React.FC<Props> = ({
   const { t } = useTranslation('paymentPack');
 
   const handleSelectNewValidityDate = useCallback(
-    (selectedDate: Moment) => {
-      const numberOfDaysToAdd = selectedDate.diff(passEndingDate, 'days');
+    (selectedDate: DateTime) => {
+      const numberOfDaysToAdd = selectedDate.diff(
+        DateTime.fromISO(passEndingDate),
+      ).days;
       setFieldValue('nbDays', numberOfDaysToAdd);
     },
     [passEndingDate, setFieldValue],
@@ -53,7 +55,12 @@ const ConsumerExtensionCreateForm: React.FC<Props> = ({
 
   const newValidityDate = useMemo(
     () =>
-      moment(passEndingDate).tz(timezone).add(values.nbDays, 'days').format(),
+      DateTime.fromISO(passEndingDate)
+        .setZone(timezone)
+        .plus({
+          day: values.nbDays,
+        })
+        .toISO(),
     [passEndingDate, timezone, values.nbDays],
   );
 
@@ -104,9 +111,9 @@ const ConsumerExtensionCreateForm: React.FC<Props> = ({
           <DateInput
             disabled={isLoading}
             label={t('extension.create.datePicker.label')}
-            minDate={passEndingDate}
+            minDate={DateTime.fromISO(passEndingDate)}
             onChange={handleSelectNewValidityDate}
-            value={newValidityDate}
+            value={DateTime.fromISO(newValidityDate)}
           />
         )}
 

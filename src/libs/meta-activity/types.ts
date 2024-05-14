@@ -97,3 +97,9 @@ export type MetaActivityFilter = {
   customer_enabled?: boolean;
   with_future_slots?: boolean;
 };
+
+export type OffersGroupFilter = Partial<{
+  min_date: string; // Format: YYYY-mm-DD
+  max_date: string; // Format: YYYY-mm-DD
+  meta_activity__in: number[];
+}>;

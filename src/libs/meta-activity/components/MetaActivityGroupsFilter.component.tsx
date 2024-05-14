@@ -1,9 +1,10 @@
-// @ts-nocheck
 import React from 'react';
+
+import { DateTime } from 'luxon';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment, { Moment } from 'moment-timezone';
 
+// @ts-ignore
 import MetaActivitySelector from './MetaActivitySelector.component';
 import DateInput from '#components/input/DateInput.component';
 
@@ -33,25 +34,25 @@ const MetaActivityGroupsFilter: React.FC<Props> = ({
         clearable
         className={classes.date}
         label={t('common.from')}
-        onChange={(value: Moment) => {
+        onChange={(value: DateTime) => {
           onChange({
             ...filter,
-            min_date: value ? value.format('YYYY-MM-DD') : null,
+            min_date: value ? value.toISODate() : null,
           });
         }}
-        value={filter.min_date ? moment(filter.min_date) : null}
+        value={filter.min_date ? DateTime.fromISO(filter.min_date) : null}
       />
       <DateInput
         clearable
         className={classes.date}
         label={t('common.until')}
-        onChange={(value: Moment) => {
+        onChange={(value: DateTime) => {
           onChange({
             ...filter,
-            max_date: value ? value.format('YYYY-MM-DD') : null,
+            max_date: value ? value.toISODate() : null,
           });
         }}
-        value={filter.max_date ? moment(filter.max_date) : null}
+        value={filter.max_date ? DateTime.fromISO(filter.max_date) : null}
       />
       {!withoutMetaActivity && (
         <div className={classes.selector}>

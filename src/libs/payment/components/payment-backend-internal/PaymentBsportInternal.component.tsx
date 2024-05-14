@@ -1,5 +1,6 @@
 import React, { JSX } from 'react';
-import moment, { type Moment } from 'moment-timezone';
+
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
@@ -63,7 +64,7 @@ export const PaymentStripe: React.FC<Props> = ({
     parseInt(amountToPay, 10) / 100,
   );
 
-  const [date, setDate] = React.useState(moment().format());
+  const [date, setDate] = React.useState(DateTime.now());
 
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
     PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
@@ -91,7 +92,7 @@ export const PaymentStripe: React.FC<Props> = ({
             // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
             price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100),
             payment_note,
-            date,
+            date: date.toISO(),
           },
           {
             onSuccess: () => {
@@ -107,7 +108,7 @@ export const PaymentStripe: React.FC<Props> = ({
           secret: clientSecret,
           payment_method_identifier: paymentMethodSelected,
           payment_note,
-          date,
+          date: date.toISO(),
           // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
           price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100 || 0),
         })
@@ -128,8 +129,8 @@ export const PaymentStripe: React.FC<Props> = ({
     ],
   );
 
-  const onDateChange = React.useCallback((dateMoment: Moment) => {
-    setDate(dateMoment.format());
+  const onDateChange = React.useCallback((dateMoment: DateTime) => {
+    setDate(dateMoment);
   }, []);
 
   const onPaymentNoteChange = React.useCallback(

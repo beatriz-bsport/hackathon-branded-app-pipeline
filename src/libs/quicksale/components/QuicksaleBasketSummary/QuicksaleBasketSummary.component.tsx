@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -131,8 +131,8 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   );
 
   const onChangeDate = React.useCallback(
-    (newDate) => {
-      setDate(moment(newDate).format('YYYY-MM-DD'));
+    (newDate: DateTime) => {
+      setDate(newDate.toISODate());
     },
     [setDate],
   );
@@ -172,7 +172,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
           endAdornment={<Event className={classes.icon} />}
           label={t('checkout.billingDate')}
           onChange={onChangeDate}
-          value={date}
+          value={DateTime.fromISO(date)}
         />
       )}
 

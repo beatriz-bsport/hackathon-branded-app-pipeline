@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
-import { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import isEqual from 'lodash/isEqual';
 import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 import CommunicationFilterDateField from './CommunicationFilterDateField.component';
@@ -39,10 +39,10 @@ export type FilterModalProps = {
   srcOrDstFilterValues?: SelectFieldItem[];
   srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
   srcOrDstFilterOptionsOverride?: SelectFieldItem[];
-  dateStartValue?: MomentType;
-  dateStartSetter?: (newDate: MomentType) => void;
-  dateEndValue?: MomentType;
-  dateEndSetter?: (newDate: MomentType) => void;
+  dateStartValue?: DateTime;
+  dateStartSetter?: (newDate: DateTime) => void;
+  dateEndValue?: DateTime;
+  dateEndSetter?: (newDate: DateTime) => void;
   periodHasChanged?: boolean;
   handleFiltersSubmit: () => void;
   allPreviousFilter?: {
@@ -62,9 +62,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
     .concat(props.sendParameterFilterValues?.map((field) => field.value))
     .concat(props.srcOrDstFilterValues?.map((field) => field.value));
   const enableSubmitButton =
-    (props.dateStartValue?.unix() || null) !==
+    (props.dateStartValue?.toUnixInteger() || null) !==
       props.allPreviousFilter?.dateStart ||
-    (props.dateEndValue?.unix() || null) !== props.allPreviousFilter?.dateEnd ||
+    (props.dateEndValue?.toUnixInteger() || null) !==
+      props.allPreviousFilter?.dateEnd ||
     !isEqual(allFilterNumbers, props.allPreviousFilter.filters);
   return (
     <Paper className={classes.container}>

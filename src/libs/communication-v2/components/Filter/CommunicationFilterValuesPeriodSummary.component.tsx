@@ -1,30 +1,29 @@
 import React from 'react';
-import moment, { Moment as MomentType } from 'moment-timezone';
+import { DateTime, Info } from 'luxon';
 import { makeStyles, Theme, Chip, Typography } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 
 type PeriodProps = {
   title: string;
-  dateStart: MomentType;
-  dateEnd: MomentType;
+  dateStart: DateTime;
+  dateEnd: DateTime;
   resetDates: () => void;
 };
 
 export const CommunicationFilterValuesPeriodSummary = (props: PeriodProps) => {
   const { title, dateStart, dateEnd, resetDates } = props;
-  const months = moment.months();
+  const months = Info.months();
   const classes = useStyles();
 
-  const dateEndBase = dateEnd ?? moment();
-  const monthEnd = months[dateEndBase.month()];
-  const dateEndFormat = `${dateEndBase.date()} ${monthEnd.substring(
-    0,
-    3,
-  )}. ${dateEndBase.year()}`;
+  const dateEndBase = dateEnd ?? DateTime.now();
+  const monthEnd = months[dateEndBase.month - 1];
+  const dateEndFormat = `${dateEndBase.day} ${monthEnd.substring(0, 3)}. ${
+    dateEndBase.year
+  }`;
 
   const dateStartFormat = dateStart
-    ? `${dateStart.date()} ${months[dateStart.month()].substring(0, 3)}. ${
-        dateStart.year() !== dateEndBase.year() ? dateStart.year() : ''
+    ? `${dateStart.day} ${months[dateStart.month - 1].substring(0, 3)}. ${
+        dateStart.year !== dateEndBase.year ? dateStart.year : ''
       } - `
     : ' < '; // If no starting date, get all messages before the ending date
   const periodFormat = dateStartFormat + dateEndFormat;

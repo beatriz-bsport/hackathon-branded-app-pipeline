@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { Form, useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
@@ -31,14 +31,12 @@ const MassExtensionCreateForm: React.FC<Props> = ({ onClose, isLoading }) => {
   const classes = useStyles();
 
   const handleSetMinEndingDate = useCallback(
-    (value: Moment) =>
-      setFieldValue('minEndingDate', moment(value).format('YYYY-MM-DD')),
+    (value: DateTime) => setFieldValue('minEndingDate', value.toISODate()),
     [setFieldValue],
   );
 
   const handleSetMaxEndingDate = useCallback(
-    (value: Moment) =>
-      setFieldValue('maxEndingDate', moment(value).format('YYYY-MM-DD')),
+    (value: DateTime) => setFieldValue('maxEndingDate', value.toISODate()),
     [setFieldValue],
   );
 
@@ -59,7 +57,7 @@ const MassExtensionCreateForm: React.FC<Props> = ({ onClose, isLoading }) => {
             label={t('massExtension.minDate')}
             name="minEndingDate"
             onChange={handleSetMinEndingDate}
-            value={values.minEndingDate}
+            value={DateTime.fromISO(values.minEndingDate)}
           />
           <DateInput
             className={classes.dateInput}
@@ -70,7 +68,7 @@ const MassExtensionCreateForm: React.FC<Props> = ({ onClose, isLoading }) => {
             label={t('massExtension.maxDate')}
             name="maxEndingDate"
             onChange={handleSetMaxEndingDate}
-            value={values.maxEndingDate}
+            value={DateTime.fromISO(values.maxEndingDate)}
           />
         </div>
 

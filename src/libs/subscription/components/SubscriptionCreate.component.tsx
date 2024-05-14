@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ChangeEvent, Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -6,16 +5,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
+import type { Theme } from '@material-ui/core';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment, { type Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+// @ts-ignore
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+// @ts-ignore
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -23,6 +25,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
 import ModalConfirm from '../../../components/ModalConfirm.component';
 
+// @ts-ignore
 import RecapSubscription from './RecapSubscription.component';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 import type { SubscriptionData } from '../types';
@@ -32,7 +35,6 @@ import { Member } from '../../member/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { DATE_FORMAT } from '../../../utils/datetime';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
 type OwnProps = {
@@ -56,7 +58,7 @@ type State = {
   nb_interval?: number;
   recurrent_voucher: number;
   first_billing_timestamp: number;
-  firstBillingDate: string;
+  firstBillingDate: DateTime;
   name: string;
   warnManagerOnInvoice: boolean;
   alertPickedDateInThePast: boolean;
@@ -72,12 +74,10 @@ export class SubscriptionCreate extends Component<Props, State> {
       nb_interval: null,
       recurrent_voucher: 0,
       name: '',
-      first_billing_timestamp: moment()
+      first_billing_timestamp: DateTime.now()
         .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-        .unix(),
-      firstBillingDate: moment()
-        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-        .format(DATE_FORMAT),
+        .toUnixInteger(),
+      firstBillingDate: DateTime.now().set(PLANNED_INVOICE_TIME_CONFIGURATION),
       warnManagerOnInvoice: false,
       alertPickedDateInThePast: false,
     };
@@ -128,7 +128,7 @@ export class SubscriptionCreate extends Component<Props, State> {
     const data = {
       name,
       member: member.id,
-      nb_interval: parseInt(nb_interval),
+      nb_interval,
       payment_pack,
       private_pass,
       payment_combo,
@@ -139,6 +139,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       first_billing_timestamp,
     };
     this.props.onSubmit(
+      // @ts-ignore
       this.props.withName ? { ...data, name: this.state.name } : data,
     );
   };
@@ -190,17 +191,15 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.setState({ nb_interval });
   };
 
-  updateFirstBillingTimestamp = (timeStamp: Moment) => {
+  updateFirstBillingTimestamp = (timeStamp: DateTime) => {
     this.setState({
       first_billing_timestamp: timeStamp
         .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-        .unix(),
-      firstBillingDate: timeStamp
-        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-        .format(DATE_FORMAT),
-      alertPickedDateInThePast: timeStamp.isBefore(
-        moment().set(PLANNED_INVOICE_TIME_CONFIGURATION).startOf('day'),
-      ),
+        .toUnixInteger(),
+      firstBillingDate: timeStamp.set(PLANNED_INVOICE_TIME_CONFIGURATION),
+      alertPickedDateInThePast:
+        timeStamp.set(PLANNED_INVOICE_TIME_CONFIGURATION) <
+        DateTime.now().set(PLANNED_INVOICE_TIME_CONFIGURATION).startOf('day'),
     });
   };
 
@@ -253,16 +252,16 @@ export class SubscriptionCreate extends Component<Props, State> {
 
     if (paymentPackSelected) {
       recapName = paymentPackSelected.name;
-      recapPrice = paymentPackSelected.price;
+      recapPrice = String(paymentPackSelected.price);
     }
     if (privatePassSelected) {
       recapName = privatePassSelected.name;
-      recapPrice = privatePassSelected.price;
+      recapPrice = String(privatePassSelected.price);
     }
 
     if (paymentComboSelected) {
       recapName = paymentComboSelected.name;
-      recapPrice = paymentComboSelected.price;
+      recapPrice = String(paymentComboSelected.price);
     }
     return (
       <div>
@@ -324,9 +323,9 @@ export class SubscriptionCreate extends Component<Props, State> {
           </div>
           <DateInput
             label={t('parameters.firstBilling')}
-            minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
+            minDate={DateTime.now().minus({ year: 1 })}
             onChange={this.updateFirstBillingTimestamp}
-            value={this.state.first_billing_timestamp * 1000}
+            value={DateTime.fromSeconds(this.state.first_billing_timestamp)}
           />
           <GenericResponsiveDialog
             maxWidth="sm"
@@ -334,12 +333,10 @@ export class SubscriptionCreate extends Component<Props, State> {
           >
             <DialogTitle>{this.props.t('contract.pastDate.title')}</DialogTitle>
             <DialogContent>
-              {moment(this.state.firstBillingDate).isSame(moment(), 'month') ? (
+              {this.state.firstBillingDate.hasSame(DateTime.now(), 'month') ? (
                 this.props.t('contract.pastDate.alertSameMonth', {
-                  lostDays: moment().diff(
-                    moment(this.state.firstBillingDate),
-                    'days',
-                  ),
+                  lostDays: DateTime.now().diff(this.state.firstBillingDate)
+                    .days,
                 })
               ) : (
                 <div>
@@ -352,8 +349,8 @@ export class SubscriptionCreate extends Component<Props, State> {
                 color="secondary"
                 onClick={() => {
                   this.setState({
-                    first_billing_timestamp: moment().unix(),
-                    firstBillingDate: moment().format(DATE_FORMAT),
+                    first_billing_timestamp: DateTime.now().toUnixInteger(),
+                    firstBillingDate: DateTime.now(),
                     alertPickedDateInThePast: false,
                   });
                 }}
@@ -380,6 +377,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                 <PriceInput
                   fullWidth
                   label={t('parameters.recurrent_voucher')}
+                  // @ts-ignore
                   onBlur={this.handleBlurRecurrentVoucher}
                   onChange={this.updateRecurrentVoucher}
                   value={this.state.recurrent_voucher}
@@ -431,7 +429,7 @@ export class SubscriptionCreate extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -469,6 +467,7 @@ const styles = (theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-ignore
   withStyles(styles),
   withTranslation(['subscription']),
 )(SubscriptionCreate);

@@ -1,7 +1,6 @@
-// @ts-nocheck
-import moment, { Moment as MomentType } from 'moment-timezone';
-
 import React, { useState } from 'react';
+
+import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -31,9 +30,11 @@ import {
 import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import DateInput from '../../../components/input/DateInput.component';
+// @ts-ignore
 import Checkbox from '../../../components/input/Checkbox.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+// @ts-ignore
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';
@@ -238,6 +239,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
         return 'card';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
         return 'sepa_debit';
+      // @ts-ignore
       case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
         return 'bacs_debit';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
@@ -250,10 +252,12 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     useState(() => {
       if (
         props.registerNow &&
+        // @ts-ignore
         props.selectedPPE._payment_backend_payment_method_id
       ) {
         const initialPaymentMethod = props.savedPaymentMethodList.find(
           (pm) =>
+            // @ts-ignore
             pm.id === props.selectedPPE._payment_backend_payment_method_id,
         );
         if (initialPaymentMethod) return initialPaymentMethod.id;
@@ -263,7 +267,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
   const [applyToAllFuturePayments, setApplyToAllFuturePayments] =
     useState(false);
 
-  const [internalDate, setInternalDate] = useState(moment().format());
+  const [internalDate, setInternalDate] = useState(DateTime.now().toISO());
   const [internalPaymentNote, setInternalPaymentNote] = React.useState('');
   const [processing, setProcessing] = useState(false);
 
@@ -278,6 +282,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     setSelectedSavedPaymentMethodId(null);
     switch (value) {
       case 'bacs_debit':
+        // @ts-ignore
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT);
         break;
       case 'sepa_debit':
@@ -341,7 +346,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
             {props.registerNow && (
               <Typography className={classes.registerNowDate}>
                 {t('invoice:plannedPaymentEvent.registerNowInitialData', {
-                  date: moment(props.selectedPPE.future_date).format('L'),
+                  date: DateTime.fromISO(
+                    props.selectedPPE.future_date,
+                  ).toFormat('D'),
                 })}
               </Typography>
             )}
@@ -390,6 +397,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                   detachPaymentMethod={props.detachPaymentMethod}
                   detachPaymentMethodLoading={props.detachPaymentMethodLoading}
                   disabled={props.plannedPaymentEventLoading}
+                  // @ts-ignore
                   memberId={props.memberId}
                   onSelect={(method) => setSelectedSavedPaymentMethodId(method)}
                   paymentMethodType={paymentMethodType}
@@ -434,10 +442,10 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                       required
                       disabled={props.plannedPaymentEventLoading}
                       label={t('invoice:paymentPanel.date.label')}
-                      onChange={(dateMoment: MomentType) => {
-                        setInternalDate(dateMoment.format());
+                      onChange={(date: DateTime) => {
+                        setInternalDate(date.toISO());
                       }}
-                      value={internalDate}
+                      value={DateTime.fromISO(internalDate)}
                     />
                   </div>
                   <div className={classes.innerContainer}>

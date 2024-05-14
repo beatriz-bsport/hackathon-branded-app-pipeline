@@ -1,4 +1,4 @@
-import type { Moment as MomentType } from 'moment-timezone';
+import type { DateTime } from 'luxon';
 import type { Immutable } from 'seamless-immutable';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type {
@@ -190,8 +190,8 @@ export type CommunicationFilterParams = {
 };
 
 export type FilterState = {
-  dateStart: MomentType;
-  dateEnd: MomentType;
+  dateStart: DateTime;
+  dateEnd: DateTime;
   kindFilterValues: SelectFieldItem[];
   recipientFilterValues: SelectFieldItem[];
   channelFilterValues?: SelectFieldItem[];

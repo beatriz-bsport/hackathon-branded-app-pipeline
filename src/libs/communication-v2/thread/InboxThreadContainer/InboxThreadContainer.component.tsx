@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import type { Moment as MomentType } from 'moment-timezone';
+import type { DateTime } from 'luxon';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -76,10 +76,10 @@ export type Props = {
   srcOrDstFilterValues?: SelectFieldItem[];
   srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
 
-  dateStartValue?: MomentType;
-  dateStartSetter?: (newDate: MomentType) => void;
-  dateEndValue?: MomentType;
-  dateEndSetter?: (newDate: MomentType) => void;
+  dateStartValue?: DateTime;
+  dateStartSetter?: (newDate: DateTime) => void;
+  dateEndValue?: DateTime;
+  dateEndSetter?: (newDate: DateTime) => void;
 
   filterDateStart: number;
   filterDateEnd: number;

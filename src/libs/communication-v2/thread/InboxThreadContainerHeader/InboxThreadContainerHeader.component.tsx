@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import type { Moment as MomentType } from 'moment-timezone';
+import type { DateTime } from 'luxon';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 
 import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
@@ -49,10 +49,10 @@ export type Props = {
   srcOrDstFilterValues?: SelectFieldItem[];
   srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
 
-  dateStartValue?: MomentType;
-  dateStartSetter?: (newDate: MomentType) => void;
-  dateEndValue?: MomentType;
-  dateEndSetter?: (newDate: MomentType) => void;
+  dateStartValue?: DateTime;
+  dateStartSetter?: (newDate: DateTime) => void;
+  dateEndValue?: DateTime;
+  dateEndSetter?: (newDate: DateTime) => void;
 
   handleFiltersSubmit: () => void;
   allPreviousFilter: {

@@ -8,7 +8,7 @@ import {
   OfferThread,
   SmartListThread,
 } from '#libs/communication-v2/factories/CommunicationThread';
-import { Moment as MomentType } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { SelectFieldItem } from '#libs/communication-v2/types';
 
 const memberThreadProps = MemberThread();
@@ -16,8 +16,8 @@ const smartlistThreadProps = SmartListThread();
 const offerThreadProps = OfferThread();
 
 const CustomMemberTemplate = (args: Props) => {
-  const [dateStartValue, setDateStartValue] = useState<MomentType | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<MomentType | null>(null);
+  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
+  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
   const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
@@ -54,8 +54,8 @@ const CustomMemberTemplate = (args: Props) => {
 };
 
 const CustomSmartlistTemplate = (args: Props) => {
-  const [dateStartValue, setDateStartValue] = useState<MomentType | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<MomentType | null>(null);
+  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
+  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
   const [sendParameterFilter, setSendParameterFilter] = useState<
     SelectFieldItem[]
   >([]);
@@ -93,8 +93,8 @@ const CustomSmartlistTemplate = (args: Props) => {
 
 const CustomOfferTemplate = (args: Props) => {
   const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
-  const [dateStartValue, setDateStartValue] = useState<MomentType | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<MomentType | null>(null);
+  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
+  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
   const [sendParameterFilter, setSendParameterFilter] = useState<

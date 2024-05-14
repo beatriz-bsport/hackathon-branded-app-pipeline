@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
-
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Settings } from 'luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import {
@@ -8,18 +8,15 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-// @ts-expect-error
-import { Moment } from '../../i18n';
-
 type Props = {
-  value: Object;
+  value: DateTime;
   label?: string;
   disabled?: boolean;
   error?: boolean;
   required?: boolean;
-  minDate?: Object;
-  maxDate?: Object;
-  onChange: (value: Moment) => void;
+  minDate?: DateTime;
+  maxDate?: DateTime;
+  onChange: (value: DateTime) => void;
   className?: string;
   clearable?: boolean;
   format?: string;
@@ -53,11 +50,7 @@ export const DateInput: React.FC<Props> = ({
   const classes = useStyle();
 
   return (
-    <MuiPickersUtilsProvider
-      locale={Moment.locale()}
-      moment={Moment}
-      utils={MomentUtils}
-    >
+    <MuiPickersUtilsProvider locale={Settings.defaultLocale} utils={LuxonUtils}>
       <DatePicker
         className={`${className || ''} ${classes.container}`}
         clearable={clearable}

@@ -23,28 +23,28 @@ export function formatAsDate(date: string, tzname?: string) {
  - Three letters = Fri March 16, 1990
  */
 export function formatAsDateWithWeekday(
-  date: string,
+  dateISO: string,
   theme: Theme,
-  t: TFunction,
   format: string,
   tzname?: string,
 ) {
-  const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
-  const formattedDate = momentDate.format(format);
-  const dayOfTheWeek = momentDate.day();
-  const readableDayOfTheWeek = t(
-    `datetime:time.weekdayNumber.${(dayOfTheWeek + 6) % 7}`,
-  );
-  if (!theme) return `${readableDayOfTheWeek} ${formattedDate}`;
+  const date = tzname
+    ? DateTime.fromISO(dateISO).setZone(tzname)
+    : DateTime.fromISO(dateISO);
+  const formattedDate = date.toFormat(format);
+
+  if (!theme)
+    return `${Info.weekdays('long')[date.weekday - 1]} ${formattedDate}`;
+
   switch (theme.days_format_display) {
     case MarketPlaceDaysFormatDisplay.ONE_LETTER:
       return formattedDate;
     case MarketPlaceDaysFormatDisplay.THREE_LETTERS:
-      return `${readableDayOfTheWeek
-        .slice(0, 3)
-        .toUpperCase()} ${formattedDate}`;
+      return `${Info.weekdays('short')[
+        date.weekday - 1
+      ].toUpperCase()} ${formattedDate}`;
     default:
-      return `${readableDayOfTheWeek} ${formattedDate}`;
+      return `${Info.weekdays('long')[date.weekday - 1]} ${formattedDate}`;
   }
 }
 

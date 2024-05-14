@@ -165,8 +165,7 @@ const OfferSummary: React.FC<Props> = ({
             {formatAsDateWithWeekday(
               offer?.date_start,
               theme,
-              t,
-              'LLL',
+              'DDD t',
               offer?.timezone_name,
             )}
           </Typography>

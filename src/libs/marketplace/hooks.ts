@@ -480,7 +480,6 @@ export const useOfferFormattedDate = (
   offer: Offer_FULL | OfferWithSpotInformation,
   companyTheme: CompanyTheme,
 ) => {
-  const { t } = useTranslation('datetime');
   const timezoneName = offer?.meta_activity?.is_broadcast
     ? moment.tz.guess()
     : offer?.establishment?.tzname ||
@@ -490,8 +489,7 @@ export const useOfferFormattedDate = (
     return formatAsDateWithWeekday(
       offer.date_start,
       companyTheme,
-      t,
-      'LL',
+      'DDD',
       timezoneName,
     );
   return '';

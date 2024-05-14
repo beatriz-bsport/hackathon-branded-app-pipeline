@@ -295,13 +295,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderDayOffersListVersion = (main_date: string, offers: Array<Offer>) => {
-    const { t } = this.props;
     const day_offers = this.getOffersByDay(main_date, offers);
     const mainDateFormated = formatAsDateWithWeekday(
       main_date,
       this.props.theme,
-      t,
-      'DD MMMM',
+      'dd MMMM',
     );
 
     const isToday = moment(main_date).isSame(moment(), 'day');

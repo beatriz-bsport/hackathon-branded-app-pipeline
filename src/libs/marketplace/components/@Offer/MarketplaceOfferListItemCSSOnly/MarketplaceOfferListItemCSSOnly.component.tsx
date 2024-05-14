@@ -270,8 +270,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       return formatAsDateWithWeekday(
         offer?.date_start,
         theme,
-        t,
-        'LL',
+        'DDD',
         timezoneName,
       );
 

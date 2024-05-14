@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { fakerEN as faker } from '@faker-js/faker';
+import { DateTime } from 'luxon';
 
 import MarketplaceWeekTimeTableCSSOnly, {
   Props as MarketplaceWeekTimeTableCSSOnlyProps,
@@ -43,7 +43,7 @@ const usePropsFromVariation = (
     establishments,
     metaActivities: metaActivityList,
     coaches: coaches as Coach[],
-    date: moment().format(),
+    date: DateTime.now(),
     bookedOffers: [],
     showOfferGender: false,
     isCardModeDisplay: true,

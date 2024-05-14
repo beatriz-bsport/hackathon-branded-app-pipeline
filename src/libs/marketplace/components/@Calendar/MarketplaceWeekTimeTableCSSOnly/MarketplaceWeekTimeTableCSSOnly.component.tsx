@@ -1,23 +1,24 @@
-// @ts-nocheck
 // @flow
 
 import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+// @ts-ignore
 import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import flattenDeep from 'lodash/flattenDeep';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
+  LUXON_ISO_SHORT_DATE,
   formatAsDateWithWeekday,
   formatWeekDay,
-} from '../../../../../utils/datetime';
-import { Moment } from '../../../../../i18n';
+  getLocaleWeekdays,
+} from '#utils/datetime';
 import MarketPlaceCardOfferV2 from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
 import MarketPlaceOfferListItemComponent from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
 import { Offer_FULL, Offer } from '#libs/offer/types';
@@ -32,6 +33,8 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 
+import type { LuxonDateTime } from '#src/types';
+
 import './MarketplaceWeekTimeTableCSSOnly.css';
 
 const SPLIT_AFTERNOON = 12;
@@ -43,7 +46,7 @@ export type Props = {
   onClickBook: (offer: Offer_FULL) => void;
   onClickBookOption: (offer: Offer_FULL) => void;
   getLevel: { [id: number]: Level };
-  date: string;
+  date: LuxonDateTime;
   t: TFunction;
   showOfferFilling: boolean;
   hideCoach: boolean;
@@ -73,18 +76,20 @@ type State = {
 };
 
 const getWeekOffers = (
-  selectedDate: string,
+  selectedDate: LuxonDateTime,
   offers: Array<Offer>,
   themeOptions?: { startWeekOnDaySelected?: boolean },
 ) => {
   const date_start = themeOptions?.startWeekOnDaySelected
-    ? Moment(selectedDate)
-    : Moment(selectedDate).startOf('week');
+    ? selectedDate
+    : selectedDate.startOf('week', {
+        useLocaleWeeks: true,
+      });
   // split offers par week days
   return [...Array(7)].map((_: any, i) => {
-    const currentDate = Moment(date_start).add(i, 'days');
-    return offers.filter((o) =>
-      Moment(o.date_start).isSame(currentDate, 'day'),
+    const currentDate = date_start.plus({ days: i });
+    return offers.filter((offer) =>
+      DateTime.fromISO(offer.date_start).hasSame(currentDate, 'day'),
     );
   });
 };
@@ -100,15 +105,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     panelsStatus[i] = !panelsStatus[i];
     this.setState((prevState) => ({
       panelsStatus,
+      // @ts-ignore
       changeStatus: !prevState.changeStatus,
     }));
   };
 
   handleBook = (offer: Offer) => () => {
+    // @ts-ignore
     this.props.onClickBook(offer);
   };
 
   handleBookOption = (offer: Offer) => () => {
+    // @ts-ignore
     this.props.onClickBookOption(offer);
   };
 
@@ -127,7 +135,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    * function that split offers into day periods [morning, afternoon, evening]
    */
 
-  getOffersByPeriod = memoize((date: string, offers: Array<Offer>) => {
+  getOffersByPeriod = memoize((date: LuxonDateTime, offers: Array<Offer>) => {
     const morning: Array<Array<Offer>> = [];
     const afternoon: Array<Array<Offer>> = [];
     const evening: Array<Array<Offer>> = [];
@@ -137,28 +145,28 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     (weekOffers || []).map((dayOffers: Array<Offer>, i) => {
       morning[i] = dayOffers.filter(
         (offer: Offer) =>
-          Moment(offer.date_start).format('HH') < SPLIT_AFTERNOON,
+          DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,
       );
 
       afternoon[i] = dayOffers.filter((offer: Offer) => {
-        const offerStarHour = Moment(offer.date_start).format('HH');
+        const offerStarHour = DateTime.fromISO(offer.date_start).hour;
         return (
           offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
         );
       });
       evening[i] = dayOffers.filter(
         (offer: Offer) =>
-          Moment(offer.date_start).format('HH') >= SPLIT_EVENNING,
+          DateTime.fromISO(offer.date_start).hour >= SPLIT_EVENNING,
       );
       return true;
     });
     return [morning, afternoon, evening];
   });
 
-  getOffersByDay = memoize((date: string, offers: Array<Offer>) => {
-    const day_offers = offers.filter((offer) => {
-      return moment(offer.date_start).isSame(date, 'day');
-    });
+  getOffersByDay = memoize((date: LuxonDateTime, offers: Array<Offer>) => {
+    const day_offers = offers.filter((offer) =>
+      DateTime.fromISO(offer.date_start).hasSame(date, 'day'),
+    );
     return day_offers;
   });
 
@@ -167,10 +175,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    */
   periodByRow = memoize((period: any) => {
     const rows = [];
-
+    // @ts-ignore
     const maxLength = Math.max(...period.map((os) => os.length));
     for (let i = 0; i < maxLength; i += 1) {
       // eslint-disable-next-line no-loop-func
+      // @ts-ignore
       rows[i] = period.map((os) => os[i]);
     }
     return rows;
@@ -218,6 +227,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         {offersRows.map((row, idx) => (
           <React.Fragment key={`row-${row?.[0]?.id ?? idx}`}>
             {row.map((o: Offer, index) => {
+              // @ts-ignore
               const groupData = this.props.group?.[o?.group];
               if (o === undefined) {
                 return (
@@ -251,15 +261,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     isBookingDisabled={
                       !o.available ||
                       isOfferInThePast(o) ||
+                      // @ts-ignore
                       isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isOfferPassed={
                       isOfferInThePast(o) ||
+                      // @ts-ignore
                       isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isRegistered={this.props.bookedOffers?.includes(o?.id)}
                     metaActivities={this.props.metaActivities}
                     offer={o}
+                    // @ts-ignore
                     onClickBook={this.props.onClickBook}
                     onClickBookOption={this.props.onClickBookOption}
                     onClickOffer={this.props.onClickOffer}
@@ -294,15 +307,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     );
   };
 
-  renderDayOffersListVersion = (main_date: string, offers: Array<Offer>) => {
+  renderDayOffersListVersion = (
+    main_date: LuxonDateTime,
+    offers: Array<Offer>,
+  ) => {
     const day_offers = this.getOffersByDay(main_date, offers);
     const mainDateFormated = formatAsDateWithWeekday(
-      main_date,
+      main_date.toISO(),
       this.props.theme,
       'dd MMMM',
     );
 
-    const isToday = moment(main_date).isSame(moment(), 'day');
+    const isToday = main_date.hasSame(DateTime.now(), 'day');
 
     return (
       <div className="bs-week__listMode__content__day">
@@ -325,7 +341,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             if (index === day_offers.length - 1) {
               position.push('last');
             }
+            // @ts-ignore
             const genderData = this.props.genderCount[offer.id];
+            // @ts-ignore
             const groupData = this.props.group[offer.group];
 
             const establishment = this.getEstablishment(
@@ -361,6 +379,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 isCardModeDisplay={this.props.isCardModeDisplay}
                 isOfferPassed={
                   isOfferInThePast(offer) ||
+                  // @ts-ignore
                   isOfferInGroupLockedByPreviousOfferInPast(offer, groupData)
                 }
                 isRegistered={this.props.bookedOffers?.includes(offer?.id)}
@@ -369,6 +388,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 onBook={this.handleBook(offer)}
                 onBookOption={this.handleBookOption(offer)}
                 onClick={this.props.onClickOffer}
+                // @ts-ignore
                 position={position}
                 showOfferFilling={this.props.showOfferFilling}
                 showOfferGender={this.props.showOfferGender}
@@ -383,17 +403,22 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderNextDaysOffersListVersion = (
-    main_date: string,
+    main_date: LuxonDateTime,
     offers: Array<Offer>,
   ) => {
-    const next_days = [this.props.forceDayDisplayOnly ? moment() : main_date];
-    let next_day = moment(main_date).add(1, 'days');
+    const next_days = [
+      this.props.forceDayDisplayOnly ? DateTime.now() : main_date,
+    ];
+    let next_day = main_date.plus({
+      days: 1,
+    });
     while (
-      moment(next_day).isSame(moment(main_date), 'week') &&
+      next_day.weekNumber === main_date.weekNumber &&
       !this.props.forceDayDisplayOnly
     ) {
-      next_days.push(next_day.format('YYYY-MM-DD'));
-      next_day = moment(next_day).add(1, 'days');
+      // @ts-ignore
+      next_days.push(next_day.toFormat(LUXON_ISO_SHORT_DATE));
+      next_day = next_day.plus({ days: 1 });
     }
 
     return (
@@ -424,12 +449,14 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       ? this.props.searchedOffers
       : this.props.offers;
 
-    const weekDays = Moment.weekdaysShort(true);
+    const weekDays = getLocaleWeekdays('short');
     const periodOffers = this.getOffersByPeriod(date, offers);
     const start_date = this.props.startWeekOnDaySelected
-      ? moment(date)
-      : moment(date).startOf('week');
-    const main_date = moment(date).clone();
+      ? date
+      : date.startOf('week', {
+          useLocaleWeeks: true,
+        });
+    const main_date = date;
     const bs_week = classNames({
       'bs-week-card': isCardModeDisplay,
       'bs-week-list': !isCardModeDisplay,
@@ -444,10 +471,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         {!this.props.forceDayDisplayOnly && (
           <>
             {weekDays.map((_: any, i: number) => {
-              const currentDate = start_date.clone().add(i, 'days');
+              const currentDate = start_date.plus({ days: i });
               const isSelectedDate =
-                currentDate.isSame(main_date, 'day') && !isCardModeDisplay;
-              const isToday = currentDate.isSame(moment(), 'day');
+                currentDate.day === main_date.day && !isCardModeDisplay;
+              const isToday = currentDate.day === DateTime.now().day;
               return (
                 <button
                   key={`weekDay-${i}`}
@@ -457,7 +484,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   })}
                   disabled={isCardModeDisplay}
                   onClick={() =>
-                    this.props.onSelectDate(currentDate.format('YYYY-MM-DD'))
+                    this.props.onSelectDate(
+                      currentDate.toFormat(LUXON_ISO_SHORT_DATE),
+                    )
                   }
                   type="button"
                 >
@@ -470,9 +499,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     })}
                   >
                     {window.innerWidth < 500
-                      ? currentDate.format('dd')
+                      ? currentDate.toFormat('ccc')
                       : formatWeekDay(
-                          currentDate.format('dddd'),
+                          currentDate.toFormat('EEEE'),
                           this.props.theme,
                         )}
                   </div>
@@ -483,14 +512,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                         isSelectedDate || (isToday && isCardModeDisplay),
                     })}
                   >
-                    {`${currentDate.format('DD')}`}
+                    {`${currentDate.toFormat('d')}`}
                   </div>
                   {!isCardModeDisplay && (
                     <div className="bs-week__header__date__dots">
-                      {this.getOffersByDay(
-                        currentDate.format('YYYY-MM-DD'),
-                        offers,
-                      )
+                      {this.getOffersByDay(currentDate, offers)
                         .slice(0, 3)
                         .map((offer: Offer, j: number) => (
                           <div key={`dots-${j}_${offer.id}`}> • </div>
@@ -503,14 +529,12 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           </>
         )}
         {!isCardModeDisplay || this.props.forceDayDisplayOnly
-          ? this.renderNextDaysOffersListVersion(
-              main_date.format('YYYY-MM-DD'),
-              offers,
-            )
+          ? this.renderNextDaysOffersListVersion(main_date, offers)
           : this.renderOffersCardVersion(periodOffers)}
       </div>
     );
   }
 }
 
+// @ts-ignore
 export default withTranslation()(MarketplaceWeekTimetable);

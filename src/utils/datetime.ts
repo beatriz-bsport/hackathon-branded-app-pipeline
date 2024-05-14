@@ -236,7 +236,7 @@ export const getIsLateBookingCancellation = (
  */
 export function isDateInThePast(date: string) {
   if (!date) return false;
-  return moment(date).isBefore(moment());
+  return DateTime.fromISO(date) < DateTime.now();
 }
 
 /**

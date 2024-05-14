@@ -1,5 +1,4 @@
-// @ts-nocheck
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -42,7 +41,6 @@ import withDatatypeDynamicData, {
 } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { fetchCompanyRoles as fetchCompanyRolesAction } from '#libs/role/actions';
 import { getObjectPermissions, getPermissions } from '#libs/role/selectors';
-
 import { RootState } from '../../reducers';
 
 type OwnProps = {
@@ -57,6 +55,9 @@ type State = {
   dateEnd: string;
   reportFilterConfigId: number | null;
   timePeriod: string;
+  timeStart?: string;
+  timeEnd?: string;
+  timeWindowPeriod?: string;
 };
 
 type Props = OwnProps &
@@ -71,8 +72,8 @@ export class ReportingGeneration extends Component<Props, State> {
     this.state = {
       showDialog: false,
       disableContinue: true,
-      dateStart: moment(props.report.date_start).unix(),
-      dateEnd: moment(props.report.date_end).unix(),
+      dateStart: props.report.date_start || DateTime.now().toISODate(),
+      dateEnd: props.report.date_end || DateTime.now().toISODate(),
       reportFilterConfigId: props.report.report_filter_config_id,
       timePeriod: props.report.time_period,
     };
@@ -135,13 +136,17 @@ export class ReportingGeneration extends Component<Props, State> {
     reportFilterConfigId: number;
     timePeriod: string;
     page?: number;
+    timeWindowPeriod?: string;
   }) => {
     // remove seconds as per product requirement
-    const time_window_start = moment(values.timeStart, 'HH:mm').format('HH:mm');
-    const time_window_end = moment(values.timeEnd, 'HH:mm').format('HH:mm');
+    const time_window_start = DateTime.fromISO(values.timeStart).toFormat(
+      'HH:mm',
+    );
+    const time_window_end = DateTime.fromISO(values.timeEnd).toFormat('HH:mm');
 
-    const date_start = moment(values.dateStart).format('YYYY-MM-DD');
-    const date_end = moment(values.dateEnd).format('YYYY-MM-DD');
+    const date_start = values.dateStart;
+    const date_end = values.dateEnd;
+
     this.setState({
       dateStart: date_start,
       dateEnd: date_end,
@@ -155,6 +160,7 @@ export class ReportingGeneration extends Component<Props, State> {
     this.handleGenerateHeaders({
       date_start,
       date_end,
+      // @ts-ignore
       time_window_start,
       time_window_end,
       report_filter_config_id: values.reportFilterConfigId,
@@ -166,6 +172,7 @@ export class ReportingGeneration extends Component<Props, State> {
         ? {
             date_start,
             date_end,
+            // @ts-ignore
             time_window_start,
             time_window_end,
             page_size: this.props.pageSize,
@@ -225,8 +232,8 @@ export class ReportingGeneration extends Component<Props, State> {
   };
 
   handleExcelExportation = (values: {
-    dateStart: number;
-    dateEnd: number;
+    dateStart: string;
+    dateEnd: string;
     timeStart?: string;
     timeEnd?: string;
     reportFilterConfigId: number;
@@ -246,8 +253,8 @@ export class ReportingGeneration extends Component<Props, State> {
     };
     const params = {
       fileformat: 'xlsx',
-      date_start: moment.unix(values.dateStart).format('YYYY-MM-DD'),
-      date_end: moment.unix(values.dateEnd).format('YYYY-MM-DD'),
+      date_start: values.dateStart,
+      date_end: values.dateEnd,
       time_window_start: values?.timeStart ?? '',
       time_window_end: values?.timeEnd ?? '',
       report_filter_config_id: values.reportFilterConfigId,
@@ -292,14 +299,17 @@ export class ReportingGeneration extends Component<Props, State> {
           disableContinue={this.state.disableContinue}
           editReportFilterConfig={this.props.editReportFilterConfig}
           fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
+          // @ts-ignore
           handleExcelExportation={this.handleExcelExportation}
           handleGenerate={this.handleGenerate}
           handleGenerateNextPage={this.handleGenerateNextPage}
           handleGeneratePreviousPage={this.handleGeneratePreviousPage}
+          // @ts-ignore
           handleGetDynamicDataForReport={
             this.props.handleGetDynamicDataForFilters
           }
           isFranchisor={this.props.isFranchisor}
+          // @ts-ignore
           metadata={metadata}
           nextPage={nextPage}
           objectLevelPermissions={this.props.objectLevelPermissions}

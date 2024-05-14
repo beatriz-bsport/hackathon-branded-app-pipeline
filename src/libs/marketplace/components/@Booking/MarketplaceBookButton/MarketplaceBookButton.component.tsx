@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import classnames from 'classnames';
 import { pure } from 'recompose';
@@ -9,7 +8,6 @@ import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 import {
-  isOfferInThePast,
   getBookingButtonTraduction,
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '#libs/marketplace/utils';
@@ -17,6 +15,7 @@ import { Offer } from '#libs/offer/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 
+import { isDateInThePast } from '#src/utils/datetime';
 import './MarketplaceBookButton.css';
 
 export type Props = {
@@ -38,9 +37,13 @@ const MarketplaceBookButton: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('translation');
 
-  const offerIsInThePast = useMemo(() => isOfferInThePast(offer), [offer]);
+  const offerIsInThePast = useMemo(
+    () => isDateInThePast(offer.date_start),
+    [offer],
+  );
 
   const firstOfferInGroupIsInThePast = useMemo(
+    // @ts-ignore
     () => isOfferInGroupLockedByPreviousOfferInPast(offer, group),
     [group, offer],
   );
@@ -95,6 +98,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
               : 'book-button__inner__text'
           }
         >
+          {/* @ts-ignore */}
           {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
         </div>
       </div>

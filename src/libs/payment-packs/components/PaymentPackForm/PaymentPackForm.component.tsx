@@ -1,9 +1,7 @@
-// @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import moment from 'moment-timezone';
 import pick from 'lodash/pick';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -15,12 +13,12 @@ import {
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
 
+import { DateTime } from 'luxon';
 import {
   offPeakGroupDefault,
   formatOffPeakScheduleOnSubmit,
   formatOffPeakScheduleOnEdit,
 } from '#libs/payment-packs/utils';
-import { DATE_FORMAT } from '../../../../utils/datetime';
 import { OptionCallback } from '../../../../state/types';
 import {
   PaymentPack,
@@ -37,8 +35,8 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#libs/payment-packs/constants';
 import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
+// @ts-expect-error
 import { Actions } from '#components/forms';
-import { Moment } from '../../../../i18n';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
@@ -66,7 +64,10 @@ export const offPeakScheduleSchemaValidation = Yup.array().of(
         test: function startBeforeEnd(timeSlot) {
           if (timeSlot && Array.isArray(timeSlot) && timeSlot.length === 2) {
             const [startTime, endTime] = timeSlot;
-            if (!moment(startTime).isBefore(moment(endTime), 'minute')) {
+            if (
+              DateTime.fromISO(startTime).startOf('minute') >
+              DateTime.fromISO(endTime).startOf('minute')
+            ) {
               return this.createError({
                 message: 'paymentPack:addPaymentPack.startAfterEnd',
                 path: this.path,
@@ -194,9 +195,9 @@ export const PaymentPackForm: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const now = moment().format(DATE_FORMAT);
+  const now = DateTime.now().toISODate();
 
-  const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
+  const oneMonthLater = DateTime.now().plus({ month: 1 }).toISODate();
 
   const offPeakGroupDefaultValue = useMemo(() => {
     return [offPeakGroupDefault()];
@@ -235,6 +236,7 @@ export const PaymentPackForm: React.FC<Props> = ({
     <div>
       <Formik
         enableReinitialize
+        // @ts-ignore
         initialValues={
           initial
             ? {
@@ -245,23 +247,27 @@ export const PaymentPackForm: React.FC<Props> = ({
                 no_show_penalty_active: !!initial?.no_show_penalty_active,
                 validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
                 lower_date: initial?.validity_daterange
-                  ? Moment(
+                  ? DateTime.fromISO(
+                      // @ts-ignore
                       JSON.parse(initial?.validity_daterange).lower,
-                    ).format(DATE_FORMAT)
+                    ).toISODate()
                   : now,
                 upper_date: initial?.validity_daterange
-                  ? Moment(
+                  ? DateTime.fromISO(
+                      // @ts-ignore
                       JSON.parse(initial?.validity_daterange).upper,
-                    ).format(DATE_FORMAT)
+                    ).toISODate()
                   : oneMonthLater,
                 validity_daterange: initial?.validity_daterange
                   ? {
-                      lower: Moment(
+                      lower: DateTime.fromISO(
+                        // @ts-ignore
                         JSON.parse(initial?.validity_daterange).lower,
-                      ).format(DATE_FORMAT),
-                      upper: Moment(
+                      ).toISODate(),
+                      upper: DateTime.fromISO(
+                        // @ts-ignore
                         JSON.parse(initial?.validity_daterange).upper,
-                      ).format(DATE_FORMAT),
+                      ).toISODate(),
                     }
                   : {
                       lower: now,
@@ -270,11 +276,14 @@ export const PaymentPackForm: React.FC<Props> = ({
                 start_date_method: `${
                   initial?.start_date_method ?? START_ON_PURCHASE
                 }`,
+                // @ts-ignore
                 penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
                 no_show_penalty_kind:
+                  // @ts-ignore
                   penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
                 categories:
                   initial?.categories
+                    // @ts-ignore
                     ?.map((category) => category?.id)
                     ?.filter((category_id) => !!category_id) ?? [],
 
@@ -282,7 +291,9 @@ export const PaymentPackForm: React.FC<Props> = ({
                 linked_private_pass_compatibility: getFormInitialValue,
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
+                // @ts-ignore
                 applies_for_payroll: initial?.applies_for_payroll,
+                // @ts-ignore
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: offPeakScheduleIsEmpty,
                 off_peak_schedule: offPeakGroupOnEdit,
@@ -361,8 +372,8 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.duration_months = null;
             sanitizedValues.duration_years = null;
             sanitizedValues.validity_daterange = {
-              lower: Moment(values.lower_date).format(DATE_FORMAT),
-              upper: Moment(values.upper_date).format(DATE_FORMAT),
+              lower: DateTime.fromISO(values.lower_date).toISODate(),
+              upper: DateTime.fromISO(values.upper_date).toISODate(),
             };
           } else {
             sanitizedValues.validity_daterange = null;
@@ -400,17 +411,19 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.no_show_penalty_active = false;
           }
           if (values.expiration_date_active && values.expiration_date) {
-            sanitizedValues.expiration_date = moment(
+            sanitizedValues.expiration_date = DateTime.fromISO(
               values.expiration_date,
-            ).format('YYYY-MM-DD');
+            ).toISODate();
           } else {
             sanitizedValues.expiration_date = null;
           }
           if (values.off_peak_active && values.off_peak_schedule) {
+            // @ts-ignore
             sanitizedValues.off_peak_schedule = formatOffPeakScheduleOnSubmit(
               values.off_peak_schedule,
             );
           } else {
+            // @ts-ignore
             sanitizedValues.off_peak_schedule = {};
           }
           const keys = [
@@ -467,6 +480,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             'bookkeeping_account',
           ];
           const data = pick(sanitizedValues, keys);
+          // @ts-ignore
           onSubmit(data, {
             onSuccess: () => {
               actions.setSubmitting(false);
@@ -475,7 +489,7 @@ export const PaymentPackForm: React.FC<Props> = ({
               closeForm?.();
             },
             onError: () => {
-          // @ts-ignore
+              actions.setSubmitting(false);
               clearPaymentPackToEdit?.();
               closeForm?.();
             },
@@ -745,7 +759,9 @@ const paymentPackSchema = Yup.object().shape({
       'paymentPack:addPaymentPack.endBeforeStart',
       function testEndAfterStart(item) {
         if (this.parent.validity === 'slot') {
-          return Moment(this.parent.upper_date) > Moment(item);
+          return (
+            DateTime.fromISO(this.parent.upper_date) > DateTime.fromISO(item)
+          );
         }
 
         return true;
@@ -758,7 +774,9 @@ const paymentPackSchema = Yup.object().shape({
       'paymentPack:addPaymentPack.endBeforeStart',
       function testEndAfterStart(item) {
         if (this.parent.validity === 'slot') {
-          return Moment(this.parent.lower_date) < Moment(item);
+          return (
+            DateTime.fromISO(this.parent.lower_date) < DateTime.fromISO(item)
+          );
         }
 
         return true;

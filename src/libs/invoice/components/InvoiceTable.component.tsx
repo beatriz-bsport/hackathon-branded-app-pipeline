@@ -35,7 +35,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Chip from '@material-ui/core/Chip';
 import ToolTip from '@material-ui/core/Tooltip';
-import moment from 'moment-timezone';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_MIGRATION,
@@ -45,6 +44,7 @@ import SendIcon from '@material-ui/icons/Send';
 import Avatar from '@material-ui/core/Avatar';
 import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
 import uniqBy from 'lodash/uniqBy';
+import { DateTime } from 'luxon';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getPaymentLink } from '../../consumer-space/utils';
@@ -247,7 +247,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
         {!!props.showType && (
           <TableCell>{t(`invoiceType.${invoiceType}`)}</TableCell>
         )}
-        <TableCell>{moment(invoice.date).format('L')}</TableCell>
+        <TableCell>{DateTime.fromISO(invoice.date).toFormat('D')}</TableCell>
         <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.invoice">
           {(hasPermission) =>
             !!props.finalizeInvoice &&
@@ -543,7 +543,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                                   )}
                                 </TableCell>
                                 <TableCell>
-                                  {moment(payment.date).format('L')}
+                                  {DateTime.fromISO(payment.date).toFormat('D')}
                                 </TableCell>
                                 <TableCell>
                                   {payment.payment_received === null && (

@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
 import AddIcon from '@material-ui/icons/Add';
+import { DateTime } from 'luxon';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -201,7 +202,8 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <DateField
                 allowNullValue
                 disabled={!!initial?.template_instance}
-                format="L"
+                format="D"
+                minDate={DateTime.now()}
                 name="expiration_date"
               />
             </Collapse>

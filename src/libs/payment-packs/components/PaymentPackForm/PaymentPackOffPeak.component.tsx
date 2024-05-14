@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, memo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
@@ -10,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { ButtonBase, Collapse, alpha, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { ErrorMessage } from 'formik';
+import { DateTime } from 'luxon';
 import { OffPeakSchedule, OffPeakIsoWeekdays } from '#libs/payment-packs/types';
 // @ts-expect-error
 import { TimeField, RadioGroupField } from '#components/forms';
@@ -55,7 +55,9 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
     const { t } = useTranslation('datetime');
 
     const isoWeekDay = useMemo(() => {
-      const isoweekday = moment().startOf('week').add(day, 'days').isoWeekday();
+      const isoweekday = DateTime.now()
+        .startOf('week', { useLocaleWeeks: true })
+        .plus({ days: day }).weekday;
       return isoweekday.toString() as OffPeakRecurrenceWeekDay;
     }, [day]);
 
@@ -210,8 +212,8 @@ const OffPeaktimeSlotGroup = (props: Props) => {
   const handleAddtimeSlot = useCallback(() => {
     const newGroup = group.timeSlots;
     const newRow = [
-      moment().hours(6).minutes(0).seconds(0).format(),
-      moment().hours(7).minutes(0).seconds(0).format(),
+      DateTime.now().set({ hour: 6 }).startOf('hour').toISO(),
+      DateTime.now().set({ hour: 7 }).startOf('hour').toISO(),
     ];
     newGroup.push(newRow);
     setFieldValue(`off_peak_schedule[${index}]`, group);

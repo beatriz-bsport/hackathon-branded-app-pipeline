@@ -3,11 +3,10 @@ import pick from 'lodash/pick';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 import Divider from '@material-ui/core/Divider';
-import moment from 'moment-timezone';
 import * as Yup from 'yup';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
-import { DATE_FORMAT } from '../../../../utils/datetime';
+import { DateTime } from 'luxon';
 
 import PaymentPackTemplateFormRestrictions from './PaymentPackTemplateFormRestrictions.component';
 import PaymentPackTemplateFormValidity from './PaymentPackTemplateFormValidity.component';
@@ -266,8 +265,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         duration_days: 0,
         duration_months: 1,
         duration_years: 0,
-        lower_date: moment(),
-        upper_date: moment().add('months', 1),
+        lower_date: DateTime.now(),
+        upper_date: DateTime.now().plus({ months: 1 }),
         manager_only: false,
         start_date_method: `${START_ON_PURCHASE}`,
         expiration_days_before_first_use: 365,
@@ -323,11 +322,13 @@ export const PaymentPackTemplateFormikHOC = withFormik({
           ? VALID_BY_DATERANGE
           : VALID_BY_DURATION,
         lower_date: initial.validity_daterange
-          ? moment(JSON.parse(initial.validity_daterange).lower)
-          : moment(),
+          ? // @ts-ignore
+            DateTime.fromISO(JSON.parse(initial.validity_daterange).lower)
+          : DateTime.now(),
         upper_date: initial.validity_daterange
-          ? moment(JSON.parse(initial.validity_daterange).upper)
-          : moment().add('days', 365),
+          ? // @ts-ignore
+            DateTime.fromISO(JSON.parse(initial.validity_daterange).upper)
+          : DateTime.now().plus({ days: 365 }),
         apply_penalties:
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
@@ -399,8 +400,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       data.duration_months = null;
       data.duration_years = null;
       data.validity_daterange = {
-        lower: moment(values.lower_date).format(DATE_FORMAT),
-        upper: moment(values.upper_date).format(DATE_FORMAT),
+        lower: DateTime.fromISO(values.lower_date).toISODate(),
+        upper: DateTime.fromISO(values.upper_date).toISODate(),
       };
     } else {
       data.duration_days = values.duration_days;
@@ -444,9 +445,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     data.max_purchase_per_member = values.max_purchase_per_member || null;
 
     if (values.expiration_date_active && values.expiration_date) {
-      data.expiration_date = moment(values.expiration_date).format(
-        'YYYY-MM-DD',
-      );
+      data.expiration_date = values.expiration_date;
     } else {
       data.expiration_date = null;
     }

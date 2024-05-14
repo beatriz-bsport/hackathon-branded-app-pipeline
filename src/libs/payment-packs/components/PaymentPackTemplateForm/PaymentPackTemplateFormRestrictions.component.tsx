@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
+import { DateTime } from 'luxon';
 import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -154,7 +155,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <InputLabel className={classes.inputLabelExpirationDate}>
                 {t('addPaymentPack.expiration_date.helperText')}
               </InputLabel>
-              <DateField allowNullValue format="L" name="expiration_date" />
+              <DateField
+                allowNullValue
+                format="D"
+                minDate={DateTime.now()}
+                name="expiration_date"
+              />
             </Collapse>
             <div className={classes.row}>
               <SwitchField

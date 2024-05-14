@@ -2,7 +2,6 @@ import { expect } from '@storybook/jest';
 import { userEvent, within, screen } from '@storybook/testing-library';
 
 import i18n from 'i18next';
-import moment from 'moment-timezone';
 
 import PaymentPackForm from '../PaymentPackForm.component';
 
@@ -13,6 +12,7 @@ import {
 
 import { inputValues } from './constants';
 import { ReactFramework, StoryContext } from '@storybook/react';
+import { DateTime } from 'luxon';
 
 export const generalSectionInteractionTests = async ({
   canvasElement,
@@ -253,7 +253,9 @@ export const validitySectionInteractionTests = async ({
   );
 
   // 🧪 Validity date start field - The selected date from the calendar should update the one in the field
-  const lowerDateAfterInteraction = moment().date(16).format('L');
+  const lowerDateAfterInteraction = DateTime.now()
+    .set({ day: 16 })
+    .toFormat('D');
 
   userEvent.click(validityOptionsRadioButtons[1]);
   sleep(100);
@@ -269,8 +271,10 @@ export const validitySectionInteractionTests = async ({
   );
 
   // 🧪 Validity date end field - The selected date from the calendar should update the one in the field
-  const oneMonthFromNowDate = moment().add({ months: 1 });
-  const upperDateAfterInteraction = oneMonthFromNowDate.date(16).format('L');
+  const oneMonthFromNowDate = DateTime.now().plus({ month: 1 });
+  const upperDateAfterInteraction = oneMonthFromNowDate
+    .set({ day: 16 })
+    .toFormat('D');
   const validityDateEndField = document.getElementsByName('upper_date')[0];
 
   userEvent.click(validityDateEndField);

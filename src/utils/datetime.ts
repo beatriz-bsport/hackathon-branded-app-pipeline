@@ -169,12 +169,17 @@ export function sortByDate<T, K extends keyof T>(
   if (!values) return [];
   if (key) {
     const factor = decreasingOrder ? -1 : 1;
-    return [...values].sort((a, b) =>
-      moment(a?.[key]).isBefore(moment(b?.[key])) ? -1 * factor : 1 * factor,
-    );
+    return [...values].sort((a, b) => {
+      const dateA = a?.[key] ? DateTime.fromISO(a[key] as string) : null;
+      const dateB = b?.[key] ? DateTime.fromISO(b[key] as string) : null;
+      return dateA < dateB ? -1 * factor : 1 * factor;
+    });
   }
 
-  return [...values].sort((a, b) => (moment(a).isBefore(moment(b)) ? -1 : 1));
+  return [...values].sort((a, b) =>
+    // @ts-ignore
+    DateTime.fromISO(a) < DateTime.fromISO(b) ? -1 : 1,
+  );
 }
 
 /*

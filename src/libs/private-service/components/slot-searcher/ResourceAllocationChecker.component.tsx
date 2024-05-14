@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { AxiosResponse } from 'axios';
 
 import Typography from '@material-ui/core/Typography';
@@ -65,14 +65,17 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
         this.props.restrictOnEstablishment,
       );
       const allIntervals = joinIntervalList(response.data);
+
       this.setState({
-        errorAllocation: !allIntervals.some(
-          (interval: string[]) =>
-            moment(this.props.updatedTime).isSameOrAfter(interval[0]) &&
-            moment(this.props.updatedTime)
-              .add(this.props.privateSlotDuration, 'minutes')
-              .isSameOrBefore(interval[1]),
-        ),
+        errorAllocation: !allIntervals.some((interval: string[]) => {
+          return (
+            DateTime.fromISO(this.props.updatedTime) >=
+              DateTime.fromISO(interval[0]) &&
+            DateTime.fromISO(this.props.updatedTime).plus({
+              minutes: this.props.privateSlotDuration,
+            }) <= DateTime.fromISO(interval[1])
+          );
+        }),
       });
     } catch (error) {
       this.setState({ errorAllocation: true });

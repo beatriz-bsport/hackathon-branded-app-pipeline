@@ -326,7 +326,7 @@ export const joinIntervalList = (intervalList: Array<Array<string>>) => {
   if (intervalList?.length < 2) return intervalList;
   // Must filter on moments and not strings due to different date string format
   const sortedIntervalList = intervalList.sort((slot, _slot) =>
-    moment(slot[0]).isAfter(moment(_slot[0])) ? 1 : -1,
+    DateTime.fromISO(slot[0]) > DateTime.fromISO(_slot[0]) ? 1 : -1,
   );
   const slots: Array<Array<string>> = [];
   sortedIntervalList.forEach(([start, end]) => {
@@ -334,12 +334,11 @@ export const joinIntervalList = (intervalList: Array<Array<string>>) => {
       slots.push([start, end]);
     } else {
       const previousSlotEnd = slots[slots.length - 1][1];
-      if (moment(start).isSameOrBefore(previousSlotEnd)) {
-        slots[slots.length - 1][1] = moment(previousSlotEnd).isBefore(
-          moment(end),
-        )
-          ? end
-          : previousSlotEnd;
+      if (DateTime.fromISO(start) <= DateTime.fromISO(previousSlotEnd)) {
+        slots[slots.length - 1][1] =
+          DateTime.fromISO(previousSlotEnd) < DateTime.fromISO(end)
+            ? end
+            : previousSlotEnd;
       } else {
         slots.push([start, end]);
       }

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import DialogContent from '@material-ui/core/DialogContent';
@@ -77,17 +77,19 @@ export class ResourceAllocationConfirmDialog extends React.Component<
         ])
       : filteredData;
     const joinedIntervals = joinIntervalList(allIntervals);
+    const dateTimeStart =
+      this.props.dateStart || this.props.privateBooking.date_start
+        ? DateTime.fromISO(
+            this.props.dateStart || this.props.privateBooking.date_start,
+          )
+        : DateTime.now();
+
     return !joinedIntervals.some(
       (interval: string[]) =>
-        moment(
-          this.props.dateStart || this.props.privateBooking.date_start,
-        ).isSameOrAfter(moment(interval[0])) &&
-        moment(this.props.dateStart || this.props.privateBooking.date_start)
-          .add(
-            this.props.privateBooking.private_slot.duration_minutes,
-            'minutes',
-          )
-          .isSameOrBefore(moment(interval[1])),
+        dateTimeStart >= DateTime.fromISO(interval[0]) &&
+        dateTimeStart.plus({
+          minutes: this.props.privateBooking.private_slot.duration_minutes,
+        }) <= DateTime.fromISO(interval[1]),
     );
   };
 

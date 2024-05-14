@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
+// @ts-ignore
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime, Interval } from 'luxon';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
@@ -18,8 +18,8 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
-import { formatISOStringAsTime } from '../../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
+import type { LuxonDateTime } from '#src/types';
 
 import './MarketplaceCalendarCSSOnly.css';
 
@@ -30,8 +30,8 @@ const LoadingIndicator = () => (
 );
 
 type Props = {
-  onSelectDate: () => void;
-  selectedDate: string;
+  onSelectDate: (date: string) => void;
+  selectedDate: LuxonDateTime;
   offers: Array<Offer>;
   genderCount: Object;
   group: Object;
@@ -40,6 +40,7 @@ type Props = {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: { [key: number]: MetaActivity };
+  // @ts-ignore
   setFilters: (any) => void;
   filters: any;
   forceDayDisplayOnly: boolean;
@@ -93,18 +94,21 @@ export const MarketplaceCalendar = (props: Props) => {
     theme,
   } = props;
 
-  const weekOffers = useMemo(
-    () =>
-      offers.filter((offer) =>
-        startWeekOnDaySelected
-          ? moment(offer.date_start).isBetween(
-              moment(selectedDate),
-              moment(selectedDate).add(7, 'days'),
-            )
-          : moment(offer.date_start).isSame(selectedDate, 'week'),
-      ),
-    [offers, selectedDate, startWeekOnDaySelected],
-  );
+  const weekOffers = useMemo(() => {
+    const interval = Interval.fromDateTimes(
+      selectedDate,
+      selectedDate.plus({ days: 7 }),
+    );
+
+    return (offers ?? []).filter((offer) =>
+      startWeekOnDaySelected
+        ? interval.contains(DateTime.fromISO(offer.date_start))
+        : DateTime.fromISO(offer.date_start)
+            .startOf('week', { useLocaleWeeks: true })
+            .toSeconds() ===
+          selectedDate.startOf('week', { useLocaleWeeks: true }).toSeconds(),
+    );
+  }, [offers, selectedDate, startWeekOnDaySelected]);
 
   const showDayParts =
     groupSessionByPeriod == null || groupSessionByPeriod === true;
@@ -112,6 +116,12 @@ export const MarketplaceCalendar = (props: Props) => {
   const noOfferDisplayed = !loading && weekOffers.length === 0;
 
   const renderNoOffer = () => {
+    const offerDateStart = nextAvailableOffer?.date_start
+      ? DateTime.fromISO(nextAvailableOffer?.date_start)
+      : DateTime.now();
+    const isOfferDateBeforeSelectedDate =
+      offerDateStart.toSeconds() < selectedDate.toSeconds();
+
     return (
       <div className="bs-calendar--no-offer">
         {!nextAvailableOffer && (
@@ -130,17 +140,21 @@ export const MarketplaceCalendar = (props: Props) => {
           >
             <EventAvailableIcon className="bs-calendar--no-offer--yes-next__icon" />
             <div className="bs-calendar--no-offer--yes-next__text">
-              {!moment(nextAvailableOffer.date_start).isBefore(
-                moment(selectedDate),
-              )
-                ? props.t('privateService:slotSearcher.nextOffer', {
-                    date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: formatISOStringAsTime(nextAvailableOffer.date_start),
-                  })
-                : props.t('privateService:slotSearcher.previousOffer', {
-                    date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: formatISOStringAsTime(nextAvailableOffer.date_start),
-                  })}
+              {props.t(
+                isOfferDateBeforeSelectedDate
+                  ? 'privateService:slotSearcher.nextOffer'
+                  : 'privateService:slotSearcher.previousOffer',
+                {
+                  date: (nextAvailableOffer?.date_start
+                    ? DateTime.now()
+                    : DateTime.fromISO(nextAvailableOffer.date_start)
+                  ).toLocaleString(DateTime.DATE_SHORT),
+                  hour: (nextAvailableOffer?.date_start
+                    ? DateTime.now()
+                    : DateTime.fromISO(nextAvailableOffer.date_start)
+                  ).toLocaleString(DateTime.TIME_SIMPLE),
+                },
+              )}
             </div>
           </button>
         )}
@@ -154,6 +168,7 @@ export const MarketplaceCalendar = (props: Props) => {
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
+            // @ts-ignore
             events={props.events}
             offerFilters={filters}
             onSelect={onSelectDate}
@@ -174,6 +189,7 @@ export const MarketplaceCalendar = (props: Props) => {
           offers={offers}
           onClearInput={onClearInput}
           onSearch={onSearch}
+          // @ts-ignore
           setFilters={setFilters}
           showMultiLocalization={props.showMultiLocalization}
           variant="activity"
@@ -183,6 +199,7 @@ export const MarketplaceCalendar = (props: Props) => {
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
+            // @ts-ignore
             activityLoading={props.activityLoading}
             bookedOffers={props.bookedOffers}
             coaches={props.coaches}
@@ -217,4 +234,5 @@ export const MarketplaceCalendar = (props: Props) => {
   );
 };
 
+// @ts-ignore
 export default withTranslation('privateService')(pure(MarketplaceCalendar));

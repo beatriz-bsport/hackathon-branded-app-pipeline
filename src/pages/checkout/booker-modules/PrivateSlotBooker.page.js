@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -65,7 +65,6 @@ import type {
 import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import {
   getCheckoutUrl,
   getUserSpaceUrl,
@@ -151,10 +150,10 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
     this.props.fetchCompatiblePrivatePass(this.props.privateSlotId, {
       as_consumer: true,
-      date: moment(this.props.data.date).format('YYYY-MM-DD'),
+      date: DateTime.fromISO(this.props.data.date).toISODate(),
     });
     this.props.fetchCompatiblePrivateConsumerPass(this.props.privateSlotId, {
-      date: moment(this.props.data.date).format('YYYY-MM-DD'),
+      date: DateTime.fromISO(this.props.data.date).toISODate(),
     });
 
     if (this.props.auth.authenticated) {
@@ -259,11 +258,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
               fontSize="large"
             />
             <Typography variant="h4">
-              {formatAsDatetimeAdapted(
-                this.props.data.date,
-                'LLLL',
-                this.props.theme.timezone_name,
-              )}
+              {DateTime.fromISO(this.props.data.date)
+                .setZone(this.props.theme.timezone_name)
+                .toFormat('DDDD t')}
             </Typography>
           </div>
           <div className={this.props.classes.paper}>

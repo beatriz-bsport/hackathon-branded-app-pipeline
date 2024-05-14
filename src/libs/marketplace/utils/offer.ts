@@ -1,6 +1,6 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import {
@@ -15,6 +15,7 @@ import {
   OFFER_NAME_CAPITALIZED_MAX_LENGTH,
   OFFER_NAME_MAX_LENGTH,
 } from '../constants';
+import { isDateInThePast } from '#src/utils/datetime';
 
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
@@ -56,9 +57,11 @@ export function isOfferBookableYet(
     return true;
   }
   if (metaActivity) {
-    return moment(offer.date_start)
-      .add(-metaActivity.first_booking_minutes_until, 'minutes')
-      .isSameOrBefore(moment());
+    return (
+      DateTime.fromISO(offer.date_start).minus({
+        minutes: metaActivity.first_booking_minutes_until,
+      }) <= DateTime.now()
+    );
   }
   return null;
 }
@@ -82,8 +85,10 @@ export const getOfferStatus = (
   if (!offer) {
     return null;
   }
+  // @ts-ignore
   if (offer.group?.full_booking_only && metaActivity) {
     return getGroupOfferSetAsFullBookingOnlyStatus(
+      // @ts-ignore
       offer,
       metaActivity,
       isRegistered,
@@ -95,12 +100,13 @@ export const getOfferStatus = (
   if (!offer.available) {
     return MarketplaceOfferStatus.CANCELLED;
   }
-  if (isOfferInThePast(offer)) {
+  if (isDateInThePast(offer.date_start)) {
     return MarketplaceOfferStatus.COMPLETED;
   }
   if (offer.full) {
     return MarketplaceOfferStatus.WAITING_LIST;
   }
+  // @ts-ignore
   if (!isOfferBookableYet(offer, metaActivity)) {
     return MarketplaceOfferStatus.SOON;
   }
@@ -127,24 +133,24 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
     return MarketplaceOfferStatus.WAITING_LIST;
   }
   if (!allow_booking_after_start) {
-    if (moment(first_offer_date).isSameOrBefore(moment())) {
+    if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
       return MarketplaceOfferStatus.COMPLETED;
     }
     if (
-      !moment(first_offer_date)
-        .subtract(metaActivity?.first_booking_minutes_until, 'minutes')
-        .isSameOrBefore(moment())
+      DateTime.fromISO(first_offer_date).minus({
+        minutes: metaActivity?.first_booking_minutes_until,
+      }) > DateTime.now()
     ) {
       return MarketplaceOfferStatus.SOON;
     }
-  } else if (isOfferInThePast(offer)) {
+  } else if (isDateInThePast(offer.date_start)) {
     return MarketplaceOfferStatus.COMPLETED;
-  } else if (moment(first_offer_date).isSameOrBefore(moment())) {
+  } else if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
     return MarketplaceOfferStatus.BOOKABLE;
   } else if (
-    !moment(first_offer_date)
-      .subtract(metaActivity?.first_booking_minutes_until, 'minutes')
-      .isSameOrBefore(moment())
+    DateTime.fromISO(first_offer_date).minus({
+      minutes: metaActivity?.first_booking_minutes_until,
+    }) > DateTime.now()
   ) {
     return MarketplaceOfferStatus.SOON;
   }

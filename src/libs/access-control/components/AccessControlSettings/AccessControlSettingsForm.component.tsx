@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { FormikProps, useField, useFormikContext, withFormik } from 'formik';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import type { AccessControlPolicy } from '#libs/access-control/types';
 
@@ -199,20 +199,19 @@ export default compose<Props, OwnProps>(
         booked_session_time_interval_before_visit,
         booked_session_time_interval_after_visit,
       } = accessControlPolicy;
-      const beforeVisit = moment(
+      const beforeVisit = DateTime.fromFormat(
         booked_session_time_interval_before_visit,
         'HH:mm:ss',
       );
-      const afterVisit = moment(
+      const afterVisit = DateTime.fromFormat(
         booked_session_time_interval_after_visit,
         'HH:mm:ss',
       );
 
       return {
-        booked_session_time_interval_after_visit_hours: afterVisit.hours(),
-        booked_session_time_interval_after_visit_minutes: afterVisit.minutes(),
-        booked_session_time_interval_before_visit_minutes:
-          beforeVisit.minutes(),
+        booked_session_time_interval_after_visit_hours: afterVisit.hour,
+        booked_session_time_interval_after_visit_minutes: afterVisit.minute,
+        booked_session_time_interval_before_visit_minutes: beforeVisit.minute,
       };
     },
 
@@ -228,16 +227,20 @@ export default compose<Props, OwnProps>(
       } = values;
 
       const data = {
-        booked_session_time_interval_before_visit: moment()
-          .hours(0)
-          .minutes(booked_session_time_interval_before_visit_minutes)
-          .seconds(0)
-          .format('HH:mm:ss'),
-        booked_session_time_interval_after_visit: moment()
-          .hours(booked_session_time_interval_after_visit_hours)
-          .minutes(booked_session_time_interval_after_visit_minutes)
-          .seconds(0)
-          .format('HH:mm:ss'),
+        booked_session_time_interval_before_visit: DateTime.now()
+          .set({
+            hour: 0,
+            minute: booked_session_time_interval_before_visit_minutes,
+            second: 0,
+          })
+          .toFormat('HH:mm:ss'),
+        booked_session_time_interval_after_visit: DateTime.now()
+          .set({
+            hour: booked_session_time_interval_after_visit_hours,
+            minute: booked_session_time_interval_after_visit_minutes,
+            second: 0,
+          })
+          .toFormat('HH:mm:ss'),
       };
 
       onSubmit(data);

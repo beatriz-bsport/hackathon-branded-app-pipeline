@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -143,8 +143,12 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
 
       <ListItemText
         className={classes.flex1}
-        primary={moment(memberVisit.datetime_created).format('LT')}
-        secondary={moment(memberVisit.datetime_created).format('L')}
+        primary={DateTime.fromISO(memberVisit.datetime_created).toLocaleString(
+          DateTime.TIME_SIMPLE,
+        )}
+        secondary={DateTime.fromISO(
+          memberVisit.datetime_created,
+        ).toLocaleString(DateTime.DATE_SHORT)}
       />
 
       <div className={classes.accessStatusChips}>

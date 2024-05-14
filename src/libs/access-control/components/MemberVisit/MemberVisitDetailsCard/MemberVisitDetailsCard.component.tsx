@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -106,11 +106,11 @@ const MemberVisitDetailsCardContent: React.FC<
               <Typography color="textSecondary" variant="caption">
                 {most_relevant_pass_data?.expiration_date
                   ? t('memberVisitDetails.passExpiration', {
-                      expirationDate: moment(
-                        most_relevant_pass_data?.expiration_date,
+                      expirationDate: DateTime.fromISO(
+                        most_relevant_pass_data.expiration_date,
                       )
-                        ?.startOf('day')
-                        ?.format('L'),
+                        .startOf('day')
+                        .toLocaleString(DateTime.DATE_SHORT),
                     })
                   : null}
               </Typography>

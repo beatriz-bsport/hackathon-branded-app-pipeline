@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ConnectedProps, connect } from 'react-redux';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 /** ACTIONS */
 import { search } from '#libs/member/actions';
@@ -112,10 +112,11 @@ const useLiveHistoryPageDataManager = ({
   const fetchMemberVisitList = useCallback(
     (params: { page: number; member?: number }) => {
       // If current time is before 2am, we need to fetch yesterday's data as well
-      const datetime_created_after = moment()
-        .subtract(2, 'hours')
+      const datetime_created_after = DateTime.now()
+        .toUTC()
+        .minus({ hour: 2 })
         .startOf('day')
-        .toISOString();
+        .toISO();
 
       // If the staff user has the permission to perform access monitoring, we will only show the member visits performed by him
       const performed_by_me =

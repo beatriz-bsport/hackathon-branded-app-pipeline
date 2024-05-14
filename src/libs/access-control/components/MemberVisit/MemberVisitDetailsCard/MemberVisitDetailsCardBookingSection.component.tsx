@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -57,9 +57,11 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               {booking.establishment_name}
             </Typography>
             <Typography color="textSecondary" variant="caption">
-              {`${moment(booking.offer_date_start).format('LT')} - ${moment(
-                booking.offer_date_start,
-              ).format('L')}`}
+              {`${DateTime.fromISO(booking.offer_date_start).toLocaleString(
+                DateTime.TIME_SIMPLE,
+              )} - ${DateTime.fromISO(booking.offer_date_start).toLocaleString(
+                DateTime.DATE_SHORT,
+              )}`}
             </Typography>
           </div>
           {isOpen && (
@@ -123,9 +125,11 @@ const MemberVisitDetailsCardBookingSection: React.FC<
               </Typography>
             )}
             <Typography color="textSecondary" variant="caption">
-              {`${moment(date_start).format('LT')} - ${moment(
-                date_start,
-              ).format('L')}`}
+              {`${DateTime.fromISO(date_start).toLocaleString(
+                DateTime.TIME_SIMPLE,
+              )} - ${DateTime.fromISO(date_start).toLocaleString(
+                DateTime.DATE_SHORT,
+              )}`}
             </Typography>
           </div>
           {isOpen && (

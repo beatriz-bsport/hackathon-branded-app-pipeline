@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -43,7 +43,9 @@ const MemberPhotoHistoryModal: React.FC<Props> = ({
                 />
                 <Typography className={classes.photoLabel}>
                   {t('modals.memberPhotoHistory.uploadedOn', {
-                    date: moment(datetime_created).format('L'),
+                    date: DateTime.fromISO(datetime_created).toLocaleString(
+                      DateTime.DATE_SHORT,
+                    ),
                   })}
                 </Typography>
               </div>

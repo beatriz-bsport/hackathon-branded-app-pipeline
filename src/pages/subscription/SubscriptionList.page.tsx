@@ -10,12 +10,12 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment-timezone';
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
 
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 
+import { DateTime } from 'luxon';
 import withTitle from '../../hocs/with-title.hoc';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
@@ -183,7 +183,7 @@ export default compose(
           {
             status: PLANNED_INVOICE_PENDING.id,
             billing_plan__active: true,
-            date__gte: moment().format('YYYY-MM-DD'),
+            date__gte: DateTime.now().toISODate(),
           },
           page_size,
         );

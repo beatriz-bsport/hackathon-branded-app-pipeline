@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
+import { DateTime } from 'luxon';
 
-import moment, { Moment } from 'moment-timezone';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -35,6 +35,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import type { LuxonDateTime } from '#src/types';
 
 import { formatAsDate, sortByDate } from '../../../utils/datetime';
 import Tooltip from '#components/Tooltip.component';
@@ -267,7 +268,7 @@ const PlannedInvoiceEditMenu: FC<PlannedInvoiceEditMenuProps> = React.memo(
   }) => {
     const { t } = useTranslation(['subscription']);
     const isPast =
-      moment(plannedInvoice.date).isBefore(moment()) ||
+      DateTime.fromISO(plannedInvoice.date) < DateTime.now() ||
       plannedInvoice.status !== PENDING.id;
 
     const [stopNote, setStopNote] = React.useState<string>('');
@@ -295,7 +296,7 @@ const PlannedInvoiceEditMenu: FC<PlannedInvoiceEditMenuProps> = React.memo(
     const scheduledStopIsDisabled = React.useMemo(
       () =>
         disableActions ||
-        moment(plannedInvoice.date).isBefore(moment().add(-31, 'days')),
+        DateTime.fromISO(plannedInvoice.date).diffNow('days').days < -31,
       [disableActions, plannedInvoice.date],
     );
 
@@ -562,19 +563,23 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
       })),
     [plannedInvoiceList, pauseList],
   );
-  let endOrRenewalDay: Moment = moment();
+  let endOrRenewalDay: LuxonDateTime = DateTime.now();
   let pausesWithoutRelatedPlannedInvoicesBeforeEnd: SubscriptionPause[] = [];
   let pausesWithoutRelatedPlannedInvoicesAfterEnd: SubscriptionPause[] = [];
   const { recurrence_basis, interval } = props.subscription;
   if (plannedInvoiceList?.length > 0 && !!recurrence_basis && !!interval) {
-    endOrRenewalDay = moment(
+    const lastPlannedInvoiceDate = DateTime.fromISO(
       plannedInvoiceList[plannedInvoiceList.length - 1].date,
-    ).add(recurrence_basis, interval);
+    );
+    endOrRenewalDay = lastPlannedInvoiceDate.plus({
+      [interval]: recurrence_basis,
+    });
   }
   pausesWithoutRelatedPlannedInvoicesBeforeEnd = sortByDate(
     pauseList.filter(
       (p: SubscriptionPause) =>
-        !p.first_paused_planned_invoice && endOrRenewalDay.isAfter(p.from_date),
+        !p.first_paused_planned_invoice &&
+        endOrRenewalDay > DateTime.fromISO(p.from_date),
     ),
     'from_date',
   );
@@ -582,7 +587,7 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
     pauseList.filter(
       (p: SubscriptionPause) =>
         !p.first_paused_planned_invoice &&
-        endOrRenewalDay.isSameOrBefore(p.from_date),
+        endOrRenewalDay <= DateTime.fromISO(p.from_date),
     ),
     'from_date',
   );
@@ -604,16 +609,12 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
                       <PauseDetailListItem
                         key={pause.id}
                         dateEndIsPast={
-                          moment(pause.until_date).diff(
-                            moment().format('YYYY-MM-DD'),
-                            'days',
-                          ) < 0
+                          DateTime.fromISO(pause.until_date).diffNow('days')
+                            .days < 0
                         }
                         dateStartIsPast={
-                          moment(pause.from_date).diff(
-                            moment().format('YYYY-MM-DD'),
-                            'days',
-                          ) < 0
+                          DateTime.fromISO(pause.from_date).diffNow('days')
+                            .days < 0
                         }
                         deletePause={props.cancelPause}
                         pause={pause}
@@ -667,16 +668,10 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
           <PauseDetailListItem
             key={pause.id}
             dateEndIsPast={
-              moment(pause.until_date).diff(
-                moment().format('YYYY-MM-DD'),
-                'days',
-              ) < 0
+              DateTime.fromISO(pause.until_date).diffNow('days').days < 0
             }
             dateStartIsPast={
-              moment(pause.from_date).diff(
-                moment().format('YYYY-MM-DD'),
-                'days',
-              ) < 0
+              DateTime.fromISO(pause.from_date).diffNow('days').days < 0
             }
             deletePause={props.cancelPause}
             pause={pause}
@@ -695,16 +690,10 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
             <PauseDetailListItem
               key={pause.id}
               dateEndIsPast={
-                moment(pause.until_date).diff(
-                  moment().format('YYYY-MM-DD'),
-                  'days',
-                ) < 0
+                DateTime.fromISO(pause.until_date).diffNow('days').days < 0
               }
               dateStartIsPast={
-                moment(pause.from_date).diff(
-                  moment().format('YYYY-MM-DD'),
-                  'days',
-                ) < 0
+                DateTime.fromISO(pause.from_date).diffNow('days').days < 0
               }
               deletePause={props.cancelPause}
               isLastPauseAfterEndItem={

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -28,7 +28,6 @@ import {
 } from '../../../../../libs/private-service/utils';
 import { Establishment } from '../../../../../libs/establishment/types';
 import { Coach } from '../../../../../libs/associated-coach/types';
-import { formatAsTime } from '../../../../../utils/datetime';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
@@ -62,36 +61,36 @@ const SlotCalendar: React.FC<Props> = ({
   onDateChange,
 }) => {
   const selectPreviousDay = useCallback(() => {
-    const date = moment(selectedDate)
-      .add(-numberOfDayToShow, 'days')
-      .format('YYYY-MM-DD');
+    const date = DateTime.fromISO(selectedDate)
+      .plus({ days: -numberOfDayToShow })
+      .toISODate();
 
     onDateChange(date);
   }, [selectedDate, numberOfDayToShow, onDateChange]);
 
   const selectNextDay = useCallback(() => {
-    const date = moment(selectedDate)
-      .add(numberOfDayToShow, 'days')
-      .format('YYYY-MM-DD');
+    const date = DateTime.fromISO(selectedDate)
+      .plus({ days: numberOfDayToShow })
+      .toISODate();
 
     onDateChange(date);
   }, [selectedDate, numberOfDayToShow, onDateChange]);
 
   const goToFirstAvailableSession = () => {
-    onDateChange(
-      numberOfDayToShow === 7
-        ? moment(nextDateAvailableSlot)
-            .tz(timezoneName)
-            .startOf('week')
-            .format('YYYY-MM-DD')
-        : nextDateAvailableSlot,
-    );
+    const date = DateTime.fromISO(nextDateAvailableSlot)
+      .setZone(timezoneName)
+      .startOf('week', { useLocaleWeeks: true })
+      .toISODate();
+
+    onDateChange(numberOfDayToShow === 7 ? date : nextDateAvailableSlot);
   };
 
-  const dates = [];
+  const dates: DateTime[] = [];
 
   for (let i = 0; i < numberOfDayToShow; i += 1) {
-    dates.push(moment(selectedDate).tz(timezoneName).add(i, 'days'));
+    dates.push(
+      DateTime.fromISO(selectedDate).setZone(timezoneName).plus({ days: i }),
+    );
   }
 
   const classes = useStyles({ privateSlot });
@@ -102,7 +101,7 @@ const SlotCalendar: React.FC<Props> = ({
 
     return (
       splitIntervalList(
-        availabilitySlotByDate?.[d.format('YYYY-MM-DD')] ?? [],
+        availabilitySlotByDate?.[d.toISODate()] ?? [],
         privateSlot.duration_minutes,
         privateSlot.booking_interval_minutes,
       )?.length ?? false
@@ -115,17 +114,18 @@ const SlotCalendar: React.FC<Props> = ({
         <Typography variant="h5">{t('slotSearcher.search')}</Typography>
         {privateSlot &&
           nextDateAvailableSlot !== null &&
-          moment(nextDateAvailableSlot)
-            .tz(timezoneName)
-            .isBefore(moment(selectedDate).tz(timezoneName)) && (
+          DateTime.fromISO(nextDateAvailableSlot).setZone(timezoneName) <
+            DateTime.fromISO(selectedDate).setZone(timezoneName) && (
             <div className={classes.helperText}>
               <ButtonBase onClick={goToFirstAvailableSession}>
                 <Typography color="primary">
                   {t('slotSearcher.previousOffer', {
-                    date: moment(nextDateAvailableSlot)
-                      .tz(timezoneName)
-                      .format('L'),
-                    hour: formatAsTime(nextDateAvailableSlot, timezoneName),
+                    date: DateTime.fromISO(nextDateAvailableSlot)
+                      .setZone(timezoneName)
+                      .toLocaleString(DateTime.DATE_SHORT),
+                    hour: DateTime.fromISO(nextDateAvailableSlot)
+                      .setZone(timezoneName)
+                      .toLocaleString(DateTime.TIME_SIMPLE),
                   })}
                 </Typography>
               </ButtonBase>
@@ -164,7 +164,7 @@ const SlotCalendar: React.FC<Props> = ({
               </div>
             ) : (
               dates.map((date) => {
-                const dateStr = date.format('YYYY-MM-DD');
+                const dateStr = date.toISODate();
                 const slotByDate = availabilitySlotByDate[dateStr];
 
                 return (
@@ -200,13 +200,12 @@ const SlotCalendar: React.FC<Props> = ({
                           <ButtonBase onClick={goToFirstAvailableSession}>
                             <Typography className={classes.link}>
                               {t('slotSearcher.nextOffer', {
-                                date: moment(nextDateAvailableSlot)
-                                  .tz(timezoneName)
-                                  .format('L'),
-                                hour: formatAsTime(
-                                  nextDateAvailableSlot,
-                                  timezoneName,
-                                ),
+                                date: DateTime.fromISO(nextDateAvailableSlot)
+                                  .setZone(timezoneName)
+                                  .toLocaleString(DateTime.DATE_SHORT),
+                                hour: DateTime.fromISO(nextDateAvailableSlot)
+                                  .setZone(timezoneName)
+                                  .toLocaleString(DateTime.TIME_SIMPLE),
                               })}
                             </Typography>
                           </ButtonBase>
@@ -320,4 +319,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SlotCalendar;
+export default React.memo(SlotCalendar);

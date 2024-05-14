@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { ButtonBase, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -9,7 +9,6 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import {
   groupSessionsByDayMoment,
   splitIntervalList,
-  // @ts-ignore
 } from '../../../../../libs/private-service/utils';
 import {
   PrivateService,
@@ -26,7 +25,7 @@ type Props = {
   privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
   slots: string[][];
-  date: Moment;
+  date: DateTime;
   selectedSessionMoment: SessionMoment;
   onSessionMomentSelect: (sessionMoment: SessionMoment) => void;
 };
@@ -68,7 +67,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
   }, [classes.centerView]);
 
   const renderSessionsMoment = useCallback(() => {
-    let sessions = [];
+    let sessions: string[] = [];
 
     if (slots?.length && privateService && privateSlot) {
       sessions = splitIntervalList(
@@ -81,7 +80,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
     const sessionsByDayMoment = groupSessionsByDayMoment(
       sessions,
       timezoneName,
-      date.format('YYYY-MM-DD'),
+      date.toISODate(),
     );
 
     const sessionByDayElement: any[] = [];
@@ -168,11 +167,12 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
     t,
   ]);
 
-  const weekDay = t(`datetime:time.isoWeekdayNumber.${date.isoWeekday()}`);
+  const weekDay = t(`datetime:time.isoWeekdayNumber.${date.weekday}`);
+
   const month = t(
     `datetime:time.monthShort.${date
-      .locale('en-US')
-      .format('MMMM')
+      .setLocale('en-US')
+      .toFormat('MMMM')
       .toLowerCase()}`,
   );
 
@@ -181,7 +181,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       <div className={classes.dateContainer}>
         <Typography variant="subtitle1">{weekDay}</Typography>
         <Typography color="textSecondary" variant="subtitle2">
-          {`${month} ${date.date()}`}
+          {`${month} ${date.day}`}
         </Typography>
       </div>
 
@@ -251,4 +251,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SlotCalendarDay;
+export default React.memo(SlotCalendarDay);

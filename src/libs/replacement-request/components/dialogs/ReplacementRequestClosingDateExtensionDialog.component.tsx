@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import UpdateIcon from '#components/icons/UpdateIcon.component';
-import DateTimeInput from '#components/input/DateTimeInput.component';
+import DateTimeInput from '#src/components/input/DateTimeInput.component';
 import { ReplacementRequest } from '#libs/replacement-request/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
@@ -19,10 +18,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
 import { OptionCallback } from '../../../../state/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import {
-  formatAsDatetimeAdapted,
-  formatAsTime,
-} from '../../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 type Props = {
   open: boolean;
@@ -51,8 +47,10 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const [date, setDate] = React.useState(
-    replacementRequest?.closing_date || null,
+  const [date, setDate] = React.useState<DateTime | null>(
+    replacementRequest
+      ? DateTime.fromISO(replacementRequest.closing_date)
+      : null,
   );
   const [success, setSuccess] = React.useState(false);
 
@@ -61,22 +59,30 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
   const theme = useTheme();
 
   const handleSubmit = () => {
-    onSubmit(replacementRequest.id, moment(date).format(), {
-      onSuccess: () => {
-        setSuccess(true);
+    onSubmit(
+      replacementRequest.id,
+      date ? date.toISO() : DateTime.now().toISO(),
+      {
+        onSuccess: () => {
+          setSuccess(true);
+        },
       },
-    });
+    );
   };
 
   const handleClose = () => onClose();
 
   const handleChange = React.useCallback(
-    (new_date: string) => setDate(new_date),
+    (newDate: DateTime) => setDate(newDate),
     [setDate],
   );
 
   React.useEffect(() => {
-    setDate(replacementRequest?.closing_date || null);
+    setDate(
+      replacementRequest
+        ? DateTime.fromISO(replacementRequest.closing_date)
+        : DateTime.now(),
+    );
   }, [replacementRequest]);
 
   if (!replacementRequest) return null;
@@ -111,32 +117,38 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
       </Typography>
       <Typography className={classes.centered} variant="body1">
         {t('askForClosingDateExtension.description', {
-          closing_date: moment(replacementRequest.closing_date).format('LL LT'),
+          closing_date: DateTime.fromISO(
+            replacementRequest.closing_date,
+          ).toFormat('DDD t'),
         })}
       </Typography>
       <div className={classes.marginLeft}>
         <Typography variant="subtitle1">
-          {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
+          {DateTime.fromISO(replacementRequest.offer.date_start).toFormat(
+            'EEE d MMM',
+          )}
         </Typography>
         <Typography className={classes.grey} variant="body2">
-          {formatAsTime(replacementRequest.offer.date_start)} -{' '}
-          {formatAsTime(
-            moment(replacementRequest.offer.date_start).add(
-              replacementRequest.offer.duration_minute,
-              'minutes',
-            ),
+          {formatISOStringAsTime(replacementRequest.offer.date_start)} -{' '}
+          {formatISOStringAsTime(
+            DateTime.fromISO(replacementRequest.offer.date_start)
+              .plus({
+                minute: replacementRequest.offer.duration_minute,
+              })
+              .toISO(),
           )}
         </Typography>
       </div>
       <div className={classes.marginLeft}>
         <DateTimeInput
           separateInputs
-          className={classes.marginLeft}
           label={t('askForClosingDateExtension.closing_date')}
-          maxDate={moment(replacementRequest.offer.date_start).format(
-            'YYYY-MM-DD',
-          )}
-          minDate={moment(replacementRequest.closing_date).format('YYYY-MM-DD')}
+          maxDate={DateTime.fromISO(
+            replacementRequest.offer.date_start,
+          ).toISODate()}
+          minDate={DateTime.fromISO(
+            replacementRequest.closing_date,
+          ).toISODate()}
           onChange={handleChange}
           timezone={timezoneName}
           value={date}
@@ -144,8 +156,8 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
       </div>
       <Typography className={classes.marginLeft} variant="body1">
         {t('askForClosingDateExtension.new_closing_date', {
-          closing_date: formatAsDatetimeAdapted(date, 'LL'),
-          time: formatAsTime(date),
+          closing_date: date.toLocaleString(DateTime.DATE_FULL),
+          time: formatISOStringAsTime(date.toISO()),
         })}
       </Typography>
       <div className={classes.alignRight}>

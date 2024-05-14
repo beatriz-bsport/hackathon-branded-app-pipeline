@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classnames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +35,7 @@ import {
 } from '#libs/replacement-request/constants';
 import {
   formatAsDatetimeAdapted,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../../../utils/datetime';
 
 type Props = {
@@ -130,19 +130,19 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
     ],
   );
 
-  const offerDateStartAsMoment = useMemo(
+  const offerDateStartAsDateTime = useMemo(
     () =>
-      moment(replacementRequest.offer.date_start).tz(
+      DateTime.fromISO(replacementRequest.offer.date_start).setZone(
         replacementRequest.offer.timezone_name ?? timezoneName,
       ),
     [replacementRequest.offer, timezoneName],
   );
 
-  const offerDateEndAsMoment = useMemo(
+  const offerDateEndAsDateTime = useMemo(
     () =>
-      moment(replacementRequest.offer.date_start)
-        .tz(replacementRequest.offer.timezone_name ?? timezoneName)
-        .add(replacementRequest.offer.duration_minute, 'minutes'),
+      DateTime.fromISO(replacementRequest.offer.date_start)
+        .setZone(replacementRequest.offer.timezone_name ?? timezoneName)
+        .plus({ minute: replacementRequest.offer.duration_minute }),
     [replacementRequest.offer, timezoneName],
   );
 
@@ -177,19 +177,18 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         >
           <div className={classes.dateRow}>
             <Typography className={classes.marginRight2} variant="body2">
-              {formatAsDatetimeAdapted(
-                offerDateStartAsMoment,
-                'ddd D MMM, YYYY',
-                timezone,
-              )}
+              {offerDateStartAsDateTime.toFormat('EEE d MMM, yyyy')}
             </Typography>
             <Typography
               className={classnames(classes.grey, classes.mobileSmallFont)}
             >
-              {`${formatAsTime(
-                offerDateStartAsMoment,
+              {`${formatISOStringAsTime(
+                offerDateStartAsDateTime.toISO(),
                 timezone,
-              )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
+              )} - ${formatISOStringAsTime(
+                offerDateEndAsDateTime.toISO(),
+                timezone,
+              )}`}
             </Typography>
           </div>
           {replacementDisplay ===
@@ -225,7 +224,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
             <ReplacementRequestRegistrationsStatusChip
-              areClosed={moment().isAfter(replacementRequest.closing_date)}
+              areClosed={
+                DateTime.now() >
+                DateTime.fromISO(replacementRequest.closing_date)
+              }
               isMobile={isMobile}
               nbAnswers={(replacementRequest.coach_answer || []).length}
             />
@@ -277,9 +279,9 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                   className={classnames(classes.grey, classes.mobileSmallFont)}
                 >
                   {t('marketplace.until', {
-                    date: moment(replacementRequest.closing_date).format(
-                      'L - LT',
-                    ),
+                    date: DateTime.fromISO(
+                      replacementRequest.closing_date,
+                    ).toFormat('D - t'),
                   })}
                 </Typography>
               )}
@@ -364,16 +366,19 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </Typography>
             <Typography className={classes.weight500} variant="subtitle2">
               {formatAsDatetimeAdapted(
-                offerDateStartAsMoment,
+                offerDateStartAsDateTime.toISO(),
                 'ddd D MMM, YYYY',
                 timezone,
               )}
             </Typography>
             <Typography className={classes.grey} variant="body2">
-              {`${formatAsTime(
-                offerDateStartAsMoment,
+              {`${formatISOStringAsTime(
+                offerDateStartAsDateTime.toISO(),
                 timezone,
-              )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
+              )} - ${formatISOStringAsTime(
+                offerDateEndAsDateTime.toISO(),
+                timezone,
+              )}`}
             </Typography>
           </TableCell>
         ) : (
@@ -381,16 +386,19 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <TableCell className={classes.tableCell}>
               <Typography className={classes.weight500} variant="subtitle1">
                 {formatAsDatetimeAdapted(
-                  offerDateStartAsMoment,
+                  offerDateStartAsDateTime.toISO(),
                   'ddd D MMM, YYYY',
                   timezone,
                 )}
               </Typography>
               <Typography className={classes.grey} variant="body2">
-                {`${formatAsTime(
-                  offerDateStartAsMoment,
+                {`${formatISOStringAsTime(
+                  offerDateStartAsDateTime.toISO(),
                   timezone,
-                )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
+                )} - ${formatISOStringAsTime(
+                  offerDateEndAsDateTime.toISO(),
+                  timezone,
+                )}`}
               </Typography>
             </TableCell>
             <Hidden smUp>
@@ -494,7 +502,9 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </TableCell>
             <TableCell className={classes.tableCell}>
               <Typography>
-                {moment(replacementRequest.closing_date).format('L - LT')}
+                {DateTime.fromISO(replacementRequest.closing_date).toFormat(
+                  'D - t',
+                )}
               </Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
@@ -528,7 +538,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </TableCell>
             <TableCell className={classes.tableCell}>
               <ReplacementRequestRegistrationsStatusChip
-                areClosed={moment().isAfter(replacementRequest.closing_date)}
+                areClosed={
+                  DateTime.now() >
+                  DateTime.fromISO(replacementRequest.closing_date)
+                }
                 nbAnswers={(replacementRequest.coach_answer || []).length}
               />
             </TableCell>

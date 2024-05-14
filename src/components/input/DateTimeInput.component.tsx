@@ -1,37 +1,35 @@
-// @flow
-
 import React from 'react';
-import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classNames from 'classnames';
 
-import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 
 import { useTranslation } from 'react-i18next';
-import { Moment } from '../../i18n';
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 
 type Props = {
-  value: string,
-  onChange: (string) => void,
-  required?: boolean,
-  disabled?: boolean,
-  timezone?: string,
-  minDate?: string,
-  maxDate?: string,
-  label?: string,
-  separateInputs?: boolean,
-  hasDateTooFarError?: boolean,
+  value: DateTime;
+  onChange: (value: DateTime) => void;
+  required?: boolean;
+  disabled?: boolean;
+  timezone?: string;
+  minDate?: string;
+  maxDate?: string;
+  label?: string;
+  separateInputs?: boolean;
+  hasDateTooFarError?: boolean;
 };
 
-const rebuildDatetime = (date, hour, minute, timezone) => {
-  return moment(date)
-    .tz(timezone)
-    .set('hour', hour)
-    .set('minute', minute)
-    .format();
+const rebuildDatetime = (
+  datetime: DateTime,
+  hour: number,
+  minute: number,
+  timezone: string,
+) => {
+  return datetime.setZone(timezone).set({ hour, minute });
 };
 
 export function DateTimeForm(props: Props) {
@@ -41,9 +39,8 @@ export function DateTimeForm(props: Props) {
   return (
     <div className={classes.container}>
       <MuiPickersUtilsProvider
-        locale={Moment.locale()}
-        moment={Moment}
-        utils={MomentUtils}
+        locale={Settings.defaultLocale}
+        utils={LuxonUtils}
       >
         <div
           className={classNames({
@@ -53,18 +50,9 @@ export function DateTimeForm(props: Props) {
           <DatePicker
             keyboard
             disabled={props.disabled}
-            format="L"
+            format="D"
             id="date_picker"
-            onChange={(date) =>
-              props.onChange(
-                rebuildDatetime(
-                  date,
-                  moment(props.value).tz(props.timezone).get('hour'),
-                  moment(props.value).tz(props.timezone).get('minute'),
-                  props.timezone,
-                ),
-              )
-            }
+            onChange={(datetime: DateTime) => props.onChange(datetime)}
             value={props.value}
             {...(props.hasDateTooFarError
               ? { error: true, helperText: t('form.datePicker.rangeError') }
@@ -80,10 +68,10 @@ export function DateTimeForm(props: Props) {
               props.onChange(
                 rebuildDatetime(
                   props.value,
-                  ev.target.value.split(':')[0] ||
-                    moment().tz(props.timezone).get('hour'),
-                  ev.target.value.split(':')[1] ||
-                    moment().tz(props.timezone).get('minute'),
+                  parseInt(ev.target.value.split(':')[0]) ||
+                    DateTime.now().setZone(props.timezone).hour,
+                  parseInt(ev.target.value.split(':')[1]) ||
+                    DateTime.now().setZone(props.timezone).minute,
                   props.timezone,
                 ),
               )
@@ -91,7 +79,7 @@ export function DateTimeForm(props: Props) {
             required={props.required}
             style={{ minWidth: 120 }}
             type="time"
-            value={moment(props.value).tz(props.timezone).format('HH:mm')}
+            value={props.value.setZone(props.timezone).toFormat('HH:mm')}
           />
         </div>
       </MuiPickersUtilsProvider>

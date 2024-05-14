@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classnames from 'classnames';
 
 import Button from '@material-ui/core/Button';
@@ -22,7 +21,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
 import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
 import { OptionCallback } from '../../../../state/types';
-import { formatAsTime } from '../../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 type Props = {
   open: boolean;
@@ -114,8 +113,10 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         >
           {t('coachAnswers.success.description', {
             coach: selectedCoachAnswer.coach.name,
-            date: moment(replacementRequest.offer.date_start).format('L'),
-            time: formatAsTime(replacementRequest.offer.date_start),
+            date: DateTime.fromISO(
+              replacementRequest.offer.date_start,
+            ).toLocaleString(DateTime.DATE_SHORT),
+            time: formatISOStringAsTime(replacementRequest.offer.date_start),
           })}
         </Typography>
         <div className={classes.buttonContainer}>
@@ -164,15 +165,16 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
     <GenericResponsiveDialog maxWidth="sm" open={open}>
       <div className={classes.dateContainer}>
         <Typography variant="h6">
-          {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
+          {DateTime.fromISO(replacementRequest.offer.date_start).toFormat(
+            'EEE d MMM',
+          )}
         </Typography>
         <Typography className={classes.grey} variant="body2">
-          {formatAsTime(replacementRequest.offer.date_start)} -{' '}
-          {formatAsTime(
-            moment(replacementRequest.offer.date_start).add(
-              replacementRequest.offer.duration_minute,
-              'minutes',
-            ),
+          {formatISOStringAsTime(replacementRequest.offer.date_start)} -{' '}
+          {formatISOStringAsTime(
+            DateTime.fromISO(replacementRequest.offer.date_start)
+              .plus({ minute: replacementRequest.offer.duration_minute })
+              .toISO(),
           )}
         </Typography>
       </div>
@@ -184,6 +186,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         <div className={classes.chipContainer}>
           <LevelChip
             isChip
+            // @ts-expect-error
             customLevel={replacementRequest.offer.customLevel}
           />
         </div>
@@ -203,11 +206,16 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
             </Typography>
             <ReplacementRequestRegistrationsStatusChip
               floatChip
-              areClosed={moment().isAfter(replacementRequest.closing_date)}
+              areClosed={
+                DateTime.now() >
+                DateTime.fromISO(replacementRequest.closing_date)
+              }
             />
           </div>
           <Typography className={classnames(classes.grey)} variant="body2">
-            {moment(replacementRequest.closing_date).format('L')}
+            {DateTime.fromISO(replacementRequest.closing_date).toLocaleString(
+              DateTime.DATE_SHORT,
+            )}
           </Typography>
         </div>
 
@@ -223,6 +231,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
       <ReplacementRequestCoachAnswerTable
         coaches={coaches}
         onAttribute={handleAttribute}
+        // @ts-expect-error
         replacementRequestCoachAnswerList={replacementRequest.coach_answer}
       />
       <div className={classes.alignRight}>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useMemo, useCallback } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 
@@ -26,7 +26,7 @@ import { Offer } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import {
   formatAsDatetimeAdapted,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../../../utils/datetime';
 
 type Props = {
@@ -128,16 +128,19 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
     [enableMultiLocalization, establishmentGroups, offer.establishment],
   );
 
-  const offerDateStartAsMoment = useMemo(
-    () => moment(offer.date_start).tz(offer.timezone_name ?? timezoneName),
+  const offerDateStartAsDateTime = useMemo(
+    () =>
+      DateTime.fromISO(offer.date_start).setZone(
+        offer.timezone_name ?? timezoneName,
+      ),
     [offer, timezoneName],
   );
 
-  const offerDateEndAsMoment = useMemo(
+  const offerDateEndAsDateTime = useMemo(
     () =>
-      moment(offer.date_start)
-        .tz(offer.timezone_name ?? timezoneName)
-        .add(offer.duration_minute, 'minutes'),
+      DateTime.fromISO(offer.date_start)
+        .setZone(offer.timezone_name ?? timezoneName)
+        .plus({ minute: offer.duration_minute }),
     [offer, timezoneName],
   );
 
@@ -193,7 +196,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             <div className={classes.mobileDateTimeContainer}>
               <Typography className={classes.weight500} variant="subtitle2">
                 {formatAsDatetimeAdapted(
-                  offerDateStartAsMoment,
+                  offerDateStartAsDateTime.toISO(),
                   'ddd D MMM, YYYY',
                   timezone,
                 )}
@@ -201,10 +204,13 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
               <Typography
                 className={classnames(classes.grey, classes.mobileSmallFont)}
               >
-                {`${formatAsTime(
-                  offerDateStartAsMoment,
+                {`${formatISOStringAsTime(
+                  offerDateStartAsDateTime.toISO(),
                   timezone,
-                )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
+                )} - ${formatISOStringAsTime(
+                  offerDateEndAsDateTime.toISO(),
+                  timezone,
+                )}`}
               </Typography>
             </div>
             <Typography
@@ -287,14 +293,17 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
       <TableCell className={classes.tableCell}>
         <Typography className={classes.weight500} variant="subtitle1">
           {formatAsDatetimeAdapted(
-            offerDateStartAsMoment,
+            offerDateStartAsDateTime.toISO(),
             'ddd D MMM, YYYY',
             timezone,
           )}
         </Typography>
         <Typography className={classes.grey} variant="body2">
-          {`${formatAsTime(offerDateStartAsMoment, timezone)} - ${formatAsTime(
-            offerDateEndAsMoment,
+          {`${formatISOStringAsTime(
+            offerDateStartAsDateTime.toISO(),
+            timezone,
+          )} - ${formatISOStringAsTime(
+            offerDateEndAsDateTime.toISO(),
             timezone,
           )}`}
         </Typography>

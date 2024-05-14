@@ -8,15 +8,16 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { useTranslation } from 'react-i18next';
 import {
   formatAsDateWithWeekday,
-  formatAsTime,
+  formatISOStringAsTime,
   formatMinutes,
+  getUserZone,
 } from '../../utils/datetime';
 
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
@@ -261,22 +262,22 @@ export const useOfferHours = (
   const memoizedOfferHours = useMemo(() => {
     if (offer?.date_start && establishment?.tzname) {
       const tz = metaActivity?.is_broadcast
-        ? moment.tz.guess()
+        ? getUserZone()
         : establishment?.tzname;
 
-      const startMoment = moment(offer?.date_start).tz(tz);
-      const startHour = formatAsTime(startMoment, tz);
+      const startDateTime = DateTime.fromISO(offer.date_start).setZone(tz);
+      const startHour = formatISOStringAsTime(startDateTime.toISO(), tz);
 
-      const duration = moment.duration(offer?.duration_minute, 'minutes');
-      const durationInMinutes = duration.asMinutes();
-      const readableDuration = formatMinutes(durationInMinutes, t);
+      const readableDuration = formatMinutes(offer.duration_minute, t);
 
-      const endMoment = moment(offer?.date_start).add(duration).tz(tz);
+      const endDateTime = DateTime.fromISO(offer.date_start)
+        .plus({ minute: offer.duration_minute })
+        .setZone(tz);
 
-      if (!endMoment.isSame(startMoment, 'day')) {
+      if (!endDateTime.hasSame(startDateTime, 'day')) {
         return { startTime: startHour, endTimeOrDuration: '' };
       }
-      const endHour = formatAsTime(endMoment, tz);
+      const endHour = formatISOStringAsTime(endDateTime.toISO(), tz);
 
       switch (theme?.session_time_display) {
         case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
@@ -290,21 +291,19 @@ export const useOfferHours = (
 
     if (offer?.date_start) {
       const tz = metaActivity?.is_broadcast
-        ? moment.tz.guess()
-        : theme?.timezone_name || moment.tz.guess();
-      const startMoment = moment(offer?.date_start).tz(tz);
-      const startHour = startMoment.format('HH:mm');
+        ? getUserZone()
+        : theme?.timezone_name || getUserZone();
+      const startDateTime = DateTime.fromISO(offer.date_start).setZone(tz);
+      const startHour = startDateTime.toFormat('HH:mm');
 
-      const duration = moment.duration(offer?.duration_minute, 'minutes');
-      const durationInMinutes = duration.asMinutes();
-      const readableDuration = formatMinutes(durationInMinutes, t);
+      const readableDuration = formatMinutes(offer.duration_minute, t);
 
-      const endMoment = moment(offer?.date_start)
-        .add(moment.duration(offer?.duration_minute, 'minutes'))
-        .tz(tz);
-      const endHour = endMoment.format('HH:mm');
+      const endDateTime = DateTime.fromISO(offer.date_start)
+        .plus({ minute: offer.duration_minute })
+        .setZone(tz);
+      const endHour = endDateTime.toFormat('HH:mm');
 
-      if (!endMoment.isSame(startMoment, 'day')) {
+      if (!endDateTime.hasSame(startDateTime, 'day')) {
         return { startTime: startHour, endTimeOrDuration: '' };
       }
 
@@ -481,7 +480,7 @@ export const useOfferFormattedDate = (
   companyTheme: CompanyTheme,
 ) => {
   const timezoneName = offer?.meta_activity?.is_broadcast
-    ? moment.tz.guess()
+    ? getUserZone()
     : offer?.establishment?.tzname ||
       companyTheme?.timezone_name ||
       'Europe/Paris';

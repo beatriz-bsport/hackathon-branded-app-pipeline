@@ -55,6 +55,7 @@ import CompanyPlatformBillingPaymentDetail from '#libs/platform-billing/componen
 import CompanyPlatformBillinGroupDetail from '#libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutList from '#libs/payment/components/PayoutList.component';
+import { getFeatureList } from '#libs/company/actions';
 // import StripeBalance from '#libs/payment/components/StripeBalance.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 
@@ -63,7 +64,7 @@ import type {
   PlatformSubscription,
 } from '#libs/platform-billing/type';
 import type { PaymentMethod, StripePayout } from '#libs/payment/types';
-import type { UpsellPackage } from '#libs/company/types';
+import type { FeatureList, UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { getTheme } from '#libs/theme/selectors';
 
@@ -120,6 +121,7 @@ type Props = {
   subscribedUpsellPackages: UpsellPackage[];
   nonSubscribedUpsellPackages: UpsellPackage[];
   hasLimitedAccessToAudience: boolean;
+  fetchFeatureList: (options?: OptionCallback<FeatureList>) => void;
 };
 
 type State = {
@@ -167,6 +169,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         this.handleCloseSubscriptionForm();
         this.setState({ upsellSubscriptionLoading: false });
         this.setState({ openConfirmationDialog: true });
+        this.props.fetchFeatureList();
       },
       onError: () => {
         this.handleCloseSubscriptionForm();
@@ -319,6 +322,7 @@ export default compose(
       payNowInvoice: payNowInvoiceAction,
       push: pushAction,
       subscribeUpsellPackage: subscribeUpsellPackageAction,
+      fetchFeatureList: getFeatureList,
     },
   ),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),

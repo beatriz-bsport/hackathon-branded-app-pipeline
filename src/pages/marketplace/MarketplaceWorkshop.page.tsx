@@ -1,11 +1,10 @@
-// @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import memoize from 'lodash/memoize';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import Moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
@@ -62,8 +61,9 @@ import {
 import { getActiveCustomLevels, getLevelsDetails } from '#libs/level/selectors';
 
 import MarketplaceWorkshop from '#marketplacecomponents/@Workshop/MarketplaceWorkshop.component';
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
-import { DATE_FORMAT, sortByDate } from '../../utils/datetime';
+import { sortByDate } from '../../utils/datetime';
 import withTitle from '#hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
@@ -71,7 +71,9 @@ import {
   resetMarketplaceOfferByMetaActivityList as resetMarketplaceOfferByMetaActivityListAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
 } from '#libs/offer/actions';
+// @ts-expect-error
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
@@ -101,15 +103,17 @@ type OwnProps = {
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
-const MIN_DATE = Moment().format(DATE_FORMAT);
-const MAX_DATE = Moment()
-  .endOf('month')
-  .add(1, 'years')
-  .add(1, 'months')
-  .format(DATE_FORMAT);
+const MIN_DATE = DateTime.now().toISODate();
+
+const MAX_DATE = DateTime.now()
+  .endOf('month', { useLocaleWeeks: true })
+  .plus({ year: 1, month: 1 })
+  .toISODate();
 
 const MarketplaceWorkshopPage: React.FC<Props> = ({
+  // @ts-ignore
   filters,
+  // @ts-ignore
   setFilters,
   onlineFilter,
   companyId,
@@ -127,6 +131,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   // username is necessary in order to retrieve user
   // specific information without relying on auth tokens
   username,
+  // @ts-ignore
   bookedOffers,
   fetchEstablishments,
   fetchWorkshopList,
@@ -166,6 +171,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   );
 
   const compatibleWorkshops = getCompatibleWorkshops(workshops);
+  // @ts-ignore
   const allCompatibleWorkshops = getCompatibleWorkshops(allWorkshops);
 
   // CDM
@@ -280,12 +286,14 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchEstablishments({
       company: companyId,
       disabled: false,
+      // @ts-ignore
       page_size: null,
       with_workshop: true,
     });
     fetchLevelList({
       company: companyId,
       is_active: true,
+      // @ts-ignore
       with_workshop: true,
     });
 
@@ -305,6 +313,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     (offer: Offer) => {
       Analytics.workshopClick(offer);
       if (bookWidget) {
+        // @ts-ignore
         bookWidget(offer.id || offer, companyId);
         return;
       }
@@ -352,6 +361,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         coaches={coaches}
         customLevels={customLevels}
         establishmentGroupList={establishmentGroupList}
+        // @ts-ignore
         establishments={allEstablishments}
         filters={filters}
         hideCoach={theme && theme.hideCoach}
@@ -365,6 +375,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         getCoach={getCoach}
         getEstablishment={getEstablishment}
         getGroup={getGroup}
+        // @ts-ignore
         getLevel={getLevel}
         getOffersListByGroup={getOffersListByGroup}
         getOffersListByMetaActivity={getOffersListByMetaActivity}
@@ -499,6 +510,7 @@ export default compose(
     'setOtherParams',
   ]),
   withPostMessageOnPropsUpdate<Props>([
+    // @ts-ignore
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
@@ -507,6 +519,7 @@ export default compose(
   ]),
   withPostMessageToUpdateProps<Props>([
     {
+      // @ts-ignore
       propName: 'filters',
       messageType: 'bsport:workshop:filter:control',
       validationSchema: CalendarFilterValidationSchema,

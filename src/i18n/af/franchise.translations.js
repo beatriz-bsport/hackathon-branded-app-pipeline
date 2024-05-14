@@ -32,6 +32,11 @@ exports.default = {
     franchised: 'Studios',
     name: 'Name',
   },
+  userProfile: {
+    goToMemberProfile: 'Manage on {{ purchasing_studio }}',
+    numberStudios: '{{ number }} purchasing studios',
+    numberBrands: '{{ number }} categories',
+  },
   emails: {
     chooseGroup: 'Select a group',
     copy: 'copy',

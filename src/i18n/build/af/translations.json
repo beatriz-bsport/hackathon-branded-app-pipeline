@@ -2923,6 +2923,11 @@
       "previousPage": "Previous page"
     },
     "membersList": { "pageTitle": "Members", "see": "Show", "actions": "Actions", "franchised": "Studios", "name": "Name" },
+    "userProfile": {
+      "goToMemberProfile": "Manage on {{ purchasing_studio }}",
+      "numberStudios": "{{ number }} purchasing studios",
+      "numberBrands": "{{ number }} categories"
+    },
     "emails": {
       "chooseGroup": "Select a group",
       "copy": "copy",
@@ -6928,7 +6933,10 @@
       "credits": "Credits",
       "expiration": "Validity",
       "all": "All passes",
-      "isValidToday": "Valid"
+      "isValidToday": "Valid",
+      "company": "Purchasing studio",
+      "companyGroup": "Category",
+      "companyGroupPlaceholder": "Select categories"
     },
     "multipleBookingTooltip": "Multiple bookings",
     "maxNBookingsByMonth2": " bookings per month",

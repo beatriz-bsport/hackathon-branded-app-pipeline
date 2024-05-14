@@ -1,13 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 
 import { replace } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import RedirectionLoading from './RedirectionLoading.component';
-import { fetchPrivateServiceBulk } from '../../../libs/private-service/actions';
-import { OptionCallback } from '../../../state/types';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import { fetchPrivateServiceBulk } from '#libs/private-service/actions';
+import { OptionCallback } from '#state/types';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 type Props = {
   privateServiceId: number;

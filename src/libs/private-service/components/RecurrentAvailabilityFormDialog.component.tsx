@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime, Settings } from 'luxon';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import { makeStyles } from '@material-ui/core';
@@ -43,14 +43,14 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
 
   const { t } = useTranslation('privateService');
 
-  const [date, setDate] = React.useState<moment.Moment | null>(null);
+  const [date, setDate] = React.useState<DateTime | null>(null);
 
   const handleSubmit = (ev: React.SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
-    onSubmit(date.format('YYYY-MM-DD'), eventSlot);
+    onSubmit(date.toISODate(), eventSlot);
   };
 
-  const handleDateChange = (newDate: moment.Moment) => {
+  const handleDateChange = (newDate: DateTime) => {
     setDate(newDate);
   };
 
@@ -66,9 +66,13 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
             <Typography>
               {eventSlot &&
                 t('calendar.form.interval.explain2', {
-                  date_start: moment(eventSlot.startStr).format('HH:mm'),
-                  date_end: moment(eventSlot.endStr).format('HH:mm'),
-                  day: moment(eventSlot.startStr).format('dddd'),
+                  date_start: DateTime.fromISO(eventSlot.startStr).toFormat(
+                    'HH:mm',
+                  ),
+                  date_end: DateTime.fromISO(eventSlot.endStr).toFormat(
+                    'HH:mm',
+                  ),
+                  day: DateTime.fromISO(eventSlot.startStr).toFormat('cccc'),
                 })}
             </Typography>
           </div>
@@ -76,32 +80,14 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
             {t('calendar.form.explain')}
           </Typography>
           <MuiPickersUtilsProvider
-            locale={moment.locale()}
-            moment={moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <DatePicker
               disablePast
               keyboard
               required
-              format="L"
-              mask={(value) => {
-                if (value) {
-                  return [
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ];
-                }
-                return [];
-              }}
+              format="D"
               onChange={handleDateChange}
               value={date}
             />

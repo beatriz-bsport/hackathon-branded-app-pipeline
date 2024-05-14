@@ -1,10 +1,10 @@
-import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import isEqual from 'lodash/isEqual';
 import Immutable from 'seamless-immutable';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
+import { DateTime } from 'luxon';
 import type {
   BOOKING_FOR_GUEST_FREQUENCY,
   Offer,
@@ -12,13 +12,14 @@ import type {
   Offer_FULL,
 } from '#libs/offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
-import { isOfferInThePast, isOfferBookableYet } from './offer';
+import { isOfferBookableYet } from './offer';
 import { CheckoutItem } from '#libs/checkout/types';
 import { AdditionalGuest } from '#libs/booker-module/types';
 import {
   Establishment,
   EstablishmentBillingGroup,
 } from '#libs/establishment/types';
+import { isDateInThePast } from '#src/utils/datetime';
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,
@@ -38,7 +39,7 @@ export const getBookingButtonTraduction = (
     ? t('translation:marketplace.bookButton.bookOption')
     : t('translation:marketplace.bookButton.book');
 
-  if (isOfferInThePast(offer)) {
+  if (isDateInThePast(offer.date_start)) {
     text = t('translation:marketplace.bookButton.isPast');
   }
   if (!offer.available) {
@@ -48,7 +49,7 @@ export const getBookingButtonTraduction = (
     text = t('translation:marketplace.bookButton.notBookableYet');
   }
 
-  if (isRegistered && offer.available && !isOfferInThePast(offer)) {
+  if (isRegistered && offer.available && !isDateInThePast(offer.date_start)) {
     text = t('translation:marketplace.bookButton.alreadyRegistered');
   }
   return text;
@@ -75,26 +76,30 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
 
   let text = t('translation:marketplace.bookButton.book');
   if (!allow_booking_after_start) {
-    if (moment(first_offer_date).isSameOrBefore(moment())) {
+    if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
       text = t('translation:marketplace.bookButton.isPast');
     }
     if (!metaActivity.first_booking_minutes_until) {
       text = t('translation:marketplace.bookButton.book');
     } else if (
-      !moment(first_offer_date)
-        .subtract(metaActivity.first_booking_minutes_until, 'minutes')
-        .isSameOrBefore(moment())
+      !(
+        DateTime.fromISO(first_offer_date).minus({
+          minutes: metaActivity.first_booking_minutes_until,
+        }) <= DateTime.now()
+      )
     ) {
       text = t('translation:marketplace.bookButton.notBookableYet');
     }
-  } else if (isOfferInThePast(offer)) {
+  } else if (isDateInThePast(offer.date_start)) {
     return t('translation:marketplace.bookButton.isPast');
-  } else if (moment(first_offer_date).isSameOrBefore(moment())) {
+  } else if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
     return t('translation:marketplace.bookButton.book');
   } else if (
-    !moment(first_offer_date)
-      .subtract(metaActivity.first_booking_minutes_until, 'minutes')
-      .isSameOrBefore(moment())
+    !(
+      DateTime.fromISO(first_offer_date).minus({
+        minutes: metaActivity.first_booking_minutes_until,
+      }) <= DateTime.now()
+    )
   ) {
     text = t('translation:marketplace.bookButton.notBookableYet');
   }

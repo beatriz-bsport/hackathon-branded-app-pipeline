@@ -1,4 +1,3 @@
-// @ts-nocheck
 // eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
@@ -9,18 +8,20 @@ import { RouteChildrenProps, withRouter } from 'react-router';
 import { push, replace as replaceRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 
 import uniq from 'lodash/uniq';
+// @ts-ignore
 import withQueryParams from '#hocs/with-query-params.hoc';
+// @ts-ignore
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
 import MarketplaceCalendarComponent from '#marketplacecomponents/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 
-import { DATE_FORMAT } from '../../utils/datetime';
+import { LUXON_ISO_SHORT_DATE } from '#utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
 import {
@@ -83,6 +84,7 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-
 
 import withTitle from '#hocs/with-title.hoc';
 
+// @ts-ignore
 import Analytics from '#components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
@@ -158,29 +160,36 @@ type State = {
 function withContainerWidthListener<
   WrappedComponentProps extends object,
 >(): () => React.ComponentType<WrappedComponentProps> {
+  // @ts-ignore
   return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
     class WithContainerWidthListener extends Component<WrappedComponentProps> {
       constructor(props: FinalProps) {
+        // @ts-ignore
         super(props);
         // This reference is used to evaluate the size of the calendar,
         // and to determine if it should be displayed in card mode or not.
         // That way, we can enable or disable the fetching of the offers when updating the start date.
+        // @ts-ignore
         this.calendarRefContainer = React.createRef();
       }
 
       state = {
+        // @ts-ignore
         containerWidth: this.calendarRefContainer?.current?.clientWidth,
       };
 
       componentDidMount(): void {
+        // @ts-ignore
         this.intervalId = setInterval(() => {
           this.setState(() => ({
+            // @ts-ignore
             containerWidth: this.calendarRefContainer?.current?.clientWidth,
           }));
         }, 500);
       }
 
       componentWillUnmount() {
+        // @ts-ignore
         clearInterval(this.intervalId);
       }
 
@@ -188,6 +197,7 @@ function withContainerWidthListener<
         return (
           <WrappedComponent
             {...this.props}
+            // @ts-ignore
             calendarRefContainer={this.calendarRefContainer}
             containerWidth={this.state.containerWidth}
           />
@@ -213,6 +223,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     // This reference is used to evaluate the size of the calendar,
     // and to determine if it should be displayed in card mode or not.
     // That way, we can enable or disable the fetching of the offers when updating the start date.
+    // @ts-ignore
     this.calendarRefContainer = React.createRef();
   }
 
@@ -223,12 +234,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
    */
   getIsCompact = () =>
     (this.props.compactMode !== null && this.props.compactMode === true) ||
+    /* @ts-ignore */
     (!this.props.compactMode && (this.props.containerWidth ?? 1200) < 1250);
 
   // Large calendar
   getIsLarge = () =>
     (this.props.compactMode != null && this.props.compactMode === false) ||
     (this.props.compactMode == null &&
+      // @ts-ignore
       !((this.props.containerWidth ?? 1240) < 1250));
 
   // Card mode display
@@ -242,9 +255,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
     try {
       const cardModeDisplayMinWidth = parseFloat(
+        // @ts-ignore
         this.props.config?.cardModeDisplayMinWidth,
       );
 
+      // @ts-ignore
       return (this.props.containerWidth ?? 1240) > cardModeDisplayMinWidth;
     } catch (error) {
       console.error(error);
@@ -253,18 +268,33 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   getStartCalendarWeekOnToday = () =>
+    // @ts-ignore
     this.props.theme.start_calendar_week_on_today &&
     this.getIsCardModeDisplay();
 
-  start_date = () =>
-    this.getStartCalendarWeekOnToday()
-      ? moment(this.props.otherParams.date).format(DATE_FORMAT)
-      : moment(this.props.otherParams.date).startOf('week').format(DATE_FORMAT);
+  start_date = () => {
+    const paramsStartDate = this.props.otherParams.date
+      ? DateTime.fromFormat(this.props.otherParams.date, LUXON_ISO_SHORT_DATE)
+      : DateTime.now();
 
-  end_date = () =>
-    this.getStartCalendarWeekOnToday()
-      ? moment(this.props.otherParams.date).add(7, 'days').format(DATE_FORMAT)
-      : moment(this.props.otherParams.date).endOf('week').format(DATE_FORMAT);
+    return this.getStartCalendarWeekOnToday()
+      ? paramsStartDate.toFormat(LUXON_ISO_SHORT_DATE)
+      : paramsStartDate
+          .startOf('week', { useLocaleWeeks: true })
+          .toFormat(LUXON_ISO_SHORT_DATE);
+  };
+
+  end_date = () => {
+    const paramsStartDate = this.props.otherParams.date
+      ? DateTime.fromFormat(this.props.otherParams.date, LUXON_ISO_SHORT_DATE)
+      : DateTime.now();
+
+    return this.getStartCalendarWeekOnToday()
+      ? paramsStartDate.plus({ days: 7 }).toFormat(LUXON_ISO_SHORT_DATE)
+      : paramsStartDate
+          .endOf('week', { useLocaleWeeks: true })
+          .toFormat(LUXON_ISO_SHORT_DATE);
+  };
 
   fetchData = () => {
     this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
@@ -331,12 +361,15 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
      * @remarks
      * This method triggers data fetching when the calendarRefContainer and containerWidth are both available.
      */
+    // @ts-ignore
     this.props.calendarRefContainer &&
+      // @ts-ignore
       this.props.containerWidth &&
       this.fetchData();
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
+    // @ts-ignore
     if (!prevProps.containerWidth && this.props.containerWidth) {
       this.fetchData();
     }
@@ -347,13 +380,31 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       this.props.onlineFilter,
     );
 
-    const selectedWeekChanged = this.getStartCalendarWeekOnToday()
-      ? !moment(prevProps.otherParams.date).isSame(
-          moment(this.props.otherParams.date),
-        )
-      : !moment(prevProps.otherParams.date)
-          .startOf('week')
-          .isSame(moment(this.props.otherParams.date).startOf('week'));
+    const selectedWeekChanged = (() => {
+      if (
+        !this.props.otherParams.date ||
+        prevProps.otherParams.date === this.props.otherParams.date
+      ) {
+        return false;
+      }
+
+      const prevPropsDate = prevProps.otherParams.date
+        ? DateTime.fromFormat(prevProps.otherParams.date, LUXON_ISO_SHORT_DATE)
+        : DateTime.now();
+      const propsDate = DateTime.fromFormat(
+        this.props.otherParams.date,
+        LUXON_ISO_SHORT_DATE,
+      );
+
+      if (this.getStartCalendarWeekOnToday()) {
+        return prevPropsDate.toSeconds() !== propsDate.toSeconds();
+      }
+      return (
+        prevPropsDate.startOf('week', { useLocaleWeeks: true }).toSeconds() !==
+        propsDate.startOf('week', { useLocaleWeeks: true }).toSeconds()
+      );
+    })();
+
     if (
       filtersPropsChanged ||
       selectedWeekChanged ||
@@ -408,7 +459,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             ]
           : filteredEstablishmentIds;
 
+        // @ts-ignore
         filteredEstablishments = Immutable<Array<Establishment>>(
+          // @ts-ignore
           this.props.establishments.filter((e: Establishment) =>
             uniqueEstIds.includes(e.id),
           ),
@@ -421,6 +474,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   openOfferDialog = (offerId: number) => {
     this.setState({
       offerId,
+      // @ts-ignore
       offer: this.props.offers.find((o: any) => o.id === offerId),
     });
   };
@@ -464,12 +518,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.goToBookOption(offer.id, this.props.companyId);
   };
 
-  handleDateChange = (d: string) => {
-    const date = d
-      ? moment(d).format('YYYY-MM-DD')
-      : moment().format('YYYY-MM-DD');
+  handleDateChange = (date: string) => {
+    const newDate = date
+      ? DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+      : DateTime.now();
+    const formattedDate = newDate.toFormat(LUXON_ISO_SHORT_DATE);
 
-    this.props.setOtherParams('date')(date);
+    this.props.setOtherParams('date')(formattedDate);
   };
 
   toggleFiltersOpen = () => {
@@ -480,7 +535,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   goToFirstAvailableSession = () => {
     if (this.props.nextAvailableOffer.date_start) {
-      this.handleDateChange(this.props.nextAvailableOffer.date_start);
+      const newDate = DateTime.fromISO(
+        this.props.nextAvailableOffer.date_start,
+      ).toFormat(LUXON_ISO_SHORT_DATE);
+      this.handleDateChange(newDate);
     }
   };
 
@@ -495,9 +553,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { redirect, group, ...offer } = this.state.displayGroupPopup;
     if (redirect === 'book') {
+      // @ts-ignore
       this.goToBook(offer);
     }
     if (redirect === 'option') {
+      // @ts-ignore
       this.goToBookOption(offer);
     }
   };
@@ -513,6 +573,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   handleSearch = (searchText: string) => {
     this.setState({
+      // @ts-ignore
       offerSearchResult: {
         query: searchText,
       },
@@ -536,6 +597,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ] = doTextSearch(
         searchText,
         this.props.coaches,
+        // @ts-ignore
         establishments,
         Object.values(metaActivities),
         this.props.offers,
@@ -550,6 +612,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
 
       this.setState({
+        // @ts-ignore
         offerSearchResult: { query: searchText, offerList: searchResult },
       });
     } else {
@@ -572,10 +635,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     // To prevent display flickering between the loading state and the "no offer message,"
     // we need to show loading when the containerWidth is already defined.
+    // @ts-ignore
     const offerLoading = !this.props.containerWidth || loading;
     return (
       <>
         <MarketplaceCalendarComponent
+          // @ts-ignore
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
@@ -614,10 +679,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
+          // @ts-ignore
           refContainer={this.props.calendarRefContainer}
           searchedOffers={this.state.offerSearchResult?.offerList}
           selectedDate={
-            this.props.otherParams.date || moment().format('YYYY-MM-DD')
+            this.props.otherParams.date
+              ? DateTime.fromFormat(
+                  this.props.otherParams.date,
+                  LUXON_ISO_SHORT_DATE,
+                )
+              : DateTime.now()
           }
           setFilters={this.props.setFilters}
           showMultiLocalization={this.props.theme.enable_multi_localization}
@@ -632,6 +703,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           coaches={coaches}
           companyTheme={this.props.theme}
           customLevels={this.props.customLevels}
+          // @ts-ignore
           establishments={
             filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
@@ -649,12 +721,15 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               : metaActivities
           }
           offer={this.state.offer}
+          // @ts-ignore
           onClickBook={this.goToBook}
+          // @ts-ignore
           onClickBookOption={this.props.goToBookOption}
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
         />
         {this.state.displayGroupPopup && (
+          // @ts-ignore
           <GroupRulePopupContained
             open
             onClose={this.handleCloseGroupPopup}
@@ -760,6 +835,7 @@ const mapWithHandlers = {
             ]);
 
             props.fetchGroupsOfferBulk(
+              // @ts-ignore
               Array.from(new Set(offerList.map((o) => o.group))),
             );
             props.fetchLevelBulk({

@@ -1,14 +1,12 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-// @ts-ignore
 import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import moment from 'moment-timezone';
 import { push as pushAction } from 'connected-react-router';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -45,7 +43,6 @@ import { RootState } from '../../../../reducers';
 import { Coach } from '../../../../libs/associated-coach/types';
 import { Establishment } from '../../../../libs/establishment/types';
 import PrivateServiceDetailSummary from './PrivateServiceDetailSummary.component';
-// @ts-ignore
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
@@ -126,16 +123,16 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   const sessionSelectorRefs = useRef();
 
   /** STATE */
-  const [selectedDate, setSelectedDate] = useState(
-    moment().format('YYYY-MM-DD'),
+  const [selectedDate, setSelectedDate] = useState<string>(
+    DateTime.now().toISODate(),
   );
-  const [selectedSlot, setSelectedSlot] = useState<PrivateSlot>(null);
+  const [selectedSlot, setSelectedSlot] = useState<PrivateSlot | null>(null);
   const [selectedCoaches, setSelectedCoaches] = useState<Coach[]>([]);
   const [selectedEstablishments, setSelectedEstablishments] = useState<
     Establishment[]
   >([]);
   const [selectedSessionMoment, setSelectedSessionMoment] =
-    useState<SessionMoment>(null);
+    useState<SessionMoment | null>(null);
 
   const numberOfDayToShow = useNumberOfDayToShow();
 
@@ -161,7 +158,9 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
       const dates = [];
 
       for (let i = 0; i < numberOfDayToShow; i += 1) {
-        dates.push(moment(selectedDate).add(i, 'days').format('YYYY-MM-DD'));
+        dates.push(
+          DateTime.fromISO(selectedDate).plus({ days: i }).toISODate(),
+        );
       }
 
       let coaches: number[] = [];
@@ -303,12 +302,15 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
         const establishment_found = await findAvailableEstablishmentAPI(
           selectedSlot.id,
           {
+            // @ts-ignore
             coach: associated_coach,
             date_start: date,
           },
         );
 
+        // @ts-ignore
         if (establishment_found?.data?.establishment) {
+          // @ts-ignore
           data.establishment = establishment_found.data.establishment;
         }
       }
@@ -401,6 +403,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
               <SessionSelector
                 availabilitySlot={availabilitySlot}
                 bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
+                // @ts-ignore
                 choseCoach={
                   privateService.coach_attribution ===
                   RESOURCE_ATTRIBUTION_CONSUMER
@@ -466,7 +469,9 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   _privateService: getPrivateService(state, ownProps.serviceId),
   privateService: withAssociatedCoach(
+    // @ts-ignore
     withAvailablePrivateSlots(withAssociatedEstablishment(getPrivateService)),
+    // @ts-ignore
   )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
   nextDateAvailableSlot: getNextDateAvailableSlot(state),
@@ -497,6 +502,7 @@ const mapParamsToProps = {
 
 export default compose(
   marketplaceCssHoc(),
+  // @ts-ignore
   routerParamsToProps(mapParamsToProps),
   PrivateServiceDetailDataProvider,
 )(PrivateServiceDetailPage);

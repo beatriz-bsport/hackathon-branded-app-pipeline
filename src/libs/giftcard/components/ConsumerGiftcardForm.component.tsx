@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 // @ts-ignore
 import { TextField, DateField, TimeField } from '../../../components/forms';
@@ -13,7 +13,6 @@ import { Giftcard, GiftcardBackgroundImage } from '../types';
 import EmailInputWithChipsField from '../../../components/input/email-input-with-chip/EmailInputWithChipsField.component';
 import CarouselInputField from '../../../components/input/carousel-input/CarouselInputField.component';
 import { parseQueryString } from '../../../http';
-import { formatISOStringAsTime } from '../../../utils/datetime';
 
 export type FormValues = {
   message_is_from: string;
@@ -42,6 +41,11 @@ export const ConsumerGiftcardForm = (props: Props) => {
   };
 
   if (!props.giftcard) return null;
+
+  const dateToSend =
+    typeof props.values.date_to_send === 'string'
+      ? DateTime.fromISO(props.values.date_to_send)
+      : props.values.date_to_send;
 
   return (
     <div className={classes.container}>
@@ -116,13 +120,13 @@ export const ConsumerGiftcardForm = (props: Props) => {
         {props.giftcard?.expiration_days
           ? t('consumerGiftcard.form.footer', {
               expiration_days: props.giftcard?.expiration_days || 0,
-              date_send: moment(props.values.date_to_send).format('L'),
-              hour_send: formatISOStringAsTime(props.values.date_to_send),
+              date_send: dateToSend.toLocaleString(DateTime.DATE_SHORT),
+              hour_send: dateToSend.toLocaleString(DateTime.TIME_SIMPLE),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })
           : t('consumerGiftcard.form.footerUnlimited', {
-              date_send: moment(props.values.date_to_send).format('L'),
-              hour_send: formatISOStringAsTime(props.values.date_to_send),
+              date_send: dateToSend.toLocaleString(DateTime.DATE_SHORT),
+              hour_send: dateToSend.toLocaleString(DateTime.TIME_SIMPLE),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })}
       </Typography>
@@ -190,12 +194,9 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
       name: giftcard?.name ?? '',
       background_image: null,
       recipients: [],
-      date_to_send: moment()
-        .hours(7)
-        .minutes(0)
-        .seconds(0)
-        .milliseconds(0)
-        .format(),
+      date_to_send: DateTime.now()
+        .set({ hour: 7, minute: 0, second: 0, millisecond: 0 })
+        .toISO(),
     },
   }),
   validationSchema: ConsumerGiftcardSchema,

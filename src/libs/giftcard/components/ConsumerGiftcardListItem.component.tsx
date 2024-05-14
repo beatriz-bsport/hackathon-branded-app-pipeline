@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import GiftIcon from '@material-ui/icons/Redeem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import EmailIcon from '@material-ui/icons/Email';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,7 +17,6 @@ import Typography from '@material-ui/core/Typography';
 
 import Tooltip from '#components/Tooltip.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import type {
   Giftcard,
@@ -108,10 +107,9 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
               }
               secondary={`${getCurrencyDisplayWithPrice(
                 consumerGiftcard.price_bought,
-              )} - ${formatAsDatetimeAdapted(
+              )} - ${DateTime.fromISO(
                 consumerGiftcard.date_created,
-                'L',
-              )}`}
+              ).toLocaleString(DateTime.DATE_SHORT)}`}
             />
           </ListItem>
         )}
@@ -170,9 +168,9 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
         {!!giftcard.expiration_days && (
           <span>
             {` - ${t('consumerGiftcard.expiresOn', {
-              d: moment(consumerGiftcard.date_activated)
-                .add(giftcard.expiration_days, 'days')
-                .format('L'),
+              d: DateTime.fromISO(consumerGiftcard.date_activated)
+                .plus({ days: giftcard.expiration_days })
+                .toLocaleString(DateTime.DATE_SHORT),
             })}`}
           </span>
         )}
@@ -183,7 +181,9 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
           ? 'consumerGiftcard.invitedOn'
           : 'consumerGiftcard.willInviteOn',
         {
-          d: moment(consumerGiftcard.planned_date_send).format('L'),
+          d: DateTime.fromISO(
+            consumerGiftcard.planned_date_send,
+          ).toLocaleString(DateTime.DATE_SHORT),
         },
       )
     );

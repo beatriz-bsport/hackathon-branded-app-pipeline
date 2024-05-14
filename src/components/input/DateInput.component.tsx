@@ -56,7 +56,7 @@ export const DateInput: React.FC<Props> = ({
         clearable={clearable}
         disabled={disabled}
         error={error}
-        format={format || 'L'}
+        format={format || 'D'}
         InputLabelProps={InputLabelProps}
         InputProps={{
           endAdornment,

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { generateRandomInt } from '../../utils/factories';
 import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
@@ -59,19 +59,19 @@ const MESSAGES: Array<string> = [
 ];
 
 const DATES_CREATED: Array<string> = [
-  moment().add(-2, 'days').format(),
-  moment().add(-5, 'days').format(),
-  moment().add(-12, 'days').format(),
-  moment().add(-17, 'days').format(),
-  moment().add(-26, 'days').format(),
+  DateTime.now().minus({ days: 2 }).toISO(),
+  DateTime.now().minus({ days: 5 }).toISO(),
+  DateTime.now().minus({ days: 12 }).toISO(),
+  DateTime.now().minus({ days: 17 }).toISO(),
+  DateTime.now().minus({ days: 26 }).toISO(),
 ];
 
 const DATES_ACTIVE: Array<string> = [
-  moment().add(2, 'days').format(),
-  moment().add(5, 'days').format(),
-  moment().add(12, 'days').format(),
-  moment().add(17, 'days').format(),
-  moment().add(26, 'days').format(),
+  DateTime.now().plus({ days: 2 }).toISO(),
+  DateTime.now().plus({ days: 5 }).toISO(),
+  DateTime.now().plus({ days: 12 }).toISO(),
+  DateTime.now().plus({ days: 17 }).toISO(),
+  DateTime.now().plus({ days: 26 }).toISO(),
 ];
 
 function random_choice(arr: Array<any>): any {

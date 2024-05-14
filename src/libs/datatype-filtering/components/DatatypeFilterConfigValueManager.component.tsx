@@ -352,7 +352,13 @@ const DatePickerSelectorFormik: React.FC<{
           date={value?.value}
           isDisabled={isPreview}
           onSubmit={(values) => {
-            setFieldValue(`${name}.value`, values.date.unix());
+            setFieldValue(
+              `${name}.value`,
+              (typeof values.date === 'number'
+                ? DateTime.fromSeconds(values.date)
+                : values.date
+              ).toUnixInteger(),
+            );
             setFieldValue(`${name}.time_period`, values.timePeriod);
           }}
           timePeriod={value.time_period}

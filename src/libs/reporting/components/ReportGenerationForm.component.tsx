@@ -1,6 +1,6 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { compose } from 'recompose';
 
@@ -20,6 +20,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+// @ts-expect-error
 import { Submit, defaultHandleSubmit } from '#components/forms';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import TimeRangeSelector from '#components/time/TimeRangeSelector.component';
@@ -209,6 +210,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   reportConfiguration,
   reportFilterConfigs,
   setDisableContinue,
+  // @ts-ignore
   setFieldValue,
   setShowDialog,
   showDialog,
@@ -307,6 +309,7 @@ const ReportGenerationForm: React.FC<Props> = ({
       <Form>
         <div className={classes.flexRow}>
           <div className={classes.datePickerContainer}>
+            {/* @ts-ignore */}
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
                 date_end={moment(values.dateEnd).unix()}
@@ -326,12 +329,20 @@ const ReportGenerationForm: React.FC<Props> = ({
                 timePeriod={values.time_period}
               />
             )}
+            {/* @ts-ignore */}
             {reportConfiguration.date_type === 'single' && (
+              // @ts-ignore
               <DatePickerSelector
                 date={moment(values.dateStart).unix()}
                 isDisabled={!!isDisabled}
                 onSubmit={(_values) => {
-                  setFieldValue('dateStart', _values.date.format('YYYY-MM-DD'));
+                  setFieldValue(
+                    'dateStart',
+                    (typeof _values.date === 'number'
+                      ? DateTime.fromSeconds(_values.date)
+                      : _values.date
+                    ).toISODate(),
+                  );
                   setFieldValue('timePeriod', _values.timePeriod);
                 }}
                 timePeriod={values.time_period}
@@ -376,12 +387,15 @@ const ReportGenerationForm: React.FC<Props> = ({
             <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
           </div>
         </div>
+        {/* @ts-ignore */}
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector
+            // @ts-ignore
             columnsMetadata={columnsMetadata}
             editReportFilterConfig={editReportFilterConfig}
             error={null}
             fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
+            // @ts-ignore
             handleGetDynamicDataForReport={handleGetDynamicDataForReport}
             isFranchisor={isFranchisor}
             onCreateReportFilterConfigs={handleCreateFilter}
@@ -442,6 +456,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default compose(
   withFormik({
+    // @ts-ignore
     mapPropsToValues: ({ initial, reportConfiguration }) => {
       return (
         initial || {

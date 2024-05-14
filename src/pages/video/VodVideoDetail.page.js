@@ -37,7 +37,7 @@ import type {
   VideoView,
   VideoAnalyticsData,
 } from '../../libs/video/types';
-import { formatAsTime } from '../../utils/datetime';
+import { formatISOStringAsTime } from '../../utils/datetime';
 
 type Props = {
   classes: any,
@@ -130,7 +130,7 @@ export class VodVideoDetailPage extends React.Component<Props> {
                   renderSecondaryText={(view) =>
                     this.props.t('video.viewedOn', {
                       date: moment(view.date_created).format('L'),
-                      hour: formatAsTime(view.date_created),
+                      hour: formatISOStringAsTime(view.date_created),
                     })
                   }
                 />

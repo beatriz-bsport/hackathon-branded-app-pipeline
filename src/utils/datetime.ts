@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
-import { DateTime, Info, Settings } from 'luxon';
+import { DateTime, Info, Settings, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
 // @ts-expect-error
 import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../i18n';
@@ -63,6 +63,13 @@ export function formatAsTime(date: string | moment.Moment, tzname?: string) {
   return momentDate.format('LT');
 }
 
+export const formatISOStringAsTime = (date: string, tzname?: string) => {
+  const datetime = tzname
+    ? DateTime.fromISO(date).setZone(tzname)
+    : DateTime.fromISO(date);
+  return datetime.toLocaleString(DateTime.TIME_SIMPLE);
+};
+
 const MOMENT_VALID_EN_GB_FORMATS = ['L', 'l'];
 
 /**
@@ -107,6 +114,11 @@ export function formatAsDatetime(date: string, tzname?: string) {
 export function formatAsDatetimeWithoutHyphen(date: string, tzname?: string) {
   return `${formatAsDate(date)}\u00A0${formatAsTime(date, tzname)}`;
 }
+
+export const getUserZone = () => {
+  const zone = new SystemZone();
+  return zone.name;
+};
 
 export function formatMinutes(
   minutesNumber: number,

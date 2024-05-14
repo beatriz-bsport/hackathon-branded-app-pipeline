@@ -14,7 +14,10 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 
 import { BookingStatusCodeText } from '../../../booking/utils';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
-import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDatetime,
+  formatISOStringAsTime,
+} from '../../../../utils/datetime';
 import { PrivateBooking } from '#libs/private-service/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
@@ -97,7 +100,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
               {`${formatAsDatetime(
                 props.private_booking.date_start,
                 props.private_booking.timezone_name,
-              )} -> ${formatAsTime(
+              )} -> ${formatISOStringAsTime(
                 props.private_booking.date_end,
                 props.private_booking.timezone_name,
               )}`}

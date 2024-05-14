@@ -18,7 +18,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import Level from '#libs/level/components/Level.component';
 
-import { formatAsTime } from '../../../utils/datetime';
+import { formatAsTime, formatISOStringAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Tooltip from '../../../components/Tooltip.component';
 import { getCoachOrSubstitute } from '../utils';
@@ -81,7 +81,7 @@ export const OfferListItemConsumer = (props: Props) => {
                     <VideocamIcon className={classes.videocamIcon} />
                   ) : null}
                   <Typography style={{ margin: 0 }}>
-                    {`${metaActivityName} ${formatAsTime(
+                    {`${metaActivityName} ${formatISOStringAsTime(
                       offer.date_start,
                       offer.timezone_name,
                     )}-${formatAsTime(

@@ -1,10 +1,14 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import { formatAsTime, formatMinutes } from '#utils/datetime';
+import {
+  formatISOStringAsTime,
+  formatMinutes,
+  getUserZone,
+} from '#utils/datetime';
 
 /**
  * Get the formatted date from a given booking for member profile
@@ -47,22 +51,22 @@ export default function useConsumerBookingDateTime({
   const getOfferHours = useCallback(() => {
     if (dateStart && establishmentTimezoneName) {
       const tz = isMetaActivityBroadcast
-        ? moment.tz.guess()
+        ? getUserZone()
         : establishmentTimezoneName;
 
-      const startMoment = moment(dateStart).tz(tz);
-      const startHour = formatAsTime(startMoment, tz);
+      const startDateTime = DateTime.fromISO(dateStart).setZone(tz);
+      const startHour = formatISOStringAsTime(startDateTime.toISO(), tz);
 
-      const duration = moment.duration(durationMinute, 'minutes');
-      const durationInMinutes = duration.asMinutes();
-      const readableDuration = formatMinutes(durationInMinutes, t);
+      const readableDuration = formatMinutes(durationMinute, t);
 
-      const endMoment = moment(dateStart).add(duration).tz(tz);
+      const endDateTime = startDateTime
+        .plus({ minute: durationMinute })
+        .setZone(tz);
 
-      if (!endMoment.isSame(startMoment, 'day')) {
+      if (!endDateTime.hasSame(startDateTime, 'day')) {
         return { startTime: startHour, endTimeOrDuration: '' };
       }
-      const endHour = formatAsTime(endMoment, tz);
+      const endHour = formatISOStringAsTime(endDateTime.toISO(), tz);
 
       switch (sessionTimeDisplay) {
         case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
@@ -76,21 +80,21 @@ export default function useConsumerBookingDateTime({
 
     if (dateStart) {
       const tz = isMetaActivityBroadcast
-        ? moment.tz.guess()
-        : timezoneName || moment.tz.guess();
-      const startMoment = moment(dateStart).tz(tz);
-      const startHour = startMoment.format('HH:mm');
+        ? getUserZone()
+        : timezoneName || getUserZone();
+      const startDateTime = DateTime.fromISO(dateStart).setZone(tz);
+      // not localized WTF?
+      const startHour = startDateTime.toFormat('HH:mm');
 
-      const duration = moment.duration(durationMinute, 'minutes');
-      const durationInMinutes = duration.asMinutes();
-      const readableDuration = formatMinutes(durationInMinutes, t);
+      const readableDuration = formatMinutes(durationMinute, t);
 
-      const endMoment = moment(dateStart)
-        .add(moment.duration(durationMinute, 'minutes'))
-        .tz(tz);
-      const endHour = endMoment.format('HH:mm');
+      const endMoment = DateTime.fromISO(dateStart)
+        .plus({ minute: durationMinute })
+        .setZone(tz);
+      // not localized WTF?
+      const endHour = endMoment.toFormat('HH:mm');
 
-      if (!endMoment.isSame(startMoment, 'day')) {
+      if (!endMoment.hasSame(startDateTime, 'day')) {
         return { startTime: startHour, endTimeOrDuration: '' };
       }
 
@@ -115,7 +119,10 @@ export default function useConsumerBookingDateTime({
   ]);
 
   const offerHours = getOfferHours();
-  let date = useMemo(() => moment(dateStart).format('ddd D MMMM'), [dateStart]);
+  let date = useMemo(
+    () => DateTime.fromISO(dateStart).toFormat('EEE dd MMMM'),
+    [dateStart],
+  );
 
   if (offerHours.startTime && offerHours.endTimeOrDuration) {
     date += ` • ${offerHours.startTime} - ${offerHours.endTimeOrDuration}`;

@@ -26,7 +26,7 @@ import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/Canv
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import {
   formatAsDatetimeAdapted,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../../../utils/datetime';
 
 interface OwnProps {
@@ -264,7 +264,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                       this.props.offer.timezone_name,
                     )}, ${moment(this.props.offer.date_start)
                       .tz(this.props.offer.timezone_name)
-                      .format('dddd')}, ${formatAsTime(
+                      .format('dddd')}, ${formatISOStringAsTime(
                       this.props.offer.date_start,
                       this.props.offer.timezone_name,
                     )}`}
@@ -410,7 +410,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   this.props.offer.timezone_name,
                 )}, ${moment(this.props.offer.date_start)
                   .tz(this.props.offer.timezone_name)
-                  .format('dddd')} ${formatAsTime(
+                  .format('dddd')} ${formatISOStringAsTime(
                   this.props.offer.date_start,
                   this.props.offer.timezone_name,
                 )}`}

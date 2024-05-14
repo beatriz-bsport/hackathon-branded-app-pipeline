@@ -59,7 +59,7 @@ import type { PerformanceTrackingProgram } from '../../performance-tracking/type
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
-import { formatAsTime } from '../../utils/datetime';
+import { formatISOStringAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
@@ -438,7 +438,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
               date: moment(
                 this.props.offer.date_roll_call_last_modified,
               ).format('L'),
-              time: formatAsTime(this.props.offer.date_roll_call_last_modified),
+              time: formatISOStringAsTime(
+                this.props.offer.date_roll_call_last_modified,
+              ),
             })}
           </DialogContent>
           <DialogActions>

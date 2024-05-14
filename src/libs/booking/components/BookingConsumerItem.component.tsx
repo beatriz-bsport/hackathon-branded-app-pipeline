@@ -22,7 +22,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import { formatAsDatetimeAdapted, formatAsTime } from '../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatISOStringAsTime,
+} from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import { Booking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -88,7 +91,7 @@ export const BookingConsumerItem = (props: Props) => {
               ? formatAsDatetimeAdapted(offer.date_start, 'LL', timezone)
               : ' - '
           }
-          secondary={offer ? formatAsTime(offer.date_start) : ' - '}
+          secondary={offer ? formatISOStringAsTime(offer.date_start) : ' - '}
         />
       </ListItem>
       <div>{props.booking?.spot_prefix}</div>

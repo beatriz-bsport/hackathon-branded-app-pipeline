@@ -13,7 +13,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatISOStringAsTime,
+} from '../../utils/datetime';
 import Tooltip from '#components/Tooltip.component';
 import type { Offer } from '#libs/offer/types';
 import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
@@ -99,7 +102,10 @@ const OfferDetail: React.FC<Props> = ({ offer, coachDisplay }) => {
             <AccessTimeIcon />
           </ListItemIcon>
           <ListItemText
-            primary={formatAsTime(offer.date_start, offer.timezone_name)}
+            primary={formatISOStringAsTime(
+              offer.date_start,
+              offer.timezone_name,
+            )}
             secondary={formatAsDatetimeAdapted(
               offer.date_start,
               'LL',

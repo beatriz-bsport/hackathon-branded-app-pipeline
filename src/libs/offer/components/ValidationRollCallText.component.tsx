@@ -4,7 +4,7 @@ import { Typography, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import moment from 'moment-timezone';
 import Tooltip from '#components/Tooltip.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 
 export type Props = {
   nbRollCallsLeftToValidate: number;
@@ -32,7 +32,7 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
       <Tooltip
         title={t('rollCall.warningText.lastValidatedRollCall', {
           date: moment(props.lastValidatedRollCallDate).format('L'),
-          time: formatAsTime(props.lastValidatedRollCallDate),
+          time: formatISOStringAsTime(props.lastValidatedRollCallDate),
         })}
       >
         <Alert className={classes.alert} severity="warning">
@@ -53,7 +53,7 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
       {props.lastValidatedRollCallDate &&
         t('rollCall.warningText.validatedDate', {
           date: moment(props.lastValidatedRollCallDate).format('L'),
-          time: formatAsTime(props.lastValidatedRollCallDate),
+          time: formatISOStringAsTime(props.lastValidatedRollCallDate),
         })}
     </Typography>
   );

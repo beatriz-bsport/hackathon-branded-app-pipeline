@@ -7,7 +7,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import { AvailabilityDetail } from '#libs/private-service/types';
-import { formatAsTime } from '../../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -95,8 +95,8 @@ export const SlotDetailListItem: React.FC<Props> = ({
               >
                 <Typography variant="body2">
                   {t('availabilitySlot.detail.slotBoundaries', {
-                    date_start: formatAsTime(slot.date_start),
-                    date_end: formatAsTime(slot.date_end),
+                    date_start: formatISOStringAsTime(slot.date_start),
+                    date_end: formatISOStringAsTime(slot.date_end),
                   })}
                 </Typography>
                 {slot.restriction_on_associated_establishments.length ? (
@@ -126,9 +126,9 @@ export const SlotDetailListItem: React.FC<Props> = ({
               <ul className={classes.list}>
                 {slots.map((slot) => (
                   <li key={`${resourceType}-${resourceId}-${slot.date_start}`}>
-                    {`${formatAsTime(slot.date_start)} - ${formatAsTime(
-                      slot.date_end,
-                    )}`}
+                    {`${formatISOStringAsTime(
+                      slot.date_start,
+                    )} - ${formatISOStringAsTime(slot.date_end)}`}
                   </li>
                 ))}
               </ul>

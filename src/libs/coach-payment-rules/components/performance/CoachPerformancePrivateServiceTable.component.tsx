@@ -19,7 +19,10 @@ import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymen
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
-import { formatAsTime, formatMinutes } from '../../../../utils/datetime';
+import {
+  formatISOStringAsTime,
+  formatMinutes,
+} from '../../../../utils/datetime';
 import type { Coach } from '#libs/associated-coach/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -113,7 +116,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                         session.private_service_name,
                         `${moment(session.date_start).format(
                           'L',
-                        )} ${formatAsTime(session.date_start)}`,
+                        )} ${formatISOStringAsTime(session.date_start)}`,
                         session.duration_minute,
                         session.establishment_title,
                         isMultiLocalizationEnabled &&
@@ -229,7 +232,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                 <TableCell align="right">
                   {`${moment(private_service_perf.date_start).format(
                     'L',
-                  )} ${formatAsTime(private_service_perf.date_start)}`}
+                  )} ${formatISOStringAsTime(private_service_perf.date_start)}`}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(private_service_perf.duration_minute, t)}

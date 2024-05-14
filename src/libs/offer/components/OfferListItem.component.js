@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next';
 
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '#libs/level/components/Level.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 
 type Props = {
   offer: Object,
@@ -37,7 +37,10 @@ export const OfferListItem = (props: Props) => {
             <Typography inline>
               {offer && offer.name ? offer.name : ''}
               {offer && offer.date_start
-                ? ` - ${formatAsTime(offer.date_start, offer.timezone_name)} `
+                ? ` - ${formatISOStringAsTime(
+                    offer.date_start,
+                    offer.timezone_name,
+                  )} `
                 : ''}
               &nbsp; - &nbsp;
               {offer?.coach ? offer.coach.name : null}

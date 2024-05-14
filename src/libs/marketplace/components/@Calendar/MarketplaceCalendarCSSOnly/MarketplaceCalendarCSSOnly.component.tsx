@@ -18,7 +18,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
-import { formatAsTime } from '../../../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
 
 import './MarketplaceCalendarCSSOnly.css';
@@ -135,11 +135,11 @@ export const MarketplaceCalendar = (props: Props) => {
               )
                 ? props.t('privateService:slotSearcher.nextOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: formatAsTime(nextAvailableOffer.date_start),
+                    hour: formatISOStringAsTime(nextAvailableOffer.date_start),
                   })
                 : props.t('privateService:slotSearcher.previousOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: formatAsTime(nextAvailableOffer.date_start),
+                    hour: formatISOStringAsTime(nextAvailableOffer.date_start),
                   })}
             </div>
           </button>

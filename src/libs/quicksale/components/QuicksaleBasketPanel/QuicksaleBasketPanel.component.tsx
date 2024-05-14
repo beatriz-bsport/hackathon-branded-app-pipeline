@@ -12,7 +12,10 @@ import Alert from '@material-ui/lab/Alert';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { QuicksaleInterfaceModalColors } from '#libs/quicksale/constants';
-import { formatAsDate, formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDate,
+  formatISOStringAsTime,
+} from '../../../../utils/datetime';
 import { BasketSummary } from '#libs/checkout/components/new-checkout-flow/BasketSummary.component';
 import { getSubTotal } from '#libs/checkout/utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -165,7 +168,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
 
           <div>
             <span className={classes.fontWeight500}>
-              {`${formatAsDate(basket.date_created)} - ${formatAsTime(
+              {`${formatAsDate(basket.date_created)} - ${formatISOStringAsTime(
                 basket.date_created,
               )}`}
             </span>

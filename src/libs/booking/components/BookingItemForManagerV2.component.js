@@ -51,7 +51,7 @@ import { getCreditsDividedDisplay } from '#libs/theme/utils';
 import {
   formatAsDatetime,
   formatAsDate,
-  formatAsTime,
+  formatISOStringAsTime,
   formatAsDatetimeAdapted,
   LUXON_ISO_SHORT_DATE,
 } from '#utils/datetime';
@@ -136,7 +136,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
         <Tooltip
           title={props.t('attendanceUpdatedOn', {
             d: formatAsDatetimeAdapted(props.attendance_date_updated, 'LL'),
-            t: formatAsTime(props.attendance_date_updated),
+            t: formatISOStringAsTime(props.attendance_date_updated),
           })}
         >
           {props_.children}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatAsDate, formatAsTime } from '#utils/datetime';
+import { formatAsDate, formatISOStringAsTime } from '#utils/datetime';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import Typography from '#Fabrique/Typography';
 
@@ -27,7 +27,7 @@ const ConsumerBookingOnlineWarningDrawer: React.FC<Props> = ({
         title: t('reworked.myBookings.onlineWarningModal.title'),
         subtitle: t('reworked.myBookings.onlineWarningModal.subtitle', {
           date: formatAsDate(offerDateStart),
-          hour: formatAsTime(offerDateStart),
+          hour: formatISOStringAsTime(offerDateStart),
         }),
         onClose: handleClose,
         onCancel: handleClose,

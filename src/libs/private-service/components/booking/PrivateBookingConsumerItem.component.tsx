@@ -22,7 +22,7 @@ import type { PrivateBooking } from '#libs/private-service/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import {
   formatAsDatetimeAdapted,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../../../utils/datetime';
 
 type OwnProps = {
@@ -56,7 +56,10 @@ export const PrivateBookingConsumerItem = (props: Props) => {
             'LL',
             props.timezone,
           )}
-          secondary={formatAsTime(private_booking.date_start, props.timezone)}
+          secondary={formatISOStringAsTime(
+            private_booking.date_start,
+            props.timezone,
+          )}
         />
         {private_booking?.is_unpaid && (
           <Typography color="error">

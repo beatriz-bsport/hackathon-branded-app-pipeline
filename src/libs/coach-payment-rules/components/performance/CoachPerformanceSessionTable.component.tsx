@@ -19,7 +19,10 @@ import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymen
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
-import { formatAsTime, formatMinutes } from '../../../../utils/datetime';
+import {
+  formatISOStringAsTime,
+  formatMinutes,
+} from '../../../../utils/datetime';
 import type { Coach } from '#libs/associated-coach/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -112,7 +115,7 @@ export function CoachPerformanceSessionTable(props: Props) {
                         session.session_name,
                         `${moment(session.date_start).format(
                           'L',
-                        )} ${formatAsTime(session.date_start)}`,
+                        )} ${formatISOStringAsTime(session.date_start)}`,
                         session.duration_minute,
                         session.establishment_title,
                         isMultiLocalizationEnabled &&
@@ -204,9 +207,9 @@ export function CoachPerformanceSessionTable(props: Props) {
               >
                 <TableCell align="left">{session.session_name}</TableCell>
                 <TableCell align="right">
-                  {`${moment(session.date_start).format('L')} ${formatAsTime(
-                    session.date_start,
-                  )}`}
+                  {`${moment(session.date_start).format(
+                    'L',
+                  )} ${formatISOStringAsTime(session.date_start)}`}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(session.duration_minute, t)}

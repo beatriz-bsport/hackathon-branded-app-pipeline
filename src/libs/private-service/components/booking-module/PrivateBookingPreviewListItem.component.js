@@ -15,7 +15,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import type { PrivateBookingPreview } from '../../types';
 import {
   formatAsDatetimeAdapted,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../../../utils/datetime';
 
 type Props = {
@@ -35,7 +35,7 @@ export const PrivateBookingPreviewListItem = (props: Props) => {
         {`${formatAsDatetimeAdapted(
           props.preview.date_start,
           'LLL',
-        )} - ${formatAsTime(props.preview.date_end)}`}
+        )} - ${formatISOStringAsTime(props.preview.date_end)}`}
       </Typography>
       <ListItem>
         <ListItemAvatar>

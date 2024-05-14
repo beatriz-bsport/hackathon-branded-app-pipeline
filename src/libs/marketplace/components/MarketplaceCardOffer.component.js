@@ -11,7 +11,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Level from '#libs/level/components/Level.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
 import { getCoachOrSubstitute } from '../../offer/utils';
 
@@ -121,12 +121,12 @@ export const MarketplaceCardOffer = (props: Props) => {
           {!offer.establishment.tzname ? (
             <MoreHorizIcon fontSize="small" />
           ) : (
-            `${formatAsTime(
+            `${formatISOStringAsTime(
               offer.date_start,
               offer.meta_activity && offer.meta_activity.is_broadcast
                 ? offer.establishment.tzname
                 : null,
-            )} - ${formatAsTime(
+            )} - ${formatISOStringAsTime(
               offerEndDate,
               offer.meta_activity && offer.meta_activity.is_broadcast
                 ? offer.establishment.tzname

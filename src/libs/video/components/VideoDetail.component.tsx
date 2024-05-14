@@ -17,7 +17,7 @@ import ConsumerPackRowItem from '../../consumer-payment-pack/components/Consumer
 import VodVideoAnalytics from './VodVideoAnalytics.component';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
@@ -172,7 +172,7 @@ export class VideoDetail extends Component<Props, State> {
                     : t('video.rental.valid')}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
-                  {`${t('video.rental.buyDate')} : ${formatAsTime(
+                  {`${t('video.rental.buyDate')} : ${formatISOStringAsTime(
                     selectedVideoPurchase.date_created,
                   )}`}
                 </Typography>

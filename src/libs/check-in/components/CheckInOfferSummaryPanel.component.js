@@ -2,14 +2,14 @@
 
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/PlaceOutlined';
 
 import Level from '#libs/level/components/Level.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 
 type Props = {
   offer: Object,
@@ -21,10 +21,11 @@ class CheckInOfferSummaryPanel extends Component<Props> {
 
   render() {
     const { classes, offer } = this.props;
-    const date_end = moment(offer.date_start).add(
-      offer.duration_minute,
-      'minutes',
-    );
+    const date_end = DateTime.fromISO(offer.date_start)
+      .plus({
+        minute: offer.duration_minute,
+      })
+      .toISO();
     const coach = offer.coach_override || offer.coach;
 
     return (
@@ -33,7 +34,9 @@ class CheckInOfferSummaryPanel extends Component<Props> {
           <div className={classes.row}>
             <AccessTimeIcon className={classes.leftIcon} />
             <Typography variant="body2">
-              {`${formatAsTime(offer.date_start)} - ${formatAsTime(date_end)}`}
+              {`${formatISOStringAsTime(
+                offer.date_start,
+              )} - ${formatISOStringAsTime(date_end)}`}
             </Typography>
           </div>
         </div>

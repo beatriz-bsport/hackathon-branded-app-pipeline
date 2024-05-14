@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatAsDate, formatAsTime } from '#utils/datetime';
+import { formatAsDate, formatISOStringAsTime } from '#utils/datetime';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Typography from '#Fabrique/Typography';
@@ -36,7 +36,7 @@ const ConsumerBookingOnlineWarningModal: React.FC<Props> = ({
           'consumerSpace:reworked.myBookings.onlineWarningModal.subtitle',
           {
             date: formatAsDate(offerDateStart),
-            hour: formatAsTime(offerDateStart),
+            hour: formatISOStringAsTime(offerDateStart),
           },
         )}
         title={t('consumerSpace:reworked.myBookings.onlineWarningModal.title')}

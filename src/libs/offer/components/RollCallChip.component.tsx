@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import classNames from 'classnames';
 import { ButtonBase } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 
 export type Props = {
   isValidated: boolean;
@@ -28,7 +28,7 @@ export const RollCallChip: React.FC<Props> = (props) => {
           props.isValidated
             ? t('rollCall.chip.validatedRollCall', {
                 date: moment(props.lastValidatedRollCallDate).format('L'),
-                time: formatAsTime(props.lastValidatedRollCallDate),
+                time: formatISOStringAsTime(props.lastValidatedRollCallDate),
               })
             : t('rollCall.chip.notValidatedRollCall')
         }

@@ -1,14 +1,13 @@
-// @ts-nocheck
 import React from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
-import moment from 'moment-timezone';
 import { compose } from 'recompose';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
@@ -23,14 +22,15 @@ import {
   getCompanyCountry,
   getCurrencyDisplayWithPrice,
 } from '../../theme/selectors';
-import { Submit } from '../../../components/forms';
+// @ts-expect-error
+import { Submit } from '#components/forms';
 import InstalmentPaymentForm, {
   InstalPaymentFormHOC,
 } from './instalment-payment';
 import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';
 import PaymentMethodSelector from './PaymentMethodSelector.component';
-import { PaymentInstalmentData, PaymentConfigData } from '../types';
-import { OptionCallback } from '../../../state/types';
+import type { PaymentInstalmentData, PaymentConfigData } from '../types';
+import type { OptionCallback } from '#state/types';
 import {
   fromPaymentGroupIdentifierToPaymentMethodIdentifier,
   PAYMENT_STRIPE_TERMINAL_FAKE,
@@ -73,7 +73,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
     nb_interval: 3,
     recurrence_basis: 1,
     interval: 'week',
-    anchor_date: moment().format('YYYY-MM-DD'),
+    anchor_date: DateTime.now().toISODate(),
   });
   const [processing, setProcessing] = React.useState(false);
   const [paymentConfig, setPaymentConfig] = React.useState<PaymentConfigData>({
@@ -111,6 +111,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
 
   const readableIdentifier = React.useMemo(() => {
     return fromPaymentGroupIdentifierToPaymentMethodIdentifier(
+      // @ts-ignore
       parseInt(paymentConfig.payment_method),
     );
   }, [paymentConfig.payment_method]);
@@ -127,6 +128,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           email: billingDetails.email,
           address: billingDetails.address,
         },
+        // @ts-ignore
         company: parseInt(props.companyId),
       });
     }
@@ -166,6 +168,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
       <Dialog open>
         <DialogTitle>{t('instalment.form.title.scheduler')}</DialogTitle>
         <Form
+          // @ts-ignore
           onSubmit={(ev: React.MouseEvent) => {
             ev.preventDefault();
             setData(props.values);
@@ -222,6 +225,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
               });
             }}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
+            // @ts-ignore
             payment_method={paymentConfig.payment_method}
           />
           <Divider />
@@ -241,10 +245,13 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             onCancelTerminal={onCancelSecondStep}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
             onSuccessTerminal={onSubmitSecondStep}
+            // @ts-ignore
             paymentMethodType={paymentConfig.payment_method}
             readableIdentifier={readableIdentifier}
+            // @ts-ignore
             refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
             requestSetupIntentSecret={props.requestSetupIntentSecret}
+            // @ts-ignore
             savedPaymentMethodList={props.savedPaymentMethodList}
             selectedSavedPaymentMethodId={paymentConfig.payment_method_id}
             selectPaymentMethod={selectPaymentMethod}
@@ -286,7 +293,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
   return <div />;
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   priceContainer: {
     padding: theme.spacing(2),
     paddingLeft: theme.spacing(4),
@@ -300,4 +307,5 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+// @ts-ignore
 export default compose(InstalPaymentFormHOC)(InstalmentPaymentFormDialog);

@@ -1,11 +1,10 @@
-// @ts-nocheck
 import React, { Component } from 'react';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 
 import * as Yup from 'yup';
@@ -15,10 +14,11 @@ import {
   TextField,
   IntervalRecurrenceSelectField,
   DateField,
-} from '../../../../components/forms';
+  // @ts-expect-error
+} from '#components/forms';
 
 import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
-import { PaymentInstalmentData } from '../../types';
+import type { PaymentInstalmentData } from '#libs/payment/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -102,9 +102,13 @@ export class InstalmentPaymentForm extends Component<Props> {
         </div>
         <InstalmentPaymentPreview
           anchor_date={values.anchor_date}
+          // @ts-ignore
           interval={values.interval}
+          // @ts-ignore
           nb_interval={parseInt(values.nb_interval)}
+          // @ts-ignore
           recurrence_basis={parseInt(values.recurrence_basis)}
+          // @ts-ignore
           totalPriceCts={this.props.totalPriceCts}
         />
       </div>
@@ -125,9 +129,10 @@ export const InstalPaymentFormHOC = withFormik({
     nb_interval: '12',
     recurrence_basis: '1',
     interval: 'month',
-    anchor_date: moment().format('YYYY-MM-DD'),
+    anchor_date: DateTime.now().toISODate(),
   }),
   validationSchema: InstalmentPaymentSchema,
+  // @ts-ignore
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),
@@ -144,5 +149,6 @@ export const InstalmentPaymentFormStyled = compose(
 export default InstalmentPaymentFormStyled;
 
 export const InstalmentPaymentFormComposed = InstalPaymentFormHOC(
+  // @ts-ignore
   InstalmentPaymentFormStyled,
 );

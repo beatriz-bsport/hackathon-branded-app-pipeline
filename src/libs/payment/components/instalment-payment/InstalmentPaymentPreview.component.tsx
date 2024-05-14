@@ -1,27 +1,38 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { DateTime } from 'luxon';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import moment from 'moment-timezone';
 import HourglassIcon from '@material-ui/icons/HourglassEmpty';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import { buildSchedulePlan } from './utils';
-import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-const PaymentInstalmentListItem = ({ paymentInstalment }) => (
+type PaymentInstalmentListItemProps = {
+  paymentInstalment: {
+    future_date: string;
+    amount_cts: number;
+  };
+};
+
+const PaymentInstalmentListItem: React.FC<PaymentInstalmentListItemProps> = ({
+  paymentInstalment,
+}) => (
   <ListItem divider>
     <ListItemIcon>
       <HourglassIcon />
     </ListItemIcon>
     <ListItemText
       primary={getCurrencyDisplayWithPrice(
+        // @ts-ignore
         parseFloat(paymentInstalment.amount_cts / 100).toFixed(2),
       )}
-      secondary={moment(paymentInstalment.future_date).format('L')}
+      secondary={DateTime.fromISO(paymentInstalment.future_date).toLocaleString(
+        DateTime.DATE_SHORT,
+      )}
     />
   </ListItem>
 );
@@ -34,15 +45,14 @@ type Props = {
   recurrence_basis: number;
 };
 
-const InstalPaymentPreview = (props: Props) => {
+const InstalPaymentPreview: React.FC<Props> = ({
+  interval,
+  nb_interval,
+  totalPriceCts,
+  anchor_date,
+  recurrence_basis,
+}) => {
   const { t } = useTranslation(['payment']);
-  const {
-    interval,
-    nb_interval,
-    totalPriceCts,
-    anchor_date,
-    recurrence_basis,
-  } = props;
   const classes = useStyles();
   const schedule = buildSchedulePlan(
     interval,
@@ -76,7 +86,7 @@ const InstalPaymentPreview = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {},
   iconLeft: {
     marginRight: theme.spacing(1),
@@ -91,4 +101,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default InstalPaymentPreview;
+export default React.memo(InstalPaymentPreview);

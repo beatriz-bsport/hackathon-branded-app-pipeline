@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Moment } from 'bsport-saas/src/i18n';
 import {
   MarketplaceCalendar,
   CalendarDataContainer,
@@ -31,7 +30,14 @@ import {
   bridgeRequestAuthenticationStatus,
 } from '../libs/bridge/actions';
 
-const DATE_FORMAT = 'YYYY-MM-DD';
+const getNowISODate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0'); // getMonth() returns month from 0 to 11, so we add 1
+  const day = today.getDate().toString().padStart(2, '0'); // getDate() returns day of the month from 1 to 31
+
+  return `${year}-${month}-${day}`;
+};
 
 const MarketplaceCalendarStyled = compose(
   themify,
@@ -103,7 +109,7 @@ export class CalendarWidget extends Component<Props, State> {
     this.state = {
       filters,
       onlineFilter,
-      selectedDate: Moment().format(DATE_FORMAT),
+      selectedDate: getNowISODate(),
     };
   }
 

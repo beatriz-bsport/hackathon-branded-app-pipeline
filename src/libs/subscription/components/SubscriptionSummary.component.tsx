@@ -1,14 +1,13 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import { TFunction } from 'i18next';
-import moment from 'moment-timezone';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { DateTime } from 'luxon';
 import { isPaused } from '../utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ContractTermsDialog from './contract/ContractTermsDialog.component';
@@ -48,7 +47,8 @@ const renderStatus = (
   if (canceled_at) {
     return (
       <Typography color="error">
-        {t('subscriptionStatus.canceledOn') + moment(canceled_at).format('L')}
+        {t('subscriptionStatus.canceledOn') +
+          DateTime.fromISO(canceled_at).toFormat('D')}
       </Typography>
     );
   }
@@ -243,12 +243,13 @@ export const SubscriptionSummary = (props: Props) => {
             <div className={classes.field}>
               <Typography className={classes.scheduledStop} variant="body2">
                 {t('subscription.scheduledStop.summary', {
-                  date: moment(lastInvoice.date).format('L'),
+                  date: DateTime.fromISO(lastInvoice.date).toFormat('D'),
                 })}
               </Typography>
               <Button
+                // @ts-ignore
                 color="error"
-                disabled={moment(lastInvoice.date).isBefore(moment())}
+                disabled={DateTime.fromISO(lastInvoice.date) < DateTime.now()}
                 onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}
                 variant="outlined"
               >

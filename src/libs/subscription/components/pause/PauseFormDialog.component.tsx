@@ -2,7 +2,6 @@ import React from 'react';
 import memoize from 'memoize-one';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -13,6 +12,7 @@ import {
   WithStyles,
   withStyles,
 } from '@material-ui/core';
+import { DateTime } from 'luxon';
 import { OptionCallback } from '../../../../state/types';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
 import PauseResultDialog from './PauseResultDialog.component';
@@ -55,14 +55,15 @@ class PauseFormDialog extends React.Component<Props, State> {
     super(props);
     this.state = {
       fromDate:
-        moment(props.pauseBeingEdited?.from_date).format() || moment().format(),
+        DateTime.fromISO(props.pauseBeingEdited?.from_date).toISO() ||
+        DateTime.now().toISO(),
       loadingSubmitResponse: false,
       openDialogResult: false,
       pauseExplanation: props.pauseBeingEdited?.name,
       submitResults: null,
-      untilDate: props.pauseBeingEdited
-        ? moment(props.pauseBeingEdited?.until_date).format()
-        : moment().format(),
+      untilDate: props.pauseBeingEdited?.until_date
+        ? DateTime.fromISO(props.pauseBeingEdited.until_date).toISO()
+        : DateTime.now().toISO(),
     };
   }
 
@@ -126,8 +127,12 @@ class PauseFormDialog extends React.Component<Props, State> {
         resultIdentifier: PAUSE_RESULT_SUCCESS,
         subscriberName: this.props.subscription.memberName,
         subscriptionName: this.props.subscription.name_without_member_name,
-        fromDate: moment(from_date || prevState.fromDate).format('L'),
-        untilDate: moment(until_date || prevState.untilDate).format('L'),
+        fromDate: DateTime.fromISO(from_date || prevState.fromDate).toFormat(
+          'D',
+        ),
+        untilDate: DateTime.fromISO(until_date || prevState.untilDate).toFormat(
+          'D',
+        ),
       },
       openDialogResult: true,
       loadingSubmitResponse: false,
@@ -147,10 +152,12 @@ class PauseFormDialog extends React.Component<Props, State> {
       if (error.response.data?.error_data) {
         const { pause_overlapped_from_date, days } =
           error.response.data.error_data;
-        params.fromDate = moment(pause_overlapped_from_date).format('L');
-        params.untilDate = moment(pause_overlapped_from_date)
-          .add(days - 1, 'days')
-          .format('L');
+        params.fromDate = DateTime.fromISO(pause_overlapped_from_date).toFormat(
+          'D',
+        );
+        DateTime.fromISO(pause_overlapped_from_date)
+          .plus({ days: days - 1 })
+          .toFormat('D');
       }
     }
     this.setState({
@@ -169,7 +176,10 @@ class PauseFormDialog extends React.Component<Props, State> {
       from_date: this.state.fromDate,
       days:
         Math.round(
-          moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+          DateTime.fromISO(this.state.untilDate).diff(
+            DateTime.fromISO(this.state.fromDate),
+            'days',
+          ).days,
         ) + 1,
       name: this.state.pauseExplanation,
     };
@@ -192,7 +202,10 @@ class PauseFormDialog extends React.Component<Props, State> {
   render() {
     const { classes, t, pauseBeingEdited } = this.props;
     const deltaDays = Math.round(
-      moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+      DateTime.fromISO(this.state.untilDate).diff(
+        DateTime.fromISO(this.state.fromDate),
+        'days',
+      ).days,
     );
     const isDateRangeValid = deltaDays >= 0;
     const buttons = this.getFormButtons(
@@ -200,11 +213,13 @@ class PauseFormDialog extends React.Component<Props, State> {
       isDateRangeValid,
       this.state.loadingSubmitResponse,
     );
+    const fromDateStartOfDay = DateTime.fromISO(
+      pauseBeingEdited?.from_date,
+    ).startOf('day');
+    const nowStartOfDay = DateTime.now().startOf('day');
+
     const disableEditOfFromDateValue =
-      !!pauseBeingEdited &&
-      Math.round(
-        moment(pauseBeingEdited?.from_date).diff(moment(), 'days', true),
-      ) < 0;
+      !!pauseBeingEdited && fromDateStartOfDay < nowStartOfDay;
     return (
       <>
         <CustomMuiDialog
@@ -250,8 +265,12 @@ class PauseFormDialog extends React.Component<Props, State> {
                 content={t(
                   'pauseV2.subscriptionPause.form.initStep.information1',
                   {
-                    fromDate: moment(this.state.fromDate).format('L'),
-                    untilDate: moment(this.state.untilDate).format('L'),
+                    fromDate: DateTime.fromISO(this.state.fromDate).toFormat(
+                      'D',
+                    ),
+                    untilDate: DateTime.fromISO(this.state.untilDate).toFormat(
+                      'D',
+                    ),
                     count: deltaDays + 1,
                   },
                 )}

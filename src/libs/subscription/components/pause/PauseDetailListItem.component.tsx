@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
+import { DateTime } from 'luxon';
 import { OptionCallback } from '../../../../state/types';
 import PauseDeleteDialog from './PauseDeleteDialog.component';
 import { SubscriptionPause, Subscription } from '../../types';
@@ -85,18 +85,18 @@ const PauseDetailListItem = (props: Props) => {
         <div className={classes.listItemBody}>
           <Typography>
             {t('pauseV2.common.listItem.label', {
-              fromDate: moment(props.pause.from_date).format('L'),
+              fromDate: DateTime.fromISO(props.pause.from_date).toFormat('D'),
               untilDate: props.pause.until_date
-                ? moment(props.pause.until_date).format('L')
-                : moment(props.pause.from_date)
-                    .add(props.pause.days - 1, 'days')
-                    .format('L'),
+                ? DateTime.fromISO(props.pause.until_date).toFormat('D')
+                : DateTime.fromISO(props.pause.from_date)
+                    .plus({ days: props.pause.days - 1 })
+                    .toFormat('D'),
             })}
           </Typography>
           <Typography color="textSecondary" variant="caption">
             {`${
               t('pauseV2.common.listItem.createdAt') +
-              moment(props.pause.date_created).format('L')
+              DateTime.fromISO(props.pause.date_created).toFormat('D')
             } : ${props.pause.name}`}
           </Typography>
         </div>

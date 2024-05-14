@@ -1,4 +1,5 @@
 import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { SubscriptionPause } from './types';
 
 export function isPaused(pausesArray?: Array<SubscriptionPause>) {
@@ -6,18 +7,15 @@ export function isPaused(pausesArray?: Array<SubscriptionPause>) {
   return pausesArray.reduce(
     (acc, p) =>
       acc ||
-      moment().isBetween(
-        moment(p.from_date),
-        moment(p.until_date),
-        'days',
-        '[]',
-      ),
+      (DateTime.now() >= DateTime.fromISO(p.from_date).startOf('day') &&
+        DateTime.now() <= DateTime.fromISO(p.until_date).endOf('day')),
     false,
   );
 }
 
 export const getCurrentDayFromMomentDateTime = (date: Moment) => date.date();
 
+// DEPRECATED
 export const generateMomentDatetimeFromYearMonthDay = (
   year: number,
   month: number,

@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
+import LuxonUtils from '@date-io/luxon';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,11 +11,11 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import moment, { type Moment } from 'moment-timezone';
-import MomentUtils from '@date-io/moment';
+import { DateTime, Settings } from 'luxon';
 import { OptionCallback } from '../../../state/types';
 import { PlannedInvoice } from '../types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
+import { LuxonDateTime } from '#src/types';
 
 type Props = {
   plannedInvoice: PlannedInvoice;
@@ -32,10 +32,8 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
   const [date, setDate] = React.useState(props.plannedInvoice.date);
   const [processing, setProcessing] = React.useState(false);
 
-  const handleDateChange = useCallback((value: Moment) => {
-    const date_ = value
-      .set(PLANNED_INVOICE_TIME_CONFIGURATION)
-      .format('YYYY-MM-DD');
+  const handleDateChange = useCallback((value: LuxonDateTime) => {
+    const date_ = value.set(PLANNED_INVOICE_TIME_CONFIGURATION).toISODate();
     setDate(date_);
   }, []);
 
@@ -44,24 +42,22 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
       <DialogTitle>{t('plannedInvoice.dateUpdater.title')}</DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider
-          locale={moment.locale()}
-          moment={moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <DatePicker
             disablePast
             keyboard
-            format="YYYY-MM-DD"
-            maxDate={moment(props.plannedInvoice.date)
-              .add(1, 'months')
-              .add(-1, 'days')
-              .format('YYYY-MM-DD')}
-            minDate={moment(props.plannedInvoice.date)
-              .add(-1, 'months')
-              .add(1, 'days')
-              .format('YYYY-MM-DD')}
+            format="D"
+            maxDate={DateTime.fromISO(props.plannedInvoice.date)
+              .plus({ months: 1 })
+              .minus({ days: 1 })
+              .toISODate()}
+            minDate={DateTime.fromISO(props.plannedInvoice.date)
+              .plus({ months: -1 })
+              .minus({ days: 1 })
+              .toISODate()}
             onChange={handleDateChange}
-            returnMoment={false}
             value={date}
           />
         </MuiPickersUtilsProvider>

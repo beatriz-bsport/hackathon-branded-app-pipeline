@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 import { compose, withState } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,6 +17,7 @@ import {
   FAILED,
 } from '@bsport/common/lib/master-data/planned-invoice-status';
 
+import { DateTime } from 'luxon';
 import { PlannedInvoiceItem } from './SubscriptionSchedule.component';
 
 type Props = {
@@ -87,7 +87,7 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
           {t('subscription.scheduledStop.explain')}
         </Typography>
         {subscription.planned_invoices
-          .filter((pi) => !moment(pi.date).isBefore(moment()))
+          .filter((pi) => DateTime.fromISO(pi.date) >= DateTime.now())
           .filter((pi) => pi.status !== SUCCEEDED.id && pi.status !== FAILED.id)
           .map((pi) => (
             <PlannedInvoiceItem

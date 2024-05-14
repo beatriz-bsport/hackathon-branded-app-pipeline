@@ -1,7 +1,5 @@
-// @ts-nocheck
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import uniqBy from 'lodash/uniqBy';
 import classNames from 'classnames';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
@@ -9,6 +7,7 @@ import { CardMedia, Dialog, useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
+import { DateTime } from 'luxon';
 import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { CompanyTheme } from '#libs/theme/types';
@@ -21,7 +20,6 @@ import { Level } from '#libs/level/types';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
   getBookingButtonTraduction,
-  isOfferInThePast,
   getPositionOfOfferInTheList,
 } from '../../../utils';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
@@ -29,6 +27,7 @@ import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 import './MarketplaceGroupOfferListItem.css';
+import { isDateInThePast } from '#src/utils/datetime';
 
 export type Props = {
   showOfferFilling: boolean;
@@ -53,6 +52,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   theme,
   loading,
   showOfferFilling,
+  // @ts-ignore
   showOfferGender,
   hideCoach,
   bookedOffers,
@@ -75,18 +75,18 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
   const anchorDate = React.useMemo(() => {
     if (!group) {
-      return moment().format();
+      return DateTime.now().toISO();
     }
     const { allow_booking_after_start, first_offer_date, full_booking_only } =
       group;
     if (!full_booking_only) {
-      return moment().format();
+      return DateTime.now().toISO();
     }
 
     if (!allow_booking_after_start) {
       return first_offer_date;
     }
-    return moment().format();
+    return DateTime.now().toISO();
   }, [group]);
 
   React.useEffect(() => {
@@ -101,7 +101,8 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
         offers.filter(
           (_offer) =>
             _offer?.available &&
-            moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+            DateTime.fromISO(_offer?.date_start) >=
+              DateTime.fromISO(anchorDate),
         ),
       );
     } else if (offers && group) {
@@ -110,15 +111,19 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
           offers.filter(
             (_offer) =>
               _offer?.available &&
-              moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+              _offer?.date_start &&
+              DateTime.fromISO(_offer.date_start) >=
+                DateTime.fromISO(anchorDate),
           ),
         );
-      } else if (moment(group.first_offer_date).isBefore(moment(anchorDate))) {
+      } else if (
+        DateTime.fromISO(group.first_offer_date) < DateTime.fromISO(anchorDate)
+      ) {
         setOffersToDisplay([]);
       } else {
         setOffersToDisplay(
           offers.filter(
-            (offer) => offer?.available && !isOfferInThePast(offer),
+            (offer) => offer?.available && !isDateInThePast(offer.date_start),
           ),
         );
       }
@@ -130,15 +135,15 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const getDate = useCallback(
     (offer: Offer, establishment: Establishment) => {
       if (offer.date_start && establishment) {
-        return moment(offer?.date_start)
-          .tz(establishment?.tzname ?? 'Europe/Paris')
-          .format('L');
+        return DateTime.fromISO(offer.date_start)
+          .setZone(establishment?.tzname ?? 'Europe/Paris')
+          .toLocaleString(DateTime.DATE_SHORT);
       }
 
       if (offer.date_start) {
-        return moment(offer?.date_start)
-          .tz(theme.timezone_name ?? 'Europe/Paris')
-          .format('L');
+        return DateTime.fromISO(offer.date_start)
+          .setZone(theme.timezone_name ?? 'Europe/Paris')
+          .toLocaleString(DateTime.DATE_SHORT);
       }
 
       return '';
@@ -158,6 +163,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const handleBook = useCallback(
     () => (offer: Offer) => {
       setOpenModal(false);
+      // @ts-ignore
       onBook(offer, {
         fbo: group.full_booking_only ? 1 : 0,
         offer_in_group: group.offers,
@@ -169,6 +175,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const handleBookOption = useCallback(
     () => (offer: Offer) => {
       setOpenModal(false);
+      // @ts-ignore
       onBookOption(offer, {
         fbo: group.full_booking_only,
         offer_in_group: group.offers,
@@ -183,6 +190,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     } else {
       setOpenModal(true);
     }
+    // @ts-ignore
   }, [group?.full_booking_only, getBookGroupButtonIsDisabled]);
 
   const isRegisteredInOnOfferInGroup = React.useMemo(() => {
@@ -209,7 +217,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
       return false;
     }
     if (!group?.allow_booking_after_start) {
-      return groupIsFull || moment(anchorDate).isSameOrBefore(moment());
+      return groupIsFull || DateTime.fromISO(anchorDate) <= DateTime.now();
     }
     return groupIsFull;
   }, [
@@ -327,6 +335,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       'bs-offer-list-group-item__offer__coach',
                   }}
                   hideCoach={hideCoach}
+                  // @ts-ignore
                   offer={offer}
                   theme={theme}
                 />
@@ -454,11 +463,15 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       }
                       loading={false}
                       metaActivity={metaActivity}
+                      // @ts-ignore
                       offer={{
                         ...offer,
+                        // @ts-ignore
                         meta_activity: metaActivity,
+                        // @ts-ignore
                         group,
                       }}
+                      // @ts-ignore
                       onBook={handleBookOption()}
                       onBookOption={handleBook()}
                       onClick={handleBook}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import GroupIcon from '@material-ui/icons/Group';
@@ -7,9 +6,11 @@ import classNames from 'classnames';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
-import { formatAsDateWithWeekday } from '../../../../../utils/datetime';
+import {
+  formatAsDateWithWeekday,
+  getUserZone,
+} from '../../../../../utils/datetime';
 import MaleIcon from '#components/icons/MaleIcon.component';
 import FemaleIcon from '#components/icons/FemaleIcon.component';
 
@@ -24,7 +25,7 @@ import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBo
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
 import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
-import MarketplaceCalendarVariant from '#libs/marketplace/types';
+import type { MarketplaceCalendarVariant } from '#libs/marketplace/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
@@ -181,6 +182,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         // original code : offer.full ? handleBookOption() : handleBook();
       }
     },
+    // @ts-ignore
     [onClick, offer?.id, handleBook],
   );
 
@@ -263,7 +265,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
 
   const date = (() => {
     const timezoneName = metaActivity?.is_broadcast
-      ? moment.tz.guess()
+      ? getUserZone()
       : establishment?.tzname || theme.timezone_name || 'Europe/Paris';
 
     if (offer?.date_start)
@@ -291,6 +293,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       })}
       disabled={isBookingDisabled}
       id={cardListItemId}
+      // @ts-ignore
       onClick={handleClick}
       style={{
         borderLeftWidth:
@@ -321,6 +324,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                       },
                     )}
                     disabled={isBookingDisabled}
+                    // @ts-ignore
                     onClick={handleClick}
                     type="button"
                   >
@@ -364,6 +368,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   'bs-offer-list-item__content__offer__left__time': showDate,
                 })}
                 disabled={isBookingDisabled}
+                // @ts-ignore
                 onClick={handleClick}
                 type="button"
               >
@@ -412,6 +417,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 {showOfferFilling && (
                   <div className="bs-offer-list-item__content__offer__right__top__group">
                     <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
+                    {/* @ts-ignore */}
                     <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
                   </div>
                 )}
@@ -419,12 +425,15 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   <div className="bs-offer-list-item__content__offer__right__top__gender">
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <MaleIcon isMobile />
+                      {/* @ts-ignore */}
                       <div>{genderCount?.nb_booked_male || 0}</div>
                     </div>
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <FemaleIcon isMobile />
+                      {/* @ts-ignore */}
                       <div>{genderCount?.nb_booked_female || 0}</div>
                     </div>
+                    {/* @ts-ignore */}
                     <div>+ {genderCount?.nb_booked_other || 0}</div>
                   </div>
                 )}
@@ -457,21 +466,25 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                     })}
                     disabled={isBookingDisabled}
+                    // @ts-ignore
                     onClick={handleClick}
                     type="button"
                   >
                     <MarketplaceCoachInfos
                       classes={{
+                        // @ts-ignore
                         [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
                           MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
                         ],
                         'bs-offer-list-item__content__offer__left__coach':
                           'bs-offer-list-item__content__offer__left__coach',
+                        // @ts-ignore
                         'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                           isVariantCoachHighlighted,
                       }}
                       coach={coach}
                       hideCoach={hideCoach}
+                      // @ts-ignore
                       offer={offer}
                       theme={theme}
                     />
@@ -498,11 +511,14 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         classes={{
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
+                          // @ts-ignore
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                             isVariantCoachHighlighted,
                         }}
+                        // @ts-ignore
                         coach={coach}
                         hideCoach={hideCoach}
+                        // @ts-ignore
                         offer={offer}
                         theme={theme}
                       />
@@ -527,6 +543,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                       }}
                       coach={coach}
                       hideCoach={hideCoach}
+                      // @ts-ignore
                       offer={offer}
                       theme={theme}
                     />
@@ -539,6 +556,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         }}
                         coach={additionalCoach}
                         hideCoach={hideCoach}
+                        // @ts-ignore
                         offer={offer}
                         theme={theme}
                       />
@@ -555,17 +573,20 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                             'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                         })}
                         disabled={isBookingDisabled}
+                        // @ts-ignore
                         onClick={handleClick}
                         type="button"
                       >
                         <MarketplaceCoachInfos
                           classes={{
+                            // @ts-ignore
                             [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
                               MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
                             ],
                           }}
                           coach={coach}
                           hideCoach={hideCoach}
+                          // @ts-ignore
                           offer={offer}
                           theme={theme}
                         />
@@ -584,11 +605,13 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         }}
                         coach={coach}
                         hideCoach={hideCoach}
+                        // @ts-ignore
                         offer={offer}
                         theme={theme}
                       />
                     )}
                     <PopOver
+                      // @ts-ignore
                       title={
                         <div className="bs-offer-list-item__popover__coach">
                           {additionalCoaches?.map((additionalCoach) => (
@@ -606,6 +629,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                               }}
                               coach={additionalCoach}
                               hideCoach={hideCoach}
+                              // @ts-ignore
                               offer={offer}
                               theme={theme}
                             />
@@ -630,15 +654,21 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     {showOfferFilling && (
                       <div className="bs-offer-list-item__content__offer__right__top__group">
                         <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
+                        {/* @ts-ignore */}
                         <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
                       </div>
                     )}
                     {showOfferGender && (
                       <div className="bs-offer-list-item__content__offer__right__top__gender">
+                        {/* @ts-ignore */}
                         <MaleIcon />
+                        {/* @ts-ignore */}
                         <div>{genderCount?.nb_booked_male || 0}</div>
+                        {/* @ts-ignore */}
                         <FemaleIcon />
+                        {/* @ts-ignore */}
                         <div>{genderCount?.nb_booked_female || 0}</div>
+                        {/* @ts-ignore */}
                         <div>+ {genderCount?.nb_booked_other || 0}</div>
                       </div>
                     )}
@@ -657,6 +687,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 <FreeOfferChip
                   companyTheme={theme}
                   credits={offer?.credit_price}
+                  // @ts-ignore
                   creditsOverride={offer?.credit_price_override}
                 />
               </div>
@@ -673,6 +704,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             </div>
             <div>
               {!withoutCTA && !withoutBookButton && (
+                // @ts-ignore
                 <MarketplaceBookButton
                   className="bs-offer-list-item__content__offer__right__bottom"
                   isHidden={theme?.hide_book_button}

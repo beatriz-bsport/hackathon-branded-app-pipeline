@@ -23,7 +23,6 @@ import SendIcon from '@material-ui/icons/Send';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import {
   BOOKING_DATE_ORDER,
@@ -37,6 +36,7 @@ import {
   Dialog,
   DialogTitle,
 } from '@material-ui/core';
+import { DateTime } from 'luxon';
 import Config from '../../config';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
@@ -423,9 +423,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
         (bookingOption) => !bookingOption.cancelled,
       ) ?? [];
 
-    const isOfferExpired = moment(this.props.offer.date_start).isBefore(
-      moment(),
-    );
+    const isOfferExpired =
+      DateTime.fromISO(this.props.offer.date_start) < DateTime.now();
 
     return (
       <div className={classes.container}>
@@ -435,9 +434,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
         >
           <DialogContent>
             {t('offer:rollCall.warningText.lastValidatedRollCall', {
-              date: moment(
+              date: DateTime.fromISO(
                 this.props.offer.date_roll_call_last_modified,
-              ).format('L'),
+              ).toFormat('D'),
               time: formatISOStringAsTime(
                 this.props.offer.date_roll_call_last_modified,
               ),
@@ -880,9 +879,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                           (bookingOption) => (
                             <BookingOptionForManager
                               key={bookingOption.id}
-                              disabled={moment(
-                                this.props.offer.date_start,
-                              ).isBefore(moment())}
+                              disabled={
+                                DateTime.fromISO(this.props.offer.date_start) <
+                                DateTime.now()
+                              }
                               displayPositionInWaitingList={
                                 this.props.displayPositionInWaitingList
                               }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import { Prompt } from 'react-router-dom';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -1009,16 +1009,16 @@ export class OfferManagement extends Component<Props, State> {
                   name: this.props.offer.name,
                 },
                 establishment: this.props.offer.etablissement,
-                hour: moment(this.props.offer.date_start)
-                  .tz(this.props.offer.timezone_name)
-                  .hours(),
-                minute: moment(this.props.offer.date_start)
-                  .tz(this.props.offer.timezone_name)
-                  .minutes(),
+                hour: DateTime.fromISO(this.props.offer.date_start).setZone(
+                  this.props.offer.timezone_name,
+                ).hour,
+                minute: DateTime.fromISO(this.props.offer.date_start).setZone(
+                  this.props.offer.timezone_name,
+                ).minute,
                 day_of_week:
-                  moment(this.props.offer.date_start)
-                    .tz(this.props.offer.timezone_name)
-                    .isoWeekday() - 1,
+                  DateTime.fromISO(this.props.offer.date_start).setZone(
+                    this.props.offer.timezone_name,
+                  ).weekday - 1,
               }}
               metaActivityList={this.props.metaActivities}
               offersWithCancelledBookingsLoading={

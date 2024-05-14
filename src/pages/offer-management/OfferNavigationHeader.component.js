@@ -13,15 +13,14 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation, TFunction } from 'react-i18next';
+import { DateTime } from 'luxon';
 
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
-import { formatAsDatetimeAdapted } from '../../utils/datetime';
 
 const getDateDictionnary = (offer) => {
   const date = offer
-    ? moment(offer.date_start).tz(offer.timezone_name)
-    : moment();
+    ? DateTime.fromISO(offer.date_start).setZone(offer.timezone_name)
+    : DateTime.now();
   return { year: date.year(), month: date.month() + 1, day: date.date() };
 };
 
@@ -61,11 +60,9 @@ export const OfferNavigationHeader = (props: Props) => (
         >
           <TodayIcon className={props.classes.leftIcon} />
           {props.offer && !props.offerLoading && props.offer.date_start
-            ? formatAsDatetimeAdapted(
-                props.offer.date_start,
-                'LLLL',
-                props.offer.timezone_name || 'Europe/Paris',
-              )
+            ? DateTime.fromISO(props.offer.date_start)
+                .setZone(props.offer.timezone_name || 'Europe/Paris')
+                .toFormat('DDDD t')
             : ''}
         </Button>
         {props.bookingLoading ? (

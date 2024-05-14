@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
@@ -482,7 +482,7 @@ export function fetchNextAvailableOffer(
       delete params.filters;
       const response = await fetchOffersListAPI({
         only_future_strict: true,
-        max_date: moment().add(4, 'month').format('YYYY-MM-DD'),
+        max_date: DateTime.now().plus({ months: 4 }).toISODate(),
         ...params,
         ...createOfferFilter(filters),
         with_tags: true,

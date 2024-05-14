@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
@@ -23,7 +24,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import { DateTime } from 'luxon';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,

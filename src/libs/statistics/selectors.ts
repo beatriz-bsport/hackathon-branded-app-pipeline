@@ -71,7 +71,6 @@ export const getStatisticTemporal = (
     loading = state.stats.stats[identifier].isLoading;
   }
   let countBeforeSelectedDate = 0;
-
   if (aggregate) {
     // @ts-expect-error
     const _data = data.filter((d) => {

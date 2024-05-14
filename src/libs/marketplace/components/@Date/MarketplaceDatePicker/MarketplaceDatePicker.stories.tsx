@@ -13,11 +13,7 @@ const CustomTemplate = (args: Props) => {
   return (
     <div style={{ ...style, height: 400 }}>
       <div style={{ display: 'flex' }}>
-        <MarketplaceDatePicker
-          {...props}
-          dateSelected={date}
-          onSelect={setDate}
-        />
+        <MarketplaceDatePicker {...props} dateSelected={date} />
       </div>
     </div>
   );

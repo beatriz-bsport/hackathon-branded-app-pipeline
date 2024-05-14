@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
 // @ts-ignore
@@ -41,7 +41,7 @@ const usePropsFromVariation = (
     variationsSelected?.isInputButton?.value === 'true';
 
   return {
-    dateSelected: moment().add(1, 'week').format(),
+    dateSelected: DateTime.now().plus({ weeks: 1 }),
     disablePast: disablePastSelected,
     rangeSize: 0,
     isInputButton: isInputButtonSelected,

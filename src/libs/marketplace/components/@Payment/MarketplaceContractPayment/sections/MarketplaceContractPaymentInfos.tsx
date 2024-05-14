@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -62,7 +63,7 @@ const MarketplaceContractPaymentInfos: React.FC<Props> = React.memo(
             <MarketplaceDatePicker
               disablePast
               isInputButton
-              dateSelected={billingStartDate}
+              dateSelected={DateTime.fromISO(billingStartDate)}
               onSelect={setBillingStartDate}
             />
           </div>

@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -18,15 +18,18 @@ import { EventWithElementTarget } from '#libs/marketplace/types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 import {
-  DATE_FORMAT,
+  LUXON_ISO_SHORT_DATE,
   formatAsDate,
   formatAsTitle,
-} from '../../../../../utils/datetime';
+  getLocaleWeekdays,
+} from '#utils/datetime';
+
+import type { LuxonDateTime } from '#src/types';
 
 import './MarketplaceDatePicker.css';
 
 export type Props = {
-  dateSelected: string;
+  dateSelected: LuxonDateTime;
   disablePast?: boolean;
   rangeSize?: number;
   onSelect: (date: string) => void;
@@ -43,7 +46,9 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   startWeekOnDaySelected,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dateDisplayed, setDateDisplayed] = useState<Moment>(null);
+  const [dateDisplayed, setDateDisplayed] = useState<LuxonDateTime>(
+    DateTime.now(),
+  );
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   const handleCloseMenu = useCallback(() => {
@@ -51,7 +56,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   }, []);
 
   const handleOpenMenu = useCallback(() => {
-    setDateDisplayed(moment(dateSelected));
+    setDateDisplayed(dateSelected);
     setIsOpen(true);
   }, [dateSelected]);
 
@@ -59,7 +64,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   useEffect(() => {
     // Initialize date sate
     if (!dateDisplayed) {
-      setDateDisplayed(moment(dateSelected));
+      setDateDisplayed(dateSelected);
     }
 
     const onScroll = throttle((event: EventWithElementTarget) => {
@@ -82,9 +87,9 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       ev.stopPropagation();
       ev.preventDefault();
       onSelect(
-        moment(dateSelected)
-          .add(type === 'subtract' ? -rangeSize : rangeSize, 'day')
-          .format('YYYY-MM-DD'),
+        dateSelected
+          .plus({ days: type === 'subtract' ? -rangeSize : rangeSize })
+          .toFormat(LUXON_ISO_SHORT_DATE),
       );
     },
     [dateSelected, onSelect, rangeSize],
@@ -95,7 +100,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       ev.stopPropagation();
       ev.preventDefault();
       setDateDisplayed(
-        dateDisplayed.clone().add(type === 'subtract' ? -1 : 1, 'month'),
+        dateDisplayed.plus({ months: type === 'subtract' ? -1 : 1 }),
       );
     },
     [dateDisplayed],
@@ -103,7 +108,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
 
   const handleSelect = useCallback(
     (date: string) => () => {
-      onSelect(moment(date).format('YYYY-MM-DD'));
+      onSelect(date);
       handleCloseMenu();
     },
     [handleCloseMenu, onSelect],
@@ -111,49 +116,49 @@ const MarketplaceDatePicker: React.FC<Props> = ({
 
   const getDateDisplay = useCallback(() => {
     const start = startWeekOnDaySelected
-      ? moment(dateSelected)
-      : moment(dateSelected).startOf('week');
+      ? dateSelected
+      : dateSelected.startOf('week', { useLocaleWeeks: true });
     const end = startWeekOnDaySelected
-      ? moment(dateSelected).add(rangeSize - 1, 'day')
-      : moment(dateSelected)
-          .startOf('week')
-          .add(rangeSize - 1, 'day');
+      ? dateSelected.plus({
+          days: rangeSize - 1,
+        })
+      : dateSelected
+          .startOf('week', { useLocaleWeeks: true })
+          .plus({ days: rangeSize - 1 });
 
-    if (start.year() !== end.year() || start.year() !== moment().year()) {
-      return `${start.format('ddd DD/MM YYYY')} - ${end.format(
-        'ddd DD/MM YYYY',
+    if (start.year !== end.year || start.year !== DateTime.now().year) {
+      return `${start.toFormat('EEE dd/MM yyyy')} - ${end.toFormat(
+        'EEE dd/MM yyyy',
       )}`;
     }
 
-    return `${formatAsTitle(start.format(DATE_FORMAT))} - ${formatAsTitle(
-      end.format(DATE_FORMAT),
-    )}`;
+    return `${formatAsTitle(start)} - ${formatAsTitle(end)}`;
   }, [dateSelected, rangeSize, startWeekOnDaySelected]);
 
   const startOfMonth = useMemo(
-    () => moment(dateDisplayed).startOf('month'),
+    () => dateDisplayed.startOf('month'),
     [dateDisplayed],
   );
 
   const startingDay = useMemo(() => {
-    const dayOfWeek = startOfMonth.weekday();
-    return startOfMonth.clone().subtract(dayOfWeek, 'day');
+    const dayOfWeek = startOfMonth.weekday;
+    return startOfMonth.minus({ days: dayOfWeek });
   }, [startOfMonth]);
 
   const nbDisplayedWeeks = useMemo(() => {
-    const endOfMonth = moment(dateDisplayed).endOf('month');
-    const dayOfWeek = startOfMonth.weekday();
-    const endingDate = endOfMonth.clone().add(6 - dayOfWeek, 'day');
+    const endOfMonth = dateDisplayed.endOf('month');
+    const dayOfWeek = startOfMonth.weekday;
+    const endingDate = endOfMonth.plus({ days: 6 - dayOfWeek });
 
-    return Math.ceil(endingDate.diff(startingDay, 'week'));
+    return Math.ceil(endingDate.diff(startingDay, 'weeks').weeks);
   }, [dateDisplayed, startOfMonth, startingDay]);
 
   const isDayDisabled = useCallback(
-    (dayString: string) =>
+    (currentDayDate: string) =>
       disablePast &&
-      moment(dayString)
+      DateTime.fromFormat(currentDayDate, LUXON_ISO_SHORT_DATE)
         .startOf('day')
-        .isBefore(moment().startOf('day').format()),
+        .toSeconds() < DateTime.now().startOf('day').toSeconds(),
     [disablePast],
   );
 
@@ -208,7 +213,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
             onClick={handleOpenMenu}
             type="button"
           >
-            {formatAsDate(dateSelected)}
+            {formatAsDate(dateSelected.toFormat(LUXON_ISO_SHORT_DATE))}
           </button>
         )}
       </div>
@@ -235,7 +240,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
               <div className="bs-marketplace-date-picker__menu">
                 <div className="bs-marketplace-date-picker__menu__header">
                   <div className="bs-marketplace-date-picker__menu__header__date">
-                    {dateDisplayed.format('MMMM YYYY')}
+                    {dateDisplayed.toFormat('MMMM yyyy')}
                   </div>
                   <div className="bs-marketplace-date-picker__menu__header__buttons">
                     <button
@@ -255,45 +260,49 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                   </div>
                 </div>
                 <div className="bs-marketplace-date-picker__menu__calendar">
-                  {Array(7)
-                    .fill(0)
-                    .map((value, i) => (
-                      <div
-                        key={`header-${i}`}
-                        className="bs-marketplace-date-picker__menu__calendar__day bs-marketplace-date-picker__menu__calendar__day--header"
-                      >
-                        {moment()
-                          .weekday(value + i)
-                          .format('ddd')
-                          .slice(0, 1)}
-                      </div>
-                    ))}
+                  {getLocaleWeekdays('narrow').map((value, i) => (
+                    <div
+                      key={`header-${i}`}
+                      className="bs-marketplace-date-picker__menu__calendar__day bs-marketplace-date-picker__menu__calendar__day--header"
+                    >
+                      {value}
+                    </div>
+                  ))}
                   {Array(nbDisplayedWeeks)
                     .fill(0)
                     .map((trashValueWeek, weekNumber) => {
-                      const weekStartingDay = startingDay
-                        .clone()
-                        .add(7 * weekNumber + trashValueWeek, 'day');
+                      const weekStartingDay = startingDay.plus({
+                        days: 7 * weekNumber + trashValueWeek,
+                      });
 
                       return (
                         <>
                           {Array(7)
                             .fill(0)
                             .map((trashValueDay, dayNumber) => {
-                              const day = weekStartingDay
-                                .clone()
-                                .add(trashValueDay + dayNumber, 'day');
-                              const dayString = day.format('YYYY-MM-DD');
+                              const currentDayDate = weekStartingDay.plus({
+                                days: trashValueDay + dayNumber,
+                              });
                               return (
                                 <MarketplaceDatePickerDay
-                                  key={dayString}
-                                  date={dayString}
-                                  dateDisplayed={dateDisplayed.format(
-                                    'YYYY-MM-DD',
+                                  key={currentDayDate.toFormat(
+                                    LUXON_ISO_SHORT_DATE,
                                   )}
-                                  dateSelected={dateSelected}
+                                  date={currentDayDate.toFormat(
+                                    LUXON_ISO_SHORT_DATE,
+                                  )}
+                                  dateDisplayed={dateDisplayed.toFormat(
+                                    LUXON_ISO_SHORT_DATE,
+                                  )}
+                                  dateSelected={dateSelected.toFormat(
+                                    LUXON_ISO_SHORT_DATE,
+                                  )}
                                   handleSelect={handleSelect}
-                                  isDisabled={isDayDisabled(dayString)}
+                                  isDisabled={isDayDisabled(
+                                    currentDayDate.toFormat(
+                                      LUXON_ISO_SHORT_DATE,
+                                    ),
+                                  )}
                                 />
                               );
                             })}

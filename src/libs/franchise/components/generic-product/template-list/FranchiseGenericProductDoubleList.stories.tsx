@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import FranchiseGenericProductDoubleList, {
   Props,
 } from './FranchiseGenericProductDoubleList.component';
@@ -8,6 +8,7 @@ import { PaymentPackTemplate } from '#libs/payment-packs/types';
 import { GiftcardTemplateListFactory } from '#libs/giftcard/factory';
 import { GiftcardTemplate } from '#libs/giftcard/types';
 
+// TODO: This story is crashing
 const defaultArgs = {
   goToItemDetailPage: () => {},
   loading: false,
@@ -38,7 +39,7 @@ PaymentPackTemplateList.args = {
   getItemSecondaryText: (ppt: PaymentPackTemplate) =>
     `${!ppt.unlimited ? `${ppt.credits} crédits` : 'Illimité'} - ${
       ppt.price
-    } € -  ${moment().format('L')}`,
+    } € -  ${DateTime.now().toLocaleString()}`,
   getItemFranchiseCompanies: (ppt: PaymentPackTemplate) => ppt.companies,
 };
 

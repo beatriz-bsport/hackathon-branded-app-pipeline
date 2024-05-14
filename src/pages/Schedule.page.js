@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -317,7 +317,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
-
     let coachList: Coach[];
     let offerList: Array<Offer & { hasPendingReplacementRequest?: boolean }>;
     let availabilitySlotList: AvailabilitySlot[];
@@ -425,8 +424,14 @@ export default compose(
     },
   ),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment().startOf('week').add(-1, 'day').format('YYYY-MM-DD'),
-    end: moment().endOf('week').add(1, 'day').format('YYYY-MM-DD'),
+    start: DateTime.now()
+      .startOf('week', { useLocaleWeeks: true })
+      .minus({ days: 1 })
+      .toISODate(),
+    end: DateTime.now()
+      .endOf('week', { useLocaleWeeks: true })
+      .plus({ days: 1 })
+      .toISODate(),
   }),
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
@@ -566,8 +571,8 @@ export default compose(
       ({ setPeriodFilter }) =>
       ({ date_start, date_end }: { date_start: string, date_end: string }) => {
         setPeriodFilter({
-          start: moment(date_start).add(-1, 'day').format('YYYY-MM-DD'),
-          end: moment(date_end).add(1, 'day').format('YYYY-MM-DD'),
+          start: DateTime.fromISO(date_start).minus({ days: 1 }).toISODate(),
+          end: DateTime.fromISO(date_end).plus({ days: 1 }).toISODate(),
         });
       },
     fetchPrivateBookingList:

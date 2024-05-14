@@ -2,7 +2,7 @@
 // @flow
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
@@ -458,8 +458,8 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment().startOf('week').format('YYYY-MM-DD'),
-    end: moment().endOf('week').format('YYYY-MM-DD'),
+    start: DateTime.now().startOf('week', { useLocaleWeeks: true }).toISODate(),
+    end: DateTime.now().endOf('week', { useLocaleWeeks: true }).toISODate(),
   }),
 
   connector,

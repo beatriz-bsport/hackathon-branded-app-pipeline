@@ -22,6 +22,7 @@ export const PauseFormDateRange = (props: Props) => {
       <DateInput
         className={classes.dateInput}
         disabled={!props.setFromDate}
+        format="D"
         label={t('pauseV2.common.form.duration.start')}
         minDate={DateTime.now()}
         onChange={(value: DateTime) => {
@@ -34,6 +35,7 @@ export const PauseFormDateRange = (props: Props) => {
       <DateInput
         className={classes.dateInput}
         error={!props.isDateRangeValid}
+        format="D"
         label={t('pauseV2.common.form.duration.end')}
         minDate={DateTime.now()}
         onChange={(value: DateTime) => {

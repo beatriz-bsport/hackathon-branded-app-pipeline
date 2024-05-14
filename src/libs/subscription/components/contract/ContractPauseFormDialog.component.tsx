@@ -1,10 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { AxiosResponse } from 'axios';
 import memoize from 'memoize-one';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -70,8 +69,8 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
     super(props);
     this.state = {
       fromDate: props.contractPauseBeingEdited?.from_date
-        ? moment(props.contractPauseBeingEdited.from_date).format()
-        : moment().format(),
+        ? DateTime.fromISO(props.contractPauseBeingEdited.from_date).toISO()
+        : DateTime.now().toISO(),
       loadingSubmitResponse: false,
       loadingVerificationResponse: false,
       pauseExplanation: props.contractPauseBeingEdited?.name || '',
@@ -79,8 +78,8 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
       subscriptionValid: [],
       subscriptionInvalid: [],
       untilDate: props.contractPauseBeingEdited?.until_date
-        ? moment(props.contractPauseBeingEdited.until_date).format()
-        : moment().format(),
+        ? DateTime.fromISO(props.contractPauseBeingEdited.until_date).toISO()
+        : DateTime.now().toISO(),
     };
   }
 
@@ -159,6 +158,7 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
 
   fetchBillingPlansCompatibility = () => {
     fetchContractPauseInfoAPI({
+      // @ts-ignore
       contract: this.props.contractId,
       from_date: this.state.fromDate,
       until_date: this.state.untilDate,
@@ -186,7 +186,10 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
       until_date: this.state.untilDate,
       days:
         Math.round(
-          moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+          DateTime.fromISO(this.state.untilDate).diff(
+            DateTime.fromISO(this.state.fromDate),
+            'days',
+          ).days,
         ) + 1,
       name: this.state.pauseExplanation,
       contract: this.props.contractId,
@@ -220,7 +223,12 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
   render() {
     const { classes, t, openForm, contractPauseBeingEdited } = this.props;
     const deltaDays = Math.round(
-      moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+      Math.round(
+        DateTime.fromISO(this.state.untilDate).diff(
+          DateTime.fromISO(this.state.fromDate),
+          'days',
+        ).days,
+      ),
     );
     const isDateRangeValid = deltaDays >= 0;
     const buttonsStep1 = this.getFormStep1Buttons(
@@ -276,8 +284,12 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
                 content={t(
                   'pauseV2.contractPause.form.firstStep.information1',
                   {
-                    fromDate: moment(this.state.fromDate).format('L'),
-                    untilDate: moment(this.state.untilDate).format('L'),
+                    fromDate: DateTime.fromISO(this.state.fromDate).toFormat(
+                      'D',
+                    ),
+                    untilDate: DateTime.fromISO(this.state.untilDate).toFormat(
+                      'D',
+                    ),
                     count: deltaDays + 1,
                   },
                 )}
@@ -296,7 +308,7 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
             </div>
           </div>
         </CustomMuiDialog>
-
+        {/* @ts-ignore */}
         <CustomMuiDialog
           buttons={buttonsStep2}
           open={this.state.step === STEP_SUBSCRIPTION_VERIFICATION}
@@ -342,8 +354,8 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
             closeAllDialogs={this.closeForm}
             openDialog={this.state.step === STEP_RESULTS}
             results={{
-              fromDate: moment(this.state.fromDate).format('L'),
-              untilDate: moment(this.state.untilDate).format('L'),
+              fromDate: DateTime.fromISO(this.state.fromDate).toFormat('D'),
+              untilDate: DateTime.fromISO(this.state.untilDate).toFormat('D'),
               countSubscription: this.state.subscriptionValid.length,
               resultIdentifier: CONTRACT_PAUSE_RESULT_SUCCESS,
             }}

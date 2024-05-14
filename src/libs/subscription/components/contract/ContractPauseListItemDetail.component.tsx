@@ -15,7 +15,6 @@ import {
   WithStyles,
   withStyles,
 } from '@material-ui/core/styles';
-import moment from 'moment-timezone';
 import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,6 +23,7 @@ import TimerOffIcon from '@material-ui/icons/TimerOff';
 import EditIcon from '@material-ui/icons/Edit';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from '@material-ui/core/IconButton';
+import { DateTime } from 'luxon';
 import PaginatedSubscriptionList from '../PaginatedSubscriptionList.component';
 import { ContractPauseDetails, Subscription } from '../../types';
 import { OptionCallback } from '../../../../state/types';
@@ -78,15 +78,11 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
       openTooltipCancelDisabled: false,
       openTooltipUpdateDisabled: false,
       dateStartIsPast:
-        moment(props.contractPause.from_date).diff(
-          moment().format('YYYY-MM-DD'),
-          'days',
-        ) < 0,
+        DateTime.fromISO(props.contractPause.from_date).diffNow('days').days <
+        0,
       dateEndIsPast:
-        moment(props.contractPause.until_date).diff(
-          moment().format('YYYY-MM-DD'),
-          'days',
-        ) < 0,
+        DateTime.fromISO(props.contractPause.until_date).diffNow('days').days <
+        0,
     };
   }
 
@@ -201,15 +197,15 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                 <Typography color="textSecondary" variant="caption">
                   {contractPause.creator_staff_name
                     ? t('pauseV2.common.listItem.createdAtBy', {
-                        dateCreation: `${moment(
+                        dateCreation: `${DateTime.fromISO(
                           contractPause.date_created,
-                        ).format('L')}`,
+                        ).toFormat('D')}`,
                         staffName: contractPause.creator_staff_name,
                       })
                     : t('pauseV2.common.listItem.createdAt', {
-                        dateCreation: `${moment(
+                        dateCreation: `${DateTime.fromISO(
                           contractPause.date_created,
-                        ).format('L')}`,
+                        ).toFormat('D')}`,
                       })}
                 </Typography>
               </div>
@@ -218,8 +214,12 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
               {contractPause.from_date && contractPause.until_date && (
                 <Typography className={classes.dateTypography} variant="body1">
                   {t('pauseV2.common.listItem.fromToUntil', {
-                    fromDate: moment(contractPause.from_date).format('L'),
-                    untilDate: moment(contractPause.until_date).format('L'),
+                    fromDate: DateTime.fromISO(
+                      contractPause.from_date,
+                    ).toFormat('D'),
+                    untilDate: DateTime.fromISO(
+                      contractPause.until_date,
+                    ).toFormat('D'),
                   })}
                 </Typography>
               )}

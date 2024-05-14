@@ -12,10 +12,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import type { DateTime } from 'luxon';
 import type { ImmutableArray } from 'seamless-immutable';
 
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon';
 // @ts-ignore
 import { Submit } from '#components/forms';
 import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';

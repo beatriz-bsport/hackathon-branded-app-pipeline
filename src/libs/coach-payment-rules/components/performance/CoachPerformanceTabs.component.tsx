@@ -14,7 +14,7 @@ import {
   COACH_PERFORMANCE_FOR_ALL,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
 import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
@@ -24,7 +24,6 @@ import type {
   CoachPaymentRule,
 } from '#libs/coach-payment-rules/types';
 import CoachPerformanceRuleSetter from './CoachPerformanceRuleSetter.component';
-import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type CoachPaymentRuleTabPanelActions = {
   setSessionCoachPaymentRule: (params: {
@@ -428,9 +427,8 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         <Typography color="secondary" variant="caption">
           {!props.asCoach && props.displayLastUpdate && oldestUpdate
             ? t('coachPerformance:cachedData.oldestUpdate', {
-                date: formatAsDatetimeAdapted(
-                  moment.unix(oldestUpdate),
-                  'LLLL',
+                date: DateTime.fromSeconds(oldestUpdate).toFormat(
+                  'cccc, DD h:mm a',
                 ),
               })
             : t('coachPerformance:cachedData.undeterminedOldestUpdate')}

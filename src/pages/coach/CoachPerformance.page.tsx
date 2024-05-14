@@ -168,11 +168,13 @@ export class CoachPerformance extends React.Component<Props> {
           establishmentGroupListLoading={establishmentGroupListLoading}
           establishments={establishments}
           establishmentsLoading={establishmentsLoading}
+          // @ts-ignore
           handleDateFiltersChange={handleDateFiltersChange}
           isMultiLocalizationEnabled={
             this.props.companyTheme?.enable_multi_localization
           }
           loading={loading || performanceLoading}
+          // @ts-ignore
           onSubmit={onSubmit}
           selectedEstablishments={this.state.selectedEstablishments}
           selectedLocations={this.state.selectedLocations}

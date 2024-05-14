@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import chroma from 'chroma-js';
 import { useTranslation, Trans } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
@@ -99,8 +98,8 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
     useState(null);
 
   const [periodFilter, setPeriodFilter] = useState({
-    min_date: moment().format('YYYY-MM-DD'),
-    max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
+    min_date: DateTime.now().toISODate(),
+    max_date: DateTime.now().plus({ month: 1 }).toISODate(),
   });
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -247,9 +246,10 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
         <div className={classes.dateRangeSelector}>
           <DateRangeSelector
             futureOnly
-            date_end={moment(periodFilter.max_date).unix()}
-            date_start={moment(periodFilter.min_date).unix()}
+            date_end={DateTime.fromISO(periodFilter.max_date).toUnixInteger()}
+            date_start={DateTime.fromISO(periodFilter.min_date).toUnixInteger()}
             onSubmit={handlePeriodChange}
+            // @ts-ignore
             timePeriod="next_month"
           />
         </div>
@@ -265,9 +265,9 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
                     requestsLeft: interactiveNbLateRequestsLeft,
                     requestsMax:
                       lateReplacementRequestStatus.max_late_requests_per_limitation_period,
-                    dateEnd: moment(
+                    dateEnd: DateTime.fromISO(
                       lateReplacementRequestStatus.current_limitation_period_end,
-                    ).format('L'),
+                    ).toLocaleString(DateTime.DATE_SHORT),
                     count:
                       lateReplacementRequestStatus.days_before_offer_replacement_request_is_late,
                   }}
@@ -298,6 +298,7 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
             getHasRefusedReplacementRequest={
               props.getHasRefusedReplacementRequest
             }
+            // @ts-ignore
             handleCheckboxAction={handleCheckboxAction}
             isLoading={isLoading}
             nbLateRequestsLeft={interactiveNbLateRequestsLeft}

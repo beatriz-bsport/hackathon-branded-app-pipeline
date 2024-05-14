@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 import * as Yup from 'yup';
 import {
   withFormik,
@@ -27,7 +28,6 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-import { DateTime } from 'luxon';
 // @ts-ignore
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';

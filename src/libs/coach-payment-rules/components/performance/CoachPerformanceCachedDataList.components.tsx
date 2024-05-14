@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -17,10 +17,6 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Paper from '@material-ui/core/Paper';
-import {
-  formatAsDate,
-  formatAsDatetimeAdapted,
-} from '../../../../utils/datetime';
 import type { CoachPerformanceCachedData } from '#libs/coach-payment-rules/types';
 import Tooltip from '#components/Tooltip.component';
 import type { OptionCallback } from '../../../../state/types';
@@ -92,17 +88,20 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
               >
                 <ListItemText
                   primary={t('cachedData.dateSaved', {
-                    date: formatAsDatetimeAdapted(
-                      moment.unix(data.timestamp),
-                      'LLLL',
+                    date: DateTime.fromSeconds(data.timestamp).toLocaleString(
+                      DateTime.DATETIME_MED_WITH_WEEKDAY,
                     ),
                   })}
                   secondary={
                     !data?.metadata?.date_start || !data?.metadata?.date_start
                       ? t('cachedData.unresolvedDaterange')
                       : t('cachedData.dateRange', {
-                          startDate: formatAsDate(data?.metadata.date_start),
-                          endDate: formatAsDate(data?.metadata.date_end),
+                          startDate: DateTime.fromISO(
+                            data?.metadata.date_start,
+                          ).toLocaleString(DateTime.DATE_SHORT),
+                          endDate: DateTime.fromISO(
+                            data?.metadata.date_end,
+                          ).toLocaleString(DateTime.DATE_SHORT),
                         })
                   }
                 />

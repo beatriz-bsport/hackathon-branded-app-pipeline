@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import amber from '@material-ui/core/colors/amber';
 import { useTranslation } from 'react-i18next';
 
@@ -19,10 +19,7 @@ import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymen
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
-import {
-  formatISOStringAsTime,
-  formatMinutes,
-} from '../../../../utils/datetime';
+import { formatMinutes } from '../../../../utils/datetime';
 import type { Coach } from '#libs/associated-coach/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -114,9 +111,9 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                       ],
                       performances.map((session) => [
                         session.private_service_name,
-                        `${moment(session.date_start).format(
-                          'L',
-                        )} ${formatISOStringAsTime(session.date_start)}`,
+                        DateTime.fromISO(session.date_start).toLocaleString(
+                          DateTime.DATETIME_SHORT,
+                        ),
                         session.duration_minute,
                         session.establishment_title,
                         isMultiLocalizationEnabled &&
@@ -230,9 +227,9 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                   {private_service_perf.private_service_name}
                 </TableCell>
                 <TableCell align="right">
-                  {`${moment(private_service_perf.date_start).format(
-                    'L',
-                  )} ${formatISOStringAsTime(private_service_perf.date_start)}`}
+                  {DateTime.fromISO(
+                    private_service_perf.date_start,
+                  ).toLocaleString(DateTime.DATETIME_SHORT)}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(private_service_perf.duration_minute, t)}

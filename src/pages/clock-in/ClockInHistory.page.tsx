@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 
 import { RootState } from '../../reducers';
 import {

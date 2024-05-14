@@ -1,12 +1,11 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
-import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type OwnProps = {
   pagination: {
@@ -67,9 +66,8 @@ export const AllPerformancePagination = (props: Props) => {
         <Typography color="secondary" variant="caption">
           {props.oldestUpdate
             ? t('cachedData.oldestUpdate', {
-                date: formatAsDatetimeAdapted(
-                  moment.unix(props.oldestUpdate),
-                  'LLLL',
+                date: DateTime.fromSeconds(props.oldestUpdate).toFormat(
+                  'cccc, DD h:mm a',
                 ),
               })
             : t('cachedData.undeterminedOldestUpdate')}

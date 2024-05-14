@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { useTranslation } from 'react-i18next';
 
@@ -113,9 +113,11 @@ export function CoachPerformanceSessionTable(props: Props) {
                       ],
                       performances.map((session) => [
                         session.session_name,
-                        `${moment(session.date_start).format(
-                          'L',
-                        )} ${formatISOStringAsTime(session.date_start)}`,
+                        `${DateTime.fromISO(
+                          session.date_start,
+                        ).toLocaleString()} ${formatISOStringAsTime(
+                          session.date_start,
+                        )}`,
                         session.duration_minute,
                         session.establishment_title,
                         isMultiLocalizationEnabled &&
@@ -207,9 +209,11 @@ export function CoachPerformanceSessionTable(props: Props) {
               >
                 <TableCell align="left">{session.session_name}</TableCell>
                 <TableCell align="right">
-                  {`${moment(session.date_start).format(
-                    'L',
-                  )} ${formatISOStringAsTime(session.date_start)}`}
+                  {`${DateTime.fromISO(
+                    session.date_start,
+                  ).toLocaleString()} ${formatISOStringAsTime(
+                    session.date_start,
+                  )}`}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(session.duration_minute, t)}

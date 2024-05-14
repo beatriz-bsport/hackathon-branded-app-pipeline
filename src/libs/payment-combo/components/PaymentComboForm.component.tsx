@@ -1,4 +1,4 @@
-// @ts-nocheck
+//
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
@@ -10,7 +10,8 @@ import { ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
+
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -437,7 +438,7 @@ export const PaymentComboForm: React.FC<Props> = ({
         <DateField
           allowNullValue
           format="L"
-          minDate={moment.now()}
+          minDate={DateTime.now()}
           name="expiration_date"
         />
       </Collapse>
@@ -610,7 +611,7 @@ export const PaymentComboFormHoc = withFormik({
       is_usable_by_staff: !valuesFormik.unusable_by_staff,
       expiration_date:
         valuesFormik.expiration_date_active && valuesFormik.expiration_date
-          ? moment(valuesFormik.expiration_date).format('YYYY-MM-DD')
+          ? DateTime.fromISO(valuesFormik.expiration_date).toISODate()
           : null,
     };
 

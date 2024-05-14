@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
 import CadenceGlobalMetricsCard, {
   CadenceMetricsVariant,
 } from './CadenceGlobalMetricsCard';
@@ -231,8 +230,8 @@ const CadenceMetrics: React.FC<Props> = ({
         date_start={moment(startDate).unix()}
         onSubmit={(values) => {
           updateFilterDates(
-            values.dateStart.format('YYYY-MM-DD'),
-            values.dateEnd.format('YYYY-MM-DD'),
+            values.dateStart.toISODate(),
+            values.dateEnd.toISODate(),
           );
         }}
         timePeriod="custom"

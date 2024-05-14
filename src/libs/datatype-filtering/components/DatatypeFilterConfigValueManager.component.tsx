@@ -327,8 +327,8 @@ const DateRangeSelectorFormik: React.FC<{
           date_start={value?.value?.[0]}
           isDisabled={isPreview}
           onSubmit={(values) => {
-            setFieldValue(`${name}.value[0]`, values.dateStart.unix());
-            setFieldValue(`${name}.value[1]`, values.dateEnd.unix());
+            setFieldValue(`${name}.value[0]`, values.dateStart.toUnixInteger());
+            setFieldValue(`${name}.value[1]`, values.dateEnd.toUnixInteger());
             setFieldValue(`${name}.time_period`, values.timePeriod);
           }}
           timePeriod={value.time_period}

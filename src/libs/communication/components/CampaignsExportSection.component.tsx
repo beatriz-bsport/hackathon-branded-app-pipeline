@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Typography from '@material-ui/core/Typography';
-
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 // eslint-disable-next-line no-duplicate-imports
 import type { Values } from '#components/date/DateRangeSelector.component';
@@ -43,8 +42,8 @@ export const CampaignsExportSection: React.FC<Props> = ({
   const handlePeriodChange = React.useCallback(
     (values: Values) =>
       setPeriodFilter({
-        start_date: values.dateStart.format('YYYY-MM-DD'),
-        end_date: values.dateEnd.format('YYYY-MM-DD'),
+        start_date: values.dateStart.toISODate(),
+        end_date: values.dateEnd.toISODate(),
       }),
     [setPeriodFilter],
   );

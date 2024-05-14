@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React, { useState, useRef } from 'react';
 import { compose } from 'recompose';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps } from 'formik';
 
@@ -17,67 +16,79 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DateFilterRangeEnum } from '#libs/datatype-filtering/types';
-
+// @ts-ignore
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
 
 const RAPID_SELECTIONS = [
   {
     timePeriod: 'week',
     getStartEndTimestamps: () => ({
-      dateStart: moment().subtract(1, 'week').startOf('day').unix(),
-      dateEnd: moment().endOf('day').unix(),
+      dateStart: DateTime.now()
+        .minus({ days: 7 })
+        .startOf('day')
+        .toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
     }),
   },
   {
     timePeriod: 'month',
     getStartEndTimestamps: () => ({
-      dateStart: moment().subtract(1, 'months').startOf('day').unix(),
-      dateEnd: moment().endOf('day').unix(),
+      dateStart: DateTime.now()
+        .minus({ months: 1 })
+        .startOf('day')
+        .toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
     }),
   },
   {
     timePeriod: 'trimester',
     getStartEndTimestamps: () => ({
-      dateStart: moment().subtract(3, 'months').startOf('day').unix(),
-      dateEnd: moment().endOf('day').unix(),
+      dateStart: DateTime.now()
+        .minus({ months: 3 })
+        .startOf('day')
+        .toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
     }),
   },
   {
     timePeriod: 'year',
     getStartEndTimestamps: () => ({
-      dateStart: moment().subtract(1, 'year').startOf('day').unix(),
-      dateEnd: moment().endOf('day').unix(),
+      dateStart: DateTime.now()
+        .minus({ years: 1 })
+        .startOf('day')
+        .toUnixInteger(),
+      dateEnd: DateTime.now().endOf('day').toUnixInteger(),
     }),
   },
   {
     timePeriod: 'next_week',
     getStartEndTimestamps: () => ({
-      dateStart: moment().startOf('day').unix(),
-      dateEnd: moment().add(1, 'week').endOf('day').unix(),
+      dateStart: DateTime.now().startOf('day').toUnixInteger(),
+      dateEnd: DateTime.now().plus({ days: 7 }).endOf('day').toUnixInteger(),
     }),
     futureOnly: true,
   },
   {
     timePeriod: 'next_month',
     getStartEndTimestamps: () => ({
-      dateStart: moment().startOf('day').unix(),
-      dateEnd: moment().add(1, 'month').endOf('day').unix(),
+      dateStart: DateTime.now().startOf('day').toUnixInteger(),
+      dateEnd: DateTime.now().plus({ months: 1 }).endOf('day').toUnixInteger(),
     }),
     futureOnly: true,
   },
   {
     timePeriod: 'next_trimester',
     getStartEndTimestamps: () => ({
-      dateStart: moment().startOf('day').unix(),
-      dateEnd: moment().add(3, 'month').endOf('day').unix(),
+      dateStart: DateTime.now().startOf('day').toUnixInteger(),
+      dateEnd: DateTime.now().plus({ months: 3 }).endOf('day').toUnixInteger(),
     }),
     futureOnly: true,
   },
   {
     timePeriod: 'next_year',
     getStartEndTimestamps: () => ({
-      dateStart: moment().startOf('day').unix(),
-      dateEnd: moment().add(1, 'year').endOf('day').unix(),
+      dateStart: DateTime.now().startOf('day').toUnixInteger(),
+      dateEnd: DateTime.now().plus({ years: 1 }).endOf('day').toUnixInteger(),
     }),
     futureOnly: true,
   },
@@ -87,25 +98,25 @@ const getStartEndDates: (
   timePeriod: DateFilterRangeEnum,
   date_start: number,
   date_end: number,
-) => { dateStart: Moment; dateEnd: Moment; timePeriod: DateFilterRangeEnum } = (
-  timePeriod,
-  date_start,
-  date_end,
 ) => {
+  dateStart: DateTime;
+  dateEnd: DateTime;
+  timePeriod: DateFilterRangeEnum;
+} = (timePeriod, date_start, date_end) => {
   const matchingRapidSelection = RAPID_SELECTIONS.find(
     (selection) => selection.timePeriod === timePeriod,
   );
   if (matchingRapidSelection) {
     const timestamps = matchingRapidSelection.getStartEndTimestamps();
     return {
-      dateStart: moment.unix(timestamps.dateStart),
-      dateEnd: moment.unix(timestamps.dateEnd),
+      dateStart: DateTime.fromSeconds(timestamps.dateStart),
+      dateEnd: DateTime.fromSeconds(timestamps.dateEnd),
       timePeriod,
     };
   }
   return {
-    dateStart: moment.unix(date_start),
-    dateEnd: moment.unix(date_end),
+    dateStart: DateTime.fromSeconds(date_start),
+    dateEnd: DateTime.fromSeconds(date_end),
     timePeriod,
   };
 };
@@ -121,8 +132,8 @@ export type Props = {
 };
 
 export type Values = {
-  dateStart: Moment;
-  dateEnd: Moment;
+  dateStart: DateTime;
+  dateEnd: DateTime;
   timePeriod: DateFilterRangeEnum;
   isEndDateBeforeCurrentDate: boolean;
 };
@@ -137,7 +148,7 @@ const DateRangeSelectorSchema = Yup.object().shape({
       function checkIsAfterStart(dateEnd) {
         const { dateStart } = this.parent;
 
-        return moment(dateStart).isSameOrBefore(dateEnd);
+        return dateStart <= dateEnd;
       },
     )
     .test(
@@ -147,7 +158,8 @@ const DateRangeSelectorSchema = Yup.object().shape({
         const { isEndDateBeforeCurrentDate } = this.parent;
 
         if (isEndDateBeforeCurrentDate) {
-          return moment(dateEnd).isSameOrBefore(moment().endOf('day'));
+          // @ts-ignore
+          return dateEnd <= DateTime.now().endOf('day');
         }
         return true;
       },
@@ -200,11 +212,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
       setFieldValue('timePeriod', selection.timePeriod, false);
       const { dateStart, dateEnd } = selection.getStartEndTimestamps();
       // Not sure about this one: startOf('day') or endOf('day') ?
-      setFieldValue('dateEnd', moment.unix(dateEnd), false);
+      setFieldValue('dateEnd', DateTime.fromSeconds(dateEnd), false);
       // setTimeout to push the action at the end of the js loop and have the dateEnd selected
       setTimeout(() => {
         // Only check after all variable are set
-        setFieldValue('dateStart', moment.unix(dateStart), true);
+        setFieldValue('dateStart', DateTime.fromSeconds(dateStart), true);
       }, 0);
     };
 
@@ -226,11 +238,13 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
         <Typography color="textSecondary" display="inline">
           {t('header.fromInDateContext')}
         </Typography>
-        <Typography display="inline">{values.dateStart.format('L')}</Typography>
+        <Typography display="inline">
+          {values.dateStart.toFormat('D')}
+        </Typography>
         <Typography color="textSecondary" display="inline">
           {t('header.toInDateContext')}
         </Typography>
-        <Typography display="inline">{values.dateEnd.format('L')}</Typography>
+        <Typography display="inline">{values.dateEnd.toFormat('D')}</Typography>
       </>
     );
   };
@@ -240,12 +254,14 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   };
 
   const onSubmit = () => {
+    // @ts-ignore
     handleSubmit(values);
     setIsOpen(false);
   };
 
   return (
     <Form>
+      {/* @ts-ignore */}
       <ButtonBase
         ref={menuRef}
         className={classes.container}
@@ -254,7 +270,6 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
         <CalendarTodayIcon className={classes.icon} color="disabled" />
         {getDisplayDate()}
       </ButtonBase>
-
       <Popover
         anchorEl={menuRef?.current}
         anchorOrigin={{
@@ -302,6 +317,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                 <ButtonBase
                   key={selection.timePeriod}
                   className={classes.button}
+                  // @ts-ignore
                   onClick={handleSelection(selection)}
                 >
                   <Typography>
@@ -309,12 +325,12 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   </Typography>
                   <Typography color="textSecondary" variant="caption">
                     {t('header.fromToInDateContext', {
-                      to: moment
-                        .unix(selection.getStartEndTimestamps().dateEnd)
-                        .format('L'),
-                      from: moment
-                        .unix(selection.getStartEndTimestamps().dateStart)
-                        .format('L'),
+                      to: DateTime.fromSeconds(
+                        selection.getStartEndTimestamps().dateEnd,
+                      ).toFormat('D'),
+                      from: DateTime.fromSeconds(
+                        selection.getStartEndTimestamps().dateStart,
+                      ).toFormat('D'),
                     })}
                   </Typography>
                 </ButtonBase>

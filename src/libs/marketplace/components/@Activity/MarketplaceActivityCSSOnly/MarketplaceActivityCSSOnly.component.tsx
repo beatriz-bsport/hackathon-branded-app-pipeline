@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React, { useState, useMemo, CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import { Avatar, Icon } from '@material-ui/core';
@@ -24,6 +23,7 @@ import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceB
 import { useOfferHours } from '../../../hooks';
 import { Level } from '#libs/level/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
+// @ts-ignore
 import Map from '#components/map/Map.component';
 
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -186,7 +186,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
           <div className="bs-activity__top__content__time">
             <div className="bs-activity__top__content__time__day">
               <DateRangeIcon />
-              {moment(offer.date_start).format('DD MMMM YYYY')}
+              {DateTime.fromISO(offer.date_start).toLocaleString(
+                DateTime.DATE_FULL,
+              )}
             </div>
             <div className="bs-activity__top__content__time__hour">
               <ScheduleIcon />
@@ -216,6 +218,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               whiteText
               companyTheme={companyTheme}
               credits={offer?.credit_price}
+              // @ts-ignore
               creditsOverride={offer?.credit_price_override}
             />
             <MarketplaceLevel
@@ -420,6 +423,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
           <MarketplaceBookButtonForDialog
             group={groupData}
             metaActivity={metaActivity}
+            // @ts-ignore
             offer={offer}
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}

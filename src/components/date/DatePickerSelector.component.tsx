@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { compose } from 'recompose';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps } from 'formik';
 
@@ -19,7 +19,6 @@ import classNames from 'classnames';
 // @ts-expect-error
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
 import { DateFilterEnum } from '#libs/datatype-filtering/types';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 export type Props = {
   isDisabled?: boolean;
@@ -30,7 +29,7 @@ export type Props = {
   StylesProps;
 
 export type Values = {
-  date: Moment | number;
+  date: DateTime | number;
   timePeriod: DateFilterEnum;
 };
 
@@ -63,7 +62,10 @@ const DatePickerSelector: React.FC<HOCProps> = ({
   const handleClose = () => {
     setIsOpen(false);
     setFieldValue('timePeriod', timePeriod);
-    setFieldValue('date', typeof date === 'number' ? moment.unix(date) : date);
+    setFieldValue(
+      'date',
+      typeof date === 'number' ? DateTime.fromSeconds(date) : date,
+    );
   };
 
   const handleOpen = () => {
@@ -78,15 +80,13 @@ const DatePickerSelector: React.FC<HOCProps> = ({
       keepHours && typeof values.date !== 'number'
         ? setFieldValue(
             'date',
-            moment
-              .unix(selection.getTimeStamp())
+            DateTime.fromSeconds(selection.getTimeStamp())
               .startOf('day')
-              .add(values.date.hour(), 'hour')
-              .add(values.date.minute(), 'minute'),
+              .plus({ hours: values.date.hour, minutes: values.date.minute }),
           )
         : setFieldValue(
             'date',
-            moment.unix(selection.getTimeStamp()).startOf('day'),
+            DateTime.fromSeconds(selection.getTimeStamp()).startOf('day'),
           );
     };
 
@@ -104,19 +104,19 @@ const DatePickerSelector: React.FC<HOCProps> = ({
 
     if (values.date)
       return (
-        <>
+        <div>
           {!singleDate && (
             <Typography color="textSecondary" display="inline">
               {t('header.fromInDateContext')}
             </Typography>
-          )}
+          )}{' '}
           <Typography display="inline">
-            {formatAsDatetimeAdapted(
-              typeof date === 'number' ? moment.unix(date) : date,
-              'L',
-            )}
+            {(typeof date === 'number'
+              ? DateTime.fromSeconds(date)
+              : date
+            ).toLocaleString(DateTime.DATE_SHORT)}
           </Typography>
-        </>
+        </div>
       );
 
     return <Typography display="inline">{t('header.selectDate')}</Typography>;
@@ -205,7 +205,7 @@ const DatePickerSelector: React.FC<HOCProps> = ({
 const RAPID_SELECTIONS = [
   {
     timePeriod: 'today' as DateFilterEnum,
-    getTimeStamp: () => moment().unix(),
+    getTimeStamp: () => DateTime.now().toUnixInteger(),
   },
 ];
 
@@ -267,7 +267,7 @@ export default compose<any, Props>(
     enableReinitialize: true,
     mapPropsToValues: ({ date, timePeriod }) => {
       return {
-        date: typeof date === 'number' ? moment.unix(date) : date,
+        date: typeof date === 'number' ? DateTime.fromSeconds(date) : date,
         timePeriod,
       };
     },

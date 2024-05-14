@@ -1,18 +1,22 @@
 import React, { useCallback, useMemo } from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
-import type { InstalmentPaymentApiWithBasketId } from '../types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
-import { DAILY, MONTHLY, WEEKLY } from '../constants';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
-import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
+import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
+import {
+  DAILY,
+  MONTHLY,
+  WEEKLY,
+} from '#libs/instalment-payment-configuration/constants';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 
-type OwnProps = {
+type Props = {
   checked: boolean;
   instalmentPayment: InstalmentPaymentApiWithBasketId;
   basketPrice: number;
@@ -21,8 +25,6 @@ type OwnProps = {
   onSelect: (id?: number) => void;
   unselectable?: boolean;
 };
-type ShortandMoment = 'y' | 'd' | 'w' | 'M';
-type Props = OwnProps;
 
 export const BasketInstalmentPaymentOption: React.FC<Props> = ({
   checked,
@@ -58,29 +60,31 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     custom_first_instalment_amount,
   );
 
-  let shorthandRecurrency = 'y' as ShortandMoment;
-  switch (recurrency) {
-    case DAILY:
-      shorthandRecurrency = 'd';
-      break;
-    case WEEKLY:
-      shorthandRecurrency = 'w';
-      break;
-    case MONTHLY:
-      shorthandRecurrency = 'M';
-      break;
-
-    default:
-      break;
-  }
+  const calculateInstallmentDate = useCallback(
+    (quantityToAdd: number) => {
+      switch (recurrency) {
+        case DAILY:
+          return DateTime.now().plus({ days: quantityToAdd });
+        case WEEKLY:
+          return DateTime.now().plus({ weeks: quantityToAdd });
+        case MONTHLY:
+          return DateTime.now().plus({ months: quantityToAdd });
+        default: // YEARLY
+          return DateTime.now().plus({ years: quantityToAdd });
+      }
+    },
+    [recurrency],
+  );
 
   const instalmentDateList = useMemo(() => {
-    return new Array(number_of_billing).fill(0).map((item, index) =>
-      moment()
-        .add(frequency * index, shorthandRecurrency)
-        .format('L'),
-    );
-  }, [frequency, number_of_billing, shorthandRecurrency]);
+    return new Array(number_of_billing)
+      .fill(0)
+      .map((item, index) =>
+        calculateInstallmentDate(frequency * index).toLocaleString(
+          DateTime.DATE_SHORT,
+        ),
+      );
+  }, [frequency, calculateInstallmentDate, number_of_billing]);
 
   const firstInstalmentAmount = useMemo(() => {
     const hasCustomfirstPayment =
@@ -207,7 +211,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
                     )}`}
                   </Typography>
                 </div>
-              ))}{' '}
+              ))}
             </>
           )}
         </div>

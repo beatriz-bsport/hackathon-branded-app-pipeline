@@ -44,9 +44,11 @@ export function isOfferInGroupLockedByPreviousOfferInPast(
     return false;
   }
   if (offerGroup?.first_offer_date) {
-    return moment(offerGroup.first_offer_date).isSameOrBefore(moment());
+    return DateTime.fromISO(offerGroup.first_offer_date) <= DateTime.now();
   }
-  return moment(offerInGroup.group.first_offer_date).isSameOrBefore(moment());
+  return (
+    DateTime.fromISO(offerInGroup.group.first_offer_date) <= DateTime.now()
+  );
 }
 
 export function isOfferBookableYet(

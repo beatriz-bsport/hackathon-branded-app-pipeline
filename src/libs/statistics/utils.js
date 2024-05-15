@@ -1,23 +1,32 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { getCurrencyDisplay } from '../theme/selectors';
+import { STATISTICS_FORMAT } from './constants';
 
 export const DAILY_DURATION_DISPLAY_LIMIT = 1;
 export const WEEKLY_DURATION_DISPLAY_LIMIT = 15;
 export const MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS = 60;
 export const MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS = 100;
 
-export const dateFormatter = (domain) => {
-  const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
-  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
-    return (d) => moment(d).format('MMM YYYY');
+export const dateFormatter = (domain: string[]) => {
+  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
+  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
+  const duration = end.diff(start, 'days');
+
+  if (duration.days > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
+    return (d) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('MMM yyyy');
   }
-  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
-    return (d) => moment(d).add(3, 'days').format('DD MMM');
+  if (duration.days > WEEKLY_DURATION_DISPLAY_LIMIT) {
+    return (d) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT)
+        .plus({ days: 3 })
+        .toFormat('dd MMM');
   }
-  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
-    return (d) => moment(d).format('ddd DD MMM');
+  if (duration.days > DAILY_DURATION_DISPLAY_LIMIT) {
+    return (d) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('ccc dd MMM');
   }
-  return (d) => moment(d).format('LT');
+  return (d) => DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('t');
 };
 
 const hasArabicText = (str: string) => {
@@ -41,15 +50,22 @@ export const numberFormatter = (isCurrencyFormat) => (x) => {
   return `${isCurrencyFormat ? getCurrencyDisplay() : ''}${parts.join('.')}`;
 };
 
-export const tooltipLabelFormatter = (domain: Moment[]) => (date: string) => {
-  const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
+export const tooltipLabelFormatter = (domain: string[]) => (date: string) => {
+  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
+  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
+  const duration = end.diff(start, 'days');
+
   if (
-    duration.asDays() <= MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS &&
-    duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT
+    duration.days <= MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS &&
+    duration.days > WEEKLY_DURATION_DISPLAY_LIMIT
   ) {
-    return `${moment(date).startOf('week').format('DD-MMM')} - ${moment(date)
+    const startOfWeek = DateTime.fromFormat(date, STATISTICS_FORMAT)
+      .startOf('week')
+      .toFormat('dd-MMM');
+    const endOfWeek = DateTime.fromFormat(date, STATISTICS_FORMAT)
       .endOf('week')
-      .format('DD-MMM')}`;
+      .toFormat('dd-MMM');
+    return `${startOfWeek} - ${endOfWeek}`;
   }
   return date;
 };

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { compose } from 'recompose';
 import * as Yup from 'yup';
@@ -90,11 +90,11 @@ export const GroupedOfferPreviewForm: React.FC<
         (acc, group) => {
           acc.groups.push([
             ...group.offers.map((o) =>
-              moment.unix(o.date_start).format('YYYY-MM-DD'),
+              DateTime.fromSeconds(o.date_start).toISODate(),
             ),
           ]);
           group.offers.forEach((o) => {
-            const midnight = moment.unix(o.date_start).startOf('day');
+            const midnight = DateTime.fromSeconds(o.date_start).startOf('day');
             if (!acc.events[midnight]) {
               acc.events[midnight] = [];
             }
@@ -116,20 +116,20 @@ export const GroupedOfferPreviewForm: React.FC<
   const outOfTheScopeGroupedOffers = useMemo(() => {
     return groups.filter((group) => {
       return group.offers.some((offer) => {
-        const momentOfferDateStart = moment.unix(offer.date_start);
-        return momentOfferDateStart.diff(moment(), 'years', true) > 3;
+        const luxonOfferDateStart = DateTime.fromSeconds(offer.date_start);
+        return luxonOfferDateStart.diffNow('years').years > 3;
       });
     });
   }, [groups]);
 
   const outOfTheScopeGroupedOffersListItems = outOfTheScopeGroupedOffers.map(
     (group) => {
-      const firstOfferDate = moment
-        .unix(group.offers[0].date_start)
-        .format('YYYY-MM-DD');
-      const lastOfferDate = moment
-        .unix(group.offers[group.offers.length - 1].date_start)
-        .format('YYYY-MM-DD');
+      const firstOfferDate = DateTime.fromSeconds(
+        group.offers[0].date_start,
+      ).toISODate();
+      const lastOfferDate = DateTime.fromSeconds(
+        group.offers[group.offers.length - 1].date_start,
+      ).toISODate();
       return (
         <ListItem key={firstOfferDate} disabled className={classes.listItemBox}>
           <ListItemText
@@ -148,8 +148,8 @@ export const GroupedOfferPreviewForm: React.FC<
             }
             secondary={t('groupedOption.offerDescription', {
               count: group.offers.length,
-              firstSession: moment(firstOfferDate).format('L'),
-              lastSession: moment(lastOfferDate).format('L'),
+              firstSession: DateTime.fromISO(firstOfferDate).toFormat('D'),
+              lastSession: DateTime.fromISO(lastOfferDate).toFormat('D'),
             })}
           />
           <div className={classes.recurrence}>
@@ -163,9 +163,11 @@ export const GroupedOfferPreviewForm: React.FC<
   );
 
   const [dateSelected, setDateSelected] = useState(
-    moment
-      .unix(values?.formikGroups?.[0]?.offers?.[0]?.date_start)
-      .format('YYYY-MM-DD'),
+    values?.formikGroups?.[0]?.offers?.[0]?.date_start
+      ? DateTime.fromSeconds(
+          values?.formikGroups?.[0]?.offers?.[0]?.date_start,
+        ).toISODate()
+      : DateTime.now().toISODate(),
   );
 
   const recurrence_rule = values?.formikGroups?.[0]?.recurrence_rule ?? null;
@@ -175,9 +177,9 @@ export const GroupedOfferPreviewForm: React.FC<
     const intervalIsPlural = recurrence_rule.interval > 1;
     const frequenceIsYearly = recurrence_rule.frequence >= 2;
 
-    const firstDate = moment.unix(
-      values?.formikGroups?.[0]?.offers?.[0]?.date_start,
-    );
+    const firstDate = values?.formikGroups?.[0]?.offers?.[0]?.date_start
+      ? DateTime.fromSeconds(values?.formikGroups?.[0]?.offers?.[0]?.date_start)
+      : DateTime.now();
 
     if (frequenceIsYearly) {
       return (
@@ -196,7 +198,7 @@ export const GroupedOfferPreviewForm: React.FC<
                   },
                   t,
                 ),
-                month: firstDate.format('MMMM'),
+                month: firstDate.toFormat('LLLL'),
               },
             )}
           </Alert>
@@ -276,12 +278,12 @@ export const GroupedOfferPreviewForm: React.FC<
               },
             }) =>
               formikGroups.map((group, index) => {
-                const firstOfferDate = moment
-                  .unix(group.offers[0].date_start)
-                  .format('YYYY-MM-DD');
-                const lastOfferDate = moment
-                  .unix(group.offers[group.offers.length - 1].date_start)
-                  .format('YYYY-MM-DD');
+                const firstOfferDate = DateTime.fromSeconds(
+                  group.offers[0].date_start,
+                ).toISODate();
+                const lastOfferDate = DateTime.fromSeconds(
+                  group.offers[group.offers.length - 1].date_start,
+                ).toISODate();
 
                 const handleRemove = () => {
                   remove(index);
@@ -330,8 +332,10 @@ export const GroupedOfferPreviewForm: React.FC<
                       }
                       secondary={t('groupedOption.offerDescription', {
                         count: group.offers.length,
-                        firstSession: moment(firstOfferDate).format('L'),
-                        lastSession: moment(lastOfferDate).format('L'),
+                        firstSession:
+                          DateTime.fromISO(firstOfferDate).toFormat('D'),
+                        lastSession:
+                          DateTime.fromISO(lastOfferDate).toFormat('D'),
                       })}
                     />
                     {formikGroups.length > 1 && (
@@ -490,8 +494,8 @@ export default compose<any, OuterProps>(
     mapPropsToValues: ({ groups }) => {
       const filteredGroups = [...groups].filter((group) => {
         return group.offers.every((offer) => {
-          const momentOfferDateStart = moment.unix(offer.date_start);
-          return momentOfferDateStart.diff(moment(), 'years', true) < 3;
+          const luxonOfferDateStart = DateTime.fromSeconds(offer.date_start);
+          return luxonOfferDateStart.diffNow('years').years < 3;
         });
       });
       return {

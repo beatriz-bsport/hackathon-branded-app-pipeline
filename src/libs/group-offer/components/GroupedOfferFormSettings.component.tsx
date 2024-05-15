@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps, Field, FieldArray } from 'formik';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -314,8 +314,9 @@ export const GroupedOfferFormSettings: React.FC<
       const offers = values.offers
         .reduce((acc, value) => {
           if (
-            moment.unix(value.date_start).format('YYYY-MM-DD HH:mm') !==
-            offerEdited.date_start
+            DateTime.fromSeconds(value.date_start).toFormat(
+              'yyyy-LL-dd HH:mm',
+            ) !== offerEdited.date_start
           ) {
             acc.push(value);
             return acc;
@@ -332,7 +333,9 @@ export const GroupedOfferFormSettings: React.FC<
                   date_start: data.date_start.unix(),
                 }
               : {
-                  date_start: moment(offerEdited.date_start).unix(),
+                  date_start: DateTime.fromISO(
+                    offerEdited.date_start,
+                  ).toUnixInteger(),
                 }),
           });
           return acc;
@@ -705,7 +708,7 @@ const OfferDialogs: React.FC<{
           onSubmit={handleAddOffer}
           processing={false}
           roomBlueprints={availableRoomBlueprints}
-          selectedDate={moment()}
+          selectedDate={DateTime.now()}
           showPartnership={theme.has_partnership}
           tagList={tagList}
           timezone={theme.timezone_name}
@@ -814,7 +817,9 @@ const OffersList: React.FC<{
                 <div>
                   <div>
                     {getDisplayDateFromRecurrence(
-                      moment.unix(offer.date_start).tz(offer.timezone_name),
+                      DateTime.fromSeconds(offer.date_start).setZone(
+                        offer.timezone_name,
+                      ),
                       {
                         interval: recurrence_interval,
                         frequence:
@@ -824,14 +829,14 @@ const OffersList: React.FC<{
                     )}
                   </div>
                   <div>
-                    {`${moment
-                      .unix(offer.date_start)
-                      .tz(offer.timezone_name)
-                      .format('HH:mm')} - ${moment
-                      .unix(offer.date_start)
-                      .tz(offer.timezone_name)
-                      .add(offer.duration_minute, 'minutes')
-                      .format('HH:mm')}`}
+                    {`${DateTime.fromSeconds(offer.date_start)
+                      .setZone(offer.timezone_name)
+                      .toFormat('HH:mm')} - ${DateTime.fromSeconds(
+                      offer.date_start,
+                    )
+                      .setZone(offer.timezone_name)
+                      .plus({ minutes: offer.duration_minute })
+                      .toFormat('HH:mm')}`}
                   </div>
                 </div>
               }
@@ -874,9 +879,9 @@ const OffersList: React.FC<{
                 onClick={() => {
                   setOfferEdited({
                     ...offer,
-                    date_start: moment
-                      .unix(offer.date_start)
-                      .format('YYYY-MM-DD HH:mm'),
+                    date_start: DateTime.fromSeconds(offer.date_start).toFormat(
+                      'yyyy-LL-dd HH:mm',
+                    ),
                     customlevel: {
                       id: level,
                     },
@@ -984,8 +989,8 @@ export default compose<any, OuterProps>(
           recurrence_method: initial.recurrence_rule?.count ? 'count' : 'until',
           count: initial.recurrence_rule?.count ?? 1,
           until: initial.recurrence_rule?.until
-            ? moment.unix(initial.recurrence_rule.until).format('YYYY-MM-DD')
-            : moment().add(1, 'month').format('YYYY-MM-DD'),
+            ? DateTime.fromSeconds(initial.recurrence_rule.until).toISODate()
+            : DateTime.now().plus({ months: 1 }).toISODate(),
           offers: [...(initial?.offers ?? [])]?.sort(
             (a, b) => a.date_start - b.date_start,
           ),
@@ -1007,7 +1012,7 @@ export default compose<any, OuterProps>(
         recurrence_frequence: 'week',
         recurrence_method: 'count',
         count: 1,
-        until: moment().add(1, 'month').format('YYYY-MM-DD'),
+        until: DateTime.now().plus({ months: 1 }).toISODate(),
         offers: [],
         whitelist_tags: [],
         blacklist_tags: [],

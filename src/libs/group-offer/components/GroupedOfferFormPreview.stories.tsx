@@ -1,11 +1,11 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import moment from 'moment-timezone';
 import React from 'react';
 
 import metaActivityFactory from '../factories';
 import GroupedOfferFormPreview, {
   OuterProps,
 } from './GroupedOfferPreview.component';
+import { DateTime } from 'luxon';
 
 export default {
   title: 'MetaActivity/Components/GroupedOfferFormPreview',
@@ -35,7 +35,7 @@ Story.args = {
         .fill(0)
         .map((_, i) => ({
           id: i,
-          date_start: moment().add(i, 'day').format('YYYY-MM-DD'),
+          date_start: DateTime.now().plus({ days: i }).toISODate(),
           timezone_name: 'Europe/Paris',
         })),
       name: 'Groupe 1 (n1)',
@@ -50,9 +50,9 @@ Story.args = {
         .fill(0)
         .map((_, i) => ({
           id: 4 + i,
-          date_start: moment()
-            .add(4 + i, 'day')
-            .format('YYYY-MM-DD'),
+          date_start: DateTime.now()
+            .plus({ days: 4 + i })
+            .toISODate(),
           timezone_name: 'Europe/Paris',
         })),
       name: 'Groupe 1 (n2)',
@@ -67,9 +67,9 @@ Story.args = {
         .fill(0)
         .map((_, i) => ({
           id: 7 + i,
-          date_start: moment()
-            .add(7 + i, 'day')
-            .format('YYYY-MM-DD'),
+          date_start: DateTime.now()
+            .plus({ days: 7 + i })
+            .toISODate(),
           timezone_name: 'Europe/Paris',
         })),
       name: 'Groupe 1 (n3)',
@@ -84,9 +84,9 @@ Story.args = {
         .fill(0)
         .map((_, i) => ({
           id: 14 + i,
-          date_start: moment()
-            .add(14 + i, 'day')
-            .format('YYYY-MM-DD'),
+          date_start: DateTime.now()
+            .plus({ days: 14 + i })
+            .toISODate(),
           timezone_name: 'Europe/Paris',
         })),
       name: 'Groupe 1 (n4)',

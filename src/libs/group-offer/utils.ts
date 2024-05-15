@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
-import moment, { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY,
@@ -7,39 +8,46 @@ import {
 } from './constants';
 import { RecurrenceRuleGroupOffer } from './types';
 
+// Keeping moment in this method for now
+// because DateTime doesn't have ordinal formatting
 export const getDisplayDateFromRecurrence = (
-  date: Moment,
+  date: DateTime,
   recurrence_rule: RecurrenceRuleGroupOffer,
   t: TFunction,
 ) => {
-  if (!recurrence_rule) return date.format('L');
+  if (!recurrence_rule) return date.toFormat('D');
   if (recurrence_rule.frequence === GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY)
-    return date.format('dddd');
+    return date.toFormat('cccc');
   if (
     recurrence_rule.frequence === GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY
   ) {
     return getDisplayDateForWeekAndDay(date, t);
   }
   if (recurrence_rule.frequence === GROUPED_OFFERS_RECURSIVE_YEARLY_FREQUENCE)
-    return `${date.format('Mo MMMM')} - ${getDisplayDateForWeekAndDay(
-      date,
-      t,
-    )}`;
+    return `${moment(date.toISODate()).format(
+      'Mo MMMM',
+    )} - ${getDisplayDateForWeekAndDay(date, t)}`;
   return '';
 };
 
-const getDisplayDateForWeekAndDay = (date: Moment, t: TFunction) => {
+// Keeping moment in this method for now
+// because DateTime doesn't have ordinal formatting
+const getDisplayDateForWeekAndDay = (date: DateTime<true>, t: TFunction) => {
   if (getWeekOfMonth(date) < 5) {
-    const weekOfDate = date.clone().week();
-    const weekOfStartOfMonth = date.clone().startOf('month').week();
+    const weekOfDate = date.localWeekNumber;
+    const weekOfStartOfMonth = date.startOf('month').localWeekNumber;
 
-    return moment()
-      .week(weekOfDate - weekOfStartOfMonth || 1)
-      .day(date.clone().day())
-      .format('Wo dddd');
+    return moment(
+      DateTime.now()
+        .set({
+          localWeekday: date.localWeekday,
+          localWeekNumber: weekOfDate - weekOfStartOfMonth || 1,
+        })
+        .toISODate(),
+    ).format('Wo dddd');
   }
 
-  return `${t('groupedOption.last')} ${date.format('dddd')}`;
+  return `${t('groupedOption.last')} ${date.toFormat('cccc')}`;
 };
 
 export const getRecurrenceTrad = (
@@ -53,7 +61,7 @@ export const getRecurrenceTrad = (
       }`,
       {
         count: recurrenceRule.interval,
-        until: moment.unix(recurrenceRule.until).format('L'),
+        until: DateTime.fromSeconds(recurrenceRule.until).toFormat('D'),
       },
     );
   }
@@ -68,8 +76,8 @@ export const getRecurrenceTrad = (
   );
 };
 
-const getWeekOfMonth = (date: Moment) => {
-  return date.week() - moment(date).startOf('month').week() + 1;
+const getWeekOfMonth = (date: DateTime) => {
+  return date.localWeekNumber - date.startOf('month').localWeekNumber + 1;
 };
 
 export const FREQUENCE_STRING_CONVERTER: Record<number, string> = {

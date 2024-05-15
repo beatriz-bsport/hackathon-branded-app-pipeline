@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+
 import classNames from 'classnames';
 
 import { DateTime } from 'luxon';
@@ -8,6 +9,7 @@ import IconButton from '#Fabrique/IconButton';
 import DatePicker from '#Fabrique/DatePicker';
 
 import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
+
 import './styles.css';
 
 const CALENDAR_INITIAL_DATE = DateTime.now().toFormat(LUXON_ISO_SHORT_DATE);

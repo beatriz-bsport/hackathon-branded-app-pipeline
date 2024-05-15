@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { MarketplaceContractPaymentForStorybook, Props } from '.';
 import { contractFactory } from '#libs/subscription/factory';
@@ -15,7 +15,7 @@ const defaultArgs = {
   contract: fakeContract,
   isContractLegalTermsAccepted: false,
   isLoading: false,
-  date: moment().format(),
+  date: DateTime.now().toISO(),
   enabledPaymentMethods: [
     PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,

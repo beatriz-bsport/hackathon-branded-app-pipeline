@@ -99,7 +99,9 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
         .map((activity) => activity.SCT)
         .concat(props.workshopList.map((workshop) => workshop.SCT)),
     );
-    return SCTids.map((SCTid) => props.SCTList.find((SCT) => SCT.id === SCTid));
+    return SCTids.map((SCTid) =>
+      props.SCTList.find((SCT) => SCT.id === SCTid),
+    ).filter((SCT) => !!SCT);
   }, [props.SCTList, props.activityList, props.workshopList]);
 
   const compatibleCoachesByCategory = React.useMemo(

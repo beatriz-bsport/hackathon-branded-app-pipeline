@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,10 +36,10 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
       [name]: value,
     });
   };
-  const fuckThisCode = (e) => {
+  const fuckThisCode = (date: DateTime) => {
     props.onTimeSettingChange({
       ...props.selectedSetting,
-      start_from_date: e.format('YYYY-MM-DD'),
+      start_from_date: date.toISODate(),
     });
   };
   return (
@@ -105,11 +105,11 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
         <div className={classes.row}>
           <DateInput
             label={t('booking:recurrenceRule.form.startFromDate.label')}
-            minDate={moment()}
+            minDate={DateTime.now()}
             onChange={fuckThisCode}
             value={
-              props.selectedSetting
-                ? moment(props.selectedSetting.start_from_date)
+              props.selectedSetting && props.selectedSetting.start_from_date
+                ? DateTime.fromISO(props.selectedSetting.start_from_date)
                 : null
             }
           />

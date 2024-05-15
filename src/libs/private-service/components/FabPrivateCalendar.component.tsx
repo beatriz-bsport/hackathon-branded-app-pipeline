@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   Button,
@@ -49,20 +49,25 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
 
     this.state = {
       privateBookerFabOpen: false,
-      privateBookerDateStart: moment(props.startDate)
-        .tz(props.timezone)
-        .set('hour', 12)
-        .format(),
-
+      privateBookerDateStart: props.startDate
+        ? DateTime.fromISO(props.startDate)
+            .setZone(props.timezone)
+            .set({ hour: 12 })
+            .toISO()
+        : DateTime.now().setZone(props.timezone).set({ hour: 12 }).toISO(),
       customEventOpen: false,
-      customEventDateStart: moment(props.startDate)
-        .tz(props.timezone)
-        .set('hour', 12)
-        .format(),
-      customEventDateEnd: moment(props.startDate)
-        .tz(props.timezone)
-        .set('hour', 13)
-        .format(),
+      customEventDateStart: props.startDate
+        ? DateTime.fromISO(props.startDate)
+            .setZone(props.timezone)
+            .set({ hour: 12 })
+            .toISO()
+        : DateTime.now().setZone(props.timezone).set({ hour: 12 }).toISO(),
+      customEventDateEnd: props.startDate
+        ? DateTime.fromISO(props.startDate)
+            .setZone(props.timezone)
+            .set({ hour: 13 })
+            .toISO()
+        : DateTime.now().setZone(props.timezone).set({ hour: 13 }).toISO(),
     };
   }
 
@@ -74,18 +79,24 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
 
   setDefaultDates = () => {
     this.setState({
-      privateBookerDateStart: moment(this.props.startDate)
-        .tz(this.props.timezone)
-        .set('hour', 12)
-        .format(),
-      customEventDateStart: moment(this.props.startDate)
-        .tz(this.props.timezone)
-        .set('hour', 12)
-        .format(),
-      customEventDateEnd: moment(this.props.startDate)
-        .tz(this.props.timezone)
-        .set('hour', 13)
-        .format(),
+      privateBookerDateStart: this.props.startDate
+        ? DateTime.fromISO(this.props.startDate)
+            .setZone(this.props.timezone)
+            .set({ hour: 12 })
+            .toISO()
+        : DateTime.now().setZone(this.props.timezone).set({ hour: 12 }).toISO(),
+      customEventDateStart: this.props.startDate
+        ? DateTime.fromISO(this.props.startDate)
+            .setZone(this.props.timezone)
+            .set({ hour: 12 })
+            .toISO()
+        : DateTime.now().setZone(this.props.timezone).set({ hour: 12 }).toISO(),
+      customEventDateEnd: this.props.startDate
+        ? DateTime.fromISO(this.props.startDate)
+            .setZone(this.props.timezone)
+            .set({ hour: 13 })
+            .toISO()
+        : DateTime.now().setZone(this.props.timezone).set({ hour: 13 }).toISO(),
     });
   };
 
@@ -126,11 +137,13 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
           <DialogTitle>{this.props.t('calendar.addBooking')}</DialogTitle>
           <div className={this.props.classes.dialogDateContainer}>
             <DateTimeForm
-              onChange={(privateBookerDateStart: string) =>
-                this.setState({ privateBookerDateStart })
+              onChange={(privateBookerDateStart: DateTime) =>
+                this.setState({
+                  privateBookerDateStart: privateBookerDateStart.toISO(),
+                })
               }
               timezone={this.props.timezone}
-              value={this.state.privateBookerDateStart}
+              value={DateTime.fromISO(this.state.privateBookerDateStart)}
             />
           </div>
           <DialogActions>
@@ -200,9 +213,8 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
               disabled={
                 !this.state.customEventDateStart ||
                 !this.state.customEventDateStart ||
-                moment(this.state.customEventDateEnd).isBefore(
-                  moment(this.state.customEventDateStart),
-                )
+                DateTime.fromISO(this.state.customEventDateEnd) <
+                  DateTime.fromISO(this.state.customEventDateStart)
               }
               onClick={() => {
                 this.setState({ customEventOpen: false });

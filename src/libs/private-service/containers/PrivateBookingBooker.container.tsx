@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
@@ -265,14 +265,16 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
   };
 
   createRecurrentRule = (options: OptionCallback, asUnpaid: boolean) => {
-    const date_start = moment(this.state.date_start).tz(this.props.timezone);
+    const date_start = DateTime.fromISO(this.state.date_start).setZone(
+      this.props.timezone,
+    );
     this.props.createRecurrentRule(
       {
         nb_of_weeks: this.state.nb_of_weeks,
-        hour: date_start.hour(),
-        minute: date_start.minute(),
-        day_of_week: date_start.isoWeekday() - 1,
-        start_from_date: date_start.format('YYYY-MM-DD'),
+        hour: date_start.hour,
+        minute: date_start.minute,
+        day_of_week: date_start.weekday - 1,
+        start_from_date: date_start.toISODate(),
         notify_if_booked: this.props.notify_member,
         is_overriding_availabilities: this.props.is_overriding_availabilities,
         private_slot: this.state.private_booking_data.private_slot,
@@ -355,9 +357,11 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             showVaccinationStatus={this.props.showVaccinationStatus}
           />
           <DateTimeForm
-            onChange={(date_start: string) => this.setState({ date_start })}
+            onChange={(date_start: DateTime) =>
+              this.setState({ date_start: date_start.toISO() })
+            }
             timezone={this.props.timezone}
-            value={this.state.date_start}
+            value={DateTime.fromISO(this.state.date_start)}
           />
           <Divider className={this.props.classes.divider} />
           <fieldset className={this.props.classes.fieldset}>

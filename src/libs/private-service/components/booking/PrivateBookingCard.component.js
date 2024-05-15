@@ -1,6 +1,5 @@
 // @flow
 import React, { memo, useCallback } from 'react';
-import moment from 'moment-timezone';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +10,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import MomentUtils from '@date-io/moment';
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,6 +33,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
@@ -60,9 +61,9 @@ type Props = {
   onRestore: () => void,
   isUpdateTimeFormOpen: boolean,
   loading: boolean,
-  setUpdatedTime: (updatedTime: moment.Moment | null) => void,
+  setUpdatedTime: (updatedTime: DateTime | null) => void,
   closeUpdateTimeForm: () => void,
-  updatedTime: moment.Moment | null,
+  updatedTime: DateTime | null,
   goToCoachCalendar: (coachId: number) => void,
   updateTime: (string, OptionCallback) => void,
   setUpdateTimeForm: () => void,
@@ -112,7 +113,6 @@ export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
   const { t } = useTranslation(['privateService', 'member']);
   const classes = useStyles();
-
   React.useEffect(() => {
     if (private_booking.member && private_booking.member.id) {
       props.fetchInvoiceListUnpaid(private_booking.member.id);
@@ -187,7 +187,7 @@ export const PrivateBookingCard = (props: Props) => {
       <div className={classes.container}>
         {openAllocationModal && (
           <ResourceAllocationConfirmDialog
-            dateStart={props.updatedTime?.format()}
+            dateStart={props.updatedTime?.toISO()}
             onCancel={onCancel}
             onSubmit={onSubmit}
             privateBooking={private_booking}
@@ -196,18 +196,18 @@ export const PrivateBookingCard = (props: Props) => {
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider
-            locale={moment.locale()}
-            moment={moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <InlineDateTimePicker
               keyboard
               ampm={false}
-              format="YYYY/MM/DD HH:mm"
+              format="y/MM/dd HH:mm"
               onChange={props.setUpdatedTime}
               onError={console.error}
               value={
-                props.updatedTime || moment(props.private_booking.date_start)
+                props.updatedTime ||
+                DateTime.fromISO(props.private_booking.date_start)
               }
             />
           </MuiPickersUtilsProvider>
@@ -319,9 +319,11 @@ export const PrivateBookingCard = (props: Props) => {
                 <AccessTimeIcon />
               </ListItemIcon>
               <ListItemText
-                primary={`${moment(private_booking.date_start).format(
-                  'HH:mm',
-                )} - ${moment(private_booking.date_end).format('HH:mm')}`}
+                primary={`${DateTime.fromISO(
+                  private_booking.date_start,
+                ).toFormat('HH:mm')} - ${DateTime.fromISO(
+                  private_booking.date_end,
+                ).toFormat('HH:mm')}`}
               />
               <ListItemSecondaryAction>
                 {props.updateTime && hasEditPrivateBookingPermission && (

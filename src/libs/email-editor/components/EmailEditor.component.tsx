@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component, createRef } from 'react';
 
 import { compose } from 'recompose';
@@ -28,12 +27,14 @@ import isEqual from 'lodash/isEqual';
 import { AxiosError } from 'axios';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
   EmailTemplate,
   EmailTemplateCategory,
   EmailTemplateSummary,
 } from '../types';
+// @ts-expect-error
 import i18n from '../../../i18n';
 import { FranchiseCompany } from '../../franchise/types';
 import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.component';
@@ -172,10 +173,12 @@ export class EmailEditorPanel extends Component<Props, State> {
           subject: this.state.subject,
           html,
           design: JSON.stringify(design),
+          // @ts-expect-error
           date_modified: moment(),
           category: this.state.categoryId,
         },
         this.state.selectedCompanies?.map((opt) =>
+          // @ts-expect-error
           parseInt(opt?.value ?? '', 10),
         ),
         { onSuccess: this.hideAlertBox, onError: this.showAlertBox },
@@ -197,9 +200,11 @@ export class EmailEditorPanel extends Component<Props, State> {
           subject: this.state.subject,
           html,
           design: JSON.stringify(design),
+          // @ts-expect-error
           date_modified: moment(),
         },
         this.state.selectedCompanies?.map((opt) =>
+          // @ts-expect-error
           parseInt(opt?.value ?? '', 10),
         ),
         { onSuccess: this.hideAlertBox, onError: this.showAlertBox },
@@ -232,6 +237,7 @@ export class EmailEditorPanel extends Component<Props, State> {
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.props.tags && !prevProps.tags) {
       // unlayer is the library use under the hood by react-email-editor
+      // @ts-expect-error
       window?.unlayer.setMergeTags(this.getMergeTags);
     }
     if (prevState.autoSave && !this.state.autoSave) {
@@ -253,6 +259,7 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   onLoad() {
     // unlayer is the library use under the hood by react-email-editor
+    // @ts-expect-error
     window?.unlayer.loadDesign(this.props.emailToEdit?.design);
   }
 
@@ -343,6 +350,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             <CategorySelector
               categories={this.props.emailTemplateCategories}
               onChange={(ev) =>
+                // @ts-expect-error
                 this.setState({ categoryId: ev?.value || null })
               }
               selected={this.state.categoryId}
@@ -500,6 +508,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           ))}
         <Paper>
           {!!Object.entries(mergeTags).length && (
+            // @ts-expect-error
             <EmailEditor
               ref={this.editor}
               locale={i18n.language}

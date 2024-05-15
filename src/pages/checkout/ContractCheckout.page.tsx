@@ -3,7 +3,6 @@ import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import moment from 'moment-timezone';
 import { withRouter } from 'react-router-dom';
 import {
   replace as replaceAction,
@@ -12,6 +11,7 @@ import {
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 import classNames from 'classnames';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
+import { DateTime } from 'luxon';
 
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -82,6 +82,7 @@ import Carousel from '#components/css-only/Carousel';
 import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#libs/member/actions';
+import { LUXON_ISO_SHORT_DATE } from '#utils/datetime';
 
 import './styles.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
@@ -163,7 +164,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.state = {
       processing: false,
       stripePromise: null,
-      billingStartDate: moment().format('YYYY-MM-DD'),
+      billingStartDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
       isDirectBuyingLink: false,
       isContractCooldownDialogOpen: false,
       openContractTermsDialog: false,
@@ -284,9 +285,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           c.id === parseInt(this.props.contractId, 10),
       ) || this.props.contract;
     try {
-      const first_billing_timestamp = moment(
+      const first_billing_timestamp = DateTime.fromISO(
         this.state.billingStartDate,
-      ).unix();
+      ).toSeconds();
       this.props.registerContractBackground(
         parseInt(this.props.contractId, 10),
         {

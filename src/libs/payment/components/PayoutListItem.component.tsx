@@ -22,7 +22,7 @@ import {
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 // @ts-expect-error
 import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -82,10 +82,9 @@ const PayoutListItem: React.FC<Props> = ({
         <div className={classes.innerContainer}>
           <div className={classes.leftPart}>
             <Typography>
-              {`${formatAsDatetimeAdapted(
-                moment.unix(stripePayout.date_created),
-                'LL',
-              )} - ${getCurrencyDisplayWithPrice(
+              {`${DateTime.fromMillis(
+                stripePayout.date_created * 1000,
+              ).toFormat('DD')} - ${getCurrencyDisplayWithPrice(
                 (stripePayout.amount_cts / 100).toFixed(2),
               )}${
                 bsportPayout.amount_cts_from_previous_included_payouts > 0
@@ -177,9 +176,8 @@ const PayoutListItem: React.FC<Props> = ({
       <div className={classes.innerContainer}>
         <div className={classes.leftPart}>
           <Typography>
-            {`${formatAsDatetimeAdapted(
-              moment.unix(stripePayout.date_created),
-              'LL',
+            {`${DateTime.fromMillis(stripePayout.date_created * 1000).toFormat(
+              'DD',
             )} - ${getCurrencyDisplayWithPrice(
               (stripePayout.amount_cts / 100).toFixed(2),
             )}`}

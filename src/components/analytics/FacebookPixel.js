@@ -1,5 +1,7 @@
 /* global fbq */
 
+import { DateTime } from 'luxon';
+
 const storage = window.localStorage;
 const currencyCode = (
   storage.getItem('bsport:payment:currency_code') || 'EUR'
@@ -160,7 +162,7 @@ FacebookPixel.addMethod(
     data: {
       session_id: offer.id,
       activity: offer.meta_activity.name,
-      session_date: moment(offer.date_start).format(),
+      session_date: DateTime.fromISO(offer.date_start).toISO(),
       establishment: offer.establishment_override
         ? offer.establishment_override.title
         : offer.establishment.name,

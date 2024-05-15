@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';
@@ -149,7 +149,7 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
     if (this.props.id) {
       this.props.fetchMetaActivityOffers(this.props.id);
       this.props.fetchNotificationsAndTemplates();
-      this.props.fetchOffersByDay(moment());
+      this.props.fetchOffersByDay(DateTime.now());
       this.props.fetchResolvedGenericTags();
       this.props.fetchTagList();
     }
@@ -348,15 +348,19 @@ export default compose(
       upsertMetaActivity,
       setOpenEditDrawer,
     }) => ({
-      fetchOffersByDay: (momentDate) => {
+      fetchOffersByDay: (luxonDate: DateTime) => {
         fetchMetaActivityOffers(id, {
-          min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-          max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+          min_date: luxonDate
+            .startOf('month', { useLocaleWeeks: true })
+            .toISODate(),
+          max_date: luxonDate
+            .endOf('month', { useLocaleWeeks: true })
+            .toISODate(),
         });
         fetchOffersByDay({
-          year: momentDate.year(),
-          month: momentDate.month() + 1,
-          day: momentDate.date(),
+          year: luxonDate.year,
+          month: luxonDate.month,
+          day: luxonDate.date,
         });
       },
       onSubmit: (values, options) => {

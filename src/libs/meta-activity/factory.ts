@@ -1,6 +1,5 @@
-// @ts-nocheck
-import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
+import { DateTime } from 'luxon';
 import { generateRandomInt } from '../../utils/factories';
 
 import { MetaActivity } from './types';
@@ -33,11 +32,11 @@ const RATINGS: Array<string> = ['1', '2', '3', '4', '5'];
 const IMAGES: Array<string> = ['Ball', 'Room', 'Stadium', 'Pitch'];
 
 const NEXT_SLOTS: Array<string> = [
-  moment().add(2, 'days').calendar(),
-  moment().add(5, 'days').calendar(),
-  moment().add(12, 'days').calendar(),
-  moment().add(17, 'days').calendar(),
-  moment().add(26, 'days').calendar(),
+  DateTime.now().plus({ days: 2 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 5 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 12 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 17 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 26 }).toRelativeCalendar(),
 ];
 
 const DESCRIPTIONS: Array<string> = [
@@ -67,6 +66,7 @@ export function meta_activity_factory(
     id,
     image: random_choice(IMAGES),
   }));
+  // @ts-expect-error
   return META_ACTIVITY_IDS.map((id) => {
     return {
       id: id + 1,

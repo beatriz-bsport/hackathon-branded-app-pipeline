@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
@@ -106,7 +106,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
   const hasRelatedBookings = !!relatedBookings && relatedBookings?.length > 0;
 
   const isLateCancellation = getIsLateBookingCancellation(
-    moment().format(),
+    DateTime.now().toISO(),
     booking?.meta_activity?.last_discard_minutes ??
       privateBooking?.private_service?.last_discard_minutes,
     booking?.offer?.date_start || privateBooking?.date_start,

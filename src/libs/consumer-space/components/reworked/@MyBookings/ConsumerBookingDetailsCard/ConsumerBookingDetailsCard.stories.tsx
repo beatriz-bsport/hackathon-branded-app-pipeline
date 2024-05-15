@@ -1,6 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import moment from 'moment-timezone';
 import React, { useState } from 'react';
 
 import { BottomDrawerStorybook } from '#Fabrique/BottomDrawer';
@@ -15,6 +14,8 @@ import { consumerBookingListFactory } from '#libs/booking/factories';
 import { ConsumerBookingDetailsCardStorybook } from '.';
 
 import type { ConsumerBooking } from '#libs/booking/types';
+import { DateTime } from 'luxon';
+import { getUserZone } from '#src/utils/datetime';
 
 const DAYS_IN_FUTURE = 3;
 const RANDOM_URL = faker.internet.url();
@@ -27,9 +28,9 @@ const ESTABLISHMENT = establishment_factory(1)[0];
 const CONSUMER_PAYMENT_PACK = consumerPaymentPackFactory();
 const PAYMENT_PACK = paymentPackFactory({ isUnlimited: false });
 const CREDITS_TO_REFUND = faker.number.int({ min: 1, max: 3 });
-const CANCELLATION_DATE = moment()
-  .add(DAYS_IN_FUTURE - 1, 'days')
-  .format('L');
+const CANCELLATION_DATE = DateTime.now()
+  .plus({ days: DAYS_IN_FUTURE - 1 })
+  .toFormat('D');
 const DESCRIPTION = faker.lorem.sentences(5);
 const WAITLIST_POSITION = faker.number.int({ min: 1, max: 5 });
 // @ts-expect-error factories to refactor.
@@ -76,7 +77,7 @@ const defaultArgs = {
   establishmentAddress: ESTABLISHMENT.location.address,
   sessionTimeDisplay:
     themeFactoryBot.companyTheme.createOne().session_time_display,
-  timezoneName: moment.tz.guess(),
+  timezoneName: getUserZone(),
   levelName: faker.word.words(3),
   metaActivityPicture: META_ACTIVITY.cover_main,
   metaActivityName: META_ACTIVITY.name,

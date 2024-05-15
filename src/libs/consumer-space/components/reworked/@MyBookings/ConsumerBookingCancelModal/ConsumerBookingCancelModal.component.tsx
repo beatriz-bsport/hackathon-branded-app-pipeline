@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
+import { DateTime } from 'luxon';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import { getIsLateBookingCancellation } from '#utils/datetime';
 import Blanket from '#Fabrique/Blanket';
@@ -108,7 +108,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
   } - ${bookingDate}`;
 
   const isLateCancellation = getIsLateBookingCancellation(
-    moment().format(),
+    DateTime.now().toISO(),
     booking?.meta_activity?.last_discard_minutes ??
       privateBooking?.private_service?.last_discard_minutes,
     booking?.offer?.date_start || privateBooking?.date_start,

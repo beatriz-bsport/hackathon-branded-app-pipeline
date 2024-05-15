@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
+import { Duration } from 'luxon';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Typography from '#Fabrique/Typography';
 
@@ -15,7 +15,7 @@ const ConsumerBookingDetailsCardPolicySection: React.FC<Props> = ({
   const { t } = useTranslation('consumerSpace');
 
   const cancellationPolicyDuration = useMemo(
-    () => moment.duration(metaActivityLastDiscardMinutes, 'minutes'),
+    () => Duration.fromObject({ minutes: metaActivityLastDiscardMinutes }),
     [metaActivityLastDiscardMinutes],
   );
 
@@ -24,9 +24,9 @@ const ConsumerBookingDetailsCardPolicySection: React.FC<Props> = ({
       ? t(
           'consumerSpace:reworked.myBookings.detailsCard.cancellationPolicy.maxDuration',
           {
-            days: cancellationPolicyDuration.days(),
-            hours: cancellationPolicyDuration.hours(),
-            minutes: cancellationPolicyDuration.minutes(),
+            days: cancellationPolicyDuration.days,
+            hours: cancellationPolicyDuration.hours,
+            minutes: cancellationPolicyDuration.minutes,
           },
         )
       : t(

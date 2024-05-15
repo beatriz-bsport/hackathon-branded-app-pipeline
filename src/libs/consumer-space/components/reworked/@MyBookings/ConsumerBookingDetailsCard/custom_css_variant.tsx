@@ -1,7 +1,7 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import {
   ConsumerBookingDetailsCardStorybook,
   Props as ConsumerBookingDetailsCard,
@@ -24,9 +24,10 @@ import {
 } from '#libs/exportable-components/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerBooking } from '#libs/booking/types';
+import { getUserZone } from '#src/utils/datetime';
 
 const DAYS_IN_FUTURE = 3;
-const OFFER_DATE_START = moment().add(DAYS_IN_FUTURE, 'days').format();
+const OFFER_DATE_START = DateTime.now().plus({ days: DAYS_IN_FUTURE }).toISO();
 const LEVEL_NAME = faker.word.adjective({ length: { min: 5, max: 10 } });
 const RANDOM_URL = faker.internet.url();
 const COACH_PICTURE = faker.internet.avatar();
@@ -38,12 +39,12 @@ const ESTABLISHMENT = establishment_factory(1)[0];
 const CONSUMER_PAYMENT_PACK = consumerPaymentPackFactory();
 const PAYMENT_PACK = paymentPackFactory({ isUnlimited: false });
 const CREDITS_TO_REFUND = faker.number.int({ min: 1, max: 3 });
-const CANCELLATION_DATE = moment()
-  .add(DAYS_IN_FUTURE - 1, 'days')
-  .format('L');
+const CANCELLATION_DATE = DateTime.now()
+  .plus({ days: DAYS_IN_FUTURE - 1 })
+  .toFormat('D');
 const DESCRIPTION = faker.lorem.sentences(5);
 const WAITLIST_POSITION = faker.number.int({ min: 1, max: 5 });
-const TIMEZONE = moment.tz.guess();
+const TIMEZONE = getUserZone();
 // @ts-expect-error factories to refactor.
 const WORKSHOP_LINKED_OFFERS: ConsumerBooking[] = consumerBookingListFactory(5);
 

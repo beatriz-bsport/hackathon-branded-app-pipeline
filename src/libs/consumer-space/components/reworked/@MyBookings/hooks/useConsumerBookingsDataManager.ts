@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import moment from 'moment-timezone';
 import { useHistory } from 'react-router-dom';
 
+import { DateTime } from 'luxon';
 import useViewport from '#Fabrique/hooks/useViewport';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
@@ -37,6 +37,7 @@ import type {
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import { getUserZone, LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -191,7 +192,7 @@ export default function useConsumerBookingsDataManager({
   } | null>(null);
 
   const [calendarBookingDate, setCalendarBookingDate] = useState<string>(
-    moment().format('YYYY-MM-DD'),
+    DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
   );
 
   const fetchMoreDataHandlerMap = useMemo(
@@ -699,15 +700,15 @@ export default function useConsumerBookingsDataManager({
       offerDateStart: string,
       establishmentTimezone: string,
     ) => {
-      const startDate = moment(offerDateStart)
-        .tz(moment.tz.guess() || establishmentTimezone)
-        .format();
-      const startDateSubtractMinutes = moment(offerDateStart)
-        .tz(moment.tz.guess() || establishmentTimezone)
-        .subtract(15, 'minutes');
+      const startDate = DateTime.fromISO(offerDateStart)
+        .setZone(getUserZone() || establishmentTimezone)
+        .toISO();
+      const startDateSubtractMinutes = DateTime.fromISO(offerDateStart)
+        .setZone(getUserZone() || establishmentTimezone)
+        .minus({ minutes: 15 });
 
       const isOnlineUnavailable =
-        !isMetaActivityBroadcast || moment().isBefore(startDateSubtractMinutes);
+        !isMetaActivityBroadcast || DateTime.now() < startDateSubtractMinutes;
 
       if (isOnlineUnavailable) {
         setOnlineWarningModalOfferDate(startDate);

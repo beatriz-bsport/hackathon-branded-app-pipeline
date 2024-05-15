@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -223,7 +223,9 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
       </div>
 
       {!!props.expirationDatetime && (
-        <Countdown timestamp={moment(props.expirationDatetime).unix()}>
+        <Countdown
+          timestamp={DateTime.fromISO(props.expirationDatetime).toSeconds()}
+        >
           {(countdown: string) => {
             if (countdown)
               return (

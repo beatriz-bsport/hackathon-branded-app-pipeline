@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import { Immutable } from 'seamless-immutable';
 
@@ -8,7 +7,7 @@ import HourglassFull from '@material-ui/icons/HourglassFull';
 import LabelOff from '@material-ui/icons/LabelOff';
 import TimerOff from '@material-ui/icons/TimerOff';
 import Update from '@material-ui/icons/Update';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import type {
   PaymentPackCategoryWithPacks,
@@ -40,6 +39,7 @@ import type {
 } from '#libs/subscription/types';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
+import { formatAsDate } from '#src/utils/datetime';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
@@ -51,13 +51,17 @@ export const getPassFilterAvailableCategories = (
   t: TFunction,
 ) => {
   const parsedPaymentPackCategories = paymentPackByCategory
+    // @ts-ignore
     .filter((category: PaymentPackCategoryWithPacks) =>
       restrictedCategories.paymentPack?.length
         ? restrictedCategories.paymentPack.includes(category.id)
         : category,
     )
+    // @ts-ignore
     .filter((category: PaymentPackCategoryWithPacks) => !!category.packs.length)
+    // @ts-ignore
     .filter((category: PaymentPackCategoryWithPacks) => !!category.name)
+    // @ts-ignore
     .map((category: PaymentPackCategoryWithPacks) => {
       return {
         label: category.name,
@@ -66,13 +70,17 @@ export const getPassFilterAvailableCategories = (
     });
 
   const parsedPrivatePassCategories = privatePassByCategory
+    // @ts-ignore
     .filter((cat: PrivatePassCategoryWithPasses) =>
       restrictedCategories.privatePass?.length
         ? restrictedCategories.privatePass.includes(cat.id)
         : cat,
     )
+    // @ts-ignore
     .filter((cat: PrivatePassCategoryWithPasses) => !!cat.passes.length)
+    // @ts-ignore
     .filter((cat: PrivatePassCategoryWithPasses) => !!cat.name)
+    // @ts-ignore
     .map((category: PrivatePassCategoryWithPasses) => {
       return {
         label: category.name,
@@ -115,7 +123,9 @@ export const buildBuyableItemCategories = (
   );
 
   // If there are recommended items, include it in first position
+  // @ts-ignore
   if (recommendedItemsCategory.values.length > 0) {
+    // @ts-ignore
     buyableItemCategories.push(recommendedItemsCategory);
   }
 
@@ -129,6 +139,7 @@ export const buildBuyableItemCategories = (
         id: option[0].toString(),
         identifier: option[0],
         name: t('newBookingModule.subscriptions'),
+        // @ts-ignore
         values: availableContracts,
       });
     }
@@ -196,6 +207,7 @@ export const buildRecommendedBuyableItemCategory = (
     item.highlighted_as_recommended;
 
   const recommendedContracts = availableContracts
+    // @ts-ignore
     .filter(onlyRecommended)
     .map((contract) => ({
       identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
@@ -221,18 +233,21 @@ export const buildRecommendedBuyableItemCategory = (
       value: paymentPack,
     }));
 
+  // @ts-ignore
   let recommendedItems: RecommendedBuyableItem = [];
   current_pricing_option_ordering.forEach((option) => {
     if (
       option[0] === CONTRACT_BOOKING_FUNNEL_IDENTIFIER &&
       recommendedContracts.length > 0
     ) {
+      // @ts-ignore
       recommendedItems = recommendedItems.concat(recommendedContracts);
     }
     if (
       option[0] === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER &&
       recommendedComboPacks.length > 0
     ) {
+      // @ts-ignore
       recommendedItems = recommendedItems.concat(recommendedComboPacks);
     }
     if (
@@ -240,6 +255,7 @@ export const buildRecommendedBuyableItemCategory = (
       option[1] === null &&
       recommendedPaymentPacksWithoutCategory.length > 0
     ) {
+      // @ts-ignore
       recommendedItems = recommendedItems.concat(
         recommendedPaymentPacksWithoutCategory,
       );
@@ -251,6 +267,7 @@ export const buildRecommendedBuyableItemCategory = (
       option[0] === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER &&
       paymentPackCategory
     ) {
+      // @ts-ignore
       recommendedItems = recommendedItems.concat(
         recommendedPaymentPacks.filter(
           (item) => item.value.category === paymentPackCategory.id,
@@ -362,7 +379,7 @@ export const getBookingDisplayPrice = (selectedItem: BookerItem) => {
   ) {
     const data = selectedItem.data as ContractWithPaymentPack;
     if (data?.month_billing_day) {
-      const billingStartDate = moment().format('YYYY-MM-DD');
+      const billingStartDate = formatAsDate(DateTime.now().toISO());
       const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
         billingStartDate,
         data?.month_billing_day,
@@ -371,6 +388,7 @@ export const getBookingDisplayPrice = (selectedItem: BookerItem) => {
       displayPrice = parseFloat(
         (
           Math.max(parseFloat(firstInvoiceProrataPrice), 0) +
+          // @ts-ignore
           parseFloat(data?.flat_fee ?? 0)
         ).toString(),
       )

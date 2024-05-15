@@ -1,11 +1,14 @@
-// @ts-nocheck
 import React, { MouseEvent } from 'react';
-import { Theme } from '@material-ui/core';
+import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { Form, withFormik, FormikProps } from 'formik';
+import { DateTime } from 'luxon';
+
+import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -14,16 +17,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import moment from 'moment-timezone';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
 } from '@bsport/common/lib/master-data/payment-pack';
 
-import * as Yup from 'yup';
-import { Form, withFormik, FormikProps } from 'formik';
 import ToolTip from '#components/Tooltip.component';
-
 import {
   IntegerField,
   TextField,
@@ -32,7 +31,8 @@ import {
   PriceField,
   RadioGroupField,
   DateField,
-} from '../../../../../components/forms';
+  // @ts-expect-error
+} from '#components/forms';
 import { PrivatePassWithCompatibility } from '../../../types';
 import { getValidityInfo } from '../../../utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
@@ -161,8 +161,7 @@ export const PrivatePassTemplateForm = (props: Props) => {
           </InputLabel>
           <DateField
             allowNullValue
-            format="L"
-            minDate={moment.now()}
+            minDate={DateTime.now()}
             name="expiration_date"
           />
         </Collapse>
@@ -358,12 +357,14 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
+  // @ts-ignore
   mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
         ...initial,
         start_date_method: `${initial.start_date_method}`,
         unusable_by_staff: !initial.is_usable_by_staff,
+        // @ts-ignore
         expiration_date_active: !!initial?.expiration_date,
       };
 
@@ -386,14 +387,17 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
+  // @ts-ignore
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit(
       {
         ...values,
         is_usable_by_staff: !values.unusable_by_staff,
         expiration_date:
+          // @ts-ignore
           values.expiration_date_active && values.expiration_date
-            ? moment(values.expiration_date).format('YYYY-MM-DD')
+            ? // @ts-ignore
+              DateTime.fromISO(values.expiration_date).toISODate()
             : null,
       },
 
@@ -402,7 +406,7 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
           trackFormSuccess(initial?.id);
           setSubmitting(false);
         },
-        onError: (err) => {
+        onError: (err: Error) => {
           console.error(err);
           setSubmitting(false);
         },

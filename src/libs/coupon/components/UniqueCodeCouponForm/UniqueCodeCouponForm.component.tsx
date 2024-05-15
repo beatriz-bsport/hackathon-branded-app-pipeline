@@ -211,14 +211,13 @@ const formikFormWrapper = withFormik<
     } = values;
 
     const formatedDate =
-      withExpirationDate && expiration_date
-        ? DateTime.fromFormat(
-            expiration_date as string,
-            'dd/LL/yyyy',
-          ).toISODate()
+      withExpirationDate &&
+      expiration_date &&
+      typeof expiration_date !== 'string'
+        ? expiration_date.toISODate()
         : null;
 
-    const uniqueCodeCoupon: UniqueCodeCouponPayload = {
+    const uniqueCodeCoupon = {
       name,
       is_active,
       only_on_first_checkout,

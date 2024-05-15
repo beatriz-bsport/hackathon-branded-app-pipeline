@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { useFormikContext } from 'formik';
@@ -10,11 +12,8 @@ import {
 } from '@material-ui/core';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import MomentUtils from '@date-io/moment';
-import moment from 'moment-timezone';
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import FormSection from '#components/forms/FormSection';
-import { DATE_PICKER_MASK } from '../../../../../constants';
 
 type Props = {
   isProcessing: boolean;
@@ -57,17 +56,10 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
     [setFieldValue],
   );
 
-  const getDatePickerMask = useCallback((value) => {
-    if (value) {
-      return DATE_PICKER_MASK;
-    }
-    return [];
-  }, []);
-
   const isDatePickerDisabled =
     !withExpirationDate || !values.is_active || isProcessing;
 
-  const initialFocusedDate = moment().format('L');
+  const initialFocusedDate = DateTime.now().toFormat('D');
 
   return (
     <FormSection
@@ -102,9 +94,8 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
           />
           <div className={classes.dateField}>
             <MuiPickersUtilsProvider
-              locale={moment.locale()}
-              moment={moment}
-              utils={MomentUtils}
+              locale={Settings.defaultLocale}
+              utils={LuxonUtils}
             >
               <DatePicker
                 clearable
@@ -116,12 +107,11 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
                   errors.expiration_date ===
                   'coupon:uniqueCodeCoupon.form.errors.expirationDate'
                 }
-                format="L"
+                format="D"
                 id="unique-code-coupon-form-expiration-date-input"
                 initialFocusedDate={initialFocusedDate}
                 label={t('form.expiration_date.label')}
-                mask={getDatePickerMask}
-                minDate={moment()}
+                minDate={DateTime.now()}
                 onChange={handleExpirationDateChange}
                 value={values.expiration_date}
               />

@@ -1,6 +1,6 @@
 import React from 'react';
 import withFormik from '@bbbtech/storybook-formik';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -59,8 +59,8 @@ Dialog.args = {
 
 export const FormOnly = FormTemplate.bind({});
 FormOnly.args = {
-  minEndingDate: moment().startOf('month').format('YYYY-MM-DD'),
-  maxEndingDate: moment().endOf('month').format('YYYY-MM-DD'),
+  minEndingDate: DateTime.now().startOf('month').toISODate(),
+  maxEndingDate: DateTime.now().endOf('month').toISODate(),
   nbDays: 1,
   note: '',
 };

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import * as Yup from 'yup';
+import { DateTime } from 'luxon';
 import debounce from 'lodash/debounce';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -16,7 +17,6 @@ import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { DateTime } from 'luxon';
 import { browserCountryCode } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';

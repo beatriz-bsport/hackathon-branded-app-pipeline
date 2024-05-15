@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
 import { useTranslation } from 'react-i18next';
 import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+// @ts-expect-error
 import CouponForm from './CouponForm.component';
 import type { Coupon } from '../types';
 import type { PaymentPack } from '#libs/payment-packs/types';

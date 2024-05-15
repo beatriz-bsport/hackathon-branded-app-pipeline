@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import Collapse from '@material-ui/core/Collapse';
@@ -16,7 +16,6 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
 import {
   VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
@@ -40,8 +39,8 @@ import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import debounce from 'lodash/debounce';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Moment } from '../../../i18n';
 
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
@@ -135,8 +134,11 @@ export class CouponForm extends React.Component<Props, State> {
         voucher_type: props.initial.voucher_type,
         with_expiration_date: !!props.initial.expiration_date,
         expiration_date: props.initial.expiration_date
-          ? moment(props.initial.expiration_date, 'YYYY-MM-DD')
-          : moment().add(1, 'month'),
+          ? DateTime.fromFormat(
+              props.initial.expiration_date,
+              LUXON_ISO_SHORT_DATE,
+            )
+          : DateTime.now().plus({ month: 1 }),
         whitelist_tags:
           props.initial?.whitelist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
         blacklist_tags:
@@ -159,7 +161,7 @@ export class CouponForm extends React.Component<Props, State> {
         only_on_objects: [],
         voucher_type: VOUCHER_TYPE_PERCENT,
         with_expiration_date: false,
-        expiration_date: moment().add(1, 'month'),
+        expiration_date: DateTime.now().plus({ month: 1 }),
         subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
         whitelist_tags: [],
         blacklist_tags: [],
@@ -246,10 +248,8 @@ export class CouponForm extends React.Component<Props, State> {
       blacklist_tags: this.state.blacklist_tags,
     };
     if (this.state.with_expiration_date && this.state.is_active) {
-      data.expiration_date = moment(
-        this.state.expiration_date,
-        'DD/MM/YYYY',
-      ).format('YYYY-MM-DD');
+      data.expiration_date =
+        this.state.expiration_date.toFormat(LUXON_ISO_SHORT_DATE);
     } else {
       data.expiration_date = null;
     }
@@ -426,9 +426,8 @@ export class CouponForm extends React.Component<Props, State> {
           }
         />
         <MuiPickersUtilsProvider
-          locale={Moment.locale()}
-          moment={Moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <DatePicker
             clearable
@@ -441,27 +440,10 @@ export class CouponForm extends React.Component<Props, State> {
               !this.state.with_expiration_date ||
               !this.state.is_active
             }
-            format="L"
-            initialFocusedDate={moment().format('L')}
+            format="D"
+            initialFocusedDate={DateTime.now().toFormat('D')}
             label={t('form.expiration_date.label')}
-            mask={(value) => {
-              if (value) {
-                return [
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ];
-              }
-              return [];
-            }}
-            minDate={moment()}
+            minDate={DateTime.now()}
             onChange={(date) =>
               this.handleChange('expiration_date', false)(date)
             }

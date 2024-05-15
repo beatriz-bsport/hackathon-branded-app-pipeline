@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -232,7 +232,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   <ListItemText
                     primary={
                       <Typography variant="body2">
-                        {moment(penalty.date_created).format('L - LT')}
+                        {DateTime.fromISO(penalty.date_created).toFormat('f')}
                       </Typography>
                     }
                     secondary={
@@ -274,7 +274,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                 </ListItemIcon>
                 <ListItemText
                   primary={`${formatAsDatetime(
-                    moment(modifiedCredit[0] * 1000).format(),
+                    DateTime.fromMillis(modifiedCredit[0] * 1000).toISO(),
                     props.timezone,
                   )}`}
                 />

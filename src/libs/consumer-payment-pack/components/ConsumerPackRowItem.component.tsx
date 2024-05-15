@@ -1,8 +1,7 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -77,6 +76,7 @@ type Props = {
     options: OptionCallback,
   ) => void;
   incompatibilitiesReasons: {
+    // @ts-ignore
     [offerAndCpp: [offer_id: number, cpp_id: string]]: number[];
   };
   width: Breakpoint;
@@ -135,6 +135,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
   };
 
   handleInfoIncompatibilitesHovering = () => {
+    // @ts-ignore
     this.setState((prevState: State) => {
       if (prevState.consumerPackHasBeenHovered)
         return {
@@ -427,19 +428,20 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       months: false,
     };
 
-    const offerStart = moment(offer.date_start);
+    const offerStart = DateTime.fromISO(offer.date_start);
 
     Object.entries(maxoutBooking).forEach(([key, data]) => {
       if (data) {
         data.forEach((d) => {
-          const maxoutStart = moment(d.start_date);
-          const maxoutEnd = moment(d.end_date);
+          const maxoutStart = DateTime.fromISO(d.start_date);
+          const maxoutEnd = DateTime.fromISO(d.end_date);
 
           if (
-            offerStart.isSameOrAfter(maxoutStart, 'day') &&
-            offerStart.isSameOrBefore(maxoutEnd, 'day') &&
+            offerStart >= maxoutStart &&
+            offerStart <= maxoutEnd &&
             d.booking_available === 0
           ) {
+            // @ts-ignore
             maxout[key] = true;
           }
         });
@@ -498,14 +500,18 @@ export class ConsumerPackRowItem extends Component<Props, State> {
 
     if (!consumerPack) return null;
 
-    let listItemPrimaryText;
+    let listItemPrimaryText: string;
     if (hideConsumer) {
       listItemPrimaryText = paymentPack?.name || ' - ';
+      // @ts-ignore
     } else if (consumer?.name) {
+      // @ts-ignore
       listItemPrimaryText = consumer.name;
     } else {
       listItemPrimaryText =
+        // @ts-ignore
         `${consumer?.first_name || ''}${
+          // @ts-ignore
           consumer?.last_name ? ` ${consumer.last_name}` : ''
         }` || ' - ';
     }
@@ -532,7 +538,12 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             >
               {hideConsumer ? null : (
                 <ListItemAvatar>
-                  <Avatar src={consumer ? consumer.photo : null} />
+                  <Avatar
+                    src={
+                      // @ts-ignore
+                      consumer ? consumer.photo : null
+                    }
+                  />
                 </ListItemAvatar>
               )}
               <ListItemText
@@ -540,11 +551,14 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Typography>{listItemPrimaryText}</Typography>
-                      {consumer && consumer.archived && (
-                        <Typography color="secondary" variant="caption">
-                          {`(${t('member:archived')})`}
-                        </Typography>
-                      )}
+                      {
+                        // @ts-ignore
+                        consumer && consumer.archived && (
+                          <Typography color="secondary" variant="caption">
+                            {`(${t('member:archived')})`}
+                          </Typography>
+                        )
+                      }
                     </div>
                     <CreditStatus
                       consumerPack={consumerPack}

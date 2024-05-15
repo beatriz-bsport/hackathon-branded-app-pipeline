@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Variant } from '@material-ui/core/styles/createTypography';
@@ -46,8 +46,8 @@ export const CreditStatus = (props: Props) => {
     return (
       <Typography color="error" variant={props.variant || 'caption'}>
         {props.t('blockedCpp', {
-          blocked_from: moment(penalty_disabled_from).format('L'),
-          blocked_until: moment(penalty_disabled_until).format('L'),
+          blocked_from: DateTime.fromISO(penalty_disabled_from).toFormat('D'),
+          blocked_until: DateTime.fromISO(penalty_disabled_until).toFormat('D'),
         })}
       </Typography>
     );

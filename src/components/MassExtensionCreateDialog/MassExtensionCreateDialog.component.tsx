@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react';
-
+import { DateTime } from 'luxon';
 import { Formik } from 'formik';
-import moment from 'moment-timezone';
+
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import MassExtensionCreateForm from './MassExtensionCreateForm.component';
-
 import MassExtensionCreateFormValidationSchema from './MassExtensionCreateFormValidationSchema';
 
 import type {
@@ -15,8 +14,8 @@ import type {
 } from './types';
 
 const initialValues: MassExtensionCreateFormValues = {
-  minEndingDate: moment().startOf('month').format('YYYY-MM-DD'),
-  maxEndingDate: moment().endOf('month').format('YYYY-MM-DD'),
+  minEndingDate: DateTime.now().startOf('month').toISODate(),
+  maxEndingDate: DateTime.now().endOf('month').toISODate(),
   nbDays: 1,
   note: '',
 };

@@ -10,9 +10,16 @@ import type { Theme } from '#libs/theme/types';
 export const DATE_FORMAT = 'YYYY-MM-DD';
 export const LUXON_ISO_SHORT_DATE = 'yyyy-MM-dd';
 
+/**
+ * Returns a calendar date from an ISO date
+ * @param date A formatted ISO date
+ * @param tzname An optional timezone name
+ * @example
+ * const date = formatAsDate(DateTime.now().toISO()); // 15/5/2024
+ */
 export function formatAsDate(date: string, tzname?: string) {
-  const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
-  return momentDate.format('L');
+  const luxonDate = date ? DateTime.fromISO(date) : DateTime.now();
+  return luxonDate.setZone(tzname).toLocaleString(DateTime.DATE_SHORT);
 }
 
 /*

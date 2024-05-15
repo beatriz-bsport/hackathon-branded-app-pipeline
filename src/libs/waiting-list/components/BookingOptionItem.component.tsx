@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
@@ -40,7 +40,8 @@ class BookingOptionItem extends React.PureComponent<Props> {
       waitingListPosition,
     } = this.props;
 
-    const expired = moment(bookingOption.offer.date_start).isBefore(moment());
+    const expired =
+      DateTime.fromISO(bookingOption.offer.date_start) < DateTime.now();
 
     return (
       <ListItem

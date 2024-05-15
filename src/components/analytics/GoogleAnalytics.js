@@ -1,5 +1,5 @@
 import TagManager from 'react-gtm-module';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 const storage = window.localStorage;
 const currencyCode = (
@@ -362,7 +362,6 @@ GoogleAnalytics.addMethod(
     ['activity', 'gtm.workshopClick.activity'],
   ],
 );
-
 GoogleAnalytics.addMethod(
   'bookingSuccess',
   'bsport:booking:success',
@@ -371,7 +370,7 @@ GoogleAnalytics.addMethod(
     data: {
       sessionId: offer.id,
       activity: offer.meta_activity.name,
-      sessionDate: moment(offer.date_start).format(),
+      sessionDate: DateTime.fromISO(offer.date_start).toISO(),
       establishment: offer.establishment_override
         ? offer.establishment_override.title
         : offer.establishment.title,

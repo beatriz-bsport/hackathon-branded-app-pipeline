@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import moment from 'moment-timezone';
@@ -35,6 +34,7 @@ export function fetchExpenseList(params: any, options?: OptionCallback) {
       });
       dispatch(expenseListActions.success(res.data));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {
@@ -60,6 +60,7 @@ export function fetchFutureExpenses(params: any, options?: OptionCallback) {
       });
       dispatch(expenseListActions.success(res.data));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {
@@ -89,6 +90,7 @@ export function createExpense(data: any, options?: OptionCallback<Expense>) {
       dispatch(createExpenseActions.success(res.data));
       dispatch(snackbarSuccess('expense:create.success'));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {
@@ -119,6 +121,7 @@ export function updateExpense(data: any, options?: OptionCallback<Expense>) {
       dispatch(updateExpenseActions.success(res.data));
       dispatch(snackbarSuccess('expense:update.success'));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {
@@ -182,6 +185,7 @@ export function getCategories(options?: OptionCallback<Expense>) {
       const res = await getCategoriesAPI();
       dispatch(expenseCategoryActions.success(res.data));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {
@@ -210,6 +214,7 @@ export function getSuppliers(options?: OptionCallback<Expense>) {
       const res = await getSuppliersAPI();
       dispatch(expenseSupplierActions.success(res.data));
       if (options && options.onSuccess) {
+        // @ts-ignore
         options.onSuccess(res.data);
       }
     } catch (err) {

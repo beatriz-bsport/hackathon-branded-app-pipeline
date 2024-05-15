@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -24,6 +23,7 @@ import {
   TextField,
   DateField,
   PriceField,
+  // @ts-ignore
 } from '../../../components/forms';
 import { UserRole } from '#libs/role/types';
 import ExpenseRecurrencySelector from '../../../components/input/ExpenseRecurrencySelector.component';
@@ -251,38 +251,47 @@ export const ExpenseForm = (props: Props) => {
                     </div>
 
                     <Field name="rrule">
-                      {({ field, form: { setFieldValue } }) => (
-                        <ExpenseRecurrencySelector
-                          {...field}
-                          disabled
-                          initial={initial}
-                          onChange={(recRule) => {
-                            const rule = { ...recRule };
-                            for (const key in rule) {
-                              if (rule[key] === null) {
-                                delete rule[key];
-                              } else if (key === 'until' || key === 'dtstart') {
-                                rule[key] = new Date(rule[key]);
+                      {
+                        // @ts-ignore
+                        ({ field, form: { setFieldValue } }) => (
+                          <ExpenseRecurrencySelector
+                            {...field}
+                            disabled
+                            initial={initial}
+                            onChange={(recRule) => {
+                              const rule = { ...recRule };
+                              for (const key in rule) {
+                                // @ts-ignore
+                                if (rule[key] === null) {
+                                  // @ts-ignore
+                                  delete rule[key];
+                                } else if (
+                                  key === 'until' ||
+                                  key === 'dtstart'
+                                ) {
+                                  // @ts-ignore
+                                  rule[key] = new Date(rule[key]);
+                                }
                               }
-                            }
-                            setFieldValue(
-                              'rrule',
-                              Object.keys(rule).length === 0
-                                ? null
-                                : new RRule(rule),
-                            );
-                          }}
-                          radioRepeatValue={radioRepeatValue}
-                          radioValue={radioValue}
-                          rrule={rrule}
-                          setRadioRepeatValue={setRadioRepeatValue}
-                          setRadioValue={setRadioValue}
-                          setRrule={setRrule}
-                          setShowRepeat={setShowRepeat}
-                          showRepeat={showRepeat}
-                          value={field.value}
-                        />
-                      )}
+                              setFieldValue(
+                                'rrule',
+                                Object.keys(rule).length === 0
+                                  ? null
+                                  : new RRule(rule),
+                              );
+                            }}
+                            radioRepeatValue={radioRepeatValue}
+                            radioValue={radioValue}
+                            rrule={rrule}
+                            setRadioRepeatValue={setRadioRepeatValue}
+                            setRadioValue={setRadioValue}
+                            setRrule={setRrule}
+                            setShowRepeat={setShowRepeat}
+                            showRepeat={showRepeat}
+                            value={field.value}
+                          />
+                        )
+                      }
                     </Field>
                   </React.Fragment>
                 )}

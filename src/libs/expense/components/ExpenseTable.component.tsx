@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React, { Component } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -137,7 +135,6 @@ export class ExpenseTable extends Component<Props> {
                             <EditIcon />
                           </IconButton>
                           <IconButton
-                            color="rgba(0, 0, 0, 0.54)"
                             onClick={() => {
                               this.props.setSelectedExpense(expense.id);
                               this.props.setDeleteDialogOpen(true);

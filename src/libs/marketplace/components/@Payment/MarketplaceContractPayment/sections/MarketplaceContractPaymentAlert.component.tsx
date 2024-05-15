@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import type { Contract } from '#libs/subscription/types';
+import { formatAsDate } from '#src/utils/datetime';
 
 type Props = {
   contract: Contract;
@@ -46,7 +46,7 @@ const MarketplaceContractPaymentAlert: React.FC<Props> = ({
       <span className="bs-contract-payment__alert__text">
         {t('subscription.prorata.helperOnSusscribe', {
           priceWithCurrency: getCurrencyDisplayWithPrice(contractPrice),
-          firstBillingDate: moment(billingStartDate).format('L'),
+          firstBillingDate: formatAsDate(billingStartDate),
           recurrentPrice: `${getCurrencyDisplayWithPrice(
             parseFloat((contract?.recurrent_price ?? 0).toString()).toFixed(2),
           )}`,

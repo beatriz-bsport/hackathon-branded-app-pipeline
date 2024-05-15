@@ -8,7 +8,7 @@ import React, {
 
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -307,10 +307,8 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         if (enableMultiLocalization && selectedEstablishmentBillingGroup) {
           updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
         }
-        const isDateValid = moment(billingStartDate).isSameOrAfter(
-          moment(),
-          'month',
-        );
+        const isDateValid =
+          DateTime.fromISO(billingStartDate).month >= DateTime.now().month;
 
         if (
           isDateValid &&
@@ -387,7 +385,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           coupon_code: formCouponCode,
           contract: contract?.id,
           with_prorata: !!contract?.month_billing_day,
-          from_timestamp: moment(billingStartDate).unix(),
+          from_timestamp: DateTime.fromISO(billingStartDate).toSeconds(),
         })
           .then(({ data }) => {
             if (data.can_be_applied) {

@@ -63,9 +63,7 @@ export const CalendarHeader = forwardRef(
 
       const startDate = dateSelected.startOf('week', { useLocaleWeeks: true });
       const endDate = startDate.plus({ day: 6 });
-      return `${formatAsTitle(
-        startDate.toFormat(LUXON_ISO_SHORT_DATE),
-      )} - ${formatAsTitle(endDate.toFormat(LUXON_ISO_SHORT_DATE))}`;
+      return `${formatAsTitle(startDate)} - ${formatAsTitle(endDate)}`;
     }, [getDateSelected, displayMode]);
 
     const goToToday = useCallback(() => {

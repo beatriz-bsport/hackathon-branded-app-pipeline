@@ -6,6 +6,7 @@ import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/per
 import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../i18n';
 
 import type { Theme } from '#libs/theme/types';
+import type { LuxonDateTime } from '#src/types';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 export const LUXON_ISO_SHORT_DATE = 'yyyy-MM-dd';
@@ -150,19 +151,15 @@ export function formatMinutes(
 }
 
 /**
- * format date as {day_name_short} {day/month} e.g : Mon. 10/09
+ * Output a formatted date from a luxon instance
+ * @param date A luxon DateTime instance
+ * @example
+ * const title = `${formatAsTitle(someDate)} - ${formatAsTitle(someOtherDate)}`;
+ * // Sun 05/05 - Sat 11/05
  */
-export function formatAsTitle(date: string) {
-  const _date = moment(date, 'YYYY-MM-DD');
-
-  const weekDays = moment.weekdaysShort(true);
-  const dayShort = weekDays[_date.weekday()];
-
-  const dateStr = moment(date, 'YYYY-MM-DD')
-    .format('L')
-    .replace(new RegExp(`[^.]?${moment().format('YYYY')}.?`), '');
-
-  return `${dayShort} ${dateStr}`;
+export function formatAsTitle(date: LuxonDateTime) {
+  const formattedDate = date.toFormat('ccc D');
+  return formattedDate.substring(0, formattedDate.length - 5);
 }
 
 /**

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
@@ -20,6 +19,7 @@ export const getVideoData = (state: RootState) => state.video.byId;
 export const getVideo = (state: RootState, id: number) =>
   getVideoData(state)[id];
 
+// @ts-ignore
 export const withCategory = memoize((selector: any) =>
   createSelector([selector, getSCTs], (videoList: Video | Video[], SCTList) => {
     if (Array.isArray(videoList)) {
@@ -125,9 +125,10 @@ export const getVideoPurchases = (state: RootState) =>
   state.video.purchase.items;
 
 export const getAssociatedPurchases = (state: RootState) =>
+  // @ts-ignore
   state.video.purchase.associatedVideoPurchase;
 
-const _getMember = (_, id: number) => id;
+const _getMember = (_: any, id: number) => id;
 
 export const getVideoPurchasedByMember = createSelector(
   [getVideoPurchases, _getMember],
@@ -139,7 +140,9 @@ export const getVideoPurchasedByMember = createSelector(
 export const getAssociatedVideoPurchasedByMember = createSelector(
   [getAssociatedPurchases, _getMember],
   (videoPurchaseList, memberId) => {
-    return videoPurchaseList.filter((v) => v.member_id === memberId);
+    return videoPurchaseList.filter(
+      (v: { member_id: any }) => v.member_id === memberId,
+    );
   },
 );
 
@@ -166,8 +169,11 @@ export const getConsumerPurchaseVideoListWithData = createSelector(
     })),
 );
 
-export const getSelectedVideoPurchased = (state, vodId) =>
-  state.video.purchase.byId[vodId];
+export const getSelectedVideoPurchased = (
+  state: RootState,
+  vodId: number,
+  // @ts-ignore
+) => state.video.purchase.byId[vodId];
 export const getMemberVideoListWithConsumerPack = createSelector(
   [getConsumerPurchaseVideoListWithData, getConsumerPacksWithPaymentPack],
   (purchaseVideos, consumerPacklist) =>
@@ -188,7 +194,7 @@ export const getVideoPurchasesWithMember = createSelector(
     })),
 );
 
-const getVideoViews = (state) => state.video.views.items;
+const getVideoViews = (state: RootState) => state.video.views.items;
 
 export const getVideoViewsWithMember = createSelector(
   [getVideoViews, getAllMembers],
@@ -230,6 +236,7 @@ export const withVideoCoach = (selector: any) =>
     },
   );
 
+// @ts-ignore
 export const withVideoCategory = (selector) =>
   createSelector([selector, _getVideoCategories], (videoList, SCTList) => {
     if (Array.isArray(videoList)) {
@@ -245,5 +252,5 @@ export const withVideoCategory = (selector) =>
     };
   });
 
-export const getPlaybackUrlById = (state: RootState, videoId) =>
+export const getPlaybackUrlById = (state: RootState, videoId: number) =>
   state.video.playbackUrl.byId[videoId];

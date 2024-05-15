@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import moment from 'moment-timezone';
-import { DATE_FORMAT } from '../../utils/datetime';
+import { DateTime } from 'luxon';
 import { Expense } from './types';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -30,7 +29,7 @@ export function fetchExpenseList(params: any, options?: OptionCallback) {
     try {
       const res = await fetchExpenseListAPI({
         ...params,
-        date_lte: moment(new Date()).format(DATE_FORMAT),
+        date_lte: DateTime.now().toISODate(),
       });
       dispatch(expenseListActions.success(res.data));
       if (options && options.onSuccess) {
@@ -56,7 +55,7 @@ export function fetchFutureExpenses(params: any, options?: OptionCallback) {
     try {
       const res = await fetchExpenseListAPI({
         ...params,
-        date_gt: moment(new Date()).format(DATE_FORMAT),
+        date_gt: DateTime.now().toISODate(),
       });
       dispatch(expenseListActions.success(res.data));
       if (options && options.onSuccess) {

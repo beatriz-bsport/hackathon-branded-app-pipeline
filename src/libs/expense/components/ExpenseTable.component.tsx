@@ -12,7 +12,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import IconButton from '@material-ui/core/IconButton';
-import moment from 'moment-timezone';
 import Paper from '@material-ui/core/Paper';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -27,6 +26,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
+import { DateTime } from 'luxon';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { ExpenseWithUser } from '#libs/expense/types';
 import { PAGE_SIZE } from '../../../pages/expense/ExpenseList.page';
@@ -105,7 +105,7 @@ export class ExpenseTable extends Component<Props> {
                     this.props.expenseList?.map((expense: ExpenseWithUser) => (
                       <TableRow key={expense.id}>
                         <TableCell>
-                          {moment(expense.date_due).format('L')}
+                          {DateTime.fromISO(expense.date_due).toFormat('D')}
                         </TableCell>
                         <TableCell align="center">
                           {expense.description}

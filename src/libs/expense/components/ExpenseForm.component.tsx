@@ -12,9 +12,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { LinearProgress, Theme, Typography } from '@material-ui/core';
-import moment from 'moment-timezone';
 import RRule from 'rrule';
-import { DATE_FORMAT } from '../../../utils/datetime';
+import { DateTime } from 'luxon';
 import { OptionCallback } from '../../../state/types';
 import { ExpenseFormValues, ExpenseWithUser } from '../types';
 import {
@@ -61,7 +60,7 @@ export const ExpenseForm = (props: Props) => {
   const { t } = useTranslation(['expense']);
   const classes = useStyles();
   const { initial, editChoice, isInDrawer } = props;
-  const now = moment().format(DATE_FORMAT);
+  const now = DateTime.now().toISODate();
 
   const [showRepeat, setShowRepeat] = useState(false);
   const [radioValue, setRadioValue] = useState(0);
@@ -160,7 +159,7 @@ export const ExpenseForm = (props: Props) => {
         onSubmit={(values, actions) => {
           const sanithizedValues = {
             ...values,
-            date_due: moment(values.date_due).format(DATE_FORMAT),
+            date_due: DateTime.fromISO(values.date_due).toISODate(),
             assigned_staff:
               values.assigned_staff === 0 ? null : values.assigned_staff,
           };

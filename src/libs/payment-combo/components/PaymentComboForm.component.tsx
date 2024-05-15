@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
@@ -20,6 +19,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
+// @ts-expect-error
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 import { provincialTaxHelperText } from '../../theme/utils';
 import {
@@ -28,14 +28,18 @@ import {
   PercentField,
   CheckboxField,
   DateField,
+  // @ts-expect-error
 } from '../../../components/forms';
 import ToolTip from '#components/Tooltip.component';
 import { ALMOST_100 } from '../../../constants';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+// @ts-expect-error
 import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
+// @ts-expect-error
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 
@@ -128,9 +132,11 @@ export const PaymentComboForm: React.FC<Props> = ({
         ? paymentPackList.filter(
             (pp: PaymentPack) =>
               !pp.linked_private_pass ||
+              // @ts-expect-error
               !valuesFormik.private_pass_ids.includes(pp.linked_private_pass),
           )
         : [],
+    // @ts-expect-error
     [paymentPackList, valuesFormik.private_pass_ids],
   );
 
@@ -140,15 +146,20 @@ export const PaymentComboForm: React.FC<Props> = ({
         ? privatePassList.filter(
             (pp: PrivatePass) =>
               !pp.linked_payment_pack ||
+              // @ts-expect-error
               !valuesFormik.payment_pack_ids.includes(pp.linked_payment_pack),
           )
         : [],
+    // @ts-expect-error
     [privatePassList, valuesFormik.payment_pack_ids],
   );
 
   const isEmpty =
+    // @ts-expect-error
     !valuesFormik.payment_pack_ids.length &&
+    // @ts-expect-error
     !valuesFormik.shop_item_ids.length &&
+    // @ts-expect-error
     !valuesFormik.private_pass_ids.length;
 
   const onChangeTagsOnAcquisition = React.useCallback(
@@ -197,16 +208,19 @@ export const PaymentComboForm: React.FC<Props> = ({
 
   const allPackTagIds = React.useMemo(() => {
     const selectedPaymentPackTags = selectablePaymentPacks
+      // @ts-expect-error
       .filter((paymentPack) => values.payment_pack_ids.includes(paymentPack.id))
       .map((paymentPack) => paymentPack?.tags_on_consumer_item_creation)
       .flat();
 
     const selectedShopItemTags = shopItemList
+      // @ts-expect-error
       .filter((shopItem) => values.shop_item_ids.includes(shopItem.id))
       .map((shopItem) => shopItem?.tags_on_purchase)
       .flat();
 
     const selectedPrivatePassTags = selectablePrivatePasses
+      // @ts-expect-error
       .filter((privatePass) => values.private_pass_ids.includes(privatePass.id))
       .map((privatePass) => privatePass?.tags_on_consumer_item_creation)
       .flat();
@@ -223,8 +237,11 @@ export const PaymentComboForm: React.FC<Props> = ({
     selectablePaymentPacks,
     selectablePrivatePasses,
     shopItemList,
+    // @ts-expect-error
     values.payment_pack_ids,
+    // @ts-expect-error
     values.private_pass_ids,
+    // @ts-expect-error
     values.shop_item_ids,
     values.tags_on_consumer_item_creation,
   ]);
@@ -389,33 +406,42 @@ export const PaymentComboForm: React.FC<Props> = ({
       )}
 
       <CheckboxField
+        // @ts-expect-error
         disabled={!!valuesFormik.bookkeeping_account}
         helperText={t('form.usePaymentComboTaxOnItems.helperText')}
         label={t('form.usePaymentComboTaxOnItems.label')}
         name="use_payment_combo_tax_on_items"
       />
-      {valuesFormik.use_payment_combo_tax_on_items && (
-        <PercentField
-          fullWidth
-          required
-          disabled={!!valuesFormik.bookkeeping_account}
-          FormHelperTextProps={{
-            classes: { root: classes.helperTextError },
-          }}
-          helperText={provincialTaxText}
-          label={t('form.tax.label')}
-          name="tax"
-          step={0.005}
-        />
-      )}
-      {valuesFormik.use_payment_combo_tax_on_items && (
-        <BookkeepingAccountSelector
-          bookkeepingAccountById={bookkeepingAccountById}
-          bookkeepingAccounts={bookkeepingAccounts}
-          selectedBookkeepingAccountId={valuesFormik.bookkeeping_account}
-          setFieldValue={setBookkeepingAccount}
-        />
-      )}
+      {
+        // @ts-expect-error
+        valuesFormik.use_payment_combo_tax_on_items && (
+          <PercentField
+            fullWidth
+            required
+            // @ts-expect-error
+            disabled={!!valuesFormik.bookkeeping_account}
+            FormHelperTextProps={{
+              classes: { root: classes.helperTextError },
+            }}
+            helperText={provincialTaxText}
+            label={t('form.tax.label')}
+            name="tax"
+            step={0.005}
+          />
+        )
+      }
+      {
+        // @ts-expect-error
+        valuesFormik.use_payment_combo_tax_on_items && (
+          <BookkeepingAccountSelector
+            bookkeepingAccountById={bookkeepingAccountById}
+            bookkeepingAccounts={bookkeepingAccounts}
+            // @ts-expect-error
+            selectedBookkeepingAccountId={valuesFormik.bookkeeping_account}
+            setFieldValue={setBookkeepingAccount}
+          />
+        )
+      }
       <SwitchField label={t('form.manager_only.label')} name="manager_only" />
       <SwitchField
         label={t('form.unusableByStaff.label')}
@@ -431,13 +457,16 @@ export const PaymentComboForm: React.FC<Props> = ({
         </ToolTip>
       </div>
 
-      <Collapse in={values.expiration_date_active}>
+      <Collapse
+        // @ts-expect-error
+        in={values.expiration_date_active}
+      >
         <InputLabel className={classes.inputLabelExpirationDate}>
           {t('form.expiration_date.helperText')}
         </InputLabel>
         <DateField
           allowNullValue
-          format="L"
+          format="D"
           minDate={DateTime.now()}
           name="expiration_date"
         />
@@ -466,7 +495,10 @@ export const PaymentComboForm: React.FC<Props> = ({
           className={classes.advancedOptionsHeader}
           onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
         >
-          <SettingsIcon className={classes.settings} />
+          <SettingsIcon
+            // @ts-expect-error
+            className={classes.settings}
+          />
           <Typography variant="h6">
             {t('form.advancedOptions.header')}
           </Typography>
@@ -478,7 +510,11 @@ export const PaymentComboForm: React.FC<Props> = ({
             <Typography className={classes.title}>
               {t('form.advancedOptions.tag.tagsOnAcquisition')}
             </Typography>
-            <Typography className={classes.helperText} variant="caption">
+            <Typography
+              // @ts-expect-error
+              className={classes.helperText}
+              variant="caption"
+            >
               {t('form.advancedOptions.tag.tagsOnAcquisitionHelper')}
             </Typography>
             <TagSelector
@@ -566,6 +602,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
 });
 
 export const PaymentComboFormHoc = withFormik({
+  // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial) {
       return {
@@ -603,6 +640,7 @@ export const PaymentComboFormHoc = withFormik({
   validationSchema: PaymentComboFieldsSchema,
   handleSubmit: (
     valuesFormik,
+    // @ts-expect-error
     { props: { onSubmit, initial }, setSubmitting },
   ) => {
     const valuesFormikBase = {

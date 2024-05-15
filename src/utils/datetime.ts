@@ -48,21 +48,6 @@ export function formatAsDateWithWeekday(
   }
 }
 
-export function formatAsTime(date: string | moment.Moment, tzname?: string) {
-  if (moment().locale() === 'en-gb' || moment().locale() === 'en-US') {
-    const momentDate = moment(date).locale('en');
-    if (tzname) {
-      momentDate.tz(tzname);
-    }
-    return momentDate.format('LT');
-  }
-  const momentDate = moment(date);
-  if (tzname) {
-    momentDate.tz(tzname);
-  }
-  return momentDate.format('LT');
-}
-
 export const formatISOStringAsTime = (date: string, tzname?: string) => {
   const datetime = tzname
     ? DateTime.fromISO(date).setZone(tzname)
@@ -109,10 +94,10 @@ export function formatAsDatetimeAdapted(
 }
 
 export function formatAsDatetime(date: string, tzname?: string) {
-  return `${formatAsDate(date)} - ${formatAsTime(date, tzname)}`;
+  return `${formatAsDate(date)} - ${formatISOStringAsTime(date, tzname)}`;
 }
 export function formatAsDatetimeWithoutHyphen(date: string, tzname?: string) {
-  return `${formatAsDate(date)}\u00A0${formatAsTime(date, tzname)}`;
+  return `${formatAsDate(date)}\u00A0${formatISOStringAsTime(date, tzname)}`;
 }
 
 export const getUserZone = () => {

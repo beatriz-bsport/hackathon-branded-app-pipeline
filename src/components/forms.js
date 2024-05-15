@@ -9,7 +9,6 @@ import { Field, ErrorMessage, useField } from 'formik';
 import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 
 import LuxonUtils from '@date-io/luxon';
-import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
@@ -39,12 +38,12 @@ import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneInput from 'react-phone-number-input';
-import { LUXON_ISO_SHORT_DATE, formatAsTime } from '../utils/datetime';
+import { LUXON_ISO_SHORT_DATE, formatISOStringAsTime } from '../utils/datetime';
 import TagSelector from '../libs/tag/components/TagSelector.selector';
 import type { Tag } from '../libs/tag/types';
 
 import { getCurrencyDisplay } from '../libs/theme/selectors';
-import i18n, { Moment } from '../i18n';
+import i18n from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
@@ -392,16 +391,15 @@ export const TimeField = (props: TimeFieldProps) => {
       {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
         <>
           <MuiPickersUtilsProvider
-            locale={Moment.locale()}
-            moment={Moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <TimePicker
               {...field}
               {...props}
               ampm={i18n.language === 'en-US'}
               error={!!(touched && error)}
-              format="LT"
+              // format="t"
               label={
                 touched && error && !props.outsideErrorDisplay ? (
                   <Typography color="error" variant="caption">
@@ -411,10 +409,12 @@ export const TimeField = (props: TimeFieldProps) => {
                   props.label
                 )
               }
-              onChange={(time) => {
+              onChange={(time: DateTime) => {
                 setFieldValue(
                   props.name,
-                  props.parseAsString ? formatAsTime(time) : time,
+                  props.parseAsString
+                    ? formatISOStringAsTime(time.toISO())
+                    : time,
                 );
               }}
               style={{ width: 100 }}

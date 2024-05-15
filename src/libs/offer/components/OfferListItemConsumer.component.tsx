@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -10,30 +8,31 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import moment from 'moment-timezone';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { DateTime } from 'luxon';
 
 import Level from '#libs/level/components/Level.component';
 
-import { formatAsTime, formatISOStringAsTime } from '../../../utils/datetime';
+import { formatISOStringAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Tooltip from '../../../components/Tooltip.component';
+import type { Offer_FULL } from '../types';
 import { getCoachOrSubstitute } from '../utils';
 import { isOfferInThePast } from '../../marketplace/utils';
 
 type Props = {
-  offer: Offer,
-  selected: ?boolean,
-  showOfferFilling: boolean,
-  establishmentLoading: boolean,
-  activityLoading: boolean,
-  onClick: () => void,
-  actions?: any,
-  hideCoach: boolean,
-  isRegistered?: boolean,
+  offer: Offer_FULL;
+  selected: boolean | null | void;
+  showOfferFilling: boolean;
+  establishmentLoading: boolean;
+  activityLoading: boolean;
+  onClick: () => void;
+  actions?: any;
+  hideCoach: boolean;
+  isRegistered?: boolean;
 };
 
 export const OfferListItemConsumer = (props: Props) => {
@@ -41,6 +40,7 @@ export const OfferListItemConsumer = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['marketplace']);
   const isInThePast = isOfferInThePast(offer);
+  // @ts-expect-error
   const coachName = getCoachOrSubstitute(offer)?.name ?? ' - ';
   const metaActivityName = offer?.meta_activity?.name ?? ' - ';
   const establishmentName = offer?.establishment?.title ?? ' - ';
@@ -48,13 +48,17 @@ export const OfferListItemConsumer = (props: Props) => {
   return (
     <ListItem
       divider
+      // @ts-expect-error
       button={!isInThePast}
       onClick={props.onClick}
+      // @ts-expect-error
       selected={selected}
       style={{
         borderLeft: '5px solid',
+        // @ts-expect-error
         borderLeftColor: offer.meta_activity_color
-          ? offer.meta_activity_color
+          ? // @ts-expect-error
+            offer.meta_activity_color
           : '#FFFFFF00',
       }}
     >
@@ -84,11 +88,12 @@ export const OfferListItemConsumer = (props: Props) => {
                     {`${metaActivityName} ${formatISOStringAsTime(
                       offer.date_start,
                       offer.timezone_name,
-                    )}-${formatAsTime(
-                      moment(offer.date_start).add(
-                        offer.duration_minute,
-                        'minute',
-                      ),
+                    )}-${formatISOStringAsTime(
+                      DateTime.fromISO(offer.date_start)
+                        .plus({
+                          minute: offer.duration_minute,
+                        })
+                        .toISO(),
                       offer.timezone_name,
                     )}`}
                     {props.isRegistered && (
@@ -110,6 +115,7 @@ export const OfferListItemConsumer = (props: Props) => {
               <Level
                 noStyle
                 align="left"
+                // @ts-expect-error
                 customLevel={offer.customLevel}
                 variant="caption"
               />
@@ -117,7 +123,8 @@ export const OfferListItemConsumer = (props: Props) => {
                 <Typography className={classes.coachName} variant="caption">
                   {`  ${coachName}${
                     props.showOfferFilling
-                      ? ` (${offer.tot_slots}/${offer.effectif})`
+                      ? // @ts-expect-error
+                        ` (${offer.tot_slots}/${offer.effectif})`
                       : ''
                   }`}
                 </Typography>

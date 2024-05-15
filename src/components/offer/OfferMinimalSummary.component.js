@@ -21,7 +21,7 @@ import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import {
   formatMinutes,
   formatAsDatetime,
-  formatAsTime,
+  formatISOStringAsTime,
 } from '../../utils/datetime';
 
 import Tooltip from '../Tooltip.component';
@@ -208,7 +208,7 @@ export function OfferMinimalSummary(props: Props) {
   }
   const currentEstablishment =
     establishment_override || establishment || offer.etablissement;
-  const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
+  const dateFormatter = noDate ? formatISOStringAsTime : formatAsDatetime;
   const [fillingInfo, fillingInfoProps, formattedFillingRate] =
     getFillingInfo(offer);
 

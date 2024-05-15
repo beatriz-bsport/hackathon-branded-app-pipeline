@@ -12,10 +12,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import { useFormikContext } from 'formik';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
-import { formatAsDatetimeAdapted, formatAsTime } from '../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatISOStringAsTime,
+} from '../../../utils/datetime';
 
 import { Coach } from '#libs/associated-coach/types';
 import { SIMILAR_OFFERS_PAGE_SIZE } from '#libs/offer/constants';
@@ -181,23 +184,24 @@ const SimilarOffersList = (props: Props) => {
   );
 
   const getInitialOfferDate = useCallback((date: string) => {
-    return `${formatAsDatetimeAdapted(date, 'ddd D MMM YYYY')} ${formatAsTime(
+    return `${formatAsDatetimeAdapted(
       date,
-    )}`;
+      'ddd D MMM YYYY',
+    )} ${formatISOStringAsTime(date)}`;
   }, []);
 
   const getNewOfferDate = useCallback(
     (initialDate: string) => {
-      let newDate: string | Moment = initialDate;
-      if (initialDate !== moment(dateIntervalStart).format()) {
-        newDate = moment(initialDate)
-          .hours(moment(dateIntervalStart).hours())
-          .minutes(moment(dateIntervalStart).minutes());
+      let newDate = DateTime.fromISO(initialDate);
+      if (!DateTime.fromISO(initialDate).equals(dateIntervalStart)) {
+        newDate = DateTime.fromISO(initialDate).set({
+          hour: dateIntervalStart.hour,
+          minute: dateIntervalStart.minute,
+        });
       }
-      return `${formatAsDatetimeAdapted(
-        newDate,
-        'ddd D MMM YYYY',
-      )} ${formatAsTime(newDate)}`;
+      return `${newDate.toFormat('EEE d MMM yyyy')} ${formatISOStringAsTime(
+        newDate.toISO(),
+      )}`;
     },
     [dateIntervalStart],
   );

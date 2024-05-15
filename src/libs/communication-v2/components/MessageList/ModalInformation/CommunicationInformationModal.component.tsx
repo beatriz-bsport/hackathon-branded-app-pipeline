@@ -1,6 +1,6 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/styles';
 import { Theme, WithStyles } from '@material-ui/core';
@@ -127,9 +127,9 @@ export class CommunicationInformationModal extends React.PureComponent<
     const pageCount = this.props.contextMember
       ? 1
       : Math.ceil(recipientsCount / paginationSize);
-    const title = `${t(`campaign.kind.${kind}`)} -  ${moment(
+    const title = `${t(`campaign.kind.${kind}`)} -  ${DateTime.fromISO(
       date_created,
-    ).format('L - LT')}`;
+    ).toFormat('D - t')}`;
 
     return (
       <CommunicationWrapperDialog

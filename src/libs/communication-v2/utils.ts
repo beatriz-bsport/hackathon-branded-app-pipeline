@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
-import moment from 'moment-timezone';
 import Immutable from 'seamless-immutable';
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -295,12 +295,12 @@ export const getConsentWarning = memoize(
       case COMMUNICATION_KIND_EMAIL:
         return member.accept_email
           ? ''
-          : `${t('mail.warningConsent1')} 
+          : `${t('mail.warningConsent1')}
       ${t('mail.warningConsent2')}`;
       case COMMUNICATION_KIND_SMS:
         return member.accept_sms
           ? ''
-          : `${t('sms.warningConsent1')} 
+          : `${t('sms.warningConsent1')}
       ${t('sms.warningConsent2')}`;
       default:
         return '';
@@ -362,18 +362,18 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
       )
         return true;
       // Filter by dates
-      const today = moment().format();
+      const today = DateTime.now().toISO();
       if (dateStartFilter) {
-        const dateStart = moment.unix(dateStartFilter).format();
+        const dateStart = DateTime.fromSeconds(dateStartFilter);
         const diffDaysStart = Math.round(
-          moment(today).diff(dateStart, 'days', true),
+          DateTime.fromISO(today).diff(dateStart, 'days').days,
         );
         if (diffDaysStart < 0) return true;
       }
       if (dateEndFilter) {
-        const dateEnd = moment.unix(dateEndFilter).format();
+        const dateEnd = DateTime.fromSeconds(dateEndFilter);
         const diffDaysEnd = Math.round(
-          moment(today).diff(dateEnd, 'days', true),
+          DateTime.fromISO(today).diff(dateEnd, 'days').days,
         );
         if (diffDaysEnd > 0) return true;
       }

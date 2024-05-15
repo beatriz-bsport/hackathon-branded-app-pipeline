@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
 import BarCode from 'react-barcode';
@@ -46,10 +46,15 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
 
   const [displayBarcodeDialog, setDisplayBarcodeDialog] = useState(false);
 
-  const age = moment().diff(moment(member?.birthday), 'years');
+  const age = DateTime.now().diff(
+    DateTime.fromISO(member?.birthday || DateTime.now().toISO()),
+    'years',
+  );
 
+  const today = DateTime.now();
+  const birthday = DateTime.fromISO(member?.birthday || today.toISO());
   const isBirthday = member?.birthday
-    ? moment().format('MM-DD') === moment(member?.birthday).format('MM-DD')
+    ? birthday.month === today.month && birthday.day === today.day
     : false;
 
   const barcode = member?.barcode || t('barcode.none');
@@ -129,7 +134,9 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
                           {' '}
                           {`${t('member:birth.bornIn', {
                             context: member?.gender,
-                            date: moment(member?.birthday).format('L'),
+                            date: DateTime.fromISO(member?.birthday).toFormat(
+                              'D',
+                            ),
                             age,
                           })}`}
                         </div>

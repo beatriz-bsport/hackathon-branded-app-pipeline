@@ -1,6 +1,6 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -200,11 +200,13 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
         open={!!smartListPopupToShowMembers}
       >
         <DialogTitle>
-          {`${t('smartListPopup.memberListTitle')} - ${moment(
-            smartListPopupToShowMembers?.custom_app_popup_link?.date_created,
-          ).format('L')} - ${moment(
-            smartListPopupToShowMembers?.custom_app_popup_link?.date_created,
-          ).format('LT')}`}
+          {`${t('smartListPopup.memberListTitle')} - ${DateTime.fromISO(
+            smartListPopupToShowMembers?.custom_app_popup_link?.date_created ||
+              DateTime.now().toISO(),
+          ).toFormat('D')} - ${DateTime.fromISO(
+            smartListPopupToShowMembers?.custom_app_popup_link?.date_created ||
+              DateTime.now().toISO(),
+          ).toFormat('t')}`}
         </DialogTitle>
         <Typography className={classes.recipientsAmount} variant="subtitle1">
           {`${smartListPopupToShowMembers?.member_ids.length ?? 0} ${t(

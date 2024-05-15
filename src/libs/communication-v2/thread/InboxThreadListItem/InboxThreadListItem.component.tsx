@@ -1,4 +1,5 @@
 import React, { useCallback, memo } from 'react';
+import { DateTime } from 'luxon';
 
 import {
   ListItemText,
@@ -11,7 +12,6 @@ import {
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import type { OptionCallback } from '../../../../state/types';
 import type {
@@ -69,25 +69,25 @@ const InboxThreadListItem: React.FC<Props> = ({
 
   const displayRelativeTimeDelta = useCallback(
     (date: string) => {
-      const momentDate = moment(date);
-      const now = moment(Date.now());
+      const momentDate = DateTime.fromISO(date);
+      const now = DateTime.now();
 
       let display = '';
 
-      if (now.diff(momentDate, 'hours') < 1) {
-        const minutes = now.diff(momentDate, 'minutes');
+      if (now.diff(momentDate, 'hours').hours < 1) {
+        const minutes = now.diff(momentDate, 'minutes').minutes;
         display = `·\u00A0${minutes}\u00A0${t('thread.item.minutes')}`;
-      } else if (now.diff(momentDate, 'days') < 1) {
-        const hours = now.diff(momentDate, 'hours');
+      } else if (now.diff(momentDate, 'days').days < 1) {
+        const hours = now.diff(momentDate, 'hours').hours;
         display = `·\u00A0${hours}\u00A0${t('thread.item.hours')}`;
-      } else if (now.diff(momentDate, 'weeks') < 1) {
-        const days = now.diff(momentDate, 'days');
+      } else if (now.diff(momentDate, 'weeks').weeks < 1) {
+        const days = now.diff(momentDate, 'days').days;
         display = `·\u00A0${days}\u00A0${t('thread.item.days')}`;
-      } else if (now.diff(momentDate, 'years') < 1) {
-        const weeks = now.diff(momentDate, 'weeks');
+      } else if (now.diff(momentDate, 'years').years < 1) {
+        const weeks = now.diff(momentDate, 'weeks').weeks;
         display = `·\u00A0${weeks}\u00A0${t('thread.item.weeks')}`;
       } else {
-        const years = now.diff(momentDate, 'years');
+        const years = now.diff(momentDate, 'years').years;
         display = `·\u00A0${t('thread.item.year', { count: years })}`;
       }
 

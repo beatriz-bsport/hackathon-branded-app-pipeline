@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -45,9 +45,10 @@ const SmartListPopupListItem: React.FC<Props> = ({
       {!noDivider && <Divider />}
       <div className={classes.listItemContainer}>
         <Typography className={classes.listItemDate} variant="caption">
-          {moment(smartListPopup?.custom_app_popup_link?.date_created).format(
-            'LLLL',
-          )}
+          {DateTime.fromISO(
+            smartListPopup?.custom_app_popup_link?.date_created ||
+              DateTime.now().toISO(),
+          ).toFormat('DDDD t')}
         </Typography>
 
         <div className={classes.listItemInfo}>

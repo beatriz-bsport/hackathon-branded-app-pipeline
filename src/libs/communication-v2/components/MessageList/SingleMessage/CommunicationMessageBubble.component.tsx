@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
+import { DateTime } from 'luxon';
 import chroma from 'chroma-js';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import {
@@ -446,7 +446,7 @@ export const CommunicationMessageBubble = (props: Props) => {
           )}
         >
           <Typography variant="subtitle1">
-            {moment(communication.date_created).format('L - LT')}
+            {DateTime.fromISO(communication.date_created).toFormat('D - t')}
           </Typography>
           {reverse && !oneToOneMessageMember && (
             <Typography className={classes.answerWarning} variant="caption">

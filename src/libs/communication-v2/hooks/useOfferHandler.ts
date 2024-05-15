@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -37,26 +37,29 @@ export const useOfferHandler = ({
   fetchCoachBulk,
   fetchEstablishmentBulk,
 }: OfferHandlerHookProps) => {
-  const [date, setDate] = React.useState(moment().format('YYYY-MM-DD'));
+  const [date, setDate] = React.useState(DateTime.now().toISODate());
 
   const fetchRelevantOffers = React.useCallback(() => {
     fetchAllOffers({
-      min_date: moment(date)
+      min_date: DateTime.fromISO(date)
         .startOf('month')
-        .startOf('week')
-        .format('YYYY-MM-DD'),
-      max_date: moment(date).endOf('month').endOf('week').format('YYYY-MM-DD'),
+        .startOf('week', { useLocaleWeeks: true })
+        .toISODate(),
+      max_date: DateTime.fromISO(date)
+        .endOf('month')
+        .endOf('week', { useLocaleWeeks: true })
+        .toISODate(),
       ...omit(offerFilters || {}, omit_list(offerFilters, true)),
     });
   }, [fetchAllOffers, offerFilters, date]);
 
   const fetchOffersByDay = React.useCallback(() => {
-    const momentDate = moment(date);
+    const momentDate = DateTime.fromISO(date);
     fetchOffersByDayActionDisptach(
       {
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
+        year: momentDate.year,
+        month: momentDate.month,
+        day: momentDate.day,
         ...omit(offerFilters || {}, omit_list(offerFilters, false)),
       },
       {

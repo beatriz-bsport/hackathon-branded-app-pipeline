@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import { Offer, Offer_FULL } from '#libs/offer/types';
@@ -44,15 +44,18 @@ export const GroupRulePopup: React.FC<Props> = ({
   );
 
   const anchorDate = allow_booking_after_start
-    ? moment().format()
+    ? DateTime.now().toISO()
     : first_offer_date;
 
   React.useEffect(() => {
     if (offersList) {
       if (group.allow_booking_after_start) {
         setOffersForcedToBeBooked(
-          offersList.filter((_offer) =>
-            moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+          offersList.filter(
+            (_offer) =>
+              (_offer?.date_start
+                ? DateTime.fromISO(_offer?.date_start)
+                : DateTime.now()) >= DateTime.fromISO(anchorDate),
           ),
         );
       } else {

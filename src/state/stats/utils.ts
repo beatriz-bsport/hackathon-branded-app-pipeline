@@ -1,10 +1,11 @@
-import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import groupBy from 'lodash/groupBy';
+import { DateTime } from 'luxon';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS,
+  // @ts-expect-error
 } from '#libs/statistics/utils';
 
 export const discretizeByAndFillMissing = memoize(
@@ -14,18 +15,17 @@ export const discretizeByAndFillMissing = memoize(
     end,
     aggregationFunctionName?: 'count' | 'sum' | 'avg' | 'min' | 'max',
   ) => {
-    const duration = moment.duration(moment(end).diff(moment(start)));
+    const duration = DateTime.fromISO(end).diff(DateTime.fromISO(start));
+    let unitOfTime = 'month' as 'month' | 'week' | 'day' | 'hour';
+    let format = 'YYYY-MM' as 'YYYY-MM' | 'YYYY-MM-DD' | 'YYYY-MM-DD LT';
 
-    let unitOfTime = 'month';
-    let format = 'YYYY-MM';
-
-    if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
+    if (duration.as('days') > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
       unitOfTime = 'month';
       format = 'YYYY-MM';
-    } else if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
+    } else if (duration.as('days') > WEEKLY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'week';
       format = 'YYYY-MM-DD';
-    } else if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
+    } else if (duration.as('days') > DAILY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'day';
       format = 'YYYY-MM-DD';
     } else {
@@ -33,18 +33,23 @@ export const discretizeByAndFillMissing = memoize(
       format = 'YYYY-MM-DD LT';
     }
 
-    const grouped = groupBy(table, (u) => {
-      return moment(u.d).startOf(unitOfTime).format(format);
-    });
+    const grouped = groupBy(table, (u) =>
+      DateTime.fromISO(u.d).startOf(unitOfTime).toFormat('yyyy-MM'),
+    );
 
     for (
-      let m = moment(start);
-      m.isBefore(moment(end).endOf(unitOfTime)) ||
-      m.isSame(moment(end).endOf(unitOfTime));
-      m.add(1, `${unitOfTime}s`)
+      let m = DateTime.fromISO(start);
+      m < DateTime.fromISO(end).endOf(unitOfTime) ||
+      m === DateTime.fromISO(end).endOf(unitOfTime);
+      m = m.plus({
+        ...(unitOfTime === 'month' ? { months: 1 } : {}),
+        ...(unitOfTime === 'day' ? { days: 1 } : {}),
+        ...(unitOfTime === 'week' ? { weeks: 1 } : {}),
+        ...(unitOfTime === 'hour' ? { hours: 1 } : {}),
+      })
     ) {
-      if (!grouped[m.startOf(unitOfTime).format(format)]) {
-        grouped[m.startOf(unitOfTime).format(format)] = [{ v: 0, count: 0 }];
+      if (!grouped[m.startOf(unitOfTime).toFormat(format)]) {
+        grouped[m.startOf(unitOfTime).toFormat(format)] = [{ v: 0, count: 0 }];
       }
     }
 
@@ -79,7 +84,7 @@ export const discretizeByAndFillMissing = memoize(
         }
       })
       .sort((a, b) => {
-        if (moment(a.d).isBefore(moment(b.d))) {
+        if (DateTime.fromISO(a.d) < DateTime.fromISO(b.d)) {
           return -1;
         }
         return 1;
@@ -88,7 +93,9 @@ export const discretizeByAndFillMissing = memoize(
     // Prevent from having a single data point
     if (finalTable.length === 1) {
       finalTable.unshift({
-        d: moment(finalTable[0].d).subtract(1, 'hours').format('YYYY-MM-DD LT'),
+        d: DateTime.fromISO(finalTable[0].d)
+          .minus({ hours: 1 })
+          .toFormat('YYYY-MM-DD LT'),
         v: 0,
       });
     }

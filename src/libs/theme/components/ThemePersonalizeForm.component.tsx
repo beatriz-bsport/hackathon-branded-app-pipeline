@@ -1,10 +1,9 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import moment from 'moment-timezone';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
-
+import { DateTime } from 'luxon';
 import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -1059,8 +1058,10 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
     'errors.end_before_start',
     function checkIsAfterStart(schedule_timerange_end) {
       const { schedule_timerange_begin } = this.parent;
-      const getMinutes = (date: string) =>
-        moment(date).minutes() + moment(date).hours() * 60;
+      const getMinutes = (date: string) => {
+        const dateTime = DateTime.fromISO(date);
+        return dateTime.hour * 60 + dateTime.minute;
+      };
 
       return (
         getMinutes(schedule_timerange_begin) <
@@ -1142,19 +1143,8 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
   mapPropsToValues: ({ theme }) => {
-    const defaulScheduletBegin = moment()
-      .hours(6)
-      .minutes(0)
-      .seconds(0)
-      .milliseconds(0)
-      .format();
-
-    const defaultScheduleEnd = moment()
-      .hours(23)
-      .minutes(0)
-      .seconds(0)
-      .milliseconds(0)
-      .format();
+    const defaulScheduletBegin = DateTime.now().set({ hour: 6 }).toISO();
+    const defaultScheduleEnd = DateTime.now().set({ hour: 23 }).toISO();
 
     let initial_no_show_validated_time =
       theme?.no_show_validated_number_of_hours;
@@ -1204,14 +1194,19 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         default_booking_ordering: theme.default_booking_ordering,
         basket_expiration_days: theme.basket_expiration_days,
         nb_to_check_balance: theme.nb_to_check_balance,
-
         schedule_timerange_begin:
           theme.schedule_timerange_begin !== ''
-            ? theme.schedule_timerange_begin
+            ? DateTime.fromFormat(
+                theme.schedule_timerange_begin,
+                'yyyy-MM-dd HH:mm',
+              ).toISO()
             : defaulScheduletBegin,
         schedule_timerange_end:
           theme.schedule_timerange_end !== ''
-            ? theme.schedule_timerange_end
+            ? DateTime.fromFormat(
+                theme.schedule_timerange_end,
+                'yyyy-MM-dd HH:mm',
+              ).toISO()
             : defaultScheduleEnd,
         hide_sessions_with_tags_when_not_eligible:
           theme.hide_sessions_with_tags_when_not_eligible,

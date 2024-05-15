@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { BOOKING_DATE_ORDER } from '@bsport/common/lib/master-data/settings';
 import {
   MarketPlaceCoachDisplay,
@@ -9,19 +9,9 @@ import {
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
 
-const defaultScheduleBegin = moment()
-  .hours(6)
-  .minutes(0)
-  .seconds(0)
-  .milliseconds(0)
-  .format();
+const defaultScheduleBegin = DateTime.now().set({ hour: 6 }).toISO();
 
-const defaultScheduleEnd = moment()
-  .hours(23)
-  .minutes(0)
-  .seconds(0)
-  .milliseconds(0)
-  .format();
+const defaultScheduleEnd = DateTime.now().set({ hour: 23 }).toISO();
 
 FactoryBot.define('companyTheme', {
   id: FactoryBot.sequence(),

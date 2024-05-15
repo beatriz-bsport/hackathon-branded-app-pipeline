@@ -25,17 +25,20 @@ type Props = {
 
 const rebuildDatetime = (
   datetime: DateTime,
-  hour: number,
-  minute: number,
+  hour: number | string,
+  minute: number | string,
   timezone: string,
 ) => {
-  return datetime.setZone(timezone).set({ hour, minute });
+  return datetime.setZone(timezone).set({
+    hour: typeof hour === 'string' ? Number(hour) : hour,
+    minute: typeof minute === 'string' ? Number(minute) : minute,
+  });
 };
 
 export function DateTimeForm(props: Props) {
   const classes = useStyles();
-
   const { t } = useTranslation('translation');
+
   return (
     <div className={classes.container}>
       <MuiPickersUtilsProvider
@@ -68,9 +71,9 @@ export function DateTimeForm(props: Props) {
               props.onChange(
                 rebuildDatetime(
                   props.value,
-                  parseInt(ev.target.value.split(':')[0]) ||
+                  ev.target.value.split(':')[0] ||
                     DateTime.now().setZone(props.timezone).hour,
-                  parseInt(ev.target.value.split(':')[1]) ||
+                  ev.target.value.split(':')[1] ||
                     DateTime.now().setZone(props.timezone).minute,
                   props.timezone,
                 ),

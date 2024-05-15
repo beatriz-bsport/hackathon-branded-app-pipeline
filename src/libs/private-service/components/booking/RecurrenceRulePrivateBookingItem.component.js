@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,14 +38,15 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const formatTime = () => {
-    const time = moment(
+    const time = DateTime.fromFormat(
       `${props.recurrentPrivateBooking.hour}:${props.recurrentPrivateBooking.minute}`,
-      'HH:mm',
+      'HH:m',
     );
+
     if (props.recurrentPrivateBooking.timezone_name) {
-      time.tz(props.recurrentPrivateBooking.timezone_name);
+      time.setZone(props.recurrentPrivateBooking.timezone_name);
     }
-    return time.format('LT');
+    return time.toFormat('T');
   };
 
   const getHeader = () => {

@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -106,7 +106,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           day_of_week: 0,
           hour: 11,
           minute: 0,
-          start_from_date: moment().format('YYYY-MM-DD'),
+          start_from_date: DateTime.now().toISODate(),
         },
         notify_if_booked: false,
         is_overriding_availabilities: false,

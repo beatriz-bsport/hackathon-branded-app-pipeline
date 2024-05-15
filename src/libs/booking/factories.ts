@@ -1,5 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
@@ -34,9 +34,9 @@ const LEVEL = levelFactory();
 const OFFER = offerFactory({});
 const CONSUMER_PAYMENT_PACK = consumerPaymentPackFactory();
 
-const BOOKING_DATE = moment().subtract(2, 'weeks').format();
-const BOOKING_CANCELED_DATE = moment().subtract(3, 'days').format();
-const RECENT_DATE = moment().subtract(6, 'hours').format();
+const BOOKING_DATE = DateTime.now().minus({ week: 2 }).toISO();
+const BOOKING_CANCELED_DATE = DateTime.now().minus({ day: 3 }).toISO();
+const RECENT_DATE = DateTime.now().minus({ hour: 6 }).toISO();
 const ALL_BOOKING_STATUS = [
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
@@ -86,7 +86,7 @@ const _staffHistoryFactory = () => {
   return {
     action_identifier: faker.helpers.arrayElement(ALL_STAFF_HISTORY_ACTIONS),
     staff_id: faker.number.int(10000),
-    timestamp: moment(BOOKING_DATE).unix(),
+    timestamp: DateTime.fromISO(BOOKING_DATE).toUnixInteger(),
   };
 };
 

@@ -8,7 +8,7 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import clx from 'classnames';
 
 import {
@@ -160,9 +160,9 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
               'LL',
               props.offer.timezone_name,
             )}, 
-              ${moment(props.offer.date_start)
-                .tz(props.offer.timezone_name)
-                .format('dddd')}`}
+              ${DateTime.fromISO(props.offer.date_start)
+                .setZone(props.offer.timezone_name)
+                .toFormat('EEEE')}`}
           </Typography>
           {props.offerSpot && (
             <PlaceNumber

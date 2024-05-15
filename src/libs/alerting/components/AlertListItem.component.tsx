@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
@@ -516,7 +516,7 @@ const LateReplacementRequestListItem: React.FC<{
         <Typography component="p" variant="caption">
           {t('lateReplacementRequest.content', {
             activity_name,
-            date_start: moment(date_start).format('L LT'),
+            date_start: DateTime.fromISO(date_start).toFormat('D t'),
           })}
         </Typography>
       </div>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -315,7 +315,7 @@ export function fetchConsumerDashboardBookingList(
         page: pageToFetch,
         page_size: 5,
         mine: true,
-        min_date: moment().format('YYYY-MM-DD'),
+        min_date: DateTime.now().toISODate(),
         booking_status_code: BOOKING_STATUS_OK.id,
         ordering: 'offer__date_start',
       });

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -223,11 +223,11 @@ export function filterBookingListByOfferDate<T>(
   return orderBy(
     bookingList,
     (booking) =>
-      moment(
+      DateTime.fromISO(
         booking.offer_date_start ||
           booking.date_start ||
           booking.offer?.date_start,
-      ).unix(),
+      ).toUnixInteger(),
     order,
   );
 }

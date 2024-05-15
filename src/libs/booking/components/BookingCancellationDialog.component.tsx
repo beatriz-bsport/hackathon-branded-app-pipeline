@@ -1,9 +1,8 @@
 // @ts-nocheck
-// @flow
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
@@ -86,9 +85,10 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       booking?.offer.meta_activity?.last_discard_minutes,
     );
 
-    return moment()
-      .add(last_discard_minutes, 'minutes')
-      .isBefore(moment(booking.offer.date_start));
+    return (
+      DateTime.now().plus({ minute: last_discard_minutes }) <
+      DateTime.fromISO(booking.offer.date_start)
+    );
   };
   return (
     <GenericResponsiveDialog onClose={onClose} open={!!open}>
@@ -191,7 +191,11 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                           b.is_discardable
                             ? 'consumer.booking.willBeRefund'
                             : 'consumer.booking.willNotBeRefund',
-                          { day: moment(b.offer_date_start).format('L') },
+                          {
+                            day: DateTime.fromISO(
+                              b.offer_date_start,
+                            ).toLocaleString(DateTime.DATE_SHORT),
+                          },
                         )}
                       </div>
                     ))}

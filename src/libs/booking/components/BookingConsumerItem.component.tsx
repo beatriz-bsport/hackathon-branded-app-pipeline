@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, pure } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -179,7 +179,7 @@ export const BookingConsumerItem = (props: Props) => {
               : t('booking.showCalendar')}
           </Button>
         ) : null}
-        {(offer && moment(offer.date_start).isBefore(moment())) ||
+        {(offer && DateTime.fromISO(offer.date_start) < DateTime.now()) ||
         !props.onDiscard ? null : (
           <RedButton onClick={() => props.onDiscard(props.booking)}>
             {t('booking.discard')}

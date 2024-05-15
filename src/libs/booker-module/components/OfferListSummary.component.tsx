@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
@@ -199,7 +199,8 @@ class OfferListSummary extends React.PureComponent<Props> {
           <Divider />
           {this.props.selectedOffers
             .sort((a, b) =>
-              moment(a.offer.date_start).isBefore(moment(b.offer.date_start))
+              DateTime.fromISO(a.offer.date_start) <
+              DateTime.fromISO(b.offer.date_start)
                 ? -1
                 : 1,
             )

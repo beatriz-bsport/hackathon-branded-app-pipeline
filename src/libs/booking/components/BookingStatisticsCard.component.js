@@ -1,6 +1,5 @@
 import React from 'react';
 
-import moment, { Moment } from 'moment-timezone';
 import classNames from 'classnames';
 import { Trans, useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -21,8 +20,8 @@ type Props = {
     >,
     offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
     waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
-    start: Moment,
-    end: Moment,
+    start: DateTime,
+    end: DateTime,
   },
   offerId?: number,
   loading: boolean,
@@ -44,8 +43,8 @@ export function BookingStatisticsCard(props: Props) {
     );
   }
 
-  const start = moment(bookingStatistics.start).format();
-  const end = moment(bookingStatistics.end).format();
+  const start = bookingStatistics.start.toISO();
+  const end = bookingStatistics.end.toISO();
 
   const tableBookingCreated = discretizeByAndFillMissing(
     bookingStatistics.createdBookings,

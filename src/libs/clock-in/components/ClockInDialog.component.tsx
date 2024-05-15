@@ -147,11 +147,15 @@ const ClockInDialog: React.FC<Props> = ({
   };
 
   const getDurationText = () => {
-    const end = DateTime.fromSeconds(successData?.last_clock_in);
-    const start = DateTime.fromSeconds(successData?.last_clock_out);
+    const end = DateTime.fromSeconds(
+      successData?.last_clock_in ?? DateTime.now().toUnixInteger(),
+    );
+    const start = DateTime.fromSeconds(
+      successData?.last_clock_out ?? DateTime.now().toUnixInteger(),
+    );
     const duration = start.diff(end);
 
-    return duration.toFormat('hh:mm');
+    return duration.toFormat('HH:mm');
   };
 
   return (

@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+import { DateTime } from 'luxon';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../reducers';
 import {
   editClockIn as editClockInAction,
@@ -13,10 +13,11 @@ import {
 } from '#libs/clock-in/actions';
 import { getUsersPaginatedWithRole } from '#libs/role/selectors';
 import ClockInHistoryComponent from '#libs/clock-in/components/ClockInHistory.component';
-import ClockInHistoryHeader from '#libs/clock-in/components/ClockInHistoryHeader.component';
+import ClockInHistoryHeader, {
+  Values as ClockInHistoryHeaderValues,
+} from '#libs/clock-in/components/ClockInHistoryHeader.component';
 import { withHistoryAttendance } from '#libs/clock-in/selectors';
 import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#libs/role/actions';
-import { useTranslation } from 'react-i18next';
 
 type Props = ConnectedProps<typeof connector>;
 
@@ -34,8 +35,10 @@ const ClockInHistory: React.FC<Props> = ({
 
   const [page, setPage] = useState(1);
   const [page_size, setPageSize] = useState(MEMBER_PER_PAGE);
-  const [dateStart, setDateStart] = useState(moment().startOf('day'));
-  const [dateEnd, setDateEnd] = useState(moment().endOf('day'));
+  const [dateStart, setDateStart] = useState<DateTime>(
+    DateTime.now().startOf('day'),
+  );
+  const [dateEnd, setDateEnd] = useState<DateTime>(DateTime.now().endOf('day'));
 
   useEffect(() => {
     fetchCompanyUserRolesPaginated(
@@ -46,20 +49,27 @@ const ClockInHistory: React.FC<Props> = ({
       {
         onSuccess: (payload) =>
           getStaffsAttendanceHistory({
-            min_date: dateStart.unix(),
-            max_date: dateEnd.unix(),
+            min_date: dateStart.toUnixInteger(),
+            max_date: dateEnd.toUnixInteger(),
             user_id__in: payload.results.map((u) => u.id),
           }),
       },
     );
-  }, [page, page_size, dateStart, dateEnd, getStaffsAttendanceHistory]);
+  }, [
+    dateEnd,
+    dateStart,
+    page_size,
+    page,
+    fetchCompanyUserRolesPaginated,
+    getStaffsAttendanceHistory,
+  ]);
 
   const handleExport = React.useCallback(
     (userId?: number) => {
       exportStaffAttendanceHistory(
         {
-          min_date: dateStart.unix(),
-          max_date: dateEnd.unix(),
+          min_date: dateStart.toUnixInteger(),
+          max_date: dateEnd.toUnixInteger(),
           ...(userId && { user_id__in: [userId] }),
         },
         {
@@ -73,43 +83,40 @@ const ClockInHistory: React.FC<Props> = ({
     [exportStaffAttendanceHistory, dateEnd, dateStart, t],
   );
 
+  const handleSubmitClockInHeader = React.useCallback(
+    (values: ClockInHistoryHeaderValues) => {
+      setDateStart(values.dateStart);
+      setDateEnd(values.dateEnd);
+    },
+    [],
+  );
+
   return (
     <>
       <ClockInHistoryHeader
-        config={{
-          dateStart,
-          dateEnd,
-        }}
-        onSubmit={(values) => {
-          setDateStart(values.dateStart);
-          setDateEnd(values.dateEnd);
-        }}
+        dateEnd={dateEnd}
+        dateStart={dateStart}
         handleExportation={handleExport}
-        isSubmitting_={false}
+        onSubmit={handleSubmitClockInHeader}
       />
       <ClockInHistoryComponent
+        deleteClockIn={deleteClockIn}
+        editClockIn={editClockIn}
+        handleExport={handleExport}
+        handlePageChange={(newPage) => {
+          setPage(newPage);
+        }}
+        handlePageSizeChange={(pageSize) => {
+          setPageSize(pageSize);
+        }}
         page={page}
         page_size={page_size}
-        handlePageChange={(page) => {
-          setPage(page);
-        }}
-        handlePageSizeChange={(page_size) => {
-          setPageSize(page_size);
-        }}
+        // @ts-ignore
         value={usersPaginatedWithAttendanceHistory}
-        editClockIn={editClockIn}
-        deleteClockIn={deleteClockIn}
-        handleExport={handleExport}
       />
     </>
   );
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    flex: '1 1 100%',
-  },
-}));
 
 const connector = connect(
   (state: RootState) => ({

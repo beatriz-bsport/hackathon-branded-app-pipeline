@@ -1,11 +1,10 @@
-// @ts-nocheck
 import React from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 
 import * as Yup from 'yup';
-import { withFormik, Form } from 'formik';
+import { withFormik, Form, FormikProps } from 'formik';
 import chroma from 'chroma-js';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -22,13 +21,23 @@ import {
   DateField,
   TimeField,
   defaultHandleSubmit,
+  // @ts-expect-error
 } from '#components/forms';
 import { getTextColorFromRGB } from '../../../utils/color';
 
-type Props = {
+export type Props = {
+  clockInId: number | undefined;
   open: boolean;
   onCancel: () => void;
+  onSubmit: (clockInId: number, values: Values) => void;
+} & Values;
+
+export type Values = {
+  dateStart: DateTime;
+  dateEnd: DateTime;
 };
+
+type HOCProps = Props & FormikProps<Values>;
 
 const EditClockinModalSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
@@ -39,17 +48,32 @@ const EditClockinModalSchema = Yup.object().shape({
       'errors.end_before_start',
       function checkIsAfterStart(dateEnd) {
         const { dateStart } = this.parent;
-        return moment(dateStart).isSameOrBefore(dateEnd);
+        return dateStart <= dateEnd;
       },
     ),
 });
 
-export const EditClockinModal: React.FC<Props> = ({ open, onCancel }) => {
+export const EditClockinModal: React.FC<HOCProps> = ({
+  clockInId,
+  open,
+  values,
+  onCancel,
+  onSubmit,
+}) => {
   const { t } = useTranslation(['clockIn']);
   const classes = useStyles();
 
+  const handleSubmit = React.useCallback(
+    () => onSubmit(clockInId, values),
+    [clockInId, onSubmit, values],
+  );
+
   return (
-    <Dialog onClose={onCancel} open={open}>
+    <Dialog
+      key={`EditClockInDialog-${clockInId}`}
+      onClose={onCancel}
+      open={open}
+    >
       <div className={classes.dialog}>
         <Form>
           <DialogTitle>{t('editModal.title')}</DialogTitle>
@@ -80,6 +104,7 @@ export const EditClockinModal: React.FC<Props> = ({ open, onCancel }) => {
             <Button
               className={classes.primaryButton}
               color="primary"
+              onClick={handleSubmit}
               type="submit"
               variant="contained"
             >
@@ -118,11 +143,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default compose<any, Props>(
-  withFormik({
-    mapPropsToValues: ({ config }) => {
+  withFormik<HOCProps, Values>({
+    mapPropsToValues: ({ dateStart, dateEnd }) => {
       return {
-        dateStart: moment(config.dateStart),
-        dateEnd: moment(config.dateEnd),
+        dateStart,
+        dateEnd,
       };
     },
     validationSchema: EditClockinModalSchema,

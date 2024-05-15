@@ -1,11 +1,9 @@
-// @ts-nocheck
 import React, { useState } from 'react';
+import { DateTime, Duration } from 'luxon';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
-import uniq from 'lodash/uniq';
 
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
@@ -26,11 +24,13 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import { ClockInData } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
-import EditClockinModal from './EditClockIn.dialog';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import EditClockinModal, {
+  Values as EditClockInValues,
+} from './EditClockIn.dialog';
 import { getRoleName } from '#libs/role/utils';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -38,6 +38,7 @@ type Props = {
   value: {
     loading: boolean;
     count: number;
+    // @ts-ignore
     results: UserAttendanceHistory[];
   };
   page: number;
@@ -69,19 +70,19 @@ const ClockInHistory: React.FC<Props> = ({
           <TableRow>
             <TablePagination
               count={count}
-              rowsPerPage={page_size}
-              page={page - 1}
               onPageChange={(_, _page) => {
                 handlePageChange(_page + 1);
               }}
               onRowsPerPageChange={(event) => {
                 handlePageSizeChange(Number.parseInt(event.target.value, 10));
               }}
+              page={page - 1}
+              rowsPerPage={page_size}
               rowsPerPageOptions={[10, 25, 50].sort((a, b) => a - b)}
             />
           </TableRow>
           <TableRow>
-            <TableCell colSpan={1} className={classes.firstColumn}></TableCell>
+            <TableCell className={classes.firstColumn} colSpan={1} />
             <TableCell className={classes.name}>
               {t('attendanceTable.staff')}
             </TableCell>
@@ -91,7 +92,7 @@ const ClockInHistory: React.FC<Props> = ({
             <TableCell colSpan={10}>
               {t('historyTable.durationHours')}
             </TableCell>
-            <TableCell colSpan={10} className={classes.email}>
+            <TableCell className={classes.email} colSpan={10}>
               {t('attendanceTable.email')}
             </TableCell>
             <TableCell colSpan={10}>{t('attendanceTable.role')}</TableCell>
@@ -100,11 +101,11 @@ const ClockInHistory: React.FC<Props> = ({
         <TableBody>
           {results?.map((user) => (
             <ClockInHistoryRow
-              row={user}
               key={user.id}
-              handleExport={handleExport}
-              editClockIn={editClockIn}
               deleteClockIn={deleteClockIn}
+              editClockIn={editClockIn}
+              handleExport={handleExport}
+              row={user}
             />
           ))}
         </TableBody>
@@ -114,6 +115,7 @@ const ClockInHistory: React.FC<Props> = ({
 };
 
 const ClockInHistoryRow: React.FC<{
+  // @ts-ignore
   row: UserAttendanceHistory;
   handleExport: (userId?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
@@ -125,62 +127,64 @@ const ClockInHistoryRow: React.FC<{
   const [expanded, setExpanded] = useState(false);
   const [editData, setEditData] = useState<{
     id: number;
-    clock_in: string;
-    clock_out: string;
+    clock_in: DateTime;
+    clock_out: DateTime;
   } | null>(null);
 
   const getDurationTextInHour = (clock_in: number, clock_out: number) => {
-    const end = moment.unix(clock_in);
-    const start = moment.unix(clock_out);
-    const duration = moment.duration(start.diff(end));
+    const end = DateTime.fromSeconds(clock_in);
+    const start = DateTime.fromSeconds(clock_out);
+    const duration = start.diff(end);
 
-    const hours = Math.floor(
-      moment.duration(duration, 'millisecond').asHours(),
-    );
-    const minutes = `${
-      duration.minutes() > 9 ? duration.minutes() : `0${duration.minutes()}`
-    }`;
-
-    return `${hours}:${minutes}`;
+    return duration.toFormat('hh:mm');
   };
 
   const getDurationTextInBase10 = (clock_in: number, clock_out: number) => {
-    const end = moment.unix(clock_in);
-    const start = moment.unix(clock_out);
-    const duration = moment.duration(start.diff(end));
+    const end = DateTime.fromSeconds(clock_in);
+    const start = DateTime.fromSeconds(clock_out);
+    const duration = start.diff(end);
 
-    return Math.floor(duration.as('hour') * 100) / 100;
+    return Math.floor(duration.as('hours') * 100) / 100;
   };
 
-  const totalDuration =
-    row?.history?.reduce((acc, row) => {
-      const end = moment.unix(row.date_start);
-      const start = moment.unix(row.date_end);
+  const totalDuration: number = // @ts-ignore
+    row?.history?.reduce<number>((acc, row) => {
+      const end = DateTime.fromSeconds(row.date_start);
+      const start = DateTime.fromSeconds(row.date_end);
 
-      acc += moment.duration(start.diff(end)).as('milliseconds');
+      acc += start.diff(end).as('milliseconds');
       return acc;
     }, 0) ?? 0;
 
-  const hours = Math.floor(
-    moment.duration(totalDuration, 'millisecond').asHours(),
+  const totalDurationDisplay =
+    Duration.fromMillis(totalDuration).toFormat('hh:mm');
+
+  const handleEditClockIn = React.useCallback(
+    (clockInId: number, values: EditClockInValues) => {
+      const valuesAsTimestamps = {
+        date_start: values.dateStart.toUnixInteger(),
+        date_end: values.dateEnd.toUnixInteger(),
+      };
+      // @ts-ignore
+      editClockIn(clockInId, valuesAsTimestamps);
+      setEditData(null);
+    },
+    [],
   );
-  const mins =
-    Math.floor(moment.duration(totalDuration, 'millisecond').asMinutes()) -
-    hours * 60;
-  const totalDurationDisplay = hours + ':' + (mins > 9 ? mins : '0' + mins);
+
   return (
     <>
       <TableRow>
-        <TableCell colSpan={1} className={classes.firstColumn}>
+        <TableCell className={classes.firstColumn} colSpan={1}>
           <IconButton
-            onClick={() => {
-              setExpanded(!expanded);
-            }}
             aria-expanded={expanded}
             aria-label="show more"
             className={classNames(classes.icon, {
               [classes.inverseIcon]: expanded,
             })}
+            onClick={() => {
+              setExpanded(!expanded);
+            }}
           >
             <ExpandMoreIcon />
           </IconButton>
@@ -190,22 +194,21 @@ const ClockInHistoryRow: React.FC<{
         </TableCell>
         <TableCell colSpan={10}>{totalDurationDisplay}</TableCell>
         <TableCell colSpan={10}>
-          {Math.floor(
-            moment.duration(totalDuration, 'millisecond').as('hour') * 100,
-          ) / 100}
+          {Math.floor(Duration.fromMillis(totalDuration).as('hour') * 100) /
+            100}
         </TableCell>
-        <TableCell colSpan={10} className={classes.email}>
+        <TableCell className={classes.email} colSpan={10}>
           {row.email}
         </TableCell>
         <TableCell colSpan={10}>{getRoleName(row?.role, t)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
-          colSpan={1}
           className={classNames(classes.firstColumn, classes.innerTable)}
+          colSpan={1}
         />
-        <TableCell colSpan={250} className={classes.innerTable}>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <TableCell className={classes.innerTable} colSpan={250}>
+          <Collapse unmountOnExit in={expanded} timeout="auto">
             <Table>
               <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
                 {(hasPermission) =>
@@ -213,12 +216,12 @@ const ClockInHistoryRow: React.FC<{
                     <TableRow className={classes.root}>
                       <TableCell colSpan={50}>
                         <Button
-                          color="primary"
-                          variant="contained"
                           className={classes.download}
+                          color="primary"
                           onClick={() => {
                             handleExport(row.id);
                           }}
+                          variant="contained"
                         >
                           <CloudDownloadIcon className={classes.downloadIcon} />
                           {t('historyTable.download')}
@@ -248,69 +251,74 @@ const ClockInHistoryRow: React.FC<{
                   {t('historyTable.endingHour')}
                 </TableCell>
                 <TableCell
-                  colSpan={10}
                   className={classNames(classes.border, classes.bold)}
+                  colSpan={10}
                 >
                   {t('historyTable.durationHoursMinutes')}
                 </TableCell>
                 <TableCell
-                  colSpan={10}
                   className={classNames(classes.border, classes.bold)}
+                  colSpan={10}
                 >
                   {t('historyTable.durationHours')}
                 </TableCell>
                 <TableCell
-                  colSpan={10}
                   className={classNames(
                     classes.border,
                     classes.bold,
                     classes.email,
                   )}
+                  colSpan={10}
                 />
                 <TableCell
-                  colSpan={10}
                   className={classNames(
                     classes.border,
                     classes.bold,
                     classes.action,
                   )}
+                  colSpan={10}
                 >
                   {t('historyTable.action')}
                 </TableCell>
               </TableRow>
+              {/* @ts-ignore */}
               {row?.history?.map((detail, index) => (
-                <TableRow className={classes.root} key={detail.id}>
+                <TableRow key={detail.id} className={classes.root}>
                   <TableCell
                     className={classNames(classes.subName, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                   >
-                    {`${moment.unix(detail.date_start).format('L')} - ${moment
-                      .unix(detail.date_start)
-                      .format('HH:mm')}`}
+                    {`${DateTime.fromSeconds(
+                      detail.date_start,
+                    ).toLocaleString()} - ${DateTime.fromSeconds(
+                      detail.date_start,
+                    ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                   </TableCell>
                   <TableCell
                     className={classNames(classes.subName, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                   >
-                    {`${moment.unix(detail.date_end).format('L')} - ${moment
-                      .unix(detail.date_end)
-                      .format('HH:mm')}`}
+                    {`${DateTime.fromSeconds(
+                      detail.date_end,
+                    ).toLocaleString()} - ${DateTime.fromSeconds(
+                      detail.date_end,
+                    ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                   </TableCell>
                   <TableCell
-                    colSpan={10}
                     className={classNames({
                       [classes.border]: index !== row.history.length - 1,
                     })}
+                    colSpan={10}
                   >
                     {getDurationTextInHour(detail.date_start, detail.date_end)}
                   </TableCell>
                   <TableCell
-                    colSpan={10}
                     className={classNames({
                       [classes.border]: index !== row.history.length - 1,
                     })}
+                    colSpan={10}
                   >
                     {getDurationTextInBase10(
                       detail.date_start,
@@ -318,35 +326,29 @@ const ClockInHistoryRow: React.FC<{
                     )}
                   </TableCell>
                   <TableCell
-                    colSpan={10}
                     className={classNames(classes.email, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
+                    colSpan={10}
                   />
                   <TableCell
-                    colSpan={10}
                     className={classNames(classes.action, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
+                    colSpan={10}
                   >
                     <div className={classes.actionContainer}>
                       <IconButton
-                        size="small"
+                        className={classes.editButton}
                         color="primary"
                         onClick={() => {
                           setEditData({
                             id: detail.id,
-                            clock_in: formatAsDatetimeAdapted(
-                              moment.unix(detail.date_start),
-                              'LLL',
-                            ),
-                            clock_out: formatAsDatetimeAdapted(
-                              moment.unix(detail.date_end),
-                              'LLL',
-                            ),
+                            clock_in: DateTime.fromSeconds(detail.date_start),
+                            clock_out: DateTime.fromSeconds(detail.date_end),
                           });
                         }}
-                        className={classes.editButton}
+                        size="small"
                       >
                         <CreateIcon />
                       </IconButton>
@@ -365,21 +367,12 @@ const ClockInHistoryRow: React.FC<{
       </TableRow>
       {!!editData && (
         <EditClockinModal
+          clockInId={editData?.id}
+          dateEnd={editData?.clock_out}
+          dateStart={editData?.clock_in}
+          onCancel={() => setEditData(null)}
+          onSubmit={handleEditClockIn}
           open={!!editData}
-          config={{
-            dateStart: editData.clock_in,
-            dateEnd: editData.clock_out,
-          }}
-          onCancel={() => {
-            setEditData(null);
-          }}
-          onSubmit={(values) => {
-            editClockIn(editData.id, {
-              date_start: values.dateStart.unix(),
-              date_end: values.dateEnd.unix(),
-            });
-            setEditData(null);
-          }}
         />
       )}
     </>
@@ -388,7 +381,7 @@ const ClockInHistoryRow: React.FC<{
 
 const ButtonWithConfirmMenuItem = withConfirm(
   ({ onClick }: { onClick: () => void }) => (
-    <IconButton size="small" onClick={onClick}>
+    <IconButton onClick={onClick} size="small">
       <DeleteIcon />
     </IconButton>
   ),

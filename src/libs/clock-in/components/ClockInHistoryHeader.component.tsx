@@ -1,10 +1,8 @@
-// @ts-nocheck
 import React from 'react';
-
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
-import { withFormik, Form } from 'formik';
+import { withFormik, Form, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core';
@@ -17,13 +15,21 @@ import {
   DateField,
   Actions,
   defaultHandleSubmit,
+  // @ts-expect-error
 } from '#components/forms';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
-  values: any;
   handleExportation: () => void;
+  onSubmit: (values: Values) => void;
+} & Values;
+
+export type Values = {
+  dateStart: DateTime;
+  dateEnd: DateTime;
 };
+
+type HOCProps = Props & FormikProps<Values>;
 
 const ClockInHistoryHeaderSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
@@ -34,14 +40,14 @@ const ClockInHistoryHeaderSchema = Yup.object().shape({
       'errors.end_before_start',
       function checkIsAfterStart(dateEnd) {
         const { dateStart } = this.parent;
-
-        return moment(dateStart).isSameOrBefore(moment(dateEnd));
+        return dateStart <= dateEnd;
       },
     ),
 });
 
-export function ClockInHistoryHeaderForm(props: Props) {
-  const { handleExportation } = props;
+export const ClockInHistoryHeaderForm: React.FC<HOCProps> = ({
+  handleExportation,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -49,16 +55,16 @@ export function ClockInHistoryHeaderForm(props: Props) {
     <Form>
       <Grid container direction="row" spacing={2}>
         <Grid item>
-          <DateField name="dateStart" fullWidth label={t('common.from')} />
+          <DateField fullWidth label={t('common.from')} name="dateStart" />
           <AlertError name="dateStart" />
         </Grid>
         <Grid item>
-          <DateField name={'dateEnd'} fullWidth label={t('common.until')} />
-          <AlertError name={'dateEnd'} />
+          <DateField fullWidth label={t('common.until')} name="dateEnd" />
+          <AlertError name="dateEnd" />
         </Grid>
         <Grid item>
           <Actions>
-            <Button variant="outlined" type="submit" color="primary">
+            <Button color="primary" type="submit" variant="outlined">
               {t('common.generate')}
             </Button>
           </Actions>
@@ -69,9 +75,9 @@ export function ClockInHistoryHeaderForm(props: Props) {
               <Grid item>
                 <Actions>
                   <Button
-                    variant="outlined"
                     color="primary"
                     onClick={() => handleExportation()}
+                    variant="outlined"
                   >
                     {t('common.export')}
                     <CloudDownloadIcon className={classes.rightIcon} />
@@ -84,7 +90,7 @@ export function ClockInHistoryHeaderForm(props: Props) {
       </Grid>
     </Form>
   );
-}
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   rightIcon: {
@@ -93,11 +99,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default compose<any, Props>(
-  withFormik({
-    mapPropsToValues: ({ config }) => {
+  withFormik<HOCProps, Values>({
+    mapPropsToValues: ({ dateStart, dateEnd }) => {
       return {
-        dateStart: config.dateStart,
-        dateEnd: config.dateEnd,
+        dateStart,
+        dateEnd,
       };
     },
     validationSchema: ClockInHistoryHeaderSchema,

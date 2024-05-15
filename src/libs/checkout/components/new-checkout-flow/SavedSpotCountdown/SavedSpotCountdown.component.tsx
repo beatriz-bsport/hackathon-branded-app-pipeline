@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
@@ -25,7 +25,7 @@ const SavedSpotCountDown: React.FC<Props> = ({
     <div className={classNames(classes)}>
       <CountDown
         onFinish={onFinish}
-        timestamp={moment(expirationDatetime).unix()}
+        timestamp={DateTime.fromISO(expirationDatetime).toSeconds()}
       >
         {(countdown: string) => {
           return countdown ? (

@@ -7,7 +7,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import { GenericEvent, GenericEventSpec } from '../types';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   event: GenericEvent;
@@ -47,9 +46,8 @@ export const GenericEventListItem = (props: Props) => {
     : event;
 
   // Second Line
-  const defaultSecondaryText = formatAsDatetimeAdapted(
-    DateTime.fromSeconds(event.date).toISO(),
-    'LLLL',
+  const defaultSecondaryText = DateTime.fromSeconds(event.date).toFormat(
+    'DDDD t',
   ); // event date
   const secondaryText = eventTypeUtils?.getSecondaryText
     ? eventTypeUtils.getSecondaryText(event, t)

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
-
-import type { Dispatch, ThunkAction } from '../../state/types';
+// @ts-expect-error
+import type { Dispatch, ThunkAction } from '../state/types';
 
 import statsAPI, {
   fetchBookingStatistics as fetchBookingStatisticsAPI,
@@ -12,10 +12,12 @@ import statsAPI, {
   fetchBookingQualitative as fetchBookingQualitativeAPI,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAPI,
   // @ts-expect-error
+  // @ts-expect-error
 } from './api-deprecated';
 
 import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
 import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+// @ts-expect-error
 // @ts-expect-error
 import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 
@@ -24,38 +26,38 @@ export const statIsLoading = createAction('STATISTICS/IS_LOADING');
 export const statLoaded = createAction('STATISTICS/LOADED');
 export const statError = createAction('STATISTICS/ERROR');
 
-async function fetchStats(dispatch: Dispatch, identifier: string, callee: any) {
+// @ts-expect-error
+async function fetchStats(dispatch, identifier, callee) {
   dispatch(statIsLoading({ identifier, loading: true }));
   dispatch(statError({ identifier, error: null }));
 
   try {
     const data = (await callee())
-      .map((row: any) => {
+      // @ts-expect-error
+      .map((row) => {
         return { d: moment(row.d, 'YYYY-MM-DD').valueOf(), v: row.v };
       })
-      .sort((u: any, v: any) => u.d - v.d);
+      // @ts-expect-error
+      .sort((u, v) => u.d - v.d);
     dispatch(statLoaded({ identifier, data }));
   } catch (error) {
     dispatch(statError({ identifier, error }));
   }
   dispatch(statIsLoading({ identifier, loading: false }));
 }
-
-async function fetchStatsWithTime(
-  dispatch: Dispatch,
-  identifier: string,
-  callee: any,
-  params: any,
-) {
+// @ts-expect-error
+async function fetchStatsWithTime(dispatch, identifier, callee, params) {
   dispatch(statIsLoading({ identifier, loading: true }));
   dispatch(statError({ identifier, error: null }));
 
   try {
     const data = (await callee(params))
-      .map((row: any) => {
-        return { d: moment(row.d, 'YYYY-MM-DD HH').valueOf(), v: row.v };
+      // @ts-expect-error
+      .map((row) => {
+        return { d: DateTime.fromISO(row.d).toMillis(), v: row.v };
       })
-      .sort((u: any, v: any) => u.d - v.d);
+      // @ts-expect-error
+      .sort((u, v) => u.d - v.d);
     dispatch(statLoaded({ identifier, data }));
   } catch (error) {
     dispatch(statError({ identifier, error }));
@@ -153,7 +155,7 @@ async function fetchStatistics(
   dispatch: Dispatch,
   identifier: string,
   params: any,
-  // @ts-ignore
+  // @ts-expect-error
   callee: (any) => void,
 ) {
   dispatch(statIsLoading({ identifier, loading: true }));

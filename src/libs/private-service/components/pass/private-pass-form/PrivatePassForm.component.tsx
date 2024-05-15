@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React, { MouseEvent } from 'react';
+import { DateTime } from 'luxon';
 import { Theme, ButtonBase } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +28,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
-import moment from 'moment-timezone';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -55,8 +54,10 @@ import {
   IntegerField,
   PercentField,
   RadioGroupField,
+  // @ts-expect-error
 } from '#components/forms';
 import { OptionCallback } from '../../../../../state/types';
+// @ts-expect-error
 import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
 
 import {
@@ -69,6 +70,7 @@ import {
   CompatiblePrivateService,
 } from '../../../types';
 import { getValidityInfo, filterPrivateService } from '../../../utils';
+// @ts-expect-error
 import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
 import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
@@ -356,6 +358,7 @@ export const PrivatePassForm = (props: Props) => {
           <BookkeepingAccountSelector
             bookkeepingAccountById={props.bookkeepingAccountById}
             bookkeepingAccounts={props.bookkeepingAccounts}
+            // @ts-ignore
             selectedBookkeepingAccountId={values.bookkeeping_account}
             setFieldValue={setBookkeepingAccount}
           />
@@ -441,6 +444,7 @@ export const PrivatePassForm = (props: Props) => {
               <InfoIcon color="disabled" />
             </ToolTip>
           </div>
+          {/* @ts-ignore */}
           <Collapse in={values.expiration_date_active}>
             <InputLabel className={classes.inputLabelExpirationDate}>
               {t('privatePass.form.expiration_date.helperText')}
@@ -449,7 +453,7 @@ export const PrivatePassForm = (props: Props) => {
               allowNullValue
               disabled={!!props.initial?.template_instance}
               format="L"
-              minDate={moment.now()}
+              minDate={DateTime.now()}
               name="expiration_date"
             />
           </Collapse>
@@ -1062,6 +1066,7 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
+  // @ts-ignore
   mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
@@ -1076,8 +1081,11 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         linked_payment_pack_metaActivities:
           initial.linked_payment_pack?.metaActivities || [],
         unusable_by_staff: !initial.is_usable_by_staff,
+        // @ts-ignore
         applies_for_payroll: initial.applies_for_payroll,
+        // @ts-ignore
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
+        // @ts-ignore
         expiration_date_active: !!initial?.expiration_date,
         credits: initial?.credits,
         tags_on_consumer_item_creation:
@@ -1131,11 +1139,13 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         : {}),
       is_usable_by_staff: !values.unusable_by_staff,
       expiration_date:
+        // @ts-ignore
         values.expiration_date_active && values.expiration_date
-          ? moment(values.expiration_date).format('YYYY-MM-DD')
+          ? DateTime.fromISO(values.expiration_date).toISODate()
           : null,
       credits,
     };
+    // @ts-ignore
     onSubmit(newValues, {
       onSuccess: () => {
         trackFormSuccess(initial?.id);

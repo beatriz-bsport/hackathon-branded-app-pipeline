@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
@@ -99,7 +99,7 @@ const usePropsFromVariation = (
   const group = {} as OffersGroup;
 
   const dateStart = isOfferInThePast
-    ? moment().subtract(7, 'month')
+    ? DateTime.now().minus({ months: 7 })
     : offer.date_start;
   return {
     offer: {

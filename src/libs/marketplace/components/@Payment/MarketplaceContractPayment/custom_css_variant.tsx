@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -55,7 +55,7 @@ const usePropsFromVariation = (
     contract: contractFromFactory,
     isExcludingTax: isExcludingTaxSelected,
     isContractLegalTermsAccepted: isContractLegalTermsAcceptedSelected,
-    billingStartDate: moment().add(1, 'week').format(),
+    billingStartDate: DateTime.now().plus({ weeks: 1 }).toISO(),
     enabledPaymentMethodsIds: [
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
       PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,

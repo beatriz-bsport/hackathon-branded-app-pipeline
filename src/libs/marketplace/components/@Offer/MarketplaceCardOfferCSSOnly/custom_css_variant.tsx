@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { fakerEN as faker } from '@faker-js/faker';
 
 import MarketPlaceCardOfferCSSOnly, {
@@ -18,6 +18,7 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 
 import { offerFactory } from '#libs/offer/factories';
+import { formatAsDate } from '#src/utils/datetime';
 
 const offerCardVariationRegistry = [
   {
@@ -130,7 +131,7 @@ const usePropsFromVariation = (
     if (offerStatusSelected === 'past') {
       return {
         ...bookableOffer,
-        date_start: moment().subtract(1, 'week').format('YYYY-MM-DD'),
+        date_start: formatAsDate(DateTime.now().minus({ weeks: 1 }).toISO()),
       };
     }
 
@@ -147,7 +148,7 @@ const usePropsFromVariation = (
 
       return {
         ...bookableOffer,
-        date_start: moment().add(1, 'year').format('YYYY-MM-DD'),
+        date_start: formatAsDate(DateTime.now().plus({ years: 1 }).toISO()),
         // TODO WAIT FOR FIX ON OFFER FOR THIS TO ACTUALLY WORK.
         meta_activity: { ...metaActivity, first_booking_minutes_until: 1 },
       };

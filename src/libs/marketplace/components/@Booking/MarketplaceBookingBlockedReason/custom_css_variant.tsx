@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import MarketplaceBookingBlockedReason, {
   Props as MarketplaceBookingBlockedReasonProps,
 } from '.';
@@ -108,7 +108,7 @@ const usePropsFromVariation = (
           message: t(
             'booking:newBookingModule.blockedReasons.isTooSoon.message',
             {
-              date: moment().format('LL'),
+              date: DateTime.now().toLocaleString(DateTime.DATE_FULL),
             },
           ),
           icon: 'update',

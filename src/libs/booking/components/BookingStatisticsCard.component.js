@@ -20,8 +20,8 @@ type Props = {
     >,
     offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
     waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
-    start: DateTime,
-    end: DateTime,
+    start: string,
+    end: string,
   },
   offerId?: number,
   loading: boolean,
@@ -43,8 +43,7 @@ export function BookingStatisticsCard(props: Props) {
     );
   }
 
-  const start = bookingStatistics.start.toISO();
-  const end = bookingStatistics.end.toISO();
+  const { start, end } = bookingStatistics;
 
   const tableBookingCreated = discretizeByAndFillMissing(
     bookingStatistics.createdBookings,

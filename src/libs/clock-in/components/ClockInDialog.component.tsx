@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+
 import { makeStyles, Theme } from '@material-ui/core';
 import classNames from 'classnames';
-
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -147,11 +147,11 @@ const ClockInDialog: React.FC<Props> = ({
   };
 
   const getDurationText = () => {
-    const end = moment.unix(successData?.last_clock_in);
-    const start = moment.unix(successData?.last_clock_out);
-    const duration = moment.duration(start.diff(end));
+    const end = DateTime.fromSeconds(successData?.last_clock_in);
+    const start = DateTime.fromSeconds(successData?.last_clock_out);
+    const duration = start.diff(end);
 
-    return moment.utc(duration.as('milliseconds')).format('HH:mm');
+    return duration.toFormat('hh:mm');
   };
 
   return (
@@ -212,8 +212,12 @@ const ClockInDialog: React.FC<Props> = ({
                     {isClockingIn && dateStart && (
                       <Typography className={classes.grey} variant="caption">
                         {t('clockinDialog.lastClockIn', {
-                          date: moment.unix(dateStart).format('L'),
-                          hour: moment.unix(dateStart).format('HH:mm'),
+                          date: DateTime.fromSeconds(
+                            dateStart,
+                          ).toLocaleString(),
+                          hour: DateTime.fromSeconds(dateStart).toLocaleString(
+                            DateTime.TIME_SIMPLE,
+                          ),
                         })}
                       </Typography>
                     )}
@@ -224,9 +228,11 @@ const ClockInDialog: React.FC<Props> = ({
                           <span className={classes.bold}>
                             {t('clockinDialog.lastClockOut')}
                           </span>
-                          {`${moment.unix(dateStart).format('L')} - ${moment
-                            .unix(dateStart)
-                            .format('HH:mm')}`}
+                          {`${DateTime.fromSeconds(
+                            dateStart,
+                          ).toLocaleString()} - ${DateTime.fromSeconds(
+                            dateStart,
+                          ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                         </Typography>
                       </div>
                     )}
@@ -271,11 +277,11 @@ const ClockInDialog: React.FC<Props> = ({
                   <span className={classes.successText}>
                     {t('clockinDialog.successClockIn')}
                   </span>
-                  {`${moment
-                    .unix(successData?.last_clock_in)
-                    .format('L')} - ${moment
-                    .unix(successData?.last_clock_in)
-                    .format('HH:mm')}`}
+                  {`${DateTime.fromSeconds(
+                    successData?.last_clock_in,
+                  ).toLocaleString()} - ${DateTime.fromSeconds(
+                    successData?.last_clock_in,
+                  ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                 </Typography>
               </div>
               <div className={classes.spacing}>
@@ -283,11 +289,11 @@ const ClockInDialog: React.FC<Props> = ({
                   <span className={classes.successText}>
                     {t('clockinDialog.successClockOut')}
                   </span>
-                  {`${moment
-                    .unix(successData?.last_clock_out)
-                    .format('L')} - ${moment
-                    .unix(successData?.last_clock_out)
-                    .format('HH:mm')}`}
+                  {`${DateTime.fromSeconds(
+                    successData?.last_clock_out,
+                  ).toLocaleString()} - ${DateTime.fromSeconds(
+                    successData?.last_clock_out,
+                  ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                 </Typography>
               </div>
               <div className={classes.spacing}>

@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import pick from 'lodash/pick';
-import moment from 'moment-timezone';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import { VideoStatus } from '@bsport/common/lib/master-data/video';
 
 import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { Duration } from 'luxon';
 import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
@@ -329,15 +329,17 @@ export const VideoSchema = Yup.object().shape({
 export const VideoFormHOC = withFormik({
   mapPropsToValues: ({ initial }) => {
     if (initial) {
-      const duration = moment.duration(initial.duration_second, 'seconds');
+      const duration = Duration.fromObject({
+        seconds: initial.duration_second,
+      });
 
       return {
         ...initial,
         coaches: [...initial.coaches.map((ac) => ac.id)],
         SCT: initial.SCT ? initial.SCT.id : null,
         manager_only: initial.manager_only,
-        _duration_minutes: duration.minutes(),
-        _duration_hours: duration.hours(),
+        _duration_minutes: duration.minutes,
+        _duration_hours: duration.hours,
         forRent: initial.rental_days > 0,
         rental_days: initial.rental_days > 0 ? initial.rental_days : 30,
       };

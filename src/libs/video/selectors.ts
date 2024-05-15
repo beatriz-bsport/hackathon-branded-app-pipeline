@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-import moment from 'moment/moment';
+import { DateTime } from 'luxon';
 import { getSCTs } from '../category/selectors';
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import { getAllMembers } from '../member/selectors';
@@ -152,7 +152,9 @@ export const getLastVideoPurchasedByVideo = memoize((videoId: number) =>
       .filter((v) => v.video === videoId)
       .reduce(
         (acc, curr) =>
-          acc && moment(acc.date_created).isAfter(moment(curr.date_created))
+          acc &&
+          DateTime.fromISO(acc.date_created) >
+            DateTime.fromISO(curr.date_created)
             ? acc
             : curr,
         null,

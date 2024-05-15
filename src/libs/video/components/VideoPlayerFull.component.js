@@ -8,9 +8,9 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import clx from 'classnames';
-import moment from 'moment/moment';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
@@ -80,9 +80,9 @@ export const VideoPlayerFull = (props: Props) => {
                       interpolation: {
                         escapeValue: false,
                       },
-                      expiration_date: moment(props.videoPurchaseDate)
-                        .add(props.video.rental_days, 'days')
-                        .format('L'),
+                      expiration_date: DateTime.fromISO(props.videoPurchaseDate)
+                        .plus({ days: props.video.rental_days })
+                        .toFormat('D'),
                     })}
               </Typography>
             </div>

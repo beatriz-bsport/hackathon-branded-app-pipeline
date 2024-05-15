@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import moment from 'moment-timezone';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
@@ -9,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, TFunction } from 'react-i18next';
+import { DateTime } from 'luxon';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
@@ -129,7 +129,7 @@ export class VodVideoDetailPage extends React.Component<Props> {
                   page={this.props.views.page}
                   renderSecondaryText={(view) =>
                     this.props.t('video.viewedOn', {
-                      date: moment(view.date_created).format('L'),
+                      date: DateTime.fromISO(view.date_created).toFormat('D'),
                       hour: formatISOStringAsTime(view.date_created),
                     })
                   }
@@ -159,7 +159,9 @@ export class VodVideoDetailPage extends React.Component<Props> {
                       page={this.props.purchases.page}
                       renderSecondaryText={(purchase) =>
                         this.props.t('video.boughtOn', {
-                          date: moment(purchase.date_created).format('L'),
+                          date: DateTime.fromISO(
+                            purchase.date_created,
+                          ).toFormat('D'),
                         })
                       }
                     />

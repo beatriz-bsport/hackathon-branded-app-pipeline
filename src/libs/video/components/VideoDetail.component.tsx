@@ -10,8 +10,8 @@ import { compose } from 'recompose';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import moment from 'moment/moment';
 import IconButton from '@material-ui/core/IconButton';
+import { DateTime } from 'luxon';
 import type { VideoAnalyticsData, VideoPurchase } from '../types';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import VodVideoAnalytics from './VodVideoAnalytics.component';
@@ -158,11 +158,13 @@ export class VideoDetail extends Component<Props, State> {
                   color="textSecondary"
                   variant="body2"
                 >
-                  {`${moment(selectedVideoPurchase.date_created).format(
-                    'L',
-                  )} -> ${moment(selectedVideoPurchase.date_created)
-                    .add(selectedVideoPurchase.video.rental_days, 'days')
-                    .format('L')}`}
+                  {`${DateTime.fromISO(
+                    selectedVideoPurchase.date_created,
+                  ).toFormat('D')} -> ${DateTime.fromISO(
+                    selectedVideoPurchase.date_created,
+                  )
+                    .plus({ days: selectedVideoPurchase.video.rental_days })
+                    .toFormat('D')}`}
                 </Typography>
                 <Typography
                   color={!selectedVideoPurchase.available ? 'error' : 'primary'}

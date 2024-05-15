@@ -5,11 +5,11 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
-import moment from 'moment-timezone';
 import { Helmet } from 'react-helmet';
 import { compose } from 'recompose';
 
 import { withTranslation, TFunction } from 'react-i18next';
+import { DateTime } from 'luxon';
 
 type Props = {
   t: TFunction,
@@ -25,7 +25,7 @@ export class BroadcastRoomJitsi extends React.Component<Props> {
       !window.JitsiMeetExternalAPI ||
       (this.props.date_start &&
         this.props.userType !== 'coach' &&
-        moment(this.props.date_start).isAfter(moment()))
+        DateTime.fromISO(this.props.date_start) > DateTime.now())
     ) {
       setTimeout(this.initializeJitsi, 1000);
     } else {

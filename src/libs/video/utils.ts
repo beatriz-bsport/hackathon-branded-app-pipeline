@@ -1,16 +1,15 @@
 import { TFunction } from 'i18next';
-import moment from 'moment/moment';
+import { DateTime } from 'luxon';
 import { VideoPurchase } from '#libs/video/types';
 import { formatAsDatetime } from '../../utils/datetime';
 import { getPackDate } from '#libs/payment-packs/utils';
 import { getPassDate } from '#libs/private-service/utils';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {
-  return moment(videoPurchase.date_created).add(
+  return DateTime.fromISO(videoPurchase.date_created).plus({
     // @ts-ignore
-    videoPurchase.video.rental_days,
-    'days',
-  );
+    days: videoPurchase.video.rental_days,
+  });
 };
 
 export const getHeading = (
@@ -62,7 +61,7 @@ export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
             ? t('video:video.rental.expired')
             : t('video:video.rental.valid')
         } -
-        ${expiration_date.format('L')}`,
+        ${expiration_date.toFormat('D')}`,
         !videoPurchase.available ? 'error' : 'black',
       ],
     ];

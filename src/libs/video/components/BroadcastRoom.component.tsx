@@ -1,7 +1,6 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Typography from '@material-ui/core/Typography';
 
@@ -9,6 +8,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { Paper, Theme } from '@material-ui/core';
 import { WithStyles, createStyles } from '@material-ui/styles';
+import { DateTime } from 'luxon';
 // @ts-expect-error
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
 // @ts-expect-error
@@ -61,26 +61,18 @@ export class BroadcastRoom extends React.Component<Props, State> {
       return;
     }
     this.setState({
-      minutesLeft:
-        1 +
-        moment
-          .duration(
-            moment(this.props.date_start).diff(moment(), 'minutes'),
-            'minutes',
-          )
-          .asMinutes(),
+      minutesLeft: DateTime.fromISO(this.props.date_start)
+        .diff(DateTime.now(), 'minutes')
+        .plus({ minutes: 1 }).minutes,
     });
 
     if (
-      moment(this.props.date_start)
-        .add(-MINUTES_BEFORE_START_ACTIVATED, 'minutes')
-        .isBefore(moment()) &&
-      moment(this.props.date_start)
-        .add(
-          this.props.duration_minute + MINUTES_AFTER_END_DEACTIVATED,
-          'minutes',
-        )
-        .isAfter(moment())
+      DateTime.fromISO(this.props.date_start).plus({
+        minutes: -MINUTES_BEFORE_START_ACTIVATED,
+      }) < DateTime.now() &&
+      DateTime.fromISO(this.props.date_start).plus({
+        minutes: this.props.duration_minute + MINUTES_AFTER_END_DEACTIVATED,
+      }) > DateTime.now()
     ) {
       this.setState({ hasStarted: true });
     }

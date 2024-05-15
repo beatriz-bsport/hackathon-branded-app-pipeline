@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Collapse from '@material-ui/core/Collapse';
 import { compose, withProps, withState } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -101,14 +101,14 @@ const TaskSubList = (props: PropsSubList) => {
 
 export const TaskList = (props: Props) => {
   if (props.loading) return <CircularProgress />;
-  const futureTaskList = props.taskList.filter((t) =>
-    moment(t.date_due).isAfter(moment(), 'day'),
+  const futureTaskList = props.taskList.filter(
+    (t) => DateTime.fromISO(t.date_due) > DateTime.now(),
   );
   const pendingTaskList = props.taskList
-    .filter((t) => moment(t.date_due).isSameOrBefore(moment(), 'day'))
+    .filter((t) => DateTime.fromISO(t.date_due) <= DateTime.now())
     .filter((t) => t.status === 0);
   const archivedTaskList = props.taskList
-    .filter((t) => moment(t.date_due).isSameOrBefore(moment(), 'day'))
+    .filter((t) => DateTime.fromISO(t.date_due) <= DateTime.now())
     .filter((t) => t.status !== 0);
   return (
     <div>

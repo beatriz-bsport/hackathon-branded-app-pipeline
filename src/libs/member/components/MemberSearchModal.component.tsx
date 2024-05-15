@@ -21,7 +21,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
 import type { Theme } from '@material-ui/core';
 import { Cake } from '@material-ui/icons';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import MemberSearchBar from './MemberSearchBar.component';
 // @ts-expect-error
@@ -197,8 +197,8 @@ export const MemberSearchModal: React.FC<Props> = ({
             {loading ? <LinearProgress /> : null}
             {searchedMembers.map((member: Member) => {
               const isBirthday = member?.birthday
-                ? moment().format('MM-DD') ===
-                  moment(member.birthday).format('MM-DD')
+                ? DateTime.now().toFormat('MM-dd') ===
+                  DateTime.fromISO(member.birthday).toFormat('MM-dd')
                 : false;
               return (
                 <MemberListItem

@@ -26,7 +26,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -111,18 +111,21 @@ export class MemberSummaryCard extends PureComponent<Props> {
   renderMembershipAndBirthday = () => {
     const { member, t } = this.props;
 
-    const age = moment().diff(moment(member.consumer.birthday), 'years');
+    const age = Math.floor(
+      DateTime.now().diff(DateTime.fromISO(member.consumer.birthday), 'years')
+        .years,
+    );
 
     const isBirthday = member.consumer?.birthday
-      ? moment().format('MM-DD') ===
-        moment(member.consumer.birthday).format('MM-DD')
+      ? DateTime.now().toFormat('MM-dd') ===
+        DateTime.fromISO(member.consumer.birthday).toFormat('MM-dd')
       : false;
 
     const memberBirthdayValue = `${
       member.consumer.birthday
         ? t('member:birth.bornIn', {
             context: member.consumer.gender,
-            date: moment(member.consumer.birthday).format('L'),
+            date: DateTime.fromISO(member.consumer.birthday).toFormat('D'),
             age,
           })
         : t('member:birth.unknown', {
@@ -442,9 +445,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
               </Typography>
             </ButtonBase>
             {this.props.t('member:memberTermsAccepted', {
-              date: moment(general_terms_and_conditions_date_accepted).format(
-                'L',
-              ),
+              date: DateTime.fromISO(
+                general_terms_and_conditions_date_accepted,
+              ).toFormat('D'),
             })}
           </Typography>
           <Dialog
@@ -486,7 +489,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
               </Typography>
             </ButtonBase>
             {this.props.t('member:memberTermsAccepted', {
-              date: moment(general_terms_of_use_date_accepted).format('L'),
+              date: DateTime.fromISO(
+                general_terms_of_use_date_accepted,
+              ).toFormat('D'),
             })}
           </Typography>
           <Dialog

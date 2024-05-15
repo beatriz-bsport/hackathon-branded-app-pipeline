@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -48,7 +48,7 @@ export const GenericEventListItem = (props: Props) => {
 
   // Second Line
   const defaultSecondaryText = formatAsDatetimeAdapted(
-    moment(event.date * 1000),
+    DateTime.fromMillis(event.date * 1000).toISO(),
     'LLLL',
   ); // event date
   const secondaryText = eventTypeUtils?.getSecondaryText

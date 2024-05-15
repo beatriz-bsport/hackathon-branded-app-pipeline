@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import ConsumerPassCard, { ConsumerPassCardProps } from '.';
 
 // @ts-ignore
@@ -14,6 +14,7 @@ import {
 } from '#libs/exportable-components/types';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 const fakeConsumerPass = consumerPaymentPackFactory();
 const fakePaymentPack = paymentPackFactory();
@@ -77,8 +78,8 @@ const usePropsFromVariation = (
   const isUnlimited = variationsSelected?.isUnlimited?.value === 'true';
   const expirationDate =
     variationsSelected?.expiresSoon?.value === 'true'
-      ? moment().add(1, 'days').format('YYYY-MM-DD')
-      : moment().add(10, 'days').format('YYYY-MM-DD');
+      ? DateTime.now().plus({ day: 1 }).toFormat(LUXON_ISO_SHORT_DATE)
+      : DateTime.now().plus({ days: 10 }).toFormat(LUXON_ISO_SHORT_DATE);
   return { isShared, isSuspended, isUnlimited, expirationDate };
 };
 

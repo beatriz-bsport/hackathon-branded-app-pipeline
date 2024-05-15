@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
@@ -12,8 +12,8 @@ import {
   UniversalPassDetailsCardStorybook,
   UniversalPassDetailsCardProps,
 } from '.';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
-// To avoid storybook to crash using moment.add()
 const monthToAdd = 1;
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);
@@ -204,19 +204,23 @@ export const isSuspendedWithSuspensionDate =
 isSuspendedWithSuspensionDate.args = {
   ...defaultArgs,
   isSuspended: true,
-  suspensionDate: moment().format('YYYY-MM-DD'),
+  suspensionDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isFuture = UniversalPassDetailsCardTemplate.bind({});
 isFuture.args = {
   ...defaultArgs,
-  startDate: moment().add(monthToAdd, 'month').format('YYYY-MM-DD'),
+  startDate: DateTime.now()
+    .plus({ months: monthToAdd })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isExpired = UniversalPassDetailsCardTemplate.bind({});
 isExpired.args = {
   ...defaultArgs,
-  expirationDate: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+  expirationDate: DateTime.now()
+    .minus({ month: 1 })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const MobileVersion = UniversalPassDetailsCardMobileTemplate.bind({});

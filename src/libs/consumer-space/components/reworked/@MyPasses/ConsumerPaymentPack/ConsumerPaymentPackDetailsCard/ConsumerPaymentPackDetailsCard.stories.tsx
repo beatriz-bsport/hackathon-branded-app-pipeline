@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
@@ -12,8 +11,9 @@ import {
   ConsumerPaymentPackDetailsCardStorybook,
   ConsumerPaymentPackDetailsCardProps,
 } from '.';
+import { DateTime } from 'luxon';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
-// To avoid storybook to crash using moment.add()
 const monthToAdd = 1;
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);
@@ -193,19 +193,23 @@ export const isSuspendedWithSuspensionDate =
 isSuspendedWithSuspensionDate.args = {
   ...defaultArgs,
   isSuspended: true,
-  suspensionDate: moment().format('YYYY-MM-DD'),
+  suspensionDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isFuture = ConsumerPaymentPackDetailsCardTemplate.bind({});
 isFuture.args = {
   ...defaultArgs,
-  startDate: moment().add(monthToAdd, 'month').format('YYYY-MM-DD'),
+  startDate: DateTime.now()
+    .plus({ months: monthToAdd })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isExpired = ConsumerPaymentPackDetailsCardTemplate.bind({});
 isExpired.args = {
   ...defaultArgs,
-  expirationDate: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+  expirationDate: DateTime.now()
+    .minus({ month: 1 })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const MobileVersion = ConsumerPaymentPackDetailsCardMobileTemplate.bind(

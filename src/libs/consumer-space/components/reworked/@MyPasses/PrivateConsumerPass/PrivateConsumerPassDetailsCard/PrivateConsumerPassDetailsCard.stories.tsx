@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
 import { privatePassFactory } from '#libs/private-service/factory';
@@ -12,8 +11,9 @@ import {
   PrivateConsumerPassDetailsCardStorybook,
   PrivateConsumerPassDetailsCardProps,
 } from '.';
+import { DateTime } from 'luxon';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
-// To avoid storybook to crash using moment.add()
 const monthToAdd = 1;
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);
@@ -46,14 +46,16 @@ const defaultArgs: PrivateConsumerPassDetailsCardProps = {
   compatibleEstablishments: null,
   creditsLeft: faker.number.int(5),
   description: fakePrivateConsumerPass.description,
-  expirationDate: moment().add(monthToAdd, 'months').format('YYYY-MM-DD'),
+  expirationDate: DateTime.now()
+    .plus({ months: monthToAdd })
+    .toFormat(LUXON_ISO_SHORT_DATE),
   isSuspended: false,
   isUnlimited: false,
   name: fakePrivateConsumerPass.name,
   isMobile: false,
   sharedBy: null,
   sharedWith: null,
-  startDate: moment().subtract(1, 'months').format('YYYY-MM-DD'),
+  startDate: DateTime.now().minus({ month: 1 }).toFormat(LUXON_ISO_SHORT_DATE),
   suspensionDate: null,
   totalCredits: faker.number.int({ min: 5, max: 10 }),
   isCompatibleWithVod: null,
@@ -135,19 +137,23 @@ export const isSuspendedWithSuspensionDate =
 isSuspendedWithSuspensionDate.args = {
   ...defaultArgs,
   isSuspended: true,
-  suspensionDate: moment().format('YYYY-MM-DD'),
+  suspensionDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isFuture = PrivateConsumerPassDetailsCardTemplate.bind({});
 isFuture.args = {
   ...defaultArgs,
-  startDate: moment().add(monthToAdd, 'month').format('YYYY-MM-DD'),
+  startDate: DateTime.now()
+    .plus({ months: monthToAdd })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const isExpired = PrivateConsumerPassDetailsCardTemplate.bind({});
 isExpired.args = {
   ...defaultArgs,
-  expirationDate: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+  expirationDate: DateTime.now()
+    .minus({ month: 1 })
+    .toFormat(LUXON_ISO_SHORT_DATE),
 };
 
 export const MobileVersion = PrivateConsumerPassDetailsCardMobileTemplate.bind(

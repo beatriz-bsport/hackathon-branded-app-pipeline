@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { faker } from '@faker-js/faker';
 
 import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
@@ -113,12 +113,12 @@ const usePropsFromVariation = (
   const isSuspended = variationsSelected.isSuspended?.value === 'true';
   const expirationDate =
     variationsSelected.isExpired?.value === 'true'
-      ? moment().subtract(1, 'day').format('L')
-      : moment().add(1, 'day').format('L');
+      ? DateTime.now().minus({ day: 1 }).toFormat('D')
+      : DateTime.now().plus({ day: 1 }).toFormat('D');
   const startDate =
     variationsSelected.isFuture?.value === 'true'
-      ? moment().add(1, 'day').format('L')
-      : moment().subtract(1, 'day').format('L');
+      ? DateTime.now().plus({ day: 1 }).toFormat('D')
+      : DateTime.now().minus({ day: 1 }).toFormat('D');
   return {
     isSuspended,
     expirationDate,

@@ -1,7 +1,7 @@
-import moment from 'moment-timezone';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { DateTime } from 'luxon';
 import { getAvailabilityInformation } from '#libs/consumer-space/components/reworked/@MyPasses/utils';
 import {
   CalendarCheck02,
@@ -55,7 +55,7 @@ export const useConsumerPassDetailsCardHeaderData = ({
     suspendedWithDate: t(
       'reworked.myPasses.consumerPassDetailsCard.availability.suspendedUntil',
       {
-        endDate: moment(suspensionDate).format('L'),
+        endDate: DateTime.fromISO(suspensionDate).toFormat('D'),
         interpolation: { escapeValue: false },
       },
     ),

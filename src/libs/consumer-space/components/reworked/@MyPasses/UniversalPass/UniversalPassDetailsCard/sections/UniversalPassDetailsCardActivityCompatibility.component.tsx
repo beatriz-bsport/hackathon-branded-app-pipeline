@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
@@ -207,10 +207,11 @@ const UniversalPassDetailsCardActivityCompatibility: React.FC<Props> = ({
             {
               shouldDisplay: true,
               chipColor: 'grey',
-              text: `${moment(timeSlot.from, ['H:m']).format('LT')} to ${moment(
-                timeSlot.to,
-                ['H:m'],
-              ).format('LT')}`,
+              text: `${DateTime.fromFormat(timeSlot.from, 'H:m').toLocaleString(
+                DateTime.TIME_SIMPLE,
+              )} to ${DateTime.fromFormat(timeSlot.to, 'H:m').toLocaleString(
+                DateTime.TIME_SIMPLE,
+              )}`,
               chipClassName: classNames(
                 'bs-universal-pass-details-card__compatibility-section__subsection__chip',
                 `bs-universal-pass-details-card__compatibility-section__subsection__chip--time-slot`,

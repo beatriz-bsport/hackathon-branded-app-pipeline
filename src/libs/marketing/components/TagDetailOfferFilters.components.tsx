@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import memoize from 'memoize-one';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
@@ -17,6 +16,7 @@ import {
   DateField,
   Actions,
   defaultHandleSubmit,
+  // @ts-expect-error
 } from '#components/forms';
 import { TagAuthorizationFilter } from '../../../pages/marketing/MarketingTagManagement.page';
 
@@ -42,7 +42,8 @@ const OfferDetailFilterSchema = Yup.object().shape({
       function checkIsAfterStart(dateEnd) {
         const { dateStart } = this.parent;
 
-        return moment(dateStart).isSameOrBefore(moment(dateEnd));
+        // @ts-expect-error
+        return DateTime.fromISO(dateStart) <= DateTime.fromISO(dateEnd);
       },
     ),
 });
@@ -64,6 +65,7 @@ export function TagDetailOffersHeaderForm() {
           <MaterialUiSingleSelectorField
             isMulti={false}
             name="tagAuthorizationFilter"
+            // @ts-expect-error
             options={tagAuthorizationOptions(t)}
             placeholder={t('form.compability.selectPack')}
             title={
@@ -91,8 +93,8 @@ export default compose<any, any>(
       config,
     }: {
       config: {
-        dateStart: moment.Moment;
-        dateEnd: moment.Moment;
+        dateStart: DateTime;
+        dateEnd: DateTime;
         tagAuthorizationFilter: TagAuthorizationFilter;
       };
     }) => {

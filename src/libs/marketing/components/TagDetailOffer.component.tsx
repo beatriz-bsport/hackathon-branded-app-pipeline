@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import clx from 'classnames';
 
 import { useTranslation } from 'react-i18next';
@@ -25,6 +24,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
 
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import type { Offer } from '#libs/offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
@@ -110,6 +110,7 @@ const TagDetailOffers = (props: Props) => {
                 <ListItem
                   dense
                   divider
+                  // @ts-expect-error
                   button={!!props.onClickOffer}
                   disabled={props.loading || processing}
                   onClick={
@@ -132,11 +133,15 @@ const TagDetailOffers = (props: Props) => {
                           <Typography color="secondary">
                             {`${
                               item?.date_start
-                                ? moment(item.date_start).format('L')
+                                ? DateTime.fromISO(
+                                    item.date_start,
+                                  ).toLocaleString()
                                 : '-'
                             }\u00A0:\u00A0${
                               item?.date_start
-                                ? moment(item.date_start).format('HH:mm')
+                                ? DateTime.fromISO(item.date_start).toFormat(
+                                    'HH:mm',
+                                  )
                                 : '-'
                             }`}
                           </Typography>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { connect } from 'react-redux';
 import { compose, withProps, withStateHandlers } from 'recompose';
 import { push, replace as replaceRouter } from 'connected-react-router';
@@ -91,28 +91,28 @@ export enum TagAuthorizationFilter {
   showOnlyBlackList = 2,
 }
 type StateHandlerInit = {
-  offer_min_date: moment.Moment;
-  offer_max_date: moment.Moment | null;
+  offer_min_date: DateTime;
+  offer_max_date: DateTime | null;
   tagAuthorizationFilter: TagAuthorizationFilter;
 };
 const withStateHandlersInit: StateHandlerInit = {
-  offer_min_date: moment().startOf('month'),
-  offer_max_date: moment().endOf('year'),
+  offer_min_date: DateTime.now().startOf('month'),
+  offer_max_date: DateTime.now().endOf('year'),
   tagAuthorizationFilter: 0,
 };
 
 const withStateHandlersSetter = {
   resetDatesfilter: () => () => {
     return {
-      offer_min_date: moment().startOf('month'),
-      offer_max_date: moment().endOf('month'),
+      offer_min_date: DateTime.now().startOf('month'),
+      offer_max_date: DateTime.now().endOf('month'),
     };
   },
   setOfferFilters:
     () =>
     (
-      offer_min_date: moment.Moment,
-      offer_max_date: moment.Moment,
+      offer_min_date: DateTime,
+      offer_max_date: DateTime,
       tagAuthorizationFilter: TagAuthorizationFilter,
     ) => {
       return { offer_min_date, offer_max_date, tagAuthorizationFilter };
@@ -169,10 +169,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
         page: 1,
         page_size: MEMBERS_ITEM_PER_PAGE,
         available: true,
-        min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+        min_date: this.props.offer_min_date.toISODate(),
         ...(this.props.offer_max_date
           ? {
-              max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+              max_date: this.props.offer_max_date.toISODate(),
             }
           : {}),
         ...this.getOfferTagfilterParams(),
@@ -204,10 +204,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
         page: 1,
         page_size: MEMBERS_ITEM_PER_PAGE,
         available: true,
-        min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+        min_date: this.props.offer_min_date.toISODate(),
         ...(this.props.offer_max_date
           ? {
-              max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+              max_date: this.props.offer_max_date.toISODate(),
             }
           : {}),
         ...this.getOfferTagfilterParams(),
@@ -290,10 +290,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
     this.props.fetchAllOffersPaginatedAction({
       page,
       page_size,
-      min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+      min_date: this.props.offer_min_date.toISODate(),
       ...(this.props.offer_max_date
         ? {
-            max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+            max_date: this.props.offer_max_date.toISODate(),
           }
         : {}),
       ...this.getOfferTagfilterParams(),
@@ -416,10 +416,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               page: 1,
               page_size: MEMBERS_ITEM_PER_PAGE,
               available: true,
-              min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+              min_date: this.props.offer_min_date.toISODate(),
               ...(this.props.offer_max_date
                 ? {
-                    max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+                    max_date: this.props.offer_max_date.toISODate(),
                   }
                 : {}),
               ...this.getOfferTagfilterParams(),
@@ -449,10 +449,10 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               page: 1,
               page_size: MEMBERS_ITEM_PER_PAGE,
               available: true,
-              min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+              min_date: this.props.offer_min_date.toISODate(),
               ...(this.props.offer_max_date
                 ? {
-                    max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+                    max_date: this.props.offer_max_date.toISODate(),
                   }
                 : {}),
               ...this.getOfferTagfilterParams(),
@@ -536,8 +536,8 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     tagAuthorizationFilter: this.props.tagAuthorizationFilter,
                   }}
                   onSubmit={(values: {
-                    dateStart: moment.Moment;
-                    dateEnd: moment.Moment;
+                    dateStart: DateTime;
+                    dateEnd: DateTime;
                     tagAuthorizationFilter: TagAuthorizationFilter;
                   }) =>
                     this.props.setOfferFilters(

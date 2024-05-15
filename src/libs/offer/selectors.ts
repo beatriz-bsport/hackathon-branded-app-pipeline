@@ -4,9 +4,8 @@ import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
-import { Moment } from '../../i18n';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 
 import { getAllCoachesDict, getCoach } from '../associated-coach/selectors';
@@ -49,11 +48,8 @@ export const getBookedOffers = (state: RootState) =>
 // this will remove the offers already ended simply
 export const todayOffers = createSelector(getAll, (offers) =>
   offers.filter((offer: Offer) => {
-    const momentDate = Moment();
-    return (
-      momentDate.isBefore(Moment(offer.date_start)) ||
-      momentDate.isBetween(Moment(offer.date_start), Moment(offer.date_end))
-    );
+    const momentDate = DateTime.now();
+    return momentDate < DateTime.fromISO(offer.date_end);
   }),
 );
 
@@ -334,7 +330,7 @@ export const getListCalendarOfferFromNow = createSelector(
   (data, ids) =>
     ids
       .map((id) => data[id])
-      .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
+      .filter((o) => DateTime.fromISO(o.date_start) >= DateTime.now()),
 );
 
 export const getBookedGenderOffer = (state: RootState) =>
@@ -389,8 +385,8 @@ export const getOfferAsEventList = createSelector(
     return offerList
       .filter(
         (o) =>
-          moment(o.date_start).isSameOrBefore(moment(end), 'day') &&
-          moment(o.date_start).isSameOrAfter(moment(start), 'day'),
+          DateTime.fromISO(o.date_start).day <= DateTime.fromISO(end).day &&
+          DateTime.fromISO(o.date_start).day >= DateTime.fromISO(start).day,
       )
       .map((o) =>
         Immutable({

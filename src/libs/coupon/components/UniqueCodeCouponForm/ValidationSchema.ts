@@ -6,9 +6,10 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 
 import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon';
+import { DateTime } from 'luxon';
 
-import moment from 'moment-timezone';
 import * as Yup from 'yup';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 const ValidationSchema = Yup.object().shape({
   name: Yup.string().required('coupon:uniqueCodeCoupon.form.errors.required'),
@@ -41,7 +42,8 @@ const ValidationSchema = Yup.object().shape({
       name: 'isExpirationDateBeforeNow',
       test: function isInvalidExpirationDate(value) {
         if (value) {
-          const isExpirationDateBeforeNow = moment(value).isBefore(moment());
+          const isExpirationDateBeforeNow =
+            DateTime.fromISO(value) < DateTime.now();
           if (isExpirationDateBeforeNow) {
             return this.createError({
               message:
@@ -57,7 +59,8 @@ const ValidationSchema = Yup.object().shape({
       test: function isExpirationDateWrongFormat(value) {
         if (value) {
           // replicate the format we implement inside the handle submit
-          const formatedDate = moment(value).format('YYYY-MM-DD');
+          const formatedDate =
+            DateTime.fromISO(value).toFormat(LUXON_ISO_SHORT_DATE);
           const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
           const isValidDateFormat = dateRegex.test(formatedDate);
           if (!isValidDateFormat) {

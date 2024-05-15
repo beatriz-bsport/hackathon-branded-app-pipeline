@@ -39,7 +39,6 @@ import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import debounce from 'lodash/debounce';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
@@ -134,10 +133,7 @@ export class CouponForm extends React.Component<Props, State> {
         voucher_type: props.initial.voucher_type,
         with_expiration_date: !!props.initial.expiration_date,
         expiration_date: props.initial.expiration_date
-          ? DateTime.fromFormat(
-              props.initial.expiration_date,
-              LUXON_ISO_SHORT_DATE,
-            )
+          ? DateTime.fromISO(props.initial.expiration_date)
           : DateTime.now().plus({ month: 1 }),
         whitelist_tags:
           props.initial?.whitelist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
@@ -248,8 +244,7 @@ export class CouponForm extends React.Component<Props, State> {
       blacklist_tags: this.state.blacklist_tags,
     };
     if (this.state.with_expiration_date && this.state.is_active) {
-      data.expiration_date =
-        this.state.expiration_date.toFormat(LUXON_ISO_SHORT_DATE);
+      data.expiration_date = this.state.expiration_date.toISODate();
     } else {
       data.expiration_date = null;
     }

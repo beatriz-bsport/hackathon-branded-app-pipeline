@@ -8,9 +8,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
-
+import { DateTime } from 'luxon';
 import { withTranslation, TFunction } from 'react-i18next';
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
+
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 
 type Props = {
@@ -57,9 +58,9 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                           f_metaActivities: `[${offerBooked.meta_activity.id}]`,
                           f_establishments: `[${offerBooked.establishment.id}]`,
                           f_coaches: `[${offerBooked.coach.id}]`,
-                          date: moment(offerBooked.date_start).format(
-                            'YYYY-MM-DD',
-                          ),
+                          date: DateTime.fromISO(
+                            offerBooked.date_start,
+                          ).toFormat(LUXON_ISO_SHORT_DATE),
                         })
                     : null
                 }
@@ -78,7 +79,9 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                         f_metaActivities: `[${o.meta_activity.id}]`,
                         f_establishments: `[${o.establishment.id}]`,
                         f_coaches: `[${o.coach.id}]`,
-                        date: moment(o.date_start).format('YYYY-MM-DD'),
+                        date: DateTime.fromISO(o.date_start).toFormat(
+                          LUXON_ISO_SHORT_DATE,
+                        ),
                       })
                     }
                     variant="after_checkout"

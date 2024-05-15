@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import moment from 'moment-timezone';
 
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
@@ -11,6 +10,7 @@ import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
+import { formatAsDate } from '#src/utils/datetime';
 
 import './styles.css';
 
@@ -57,12 +57,10 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
         })}
       >
         {t('paymentPack:blockedCpp', {
-          blocked_from: moment(
-            consumerPaymentPack.penalty_disabled_from,
-          ).format('L'),
-          blocked_until: moment(
+          blocked_from: formatAsDate(consumerPaymentPack.penalty_disabled_from),
+          blocked_until: formatAsDate(
             consumerPaymentPack.penalty_disabled_until,
-          ).format('L'),
+          ),
         })}
       </span>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
@@ -41,8 +41,8 @@ PenaltyStatus.args = {
   consumerPaymentPack: consumerPaymentPackFactory({
     availableCredits: 4,
     usedCredits: 6,
-    penaltyDisabledFrom: moment().startOf('month').format(),
-    penaltyDisabledUntil: moment().endOf('month').format(),
+    penaltyDisabledFrom: DateTime.now().startOf('month').toISO(),
+    penaltyDisabledUntil: DateTime.now().endOf('month').toISO(),
     isDisabled: true,
   }),
   paymentPack: paymentPackFactory({

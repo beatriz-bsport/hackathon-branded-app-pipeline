@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import AppBar from '@material-ui/core/AppBar';
-import moment, { Moment as MomentType } from 'moment-timezone';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
+import { DateTime } from 'luxon';
 import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import {
@@ -161,8 +161,8 @@ export class AllCoachPerformancePage extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      startTimestamp: moment().startOf('month').unix(),
-      endTimestamp: moment().endOf('month').unix(),
+      startTimestamp: DateTime.now().startOf('month').toUnixInteger(),
+      endTimestamp: DateTime.now().endOf('month').toUnixInteger(),
       selectedEstablishments: [],
       selectedLocations: [],
     };
@@ -624,15 +624,15 @@ const mapWithHandlers = {
     }: OwnAndConnectedProps) =>
     async (
       data: {
-        dateStart: MomentType;
-        dateEnd: MomentType;
+        dateStart: DateTime;
+        dateEnd: DateTime;
       },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
       setSubmitLoading(true);
-      const start_timestamp = dateStart.unix();
-      const end_timestamp = dateEnd.unix();
+      const start_timestamp = dateStart.toUnixInteger();
+      const end_timestamp = dateEnd.toUnixInteger();
       await fetchBulkPrivateServicePerformanceAction(
         {
           associated_coach_ids:
@@ -681,16 +681,19 @@ const mapWithHandlers = {
     }: OwnAndConnectedProps) =>
     async (
       data: {
-        dateStart: MomentType;
-        dateEnd: MomentType;
+        dateStart: DateTime;
+        dateEnd: DateTime;
       },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
-      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
+      setFormDates({
+        dateStart: dateStart.toUnixInteger(),
+        dateEnd: dateEnd.toUnixInteger(),
+      });
       setSubmitLoading(true);
-      const start_timestamp = dateStart.unix();
-      const end_timestamp = dateEnd.unix();
+      const start_timestamp = dateStart.toUnixInteger();
+      const end_timestamp = dateEnd.toUnixInteger();
       await fetchBulkPrivateServicePerformanceAction(
         {
           associated_coach_ids:
@@ -904,8 +907,8 @@ const mapWithHandlers = {
 
 const withStateHandlersInit = {
   formDates: {
-    dateStart: moment().startOf('month').unix(),
-    dateEnd: moment(moment().startOf('month')).endOf('month').unix(),
+    dateStart: DateTime.now().startOf('month').toUnixInteger(),
+    dateEnd: DateTime.now().endOf('month').toUnixInteger(),
   },
   coachPaginationState: {
     page: 1,

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import './MarketplaceDatePicker.css';
 
@@ -11,7 +11,7 @@ const MarketplaceDatePickerDay: React.FC<{
   handleSelect: (dateString: string) => () => void;
   isDisabled?: boolean;
 }> = ({ date, dateSelected, dateDisplayed, handleSelect, isDisabled }) => {
-  const daySelected = moment(dateSelected).startOf('day');
+  const daySelected = DateTime.fromISO(dateSelected).startOf('day');
 
   return (
     <div
@@ -23,13 +23,15 @@ const MarketplaceDatePickerDay: React.FC<{
         className={classNames(
           'bs-marketplace-date-picker__menu__calendar__day',
           {
-            'bs-marketplace-date-picker__menu__calendar__day--today': moment()
-              .startOf('day')
-              .isSame(moment(date)),
+            'bs-marketplace-date-picker__menu__calendar__day--today':
+              DateTime.now().startOf('day').toSeconds() ===
+              DateTime.fromISO(date).startOf('day').toSeconds(),
             'bs-marketplace-date-picker__menu__calendar__day--selected':
-              daySelected.isSame(moment(date)),
+              daySelected.toSeconds() === DateTime.fromISO(date).toSeconds(),
             'bs-marketplace-date-picker__menu__calendar__day--disabled':
-              moment(dateDisplayed).month() - moment(date).month() !== 0,
+              DateTime.fromISO(dateDisplayed).month -
+                DateTime.fromISO(date).month !==
+              0,
             'bs-marketplace-date-picker__menu__calendar__day--disabled-past':
               isDisabled,
           },
@@ -38,7 +40,7 @@ const MarketplaceDatePickerDay: React.FC<{
         onClick={handleSelect(date)}
         type="button"
       >
-        {moment(date).format('D')}
+        {DateTime.fromISO(date).toFormat('d')}
       </button>
     </div>
   );

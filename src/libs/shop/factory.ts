@@ -1,7 +1,6 @@
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
-
+import { DateTime } from 'luxon';
 import {
   generateRandomName,
   generateRandomDescription,
@@ -11,9 +10,9 @@ import {
 import { FakerTextLength } from '../../utils/types';
 import type { ShopItemFactoryOptions, ShopSupplier } from './types';
 
-const CREATE_DATE = moment().subtract(5, 'days').format();
-const UPDATE_DATE = moment().subtract(3, 'days').format();
-const DELETE_DATE = moment().subtract(8, 'hours').format();
+const CREATE_DATE = DateTime.now().minus({ days: 5 }).toISODate();
+const UPDATE_DATE = DateTime.now().minus({ days: 3 }).toISODate();
+const DELETE_DATE = DateTime.now().minus({ hours: 8 }).toISODate();
 
 /**
  * Generates a shop item with Faker

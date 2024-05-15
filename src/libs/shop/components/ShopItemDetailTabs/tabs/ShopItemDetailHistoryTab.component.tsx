@@ -1,6 +1,6 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker'; // TEMP IMPORT
-import moment from 'moment-timezone'; // TEMP IMPORT
+import { DateTime } from 'luxon';
 
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,7 @@ type TableRowItemProps = {
 const TEMP_HISTORY_TABLE_DATA = faker.helpers.multiple(
   () => ({
     id: faker.number.int(10000),
-    date: moment().format('YYYY-MM-DD HH:mm ZZ'),
+    date: DateTime.now().toFormat('yyyy-MM-dd HH:mm ZZZ'),
     variant: `${faker.helpers.arrayElement([
       'Black',
       'Blue',

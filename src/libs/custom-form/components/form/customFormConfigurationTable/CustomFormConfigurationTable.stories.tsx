@@ -1,11 +1,11 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { DateTime } from 'luxon';
 import CustomFormConfigurationTable from './CustomFormConfigurationTable.form';
 import { CUSTOM_FORM_FIELDS_OPTIONS } from '../../../utils';
 import type { TagGroupAPI, Tag } from '../../../../tag/types';
 import type { CustomForm } from '../../../types';
 import FactoryBot from '#libs/theme/factories';
-import { DateTime } from 'luxon';
 
 const companyTheme = FactoryBot.companyTheme.createOne();
 
@@ -51,7 +51,7 @@ const fieldOptionsBuilder = () => {
 };
 
 CompleteInitialState.args = {
-  companyTheme: companyTheme,
+  companyTheme,
   setNumberOfQuestionsHasChanged: () => {},
   tag_groups: [
     {

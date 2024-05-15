@@ -3,6 +3,8 @@ import { userEvent, within, screen } from '@storybook/testing-library';
 
 import i18n from 'i18next';
 
+import { ReactFramework, StoryContext } from '@storybook/react';
+import { DateTime } from 'luxon';
 import PaymentPackForm from '../PaymentPackForm.component';
 
 import {
@@ -11,8 +13,6 @@ import {
 } from '../../../../../utils/storybookHelper';
 
 import { inputValues } from './constants';
-import { ReactFramework, StoryContext } from '@storybook/react';
-import { DateTime } from 'luxon';
 
 export const generalSectionInteractionTests = async ({
   canvasElement,
@@ -25,7 +25,7 @@ export const generalSectionInteractionTests = async ({
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
     {
-      /*Unused queryOption*/
+      /* Unused queryOption */
     },
     { timeout: 3500 },
   );
@@ -192,7 +192,7 @@ export const validitySectionInteractionTests = async ({
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
     {
-      /*Unused queryOption*/
+      /* Unused queryOption */
     },
     { timeout: 3500 },
   );
@@ -297,7 +297,7 @@ export const restrictionsSectionInteractionTests = async ({
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
     {
-      /*Unused queryOption*/
+      /* Unused queryOption */
     },
     { timeout: 3500 },
   );
@@ -449,7 +449,7 @@ export const advancedOptionsSectionInteractionTests = async ({
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
     {
-      /*Unused queryOption*/
+      /* Unused queryOption */
     },
     { timeout: 3500 },
   );

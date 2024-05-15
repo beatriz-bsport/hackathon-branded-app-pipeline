@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Chip from '@material-ui/core/Chip';
 import Menu from '@material-ui/core/Menu';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -273,9 +273,9 @@ export class FiltersPanel extends Component<Props, State> {
     const link = document.createElement('a');
     link.setAttribute('type', 'hidden');
     link.href = url;
-    link.download = `${this.props.smartList.name}_${moment().format(
-      'YYYY-MM-DD',
-    )}.csv`;
+    link.download = `${
+      this.props.smartList.name
+    }_${DateTime.now().toISODate()}.csv`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -455,8 +455,12 @@ export class FiltersPanel extends Component<Props, State> {
             <Typography>
               {this.props.csvExportLink
                 ? t('lastGenerated', {
-                    date: moment.unix(this.props.csvExportDate).format('L'),
-                    time: moment.unix(this.props.csvExportDate).format('LT'),
+                    date: DateTime.fromSeconds(
+                      parseFloat(this.props.csvExportDate),
+                    ).toFormat('D'),
+                    time: DateTime.fromSeconds(
+                      parseFloat(this.props.csvExportDate),
+                    ).toFormat('t'),
                   })
                 : t('generateHelperText')}
             </Typography>

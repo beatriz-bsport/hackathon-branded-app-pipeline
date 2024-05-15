@@ -2,7 +2,7 @@
 import React from 'react';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withState, withProps } from 'recompose';
@@ -458,8 +458,8 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
-    moment(communicationScheduled.datetime_scheduled) >
-    moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
+    DateTime.fromISO(communicationScheduled.datetime_scheduled) >
+    DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION });
 
   openCommunicationScheduledEditionDialog = (
     communicationScheduled: CommunicationScheduled,
@@ -553,7 +553,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       !!earliestHourToSendCommunications &&
       !!latestHourToSendCommunications
     ) {
-      const now = moment().tz(timezone);
+      const now = DateTime.now().setZone(timezone);
       return (
         earliestHourToSendCommunications > now.hours() ||
         now.hours() >= latestHourToSendCommunications

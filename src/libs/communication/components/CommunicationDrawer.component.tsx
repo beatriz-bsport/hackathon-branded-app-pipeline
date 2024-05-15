@@ -1,11 +1,11 @@
 import React from 'react';
-import moment, { Moment } from 'moment-timezone';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Settings } from 'luxon';
 
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Alert from '@material-ui/lab/Alert';
@@ -35,6 +35,7 @@ import {
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
+import type { LuxonDateTime } from '#src/types';
 
 import { DATE_PICKER_MASK } from '../../../constants';
 import Config from '../../../config';
@@ -149,7 +150,7 @@ type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   actionType: number;
-  communicationScheduledDate: Moment | null;
+  communicationScheduledDate: LuxonDateTime | null;
   communicationScheduledTimePeriod: DateFilterEnum;
   isCommunicationScheduled: boolean;
   isSmsCostReminderModalOpen: boolean;
@@ -306,7 +307,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
   ) => {
     event.preventDefault();
     const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
-      this.state.communicationScheduledDate,
+      this.state.communicationScheduledDate.toISO(),
       'YYYY-MM-DDTHH:mm',
       this.props.timezone,
     );
@@ -519,7 +520,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     if (!this.state.communicationScheduledDate) return true;
     return (
       this.state.communicationScheduledDate >
-      moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute')
+      DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION })
     );
   };
 
@@ -527,7 +528,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     if (!this.state.communicationScheduledDate) return true;
 
     const communicationScheduledHour =
-      this.state.communicationScheduledDate.hour();
+      this.state.communicationScheduledDate.hour;
 
     if (!!this.props?.hoursToSend?.min && !!this.props?.hoursToSend?.max) {
       return (
@@ -611,7 +612,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     event?.preventDefault();
 
     const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
-      this.state.communicationScheduledDate,
+      this.state.communicationScheduledDate.toISO(),
       'YYYY-MM-DDTHH:mm',
       this.props.timezone,
     );
@@ -803,7 +804,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
         !previousState.openCommunicationSchedulingSection,
     }));
 
-  updateCommunicationScheduledDate = (value: Moment) => {
+  updateCommunicationScheduledDate = (value: LuxonDateTime) => {
     this.setState({
       communicationScheduledDate: value,
     });
@@ -823,7 +824,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     if (this.props.communicationScheduledToEdit) {
       this.setState({
         isCommunicationScheduled: true,
-        communicationScheduledDate: moment(
+        communicationScheduledDate: DateTime.fromISO(
           this.props.communicationScheduledToEdit.datetime_scheduled,
         ),
         mailTitle:
@@ -1089,9 +1090,8 @@ class CommunicationDrawer extends React.Component<Props, State> {
                           </Typography>
                           <div className={classes.datePickerSection}>
                             <MuiPickersUtilsProvider
-                              locale={moment.locale()}
-                              moment={moment}
-                              utils={MomentUtils}
+                              locale={Settings.defaultLocale}
+                              utils={LuxonUtils}
                             >
                               <DatePicker
                                 required

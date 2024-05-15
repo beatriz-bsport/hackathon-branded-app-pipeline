@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React, { PureComponent } from 'react';
+import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,12 +21,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
+// @ts-ignore
 import BarCode from 'react-barcode';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-
-import { DateTime } from 'luxon';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -36,17 +35,20 @@ import { Theme } from '@material-ui/core/styles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Cake } from '@material-ui/icons';
 
+// @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
-import { formatAsDate } from '../../../utils/datetime';
 import Avatar from '../../../components/Avatar.component';
 import type { Member } from '../types';
 
+// @ts-expect-error
 import EmailItem from '../../communication/components/EmailItem.component';
+// @ts-expect-error
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import MemberSummaryInfoItem from '#libs/member/components/MemberSummaryInfoItem.component';
+// @ts-expect-error
 import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
 import VaccinationStatus from './VaccinationStatus.component';
@@ -110,25 +112,31 @@ export class MemberSummaryCard extends PureComponent<Props> {
 
   renderMembershipAndBirthday = () => {
     const { member, t } = this.props;
+    const memberBirthday =
+      // @ts-ignore
+      member.consumer?.birthday || DateTime.now().toISODate();
 
     const age = Math.floor(
-      DateTime.now().diff(DateTime.fromISO(member.consumer.birthday), 'years')
-        .years,
+      DateTime.now().diff(DateTime.fromISO(memberBirthday), 'years').years,
     );
 
+    // @ts-ignore
     const isBirthday = member.consumer?.birthday
-      ? DateTime.now().toFormat('MM-dd') ===
-        DateTime.fromISO(member.consumer.birthday).toFormat('MM-dd')
+      ? DateTime.now().day === DateTime.fromISO(memberBirthday).day &&
+        DateTime.now().month === DateTime.fromISO(memberBirthday).month
       : false;
 
     const memberBirthdayValue = `${
-      member.consumer.birthday
+      // @ts-ignore
+      member.consumer?.birthday
         ? t('member:birth.bornIn', {
+            // @ts-ignore
             context: member.consumer.gender,
-            date: DateTime.fromISO(member.consumer.birthday).toFormat('D'),
+            date: DateTime.fromISO(memberBirthday).toLocaleString(),
             age,
           })
         : t('member:birth.unknown', {
+            // @ts-ignore
             context: member.consumer.gender,
           })
     }`;
@@ -217,6 +225,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                     hideContactButton={hideContactButton}
                     openSmsDialog={() => {
                       if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
+                        // @ts-ignore
                         window.location = `sms:${member.consumer.phonenumber.phone_number}`;
                       } else {
                         this.setState({
@@ -227,6 +236,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                     }}
                     phoneNumber={
                       (hasMemberReadInfoPermission &&
+                        // @ts-ignore
                         member.consumer.phonenumber?.phone_number) ||
                       ''
                     }
@@ -237,6 +247,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                 notificationIcon
                 accept_email={member.accept_email}
                 email={
+                  // @ts-ignore
                   (hasMemberReadInfoPermission && member.consumer.email) || ''
                 }
                 hideContactButton={hideContactButton}
@@ -297,6 +308,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
   };
 
   renderAddress = () => {
+    // @ts-ignore
     const { address } = this.props.member.consumer;
     const { companyCountry } = this.props;
     let primary = '';
@@ -358,14 +370,17 @@ export class MemberSummaryCard extends PureComponent<Props> {
             credit={member.credit_account_balance}
             unpaidAmount={member.total_unpaid_amount}
           >
+            {/* @ts-ignore */}
             <Avatar noname user={member.consumer} variant="mediumNoname" />
           </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>
             <Typography className={this.props.classes.firstAndLastName}>
+              {/* @ts-ignore */}
               {member.consumer.first_name} {member.consumer.last_name}
             </Typography>
             <Typography noWrap>
-              {t('member:memberSince') + formatAsDate(member.date_joined)}
+              {t('member:memberSince') +
+                DateTime.fromISO(member.date_joined).toLocaleString()}
             </Typography>
           </div>
         </div>
@@ -436,10 +451,12 @@ export class MemberSummaryCard extends PureComponent<Props> {
     ) {
       return (
         <div className={this.props.classes.termsAndConditions}>
+          {/* @ts-ignore */}
           <Typography inline color="default" component="div" variant="caption">
             <ButtonBase
               onClick={() => this.props.setShowTermsAndConditions(true)}
             >
+              {/* @ts-ignore */}
               <Typography inline color="secondary" variant="caption">
                 {this.props.t('member:termsAndConditions')}
               </Typography>
@@ -447,7 +464,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             {this.props.t('member:memberTermsAccepted', {
               date: DateTime.fromISO(
                 general_terms_and_conditions_date_accepted,
-              ).toFormat('D'),
+              ).toLocaleString(),
             })}
           </Typography>
           <Dialog
@@ -455,6 +472,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             open={this.props.showTermsAndConditions}
           >
             <DialogContent>
+              {/* @ts-ignore */}
               <TypographyMultiline>
                 {general_terms_and_conditions_accepted}
               </TypographyMultiline>
@@ -482,6 +500,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
     if (general_terms_of_use_date_accepted && general_terms_of_use_accepted) {
       return (
         <div className={this.props.classes.termsAndConditions}>
+          {/* @ts-ignore */}
           <Typography inline color="default" component="div" variant="caption">
             <ButtonBase onClick={() => this.props.setShowTermsOfUse(true)}>
               <Typography color="secondary" variant="caption">
@@ -491,7 +510,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             {this.props.t('member:memberTermsAccepted', {
               date: DateTime.fromISO(
                 general_terms_of_use_date_accepted,
-              ).toFormat('D'),
+              ).toLocaleString(),
             })}
           </Typography>
           <Dialog

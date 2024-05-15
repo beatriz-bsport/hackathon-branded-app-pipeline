@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -188,7 +188,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchBookingOptionAsConsumer(
       this.props.membership.company,
       {
-        min_date: moment().format('YYYY-MM-DD'),
+        min_date: DateTime.now().toISODate(),
       },
       {
         onSuccess: (options) => {
@@ -623,7 +623,7 @@ const mapWithHandlers = {
     (props: OwnConnectedStateHandlerProps) => (page?: number) => {
       props.fetchBookingsAndPrivateBookings({
         page,
-        date_start: moment().format('YYYY-MM-DD'),
+        date_start: DateTime.now().toISODate(),
         member: props.membership.id,
         options: {
           onSuccess: (allObj) => {

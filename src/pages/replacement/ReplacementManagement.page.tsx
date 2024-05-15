@@ -1,11 +1,10 @@
-// @ts-nocheck
 import React, { useEffect, useCallback, useMemo, useState } from 'react';
-import moment from 'moment-timezone';
 import { compose, withHandlers } from 'recompose';
 import chroma from 'chroma-js';
 import uniq from 'lodash/uniq';
 import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation, Trans } from 'react-i18next';
+// @ts-expect-error wierd imports
 import Select, { GroupTypeBase, Styles } from 'react-select';
 import classNames from 'classnames';
 
@@ -243,12 +242,14 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         case FILTER_LATE:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             has_requested_late: newValues ? newValues.value : null,
           });
           break;
         case FILTER_CLOSED:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             closing_date_exceeded: newValues ? newValues.value : null,
           });
           break;
@@ -318,6 +319,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         establishmentGroupLoading={props.establishmentGroupLoading}
         establishmentList={props.establishmentList}
         establishmentLoading={props.establishmentLoading}
+        // @ts-expect-error
         metaActivityList={props.metaActivityList}
         metaActivityLoading={props.metaActivityLoading}
         replacementRequestManagerFilter={replacementRequestManagerFilter}
@@ -350,6 +352,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                 isClearable
                 isMulti={false}
                 onChange={(ev) => {
+                  // @ts-expect-error
                   setFilter(ev, FILTER_LATE);
                 }}
                 options={hasRequestedLateOptions}
@@ -373,6 +376,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                 isClearable
                 isMulti={false}
                 onChange={(ev) => {
+                  // @ts-expect-error
                   setFilter(ev, FILTER_CLOSED);
                 }}
                 options={isRequestClosedOptions}
@@ -555,6 +559,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                     timePeriod: _values.timePeriod,
                   });
                 }}
+                // @ts-expect-error
                 timePeriod={
                   replacementRequestOfferHistoryFilter.timePeriod || 'custom'
                 }
@@ -591,6 +596,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         <ReplacementRequestClosingDateExtensionDialog
           loading={updatingReplacementRequestLoading}
           onClose={handleCloseExtensionAction}
+          // @ts-expect-error
           onSubmit={props.postponeReplacementRequestClosingDate}
           // eslint-disable-next-line
           open={extensionDialogOpen}
@@ -614,8 +620,10 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         <ReplacementRequestRefuseDialog
           loading={updatingReplacementRequestLoading}
           onClose={handleCloseRefuseAction}
+          // @ts-expect-error
           onConfirm={refuseReplacementRequest}
           open={refuseDialogOpen}
+          // @ts-expect-error
           replacementRequest={replacementRequestSelected}
         />
       )}
@@ -762,8 +770,11 @@ const selectStyles: Partial<
     }>
   >
 > = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -794,6 +805,7 @@ const selectStyles: Partial<
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -801,10 +813,12 @@ const selectStyles: Partial<
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,

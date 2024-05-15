@@ -5,7 +5,7 @@ import { CircularProgress, Tab, Tabs } from '@material-ui/core';
 import AppBarMUI from '@material-ui/core/AppBar';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -308,7 +308,7 @@ const mapWithHandlers = {
 
       props.fetchBookingsAndPrivateBookings({
         page,
-        date_start: moment().format('YYYY-MM-DD'),
+        date_start: DateTime.now().toISODate(),
         member,
         type,
         options: {

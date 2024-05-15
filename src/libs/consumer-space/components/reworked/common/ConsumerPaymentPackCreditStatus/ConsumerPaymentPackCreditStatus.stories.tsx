@@ -1,11 +1,10 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
-
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { ConsumerPaymentPackCreditStatusForStorybook, type Props } from '.';
 import './styles.css';
+import { DateTime } from 'luxon';
 
 const CreditStatusTemplate = (args: Props) => {
   // @ts-expect-error
@@ -41,8 +40,8 @@ PenaltyStatus.args = {
   consumerPaymentPack: consumerPaymentPackFactory({
     availableCredits: 4,
     usedCredits: 6,
-    penaltyDisabledFrom: moment().startOf('month').format(),
-    penaltyDisabledUntil: moment().endOf('month').format(),
+    penaltyDisabledFrom: DateTime.now().startOf('month').toISO(),
+    penaltyDisabledUntil: DateTime.now().endOf('month').toISO(),
     isDisabled: true,
   }),
   paymentPack: paymentPackFactory({

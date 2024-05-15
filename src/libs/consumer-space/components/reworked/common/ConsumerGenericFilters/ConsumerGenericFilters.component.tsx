@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
 
+import { DateTime } from 'luxon';
 import { Calendar } from '#components/untitledui';
 import ActionTab from '#Fabrique/ActionTab';
 import IconButton from '#Fabrique/IconButton';
 import DatePicker from '#Fabrique/DatePicker';
 
+import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 import './styles.css';
 
-const CALENDAR_INITIAL_DATE = moment().format('YYYY-MM-DD');
+const CALENDAR_INITIAL_DATE = DateTime.now().toFormat(LUXON_ISO_SHORT_DATE);
 
 type Props<TabType> = {
   onDatePickerClick?: (selectedDate: string) => void;

@@ -1,8 +1,8 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import moment from 'moment-timezone';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -80,12 +80,12 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
         variant="body-sm"
       >
         {t('paymentPack:blockedCpp', {
-          blocked_from: moment(consumerPaymentPackPenaltyDisabledFrom).format(
-            'L',
-          ),
-          blocked_until: moment(consumerPaymentPackPenaltyDisabledUntil).format(
-            'L',
-          ),
+          blocked_from: DateTime.fromISO(
+            consumerPaymentPackPenaltyDisabledFrom,
+          ).toFormat('D'),
+          blocked_until: DateTime.fromISO(
+            consumerPaymentPackPenaltyDisabledUntil,
+          ).toFormat('D'),
         })}
       </Typography>
     );

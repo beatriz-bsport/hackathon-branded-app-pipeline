@@ -238,6 +238,13 @@ export class BasketPage extends React.Component<Props> {
   }
 
   componentDidMount() {
+    if (hasRedirectionFailed(this.props.queryParams)) {
+      this.props.snackbarError(
+        this.props.t(
+          'validation.sections.confirmationStatusTitle.errors.generic',
+        ),
+      );
+    }
     this.props.fetchCompanyTheme(this.props.companyId, {
       onSuccess: (theme) => {
         if (theme.enable_multi_localization) {
@@ -493,13 +500,6 @@ export class BasketPage extends React.Component<Props> {
           onSuccess={this.props.onSuccess}
           paymentIntent={this.props.queryParams.payment_intent}
         />
-      );
-    }
-    if (hasRedirectionFailed(this.props.queryParams)) {
-      this.props.snackbarError(
-        this.props.t(
-          'validation.sections.confirmationStatusTitle.errors.generic',
-        ),
       );
     }
 

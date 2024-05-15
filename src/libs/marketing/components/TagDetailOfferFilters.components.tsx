@@ -16,7 +16,7 @@ import {
   DateField,
   Actions,
   defaultHandleSubmit,
-  // @ts-expect-error
+  // @ts-ignore
 } from '#components/forms';
 import { TagAuthorizationFilter } from '../../../pages/marketing/MarketingTagManagement.page';
 
@@ -42,8 +42,7 @@ const OfferDetailFilterSchema = Yup.object().shape({
       function checkIsAfterStart(dateEnd) {
         const { dateStart } = this.parent;
 
-        // @ts-expect-error
-        return DateTime.fromISO(dateStart) <= DateTime.fromISO(dateEnd);
+        return DateTime.fromJSDate(dateStart) <= DateTime.fromJSDate(dateEnd);
       },
     ),
 });
@@ -65,7 +64,7 @@ export function TagDetailOffersHeaderForm() {
           <MaterialUiSingleSelectorField
             isMulti={false}
             name="tagAuthorizationFilter"
-            // @ts-expect-error
+            // @ts-ignore
             options={tagAuthorizationOptions(t)}
             placeholder={t('form.compability.selectPack')}
             title={

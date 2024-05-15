@@ -1,13 +1,12 @@
 // @ts-nocheck
 import React, { Component } from 'react';
 
+import { DateTime } from 'luxon';
 import Grid from '@material-ui/core/Grid';
 import { compose } from 'recompose';
 import { withStyles, WithStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-
-import { Moment } from '../../i18n';
 
 import RuleCard from '#components/marketing/RuleCard.component';
 
@@ -23,7 +22,7 @@ const getRules = (t: TFunction) => [
   {
     id: 1,
     name: `${t('strategy.strategy')} #1`,
-    date: Moment(),
+    date: DateTime.now(),
     conversionRate: 0.04,
     averageBuy: 70,
     sales: 10,
@@ -54,7 +53,7 @@ const getRules = (t: TFunction) => [
   {
     id: 2,
     name: `${t('strategy.strategy')} #2`,
-    date: Moment(),
+    date: DateTime.now(),
     conversionRate: 0.12,
     averageBuy: 20,
     sales: 40,

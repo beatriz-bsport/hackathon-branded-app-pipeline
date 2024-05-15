@@ -1,13 +1,13 @@
-import moment from 'moment-timezone';
+import { Settings } from 'luxon';
 import chroma from 'chroma-js';
 import memoize from 'memoize-one';
 import { getTextColorFromRGB } from '../../utils/color';
 import { WidgetCustomCSS } from '#libs/theme/types';
 
 export const getIntercomLink = () =>
-  `https://intercom.help/bsport-helpcenter/${moment
-    .locale()
-    .slice(0, 2)}/articles/4942264`;
+  `https://intercom.help/bsport-helpcenter/${(
+    Settings.defaultLocale ?? 'en-US'
+  ).slice(0, 2)}/articles/4942264`;
 
 export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
   const {

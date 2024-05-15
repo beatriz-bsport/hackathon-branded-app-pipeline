@@ -18,6 +18,12 @@ export type DateRange = {
   kind?: string;
 };
 
+export type NumberDateRange = {
+  start: number;
+  end: number;
+  kind?: string;
+};
+
 export type StatisticPointTable = {
   loading: boolean;
   data_type: string;
@@ -26,5 +32,16 @@ export type StatisticPointTable = {
 
 export type StatisticPoint = {
   d?: number;
+  v: number;
+};
+
+export type StringStatisticPointTable = {
+  loading: boolean;
+  data_type: string;
+  data: Array<StringStatisticPoint>;
+};
+
+export type StringStatisticPoint = {
+  d?: string;
   v: number;
 };

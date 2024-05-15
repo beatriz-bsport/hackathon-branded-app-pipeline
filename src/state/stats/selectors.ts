@@ -6,7 +6,13 @@ import createCachedSelector from 're-reselect';
 import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
 import type { RootState } from 'src/reducers';
-import { DateRange, StatisticPoint, StatisticPointTable } from './types';
+import type {
+  DateRange,
+  NumberDateRange,
+  StatisticPoint,
+  StringStatisticPoint,
+  StringStatisticPointTable,
+} from './types';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
@@ -17,7 +23,7 @@ import {
 export const mainChartSelector = (state: RootState) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
   (state: RootState) => state.stats.dateRange,
-  (dateRange) => ({
+  (dateRange: NumberDateRange) => ({
     start: moment(dateRange.start),
     end: moment(dateRange.end),
     kind: dateRange.kind,
@@ -101,7 +107,7 @@ export const getStats: (
   },
 );
 
-function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
+function discretizeDataBy(table: StringStatisticPoint[], dateRange: DateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
   if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
     return {
@@ -151,16 +157,16 @@ function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
 
 function discretizeByAndFillMissing(
   dateRange: DateRange,
-  table: Array<StatisticPoint>,
+  table: StringStatisticPoint[],
   duration: string,
   reducer: (
     previousValue: 0,
-    currentValue: StatisticPoint,
+    currentValue: StringStatisticPoint,
     currentIndex: number,
-    array: StatisticPoint[],
+    array: StringStatisticPoint[],
   ) => number,
 ) {
-  let grouped: Dictionary<[StatisticPoint, ...StatisticPoint[]]> = {};
+  let grouped: Dictionary<StringStatisticPoint[]> = {};
 
   if (duration === 'month') {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
@@ -251,7 +257,7 @@ const selectData: (
   state: RootState,
   smartList: number,
   statistic: number,
-) => StatisticPointTable = (state, smartList, statistic) => {
+) => StringStatisticPointTable = (state, smartList, statistic) => {
   if (
     state.stats.bySmartListId[smartList] &&
     state.stats.bySmartListId[smartList][statistic] &&
@@ -269,13 +275,13 @@ const selectData: (
 export const smartlistStatSelector = createCachedSelector(
   selectDateRange,
   selectData,
-  (dateRange, data) => {
+  (dateRange: NumberDateRange, data) => {
     if (data.data_type === 'temporal') {
       const filteredData = data.data
-        .filter((item: StatisticPoint) =>
+        .filter((item: StringStatisticPoint) =>
           moment(item.d).isBefore(moment(dateRange.end)),
         )
-        .filter((item: StatisticPoint) =>
+        .filter((item: StringStatisticPoint) =>
           moment(item.d).isAfter(moment(dateRange.start)),
         );
       const discretizedData = discretizeDataBy(filteredData, {

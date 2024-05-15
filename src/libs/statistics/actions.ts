@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 
-import type { Dispatch, ThunkAction } from '../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types';
 
 import statsAPI, {
   fetchBookingStatistics as fetchBookingStatisticsAPI,
@@ -12,10 +11,12 @@ import statsAPI, {
   fetchPlannedInvoiceStatistics as fetchPlannedInvoiceStatisticsAPI,
   fetchBookingQualitative as fetchBookingQualitativeAPI,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAPI,
+  // @ts-expect-error
 } from './api-deprecated';
 
 import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
 import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+// @ts-expect-error
 import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
@@ -23,16 +24,16 @@ export const statIsLoading = createAction('STATISTICS/IS_LOADING');
 export const statLoaded = createAction('STATISTICS/LOADED');
 export const statError = createAction('STATISTICS/ERROR');
 
-async function fetchStats(dispatch, identifier, callee) {
+async function fetchStats(dispatch: Dispatch, identifier: string, callee: any) {
   dispatch(statIsLoading({ identifier, loading: true }));
   dispatch(statError({ identifier, error: null }));
 
   try {
     const data = (await callee())
-      .map((row) => {
+      .map((row: any) => {
         return { d: moment(row.d, 'YYYY-MM-DD').valueOf(), v: row.v };
       })
-      .sort((u, v) => u.d - v.d);
+      .sort((u: any, v: any) => u.d - v.d);
     dispatch(statLoaded({ identifier, data }));
   } catch (error) {
     dispatch(statError({ identifier, error }));
@@ -40,16 +41,21 @@ async function fetchStats(dispatch, identifier, callee) {
   dispatch(statIsLoading({ identifier, loading: false }));
 }
 
-async function fetchStatsWithTime(dispatch, identifier, callee, params) {
+async function fetchStatsWithTime(
+  dispatch: Dispatch,
+  identifier: string,
+  callee: any,
+  params: any,
+) {
   dispatch(statIsLoading({ identifier, loading: true }));
   dispatch(statError({ identifier, error: null }));
 
   try {
     const data = (await callee(params))
-      .map((row) => {
+      .map((row: any) => {
         return { d: moment(row.d, 'YYYY-MM-DD HH').valueOf(), v: row.v };
       })
-      .sort((u, v) => u.d - v.d);
+      .sort((u: any, v: any) => u.d - v.d);
     dispatch(statLoaded({ identifier, data }));
   } catch (error) {
     dispatch(statError({ identifier, error }));
@@ -147,6 +153,7 @@ async function fetchStatistics(
   dispatch: Dispatch,
   identifier: string,
   params: any,
+  // @ts-ignore
   callee: (any) => void,
 ) {
   dispatch(statIsLoading({ identifier, loading: true }));

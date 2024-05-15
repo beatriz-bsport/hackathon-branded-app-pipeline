@@ -12,15 +12,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TemporalStatistic from '../../../components/graph/TemporalDiagram.component';
 import PieChart from '../../../components/graph/DEPRECATEDPieChart.component';
+import type { DateRange } from '../../../state/stats/types';
 
 import { Moment } from '../../../i18n';
 
 type Props = {
   t: TFunction,
   classes: Object,
-  dateRange: Object,
+  dateRange: DateRange,
   statistics: Object,
-  changeDateRange: () => void,
+  changeDateRange: (params: DateRange) => void,
 };
 
 export const StatsPanel = (props: Props) => {

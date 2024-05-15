@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import moment from 'moment-timezone';
@@ -35,6 +34,7 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    // @ts-ignore
     [dateRangeChange]: (state, { payload: { start, end, kind } }) => {
       return state.set('dateRange', {
         start: start && start.valueOf(),
@@ -42,15 +42,19 @@ export default handleActions(
         kind,
       });
     },
+    // @ts-ignore
     [statIsLoading]: (state, { payload: { identifier, loading } }) => {
       return state.setIn(['stats', identifier, 'isLoading'], loading);
     },
+    // @ts-ignore
     [statLoaded]: (state, { payload: { identifier, data } }) => {
       return state.setIn(['stats', identifier, 'data'], data);
     },
+    // @ts-ignore
     [statError]: (state, { payload: { identifier, error } }) => {
       return state.setIn(['stats', identifier, 'error'], error);
     },
+    // @ts-ignore
     [smartListStats.isLoading]: (state, { payload }) => {
       return state.setIn(
         [
@@ -62,6 +66,7 @@ export default handleActions(
         payload.isLoading,
       );
     },
+    // @ts-ignore
     [smartListStats.resetData]: (state, { payload }) => {
       return state.setIn(
         [
@@ -73,6 +78,7 @@ export default handleActions(
         [],
       );
     },
+    // @ts-ignore
     [smartListStats.success]: (state, { payload }) => {
       return state.merge(
         {
@@ -93,7 +99,9 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-ignore
         ['dataSourceDashboard', 'byUuid', payload.uuid, 'loading'],
+        // @ts-ignore
         payload.loading,
       );
     },
@@ -102,7 +110,9 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-ignore
         ['dataSourceDashboard', 'byUuid', payload.uuid, 'data'],
+        // @ts-ignore
         payload.data,
       );
     },

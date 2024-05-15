@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import StatsPanel from '../../libs/smart-list/components/StatsPanel.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import type { DateRange } from '../../state/stats/types';
 
 import {
   dateRangeSelector,
@@ -30,7 +31,7 @@ type Props = {
   id: number,
   fetchSmartListStats: () => void,
   dateRangeChange: () => void,
-  dateRange: Object,
+  dateRange: DateRange,
 };
 
 export class SmartListDetailStatistic extends React.Component<Props> {

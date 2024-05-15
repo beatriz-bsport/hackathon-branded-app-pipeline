@@ -49,6 +49,7 @@ import {
   getActiveCampaignLinks,
   getAccount,
 } from '#libs/active-campaign/selectors';
+
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import withTitle from '#hocs/with-title.hoc';
 import type { Link, Account } from '#libs/active-campaign/types';
@@ -79,6 +80,7 @@ export class ActiveCampaignPage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    this.props.getSmartLists();
     this.props.fetchActiveCampaignAccount({
       onSuccess: (id) => {
         this.props.getActiveCampaignLists(id);

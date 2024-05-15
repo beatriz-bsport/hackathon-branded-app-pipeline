@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 // @ts-expect-error
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import { State, Dispatch } from '../../state/types';
@@ -57,7 +57,7 @@ export const getGraphActions = (
 export const getStatisticTemporal = (
   state: State,
   identifier: string,
-  range: { start: Moment; end: Moment },
+  range: { start: DateTime; end: DateTime },
   aggregate?: boolean,
 ) => {
   let data = [];
@@ -75,7 +75,7 @@ export const getStatisticTemporal = (
   if (aggregate) {
     // @ts-expect-error
     const _data = data.filter((d) => {
-      if (moment(d.d).isSameOrAfter(moment(range.start))) {
+      if (DateTime.fromISO(d.d) >= range.start) {
         return true;
       }
       countBeforeSelectedDate += d.v;

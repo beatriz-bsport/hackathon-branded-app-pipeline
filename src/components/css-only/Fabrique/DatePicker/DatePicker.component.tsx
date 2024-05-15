@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import moment, { Moment } from 'moment-timezone';
+import React, { useCallback, useMemo, useState } from 'react';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -13,6 +13,9 @@ import {
 import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
 import Menu from '#Fabrique/Menu';
 import YearPicker from './YearPicker';
+import { LUXON_ISO_SHORT_DATE, getLocaleWeekdays } from '#src/utils/datetime';
+
+import type { LuxonDateTime } from '#src/types';
 
 import './styles.css';
 
@@ -27,10 +30,10 @@ export type DatePickerProps = {
 } & Partial<Omit<MenuProps, 'children'>>;
 
 type DatePickerMenuContentProps = {
-  dateDisplayed: Moment;
+  dateDisplayed: LuxonDateTime;
   isYearPickerOpen: boolean;
   nbDisplayedWeeks: number;
-  startingDay: Moment;
+  startingDay: LuxonDateTime;
   dateSelected: string;
   toggleYearPicker: () => void;
   handleChangeDateDisplayed: (
@@ -60,7 +63,7 @@ const DatePickerMenuContent: React.FC<DatePickerMenuContentProps> = React.memo(
           className="bs-fabrique-date-picker__menu__header__date"
           onClick={toggleYearPicker}
         >
-          {dateDisplayed.format('MMMM YYYY')}
+          {dateDisplayed.toFormat('MMMM yyyy')}
           <span
             className={classNames(
               'bs-fabrique-date-picker__menu__header__date__icon',
@@ -110,40 +113,37 @@ const DatePickerMenuContent: React.FC<DatePickerMenuContentProps> = React.memo(
           'bs-fabrique-date-picker__menu__calendar--hidden': isYearPickerOpen,
         })}
       >
-        {Array(7)
-          .fill(0)
-          .map((value, i) => (
-            <div
-              key={`header-${i}`}
-              className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
-            >
-              {moment()
-                .weekday(value + i)
-                .format('ddd')
-                .slice(0, 1)}
-            </div>
-          ))}
+        {getLocaleWeekdays('narrow').map((value, i) => (
+          <div
+            key={`header-${i}`}
+            className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
+          >
+            {value}
+          </div>
+        ))}
         {Array(nbDisplayedWeeks)
           .fill(0)
           .map((trashValueWeek, weekNumber) => {
-            const weekStartingDay = startingDay
-              .clone()
-              .add(7 * weekNumber + trashValueWeek, 'day');
+            const weekStartingDay = startingDay.plus({
+              days: 7 * weekNumber + trashValueWeek,
+            });
 
             return (
               <>
                 {Array(7)
                   .fill(0)
                   .map((trashValueDay, dayNumber) => {
-                    const day = weekStartingDay
-                      .clone()
-                      .add(trashValueDay + dayNumber, 'day');
-                    const dayString = day.format('YYYY-MM-DD');
+                    const day = weekStartingDay.plus({
+                      days: trashValueDay + dayNumber,
+                    });
+                    const dayString = day.toFormat(LUXON_ISO_SHORT_DATE);
                     return (
                       <MarketplaceDatePickerDay
                         key={dayString}
                         date={dayString}
-                        dateDisplayed={dateDisplayed.format('YYYY-MM-DD')}
+                        dateDisplayed={dateDisplayed.toFormat(
+                          LUXON_ISO_SHORT_DATE,
+                        )}
                         dateSelected={dateSelected}
                         handleSelect={handleSelect}
                         isDisabled={isDayDisabled(dayString)}
@@ -168,7 +168,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onClose,
   onSelect,
 }) => {
-  const [dateDisplayed, setDateDisplayed] = useState<Moment>(null);
+  const [dateDisplayed, setDateDisplayed] = useState<LuxonDateTime | null>(
+    DateTime.fromISO(dateSelected),
+  );
 
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
 
@@ -187,18 +189,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   const handleSelectYear = useCallback(
     (year: number) => {
-      setDateDisplayed(dateDisplayed.clone().year(year));
+      setDateDisplayed(dateDisplayed.set({ year }));
       handleCloseYearPicker();
     },
     [dateDisplayed, handleCloseYearPicker],
   );
-
-  // Initialize date sate
-  useEffect(() => {
-    if (!dateDisplayed) {
-      setDateDisplayed(moment(dateSelected));
-    }
-  }, [dateDisplayed, dateSelected, isOpen, handleCloseMenu]);
 
   const handleChangeDateDisplayed = useCallback(
     (type: 'add' | 'subtract') =>
@@ -206,7 +201,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         event.stopPropagation();
         event.preventDefault();
         setDateDisplayed(
-          dateDisplayed.clone().add(type === 'subtract' ? -1 : 1, 'month'),
+          dateDisplayed.plus({ months: type === 'subtract' ? -1 : 1 }),
         );
       },
     [dateDisplayed],
@@ -214,36 +209,35 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   const handleSelect = useCallback(
     (date: string) => () => {
-      onSelect(moment(date).format('YYYY-MM-DD'));
+      onSelect(date);
       handleCloseMenu();
     },
     [handleCloseMenu, onSelect],
   );
 
   const startOfMonth = useMemo(
-    () => moment(dateDisplayed).startOf('month'),
+    () => dateDisplayed.startOf('month'),
     [dateDisplayed],
   );
 
   const startingDay = useMemo(() => {
-    const dayOfWeek = startOfMonth.weekday();
-    return startOfMonth.clone().subtract(dayOfWeek, 'day');
+    const dayOfWeek = startOfMonth.weekday;
+    return startOfMonth.minus({ days: dayOfWeek });
   }, [startOfMonth]);
 
   const nbDisplayedWeeks = useMemo(() => {
-    const endOfMonth = moment(dateDisplayed).endOf('month');
-    const dayOfWeek = startOfMonth.weekday();
-    const endingDate = endOfMonth.clone().add(6 - dayOfWeek, 'day');
+    const endOfMonth = dateDisplayed.endOf('month');
+    const dayOfWeek = startOfMonth.weekday;
+    const endingDate = endOfMonth.plus({ days: 6 - dayOfWeek });
 
-    return Math.ceil(endingDate.diff(startingDay, 'week'));
+    return Math.ceil(endingDate.diff(startingDay, 'week').weeks);
   }, [dateDisplayed, startOfMonth, startingDay]);
 
   const isDayDisabled = useCallback(
     (dayString: string) =>
       disablePast &&
-      moment(dayString)
-        .startOf('day')
-        .isBefore(moment().startOf('day').format()),
+      DateTime.fromISO(dayString).startOf('day').toSeconds() <
+        DateTime.now().startOf('day').toSeconds(),
     [disablePast],
   );
 

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
@@ -166,8 +166,8 @@ export class EstablishmentDetails extends React.Component<Props, State> {
     this.props.fetchRoomBlueprints({ establishment: this.props.id });
     this.props.fetchAssetForBlueprint({ establishment: this.props.id });
     this.props.fetchEstablishmentEvents(this.props.id, {
-      min_date: moment().startOf('month').format('YYYY-MM-DD'),
-      max_date: moment().endOf('month').format('YYYY-MM-DD'),
+      min_date: DateTime.now().startOf('month').toISODate(),
+      max_date: DateTime.now().endOf('month').toISODate(),
     });
   }
 
@@ -354,15 +354,15 @@ export default compose(
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
-    fetchOffersByDay: (momentDate) => {
+    fetchOffersByDay: (luxonDate: DateTime) => {
       fetchEstablishmentEvents(id, {
-        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+        min_date: luxonDate.startOf('month').toISODate(),
+        max_date: luxonDate.endOf('month').toISODate(),
       });
       fetchOffersByDay({
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
+        year: luxonDate.year,
+        month: luxonDate.month,
+        day: luxonDate.day,
       });
     },
   })),

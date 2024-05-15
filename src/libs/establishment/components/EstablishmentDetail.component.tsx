@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import SPORTS from '@bsport/common/lib/master-data/sports';
 import Paper from '@material-ui/core/Paper';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import Moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';
@@ -18,7 +18,6 @@ import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
 import EstablishmentSpotScheduling from './EstablishmentSpotScheduling.component';
-import { DATE_FORMAT } from '../../../utils/datetime';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { centerMarker } from '../../../components/map/utils';
@@ -38,7 +37,7 @@ type OwnProps = {
     day: number;
   }) => void;
   goToOffer: (offerId: number) => void;
-  events: Array<Event>;
+  events: Array<Offer>;
   establishment: Establishment;
 
   getEmails: () => void;
@@ -68,20 +67,20 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 type State = {
-  selectedDay: Object;
+  selectedDay: { [establishmentId: number]: DateTime };
 };
 
 export class EstablishmentDetail extends Component<Props, State> {
-  state = {
+  state: State = {
     selectedDay: {},
   };
 
   onDateClick = (establishmentId: number) => (date: string) => {
-    const momentDay = Moment(date, DATE_FORMAT);
+    const dateTime = DateTime.fromISO(date);
     const { selectedDay } = this.state;
-    selectedDay[establishmentId] = momentDay.startOf('day');
+    selectedDay[establishmentId] = dateTime.startOf('day');
     this.setState({ selectedDay });
-    this.props.fetchOffersByDay(momentDay);
+    this.props.fetchOffersByDay(dateTime);
   };
 
   goToOffer = (o: Offer) => this.props.goToOffer(o.id);
@@ -89,19 +88,18 @@ export class EstablishmentDetail extends Component<Props, State> {
   renderCalendar = (establishment: Establishment) => {
     const { offers, timetableLoading, events } = this.props;
     const { selectedDay } = this.state;
-
     return (
       <div>
         <Calendar
           forceMonthDisplay
-          date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
-          events={events.reduce((acc, o) => {
-            const midnight = Moment(o.date_start).startOf('day');
+          date={(selectedDay[establishment.id] || DateTime.now()).toISODate()}
+          events={events.reduce((acc, offer) => {
+            const midnight = DateTime.fromISO(offer.date_start).startOf('day');
             if (Object.hasOwnProperty.call(events, midnight)) {
-              acc[midnight].push(o);
+              acc[midnight].push(offer);
               return acc;
             }
-            acc[midnight] = [o];
+            acc[midnight] = [offer];
             return acc;
           }, {})}
           onDateChange={this.onDateClick(establishment.id)}

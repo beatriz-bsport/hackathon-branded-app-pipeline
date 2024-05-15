@@ -509,9 +509,9 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       listItemPrimaryText = consumer.name;
     } else {
       listItemPrimaryText =
-        // @ts-ignore
+        // @ts-expect-error
         `${consumer?.first_name || ''}${
-          // @ts-ignore
+          // @ts-expect-error
           consumer?.last_name ? ` ${consumer.last_name}` : ''
         }` || ' - ';
     }
@@ -540,7 +540,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                 <ListItemAvatar>
                   <Avatar
                     src={
-                      // @ts-ignore
+                      // @ts-expect-error
                       consumer ? consumer.photo : null
                     }
                   />
@@ -551,6 +551,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Typography>{listItemPrimaryText}</Typography>
+
                       {
                         // @ts-ignore
                         consumer && consumer.archived && (

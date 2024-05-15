@@ -4,8 +4,8 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import LuxonUtils from '@date-io/luxon';
 import { Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TemporalStatistic from '../../../components/graph/TemporalDiagram.component';
 import PieChart from '../../../components/graph/DEPRECATEDPieChart.component';
-import type { DateRange } from '../../../state/stats/types';
 
 type Props = {
   t: TFunction,
@@ -94,7 +93,6 @@ export const StatsPanel = (props: Props) => {
             onChange={(value) =>
               props.changeDateRange(value, props.dateRange.end, null)
             }
-            returnMoment={false}
             value={props.dateRange.start.toISODate()}
           />
           <DatePicker
@@ -105,7 +103,6 @@ export const StatsPanel = (props: Props) => {
             onChange={(value) =>
               props.changeDateRange(props.dateRange.start, value, null)
             }
-            returnMoment={false}
             value={props.dateRange.end.toISODate()}
           />
         </MuiPickersUtilsProvider>

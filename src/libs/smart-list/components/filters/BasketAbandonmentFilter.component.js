@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
@@ -38,8 +38,8 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
       this.props.onChange({
         basket_value: 1,
         comparator: 2,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: 0,
         duration_second: 0,
         date_filter_type: DATE_BETWEEN,

@@ -7,8 +7,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { DateTime } from 'luxon';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
 import {
@@ -81,8 +81,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
         comparator: 2,
         value: 1,
         value_second: 2,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: -5,
         duration_second: -10,
         date_filter_type: 0,

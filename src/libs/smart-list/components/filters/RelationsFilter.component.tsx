@@ -13,7 +13,7 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
@@ -46,8 +46,8 @@ export class RelationsFilter extends Component<Props> {
         comparator_number_relations: GTE_COMPARATOR,
         date_filter_active: false,
         date_filter_type: DATE_BETWEEN,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: -5,
         duration_second: -10,
 

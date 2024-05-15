@@ -7,8 +7,8 @@ import {
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles } from '@material-ui/styles';
-import moment from 'moment-timezone';
-import MomentUtils from '@date-io/moment';
+import { DateTime, Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -146,9 +146,9 @@ export class CalendarPicker extends Component<Props, State> {
         <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
-          )} ${moment(date).format('L')} ${t(
+          )} ${DateTime.fromISO(date).toFormat('D')} ${t(
             `filters.calendarPicker.text.${date_filter_type}.second`,
-          )} ${moment(date_second).format('L')}`}
+          )} ${DateTime.fromISO(date_second).toFormat('D')}`}
         </Typography>
       );
     }
@@ -177,7 +177,7 @@ export class CalendarPicker extends Component<Props, State> {
         <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
-          )} ${moment(date).format('L')}`}
+          )} ${DateTime.fromISO(date).toFormat('D')}`}
         </Typography>
       );
     }
@@ -200,8 +200,8 @@ export class CalendarPicker extends Component<Props, State> {
       );
 
       this.props.onChange({
-        date_second: this.state.date_second || moment().format('YYYY-MM-DD'),
-        date: this.state.date || moment().format('YYYY-MM-DD'),
+        date_second: this.state.date_second || DateTime.now().toISODate(),
+        date: this.state.date || DateTime.now().toISODate(),
         duration_second: this.renderDurationValuesExit(
           this.state.duration_second,
           this.state.date_filter_type,
@@ -254,9 +254,8 @@ export class CalendarPicker extends Component<Props, State> {
         </div>
 
         <MuiPickersUtilsProvider
-          locale={moment.locale()}
-          moment={moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <div className={classes.calendarsContainer}>
             {/* @ts-expect-error */}
@@ -266,15 +265,15 @@ export class CalendarPicker extends Component<Props, State> {
                   <Calendar
                     // @ts-expect-error
                     autoOk
-                    date={date ? moment(date, 'YYYY-MM-DD') : moment()}
+                    date={date ? DateTime.fromISO(date) : DateTime.now()}
                     maxDate={
                       this.state.date_filter_type === DATE_BETWEEN
-                        ? moment(date_second, 'YYYY-MM-DD')
+                        ? DateTime.fromISO(date_second)
                         : undefined
                     }
                     onChange={(ev) =>
                       this.setState({
-                        date: ev.format('YYYY-MM-DD'),
+                        date: ev.toISODate(),
                       })
                     }
                   />
@@ -290,13 +289,13 @@ export class CalendarPicker extends Component<Props, State> {
                     <Calendar
                       date={
                         date_second
-                          ? moment(date_second, 'YYYY-MM-DD')
-                          : moment()
+                          ? DateTime.fromISO(date_second)
+                          : DateTime.now()
                       }
-                      minDate={moment(date)}
+                      minDate={DateTime.fromISO(date)}
                       onChange={(ev) =>
                         this.setState({
-                          date_second: ev.format('YYYY-MM-DD'),
+                          date_second: ev.toISODate(),
                         })
                       }
                     />

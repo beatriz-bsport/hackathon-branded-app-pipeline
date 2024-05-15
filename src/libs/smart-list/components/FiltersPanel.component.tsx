@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DateTime } from 'luxon';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
 import { compose } from 'recompose';
@@ -8,7 +9,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Chip from '@material-ui/core/Chip';
 import Menu from '@material-ui/core/Menu';
-import { DateTime } from 'luxon';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -457,10 +457,12 @@ export class FiltersPanel extends Component<Props, State> {
               {this.props.csvExportLink
                 ? t('lastGenerated', {
                     date: DateTime.fromSeconds(
-                      parseFloat(this.props.csvExportDate),
+                      // @ts-ignore
+                      this.props.csvExportDate,
                     ).toFormat('D'),
                     time: DateTime.fromSeconds(
-                      parseFloat(this.props.csvExportDate),
+                      // @ts-ignore
+                      this.props.csvExportDate,
                     ).toFormat('t'),
                   })
                 : t('generateHelperText')}

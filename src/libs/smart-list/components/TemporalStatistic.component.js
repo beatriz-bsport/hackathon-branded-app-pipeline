@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { compose } from 'recompose';
 
@@ -10,7 +11,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { DateTime } from 'luxon';
 import { ComposedChart } from '../../../components/graph/Charts.component';
 
 type Props = {
@@ -33,12 +33,12 @@ const color2 = [
 
 function dateFormatter(kind) {
   if (kind === 'month') {
-    return (d) => DateTime.fromISO(d).toFormat('MMM YYYY');
+    return (d) => DateTime.fromISO(d).toFormat('MMMM yyyy');
   }
   if (kind === 'week') {
-    return (d) => `Semaine du ${DateTime.fromISO(d).toFormat('DD MMM YYYY')}`;
+    return (d) => `Semaine du ${DateTime.fromISO(d).toFormat('d MMMM yyyy')}`;
   }
-  return (d) => DateTime.fromISO(d).toFormat('ddd DD MMM');
+  return (d) => DateTime.fromISO(d).toFormat('EEEE d MMMM');
 }
 
 export const TemporalStatistic = React.memo((props: Props) => {

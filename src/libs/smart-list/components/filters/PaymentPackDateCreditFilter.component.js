@@ -9,13 +9,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
+import { Settings } from 'luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import Tooltip from '../../../../components/Tooltip.component';
-import { Moment } from '../../../../i18n';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PaymentPack } from '../../../payment-packs/types';
 import Selector from '../MultiSelector.component';
@@ -115,19 +115,16 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <MuiPickersUtilsProvider
-          locale={Moment.locale()}
-          moment={Moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <div className={classes.datePicker}>
             <InlineDatePicker
               keyboard
               ampm={false}
               className={classes.input}
-              format="YYYY/MM/DD"
-              onChange={(ev) =>
-                onChange({ date_start: ev.format('YYYY-MM-DD') })
-              }
+              format="yyyy/MM/dd"
+              onChange={(ev) => onChange({ date_start: ev.toISODate() })}
               onError={console.error}
               value={filter_data.date_start}
             />
@@ -138,8 +135,8 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
               keyboard
               ampm={false}
               className={classes.input}
-              format="YYYY/MM/DD"
-              onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
+              format="yyyy/MM/dd"
+              onChange={(ev) => onChange({ date_end: ev.toISODate() })}
               onError={console.error}
               value={filter_data.date_end}
             />

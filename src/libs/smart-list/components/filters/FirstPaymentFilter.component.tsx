@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list';
 import CalendarPicker from '../CalendarPicker.component';
 import {
@@ -56,8 +56,8 @@ const FirstPaymentFilter: React.FC<OwnProps> = ({
         first_payment_is_done: true,
         date_filter_active: false,
         date_filter_type: DATE_BETWEEN,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         value_payment_active: false,
         value_payment: 0,
         value_second_payment: 0,

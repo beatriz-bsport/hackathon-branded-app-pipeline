@@ -5,7 +5,7 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   COMPARATORS_DICT_BETWEEN,
   GTE_COMPARATOR,
@@ -88,8 +88,8 @@ const CustomFormsFilterV2: React.FC<OwnProps> = ({
         custom_forms: null,
         all_selected_must_fulfill_condition_v2: NO_FORM,
         date_filter_active: false,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: -5,
         duration_second: -10,
         date_filter_type: DATE_EXACT,

@@ -5,7 +5,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 
 import Select from '@material-ui/core/Select';
@@ -39,8 +39,8 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
         comparator: 2,
         value: 20,
         value_second: 40,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: 0,
         duration_second: 0,
         date_filter_type: 2,

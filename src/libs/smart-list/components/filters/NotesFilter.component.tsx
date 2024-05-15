@@ -12,7 +12,7 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { MaterialStyleType } from '../../../../utils/types';
 import CalendarPicker from '../CalendarPicker.component';
 import { DATE_EXACT } from '../constants';
@@ -40,8 +40,8 @@ export class NotesFilter extends Component<Props> {
       this.props.onChange({
         note_condition: ANY_NOTE,
         date_filter_active: false,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: -5,
         duration_second: -10,
         date_filter_type: DATE_EXACT,

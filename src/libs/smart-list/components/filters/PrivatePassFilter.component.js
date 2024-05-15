@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
@@ -57,13 +57,13 @@ export class PrivatePassFilter extends Component<Props, state> {
         credit_comparator: 2,
         credit_value: 1,
         credit_value_second: 4,
-        expiration_date: moment().format('YYYY-MM-DD'),
-        expiration_date_second: moment().format('YYYY-MM-DD'),
+        expiration_date: DateTime.now().toISODate(),
+        expiration_date_second: DateTime.now().toISODate(),
         expiration_duration: 0,
         expiration_duration_second: 6,
         expiration_date_filter_type: DURATION_AFTER,
-        date_bought: moment().format('YYYY-MM-DD'),
-        date_bought_second: moment().format('YYYY-MM-DD'),
+        date_bought: DateTime.now().toISODate(),
+        date_bought_second: DateTime.now().toISODate(),
         duration_bought: 0,
         duration_bought_second: 0,
         date_filter_type: DATE_BETWEEN,

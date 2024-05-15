@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { createStyles, Switch, Theme, withStyles } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   COMPARATORS_DICT_BETWEEN,
   GTE_COMPARATOR,
@@ -12,6 +12,7 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '#components/DelayedNumericInput.component';
 
+// @ts-expect-error
 import Selector from '../MultiSelector.component';
 import CustomFormListItem from '#libs/custom-form/components/CustomFormListItem.component';
 import { MaterialStyleType } from '../../../../utils/types';
@@ -53,8 +54,8 @@ export class CustomFormsFilter extends Component<Props> {
         has_filled: false,
         all_selected_must_fulfill_condition: false,
         date_filter_active: false,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: -5,
         duration_second: -10,
         date_filter_type: DATE_EXACT,

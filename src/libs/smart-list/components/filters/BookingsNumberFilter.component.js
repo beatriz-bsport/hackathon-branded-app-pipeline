@@ -5,7 +5,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -76,8 +76,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
         coaches: [],
         value: 1,
         value_second: 2,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration: 5,
         duration_second: 6,
         date_filter_type: DATE_BETWEEN,

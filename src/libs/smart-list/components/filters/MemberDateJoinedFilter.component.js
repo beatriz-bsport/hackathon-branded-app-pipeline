@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import CalendarPicker from '../CalendarPicker.component';
 
@@ -22,8 +22,8 @@ export class MemberDateJoinedFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.isNew) {
       this.props.onChange({
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         duration_second: 0,
         duration: 0,
         date_filter_type: DATE_EXACT,

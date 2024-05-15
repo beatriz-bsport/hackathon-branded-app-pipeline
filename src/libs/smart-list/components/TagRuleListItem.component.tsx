@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -8,7 +9,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
-import moment from 'moment-timezone';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
@@ -97,7 +97,9 @@ export const TagRuleListItem = (props: Props) => {
           <AccessTimeIcon />
           <Typography>
             {t('tag_rules.activeSince', {
-              since: `${moment(props.tagRule.date_created).format('L')}`,
+              since: `${DateTime.fromISO(props.tagRule.date_created).toFormat(
+                'D',
+              )}`,
               interpolation: { escapeValue: false },
             })}
           </Typography>

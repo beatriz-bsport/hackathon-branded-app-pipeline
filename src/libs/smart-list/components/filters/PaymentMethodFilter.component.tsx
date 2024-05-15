@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { Theme } from '@material-ui/core';
 import { DATE_BETWEEN, DATE_BEFORE, DATE_AFTER } from '../constants';
@@ -29,8 +29,8 @@ export class PaymentMethodFilter extends Component<Props> {
     if (this.props.isNew) {
       this.props.onChange({
         owns_payment_method: 0,
-        date: moment().format('YYYY-MM-DD'),
-        date_second: moment().format('YYYY-MM-DD'),
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
         date_filter_type: 0,
       });
     }

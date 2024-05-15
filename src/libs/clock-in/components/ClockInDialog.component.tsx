@@ -1,5 +1,3 @@
-// @ts-nocheck
-/* eslint-disable no-empty-pattern */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
@@ -66,6 +64,7 @@ type Props = {
     },
     options: OptionPaginatedCallback<Role>,
   ) => void;
+  // eslint-disable-next-line no-empty-pattern
   getLastClockin: ({}) => Promise<void>;
   onClose: () => void;
 };
@@ -118,12 +117,15 @@ const ClockInDialog: React.FC<Props> = ({
         {
           onSuccess: (data) => {
             setSuccessData({
+              // @ts-ignore
               last_clock_in: data?.date_start,
+              // @ts-ignore
               last_clock_out: data?.date_end,
             });
             setSelfProcessing(false);
             getLastClockin({});
 
+            // @ts-ignore
             if (data?.date_end) {
               setMode(CLOCK_IN_SUCCESS);
             }
@@ -323,6 +325,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
   },
   iconColor: {
+    // @ts-expect-error
     fill: getTextColorFromRGB(theme.palette.primary.main),
   },
   icon: {
@@ -340,6 +343,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   textColor: {
     marginLeft: theme.spacing(2),
+    // @ts-expect-error
     color: getTextColorFromRGB(theme.palette.primary.main),
   },
   spacing: {
@@ -360,4 +364,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default ClockInDialog;
+export default React.memo(ClockInDialog);

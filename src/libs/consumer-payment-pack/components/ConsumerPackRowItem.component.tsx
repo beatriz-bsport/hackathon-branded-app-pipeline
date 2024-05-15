@@ -509,7 +509,9 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       listItemPrimaryText = consumer.name;
     } else {
       listItemPrimaryText =
+        // @ts-ignore
         `${consumer?.first_name || ''}${
+          // @ts-ignore
           consumer?.last_name ? ` ${consumer.last_name}` : ''
         }` || ' - ';
     }
@@ -536,6 +538,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             >
               {hideConsumer ? null : (
                 <ListItemAvatar>
+                  {/*  @ts-ignore */}
                   <Avatar src={consumer ? consumer.photo : null} />
                 </ListItemAvatar>
               )}
@@ -543,6 +546,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                 primary={
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {/* ts-ignore */}
                       <Typography>{listItemPrimaryText}</Typography>
 
                       {

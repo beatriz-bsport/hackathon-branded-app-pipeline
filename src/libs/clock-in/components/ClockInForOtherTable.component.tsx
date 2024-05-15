@@ -1,11 +1,8 @@
-// @ts-nocheck
-// @flow
-
 import React, { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 import MUIDataTable from 'mui-datatables';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
 
 import TableFooter from '@material-ui/core/TableFooter';
@@ -218,9 +215,11 @@ const ClockInForOtherTable: React.FC<Props> = ({
           email,
           role: getRoleName(role, t),
           lastClockIn: attendance?.date_start
-            ? `${moment.unix(attendance?.date_start).format('L')} - ${moment
-                .unix(attendance?.date_start)
-                .format('HH:mm')}`
+            ? `${DateTime.fromSeconds(
+                attendance?.date_start,
+              ).toLocaleString()} - ${DateTime.fromSeconds(
+                attendance?.date_start,
+              ).toLocaleString(DateTime.TIME_SIMPLE)}`
             : '-',
           status: (
             <div
@@ -270,7 +269,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
             </Button>
           ),
         }),
-      )}
+      )} // @ts-ignore
       options={options}
     />
   );
@@ -360,4 +359,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default ClockInForOtherTable;
+export default React.memo(ClockInForOtherTable);

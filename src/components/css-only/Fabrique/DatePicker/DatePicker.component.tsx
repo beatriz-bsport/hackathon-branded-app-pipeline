@@ -236,8 +236,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const isDayDisabled = useCallback(
     (dayString: string) =>
       disablePast &&
-      DateTime.fromISO(dayString).startOf('day').toSeconds() <
-        DateTime.now().startOf('day').toSeconds(),
+      DateTime.fromISO(dayString).startOf('day') <
+        DateTime.now().startOf('day'),
     [disablePast],
   );
 

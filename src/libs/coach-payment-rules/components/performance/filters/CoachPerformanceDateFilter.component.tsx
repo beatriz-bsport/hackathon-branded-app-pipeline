@@ -1,5 +1,4 @@
 import React from 'react';
-import moment, { Moment as MomentType } from 'moment-timezone';
 import * as Yup from 'yup';
 import {
   withFormik,
@@ -28,6 +27,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
+import { DateTime } from 'luxon';
 // @ts-ignore
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
@@ -36,8 +36,8 @@ import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 
 type InitialValues = {
-  dateStart: MomentType;
-  frequency: 'w' | 'M'; // comes from moment.unitOfTime.Base
+  dateStart: DateTime;
+  frequency: 'w' | 'M';
   establishmentsSelected: number[];
 };
 
@@ -60,8 +60,8 @@ type OwnProps = {
   ) => void;
   handleDateFiltersChange: (
     data: {
-      dateStart: MomentType;
-      dateEnd: MomentType;
+      dateStart: DateTime;
+      dateEnd: DateTime;
     },
     options?: OptionCallback,
   ) => void;
@@ -72,8 +72,8 @@ type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (
     data: {
-      dateStart: MomentType;
-      dateEnd: MomentType;
+      dateStart: DateTime;
+      dateEnd: DateTime;
     },
     options?: OptionCallback,
   ) => Promise<void>;
@@ -146,7 +146,9 @@ export function CoachPerformanceForm(props: Props) {
       handleDateFiltersChange(
         {
           ...values,
-          dateEnd: moment(values.dateStart).add(1, values.frequency),
+          dateEnd: values.dateStart.plus({
+            [values.frequency === 'M' ? 'months' : 'weeks']: 1,
+          }),
         },
         {
           onSuccess: () => setSubmitting(false),
@@ -154,8 +156,12 @@ export function CoachPerformanceForm(props: Props) {
         },
       );
       updateStateDate(
-        moment(values.dateStart).unix(),
-        moment(values.dateStart).add(1, values.frequency).unix(),
+        values.dateStart.toUnixInteger(),
+        values.dateStart
+          .plus({
+            [values.frequency === 'M' ? 'months' : 'weeks']: 1,
+          })
+          .toUnixInteger(),
       );
     }
   }, [
@@ -316,7 +322,7 @@ const CoachPerformanceSchema = Yup.object().shape({
 export default compose<any, OwnProps>(
   withFormik<Props, InitialValues>({
     mapPropsToValues: () => ({
-      dateStart: moment().startOf('month'),
+      dateStart: DateTime.now().startOf('month'),
       frequency: 'M',
       establishmentsSelected: [],
     }),
@@ -334,7 +340,9 @@ export default compose<any, OwnProps>(
     ) => {
       const timeIntervalValue = {
         ...values,
-        dateEnd: moment(values.dateStart).add(1, values.frequency),
+        dateEnd: values.dateStart.plus({
+          [values.frequency === 'M' ? 'months' : 'weeks']: 1,
+        }),
       };
       if (isEstablishmentFilterEmbedded) {
         setSelectedEstablishmentFilter(values.establishmentsSelected, []);

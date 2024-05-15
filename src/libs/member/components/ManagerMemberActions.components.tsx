@@ -12,14 +12,11 @@ import { Theme, useTheme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Send } from '@material-ui/icons';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { Member } from '../types';
 import RedFab from '#components/button/RedFab.component';
 import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
-import Config from '../../../config';
-import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
@@ -28,6 +25,7 @@ type OwnProps = {
   interrogateMemberStatus: () => void;
   unArchiveMember: () => void;
   member: Member;
+  // eslint-disable-next-line react/no-unused-prop-types
   openCommunicationDrawer: () => void;
   numberOfUnreadAnswers: number;
 };
@@ -44,70 +42,33 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         requiredPermission={[
           'product.contract.allowed_actions.createBillingPlan',
           'billing.allowed_actions.createInvoice',
-          'billing.allowed_actions.takePayment',
-          'member.allowed_actions.communication',
         ]}
       >
         {([
           hasCreateBillingPlanPermission,
           hasCreateInvoicePermission,
-          hasTakePaymentPermission,
-          hasMemberCommunicationPermission,
         ]: boolean[]) => (
           <FabWithItems
             badgeValue={props.numberOfUnreadAnswers}
-            items={
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'local'
-                ? [
-                    hasMemberCommunicationPermission && {
-                      label: t('communication'),
-                      onClick: props.openCommunicationDrawer,
-                      badgeValue: props.numberOfUnreadAnswers,
-                    },
-                    hasCreateInvoicePermission && {
-                      label: t('paymentAction.toBill'),
-                      onClick: () => props.billMember(),
-                    },
-                    hasCreateBillingPlanPermission &&
-                      hasCreateInvoicePermission &&
-                      hasTakePaymentPermission && {
-                        label: t('paymentAction.toSubscribe'),
-                        onClick: () => props.subscribeMember(),
-                      },
-                    props.member?.archived
-                      ? {
-                          label: t('restoreMember'),
-                          onClick: () => props.unArchiveMember(),
-                        }
-                      : {
-                          label: t('archiveMember'),
-                          onClick: () => props.interrogateMemberStatus(),
-                        },
-                  ]
-                : [
-                    hasCreateInvoicePermission && {
-                      label: t('paymentAction.toBill'),
-                      onClick: () => props.billMember(),
-                    },
-                    hasCreateBillingPlanPermission &&
-                      hasCreateInvoicePermission &&
-                      hasTakePaymentPermission && {
-                        label: t('paymentAction.toSubscribe'),
-                        onClick: () => props.subscribeMember(),
-                      },
-                    props.member?.archived
-                      ? {
-                          label: t('restoreMember'),
-                          onClick: () => props.unArchiveMember(),
-                        }
-                      : {
-                          label: t('archiveMember'),
-                          onClick: () => props.interrogateMemberStatus(),
-                        },
-                  ]
-            }
+            items={[
+              hasCreateInvoicePermission && {
+                label: t('paymentAction.toBill'),
+                onClick: () => props.billMember(),
+              },
+              hasCreateBillingPlanPermission && {
+                label: t('paymentAction.toSubscribe'),
+                onClick: () => props.subscribeMember(),
+              },
+              props.member?.archived
+                ? {
+                    label: t('restoreMember'),
+                    onClick: () => props.unArchiveMember(),
+                  }
+                : {
+                    label: t('archiveMember'),
+                    onClick: () => props.interrogateMemberStatus(),
+                  },
+            ]}
             label={t('actions')}
           />
         )}
@@ -120,33 +81,14 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         'product.contract.allowed_actions.createBillingPlan',
         'member.allowed_actions.delete',
         'billing.allowed_actions.createInvoice',
-        'billing.allowed_actions.takePayment',
-        'member.allowed_actions.communication',
       ]}
     >
       {([
         hasCreateBillingPlanPermission,
         hasDeleteMemberPermission,
         hasCreateInvoicePermission,
-        hasTakePaymentPermission,
-        hasMemberCommunicationPermission,
       ]: boolean[]) => (
         <div className={classes.bottomButtonContainer}>
-          {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') &&
-            hasMemberCommunicationPermission && (
-              <Fab
-                className={classes.bottomButton}
-                color="secondary"
-                onClick={props.openCommunicationDrawer}
-                variant="extended"
-              >
-                <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
-                <Send className={classes.leftIcon} />
-                {t('communication')}
-              </Fab>
-            )}
           {hasCreateInvoicePermission && (
             <Fab
               className={classes.bottomButton}
@@ -164,19 +106,17 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
               </>
             </Fab>
           )}
-          {hasCreateBillingPlanPermission &&
-            hasCreateInvoicePermission &&
-            hasTakePaymentPermission && (
-              <Fab
-                className={classes.bottomButton}
-                color="secondary"
-                onClick={props.subscribeMember}
-                variant="extended"
-              >
-                <PaymentIcon className={classes.leftIcon} />
-                {t('paymentAction.toSubscribe')}
-              </Fab>
-            )}
+          {hasCreateBillingPlanPermission && (
+            <Fab
+              className={classes.bottomButton}
+              color="secondary"
+              onClick={props.subscribeMember}
+              variant="extended"
+            >
+              <PaymentIcon className={classes.leftIcon} />
+              {t('paymentAction.toSubscribe')}
+            </Fab>
+          )}
           {hasDeleteMemberPermission &&
           props.member &&
           props.member.archived ? (

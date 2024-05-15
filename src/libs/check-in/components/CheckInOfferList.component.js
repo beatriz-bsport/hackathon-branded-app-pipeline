@@ -12,8 +12,8 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Immutable from 'seamless-immutable';
-import moment from 'moment-timezone';
 import { components } from 'react-select';
+import { DateTime } from 'luxon';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
@@ -71,23 +71,17 @@ const DropdownIndicator: React.FC<
 
 const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
-    // dates : start, end and moment
-    const momentDate = moment();
-    const dateStart = moment(props.offer.date_start);
-    const dateEnd = moment(props.offer.date_start).add(
-      props.offer.duration_minute,
-      'minutes',
-    );
+    // dates : start, end and datetime
+    const datetime = DateTime.now();
+    const dateStart = DateTime.fromISO(props.offer.date_start);
+    const dateEnd = dateStart.plus({
+      minute: props.offer.duration_minute,
+    });
 
     // boolean : if the activity has started yet or is in progress
-    const notStartedYet = !!momentDate.isBefore(moment(props.offer.date_start));
-    const inProgress = !!momentDate.isBetween(
-      moment(props.offer.date_start),
-      moment(props.offer.date_start).add(
-        props.offer.duration_minute,
-        'minutes',
-      ),
-    );
+    const notStartedYet = datetime < DateTime.fromISO(props.offer.date_start);
+
+    const inProgress = dateStart <= datetime && datetime <= dateEnd;
 
     // Color  and time Status
     const color = inProgress ? 'primary' : 'secondary';
@@ -95,9 +89,9 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
     const timeState = inProgress ? 'inProgress' : notInProgress;
 
     // time To show in the interface
-    const timeToShowInProgress = momentDate.diff(dateStart, 'seconds');
-    const timeToShowNotStartedYet = dateStart.diff(momentDate, 'seconds');
-    const timeToShowFinished = momentDate.diff(dateEnd, 'seconds');
+    const timeToShowInProgress = datetime.diff(dateStart, 'seconds');
+    const timeToShowNotStartedYet = dateStart.diff(datetime, 'seconds');
+    const timeToShowFinished = datetime.diff(dateEnd, 'seconds');
     const timeToShowNotInProgress = notStartedYet
       ? timeToShowNotStartedYet
       : timeToShowFinished;
@@ -123,7 +117,7 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
               <Countdown
                 color={color}
                 currentTime={props.currentTime}
-                timeToShow={timeToShow}
+                timeToShow={timeToShow.as('seconds')}
               />
             </div>
           </React.Fragment>
@@ -153,10 +147,10 @@ export class CheckInOfferList extends Component<Props, State> {
 
   getOffersToDisplay = () => {
     const { hours, minutes } = minsToHrMins(this.props.minutesToConvert);
-    return this.props.offers.filter((o) =>
-      moment(o.date_start).isAfter(
-        moment().subtract(hours, 'hour').subtract(minutes, 'minute'),
-      ),
+    return this.props.offers.filter(
+      (o) =>
+        DateTime.fromISO(o.date_start) >
+        DateTime.now().minus({ hours, minutes }),
     );
   };
 

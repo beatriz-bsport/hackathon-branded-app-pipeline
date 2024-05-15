@@ -4,7 +4,7 @@ import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -110,11 +110,11 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
 
   refreshData = () => {
     this.props.fetchEstablishments();
-    const date = moment();
+    const date = DateTime.now();
     this.props.fetchOffersByDay({
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date(),
+      year: date.year,
+      month: date.month,
+      day: date.day,
     });
   };
 

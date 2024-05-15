@@ -1,14 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Form, withFormik, FormikProps } from 'formik';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
+// @ts-expect-error
 import { PriceField, Submit } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { CashBook, CashBookUpdate, Transaction } from '../types';
@@ -148,7 +148,7 @@ export const CashBookFormikHOC = withFormik<FormProps, Transaction>({
     { props: { onSubmit, setOpenCash }, setSubmitting },
   ) => {
     onSubmit(
-      { ...values, dateUpdated: moment().format() },
+      { ...values, dateUpdated: DateTime.now().toISO() },
       {
         onSuccess: () => setSubmitting(false),
         onError: () => setSubmitting(false),

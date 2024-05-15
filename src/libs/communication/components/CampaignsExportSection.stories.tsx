@@ -2,7 +2,7 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import CampaignsExportSection from './CampaignsExportSection.component';
 
@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof CampaignsExportSection> = (
 export const ExportSection = Template.bind({});
 ExportSection.args = {
   csvExportLink: 'fake link',
-  csvExportDate: moment(faker.date.past().toString()).format('DD/MM/YYYY'),
+  csvExportDate: DateTime.fromISO(faker.date.past().toString()).toISODate(),
   csvExportLoading: false,
   fetchRecipientsNumber: actionData.fetchRecipientsNumberAllCampaignsIncluded,
 };

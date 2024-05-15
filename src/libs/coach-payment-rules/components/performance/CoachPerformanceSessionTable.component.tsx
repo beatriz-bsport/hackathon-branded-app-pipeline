@@ -113,11 +113,9 @@ export function CoachPerformanceSessionTable(props: Props) {
                       ],
                       performances.map((session) => [
                         session.session_name,
-                        `${DateTime.fromISO(
-                          session.date_start,
-                        ).toLocaleString()} ${formatISOStringAsTime(
-                          session.date_start,
-                        )}`,
+                        `${DateTime.fromISO(session.date_start).toLocaleString(
+                          DateTime.DATE_SHORT,
+                        )} ${formatISOStringAsTime(session.date_start)}`,
                         session.duration_minute,
                         session.establishment_title,
                         isMultiLocalizationEnabled &&
@@ -209,11 +207,9 @@ export function CoachPerformanceSessionTable(props: Props) {
               >
                 <TableCell align="left">{session.session_name}</TableCell>
                 <TableCell align="right">
-                  {`${DateTime.fromISO(
-                    session.date_start,
-                  ).toLocaleString()} ${formatISOStringAsTime(
-                    session.date_start,
-                  )}`}
+                  {`${DateTime.fromISO(session.date_start).toLocaleString(
+                    DateTime.DATE_SHORT,
+                  )} ${formatISOStringAsTime(session.date_start)}`}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(session.duration_minute, t)}

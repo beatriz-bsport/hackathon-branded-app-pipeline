@@ -35,7 +35,7 @@ export const CampaignsExportSection: React.FC<Props> = ({
 
   const [periodFilter, setPeriodFilter] =
     React.useState<CampaignExportStartEndDates>({
-      start_date: DateTime.now().plus({ days: -1 }).toISODate(),
+      start_date: DateTime.now().minus({ day: 1 }).toISODate(),
       end_date: DateTime.now().toISODate(),
     });
 
@@ -100,12 +100,12 @@ export const CampaignsExportSection: React.FC<Props> = ({
         <Typography>
           {csvExportLink
             ? t('lastGenerated', {
-                date: DateTime.fromSeconds(parseFloat(csvExportDate)).toFormat(
-                  'D',
-                ),
-                time: DateTime.fromSeconds(parseFloat(csvExportDate)).toFormat(
-                  't',
-                ),
+                date: DateTime.fromSeconds(
+                  parseFloat(csvExportDate),
+                ).toLocaleString(DateTime.DATE_SHORT),
+                time: DateTime.fromSeconds(
+                  parseFloat(csvExportDate),
+                ).toLocaleString(DateTime.TIME_SIMPLE),
               })
             : t('generateHelperText')}
         </Typography>

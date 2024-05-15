@@ -1,11 +1,11 @@
 import React from 'react';
+import { DateTime, Settings } from 'luxon';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+import LuxonUtils from '@date-io/luxon';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import LuxonUtils from '@date-io/luxon';
-import { DateTime, Settings } from 'luxon';
 
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Alert from '@material-ui/lab/Alert';
@@ -35,9 +35,7 @@ import {
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
-import type { LuxonDateTime } from '#src/types';
 
-import { DATE_PICKER_MASK } from '../../../constants';
 import Config from '../../../config';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
@@ -63,10 +61,7 @@ import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
-import {
-  formatAsDatetimeAdapted,
-  isAmPmTimeFormatDEPRECATED,
-} from '#utils/datetime';
+import { isAmPmTimeFormatDEPRECATED } from '#utils/datetime';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
 import CustomMuiThemeWrapper from '#components/wrappers/CustomMuiThemeWrapper.component';
@@ -150,7 +145,7 @@ type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   actionType: number;
-  communicationScheduledDate: LuxonDateTime | null;
+  communicationScheduledDate: DateTime | null;
   communicationScheduledTimePeriod: DateFilterEnum;
   isCommunicationScheduled: boolean;
   isSmsCostReminderModalOpen: boolean;
@@ -302,15 +297,21 @@ class CommunicationDrawer extends React.Component<Props, State> {
   handleCostReminderModalOnClose = () =>
     this.setState({ isSmsCostReminderModalOpen: false });
 
+  formatScheduledDate() {
+    return `${this.state.communicationScheduledDate
+      .setZone(this.props.timezone)
+      .toISODate()}T${this.state.communicationScheduledDate
+      .setZone(this.props.timezone)
+      .toFormat('HH:mm')}`;
+  }
+
   handleSmsSendingOnClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
-    const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
-      this.state.communicationScheduledDate.toISO(),
-      'YYYY-MM-DDTHH:mm',
-      this.props.timezone,
-    );
+
+    const communicationScheduledDateFormatted = this.formatScheduledDate();
+
     if (this.state.isCommunicationScheduled) {
       if (this.props.communicationScheduledToEdit) {
         this.props.editScheduledMessage({
@@ -520,7 +521,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     if (!this.state.communicationScheduledDate) return true;
     return (
       this.state.communicationScheduledDate >
-      DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION })
+      DateTime.now().plus({ minute: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION })
     );
   };
 
@@ -611,11 +612,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
   onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event?.preventDefault();
 
-    const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
-      this.state.communicationScheduledDate.toISO(),
-      'YYYY-MM-DDTHH:mm',
-      this.props.timezone,
-    );
+    const communicationScheduledDateFormatted = this.formatScheduledDate();
 
     switch (this.state.actionType) {
       case WRITE_EMAIL:
@@ -804,7 +801,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
         !previousState.openCommunicationSchedulingSection,
     }));
 
-  updateCommunicationScheduledDate = (value: LuxonDateTime) => {
+  updateCommunicationScheduledDate = (value: DateTime) => {
     this.setState({
       communicationScheduledDate: value,
     });
@@ -847,13 +844,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
           this.props.communicationScheduledToEdit.email_resend_delay || 0,
       });
     }
-  };
-
-  getDatePickerMask = (value: string) => {
-    if (value) {
-      return DATE_PICKER_MASK;
-    }
-    return [];
   };
 
   getSubmitLabel = () => {
@@ -1097,7 +1087,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                                 required
                                 adornmentPosition="start"
                                 className={classes.dateAndTimePickers}
-                                format="L"
+                                format="D"
                                 helperText={null}
                                 id="offer-form-date-start-input"
                                 InputProps={{
@@ -1111,7 +1101,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
                                     </InputAdornment>
                                   ),
                                 }}
-                                mask={this.getDatePickerMask}
                                 onChange={this.updateCommunicationScheduledDate}
                                 placeholder={t('scheduled.chooseDate')}
                                 size="small"

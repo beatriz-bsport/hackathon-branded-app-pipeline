@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { DateTime, Interval } from 'luxon';
 import ConsumerSubscriptionCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import ConsumerSubscriptionDetailsCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import Typography from '#Fabrique/Typography';
@@ -78,12 +78,10 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
     () =>
       formatAsDate(
         selectedSubscription?.pauses?.find((pause) =>
-          moment().isBetween(
-            pause.from_date,
-            pause.date_ended,
-            undefined,
-            '[]',
-          ),
+          Interval.fromDateTimes(
+            DateTime.fromISO(pause.from_date),
+            DateTime.fromISO(pause.date_ended),
+          ).contains(DateTime.now()),
         )?.date_ended,
       ),
     [selectedSubscription?.pauses],
@@ -93,8 +91,8 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
 
   const selectedSubscriptionsFuturePauses = useMemo(
     () =>
-      selectedSubscription?.pauses?.filter((pause) =>
-        moment().isBefore(pause.from_date),
+      selectedSubscription?.pauses?.filter(
+        (pause) => DateTime.now() < DateTime.fromISO(pause.from_date),
       ),
     [selectedSubscription?.pauses],
   );

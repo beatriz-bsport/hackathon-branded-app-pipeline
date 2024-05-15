@@ -2,9 +2,9 @@ import React from 'react';
 import { ConsumerSubscriptionDetailsCardStorybook } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { subscriptionFactory } from '#libs/subscription/factory';
-import moment from 'moment-timezone';
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 import { fakeFailedInvoices, fakeSuccessfulInvoices } from './fakeData';
+import { DateTime } from 'luxon';
 
 const SUBSCRIPTION = subscriptionFactory();
 
@@ -136,7 +136,9 @@ export default {
     },
     subtitleDate: {
       description: "Display a date depending on subscription's status",
-      defaultValue: moment(SUBSCRIPTION.first_billing_date).format('L'),
+      defaultValue: DateTime.fromISO(SUBSCRIPTION.first_billing_date).toFormat(
+        'D',
+      ),
     },
     subscriptionInterval: {
       description: 'Interval of the subscription',
@@ -151,13 +153,15 @@ export default {
     },
     subscriptionNextPaymentDate: {
       description: 'Next payment date',
-      defaultValue: moment(SUBSCRIPTION.next_billing_date).format('L'),
+      defaultValue: DateTime.fromISO(SUBSCRIPTION.next_billing_date).toFormat(
+        'D',
+      ),
     },
     termsDate: {
       description: 'Date when terms have been accepted',
-      defaultValue: moment(SUBSCRIPTION.contract_terms_date_accepted).format(
-        'L',
-      ),
+      defaultValue: DateTime.fromISO(
+        SUBSCRIPTION.contract_terms_date_accepted,
+      ).toFormat('D'),
     },
   },
 } as ComponentMeta<typeof ConsumerSubscriptionDetailsCardStorybook>;

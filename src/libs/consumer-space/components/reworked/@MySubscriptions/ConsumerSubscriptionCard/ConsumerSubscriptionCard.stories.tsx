@@ -1,8 +1,8 @@
 import React from 'react';
 import { ConsumerSubscriptionCardStorybook } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import moment from 'moment-timezone';
 import { subscriptionFactory } from '#libs/subscription/factory';
+import { DateTime } from 'luxon';
 
 ConsumerSubscriptionCardStorybook.displayName = 'ConsumerSubscriptionCard';
 const SUBSCRIPTION = subscriptionFactory();
@@ -16,7 +16,9 @@ const ConsumerSubscriptionCardTemplate: ComponentStory<
 const defaultArgs = {
   recurrence: SUBSCRIPTION.recurrence_basis,
   subscriptionName: SUBSCRIPTION.name_without_member_name,
-  subscriptionDate: moment(SUBSCRIPTION.first_billing_date).format('L'),
+  subscriptionDate: DateTime.fromISO(SUBSCRIPTION.first_billing_date).toFormat(
+    'D',
+  ),
   price: SUBSCRIPTION.recurrent_price.toString(),
 };
 
@@ -49,9 +51,9 @@ export const ConsumerSubscriptionCardNextPaymentDate =
   ConsumerSubscriptionCardTemplate.bind({});
 ConsumerSubscriptionCardNextPaymentDate.args = {
   ...defaultArgs,
-  subscriptionNextPaymentDate: moment(SUBSCRIPTION.next_billing_date).format(
-    'L',
-  ),
+  subscriptionNextPaymentDate: DateTime.fromISO(
+    SUBSCRIPTION.next_billing_date,
+  ).toFormat('D'),
 };
 
 export const ConsumerSubscriptionCardLoading =

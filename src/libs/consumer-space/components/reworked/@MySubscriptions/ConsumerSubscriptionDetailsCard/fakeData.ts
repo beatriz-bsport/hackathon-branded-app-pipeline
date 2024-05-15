@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
-const NOW = moment().format();
+const NOW = DateTime.now().toISO();
 
 export const fakeFailedInvoices = (count: number) =>
   faker.helpers.multiple(

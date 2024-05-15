@@ -1,11 +1,11 @@
-// @ts-nocheck very few errors, can be removed soon (some function calls make no sense, reflected by type errors. Otherwise all good)
+// very few ts errors, (some function calls make no sense, reflected by type errors. Otherwise all good)
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { RootState } from '../../reducers';
 import { getAuthToken } from '../../http';
-// @ts-expect-error
+
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
@@ -236,10 +236,11 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   sendBookingCount = () => {
     this.props.fetchBookingsAndPrivateBookings({
       page: 1,
-      date_start: moment().format('YYYY-MM-DD'),
+      date_start: DateTime.now().toISODate(),
       member: this.props.membership.id,
       options: {
         onSuccess: (payload) => {
+          // @ts-ignore
           const { count } = payload;
           WidgetUtils.DEPRECATEDbookingsCount(count);
           WidgetUtils.sendBridgeResponse(
@@ -263,6 +264,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
   fetchPlaybackUrl = (videoId: number) => {
     this.props.getPlaybackUrl(videoId, {
+      // @ts-ignore
       onAccessDenied: (payload: number) => {
         WidgetUtils.sendBridgeResponse(
           WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED,
@@ -271,6 +273,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           },
         );
       },
+      // @ts-ignore
       onSuccess: (payload: string) => {
         WidgetUtils.sendBridgeResponse(
           WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS,
@@ -342,14 +345,18 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           break;
         case WidgetMessageType.REQUEST_PLAYBACK_URL:
           if (event.data?.data?.videoId) {
+            // @ts-ignore
             this.fetchPlaybackUrl(event.data.data.videoId);
           }
           break;
 
         default:
+          // @ts-ignore
           if (widgetApiMessageTypes.includes(event.data.type)) {
             this.handleBridgeApiCallRequest<unknown, unknown>({
+              // @ts-ignore
               args: event.data.args,
+              // @ts-ignore
               responseSignature: event.data.type,
             });
           }
@@ -441,6 +448,7 @@ const mapDispatchToProps = {
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
+    // @ts-ignore
     companyName: 'companyName',
   }),
   withQueryParamsToProps([

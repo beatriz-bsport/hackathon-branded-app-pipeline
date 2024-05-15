@@ -1,5 +1,6 @@
 import groupBy from 'lodash/groupBy';
 import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
@@ -24,8 +25,8 @@ export const mainChartSelector = (state: RootState) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
   (state: RootState) => state.stats.dateRange,
   (dateRange: NumberDateRange) => ({
-    start: moment(dateRange.start),
-    end: moment(dateRange.end),
+    start: DateTime.fromMillis(dateRange.start),
+    end: DateTime.fromMillis(dateRange.end),
     kind: dateRange.kind,
   }),
 );
@@ -108,8 +109,8 @@ export const getStats: (
 );
 
 function discretizeDataBy(table: StringStatisticPoint[], dateRange: DateRange) {
-  const duration = moment.duration(dateRange.end.diff(dateRange.start));
-  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
+  const duration = dateRange.end.diff(dateRange.start);
+  if (duration.as('days') > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,
@@ -122,7 +123,7 @@ function discretizeDataBy(table: StringStatisticPoint[], dateRange: DateRange) {
       formatter: 'month',
     };
   }
-  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
+  if (duration.as('days') > WEEKLY_DURATION_DISPLAY_LIMIT) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,
@@ -133,7 +134,7 @@ function discretizeDataBy(table: StringStatisticPoint[], dateRange: DateRange) {
       formatter: 'week',
     };
   }
-  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
+  if (duration.as('days') > DAILY_DURATION_DISPLAY_LIMIT) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,
@@ -169,15 +170,15 @@ function discretizeByAndFillMissing(
   let grouped: Dictionary<StringStatisticPoint[]> = {};
 
   if (duration === 'month') {
-    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
+    grouped = groupBy(table, (u) => DateTime.fromISO(u.d).toFormat('yyyy-MM'));
 
     for (
-      let m = moment(dateRange.start);
-      m.isBefore(dateRange.end);
-      m.add(1, 'month')
+      let m = dateRange.start;
+      m < dateRange.end;
+      m = m.plus({ months: 1 })
     ) {
-      if (!grouped[m.format('YYYY-MM')]) {
-        grouped[m.format('YYYY-MM')] = [
+      if (!grouped[m.toFormat('yyyy-MM')]) {
+        grouped[m.toFormat('yyyy-MM')] = [
           {
             v: 0,
           },
@@ -188,15 +189,17 @@ function discretizeByAndFillMissing(
 
   if (duration === 'week') {
     grouped = groupBy(table, (u) =>
-      moment(u.d).startOf('week').format('YYYY-MM-DD'),
+      DateTime.fromISO(u.d)
+        .startOf('week', { useLocaleWeeks: true })
+        .toISODate(),
     );
     for (
-      let m = moment(dateRange.start).startOf('week');
-      m.isBefore(dateRange.end);
-      m.add(7, 'day')
+      let m = dateRange.start.startOf('week', { useLocaleWeeks: true });
+      m < dateRange.end;
+      m = m.plus({ days: 7 })
     ) {
-      if (!grouped[m.format('YYYY-MM-DD')]) {
-        grouped[m.format('YYYY-MM-DD')] = [
+      if (!grouped[m.toISODate()]) {
+        grouped[m.toISODate()] = [
           {
             v: 0,
           },
@@ -206,14 +209,10 @@ function discretizeByAndFillMissing(
   }
 
   if (duration === 'day') {
-    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD'));
-    for (
-      let m = moment(dateRange.start);
-      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
-      m.add(1, 'day')
-    ) {
-      if (!grouped[m.format('YYYY-MM-DD')]) {
-        grouped[m.format('YYYY-MM-DD')] = [
+    grouped = groupBy(table, (u) => DateTime.fromISO(u.d).toISODate());
+    for (let m = dateRange.start; m <= dateRange.end; m = m.plus({ days: 1 })) {
+      if (!grouped[m.toISODate()]) {
+        grouped[m.toISODate()] = [
           {
             v: 0,
           },
@@ -223,14 +222,16 @@ function discretizeByAndFillMissing(
   }
 
   if (duration === 'hour') {
-    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
+    grouped = groupBy(table, (u) =>
+      DateTime.fromISO(u.d).toFormat('yyyy-MM-dd t'),
+    );
     for (
-      let m = moment(dateRange.start);
-      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
-      m.add(1, 'hours')
+      let m = dateRange.start;
+      m <= dateRange.end;
+      m = m.plus({ hours: 1 })
     ) {
-      if (!grouped[m.format('YYYY-MM-DD LT')]) {
-        grouped[m.format('YYYY-MM-DD LT')] = [{ v: 0 }];
+      if (!grouped[m.toFormat('yyyy-MM-dd t')]) {
+        grouped[m.toFormat('yyyy-MM-dd t')] = [{ v: 0 }];
       }
     }
   }
@@ -244,7 +245,7 @@ function discretizeByAndFillMissing(
       };
     })
     .sort((a, b) => {
-      if (moment(a.d).isBefore(moment(b.d))) {
+      if (DateTime.fromISO(a.d) < DateTime.fromISO(b.d)) {
         return -1;
       }
       return 1;
@@ -278,15 +279,17 @@ export const smartlistStatSelector = createCachedSelector(
   (dateRange: NumberDateRange, data) => {
     if (data.data_type === 'temporal') {
       const filteredData = data.data
-        .filter((item: StringStatisticPoint) =>
-          moment(item.d).isBefore(moment(dateRange.end)),
+        .filter(
+          (item: StringStatisticPoint) =>
+            DateTime.fromISO(item.d) < DateTime.fromMillis(dateRange.end),
         )
-        .filter((item: StringStatisticPoint) =>
-          moment(item.d).isAfter(moment(dateRange.start)),
+        .filter(
+          (item: StringStatisticPoint) =>
+            DateTime.fromISO(item.d) > DateTime.fromMillis(dateRange.start),
         );
       const discretizedData = discretizeDataBy(filteredData, {
-        start: moment(dateRange.start),
-        end: moment(dateRange.end),
+        start: DateTime.fromMillis(dateRange.start),
+        end: DateTime.fromMillis(dateRange.end),
       });
       const total = discretizedData.table.reduce((sum, x) => sum + x.v, 0);
       return { ...discretizedData, total };

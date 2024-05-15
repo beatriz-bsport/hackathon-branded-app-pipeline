@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
-import moment from 'moment-timezone';
+import type { LuxonDateTime } from '#src/types';
 import StatsPanel from '../../libs/smart-list/components/StatsPanel.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { DateRange } from '../../state/stats/types';
@@ -45,8 +45,8 @@ export class SmartListDetailStatistic extends React.Component<Props> {
       smartlist: id,
       statistic_identifier: BOOKING_STATISTIC_IDENTIFIER,
       graph_params: {
-        start: moment(this.props.dateRange.start).valueOf(),
-        end: moment(this.props.dateRange.end).valueOf(),
+        start: this.props.dateRange.start.valueOf(),
+        end: this.props.dateRange.end.valueOf(),
       },
     });
     /*
@@ -54,8 +54,8 @@ export class SmartListDetailStatistic extends React.Component<Props> {
       smartlist: id,
       statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
       graph_params: {
-        start: moment(this.props.dateRange.start).valueOf(),
-        end: moment(this.props.dateRange.end).valueOf(),
+        start: this.props.dateRange.start.valueOf(),
+        end: this.props.dateRange.end.valueOf(),
       },
     });
     */
@@ -102,14 +102,18 @@ export class SmartListDetailStatistic extends React.Component<Props> {
     return (
       <div>
         <StatsPanel
-          changeDateRange={(start, end, kind = 'custom') => {
+          changeDateRange={(
+            start: LuxonDateTime,
+            end: LuxonDateTime,
+            kind = 'custom',
+          ) => {
             this.props.dateRangeChange({ start, end, kind });
             this.props.fetchSmartListStats({
               smartlist: this.props.id,
               statistic_identifier: 1,
               graph_params: {
-                start: moment(start).valueOf(),
-                end: moment(end).valueOf(),
+                start: start.valueOf(),
+                end: end.valueOf(),
               },
             });
             /*
@@ -117,8 +121,8 @@ export class SmartListDetailStatistic extends React.Component<Props> {
               smartlist: this.props.id,
               statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
               graph_params: {
-                start: moment(start).valueOf(),
-                end: moment(end).valueOf(),
+                start: start.valueOf(),
+                end: end.valueOf(),
               },
 	    });
 	    */

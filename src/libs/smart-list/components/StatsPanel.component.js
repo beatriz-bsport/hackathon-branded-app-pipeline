@@ -4,7 +4,8 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
+import { Settings } from 'luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import Grid from '@material-ui/core/Grid';
@@ -13,8 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import TemporalStatistic from '../../../components/graph/TemporalDiagram.component';
 import PieChart from '../../../components/graph/DEPRECATEDPieChart.component';
 import type { DateRange } from '../../../state/stats/types';
-
-import { Moment } from '../../../i18n';
 
 type Props = {
   t: TFunction,
@@ -49,9 +48,9 @@ export const StatsPanel = (props: Props) => {
               data={statistics.expensesSegments.data}
               title={`${t(
                 'graphs.expensesSegments.title.first',
-              )} ${props.dateRange.start.format('DD/MM/YYYY')} ${t(
+              )} ${props.dateRange.start.toFormat('dd/MM/yyyy')} ${t(
                 'graphs.expensesSegments.title.second',
-              )} ${props.dateRange.end.format('DD/MM/YYYY')}`}
+              )} ${props.dateRange.end.toFormat('dd/MM/yyyy')}`}
               width={400}
               height={250}
             />
@@ -83,32 +82,31 @@ export const StatsPanel = (props: Props) => {
       ) : null}
       <div className={props.classes.datePickerContainer}>
         <MuiPickersUtilsProvider
-          locale={Moment.locale()}
-          moment={Moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <DatePicker
             keyboard
             className={props.classes.datePicker}
-            format="L"
+            format="D"
             label={t('dashboard:dateRange.start')}
-            maxDate={props.dateRange.end.format('YYYY-MM-DD')}
+            maxDate={props.dateRange.end.toISODate()}
             onChange={(value) =>
               props.changeDateRange(value, props.dateRange.end, null)
             }
             returnMoment={false}
-            value={props.dateRange.start.format('YYYY-MM-DD')}
+            value={props.dateRange.start.toISODate()}
           />
           <DatePicker
             keyboard
-            format="L"
+            format="D"
             label={t('dashboard:dateRange.end')}
-            minDate={props.dateRange.start.format('YYYY-MM-DD')}
+            minDate={props.dateRange.start.toISODate()}
             onChange={(value) =>
               props.changeDateRange(props.dateRange.start, value, null)
             }
             returnMoment={false}
-            value={props.dateRange.end.format('YYYY-MM-DD')}
+            value={props.dateRange.end.toISODate()}
           />
         </MuiPickersUtilsProvider>
       </div>

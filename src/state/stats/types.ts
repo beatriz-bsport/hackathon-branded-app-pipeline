@@ -1,5 +1,5 @@
-import { Moment } from 'moment-timezone';
 import Immutable from 'seamless-immutable';
+import type { LuxonDateTime } from '#src/types';
 
 export type StatsState = Immutable.Immutable<{
   dateRange: DateRange;
@@ -13,8 +13,8 @@ export type StatsState = Immutable.Immutable<{
 }>;
 
 export type DateRange = {
-  start: Moment;
-  end: Moment;
+  start: LuxonDateTime;
+  end: LuxonDateTime;
   kind?: string;
 };
 

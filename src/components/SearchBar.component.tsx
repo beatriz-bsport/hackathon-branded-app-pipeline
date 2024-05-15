@@ -16,7 +16,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { Cake } from '@material-ui/icons';
 import Popover from '@material-ui/core/Popper';
-import moment from 'moment-timezone';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -25,11 +24,11 @@ import { Theme } from '@material-ui/core';
 import type { RootState } from 'src/reducers';
 import type { Location } from 'history';
 import { WithStyles } from '@material-ui/styles';
+import { DateTime } from 'luxon';
 import { getMemberHistory } from '../libs/member/selectors';
 
 import { parseQueryString } from '../http';
 import DelayedTextField from './DelayedTextField.component';
-
 // @ts-expect-error js file
 import { search as searchActions } from '../actions';
 import { searchArchived as searchArchivedMembers } from '../libs/member/actions';
@@ -89,9 +88,12 @@ export class SearchBar extends Component<Props> {
             <Fade {...TransitionProps} timeout={350}>
               <Paper>
                 {this.props.memberHistory.map((m) => {
+                  const todayDatime = DateTime.now();
+
                   const isBirthday = m?.birthday
-                    ? moment().format('MM-DD') ===
-                      moment(m.birthday).format('MM-DD')
+                    ? DateTime.fromISO(m.birthday).month ===
+                        todayDatime.month &&
+                      DateTime.fromISO(m.birthday).day === todayDatime.day
                     : false;
                   return (
                     <ListItem

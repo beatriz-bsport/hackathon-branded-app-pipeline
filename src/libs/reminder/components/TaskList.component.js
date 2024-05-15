@@ -10,11 +10,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Collapse from '@material-ui/core/Collapse';
 import { compose, withProps, withState } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-import { DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
+import { DateTime } from 'luxon';
 import Task from './Task.component';
 import TaskFormDialog from './TaskFormDialog.component';
 
@@ -102,13 +102,23 @@ const TaskSubList = (props: PropsSubList) => {
 export const TaskList = (props: Props) => {
   if (props.loading) return <CircularProgress />;
   const futureTaskList = props.taskList.filter(
-    (t) => DateTime.fromISO(t.date_due) > DateTime.now(),
+    (t) =>
+      DateTime.fromISO(t.date_due).startOf('day') >
+      DateTime.now().startOf('day'),
   );
   const pendingTaskList = props.taskList
-    .filter((t) => DateTime.fromISO(t.date_due) <= DateTime.now())
+    .filter(
+      (t) =>
+        DateTime.fromISO(t.date_due).startOf('day') <=
+        DateTime.now().startOf('day'),
+    )
     .filter((t) => t.status === 0);
   const archivedTaskList = props.taskList
-    .filter((t) => DateTime.fromISO(t.date_due) <= DateTime.now())
+    .filter(
+      (t) =>
+        DateTime.fromISO(t.date_due).startOf('day') <=
+        DateTime.now().startOf('day'),
+    )
     .filter((t) => t.status !== 0);
   return (
     <div>

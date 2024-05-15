@@ -5,7 +5,6 @@ import { compose } from 'recompose';
 import classnames from 'classnames';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,11 +23,11 @@ import {
   TASK_STATUS_CANCELLED,
 } from '@bsport/common/lib/master-data/tasks';
 
+import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Task as TaskType } from '../types';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   task: TaskType,
@@ -70,11 +69,14 @@ const TaskStatus = (props: {
       <Typography
         className={props.classes.dateDue}
         color={
-          moment(props.date_due).isBefore(moment(), 'day') ? 'error' : 'default'
+          DateTime.fromISO(props.date_due).startOf('day') <
+          DateTime.now().startOf('day')
+            ? 'error'
+            : 'default'
         }
         variant="caption"
       >
-        {formatAsDatetimeAdapted(props.date_due, 'LL')}
+        {DateTime.fromISO(props.date_due).toFormat('DD')}
       </Typography>
     </div>
   );

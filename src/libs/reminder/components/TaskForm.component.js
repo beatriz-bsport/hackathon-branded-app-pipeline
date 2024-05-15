@@ -5,11 +5,11 @@ import { compose } from 'recompose';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import omit from 'lodash/omit';
-import moment from 'moment-timezone';
 
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';
 
+import { DateTime } from 'luxon';
 import { TextField, DateField } from '../../../components/forms';
 
 import UserSelector from './UserSelector.component';
@@ -102,7 +102,7 @@ export const TaskFormFormikHOC = withFormik({
       name: null,
       description: null,
       task_owners: [],
-      date_due: moment(),
+      date_due: DateTime.now().toISO(),
       task_owner_ids: [],
     };
   },
@@ -112,7 +112,7 @@ export const TaskFormFormikHOC = withFormik({
       omit(
         {
           ...values,
-          date_due: moment(values.date_due).format('YYYY-MM-DD'),
+          date_due: DateTime.fromISO(values.date_due).toISODate(),
         },
         ['task_owners', 'author', 'member'],
       ),

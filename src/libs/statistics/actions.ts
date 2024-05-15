@@ -12,12 +12,10 @@ import statsAPI, {
   fetchBookingQualitative as fetchBookingQualitativeAPI,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAPI,
   // @ts-expect-error
-  // @ts-expect-error
 } from './api-deprecated';
 
 import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
 import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
-// @ts-expect-error
 // @ts-expect-error
 import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 

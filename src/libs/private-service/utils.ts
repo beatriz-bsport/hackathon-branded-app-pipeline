@@ -1,6 +1,5 @@
 import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
-import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
@@ -361,8 +360,11 @@ const _consolidate = memoize(
     for (let i = 1; i < sortedSlots.length; i += 1) {
       const { date_start: curr_date_start, date_end: curr_date_end } =
         sortedSlots[i];
-      if (moment(curr_date_start).isSameOrBefore(moment(date_end))) {
-        date_end = moment.max(moment(date_end), moment(curr_date_end)).format();
+      if (DateTime.fromISO(curr_date_start) <= DateTime.fromISO(date_end)) {
+        date_end = DateTime.max(
+          DateTime.fromISO(date_end),
+          DateTime.fromISO(curr_date_end),
+        ).toISO();
       } else {
         intervals.push({ date_start, date_end });
         date_start = curr_date_start;
@@ -463,24 +465,28 @@ export const intersectSelectionWithMergedIntervals = (
     )) {
       const concurrentIntervals = intervals.filter(
         (interval) =>
-          moment(interval.date_start).isSameOrBefore(
-            moment(selection.endStr),
-          ) &&
-          moment(interval.date_end).isSameOrAfter(moment(selection.startStr)),
+          DateTime.fromISO(interval.date_start) <=
+            DateTime.fromISO(selection.endStr) &&
+          DateTime.fromISO(interval.date_end) >=
+            DateTime.fromISO(selection.startStr),
       );
 
       if (concurrentIntervals.length) {
         const intersectionIntervals = concurrentIntervals
           .map((interval) => ({
-            date_start: moment
-              .max(moment(interval.date_start), moment(selection.startStr))
-              .format(),
-            date_end: moment
-              .min(moment(interval.date_end), moment(selection.endStr))
-              .format(),
+            date_start: DateTime.max(
+              DateTime.fromISO(interval.date_start),
+              DateTime.fromISO(selection.startStr),
+            ).toISO(),
+            date_end: DateTime.min(
+              DateTime.fromISO(interval.date_end),
+              DateTime.fromISO(selection.endStr),
+            ).toISO(),
           }))
-          .filter((interval) =>
-            moment(interval.date_start).isBefore(moment(interval.date_end)),
+          .filter(
+            (interval) =>
+              DateTime.fromISO(interval.date_start) <
+              DateTime.fromISO(interval.date_end),
           );
         if (intersectionIntervals.length) {
           intersectionIntervalsGroupedByRestriction[restrictionString] =

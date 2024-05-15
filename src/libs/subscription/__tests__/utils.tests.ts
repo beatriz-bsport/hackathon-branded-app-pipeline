@@ -1,15 +1,15 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { computeProrataPriceForSubscription } from '../utils';
 
 describe('Subscription Prorata computation', () => {
   it('Check prorate price computation when done during month several days before', () => {
-    const firstBillingDate = moment('2023-03-24');
+    const firstBillingDate = DateTime.fromISO('2023-03-24');
     const monthBillingDay = 31;
     const recurrentPrice = '100';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -18,12 +18,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price computation when done during month one day before', () => {
-    const firstBillingDate = moment('2023-03-30');
+    const firstBillingDate = DateTime.fromISO('2023-03-30');
     const monthBillingDay = 31;
     const recurrentPrice = '100';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -32,12 +32,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price computation when done for the same day as the billing day', () => {
-    const firstBillingDate = moment('2023-03-31');
+    const firstBillingDate = DateTime.fromISO('2023-03-31');
     const monthBillingDay = 31;
     const recurrentPrice = '100';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -46,12 +46,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price when done on the last day of the month and end of year.', () => {
-    const firstBillingDate = moment('2023-12-31');
+    const firstBillingDate = DateTime.fromISO('2023-12-31');
     const monthBillingDay = 1;
     const recurrentPrice = '31000';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -60,12 +60,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price during a leap year when the billing-day is beyond the month`s end.', () => {
-    const firstBillingDate = moment('2024-02-20');
+    const firstBillingDate = DateTime.fromISO('2024-02-20');
     const monthBillingDay = 31;
     const recurrentPrice = '29000';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -74,12 +74,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price when billing-day is before the first billing date.', () => {
-    const firstBillingDate = moment('2023-01-20');
+    const firstBillingDate = DateTime.fromISO('2023-01-20');
     const monthBillingDay = 15;
     const recurrentPrice = '31000';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -88,12 +88,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price passing a non-existing date.', () => {
-    const firstBillingDate = moment('2023-02-31');
+    const firstBillingDate = DateTime.fromISO('2023-02-31');
     const monthBillingDay = 1;
     const recurrentPrice = '1';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );
@@ -102,12 +102,12 @@ describe('Subscription Prorata computation', () => {
   });
 
   it('Check prorate price passing a non-number price.', () => {
-    const firstBillingDate = moment('2023-02-31');
+    const firstBillingDate = DateTime.fromISO('2023-02-31');
     const monthBillingDay = 1;
     const recurrentPrice = 'abc';
 
     const firstInvoicePrice = computeProrataPriceForSubscription(
-      firstBillingDate,
+      firstBillingDate.toISO(),
       monthBillingDay,
       recurrentPrice,
     );

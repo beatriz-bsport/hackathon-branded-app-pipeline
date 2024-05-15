@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   groupSlotsAndMerge,
   intersectSelectionWithMergedIntervals,
@@ -6,8 +6,8 @@ import {
 
 const availabilitySlots: Array<any> = [
   {
-    date_start: moment('2022-09-13T09:30:00+01:00').format(),
-    date_end: moment('2022-09-13T12:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T09:30:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T12:00:00+01:00').toISO(),
     associated_coach: 37279,
     associated_establishment: null,
     coach: 33953,
@@ -17,8 +17,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [3452, 3453],
   },
   {
-    date_start: moment('2022-09-13T10:30:00+01:00').format(),
-    date_end: moment('2022-09-13T13:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T10:30:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
     associated_coach: 37279,
     associated_establishment: null,
     coach: 33953,
@@ -28,8 +28,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [3452, 3453],
   },
   {
-    date_start: moment('2022-09-13T13:00:00+01:00').format(),
-    date_end: moment('2022-09-13T15:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T15:00:00+01:00').toISO(),
     associated_coach: 37279,
     associated_establishment: null,
     coach: 33953,
@@ -39,8 +39,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [],
   },
   {
-    date_start: moment('2022-09-13T06:30:00+01:00').format(),
-    date_end: moment('2022-09-13T12:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T06:30:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T12:00:00+01:00').toISO(),
     associated_coach: 37280,
     associated_establishment: null,
     coach: 33954,
@@ -50,8 +50,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [3452, 3451],
   },
   {
-    date_start: moment('2022-09-13T08:00:00+01:00').format(),
-    date_end: moment('2022-09-13T14:30:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T08:00:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T14:30:00+01:00').toISO(),
     associated_coach: null,
     associated_establishment: 3452,
     establishment: 3587,
@@ -61,8 +61,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [],
   },
   {
-    date_start: moment('2022-09-13T08:00:00+01:00').format(),
-    date_end: moment('2022-09-13T19:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T08:00:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T19:00:00+01:00').toISO(),
     associated_coach: null,
     coach: null,
     associated_establishment: null,
@@ -72,8 +72,8 @@ const availabilitySlots: Array<any> = [
     restriction_on_associated_establishments: [],
   },
   {
-    date_start: moment('2022-09-13T14:00:00+01:00').format(),
-    date_end: moment('2022-09-13T19:00:00+01:00').format(),
+    date_start: DateTime.fromISO('2022-09-13T14:00:00+01:00').toISO(),
+    date_end: DateTime.fromISO('2022-09-13T19:00:00+01:00').toISO(),
     associated_coach: null,
     associated_establishment: 3453,
     resource_identifier: 'associated_establishment:3453',
@@ -95,15 +95,15 @@ describe('Group and merge availability slots', () => {
     ]);
     expect(mergedIntervals['associated_coach:37279']['[3452,3453]']).toEqual([
       {
-        date_start: moment('2022-09-13T09:30:00+01:00').format(),
-        date_end: moment('2022-09-13T13:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T09:30:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
       },
     ]);
     expect(mergedIntervals).toHaveProperty(['associated_coach:37279', '[]']);
     expect(mergedIntervals['associated_coach:37279']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T13:00:00+01:00').format(),
-        date_end: moment('2022-09-13T15:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T15:00:00+01:00').toISO(),
       },
     ]);
 
@@ -114,8 +114,8 @@ describe('Group and merge availability slots', () => {
     ]);
     expect(mergedIntervals['associated_coach:37280']['[3451,3452]']).toEqual([
       {
-        date_start: moment('2022-09-13T06:30:00+01:00').format(),
-        date_end: moment('2022-09-13T12:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T06:30:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T12:00:00+01:00').toISO(),
       },
     ]);
 
@@ -126,8 +126,8 @@ describe('Group and merge availability slots', () => {
     ]);
     expect(mergedIntervals['associated_establishment:3452']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T08:00:00+01:00').format(),
-        date_end: moment('2022-09-13T14:30:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T08:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T14:30:00+01:00').toISO(),
       },
     ]);
 
@@ -138,8 +138,8 @@ describe('Group and merge availability slots', () => {
     ]);
     expect(mergedIntervals['associated_establishment:3453']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T14:00:00+01:00').format(),
-        date_end: moment('2022-09-13T19:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T14:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T19:00:00+01:00').toISO(),
       },
     ]);
 
@@ -147,8 +147,8 @@ describe('Group and merge availability slots', () => {
     expect(mergedIntervals).toHaveProperty(['private_service:3951', '[]']);
     expect(mergedIntervals['private_service:3951']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T08:00:00+01:00').format(),
-        date_end: moment('2022-09-13T19:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T08:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T19:00:00+01:00').toISO(),
       },
     ]);
   });
@@ -159,16 +159,16 @@ describe('Check slot intersection with selection', () => {
   it('Check empty intersection', () => {
     let intersectedIntervals = intersectSelectionWithMergedIntervals(
       {
-        startStr: moment('2022-09-13T01:00:00+01:00').format(),
-        endStr: moment('2022-09-13T02:00:00+01:00').format(),
+        startStr: DateTime.fromISO('2022-09-13T01:00:00+01:00').toISO(),
+        endStr: DateTime.fromISO('2022-09-13T02:00:00+01:00').toISO(),
       },
       mergedIntervals,
     );
     expect(intersectedIntervals).toMatchObject({});
     intersectedIntervals = intersectSelectionWithMergedIntervals(
       {
-        startStr: moment('2022-09-13T19:00:00+01:00').format(),
-        endStr: moment('2022-09-13T21:00:00+01:00').format(),
+        startStr: DateTime.fromISO('2022-09-13T19:00:00+01:00').toISO(),
+        endStr: DateTime.fromISO('2022-09-13T21:00:00+01:00').toISO(),
       },
       mergedIntervals,
     );
@@ -177,8 +177,8 @@ describe('Check slot intersection with selection', () => {
   it('Check non-empty intersection', () => {
     const intersectedIntervals = intersectSelectionWithMergedIntervals(
       {
-        startStr: moment('2022-09-13T11:00:00+01:00').format(),
-        endStr: moment('2022-09-13T15:45:00+01:00').format(),
+        startStr: DateTime.fromISO('2022-09-13T11:00:00+01:00').toISO(),
+        endStr: DateTime.fromISO('2022-09-13T15:45:00+01:00').toISO(),
       },
       mergedIntervals,
     );
@@ -190,8 +190,8 @@ describe('Check slot intersection with selection', () => {
       intersectedIntervals['associated_coach:37279']['[3452,3453]'],
     ).toEqual([
       {
-        date_start: moment('2022-09-13T11:00:00+01:00').format(),
-        date_end: moment('2022-09-13T13:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T11:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
       },
     ]);
     expect(intersectedIntervals).toHaveProperty([
@@ -200,8 +200,8 @@ describe('Check slot intersection with selection', () => {
     ]);
     expect(intersectedIntervals['associated_coach:37279']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T13:00:00+01:00').format(),
-        date_end: moment('2022-09-13T15:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T13:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T15:00:00+01:00').toISO(),
       },
     ]);
 
@@ -214,8 +214,8 @@ describe('Check slot intersection with selection', () => {
       intersectedIntervals['associated_coach:37280']['[3451,3452]'],
     ).toEqual([
       {
-        date_start: moment('2022-09-13T11:00:00+01:00').format(),
-        date_end: moment('2022-09-13T12:00:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T11:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T12:00:00+01:00').toISO(),
       },
     ]);
 
@@ -227,8 +227,8 @@ describe('Check slot intersection with selection', () => {
     expect(intersectedIntervals['associated_establishment:3452']['[]']).toEqual(
       [
         {
-          date_start: moment('2022-09-13T11:00:00+01:00').format(),
-          date_end: moment('2022-09-13T14:30:00+01:00').format(),
+          date_start: DateTime.fromISO('2022-09-13T11:00:00+01:00').toISO(),
+          date_end: DateTime.fromISO('2022-09-13T14:30:00+01:00').toISO(),
         },
       ],
     );
@@ -241,8 +241,8 @@ describe('Check slot intersection with selection', () => {
     expect(intersectedIntervals['associated_establishment:3453']['[]']).toEqual(
       [
         {
-          date_start: moment('2022-09-13T14:00:00+01:00').format(),
-          date_end: moment('2022-09-13T15:45:00+01:00').format(),
+          date_start: DateTime.fromISO('2022-09-13T14:00:00+01:00').toISO(),
+          date_end: DateTime.fromISO('2022-09-13T15:45:00+01:00').toISO(),
         },
       ],
     );
@@ -251,8 +251,8 @@ describe('Check slot intersection with selection', () => {
     expect(intersectedIntervals).toHaveProperty(['private_service:3951', '[]']);
     expect(intersectedIntervals['private_service:3951']['[]']).toEqual([
       {
-        date_start: moment('2022-09-13T11:00:00+01:00').format(),
-        date_end: moment('2022-09-13T15:45:00+01:00').format(),
+        date_start: DateTime.fromISO('2022-09-13T11:00:00+01:00').toISO(),
+        date_end: DateTime.fromISO('2022-09-13T15:45:00+01:00').toISO(),
       },
     ]);
   });

@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -14,8 +14,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-
-import moment from 'moment-timezone';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { Member } from '#libs/member/types';
@@ -118,7 +116,8 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     );
 
   const isBirthday = member?.birthday
-    ? moment().format('MM-DD') === moment(member.birthday).format('MM-DD')
+    ? DateTime.now().day === DateTime.fromISO(member.birthday).day &&
+      DateTime.now().month === DateTime.fromISO(member.birthday).month
     : false;
 
   const showVerticalDivider =
@@ -191,6 +190,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
               </IconButton>
             )}
             {!!onCheckin && (
+              // @ts-ignore
               <CheckPermission requiredPermissions="navigationMenu.accessMonitoring.perform">
                 <CheckInButton
                   disabled={disableAccessMonitoringButton}
@@ -206,6 +206,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             isPreventUpdateMetricValue={isPreventUpdateMetricValue}
             loading={programDataLoading}
             memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
+            // @ts-ignore
             memberProgramList={member.memberProgramList}
             open={isMemberProgramDetailDialogOpen}
             programList={programList}

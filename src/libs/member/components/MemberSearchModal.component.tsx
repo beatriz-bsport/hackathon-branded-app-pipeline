@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -21,7 +22,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
 import type { Theme } from '@material-ui/core';
 import { Cake } from '@material-ui/icons';
-import { DateTime } from 'luxon';
 
 import MemberSearchBar from './MemberSearchBar.component';
 // @ts-expect-error

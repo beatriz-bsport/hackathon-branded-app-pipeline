@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -9,9 +8,11 @@ import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core/styles';
 
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { unmap } from '../../../pages/form.utils';
 import { MemberMap } from '../utils';
 import type { Member } from '../types';
+// @ts-expect-error
 import MemberForm from '../MemberForm.component';
 
 type Props = {
@@ -30,7 +31,7 @@ type Props = {
 const prepareData = (initial: Member) => {
   const initialData = {
     ...unmap(initial, MemberMap),
-    date_joined: moment(initial.date_joined),
+    date_joined: DateTime.fromISO(initial.date_joined),
     waiver: !!initial.waiver_accepted,
   };
 
@@ -56,6 +57,7 @@ export const MemberMergeForm: React.FC<Props> = ({
     return <LinearProgress />;
   }
   return (
+    // @ts-expect-error
     <div className={classes.container}>
       <div className={classes.field}>
         <MemberForm
@@ -101,4 +103,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default MemberMergeForm;
+export default React.memo(MemberMergeForm);

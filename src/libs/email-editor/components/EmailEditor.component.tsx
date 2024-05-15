@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import EmailEditor, { Design } from 'react-email-editor';
 import Button from '@material-ui/core/Button';
@@ -14,7 +14,6 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -168,13 +167,13 @@ export class EmailEditorPanel extends Component<Props, State> {
 
       this.props.saveEmail(
         this.props.emailToEdit?.id,
+        // @ts-expect-error
         {
           title: this.state.title,
           subject: this.state.subject,
           html,
           design: JSON.stringify(design),
-          // @ts-expect-error
-          date_modified: moment(),
+          date_modified: DateTime.now().toISO(),
           category: this.state.categoryId,
         },
         this.state.selectedCompanies?.map((opt) =>
@@ -195,13 +194,13 @@ export class EmailEditorPanel extends Component<Props, State> {
 
       this.props.autoSaveEmail(
         this.props.emailToEdit?.id,
+        // @ts-expect-error
         {
           title: this.state.title,
           subject: this.state.subject,
           html,
           design: JSON.stringify(design),
-          // @ts-expect-error
-          date_modified: moment(),
+          date_modified: DateTime.now().toISO(),
         },
         this.state.selectedCompanies?.map((opt) =>
           // @ts-expect-error

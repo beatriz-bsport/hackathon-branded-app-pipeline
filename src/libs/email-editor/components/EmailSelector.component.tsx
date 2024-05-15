@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import Select from 'react-select';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -65,7 +65,10 @@ export const EmailSelector: React.FC<Props> = ({
         ? [...emails]
             ?.filter((email) => !email?.is_default_bsport_template)
             ?.sort((pp, pp_) => {
-              if (moment(pp.date_modified) > moment(pp_.date_modified))
+              if (
+                DateTime.fromISO(pp.date_modified) >
+                DateTime.fromISO(pp_.date_modified)
+              )
                 return 1;
               return -1;
             })

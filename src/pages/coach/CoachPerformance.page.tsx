@@ -1,5 +1,4 @@
 import React from 'react';
-import Moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { WithStyles } from '@material-ui/styles';
 import type { Theme } from '@material-ui/core/styles';
+import { DateTime } from 'luxon';
 import type { OptionCallback } from '../../state/types';
 // @ts-ignore
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -230,8 +230,8 @@ const styles = (theme: Theme) =>
 
 const withStateHandlersInit = {
   formDates: {
-    dateStart: Moment().startOf('month').unix(),
-    dateEnd: Moment(Moment().startOf('month')).endOf('month').unix(),
+    dateStart: DateTime.now().startOf('month').toUnixInteger(),
+    dateEnd: DateTime.now().endOf('month').toUnixInteger(),
   },
 
   performanceLoading: false,
@@ -306,28 +306,31 @@ const mapWithHandlers = {
     }: OwnAndConnectedProps) =>
     async (
       data: {
-        dateStart: MomentType;
-        dateEnd: MomentType;
+        dateStart: DateTime;
+        dateEnd: DateTime;
       },
       options?: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
-      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
+      setFormDates({
+        dateStart: dateStart.toUnixInteger(),
+        dateEnd: dateEnd.toUnixInteger(),
+      });
       setPerformanceLoading(true);
       const promises = [
         fetchCoachSessionPerformance(
           {
             associatedCoachId,
-            start_timestamp: dateStart.unix(),
-            end_timestamp: dateEnd.unix(),
+            start_timestamp: dateStart.toUnixInteger(),
+            end_timestamp: dateEnd.toUnixInteger(),
           },
           options,
         ),
         fetchCoachPrivateServicePerformance(
           {
             associatedCoachId,
-            start_timestamp: dateStart.unix(),
-            end_timestamp: dateEnd.unix(),
+            start_timestamp: dateStart.toUnixInteger(),
+            end_timestamp: dateEnd.toUnixInteger(),
           },
           options,
         ),
@@ -344,15 +347,15 @@ const mapWithHandlers = {
     }: OwnAndConnectedProps) =>
     async (
       data: {
-        dateStart: MomentType;
-        dateEnd: MomentType;
+        dateStart: DateTime;
+        dateEnd: DateTime;
       },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
       setPerformanceLoading(true);
-      const start_timestamp = dateStart.unix();
-      const end_timestamp = dateEnd.unix();
+      const start_timestamp = dateStart.toUnixInteger();
+      const end_timestamp = dateEnd.toUnixInteger();
       await fetchBulkPrivateServicePerformanceAction(
         {
           associated_coach_ids: [associatedCoachId],

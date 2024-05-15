@@ -1,10 +1,8 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
-import { formatAsDate } from '#utils/datetime';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import {
   OffPeakSchedule,
@@ -51,11 +49,15 @@ export const getValidityInfo = (
     dateInfo += t('validForDuration.days', { count: duration_days });
   }
   if (validity_daterange) {
-    dateInfo = `${t('validity')}${formatAsDate(
-      moment(JSON.parse(validity_daterange).lower),
-    )}${t('validityTo')}${formatAsDate(
-      moment(JSON.parse(validity_daterange).upper),
-    )}`;
+    const lower = DateTime.fromISO(
+      // @ts-ignore
+      JSON.parse(validity_daterange).lower,
+    ).toFormat('D');
+    const upper = DateTime.fromISO(
+      // @ts-ignore
+      JSON.parse(validity_daterange).upper,
+    ).toFormat('D');
+    dateInfo = `${t('validity')}${lower}${t('validityTo')}${upper}`;
   }
   if (!validity_daterange && !!dateInfo && startInfo) {
     if (start_date_method === 0) {
@@ -156,7 +158,7 @@ export const getValidityString = (
   }
   return dateInfo;
 };
-
+// @ts-ignore
 export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   const { validity_daterange, duration_days, duration_months, duration_years } =
     paymentPack;
@@ -166,26 +168,36 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   }
   if (validity_daterange) {
     return {
-      start: moment(JSON.parse(validity_daterange).lower),
-      end: moment(JSON.parse(validity_daterange).upper),
+      start: DateTime.fromISO(
+        // @ts-ignore
+        JSON.parse(validity_daterange).lower,
+      ).toFormat('D'),
+      end: DateTime.fromISO(
+        // @ts-ignore
+        JSON.parse(validity_daterange).upper,
+      ).toFormat('D'),
     };
   }
 
   return {
-    start: moment(baseDate || moment()),
-    end: moment(baseDate || moment())
-      .add('days', duration_days || 0)
-      .add('months', duration_months || 0)
-      .add('years', duration_years || 0)
-      .add('days', -1),
+    start: baseDate ? DateTime.fromISO(baseDate) : DateTime.now(),
+    end: baseDate
+      ? DateTime.fromISO(baseDate)
+      : DateTime.now().plus({
+          days: (duration_days || 0) - 1,
+          months: duration_months,
+          years: duration_years,
+        }),
   };
 };
 
 export const getPackDate = (consumerPack: ConsumerPaymentPack) => {
   const { ending_date, starting_date } = consumerPack;
+  const startingDate = DateTime.fromISO(starting_date).toFormat('D');
+  const endingDate = DateTime.fromISO(ending_date).toFormat('D');
   return [
-    `${formatAsDate(starting_date)}→${formatAsDate(ending_date)}`,
-    moment(ending_date).isBefore(moment().add(6, 'day')),
+    `${startingDate}→${endingDate}`,
+    DateTime.fromISO(ending_date) < DateTime.now().plus({ days: 6 }),
   ];
 };
 
@@ -312,17 +324,16 @@ export const getMarketplaceSearchItemIndicator = (
 };
 
 export const offPeakGroupDefault = () => {
-  const todayDateNumber = moment()
-    .tz('UTC')
+  const todayDateNumber = DateTime.now()
+    .setZone('UTC')
     .startOf('day')
-    .isoWeekday()
-    .toString();
+    .weekday.toString();
 
   return {
     timeSlots: [
       [
-        moment().hours(6).minutes(0).seconds(0).format(),
-        moment().hours(7).minutes(0).seconds(0).format(),
+        DateTime.now().set({ hour: 6, minute: 0, second: 0 }).toISO(),
+        DateTime.now().set({ hour: 7, minute: 0, second: 0 }).toISO(),
       ],
     ],
     recurrenceWeekDay: {
@@ -340,7 +351,9 @@ export const offPeakGroupDefault = () => {
 
 const sortTimeSlotsByStartDate = (timeSlot: string[][]) => {
   timeSlot.sort((start, end) => {
-    return moment(start[0]).diff(end[0]);
+    const startTime = DateTime.fromISO(start[0]);
+    const endTimeSlot = DateTime.fromISO(end[0]);
+    return startTime.diff(endTimeSlot).valueOf();
   });
 };
 
@@ -348,8 +361,8 @@ const sortTimeSlotsByStartDate = (timeSlot: string[][]) => {
 const stringifyTimeSlots = (timeSlots: string[][]): string[][] => {
   return timeSlots.map((timeSlot) => {
     const formattedTimeSlot = [
-      moment(timeSlot[0]).format('HH:mm'),
-      moment(timeSlot[1]).format('HH:mm'),
+      DateTime.fromISO(timeSlot[0]).toFormat('HH:mm'),
+      DateTime.fromISO(timeSlot[1]).toFormat('HH:mm'),
     ];
     return formattedTimeSlot;
   });
@@ -367,8 +380,8 @@ export const formatOffPeakScheduleOnSubmit = (
     const groupedTimeSlots = [] as string[][];
     group.slotDurationChoice === 'all_day'
       ? groupedTimeSlots.push([
-          moment().hours(0).minutes(0).seconds(0).format(),
-          moment().hours(23).minutes(59).seconds(59).format(),
+          DateTime.now().set({ hour: 0, minute: 0, second: 0 }).toISO(),
+          DateTime.now().set({ hour: 23, minute: 59, second: 59 }).toISO(),
         ])
       : group.timeSlots.forEach((timeSlot) => {
           groupedTimeSlots.push(timeSlot);
@@ -391,32 +404,34 @@ export const formatOffPeakScheduleOnSubmit = (
   Object.entries(sanitizedOffPeakSchedule).forEach((day) => {
     const [isoWeekday, timeSlots]: [string, string[][]] = day;
     sortTimeSlotsByStartDate(timeSlots);
-    const momentTimeSlots = [timeSlots.shift()];
+    const dateTimeSlots = [timeSlots.shift()];
     timeSlots.forEach((timeArray) => {
-      const [current_start_time, current_end_time]: [Moment, Moment] = [
-        moment(timeArray[0]),
-        moment(timeArray[1]),
+      const [current_start_time, current_end_time] = [
+        DateTime.fromISO(timeArray[0]),
+        DateTime.fromISO(timeArray[1]),
       ];
-      const [last_start_time, last_end_time] = momentTimeSlots.slice(-1)[0];
-      if (current_start_time.isSameOrBefore(moment(last_end_time), 'minute')) {
-        const maxEndTime = current_end_time.isSameOrAfter(
-          moment(last_end_time),
-          'minute',
-        )
-          ? current_end_time
-          : moment(last_end_time);
-        momentTimeSlots[momentTimeSlots.length - 1] = [
+      const [last_start_time, last_end_time] = dateTimeSlots.slice(-1)[0];
+      if (
+        current_start_time.startOf('minute') <=
+        DateTime.fromISO(last_end_time).startOf('minute')
+      ) {
+        const maxEndTime =
+          current_end_time.startOf('minute') >=
+          DateTime.fromISO(last_end_time).startOf('minute')
+            ? current_end_time
+            : DateTime.fromISO(last_end_time);
+        dateTimeSlots[dateTimeSlots.length - 1] = [
           last_start_time,
-          maxEndTime.format(),
+          maxEndTime.toISO(),
         ];
       } else {
-        momentTimeSlots.push([
-          current_start_time.format(),
-          current_end_time.format(),
+        dateTimeSlots.push([
+          current_start_time.toISO(),
+          current_end_time.toISO(),
         ]);
       }
     });
-    const sanithizedTimeSlot = stringifyTimeSlots(momentTimeSlots);
+    const sanithizedTimeSlot = stringifyTimeSlots(dateTimeSlots);
     formattedOffPeakSchedule[isoWeekday] = sanithizedTimeSlot;
   });
   return formattedOffPeakSchedule;
@@ -466,7 +481,10 @@ export const formatOffPeakScheduleOnEdit = (
 
     const formattedTimeSlotValue = timeSlot.map((slot) => {
       const [start, end] = slot.split(',');
-      return [moment(start, 'HH:mm').format(), moment(end, 'HH:mm').format()];
+      return [
+        DateTime.fromFormat(start, 'HH:mm').toISO(),
+        DateTime.fromFormat(end, 'HH:mm').toISO(),
+      ];
     });
 
     const groupedDays = days.split(',');
@@ -482,8 +500,10 @@ export const formatOffPeakScheduleOnEdit = (
 
     // From the back-end, if the slot duration choice was all_day, it only has 1 timeslot
     const isAllDay =
-      moment(formattedTimeSlotValue[0][0]).format('HH:mm') === '00:00' &&
-      moment(formattedTimeSlotValue[0][1]).format('HH:mm') === '23:59';
+      DateTime.fromISO(formattedTimeSlotValue[0][0]).toFormat('HH:mm') ===
+        '00:00' &&
+      DateTime.fromISO(formattedTimeSlotValue[0][1]).toFormat('HH:mm') ===
+        '23:59';
 
     if (isAllDay) {
       slotDurationChoiceValue = 'all_day';

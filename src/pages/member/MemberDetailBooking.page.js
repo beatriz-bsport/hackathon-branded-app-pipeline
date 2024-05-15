@@ -24,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+import { DateTime } from 'luxon';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
@@ -1126,8 +1127,8 @@ export default compose(
   withState('selectedBookingOption', 'setSelectedBookingOption', null),
   withState('discardBookingOption', 'setDiscardBookingOption', null),
   withState('chartRange', 'setChartRange', {
-    start: moment().subtract(1, 'years').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
+    start: DateTime.now().minus({ years: 1 }).toISODate(),
+    end: DateTime.now().toISODate(),
     kind: 'current_year',
   }),
   connect(

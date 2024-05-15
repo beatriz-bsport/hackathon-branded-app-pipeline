@@ -1,5 +1,4 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import {
   CB,
@@ -7,6 +6,7 @@ import {
   SEPA,
 } from '@bsport/common/lib/master-data/payment-methods';
 
+import { DateTime } from 'luxon';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { privatePassFactory } from '#libs/private-service/factory';
 import { shopItemFactory } from '#libs/shop/factory';
@@ -70,7 +70,7 @@ export const paymentComboFactory = (options?: PaymentComboFactoryOptions) => {
     company: faker.number.int({ max: 10000 }),
     available: faker.datatype.boolean(),
     manager_only: faker.datatype.boolean(),
-    date_created: moment().subtract(1, 'week').format(),
+    date_created: DateTime.now().minus({ week: 1 }).toISO(),
     payment_packs: paymentComboItemListFactory(
       faker.number.int(3),
       'paymentPack',

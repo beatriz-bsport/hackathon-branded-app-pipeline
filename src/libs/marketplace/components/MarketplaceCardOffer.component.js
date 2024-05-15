@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Level from '#libs/level/components/Level.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
@@ -48,10 +48,11 @@ export const MarketplaceCardOffer = (props: Props) => {
     offer?.name_override || offer?.meta_activity?.name || ' - ';
   const establishmentName = offer?.establishment?.title ?? ' - ';
 
-  const offerEndDate = moment(offer.date_start).add(
-    offer.duration_minute,
-    'minutes',
-  );
+  const offerEndDate = DateTime.fromISO(offer.date_start)
+    .plus({
+      minutes: offer.duration_minute,
+    })
+    .toISO();
 
   return (
     <div

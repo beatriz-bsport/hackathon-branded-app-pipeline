@@ -11,10 +11,10 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 
-import { DATE_FORMAT } from '../../../utils/datetime';
+import { formatAsDate, getLocaleWeekdays } from '../../../utils/datetime';
 
 import type { Offer } from '../types';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
@@ -41,15 +41,15 @@ type Props = {
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
-  const date_start = moment(selectedDate, DATE_FORMAT).clone().startOf('week');
-  const weekdays = moment.weekdays(true);
+  const date_start = DateTime.fromISO(selectedDate).startOf('week');
+  const weekdays = getLocaleWeekdays('long');
   // split offers par week days
   return weekdays.map((day, i) => {
-    const currentDate = moment(date_start).add(i, 'days');
+    const currentDate = date_start.plus({ days: i });
     return offers.filter(
       (o) =>
         currentDate.weekday() === i &&
-        moment(o.date_start).isSame(currentDate, 'day'),
+        DateTime.fromISO(o.date_start).hasSame(currentDate, 'day'),
     );
   });
 });
@@ -75,10 +75,9 @@ export class MarketplaceTimetable extends PureComponent<Props> {
   renderDayOffers(offers: Array<*>, i: number) {
     const { date, classes, bookedOffers } = this.props;
     if (!offers || offers.length === 0) return null;
-    const displayedDate = moment(date, DATE_FORMAT)
-      .clone()
-      .add(i, 'days')
-      .format(this.props.locale === 'nl' ? 'dddd D MMMM' : 'dddd Do MMMM');
+    const displayedDate = formatAsDate(
+      DateTime.fromISO(date).plus({ days: i }),
+    ).add(i, 'days');
 
     return (
       <div key={displayedDate} className={classes.container}>
@@ -137,7 +136,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
       return <CircularProgress />;
     }
 
-    const weekday = moment(date, DATE_FORMAT).weekday();
+    const weekday = DateTime.fromISO(date).localWeekday;
     // split offer for the selected day
     const weekOffers = getWeekOffers(date, this.props.offers);
     const nextDaysOffers = weekOffers.slice(weekday);

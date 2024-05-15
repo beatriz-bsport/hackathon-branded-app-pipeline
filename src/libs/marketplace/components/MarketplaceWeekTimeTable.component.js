@@ -8,12 +8,11 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import flattenDeep from 'lodash/flattenDeep';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { DATE_FORMAT } from '../../../utils/datetime';
-import { Moment } from '../../../i18n';
+import { DATE_FORMAT, getLocaleWeekdays } from '../../../utils/datetime';
 import MarketplaceCardOffer from './MarketplaceCardOffer.component';
 
 const SPLIT_AFTERNOON = 12;
@@ -47,15 +46,17 @@ const impairColor = '#FFFFFF50';
 const pairColor = '#EEEEEE50';
 
 const getWeekOffers = (selectedDate, offers) => {
-  const date_start = Moment(selectedDate, DATE_FORMAT).clone().startOf('week');
-  const weekdays = Moment.weekdays(true);
+  const date_start = DateTime.fromISO(selectedDate, DATE_FORMAT).startOf(
+    'week',
+  );
+  const weekdays = getLocaleWeekdays('long');
   // split offers par week days
   return weekdays.map((day, i) => {
-    const currentDate = Moment(date_start).add(i, 'days');
+    const currentDate = date_start.plus({ days: i });
     return offers.filter(
       (o) =>
         currentDate.weekday() === i &&
-        Moment(o.date_start).isSame(currentDate, 'day'),
+        DateTime.fromISO(o.date_start).hasSame(currentDate, 'day'),
     );
   });
 };
@@ -94,17 +95,17 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const weekOffers = getWeekOffers(this.props.date, this.props.offers);
     (weekOffers || []).map((dayOffers, i) => {
       morning[i] = dayOffers.filter(
-        (offer) => Moment(offer.date_start).format('HH') < SPLIT_AFTERNOON,
+        (offer) => DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,
       );
 
       afternoon[i] = dayOffers.filter((offer) => {
-        const offerStarHour = Moment(offer.date_start).format('HH');
+        const offerStarHour = DateTime.fromISO(offer.date_start).hour;
         return (
           offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
         );
       });
       evening[i] = dayOffers.filter(
-        (offer) => Moment(offer.date_start).format('HH') >= SPLIT_EVENNING,
+        (offer) => DateTime.fromISO(offer.date_start).hour >= SPLIT_EVENNING,
       );
       return true;
     });
@@ -190,11 +191,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   render() {
     const { loading, classes, date } = this.props;
 
-    const weekDays = Moment.weekdaysShort(true);
+    const weekDays = getLocaleWeekdays('long');
 
     const offers = this.getOffersByPeriod();
 
-    const start_date = moment(date, DATE_FORMAT).clone().startOf('week');
+    const start_date = DateTime.fromISO(date).startOf('week');
     const size = 100 / 7;
 
     if (loading) {
@@ -217,8 +218,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       >
         <div className={classes.weekHeader}>
           {weekDays.map((day, i) => {
-            const currentDate = start_date.clone().add(i, 'days');
-            const isToday = currentDate.isSame(Moment(), 'day');
+            const currentDate = start_date.plus({ days: i });
+            const isToday = currentDate.hasSame(DateTime.now(), 'day');
             return (
               <div
                 key={currentDate.format('YYYY-MM-DD')}

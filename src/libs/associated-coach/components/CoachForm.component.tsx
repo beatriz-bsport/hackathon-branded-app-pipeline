@@ -1,9 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps } from 'formik';
-
-import moment from 'moment-timezone';
 
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
 
 import { Typography } from '@material-ui/core';
+import { DateTime } from 'luxon';
 import Tooltip from '#components/Tooltip.component';
 import AvatarField from '#components/forms/AvatarField.component';
 import {
@@ -28,6 +26,7 @@ import {
   Actions,
   Submit,
   ColorField,
+  // @ts-expect-error
 } from '#components/forms';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
@@ -104,7 +103,10 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
     <Paper className={classes.paperContainer}>
       <Form className={classes.content}>
         <div className={classes.avatar}>
-          <AvatarField name="avatar" />
+          <AvatarField
+            // @ts-expect-error
+            name="avatar"
+          />
         </div>
 
         <Grid container spacing={1}>
@@ -319,9 +321,8 @@ const CoachSchema = (props: Props) =>
           return (
             date_left_company === null ||
             date_joined_company === null ||
-            moment(date_joined_company).isSameOrBefore(
-              moment(date_left_company),
-            )
+            DateTime.fromISO(date_joined_company) <=
+              DateTime.fromISO(date_left_company)
           );
         },
       ),
@@ -337,6 +338,7 @@ const CoachSchema = (props: Props) =>
 
 export const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
   enableReinitialize: true,
+  // @ts-expect-error
   mapPropsToValues: ({ initial, defaultEmail }: Props) =>
     initial || {
       avatar: '',
@@ -367,21 +369,23 @@ export const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
     } = values;
     const data = {
       ...values,
+      // @ts-expect-error
       avatar: typeof avatar !== 'string' ? avatar : undefined,
       birthday:
-        (values && birthday && moment(birthday).format('DD/MM/YYYY')) || '',
+        (values && birthday && DateTime.fromISO(birthday).toISODate()) || '',
       phone: phone || undefined,
       email: (email && email.toLowerCase()) ?? '',
       notes: notes ?? '',
       date_joined_company: date_joined_company
-        ? moment(date_joined_company).format('YYYY-MM-DD')
+        ? DateTime.fromISO(date_joined_company).toISODate()
         : undefined,
       date_left_company: date_left_company
-        ? moment(date_left_company).format('YYYY-MM-DD')
+        ? DateTime.fromISO(date_left_company).toISODate()
         : undefined,
     };
     onSubmit(data, {
       onSuccess: () => {
+        // @ts-expect-error
         trackFormSuccess(data?.id);
         setSubmitting(false);
       },

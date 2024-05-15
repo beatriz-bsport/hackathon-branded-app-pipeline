@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
-import { sortByDate, formatAsDate } from '../../utils/datetime';
+import { sortByDate } from '../../utils/datetime';
 
 import type {
   PrivateConsumerPass,
@@ -187,25 +187,25 @@ export const getExpirationDate = (
     privateConsumerPass.private_pass.start_date_method !== START_ON_PURCHASE &&
     privateConsumerPass.no_private_booking_active
   ) {
-    return moment(privateConsumerPass.date_bought)
-      .add(
-        'day',
-        privateConsumerPass.private_pass.expiration_days_before_first_use +
+    return DateTime.fromISO(privateConsumerPass.date_bought)
+      .plus({
+        days:
+          privateConsumerPass.private_pass.expiration_days_before_first_use +
           (privateConsumerPass.extension_days || 0) -
           1,
-      )
-      .format('YYYY-MM-DD');
+      })
+      .toISODate();
   }
-  return moment(privateConsumerPass.date_bought)
-    .add(
-      'day',
-      privateConsumerPass.private_pass.duration_days +
+  return DateTime.fromISO(privateConsumerPass.date_bought)
+    .plus({
+      days:
+        privateConsumerPass.private_pass.duration_days +
         (privateConsumerPass.extension_days || 0) -
         1,
-    )
-    .add('month', privateConsumerPass.private_pass.duration_months)
-    .add('year', privateConsumerPass.private_pass.duration_years)
-    .format('YYYY-MM-DD');
+      months: privateConsumerPass.private_pass.duration_months,
+      years: privateConsumerPass.private_pass.duration_years,
+    })
+    .toISODate();
 };
 
 export const getFormInitial = (
@@ -312,10 +312,10 @@ export const getPassDate = (
 ) => {
   const ending_date = getExpirationDate(privateConsumerPass);
   return [
-    `${formatAsDate(privateConsumerPass.date_bought)}→${formatAsDate(
-      ending_date,
-    )}`,
-    moment(ending_date).isBefore(moment().add(6, 'day')),
+    `${DateTime.fromISO(
+      privateConsumerPass.date_bought,
+    ).toLocaleString()}→${DateTime.fromISO(ending_date).toLocaleString()}`,
+    DateTime.fromISO(ending_date) < DateTime.now().plus({ days: 6 }),
   ];
 };
 

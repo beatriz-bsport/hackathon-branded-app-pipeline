@@ -1,9 +1,9 @@
-import moment from 'moment-timezone';
 import { createAction } from 'redux-actions';
 import type { RootState } from 'src/reducers';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
+import { DateTime } from 'luxon';
 import api, {
   fetchUniversalPasses as fetchUniversalPassesAPI,
   fetchMyPassesTabs as fetchMyPassesTabsAPI,
@@ -319,8 +319,9 @@ const sortBookingAndPrivateBookingList = (arr: BookingOrPrivateBooking[]) => {
       dateB = b.privateBooking.date_start;
     }
 
-    // @ts-ignore
-    return moment(dateA).format('x') - moment(dateB).format('x');
+    return (
+      DateTime.fromISO(dateA).valueOf() - DateTime.fromISO(dateB).valueOf()
+    );
   });
 };
 
@@ -427,10 +428,10 @@ export function fetchBookingsAndPrivateBookings(args: {
         ) {
           delete params.min_date;
           params.before_date_end = true;
-          params.start_until_datetime = moment()
+          params.start_until_datetime = DateTime.now()
             .endOf('day')
-            .add(2, 'hours')
-            .toISOString();
+            .plus({ hours: 2 })
+            .toISO();
           params.page_size = 1;
           params.page = 1;
         }
@@ -472,10 +473,10 @@ export function fetchBookingsAndPrivateBookings(args: {
         ) {
           delete params.date_start__gte;
           params.before_date_end = true;
-          params.start_until_datetime = moment()
+          params.start_until_datetime = DateTime.now()
             .endOf('day')
-            .add(2, 'hours')
-            .toISOString();
+            .plus({ hours: 2 })
+            .toISO();
           params.page_size = 1;
           params.page = 1;
         }

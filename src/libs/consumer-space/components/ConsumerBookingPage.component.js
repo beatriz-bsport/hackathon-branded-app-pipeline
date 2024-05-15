@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TodayIcon from '@material-ui/icons/Today';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { WidgetUtils } from '../../widget/WidgetUtils';
@@ -131,7 +131,7 @@ export const ConsumerBookingPage = (props: Props) => {
                   noShowChipMessage={props.t('booking.noShow')}
                   showRevertBookingButton={
                     b.booking_status_code === BOOKING_STATUS_OK.id &&
-                    moment(b.offer_date_start).isAfter(moment())
+                    DateTime.fromISO(b.offer_date_start) > DateTime.now()
                   }
                   showVaccinationStatus={props.showVaccinationStatus}
                   timezone={props.timezone}

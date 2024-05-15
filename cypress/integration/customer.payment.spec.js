@@ -1,6 +1,6 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { REACT_APP_URI, REACT_APP_TEST_URI } from './common.utils';
 
 context('Payment', () => {
@@ -16,12 +16,12 @@ context('Payment', () => {
   it('user can book an activity', function () {
     cy.visit(`/m/${this.db.marketplace.company.slug}`);
 
-    const offer = this.db.marketplace.offer;
+    const { offer } = this.db.marketplace;
 
-    const dateOffer = moment(offer.date);
+    const dateOffer = DateTime.fromISO(offer.date);
 
     cy.get('#calendar-next-month').click();
-    cy.get(`#calendar-day-${dateOffer.format('YYYY-MM-DD')}`).click();
+    cy.get(`#calendar-day-${dateOffer.toISODate()}`).click();
     cy.get(`#offer-book-${offer.id}`).click();
     cy.get(`#payment-pack-buy-${offer.payment_pack_id}`).click();
 

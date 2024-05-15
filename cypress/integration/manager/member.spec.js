@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import FactoryBot from '../../../src/libs/member/Member.factory';
 import { pickUpDate } from '../datepicker.utils';
 import {
@@ -40,7 +40,7 @@ context('Manager - Member', () => {
     cy.get('[name="birthday"]')
       .invoke('val')
       .then((memberBirthDay) => {
-        member.birthday = moment(memberBirthDay).format('YYYY-MM-DD', true);
+        member.birthday = DateTime.fromISO(memberBirthDay).toISO();
       });
     cy.get('[name=date_joined]').click();
     // pick a date
@@ -49,7 +49,7 @@ context('Manager - Member', () => {
     cy.get('[name=date_joined]')
       .invoke('val')
       .then((date_joined) => {
-        member.date_joined = moment(date_joined).format('DD/MM/YYYY', true);
+        member.date_joined = DateTime.fromISO(date_joined).toISO();
       });
 
     selectCountryPhoneCode(
@@ -157,7 +157,7 @@ context('Manager - Member', () => {
     cy.get('[name=birthday]')
       .invoke('val')
       .then((birthday) => {
-        member.birthday = moment(birthday).format('YYYY-MM-DD', true);
+        member.birthday = DateTime.fromISO(birthday).toISO();
       });
 
     cy.get('[name=date_joined]').click();
@@ -257,7 +257,7 @@ context('Manager - Member', () => {
       .invoke('val')
       .then((value) => {
         if (value) {
-          memberData.birthday = moment(value).format('YYYY-MM-DD', true);
+          memberData.birthday = DateTime.fromISO(value).toISO();
         }
       });
 
@@ -351,7 +351,7 @@ context('Manager - Member', () => {
     cy.get('[name=birthday]')
       .invoke('val')
       .then((birthday) => {
-        member.birthday = moment(birthday).format('YYYY-MM-DD', true);
+        member.birthday = DateTime.fromISO(birthday).toISO();
       });
 
     cy.get('[name=date_joined]').click();
@@ -451,7 +451,7 @@ context('Manager - Member', () => {
       .invoke('val')
       .then((value) => {
         if (value) {
-          memberData.birthday = moment(value).format('YYYY-MM-DD', true);
+          memberData.birthday = DateTime.fromISO(value).toISO();
         }
       });
 

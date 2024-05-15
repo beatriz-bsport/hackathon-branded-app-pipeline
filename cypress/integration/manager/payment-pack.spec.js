@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   generateNumber,
@@ -8,7 +8,7 @@ import {
   REACT_APP_TEST_URI,
 } from '../common.utils';
 import { pickUpDate } from '../datepicker.utils';
-import { ALMOST_100 } from '../../../src/constants'
+import { ALMOST_100 } from '../../../src/constants';
 
 const pass_name = 'Test Payment Pack';
 const pass_price = generateNumber(300);
@@ -87,14 +87,14 @@ context('Manager - PaymentPack', () => {
     // check the picked date
     cy.get('[name=lower_date]').then((input) => {
       pass_lower_date = Cypress.$(input).val();
-      expect(moment(pass_lower_date, 'DD/MM/YYYY', true).isValid()).to.be.true;
+      expect(DateTime.fromISO(pass_lower_date).isValid).to.be.true;
     });
     cy.get('[name=upper_date]').click();
     pickUpDate();
     // // here also we should check if picked date is valid
     cy.get('[name=upper_date]').then((input) => {
       pass_upper_date = Cypress.$(input).val();
-      expect(moment(pass_upper_date, 'DD/MM/YYYY', true).isValid()).to.be.true;
+      expect(DateTime.fromISO(pass_upper_date).isValid).to.be.true;
     });
     cy.get('[type=checkbox][name=new_member_only]').check();
     cy.get('[type=checkbox][name=manager_only]').check();

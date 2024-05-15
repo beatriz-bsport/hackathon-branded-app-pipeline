@@ -1,6 +1,6 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   BASE_URI,
   REACT_APP_URI,
@@ -8,10 +8,10 @@ import {
   notErrorPage,
 } from './common.utils';
 
-describe('Testing App Navigation', function () {
+describe('Testing App Navigation', () => {
   context('Test the refresh button', () => {
     // get the manager token before each test
-    beforeEach(function () {
+    beforeEach(() => {
       cy.request(REACT_APP_TEST_URI)
         .its('body')
         .as('db')
@@ -20,7 +20,7 @@ describe('Testing App Navigation', function () {
         });
     });
 
-    it('Check if the data is correctly loaded after refresh', function () {
+    it('Check if the data is correctly loaded after refresh', () => {
       cy.visit('/');
       cy.server();
       // register alerts request
@@ -86,7 +86,7 @@ describe('Testing App Navigation', function () {
 
   context('Test app navigation items', () => {
     // get the manager token before each test
-    beforeEach(function () {
+    beforeEach(() => {
       cy.request(REACT_APP_TEST_URI)
         .its('body')
         .as('db')
@@ -153,20 +153,18 @@ describe('Testing App Navigation', function () {
         path: '/settings/payment-rules',
       },
     ].map((item) => {
-      it(`Check if ${item.page} page renders without crash`, function () {
+      it(`Check if ${item.page} page renders without crash`, () => {
         cy.visit(item.path);
         // check if the page crash
         notErrorPage();
         // check if we get redirect to the dashboard page correctly
         if (item.page === 'planning') {
-          const momentDate = moment();
+          const datetime = DateTime.now();
           cy.url()
             .location('pathname')
             .should(
               'eq',
-              `/calendar/${momentDate.year()}/${
-                momentDate.month() + 1
-              }/${momentDate.date()}`,
+              `/calendar/${datetime.year}/${datetime.month}/${datetime.day}`,
             );
         } else {
           cy.url().location('pathname').should('eq', item.path);

@@ -1,5 +1,5 @@
 // / <reference types="Cypress" />
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   REACT_APP_URI,
   REACT_APP_TEST_URI,
@@ -168,7 +168,7 @@ context('Manager - Coach', () => {
       .invoke('val')
       .then((value) => {
         if (value) {
-          coachData.birthday = moment(value).format('YYYY-MM-DD', true);
+          coachData.birthday = DateTime.fromISO(value).toISO();
         }
       });
     cy.get('[name=description]')

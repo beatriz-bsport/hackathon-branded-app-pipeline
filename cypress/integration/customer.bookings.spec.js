@@ -1,6 +1,4 @@
-/// <reference types="Cypress" />
-
-import moment from 'moment-timezone';
+// / <reference types="Cypress" />
 
 import { fillSignUpForm } from './customer.utils';
 import { REACT_APP_TEST_URI } from './common.utils';
@@ -25,8 +23,8 @@ context('Booking', () => {
   });
 
   it('unauthenticated user is redirected to booking page after sign in', function () {
-    const offer = this.db.marketplace.offer;
-    const company = this.db.marketplace.company;
+    const { offer } = this.db.marketplace;
+    const { company } = this.db.marketplace;
     const path = `/customer/payment/offer/${offer.id}`;
     const search = `?membership=${company.id}`;
     cy.visit(path + search);
@@ -40,8 +38,8 @@ context('Booking', () => {
   });
 
   it('unauthenticated user is redirected to booking page after sign up', function () {
-    const offer = this.db.marketplace.offer;
-    const company = this.db.marketplace.company;
+    const { offer } = this.db.marketplace;
+    const { company } = this.db.marketplace;
     const path = `/customer/payment/offer/${offer.id}`;
     const search = `?membership=${company.id}`;
     cy.visit(path + search);
@@ -58,9 +56,9 @@ context('Booking', () => {
   it('auth customer can book with an existing pass', function () {
     cy.setCookie('auth_token', this.db.users.customer.token);
 
-    const offer = this.db.marketplace.offer;
-    const company = this.db.marketplace.company;
-    const cpp = this.db.users.customer.cpp;
+    const { offer } = this.db.marketplace;
+    const { company } = this.db.marketplace;
+    const { cpp } = this.db.users.customer;
 
     cy.visit(`/customer/payment/offer/${offer.id}?membership=${company.id}`);
 

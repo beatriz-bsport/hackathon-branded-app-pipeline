@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { makeStyles, Paper, Theme, Typography } from '@material-ui/core';
+// @ts-expect-error
 import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '#libs/theme/types';
 import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
@@ -52,7 +52,7 @@ const NotificationPushPreview = (props: Props) => {
                         {theme.company_name}
                       </div>
                       <div className={classes.notificationHour}>
-                        {moment().format('HH:mm')}
+                        {DateTime.now().toFormat('HH:mm')}
                       </div>
                     </div>
                     <div className={classes.notificationTitle}>

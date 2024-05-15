@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,7 +17,6 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
-import { formatAsDatetime } from '../../../utils/datetime';
 import { MemberUploadedFile } from '../types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -73,7 +73,13 @@ export const MemberFilesPanel = (props: Props) => {
             secondary={
               <React.Fragment>
                 <div>{file.file_path.split('/').pop()}</div>
-                <div>{formatAsDatetime(file.updated_at)} </div>
+                <div>
+                  {`${DateTime.fromISO(
+                    file.updated_at,
+                  ).toLocaleString()} - ${DateTime.fromISO(
+                    file.updated_at,
+                  ).toLocaleString(DateTime.TIME_SIMPLE)}`}
+                </div>
               </React.Fragment>
             }
           />

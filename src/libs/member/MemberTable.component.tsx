@@ -1,4 +1,5 @@
 import React, { PureComponent, JSX } from 'react';
+import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import type { TFunction } from 'i18next';
 import type { AxiosResponse } from 'axios';
@@ -28,7 +29,6 @@ import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { formatAsDate } from '#utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -120,7 +120,7 @@ const renderRow = (
     member;
   return {
     name,
-    date_joined: formatAsDate(date_joined),
+    date_joined: DateTime.fromISO(date_joined).toLocaleString(),
     ...(hasMemberReadInfoPermission && { email }),
     credit_account_balance: (
       <CreditAccountBalance credit_account_balance={credit_account_balance} />

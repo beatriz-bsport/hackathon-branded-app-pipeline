@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { DateTime } from 'luxon';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -11,8 +12,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityOn from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { formatAsDate } from '../../../utils/datetime';
-import { Moment } from '../../../i18n';
 import type { MemberNote as MemberNoteType } from '../types';
 
 type Props = {
@@ -67,7 +66,10 @@ export class MemberNote extends Component<Props, State> {
             autoFocus={autoFocus}
             disabled={!editMode}
             inputProps={{ className: classes.text }}
-            label={formatAsDate(date || Moment())}
+            label={(date
+              ? DateTime.fromISO(date)
+              : DateTime.now()
+            ).toLocaleString()}
             onChange={this.handleChange}
             value={text}
             variant="outlined"

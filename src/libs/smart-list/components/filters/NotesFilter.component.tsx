@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -106,6 +105,7 @@ export class NotesFilter extends Component<Props> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
+              // @ts-expect-error
               blockValidateOnClickAway
               filter_data={filter_data}
               onChange={onChange}

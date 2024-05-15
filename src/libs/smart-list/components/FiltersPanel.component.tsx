@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
@@ -68,6 +67,7 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segm
 import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import CommunicationScheduledItem from '#libs/smart-list/components/communication_scheduled/CommunicationScheduledItem.component';
 import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
+// @ts-expect-error
 import FilterCard from '#libs/smart-list/components/FilterListItem.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import MemberBaseFilter from '#libs/smart-list/components/filters/MemberBaseFilter.component';
@@ -268,6 +268,7 @@ export class FiltersPanel extends Component<Props, State> {
   exportSmartList = async () => {
     this.setState({ isSmartListExporting: true });
     const response = await this.props.exportMemberTable();
+    // @ts-expect-error
     const blob = new Blob([response.data], { type: 'xlsx' });
     const url = createUrl(blob);
     const link = document.createElement('a');
@@ -499,6 +500,7 @@ export class FiltersPanel extends Component<Props, State> {
                 >
                   <ListItemText
                     primary={`${t(`filterCategory.${key}`)} (${
+                      // @ts-expect-error
                       filtersList[key].length
                     })`}
                   />
@@ -518,21 +520,24 @@ export class FiltersPanel extends Component<Props, State> {
                     disablePadding
                     className={this.props.classes.nestedList}
                   >
-                    {filtersList[key].map((filter: any) => (
-                      <ListItem
-                        key={filter}
-                        button
-                        className={this.props.classes.menu}
-                        onClick={() => this.handleFilterChange(filter)}
-                      >
-                        <ListItemText
-                          primary={t(`filters.${filter}.name`)}
-                          secondary={t(`filters.${filter}.explanation`, {
-                            currencyDisplay: getCurrencyDisplay(),
-                          })}
-                        />
-                      </ListItem>
-                    ))}
+                    {
+                      // @ts-ignore
+                      filtersList[key].map((filter: any) => (
+                        <ListItem
+                          key={filter}
+                          button
+                          className={this.props.classes.menu}
+                          onClick={() => this.handleFilterChange(filter)}
+                        >
+                          <ListItemText
+                            primary={t(`filters.${filter}.name`)}
+                            secondary={t(`filters.${filter}.explanation`, {
+                              currencyDisplay: getCurrencyDisplay(),
+                            })}
+                          />
+                        </ListItem>
+                      ))
+                    }
                   </List>
                 </Collapse>
               </div>

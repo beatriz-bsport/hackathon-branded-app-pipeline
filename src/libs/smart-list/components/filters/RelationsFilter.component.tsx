@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import classnames from 'classnames';
@@ -235,7 +234,10 @@ export class RelationsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              InputProps={{ inputProps: { min: 0 } }}
+              InputProps={
+                // @ts-expect-error
+                { inputProps: { min: 0 } }
+              }
               onChange={(ev) =>
                 onChange({ value_number_relations: ev.target.value })
               }
@@ -247,7 +249,10 @@ export class RelationsFilter extends Component<Props> {
             {filter_data?.comparator_number_relations === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
                 classes={classes}
-                InputProps={{ inputProps: { min: 0 } }}
+                InputProps={
+                  // @ts-expect-error
+                  { inputProps: { min: 0 } }
+                }
                 onChange={(ev) =>
                   onChange({ value_number_relations_second: ev.target.value })
                 }
@@ -279,6 +284,7 @@ export class RelationsFilter extends Component<Props> {
               {t(`filters.${filter_data?.filter_identifier}.date.first`)}
 
               <CalendarPicker
+                // @ts-expect-error
                 blockValidateOnClickAway
                 filter_data={filter_data}
                 onChange={onChange}
@@ -329,7 +335,10 @@ export class RelationsFilter extends Component<Props> {
                     : null}
                   <DelayedNumericInput
                     classes={classes}
-                    InputProps={{ inputProps: { min: 0 } }}
+                    InputProps={
+                      // @ts-expect-error
+                      { inputProps: { min: 0 } }
+                    }
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
                         this.getValueRelationDictList(ev.target.value)[index],
@@ -343,7 +352,10 @@ export class RelationsFilter extends Component<Props> {
                   {comparatorList[index] === BETWEEN_COMPARATOR ? (
                     <DelayedNumericInput
                       classes={classes}
-                      InputProps={{ inputProps: { min: 0 } }}
+                      InputProps={
+                        // @ts-expect-error
+                        { inputProps: { min: 0 } }
+                      }
                       onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                         onChange(
                           this.getValueSecondRelationDictList(ev.target.value)[
@@ -372,11 +384,15 @@ export class RelationsFilter extends Component<Props> {
                         }
                         value={filterMustBeValidList[index]}
                       >
-                        {/* eslint-disable-next-line */}
-                        <MenuItem key={`valid_${index}`} value={true}>
+                        {/* @ts-expect-error eslint-disable-next-line */}
+                        <MenuItem key={`valid_${index}`} value>
                           {t(`filters.${filter_data?.filter_identifier}.valid`)}
                         </MenuItem>
-                        <MenuItem key={`valid_or_not_${index}`} value={false}>
+                        <MenuItem
+                          key={`valid_or_not_${index}`}
+                          // @ts-expect-error
+                          value={false}
+                        >
                           {t(
                             `filters.${filter_data?.filter_identifier}.validOrNot`,
                           )}
@@ -436,11 +452,8 @@ export class RelationsFilter extends Component<Props> {
                     }
                     value={booleanValueList[index]}
                   >
-                    {/* eslint-disable */}
-                    <MenuItem
-                      key={`${booleanNameList[index]}_true`}
-                      value={true}
-                    >
+                    {/* @ts-expect-error eslint-disable */}
+                    <MenuItem key={`${booleanNameList[index]}_true`} value>
                       {t(
                         `filters.${filter_data?.filter_identifier}.${booleanNameList[index]}.true`,
                       )}
@@ -448,6 +461,7 @@ export class RelationsFilter extends Component<Props> {
                     {/* eslint-enable */}
                     <MenuItem
                       key={`${booleanNameList[index]}_false`}
+                      // @ts-ignore
                       value={false}
                     >
                       {t(

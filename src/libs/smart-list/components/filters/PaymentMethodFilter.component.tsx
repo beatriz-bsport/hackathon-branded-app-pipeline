@@ -1,8 +1,9 @@
-// @ts-nocheck
-// @flow
-
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
+import {
+  withTranslation,
+  // @ts-ignore
+  TFunction,
+} from 'react-i18next';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -11,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import moment from 'moment-timezone';
 
+import { Theme } from '@material-ui/core';
 import { DATE_BETWEEN, DATE_BEFORE, DATE_AFTER } from '../constants';
 import CalendarPicker from '../CalendarPicker.component';
 
@@ -57,6 +59,7 @@ export class PaymentMethodFilter extends Component<Props> {
         </div>
         {t(`filters.${filter_data.filter_identifier}.labelFirst`)}
         <Select
+          // @ts-ignore
           className={classes.input}
           onChange={(ev) => onChange({ owns_payment_method: ev.target.value })}
           value={valueAsString}
@@ -70,9 +73,11 @@ export class PaymentMethodFilter extends Component<Props> {
         </Select>
 
         {valueAsString === '1' && (
+          // @ts-ignore
           <div className={classes.row}>
             {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
             <CalendarPicker
+              // @ts-expect-error
               blockValidateOnClickAway
               hideDurationTab
               filter_data={filter_data}
@@ -86,7 +91,7 @@ export class PaymentMethodFilter extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -105,5 +110,6 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['smartList']),
+  // @ts-expect-error
   withStyles(styles),
 )(PaymentMethodFilter);

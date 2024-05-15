@@ -1,8 +1,9 @@
-// @ts-nocheck
-// @flow
-
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
+import {
+  withTranslation,
+  // @ts-ignore
+  TFunction,
+} from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles } from '@material-ui/styles';
@@ -258,10 +259,12 @@ export class CalendarPicker extends Component<Props, State> {
           utils={MomentUtils}
         >
           <div className={classes.calendarsContainer}>
+            {/* @ts-expect-error */}
             <BasePicker>
               {() => (
                 <div className={classes.picker}>
                   <Calendar
+                    // @ts-expect-error
                     autoOk
                     date={date ? moment(date, 'YYYY-MM-DD') : moment()}
                     maxDate={
@@ -279,9 +282,11 @@ export class CalendarPicker extends Component<Props, State> {
               )}
             </BasePicker>
             {this.state.date_filter_type === DATE_BETWEEN ? (
+              // @ts-expect-error
               <BasePicker>
                 {() => (
                   <div className={classes.picker}>
+                    {/* @ts-expect-error */}
                     <Calendar
                       date={
                         date_second
@@ -372,18 +377,26 @@ export class CalendarPicker extends Component<Props, State> {
             )}
           </Typography>
           <NumericInput
+            // @ts-expect-error
             classes={classes}
             onChange={(ev) => {
+              // @ts-expect-error
               if (ev.target.value < 0) {
                 this.setState((prevState) => ({
                   date_filter_type: this.changeDurationTime(
+                    // @ts-expect-error
                     prevState.date_filter_type,
                   ),
                 }));
               }
+              // @ts-expect-error
               this.setState({ duration: Math.abs(ev.target.value) });
+              // @ts-expect-error
               if (this.state.duration_second < Math.abs(ev.target.value)) {
-                this.setState({ duration_second: Math.abs(ev.target.value) });
+                this.setState({
+                  // @ts-expect-error
+                  duration_second: Math.abs(ev.target.value),
+                });
               }
             }}
             value={this.state.duration}
@@ -405,18 +418,26 @@ export class CalendarPicker extends Component<Props, State> {
           {this.state.date_filter_type === DURATION_BETWEEN ||
           this.state.date_filter_type === DURATION_BETWEEN_PAST ? (
             <NumericInput
+              // @ts-expect-error
               classes={classes}
               onChange={(ev) => {
+                // @ts-expect-error
                 if (ev.target.value < 0) {
                   this.setState((prevState) => ({
                     date_filter_type: this.changeDurationTime(
+                      // @ts-expect-error
                       prevState.date_filter_type,
                     ),
                   }));
                 }
+                // @ts-expect-error
                 this.setState({ duration_second: Math.abs(ev.target.value) });
+                // @ts-expect-error
                 if (this.state.duration > Math.abs(ev.target.value)) {
-                  this.setState({ duration: Math.abs(ev.target.value) });
+                  this.setState(
+                    // @ts-expect-error
+                    { duration: Math.abs(ev.target.value) },
+                  );
                 }
               }}
               value={this.state.duration_second}
@@ -497,7 +518,10 @@ export class CalendarPicker extends Component<Props, State> {
             <SwipeableViews
               animateHeight
               ignoreNativeScroll
-              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              axis={
+                // @ts-expect-error
+                theme.direction === 'rtl' ? 'x-reverse' : 'x'
+              }
               containerStyle={{
                 marginTop: '24px',
                 marginBottom: '24px',

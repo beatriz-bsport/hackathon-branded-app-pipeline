@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -114,11 +112,13 @@ export const TagRuleListItem = (props: Props) => {
           {t('tag_rules.tag')}
         </Typography>
         <div className={classes.tagSelect}>
+          {/* @ts-expect-error */}
           <TagSelector
             noMulti
             allTagsWithTagGroup={props.tags}
             isDisabled={!editRule}
             onChange={(option) =>
+              // @ts-expect-error
               setTagRuleState({ ...tagRuleState, tag: option.tag.id })
             }
             onDeleteTag={() => setTagRuleState({ ...tagRuleState, tag: null })}

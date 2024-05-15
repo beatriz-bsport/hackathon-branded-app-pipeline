@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -85,11 +84,11 @@ export class CustomFormsFilter extends Component<Props> {
             onChange={(ev) => onChange({ has_filled: ev.target.value })}
             value={filter_data.has_filled}
           >
-            {/* eslint-disable-next-line */}
-            <MenuItem key="true" value={true}>
+            {/* @ts-ignore  eslint-disable-next-line */}
+            <MenuItem key="true" value>
               {t(`filters.${filter_data?.filter_identifier}.hasCompleted`)}
             </MenuItem>
-            {/* eslint-disable-next-line */}
+            {/* @ts-ignore eslint-disable-next-line */}
             <MenuItem key="false" value={false}>
               {filter_data.all_selected_must_fulfill_condition === true
                 ? t(
@@ -109,13 +108,13 @@ export class CustomFormsFilter extends Component<Props> {
             }
             value={filter_data.all_selected_must_fulfill_condition}
           >
-            {/* eslint-disable-next-line */}
-            <MenuItem key="true" value={true}>
+            {/* @ts-ignore eslint-disable-next-line */}
+            <MenuItem key="true" value>
               {filter_data.has_filled
                 ? t(`filters.${filter_data?.filter_identifier}.all`)
                 : t(`filters.${filter_data?.filter_identifier}.none`)}
             </MenuItem>
-            {/* eslint-disable-next-line */}
+            {/* @ts-expect-error eslint-disable-next-line */}
             <MenuItem key="false" value={false}>
               {t(`filters.${filter_data?.filter_identifier}.atLeastOne`)}
             </MenuItem>
@@ -211,7 +210,10 @@ export class CustomFormsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              InputProps={{ inputProps: { min: 0, max: 100 } }}
+              InputProps={
+                // @ts-expect-error
+                { inputProps: { min: 0, max: 100 } }
+              }
               onChange={(ev) =>
                 onChange({
                   completion_percentage_value:
@@ -228,7 +230,10 @@ export class CustomFormsFilter extends Component<Props> {
           BETWEEN_COMPARATOR ? (
             <DelayedNumericInput
               classes={classes}
-              InputProps={{ inputProps: { min: 0, max: 100 } }}
+              InputProps={{
+                // @ts-expect-error
+                inputProps: { min: 0, max: 100 },
+              }}
               onChange={(ev) =>
                 onChange({
                   completion_percentage_value_interval_end:
@@ -261,6 +266,7 @@ export class CustomFormsFilter extends Component<Props> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
+              // @ts-expect-error
               blockValidateOnClickAway
               filter_data={filter_data}
               onChange={onChange}

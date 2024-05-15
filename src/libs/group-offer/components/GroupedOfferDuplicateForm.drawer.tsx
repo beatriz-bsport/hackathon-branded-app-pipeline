@@ -2,8 +2,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
-import moment from 'moment-timezone';
-
+import { DateTime } from 'luxon';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';
 
@@ -120,23 +119,25 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
       } = group;
 
       resetPreview();
-
       const firstOffer = [...offersGroup].sort((a, b) =>
-        moment(a.date_start).isBefore(b.date_start) ? -1 : 1,
+        DateTime.fromISO(a.date_start) < DateTime.fromISO(b.date_start)
+          ? -1
+          : 1,
       )?.[0];
 
       if (!firstOffer) {
         onClose();
       }
-
-      const day_delta = moment(values.timeStart).diff(
-        moment(firstOffer.date_start).startOf('day'),
+      const day_delta = DateTime.fromISO(values.timeStart).diff(
+        DateTime.fromISO(firstOffer.date_start).startOf('day'),
         'days',
-      );
+      ).days;
 
       const offers_data = offersGroup.map((o) => ({
         ...o,
-        date_start: moment(o.date_start).add(day_delta, 'days').unix(),
+        date_start: DateTime.fromISO(o.date_start)
+          .plus({ days: day_delta })
+          .toUnixInteger(),
       }));
 
       generatePreview(

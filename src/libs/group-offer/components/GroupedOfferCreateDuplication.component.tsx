@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { withFormik, Form, FormikProps } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   Button,
@@ -167,14 +167,14 @@ export default compose<any, OuterProps>(
       if (initial) {
         return {
           name: `${initial.name} (${t('copy')})`,
-          timeStart: moment().format('YYYY-MM-DD'),
+          timeStart: DateTime.now().toISODate(),
           copyRecurrence: !!initial.recurrence_id,
         };
       }
 
       return {
         name: `(${t('copy')})`,
-        timeStart: moment().format('YYYY-MM-DD'),
+        timeStart: DateTime.now().toISODate(),
         copyRecurrence: false,
       };
     },

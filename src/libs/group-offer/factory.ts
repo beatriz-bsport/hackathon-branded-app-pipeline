@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { generateRandomInt } from '../../utils/factories';
 
@@ -34,11 +34,11 @@ const RATINGS: Array<string> = ['1', '2', '3', '4', '5'];
 const IMAGES: Array<string> = ['Ball', 'Room', 'Stadium', 'Pitch'];
 
 const NEXT_SLOTS: Array<string> = [
-  moment().add(2, 'days').calendar(),
-  moment().add(5, 'days').calendar(),
-  moment().add(12, 'days').calendar(),
-  moment().add(17, 'days').calendar(),
-  moment().add(26, 'days').calendar(),
+  DateTime.now().plus({ days: 2 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 5 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 12 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 17 }).toRelativeCalendar(),
+  DateTime.now().plus({ days: 26 }).toRelativeCalendar(),
 ];
 
 const DESCRIPTIONS: Array<string> = [

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { pure } from 'recompose';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -181,9 +181,9 @@ export const GroupedOfferDelete: React.FC<Props> = ({
                             ? t(
                                 'metaActivity:groupedOption.modal.form.delete.firstSession',
                                 {
-                                  day: moment(
+                                  day: DateTime.fromISO(
                                     firstOfferInGroup.date_start,
-                                  ).format('L'),
+                                  ).toFormat('D'),
                                 },
                               )
                             : t(
@@ -195,13 +195,19 @@ export const GroupedOfferDelete: React.FC<Props> = ({
                     {similars
                       .filter((g) => g.id !== group.id && g.available)
                       .sort((a, b) => {
-                        const aFirstOffer = getOffersListByGroup(a.id)?.[0];
-                        const bFirstOffer = getOffersListByGroup(b.id)?.[0];
-                        if (
-                          moment(aFirstOffer?.date_start).isBefore(
-                            moment(bFirstOffer?.date_start),
-                          )
-                        ) {
+                        const aFirstOffer = getOffersListByGroup(a.id)?.[0]
+                          ?.date_start;
+                        const aFirstOfferDate = aFirstOffer
+                          ? DateTime.fromISO(aFirstOffer)
+                          : DateTime.now();
+
+                        const bFirstOffer = getOffersListByGroup(b.id)?.[0]
+                          ?.date_start;
+                        const bFirstOfferDate = bFirstOffer
+                          ? DateTime.fromISO(bFirstOffer)
+                          : DateTime.now();
+
+                        if (aFirstOfferDate < bFirstOfferDate) {
                           return -1;
                         }
                         return 1;
@@ -222,9 +228,9 @@ export const GroupedOfferDelete: React.FC<Props> = ({
                                   ? t(
                                       'metaActivity:groupedOption.modal.form.delete.firstSession',
                                       {
-                                        day: moment(
+                                        day: DateTime.fromISO(
                                           firstOffer.date_start,
-                                        ).format('L'),
+                                        ).toFormat('D'),
                                       },
                                     )
                                   : ''

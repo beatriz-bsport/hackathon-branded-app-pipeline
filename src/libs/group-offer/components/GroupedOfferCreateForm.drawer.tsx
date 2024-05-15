@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';
@@ -213,7 +213,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               count: values.recurrence_method === 'count' ? values.count : null,
               until:
                 values.recurrence_method === 'until'
-                  ? moment(values.until).unix()
+                  ? DateTime.fromISO(values.until).toUnixInteger()
                   : null,
               frequence,
               interval: values.recurrence_interval,

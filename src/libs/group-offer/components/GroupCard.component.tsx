@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import chroma from 'chroma-js';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -166,7 +166,7 @@ export const GroupCard: React.FC<Props> = ({
               <div>
                 <Typography color="primary">
                   {capitalizeFirstLetter(
-                    moment(offer.date_start).format('ddd DD MMM'),
+                    DateTime.fromISO(offer.date_start).toFormat('ccc dd LLL'),
                   )}
                 </Typography>
               </div>

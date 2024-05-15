@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 import {
   AreaChart,
   Area,
@@ -11,11 +10,13 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
+import { DateTime } from 'luxon';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
 } from '#libs/statistics/utils';
+import { STATISTICS_FORMAT } from '#libs/statistics/constants';
 
 type Props = {
   data: Array<any>,
@@ -36,18 +37,24 @@ type Props = {
   minWidth?: number,
 };
 
-const dateFormatter = (domain: Array<Moment>) => {
-  const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
-  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
-    return (d: any) => moment(d).format('MMM YYYY');
+const dateFormatter = (domain: Array<string>) => {
+  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
+  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
+  const durationInDays = end.diff(start, 'days').days;
+
+  if (durationInDays > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
+    return (d: string) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('MMM yyyy');
   }
-  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
-    return (d: any) => moment(d).format('DD MMM');
+  if (durationInDays > WEEKLY_DURATION_DISPLAY_LIMIT) {
+    return (d: string) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('dd MMM');
   }
-  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
-    return (d: any) => moment(d).format('ddd DD MMM');
+  if (durationInDays > DAILY_DURATION_DISPLAY_LIMIT) {
+    return (d: string) =>
+      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('ccc dd MMM');
   }
-  return (d: any) => moment(d).format('LT');
+  return (d: string) => DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('t');
 };
 
 export function TwoStackedAreasChart(props: Props) {

@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import moment from 'moment-timezone';
 import { compose } from 'recompose';
 
 import { withTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { DateTime } from 'luxon';
 import { ComposedChart } from './Charts.component';
 
 type Props = {
@@ -33,12 +33,12 @@ const colors = [
 
 function dateFormatter(kind) {
   if (kind === 'month') {
-    return (d) => moment(d).format('MMM YYYY');
+    return (d) => DateTime.fromISO(d).toFormat('MMM YYYY');
   }
   if (kind === 'week') {
-    return (d) => `Semaine du ${moment(d).format('DD MMM YYYY')}`;
+    return (d) => `Semaine du ${DateTime.fromISO(d).toFormat('DD MMM YYYY')}`;
   }
-  return (d) => moment(d).format('ddd DD MMM');
+  return (d) => DateTime.fromISO(d).toFormat('ddd DD MMM');
 }
 
 export const TemporalStatistic = React.memo((props: Props) => {

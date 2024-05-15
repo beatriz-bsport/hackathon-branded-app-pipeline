@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
+import { DateTime } from 'luxon';
 
 type Props = {
   data: Array<{ value: number, count: number, week_day: number, hour: number }>,
@@ -36,12 +36,11 @@ const YLegend = (props: { classes: any, value: number }) => (
 );
 
 export const TimeslotGridChart = (props: Props) => {
-  const { schedule_timerange_begin, schedule_timerange_end } = props;
-  const hour_start = schedule_timerange_begin
-    ? moment(props.schedule_timerange_begin).hour()
+  const hour_start = props.schedule_timerange_begin
+    ? DateTime.fromISO(props.schedule_timerange_begin).hour
     : 6;
-  const hour_end = schedule_timerange_end
-    ? moment(props.schedule_timerange_end).hour()
+  const hour_end = props.schedule_timerange_end
+    ? DateTime.fromISO(props.schedule_timerange_end).hour
     : 23;
   const classes = useStyles(props.height);
   const { t } = useTranslation(['datetime']);

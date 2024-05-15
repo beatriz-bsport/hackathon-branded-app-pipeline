@@ -26,6 +26,7 @@ import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import { REPLACEMEMENT_REQUEST_LATE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind';
 
+import { DateTime } from 'luxon';
 import ReplacementRequestFilters from '#libs/replacement-request/components/ReplacementRequestFilters.component';
 import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
 import ReplacementRequestClosingDateExtensionDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestClosingDateExtensionDialog.component';
@@ -399,28 +400,27 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                 futureOnly
                 date_end={
                   replacementRequestManagerFilter.offer__date_start__lte
-                    ? moment(
+                    ? DateTime.fromISO(
                         replacementRequestManagerFilter.offer__date_start__lte,
-                      ).unix()
+                      ).toUnixInteger()
                     : null
                 }
                 date_start={
                   replacementRequestManagerFilter.offer__date_start__gte
-                    ? moment(
+                    ? DateTime.fromISO(
                         replacementRequestManagerFilter.offer__date_start__gte,
-                      ).unix()
+                      ).toUnixInteger()
                     : null
                 }
                 onSubmit={(_values) => {
                   setReplacementRequestManagerFilter({
                     ...replacementRequestManagerFilter,
-                    offer__date_start__gte:
-                      _values.dateStart.format('YYYY-MM-DD'),
-                    offer__date_start__lte:
-                      _values.dateEnd.format('YYYY-MM-DD'),
+                    offer__date_start__gte: _values.dateStart.toISODate(),
+                    offer__date_start__lte: _values.dateEnd.toISODate(),
                     timePeriod: _values.timePeriod,
                   });
                 }}
+                // @ts-expect-error
                 timePeriod={
                   replacementRequestManagerFilter.timePeriod || 'custom'
                 }
@@ -540,22 +540,22 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
               <DateRangeSelector
                 date_end={
                   replacementRequestOfferHistoryFilter.max_date
-                    ? moment(
+                    ? DateTime.fromISO(
                         replacementRequestOfferHistoryFilter.max_date,
-                      ).unix()
-                    : moment().unix()
+                      ).toUnixInteger()
+                    : DateTime.now().toUnixInteger()
                 }
                 date_start={
                   replacementRequestOfferHistoryFilter.min_date
-                    ? moment(
+                    ? DateTime.fromISO(
                         replacementRequestOfferHistoryFilter.min_date,
-                      ).unix()
-                    : moment().subtract(1, 'week').unix()
+                      ).toUnixInteger()
+                    : DateTime.now().minus({ week: 1 }).toUnixInteger()
                 }
                 onSubmit={(_values) => {
                   setReplacementRequestOfferHistoryFilter({
-                    min_date: _values.dateStart.format('YYYY-MM-DD'),
-                    max_date: _values.dateEnd.format('YYYY-MM-DD'),
+                    min_date: _values.dateStart.toISODate(),
+                    max_date: _values.dateEnd.toISODate(),
                     timePeriod: _values.timePeriod,
                   });
                 }}

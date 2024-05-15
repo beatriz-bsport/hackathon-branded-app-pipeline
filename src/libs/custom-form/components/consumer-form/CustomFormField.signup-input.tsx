@@ -5,6 +5,7 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
+import { DateTime } from 'luxon';
 // @ts-ignore
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -16,7 +17,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import moment from 'moment-timezone';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
   CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
@@ -144,7 +144,7 @@ export const CustomFormConsumerInput = (props: Props) => {
     [t],
   );
 
-  const now = moment().startOf('year').add(-1, 'years').format('YYYY-MM-DD');
+  const now = DateTime.now().startOf('year').plus({ years: -1 }).toISODate();
   switch (props.field.signup_question_kind) {
     case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
     case CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME:
@@ -431,7 +431,6 @@ export const CustomFormConsumerInput = (props: Props) => {
             label={label}
             name={`custom_form_field.${props.index}.answer`}
             required={props.field.mandatory}
-            returnMoment={false}
           />
         </>
       );

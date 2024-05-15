@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import MUIDataTable from 'mui-datatables';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { DateTime } from 'luxon';
 import { formatAsDate } from '#utils/datetime';
 import type { MaterialStyleType } from '#utils/types';
 import type { Member } from '#libs/member/types';
@@ -131,7 +131,7 @@ const renderRow = (member: MemberStatistics, t: TFunction) => {
   const { display_count, last_display, completed, name, archived } = member;
   return {
     name: renderMemberName(name, archived, t),
-    last_display: formatAsDate(moment.unix(last_display).format('MM/DD/YYYY')),
+    last_display: formatAsDate(DateTime.fromSeconds(last_display).toISODate()),
     display_count: renderDisplayAccount(display_count),
     completed: renderCompleted(completed, t),
   };

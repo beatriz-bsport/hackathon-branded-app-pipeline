@@ -1,11 +1,11 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import Grid from '@material-ui/core/Grid';
 import CustomFormConfigurationTable from './CustomFormConfigurationTable.form';
 import { CUSTOM_FORM_FIELDS_OPTIONS } from '../../../utils';
 import type { TagGroupAPI, Tag } from '../../../../tag/types';
 import type { CustomForm } from '../../../types';
 import FactoryBot from '#libs/theme/factories';
+import { DateTime } from 'luxon';
 
 const companyTheme = FactoryBot.companyTheme.createOne();
 
@@ -84,7 +84,7 @@ CompleteInitialState.args = {
   initial: {
     name: 'Custom Form StoryBook',
     id: 1,
-    date_created: moment(),
+    date_created: DateTime.now(),
     disabled: false,
     custom_form_field: [...fieldOptionsBuilder()],
   },

@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import { DateTime } from 'luxon';
 import {
   smartListStats,
   dateRangeChange,
@@ -12,8 +13,8 @@ import {
 
 const initialState = Immutable({
   dateRange: {
-    start: moment().subtract(365, 'days').valueOf(),
-    end: moment().valueOf(),
+    start: DateTime.now().minus({ years: 1 }).valueOf(),
+    end: DateTime.now().valueOf(),
     kind: 'custom',
   },
   mainChart: 'turnover',

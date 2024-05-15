@@ -1,5 +1,3 @@
-import moment from 'moment-timezone';
-
 import { DateTime } from 'luxon';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
@@ -20,7 +18,9 @@ import { isDateInThePast } from '#src/utils/datetime';
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   if (!offer) return false;
-  return moment(offer.date_start).isBefore(moment());
+  return (
+    DateTime.fromISO(offer.date_start).toSeconds() < DateTime.now().toSeconds()
+  );
 }
 
 /**

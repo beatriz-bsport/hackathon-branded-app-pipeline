@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -180,8 +180,8 @@ export class SmartListCampaign extends React.Component<Props> {
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
-    moment(communicationScheduled.datetime_scheduled) >
-    moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
+    DateTime.fromISO(communicationScheduled.datetime_scheduled) >
+    DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION });
 
   openTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(true);
@@ -300,10 +300,10 @@ export class SmartListCampaign extends React.Component<Props> {
       !!earliestHourToSendCommunications &&
       !!latestHourToSendCommunications
     ) {
-      const now = moment().tz(timezone);
+      const now = DateTime.now().setZone(timezone);
       return (
-        earliestHourToSendCommunications > now.hours() ||
-        now.hours() >= latestHourToSendCommunications
+        earliestHourToSendCommunications > now.hour ||
+        now.hour >= latestHourToSendCommunications
       );
     }
     return false;

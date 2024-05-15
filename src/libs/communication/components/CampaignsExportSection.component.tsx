@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
@@ -35,8 +35,8 @@ export const CampaignsExportSection: React.FC<Props> = ({
 
   const [periodFilter, setPeriodFilter] =
     React.useState<CampaignExportStartEndDates>({
-      start_date: moment().add(-1, 'day').format('YYYY-MM-DD'),
-      end_date: moment().format('YYYY-MM-DD'),
+      start_date: DateTime.now().plus({ days: -1 }).toISODate(),
+      end_date: DateTime.now().toISODate(),
     });
 
   const handlePeriodChange = React.useCallback(
@@ -61,8 +61,8 @@ export const CampaignsExportSection: React.FC<Props> = ({
       <div className={classes.flexHeaderContainer}>
         <DateRangeSelector
           isEndDateBeforeCurrentDate
-          date_end={moment(periodFilter.end_date).unix()}
-          date_start={moment(periodFilter.start_date).unix()}
+          date_end={DateTime.fromISO(periodFilter.end_date).toUnixInteger()}
+          date_start={DateTime.fromISO(periodFilter.start_date).toUnixInteger()}
           onSubmit={handlePeriodChange}
           timePeriod="week"
         />
@@ -100,8 +100,12 @@ export const CampaignsExportSection: React.FC<Props> = ({
         <Typography>
           {csvExportLink
             ? t('lastGenerated', {
-                date: moment.unix(parseFloat(csvExportDate)).format('L'),
-                time: moment.unix(parseFloat(csvExportDate)).format('LT'),
+                date: DateTime.fromSeconds(parseFloat(csvExportDate)).toFormat(
+                  'D',
+                ),
+                time: DateTime.fromSeconds(parseFloat(csvExportDate)).toFormat(
+                  't',
+                ),
               })
             : t('generateHelperText')}
         </Typography>

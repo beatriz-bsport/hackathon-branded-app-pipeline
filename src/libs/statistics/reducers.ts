@@ -1,6 +1,3 @@
-// @flow
-
-import moment from 'moment-timezone';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -34,7 +31,7 @@ const initialState = Immutable({
 
 export default handleActions(
   {
-    // @ts-ignore
+    // @ts-expect-error
     [dateRangeChange]: (state, { payload: { start, end, kind } }) => {
       return state.set('dateRange', {
         start: start && start.valueOf(),
@@ -42,19 +39,19 @@ export default handleActions(
         kind,
       });
     },
-    // @ts-ignore
+    // @ts-expect-error
     [statIsLoading]: (state, { payload: { identifier, loading } }) => {
       return state.setIn(['stats', identifier, 'isLoading'], loading);
     },
-    // @ts-ignore
+    // @ts-expect-error
     [statLoaded]: (state, { payload: { identifier, data } }) => {
       return state.setIn(['stats', identifier, 'data'], data);
     },
-    // @ts-ignore
+    // @ts-expect-error
     [statError]: (state, { payload: { identifier, error } }) => {
       return state.setIn(['stats', identifier, 'error'], error);
     },
-    // @ts-ignore
+    // @ts-expect-error
     [smartListStats.isLoading]: (state, { payload }) => {
       return state.setIn(
         [
@@ -66,7 +63,7 @@ export default handleActions(
         payload.isLoading,
       );
     },
-    // @ts-ignore
+    // @ts-expect-error
     [smartListStats.resetData]: (state, { payload }) => {
       return state.setIn(
         [
@@ -78,7 +75,7 @@ export default handleActions(
         [],
       );
     },
-    // @ts-ignore
+    // @ts-expect-error
     [smartListStats.success]: (state, { payload }) => {
       return state.merge(
         {
@@ -99,9 +96,9 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-ignore
+        // @ts-expect-error
         ['dataSourceDashboard', 'byUuid', payload.uuid, 'loading'],
-        // @ts-ignore
+        // @ts-expect-error
         payload.loading,
       );
     },
@@ -110,9 +107,9 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-ignore
+        // @ts-expect-error
         ['dataSourceDashboard', 'byUuid', payload.uuid, 'data'],
-        // @ts-ignore
+        // @ts-expect-error
         payload.data,
       );
     },

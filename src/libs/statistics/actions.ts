@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 // @ts-expect-error
 import type { Dispatch, ThunkAction } from '../state/types';
 
@@ -35,7 +35,7 @@ async function fetchStats(dispatch, identifier, callee) {
     const data = (await callee())
       // @ts-expect-error
       .map((row) => {
-        return { d: moment(row.d, 'YYYY-MM-DD').valueOf(), v: row.v };
+        return { d: DateTime.fromISO(row.d).toMillis(), v: row.v };
       })
       // @ts-expect-error
       .sort((u, v) => u.d - v.d);

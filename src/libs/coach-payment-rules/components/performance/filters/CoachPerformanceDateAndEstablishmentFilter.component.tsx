@@ -12,10 +12,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import type { Moment } from 'moment-timezone';
 import type { ImmutableArray } from 'seamless-immutable';
 
 import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
 // @ts-ignore
 import { Submit } from '#components/forms';
 import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
@@ -37,16 +37,16 @@ type FormikValues = {
 type Props = {
   handleDateFiltersChange: (
     data: {
-      dateStart: Moment;
-      dateEnd: Moment;
+      dateStart: DateTime;
+      dateEnd: DateTime;
     },
     options: OptionCallback,
   ) => Promise<void>;
   loading: boolean;
   onSubmit: (
     data: {
-      dateStart: Moment;
-      dateEnd: Moment;
+      dateStart: DateTime;
+      dateEnd: DateTime;
     },
     options?: OptionCallback,
   ) => Promise<void>;

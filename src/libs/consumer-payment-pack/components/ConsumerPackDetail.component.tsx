@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -32,7 +32,6 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import type { Booking } from '#libs/booking/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { Member } from '#libs/member/types';
-import { formatAsDatetime } from '../../../utils/datetime';
 
 import { CONSUMER_PAYMENT_PACK_EXTENSION_PAGE_SIZE } from '#libs/consumer-payment-pack/constants';
 
@@ -273,10 +272,9 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   )}
                 </ListItemIcon>
                 <ListItemText
-                  primary={`${formatAsDatetime(
-                    DateTime.fromMillis(modifiedCredit[0] * 1000).toISO(),
-                    props.timezone,
-                  )}`}
+                  primary={`${DateTime.fromSeconds(modifiedCredit[0])
+                    .setZone(props.timezone || Settings.defaultZone)
+                    .toFormat('D - t')}`}
                 />
               </ListItem>
             ))}

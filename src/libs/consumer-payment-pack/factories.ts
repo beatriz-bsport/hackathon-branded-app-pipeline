@@ -1,5 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 
@@ -25,8 +25,9 @@ export const consumerPaymentPackFactory = (
     available_credits: options?.availableCredits || faker.number.int(10),
     payment_pack_id: options?.paymentPackId || paymentPack.id.toString(),
     bookings: [(options?.bookingId || faker.number.int(10000)).toString()],
-    starting_date: options?.startingDate || moment().startOf('month').format(),
-    ending_date: options?.endingDate || moment().endOf('month').format(),
+    starting_date:
+      options?.startingDate || DateTime.now().startOf('month').toISO(),
+    ending_date: options?.endingDate || DateTime.now().endOf('month').toISO(),
     member_id: options?.memberId || faker.number.int(10000),
     bookings_this_week: faker.number.int(10),
     payment_pack: paymentPack,

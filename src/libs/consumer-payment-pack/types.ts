@@ -31,7 +31,7 @@ export type ConsumerPaymentPack<PP = number> = {
   available_credits: number;
   bookings: number[];
   bookings_this_week: number;
-  consumer: number;
+  consumer: Consumer;
   consumer_payment_pack_source: number | null;
   company_source_name: string;
   company_source_primary_color: string;

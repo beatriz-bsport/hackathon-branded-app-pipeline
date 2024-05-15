@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -437,8 +437,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           const maxoutEnd = DateTime.fromISO(d.end_date);
 
           if (
-            offerStart >= maxoutStart &&
-            offerStart <= maxoutEnd &&
+            offerStart.startOf('day') >= maxoutStart.startOf('day') &&
+            offerStart.startOf('day') <= maxoutEnd.startOf('day') &&
             d.booking_available === 0
           ) {
             // @ts-ignore
@@ -509,9 +509,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       listItemPrimaryText = consumer.name;
     } else {
       listItemPrimaryText =
-        // @ts-expect-error
         `${consumer?.first_name || ''}${
-          // @ts-expect-error
           consumer?.last_name ? ` ${consumer.last_name}` : ''
         }` || ' - ';
     }
@@ -538,12 +536,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             >
               {hideConsumer ? null : (
                 <ListItemAvatar>
-                  <Avatar
-                    src={
-                      // @ts-expect-error
-                      consumer ? consumer.photo : null
-                    }
-                  />
+                  <Avatar src={consumer ? consumer.photo : null} />
                 </ListItemAvatar>
               )}
               <ListItemText

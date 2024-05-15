@@ -1,5 +1,4 @@
 import React from 'react';
-import moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -7,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles, createStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
+import { DateTime } from 'luxon';
 import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
@@ -54,7 +54,7 @@ type OwnProps = {
 type stateHandlerType = {
   performanceLoading: boolean;
   setPerformanceLoading: (loading: boolean) => void;
-  formDates: { dateStart: moment.Moment; dateEnd: moment.Moment };
+  formDates: { dateStart: DateTime; dateEnd: DateTime };
   setFormDates: (dates: { dateStart: number; dateEnd: number }) => void;
 };
 
@@ -201,29 +201,29 @@ const mapWithHandlers = {
   onSubmit:
     (props: OwnAndConnectedProps & stateHandlerType) =>
     async (
-      data: { dateStart: moment.Moment; dateEnd: moment.Moment },
+      data: { dateStart: DateTime; dateEnd: DateTime },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
       props.setFormDates({
-        dateStart: dateStart.unix(),
-        dateEnd: dateEnd.unix(),
+        dateStart: dateStart.toUnixInteger(),
+        dateEnd: dateEnd.toUnixInteger(),
       });
       props.setPerformanceLoading(true);
       const promises = [
         props.fetchCoachSessionPerformance(
           {
             associatedCoachId: props.coachWithPerformance.associated_coach_id,
-            start_timestamp: dateStart.unix(),
-            end_timestamp: dateEnd.unix(),
+            start_timestamp: dateStart.toUnixInteger(),
+            end_timestamp: dateEnd.toUnixInteger(),
           },
           options,
         ),
         props.fetchCoachPrivateServicePerformance(
           {
             associatedCoachId: props.coachWithPerformance.associated_coach_id,
-            start_timestamp: dateStart.unix(),
-            end_timestamp: dateEnd.unix(),
+            start_timestamp: dateStart.toUnixInteger(),
+            end_timestamp: dateEnd.toUnixInteger(),
           },
           options,
         ),
@@ -234,14 +234,14 @@ const mapWithHandlers = {
   handleDateFiltersChange:
     ({ setFormDates }: OwnAndConnectedProps & stateHandlerType) =>
     async (
-      data: { dateStart: MomentType; dateEnd: MomentType },
+      data: { dateStart: DateTime; dateEnd: DateTime },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
 
       setFormDates({
-        dateStart: dateStart.unix(),
-        dateEnd: dateEnd.unix(),
+        dateStart: dateStart.toUnixInteger(),
+        dateEnd: dateEnd.toUnixInteger(),
       });
       if (options?.onSuccess) options.onSuccess();
     },

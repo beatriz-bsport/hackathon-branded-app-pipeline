@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import MUIDataTable from 'mui-datatables';
@@ -41,7 +40,7 @@ type OwnProps = {
   }: {
     id__in: Array<number>;
     page_size: number;
-  }) => {};
+  }) => MemberAPIDataPaginated;
   goToMember?: (id: number) => void;
   customFormStatistic: CustomFromStatistics;
 };
@@ -203,7 +202,8 @@ export class CustomFormDetailByMemberPanel extends React.Component<
     }
   };
 
-  onRowClick = (rowData, { rowIndex }: { rowIndex: number }) =>
+  // @ts-ignore
+  onRowClick = (_rowData, { rowIndex }: { rowIndex: number }) =>
     this.state.members[rowIndex]?.id &&
     this.props.goToMember?.(this.state.members[rowIndex].id);
 
@@ -239,6 +239,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
           noMatch: loading ? null : 'Sorry, there is no member data to display',
         },
       },
+      // @ts-ignore
       onTableChange: (action: string, tableState) => {
         switch (action) {
           case 'changePage':
@@ -262,6 +263,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
           <TableFooter>
             <TableRow>
               <div className={classes.footerContainer}>
+                {/* @ts-ignore */}
                 <TablePagination
                   count={count}
                   onChangePage={(_, page_) => changePage(page_)}
@@ -287,6 +289,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
         <MUIDataTable
           columns={getColumnData(t)}
           data={renderRows(this.state.members, t)}
+          // @ts-ignore
           options={options}
         />
       </>

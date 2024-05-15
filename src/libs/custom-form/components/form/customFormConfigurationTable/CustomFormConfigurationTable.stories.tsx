@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import Grid from '@material-ui/core/Grid';
@@ -28,6 +27,7 @@ const CustomTemplate = (args: argTypes) => (
     }}
   >
     <Grid item xs={6}>
+      {/* @ts-ignore */}
       <CustomFormConfigurationTable {...args} />
     </Grid>
   </Grid>

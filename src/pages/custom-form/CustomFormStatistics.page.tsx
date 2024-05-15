@@ -65,6 +65,7 @@ export class CustomFormStatistics extends React.Component<Props, State> {
             {(hasMemberProfileAccessPermission: boolean) => (
               <CustomFormDetailByMemberPanel
                 customFormStatistic={this.props.customFormStatistic}
+                // @ts-ignore
                 fetchMemberList={this.fetchMemberList}
                 goToMember={
                   hasMemberProfileAccessPermission

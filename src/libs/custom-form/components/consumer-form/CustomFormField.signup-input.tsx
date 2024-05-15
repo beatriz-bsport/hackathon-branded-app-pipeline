@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -6,6 +5,7 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
+// @ts-ignore
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Grid from '@material-ui/core/Grid';
@@ -50,15 +50,19 @@ import {
 
 import { countries } from '../../../../i18n/utils/countries';
 import { MaterialStyleType } from '../../../../utils/types';
+// @ts-ignore
 import Selector from '../../../../components/Selector.component';
 import type { CustomFormField, FormikCustomFormFilled } from '../../types';
+// @ts-ignore
 import { browserCountryCode } from '../../../../i18n';
 
 import {
   DateField,
   TextFieldEnhancedLabelWithError,
   SelectFieldWithEnhancedLabeLError,
+  // @ts-ignore
 } from '../../../../components/forms';
+// @ts-ignore
 import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithButton.component';
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
@@ -217,7 +221,8 @@ export const CustomFormConsumerInput = (props: Props) => {
             autoComplete="tel"
             country={browserCountryCode()}
             disabled={props.asManager || !props.field.editable}
-            flagComponent={({ country }) => (
+            // eslint-disable-next-line react/no-unused-prop-types
+            flagComponent={({ country }: { country: string }) => (
               <div className="fill">
                 <img
                   alt="flag"
@@ -482,6 +487,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             </Typography>
           }
           name={`custom_form_field.${props.index}.answer`}
+          // @ts-ignore
           required={props.field.mandatory}
         />
       );
@@ -506,6 +512,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             </Typography>
           }
           name={`custom_form_field.${props.index}.answer`}
+          // @ts-ignore
           required={props.field.mandatory}
         />
       );
@@ -574,7 +581,9 @@ export const CustomFormConsumerInput = (props: Props) => {
         return (
           <>
             <AcceptTermsAndConditions
+              // @ts-ignore
               accepted={props.values?.custom_form_field[props.index]?.answer}
+              // @ts-ignore
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
@@ -628,7 +637,9 @@ export const CustomFormConsumerInput = (props: Props) => {
           >
             <AcceptTermsAndConditions
               required
+              // @ts-ignore
               accepted={props.values.custom_form_field[props.index]?.answer}
+              // @ts-ignore
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
@@ -681,7 +692,9 @@ export const CustomFormConsumerInput = (props: Props) => {
             control={
               <CheckBox
                 required
+                // @ts-ignore
                 checked={props.values.custom_form_field[props.index]?.answer}
+                // @ts-ignore
                 disabled={
                   props.asManager ||
                   props.initial?.custom_form_field[props.index]?.answer
@@ -881,5 +894,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-ignore
   withStyles(styles),
 )(CustomFormConsumerInput);

@@ -40,13 +40,14 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const formatTime = () => {
     const time = DateTime.fromFormat(
       `${props.recurrentPrivateBooking.hour}:${props.recurrentPrivateBooking.minute}`,
-      'HH:m',
+      'HH:mm',
     );
 
-    if (props.recurrentPrivateBooking.timezone_name) {
-      time.setZone(props.recurrentPrivateBooking.timezone_name);
-    }
-    return time.toFormat('T');
+    return (
+      props.recurrentPrivateBooking.timezone_name
+        ? time.setZone(props.recurrentPrivateBooking.timezone_name)
+        : time
+    ).toFormat('T');
   };
 
   const getHeader = () => {

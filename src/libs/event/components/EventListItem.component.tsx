@@ -48,7 +48,7 @@ export const GenericEventListItem = (props: Props) => {
 
   // Second Line
   const defaultSecondaryText = formatAsDatetimeAdapted(
-    DateTime.fromMillis(event.date * 1000).toISO(),
+    DateTime.fromSeconds(event.date).toISO(),
     'LLLL',
   ); // event date
   const secondaryText = eventTypeUtils?.getSecondaryText

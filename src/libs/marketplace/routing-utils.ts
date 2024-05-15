@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { buildUrlParams } from '../../http';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
@@ -11,6 +11,7 @@ import {
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
 import { Offer } from '#libs/offer/types';
+import { formatAsDate } from '#src/utils/datetime';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -106,7 +107,7 @@ export const fromConfigToUrl = (
       Object.assign(query, {
         ...query,
         onlyDay: true,
-        date: moment().format('YYYY-MM-DD'),
+        date: formatAsDate(DateTime.now().toISO()),
       });
     }
     if (tabConfig.config?.calendarV2 || tabConfig.config?.calendar) {

@@ -5,7 +5,7 @@ import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items'
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import type { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import type { Coupon, UniqueCodeCouponUpdatePayload } from '#libs/coupon/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
@@ -164,14 +164,14 @@ const formikFormWrapper = withFormik<
         applies_to: uniqueCodeCoupon.applies_to,
         only_on_objects: uniqueCodeCoupon.only_on_objects,
         expiration_date: uniqueCodeCoupon.expiration_date
-          ? moment(uniqueCodeCoupon.expiration_date)
+          ? DateTime.fromISO(uniqueCodeCoupon.expiration_date)
           : null,
         coupon_cost_for_company: uniqueCodeCoupon.coupon_cost_for_company,
         codes: null,
         update_mode: null,
       };
     }
-    const initialExpirationDate = moment().add(1, 'month');
+    const initialExpirationDate = DateTime.now().plus({ month: 1 });
     return {
       name: '',
       is_active: false,
@@ -212,7 +212,10 @@ const formikFormWrapper = withFormik<
 
     const formatedDate =
       withExpirationDate && expiration_date
-        ? moment(expiration_date, 'DD/MM/YYYY').format('YYYY-MM-DD')
+        ? DateTime.fromFormat(
+            expiration_date as string,
+            'dd/LL/yyyy',
+          ).toISODate()
         : null;
 
     const uniqueCodeCoupon: UniqueCodeCouponPayload = {

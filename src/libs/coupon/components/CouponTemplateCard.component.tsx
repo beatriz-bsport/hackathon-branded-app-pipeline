@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
@@ -17,8 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
 import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/lib/master-data/coupon';
-import CompanyChip from '../../../components/franchise/CompanyChip.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import CompanyChip from '#components/franchise/CompanyChip.component';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import { isCurrentlyActive } from '../utils';
 
@@ -36,6 +35,7 @@ export const CouponCard = (props: Props) => {
   const { t } = useTranslation('coupon');
   const classes = useStyles();
   const { couponTemplate } = props;
+  // @ts-expect-error
   const currentlyActive = isCurrentlyActive(couponTemplate);
 
   return (
@@ -152,6 +152,7 @@ export const CouponCard = (props: Props) => {
               <div className={classes.chipContainer}>
                 <CompanyChip
                   key={c.id}
+                  // @ts-expect-error
                   company={c}
                   onDelete={
                     props.onDeleteInstance &&

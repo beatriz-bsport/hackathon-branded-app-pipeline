@@ -518,7 +518,7 @@ export const checkUnpaidPrivateBookingEligility = ({
 };
 
 export const fetchPrivateBookings = (params: any) => {
-  return getAuth(
+  return getAuth<PaginatedResponse<PrivateBooking>>(
     `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`,
   );
 };

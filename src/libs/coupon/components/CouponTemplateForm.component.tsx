@@ -1,7 +1,5 @@
-// @ts-nocheck
 import React from 'react';
 import { withState, compose } from 'recompose';
-import moment from 'moment-timezone';
 import * as Yup from 'yup';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-
+import { DateTime } from 'luxon';
 import Button from '@material-ui/core/Button';
 import {
   VOUCHER_TYPE_PERCENT,
@@ -35,6 +33,7 @@ import CouponTemplateUpdateWarningDialog from '#libs/coupon/components/CouponTem
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import {
   PriceField,
@@ -42,6 +41,7 @@ import {
   CheckboxField,
   RadioGroupField,
   DateField,
+  // @ts-expect-error
 } from '../../../components/forms';
 
 import type { PaymentPackTemplate } from '#libs/payment-packs/types';
@@ -79,6 +79,7 @@ type WithStateProps = {
 type OwnProps = {
   paymentPackTemplateList: Array<PaymentPackTemplate>;
   privatePassTemplateList: Array<PrivatePassTemplate>;
+  onClose: () => void;
   onSubmit: (data: any, options?: OptionCallback) => void;
 };
 type Props = OwnProps & FormikProps<InitialValues> & WithStateProps;
@@ -281,6 +282,7 @@ export const CouponTemplateForm = (props: Props) => {
                       <PaymentPackListItem
                         key={`${id}-${i}`}
                         onDelete={() => onDeletePackOrPass(id)}
+                        // @ts-expect-error
                         pack={props.paymentPackTemplateList.find(
                           (ppt) => ppt.id === id,
                         )}
@@ -330,6 +332,7 @@ export const CouponTemplateForm = (props: Props) => {
                         key={`${id}-${i}`}
                         dense
                         onDelete={() => onDeletePackOrPass(id)}
+                        // @ts-expect-error
                         pass={props.privatePassTemplateList.find(
                           (ppt) => ppt.id === id,
                         )}
@@ -519,7 +522,7 @@ export const couponTemplateFormikHOC = withFormik<
         only_on_objects: [],
         is_active: true,
         with_expiration_date: false,
-        expiration_date: moment().add(6, 'months').format('YYYY-MM-DD'),
+        expiration_date: DateTime.now().plus({ months: 6 }).toISODate(),
         usage_per_member: 1,
         usage_total: 1000,
         only_on_first_checkout: false,
@@ -536,7 +539,7 @@ export const couponTemplateFormikHOC = withFormik<
         with_expiration_date: !!initial.expiration_date,
         expiration_date:
           initial.expiration_date ||
-          moment().add(6, 'months').format('YYYY-MM-DD'),
+          DateTime.now().plus({ months: 6 }).toISODate(),
         amount_off: initial.amount_off || 0,
         percent_off: initial.percent_off || 0,
         subscription_mode: initial.subscription_mode.toString(),
@@ -585,9 +588,9 @@ export const couponTemplateFormikHOC = withFormik<
     }
 
     if (values.with_expiration_date) {
-      data.expiration_date = moment(values.expiration_date).format(
-        'YYYY-MM-DD',
-      );
+      data.expiration_date = DateTime.fromISO(
+        values.expiration_date,
+      ).toISODate();
     }
 
     // If user wants to update 'applies_to' or 'only_on_objects' field, we don't submit the form
@@ -620,4 +623,5 @@ export default compose(
   withState('warningDialogOpen', 'setWarningDialogOpen', false),
   withState('dataToSubmit', 'setDataToSubmit', {}),
   couponTemplateFormikHOC,
+  // @ts-expect-error
 )(CouponTemplateForm);

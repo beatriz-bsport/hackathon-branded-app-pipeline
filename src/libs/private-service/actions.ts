@@ -1,7 +1,6 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
 import axios from 'axios';
 import { refreshAlertingByKind } from '../alerting/actions';
@@ -137,10 +136,12 @@ import type {
   PrivateConsumerPassExtension,
   PrivateConsumerPassExtensionCreate,
   PrivateConsumerPassExtensionParams,
+  PrivateConsumerPassREST,
   PrivatePassMassExtensionCreate,
   PrivatePassMassExtensionParams,
 } from '#libs/private-service/types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+// @ts-expect-error
 import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
 import {
   EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
@@ -168,6 +169,7 @@ export const listTaskByMemberActions = {
 };
 
 export const refreshIncompletePrivateBookingAlerting = () =>
+  // @ts-expect-error
   refreshAlertingByKind(PRIVATE_BOOKING_INCOMPLETE_ALERT);
 
 export function attachCoachToPrivateBooking(
@@ -186,6 +188,7 @@ export function attachCoachToPrivateBooking(
 
       dispatch(privateBookingAttachCoachActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
         dispatch(refreshIncompletePrivateBookingAlerting());
       }
@@ -214,7 +217,8 @@ export function fetchCalendarEventList(params: any, options: OptionCallback) {
     try {
       const response = await fetchCalendarEventListAPI(params);
       dispatch(calendarEventListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(calendarEventListActions.error(err));
@@ -252,13 +256,14 @@ export function checkExistsAvailabilitySlots(
     try {
       const response = await checkExistsAvailabilitySlotsAPI({
         is_restriction: false,
-        date_start__gte: moment().format('YYYY-MM-DD'),
+        date_start__gte: DateTime.now().toISODate(),
         [resourceDatatype]: resourceIdentifier,
       });
       dispatch(
         availabilitySlotExistsActions.success({
           resourceDatatype,
           resourceIdentifier,
+          // @ts-expect-error
           ...response.data,
         }),
       );
@@ -304,7 +309,8 @@ export function updateServiceResourceConfiguration(
         data,
       );
       dispatch(updateResourceConfigurationActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(updateResourceConfigurationActions.error(null));
@@ -541,6 +547,7 @@ export const enableCoachAvailabilitySlot = (
     restriction_on_associated_establishments?: number[];
   },
   options: OptionCallback,
+  // @ts-expect-error
 ) => enableResourceAvailabilitySlot({ coach }, obj, options);
 
 export const disablePrivateServiceAvailabilitySlot = (
@@ -570,6 +577,7 @@ export const enablePrivateServiceAvailabilitySlot = (
 ) =>
   enableResourceAvailabilitySlot(
     { private_service: privateServiceId },
+    // @ts-expect-error
     obj,
     options,
   );
@@ -594,6 +602,7 @@ export const enableEstablishmentAvailabilitySlot = (
     all_date_start: string[];
   },
   options: OptionCallback,
+  // @ts-expect-error
 ) => enableResourceAvailabilitySlot({ establishment }, obj, options);
 
 export const privateServiceMarketplaceListActions = {
@@ -618,7 +627,8 @@ export function fetchMarketplacePrivateServices(
         ...data,
       });
       dispatch(privateServiceMarketplaceListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceMarketplaceListActions.error(null));
@@ -644,7 +654,8 @@ export function fetchAllPrivateServices(
     try {
       const response = await fetchAllPrivateServicesAPI(params);
       dispatch(privateServiceListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceListActions.error(null));
@@ -670,7 +681,8 @@ export function fetchPrivateService(
     try {
       const response = await fetchPrivateServiceAPI(id);
       dispatch(privateServiceRetrieveActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceRetrieveActions.error(null));
@@ -696,7 +708,8 @@ export function fetchPrivateServiceResourceData(
     try {
       const response = await fetchPrivateServiceResourceDataAPI(id);
       dispatch(resourceListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(resourceListActions.error(null));
@@ -716,7 +729,8 @@ export function fetchResourceList(
     try {
       const response = await fetchResourceListAPI(params);
       dispatch(resourceListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(resourceListActions.error(null));
@@ -745,13 +759,15 @@ export function createOrUpdatePrivateService(
         if (Array.isArray(value)) {
           formData.append(key, JSON.stringify(value));
         } else {
+          // @ts-expect-error
           formData.append(key, value);
         }
       }
 
       const response = await createOrUpdatePrivateServiceAPI(formData, data.id);
       dispatch(privateServiceCreateOrUpdateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceCreateOrUpdateActions.error(null));
@@ -777,7 +793,8 @@ export function deleteServiceGroup(
     try {
       await deleteServiceGroupAPI(id);
       dispatch(serviceGroupDeleteActions.success(id));
-      if (options && options.onSuccess) options.onSuccess(id);
+      // @ts-expect-error
+      options?.onSuccess?.(id);
     } catch (err) {
       console.error(err);
       dispatch(serviceGroupDeleteActions.error(null));
@@ -859,9 +876,8 @@ export function fetchPrivateSlotBulk(
     try {
       const response = await fetchAllPrivateSlotsAPI({ id__in });
       dispatch(privateSlotBulkActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateSlotBulkActions.error(null));
@@ -891,9 +907,9 @@ export function fetchPrivateServiceBulk(
     try {
       const response = await fetchAllPrivateServicesAPI({ id__in });
       dispatch(privateServiceBulkActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceBulkActions.error(null));
@@ -1017,7 +1033,7 @@ export const switchServiceHasOwnAvailabilitySlotsActions = {
 
 export function switchServiceHasOwnAvailabilitySlots(
   privateServiceId: number,
-  options: OptionCallback,
+  options: OptionCallback<PrivateService>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(true));
@@ -1060,14 +1076,17 @@ export function fetchPrivateServiceWithSlotList(
 
       dispatch(
         privateServiceListActions.success(
+          // @ts-expect-error
           response.data.map((service: PrivateService) => ({
             ...service,
+            // @ts-expect-error
             slots: service.slots.map((slot: PrivateSlot) => slot.id),
           })),
         ),
       );
       dispatch(
         privateSlotListActions.success(
+          // @ts-expect-error
           response.data.reduce(
             (acc: PrivateSlot[], service: PrivateService) => [
               ...acc,
@@ -1102,12 +1121,15 @@ export function fetchPrivateServiceWithSlot(
 
       dispatch(
         privateServiceRetrieveActions.success(
+          // @ts-expect-error
           response.data.map((service: PrivateService) => ({
             ...service,
+            // @ts-expect-error
             slots: service.slots.map((slot: PrivateSlot) => slot.id),
           })),
         ),
       );
+      // @ts-expect-error
       dispatch(privateSlotListActions.success(response.data.slots));
 
       if (options && options.onSuccess) options.onSuccess();
@@ -1158,7 +1180,8 @@ export function searchAvailableSlots(
       const result = responses.flatMap((response) => response.data);
 
       dispatch(availabilitySlotSearchActions.success(result));
-      if (options && options.onSuccess) options.onSuccess(result);
+      // @ts-expect-error
+      options?.onSuccess?.(result);
     } catch (err) {
       console.error(err);
       dispatch(availabilitySlotSearchActions.error(null));
@@ -1213,8 +1236,8 @@ export function searchFirstAvailableSlots(
       dispatch(searchFirstAvailableSlotsActions.isLoading(false));
       dispatch(searchFirstAvailableSlotsActions.setCancellationToken());
 
-      if (options && options.onSuccess)
-        options.onSuccess(response?.data ?? null);
+      // @ts-expect-error
+      options?.onSuccess?.(response?.data ?? null);
     } catch (err) {
       if (err?.__CANCEL__) return;
       console.error(err);
@@ -1242,9 +1265,8 @@ export function fetchPrivatePassList(
     try {
       const response = await fetchPrivatePassListAPI(params);
       dispatch(privatePassListActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassListActions.error(err));
@@ -1276,9 +1298,9 @@ export function fetchPrivatePassBulk(
         id__in,
       });
       dispatch(privatePassBulkActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassBulkActions.error(err));
@@ -1306,9 +1328,8 @@ export function fetchPrivateServiceGroupList(
     try {
       const response = await fetchServiceGroupListAPI(data);
       dispatch(serviceGroupListActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(serviceGroupListActions.error(err));
@@ -1333,9 +1354,9 @@ export function createOrUpdateServiceGroup(data: any, options: OptionCallback) {
     try {
       const response = await createOrUpdateServiceGroupAPI(data);
       dispatch(serviceGroupCreateOrUpdateActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(serviceGroupCreateOrUpdateActions.error(err));
@@ -1388,7 +1409,8 @@ export function fetchPrivatePassRetrieve(
     try {
       const response = await fetchPrivatePassRetrieveAPI(id);
       dispatch(privatePassRetrieveActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassRetrieveActions.error(err));
@@ -1415,13 +1437,13 @@ export function createOrUpdatePrivatePass(
     try {
       const response = await createOrUpdatePrivatePassAPI(data, id);
       dispatch(privatePassCreateOrUpdateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
       if (!id) {
         dispatch(fetchPrivatePassList());
       }
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassCreateOrUpdateActions.error(err));
@@ -1447,7 +1469,8 @@ export function editOrderPrivatePass(
     try {
       const response = await editOrderPrivatePassAPI(data);
       dispatch(privatePassUpdateOrderActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassUpdateOrderActions.error(err));
@@ -1463,7 +1486,10 @@ export const privatePassDeleteActions = {
   success: createAction('PRIVATE_PASS/DELETE/SUCCESS'),
 };
 
-export function deletePrivatePass(id: number, options?: OptionCallback) {
+export function deletePrivatePass(
+  id: number,
+  options?: OptionCallback<number>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassDeleteActions.isLoading(true));
     dispatch(privatePassDeleteActions.error(null));
@@ -1516,9 +1542,8 @@ export function isPrivatePassUsedInCombo(id: number, options?: OptionCallback) {
       const response = await isPrivatePassUsedInComboAPI(id);
       dispatch(isPrivatePassUsedInComboActions.success(response.data));
 
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(isPrivatePassUsedInComboActions.error(err));
@@ -1546,6 +1571,7 @@ export function fetchCompatibleServicePassList(
     try {
       const response = await fetchCompatibleServicePassListAPI(privatePassId);
       dispatch(privateServiceCompatiblePassActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -1687,7 +1713,7 @@ export const byPrivatePass = {
 
 export function fetchPrivateConsumerPassList(
   params: any,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateConsumerPassREST[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassListActions.isLoading(true));
@@ -1724,7 +1750,7 @@ export function fetchByPrivatePass(
   privatePassId: number,
   page?: number,
   page_size?: number,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateConsumerPassREST[]>,
   params?: any,
 ) {
   return async (dispatch: Dispatch) => {
@@ -1767,7 +1793,7 @@ export const byMember = {
 
 export function fetchPrivateConsumerPassByMember(
   member: number,
-  options?: OptionCallback,
+  options?: OptionCallback<PaginatedResponse<PrivateConsumerPassREST>>,
   params?: any,
 ) {
   return async (dispatch: Dispatch) => {
@@ -1884,6 +1910,7 @@ export function fetchIncompatibilitiesReasonsBySlotByConsumerPass(
         );
       dispatch(
         incompatibilitiesReasonsBySlotByConsumerPassActions.success(
+          // @ts-expect-error
           response.data.incompatibilities_with_slot,
         ),
       );
@@ -2050,13 +2077,12 @@ export function fetchPrivateBookings(
           }),
         );
         if (options && options.onSuccess) {
-          options.onSuccess(response.data.results);
+          options?.onSuccess?.(response.data.results);
         }
       } else {
         dispatch(privateBookingListActions.success(response.data));
-        if (options && options.onSuccess) {
-          options.onSuccess(response.data);
-        }
+        // @ts-expect-error
+        options?.onSuccess?.(response.data);
       }
     } catch (err) {
       console.error(err);
@@ -2083,6 +2109,7 @@ export function fetchPrivateBooking(
     try {
       const response = await fetchPrivateBookingAPI(id);
       dispatch(privateBookingRetrieveActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2104,6 +2131,7 @@ export function registerPrivateBooking(
     try {
       const response = await registerPrivateBookingsAPI(params);
       dispatch(privateBookingCreateOrUpdateActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2273,7 +2301,7 @@ export const privateBookingDeleteActions = {
 export function deletePrivateBooking(
   id: number,
   data: { force_refund: boolean; send_mail: boolean },
-  options: OptionCallback,
+  options: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingDeleteActions.isLoading(true));
@@ -2308,6 +2336,7 @@ export function fetchRecurrenceRulePrivateBooking(
       const response = await fetchRecurrenceRulePrivateBookingListAPI(params);
       dispatch(listRecurrenceRulePrivateBookingActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -2346,6 +2375,7 @@ export function createOrUpdateRecurrenceRulePrivateBooking(
         ),
       );
       dispatch(snackbarSuccess('privateRecurrentRule.createOrUpdate.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2371,7 +2401,7 @@ export const deleteRecurrenceRulePrivateBookingActions = {
 
 export function deleteRecurrenceRulePrivateBooking(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(true));
@@ -2455,7 +2485,8 @@ export function createPrivatePassMassExtension(
       options?.onSuccess?.(response.data);
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
+        monitorBackgroundTask<PrivatePassMassExtension>(backgroundTaskUuid, {
+          // @ts-expect-error
           onSuccess: options?.onSuccess,
         }),
       );
@@ -2493,7 +2524,8 @@ export function deletePrivatePassMassExtension(
       options?.onSuccess?.(id);
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
+        monitorBackgroundTask<number>(backgroundTaskUuid, {
+          // @ts-expect-error
           onSuccess: options?.onSuccess,
         }),
       );
@@ -2635,6 +2667,7 @@ export function createOrUpdateCustomEvent(data: any, options: OptionCallback) {
     try {
       const response = await createOrUpdateCustomEventAPI(data);
       dispatch(createOrUpdateCustomEventActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2664,6 +2697,7 @@ export function fetchCustomEventList(
     try {
       const response = await fetchCustomEventListAPI(params);
       dispatch(listCustomEventActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2680,7 +2714,7 @@ export const deleteCustomEventActions = {
   success: createAction('CUSTOM_EVENT/DELETE/SUCCESS'),
 };
 
-export function deleteCustomEvent(id: number, options: OptionCallback) {
+export function deleteCustomEvent(id: number, options: OptionCallback<number>) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteCustomEventActions.isLoading(true));
     dispatch(deleteCustomEventActions.error(null));
@@ -2714,6 +2748,7 @@ export function fetchPrivateConsumerPassCompatibleList(
     try {
       const response = await fetchPrivateConsumerPassCompatibleListAPI(params);
       dispatch(listPrivateConsumerPassCompatibleActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -2748,6 +2783,7 @@ export function forceRegularizeUnpaid(
         private_consumer_pass,
       );
       dispatch(forceRegularizeUnpaidActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -2775,6 +2811,7 @@ export function fetchAllPrivatePassCategory(
       const response = await fetchAllPrivatePassCategoryAPI({ companyId });
       const privatePasses = response.data;
       dispatch(listAllPrivatePassCategoryActions.success(privatePasses));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -2799,6 +2836,7 @@ export function updatePrivatePassCategoryOrder(
     try {
       const response = await editCategoryOrder(data);
       dispatch(updatePrivatePassCategoryOrderActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.update.error`));
@@ -2831,6 +2869,7 @@ export function upsertPrivatePassCategory(
         : await createPrivatePassCategoryAPI(category);
       dispatch(upsertPrivatePassCategoryActions.success(response.data));
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.${kind}.error`));
@@ -2884,11 +2923,13 @@ export function fetchPrivatePassTemplateList(
       const response = await fetchPrivatePassTemplateListAPI(params);
       dispatch(
         listPrivatePassTemplateActions.success(
+          // @ts-expect-error
           response.data.results || response.data,
         ),
       );
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results || response.data);
       }
     } catch (err) {
@@ -2918,6 +2959,7 @@ export function createOrUpdatePrivatePassTemplate(
       dispatch(createOrUpdatePrivatePassTemplateActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -2947,6 +2989,7 @@ export function retrievePrivatePassTemplate(
       dispatch(retrievePrivatePassTemplateActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -3004,9 +3047,8 @@ export function createPrivatePassTemplateInstance(
       const response = await createPrivatePassTemplateInstanceAPI(data);
       dispatch(createPrivatePassTemplateInstanceActions.success(response.data));
 
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      // @ts-expect-error
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(createPrivatePassTemplateInstanceActions.error(err));
@@ -3077,7 +3119,7 @@ export function checkPrivateSlotUnpaidBookingEligibility(
 export function updatePrivateBooking(
   privateBookingId: number,
   data: Partial<PrivateBooking>,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateBooking>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));

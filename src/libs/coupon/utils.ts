@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_FILE_TOO_LARGE_ERROR,
   UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR,
@@ -13,7 +13,7 @@ import type { Coupon } from './types';
 export const isCurrentlyActive: (coupon: Coupon) => boolean = (coupon) =>
   coupon.is_active &&
   (coupon.expiration_date
-    ? moment(coupon.expiration_date).isSameOrAfter(moment(), 'day')
+    ? DateTime.fromISO(coupon.expiration_date).endOf('day') >= DateTime.now()
     : true);
 
 export const extractVoucherCodesFromCSVString = (csvFileAsString: string) => {

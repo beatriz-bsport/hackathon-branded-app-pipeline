@@ -3,10 +3,10 @@ import {
   UniqueCodeStateStatus,
   CouponUniqueCodeEditModeOptions,
 } from '@bsport/common/lib/master-data/coupon';
-import moment from 'moment-timezone';
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';
 import { Invoice } from '#libs/invoice/types';
+import type { LuxonDateTime } from '#src/types';
 
 export type Discount = {
   id: string;
@@ -128,7 +128,7 @@ export type UniqueCodeCouponCreationPayload = {
   usage_per_member?: number;
   applies_to: number;
   only_on_objects: number[];
-  expiration_date?: moment.Moment | string;
+  expiration_date?: LuxonDateTime | string;
   coupon_cost_for_company: number;
   codes: string[];
 };

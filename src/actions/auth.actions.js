@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/react';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   updateProfile as updateProfileAPI,
   getRelationToken as getRelationTokenAPI,
@@ -317,7 +317,7 @@ export function stampLastPlatformSubscriptionWarningDateAction(
   return async (dispatch: Dispatch) => {
     try {
       dispatch(
-        stampLastPlatformSubscriptionWarningDateSuccess(moment().format()),
+        stampLastPlatformSubscriptionWarningDateSuccess(DateTime.now().toISO()),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -336,7 +336,7 @@ export function stampLastPlatformSubscriptionDisputeWarningDateAction(
     try {
       dispatch(
         stampLastPlatformSubscriptionDisputeWarningDateSuccess(
-          moment().format(),
+          DateTime.now().toISO(),
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -356,7 +356,7 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
     try {
       dispatch(
         stampLastStripeAccountConfigurationWarningDateSuccess(
-          moment().format(),
+          DateTime.now().toISO(),
         ),
       );
       if (options && options.onSuccess) options.onSuccess();

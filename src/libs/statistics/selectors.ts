@@ -1,11 +1,11 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import moment, { Moment } from 'moment-timezone';
+// @ts-expect-error
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import { State, Dispatch } from '../../state/types';
+// @ts-expect-error
 import { Graph } from './types';
 import { getDateRangeFromGraphFilter } from '#libs/dashboard/utils';
 import type {
@@ -17,7 +17,7 @@ export const getGraphData = (
   state: State,
   graphList: Array<Graph>,
   dateRangeByIdentifier: {
-    [string]: { start: string, end: string, kind: string },
+    [key: string]: { start: string; end: string; kind: string };
   },
   graphRessources: any,
 ) => {
@@ -26,6 +26,7 @@ export const getGraphData = (
     const { timeSettings, selector } =
       graphRessources[graph.ressourceIdentifier];
     if (timeSettings !== 'none') {
+      // @ts-expect-error
       data[graph.name] = selector(
         state,
         graph.name,
@@ -33,6 +34,7 @@ export const getGraphData = (
         graph.aggregate,
       );
     } else {
+      // @ts-expect-errors
       data[graph.name] = selector(state, graph.name);
     }
   });
@@ -46,6 +48,7 @@ export const getGraphActions = (
 ) => {
   const actions = {};
   graphList.forEach((graph) => {
+    // @ts-expect-error
     actions[graph.name] = graphRessources[graph.ressourceIdentifier].action;
   });
   return bindActionCreators(actions, dispatch);
@@ -54,7 +57,7 @@ export const getGraphActions = (
 export const getStatisticTemporal = (
   state: State,
   identifier: string,
-  range: { start: Moment, end: Moment },
+  range: { start: Moment; end: Moment },
   aggregate?: boolean,
 ) => {
   let data = [];
@@ -70,6 +73,7 @@ export const getStatisticTemporal = (
   let countBeforeSelectedDate = 0;
 
   if (aggregate) {
+    // @ts-expect-error
     const _data = data.filter((d) => {
       if (moment(d.d).isSameOrAfter(moment(range.start))) {
         return true;
@@ -111,9 +115,11 @@ export const getStatisticTemporalGrid = (state: State, identifier: string) => {
 
 // -----------------------------------
 const _getDataSourceDashboardStatisticsByUuid = (state: State) =>
+  // @ts-expect-error
   state.stats.dataSourceDashboard.byUuid;
 
 export const _getDataSourceDashboardGraphStatistics = (
+  // @ts-expect-error
   dataSourceDashboardStatisticsByUuid,
   graph: DataSourceDashboardGraph,
 ) => {

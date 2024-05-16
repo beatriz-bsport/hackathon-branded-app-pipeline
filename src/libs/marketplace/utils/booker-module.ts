@@ -39,7 +39,6 @@ import type {
 } from '#libs/subscription/types';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
-import { formatAsDate } from '#src/utils/datetime';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
@@ -379,7 +378,7 @@ export const getBookingDisplayPrice = (selectedItem: BookerItem) => {
   ) {
     const data = selectedItem.data as ContractWithPaymentPack;
     if (data?.month_billing_day) {
-      const billingStartDate = formatAsDate(DateTime.now().toISO());
+      const billingStartDate = DateTime.now().toISODate();
       const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
         billingStartDate,
         data?.month_billing_day,

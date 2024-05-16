@@ -37,11 +37,14 @@ type Props = {
   showOfferGender: boolean,
   hideCoach: boolean,
   bookedOffers?: number[],
+  // eslint-disable-next-line
   locale: string,
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
-  const date_start = DateTime.fromISO(selectedDate).startOf('week');
+  const date_start = DateTime.fromISO(selectedDate).startOf('week', {
+    useLocaleWeeks: true,
+  });
   const weekdays = getLocaleWeekdays('long');
   // split offers par week days
   return weekdays.map((day, i) => {
@@ -136,7 +139,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
       return <CircularProgress />;
     }
 
-    const weekday = DateTime.fromISO(date).localWeekday;
+    const weekday = DateTime.fromISO(date).weekday - 1;
     // split offer for the selected day
     const weekOffers = getWeekOffers(date, this.props.offers);
     const nextDaysOffers = weekOffers.slice(weekday);

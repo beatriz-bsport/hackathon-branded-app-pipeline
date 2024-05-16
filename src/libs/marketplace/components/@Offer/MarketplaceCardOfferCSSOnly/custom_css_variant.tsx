@@ -131,7 +131,9 @@ const usePropsFromVariation = (
     if (offerStatusSelected === 'past') {
       return {
         ...bookableOffer,
-        date_start: formatAsDate(DateTime.now().minus({ weeks: 1 }).toISO()),
+        date_start: formatAsDate(
+          DateTime.now().minus({ weeks: 1 }).toISODate(),
+        ),
       };
     }
 
@@ -148,7 +150,7 @@ const usePropsFromVariation = (
 
       return {
         ...bookableOffer,
-        date_start: formatAsDate(DateTime.now().plus({ years: 1 }).toISO()),
+        date_start: formatAsDate(DateTime.now().plus({ years: 1 }).toISODate()),
         // TODO WAIT FOR FIX ON OFFER FOR THIS TO ACTUALLY WORK.
         meta_activity: { ...metaActivity, first_booking_minutes_until: 1 },
       };

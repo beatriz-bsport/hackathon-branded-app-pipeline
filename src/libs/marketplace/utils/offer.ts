@@ -18,9 +18,7 @@ import { isDateInThePast } from '#src/utils/datetime';
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   if (!offer) return false;
-  return (
-    DateTime.fromISO(offer.date_start).toSeconds() < DateTime.now().toSeconds()
-  );
+  return DateTime.fromISO(offer.date_start) < DateTime.now();
 }
 
 /**

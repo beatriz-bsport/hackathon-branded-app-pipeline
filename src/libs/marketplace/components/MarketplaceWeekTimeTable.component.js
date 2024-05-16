@@ -12,7 +12,7 @@ import { DateTime } from 'luxon';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { DATE_FORMAT, getLocaleWeekdays } from '../../../utils/datetime';
+import { getLocaleWeekdays } from '../../../utils/datetime';
 import MarketplaceCardOffer from './MarketplaceCardOffer.component';
 
 const SPLIT_AFTERNOON = 12;
@@ -46,16 +46,16 @@ const impairColor = '#FFFFFF50';
 const pairColor = '#EEEEEE50';
 
 const getWeekOffers = (selectedDate, offers) => {
-  const date_start = DateTime.fromISO(selectedDate, DATE_FORMAT).startOf(
-    'week',
-  );
+  const date_start = DateTime.fromISO(selectedDate).startOf('week', {
+    useLocaleWeeks: true,
+  });
   const weekdays = getLocaleWeekdays('long');
   // split offers par week days
   return weekdays.map((day, i) => {
     const currentDate = date_start.plus({ days: i });
     return offers.filter(
       (o) =>
-        currentDate.weekday() === i &&
+        currentDate.weekday - 1 === i &&
         DateTime.fromISO(o.date_start).hasSame(currentDate, 'day'),
     );
   });
@@ -195,7 +195,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     const offers = this.getOffersByPeriod();
 
-    const start_date = DateTime.fromISO(date).startOf('week');
+    const start_date = DateTime.fromISO(date).startOf('week', {
+      useLocaleWeeks: true,
+    });
     const size = 100 / 7;
 
     if (loading) {

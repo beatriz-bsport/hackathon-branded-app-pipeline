@@ -99,7 +99,7 @@ const usePropsFromVariation = (
   const group = {} as OffersGroup;
 
   const dateStart = isOfferInThePast
-    ? DateTime.now().minus({ months: 7 })
+    ? DateTime.now().minus({ months: 7 }).toISO()
     : offer.date_start;
   return {
     offer: {

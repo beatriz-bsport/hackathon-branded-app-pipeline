@@ -224,7 +224,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
       {!!props.expirationDatetime && (
         <Countdown
-          timestamp={DateTime.fromISO(props.expirationDatetime).toSeconds()}
+          timestamp={DateTime.fromISO(props.expirationDatetime).toUnixInteger()}
         >
           {(countdown: string) => {
             if (countdown)

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
@@ -10,7 +11,6 @@ import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
-import { formatAsDate } from '#src/utils/datetime';
 
 import './styles.css';
 
@@ -57,10 +57,12 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
         })}
       >
         {t('paymentPack:blockedCpp', {
-          blocked_from: formatAsDate(consumerPaymentPack.penalty_disabled_from),
-          blocked_until: formatAsDate(
+          blocked_from: DateTime.fromISO(
+            consumerPaymentPack.penalty_disabled_from,
+          ).toLocaleString(DateTime.DATE_SHORT),
+          blocked_until: DateTime.fromISO(
             consumerPaymentPack.penalty_disabled_until,
-          ),
+          ).toLocaleString(DateTime.DATE_SHORT),
         })}
       </span>
     );

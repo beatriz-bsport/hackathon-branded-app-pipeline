@@ -11,7 +11,6 @@ import {
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
 import { Offer } from '#libs/offer/types';
-import { formatAsDate } from '#src/utils/datetime';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -107,7 +106,7 @@ export const fromConfigToUrl = (
       Object.assign(query, {
         ...query,
         onlyDay: true,
-        date: formatAsDate(DateTime.now().toISO()),
+        date: DateTime.now().toISODate(),
       });
     }
     if (tabConfig.config?.calendarV2 || tabConfig.config?.calendar) {

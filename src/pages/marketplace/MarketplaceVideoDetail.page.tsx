@@ -7,7 +7,6 @@ import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress, Theme } from '@material-ui/core';
 
-import Modal from '@material-ui/core/Modal';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 // @ts-expect-error
@@ -40,6 +39,7 @@ import { Video, VideoPurchase } from '../../libs/video/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
 import { OptionCallback } from '../../state/types';
 import { CompanyTheme } from '#libs/theme/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -156,24 +156,19 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
           !!this.props.video?.company &&
           // @ts-expect-error
           !!this.props.video?.id && (
-            <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
-              <div
-                className={this.props.classes.modal}
-                style={{
-                  transform: 'translate(-50%, -50%)',
-                  top: '50%',
-                  left: '50%',
-                }}
-              >
-                <VideoCheckoutComponent
-                  // @ts-expect-error
-                  companyId={this.props.video.company}
-                  // @ts-expect-error
-                  id={this.props.video.id}
-                  onSuccess={this.onRegisterSuccess}
-                />
-              </div>
-            </Modal>
+            <GenericResponsiveDialog
+              noFullScreen
+              open
+              onClose={() => this.props.setRegisterVideoOpen(false)}
+            >
+              <VideoCheckoutComponent
+                // @ts-expect-error
+                companyId={this.props.video.company}
+                // @ts-expect-error
+                id={this.props.video.id}
+                onSuccess={this.onRegisterSuccess}
+              />
+            </GenericResponsiveDialog>
           )}
       </div>
     );
@@ -191,17 +186,6 @@ const styles = (theme: Theme) => ({
   },
   gridContainer: {
     maxWidth: 1400,
-  },
-  modal: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: 8,
-    overflow: 'auto',
-    maxHeight: '100vh',
-    maxWidth: '60%',
-    [theme.breakpoints.up('sm')]: {
-      minWidth: 600,
-    },
   },
 });
 

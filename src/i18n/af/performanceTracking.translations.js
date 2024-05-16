@@ -96,4 +96,5 @@ exports.default = {
     cancel: 'Cancel',
   },
   requiredField: 'This field is mandatory.',
+  maxLength200: 'This field has a maximum of 200 characters.',
 };

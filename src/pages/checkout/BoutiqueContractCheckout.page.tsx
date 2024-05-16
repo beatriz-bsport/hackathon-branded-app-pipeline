@@ -6,7 +6,7 @@ import {
   push as pushRouter,
 } from 'connected-react-router';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -175,7 +175,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     this.state = {
       processing: false,
       stripePromise: null,
-      billingStartDate: moment().format(),
+      billingStartDate: DateTime.now().toISO(),
       isContractCooldownDialogOpen: false,
       openContractTermsDialog: false,
       isContractLegalTermsAccepted: false,
@@ -325,7 +325,9 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       coupon_code: formCouponCode,
       contract: this.props?.contract?.id,
       with_prorata: !!this.props?.contract?.month_billing_day,
-      from_timestamp: moment(this.state.billingStartDate).unix(),
+      from_timestamp: DateTime.fromISO(
+        this.state.billingStartDate,
+      ).toUnixInteger(),
     })
       .then(({ data }) => {
         if (data.can_be_applied) {
@@ -363,7 +365,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
 
     return this.props.contract.month_billing_day
       ? computeProrataPriceForSubscription(
-          moment().format('YYYY-MM-DD'),
+          DateTime.now().toISODate(),
           this.props?.contract?.month_billing_day,
           (this.props?.contract?.recurrent_price ?? 0).toString(),
         )
@@ -421,7 +423,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
 
     if (this.props.contract.month_billing_day) {
       const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
-        moment().format('YYYY-MM-DD'),
+        DateTime.now().toISODate(),
         this.props.contract.month_billing_day,
         this.props.contract.recurrent_price.toString(),
       );
@@ -489,7 +491,9 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
     this.updateMemberDefaultEstablishmentBillingGroup();
-    const first_billing_timestamp = moment(this.state.billingStartDate).unix();
+    const first_billing_timestamp = DateTime.fromISO(
+      this.state.billingStartDate,
+    ).toUnixInteger();
     this.props.registerContractBackground(
       this.props.contractId,
       {

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   Button,
@@ -190,7 +190,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     fetchZoomApp(companyId);
     setWorkshopGroupFilter({
       ...filter,
-      min_date: moment().format('YYYY-MM-DD'),
+      min_date: DateTime.now().toISODate(),
     });
     if (metaActivityId) {
       fetchMetaActivityBulk([metaActivityId]);

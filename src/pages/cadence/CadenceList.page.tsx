@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
@@ -427,8 +427,8 @@ const StateHandlersInit: StateHandlerInit = {
   cadenceToEdit: null,
   selectedCadence: null,
   cadenceToArchive: null,
-  startDateFilter: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-  endDateFilter: moment().format('YYYY-MM-DD'),
+  startDateFilter: DateTime.now().minus({ month: 1 }).toISODate(),
+  endDateFilter: DateTime.now().toISODate(),
 };
 
 const StateHandlersSetter = {
@@ -538,9 +538,9 @@ const mapWithHandlers = {
     (cadenceId: number, date_filter?: CadenceGlobalMetricsParams) =>
       props.fetchGlobalMetricsAction(cadenceId, {
         date_start: date_filter.date_start,
-        date_end: moment(date_filter.date_end)
-          .add(1, 'day')
-          .format('YYYY-MM-DD'),
+        date_end: DateTime.fromISO(date_filter.date_end)
+          .plus({ day: 1 })
+          .toISODate(),
       }),
 
   fetchPresentMembersData:

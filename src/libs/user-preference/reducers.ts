@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { handleActions } from 'redux-actions';
 import { userPreferenceActions } from './actions';
 import { UserPreference } from './types';
@@ -33,14 +33,14 @@ const initialState: Immutable.Immutable<UserPreference> =
     replacementRequestManagerFilter: {
       timePeriod: 'next_month',
       // @ts-expect-error
-      min_date: moment().format('YYYY-MM-DD'),
-      max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
+      min_date: DateTime.now().toISODate(),
+      max_date: DateTime.now().plus({ month: 1 }).toISODate(),
       offer_available: true,
     },
     replacementRequestOfferHistoryFilter: {
       timePeriod: 'last_month',
-      min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-      max_date: moment().format('YYYY-MM-DD'),
+      min_date: DateTime.now().minus({ month: 1 }).toISODate(),
+      max_date: DateTime.now().toISODate(),
       // @ts-expect-error
       offer_available: true,
     },

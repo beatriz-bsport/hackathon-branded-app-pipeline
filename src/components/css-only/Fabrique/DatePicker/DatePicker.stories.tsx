@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import DatePicker, { DatePickerStorybook, type DatePickerProps } from '.';
 import { ButtonBaseStorybook } from '../ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 export default {
   title: 'Example/DatePicker',
@@ -14,7 +14,7 @@ export default {
 const Template: ComponentStory<typeof DatePicker> = (args: DatePickerProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
-  const [date, setDate] = React.useState<string>(moment().format('YYYY-MM-DD'));
+  const [date, setDate] = React.useState<string>(DateTime.now().toISODate());
 
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentTarget = event.currentTarget;

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { ContractWithPaymentPack } from '#libs/subscription/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -33,7 +33,7 @@ export const ContractRecap: React.FC<Props> = (props) => {
 
   const getProratedPrice = useCallback(() => {
     const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
-      moment().format('YYYY-MM-DD'),
+      DateTime.now().toISODate(),
       month_billing_day,
       recurrent_price.toString(),
     );
@@ -93,7 +93,7 @@ export const ContractRecap: React.FC<Props> = (props) => {
                 !!isExcludingTax,
                 tax,
               ),
-              today: moment().format('L'),
+              today: DateTime.now().toFormat('D'),
               recurrentPrice: getCurrencyDisplayWithPrice(
                 recurrent_price,
                 !!isExcludingTax,
@@ -107,7 +107,7 @@ export const ContractRecap: React.FC<Props> = (props) => {
             <div className="bs-subscription-checkout__recap__starting">
               {t('newCheckout.subscriptionSummary.startDate')}
             </div>
-            <div>{moment().format('L')}</div>
+            <div>{DateTime.now().toFormat('D')}</div>
           </>
         )}
       </div>

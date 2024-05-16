@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 import Textfield from '#Fabrique/TextFieldV2';
@@ -54,7 +54,7 @@ const DateField: React.FC<Props> = ({
 
   const [isDatePickerOpen, setIsDatePickerOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState<string>(
-    moment().format('YYYY-MM-DD'),
+    DateTime.now().toISODate(),
   );
   const [{ value }, { touched, error }, { setValue }] = useField<string>(name);
 

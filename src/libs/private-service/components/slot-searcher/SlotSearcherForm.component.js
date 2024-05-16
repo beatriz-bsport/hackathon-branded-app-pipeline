@@ -4,8 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import MomentUtils from '@date-io/moment';
-import moment from 'moment-timezone';
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Settings } from 'luxon';
 import {
   MuiPickersUtilsProvider,
   Calendar,
@@ -49,7 +49,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     service_selected: null,
     coaches_selected: null,
     establishments_selected: [],
-    date_selected: moment().format('YYYY-MM-DD'),
+    date_selected: DateTime.now().toISODate(),
   };
 
   selectSlotOption = (slotOption: { value: number, label: string }) => {
@@ -101,9 +101,9 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     }
   };
 
-  handleDateChange = (date_selected: Object) => {
+  handleDateChange = (date_selected: DateTime) => {
     this.setState({
-      date_selected: date_selected.format('YYYY-MM-DD'),
+      date_selected: date_selected.toISODate(),
     });
     this.props.onDateChange(date_selected);
     this.doSearch(date_selected);
@@ -214,9 +214,8 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         ) : null}
         {this.props.onDateChange || this.props.searchAvailableSlots ? (
           <MuiPickersUtilsProvider
-            locale={moment.locale()}
-            moment={moment}
-            utils={MomentUtils}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <BasePicker
               onChange={this.handleDateChange}
@@ -227,7 +226,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
                   <Paper style={{ overflow: 'hidden' }}>
                     <Calendar
                       disablePast
-                      date={moment(this.state.date_selected, 'YYYY-MM-DD')}
+                      date={DateTime.fromISO(this.state.date_selected)}
                       disableFuture={
                         !(
                           this.state.service_selected &&

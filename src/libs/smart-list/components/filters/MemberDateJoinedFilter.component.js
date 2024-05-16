@@ -5,7 +5,6 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
-
 import CalendarPicker from '../CalendarPicker.component';
 
 type Props = {

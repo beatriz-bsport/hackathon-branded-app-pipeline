@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -120,7 +120,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
 
   const [invoiceFootNote, setInvoiceFootNote] = React.useState('');
 
-  const [date, setDate] = React.useState(moment().format('YYYY-MM-DD'));
+  const [date, setDate] = React.useState(DateTime.now().toISODate());
 
   const resetPaymentGroupPrice = React.useCallback(
     () =>

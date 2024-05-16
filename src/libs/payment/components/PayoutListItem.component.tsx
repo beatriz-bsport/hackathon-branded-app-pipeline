@@ -82,9 +82,9 @@ const PayoutListItem: React.FC<Props> = ({
         <div className={classes.innerContainer}>
           <div className={classes.leftPart}>
             <Typography>
-              {`${DateTime.fromMillis(
-                stripePayout.date_created * 1000,
-              ).toFormat('DD')} - ${getCurrencyDisplayWithPrice(
+              {`${DateTime.fromSeconds(stripePayout.date_created).toFormat(
+                'DD',
+              )} - ${getCurrencyDisplayWithPrice(
                 (stripePayout.amount_cts / 100).toFixed(2),
               )}${
                 bsportPayout.amount_cts_from_previous_included_payouts > 0
@@ -176,7 +176,7 @@ const PayoutListItem: React.FC<Props> = ({
       <div className={classes.innerContainer}>
         <div className={classes.leftPart}>
           <Typography>
-            {`${DateTime.fromMillis(stripePayout.date_created * 1000).toFormat(
+            {`${DateTime.fromSeconds(stripePayout.date_created).toFormat(
               'DD',
             )} - ${getCurrencyDisplayWithPrice(
               (stripePayout.amount_cts / 100).toFixed(2),

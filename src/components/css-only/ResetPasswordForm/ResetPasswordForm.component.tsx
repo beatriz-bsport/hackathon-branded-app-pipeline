@@ -1,15 +1,14 @@
 import React, { ChangeEvent, FormEvent, useCallback } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
 import { Link } from 'react-router-dom';
 
+import { DateTime } from 'luxon';
 import TextField from '#Fabrique/TextField';
 import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
 import CircularProgress from '#csscomponents/CircularProgress';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-
 import './styles.css';
 
 export type Props = {
@@ -53,7 +52,8 @@ const ResetPasswordForm: React.FC<Props> = ({
 
   const hasResetPasswordProblem =
     last_password_reset_request &&
-    moment(last_password_reset_request).isAfter(moment().add(-4, 'hours'));
+    DateTime.fromISO(last_password_reset_request) >
+      DateTime.now().minus({ hours: 4 });
 
   return (
     <form className="bs-reset-password-form" onSubmit={handleSubmit}>

@@ -1,11 +1,10 @@
 import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import ResetPasswordForm, { ResetPasswordFormStorybook } from '.';
 import { Props } from './ResetPasswordForm.component';
-
+import { DateTime } from 'luxon';
 import './styles-storybook.css';
 
 const ResetPasswordFormTemplate: ComponentStory<
@@ -59,7 +58,7 @@ Errorform.args = {
 export const Helpmessageform = ResetPasswordFormTemplate.bind({});
 Helpmessageform.args = {
   ...baseArgs,
-  last_password_reset_request: moment().subtract(2, 'hours').format(),
+  last_password_reset_request: DateTime.now().minus({ hours: 2 }).toISO(),
   hasSent: true,
 };
 

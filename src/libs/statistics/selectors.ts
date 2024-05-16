@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import { DateTime } from 'luxon';
-// @ts-expect-error
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import { State, Dispatch } from '../../state/types';
 // @ts-expect-error

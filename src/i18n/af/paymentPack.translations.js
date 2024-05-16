@@ -84,6 +84,8 @@ const getTranslations = async () => {
         selectToShowPreview: 'Select an email to see a preview of it.',
         mailTitle: 'Select the email template that will be sent',
         typeTitle: 'Trigger',
+        generalTitle: 'General',
+        notificationNamePlaceholder: 'Notification name',
         creditType: 'Remaining credits',
         daysType: 'Remaining validity',
         daysPastType: 'Expiration',

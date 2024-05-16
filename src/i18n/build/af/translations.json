@@ -3865,11 +3865,7 @@
         "contract": "Select a subscription"
       },
       "createNotification": "[Form] Notification",
-      "stats": {
-        "total_mail_opened": "Number of opened emails",
-        "opened_rate": "Open rate",
-        "total_mail_send": "Sent emails"
-      },
+      "stats": { "total_mail_opened": "Number of opened emails", "opened_rate": "Open rate", "total_mail_send": "Sent emails" },
       "notificationTitle": {
         "remainingCredit": "Remaining credit notifications",
         "remainingValidity": "Remaining validity notifications",
@@ -3892,10 +3888,7 @@
       "create": "Add a notification",
       "handleNotification": "Notification",
       "noNotification": "There are no activated notifications to display.",
-      "contractKind": {
-        "contractStart": "Start of subscription",
-        "contractEnd": "End of subscription"
-      },
+      "contractKind": { "contractStart": "Start of subscription", "contractEnd": "End of subscription" },
       "triggerDescription": {
         "remainingCredit": "{{count}} credit left",
         "remainingCredit_plural": "{{count}} credits left",
@@ -6683,6 +6676,8 @@
         "selectToShowPreview": "Select an email to see a preview of it.",
         "mailTitle": "Select the email template that will be sent",
         "typeTitle": "Trigger",
+        "generalTitle": "General",
+        "notificationNamePlaceholder": "Notification name",
         "creditType": "Remaining credits",
         "daysType": "Remaining validity",
         "daysPastType": "Expiration",

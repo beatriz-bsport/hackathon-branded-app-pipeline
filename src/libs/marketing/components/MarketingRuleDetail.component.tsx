@@ -621,10 +621,8 @@ const getLabel = ({
   selectedNotification,
   privateServiceById,
   metaActivityBydId,
-  paymentPackById,
   establishmentById,
   establishmentGroupById,
-  privatePassById,
   contractById,
 }: GetLabelProps) => {
   if (!selectedNotification) {
@@ -632,6 +630,7 @@ const getLabel = ({
   }
 
   const {
+    name,
     establishment_id,
     meta_activity_id,
     payment_pack_ids,
@@ -661,12 +660,10 @@ const getLabel = ({
     return privateServiceById[private_service_id].name;
   }
 
-  if (payment_pack_ids?.length > 0) {
-    return paymentPackById[payment_pack_ids[0]].name;
+  if (payment_pack_ids || private_pass_ids) {
+    return name;
   }
-  if (private_pass_ids?.length > 0) {
-    return privatePassById[private_pass_ids[0]].name;
-  }
+
   if (contract_id && contractById[contract_id]) {
     return contractById[contract_id].name;
   }

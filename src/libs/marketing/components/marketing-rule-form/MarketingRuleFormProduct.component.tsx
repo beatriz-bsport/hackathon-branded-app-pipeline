@@ -15,6 +15,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
+import InfoIcon from '@material-ui/icons/Info';
 import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
 import { Divider, Switch } from '@material-ui/core';
 import {
@@ -50,6 +51,7 @@ interface InitialFormikValues {
   notificationTitle: string | null;
   kind: number;
   email_design: number;
+  name: string | null;
   contains_all_payment_packs?: boolean;
   payment_pack_ids?: number[];
   contains_all_private_passes?: boolean;
@@ -65,6 +67,7 @@ interface InitialFormikValues {
   disabled_if_in_contract: boolean;
 }
 interface FinalFormikData extends MarketingNotification {
+  name: string;
   send_email: boolean;
   send_notification_push: boolean;
   credits_left: number | null;
@@ -217,9 +220,28 @@ const ProductNotificationForm = (props: Props) => {
       }
       title={t('notificationForm')}
     >
-      <Form>
+      <Form noValidate>
         <Divider className={classes.divider} />
-        <div id="select_notification_type">
+        <div>
+          <div className={classes.fieldContainer}>
+            <div className={classes.titleContainer}>
+              <InfoIcon color="action" />
+              <Typography variant="h6">
+                {t('notification.form.generalTitle')}
+              </Typography>
+            </div>
+
+            <TextField
+              fullWidth
+              required
+              label={t('notification.form.notificationNamePlaceholder')}
+              name="name"
+            />
+          </div>
+        </div>
+
+        <Divider className={classes.divider} />
+        <div>
           <div className={classes.fieldContainer}>
             <div className={classes.titleContainer}>
               <NotificationIcon color="action" />
@@ -407,6 +429,7 @@ const ProductNotificationForm = (props: Props) => {
           <Submit
             color="primary"
             disabled={
+              !!errors.name ||
               !!errors.email_design ||
               !!errors.days_left ||
               !!errors.credits_left ||
@@ -430,8 +453,8 @@ const useStyles = makeStyles((theme) => ({
   },
   choiceField: {
     marginLeft: theme.spacing(1.5),
-    marginTop: theme.spacing(1.75),
-    marginBottom: theme.spacing(1.75),
+    marginTop: theme.spacing(0.75),
+    marginBottom: theme.spacing(0.75),
   },
   divider: {
     marginLeft: theme.spacing(-4),
@@ -445,6 +468,13 @@ const useStyles = makeStyles((theme) => ({
   fieldContainer: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+  nameTextInput: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
   },
   textInput: {
     width: '70px',
@@ -475,8 +505,8 @@ const useStyles = makeStyles((theme) => ({
   switchContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(-1),
   },
   breakSpaces: {
@@ -489,6 +519,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductNotificationSchema = Yup.object().shape({
   kind: Yup.number(),
+  name: Yup.string().required(),
   contains_all_payment_packs: Yup.boolean().when('identifier', {
     is: 'payment_pack',
     then: Yup.boolean().required(),
@@ -552,6 +583,7 @@ export default compose<any, Props>(
           push_notification_content,
         } = initial;
         const {
+          name,
           contains_all_payment_packs,
           payment_pack_ids,
           contains_all_private_passes,
@@ -566,6 +598,7 @@ export default compose<any, Props>(
         const verboseNotifKind = getNotificationKind(initial);
         const creditNotificationKind = getPpCreditNotificationKind(initial);
         return {
+          name: name || '',
           send_email: !!email_design,
           send_notification_push:
             push_notification_title !== '' || push_notification_content !== '',
@@ -589,6 +622,7 @@ export default compose<any, Props>(
         };
       }
       const values: InitialFormikValues = {
+        name: '',
         send_email: true,
         send_notification_push: false,
         notificationContent: '',
@@ -643,6 +677,7 @@ export default compose<any, Props>(
                 contains_all_private_passes: values.contains_all_private_passes,
                 private_pass_ids: values.private_pass_ids,
               }),
+          name: values.name,
           disabled_if_in_contract: values.disabled_if_in_contract,
           smartlist_include: values.smartlist_include,
           smartlist_exclude: values.smartlist_exclude,

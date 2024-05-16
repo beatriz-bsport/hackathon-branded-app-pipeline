@@ -1,12 +1,12 @@
 import groupBy from 'lodash/groupBy';
-import moment, { Moment } from 'moment-timezone';
-import { DateTime } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
 import type { RootState } from 'src/reducers';
+import { STATISTICS_FORMAT } from '#libs/statistics/constants';
 import type {
   DateRange,
   NumberDateRange,
@@ -65,8 +65,8 @@ export const getStats: (
   >;
   offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
   waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
-  start: Moment;
-  end: Moment;
+  start: string;
+  end: string;
 } = createSelector(
   [
     selectCreatedBookings,
@@ -78,20 +78,19 @@ export const getStats: (
   ],
   (createdBookings, cancelledBookings, offers, waitingLists, start, end) => {
     if (createdBookings && cancelledBookings && start && end) {
-      const startMoment = moment(start);
-      const endMoment = moment(end);
+      const startMoment = DateTime.fromISO(start);
+      const endMoment = DateTime.fromISO(end);
+
+      const interval = Interval.fromDateTimes(startMoment, endMoment);
       const formattedOffers = offers
         .filter(
           (offer) =>
             offer.available &&
-            moment(offer.date_start, 'YYYY-MM-DD HH').isBetween(
-              startMoment,
-              endMoment,
-            ),
+            interval.contains(DateTime.fromISO(offer.date_start)),
         )
         .map((offer) => {
           return Immutable({
-            d: moment(offer.date_start, 'YYYY-MM-DD HH').valueOf(),
+            d: DateTime.fromISO(offer.date_start).valueOf(),
             v: 1,
           });
         });
@@ -100,8 +99,8 @@ export const getStats: (
         cancelledBookings,
         offers: formattedOffers,
         waitingLists,
-        start: startMoment,
-        end: endMoment,
+        start: startMoment.toFormat(STATISTICS_FORMAT),
+        end: endMoment.toFormat(STATISTICS_FORMAT),
       };
     }
     return null;

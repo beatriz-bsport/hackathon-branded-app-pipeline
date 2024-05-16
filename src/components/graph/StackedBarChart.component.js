@@ -178,6 +178,7 @@ export function StackedBarChart(props: Props) {
     minHeight,
     minWidth,
   } = props;
+
   return (
     <ResponsiveContainer
       height={height}

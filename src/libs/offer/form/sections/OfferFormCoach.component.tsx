@@ -48,8 +48,15 @@ const OfferFormCoach = (props: Props) => {
   const handleSelectCoach = useCallback(
     (newCoach: { value: number; label: string }) => {
       setFieldValue('coach', newCoach?.value ?? null);
+      /*
+       * If the selected coach is already selected as coachOverride
+       * we clear the value (prevents that coachOverride === coach)
+       */
+      if (newCoach.value === coachOverride) {
+        setFieldValue('coachOverride', null);
+      }
     },
-    [setFieldValue],
+    [setFieldValue, coachOverride],
   );
 
   const handleMultiSelectCoach = useCallback(
@@ -65,7 +72,7 @@ const OfferFormCoach = (props: Props) => {
   );
 
   const handleSelectCoachOverride = useCallback(
-    (newCoach: { value: number; label: string }) => {
+    (newCoach?: { value: number; label: string }) => {
       setFieldValue('coachOverride', newCoach?.value ?? null);
     },
     [setFieldValue],

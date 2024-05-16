@@ -150,12 +150,11 @@ export const CoachSelector: React.FC<Props> = ({
         shouldSetMinHeight={shouldSetMinHeight}
         styles={{ ...coachStyles, ...controlStyle(isError) }}
         value={
-          selectedCoaches
-            ? getCoachOptions(
-                [...coaches.filter((c) => selectedCoaches.includes(c.id))],
-                associatedCoachOutput,
-              )
-            : undefined
+          selectedCoaches &&
+          getCoachOptions(
+            [...coaches.filter((c) => selectedCoaches.includes(c.id))],
+            associatedCoachOutput,
+          )
         }
       />
 

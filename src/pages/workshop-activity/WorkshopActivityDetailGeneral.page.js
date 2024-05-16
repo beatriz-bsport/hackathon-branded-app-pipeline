@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment-timezone';
 
 import { withTranslation } from 'react-i18next';
 
@@ -77,7 +76,7 @@ type Props = {
   workshopActivity: MetaActivityType,
   loading: boolean,
   fetchMetaActivityOffers: (id: number) => void,
-  fetchOffersByDay: (year: number, month: number, day: number) => void,
+  fetchOffersByDay: (datetime: DateTime) => void,
   offersLoading: boolean,
   events: Array<Event>,
   offers: Array<Offer>,
@@ -153,7 +152,7 @@ export class WorkshopActivity extends Component<Props, State> {
       this.props.fetchNotificationsAndTemplates({
         meta_activity: this.props.id,
       });
-      this.props.fetchOffersByDay(moment());
+      this.props.fetchOffersByDay(DateTime.now());
       this.props.fetchResolvedGenericTags();
       this.props.fetchTagList();
     }
@@ -353,15 +352,15 @@ export default compose(
       upsertMetaActivity,
       setOpenEditDrawer,
     }) => ({
-      fetchOffersByDay: (momentDate) => {
+      fetchOffersByDay: (datetime: DateTime) => {
         fetchMetaActivityOffers(id, {
-          min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-          max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+          min_date: datetime.startOf('month').toISODate(),
+          max_date: datetime.endOf('month').toISODate(),
         });
         fetchOffersByDay({
-          year: momentDate.year(),
-          month: momentDate.month() + 1,
-          day: momentDate.date(),
+          year: datetime.year,
+          month: datetime.month,
+          day: datetime.day,
         });
       },
       onSubmit: (values, options) => {

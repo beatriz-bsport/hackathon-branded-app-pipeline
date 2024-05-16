@@ -34,7 +34,7 @@ export const PrivateBookingPreviewListItem = (props: Props) => {
       <Typography className={props.classes.title} component="h2" variant="h4">
         {`${formatAsDatetimeAdapted(
           props.preview.date_start,
-          'LLL',
+          'DDD t',
         )} - ${formatISOStringAsTime(props.preview.date_end)}`}
       </Typography>
       <ListItem>

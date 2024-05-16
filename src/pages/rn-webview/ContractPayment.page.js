@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { withRouter } from 'react-router-dom';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -125,10 +125,9 @@ export class ContractPayment extends React.Component<Props, State> {
     establishmentBillingGroupId: number,
   ) => {
     this.setState({ processing: true });
-    const first_billing_timestamp = moment(
+    const first_billing_timestamp = DateTime.fromISO(
       this.props.date,
-      'YYYY-MM-DD',
-    ).unix();
+    ).toUnixInteger();
     this.props.registerContractBackground(
       this.props.contractId,
       {

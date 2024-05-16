@@ -69,7 +69,7 @@ export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
         <Typography color="textSecondary" variant="caption">
           {`${t(
             'backofficeMenu.cashBook.lastUpdated',
-          )} :  ${formatAsDatetimeAdapted(initial.date_last_update, 'LLLL')}`}
+          )} :  ${formatAsDatetimeAdapted(initial.date_last_update, 'DDDD t')}`}
         </Typography>
       </div>
       {permissions?.navigationMenu?.reporting && (

@@ -8,14 +8,14 @@ import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { AlertKind } from '../libs/alerting/constants';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
 } from '../constants';
 import Intercom from '#components/intercom/Intercom.component';
-import i18n, { setMomentLocale, setLuxonLocale } from '../i18n/index';
+import i18n, { setLuxonLocale } from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
@@ -515,8 +515,6 @@ export class Backoffice extends Component<Props, State> {
       },
     });
     const { language } = i18n;
-    const isoLanguage = getCurrentLanguageIsoCode(language);
-    setMomentLocale(isoLanguage);
     setLuxonLocale(language);
   }
 
@@ -564,10 +562,9 @@ export class Backoffice extends Component<Props, State> {
   checkPaymentFailed = () => {
     if (
       (!this.props.lastPlatformSubscriptionWarningDate ||
-        !moment(this.props.lastPlatformSubscriptionWarningDate).isSame(
-          moment(),
-          'day',
-        )) &&
+        !DateTime.fromISO(
+          this.props.lastPlatformSubscriptionWarningDate,
+        ).hasSame(DateTime.now(), 'day')) &&
       !!this.props.platformSubscriptionPaymentStatus.failed?.length &&
       this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
     ) {
@@ -580,10 +577,9 @@ export class Backoffice extends Component<Props, State> {
   checkPaymentDisputed = () => {
     if (
       (!this.props.lastPlatformSubscriptionDisputeWarningDate ||
-        !moment(this.props.lastPlatformSubscriptionDisputeWarningDate).isSame(
-          moment(),
-          'day',
-        )) &&
+        !DateTime.fromISO(
+          this.props.lastPlatformSubscriptionDisputeWarningDate,
+        ).hasSame(DateTime.now(), 'day')) &&
       !!this.props.platformSubscriptionPaymentStatus.disputed?.length &&
       this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
     ) {
@@ -624,10 +620,9 @@ export class Backoffice extends Component<Props, State> {
       case WARN:
         if (
           !this.props.lastStripeConfigurationWarningDate ||
-          !moment(this.props.lastStripeConfigurationWarningDate).isSame(
-            moment(),
-            'day',
-          )
+          !DateTime.fromISO(
+            this.props.lastStripeConfigurationWarningDate,
+          ).hasSame(DateTime.now(), 'day')
         ) {
           this.openStripeConfigurationModal();
         }

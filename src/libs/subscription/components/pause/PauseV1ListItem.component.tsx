@@ -18,7 +18,7 @@ export const SubscriptionPauseListItem = (props: Props) => {
         primary={props.pause.name}
         secondary={t('pauseV2.common.listItem.pausedAt', {
           days: props.pause.days,
-          date: formatAsDatetimeAdapted(props.pause.date_created, 'LL'),
+          date: formatAsDatetimeAdapted(props.pause.date_created, 'DDD'),
         })}
       />
     </ListItem>

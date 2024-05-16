@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { withTranslation, TFunction } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import themeSelectors from '../../../libs/theme/selectors';
 
@@ -74,9 +74,9 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
   ) => {
     this.setState({ processing: true });
     try {
-      const first_billing_timestamp = moment(
-        this.state.firstBillingTimestamp,
-      ).unix();
+      const first_billing_timestamp = this.state.firstBillingTimestamp
+        ? DateTime.fromISO(this.state.firstBillingTimestamp).toUnixInteger()
+        : DateTime.now().toUnixInteger();
       this.props.registerContractBackground(
         this.props.contract.id,
         {

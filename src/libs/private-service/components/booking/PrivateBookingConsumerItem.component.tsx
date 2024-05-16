@@ -53,7 +53,7 @@ export const PrivateBookingConsumerItem = (props: Props) => {
         <ListItemText
           primary={formatAsDatetimeAdapted(
             private_booking.date_start,
-            'LL',
+            'DDD',
             props.timezone,
           )}
           secondary={formatISOStringAsTime(

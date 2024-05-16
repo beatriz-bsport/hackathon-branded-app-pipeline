@@ -17,7 +17,7 @@ import {
   getOfferFeature,
   getMainOfferNotBookableReasonWithTitle,
 } from '@bsport/common/lib/master-data/available-payment';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -471,7 +471,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       });
     } else {
       this.props.goToCalendar({
-        date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
+        date: DateTime.fromISO(this.props.offer.date_start).toISODate(),
       });
     }
   };
@@ -916,7 +916,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
             {this.getSpotExpirationDatetime() && (
               <CountDown
-                timestamp={moment(this.getSpotExpirationDatetime()).unix()}
+                timestamp={
+                  this.getSpotExpirationDatetime()
+                    ? DateTime.fromISO(
+                        this.getSpotExpirationDatetime(),
+                      ).toUnixInteger()
+                    : DateTime.fromISO('1970-01-01').toUnixInteger()
+                }
               >
                 {(countdown: string) => {
                   return countdown ? (

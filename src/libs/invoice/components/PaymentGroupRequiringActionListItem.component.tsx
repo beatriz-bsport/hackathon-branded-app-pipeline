@@ -31,7 +31,7 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
               )}`}
             </Typography>
             <Typography color="textSecondary" variant="caption">
-              {formatAsDatetimeAdapted(paymentGroup.date_created, 'LL')}
+              {formatAsDatetimeAdapted(paymentGroup.date_created, 'DDD')}
             </Typography>
             <Typography variant="caption">
               {`${t(`paymentGroup.requiresAction`)}`}

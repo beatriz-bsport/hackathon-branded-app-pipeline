@@ -124,7 +124,7 @@ export const SubscriptionListItem = (props: Props) => {
               {t('subscription.listItem.startingAt', {
                 d: formatAsDatetimeAdapted(
                   subscription.first_billing_date,
-                  'LL',
+                  'DDD',
                 ),
               })}
             </Typography>
@@ -136,7 +136,7 @@ export const SubscriptionListItem = (props: Props) => {
                 {t('subscription.listItem.nextBillingDate', {
                   d: formatAsDatetimeAdapted(
                     subscription.next_billing_date,
-                    'LL',
+                    'DDD',
                   ),
                 })}
               </Typography>
@@ -170,7 +170,10 @@ export const SubscriptionListItem = (props: Props) => {
           <CalendarIcon className={classes.leftIcon} />
           <Typography>
             {t('subscription.listItem.startingAt', {
-              d: formatAsDatetimeAdapted(subscription.first_billing_date, 'LL'),
+              d: formatAsDatetimeAdapted(
+                subscription.first_billing_date,
+                'DDD',
+              ),
             })}
           </Typography>
         </div>
@@ -181,7 +184,7 @@ export const SubscriptionListItem = (props: Props) => {
               {t('subscription.listItem.nextBillingDate', {
                 d: formatAsDatetimeAdapted(
                   subscription.next_billing_date,
-                  'LL',
+                  'DDD',
                 ),
               })}
             </Typography>
@@ -211,7 +214,7 @@ export const SubscriptionListItem = (props: Props) => {
                 values={{
                   dateAccepted: formatAsDatetimeAdapted(
                     subscription.contract_terms_date_accepted,
-                    'LL',
+                    'DDD',
                   ),
                 }}
               />

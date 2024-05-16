@@ -43,7 +43,7 @@ const VodVideoAnalytics = (props: Props) => {
           variant="caption"
         >
           {t('video.analytics.uploaded', {
-            date: formatAsDatetimeAdapted(props.videoDateCreated, 'LL'),
+            date: formatAsDatetimeAdapted(props.videoDateCreated, 'DDD'),
           })}
         </Typography>
       )}

@@ -108,7 +108,7 @@ const OfferDetail: React.FC<Props> = ({ offer, coachDisplay }) => {
             )}
             secondary={formatAsDatetimeAdapted(
               offer.date_start,
-              'LL',
+              'DDD',
               offer.timezone_name,
             )}
           />

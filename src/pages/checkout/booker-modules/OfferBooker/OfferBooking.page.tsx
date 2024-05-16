@@ -9,7 +9,7 @@ import {
   push as pushAction,
   replace as repalceAction,
 } from 'connected-react-router';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import {
   Backdrop,
@@ -477,7 +477,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
         (offer) => !(typeof this.state.spotsForOffers[offer.id] === 'number'),
       )
       .sort((a, b) =>
-        moment(a.date_start).isBefore(moment(b.date_start)) ? -1 : 1,
+        DateTime.fromISO(a.date_start) < DateTime.fromISO(b.date_start)
+          ? -1
+          : 1,
       );
 
     this.setState({ offersWaitingForSpotSelection });
@@ -505,7 +507,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     ) {
       return () => {
         this.props.goToCalendar({
-          date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
+          date: DateTime.fromISO(this.props.offer.date_start).toISODate(),
         });
       };
     }

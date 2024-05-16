@@ -140,7 +140,7 @@ export const InvoiceHeader = (props: Props) => {
         <div className={classes.row}>
           <TodayIcon className={classes.leftIcon} fontSize="small" />
           <Typography color="textSecondary">
-            {formatAsDatetimeAdapted(invoice.date, 'LLL')}
+            {formatAsDatetimeAdapted(invoice.date, 'DDD t')}
           </Typography>
         </div>
         <div className={classes.row}>

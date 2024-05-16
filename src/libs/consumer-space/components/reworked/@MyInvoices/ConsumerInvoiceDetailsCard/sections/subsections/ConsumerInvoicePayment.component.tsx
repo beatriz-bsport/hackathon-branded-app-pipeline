@@ -47,9 +47,9 @@ const ConsumerInvoicePayment: React.FC<Props> = ({
           >
             {isPlannedPaymentEvent && !!retryDate
               ? t('consumerSpace:reworked.myInvoices.detailsCard.retryDate', {
-                  date: formatAsDatetimeAdapted(retryDate, 'L'),
+                  date: formatAsDatetimeAdapted(retryDate, 'D'),
                 })
-              : formatAsDatetimeAdapted(date, 'L')}
+              : formatAsDatetimeAdapted(date, 'D')}
           </Typography>
           <Typography
             className="bs-consumer-invoice-details-card__body__payment-section__item-details-label"

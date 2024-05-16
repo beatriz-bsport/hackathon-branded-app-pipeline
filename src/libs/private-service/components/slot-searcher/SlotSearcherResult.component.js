@@ -238,7 +238,7 @@ export const SlotSearcherResult = (props: Props) => {
       <div className={props.classes.row}>
         <ScheduleIcon className={props.classes.leftIcon} />
         <Typography variant="h6">
-          {formatAsDatetimeAdapted(props.date, 'LL')}
+          {formatAsDatetimeAdapted(props.date, 'DDD')}
         </Typography>
       </div>
       <Paper className={props.classes.resultPaper}>

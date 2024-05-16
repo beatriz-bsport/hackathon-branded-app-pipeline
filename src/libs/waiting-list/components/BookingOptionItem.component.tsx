@@ -59,7 +59,10 @@ class BookingOptionItem extends React.PureComponent<Props> {
           secondary={
             <div>
               <div>
-                {formatAsDatetimeAdapted(bookingOption.offer.date_start, 'LLL')}
+                {formatAsDatetimeAdapted(
+                  bookingOption.offer.date_start,
+                  'DDD t',
+                )}
               </div>
               {displayWaitingListPosition && waitingListPosition && (
                 <div>

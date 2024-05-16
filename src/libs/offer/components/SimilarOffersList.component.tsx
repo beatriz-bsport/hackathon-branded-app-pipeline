@@ -184,10 +184,9 @@ const SimilarOffersList = (props: Props) => {
   );
 
   const getInitialOfferDate = useCallback((date: string) => {
-    return `${formatAsDatetimeAdapted(
+    return `${formatAsDatetimeAdapted(date, 'EEE DD')} ${formatISOStringAsTime(
       date,
-      'ddd D MMM YYYY',
-    )} ${formatISOStringAsTime(date)}`;
+    )}`;
   }, []);
 
   const getNewOfferDate = useCallback(

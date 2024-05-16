@@ -40,7 +40,7 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
         primary={description}
         secondary={formatAsDatetimeAdapted(
           props.creditRefund.date_created,
-          'LL',
+          'DDD',
         )}
       />
       <ListItemSecondaryAction>

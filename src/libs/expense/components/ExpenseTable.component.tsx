@@ -181,7 +181,7 @@ export class ExpenseTable extends Component<Props> {
                       (e: ExpenseWithUser) =>
                         e.id === this.props.selectedExpense,
                     ).date_due,
-                    'LL',
+                    'DDD',
                   ),
                 })}
               </Typography>

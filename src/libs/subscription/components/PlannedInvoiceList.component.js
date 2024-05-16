@@ -22,7 +22,7 @@ const PlannedInvoiceListItem = (props: {
     <ListItem divider>
       <ListItemText
         primary={plannedInvoice.name}
-        secondary={formatAsDatetimeAdapted(plannedInvoice.date, 'LL')}
+        secondary={formatAsDatetimeAdapted(plannedInvoice.date, 'DDD')}
       />
       <ListItemSecondaryAction>
         <IconButton onClick={() => props.onClick(plannedInvoice.billing_plan)}>

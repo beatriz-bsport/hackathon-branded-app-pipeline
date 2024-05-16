@@ -65,7 +65,7 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
       open={props.open}
       subtitle={`${props.offer?.name} - ${formatAsDatetimeAdapted(
         props.offer?.date_start,
-        'LLL',
+        'DDD t',
       )}`}
       title={t('rollCall.drawer.rollCall')}
     >

@@ -157,7 +157,7 @@ const PrivateBookingIncompleteListItem: React.FC<{
           </Trans>
           <br />
           {t('privateBookingIncomplete.date', {
-            date_start: formatAsDatetimeAdapted(date_start, 'LLLL'),
+            date_start: formatAsDatetimeAdapted(date_start, 'DDDD t'),
           })}
           <br />
           {t('privateBookingIncomplete.name', { user_name })}
@@ -184,7 +184,7 @@ const CompanyOnboardingAlertListItem: React.FC<{
 
     resolution_url = '/settings/company_onboarding';
 
-    const date = formatAsDatetimeAdapted(alerting.data.date, 'LL');
+    const date = formatAsDatetimeAdapted(alerting.data.date, 'DDD');
 
     content = (
       <Typography component="div" variant="caption">
@@ -302,7 +302,7 @@ const TaskAlertListItem: React.FC<{
               {name}
             </Typography>
             <Typography color="textSecondary" variant="caption">
-              {formatAsDatetimeAdapted(date_due, 'LL')}
+              {formatAsDatetimeAdapted(date_due, 'DDD')}
             </Typography>
           </div>
           <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
@@ -361,7 +361,7 @@ const UnreadCommunicationListItem: React.FC<{
                 component="h4"
                 variant="caption"
               >
-                {formatAsDatetimeAdapted(alerting.data.date_created, 'lll')}
+                {formatAsDatetimeAdapted(alerting.data.date_created, 'DD t')}
               </Typography>
             </div>
           </div>
@@ -411,7 +411,7 @@ const UnpaidPrivateBookingIncompleteListItem: React.FC<{
             </Typography>
             <Typography color="textSecondary" variant="caption">
               {t('privateBookingIncomplete.date', {
-                date_start: formatAsDatetimeAdapted(date_start, 'LLLL'),
+                date_start: formatAsDatetimeAdapted(date_start, 'DDDD t'),
               })}
             </Typography>
           </div>

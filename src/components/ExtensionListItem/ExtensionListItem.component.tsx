@@ -120,11 +120,11 @@ export const ExtensionListItem: React.FC<Props> = ({
               {t('massExtension.listItemDate', {
                 minDate: formatAsDatetimeAdapted(
                   (extension as MassExtension).min_ending_date,
-                  'll',
+                  'DD',
                 ),
                 maxDate: formatAsDatetimeAdapted(
                   (extension as MassExtension).max_ending_date,
-                  'll',
+                  'DD',
                 ),
               })}
             </Typography>
@@ -132,7 +132,7 @@ export const ExtensionListItem: React.FC<Props> = ({
 
         <Typography color="textSecondary" variant="caption">
           {t('extension.addedOn') +
-            formatAsDatetimeAdapted(extension.date_created, 'lll')}
+            formatAsDatetimeAdapted(extension.date_created, 'DD t')}
         </Typography>
       </div>
 

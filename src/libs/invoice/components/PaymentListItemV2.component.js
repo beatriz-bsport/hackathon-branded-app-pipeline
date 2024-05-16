@@ -101,7 +101,7 @@ export const PaymentItem = (props: Props) => {
             color="textSecondary"
             variant="caption"
           >
-            {formatAsDatetimeAdapted(paymentItem.date, 'LL')}
+            {formatAsDatetimeAdapted(paymentItem.date, 'DDD')}
           </Typography>
         </div>
       </div>

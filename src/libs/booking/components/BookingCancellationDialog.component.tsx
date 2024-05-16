@@ -98,7 +98,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
           ? t('consumer.booking.intro', {
               date: formatAsDatetimeAdapted(
                 booking.offer.date_start,
-                'LLLL',
+                'DDDD t',
                 booking.offer.timezone_name,
               ),
             })

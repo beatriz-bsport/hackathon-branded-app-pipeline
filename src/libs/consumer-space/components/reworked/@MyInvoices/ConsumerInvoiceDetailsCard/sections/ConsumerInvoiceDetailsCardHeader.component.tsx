@@ -26,7 +26,7 @@ const ConsumerInvoiceDetailsCardHeader: React.FC<Props> = ({
   );
 
   const invoiceDate = React.useMemo(
-    () => formatAsDatetimeAdapted(consumerInvoice?.date, 'L'),
+    () => formatAsDatetimeAdapted(consumerInvoice?.date, 'D'),
     [consumerInvoice?.date],
   );
 

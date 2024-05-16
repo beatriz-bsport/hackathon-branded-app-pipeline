@@ -88,7 +88,7 @@ export const BookingConsumerItem = (props: Props) => {
         <ListItemText
           primary={
             offer
-              ? formatAsDatetimeAdapted(offer.date_start, 'LL', timezone)
+              ? formatAsDatetimeAdapted(offer.date_start, 'DDD', timezone)
               : ' - '
           }
           secondary={offer ? formatISOStringAsTime(offer.date_start) : ' - '}

@@ -109,7 +109,7 @@ const PayoutListItem: React.FC<Props> = ({
                   {t('payout.payoutIsIncludedInOther', {
                     date: formatAsDatetimeAdapted(
                       bsportPayout.is_included_in_payout.date_created,
-                      'LL',
+                      'DDD',
                     ),
                     readable_identifier:
                       bsportPayout.is_included_in_payout.readable_identifier,

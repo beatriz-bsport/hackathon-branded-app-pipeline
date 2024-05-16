@@ -201,7 +201,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 {t('plannedPaymentEvent.nextRetryDate', {
                   d: formatAsDatetimeAdapted(
                     props.plannedPaymentEvent.next_retry_date,
-                    'LL',
+                    'DDD',
                   ),
                 })}
               </Typography>

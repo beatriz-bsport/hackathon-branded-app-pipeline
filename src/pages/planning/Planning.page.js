@@ -1350,27 +1350,6 @@ export class Planning extends PureComponent<Props, State> {
                     {(hasCreateActivityPermission ||
                       hasCreateWorkshopPermission) &&
                       this.renderAddOffersButton()}
-                    {/* Removed Bloating the ui  */}
-                    {/* {!this.props.selectedOffer ? (
-                <div className={this.props.classes.noOfferMessage}>
-                  {this.renderNoOfferSelected()}
-                </div>
-              ) : (
-                <div className={this.props.classes.paper}>
-                  <BookingStatisticsCard
-                    offerId={selectedOffer.id}
-                    title={moment(selectedOffer.date_start)
-                      .tz(selectedOffer.timezone_name)
-                      .format('LLLL')}
-                    bookingStatistics={this.props.bookingStatistics}
-                    loading={
-                      this.props.createdBookingStatsLoading ||
-                      this.props.cancelledBookingStatsLoading
-                    }
-                    filters={this.props.offerFilters}
-                  />
-                </div>
-              )} */}
                   </Grid>
                 ) : (
                   <Typography />

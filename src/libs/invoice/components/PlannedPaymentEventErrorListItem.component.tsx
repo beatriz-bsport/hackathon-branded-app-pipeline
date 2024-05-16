@@ -35,7 +35,7 @@ export const PlannedPaymentEventErrorListItem = ({
             {t(`plannedPaymentEvent.unrecoverableError`)}
           </Typography>
           <Typography color="textSecondary" variant="caption">
-            {formatAsDatetimeAdapted(plannedPaymentError.future_date, 'LL')}
+            {formatAsDatetimeAdapted(plannedPaymentError.future_date, 'DDD')}
           </Typography>
         </div>
       </div>

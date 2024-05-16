@@ -63,42 +63,30 @@ export const formatISOStringAsTime = (date: string, tzname?: string) => {
   return datetime.toLocaleString(DateTime.TIME_SIMPLE);
 };
 
-const MOMENT_VALID_EN_GB_FORMATS = ['L', 'l'];
-
 /**
  * Formats a date adapted to an optional timezone
- * @param date The date under any valid form (iso string, moment instance..)
+ * @param date The datetime as isoString or unix timestamp
  * @param format The desired output date format
  * @param tzname The timezone name
  * @param isUnix Boolean passed if date is unix. Required if `date` is a unix timestamp value
  * @example
- * const date = formatAsDatetimeAdapted(moment(), 'LLLL') // Tuesday, February 20, 2024 12:10 PM
- * const unixToDate = formatAsDatetimeAdapted(1704189471, 'LLLL', '', true) // Tuesday, January 2, 2024 10:57 AM
- * @see [Moment.js | Docs - Unix Timestamp (milliseconds)](https://momentjs.com/docs/#/parsing/unix-timestamp-milliseconds/)
+ * const date = formatAsDatetimeAdapted(moment(), 'DDDD t') // Tuesday, February 20, 2024 12:10 PM
+ * const unixToDate = formatAsDatetimeAdapted(1704189471, 'DDDD t', '', true) // Tuesday, January 2, 2024 10:57 AM
  */
 export function formatAsDatetimeAdapted(
-  date: string | moment.Moment,
+  date: string | number,
   format: string,
   tzname?: string,
   isUnix?: boolean,
 ) {
-  const formatNeedsAdaptation = !MOMENT_VALID_EN_GB_FORMATS.includes(format);
-  const dateInput = isUnix ? moment.unix(parseInt(date as string)) : date;
-  if (
-    formatNeedsAdaptation &&
-    (moment().locale() === 'en-gb' || moment().locale() === 'en-US')
-  ) {
-    const momentDate = moment(dateInput).locale('en');
-    if (tzname) {
-      momentDate.tz(tzname);
-    }
-    return momentDate.format(format);
-  }
-  const momentDate = moment(dateInput);
+  let datetime = isUnix
+    ? DateTime.fromSeconds(date as number)
+    : DateTime.fromISO(date as string);
+
   if (tzname) {
-    momentDate.tz(tzname);
+    datetime = datetime.setZone(tzname);
   }
-  return momentDate.format(format);
+  return datetime.toFormat(format);
 }
 
 export function formatAsDatetime(date: string, tzname?: string) {

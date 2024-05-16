@@ -65,7 +65,7 @@ export const OfferListItemV2: React.FC<Props> = ({
     () =>
       formatAsDatetimeAdapted(
         offer.date_start,
-        'llll',
+        'EEE DDD t',
         offer.timezone_name || Settings.defaultZone.name || 'Europe/Paris',
       ),
     [offer],

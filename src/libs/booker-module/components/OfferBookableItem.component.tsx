@@ -157,7 +157,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
           <Typography>
             {`${formatAsDatetimeAdapted(
               props.offer.date_start,
-              'LL',
+              'DDD',
               props.offer.timezone_name,
             )}, 
               ${DateTime.fromISO(props.offer.date_start)

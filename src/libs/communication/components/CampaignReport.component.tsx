@@ -181,7 +181,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
               variant="subtitle2"
             >
               {report.last_open
-                ? formatAsDatetimeAdapted(report.last_open, 'LLLL')
+                ? formatAsDatetimeAdapted(report.last_open, 'DDDD t')
                 : ' - '}
             </Typography>
           </div>
@@ -192,7 +192,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
               color="secondary"
               variant="subtitle2"
             >
-              {formatAsDatetimeAdapted(campaign.date_created, 'LLLL')}
+              {formatAsDatetimeAdapted(campaign.date_created, 'DDDD t')}
             </Typography>
           </div>
         </div>

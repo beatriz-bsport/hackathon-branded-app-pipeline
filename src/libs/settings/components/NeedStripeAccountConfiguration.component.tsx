@@ -24,7 +24,7 @@ export const NeedStripeAccountConfiguration: React.FC<Props> = ({
   const classes = useStyles();
   const dateAccountIsBLockedFormattedLL = formatAsDatetimeAdapted(
     dateAccountIsBlocked,
-    'LL',
+    'DDD',
   );
   return (
     <>

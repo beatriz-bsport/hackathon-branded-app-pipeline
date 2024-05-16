@@ -72,23 +72,6 @@ export const SubscriptionContractCard = (props: Props) => {
                     disablePast
                     required
                     format="D"
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
-                      }
-                      return [];
-                    }}
                     onChange={props.setDate}
                     returnMoment={false}
                     value={props.date}
@@ -102,7 +85,7 @@ export const SubscriptionContractCard = (props: Props) => {
       <Button
         color="primary"
         disabled={!props.acceptContract && !props.hideConditions}
-        onClick={() => props.onPayRequest(props.date)}
+        onClick={() => props.onPayRequest(props.date.toISO())}
         style={{ width: '100%' }}
         variant="contained"
       >

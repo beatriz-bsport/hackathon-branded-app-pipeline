@@ -135,7 +135,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
     ? (props_) => (
         <Tooltip
           title={props.t('attendanceUpdatedOn', {
-            d: formatAsDatetimeAdapted(props.attendance_date_updated, 'LL'),
+            d: formatAsDatetimeAdapted(props.attendance_date_updated, 'DDD'),
             t: formatISOStringAsTime(props.attendance_date_updated),
           })}
         >

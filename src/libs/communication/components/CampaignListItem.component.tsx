@@ -239,7 +239,7 @@ export const CampaignListItem: React.FC<Props> = ({
                     {t('campaign.sentAt', {
                       date_created: formatAsDatetimeAdapted(
                         date_created,
-                        'LLLL',
+                        'DDDD t',
                       ),
                     })}
                   </Typography>

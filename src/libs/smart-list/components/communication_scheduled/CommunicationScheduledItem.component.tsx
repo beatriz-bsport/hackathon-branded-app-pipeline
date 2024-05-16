@@ -105,7 +105,7 @@ const CommunicationScheduledItem: React.FC<Props> = ({
               {t('scheduled.scheduledFor', {
                 datetime: formatAsDatetimeAdapted(
                   communicationScheduled.datetime_scheduled,
-                  'LLLL',
+                  'DDDD t',
                 ),
               })}
             </Typography>

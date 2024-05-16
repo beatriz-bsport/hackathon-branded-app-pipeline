@@ -64,7 +64,7 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
     return <div>{member && member.name ? member.name : '-'}</div>;
   };
 
-  const from_date = formatAsDatetimeAdapted(start_from_date, 'LL');
+  const from_date = formatAsDatetimeAdapted(start_from_date, 'DDD');
 
   return (
     <ListItem dense divider>

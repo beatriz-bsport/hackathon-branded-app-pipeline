@@ -34,7 +34,7 @@ const PrivateConsumerPassBookableItem = (props: Props) => {
       </Typography>
       <Typography align="left" color="textSecondary" variant="body1">
         {t('consumerPass.expiresOn', {
-          date: formatAsDatetimeAdapted(expirationDate, 'LL'),
+          date: formatAsDatetimeAdapted(expirationDate, 'DDD'),
         })}
       </Typography>
       <Typography align="left" color="textPrimary" variant="body1">

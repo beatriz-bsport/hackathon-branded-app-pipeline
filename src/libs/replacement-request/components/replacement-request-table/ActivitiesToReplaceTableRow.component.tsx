@@ -367,7 +367,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <Typography className={classes.weight500} variant="subtitle2">
               {formatAsDatetimeAdapted(
                 offerDateStartAsDateTime.toISO(),
-                'ddd D MMM, YYYY',
+                'EEE DD',
                 timezone,
               )}
             </Typography>
@@ -387,7 +387,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               <Typography className={classes.weight500} variant="subtitle1">
                 {formatAsDatetimeAdapted(
                   offerDateStartAsDateTime.toISO(),
-                  'ddd D MMM, YYYY',
+                  'EEE DD',
                   timezone,
                 )}
               </Typography>

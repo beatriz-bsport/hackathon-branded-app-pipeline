@@ -80,7 +80,7 @@ export const SubscriptionSummary = (props: Props) => {
   }
   const contractTermsDateAccepted =
     subscription.contract_terms_date_accepted &&
-    formatAsDatetimeAdapted(subscription.contract_terms_date_accepted, 'LL');
+    formatAsDatetimeAdapted(subscription.contract_terms_date_accepted, 'DDD');
   return (
     <div className={classes.container}>
       <fieldset>

@@ -346,7 +346,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         open={open}
         title={`${formatAsDatetimeAdapted(
           this.state.date_start,
-          'LLLL',
+          'DDDD t',
           this.props.timezone,
         )}`}
       >

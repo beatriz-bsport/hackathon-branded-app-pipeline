@@ -66,7 +66,7 @@ const renderRow = (recipient, t, setShowLinkOpened) => {
     recipient_raw_address: recipient.email,
     read_count: recipient.read_count,
     last_read: recipient.last_read
-      ? formatAsDatetimeAdapted(recipient.last_read, 'LLLL', '', true)
+      ? formatAsDatetimeAdapted(recipient.last_read, 'DDDD t', '', true)
       : ' - ',
     links_opened_count: recipient.links_opened_count ? (
       <ButtonBase onClick={() => setShowLinkOpened(recipient.links_opened)}>

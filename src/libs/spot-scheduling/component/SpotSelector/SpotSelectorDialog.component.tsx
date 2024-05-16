@@ -260,7 +260,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   <Typography variant="subtitle1">
                     {`${formatAsDatetimeAdapted(
                       this.props.offer.date_start,
-                      'LL',
+                      'DDD',
                       this.props.offer.timezone_name,
                     )}, ${DateTime.fromISO(this.props.offer.date_start)
                       .setZone(this.props.offer.timezone_name)
@@ -406,7 +406,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               <Typography variant="subtitle1">
                 {`${formatAsDatetimeAdapted(
                   this.props.offer.date_start,
-                  'LL',
+                  'DDD',
                   this.props.offer.timezone_name,
                 )}, ${DateTime.fromISO(this.props.offer.date_start)
                   .setZone(this.props.offer.timezone_name)

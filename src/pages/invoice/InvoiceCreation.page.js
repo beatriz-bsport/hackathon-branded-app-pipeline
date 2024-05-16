@@ -9,9 +9,8 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { DateTime } from 'luxon';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { Moment } from '../../i18n';
-import { formatAsDate } from '../../utils/datetime';
 import { createOrUpdateInvoice } from '../../libs/invoice/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
@@ -245,9 +244,9 @@ export default compose(
   withQueryParams([['withCredit', 'withPrivatePass'], 'initialItems']),
   withTitle(
     ({ t, member }: { t: TFunction, member: Member }) =>
-      `${t('titles:invoice.invoiceCreate')} - ${formatAsDate(Moment())} - ${
-        member ? member.name : ' '
-      }`,
+      `${t('titles:invoice.invoiceCreate')} - ${DateTime.now().toLocaleString(
+        DateTime.DATE_SHORT,
+      )}} - ${member ? member.name : ' '}`,
   ),
   withMemberBannerHOC(({ member }) => member),
 )(InvoiceCreation);

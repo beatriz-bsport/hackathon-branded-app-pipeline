@@ -145,7 +145,6 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       );
     } else {
       trackFormSuccess(undefined, { kind: this.props.createFormOpenType });
-
       this.props.onCreateMarketingNotification(n, {});
       this.props.closeForm();
       this.setState({

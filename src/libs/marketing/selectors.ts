@@ -163,8 +163,8 @@ export const getNotificationGrouped = createSelector(
 
     notifications.forEach((n) => {
       const {
-        payment_pack_id,
-        private_pass_id,
+        payment_pack_ids,
+        private_pass_ids,
         establishment_id,
         establishment_group_id,
         meta_activity_id,
@@ -173,17 +173,17 @@ export const getNotificationGrouped = createSelector(
         contract_id,
         kind,
       } = n.event_rules;
-      if (payment_pack_id !== undefined) {
-        if (byPaymentPack[payment_pack_id] === undefined) {
-          byPaymentPack[payment_pack_id] = [];
+      if (payment_pack_ids?.length > 0) {
+        if (byPaymentPack[payment_pack_ids[0]] === undefined) {
+          byPaymentPack[payment_pack_ids[0]] = [];
         }
-        byPaymentPack[payment_pack_id].push(n);
+        byPaymentPack[payment_pack_ids[0]].push(n);
       }
-      if (private_pass_id !== undefined) {
-        if (byPrivatePass[private_pass_id] === undefined) {
-          byPrivatePass[private_pass_id] = [];
+      if (private_pass_ids?.length > 0) {
+        if (byPrivatePass[private_pass_ids[0]] === undefined) {
+          byPrivatePass[private_pass_ids[0]] = [];
         }
-        byPrivatePass[private_pass_id].push(n);
+        byPrivatePass[private_pass_ids[0]].push(n);
       }
       if (contract_id !== undefined) {
         if (byContract[contract_id] === undefined) {

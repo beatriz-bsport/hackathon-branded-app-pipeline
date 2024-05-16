@@ -7,6 +7,7 @@ export type MarketingNotification = {
     smartlist_exclude?: number[]; // 3
     smartlist_include?: number[]; // 3
     credits_left?: number; // 4
+    name?: string; // 3, 4, 5, 6
     contains_all_payment_packs?: boolean; // 3, 4
     payment_pack_ids?: number[]; // 3, 4
     contains_all_private_passes?: boolean; // 5, 6

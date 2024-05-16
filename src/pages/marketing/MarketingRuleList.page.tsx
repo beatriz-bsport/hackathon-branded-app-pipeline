@@ -180,8 +180,8 @@ export class MarketingRuleListPage extends Component<Props, State> {
     const emailDesignIds: number[] = [];
 
     (notifications || []).forEach((n: MarketingNotification) => {
-      if (n.event_rules.payment_pack_id !== undefined) {
-        paymentPackIds.push(n.event_rules.payment_pack_id);
+      if (n.event_rules.payment_pack_ids !== undefined) {
+        paymentPackIds.push(...n.event_rules.payment_pack_ids);
       }
       if (n.event_rules.establishment_id !== undefined) {
         establishmentIds.push(n.event_rules.establishment_id);

@@ -217,7 +217,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
-    if (notif.event_rules.payment_pack_id !== undefined) {
+    if (notif.event_rules.payment_pack_ids !== undefined) {
       const notificationKind = this.getPaymentPackNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return `${t(
@@ -232,7 +232,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
         `paymentPack:notification.${notificationKind}.second`,
       )}`;
     }
-    if (notif.event_rules.private_pass_id !== undefined) {
+    if (notif.event_rules.private_pass_ids !== undefined) {
       const notificationKind = this.getPrivatePassNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return `${t(
@@ -294,7 +294,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
-    if (notif.event_rules.payment_pack_id !== undefined) {
+    if (notif.event_rules.payment_pack_ids !== undefined) {
       const notificationKind = this.getPaymentPackNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return (
@@ -317,7 +317,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
         </Typography>
       );
     }
-    if (notif.event_rules.private_pass_id !== undefined) {
+    if (notif.event_rules.private_pass_ids !== undefined) {
       const notificationKind = this.getPrivatePassNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return (
@@ -634,9 +634,9 @@ const getLabel = ({
   const {
     establishment_id,
     meta_activity_id,
-    payment_pack_id,
+    payment_pack_ids,
     private_service_id,
-    private_pass_id,
+    private_pass_ids,
     establishment_group_id,
     contract_id,
   } = selectedNotification.event_rules;
@@ -661,11 +661,11 @@ const getLabel = ({
     return privateServiceById[private_service_id].name;
   }
 
-  if (payment_pack_id && paymentPackById[payment_pack_id]) {
-    return paymentPackById[payment_pack_id].name;
+  if (payment_pack_ids?.length > 0) {
+    return paymentPackById[payment_pack_ids[0]].name;
   }
-  if (private_pass_id && privatePassById[private_pass_id]) {
-    return privatePassById[private_pass_id].name;
+  if (private_pass_ids?.length > 0) {
+    return privatePassById[private_pass_ids[0]].name;
   }
   if (contract_id && contractById[contract_id]) {
     return contractById[contract_id].name;

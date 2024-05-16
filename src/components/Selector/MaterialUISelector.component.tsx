@@ -668,7 +668,7 @@ function MenuList<T extends OptionTypeBase>(
 
     return (
       <div ref={scrollRef}>
-        <components.MenuList {...props} getStyles={resetStyle}>
+        <components.MenuList {...props} getStyles={menuOptionListStyle}>
           {headerListRenderer && headerListRenderer()}
           {props.selectProps.isMenuListVirtualized && hasValue ? (
             // @ts-expect-error
@@ -840,6 +840,10 @@ function SingleValue<T extends OptionTypeBase>(
 }
 
 const resetStyle = () => ({});
+const menuOptionListStyle = () => ({
+  minWidth: 250,
+  overflowX: 'auto',
+});
 const useStyles = makeStyles((theme: Theme) => ({
   displayNone: {
     display: 'none',
@@ -850,6 +854,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: 5,
     boxShadow: theme.shadows[2],
     zIndex: 1500,
+    minWidth: 250,
+    overflowX: 'auto',
   },
   reset: {
     all: 'unset',

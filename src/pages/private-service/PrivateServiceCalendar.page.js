@@ -14,11 +14,12 @@ import {
   fetchFilteredMembers,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
   getPrivateBookingListFiltered,
-  bookingWithAllRelatedField,
+  withRelatedFields,
 } from '../../libs/private-service/selectors/private-booking';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -115,6 +116,7 @@ type Props = {
   ) => void,
   establishments: Array<EstablishmentWithAssociatedId>,
   fetchAssociatedEstablishments: () => void,
+  fetchAssociatedCoachesList: (params: { disabled: boolean }) => void,
 };
 
 type State = {
@@ -174,6 +176,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         this.props.fetchCustomEventList();
       },
     });
+    this.props.fetchAssociatedCoachesList({ disabled: false });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -368,9 +371,11 @@ export default compose(
       service: getPrivateServiceById(state, id),
       resourceData: getPrivateServiceResourceData(state, id),
       resourceDataLoading: state.privateService.resource.loading,
-      privateBookingList: bookingWithAllRelatedField(
-        getPrivateBookingListFiltered,
-      )(state, { private_service: id }, periodFilter),
+      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
+        state,
+        null,
+        periodFilter,
+      ),
       availableCoaches: getActiveCoaches(state),
       customEventList: getCustomEventList(state, periodFilter),
       companyTheme: state.theme.theme,
@@ -379,6 +384,7 @@ export default compose(
     {
       fetchAvailabilitySlots,
       resetAvailabilitySlots,
+      fetchAssociatedCoachesList,
       fetchPrivateService,
       fetchPrivateServiceResourceData,
       fetchPrivateBookings: fetchPrivateBookingListActions,

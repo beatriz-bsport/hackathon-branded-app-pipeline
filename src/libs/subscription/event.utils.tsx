@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 
 import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events';
 
@@ -13,6 +12,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 
+import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { SubscriptionEvent } from '#libs/event/types';
@@ -31,16 +31,16 @@ const getEventPauseSecondaryText = (
     (_pause) => _pause.id === pauseId,
   );
   const pauseFromDate =
-    moment(pauseEvent.data.from_date).format('L') ||
-    moment(pauseData?.from_date).format('L');
+    DateTime.fromISO(pauseEvent.data.from_date).toISODate() ||
+    DateTime.fromISO(pauseData?.from_date).toISODate();
   const pauseUntilDate =
-    moment(pauseEvent.data.until_date).format('L') ||
-    moment(pauseData?.until_date).format('L');
+    DateTime.fromISO(pauseEvent.data.until_date).toISODate() ||
+    DateTime.fromISO(pauseData?.until_date).toISODate();
   const pauseCreatorStaffName =
     pauseEvent.data.created_by_staff || pauseData?.creator_staff_name;
   const dateCreation =
-    moment(pauseEvent.date * 1000).format('L') ||
-    moment(pauseData?.date_created).format('L');
+    DateTime.fromMillis(pauseEvent.date * 1000).toISODate() ||
+    DateTime.fromISO(pauseData?.date_created).toISODate();
   const dateRangeText = t('subscription:pauseV2.common.listItem.fromToUntil', {
     fromDate: pauseFromDate,
     untilDate: pauseUntilDate,
@@ -63,10 +63,16 @@ const getEventPauseDeletedSecondaryText = (
   pauseDeleteEvent: SubscriptionEvent,
   t: TFunction,
 ) => {
-  const pauseFromDate = moment(pauseDeleteEvent.data.from_date).format('L');
-  const pauseUntilDate = moment(pauseDeleteEvent.data.until_date).format('L');
+  const pauseFromDate = DateTime.fromISO(
+    pauseDeleteEvent.data.from_date,
+  ).toISODate();
+  const pauseUntilDate = DateTime.fromISO(
+    pauseDeleteEvent.data.until_date,
+  ).toISODate();
   const pauseDeletorStaffName = pauseDeleteEvent.data.deleted_by_staff;
-  const dateDeletion = moment(pauseDeleteEvent.date * 1000).format('L');
+  const dateDeletion = DateTime.fromMillis(
+    pauseDeleteEvent.date * 1000,
+  ).toISODate();
   const dateRangeText = t('subscription:pauseV2.common.listItem.fromToUntil', {
     fromDate: pauseFromDate,
     untilDate: pauseUntilDate,

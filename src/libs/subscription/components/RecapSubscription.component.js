@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyle from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 
+import { DateTime } from 'luxon';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type RecapProps = {
@@ -63,7 +63,7 @@ const RecapSubscription = (props: RecapProps) => (
         className={props.classes.highlightText}
         color="primary"
       >
-        {moment(props.dateStart).format('L') || '--/--/----'}
+        {DateTime.fromMillis(props.dateStart).toISODate() || '--/--/----'}
       </Typography>
       <Typography inline>{`${props.t('recap.to')}`}</Typography>
       <Typography
@@ -72,7 +72,9 @@ const RecapSubscription = (props: RecapProps) => (
         color="primary"
       >
         {props.nbPeriod
-          ? moment(props.dateStart).add('months', props.nbPeriod).format('L')
+          ? DateTime.fromMillis(props.dateStart)
+              .plus({ months: props.nbPeriod })
+              .toISODate()
           : '--/--/----'}
       </Typography>
     </div>

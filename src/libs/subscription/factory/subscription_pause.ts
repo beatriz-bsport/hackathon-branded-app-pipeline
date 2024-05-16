@@ -1,6 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
-
+import { DateTime } from 'luxon';
 /**
  * Generates a subscription pause with Faker.
  * @returns {SubscriptionPause}
@@ -9,10 +8,10 @@ export const subscriptionPauseFactory = () => {
   return {
     id: faker.number.int(10000),
     days: faker.number.int(10),
-    date_created: moment().subtract(2, 'week').format(),
-    date_ended: moment().subtract(5, 'day').format(),
-    from_date: moment().subtract(10, 'day').format(),
-    until_date: moment().add(10, 'day').format(),
+    date_created: DateTime.now().minus({ weeks: 2 }).toISO(),
+    date_ended: DateTime.now().minus({ days: 5 }).toISO(),
+    from_date: DateTime.now().minus({ days: 10 }).toISO(),
+    until_date: DateTime.now().plus({ days: 10 }).toISO(),
     billing_plan: faker.number.int(10000),
     name: faker.lorem.sentence(2),
     first_paused_planned_invoice: faker.number.int(10000),

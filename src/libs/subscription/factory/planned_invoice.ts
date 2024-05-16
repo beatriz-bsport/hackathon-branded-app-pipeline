@@ -1,8 +1,8 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import { DateTime } from 'luxon';
 import {
   generateRandomName,
   generateRandomPrice,
@@ -27,7 +27,7 @@ export const plannedInvoiceFactory = (
 ) => {
   return {
     id: faker.number.int(10000),
-    date: moment().add(1, 'month').format(),
+    date: DateTime.now().plus({ months: 1 }).toISO(),
     status: options?.status ?? randomStatus,
     price: generateRandomPrice(faker, { min: 5, max: 100 }),
     voucher: faker.number.int(10000),

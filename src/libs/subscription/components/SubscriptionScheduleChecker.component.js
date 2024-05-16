@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
+import { DateTime } from 'luxon';
 import { getStripeRegion, getCompanyCountry } from '../../theme/selectors';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
@@ -53,9 +53,9 @@ const getScheduledInvoicesFromSubscriptionData = (
       ...s,
       {
         status: PLANNED_INVOICE_PENDING.id,
-        date: moment(subscriptionData.first_billing_timestamp * 1000)
-          .clone()
-          .add(s.length, 'month'),
+        date: DateTime.fromMillis(
+          subscriptionData.first_billing_timestamp * 1000,
+        ).plus({ months: s.length }),
         price:
           subscriptionData.recurrent_price - subscriptionData.recurrent_voucher,
       },
@@ -74,9 +74,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
       return null;
     }
 
-    const firstBillingDateInThePast = moment(
-      subscriptionData.first_billing_timestamp * 1000,
-    ).isBefore(moment().startOf('day'));
+    const firstBillingDateInThePast =
+      DateTime.fromMillis(subscriptionData.first_billing_timestamp * 1000) <=
+      DateTime.now().startOf('day');
 
     const scheduledInvoices =
       getScheduledInvoicesFromSubscriptionData(subscriptionData);
@@ -114,7 +114,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                   this.props.cardBillingDetailsMandatory
                 }
                 companyId={this.props.companyId}
-                date={moment(subscriptionData.first_billing_timestamp * 1000)}
+                date={DateTime.fromMillis(
+                  subscriptionData.first_billing_timestamp * 1000,
+                )}
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                   {
                     currency: this.props.companyTheme.currency,
@@ -132,9 +134,11 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 onCancel={this.props.onCancel}
                 onlinePaymentEnabled={this.props.onlinePaymentEnabled}
                 onSubmit={this.props.onSubmit}
-                pastInvoices={moment(
-                  subscriptionData.first_billing_timestamp * 1000,
-                ).isBefore(moment().startOf('day'))}
+                pastInvoices={
+                  DateTime.fromMillis(
+                    subscriptionData.first_billing_timestamp * 1000,
+                  ) <= DateTime.now().startOf('day')
+                }
                 processing={this.props.processing}
                 refreshSavedPaymentMethodList={
                   this.props.refreshSavedPaymentMethodList

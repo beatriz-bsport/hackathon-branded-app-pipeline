@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import moment from 'moment-timezone';
 import chroma from 'chroma-js';
-
+import { DateTime } from 'luxon';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Countdown from '#components/time/CountDown.component';
@@ -47,7 +46,7 @@ export const InactivityWarning: React.FC<Props> = ({ onFinish }) => {
   const classes = useStyles();
   const { t } = useTranslation('invoice');
 
-  const timestamp = useRef(moment().add(30, 'seconds').unix());
+  const timestamp = useRef(DateTime.now().plus({ seconds: 30 }).toSeconds());
 
   return (
     <>

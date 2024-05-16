@@ -1,5 +1,4 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import {
   PAYMENT_ENGINE_STRIPE,
@@ -8,6 +7,7 @@ import {
 
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import { DateTime } from 'luxon';
 import {
   generateRandomDescription,
   generateRandomName,
@@ -43,15 +43,15 @@ export const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
     id: faker.number.int(10000),
     auto_renewal: options?.isAutoRenewal ?? faker.datatype.boolean(),
     canceled_at: options?.isCanceled
-      ? moment().subtract(1, 'week').format()
+      ? DateTime.now().minus({ weeks: 1 }).toISO()
       : null,
     contract: faker.number.int(10000),
-    contract_terms_date_accepted: moment().subtract(1, 'week').format(),
+    contract_terms_date_accepted: DateTime.now().minus({ weeks: 1 }).toISO(),
     contract_terms_pdf_link: faker.internet.url(),
-    date_created: moment().subtract(3, 'week').format(),
+    date_created: DateTime.now().minus({ weeks: 3 }).toISO(),
     description: generateRandomDescription(faker, FakerTextLength.LONG),
     editable: options?.isEditable ?? faker.datatype.boolean(),
-    first_billing_date: moment().add(1, 'month').format(),
+    first_billing_date: DateTime.now().plus({ months: 1 }).toISO(),
     flat_fee: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
     has_ended: options?.isSubscriptionEnded ?? faker.datatype.boolean(),
     is_v2: options?.isV2 ?? faker.datatype.boolean(),
@@ -64,7 +64,7 @@ export const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
     name_without_member_name: generateRandomName(faker),
     nb_interval: faker.number.int({ min: 6, max: 24 }),
     next_billing_date:
-      options?.nextBillingDate ?? moment().add(2, 'weeks').format(),
+      options?.nextBillingDate ?? DateTime.now().plus({ weeks: 2 }).toISO(),
     note: generateRandomDescription(faker),
     stop_note: generateRandomDescription(faker),
     pauses: subscriptionPauseListFactory(2),

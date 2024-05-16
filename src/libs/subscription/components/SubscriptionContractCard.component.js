@@ -4,17 +4,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Settings } from 'luxon';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import moment from 'moment-timezone';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { Moment } from '../../../i18n';
 
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
@@ -67,14 +65,13 @@ export const SubscriptionContractCard = (props: Props) => {
               </Typography>
               <div className={props.classes.column}>
                 <MuiPickersUtilsProvider
-                  locale={Moment.locale()}
-                  moment={Moment}
-                  utils={MomentUtils}
+                  locale={Settings.defaultLocale}
+                  utils={LuxonUtils}
                 >
                   <DatePicker
                     disablePast
                     required
-                    format="L"
+                    format="D"
                     mask={(value) => {
                       if (value) {
                         return [
@@ -147,6 +144,6 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['subscription']),
   withStyles(styles),
-  withState('date', 'setDate', moment()),
+  withState('date', 'setDate', DateTime.now()),
   withState('acceptContract', 'setAcceptContract', false),
 )(SubscriptionContractCard);

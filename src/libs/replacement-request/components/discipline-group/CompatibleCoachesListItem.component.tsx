@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -9,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { alpha } from '@material-ui/core/styles';
 
 import SPORTS from '@bsport/common/lib/master-data/sports';
+import { DateTime } from 'luxon';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 type Props = {
@@ -56,7 +56,9 @@ export const CompatibleCoachesListItem: React.FC<Props> = ({
         secondary={
           nextSlot
             ? t('compatibleCoaches.nextSlot', {
-                date: moment(nextSlot).format('L'),
+                date: nextSlot
+                  ? DateTime.fromISO(nextSlot).toFormat('D')
+                  : DateTime.now().toFormat('D'),
                 hour: formatISOStringAsTime(nextSlot),
                 interpolation: { escapeValue: false },
               })

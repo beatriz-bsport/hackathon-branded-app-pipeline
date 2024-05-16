@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import moment from 'moment-timezone';
 import { useTranslation, Trans } from 'react-i18next';
 import classNames from 'classnames';
 
@@ -12,6 +11,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTheme } from '@material-ui/core/';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { DateTime } from 'luxon';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import { OptionCallback } from '../../../../state/types';
 import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
@@ -144,9 +144,9 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
                     requestsLeft: nbLateRequestsLeft,
                     requestsMax:
                       lateReplacementRequestStatus.max_late_requests_per_limitation_period,
-                    dateEnd: moment(
+                    dateEnd: DateTime.fromISO(
                       lateReplacementRequestStatus.current_limitation_period_end,
-                    ).format('L'),
+                    ).toFormat('D'),
                     count: nbLateRequestsLeft,
                   }}
                 />

@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Update from '@material-ui/icons/Update';
 
 import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
 import { ReplacementRequest } from '#libs/replacement-request/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
@@ -59,11 +59,13 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
         >
           {isMobile
             ? t('marketplace.until', {
-                date: moment(replacementRequest.closing_date).format('L - LT'),
+                date: DateTime.fromISO(
+                  replacementRequest.closing_date,
+                ).toFormat('D - t'),
               })
-            : moment(replacementRequest.closing_date).format('L - LT')}
+            : DateTime.now().toFormat('D')}
         </Typography>
-        {moment().isAfter(replacementRequest.closing_date) && (
+        {DateTime.now() > DateTime.fromISO(replacementRequest.closing_date) && (
           <IconButton className={classes.button} onClick={handleClick}>
             <Update fontSize={isMobile ? 'small' : 'medium'} />
           </IconButton>

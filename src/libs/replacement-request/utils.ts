@@ -1,5 +1,5 @@
-import moment from 'moment-timezone';
 import memoize from 'memoize-one';
+import { DateTime } from 'luxon';
 import { Coach } from '#libs/associated-coach/types';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -104,10 +104,11 @@ export const isReplacementRequestToBeCreatedLate = (
   daysBeforeOfferReplacementRequestIsLate: number,
 ) => {
   if (!daysBeforeOfferReplacementRequestIsLate) return false;
-  return moment().isAfter(
-    moment(offer.date_start)
-      .tz(offer.timezone_name)
-      .subtract(daysBeforeOfferReplacementRequestIsLate, 'days'),
+  return (
+    DateTime.now() >
+    DateTime.fromISO(offer.date_start)
+      .setZone(offer.timezone_name)
+      .minus({ days: daysBeforeOfferReplacementRequestIsLate })
   );
 };
 
@@ -119,7 +120,10 @@ export const reasonCoachCannotAskForReplacement = (
   nbLateRequestsLeft: number,
   daysBeforeOfferReplacementRequestIsLate: number,
 ) => {
-  if (moment(offer.date_start).tz(offer.timezone_name).isBefore(moment())) {
+  if (
+    DateTime.fromISO(offer.date_start).setZone(offer.timezone_name) <
+    DateTime.now()
+  ) {
     return REPLACEMENT_REQUEST_DISABLED_REASONS.REPLACEMENT_REQUEST_DISABLED_OFFER_ALREADY_PASSED;
   }
   if (hasPendingReplacementRequest) {

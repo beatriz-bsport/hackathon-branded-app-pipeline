@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { DateTime, DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -1260,7 +1260,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       nb_to_check_balance: 0,
 
       hide_sessions_with_tags_when_not_eligible: true,
-      schedule_timerange_begin: defaultScheduleBegin,
+      schedule_timerange_begin: defaulScheduletBegin,
       schedule_timerange_end: defaultScheduleEnd,
       requires_email_confirmation_when_signing_up: false,
       confirm_email_url_redirection: '',

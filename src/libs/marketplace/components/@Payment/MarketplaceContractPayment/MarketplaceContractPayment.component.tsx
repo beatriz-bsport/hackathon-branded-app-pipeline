@@ -308,7 +308,8 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
         }
         const isDateValid =
-          DateTime.fromISO(billingStartDate).month >= DateTime.now().month;
+          DateTime.fromISO(billingStartDate).startOf('month') >=
+          DateTime.now().startOf('month');
 
         if (
           isDateValid &&

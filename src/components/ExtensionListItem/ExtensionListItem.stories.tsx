@@ -1,12 +1,16 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
 
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import ExtensionListItem from '.';
+import { DateTime } from 'luxon';
+import { getUserZone } from '#src/utils/datetime';
 
-const RECENT_DATE = moment().subtract(3, 'days').tz(moment.tz.guess()).format();
+const RECENT_DATE = DateTime.now()
+  .minus({ days: 3 })
+  .setZone(getUserZone())
+  .toISO();
 
 export default {
   title: 'Components/ExtensionListItem',

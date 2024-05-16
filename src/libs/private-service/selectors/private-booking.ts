@@ -12,11 +12,7 @@ import {
 } from '../types';
 import { getRoleStateById as getUsersById } from '../../role/selectors';
 
-import {
-  getMemberListData,
-  getMemberDetailData,
-  getAllMembers,
-} from '../../member/selectors';
+import { getMemberListData, getMemberDetailData } from '../../member/selectors';
 
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';
@@ -242,30 +238,6 @@ export const withMember = memoize((selector) =>
       member: memberData[b.member],
     })),
   ),
-);
-
-export const withService = memoize((selector) =>
-  createSelector([selector, getAllMembers], (bookings, services) =>
-    // @ts-expect-error
-    bookings.map((b) => ({
-      ...b,
-      private_service: services[b.private_service],
-    })),
-  ),
-);
-
-export const withSlot = memoize((selector) =>
-  createSelector([selector, getAllMembers], (bookings, slots) =>
-    // @ts-expect-error
-    bookings.map((b) => ({
-      ...b,
-      private_slot: slots[b.private_slot],
-    })),
-  ),
-);
-
-export const bookingWithAllRelatedField = memoize((selector) =>
-  withService(withSlot(selector)),
 );
 
 const paramFilter: (

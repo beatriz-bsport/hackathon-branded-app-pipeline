@@ -10,11 +10,11 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Settings } from 'luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { ConnectedRouter } from 'connected-react-router';
-import { Moment } from '../src/i18n';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../src/i18n/index';
 import initStore from '../src/store';
@@ -35,11 +35,7 @@ export const decorators = [
     </MuiThemeProvider>
   ),
   (Story) => (
-    <MuiPickersUtilsProvider
-      utils={MomentUtils}
-      moment={Moment}
-      locale={Moment.locale()}
-    >
+    <MuiPickersUtilsProvider utils={LuxonUtils} locale={Settings.defaultLocale}>
       <Story />
     </MuiPickersUtilsProvider>
   ),

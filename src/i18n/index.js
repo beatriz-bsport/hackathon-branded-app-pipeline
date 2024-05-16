@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
-import Moment from 'moment-timezone';
 import HttpBackend from 'i18next-http-backend';
 import { Settings } from 'luxon';
 import config from '../config';
@@ -15,15 +14,6 @@ import {
   AUDIENCE_WORKFLOW_NAME,
   AUDIENCE_WORKFLOW_NAME_PLURAL,
 } from '#libs/sequential_marketing/constants';
-
-import 'moment/locale/fr';
-import 'moment/locale/de';
-import 'moment/locale/nl';
-import 'moment/locale/es';
-import 'moment/locale/it';
-import 'moment/locale/en-gb';
-import 'moment/locale/pt';
-import 'moment/locale/cs';
 
 const backendOptions = {};
 
@@ -176,14 +166,8 @@ const setLuxonLocale = (language: string) => {
 
 i18n.on('languageChanged', (lng) => {
   setLuxonLocale(lng);
-  if (lng === 'en-GB') {
-    Moment.locale('en-gb');
-    return;
-  }
-  Moment.locale(lng);
 });
 
-Moment.locale(i18n.language);
 setLuxonLocale(i18n.language);
 
 const setLanguage = (lng: string) => {
@@ -191,10 +175,6 @@ const setLanguage = (lng: string) => {
   if (window.localStorage) {
     window.localStorage.setItem(STORAGE_LANGUAGE_KEY, lng);
   }
-};
-
-const setMomentLocale = (language: string) => {
-  Moment.locale(language);
 };
 
 const getLanguage = () => {
@@ -205,14 +185,7 @@ const getLanguage = () => {
 };
 
 export default i18n;
-export {
-  Moment,
-  availableLanguages,
-  setLanguage,
-  getLanguage,
-  setMomentLocale,
-  setLuxonLocale,
-};
+export { availableLanguages, setLanguage, getLanguage, setLuxonLocale };
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

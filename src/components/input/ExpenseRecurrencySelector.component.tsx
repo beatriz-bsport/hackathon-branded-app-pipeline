@@ -17,11 +17,11 @@ import { Theme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import MomentUtils from '@date-io/moment/';
+import LuxonUtils from '@date-io/luxon';
+import { Settings } from 'luxon';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import isEqual from 'lodash/isEqual';
 import { MaterialStyleType } from '../../utils/types';
-import { Moment } from '../../i18n';
 import { ExpenseWithUser } from '../../libs/expense/types';
 import WeekdaySelector from '#components/Selector/WeekdaySelector.component';
 
@@ -519,9 +519,8 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                   {t('form.repeat.fromDate').toLowerCase()}
                 </Typography>
                 <MuiPickersUtilsProvider
-                  locale={Moment.locale()}
-                  moment={Moment}
-                  utils={MomentUtils}
+                  locale={Settings.defaultLocale}
+                  utils={LuxonUtils}
                 >
                   <DatePicker
                     className={classes.margin}
@@ -546,9 +545,8 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>
                 <MuiPickersUtilsProvider
-                  locale={Moment.locale()}
-                  moment={Moment}
-                  utils={MomentUtils}
+                  locale={Settings.defaultLocale}
+                  utils={LuxonUtils}
                 >
                   <DatePicker
                     className={classes.margin}
@@ -567,9 +565,8 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 </MuiPickersUtilsProvider>
                 <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
                 <MuiPickersUtilsProvider
-                  locale={Moment.locale()}
-                  moment={Moment}
-                  utils={MomentUtils}
+                  locale={Settings.defaultLocale}
+                  utils={LuxonUtils}
                 >
                   <DatePicker
                     className={classes.margin}

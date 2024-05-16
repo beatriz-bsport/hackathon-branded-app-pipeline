@@ -4,6 +4,7 @@ import React, { Component, Suspense } from 'react';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
+import { Settings } from 'luxon';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -11,9 +12,8 @@ import { compose } from 'recompose';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
-import MomentUtils from '@date-io/moment';
+import LuxonUtils from '@date-io/luxon';
 import withSentryErrorReporting from './hocs/error-boundary.hoc';
-import { Moment } from './i18n';
 import LoadingBackoffice from './components/navigation/LoadingBackoffice.component';
 
 import SnackbarPile from './SnackbarPile.component';
@@ -57,9 +57,8 @@ export class App extends Component<{}, {}> {
             <ConnectedRouter history={this.history}>
               <Suspense fallback={<LoadingBackoffice />}>
                 <MuiPickersUtilsProvider
-                  locale={Moment.locale()}
-                  moment={Moment}
-                  utils={MomentUtils}
+                  locale={Settings.defaultLocale}
+                  utils={LuxonUtils}
                 >
                   <SnackbarPile />
                   <BackgroundSnackbar />

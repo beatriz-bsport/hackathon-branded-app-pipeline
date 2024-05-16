@@ -1,4 +1,3 @@
-import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import { DateTime, Info, Settings, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
@@ -70,7 +69,7 @@ export const formatISOStringAsTime = (date: string, tzname?: string) => {
  * @param tzname The timezone name
  * @param isUnix Boolean passed if date is unix. Required if `date` is a unix timestamp value
  * @example
- * const date = formatAsDatetimeAdapted(moment(), 'DDDD t') // Tuesday, February 20, 2024 12:10 PM
+ * const date = formatAsDatetimeAdapted(offer.date_start, 'DDDD t') // Tuesday, February 20, 2024 12:10 PM
  * const unixToDate = formatAsDatetimeAdapted(1704189471, 'DDDD t', '', true) // Tuesday, January 2, 2024 10:57 AM
  */
 export function formatAsDatetimeAdapted(
@@ -188,11 +187,6 @@ export function formatWeekDay(weekDay: string, theme: Theme) {
   }
 }
 
-export function isAmPmTimeFormatDEPRECATED() {
-  const time = moment().format('LT');
-  return time.includes('AM') || time.includes('PM');
-}
-
 export function isAmPmTimeFormat() {
   const time = DateTime.now().toFormat('t');
   return time.includes('AM') || time.includes('PM');
@@ -210,10 +204,11 @@ export const getIsLateBookingCancellation = (
   maxDiscardMinutes: number,
   bookingStartDate: string,
 ) => {
-  const maxCancellationDate = moment(bookingStartDate)
-    .subtract(maxDiscardMinutes, 'minutes')
-    .format();
-  const isLateCancellation = moment(canceledDate).isAfter(maxCancellationDate);
+  const maxCancellationDate = DateTime.fromISO(bookingStartDate).minus({
+    minute: maxDiscardMinutes,
+  });
+  const isLateCancellation =
+    DateTime.fromISO(canceledDate) > maxCancellationDate;
 
   if (isLateCancellation) {
     return true;

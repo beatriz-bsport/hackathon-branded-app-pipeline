@@ -2,7 +2,7 @@
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import {
   Event as EventIcon,
   Room as RoomIcon,
@@ -41,7 +41,9 @@ const FranchiseMemberDetailsCard = (props: Props) => {
       </div>
       <Typography className={classes.row} variant="body1">
         <EventIcon className={classes.icon} />
-        {user.birthday ? moment(user.birthday).format('L') : '-'}
+        {user.birthday
+          ? DateTime.fromISO(user.birthday).toLocaleString(DateTime.DATE_SHORT)
+          : '-'}
       </Typography>
       <Typography className={classes.row} variant="body1">
         <RoomIcon className={classes.icon} />

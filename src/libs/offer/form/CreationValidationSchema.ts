@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { isDateTooFar } from '#libs/offer/utils';
 import { OFFER_RECURRENCE } from '#libs/offer/constants';
@@ -57,7 +57,7 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
     .test({
       name: 'isDateTooFar',
       test: function dateTooFar() {
-        if (isDateTooFar(this.parent.dateIntervalStart)) {
+        if (isDateTooFar(this.parent.dateIntervalStart.toISOString())) {
           return this.createError({
             message: 'offer:form.errors.dateTooFar',
             path: this.path,
@@ -78,14 +78,11 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
     .test({
       name: 'isInvalidEndDate',
       test: function invalidEndDate() {
-        const dateStart = moment(this.parent.dateIntervalStart);
-        const dateEnd = moment(this.parent.dateIntervalEnd);
+        const dateStart = DateTime.fromJSDate(this.parent.dateIntervalStart);
+        const dateEnd = DateTime.fromJSDate(this.parent.dateIntervalEnd);
         const isInvalidDateEnd =
           this.parent.isRecurrence &&
-          dateStart
-            .clone()
-            .startOf('day')
-            .isSameOrAfter(dateEnd.startOf('day'));
+          dateStart.startOf('day') >= dateEnd.endOf('day');
 
         if (isInvalidDateEnd) {
           return this.createError({
@@ -93,7 +90,7 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
             path: this.path,
           });
         }
-        if (isDateTooFar(this.parent.dateIntervalEnd)) {
+        if (isDateTooFar(this.parent.dateIntervalEnd.toISOString())) {
           return this.createError({
             message: 'offer:form.errors.dateTooFar',
             path: this.path,

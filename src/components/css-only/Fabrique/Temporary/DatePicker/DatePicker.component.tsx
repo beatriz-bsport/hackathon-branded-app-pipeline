@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -34,7 +34,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onClose,
   onSelect,
 }) => {
-  const [dateDisplayed, setDateDisplayed] = useState<Moment | null>(null);
+  const [dateDisplayed, setDateDisplayed] = useState<DateTime | null>(null);
 
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
 
@@ -53,7 +53,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   const handleSelectYear = useCallback(
     (year: number) => {
-      setDateDisplayed(dateDisplayed.clone().year(year));
+      setDateDisplayed(dateDisplayed.set({ year }));
       handleCloseYearPicker();
     },
     [dateDisplayed, handleCloseYearPicker],
@@ -62,60 +62,65 @@ const DatePicker: React.FC<DatePickerProps> = ({
   // Initialize date sate
   useEffect(() => {
     if (!dateDisplayed) {
-      setDateDisplayed(moment(dateSelected));
+      setDateDisplayed(DateTime.fromISO(dateSelected));
     }
   }, [dateDisplayed, dateSelected, isOpen, handleCloseMenu]);
-
-  const handlerDateMap = useMemo(
-    () => ({
-      add: dateDisplayed?.clone().add(1, 'month'),
-      subtract: dateDisplayed?.clone().subtract(1, 'month'),
-    }),
-    [dateDisplayed],
-  );
 
   const handleChangeDateDisplayed = useCallback(
     (type: 'add' | 'subtract') =>
       (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         event.preventDefault();
-        setDateDisplayed(handlerDateMap[type]);
+
+        switch (type) {
+          case 'add':
+            setDateDisplayed((prevDateDisplayed) =>
+              prevDateDisplayed.plus({ month: 1 }),
+            );
+            break;
+          case 'subtract':
+            setDateDisplayed((prevDateDisplayed) =>
+              prevDateDisplayed.minus({ month: 1 }),
+            );
+            break;
+          default:
+            break;
+        }
       },
-    [handlerDateMap],
+    [],
   );
 
   const handleSelect = useCallback(
     (date: string) => () => {
-      onSelect(moment(date).format('YYYY-MM-DD'));
+      onSelect(DateTime.fromISO(date).toISODate());
       handleCloseMenu();
     },
     [handleCloseMenu, onSelect],
   );
 
   const startOfMonth = useMemo(
-    () => moment(dateDisplayed).startOf('month'),
+    () => dateDisplayed.startOf('month'),
     [dateDisplayed],
   );
 
   const startingDay = useMemo(() => {
-    const dayOfWeek = startOfMonth.weekday();
-    return startOfMonth?.clone().subtract(dayOfWeek, 'day');
+    const dayOfWeek = startOfMonth.weekday - 1;
+    return startOfMonth?.minus({ day: dayOfWeek });
   }, [startOfMonth]);
 
   const nbDisplayedWeeks = useMemo(() => {
-    const endOfMonth = moment(dateDisplayed).endOf('month');
-    const dayOfWeek = startOfMonth.weekday();
-    const endingDate = endOfMonth?.clone().add(6 - dayOfWeek, 'day');
+    const endOfMonth = dateDisplayed.endOf('month');
+    const dayOfWeek = startOfMonth.weekday - 1;
+    const endingDate = endOfMonth?.plus({ day: 6 - dayOfWeek });
 
-    return Math.ceil(endingDate.diff(startingDay, 'week'));
+    return Math.ceil(endingDate.diff(startingDay, 'week').weeks);
   }, [dateDisplayed, startOfMonth, startingDay]);
 
   const isDayDisabled = useCallback(
     (dayString: string) =>
       disablePast &&
-      moment(dayString)
-        .startOf('day')
-        .isBefore(moment().startOf('day').format()),
+      DateTime.fromISO(dayString).startOf('day') <
+        DateTime.now().startOf('day'),
     [disablePast],
   );
 
@@ -131,7 +136,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         <div className="bs-fabrique-date-picker__menu__header">
           <ButtonBase onClick={toggleYearPicker}>
             <Typography variant="title-sm">
-              {dateDisplayed.format('MMMM YYYY')}
+              {dateDisplayed.toFormat('MMMM yyyy')}
             </Typography>
             <span
               className={classNames(
@@ -190,33 +195,32 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
                 variant="body-md"
               >
-                {moment()
-                  .weekday(value + i)
-                  .format('ddd')
-                  .slice(0, 1)}
+                {DateTime.now()
+                  .set({ localWeekday: value + i + 1 })
+                  .weekdayShort.slice(0, 1)}
               </Typography>
             ))}
           {Array(nbDisplayedWeeks)
             .fill(0)
             .map((trashValueWeek, weekNumber) => {
-              const weekStartingDay = startingDay
-                .clone()
-                .add(7 * weekNumber + trashValueWeek, 'day');
+              const weekStartingDay = startingDay.plus({
+                day: 7 * weekNumber + trashValueWeek,
+              });
 
               return (
                 <>
                   {Array(7)
                     .fill(0)
                     .map((trashValueDay, dayNumber) => {
-                      const day = weekStartingDay
-                        .clone()
-                        .add(trashValueDay + dayNumber, 'day');
-                      const dayString = day.format('YYYY-MM-DD');
+                      const day = weekStartingDay.plus({
+                        day: trashValueDay + dayNumber,
+                      });
+                      const dayString = day.toISODate();
                       return (
                         <MarketplaceDatePickerDay
                           key={dayString}
                           date={dayString}
-                          dateDisplayed={dateDisplayed.format('YYYY-MM-DD')}
+                          dateDisplayed={dateDisplayed.toISODate()}
                           dateSelected={dateSelected}
                           handleSelect={handleSelect}
                           isDisabled={isDayDisabled(dayString)}

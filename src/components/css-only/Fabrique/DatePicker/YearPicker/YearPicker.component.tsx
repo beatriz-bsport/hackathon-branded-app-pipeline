@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Button from '#components/css-only/Fabrique/ButtonV2';
@@ -14,8 +14,8 @@ type Props = {
 const YEAR_OFFSET = 120;
 
 const YearPicker: React.FC<Props> = ({ className, onSelectYear, isOpen }) => {
-  const currentYear = moment().year();
-  const startYear = moment().subtract(YEAR_OFFSET, 'year').year();
+  const currentYear = DateTime.now().year;
+  const startYear = DateTime.now().minus({ year: YEAR_OFFSET }).year;
 
   const yearsArray = useMemo(
     () =>

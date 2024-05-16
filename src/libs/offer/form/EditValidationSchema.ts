@@ -63,7 +63,7 @@ const OfferEditFormValidationSchema = Yup.object().shape({
     .test({
       name: 'isDateTooFar',
       test: function dateTooFar() {
-        if (isDateTooFar(this.parent.dateIntervalStart)) {
+        if (isDateTooFar(this.parent.dateIntervalStart.toISOString())) {
           return this.createError({
             message: 'offer:form.errors.dateTooFar',
             path: this.path,

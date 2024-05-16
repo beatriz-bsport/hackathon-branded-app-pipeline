@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { Settings } from 'luxon';
 
 import {
   BSPORT_REQUEST_FROM_HEADER,
@@ -99,7 +99,7 @@ export function getCookie(name: string) {
 }
 
 export const getTimezoneName = () => {
-  return moment().tz() || 'Europe/Paris';
+  return Settings.defaultZone.name || 'Europe/Paris';
 };
 
 export function getAuthToken() {

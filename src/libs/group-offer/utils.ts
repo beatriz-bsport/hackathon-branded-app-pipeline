@@ -24,6 +24,7 @@ export const getDisplayDateFromRecurrence = (
     return getDisplayDateForWeekAndDay(date, t);
   }
   if (recurrence_rule.frequence === GROUPED_OFFERS_RECURSIVE_YEARLY_FREQUENCE)
+    // TODO: annoying format which cannot be done with luxon
     return `${moment(date.toISODate()).format(
       'Mo MMMM',
     )} - ${getDisplayDateForWeekAndDay(date, t)}`;

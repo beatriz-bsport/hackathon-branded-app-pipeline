@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import React from 'react';
 import uniq from 'lodash/uniq';
 import Button from '@material-ui/core/Button';
@@ -61,18 +61,20 @@ const Slot = withStyles(stylesSlot)(
     date: string,
     last_booking_minutes?: number,
   }) => {
-    const isTooLate = moment(props.date)
-      .add('minutes', -props.last_booking_minutes)
-      .isBefore(moment());
+    const isTooLate =
+      DateTime.fromISO(props.date).minus({
+        minute: -props.last_booking_minutes,
+      }) < DateTime.now();
+
     return (
       <Button
         className={props.classes.slot}
         color="primary"
-        disabled={moment(props.date).isBefore(moment()) || isTooLate}
+        disabled={DateTime.fromISO(props.date) < DateTime.now() || isTooLate}
         onClick={props.onDateClick}
         variant="contained"
       >
-        {moment(props.date).format('HH:mm')}
+        {DateTime.now(props.date).toFormat('HH:mm')}
       </Button>
     );
   },

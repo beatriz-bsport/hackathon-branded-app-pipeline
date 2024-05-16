@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { IntervalType } from '../../types';
 
 export const buildSchedulePlan = (
@@ -11,9 +11,9 @@ export const buildSchedulePlan = (
   if (!interval) return [];
   const amount_instalment_cts = parseInt(`${totalPriceCts / nbInterval}`, 10);
   const schedule = Array.from(Array(nbInterval).keys()).map((i) => ({
-    future_date: moment(anchorDate)
-      .add(i * recurrence_basis, interval)
-      .format('YYYY-MM-DD'),
+    future_date: DateTime.fromISO(anchorDate)
+      .plus({ [interval]: i * recurrence_basis })
+      .toISODate(),
     amount_cts: amount_instalment_cts,
   }));
 

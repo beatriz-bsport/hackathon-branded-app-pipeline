@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -226,8 +226,8 @@ const CadenceMetrics: React.FC<Props> = ({
         </Button>
       </div>
       <DateRangeSelector
-        date_end={moment(endDate).unix()}
-        date_start={moment(startDate).unix()}
+        date_end={DateTime.fromISO(endDate).toUnixInteger()}
+        date_start={DateTime.fromISO(startDate).toUnixInteger()}
         onSubmit={(values) => {
           updateFilterDates(
             values.dateStart.toISODate(),

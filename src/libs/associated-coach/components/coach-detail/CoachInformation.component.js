@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
 import ObjectLevelPermissionWrapper from '../../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 
@@ -62,12 +62,16 @@ export const CoachInformation = (props: Props) => {
           <div className={classes.column}>
             <Typography>
               {coach.date_joined_company
-                ? moment(coach.date_joined_company).format('L')
+                ? DateTime.fromISO(coach.date_joined_company).toLocaleString(
+                    DateTime.DATE_SHORT,
+                  )
                 : '-'}
             </Typography>
             <Typography>
               {coach.date_left_company
-                ? moment(coach.date_left_company).format('L')
+                ? DateTime.fromISO(coach.date_left_company).toLocaleString(
+                    DateTime.DATE_SHORT,
+                  )
                 : '-'}
             </Typography>
           </div>

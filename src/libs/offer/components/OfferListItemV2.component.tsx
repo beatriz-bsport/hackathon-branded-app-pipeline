@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { Settings } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -66,7 +66,7 @@ export const OfferListItemV2: React.FC<Props> = ({
       formatAsDatetimeAdapted(
         offer.date_start,
         'llll',
-        offer.timezone_name || moment().tz() || 'Europe/Paris',
+        offer.timezone_name || Settings.defaultZone.name || 'Europe/Paris',
       ),
     [offer],
   );

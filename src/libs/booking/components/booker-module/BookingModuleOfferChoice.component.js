@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import Button from '@material-ui/core/Button';
 import OfferListItemV2 from '../../../offer/components/OfferListItemV2.component';
@@ -112,8 +112,8 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
                 o.id === this.props.offerId ||
                 (creditToBeConsumed + o.credit_price > credits &&
                   !this.props.offersSelected.includes(o.id)) ||
-                moment(o.date_start).isBefore(start) ||
-                moment(o.date_start).isAfter(end);
+                DateTime.fromISO(o.date_start) < start ||
+                DateTime.fromISO(o.date_start) > end;
               return (
                 <div key={o.id} className={classes.row}>
                   <Checkbox

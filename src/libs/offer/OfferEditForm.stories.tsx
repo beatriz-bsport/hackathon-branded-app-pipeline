@@ -2,7 +2,7 @@ import React from 'react';
 
 import { action } from '@storybook/addon-actions';
 import { ComponentStory, Meta } from '@storybook/react';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { within, screen, userEvent } from '@storybook/testing-library';
 import { Grid, Paper } from '@material-ui/core';
 import { expect } from '@storybook/jest';
@@ -70,8 +70,7 @@ const initialValues: OfferFormValues = {
   establishment: establishments[0].id,
   broadcastLink: 'https://zoom.us/123456789',
   credits: offer.credit_price,
-  // @ts-expect-error TODO move to luxon to fix type
-  dateIntervalStart: moment(offer.date_start),
+  dateIntervalStart: DateTime.fromISO(offer.date_start),
   durationMinute: offer.duration_minute,
   coach: coaches[0].id,
   coachPaymentRule: null,

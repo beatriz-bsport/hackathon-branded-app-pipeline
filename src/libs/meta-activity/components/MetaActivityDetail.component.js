@@ -10,13 +10,12 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 import { getMergeTags } from '#libs/marketing/utils';
 
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
-import { DATE_FORMAT } from '../../../utils/datetime';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import MetaActivityCard from './MetaActivityCard.component';
 import { SmartList } from '#libs/smart-list/types';
@@ -56,7 +55,7 @@ type Props = {
 const getEvents = memoize((events) => {
   const events_ = {};
   for (const o of events) {
-    const midnight = moment(o.date_start).startOf('day');
+    const midnight = DateTime.fromISO(o.date_start).startOf('day');
 
     if (Object.prototype.hasOwnProperty.call(events_, midnight)) {
       events_[midnight].push(o);
@@ -97,7 +96,7 @@ export const MetaActivityDetail = (props: Props) => {
         <Paper className={classes.fullWidth}>
           <Calendar
             forceMonthDisplay
-            date={(props.dateSelected || moment()).format(DATE_FORMAT)}
+            date={(props.dateSelected || DateTime.now()).toISODate()}
             events={getEvents(props.events)}
             onDateChange={props.handleDayClick}
           />
@@ -151,9 +150,9 @@ export default compose(
   withState('dateSelected', 'setDateSelected', null),
   withProps(({ setDateSelected, fetchOffersByDay }) => ({
     handleDayClick: (date: string) => {
-      const momentDate = moment(date, DATE_FORMAT);
-      setDateSelected(momentDate);
-      fetchOffersByDay(momentDate);
+      const datetimes = DateTime.fromISO(date);
+      setDateSelected(datetimes);
+      fetchOffersByDay(datetimes);
     },
   })),
 )(MetaActivityDetail);

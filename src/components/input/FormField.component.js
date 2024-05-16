@@ -9,19 +9,19 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ListItemText from '@material-ui/core/ListItemText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
-import MomentUtils from '@date-io/moment';
+import { DateTime, Settings } from 'luxon';
+
+import LuxonUtils from '@date-io/luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import Sport from '../../libs/category/components/SCT.component';
-import { Moment } from '../../i18n';
 
 // dont change to number unless good testing
 export const NOT_RECURRENT = '0';
@@ -67,16 +67,16 @@ export class FormField extends Component<Props, State> {
     super(props);
     if (props.value) {
       this.state.value = props.value;
-      this.state.selectedDate = props.value || Moment();
+      this.state.selectedDate = props.value || DateTime.now();
     }
   }
 
-  handleDateChange = (date: Object) => {
+  handleDateChange = (date: DateTime) => {
     this.setState({ selectedDate: date });
     this.handleChange({ target: { value: date } });
   };
 
-  validator = (value) => {
+  validator = (value: string) => {
     /*
      * Return true if error in input
      */
@@ -102,7 +102,7 @@ export class FormField extends Component<Props, State> {
     }
   };
 
-  formatInput = (input) => {
+  formatInput = (input: string) => {
     const { id } = this.props;
     switch (id) {
       case 'birthdayYear':
@@ -115,7 +115,7 @@ export class FormField extends Component<Props, State> {
       case 'code':
         return input.replace(/[^0-9+]/g, '');
       case 'hour':
-        return input || 0;
+        return input || '0';
       default:
         return input;
     }
@@ -140,17 +140,17 @@ export class FormField extends Component<Props, State> {
     switch (id) {
       case 'SCT':
         return (
-          <MenuItem key={elt.id} value={elt.id} disabled={disabled}>
+          <MenuItem key={elt.id} disabled={disabled} value={elt.id}>
             <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
           </MenuItem>
         );
       case 'coach':
         return (
           <MenuItem
-            dense
             key={elt.id}
-            value={elt.id}
+            dense
             disabled={disabled}
+            value={elt.id}
             wrap="noWrap"
           >
             <ListItemText primary={elt.name} />
@@ -158,7 +158,7 @@ export class FormField extends Component<Props, State> {
         );
       case 'establishment':
         return (
-          <MenuItem key={elt.id} value={elt.id} disabled={disabled}>
+          <MenuItem key={elt.id} disabled={disabled} value={elt.id}>
             <ListItemText primary={elt.title} />
           </MenuItem>
         );
@@ -214,19 +214,19 @@ export class FormField extends Component<Props, State> {
         return (
           <TextField
             className={classes.textInput}
-            required={required}
-            disabled={disabled}
-            value={value}
-            id={id}
             data-testid={id}
-            name={name}
-            label={t(`form.${id}`)}
-            onChange={this.handleChange}
+            disabled={disabled}
             error={error}
-            multiline={multiline}
             fullWidth={fullWidth}
+            id={id}
             InputProps={InputProps}
+            label={t(`form.${id}`)}
+            multiline={multiline}
+            name={name}
+            onChange={this.handleChange}
+            required={required}
             type={type}
+            value={value}
           />
         );
       case 'credits':
@@ -234,18 +234,18 @@ export class FormField extends Component<Props, State> {
           <div>
             <TextField
               className={classes.textInput}
-              required={required}
-              value={value}
-              id={id}
-              name={name}
-              label={t(`form.${id}`)}
-              onChange={this.handleChange}
               error={disallowedCredits}
-              multiline={multiline}
               fullWidth={fullWidth}
-              InputProps={InputProps}
-              type={type}
               helperText={disallowedCredits ? creditError : null}
+              id={id}
+              InputProps={InputProps}
+              label={t(`form.${id}`)}
+              multiline={multiline}
+              name={name}
+              onChange={this.handleChange}
+              required={required}
+              type={type}
+              value={value}
             />
           </div>
         );
@@ -253,27 +253,27 @@ export class FormField extends Component<Props, State> {
       case 'specific_info':
         return (
           <TextField
-            className={classes.textInput}
-            required={required}
-            value={value}
-            id={id}
-            name={name}
-            label={t(`form.${id}`)}
-            onChange={this.handleChange}
-            error={error}
             multiline
-            rows={3}
+            className={classes.textInput}
+            error={error}
             fullWidth={fullWidth}
+            id={id}
             InputProps={InputProps}
+            label={t(`form.${id}`)}
+            name={name}
+            onChange={this.handleChange}
+            required={required}
+            rows={3}
             type={type}
+            value={value}
             variant="outlined"
           />
         );
       case 'date_time':
         return (
           <DateTimePicker
-            value={selectedDate}
             onChange={this.handleDateChange}
+            value={selectedDate}
           />
         );
       case 'date_interval_start':
@@ -283,76 +283,59 @@ export class FormField extends Component<Props, State> {
       case 'date':
         return (
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={Moment}
-            locale={Moment.locale()}
+            locale={Settings.defaultLocale}
+            utils={LuxonUtils}
           >
             <DatePicker
-              format="L"
               keyboard
               disabled={disabled}
-              value={selectedDate}
+              format="D"
               onChange={this.handleDateChange}
-              mask={(value) => {
-                if (value) {
-                  return [
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ];
-                }
-                return [];
-              }}
+              value={selectedDate}
             />
           </MuiPickersUtilsProvider>
         );
       case 'hour':
         return (
           <TextField
-            style={{ minWidth: 120 }}
-            type="time"
-            value={moment(value, 'LT').format('HH:mm')}
+            disabled={disabled}
             onChange={this.handleChange}
             required={required}
-            disabled={disabled}
+            style={{ minWidth: 120 }}
+            type="time"
+            // I have no idea what's up with this, but probably not used
+            value={DateTime.fromFormat(value, 't').toFormat('HH:mm')}
           />
         );
       case 'recurrence':
         return (
           <FormControl component="fieldset">
             <RadioGroup
-              id="recurrence_checkbox"
-              aria-label={t('form.recurrence')}
               row
-              name={id}
+              aria-label={t('form.recurrence')}
               className={classes.group}
-              value={this.props.value}
+              id="recurrence_checkbox"
+              name={id}
               onChange={this.handleChange}
+              value={this.props.value}
             >
               <FormControlLabel
+                control={<Radio />}
                 id="not_recurrent"
-                value={NOT_RECURRENT}
-                control={<Radio />}
                 label={t('form.notRecurrent')}
+                value={NOT_RECURRENT}
               />
               <FormControlLabel
+                control={<Radio />}
                 id="weekly"
-                value={WEEKLY}
-                control={<Radio />}
                 label={t('form.weekly')}
+                value={WEEKLY}
               />
               <FormControlLabel
-                id="monthly"
-                value={MONTHLY}
                 control={<Radio />}
+                id="monthly"
                 label={t('form.monthly')}
+                value={MONTHLY}
               />
             </RadioGroup>
           </FormControl>
@@ -361,15 +344,15 @@ export class FormField extends Component<Props, State> {
       case 'gender':
         return (
           <FormControl
+            fullWidth
             className={classes.formControl}
             required={required}
-            fullWidth
           >
             <InputLabel htmlFor="gender-helper">{t('form.gender')}</InputLabel>
             <Select
               name="gender"
-              value={value || 'M'}
               onChange={this.handleChange}
+              value={value || 'M'}
             >
               <MenuItem value="M">{t('common.male')}</MenuItem>
               <MenuItem value="F">{t('common.female')}</MenuItem>
@@ -383,12 +366,12 @@ export class FormField extends Component<Props, State> {
         return (
           <FormControl
             className={classes.formControlLarge}
-            required={required}
-            margin="normal"
             data-cy={name}
+            margin="normal"
+            required={required}
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
-            <Select value={value || 0} onChange={this.handleChange} name={name}>
+            <Select name={name} onChange={this.handleChange} value={value || 0}>
               <MenuItem value={0}>{t('form.zeroMinute')}</MenuItem>
               <MenuItem value={15}>{t('form.quarterHour')}</MenuItem>
               <MenuItem value={30}>{t('form.halfHour')}</MenuItem>
@@ -409,17 +392,17 @@ export class FormField extends Component<Props, State> {
         return (
           <FormControl
             className={classes.formControlLarge}
-            required={required}
-            margin="normal"
-            id="sport-category-select"
             disabled={this.props.disabled}
+            id="sport-category-select"
+            margin="normal"
+            required={required}
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
             <Select
               name={name}
-              value={value || defaultValue}
               onChange={this.handleChange}
               required={required}
+              value={value || defaultValue}
             >
               {choices.map((elt) => this.getItem(elt))}
             </Select>

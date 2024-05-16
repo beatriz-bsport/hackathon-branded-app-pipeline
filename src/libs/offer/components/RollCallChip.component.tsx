@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 import { ButtonBase } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
@@ -27,7 +27,9 @@ export const RollCallChip: React.FC<Props> = (props) => {
         title={
           props.isValidated
             ? t('rollCall.chip.validatedRollCall', {
-                date: moment(props.lastValidatedRollCallDate).format('L'),
+                date: DateTime.fromISO(
+                  props.lastValidatedRollCallDate,
+                ).toLocaleString(DateTime.DATE_SHORT),
                 time: formatISOStringAsTime(props.lastValidatedRollCallDate),
               })
             : t('rollCall.chip.notValidatedRollCall')

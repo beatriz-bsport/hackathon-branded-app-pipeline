@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Tooltip from '#components/Tooltip.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
 
@@ -31,7 +31,9 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
     return (
       <Tooltip
         title={t('rollCall.warningText.lastValidatedRollCall', {
-          date: moment(props.lastValidatedRollCallDate).format('L'),
+          date: DateTime.fromISO(
+            props.lastValidatedRollCallDate,
+          ).toLocaleString(DateTime.DATE_SHORT),
           time: formatISOStringAsTime(props.lastValidatedRollCallDate),
         })}
       >
@@ -52,7 +54,9 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
     <Typography className={classes.validatedText}>
       {props.lastValidatedRollCallDate &&
         t('rollCall.warningText.validatedDate', {
-          date: moment(props.lastValidatedRollCallDate).format('L'),
+          date: DateTime.fromISO(
+            props.lastValidatedRollCallDate,
+          ).toLocaleString(DateTime.DATE_SHORT),
           time: formatISOStringAsTime(props.lastValidatedRollCallDate),
         })}
     </Typography>

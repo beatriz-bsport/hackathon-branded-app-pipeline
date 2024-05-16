@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
 
-import moment from 'moment-timezone';
 import Tune from '@material-ui/icons/Tune';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
@@ -54,11 +53,10 @@ const OfferFormSettings = (props: Props) => {
   const { partnerMaxBookingCount, availableOnPartnership } = values;
 
   const offerSpreadOnTwoDays = useMemo(() => {
-    const momentStart = moment(values.dateIntervalStart);
-    const momentEnd = moment(
-      moment(values.dateIntervalStart).add(values.durationMinute, 'minute'),
-    );
-    return !momentStart.isSame(momentEnd, 'day');
+    const datetimeEnd = values.dateIntervalStart.plus({
+      minute: values.durationMinute,
+    });
+    return !values.dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [values.dateIntervalStart, values.durationMinute]);
 
   const handleToggleManagerOnly = useCallback(

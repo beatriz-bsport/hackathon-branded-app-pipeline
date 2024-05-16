@@ -14,7 +14,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 
 type Props = {
@@ -53,9 +53,8 @@ export const ResendEmailForConfirmation = (props: Props) => {
 
   const canBeResent =
     !lastTimeSentEmailConfirmation ||
-    moment(lastTimeSentEmailConfirmation).isSameOrBefore(
-      moment().subtract('5', 'minutes'),
-    );
+    DateTime.fromISO(lastTimeSentEmailConfirmation) <=
+      DateTime.now().minus({ minute: 5 });
 
   const theme = useTheme();
 
@@ -69,9 +68,10 @@ export const ResendEmailForConfirmation = (props: Props) => {
               {canBeResent
                 ? t('emailConfirmation.dialog.canBeResent')
                 : t('emailConfirmation.dialog.cannotBeResent', {
-                    timeLeftBeforeNewSent: moment(
+                    timeLeftBeforeNewSent: DateTime.fromISO(
                       lastTimeSentEmailConfirmation,
-                    ).diff(moment().subtract('6', 'minutes'), 'minutes'),
+                    ).diff(DateTime.now().minus({ minute: 6 }), 'minutes')
+                      .minutes,
                   })}
             </Typography>
           </DialogContent>

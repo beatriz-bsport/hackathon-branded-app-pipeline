@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import moment, { Moment } from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { withFormik, Form, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -47,8 +47,9 @@ const timeValidationSchema = Yup.object().shape({
       'End time should be later than start time',
       function checkIsAfterStart(timeEnd) {
         const { timeStart } = this.parent;
-        return moment(timeStart, 'HH:mm').isSameOrBefore(
-          moment(timeEnd, 'HH:mm'),
+        return (
+          DateTime.fromFormat(timeStart, 'HH:mm') <=
+          DateTime.fromFormat(timeEnd, 'HH:mm')
         );
       },
     ),
@@ -70,8 +71,8 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLButtonElement | null>(null);
 
-  const formatTime = useCallback((datetime: Moment) => {
-    return moment(datetime).format('HH:mm');
+  const formatTime = useCallback((datetime: DateTime) => {
+    return datetime.toFormat('HH:mm');
   }, []);
 
   const handleClose = useCallback(() => {
@@ -99,7 +100,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   }, [isDisabled, setIsOpen]);
 
   const handleTimeStartChange = useCallback(
-    (datetime: Moment) => {
+    (datetime: DateTime) => {
       setFieldTouched('timeStart');
       setFieldValue('timeStart', formatTime(datetime));
       setFieldValue('timeWindowPeriod', 'custom', false);
@@ -108,7 +109,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   );
 
   const handleTimeEndChange = useCallback(
-    (datetime: Moment) => {
+    (datetime: DateTime) => {
       setFieldTouched('timeEnd');
       setFieldValue('timeEnd', formatTime(datetime));
       setFieldValue('timeWindowPeriod', 'custom', false);
@@ -189,7 +190,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   ampm={false}
                   label={t('header.start')}
                   onChange={handleTimeStartChange}
-                  value={moment(values.timeStart, 'HH:mm:ss.SSSSSS')}
+                  value={DateTime.fromFormat(values.timeStart, 'HH:mm:ss.SSS')}
                 />
               </div>
               <div>
@@ -197,7 +198,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   ampm={false}
                   label={t('header.end')}
                   onChange={handleTimeEndChange}
-                  value={moment(values.timeEnd, 'HH:mm:ss.SSSSSS')}
+                  value={DateTime.fromFormat(values.timeEnd, 'HH:mm:ss.SSS')}
                 />
                 <ErrorMessage
                   name="timeEnd"

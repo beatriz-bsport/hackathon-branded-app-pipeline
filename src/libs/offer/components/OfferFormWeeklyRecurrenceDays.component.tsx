@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useFormikContext } from 'formik';
 import Button from '@material-ui/core/Button';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 
@@ -33,31 +33,33 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
     const { values, setFieldValue } = useFormikContext<OfferFormValues>();
     const { recurrenceWeekDay } = values;
 
-    const isoWeekDay = useMemo(() => {
-      const isoweekday = moment()
-        .tz(timezone)
-        .startOf('week')
-        .add(day, 'days')
-        .isoWeekday();
+    const getWeekdayAsString = (datetime: DateTime) =>
+      datetime.weekday.toString() as OfferFormRecurrenceWeekDay;
 
-      return isoweekday.toString() as OfferFormRecurrenceWeekDay;
+    const datetime = useMemo(() => {
+      return DateTime.now()
+        .setZone(timezone)
+        .startOf('week', { useLocaleWeeks: true })
+        .plus({ day });
     }, [day, timezone]);
 
-    const recurrenceWeekDayState = recurrenceWeekDay[isoWeekDay];
+    const recurrenceWeekDayState =
+      recurrenceWeekDay[getWeekdayAsString(datetime)];
 
     const handleToggleWeekday = useCallback(
-      (weekDay: OfferFormRecurrenceWeekDay) => {
+      (value: DateTime) => {
         setFieldValue('recurrenceWeekDay', {
           ...recurrenceWeekDay,
-          [weekDay]: !recurrenceWeekDay[weekDay],
+          [getWeekdayAsString(value)]:
+            !recurrenceWeekDay[getWeekdayAsString(value)],
         });
       },
       [recurrenceWeekDay, setFieldValue],
     );
 
     const handleOnClick = useCallback(
-      () => handleToggleWeekday(isoWeekDay),
-      [handleToggleWeekday, isoWeekDay],
+      () => handleToggleWeekday(datetime),
+      [handleToggleWeekday, datetime],
     );
 
     return (
@@ -77,7 +79,7 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
         onClick={handleOnClick}
         variant="contained"
       >
-        {moment().isoWeekday(Number(isoWeekDay)).format('ddd').replace('.', '')}
+        {datetime.weekdayShort.replace('.', '')}
       </Button>
     );
   },

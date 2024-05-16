@@ -1,4 +1,3 @@
-import moment from 'moment-timezone';
 import { DateTime } from 'luxon';
 import pickBy from 'lodash/pickBy';
 import groupBy from 'lodash/groupBy';
@@ -61,8 +60,10 @@ export const getAvailabilitySlots = createSelector(
       return Immutable(
         Object.values(slotsData).filter(
           (v) =>
-            moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-            moment(v.date_start).isSameOrBefore(periodFilter.end),
+            DateTime.fromISO(v.date_start) >=
+              DateTime.fromISO(periodFilter.start) &&
+            DateTime.fromISO(v.date_start) <=
+              DateTime.fromISO(periodFilter.end),
         ),
       );
     }
@@ -83,8 +84,10 @@ export const getMyAvailabilitySlots = createSelector(
     if (periodFilter) {
       return Object.values(slotsData).filter(
         (v) =>
-          moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-          moment(v.date_start).isSameOrBefore(periodFilter.end) &&
+          DateTime.fromISO(v.date_start) >=
+            DateTime.fromISO(periodFilter.start) &&
+          DateTime.fromISO(v.date_start) <=
+            DateTime.fromISO(periodFilter.end) &&
           v.coach === meAsCoach.id,
       );
     }
@@ -209,9 +212,10 @@ export const getFilteredCalendarEvents = createSelector(
       return Object.values(eventData).filter(
         (v) =>
           // @ts-ignore
-          moment(v.date_start).isSameOrAfter(periodFilter.start) &&
+          DateTime.fromISO(v.date_start) >=
+            DateTime.fromISO(periodFilter.start) &&
           // @ts-ignore
-          moment(v.date_start).isSameOrBefore(periodFilter.end),
+          DateTime.fromISO(v.date_start) <= DateTime.fromISO(periodFilter.end),
       );
     }
     return Object.values(eventData);

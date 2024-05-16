@@ -16,7 +16,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import MemberSearchModal from '../../../member/components/MemberSearchModal.component';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import CoachInput from '../../../../components/input/CoachInput.component';
@@ -66,7 +66,7 @@ type State = {
   coach: ?number,
   privateServiceId: ?number,
   privateSlotId: ?number,
-  date: Object,
+  date: DateTime,
   privateConsumerPassNeedRefresh: boolean,
   address: string,
 };
@@ -87,7 +87,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     this.state = {
       member,
       coachId,
-      date: moment(props.date),
+      date: DateTime.fromISO(props.date),
       privateServiceId: null,
       privateSlotId: null,
       address: '',
@@ -155,7 +155,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
                       private_consumer_pass: pcp.id,
                       private_slot: this.state.privateSlotId,
                       coach: this.state.coachId,
-                      date_start: this.state.date.format('YYYY/MM/DD HH:mm'),
+                      date_start: this.state.date.toFormat('yyyy/MM/dd HH:mm'),
                       address: this.state.address,
                     });
                   }}
@@ -209,7 +209,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     this.setState({ privateServiceId });
   };
 
-  handleDateChange = (date) => this.setState({ date });
+  handleDateChange = (date: DateTime) => this.setState({ date });
 
   getSelectableServiceAndSlotForCoach = (coachId: number) => {
     const coachPrivateServices = this.props.privateServiceList.filter(

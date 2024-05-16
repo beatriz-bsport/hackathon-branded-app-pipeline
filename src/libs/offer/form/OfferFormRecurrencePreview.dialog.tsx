@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button';
 import { DateRange } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { useFormikContext } from 'formik';
-import moment from 'moment-timezone';
-import MomentUtils from '@date-io/moment';
+import { Settings } from 'luxon';
+import LuxonUtils from '@date-io/luxon';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import FormSection from '#components/forms/FormSection';
@@ -61,7 +61,7 @@ export const OfferFormRecurrencePreview = (props: Props) => {
   const recurrenceCalendarEvents = useMemo(
     () =>
       offerDates.reduce((acc: { [key: string]: boolean }, date) => {
-        const midnight = moment(date).startOf('day');
+        const midnight = date.startOf('day');
         acc[midnight.toString()] = true;
         return acc;
       }, {}),
@@ -95,9 +95,8 @@ export const OfferFormRecurrencePreview = (props: Props) => {
         sectionTitle={t('offer:form.dialog.recurrencePreview')}
       >
         <MuiPickersUtilsProvider
-          locale={moment.locale()}
-          moment={moment}
-          utils={MomentUtils}
+          locale={Settings.defaultLocale}
+          utils={LuxonUtils}
         >
           <Calendar
             forceMonthDisplay

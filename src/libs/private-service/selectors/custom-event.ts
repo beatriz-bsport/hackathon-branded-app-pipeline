@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 import { RootState } from '../../../reducers';
 import { getCoaches } from '../../associated-coach/selectors';
@@ -16,8 +16,10 @@ export const getCustomEventList = createSelector(
     if (period) {
       return Object.values(customEventData).filter((v) => {
         return (
-          moment(v.date_start).isSameOrAfter(moment(period.start), 'day') &&
-          moment(v.date_start).isSameOrBefore(moment(period.end), 'day')
+          DateTime.fromISO(v.date_start).startOf('day') >=
+            DateTime.fromISO(period.start).startOf('day') &&
+          DateTime.fromISO(v.date_start).startOf('day') <=
+            DateTime.fromISO(period.end).startOf('day')
         );
       });
     }

@@ -14,7 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
 
@@ -131,10 +131,9 @@ export class RecursionToogle extends Component<Props, State> {
                     disabled={index === 0}
                     editing_parameters={
                       this.props.edit && {
-                        new_date_start: moment(so.date_start).add(
-                          this.props.dateTimeDiff,
-                          'milliseconds',
-                        ),
+                        new_date_start: DateTime.fromISO(so.date_start).plus({
+                          millisecond: this.props.dateTimeDiff,
+                        }),
                       }
                     }
                     handleChange={

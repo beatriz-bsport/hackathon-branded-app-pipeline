@@ -1,4 +1,3 @@
-import moment, { MomentInput } from 'moment-timezone';
 import { DateTime } from 'luxon';
 import type {
   Offer,
@@ -14,8 +13,8 @@ import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Level } from '#libs/level/types';
 import type { LuxonDateTime } from '#src/types';
 
-export function isDateTooFar(date: MomentInput) {
-  return moment(date).diff(moment(), 'years', true) > 3;
+export function isDateTooFar(dateISO: string) {
+  return DateTime.fromISO(dateISO).diff(DateTime.now(), 'years').years > 3;
 }
 
 export function getCoachOrSubstitute(offer: Offer) {
@@ -23,7 +22,7 @@ export function getCoachOrSubstitute(offer: Offer) {
 }
 
 export function getIsoWeekDay() {
-  return moment().isoWeekday();
+  return DateTime.now().weekday;
 }
 
 export function getOfferRecurrenceDates(

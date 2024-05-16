@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 
 import metaActivityFactory from '#libs/group-offer/factories';
@@ -17,7 +17,7 @@ FactoryBot.define('Offer', {
   name: faker.lorem.word(2),
   available: true,
   is_full: false,
-  date_start: moment().add(1, 'day').format('YYYY-MM-DD'),
+  date_start: DateTime.now().plus({ day: 1 }).toISODate(),
   waiting_list_disabled: false,
   full: false,
   is_waiting_list_full: false,
@@ -113,7 +113,7 @@ export const offerFactory = memoize(
     }
 
     if (offerStatus === 'past') {
-      offer.date_start = moment().subtract(1, 'week').format('YYYY-MM-DD');
+      offer.date_start = DateTime.now().minus({ week: 1 }).toISODate();
     }
 
     if (offerStatus === 'cancel') {
@@ -122,7 +122,7 @@ export const offerFactory = memoize(
     }
 
     if (offerStatus === 'future') {
-      offer.date_start = moment().add(1, 'year').format('YYYY-MM-DD');
+      offer.date_start = DateTime.now().plus({ year: 1 }).toISODate();
     }
 
     return offer;

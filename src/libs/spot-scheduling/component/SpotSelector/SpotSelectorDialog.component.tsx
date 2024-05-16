@@ -11,7 +11,7 @@ import withStyles from '@material-ui/styles/withStyles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
 import { Theme } from '@material-ui/core/styles';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 import { DialogContent, Dialog, Grid } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
@@ -262,9 +262,9 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                       this.props.offer.date_start,
                       'LL',
                       this.props.offer.timezone_name,
-                    )}, ${moment(this.props.offer.date_start)
-                      .tz(this.props.offer.timezone_name)
-                      .format('dddd')}, ${formatISOStringAsTime(
+                    )}, ${DateTime.fromISO(this.props.offer.date_start)
+                      .setZone(this.props.offer.timezone_name)
+                      .toFormat('EEEE')}, ${formatISOStringAsTime(
                       this.props.offer.date_start,
                       this.props.offer.timezone_name,
                     )}`}
@@ -408,9 +408,9 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   this.props.offer.date_start,
                   'LL',
                   this.props.offer.timezone_name,
-                )}, ${moment(this.props.offer.date_start)
-                  .tz(this.props.offer.timezone_name)
-                  .format('dddd')} ${formatISOStringAsTime(
+                )}, ${DateTime.fromISO(this.props.offer.date_start)
+                  .setZone(this.props.offer.timezone_name)
+                  .toFormat('EEEE')} ${formatISOStringAsTime(
                   this.props.offer.date_start,
                   this.props.offer.timezone_name,
                 )}`}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 
 interface Props {
   typographyProps?: any;
@@ -32,9 +32,8 @@ export default class CountDown extends React.PureComponent<Props, State> {
     const interval = setInterval(this.setCountDown, 1000);
     this.setState({
       interval,
-      isAlreadyExpiredAtInitialization: moment
-        .unix(this.props.timestamp)
-        .isBefore(moment()),
+      isAlreadyExpiredAtInitialization:
+        DateTime.fromSeconds(this.props.timestamp) < DateTime.now(),
     });
   };
 
@@ -60,15 +59,15 @@ export default class CountDown extends React.PureComponent<Props, State> {
   getDuration = () => {
     if (this.state?.isAlreadyExpiredAtInitialization) return '';
 
-    const now = moment();
-    const end = moment(this.props.timestamp, 'X');
-    const duration = moment.duration(end.diff(now));
+    const now = DateTime.now();
+    const end = DateTime.fromSeconds(this.props.timestamp);
+    const duration = end.diff(now);
 
-    if (duration.minutes() <= 0 && duration.seconds() <= 0) {
+    if (Math.floor(duration.as('seconds')) <= 0) {
       return '';
     }
 
-    const str = moment.utc(duration.as('millisecond')).format('mm:ss');
+    const str = duration.toFormat('mm:ss');
     return str;
   };
 

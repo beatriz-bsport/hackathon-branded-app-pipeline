@@ -11,7 +11,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withTranslation, TFunction } from 'react-i18next';
 import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 
-import { Moment } from '../../i18n';
+import { DateTime } from 'luxon';
 
 type Props = {
   price: ?number,
@@ -37,7 +37,7 @@ export class StripeForm extends Component<Props, State> {
     isRecurring: false,
     interval: 'month',
     nb_interval: 3,
-    billing_anchor: Moment(),
+    billing_anchor: DateTime.now().toISO(),
   };
 
   submit = async () => {

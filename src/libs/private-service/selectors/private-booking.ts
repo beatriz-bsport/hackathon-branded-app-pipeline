@@ -1,5 +1,4 @@
-// @ts-nocheck
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
@@ -237,6 +236,7 @@ export const getPrivateBookingList: (
 
 export const withMember = memoize((selector) =>
   createSelector([selector, getMemberListData], (bookings, memberData) =>
+    // @ts-ignore
     bookings.map((b) => ({
       ...b,
       member: memberData[b.member],
@@ -246,6 +246,7 @@ export const withMember = memoize((selector) =>
 
 export const withService = memoize((selector) =>
   createSelector([selector, getAllMembers], (bookings, services) =>
+    // @ts-ignore
     bookings.map((b) => ({
       ...b,
       private_service: services[b.private_service],
@@ -255,6 +256,7 @@ export const withService = memoize((selector) =>
 
 export const withSlot = memoize((selector) =>
   createSelector([selector, getAllMembers], (bookings, slots) =>
+    // @ts-ignore
     bookings.map((b) => ({
       ...b,
       private_slot: slots[b.private_slot],
@@ -293,8 +295,10 @@ export const getPrivateBookingListFiltered = createSelector(
               ) => b[k] === v && acc,
               true,
             )) &&
-          moment(b.date_end).isSameOrAfter(start, 'day') &&
-          moment(b.date_start).isSameOrBefore(end, 'day'),
+          DateTime.fromISO(b.date_end).startOf('day') >=
+            DateTime.fromISO(start).startOf('day') &&
+          DateTime.fromISO(b.date_start).startOf('day') <=
+            DateTime.fromISO(end).startOf('day'),
       ),
     );
   },

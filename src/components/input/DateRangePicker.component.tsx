@@ -1,12 +1,11 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import {
   BasePicker,
   Calendar,
   MuiPickersUtilsProvider,
 } from 'material-ui-pickers';
-import MomentUtils from '@date-io/moment';
-import moment, { Moment } from 'moment-timezone';
+import LuxonUtils from '@date-io/luxon';
+import { DateTime, Interval, Settings } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
@@ -19,26 +18,26 @@ interface Props {
 }
 
 const DateRangePicker: React.FC<Props> = (props) => {
-  const [date] = useState(moment());
-  const [activeDate, setActiveDate] = useState<Moment | undefined>(
-    moment(props.startDate),
+  const [date] = useState(DateTime.now());
+  const [activeDate, setActiveDate] = useState<DateTime | undefined>(
+    DateTime.fromISO(props.startDate),
   );
 
   const [dates, setDates] = useState<Array<string>>([props.startDate]);
 
-  const onDateChange = (d: Moment) => {
-    const dateStr = d.format('YYYY-MM-DD');
+  const onDateChange = (d: DateTime) => {
+    const dateStr = d.toISODate();
 
     let _dates = [...dates, dateStr];
     if (dates.length === 2) {
       _dates = [dateStr];
     }
 
-    const momentDates = [moment(_dates[0])];
-    _dates[1] && momentDates.push(moment(_dates[1]));
+    const datetimes = [DateTime.fromISO(_dates[0])];
+    _dates[1] && datetimes.push(DateTime.fromISO(_dates[1]));
 
-    const min = moment.min(momentDates).format('YYYY-MM-DD');
-    const max = moment.max(momentDates).format('YYYY-MM-DD');
+    const min = DateTime.min(...datetimes).toISODate();
+    const max = DateTime.max(...datetimes).toISODate();
 
     setDates(_dates);
     props.onRangeChange(min, max);
@@ -47,27 +46,26 @@ const DateRangePicker: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   const renderDay = useCallback(
-    (d, selectedDate: Moment, dayInCurrentMonth: boolean) => {
+    (d: DateTime, selectedDate: DateTime, dayInCurrentMonth: boolean) => {
       if (!dayInCurrentMonth) {
         return <div className={classes.day} />;
       }
 
-      const momentDates = dates.map((da) => moment(da));
-      momentDates.length === 1 && activeDate && momentDates.push(activeDate);
+      const datetimes = dates.map((da) => DateTime.fromISO(da));
+      datetimes.length === 1 && activeDate && datetimes.push(activeDate);
 
-      const min = moment.min(momentDates);
-      const max = moment.max(momentDates);
+      const min = DateTime.min(...datetimes);
+      const max = DateTime.max(...datetimes);
 
-      const dateStr = d.format('YYYY-MM-DD');
+      const dateStr = d.toISODate();
 
-      const isStart = min && dateStr === min.format('YYYY-MM-DD');
-      const isEnd = max && dateStr === max.format('YYYY-MM-DD');
-      const isBetween = min && max && d.isBetween(min, max);
+      const isStart = min && dateStr === min.toISODate();
+      const isEnd = max && dateStr === max.toISODate();
+      const isBetween =
+        min && max && Interval.fromDateTimes(min, max).contains(d);
 
-      const endOfWeek = moment().endOf('week').isoWeekday();
-
-      const isSunday = d.day() === (1 + endOfWeek) % 7;
-      const isSaturday = d.day() === (7 + endOfWeek) % 7;
+      const isSunday = d.weekday === 7;
+      const isSaturday = d.weekday === 6;
 
       const dayClasses = classNames({
         [classes.day]: true,
@@ -79,7 +77,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
 
       return (
         <div className={dayClasses} onMouseEnter={() => setActiveDate(d)}>
-          {d.format('DD')}
+          {d.toFormat('MM')}
         </div>
       );
     },
@@ -87,13 +85,11 @@ const DateRangePicker: React.FC<Props> = (props) => {
   );
 
   return (
-    <MuiPickersUtilsProvider
-      locale={moment.locale()}
-      moment={moment}
-      utils={MomentUtils}
-    >
+    <MuiPickersUtilsProvider locale={Settings.defaultLocale} utils={LuxonUtils}>
+      {/* @ts-ignore */}
       <BasePicker>
         {() => (
+          // @ts-ignore
           <Calendar date={date} onChange={onDateChange} renderDay={renderDay} />
         )}
       </BasePicker>

@@ -93,13 +93,14 @@ type BaseProps<T extends OptionTypeBase> = {
   onEndMenuListReach?: () => void;
   onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
   onMenuOpen?: () => void;
-  onMeuClose?: () => void;
+  onMenuClose?: () => void;
   openMenuOnClear?: boolean;
   openMenuOnFocus?: boolean;
   options: T[] | Immutable.ImmutableArray<T>;
   placeholder?: string;
   removeIndicator?: boolean;
   onConfirm?: () => void;
+  stopEventPropagationOnClickAway?: boolean;
   /** Placeholder to be displayed when the selector is searchable, and focused (ie. search is active) */
   searchPlaceholder?: string;
   withoutConfirmButton?: boolean;
@@ -160,6 +161,9 @@ function MaterialUISelector<T extends OptionTypeBase>(
     onChange,
     onEndMenuListReach,
     onFocus,
+    onMenuClose: onClose,
+    onMenuOpen: onOpen,
+    stopEventPropagationOnClickAway = false,
     onInputChange,
     onConfirm,
     openMenuOnClear,
@@ -232,6 +236,17 @@ function MaterialUISelector<T extends OptionTypeBase>(
     [onBlur, name],
   );
 
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const onMenuOpen = React.useCallback(() => {
+    setMenuIsOpen(true);
+    onOpen?.();
+  }, [onOpen]);
+
+  const onMenuClose = React.useCallback(() => {
+    setMenuIsOpen(false);
+    onClose?.();
+  }, [onClose]);
+
   let _menuPortalTarget = withoutPortal
     ? undefined
     : menuPortalTarget || document.querySelector('body');
@@ -281,6 +296,41 @@ function MaterialUISelector<T extends OptionTypeBase>(
   const displaySearchPlaceholder =
     isSearchable && isFocused && !!searchPlaceholder;
 
+  // When the selector is inside a modal (e.g. a Dialog), this intercepts the backdrop events
+  // and only closes the menu instead of closing the modal as well.
+  const menuRef = useRef(null);
+  const controlRef = useRef(null);
+  useEffect(() => {
+    if (!stopEventPropagationOnClickAway) return () => {};
+
+    const listener = (event: Event) => {
+      if (!menuRef.current || !controlRef.current) return;
+
+      if (
+        (event.type === 'touchstart' || event.type === 'mousedown') &&
+        (controlRef.current.contains(event.target) ||
+          menuRef.current.contains(event.target))
+      )
+        return;
+
+      if (event.type === 'keydown' && (event as KeyboardEvent).key !== 'Escape')
+        return;
+
+      onMenuClose();
+      event.stopPropagation();
+    };
+    document.addEventListener('mousedown', listener, { capture: true });
+    document.addEventListener('touchstart', listener, { capture: true });
+    document.addEventListener('keydown', listener, { capture: true });
+
+    return () => {
+      document.removeEventListener('mousedown', listener, { capture: true });
+      document.removeEventListener('touchstart', listener, { capture: true });
+      document.removeEventListener('keydown', listener, { capture: true });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [!!onMenuClose, stopEventPropagationOnClickAway]);
+
   return (
     <SelectorContext.Provider
       value={{
@@ -319,6 +369,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
               ? { IndicatorsContainer: emptyIndicatorsContainer }
               : {}),
           }}
+          controlRef={controlRef}
           defaultValue={defaultValue}
           hideSelectedOptions={false}
           id={id}
@@ -328,9 +379,13 @@ function MaterialUISelector<T extends OptionTypeBase>(
           isMenuListVirtualized={isMenuListVirtualized}
           isMulti={isMulti}
           isSearchable={isSearchable}
+          menuIsOpen={menuIsOpen}
           menuPortalTarget={_menuPortalTarget}
+          menuRef={menuRef}
           onChange={handleChange}
           onFocus={handleFocus}
+          onMenuClose={onMenuClose}
+          onMenuOpen={onMenuOpen}
           openMenuOnFocus={openMenuOnFocus}
           options={options}
           placeholder={placeholder}
@@ -456,7 +511,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           onSelect,
         }}
       >
-        <Paper square className={classes.menu}>
+        <Paper ref={props.selectProps.menuRef} square className={classes.menu}>
           <div
             className={classes.list}
             style={{
@@ -690,6 +745,7 @@ export function Control<T extends OptionTypeBase>(
   return (
     <components.Control {...props}>
       <div
+        ref={props.selectProps.controlRef}
         className={classNames(
           classes.control,
           props?.selectProps?.classes?.control,

@@ -48,6 +48,7 @@ const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
   return (
     <MaterialUISelector
       isMulti
+      stopEventPropagationOnClickAway
       closeMenuOnSelect={false}
       isDisabled={props.disabled ?? false}
       itemRenderer={passOptionRenderer}

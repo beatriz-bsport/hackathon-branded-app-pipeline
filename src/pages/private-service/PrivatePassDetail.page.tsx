@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';

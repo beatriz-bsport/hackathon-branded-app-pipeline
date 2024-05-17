@@ -1,5 +1,3 @@
-// @flow
-
 export type TempPasswordState = {
   password?: string;
   expiration_date?: string;

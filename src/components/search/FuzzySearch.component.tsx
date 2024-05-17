@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { Theme, Paper, Collapse, List, makeStyles } from '@material-ui/core';
 import Fuse, { FuseOptions } from 'fuse.js';

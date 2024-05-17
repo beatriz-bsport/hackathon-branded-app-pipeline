@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';

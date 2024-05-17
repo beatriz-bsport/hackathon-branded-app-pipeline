@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';

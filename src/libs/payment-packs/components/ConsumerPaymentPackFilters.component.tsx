@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';

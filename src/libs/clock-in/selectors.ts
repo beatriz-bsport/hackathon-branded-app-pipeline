@@ -1,4 +1,3 @@
-// @flow
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
 import { RootState } from '../../reducers';

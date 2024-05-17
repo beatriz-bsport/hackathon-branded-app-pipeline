@@ -6,7 +6,6 @@ import GiftcardListItem from './GiftcardListItem.component';
 import Selector from '../../../components/Selector.component';
 
 import { Giftcard } from '../types';
-// @flow
 
 type Props = {
   classes: any;

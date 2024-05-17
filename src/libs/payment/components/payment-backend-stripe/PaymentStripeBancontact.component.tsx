@@ -1,5 +1,3 @@
-// @flow
-
 import React, { useImperativeHandle, forwardRef } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useTranslation } from 'react-i18next';

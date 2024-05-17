@@ -1,5 +1,3 @@
-// @flow
-
 import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error

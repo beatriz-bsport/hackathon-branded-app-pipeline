@@ -1,4 +1,3 @@
-// @flow
 import React, { useCallback, useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Divider from '@material-ui/core/Divider';

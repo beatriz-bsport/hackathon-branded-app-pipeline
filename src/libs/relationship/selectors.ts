@@ -1,5 +1,3 @@
-// @flow
-
 import memoize from 'memoize-one';
 import { createSelector } from 'reselect';
 

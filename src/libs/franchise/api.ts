@@ -1,5 +1,3 @@
-// @flow
-
 import { AxiosResponse } from 'axios';
 import { GenericPaginationResults } from '../types';
 import {

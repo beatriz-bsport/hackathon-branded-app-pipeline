@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';

@@ -1,5 +1,3 @@
-// @flow
-
 export type PartnershipCompany = {
   id: number;
   identifier: string;

@@ -1,4 +1,3 @@
-// @flow
 import React, { useCallback, useState } from 'react';
 import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';

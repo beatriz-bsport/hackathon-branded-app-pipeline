@@ -1,4 +1,3 @@
-// @flow
 import { AxiosResponse } from 'axios';
 import {
   API_URI,

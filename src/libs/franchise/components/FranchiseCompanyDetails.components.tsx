@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';

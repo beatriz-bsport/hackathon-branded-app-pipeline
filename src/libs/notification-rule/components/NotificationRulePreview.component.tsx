@@ -1,4 +1,3 @@
-// @flow
 import React, { useMemo } from 'react';
 import { IconButton, Theme, makeStyles, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';

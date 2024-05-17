@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { DateTime } from 'luxon';

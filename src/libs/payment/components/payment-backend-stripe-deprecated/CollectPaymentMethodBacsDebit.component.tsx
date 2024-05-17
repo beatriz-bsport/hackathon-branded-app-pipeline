@@ -1,4 +1,3 @@
-// @flow
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';

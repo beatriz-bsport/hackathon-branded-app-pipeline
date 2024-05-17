@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { compose } from 'recompose';

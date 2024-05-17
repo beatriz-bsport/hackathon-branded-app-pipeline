@@ -1,4 +1,3 @@
-// @flow
 import {
   buildUrlParams,
   API_V1_URI,

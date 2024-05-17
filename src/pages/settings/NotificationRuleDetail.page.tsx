@@ -1,4 +1,3 @@
-// @flow
 import React, { useCallback, useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { withStyles, WithStyles, Theme } from '@material-ui/core/styles';

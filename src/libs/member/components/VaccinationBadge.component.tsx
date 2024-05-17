@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { makeStyles } from '@material-ui/core/styles';

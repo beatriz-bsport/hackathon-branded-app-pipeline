@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { Field, FieldInputProps, FieldProps, FormikProps } from 'formik';
 import FormControl from '@material-ui/core/FormControl';

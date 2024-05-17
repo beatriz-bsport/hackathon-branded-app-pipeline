@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import classnames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';

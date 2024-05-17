@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';

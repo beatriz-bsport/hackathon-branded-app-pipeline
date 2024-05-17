@@ -1,12 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+// @ts-expect-error
 import { EXTRA_TIMEZONES } from '#src/i18n';
-import type { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
+import { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
 
 type Props = {
   country: string;
@@ -27,10 +27,13 @@ export const TimezoneSelector = (props: Props) => {
       )}
       <Select onChange={props.onChange} value={props.value}>
         {timezoneListExtended.map((tzData) => {
+          // @ts-expect-error
           const { name, offset, abbrs } = tzData;
           let offsetName = '';
           if (offset) {
+            // @ts-expect-error
             offsetName = `UTC${parseInt(offset, 10) <= 0 ? '+' : '-'}${Math.abs(
+              // @ts-expect-error
               parseInt(offset / 60, 10),
             )}`;
           }

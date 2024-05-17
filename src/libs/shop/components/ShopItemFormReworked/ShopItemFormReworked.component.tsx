@@ -18,6 +18,7 @@ import type {
   ShopItem,
   ShopItemCreate,
   ShopItemEdit,
+  ShopSupplierTemplate,
 } from '#libs/shop/types';
 import type { BookkeepingAccount } from '#libs/payment/types';
 import {
@@ -42,9 +43,9 @@ type Props = {
   initial?: ShopItem;
   isLoading?: boolean;
   onCancel: () => void;
-  provincialTax: number;
+  provincialTax?: number;
   isEditForm?: boolean;
-  supplierList: ShopSupplier[];
+  supplierList: ShopSupplier[] | ShopSupplierTemplate[];
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
 };

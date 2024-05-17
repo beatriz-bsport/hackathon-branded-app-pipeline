@@ -25,7 +25,7 @@ import ImageUploader from '#components/input/ImageUploader.component';
 import PaymentMethodSelectorInput from '#libs/payment/components/PaymentMethodSelectorInput.component';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 
-import type { ShopSupplier } from '#libs/shop/types';
+import type { ShopSupplier, ShopSupplierTemplate } from '#libs/shop/types';
 import type { ShopItemFormValues } from '#libs/shop/components/ShopItemFormReworked/types';
 
 import { ALMOST_100 } from '../../../../constants';
@@ -59,8 +59,8 @@ type Props = {
   handleCancel: () => void;
   isLoading?: boolean;
   isEditForm?: boolean;
-  provincialTax: number;
-  supplierList: ShopSupplier[];
+  provincialTax?: number;
+  supplierList: ShopSupplier[] | ShopSupplierTemplate[];
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
   initialValues: ShopItemFormValues;
@@ -224,9 +224,11 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             value={values.tva}
             variant="outlined"
           />
-          <Typography color="error" variant="body2">
-            {provincialTaxText}
-          </Typography>
+          {!!provincialTaxText && (
+            <Typography color="error" variant="body2">
+              {provincialTaxText}
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>

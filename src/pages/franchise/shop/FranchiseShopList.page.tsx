@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { push } from 'connected-react-router';
+import omit from 'lodash/omit';
 
 import {
   fetchSubshopTemplateList as fetchSubshopTemplateListAction,
@@ -47,16 +48,21 @@ import {
 
 import FranchiseShopList from '#src/libs/franchise/components/FranchiseShopList.component';
 
+// @ts-expect-error
+import { mapFormDataWithObject } from '#pages/form.utils';
+
 import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type {
+  ShopItemCreate,
   ShopItemTemplate,
   ShopSupplierTemplate,
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
   SubshopTemplate,
 } from '#src/libs/shop/types';
+import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
 
 type Props = ConnectedProps<typeof connector>;
 
@@ -116,6 +122,59 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         options?.onSuccess?.();
       },
       onError: options?.onError,
+    });
+  };
+
+  handleCreateShopItemTemplate = (
+    formValues: ShopItemCreate,
+    subshopTemplateId: number,
+    options?: OptionCallback,
+  ) => {
+    const shopItemTemplateFormValues = {
+      ...omit(formValues, ['subshop', 'supplier']),
+      supplier_template: formValues.supplier,
+    };
+
+    const formData = mapFormDataWithObject(
+      omit(shopItemTemplateFormValues, ['cover']),
+      SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER,
+      ['cover'],
+    );
+    formData.append('sub_shop_template', subshopTemplateId.toString());
+    formData.append('company_ids[0]', '1'); // TEMP -> https://bsporttest.atlassian.net/browse/BS-3909
+    if (formValues.cover) formData.append('cover', formValues.cover);
+
+    this.props.createShopItemTemplate(formData, {
+      ...options,
+      onSuccess: () => {
+        this.handleFetchShopItemTemplateList(subshopTemplateId);
+        options?.onSuccess?.();
+      },
+    });
+  };
+
+  handleDeleteShopItemTemplate = (
+    id: number,
+    subshopTemplateId: number,
+    options?: OptionCallback<number>,
+  ) => {
+    const shopItemTemplatePage =
+      this.props.getShopItemTemplateState(subshopTemplateId)?.page ?? 1;
+    const isRemovingLastListItem =
+      (this.props.getShopItemTemplateState(subshopTemplateId)?.results ?? [])
+        .length === 1 && shopItemTemplatePage > 1;
+
+    this.props.deleteShopItemTemplate(id, {
+      ...options,
+      onSuccess: () => {
+        this.handleFetchShopItemTemplateList(
+          subshopTemplateId,
+          isRemovingLastListItem
+            ? shopItemTemplatePage - 1
+            : shopItemTemplatePage,
+        );
+        options?.onSuccess?.(id);
+      },
     });
   };
 
@@ -189,8 +248,10 @@ export class FranchiseShopListPage extends PureComponent<Props> {
     return (
       <FranchiseShopList
         changeSupplierTemplatePage={this.handleChangeSupplierTemplatePage}
+        createShopItemTemplate={this.handleCreateShopItemTemplate}
         createSubshopTemplate={this.handleCreateSubshopTemplate}
         createSupplierTemplate={this.handleCreateSupplierTemplate}
+        deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
         deleteSubshopTemplate={this.handleDeleteSubshopTemplate}
         deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}

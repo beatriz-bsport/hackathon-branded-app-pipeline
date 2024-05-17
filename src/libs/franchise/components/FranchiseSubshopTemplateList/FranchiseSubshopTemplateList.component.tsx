@@ -43,6 +43,11 @@ type Props = {
     subshopTemplate?: SubshopTemplate,
     extraActions?: () => void,
   ) => void;
+  handleOpenShopItemTemplateForm: (subshopTemplateId: number) => void;
+  handleSetShopItemTemplateToDelete: (
+    shopItemTemplate: ShopItemTemplate,
+    subshopTemplateId: number,
+  ) => void;
 };
 
 type FranchiseSubshopTemplateListItemProps = Omit<
@@ -60,6 +65,8 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
       shopItemTemplateState,
       handleOpenSubshopTemplateDialog,
       fetchShopItemTemplateList,
+      handleOpenShopItemTemplateForm,
+      handleSetShopItemTemplateToDelete,
     }) => {
       const { t } = useTranslation(['common', 'shop']);
 
@@ -114,6 +121,20 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
         [fetchShopItemTemplateList, subshopTemplate.id],
       );
 
+      const handleAddShopItemTemplate = useCallback(
+        () => handleOpenShopItemTemplateForm(subshopTemplate.id),
+        [handleOpenShopItemTemplateForm, subshopTemplate.id],
+      );
+
+      const handleDeleteShopItemTemplate = useCallback(
+        (shopItemTemplate: ShopItemTemplate) => () =>
+          handleSetShopItemTemplateToDelete(
+            shopItemTemplate,
+            subshopTemplate.id,
+          ),
+        [handleSetShopItemTemplateToDelete, subshopTemplate.id],
+      );
+
       const subshopTemplateCategoryTitle = (() => {
         let title = subshopTemplate.name;
         if (shopItemTemplateState?.count > 0) {
@@ -144,8 +165,7 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
               >
                 <MenuItem
                   className={classes.menuItem}
-                  // TEMP
-                  onClick={() => {}}
+                  onClick={handleAddShopItemTemplate}
                 >
                   <AddIcon className={classes.menuItemIcon} />
                   {t('shop:shopList.tab.products.addProduct')}
@@ -192,8 +212,9 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
                   <FranchiseShopItemTemplateListItem
                     key={shopItemTemplate.id}
                     className={classes.shopItemTemplateListItem}
-                    // TEMP
-                    handleDelete={() => {}}
+                    handleDelete={handleDeleteShopItemTemplate(
+                      shopItemTemplate,
+                    )}
                     shopItemTemplate={shopItemTemplate}
                   />
                 </List>
@@ -227,6 +248,8 @@ const FranchiseSubshopTemplateList: React.FC<Props> = ({
   getShopItemTemplateState,
   fetchShopItemTemplateList,
   handleOpenSubshopTemplateDialog,
+  handleOpenShopItemTemplateForm,
+  handleSetShopItemTemplateToDelete,
 }) => {
   return (
     <>
@@ -234,7 +257,9 @@ const FranchiseSubshopTemplateList: React.FC<Props> = ({
         <FranchiseSubshopTemplateListItem
           key={subshopTemplate.id}
           fetchShopItemTemplateList={fetchShopItemTemplateList}
+          handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
           handleOpenSubshopTemplateDialog={handleOpenSubshopTemplateDialog}
+          handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}
           shopItemTemplateState={getShopItemTemplateState(subshopTemplate.id)}
           subshopTemplate={subshopTemplate}
         />

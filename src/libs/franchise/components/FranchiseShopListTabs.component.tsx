@@ -49,6 +49,11 @@ type Props = {
   handleEditSupplierTemplate: (supplier: ShopSupplierTemplate) => void;
   handleOpenSupplierTemplateModal: () => void;
   changeSupplierTemplatePage: (page: number) => void;
+  handleOpenShopItemTemplateForm: (subshopTemplateId: number) => void;
+  handleSetShopItemTemplateToDelete: (
+    shopItemTemplate: ShopItemTemplate,
+    subshopTemplateId: number,
+  ) => void;
 };
 
 const FranchiseShopListTabs: React.FC<Props> = ({
@@ -66,6 +71,8 @@ const FranchiseShopListTabs: React.FC<Props> = ({
   handleEditSupplierTemplate,
   handleOpenSupplierTemplateModal,
   changeSupplierTemplatePage,
+  handleOpenShopItemTemplateForm,
+  handleSetShopItemTemplateToDelete,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -104,6 +111,8 @@ const FranchiseShopListTabs: React.FC<Props> = ({
         deleteSubshopTemplate={deleteSubshopTemplate}
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
+        handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
+        handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}
         subshopTemplateList={subshopTemplateList}
         updateSubshopTemplate={updateSubshopTemplate}
       />

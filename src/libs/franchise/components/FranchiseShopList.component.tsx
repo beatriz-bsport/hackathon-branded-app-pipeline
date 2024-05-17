@@ -1,13 +1,18 @@
 import React, { useCallback, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import FranchiseShopListTabs from './FranchiseShopListTabs.component';
-import ShopListSettingsSupplierModal from '#src/libs/shop/components/ShopListSettingsSupplierModal';
-import ShopSupplierDeleteConfirmModal from '#src/libs/shop/components/ShopSupplierDeleteConfirmModal';
+import ShopListSettingsSupplierModal from '#libs/shop/components/ShopListSettingsSupplierModal';
+import ShopSupplierDeleteConfirmModal from '#libs/shop/components/ShopSupplierDeleteConfirmModal';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
+import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
 
 import type {
+  ShopItemCreate,
   ShopItemTemplate,
   ShopSupplierTemplate,
   ShopSupplierTemplateCreate,
@@ -15,9 +20,11 @@ import type {
   SubshopTemplate,
 } from '#src/libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading } from '#src/libs/types';
-import type { ShopListSettingsSupplierValues } from '#src/libs/shop/components/ShopListSettingsSupplierModal/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { ErrorAndLoading } from '#libs/types';
+import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
+
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
 type Props = {
   isLoading?: boolean;
@@ -53,6 +60,16 @@ type Props = {
   ) => void;
   deleteSupplierTemplate: (id: number, options: OptionCallback<number>) => void;
   changeSupplierTemplatePage: (page: number) => void;
+  createShopItemTemplate: (
+    values: ShopItemCreate,
+    subshopTemplateId: number,
+    options?: OptionCallback,
+  ) => void;
+  deleteShopItemTemplate: (
+    id: number,
+    subshopTemplateId: number,
+    options?: OptionCallback<number>,
+  ) => void;
 };
 
 const FranchiseShopList: React.FC<Props> = ({
@@ -71,7 +88,11 @@ const FranchiseShopList: React.FC<Props> = ({
   updateSupplierTemplate,
   deleteSupplierTemplate,
   changeSupplierTemplatePage,
+  createShopItemTemplate,
+  deleteShopItemTemplate,
 }) => {
+  const { t } = useTranslation('shop');
+
   const classes = useStyles();
 
   const [isSupplierTemplateModalOpen, setIsSupplierTemplateModalOpen] =
@@ -82,8 +103,18 @@ const FranchiseShopList: React.FC<Props> = ({
     setIsSupplierTemplateDeleteModalOpen,
   ] = useState(false);
 
+  const [isShopItemTemplateFormOpen, setIsShopItemTemplateFormOpen] =
+    useState(false);
+
+  const [selectedSubshopTemplateId, setSelectedSubshopTemplateId] = useState<
+    number | null
+  >(null);
+
   const [selectedSupplierTemplate, setSelectedSupplierTemplate] =
     useState<null | ShopSupplierTemplate>(null);
+
+  const [shopItemTemplateToDelete, setShopItemTemplateToDelete] =
+    useState<ShopItemTemplate | null>(null);
 
   const handleOpenSupplierTemplateModal = useCallback(
     () => setIsSupplierTemplateModalOpen(true),
@@ -121,6 +152,19 @@ const FranchiseShopList: React.FC<Props> = ({
     () => setIsSupplierTemplateDeleteModalOpen(true),
     [],
   );
+
+  const handleOpenShopItemTemplateForm = useCallback(
+    (subshopTemplateId: number) => {
+      setSelectedSubshopTemplateId(subshopTemplateId);
+      setIsShopItemTemplateFormOpen(true);
+    },
+    [],
+  );
+
+  const handleCloseShopItemTemplateForm = useCallback(() => {
+    setSelectedSubshopTemplateId(null);
+    setIsShopItemTemplateFormOpen(false);
+  }, []);
 
   const handleDeleteSupplierTemplate = useCallback(
     (supplier: ShopSupplierTemplate) => {
@@ -163,6 +207,45 @@ const FranchiseShopList: React.FC<Props> = ({
     ],
   );
 
+  const handleShopItemTemplateSubmit = useCallback(
+    (values: ShopItemCreate) =>
+      createShopItemTemplate(values, selectedSubshopTemplateId, {
+        onSuccess: handleCloseShopItemTemplateForm,
+      }),
+    [
+      createShopItemTemplate,
+      handleCloseShopItemTemplateForm,
+      selectedSubshopTemplateId,
+    ],
+  );
+
+  const handleSetShopItemTemplateToDelete = useCallback(
+    (shopItemTemplate: ShopItemTemplate, subshopTemplateId: number) => {
+      // retrieveShopItemUsedInCombo(shopItem.id);
+      setSelectedSubshopTemplateId(subshopTemplateId);
+      setShopItemTemplateToDelete(shopItemTemplate);
+    },
+    [],
+  );
+
+  const handleCancelDeleteShopItemTemplate = useCallback(() => {
+    setSelectedSubshopTemplateId(null);
+    setShopItemTemplateToDelete(null);
+  }, []);
+
+  const onDeleteShopItemTemplate = useCallback(() => {
+    deleteShopItemTemplate(
+      shopItemTemplateToDelete?.id,
+      selectedSubshopTemplateId,
+      { onSuccess: handleCancelDeleteShopItemTemplate },
+    );
+  }, [
+    deleteShopItemTemplate,
+    handleCancelDeleteShopItemTemplate,
+    selectedSubshopTemplateId,
+    shopItemTemplateToDelete?.id,
+  ]);
+
   return (
     <div className={classes.container}>
       {isLoading && <LinearProgress />}
@@ -173,14 +256,39 @@ const FranchiseShopList: React.FC<Props> = ({
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
         handleEditSupplierTemplate={handleEditSupplierTemplate}
+        handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
         handleOpenSupplierTemplateModal={handleOpenSupplierTemplateModal}
         handleSelectSupplierTemplateForDeletion={handleDeleteSupplierTemplate}
+        handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}
         isSupplierTemplateListLoading={isSupplierTemplateListLoading}
         subshopTemplateList={subshopTemplateList}
         supplierTemplateList={supplierTemplateList}
         supplierTemplateListCount={supplierTemplateListCount}
         supplierTemplateListPage={supplierTemplateListPage}
         updateSubshopTemplate={updateSubshopTemplate}
+      />
+
+      <GenericResponsiveDrawer
+        onClose={handleCloseShopItemTemplateForm}
+        open={selectedSubshopTemplateId && isShopItemTemplateFormOpen}
+        title={t('shopitem.form.title')}
+        trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.ShopItem}
+      >
+        <ShopItemFormReworked
+          bookkeepingAccountById={{}} // TEMP - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          bookkeepingAccounts={[]} // TEMP - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          isLoading={isLoading}
+          onCancel={handleCloseShopItemTemplateForm}
+          onCreateSubmit={handleShopItemTemplateSubmit}
+          supplierList={supplierTemplateList}
+        />
+      </GenericResponsiveDrawer>
+
+      <ShopItemDeleteConfirmDialog
+        onCancel={handleCancelDeleteShopItemTemplate}
+        onSubmit={onDeleteShopItemTemplate}
+        open={!!shopItemTemplateToDelete && !!selectedSubshopTemplateId}
+        shopItemName={shopItemTemplateToDelete?.name}
       />
 
       <ShopListSettingsSupplierModal

@@ -132,7 +132,7 @@ const mapStateToProps = (state: RootState) => ({
   franchiseRoles: getAllFranchiseRoles(state),
   updateLoading: state.role.franchiseRole.createOrUpdate.loading,
   franchiseeList: getFranchiseCompanies(state),
-  franchiseeListLoading: state.franchise.loading.payload,
+  franchiseeListLoading: state.franchise.loading,
 });
 
 const mapDispatchToProps = {

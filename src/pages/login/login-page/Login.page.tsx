@@ -191,6 +191,7 @@ export class ConsumerLoginPage extends Component<Props> {
           {franchisor && step === STEPS.franchiseeSelection && (
             <FranchiseCompanyLogin
               authenticated={authenticated}
+              // @ts-expect-error
               companies={companiesSelectable}
               disconnect={this.props.disconnect}
               franchiseTheme={this.props.franchisor}

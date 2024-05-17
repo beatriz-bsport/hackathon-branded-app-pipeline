@@ -131,6 +131,11 @@ const FranchiseMemberDetails: React.FC<Props> = ({
         <Route
           exact
           component={FranchiseMemberDetailGiftcard}
+          path="/f/members/:userId/member/giftcard/:selectedConsumerGiftcardId"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailGiftcard}
           path="/f/members/:userId/member/giftcard"
         />
       </Switch>
@@ -153,4 +158,4 @@ export default compose<Props, {}>(
   routerParamsToProps({ userId: 'userId:number', tab: 'tab:string' }),
   withPageHeightHOC(),
   connector,
-)(FranchiseMemberDetails);
+)(React.memo(FranchiseMemberDetails));

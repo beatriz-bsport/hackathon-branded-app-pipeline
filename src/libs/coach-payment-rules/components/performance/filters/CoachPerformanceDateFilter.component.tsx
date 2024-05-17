@@ -28,7 +28,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-// @ts-ignore
+// @ts-expect-error
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../../state/types';

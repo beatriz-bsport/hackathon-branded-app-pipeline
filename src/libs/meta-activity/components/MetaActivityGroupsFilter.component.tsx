@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-// @ts-ignore
+// @ts-expect-error
 import MetaActivitySelector from './MetaActivitySelector.component';
 import DateInput from '#components/input/DateInput.component';
 

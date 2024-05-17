@@ -457,11 +457,11 @@ export class FiltersPanel extends Component<Props, State> {
               {this.props.csvExportLink
                 ? t('lastGenerated', {
                     date: DateTime.fromSeconds(
-                      // @ts-ignore
+                      // @ts-expect-error
                       this.props.csvExportDate,
                     ).toFormat('D'),
                     time: DateTime.fromSeconds(
-                      // @ts-ignore
+                      // @ts-expect-error
                       this.props.csvExportDate,
                     ).toFormat('t'),
                   })
@@ -523,7 +523,7 @@ export class FiltersPanel extends Component<Props, State> {
                     className={this.props.classes.nestedList}
                   >
                     {
-                      // @ts-ignore
+                      // @ts-expect-error
                       filtersList[key].map((filter: any) => (
                         <ListItem
                           key={filter}

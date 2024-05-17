@@ -240,7 +240,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
       member: this.props.membership.id,
       options: {
         onSuccess: (payload) => {
-          // @ts-ignore
+          // @ts-expect-error
           const { count } = payload;
           WidgetUtils.DEPRECATEDbookingsCount(count);
           WidgetUtils.sendBridgeResponse(
@@ -264,7 +264,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
   fetchPlaybackUrl = (videoId: number) => {
     this.props.getPlaybackUrl(videoId, {
-      // @ts-ignore
+      // @ts-expect-error
       onAccessDenied: (payload: number) => {
         WidgetUtils.sendBridgeResponse(
           WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED,
@@ -273,7 +273,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           },
         );
       },
-      // @ts-ignore
+      // @ts-expect-error
       onSuccess: (payload: string) => {
         WidgetUtils.sendBridgeResponse(
           WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS,
@@ -345,18 +345,18 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           break;
         case WidgetMessageType.REQUEST_PLAYBACK_URL:
           if (event.data?.data?.videoId) {
-            // @ts-ignore
+            // @ts-expect-error
             this.fetchPlaybackUrl(event.data.data.videoId);
           }
           break;
 
         default:
-          // @ts-ignore
+          // @ts-expect-error
           if (widgetApiMessageTypes.includes(event.data.type)) {
             this.handleBridgeApiCallRequest<unknown, unknown>({
-              // @ts-ignore
+              // @ts-expect-error
               args: event.data.args,
-              // @ts-ignore
+              // @ts-expect-error
               responseSignature: event.data.type,
             });
           }
@@ -448,7 +448,7 @@ const mapDispatchToProps = {
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
-    // @ts-ignore
+    // @ts-expect-error
     companyName: 'companyName',
   }),
   withQueryParamsToProps([

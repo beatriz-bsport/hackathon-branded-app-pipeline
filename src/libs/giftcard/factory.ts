@@ -117,7 +117,7 @@ export function consumer_giftcard_factory(
 ): Array<ConsumerGiftcard> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   const RECIPIENTS = giftcard_recipient_factory(num_el);
-  // @ts-ignore
+  // @ts-expect-error
   return GIFTCARD_IDS.map((id) => {
     return {
       id: generateRandomInt(1000),
@@ -169,7 +169,7 @@ export function GiftcardTemplateListFactory(
       manager_only,
       disabled: false,
       amount_gifted: generateRandomInt(100).toString(),
-      // @ts-ignore
+      // @ts-expect-error
       companies: FranchiseCompanyListFactory(Math.floor(Math.random() * 20)),
     };
     return item;

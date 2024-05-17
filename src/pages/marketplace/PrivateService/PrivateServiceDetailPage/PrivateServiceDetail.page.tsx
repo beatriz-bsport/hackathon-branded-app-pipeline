@@ -279,7 +279,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
     setTimeout(() => {
       if (sessionSelectorRefs && sessionSelectorRefs.current) {
-        // @ts-ignore
+        // @ts-expect-error
         sessionSelectorRefs.current.scrollIntoView({
           behavior: 'smooth',
         });
@@ -302,15 +302,15 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
         const establishment_found = await findAvailableEstablishmentAPI(
           selectedSlot.id,
           {
-            // @ts-ignore
+            // @ts-expect-error
             coach: associated_coach,
             date_start: date,
           },
         );
 
-        // @ts-ignore
+        // @ts-expect-error
         if (establishment_found?.data?.establishment) {
-          // @ts-ignore
+          // @ts-expect-error
           data.establishment = establishment_found.data.establishment;
         }
       }
@@ -403,7 +403,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
               <SessionSelector
                 availabilitySlot={availabilitySlot}
                 bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
-                // @ts-ignore
+                // @ts-expect-error
                 choseCoach={
                   privateService.coach_attribution ===
                   RESOURCE_ATTRIBUTION_CONSUMER
@@ -469,9 +469,9 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   _privateService: getPrivateService(state, ownProps.serviceId),
   privateService: withAssociatedCoach(
-    // @ts-ignore
+    // @ts-expect-error
     withAvailablePrivateSlots(withAssociatedEstablishment(getPrivateService)),
-    // @ts-ignore
+    // @ts-expect-error
   )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
   nextDateAvailableSlot: getNextDateAvailableSlot(state),
@@ -502,7 +502,7 @@ const mapParamsToProps = {
 
 export default compose(
   marketplaceCssHoc(),
-  // @ts-ignore
+  // @ts-expect-error
   routerParamsToProps(mapParamsToProps),
   PrivateServiceDetailDataProvider,
 )(PrivateServiceDetailPage);

@@ -4,7 +4,7 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import MarketplaceCheckoutItemsWithPrivatePassList, { Props } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCheckoutItemsWithPrivatePassListCss from '!!raw-loader!./styles.css';
 

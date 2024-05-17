@@ -572,7 +572,7 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['paymentPack', 'booking']),
   connect(mapMemberInfoStateToProps),

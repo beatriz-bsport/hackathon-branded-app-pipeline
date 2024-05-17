@@ -117,15 +117,15 @@ const ClockInDialog: React.FC<Props> = ({
         {
           onSuccess: (data) => {
             setSuccessData({
-              // @ts-ignore
+              // @ts-expect-error
               last_clock_in: data?.date_start,
-              // @ts-ignore
+              // @ts-expect-error
               last_clock_out: data?.date_end,
             });
             setSelfProcessing(false);
             getLastClockin({});
 
-            // @ts-ignore
+            // @ts-expect-error
             if (data?.date_end) {
               setMode(CLOCK_IN_SUCCESS);
             }

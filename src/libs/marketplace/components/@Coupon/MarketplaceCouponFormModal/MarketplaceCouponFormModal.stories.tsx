@@ -2,7 +2,7 @@ import React from 'react';
 import { Props, MarketplaceCouponFormModalForStorybook } from '.';
 
 const CouponFormModalTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceCouponFormModalForStorybook {...args} />
 );
 

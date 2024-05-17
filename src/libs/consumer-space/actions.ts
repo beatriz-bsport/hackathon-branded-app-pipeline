@@ -509,7 +509,7 @@ export function fetchBookingsAndPrivateBookings(args: {
       bookingResults = [...bookingResults, ...bookingRest];
       privateBookingResults = [...privateBookingResults, ...privateBookingRest];
 
-      // @ts-ignore
+      // @ts-expect-error
       const all: BookingOrPrivateBooking[] = [
         ...bookingResults.map((booking) => ({
           type: 'booking',

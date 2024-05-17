@@ -9,7 +9,7 @@ const storage = window.localStorage;
 
 export const initialState: Immutable.Immutable<ThemeState> =
   Immutable<ThemeState>({
-    // @ts-ignore
+    // @ts-expect-error
     theme: {
       primary_color: colors.primary,
       secondary_color: colors.secondary,

@@ -111,7 +111,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
 
   const readableIdentifier = React.useMemo(() => {
     return fromPaymentGroupIdentifierToPaymentMethodIdentifier(
-      // @ts-ignore
+      // @ts-expect-error
       parseInt(paymentConfig.payment_method),
     );
   }, [paymentConfig.payment_method]);
@@ -128,7 +128,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           email: billingDetails.email,
           address: billingDetails.address,
         },
-        // @ts-ignore
+        // @ts-expect-error
         company: parseInt(props.companyId),
       });
     }
@@ -168,7 +168,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
       <Dialog open>
         <DialogTitle>{t('instalment.form.title.scheduler')}</DialogTitle>
         <Form
-          // @ts-ignore
+          // @ts-expect-error
           onSubmit={(ev: React.MouseEvent) => {
             ev.preventDefault();
             setData(props.values);
@@ -225,7 +225,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
               });
             }}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
-            // @ts-ignore
+            // @ts-expect-error
             payment_method={paymentConfig.payment_method}
           />
           <Divider />
@@ -245,13 +245,13 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             onCancelTerminal={onCancelSecondStep}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
             onSuccessTerminal={onSubmitSecondStep}
-            // @ts-ignore
+            // @ts-expect-error
             paymentMethodType={paymentConfig.payment_method}
             readableIdentifier={readableIdentifier}
-            // @ts-ignore
+            // @ts-expect-error
             refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
             requestSetupIntentSecret={props.requestSetupIntentSecret}
-            // @ts-ignore
+            // @ts-expect-error
             savedPaymentMethodList={props.savedPaymentMethodList}
             selectedSavedPaymentMethodId={paymentConfig.payment_method_id}
             selectPaymentMethod={selectPaymentMethod}
@@ -307,5 +307,5 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// @ts-ignore
+// @ts-expect-error
 export default compose(InstalPaymentFormHOC)(InstalmentPaymentFormDialog);

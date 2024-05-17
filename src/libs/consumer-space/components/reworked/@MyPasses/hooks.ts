@@ -327,7 +327,7 @@ export function useConsumerPassesDataManager({
    */
   const handleSetSelectedPass = useCallback(
     (passId: number) => {
-      // @ts-ignore
+      // @ts-expect-error
       const pass = passList.find((item) => item.id === passId) || null;
       setSelectedPass(pass);
       isMobile && handleTogglePassDetailsDrawer();

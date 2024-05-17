@@ -15,7 +15,7 @@ const SubscriptionPaymentTemplate = (args: Props) => (
     }}
   >
     {
-      // @ts-ignore
+      // @ts-expect-error
       <MarketplaceSubscriptionPaymentForStorybook {...args} />
     }
   </div>

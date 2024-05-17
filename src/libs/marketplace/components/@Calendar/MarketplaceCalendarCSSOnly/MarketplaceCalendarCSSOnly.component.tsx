@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-// @ts-ignore
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import { DateTime, Interval } from 'luxon';
 
@@ -40,7 +40,7 @@ type Props = {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: { [key: number]: MetaActivity };
-  // @ts-ignore
+  // @ts-expect-error
   setFilters: (any) => void;
   filters: any;
   forceDayDisplayOnly: boolean;
@@ -168,7 +168,7 @@ export const MarketplaceCalendar = (props: Props) => {
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
-            // @ts-ignore
+            // @ts-expect-error
             events={props.events}
             offerFilters={filters}
             onSelect={onSelectDate}
@@ -189,7 +189,7 @@ export const MarketplaceCalendar = (props: Props) => {
           offers={offers}
           onClearInput={onClearInput}
           onSearch={onSearch}
-          // @ts-ignore
+          // @ts-expect-error
           setFilters={setFilters}
           showMultiLocalization={props.showMultiLocalization}
           variant="activity"
@@ -199,7 +199,7 @@ export const MarketplaceCalendar = (props: Props) => {
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
-            // @ts-ignore
+            // @ts-expect-error
             activityLoading={props.activityLoading}
             bookedOffers={props.bookedOffers}
             coaches={props.coaches}
@@ -234,5 +234,5 @@ export const MarketplaceCalendar = (props: Props) => {
   );
 };
 
-// @ts-ignore
+// @ts-expect-error
 export default withTranslation('privateService')(pure(MarketplaceCalendar));

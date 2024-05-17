@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplacePaymentPackCompatibilityModal, {
   Props as MarketplacePaymentPackCompatibilityModalProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackCompatibilityModalCss from '!!raw-loader!./styles.css';
 import { factory_scts } from '#libs/category/factory';

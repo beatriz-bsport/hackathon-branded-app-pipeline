@@ -65,7 +65,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['marketplace', 'datetime', 'metaActivity']);
 
-  // @ts-ignore
+  // @ts-expect-error
   if (loading && !offers?.items?.length > 0) {
     return (
       <div className="bs-workshop-card bs-workshop-card--loading">
@@ -160,7 +160,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                   loading
                   withoutBookButton
                   bookedOffers={[]}
-                  // @ts-ignore
+                  // @ts-expect-error
                   customLevel={{}}
                   getCoach={getCoach}
                   getEstablishment={getEstablishment}
@@ -190,9 +190,9 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 loading={offerDetailsloading || groupsLoading}
                 metaActivity={metaActivity}
                 offers={offersGroup}
-                // @ts-ignore
+                // @ts-expect-error
                 onBook={onBook}
-                // @ts-ignore
+                // @ts-expect-error
                 onBookOption={onBookOption}
                 showOfferFilling={showOfferFilling}
                 showOfferGender={showOfferGender}
@@ -206,13 +206,13 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               isWorkshop
               showDate
               additionalCoaches={offer.additional_coaches.map((coachId) =>
-                // @ts-ignore
+                // @ts-expect-error
                 getCoach(coachId),
               )}
-              // @ts-ignore
+              // @ts-expect-error
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel[offer.custom_level]}
-              // @ts-ignore
+              // @ts-expect-error
               establishment={getEstablishment(offer.establishment)}
               getLevel={getLevel}
               hideCoach={hideCoach}
@@ -227,13 +227,13 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               metaActivity={metaActivity}
               offer={{
                 ...offer,
-                // @ts-ignore
+                // @ts-expect-error
                 meta_activity: metaActivity,
               }}
-              // @ts-ignore
+              // @ts-expect-error
               onBook={onBook}
               onBookOption={onBookOption}
-              // @ts-ignore
+              // @ts-expect-error
               onClick={onBook}
               showOfferFilling={showOfferFilling}
               showOfferGender={showOfferGender}

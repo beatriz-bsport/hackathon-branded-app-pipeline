@@ -16,7 +16,7 @@ import type { DateTime } from 'luxon';
 import type { ImmutableArray } from 'seamless-immutable';
 
 import { useTranslation } from 'react-i18next';
-// @ts-ignore
+// @ts-expect-error
 import { Submit } from '#components/forms';
 import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 

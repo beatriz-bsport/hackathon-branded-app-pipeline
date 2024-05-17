@@ -77,7 +77,7 @@ export const getPaymentPackNotifications = createSelector(
         [
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
-          // @ts-ignore
+          // @ts-expect-error
         ].includes(notif.kind),
       );
   },
@@ -115,7 +115,7 @@ export const getPrivatePassNotifications = createSelector(
         [
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
-          // @ts-ignore
+          // @ts-expect-error
         ].includes(notif.kind),
       );
   },

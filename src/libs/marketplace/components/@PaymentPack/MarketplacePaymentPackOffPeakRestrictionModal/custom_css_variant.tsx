@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplacePaymentPackOffPeakRestrictionModal, {
   Props as MarketplacePaymentPackOffPeakRestrictionModalProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackOffPeakRestrictionModalCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

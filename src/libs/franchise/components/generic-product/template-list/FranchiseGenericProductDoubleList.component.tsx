@@ -105,7 +105,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
         {!displayEmptyText && props.withFuzzySearch && (
           <FuzzySearch
             className={classes.fuzzySearch}
-            // @ts-ignore
+            // @ts-expect-error
             itemRenderer={(item: GenericProductTemplate) => {
               if (
                 fuzzySearchItemList.some((template) => template.id === item.id)

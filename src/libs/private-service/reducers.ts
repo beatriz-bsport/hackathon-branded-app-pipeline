@@ -582,7 +582,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
-          // @ts-ignore
+          // @ts-expect-error
         ).set('loading', payload.loading),
       );
     },
@@ -601,7 +601,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
-          // @ts-ignore
+          // @ts-expect-error
         ).set('exists', payload.exists),
       );
     },
@@ -617,7 +617,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
-          // @ts-ignore
+          // @ts-expect-error
         ).set('error', payload.error),
       );
     },

@@ -27,7 +27,7 @@ import {
 } from '@material-ui/icons';
 import RepeatIcon from '@material-ui/icons/Repeat';
 
-// @ts-ignore
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Config from '../../../../config';
 

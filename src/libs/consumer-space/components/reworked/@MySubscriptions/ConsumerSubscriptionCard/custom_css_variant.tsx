@@ -2,7 +2,7 @@ import React from 'react';
 
 import ConsumerSubscriptionCard, { ConsumerSubscriptionCardProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerSubscriptionCardCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

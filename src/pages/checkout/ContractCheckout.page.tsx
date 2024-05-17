@@ -299,7 +299,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           establishment_billing_group_id: establishmentBillingGroupId,
         },
         {
-          // @ts-ignore
+          // @ts-expect-error
           onError: (err: { response: { data: { error_code: number } } }) => {
             this.setState({ processing: false });
             if (

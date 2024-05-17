@@ -5,7 +5,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import MarketPlaceCardOfferCSSOnly, {
   Props as MarketplaceOfferCardProps,
 } from './MarketPlaceCardOfferCSSOnly.component';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCardOfferCss from '!!raw-loader!./MarketplaceCardOfferCSSOnly.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

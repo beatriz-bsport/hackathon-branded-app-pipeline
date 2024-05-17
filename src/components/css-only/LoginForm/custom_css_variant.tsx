@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
 import LoginForm, { Props as LoginFormProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import LoginFormCss from '!!raw-loader!./styles.css';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved

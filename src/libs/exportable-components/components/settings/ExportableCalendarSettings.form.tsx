@@ -34,7 +34,7 @@ interface Props {
 const COMPACT_MODE_TYPE = {
   listDisplay: true,
   calendarDisplay: false,
-  // @ts-ignore
+  // @ts-expect-error
   responsiveDisplay: null,
 };
 

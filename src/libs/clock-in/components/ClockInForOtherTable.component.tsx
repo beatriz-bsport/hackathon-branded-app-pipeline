@@ -269,7 +269,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
             </Button>
           ),
         }),
-      )} // @ts-ignore
+      )} // @ts-expect-error
       options={options}
     />
   );

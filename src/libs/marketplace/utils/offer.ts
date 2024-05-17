@@ -85,10 +85,10 @@ export const getOfferStatus = (
   if (!offer) {
     return null;
   }
-  // @ts-ignore
+  // @ts-expect-error
   if (offer.group?.full_booking_only && metaActivity) {
     return getGroupOfferSetAsFullBookingOnlyStatus(
-      // @ts-ignore
+      // @ts-expect-error
       offer,
       metaActivity,
       isRegistered,
@@ -106,7 +106,7 @@ export const getOfferStatus = (
   if (offer.full) {
     return MarketplaceOfferStatus.WAITING_LIST;
   }
-  // @ts-ignore
+  // @ts-expect-error
   if (!isOfferBookableYet(offer, metaActivity)) {
     return MarketplaceOfferStatus.SOON;
   }

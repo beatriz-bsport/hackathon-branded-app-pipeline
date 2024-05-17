@@ -5,7 +5,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
 import { TFunction } from 'i18next';
-// @ts-ignore
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import { getCssComponentsForPage } from '../utils';
 import { MarketplaceCSSComponentConfig, MarketplacePage } from '../types';

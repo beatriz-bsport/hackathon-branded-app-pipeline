@@ -16,7 +16,7 @@ import OfferFormField from '#libs/offer/form/OfferFormField.component';
 import NumericInput from '#components/input/NumericInput.component';
 
 import { OfferFormValues } from '#libs/offer/types';
-// @ts-ignore
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import {
   UPSELL_IDENTIFIER_SPIVI,

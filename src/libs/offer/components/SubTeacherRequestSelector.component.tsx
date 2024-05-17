@@ -82,7 +82,7 @@ const subTeacherRequestSelectorStyles = {
       cursor: isDisabled ? 'not-allowed' : 'default',
 
       ':active': {
-        // @ts-ignore
+        // @ts-expect-error
         ...styles[':active'],
         backgroundColor:
           !isDisabled &&

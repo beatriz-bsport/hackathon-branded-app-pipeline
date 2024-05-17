@@ -38,7 +38,7 @@ type Props = {
   value: {
     loading: boolean;
     count: number;
-    // @ts-ignore
+    // @ts-expect-error
     results: UserAttendanceHistory[];
   };
   page: number;
@@ -115,7 +115,7 @@ const ClockInHistory: React.FC<Props> = ({
 };
 
 const ClockInHistoryRow: React.FC<{
-  // @ts-ignore
+  // @ts-expect-error
   row: UserAttendanceHistory;
   handleExport: (userId?: number) => void;
   editClockIn: (clockInId: number, clockInData: ClockInData) => Promise<void>;
@@ -147,7 +147,7 @@ const ClockInHistoryRow: React.FC<{
     return Math.floor(duration.as('hours') * 100) / 100;
   };
 
-  const totalDuration: number = // @ts-ignore
+  const totalDuration: number = // @ts-expect-error
     row?.history?.reduce<number>((acc, row) => {
       const end = DateTime.fromSeconds(row.date_start);
       const start = DateTime.fromSeconds(row.date_end);
@@ -165,7 +165,7 @@ const ClockInHistoryRow: React.FC<{
         date_start: values.dateStart.toUnixInteger(),
         date_end: values.dateEnd.toUnixInteger(),
       };
-      // @ts-ignore
+      // @ts-expect-error
       editClockIn(clockInId, valuesAsTimestamps);
       setEditData(null);
     },
@@ -281,7 +281,7 @@ const ClockInHistoryRow: React.FC<{
                   {t('historyTable.action')}
                 </TableCell>
               </TableRow>
-              {/* @ts-ignore */}
+              {/* @ts-expect-error */}
               {row?.history?.map((detail, index) => (
                 <TableRow key={detail.id} className={classes.root}>
                   <TableCell

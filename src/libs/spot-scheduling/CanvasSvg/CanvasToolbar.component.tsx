@@ -10,7 +10,7 @@ import { MaterialStyleType } from '../../../utils/types';
 import { RoomBlueprint } from '../types';
 import RoomBlueprintsListDialog from '../component/RoomBlueprintsListDialog.component';
 import ToolTip from '#components/Tooltip.component';
-// @ts-ignore
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';

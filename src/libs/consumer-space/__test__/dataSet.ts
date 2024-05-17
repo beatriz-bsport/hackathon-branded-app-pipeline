@@ -89,9 +89,9 @@ const all1 = [
   ],
 ];
 
-// @ts-ignore
+// @ts-expect-error
 const bookings1 = [];
-// @ts-ignore
+// @ts-expect-error
 const privateBookings1 = [];
 
 all1.forEach((item) => {
@@ -190,9 +190,9 @@ const all2 = [
     'privateBooking',
   ],
 ];
-// @ts-ignore
+// @ts-expect-error
 const bookings2 = [];
-// @ts-ignore
+// @ts-expect-error
 const privateBookings2 = [];
 
 all2.forEach((item) => {
@@ -323,9 +323,9 @@ const all3 = [
     'booking',
   ],
 ];
-// @ts-ignore
+// @ts-expect-error
 const bookings3 = [];
-// @ts-ignore
+// @ts-expect-error
 const privateBookings3 = [];
 
 all3.forEach((item) => {
@@ -340,9 +340,9 @@ export const DATA_SET_1 = {
   label: 'DATA SET 1',
   tag: 'A',
   all: all1,
-  // @ts-ignore
+  // @ts-expect-error
   bookings: bookings1,
-  // @ts-ignore
+  // @ts-expect-error
   privateBookings: privateBookings1,
 };
 
@@ -350,9 +350,9 @@ export const DATA_SET_2 = {
   label: 'DATA SET 2',
   tag: 'B',
   all: all2,
-  // @ts-ignore
+  // @ts-expect-error
   bookings: bookings2,
-  // @ts-ignore
+  // @ts-expect-error
   privateBookings: privateBookings2,
 };
 
@@ -360,9 +360,9 @@ export const DATA_SET_3 = {
   label: 'DATA SET 3',
   tag: 'C',
   all: all3,
-  // @ts-ignore
+  // @ts-expect-error
   bookings: bookings3,
-  // @ts-ignore
+  // @ts-expect-error
   privateBookings: privateBookings3,
 };
 

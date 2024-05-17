@@ -462,7 +462,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withTheme,
   withStyles(styles),
   withUndoRedoState({

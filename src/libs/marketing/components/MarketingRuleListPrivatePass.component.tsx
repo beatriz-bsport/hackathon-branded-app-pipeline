@@ -209,7 +209,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['marketing']),
 )(PaymentPackNotificationList);

@@ -29,7 +29,7 @@ const HoverableInfo: React.FC<{
       <InfoOutlinedIcon className={classes.infoIcon} />
       <Popper
         disablePortal
-        // @ts-ignore
+        // @ts-expect-error
         anchorEl={containerRef}
         open={isOpen}
         placement="top-start"

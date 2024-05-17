@@ -7,7 +7,7 @@ import { getPassDate } from '#libs/private-service/utils';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {
   return DateTime.fromISO(videoPurchase.date_created).plus({
-    // @ts-ignore
+    // @ts-expect-error
     days: videoPurchase.video.rental_days,
   });
 };
@@ -17,7 +17,7 @@ export const getHeading = (
   video: VideoPurchase,
   timezone: string,
 ) => {
-  // @ts-ignore
+  // @ts-expect-error
   return `${video.video.name || ''} - ${formatAsDatetime(
     date_created,
     timezone,
@@ -27,9 +27,9 @@ export const getHeading = (
 export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
   const { consumer_payment_pack, private_consumer_pass } = videoPurchase;
   if (
-    // @ts-ignore
+    // @ts-expect-error
     (!consumer_payment_pack || !consumer_payment_pack.payment_pack) &&
-    // @ts-ignore
+    // @ts-expect-error
     (!private_consumer_pass || !private_consumer_pass.private_pass)
   ) {
     return [[t('loading'), 'secondary']];
@@ -37,20 +37,20 @@ export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
 
   let payment_pack = null;
 
-  // @ts-ignore
+  // @ts-expect-error
   if (consumer_payment_pack) payment_pack = consumer_payment_pack.payment_pack;
-  // @ts-ignore
+  // @ts-expect-error
   else payment_pack = private_consumer_pass.private_pass;
 
   if (!payment_pack) {
     if (!payment_pack) return [[t('loading'), 'secondary']];
   }
   const [packDates, soonExpired] = consumer_payment_pack
-    ? // @ts-ignore
+    ? // @ts-expect-error
       getPackDate(consumer_payment_pack)
-    : // @ts-ignore
+    : // @ts-expect-error
       getPassDate(private_consumer_pass);
-  // @ts-ignore
+  // @ts-expect-error
   if (videoPurchase.video.rental_days > 0) {
     const expiration_date = getExpirationDate(videoPurchase);
     return [
@@ -71,24 +71,24 @@ export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
       [`${payment_pack.name}`, 'secondary'],
       [
         `${packDates} - illimité${
-          // @ts-ignore
+          // @ts-expect-error
           videoPurchase.was_refunded ? ` (${t('wasRefunded')})` : ''
         }`,
         soonExpired ? 'error' : 'primary',
       ],
     ];
   }
-  // @ts-ignore
+  // @ts-expect-error
   const { available_credits } =
     consumer_payment_pack ||
-    // @ts-ignore
+    // @ts-expect-error
     payment_pack.credits - private_consumer_pass?.used_credits;
   const { credits } = payment_pack;
   return [
     [payment_pack.name, 'secondary'],
     [
       ` ${packDates} - ${available_credits}/${credits}${
-        // @ts-ignore
+        // @ts-expect-error
         videoPurchase.was_refunded ? `, (${t('wasRefunded')})` : ''
       }`,
       available_credits / credits < 0.1 || soonExpired ? 'error' : 'primary',

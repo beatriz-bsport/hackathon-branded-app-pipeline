@@ -268,7 +268,7 @@ const Selector: React.FC<SelectorProps> = ({
         onChange={!isDisabled && onChange}
         onClear={!isDisabled && !!onClear && handleClear}
         onClick={!isDisabled && handleClick}
-        // @ts-ignore
+        // @ts-expect-error
         onKeyDown={!isDisabled && handleKeyDown}
         placeholder={placeholder}
         role="combobox"

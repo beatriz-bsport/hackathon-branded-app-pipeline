@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplaceContractCheckout, {
   Props as MarketplaceContractCheckoutProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractCheckoutCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

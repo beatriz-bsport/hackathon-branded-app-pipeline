@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DateTime } from 'luxon';
 import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookButtonCss from '!!raw-loader!./MarketplaceBookButton.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

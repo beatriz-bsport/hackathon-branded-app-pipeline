@@ -107,7 +107,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
         key = 'coach';
       }
 
-      // @ts-ignore
+      // @ts-expect-error
       acc[key] = v;
       return acc;
     }, {});
@@ -115,7 +115,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
 
   onChange = (resourceType: string, resource: PrivateResource) => {
     this.setState((prevState) => {
-      // @ts-ignore
+      // @ts-expect-error
       const arr = [...prevState.selected[resourceType]];
       const i = arr.findIndex((r) => r.resource_id === resource.resource_id);
       i === -1 ? arr.push(resource) : arr.splice(i, 1);
@@ -380,6 +380,6 @@ const styles = (theme: Theme) => ({
 
 export default compose(
   withTranslation(['privateService']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
 )(AvailabilityUpdateResourceChoserDialog);

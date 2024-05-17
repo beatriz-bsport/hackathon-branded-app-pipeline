@@ -28,7 +28,7 @@ export const getDefaultConfigByIdentifier = (identifier: string) => {
   return component.defaultConfig;
 };
 
-// @ts-ignore
+// @ts-expect-error
 export const checkExportableComponentConfig = (componentType, config) => {
   const errors = { privateService: '', playlist: '' };
 

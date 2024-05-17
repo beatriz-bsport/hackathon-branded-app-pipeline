@@ -18,7 +18,7 @@ import {
   SwitchField,
   RadioGroupField,
   TextField,
-  // @ts-ignore
+  // @ts-expect-error
 } from '../../../components/forms';
 
 export const InstalmentPaymentAdvancedForm = () => {

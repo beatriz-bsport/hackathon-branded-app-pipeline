@@ -111,9 +111,9 @@ const MAX_DATE = DateTime.now()
   .toISODate();
 
 const MarketplaceWorkshopPage: React.FC<Props> = ({
-  // @ts-ignore
+  // @ts-expect-error
   filters,
-  // @ts-ignore
+  // @ts-expect-error
   setFilters,
   onlineFilter,
   companyId,
@@ -131,7 +131,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   // username is necessary in order to retrieve user
   // specific information without relying on auth tokens
   username,
-  // @ts-ignore
+  // @ts-expect-error
   bookedOffers,
   fetchEstablishments,
   fetchWorkshopList,
@@ -171,7 +171,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   );
 
   const compatibleWorkshops = getCompatibleWorkshops(workshops);
-  // @ts-ignore
+  // @ts-expect-error
   const allCompatibleWorkshops = getCompatibleWorkshops(allWorkshops);
 
   // CDM
@@ -286,14 +286,14 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchEstablishments({
       company: companyId,
       disabled: false,
-      // @ts-ignore
+      // @ts-expect-error
       page_size: null,
       with_workshop: true,
     });
     fetchLevelList({
       company: companyId,
       is_active: true,
-      // @ts-ignore
+      // @ts-expect-error
       with_workshop: true,
     });
 
@@ -313,7 +313,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     (offer: Offer) => {
       Analytics.workshopClick(offer);
       if (bookWidget) {
-        // @ts-ignore
+        // @ts-expect-error
         bookWidget(offer.id || offer, companyId);
         return;
       }
@@ -361,7 +361,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         coaches={coaches}
         customLevels={customLevels}
         establishmentGroupList={establishmentGroupList}
-        // @ts-ignore
+        // @ts-expect-error
         establishments={allEstablishments}
         filters={filters}
         hideCoach={theme && theme.hideCoach}
@@ -375,7 +375,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         getCoach={getCoach}
         getEstablishment={getEstablishment}
         getGroup={getGroup}
-        // @ts-ignore
+        // @ts-expect-error
         getLevel={getLevel}
         getOffersListByGroup={getOffersListByGroup}
         getOffersListByMetaActivity={getOffersListByMetaActivity}
@@ -510,7 +510,7 @@ export default compose(
     'setOtherParams',
   ]),
   withPostMessageOnPropsUpdate<Props>([
-    // @ts-ignore
+    // @ts-expect-error
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
@@ -519,7 +519,7 @@ export default compose(
   ]),
   withPostMessageToUpdateProps<Props>([
     {
-      // @ts-ignore
+      // @ts-expect-error
       propName: 'filters',
       messageType: 'bsport:workshop:filter:control',
       validationSchema: CalendarFilterValidationSchema,

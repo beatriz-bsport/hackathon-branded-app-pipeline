@@ -69,7 +69,7 @@ type ComponentProps = {
   deleteLevel?: (id: number, options?: OptionCallback) => void;
   onCancel: () => void;
   onBannerGoBack?: () => void;
-  // @ts-ignore
+  // @ts-expect-error
   // eslint-disable-next-line
   creditScaleFactor: number;
   onSelectMetaActivity?: (activity: MetaActivity) => void;

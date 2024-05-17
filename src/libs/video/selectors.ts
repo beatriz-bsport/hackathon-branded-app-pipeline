@@ -19,7 +19,7 @@ export const getVideoData = (state: RootState) => state.video.byId;
 export const getVideo = (state: RootState, id: number) =>
   getVideoData(state)[id];
 
-// @ts-ignore
+// @ts-expect-error
 export const withCategory = memoize((selector: any) =>
   createSelector([selector, getSCTs], (videoList: Video | Video[], SCTList) => {
     if (Array.isArray(videoList)) {
@@ -125,7 +125,7 @@ export const getVideoPurchases = (state: RootState) =>
   state.video.purchase.items;
 
 export const getAssociatedPurchases = (state: RootState) =>
-  // @ts-ignore
+  // @ts-expect-error
   state.video.purchase.associatedVideoPurchase;
 
 const _getMember = (_: any, id: number) => id;
@@ -174,7 +174,7 @@ export const getConsumerPurchaseVideoListWithData = createSelector(
 export const getSelectedVideoPurchased = (
   state: RootState,
   vodId: number,
-  // @ts-ignore
+  // @ts-expect-error
 ) => state.video.purchase.byId[vodId];
 export const getMemberVideoListWithConsumerPack = createSelector(
   [getConsumerPurchaseVideoListWithData, getConsumerPacksWithPaymentPack],
@@ -238,7 +238,7 @@ export const withVideoCoach = (selector: any) =>
     },
   );
 
-// @ts-ignore
+// @ts-expect-error
 export const withVideoCategory = (selector) =>
   createSelector([selector, _getVideoCategories], (videoList, SCTList) => {
     if (Array.isArray(videoList)) {

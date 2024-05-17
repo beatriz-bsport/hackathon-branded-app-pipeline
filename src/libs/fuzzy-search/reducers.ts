@@ -109,7 +109,7 @@ export default handleActions(
           {
             [payload.searchObjectType]: {
               results: {
-                // @ts-ignore no error but tsc breaking due to heavy non-exclusive union typing
+                // @ts-expect-error no error but tsc breaking due to heavy non-exclusive union typing
                 byId: payload.value.results.reduce(
                   (
                     acc: Record<number, ObjectSearchResult>,

@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import type { ValueType } from 'react-select/lib/types';
 import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-// @ts-ignore
+// @ts-expect-error
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
 import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
@@ -129,7 +129,7 @@ const OfferSearchBar = ({
       <Grid
         item
         className={classes.selector}
-        // @ts-ignore
+        // @ts-expect-error
         md={mediumSize}
         xs={6}
       >
@@ -144,7 +144,7 @@ const OfferSearchBar = ({
         <Grid
           item
           className={classes.selector}
-          // @ts-ignore
+          // @ts-expect-error
           md={mediumSize}
           xs={6}
         >
@@ -166,7 +166,7 @@ const OfferSearchBar = ({
       <Grid
         item
         className={classes.selector}
-        // @ts-ignore
+        // @ts-expect-error
         md={mediumSize}
         xs={6}
       >
@@ -184,7 +184,7 @@ const OfferSearchBar = ({
       <Grid
         item
         className={classes.selector}
-        // @ts-ignore
+        // @ts-expect-error
         md={mediumSize}
         xs={6}
       >
@@ -203,7 +203,7 @@ const OfferSearchBar = ({
         <Grid
           item
           className={classes.selector}
-          // @ts-ignore
+          // @ts-expect-error
           md={mediumSize}
           xs={6}
         >

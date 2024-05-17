@@ -104,7 +104,7 @@ describe('Check offer form dates generation', () => {
 
     const datesInvalidRecurrence = getOfferRecurrenceDates(
       {
-        // @ts-ignore
+        // @ts-expect-error
         recurrence: 'quarters',
         recurrenceWeekDay: ISO_WEEKDAY_RECURRENCE_STATE,
         dateIntervalStart: TODAY,
@@ -115,7 +115,7 @@ describe('Check offer form dates generation', () => {
     const datesInvalidRecurrenceGenerateOnly = _generateRecurrenceDates(
       TODAY,
       ONE_WEEK_AHEAD,
-      // @ts-ignore
+      // @ts-expect-error
       'quarters',
       TIMEZONE,
       SELECTED_ISO_WEEKDAY_RECURRENCE,
@@ -124,7 +124,7 @@ describe('Check offer form dates generation', () => {
     const datesInvalidIsoWeekday = getOfferRecurrenceDates(
       {
         recurrence: OFFER_RECURRENCE.WEEKLY,
-        // @ts-ignore
+        // @ts-expect-error
         recurrenceWeekDay: {},
         dateIntervalStart: TODAY,
         dateIntervalEnd: ONE_WEEK_AHEAD,

@@ -27,7 +27,7 @@ const CustomTemplate = (args: argTypes) => (
     }}
   >
     <Grid item xs={6}>
-      {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <CustomFormConfigurationTable {...args} />
     </Grid>
   </Grid>

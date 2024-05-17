@@ -175,7 +175,7 @@ export default handleActions<
       return (
         state
           .merge({ byId: { [payload.id]: payload } }, { deep: true })
-          // @ts-ignore
+          // @ts-expect-error
           .setIn(['allIds'], [...state.allIds, payload.id])
       );
     },

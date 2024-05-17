@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Switch from '@material-ui/core/Switch';
-// @ts-ignore
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import CssCodeTextarea from './CssCodeTextarea.component';
 import { getCssComponentByLabel } from '../utils';

@@ -36,7 +36,7 @@ import {
   getEstablishmentNames,
   getFilteredAssociatedCoachWithPerformance,
   getFilteredEstablishments,
-  // @ts-ignore
+  // @ts-expect-error
 } from '#libs/coach-payment-rules/utils';
 
 const styles = (theme: Theme) =>

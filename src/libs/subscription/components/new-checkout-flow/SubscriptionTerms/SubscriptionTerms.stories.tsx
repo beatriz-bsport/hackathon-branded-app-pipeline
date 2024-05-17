@@ -15,7 +15,7 @@ const SubscriptionTermsTemplate = (args: Props) => (
     }}
   >
     {
-      // @ts-ignore
+      // @ts-expect-error
       <SubscriptionTermsForStorybook {...args} />
     }
   </div>

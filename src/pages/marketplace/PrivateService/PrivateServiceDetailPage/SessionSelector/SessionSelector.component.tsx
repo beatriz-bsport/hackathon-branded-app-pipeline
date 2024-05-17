@@ -138,7 +138,7 @@ const SessionSelector: React.FC<Props> = (props) => {
 
   let coaches: Array<Coach | null> = [null];
 
-  // @ts-ignore
+  // @ts-expect-error
   if (props.showCoach || props.choseCoach) {
     coaches = props.coaches;
     if (!props.coaches.length) {

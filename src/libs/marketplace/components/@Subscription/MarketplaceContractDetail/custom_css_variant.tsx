@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplaceContractDetail, {
   Props as MarketplaceContractDetailProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractDetailCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

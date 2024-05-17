@@ -6,7 +6,7 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TooltipCSS from '!!raw-loader!./styles.css';
 

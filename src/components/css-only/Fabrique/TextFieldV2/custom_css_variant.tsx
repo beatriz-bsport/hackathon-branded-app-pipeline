@@ -5,7 +5,7 @@ import TextField, { type Props as TextFieldProps } from '.';
 import type { TextFieldSize, TextFieldType } from './types';
 import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 import { Star06 } from '#components/untitledui';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TextFieldCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

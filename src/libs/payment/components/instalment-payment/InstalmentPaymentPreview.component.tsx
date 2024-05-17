@@ -27,7 +27,7 @@ const PaymentInstalmentListItem: React.FC<PaymentInstalmentListItemProps> = ({
     </ListItemIcon>
     <ListItemText
       primary={getCurrencyDisplayWithPrice(
-        // @ts-ignore
+        // @ts-expect-error
         parseFloat(paymentInstalment.amount_cts / 100).toFixed(2),
       )}
       secondary={DateTime.fromISO(paymentInstalment.future_date).toLocaleString(

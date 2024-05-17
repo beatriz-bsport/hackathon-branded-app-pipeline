@@ -15,9 +15,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-// @ts-ignore
+// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
-// @ts-ignore
+// @ts-expect-error
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -25,7 +25,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
 import ModalConfirm from '../../../components/ModalConfirm.component';
 
-// @ts-ignore
+// @ts-expect-error
 import RecapSubscription from './RecapSubscription.component';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 import type { SubscriptionData } from '../types';
@@ -139,7 +139,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       first_billing_timestamp,
     };
     this.props.onSubmit(
-      // @ts-ignore
+      // @ts-expect-error
       this.props.withName ? { ...data, name: this.state.name } : data,
     );
   };
@@ -377,7 +377,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                 <PriceInput
                   fullWidth
                   label={t('parameters.recurrent_voucher')}
-                  // @ts-ignore
+                  // @ts-expect-error
                   onBlur={this.handleBlurRecurrentVoucher}
                   onChange={this.updateRecurrentVoucher}
                   value={this.state.recurrent_voucher}
@@ -467,7 +467,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['subscription']),
 )(SubscriptionCreate);

@@ -630,23 +630,23 @@ const mapWithHandlers = {
             props.fetchOfferBulk(
               allObj.booking.results.map((b) => b.offer),
               {
-                // @ts-ignore
+                // @ts-expect-error
                 onSuccess: (offerList) => {
-                  // @ts-ignore
+                  // @ts-expect-error
                   props.fetchMetaActivityBulk(
-                    // @ts-ignore
+                    // @ts-expect-error
                     offerList.map((b) => b.meta_activity),
                   );
                   props.fetchCoachBulk([
-                    // @ts-ignore
+                    // @ts-expect-error
                     ...offerList.map((b) => b.coach),
-                    // @ts-ignore
+                    // @ts-expect-error
                     ...offerList.map((b) => b.coach_override),
                   ]);
                   props.fetchEstablishmentBulk([
-                    // @ts-ignore
+                    // @ts-expect-error
                     ...offerList.map((b) => b.establishment),
-                    // @ts-ignore
+                    // @ts-expect-error
                     ...offerList.map((b) => b.establishment_override),
                   ]);
                 },
@@ -733,7 +733,7 @@ const mapWithHandlers = {
 };
 export default compose(
   withTranslation(['consumerSpace']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['invoiceInPayment'], 'queryParams', 'setQueryParams']),

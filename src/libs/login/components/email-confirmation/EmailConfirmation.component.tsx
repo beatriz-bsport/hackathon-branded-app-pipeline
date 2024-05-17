@@ -49,7 +49,7 @@ export const EmailConfirmation: React.FC<Props> = ({
             <div className="bs-email-confirmation-content__icon-container__background" />
             <EmailIcon
               className="bs-email-confirmation-content__icon-container__icon"
-              // @ts-ignore
+              // @ts-expect-error
               fill={theme.palette.primary.main}
             />
           </div>

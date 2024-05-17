@@ -23,7 +23,7 @@ import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
   DateField,
-  // @ts-ignore
+  // @ts-expect-error
 } from '../../../../components/forms';
 import { SCT } from '#libs/category/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
@@ -275,7 +275,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     onChange={(options) => {
                       setFieldValue(
                         'categories',
-                        // @ts-ignore
+                        // @ts-expect-error
                         options?.map((option) => option.value),
                       );
                     }}
@@ -325,7 +325,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     onChange={(options) => {
                       setFieldValue(
                         'establishments',
-                        // @ts-ignore
+                        // @ts-expect-error
                         options?.map((option) => option.value),
                       );
                     }}
@@ -356,7 +356,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     inScrollBar
                     isMulti
                     chipsRenderer={(chipProps: {
-                      // @ts-ignore
+                      // @ts-expect-error
                       data;
                       onDelete: () => void;
                     }) => (

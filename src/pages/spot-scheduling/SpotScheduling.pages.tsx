@@ -543,7 +543,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(mapStateToProps, mapDispatchToProps),

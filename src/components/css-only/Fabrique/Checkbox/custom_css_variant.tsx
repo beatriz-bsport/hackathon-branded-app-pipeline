@@ -2,7 +2,7 @@ import React from 'react';
 import Checkbox, { CheckboxProps, CheckboxSize } from '.';
 import { CheckboxSizeEnum } from './constants';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import CheckboxCss from '!!raw-loader!./styles.css';
 

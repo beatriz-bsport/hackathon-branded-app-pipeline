@@ -190,7 +190,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
               </IconButton>
             )}
             {!!onCheckin && (
-              // @ts-ignore
+              // @ts-expect-error
               <CheckPermission requiredPermissions="navigationMenu.accessMonitoring.perform">
                 <CheckInButton
                   disabled={disableAccessMonitoringButton}
@@ -206,7 +206,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             isPreventUpdateMetricValue={isPreventUpdateMetricValue}
             loading={programDataLoading}
             memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
-            // @ts-ignore
+            // @ts-expect-error
             memberProgramList={member.memberProgramList}
             open={isMemberProgramDetailDialogOpen}
             programList={programList}

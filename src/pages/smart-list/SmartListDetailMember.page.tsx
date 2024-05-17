@@ -1403,7 +1403,7 @@ export default compose(
   ),
   withState('closeMemberTable', 'setCloseMemberTable', true),
   withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   connector,
   withProps(

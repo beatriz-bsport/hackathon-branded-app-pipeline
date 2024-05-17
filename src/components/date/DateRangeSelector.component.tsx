@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DateFilterRangeEnum } from '#libs/datatype-filtering/types';
-// @ts-ignore
+// @ts-expect-error
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
 
 const RAPID_SELECTIONS = [
@@ -158,7 +158,7 @@ const DateRangeSelectorSchema = Yup.object().shape({
         const { isEndDateBeforeCurrentDate } = this.parent;
 
         if (isEndDateBeforeCurrentDate) {
-          // @ts-ignore
+          // @ts-expect-error
           return dateEnd <= DateTime.now().endOf('day');
         }
         return true;
@@ -254,14 +254,14 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   };
 
   const onSubmit = () => {
-    // @ts-ignore
+    // @ts-expect-error
     handleSubmit(values);
     setIsOpen(false);
   };
 
   return (
     <Form>
-      {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <ButtonBase
         ref={menuRef}
         className={classes.container}
@@ -317,7 +317,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                 <ButtonBase
                   key={selection.timePeriod}
                   className={classes.button}
-                  // @ts-ignore
+                  // @ts-expect-error
                   onClick={handleSelection(selection)}
                 >
                   <Typography>

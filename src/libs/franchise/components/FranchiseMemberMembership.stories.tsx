@@ -12,7 +12,7 @@ const CustomTemplate = (args: OwnProps) => (
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 
-// @ts-ignore
+// @ts-expect-error
 const companies = FranchiseCompanyListFactory(5);
 
 CompleteDefaultState.args = {

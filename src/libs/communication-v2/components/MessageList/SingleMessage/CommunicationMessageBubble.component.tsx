@@ -408,7 +408,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 </ButtonBase>
               </>
             ) : (
-              // @ts-ignore
+              // @ts-expect-error
               <TypographyMultiline variant="body1">
                 {communicationContent}
               </TypographyMultiline>

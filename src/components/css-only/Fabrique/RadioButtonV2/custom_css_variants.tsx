@@ -2,7 +2,7 @@ import React from 'react';
 import RadioButton, { RadioButtonProps } from '.';
 import { RadioButtonSizeEnum } from './constants';
 import { RadioButtonSize } from './types';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import RadioButtonCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

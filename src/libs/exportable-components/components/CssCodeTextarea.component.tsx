@@ -2,7 +2,7 @@ import React, { useCallback, useState, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Collapse, Typography } from '@material-ui/core';
 import Editor from 'react-simple-code-editor';
-// @ts-ignore
+// @ts-expect-error
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-css';
 import 'prismjs/themes/prism-dark.css';

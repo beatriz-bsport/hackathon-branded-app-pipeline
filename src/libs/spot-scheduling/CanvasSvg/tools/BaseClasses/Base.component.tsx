@@ -22,7 +22,7 @@ class CanvasBaseComponent<
   InheritedState
 > {
   get BaseProps() {
-    // @ts-ignore
+    // @ts-expect-error
     const baseProps: CanvasComponentBaseProps = {
       id: this.props.id,
       onClick: this.props.onClick,

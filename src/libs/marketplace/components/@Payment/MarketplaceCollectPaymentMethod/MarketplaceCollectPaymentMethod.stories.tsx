@@ -4,7 +4,7 @@ import { MarketplaceCollectPaymentMethodForStorybook, Props } from '.';
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 const CollectPaymentMethodTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceCollectPaymentMethodForStorybook {...args} />
 );
 

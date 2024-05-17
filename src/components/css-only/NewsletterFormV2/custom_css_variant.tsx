@@ -3,7 +3,7 @@ import React from 'react';
 import { OptionCallback } from '../../../state/types';
 import NewsletterForm, { Props as NewsletterFormProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import NewsletterFormCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

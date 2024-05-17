@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi';
 import { Settings } from 'luxon';
 import api from './api';
-// @ts-ignore
+// @ts-expect-error
 import { Dispatch, OptionCallback } from '../../state/types';
 import { CompanyTheme } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';

@@ -577,7 +577,7 @@ const styles = (theme: Theme) => ({
 export default compose<any, OwnProps>(
   withTheme,
   withTranslation(['spotScheduling']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withMobileDialog({ breakpoint: 'xs' }),
   withWidth(),

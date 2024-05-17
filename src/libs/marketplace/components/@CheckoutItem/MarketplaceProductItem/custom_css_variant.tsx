@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import MarketplaceProductItem, { type Props } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceProductItemCss from '!!raw-loader!./styles.css';
 

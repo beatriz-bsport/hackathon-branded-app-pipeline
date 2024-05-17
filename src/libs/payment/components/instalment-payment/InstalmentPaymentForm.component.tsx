@@ -102,13 +102,13 @@ export class InstalmentPaymentForm extends Component<Props> {
         </div>
         <InstalmentPaymentPreview
           anchor_date={values.anchor_date}
-          // @ts-ignore
+          // @ts-expect-error
           interval={values.interval}
-          // @ts-ignore
+          // @ts-expect-error
           nb_interval={parseInt(values.nb_interval)}
-          // @ts-ignore
+          // @ts-expect-error
           recurrence_basis={parseInt(values.recurrence_basis)}
-          // @ts-ignore
+          // @ts-expect-error
           totalPriceCts={this.props.totalPriceCts}
         />
       </div>
@@ -132,7 +132,7 @@ export const InstalPaymentFormHOC = withFormik({
     anchor_date: DateTime.now().toISODate(),
   }),
   validationSchema: InstalmentPaymentSchema,
-  // @ts-ignore
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),
@@ -149,6 +149,6 @@ export const InstalmentPaymentFormStyled = compose(
 export default InstalmentPaymentFormStyled;
 
 export const InstalmentPaymentFormComposed = InstalPaymentFormHOC(
-  // @ts-ignore
+  // @ts-expect-error
   InstalmentPaymentFormStyled,
 );

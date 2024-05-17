@@ -4,7 +4,7 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ResetPasswordFormCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

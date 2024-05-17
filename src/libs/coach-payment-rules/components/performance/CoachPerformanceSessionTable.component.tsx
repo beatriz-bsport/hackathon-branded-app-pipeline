@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import clx from 'classnames';
-// @ts-ignore
+// @ts-expect-error
 import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';

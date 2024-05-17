@@ -587,7 +587,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   routerParamsToProps({ notificationId: 'notificationId:number' }),
   withTranslation(['paymentPack', 'marketing']),

@@ -202,7 +202,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
     }
   };
 
-  // @ts-ignore
+  // @ts-expect-error
   onRowClick = (_rowData, { rowIndex }: { rowIndex: number }) =>
     this.state.members[rowIndex]?.id &&
     this.props.goToMember?.(this.state.members[rowIndex].id);
@@ -239,7 +239,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
           noMatch: loading ? null : 'Sorry, there is no member data to display',
         },
       },
-      // @ts-ignore
+      // @ts-expect-error
       onTableChange: (action: string, tableState) => {
         switch (action) {
           case 'changePage':
@@ -263,7 +263,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
           <TableFooter>
             <TableRow>
               <div className={classes.footerContainer}>
-                {/* @ts-ignore */}
+                {/* @ts-expect-error */}
                 <TablePagination
                   count={count}
                   onChangePage={(_, page_) => changePage(page_)}
@@ -289,7 +289,7 @@ export class CustomFormDetailByMemberPanel extends React.Component<
         <MUIDataTable
           columns={getColumnData(t)}
           data={renderRows(this.state.members, t)}
-          // @ts-ignore
+          // @ts-expect-error
           options={options}
         />
       </>

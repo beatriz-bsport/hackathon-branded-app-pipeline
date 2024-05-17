@@ -210,7 +210,7 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['role']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('openFailDeleteDialog', 'setOpenFailDeleteDialog', false),

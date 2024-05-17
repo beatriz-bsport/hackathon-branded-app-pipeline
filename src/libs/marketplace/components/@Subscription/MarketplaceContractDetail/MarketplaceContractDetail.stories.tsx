@@ -16,7 +16,7 @@ export default {
 };
 
 const ContractDetailTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceContractDetailForStorybook {...args} />
 );
 

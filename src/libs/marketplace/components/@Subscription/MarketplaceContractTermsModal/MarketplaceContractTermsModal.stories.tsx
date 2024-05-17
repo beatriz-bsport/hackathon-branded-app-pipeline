@@ -2,7 +2,7 @@ import React from 'react';
 import { Props, MarketplaceContractTermsModalForStorybook } from '.';
 
 const MarketplaceContractTermsModalTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceContractTermsModalForStorybook {...args} />
 );
 

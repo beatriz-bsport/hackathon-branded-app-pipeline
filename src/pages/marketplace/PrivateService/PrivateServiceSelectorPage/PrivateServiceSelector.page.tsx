@@ -20,13 +20,13 @@ import { withStyles } from '@material-ui/styles';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
-// @ts-ignore
+// @ts-expect-error
 import TypographyWithShowMore from '../../../../components/typo/TypographyWithShowMore.component';
 import { RootState } from '../../../../reducers';
 import { PrivateService } from '../../../../libs/private-service/types';
-// @ts-ignore
+// @ts-expect-error
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
-// @ts-ignore
+// @ts-expect-error
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '../../../../utils/types';
 import { urlToMarketplace } from '#libs/marketplace/utils';
@@ -334,7 +334,7 @@ const mapParamsToProps = {
 
 export const PrivateServiceSelectorDataProvider = compose<any, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['privateService', 'datetime']),
   connect(mapStateToProps, mapDispatchToProps),

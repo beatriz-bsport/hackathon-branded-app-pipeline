@@ -236,7 +236,7 @@ export const getPrivateBookingList: (
 
 export const withMember = memoize((selector) =>
   createSelector([selector, getMemberListData], (bookings, memberData) =>
-    // @ts-ignore
+    // @ts-expect-error
     bookings.map((b) => ({
       ...b,
       member: memberData[b.member],
@@ -246,7 +246,7 @@ export const withMember = memoize((selector) =>
 
 export const withService = memoize((selector) =>
   createSelector([selector, getAllMembers], (bookings, services) =>
-    // @ts-ignore
+    // @ts-expect-error
     bookings.map((b) => ({
       ...b,
       private_service: services[b.private_service],
@@ -256,7 +256,7 @@ export const withService = memoize((selector) =>
 
 export const withSlot = memoize((selector) =>
   createSelector([selector, getAllMembers], (bookings, slots) =>
-    // @ts-ignore
+    // @ts-expect-error
     bookings.map((b) => ({
       ...b,
       private_slot: slots[b.private_slot],

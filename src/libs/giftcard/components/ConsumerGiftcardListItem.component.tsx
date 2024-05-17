@@ -50,7 +50,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
 
     const handleOnClickSender = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberSender.id),
-      // @ts-ignore
+      // @ts-expect-error
       [consumerGiftcard?.id, isClickable, memberSender?.id, onClick],
     );
 
@@ -63,7 +63,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
         {(hasMemberProfileAccessPermission: boolean) => (
           <ListItem
-            // @ts-ignore
+            // @ts-expect-error
             button={isClickable && hasMemberProfileAccessPermission}
             disabled={
               disableItemIfNoMember &&
@@ -190,7 +190,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
 
     const handleOnClickReceiver = React.useCallback(
       () => isClickable && onClick(consumerGiftcard.id, memberReceiver.id),
-      // @ts-ignore
+      // @ts-expect-error
       [consumerGiftcard?.id, isClickable, memberReceiver?.id, onClick],
     );
 
@@ -203,7 +203,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
       <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
         {(hasMemberProfileAccessPermission: boolean) => (
           <ListItem
-            // @ts-ignore
+            // @ts-expect-error
             button={isClickable && hasMemberProfileAccessPermission}
             disabled={
               disableItemIfNoMember &&

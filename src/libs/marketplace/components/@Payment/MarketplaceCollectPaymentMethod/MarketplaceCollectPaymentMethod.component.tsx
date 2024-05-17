@@ -27,7 +27,7 @@ import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { getStripePkKey } from '../../../../theme/selectors';
-// @ts-ignore
+// @ts-expect-error
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../../payment/components/payment-backend-stripe-deprecated/helpers';
 import CircularProgress from '#csscomponents/CircularProgress';
 import Select from '#components/css-only/Select';
@@ -323,7 +323,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
           MarketplacePaymentMethods.card,
           MarketplacePaymentMethods.sepa,
         ].includes(type)
-          ? // @ts-ignore
+          ? // @ts-expect-error
             elements.getElement(stripePaymentMethod.type)
           : null;
 
@@ -393,7 +393,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
               | 'confirmSepaDebitSetup'
               | 'confirmBacsDebitSetup'
           ](clientSecret, {
-            // @ts-ignore
+            // @ts-expect-error
             payment_method: getPaymentSetupParams(),
           });
           if (paymentMethodSetupResponse.error) {
@@ -708,7 +708,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
 );
 
 export const MarketplaceCollectPaymentMethodForStorybook = marketplaceCssHoc()(
-  // @ts-ignore
+  // @ts-expect-error
   (props: Omit<Props, 'stripe' | 'elements'>) => (
     <Elements stripe={stripePromise}>
       <ElementsConsumer>

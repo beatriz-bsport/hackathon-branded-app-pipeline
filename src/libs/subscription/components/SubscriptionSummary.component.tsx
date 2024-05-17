@@ -247,7 +247,7 @@ export const SubscriptionSummary = (props: Props) => {
                 })}
               </Typography>
               <Button
-                // @ts-ignore
+                // @ts-expect-error
                 color="error"
                 disabled={DateTime.fromISO(lastInvoice.date) < DateTime.now()}
                 onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}

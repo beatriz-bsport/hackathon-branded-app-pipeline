@@ -19,7 +19,7 @@ import PrivateConsumerPassDetailsCard, {
 
 import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import PrivateConsumerPassDetailsCardCss from '!!raw-loader!./styles.css';
 

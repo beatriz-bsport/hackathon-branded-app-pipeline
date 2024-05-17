@@ -52,7 +52,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   theme,
   loading,
   showOfferFilling,
-  // @ts-ignore
+  // @ts-expect-error
   showOfferGender,
   hideCoach,
   bookedOffers,
@@ -163,7 +163,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const handleBook = useCallback(
     () => (offer: Offer) => {
       setOpenModal(false);
-      // @ts-ignore
+      // @ts-expect-error
       onBook(offer, {
         fbo: group.full_booking_only ? 1 : 0,
         offer_in_group: group.offers,
@@ -175,7 +175,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const handleBookOption = useCallback(
     () => (offer: Offer) => {
       setOpenModal(false);
-      // @ts-ignore
+      // @ts-expect-error
       onBookOption(offer, {
         fbo: group.full_booking_only,
         offer_in_group: group.offers,
@@ -190,7 +190,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     } else {
       setOpenModal(true);
     }
-    // @ts-ignore
+    // @ts-expect-error
   }, [group?.full_booking_only, getBookGroupButtonIsDisabled]);
 
   const isRegisteredInOnOfferInGroup = React.useMemo(() => {
@@ -335,7 +335,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       'bs-offer-list-group-item__offer__coach',
                   }}
                   hideCoach={hideCoach}
-                  // @ts-ignore
+                  // @ts-expect-error
                   offer={offer}
                   theme={theme}
                 />
@@ -463,15 +463,15 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       }
                       loading={false}
                       metaActivity={metaActivity}
-                      // @ts-ignore
+                      // @ts-expect-error
                       offer={{
                         ...offer,
-                        // @ts-ignore
+                        // @ts-expect-error
                         meta_activity: metaActivity,
-                        // @ts-ignore
+                        // @ts-expect-error
                         group,
                       }}
-                      // @ts-ignore
+                      // @ts-expect-error
                       onBook={handleBookOption()}
                       onBookOption={handleBook()}
                       onClick={handleBook}

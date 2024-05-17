@@ -50,11 +50,11 @@ export const getValidityInfo = (
   }
   if (validity_daterange) {
     const lower = DateTime.fromISO(
-      // @ts-ignore
+      // @ts-expect-error
       JSON.parse(validity_daterange).lower,
     ).toFormat('D');
     const upper = DateTime.fromISO(
-      // @ts-ignore
+      // @ts-expect-error
       JSON.parse(validity_daterange).upper,
     ).toFormat('D');
     dateInfo = `${t('validity')}${lower}${t('validityTo')}${upper}`;
@@ -158,7 +158,7 @@ export const getValidityString = (
   }
   return dateInfo;
 };
-// @ts-ignore
+// @ts-expect-error
 export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   const { validity_daterange, duration_days, duration_months, duration_years } =
     paymentPack;
@@ -169,11 +169,11 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   if (validity_daterange) {
     return {
       start: DateTime.fromISO(
-        // @ts-ignore
+        // @ts-expect-error
         JSON.parse(validity_daterange).lower,
       ).toFormat('D'),
       end: DateTime.fromISO(
-        // @ts-ignore
+        // @ts-expect-error
         JSON.parse(validity_daterange).upper,
       ).toFormat('D'),
     };

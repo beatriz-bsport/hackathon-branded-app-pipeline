@@ -290,7 +290,7 @@ const withStateHandlersSetter = {
 
 export const MarketplacePlaylistDetailDataProvider = compose<any, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

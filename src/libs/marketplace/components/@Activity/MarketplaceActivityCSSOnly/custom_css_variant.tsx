@@ -3,7 +3,7 @@ import React from 'react';
 import MarketplaceActivityCSSOnly, {
   Props as MarketplaceActivityCSSOnlyProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceActivityCSSOnlyCss from '!!raw-loader!./MarketplaceActivity.css';
 import {

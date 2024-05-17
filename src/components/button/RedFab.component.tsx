@@ -12,7 +12,7 @@ const redTheme = createTheme({
     },
   },
   typography: {
-    // @ts-ignore
+    // @ts-expect-error
     useNextVariants: true,
   },
 });

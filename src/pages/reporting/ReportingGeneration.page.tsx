@@ -160,7 +160,7 @@ export class ReportingGeneration extends Component<Props, State> {
     this.handleGenerateHeaders({
       date_start,
       date_end,
-      // @ts-ignore
+      // @ts-expect-error
       time_window_start,
       time_window_end,
       report_filter_config_id: values.reportFilterConfigId,
@@ -172,7 +172,7 @@ export class ReportingGeneration extends Component<Props, State> {
         ? {
             date_start,
             date_end,
-            // @ts-ignore
+            // @ts-expect-error
             time_window_start,
             time_window_end,
             page_size: this.props.pageSize,
@@ -299,17 +299,17 @@ export class ReportingGeneration extends Component<Props, State> {
           disableContinue={this.state.disableContinue}
           editReportFilterConfig={this.props.editReportFilterConfig}
           fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
-          // @ts-ignore
+          // @ts-expect-error
           handleExcelExportation={this.handleExcelExportation}
           handleGenerate={this.handleGenerate}
           handleGenerateNextPage={this.handleGenerateNextPage}
           handleGeneratePreviousPage={this.handleGeneratePreviousPage}
-          // @ts-ignore
+          // @ts-expect-error
           handleGetDynamicDataForReport={
             this.props.handleGetDynamicDataForFilters
           }
           isFranchisor={this.props.isFranchisor}
-          // @ts-ignore
+          // @ts-expect-error
           metadata={metadata}
           nextPage={nextPage}
           objectLevelPermissions={this.props.objectLevelPermissions}

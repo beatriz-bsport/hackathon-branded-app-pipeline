@@ -461,7 +461,7 @@ export class RelationsFilter extends Component<Props> {
                     {/* eslint-enable */}
                     <MenuItem
                       key={`${booleanNameList[index]}_false`}
-                      // @ts-ignore
+                      // @ts-expect-error
                       value={false}
                     >
                       {t(

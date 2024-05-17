@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-// @ts-ignore
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import classNames from 'classnames';
@@ -105,18 +105,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     panelsStatus[i] = !panelsStatus[i];
     this.setState((prevState) => ({
       panelsStatus,
-      // @ts-ignore
+      // @ts-expect-error
       changeStatus: !prevState.changeStatus,
     }));
   };
 
   handleBook = (offer: Offer) => () => {
-    // @ts-ignore
+    // @ts-expect-error
     this.props.onClickBook(offer);
   };
 
   handleBookOption = (offer: Offer) => () => {
-    // @ts-ignore
+    // @ts-expect-error
     this.props.onClickBookOption(offer);
   };
 
@@ -175,11 +175,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    */
   periodByRow = memoize((period: any) => {
     const rows = [];
-    // @ts-ignore
+    // @ts-expect-error
     const maxLength = Math.max(...period.map((os) => os.length));
     for (let i = 0; i < maxLength; i += 1) {
       // eslint-disable-next-line no-loop-func
-      // @ts-ignore
+      // @ts-expect-error
       rows[i] = period.map((os) => os[i]);
     }
     return rows;
@@ -227,7 +227,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         {offersRows.map((row, idx) => (
           <React.Fragment key={`row-${row?.[0]?.id ?? idx}`}>
             {row.map((o: Offer, index) => {
-              // @ts-ignore
+              // @ts-expect-error
               const groupData = this.props.group?.[o?.group];
               if (o === undefined) {
                 return (
@@ -261,18 +261,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     isBookingDisabled={
                       !o.available ||
                       isOfferInThePast(o) ||
-                      // @ts-ignore
+                      // @ts-expect-error
                       isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isOfferPassed={
                       isOfferInThePast(o) ||
-                      // @ts-ignore
+                      // @ts-expect-error
                       isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isRegistered={this.props.bookedOffers?.includes(o?.id)}
                     metaActivities={this.props.metaActivities}
                     offer={o}
-                    // @ts-ignore
+                    // @ts-expect-error
                     onClickBook={this.props.onClickBook}
                     onClickBookOption={this.props.onClickBookOption}
                     onClickOffer={this.props.onClickOffer}
@@ -341,9 +341,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             if (index === day_offers.length - 1) {
               position.push('last');
             }
-            // @ts-ignore
+            // @ts-expect-error
             const genderData = this.props.genderCount[offer.id];
-            // @ts-ignore
+            // @ts-expect-error
             const groupData = this.props.group[offer.group];
 
             const establishment = this.getEstablishment(
@@ -379,7 +379,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 isCardModeDisplay={this.props.isCardModeDisplay}
                 isOfferPassed={
                   isOfferInThePast(offer) ||
-                  // @ts-ignore
+                  // @ts-expect-error
                   isOfferInGroupLockedByPreviousOfferInPast(offer, groupData)
                 }
                 isRegistered={this.props.bookedOffers?.includes(offer?.id)}
@@ -388,7 +388,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 onBook={this.handleBook(offer)}
                 onBookOption={this.handleBookOption(offer)}
                 onClick={this.props.onClickOffer}
-                // @ts-ignore
+                // @ts-expect-error
                 position={position}
                 showOfferFilling={this.props.showOfferFilling}
                 showOfferGender={this.props.showOfferGender}
@@ -416,7 +416,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       next_day.weekNumber === main_date.weekNumber &&
       !this.props.forceDayDisplayOnly
     ) {
-      // @ts-ignore
+      // @ts-expect-error
       next_days.push(next_day.toFormat(LUXON_ISO_SHORT_DATE));
       next_day = next_day.plus({ days: 1 });
     }
@@ -536,5 +536,5 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   }
 }
 
-// @ts-ignore
+// @ts-expect-error
 export default withTranslation()(MarketplaceWeekTimetable);

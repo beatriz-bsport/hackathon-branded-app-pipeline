@@ -95,11 +95,11 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
     };
 
     if (booking.offer) {
-      // @ts-ignore
+      // @ts-expect-error
       calendarFilters.f_metaActivities = `[${booking.offer.meta_activity.id}]`;
-      // @ts-ignore
+      // @ts-expect-error
       calendarFilters.f_establishments = `[${booking.offer.establishment.id}]`;
-      // @ts-ignore
+      // @ts-expect-error
       if (!this.props.hideCoach) {
         calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
       }

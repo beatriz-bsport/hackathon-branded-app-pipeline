@@ -311,9 +311,9 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         credit_number: initial?.unlimited ? 'unlimited' : 'limited',
         credits: initial?.credits || 0,
         start_date_method: `${initial.start_date_method}`,
-        // @ts-ignore
+        // @ts-expect-error
         categories: initial.categories || [],
-        // @ts-ignore
+        // @ts-expect-error
         establishments: initial.establishments || [],
         penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
         no_show_penalty_kind:
@@ -322,11 +322,11 @@ export const PaymentPackTemplateFormikHOC = withFormik({
           ? VALID_BY_DATERANGE
           : VALID_BY_DURATION,
         lower_date: initial.validity_daterange
-          ? // @ts-ignore
+          ? // @ts-expect-error
             DateTime.fromISO(JSON.parse(initial.validity_daterange).lower)
           : DateTime.now(),
         upper_date: initial.validity_daterange
-          ? // @ts-ignore
+          ? // @ts-expect-error
             DateTime.fromISO(JSON.parse(initial.validity_daterange).upper)
           : DateTime.now().plus({ days: 365 }),
         apply_penalties:
@@ -345,7 +345,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         {},
     ),
   validationSchema: PaymentPackTemplateSchema,
-  // @ts-ignore
+  // @ts-expect-error
   handleSubmit: (
     values,
     {
@@ -456,7 +456,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     } else {
       data.off_peak_schedule = {};
     }
-    // @ts-ignore
+    // @ts-expect-error
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

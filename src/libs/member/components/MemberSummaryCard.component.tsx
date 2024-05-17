@@ -21,7 +21,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
-// @ts-ignore
+// @ts-expect-error
 import BarCode from 'react-barcode';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -113,30 +113,30 @@ export class MemberSummaryCard extends PureComponent<Props> {
   renderMembershipAndBirthday = () => {
     const { member, t } = this.props;
     const memberBirthday =
-      // @ts-ignore
+      // @ts-expect-error
       member.consumer?.birthday || DateTime.now().toISODate();
 
     const age = Math.floor(
       DateTime.now().diff(DateTime.fromISO(memberBirthday), 'years').years,
     );
 
-    // @ts-ignore
+    // @ts-expect-error
     const isBirthday = member.consumer?.birthday
       ? DateTime.now().day === DateTime.fromISO(memberBirthday).day &&
         DateTime.now().month === DateTime.fromISO(memberBirthday).month
       : false;
 
     const memberBirthdayValue = `${
-      // @ts-ignore
+      // @ts-expect-error
       member.consumer?.birthday
         ? t('member:birth.bornIn', {
-            // @ts-ignore
+            // @ts-expect-error
             context: member.consumer.gender,
             date: DateTime.fromISO(memberBirthday).toLocaleString(),
             age,
           })
         : t('member:birth.unknown', {
-            // @ts-ignore
+            // @ts-expect-error
             context: member.consumer.gender,
           })
     }`;
@@ -225,7 +225,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                     hideContactButton={hideContactButton}
                     openSmsDialog={() => {
                       if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
-                        // @ts-ignore
+                        // @ts-expect-error
                         window.location = `sms:${member.consumer.phonenumber.phone_number}`;
                       } else {
                         this.setState({
@@ -236,7 +236,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                     }}
                     phoneNumber={
                       (hasMemberReadInfoPermission &&
-                        // @ts-ignore
+                        // @ts-expect-error
                         member.consumer.phonenumber?.phone_number) ||
                       ''
                     }
@@ -247,7 +247,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
                 notificationIcon
                 accept_email={member.accept_email}
                 email={
-                  // @ts-ignore
+                  // @ts-expect-error
                   (hasMemberReadInfoPermission && member.consumer.email) || ''
                 }
                 hideContactButton={hideContactButton}
@@ -308,7 +308,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
   };
 
   renderAddress = () => {
-    // @ts-ignore
+    // @ts-expect-error
     const { address } = this.props.member.consumer;
     const { companyCountry } = this.props;
     let primary = '';
@@ -370,12 +370,12 @@ export class MemberSummaryCard extends PureComponent<Props> {
             credit={member.credit_account_balance}
             unpaidAmount={member.total_unpaid_amount}
           >
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             <Avatar noname user={member.consumer} variant="mediumNoname" />
           </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>
             <Typography className={this.props.classes.firstAndLastName}>
-              {/* @ts-ignore */}
+              {/* @ts-expect-error */}
               {member.consumer.first_name} {member.consumer.last_name}
             </Typography>
             <Typography noWrap>
@@ -451,12 +451,12 @@ export class MemberSummaryCard extends PureComponent<Props> {
     ) {
       return (
         <div className={this.props.classes.termsAndConditions}>
-          {/* @ts-ignore */}
+          {/* @ts-expect-error */}
           <Typography inline color="default" component="div" variant="caption">
             <ButtonBase
               onClick={() => this.props.setShowTermsAndConditions(true)}
             >
-              {/* @ts-ignore */}
+              {/* @ts-expect-error */}
               <Typography inline color="secondary" variant="caption">
                 {this.props.t('member:termsAndConditions')}
               </Typography>
@@ -472,7 +472,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             open={this.props.showTermsAndConditions}
           >
             <DialogContent>
-              {/* @ts-ignore */}
+              {/* @ts-expect-error */}
               <TypographyMultiline>
                 {general_terms_and_conditions_accepted}
               </TypographyMultiline>
@@ -500,7 +500,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
     if (general_terms_of_use_date_accepted && general_terms_of_use_accepted) {
       return (
         <div className={this.props.classes.termsAndConditions}>
-          {/* @ts-ignore */}
+          {/* @ts-expect-error */}
           <Typography inline color="default" component="div" variant="caption">
             <ButtonBase onClick={() => this.props.setShowTermsOfUse(true)}>
               <Typography color="secondary" variant="caption">

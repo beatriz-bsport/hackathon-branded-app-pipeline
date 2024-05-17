@@ -144,6 +144,6 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['subscription']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
 )(MarketplaceSubscriptionContractList);

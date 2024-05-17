@@ -1332,7 +1332,7 @@ export default compose(
       REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED,
     ),
   })),
-  // @ts-ignore
+  // @ts-expect-error
   withTranslation(['booking']),
   routerParamsToProps({
     id: 'id:number',

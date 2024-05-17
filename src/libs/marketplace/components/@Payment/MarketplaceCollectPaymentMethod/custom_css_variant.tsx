@@ -3,7 +3,7 @@ import {
   MarketplaceCollectPaymentMethodForStorybook as MarketplaceCollectPaymentMethod,
   Props as MarketplaceCollectPaymentMethodProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCollectPaymentMethodCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

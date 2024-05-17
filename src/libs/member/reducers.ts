@@ -167,7 +167,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         )
         .setIn(
           ['allIds'],
-          // @ts-ignore
+          // @ts-expect-error
           [...state.allIds, ...action.payload.map((m: Member) => m.id)],
         );
     },
@@ -405,7 +405,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         .set('loading', false)
         .set('historyListIds', [
           member.id,
-          // @ts-ignore
+          // @ts-expect-error
           ...state.historyListIds.filter((m) => m !== member.id).slice(0, 10),
         ]);
     },
@@ -430,7 +430,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         ['detailData', action.note.member, 'notes'],
         [
           action.note,
-          ...// @ts-ignore
+          ...// @ts-expect-error
           (state.detailData[action.note.member] || { notes: [] }).notes.filter(
             (n: MemberNote) => n.id !== action.note.id,
           ),
@@ -438,11 +438,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       );
     },
     [actionTypes.MEMBER_NOTE_DELETE_SUCCESS.toString()]: (state, action) => {
-      // @ts-ignore
+      // @ts-expect-error
       if (state.detailData[action.memberId]) {
         return state.setIn(
           ['detailData', action.memberId, 'notes'],
-          // @ts-ignore
+          // @ts-expect-error
           state.detailData[action.memberId].notes.filter(
             (n: MemberNote) => n.id !== action.noteId,
           ),
@@ -460,11 +460,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     },
 
     [actionTypes.MEMBER_ADD_FILE_SUCCESS.toString()]: (state, action) => {
-      // @ts-ignore
+      // @ts-expect-error
       if (state.detailData[action.response.member]) {
         return state.setIn(
           ['detailData', action.response.member, 'files'],
-          // @ts-ignore
+          // @ts-expect-error
           [action.response, ...state.detailData[action.response.member].files],
         );
       }
@@ -493,11 +493,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       return state.setIn(['upsert', ' error'], action.error);
     },
     [actionTypes.MEMBER_REMOVE_FILE_SUCCESS.toString()]: (state, action) => {
-      // @ts-ignore
+      // @ts-expect-error
       if (state.detailData[action.response.memberId]) {
         return state.setIn(
           ['detailData', action.response.memberId, 'files'],
-          // @ts-ignore
+          // @ts-expect-error
           state.detailData[action.response.memberId].files.filter(
             (n: any) => n.id !== action.response.fileId,
           ),

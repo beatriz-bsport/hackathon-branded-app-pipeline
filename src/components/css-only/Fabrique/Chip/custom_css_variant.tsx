@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import Chip, { Props as ChipProps } from '.';
 import { ChipColorEnum, ChipSizeEnum, ChipVariantEnum } from './constants';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ChipCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

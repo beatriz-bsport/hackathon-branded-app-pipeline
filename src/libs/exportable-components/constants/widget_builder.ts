@@ -37,15 +37,15 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
     label: 'marketplace.calendar',
     defaultConfig: {
-      // @ts-ignore
+      // @ts-expect-error
       coaches: [],
-      // @ts-ignore
+      // @ts-expect-error
       establishments: [],
-      // @ts-ignore
+      // @ts-expect-error
       metaActivities: [],
-      // @ts-ignore
+      // @ts-expect-error
       levels: [],
-      // @ts-ignore
+      // @ts-expect-error
       variant: null,
       groupSessionByPeriod: true,
     },
@@ -68,13 +68,13 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
     label: 'marketplace.workshop',
     defaultConfig: {
-      // @ts-ignore
+      // @ts-expect-error
       coaches: [],
-      // @ts-ignore
+      // @ts-expect-error
       establishments: [],
-      // @ts-ignore
+      // @ts-expect-error
       metaActivities: [],
-      // @ts-ignore
+      // @ts-expect-error
       levels: [],
     },
   },
@@ -82,9 +82,9 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_PASS,
     label: 'marketplace.pass',
     defaultConfig: {
-      // @ts-ignore
+      // @ts-expect-error
       paymentPackCategories: [],
-      // @ts-ignore
+      // @ts-expect-error
       privatePassCategories: [],
     },
   },
@@ -92,7 +92,7 @@ export const EXPORTABLE_COMPONENTS = [
     label: 'marketplace.vod',
     identifier: EXPORTABLE_COMPONENT_TYPE_VOD,
     defaultConfig: {
-      // @ts-ignore
+      // @ts-expect-error
       videoId: null,
     },
   },
@@ -124,16 +124,16 @@ export const EXPORTABLE_COMPONENTS = [
     label: 'newsletter',
     defaultConfig: {
       fieldsType: 'fullNameAndEmail',
-      // @ts-ignore
+      // @ts-expect-error
       title: null,
       showTitle: true,
-      // @ts-ignore
+      // @ts-expect-error
       subtitle: null,
       showSubtitle: true,
-      // @ts-ignore
+      // @ts-expect-error
       successTitle: null,
       showSuccessTitle: true,
-      // @ts-ignore
+      // @ts-expect-error
       successText: null,
       showSuccessText: true,
     },
@@ -142,7 +142,7 @@ export const EXPORTABLE_COMPONENTS = [
     identifier: EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
     label: 'giftcard',
     defaultConfig: {
-      // @ts-ignore
+      // @ts-expect-error
       giftcards: [],
     },
   },

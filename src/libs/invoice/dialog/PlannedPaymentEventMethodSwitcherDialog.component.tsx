@@ -30,11 +30,11 @@ import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import DateInput from '../../../components/input/DateInput.component';
-// @ts-ignore
+// @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-// @ts-ignore
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';
@@ -239,7 +239,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
         return 'card';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
         return 'sepa_debit';
-      // @ts-ignore
+      // @ts-expect-error
       case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
         return 'bacs_debit';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
@@ -252,12 +252,12 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     useState(() => {
       if (
         props.registerNow &&
-        // @ts-ignore
+        // @ts-expect-error
         props.selectedPPE._payment_backend_payment_method_id
       ) {
         const initialPaymentMethod = props.savedPaymentMethodList.find(
           (pm) =>
-            // @ts-ignore
+            // @ts-expect-error
             pm.id === props.selectedPPE._payment_backend_payment_method_id,
         );
         if (initialPaymentMethod) return initialPaymentMethod.id;
@@ -282,7 +282,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     setSelectedSavedPaymentMethodId(null);
     switch (value) {
       case 'bacs_debit':
-        // @ts-ignore
+        // @ts-expect-error
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT);
         break;
       case 'sepa_debit':
@@ -397,7 +397,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                   detachPaymentMethod={props.detachPaymentMethod}
                   detachPaymentMethodLoading={props.detachPaymentMethodLoading}
                   disabled={props.plannedPaymentEventLoading}
-                  // @ts-ignore
+                  // @ts-expect-error
                   memberId={props.memberId}
                   onSelect={(method) => setSelectedSavedPaymentMethodId(method)}
                   paymentMethodType={paymentMethodType}

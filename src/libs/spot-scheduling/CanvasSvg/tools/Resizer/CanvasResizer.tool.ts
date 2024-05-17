@@ -168,7 +168,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
 
   private getMousePosition = (svgId: string, evt: any) => {
     const svg = document.getElementById(svgId);
-    // @ts-ignore
+    // @ts-expect-error
     const CTM = svg.getScreenCTM();
     return {
       x: (evt.clientX - CTM.e) / CTM.a,

@@ -3,7 +3,7 @@ import React from 'react';
 import MarketplaceActivityDialogCSSOnly, {
   Props as MarketplaceActivityDialogCSSOnlyProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceActivityDialogCSSOnlyCss from '!!raw-loader!./MarketplaceActivityDialogCSSOnly.css';
 import {

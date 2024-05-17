@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplaceFilterCSSOnly, {
   Props as MarketplaceFilterCSSOnlyProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceFilterCss from '!!raw-loader!./MarketplaceFilterCSSOnly.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

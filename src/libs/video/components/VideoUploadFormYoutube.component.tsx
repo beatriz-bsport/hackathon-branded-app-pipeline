@@ -100,7 +100,7 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
   };
 
   onChangeDuration = (key: 'minutes' | 'hours', value: string) => {
-    // @ts-ignore
+    // @ts-expect-error
     this.setState((prevState: State) => {
       let { durationError } = prevState;
 

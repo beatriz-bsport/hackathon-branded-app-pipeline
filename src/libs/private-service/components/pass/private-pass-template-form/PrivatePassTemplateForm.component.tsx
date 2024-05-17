@@ -357,14 +357,14 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
-  // @ts-ignore
+  // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
         ...initial,
         start_date_method: `${initial.start_date_method}`,
         unusable_by_staff: !initial.is_usable_by_staff,
-        // @ts-ignore
+        // @ts-expect-error
         expiration_date_active: !!initial?.expiration_date,
       };
 
@@ -387,16 +387,16 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  // @ts-ignore
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit(
       {
         ...values,
         is_usable_by_staff: !values.unusable_by_staff,
         expiration_date:
-          // @ts-ignore
+          // @ts-expect-error
           values.expiration_date_active && values.expiration_date
-            ? // @ts-ignore
+            ? // @ts-expect-error
               DateTime.fromISO(values.expiration_date).toISODate()
             : null,
       },

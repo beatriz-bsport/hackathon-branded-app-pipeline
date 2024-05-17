@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { DateTime } from 'luxon';
 import MemberProgramIconWithDetail from '#libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-// @ts-ignore
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 
 import type { Member } from '#libs/member/types';
@@ -61,7 +61,7 @@ export const ProgramDetailMember: React.FC<Props> = ({
             key={item.id}
             dense
             divider
-            // @ts-ignore
+            // @ts-expect-error
             button={!!onClickMember && hasMemberProfileAccessPermission}
             className={classes.listItem}
             disabled={loading}

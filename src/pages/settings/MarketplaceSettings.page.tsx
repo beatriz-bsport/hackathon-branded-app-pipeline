@@ -363,5 +363,5 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  // @ts-ignore
+  // @ts-expect-error
 )(MarketplaceSettingsPages);

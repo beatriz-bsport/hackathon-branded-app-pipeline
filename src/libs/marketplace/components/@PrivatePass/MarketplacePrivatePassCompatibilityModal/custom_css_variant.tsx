@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplacePrivatePassCompatibilityModal, {
   Props as MarketplacePrivatePassCompatibilityModalProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePrivatePassCompatibilityModalCss from '!!raw-loader!./styles.css';
 import { privateServiceListFactory } from '#libs/private-service/factory';

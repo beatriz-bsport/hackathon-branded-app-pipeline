@@ -17,11 +17,11 @@ import {
   IntegerField,
   CheckboxField,
   SwitchField,
-  // @ts-ignore
+  // @ts-expect-error
 } from '#components/forms';
-// @ts-ignore
+// @ts-expect-error
 import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
-// @ts-ignore
+// @ts-expect-error
 import ImageField from '#components/forms/ImageField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';

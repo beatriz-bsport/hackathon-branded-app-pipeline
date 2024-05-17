@@ -11,9 +11,9 @@ import {
 import { ExportableComponentsState } from './types';
 
 const DEFAULT_CONFIG = {
-  // @ts-ignore
+  // @ts-expect-error
   id: null,
-  // @ts-ignore
+  // @ts-expect-error
   udpated_at: null,
   components_css: {},
   apply_on_marketplace: false,

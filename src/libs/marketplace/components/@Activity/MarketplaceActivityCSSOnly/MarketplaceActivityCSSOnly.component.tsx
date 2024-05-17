@@ -23,7 +23,7 @@ import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceB
 import { useOfferHours } from '../../../hooks';
 import { Level } from '#libs/level/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
-// @ts-ignore
+// @ts-expect-error
 import Map from '#components/map/Map.component';
 
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -218,7 +218,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               whiteText
               companyTheme={companyTheme}
               credits={offer?.credit_price}
-              // @ts-ignore
+              // @ts-expect-error
               creditsOverride={offer?.credit_price_override}
             />
             <MarketplaceLevel
@@ -423,7 +423,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
           <MarketplaceBookButtonForDialog
             group={groupData}
             metaActivity={metaActivity}
-            // @ts-ignore
+            // @ts-expect-error
             offer={offer}
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}

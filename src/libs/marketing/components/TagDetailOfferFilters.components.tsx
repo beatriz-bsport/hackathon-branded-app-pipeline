@@ -16,7 +16,7 @@ import {
   DateField,
   Actions,
   defaultHandleSubmit,
-  // @ts-ignore
+  // @ts-expect-error
 } from '#components/forms';
 import { TagAuthorizationFilter } from '../../../pages/marketing/MarketingTagManagement.page';
 
@@ -64,7 +64,7 @@ export function TagDetailOffersHeaderForm() {
           <MaterialUiSingleSelectorField
             isMulti={false}
             name="tagAuthorizationFilter"
-            // @ts-ignore
+            // @ts-expect-error
             options={tagAuthorizationOptions(t)}
             placeholder={t('form.compability.selectPack')}
             title={

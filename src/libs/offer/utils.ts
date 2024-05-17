@@ -141,7 +141,7 @@ export const getOffersWithMoreInformation = (
   metaActivities: MetaActivity[],
   customLevels: Level[],
 ): OfferDataListItem[] =>
-  // @ts-ignore typescript is not inferring correctly the type of offer ...
+  // @ts-expect-error typescript is not inferring correctly the type of offer ...
   (offers ?? []).map((offer) => {
     return {
       ...offer,

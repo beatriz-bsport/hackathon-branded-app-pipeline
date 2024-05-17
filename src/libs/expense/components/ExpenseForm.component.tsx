@@ -22,7 +22,7 @@ import {
   TextField,
   DateField,
   PriceField,
-  // @ts-ignore
+  // @ts-expect-error
 } from '../../../components/forms';
 import { UserRole } from '#libs/role/types';
 import ExpenseRecurrencySelector from '../../../components/input/ExpenseRecurrencySelector.component';
@@ -251,7 +251,7 @@ export const ExpenseForm = (props: Props) => {
 
                     <Field name="rrule">
                       {
-                        // @ts-ignore
+                        // @ts-expect-error
                         ({ field, form: { setFieldValue } }) => (
                           <ExpenseRecurrencySelector
                             {...field}
@@ -260,15 +260,15 @@ export const ExpenseForm = (props: Props) => {
                             onChange={(recRule) => {
                               const rule = { ...recRule };
                               for (const key in rule) {
-                                // @ts-ignore
+                                // @ts-expect-error
                                 if (rule[key] === null) {
-                                  // @ts-ignore
+                                  // @ts-expect-error
                                   delete rule[key];
                                 } else if (
                                   key === 'until' ||
                                   key === 'dtstart'
                                 ) {
-                                  // @ts-ignore
+                                  // @ts-expect-error
                                   rule[key] = new Date(rule[key]);
                                 }
                               }

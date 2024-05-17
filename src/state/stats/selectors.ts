@@ -18,7 +18,7 @@ import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
-  // @ts-ignore
+  // @ts-expect-error
 } from '#libs/statistics/utils';
 
 export const mainChartSelector = (state: RootState) => state.stats.mainChart;

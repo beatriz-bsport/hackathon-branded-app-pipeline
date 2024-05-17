@@ -44,7 +44,7 @@ export const getMissingResourceForBooking = (
     service.establishments.length &&
     !data.establishment &&
     (asManager ||
-      // @ts-ignore
+      // @ts-expect-error
       service.establishment_attribution === ResourceAttributionEnum.consumer)
   ) {
     missing.push('establishment');
@@ -71,7 +71,7 @@ export const splitIntervalList = (
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
-        // @ts-ignore
+        // @ts-expect-error
         (DateTime.fromISO(end) - DateTime.fromISO(start)) /
           (1000 * 60 * booking_interval),
         10,
@@ -227,7 +227,7 @@ export const getFormInitial = (
     delete initialPass.private_services;
     return initialPass;
   }
-  // @ts-ignore
+  // @ts-expect-error
   const updatedPass = { ...pass, compatibility: [] };
   delete updatedPass.private_services;
   return updatedPass;
@@ -584,12 +584,12 @@ export const formatSlotDetailData = memoize(
     const res = {};
 
     // Only include resource types that are not empty in result
-    // @ts-ignore
+    // @ts-expect-error
     if (associated_coach.length) res.associated_coach = associated_coach;
     if (associated_establishment.length)
-      // @ts-ignore
+      // @ts-expect-error
       res.associated_establishment = associated_establishment;
-    // @ts-ignore
+    // @ts-expect-error
     if (private_service.length) res.private_service = private_service;
 
     return res;

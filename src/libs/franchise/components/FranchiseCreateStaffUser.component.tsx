@@ -15,7 +15,7 @@ import classNames from 'classnames';
 import { Actions, Submit } from '#components/forms';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
-// @ts-ignore
+// @ts-expect-error
 import PasswordInput from '#components/input/PasswordInput.component';
 import {
   FranchiseUserRoleData,

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import { DateTime } from 'luxon';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-// @ts-ignore
+// @ts-expect-error
 import { TextField, DateField, TimeField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard, GiftcardBackgroundImage } from '../types';
@@ -90,7 +90,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
         variant="outlined"
       />
       {props.giftcardBackgroundImageList.length > 0 && (
-        // @ts-ignore
+        // @ts-expect-error
         <CarouselInputField
           handleSelectedImage={handleSelectedImage}
           imagesArr={props.giftcardBackgroundImageList.map((img) => img.image)}
@@ -100,7 +100,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
           title={t('consumerGiftcard.form.select_image')}
         />
       )}
-      {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <EmailInputWithChipsField
         emailList={props.values.recipients}
         textFieldLabel={t('consumerGiftcard.form.recipients.label')}
@@ -185,7 +185,7 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
 
 export const ConsumerGiftcardFormFieldHOC = withFormik({
   // eslint-disable-next-line
-  // @ts-ignore
+  // @ts-expect-error
   mapPropsToValues: ({ giftcard }) => ({
     ...{
       message_is_from: '',
@@ -202,7 +202,7 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
   validationSchema: ConsumerGiftcardSchema,
   handleSubmit: (
     values,
-    // @ts-ignore
+    // @ts-expect-error
     { props: { onSubmit, onSuccess, onError }, setSubmitting },
   ) => {
     // eslint-disable-next-line
@@ -224,5 +224,5 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
 });
 
 export const ConsumerGiftcardFormComposed =
-  // @ts-ignore
+  // @ts-expect-error
   ConsumerGiftcardFormFieldHOC(ConsumerGiftcardForm);

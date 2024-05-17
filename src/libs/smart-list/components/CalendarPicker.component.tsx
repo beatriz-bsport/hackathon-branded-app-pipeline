@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   withTranslation,
-  // @ts-ignore
+  // @ts-expect-error
   TFunction,
 } from 'react-i18next';
 import { compose } from 'recompose';

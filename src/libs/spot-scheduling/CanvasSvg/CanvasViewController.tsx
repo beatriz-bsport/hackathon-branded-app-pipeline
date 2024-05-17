@@ -382,7 +382,7 @@ class CanvasViewController extends React.PureComponent<Props> {
     return orderedElementsAndDraft.map((elementOrDraft) => {
       if (elementOrDraft.draftType) {
         const DraftComponent = CanvasComponentClasses[elementOrDraft.draftType];
-        // @ts-ignore
+        // @ts-expect-error
         const tool = CanvasSelectableToolStrategy[elementOrDraft.draftType];
 
         if (this.state.isUnsafeZone) {

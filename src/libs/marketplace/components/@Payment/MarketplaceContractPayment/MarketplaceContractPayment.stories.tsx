@@ -26,7 +26,7 @@ const defaultArgs = {
     PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
     PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   ],
-  // @ts-ignore
+  // @ts-expect-error
   savedPaymentMethodList: [],
   sepaDefaultName: 'John Doe',
   sepaDefaultEmail: 'john.doe@gmail.com',
@@ -45,7 +45,7 @@ const defaultArgs = {
 };
 
 const ContractPaymentTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceContractPaymentForStorybook {...args} />
 );
 

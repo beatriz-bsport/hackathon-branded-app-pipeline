@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import Badge from '.';
 import { BadgeColorEnum } from './constants';
 import { BadgeColor } from './types';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import BadgeCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

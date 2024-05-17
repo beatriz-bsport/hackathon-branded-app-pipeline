@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   withTranslation,
-  // @ts-ignore
+  // @ts-expect-error
   TFunction,
 } from 'react-i18next';
 import { compose } from 'recompose';
@@ -59,7 +59,7 @@ export class PaymentMethodFilter extends Component<Props> {
         </div>
         {t(`filters.${filter_data.filter_identifier}.labelFirst`)}
         <Select
-          // @ts-ignore
+          // @ts-expect-error
           className={classes.input}
           onChange={(ev) => onChange({ owns_payment_method: ev.target.value })}
           value={valueAsString}
@@ -73,7 +73,7 @@ export class PaymentMethodFilter extends Component<Props> {
         </Select>
 
         {valueAsString === '1' && (
-          // @ts-ignore
+          // @ts-expect-error
           <div className={classes.row}>
             {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
             <CalendarPicker

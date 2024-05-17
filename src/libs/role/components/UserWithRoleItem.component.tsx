@@ -21,7 +21,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
-// @ts-ignore
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { Role, UserRole, SelectFieldItem, FranchiseRole } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -360,7 +360,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation('role'),
 )(UserWithRoleItem);

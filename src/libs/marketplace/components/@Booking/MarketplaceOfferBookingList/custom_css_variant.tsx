@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import MarketplaceOfferBookingList, { Props } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceOfferBookingListCss from '!!raw-loader!./styles.css';
 

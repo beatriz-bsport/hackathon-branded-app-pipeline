@@ -76,7 +76,7 @@ type Props = {
     options: OptionCallback,
   ) => void;
   incompatibilitiesReasons: {
-    // @ts-ignore
+    // @ts-expect-error
     [offerAndCpp: [offer_id: number, cpp_id: string]]: number[];
   };
   width: Breakpoint;
@@ -135,7 +135,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
   };
 
   handleInfoIncompatibilitesHovering = () => {
-    // @ts-ignore
+    // @ts-expect-error
     this.setState((prevState: State) => {
       if (prevState.consumerPackHasBeenHovered)
         return {
@@ -441,7 +441,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             offerStart.startOf('day') <= maxoutEnd.startOf('day') &&
             d.booking_available === 0
           ) {
-            // @ts-ignore
+            // @ts-expect-error
             maxout[key] = true;
           }
         });
@@ -503,15 +503,15 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     let listItemPrimaryText: string;
     if (hideConsumer) {
       listItemPrimaryText = paymentPack?.name || ' - ';
-      // @ts-ignore
+      // @ts-expect-error
     } else if (consumer?.name) {
-      // @ts-ignore
+      // @ts-expect-error
       listItemPrimaryText = consumer.name;
     } else {
       listItemPrimaryText =
-        // @ts-ignore
+        // @ts-expect-error
         `${consumer?.first_name || ''}${
-          // @ts-ignore
+          // @ts-expect-error
           consumer?.last_name ? ` ${consumer.last_name}` : ''
         }` || ' - ';
     }
@@ -538,7 +538,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             >
               {hideConsumer ? null : (
                 <ListItemAvatar>
-                  {/*  @ts-ignore */}
+                  {/* @ts-expect-error */}
                   <Avatar src={consumer ? consumer.photo : null} />
                 </ListItemAvatar>
               )}
@@ -546,11 +546,10 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                 primary={
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                      {/* ts-ignore */}
                       <Typography>{listItemPrimaryText}</Typography>
 
                       {
-                        // @ts-ignore
+                        // @ts-expect-error
                         consumer && consumer.archived && (
                           <Typography color="secondary" variant="caption">
                             {`(${t('member:archived')})`}

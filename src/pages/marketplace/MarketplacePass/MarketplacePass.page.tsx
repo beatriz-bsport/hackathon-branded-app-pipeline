@@ -25,9 +25,9 @@ import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import MarketplacePaymentPackList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackList';
 import MarketplacePrivatePassList from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassList';
 
-// @ts-ignore
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
-// @ts-ignore
+// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getPaymentPackCategoriesWithPacks } from '#libs/payment-packs/selectors';
 // checkout

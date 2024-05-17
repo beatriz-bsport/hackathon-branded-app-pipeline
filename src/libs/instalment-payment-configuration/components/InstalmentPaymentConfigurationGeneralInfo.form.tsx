@@ -15,7 +15,7 @@ import {
   PriceField,
   RadioGroupField,
   TextField,
-  // @ts-ignore
+  // @ts-expect-error
 } from '../../../components/forms';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { generateInfo, generateRecurrencyString } from '../utils';
@@ -160,7 +160,7 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
           {!partial_payment_enabled && (
             <>
               <Grid item xs={6}>
-                {/* @ts-ignore */}
+                {/* @ts-expect-error */}
                 <MaterialUiSingleSelectorField
                   inScrollBar
                   name="recurrency"

@@ -4,7 +4,7 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import MarketplaceProductItemList, { Props } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceProductItemListCss from '!!raw-loader!./styles.css';
 

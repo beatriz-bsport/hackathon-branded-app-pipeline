@@ -43,7 +43,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
   );
 
   const firstOfferInGroupIsInThePast = useMemo(
-    // @ts-ignore
+    // @ts-expect-error
     () => isOfferInGroupLockedByPreviousOfferInPast(offer, group),
     [group, offer],
   );
@@ -98,7 +98,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
               : 'book-button__inner__text'
           }
         >
-          {/* @ts-ignore */}
+          {/* @ts-expect-error */}
           {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
         </div>
       </div>

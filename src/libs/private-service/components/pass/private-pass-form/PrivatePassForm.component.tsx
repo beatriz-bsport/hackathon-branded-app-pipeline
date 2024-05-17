@@ -358,7 +358,7 @@ export const PrivatePassForm = (props: Props) => {
           <BookkeepingAccountSelector
             bookkeepingAccountById={props.bookkeepingAccountById}
             bookkeepingAccounts={props.bookkeepingAccounts}
-            // @ts-ignore
+            // @ts-expect-error
             selectedBookkeepingAccountId={values.bookkeeping_account}
             setFieldValue={setBookkeepingAccount}
           />
@@ -444,7 +444,7 @@ export const PrivatePassForm = (props: Props) => {
               <InfoIcon color="disabled" />
             </ToolTip>
           </div>
-          {/* @ts-ignore */}
+          {/* @ts-expect-error */}
           <Collapse in={values.expiration_date_active}>
             <InputLabel className={classes.inputLabelExpirationDate}>
               {t('privatePass.form.expiration_date.helperText')}
@@ -1066,7 +1066,7 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
-  // @ts-ignore
+  // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
@@ -1081,11 +1081,11 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         linked_payment_pack_metaActivities:
           initial.linked_payment_pack?.metaActivities || [],
         unusable_by_staff: !initial.is_usable_by_staff,
-        // @ts-ignore
+        // @ts-expect-error
         applies_for_payroll: initial.applies_for_payroll,
-        // @ts-ignore
+        // @ts-expect-error
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
-        // @ts-ignore
+        // @ts-expect-error
         expiration_date_active: !!initial?.expiration_date,
         credits: initial?.credits,
         tags_on_consumer_item_creation:
@@ -1139,13 +1139,13 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         : {}),
       is_usable_by_staff: !values.unusable_by_staff,
       expiration_date:
-        // @ts-ignore
+        // @ts-expect-error
         values.expiration_date_active && values.expiration_date
           ? DateTime.fromISO(values.expiration_date).toISODate()
           : null,
       credits,
     };
-    // @ts-ignore
+    // @ts-expect-error
     onSubmit(newValues, {
       onSuccess: () => {
         trackFormSuccess(initial?.id);

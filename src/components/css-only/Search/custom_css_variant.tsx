@@ -1,7 +1,7 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Search, { Props as SearchProps } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SearchCss from '!!raw-loader!./style.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

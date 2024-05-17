@@ -9,7 +9,7 @@ import {
 import { TitleSize } from './constants';
 import Title, { Props as TitleProps } from '.';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TitleCss from '!!raw-loader!./styles.css';
 import type { CompanyTheme } from '#libs/theme/types';

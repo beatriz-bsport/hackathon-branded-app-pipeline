@@ -14,7 +14,7 @@ import CanvasPreview from './CanvasPreview.component';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
 import SpiviCorrespondenceTable from '../SpiviCorrespondenceTable.component';
-// @ts-ignore
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -167,7 +167,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['spotScheduling']),
 )(CanvasPreviewDialog);

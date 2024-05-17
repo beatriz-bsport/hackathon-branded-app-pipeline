@@ -236,7 +236,7 @@ export const PaymentPackForm: React.FC<Props> = ({
     <div>
       <Formik
         enableReinitialize
-        // @ts-ignore
+        // @ts-expect-error
         initialValues={
           initial
             ? {
@@ -248,24 +248,24 @@ export const PaymentPackForm: React.FC<Props> = ({
                 validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
                 lower_date: initial?.validity_daterange
                   ? DateTime.fromISO(
-                      // @ts-ignore
+                      // @ts-expect-error
                       JSON.parse(initial?.validity_daterange).lower,
                     ).toISODate()
                   : now,
                 upper_date: initial?.validity_daterange
                   ? DateTime.fromISO(
-                      // @ts-ignore
+                      // @ts-expect-error
                       JSON.parse(initial?.validity_daterange).upper,
                     ).toISODate()
                   : oneMonthLater,
                 validity_daterange: initial?.validity_daterange
                   ? {
                       lower: DateTime.fromISO(
-                        // @ts-ignore
+                        // @ts-expect-error
                         JSON.parse(initial?.validity_daterange).lower,
                       ).toISODate(),
                       upper: DateTime.fromISO(
-                        // @ts-ignore
+                        // @ts-expect-error
                         JSON.parse(initial?.validity_daterange).upper,
                       ).toISODate(),
                     }
@@ -276,14 +276,14 @@ export const PaymentPackForm: React.FC<Props> = ({
                 start_date_method: `${
                   initial?.start_date_method ?? START_ON_PURCHASE
                 }`,
-                // @ts-ignore
+                // @ts-expect-error
                 penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
                 no_show_penalty_kind:
-                  // @ts-ignore
+                  // @ts-expect-error
                   penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
                 categories:
                   initial?.categories
-                    // @ts-ignore
+                    // @ts-expect-error
                     ?.map((category) => category?.id)
                     ?.filter((category_id) => !!category_id) ?? [],
 
@@ -291,9 +291,9 @@ export const PaymentPackForm: React.FC<Props> = ({
                 linked_private_pass_compatibility: getFormInitialValue,
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
-                // @ts-ignore
+                // @ts-expect-error
                 applies_for_payroll: initial?.applies_for_payroll,
-                // @ts-ignore
+                // @ts-expect-error
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: offPeakScheduleIsEmpty,
                 off_peak_schedule: offPeakGroupOnEdit,
@@ -418,12 +418,12 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.expiration_date = null;
           }
           if (values.off_peak_active && values.off_peak_schedule) {
-            // @ts-ignore
+            // @ts-expect-error
             sanitizedValues.off_peak_schedule = formatOffPeakScheduleOnSubmit(
               values.off_peak_schedule,
             );
           } else {
-            // @ts-ignore
+            // @ts-expect-error
             sanitizedValues.off_peak_schedule = {};
           }
           const keys = [
@@ -480,7 +480,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             'bookkeeping_account',
           ];
           const data = pick(sanitizedValues, keys);
-          // @ts-ignore
+          // @ts-expect-error
           onSubmit(data, {
             onSuccess: () => {
               actions.setSubmitting(false);

@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-// @ts-ignore
+// @ts-expect-error
 import { State } from '../../../state/types';
 
 import { PrivateService, PrivateSlot } from '../types';
@@ -140,7 +140,7 @@ export const getPrivateServiceById: (
     establishments: ps.establishments
       .map((c) =>
         Object.values(establishmentData).find((e_) =>
-          // @ts-ignore TODO TYPES
+          // @ts-expect-error TODO TYPES
           e_.associatedestablishment_set.includes(c),
         ),
       )
@@ -279,7 +279,7 @@ export const getPrivateServicesList: (
         ),
         establishments: ps.establishments.map((e) =>
           Object.values(allEstablishments).find((ae) =>
-            // @ts-ignore TODO TYPES
+            // @ts-expect-error TODO TYPES
             ae.associatedestablishment_set.includes(e),
           ),
         ),
@@ -307,13 +307,12 @@ export const getPrivateServicesForMarketplace: (state: State) => Array<any> =
           ),
           establishments: ps.establishments.map((e) =>
             Object.values(allEstablishments).find((ae) =>
-              // @ts-ignore TODO TYPES
+              // @ts-expect-error TODO TYPES
               ae.associatedestablishment_set.includes(e),
             ),
           ),
           slots: ps.slots
             .map((s) => allSlotsDict[s])
-            // @  ts-ignore TODO TYPES
             .filter((s) => !!s && s.available),
         })),
   );

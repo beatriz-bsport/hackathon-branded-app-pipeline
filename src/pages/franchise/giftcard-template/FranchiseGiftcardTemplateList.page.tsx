@@ -148,7 +148,7 @@ const withStateHandlersInit: {
 const withStateHandlersSetter = {
   onCreateTemplate: () => () => ({
     openForm: true,
-    // @ts-ignore
+    // @ts-expect-error
     templateToUpdate: null,
   }),
   closeCreateOrUpdateForm: () => () => ({ openForm: false }),

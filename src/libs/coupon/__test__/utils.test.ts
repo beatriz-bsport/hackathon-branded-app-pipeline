@@ -141,9 +141,9 @@ class MockFile {
 
 // Set up the JSDOM environment
 const dom = new JSDOM();
-// @ts-ignore
+// @ts-expect-error
 global.File = MockFile;
-// @ts-ignore
+// @ts-expect-error
 global.window = dom.window;
 global.document = dom.window.document;
 

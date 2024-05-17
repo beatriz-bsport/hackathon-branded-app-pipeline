@@ -85,11 +85,11 @@ export class CustomFormsFilter extends Component<Props> {
             onChange={(ev) => onChange({ has_filled: ev.target.value })}
             value={filter_data.has_filled}
           >
-            {/* @ts-ignore  eslint-disable-next-line */}
+            {/* @ts-expect-error  eslint-disable-next-line */}
             <MenuItem key="true" value>
               {t(`filters.${filter_data?.filter_identifier}.hasCompleted`)}
             </MenuItem>
-            {/* @ts-ignore eslint-disable-next-line */}
+            {/* @ts-expect-error eslint-disable-next-line */}
             <MenuItem key="false" value={false}>
               {filter_data.all_selected_must_fulfill_condition === true
                 ? t(
@@ -109,7 +109,7 @@ export class CustomFormsFilter extends Component<Props> {
             }
             value={filter_data.all_selected_must_fulfill_condition}
           >
-            {/* @ts-ignore eslint-disable-next-line */}
+            {/* @ts-expect-error eslint-disable-next-line */}
             <MenuItem key="true" value>
               {filter_data.has_filled
                 ? t(`filters.${filter_data?.filter_identifier}.all`)

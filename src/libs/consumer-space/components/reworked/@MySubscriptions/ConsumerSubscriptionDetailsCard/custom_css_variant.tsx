@@ -4,7 +4,7 @@ import ConsumerSubscriptionDetailsCard, {
   ConsumerSubscriptionDetailsCardProps,
 } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConsumerSubscriptionDetailsCardCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
@@ -164,7 +164,7 @@ const usePropsFromVariation = (
     selectedSubscriptionInvoiceDetails: WithBillingHistory
       ? fakeSuccessfulInvoices
       : null,
-    // @ts-ignore creating fake data just to display some invoices
+    // @ts-expect-error creating fake data just to display some invoices
     failedInvoices: withFailedPayments ? fakeFailedInvoices : null,
     selectedSubscriptionsFuturePauses: withFuturePauses
       ? SUBSCRIPTION.pauses

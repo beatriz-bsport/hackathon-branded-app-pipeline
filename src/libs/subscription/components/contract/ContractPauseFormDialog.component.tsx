@@ -158,7 +158,7 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
 
   fetchBillingPlansCompatibility = () => {
     fetchContractPauseInfoAPI({
-      // @ts-ignore
+      // @ts-expect-error
       contract: this.props.contractId,
       from_date: this.state.fromDate,
       until_date: this.state.untilDate,
@@ -308,7 +308,7 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
             </div>
           </div>
         </CustomMuiDialog>
-        {/* @ts-ignore */}
+        {/* @ts-expect-error */}
         <CustomMuiDialog
           buttons={buttonsStep2}
           open={this.state.step === STEP_SUBSCRIPTION_VERIFICATION}

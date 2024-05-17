@@ -251,6 +251,6 @@ const styles = (theme) => ({
   },
 });
 export default withTranslation(['establishment'])(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles)(EstablishmentDetail),
 );

@@ -429,7 +429,7 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['widget']),
   connect(mapStateToProps, mapDispatchToProps),

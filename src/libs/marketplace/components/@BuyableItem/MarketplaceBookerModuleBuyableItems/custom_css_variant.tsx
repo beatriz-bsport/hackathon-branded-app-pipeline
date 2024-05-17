@@ -5,7 +5,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { generateRandomName } from '../../../../../utils/factories';
 
 import MarketplaceBookerModuleBuyableItems from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookerModuleBuyableItemsCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

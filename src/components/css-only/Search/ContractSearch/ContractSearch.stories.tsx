@@ -4,7 +4,7 @@ import { ContractSearchForStorybook, Props } from './index';
 import { contractListFactory } from '#libs/subscription/factory';
 
 const CustomTemplate = (args: Props) => {
-  // @ts-ignore
+  // @ts-expect-error
   return <ContractSearchForStorybook {...args} />;
 };
 

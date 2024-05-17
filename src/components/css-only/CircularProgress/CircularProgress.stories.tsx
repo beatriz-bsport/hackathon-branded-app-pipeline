@@ -3,7 +3,7 @@ import React from 'react';
 import { CircularProgressForStorybook, Props } from './';
 
 const CircularProgressTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <CircularProgressForStorybook {...args} />
 );
 

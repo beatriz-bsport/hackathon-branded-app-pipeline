@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import MenuItemList, { MenuItemListProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MenuItemListCss from '!!raw-loader!./styles.css';
 

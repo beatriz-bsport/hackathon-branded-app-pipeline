@@ -9,7 +9,7 @@ import {
 import MarketplaceContractPayment, {
   Props as MarketplaceContractPaymentProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractPaymentCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

@@ -50,17 +50,17 @@ export const getPassFilterAvailableCategories = (
   t: TFunction,
 ) => {
   const parsedPaymentPackCategories = paymentPackByCategory
-    // @ts-ignore
+    // @ts-expect-error
     .filter((category: PaymentPackCategoryWithPacks) =>
       restrictedCategories.paymentPack?.length
         ? restrictedCategories.paymentPack.includes(category.id)
         : category,
     )
-    // @ts-ignore
+    // @ts-expect-error
     .filter((category: PaymentPackCategoryWithPacks) => !!category.packs.length)
-    // @ts-ignore
+    // @ts-expect-error
     .filter((category: PaymentPackCategoryWithPacks) => !!category.name)
-    // @ts-ignore
+    // @ts-expect-error
     .map((category: PaymentPackCategoryWithPacks) => {
       return {
         label: category.name,
@@ -69,17 +69,17 @@ export const getPassFilterAvailableCategories = (
     });
 
   const parsedPrivatePassCategories = privatePassByCategory
-    // @ts-ignore
+    // @ts-expect-error
     .filter((cat: PrivatePassCategoryWithPasses) =>
       restrictedCategories.privatePass?.length
         ? restrictedCategories.privatePass.includes(cat.id)
         : cat,
     )
-    // @ts-ignore
+    // @ts-expect-error
     .filter((cat: PrivatePassCategoryWithPasses) => !!cat.passes.length)
-    // @ts-ignore
+    // @ts-expect-error
     .filter((cat: PrivatePassCategoryWithPasses) => !!cat.name)
-    // @ts-ignore
+    // @ts-expect-error
     .map((category: PrivatePassCategoryWithPasses) => {
       return {
         label: category.name,
@@ -122,9 +122,9 @@ export const buildBuyableItemCategories = (
   );
 
   // If there are recommended items, include it in first position
-  // @ts-ignore
+  // @ts-expect-error
   if (recommendedItemsCategory.values.length > 0) {
-    // @ts-ignore
+    // @ts-expect-error
     buyableItemCategories.push(recommendedItemsCategory);
   }
 
@@ -138,7 +138,7 @@ export const buildBuyableItemCategories = (
         id: option[0].toString(),
         identifier: option[0],
         name: t('newBookingModule.subscriptions'),
-        // @ts-ignore
+        // @ts-expect-error
         values: availableContracts,
       });
     }
@@ -206,7 +206,7 @@ export const buildRecommendedBuyableItemCategory = (
     item.highlighted_as_recommended;
 
   const recommendedContracts = availableContracts
-    // @ts-ignore
+    // @ts-expect-error
     .filter(onlyRecommended)
     .map((contract) => ({
       identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
@@ -232,21 +232,21 @@ export const buildRecommendedBuyableItemCategory = (
       value: paymentPack,
     }));
 
-  // @ts-ignore
+  // @ts-expect-error
   let recommendedItems: RecommendedBuyableItem = [];
   current_pricing_option_ordering.forEach((option) => {
     if (
       option[0] === CONTRACT_BOOKING_FUNNEL_IDENTIFIER &&
       recommendedContracts.length > 0
     ) {
-      // @ts-ignore
+      // @ts-expect-error
       recommendedItems = recommendedItems.concat(recommendedContracts);
     }
     if (
       option[0] === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER &&
       recommendedComboPacks.length > 0
     ) {
-      // @ts-ignore
+      // @ts-expect-error
       recommendedItems = recommendedItems.concat(recommendedComboPacks);
     }
     if (
@@ -254,7 +254,7 @@ export const buildRecommendedBuyableItemCategory = (
       option[1] === null &&
       recommendedPaymentPacksWithoutCategory.length > 0
     ) {
-      // @ts-ignore
+      // @ts-expect-error
       recommendedItems = recommendedItems.concat(
         recommendedPaymentPacksWithoutCategory,
       );
@@ -266,7 +266,7 @@ export const buildRecommendedBuyableItemCategory = (
       option[0] === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER &&
       paymentPackCategory
     ) {
-      // @ts-ignore
+      // @ts-expect-error
       recommendedItems = recommendedItems.concat(
         recommendedPaymentPacks.filter(
           (item) => item.value.category === paymentPackCategory.id,
@@ -387,7 +387,7 @@ export const getBookingDisplayPrice = (selectedItem: BookerItem) => {
       displayPrice = parseFloat(
         (
           Math.max(parseFloat(firstInvoiceProrataPrice), 0) +
-          // @ts-ignore
+          // @ts-expect-error
           parseFloat(data?.flat_fee ?? 0)
         ).toString(),
       )

@@ -276,7 +276,7 @@ const mapHandlers = {
 
 export const MarketplaceVideoDataProvider = compose<any, OwnProps>(
   marketplaceCssHoc(),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation('video'),
   connect(mapStateToProps, mapDispatchToProps),

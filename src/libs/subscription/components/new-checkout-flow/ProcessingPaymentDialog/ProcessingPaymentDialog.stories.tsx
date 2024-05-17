@@ -6,7 +6,7 @@ import {
 } from './ProcessingPaymentDialog.component';
 
 const ProcessingPaymentDialogTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <ProcessingPaymentDialogForStoryBook {...args} />
 );
 

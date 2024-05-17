@@ -67,11 +67,11 @@ export const checkRequiredPermissions = (
 
     for (let j = 0; j < keysArray.length; j += 1) {
       const key = keysArray[j];
-      // @ts-ignore;
+      // @ts-expect-error;
       if (obj?.[key] === undefined) {
         return false;
       }
-      // @ts-ignore;
+      // @ts-expect-error;
       obj = obj[key];
       haveRight = haveRight && checkNestedPermission(obj);
     }

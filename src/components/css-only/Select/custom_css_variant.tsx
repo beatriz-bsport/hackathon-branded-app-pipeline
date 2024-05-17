@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Select, { Props as SelectProps } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceSelectCss from '!!raw-loader!./style.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

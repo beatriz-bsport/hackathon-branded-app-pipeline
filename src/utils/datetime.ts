@@ -167,7 +167,7 @@ export function sortByDate<T, K extends keyof T>(
   }
 
   return [...values].sort((a, b) =>
-    // @ts-ignore
+    // @ts-expect-error
     DateTime.fromISO(a) < DateTime.fromISO(b) ? -1 : 1,
   );
 }

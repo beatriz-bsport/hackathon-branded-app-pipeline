@@ -2,7 +2,7 @@ import React from 'react';
 
 import ResetPasswordConfirmation from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ResetPasswordConfirmationCss from '!!raw-loader!./styles.css';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved

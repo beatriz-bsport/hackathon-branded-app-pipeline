@@ -231,22 +231,22 @@ export const generateNewFilterItem = (
     datatype === 'datetime' || datatype === 'date' ? DATE_SUBDATA_TYPE : null;
 
   return {
-    // @ts-ignore
+    // @ts-expect-error
     datatype,
     sub_datatype,
     comparator,
     identifier: metadata.identifier,
-    // @ts-ignore
+    // @ts-expect-error
     time_period: getDefaultValueForTimePeriod({
       comparator,
       sub_datatype,
-      // @ts-ignore
+      // @ts-expect-error
       datatype,
       currentTimePeriod: null,
     }),
     value: getDefaultValueForComparator({
       comparator,
-      // @ts-ignore
+      // @ts-expect-error
       datatype,
       currentValue: null,
     }),

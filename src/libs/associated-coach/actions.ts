@@ -289,7 +289,7 @@ export function createOrUpdateCoach(
       }
       const key = coachData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`coach.${key}.success`));
-      // @ts-ignore TODO check this
+      // @ts-expect-error TODO check this
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {

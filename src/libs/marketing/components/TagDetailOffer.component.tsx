@@ -24,7 +24,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
 
 import { OptionCallback } from '../../../state/types';
-// @ts-ignore
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import type { Offer } from '#libs/offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
@@ -110,7 +110,7 @@ const TagDetailOffers = (props: Props) => {
                 <ListItem
                   dense
                   divider
-                  // @ts-ignore
+                  // @ts-expect-error
                   button={!!props.onClickOffer}
                   disabled={props.loading || processing}
                   onClick={

@@ -34,14 +34,14 @@ import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '#libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-// @ts-ignore
+// @ts-expect-error
 import CheckInOfferList from '#libs/check-in/components/CheckInOfferList.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import type { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Offer } from '#libs/offer/types';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-// @ts-ignore
+// @ts-expect-error
 import { requestLogin as requestLoginAction } from '../../actions/auth.actions';
 import { withCustomLevel } from '#libs/level/selectors';
 import type { Dispatch } from '../../state/types';

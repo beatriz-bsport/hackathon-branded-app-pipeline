@@ -16,10 +16,10 @@ import {
   getPaymentComboList,
 } from '#libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
-// @ts-ignore
+// @ts-expect-error
 import { getMarketplaceContractList } from '#libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '#libs/subscription/actions';
-// @ts-ignore
+// @ts-expect-error
 import Analytics from '../../../components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';

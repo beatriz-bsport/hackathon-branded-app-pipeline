@@ -152,7 +152,7 @@ export default compose(
     companyId: 'companyId:number',
     companyName: 'companyName',
   }),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps, mapDispatchToProps),

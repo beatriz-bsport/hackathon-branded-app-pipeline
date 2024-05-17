@@ -778,7 +778,7 @@ const styles = (theme: Theme) => ({
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation('communication'),
   connector,

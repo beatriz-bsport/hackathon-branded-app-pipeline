@@ -141,7 +141,7 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       const newAllIds =
         payload.page === 1
           ? payload.results.map((v: Video) => v.id)
-          : // @ts-ignore
+          : // @ts-expect-error
             [...state.list.allIds, ...payload.results.map((v: Video) => v.id)];
       return state
         .merge(

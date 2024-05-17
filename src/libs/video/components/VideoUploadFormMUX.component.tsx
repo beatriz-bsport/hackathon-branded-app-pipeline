@@ -187,6 +187,6 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['video']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
 )(VideoUploadFormMUX);

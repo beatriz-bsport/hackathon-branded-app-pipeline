@@ -227,7 +227,7 @@ export const MassDisablerDialog = (props: Props) => {
                               disabled
                               similarOffer
                               handleChange={null}
-                              // @ts-ignore fixme
+                              // @ts-expect-error fixme
                               offer={so}
                             />
                           ))}

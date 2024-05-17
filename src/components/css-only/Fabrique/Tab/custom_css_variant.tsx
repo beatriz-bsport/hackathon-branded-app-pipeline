@@ -1,7 +1,7 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import Tab, { Props as TabProps } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TabCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

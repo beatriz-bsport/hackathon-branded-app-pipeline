@@ -635,7 +635,7 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
     const channelIds: string[] = Object.keys(COMMUNICATION_FILTER_CHANNELS);
     const channelList = filters
       .filter((id: number) => channelIds.includes(id.toString()))
-      // @ts-ignore
+      // @ts-expect-error
       .map((id: number) => COMMUNICATION_FILTER_CHANNELS[id]);
     const channel = channelList?.length > 0 ? channelList : undefined;
 
@@ -659,11 +659,11 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
     );
 
     const filterParams: CommunicationFilterParams = {};
-    // @ts-ignore
+    // @ts-expect-error
     if (channel) filterParams.filter_channel = channel;
-    // @ts-ignore
+    // @ts-expect-error
     if (filter_kind) filterParams.filter_kind = filter_kind;
-    // @ts-ignore
+    // @ts-expect-error
     if (filter_recipient) filterParams.filter_recipient = filter_recipient;
     if (filter_send_parameter)
       filterParams.filter_send_parameter = filter_send_parameter;

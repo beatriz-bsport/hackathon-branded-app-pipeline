@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import Selector, { SelectorProps } from '.';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SelectorCss from '!!raw-loader!./styles.css';
 

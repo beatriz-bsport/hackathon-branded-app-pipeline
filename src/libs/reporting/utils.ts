@@ -158,13 +158,13 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'credit',
-    // @ts-ignore
+    // @ts-expect-error
     name: 'Crédit',
     icon: getCurrencyDisplay() === '€' ? EuroIcon : AttachMoneyIcon,
   },
   {
     id: 'payment_sumup',
-    // @ts-ignore
+    // @ts-expect-error
     name: 'Totaux paiements',
     icon: ReceiptIcon,
   },
@@ -214,7 +214,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'workshop',
-    // @ts-ignore
+    // @ts-expect-error
     name: 'Ateliers ',
     icon: WorkshopIcon,
   },
@@ -298,7 +298,7 @@ export const getConverter = (
   }
   const { datatype } = column;
 
-  // @ts-ignore
+  // @ts-expect-error
   return (value: any) => {
     if (datatype === 'price') {
       if (typeof value === 'number' || !value) {
@@ -334,7 +334,7 @@ export const getConverter = (
     if (datatype === 'int') {
       const shouldBeDivided =
         ['memberships', 'private_cpasses'].includes(reportCategory) &&
-        // @ts-ignore
+        // @ts-expect-error
         creditsColumns.includes(column.column_identifier || column.identifier);
 
       if (shouldBeDivided) {
@@ -402,7 +402,7 @@ export const getConverter = (
           value: (value || '')
             .split(',')
 
-            // @ts-ignore
+            // @ts-expect-error
             .map((v) => t(`payment_method.${v}`))
             .join(', '),
         };
@@ -497,7 +497,7 @@ export const generateRowLink = ({
     case ReportCategoryEnum.DAY_BOOKINGS:
       if (rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE]) {
         const date = dateConverterToLink(
-          // @ts-ignore
+          // @ts-expect-error
           rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE],
         );
         return `/calendar/${date}`;
@@ -864,7 +864,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.SUBSHOP:
     case ReportFilterableDataType.VIDEO:
     case ReportFilterableDataType.STAFF:
-      // @ts-ignore
+      // @ts-expect-error
       return `${getDataByTypeAndId(datatype, value) ?? ''}`;
     // Those above are the ones filterable by ID
     case ReportFilterableDataType.DATE:
@@ -1085,12 +1085,12 @@ export const ReportColumnPermissions = {
     ],
   },
   [ReportCategoryEnum.PRIVATE_SERVICE]: {
-    // @ts-ignore
+    // @ts-expect-error
     [PrivateServiceMetadataIdentifierEnum.EMAIL]: [
       'member.allowed_actions.readInfo',
     ],
 
-    // @ts-ignore
+    // @ts-expect-error
     [PrivateServiceMetadataIdentifierEnum.PHONENUMBER]: [
       'member.allowed_actions.readInfo',
     ],
@@ -1246,7 +1246,7 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
 export const getReportGlobalCategoryFromCategory = (
   category: ReportCategoryEnum,
 
-  // @ts-ignore
+  // @ts-expect-error
 ): string => MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES[category];
 
 export const getReportObjectPermissions = (
@@ -1255,7 +1255,7 @@ export const getReportObjectPermissions = (
 ): ReportObjectPermissions => {
   const globalCategory = getReportGlobalCategoryFromCategory(report.category);
 
-  // @ts-ignore
+  // @ts-expect-error
   return get(
     objectLevelPermissions,
     ['report', globalCategory, report.category, 'allowed_actions'],

@@ -2,9 +2,9 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 
-// @ts-ignore
+// @ts-expect-error
 import MemberNotePanel from './MemberNotePanel.component';
-// @ts-ignore
+// @ts-expect-error
 import TagPanel from '../../tag/components/TagPanel.component';
 import type { MemberNote, Member, MemberUploadedFile } from '../types';
 import type { Tag, TagGroup } from '../../tag/types';

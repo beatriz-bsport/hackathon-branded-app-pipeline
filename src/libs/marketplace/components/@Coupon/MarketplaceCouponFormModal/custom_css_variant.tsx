@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplaceCouponFormModal, {
   Props as MarketplaceCouponFormModalProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCouponFormModalCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
@@ -15,7 +15,7 @@ const usePropsFromVariation = (): MarketplaceCouponFormModalProps => {
   return {
     isOpen: true,
     onCancel: () => {},
-    // @ts-ignore
+    // @ts-expect-error
     onSubmit: () => {},
   };
 };

@@ -59,12 +59,12 @@ Sentry.init({
     const error = hint.originalException;
     if (
       error &&
-      // @ts-ignore
+      // @ts-expect-error
       error.message &&
-      // @ts-ignore
+      // @ts-expect-error
       exceptionMessageRegexpToIgnore.reduce(
         (shouldBeIgnore, regexp) =>
-          // @ts-ignore
+          // @ts-expect-error
           shouldBeIgnore || error.message.match(regexp),
         false,
       )

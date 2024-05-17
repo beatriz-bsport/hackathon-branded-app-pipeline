@@ -80,7 +80,7 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
     React.useState(false);
   const [openSelectCompaniesDialog, setOpenSelectCompaniesDialog] =
     React.useState(
-      // @ts-ignore
+      // @ts-expect-error
       // eslint-disable-next-line
       !!parseQueryString(location.search || '')?.openSelectCompaniesForm,
     );

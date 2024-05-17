@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import { getTheme } from '#libs/theme/selectors';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';
-// @ts-ignore
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { OptionCallback } from '../../state/types';
@@ -185,13 +185,13 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       this.loadMembersWithTag(
         1,
         MEMBERS_ITEM_PER_PAGE,
-        // @ts-ignore
+        // @ts-expect-error
         this.props.selectedTagId,
       );
       this.loadMembersWithoutTag(
         1,
         MEMBERS_ITEM_PER_PAGE,
-        // @ts-ignore
+        // @ts-expect-error
         this.props.selectedTagId,
       );
 
@@ -225,7 +225,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
     color?: string;
     icon?: string;
   }) => {
-    // @ts-ignore
+    // @ts-expect-error
     this.props.createOrUpdateTag(data);
   };
 
@@ -487,7 +487,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
             className={classes.row}
             name="tag-kind"
             onChange={(ev) =>
-              // @ts-ignore
+              // @ts-expect-error
               this.props.setQueryParams('tagKind')(ev.target.value)
             }
             value={this.props.tagKind}
@@ -525,7 +525,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               onSelectTag={this.onSelectTag}
               selectedTag={this.props.selectedTag}
               tagGroupList={this.props.tagGroups}
-              // @ts-ignore
+              // @ts-expect-error
               tagKind={this.props.tagKind}
               tagUsageById={this.props.tagUsageById}
             />
@@ -572,7 +572,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     onClickUntagMember={this.onClickUntagMember}
                     onPageRequestWithoutTag={this.loadMembersWithoutTag}
                     onPageRequestWithTag={this.loadMembersWithTag}
-                    // @ts-ignore
+                    // @ts-expect-error
                     tag={this.props.selectedTag}
                     tagAll={this.tagAllMember}
                     untagAll={this.untagAllMember}
@@ -583,7 +583,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                 this.props.tagKind === TAG_KIND_COUPON && (
                   <TagDetailCoupon
                     coupons={this.props.coupons}
-                    // @ts-ignore
+                    // @ts-expect-error
                     goToCoupon={this.props.goToCoupon}
                     loading={this.props.couponsLoading}
                     onClickRemoveTag={this.onClickUntagCoupon}
@@ -687,7 +687,7 @@ const mapDispatchToProps = {
   unTagOfferAction,
 };
 
-// @ts-ignore
+// @ts-expect-error
 const styles = (theme) => ({
   tagDetail: {
     maxHeight: '90vh',
@@ -734,14 +734,14 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   routerParamsToProps({ selectedTagId: 'selectedTagId:number' }),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['tagKind'], 'queryParams', 'setQueryParams']),
-  // @ts-ignore
+  // @ts-expect-error
   withProps(({ queryParams, selectedTagId, tagGroups }) => ({
     tagKind: queryParams?.tagKind || 'member',
     selectedTag: selectedTagId

@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplacePaymentPackCard, {
   Props as MarketplacePaymentPackCardProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackCardCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

@@ -3,7 +3,7 @@ import React from 'react';
 import { MarketplaceContractCooldownModalForStorybook, Props } from '.';
 
 const ContractCooldownModalTemplate = (args: Props) => (
-  // @ts-ignore
+  // @ts-expect-error
   <MarketplaceContractCooldownModalForStorybook {...args} />
 );
 

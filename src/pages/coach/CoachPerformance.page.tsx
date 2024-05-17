@@ -12,7 +12,7 @@ import type { WithStyles } from '@material-ui/styles';
 import type { Theme } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import type { OptionCallback } from '../../state/types';
-// @ts-ignore
+// @ts-expect-error
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import {
@@ -168,13 +168,13 @@ export class CoachPerformance extends React.Component<Props> {
           establishmentGroupListLoading={establishmentGroupListLoading}
           establishments={establishments}
           establishmentsLoading={establishmentsLoading}
-          // @ts-ignore
+          // @ts-expect-error
           handleDateFiltersChange={handleDateFiltersChange}
           isMultiLocalizationEnabled={
             this.props.companyTheme?.enable_multi_localization
           }
           loading={loading || performanceLoading}
-          // @ts-ignore
+          // @ts-expect-error
           onSubmit={onSubmit}
           selectedEstablishments={this.state.selectedEstablishments}
           selectedLocations={this.state.selectedLocations}

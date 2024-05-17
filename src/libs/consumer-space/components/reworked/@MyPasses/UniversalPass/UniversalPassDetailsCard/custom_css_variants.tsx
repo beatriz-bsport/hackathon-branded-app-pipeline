@@ -22,7 +22,7 @@ import type {
   TimeSlot,
 } from '#libs/consumer-space/types';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import UniversalPassDetailsCardCss from '!!raw-loader!./styles.css';
 

@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import MarketplaceWeekTimeTableCSSOnly, {
   Props as MarketplaceWeekTimeTableCSSOnlyProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import WeekTimeTableCss from '!!raw-loader!./MarketplaceWeekTimeTableCSSOnly.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

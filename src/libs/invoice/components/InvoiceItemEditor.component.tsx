@@ -502,7 +502,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       )} (${getCurrencyDisplay()})`}
                       onBlur={handleOnBlurVoucherCredit}
                       onChange={handleOnChangeVoucherCredit}
-                      // @ts-ignore it needs to be a string (for the decimals)
+                      // @ts-expect-error it needs to be a string (for the decimals)
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
                     />
@@ -523,7 +523,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         }}
                         label={`${t('invoiceItem.discount')} (%)`}
                         onChange={handleOnChangeVoucherPercent}
-                        // @ts-ignore it needs to be a string (for the decimals)
+                        // @ts-expect-error it needs to be a string (for the decimals)
                         value={
                           voucherPercent === null ? '0.00' : voucherPercent
                         }
@@ -550,7 +550,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         label={t('invoiceItem.finalPricePreview')}
                         onBlur={handleFinalPricePreviewOnBlur}
                         onChange={handleOnChangeFinalPricePreview}
-                        // @ts-ignore it needs to be a string (for the decimals)
+                        // @ts-expect-error it needs to be a string (for the decimals)
                         value={
                           finalPricePreview === null
                             ? '0.00'

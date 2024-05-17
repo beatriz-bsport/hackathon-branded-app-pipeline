@@ -111,7 +111,7 @@ const ClockInHistory: React.FC<Props> = ({
         }}
         page={page}
         page_size={page_size}
-        // @ts-ignore
+        // @ts-expect-error
         value={usersPaginatedWithAttendanceHistory}
       />
     </>

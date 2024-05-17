@@ -22,7 +22,7 @@ import Button from '@material-ui/core/Button';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import type { ImmutableArray } from 'seamless-immutable';
-// @ts-ignore
+// @ts-expect-error
 import { Submit } from '#components/forms';
 import type { OptionCallback } from '../../../../../state/types';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';

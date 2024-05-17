@@ -210,7 +210,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   reportConfiguration,
   reportFilterConfigs,
   setDisableContinue,
-  // @ts-ignore
+  // @ts-expect-error
   setFieldValue,
   setShowDialog,
   showDialog,
@@ -309,7 +309,7 @@ const ReportGenerationForm: React.FC<Props> = ({
       <Form>
         <div className={classes.flexRow}>
           <div className={classes.datePickerContainer}>
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
                 date_end={DateTime.fromISO(values.dateEnd).toUnixInteger()}
@@ -323,9 +323,9 @@ const ReportGenerationForm: React.FC<Props> = ({
                 timePeriod={values.time_period}
               />
             )}
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             {reportConfiguration.date_type === 'single' && (
-              // @ts-ignore
+              // @ts-expect-error
               <DatePickerSelector
                 date={DateTime.fromISO(values.dateEnd).toUnixInteger()}
                 isDisabled={!!isDisabled}
@@ -381,15 +381,15 @@ const ReportGenerationForm: React.FC<Props> = ({
             <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
           </div>
         </div>
-        {/* @ts-ignore */}
+        {/* @ts-expect-error */}
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector
-            // @ts-ignore
+            // @ts-expect-error
             columnsMetadata={columnsMetadata}
             editReportFilterConfig={editReportFilterConfig}
             error={null}
             fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
-            // @ts-ignore
+            // @ts-expect-error
             handleGetDynamicDataForReport={handleGetDynamicDataForReport}
             isFranchisor={isFranchisor}
             onCreateReportFilterConfigs={handleCreateFilter}
@@ -450,7 +450,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default compose(
   withFormik({
-    // @ts-ignore
+    // @ts-expect-error
     mapPropsToValues: ({ initial, reportConfiguration }) => {
       return (
         initial || {

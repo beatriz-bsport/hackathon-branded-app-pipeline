@@ -12,9 +12,9 @@ import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 
 import uniq from 'lodash/uniq';
-// @ts-ignore
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
-// @ts-ignore
+// @ts-expect-error
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
 import MarketplaceCalendarComponent from '#marketplacecomponents/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
@@ -84,7 +84,7 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-
 
 import withTitle from '#hocs/with-title.hoc';
 
-// @ts-ignore
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
@@ -160,36 +160,36 @@ type State = {
 function withContainerWidthListener<
   WrappedComponentProps extends object,
 >(): () => React.ComponentType<WrappedComponentProps> {
-  // @ts-ignore
+  // @ts-expect-error
   return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
     class WithContainerWidthListener extends Component<WrappedComponentProps> {
       constructor(props: FinalProps) {
-        // @ts-ignore
+        // @ts-expect-error
         super(props);
         // This reference is used to evaluate the size of the calendar,
         // and to determine if it should be displayed in card mode or not.
         // That way, we can enable or disable the fetching of the offers when updating the start date.
-        // @ts-ignore
+        // @ts-expect-error
         this.calendarRefContainer = React.createRef();
       }
 
       state = {
-        // @ts-ignore
+        // @ts-expect-error
         containerWidth: this.calendarRefContainer?.current?.clientWidth,
       };
 
       componentDidMount(): void {
-        // @ts-ignore
+        // @ts-expect-error
         this.intervalId = setInterval(() => {
           this.setState(() => ({
-            // @ts-ignore
+            // @ts-expect-error
             containerWidth: this.calendarRefContainer?.current?.clientWidth,
           }));
         }, 500);
       }
 
       componentWillUnmount() {
-        // @ts-ignore
+        // @ts-expect-error
         clearInterval(this.intervalId);
       }
 
@@ -197,7 +197,7 @@ function withContainerWidthListener<
         return (
           <WrappedComponent
             {...this.props}
-            // @ts-ignore
+            // @ts-expect-error
             calendarRefContainer={this.calendarRefContainer}
             containerWidth={this.state.containerWidth}
           />
@@ -223,7 +223,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     // This reference is used to evaluate the size of the calendar,
     // and to determine if it should be displayed in card mode or not.
     // That way, we can enable or disable the fetching of the offers when updating the start date.
-    // @ts-ignore
+    // @ts-expect-error
     this.calendarRefContainer = React.createRef();
   }
 
@@ -234,14 +234,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
    */
   getIsCompact = () =>
     (this.props.compactMode !== null && this.props.compactMode === true) ||
-    /* @ts-ignore */
+    /* @ts-expect-error */
     (!this.props.compactMode && (this.props.containerWidth ?? 1200) < 1250);
 
   // Large calendar
   getIsLarge = () =>
     (this.props.compactMode != null && this.props.compactMode === false) ||
     (this.props.compactMode == null &&
-      // @ts-ignore
+      // @ts-expect-error
       !((this.props.containerWidth ?? 1240) < 1250));
 
   // Card mode display
@@ -255,11 +255,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
     try {
       const cardModeDisplayMinWidth = parseFloat(
-        // @ts-ignore
+        // @ts-expect-error
         this.props.config?.cardModeDisplayMinWidth,
       );
 
-      // @ts-ignore
+      // @ts-expect-error
       return (this.props.containerWidth ?? 1240) > cardModeDisplayMinWidth;
     } catch (error) {
       console.error(error);
@@ -268,7 +268,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   getStartCalendarWeekOnToday = () =>
-    // @ts-ignore
+    // @ts-expect-error
     this.props.theme.start_calendar_week_on_today &&
     this.getIsCardModeDisplay();
 
@@ -361,15 +361,15 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
      * @remarks
      * This method triggers data fetching when the calendarRefContainer and containerWidth are both available.
      */
-    // @ts-ignore
+    // @ts-expect-error
     this.props.calendarRefContainer &&
-      // @ts-ignore
+      // @ts-expect-error
       this.props.containerWidth &&
       this.fetchData();
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    // @ts-ignore
+    // @ts-expect-error
     if (!prevProps.containerWidth && this.props.containerWidth) {
       this.fetchData();
     }
@@ -459,9 +459,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             ]
           : filteredEstablishmentIds;
 
-        // @ts-ignore
+        // @ts-expect-error
         filteredEstablishments = Immutable<Array<Establishment>>(
-          // @ts-ignore
+          // @ts-expect-error
           this.props.establishments.filter((e: Establishment) =>
             uniqueEstIds.includes(e.id),
           ),
@@ -474,7 +474,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   openOfferDialog = (offerId: number) => {
     this.setState({
       offerId,
-      // @ts-ignore
+      // @ts-expect-error
       offer: this.props.offers.find((o: any) => o.id === offerId),
     });
   };
@@ -553,11 +553,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { redirect, group, ...offer } = this.state.displayGroupPopup;
     if (redirect === 'book') {
-      // @ts-ignore
+      // @ts-expect-error
       this.goToBook(offer);
     }
     if (redirect === 'option') {
-      // @ts-ignore
+      // @ts-expect-error
       this.goToBookOption(offer);
     }
   };
@@ -573,7 +573,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   handleSearch = (searchText: string) => {
     this.setState({
-      // @ts-ignore
+      // @ts-expect-error
       offerSearchResult: {
         query: searchText,
       },
@@ -597,7 +597,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ] = doTextSearch(
         searchText,
         this.props.coaches,
-        // @ts-ignore
+        // @ts-expect-error
         establishments,
         Object.values(metaActivities),
         this.props.offers,
@@ -612,7 +612,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
 
       this.setState({
-        // @ts-ignore
+        // @ts-expect-error
         offerSearchResult: { query: searchText, offerList: searchResult },
       });
     } else {
@@ -635,12 +635,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     // To prevent display flickering between the loading state and the "no offer message,"
     // we need to show loading when the containerWidth is already defined.
-    // @ts-ignore
+    // @ts-expect-error
     const offerLoading = !this.props.containerWidth || loading;
     return (
       <>
         <MarketplaceCalendarComponent
-          // @ts-ignore
+          // @ts-expect-error
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
@@ -679,7 +679,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
-          // @ts-ignore
+          // @ts-expect-error
           refContainer={this.props.calendarRefContainer}
           searchedOffers={this.state.offerSearchResult?.offerList}
           selectedDate={
@@ -703,7 +703,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           coaches={coaches}
           companyTheme={this.props.theme}
           customLevels={this.props.customLevels}
-          // @ts-ignore
+          // @ts-expect-error
           establishments={
             filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
@@ -721,15 +721,15 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               : metaActivities
           }
           offer={this.state.offer}
-          // @ts-ignore
+          // @ts-expect-error
           onClickBook={this.goToBook}
-          // @ts-ignore
+          // @ts-expect-error
           onClickBookOption={this.props.goToBookOption}
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
         />
         {this.state.displayGroupPopup && (
-          // @ts-ignore
+          // @ts-expect-error
           <GroupRulePopupContained
             open
             onClose={this.handleCloseGroupPopup}
@@ -835,7 +835,7 @@ const mapWithHandlers = {
             ]);
 
             props.fetchGroupsOfferBulk(
-              // @ts-ignore
+              // @ts-expect-error
               Array.from(new Set(offerList.map((o) => o.group))),
             );
             props.fetchLevelBulk({

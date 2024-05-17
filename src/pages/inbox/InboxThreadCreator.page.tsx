@@ -27,7 +27,7 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 // @ts-expect-error
 import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
 import { getAllSmartList } from '#libs/smart-list/selectors';
-// @ts-ignore @ts-expect-error
+// @ts-expect-error @ts-expect-error
 import TimeTable from '#components/offer/TimeTable.component';
 import Calendar from '#components/offer/Calendar.component';
 // @ts-expect-error
@@ -54,7 +54,7 @@ import {
 } from '#libs/offer/selectors';
 
 import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
-// @ts-ignore @ts-expect-error
+// @ts-expect-error @ts-expect-error
 import { getDayOffers } from '../planning/Planning.page';
 import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
 import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';

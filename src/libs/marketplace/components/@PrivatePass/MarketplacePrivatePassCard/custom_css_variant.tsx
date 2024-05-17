@@ -2,7 +2,7 @@ import React from 'react';
 import MarketplacePrivatePassCard, {
   Props as MarketplacePrivatePassCardProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePrivatePassCardCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

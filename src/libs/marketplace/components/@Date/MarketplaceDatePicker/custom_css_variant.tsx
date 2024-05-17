@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceDatePickerCss from '!!raw-loader!./MarketplaceDatePicker.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

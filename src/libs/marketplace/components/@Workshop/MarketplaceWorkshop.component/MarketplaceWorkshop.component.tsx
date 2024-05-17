@@ -129,7 +129,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
                 getCoach={getCoach}
                 getEstablishment={getEstablishment}
                 getGroup={getGroup}
-                // @ts-ignore
+                // @ts-expect-error
                 getLevel={getLevel}
                 getOffersListByGroup={getOffersListByGroup}
                 hideCoach={hideCoach}

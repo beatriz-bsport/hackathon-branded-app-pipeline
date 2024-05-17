@@ -128,7 +128,7 @@ export class ThemeForm extends Component<Props, State> {
       'general_terms_and_conditions',
       'general_terms_of_use',
       'waiver',
-      // @ts-ignore
+      // @ts-expect-error
     ].map((key) => data.append(key, this.state.theme[key]));
 
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
@@ -510,7 +510,7 @@ const styles = (theme: MaterialTheme) => ({
 });
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['theme']),
   withState('openAnalyticsUsage', 'setOpenAnalyticsUsage', false),

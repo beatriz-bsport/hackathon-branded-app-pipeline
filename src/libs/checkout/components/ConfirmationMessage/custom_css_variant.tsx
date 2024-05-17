@@ -3,7 +3,7 @@ import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { useTranslation } from 'react-i18next';
 import ConfirmationMessage from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import ConfirmationMessageCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

@@ -35,7 +35,7 @@ const hasKeysSetTo = (
   return filteringItems.every(
     (item) =>
       Object.prototype.hasOwnProperty.call(obj, item.key) &&
-      // @ts-ignore
+      // @ts-expect-error
       obj[item.key] === item.value,
   );
 };

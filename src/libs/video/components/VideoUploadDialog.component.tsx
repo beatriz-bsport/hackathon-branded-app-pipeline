@@ -264,6 +264,6 @@ const styles = (theme: Theme) => ({
 
 export default compose(
   withTranslation(['video']),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
 )(VideoUploadDialog);

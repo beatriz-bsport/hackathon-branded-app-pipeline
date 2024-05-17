@@ -38,7 +38,7 @@ type Props = OwnProps & FormikProps<GiftcardDataAPI>;
 const GiftcardFormDrawer = (props: Props) => {
   const { t } = useTranslation('giftcard');
   const classes = useStyles();
-  // @ts-ignore
+  // @ts-expect-error
   const isSharedGiftcard = !!props.initial?.is_shared_giftcard;
   return (
     <GenericResponsiveDrawer

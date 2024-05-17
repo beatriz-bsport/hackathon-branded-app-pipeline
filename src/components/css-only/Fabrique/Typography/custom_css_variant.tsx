@@ -3,7 +3,7 @@ import React from 'react';
 import Typography, { Props as TypographyProps } from '.';
 import { TypographyVariant, TypographyColor } from './constants';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TypographyCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

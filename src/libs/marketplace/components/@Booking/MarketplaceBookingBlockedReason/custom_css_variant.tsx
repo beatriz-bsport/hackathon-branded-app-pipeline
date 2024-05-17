@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import MarketplaceBookingBlockedReason, {
   Props as MarketplaceBookingBlockedReasonProps,
 } from '.';
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookingBlockedReasonCss from '!!raw-loader!./MarketplaceBookingBlockedReason.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

@@ -5,7 +5,7 @@ import Alert, { Props as AlertProps } from '.';
 import { AlertVariantEnum, AlertColorEnum } from './constants';
 import { AlertVariant, AlertColor } from './types';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import AlertCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

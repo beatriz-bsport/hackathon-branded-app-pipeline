@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
 import { DateTime } from 'luxon';
-// @ts-ignore
+// @ts-expect-error
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Grid from '@material-ui/core/Grid';
@@ -50,19 +50,19 @@ import {
 
 import { countries } from '../../../../i18n/utils/countries';
 import { MaterialStyleType } from '../../../../utils/types';
-// @ts-ignore
+// @ts-expect-error
 import Selector from '../../../../components/Selector.component';
 import type { CustomFormField, FormikCustomFormFilled } from '../../types';
-// @ts-ignore
+// @ts-expect-error
 import { browserCountryCode } from '../../../../i18n';
 
 import {
   DateField,
   TextFieldEnhancedLabelWithError,
   SelectFieldWithEnhancedLabeLError,
-  // @ts-ignore
+  // @ts-expect-error
 } from '../../../../components/forms';
-// @ts-ignore
+// @ts-expect-error
 import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithButton.component';
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
@@ -486,7 +486,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             </Typography>
           }
           name={`custom_form_field.${props.index}.answer`}
-          // @ts-ignore
+          // @ts-expect-error
           required={props.field.mandatory}
         />
       );
@@ -511,7 +511,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             </Typography>
           }
           name={`custom_form_field.${props.index}.answer`}
-          // @ts-ignore
+          // @ts-expect-error
           required={props.field.mandatory}
         />
       );
@@ -580,9 +580,9 @@ export const CustomFormConsumerInput = (props: Props) => {
         return (
           <>
             <AcceptTermsAndConditions
-              // @ts-ignore
+              // @ts-expect-error
               accepted={props.values?.custom_form_field[props.index]?.answer}
-              // @ts-ignore
+              // @ts-expect-error
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
@@ -636,9 +636,9 @@ export const CustomFormConsumerInput = (props: Props) => {
           >
             <AcceptTermsAndConditions
               required
-              // @ts-ignore
+              // @ts-expect-error
               accepted={props.values.custom_form_field[props.index]?.answer}
-              // @ts-ignore
+              // @ts-expect-error
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
@@ -691,9 +691,9 @@ export const CustomFormConsumerInput = (props: Props) => {
             control={
               <CheckBox
                 required
-                // @ts-ignore
+                // @ts-expect-error
                 checked={props.values.custom_form_field[props.index]?.answer}
-                // @ts-ignore
+                // @ts-expect-error
                 disabled={
                   props.asManager ||
                   props.initial?.custom_form_field[props.index]?.answer
@@ -893,6 +893,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormConsumerInput);

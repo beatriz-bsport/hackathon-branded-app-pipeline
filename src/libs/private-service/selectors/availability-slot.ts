@@ -136,7 +136,7 @@ export const getEstablishmentAvailabilitySlots = (
 ): Immutable.ImmutableArray<AvailabilitySlot> => {
   if (establishment) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      // @ts-ignore
+      // @ts-expect-error
       (s) => s.establishment === establishment,
     );
   }
@@ -150,7 +150,7 @@ export const getPrivateServiceAvailabilitySlots = (
 ): Immutable.ImmutableArray<AvailabilitySlot> => {
   if (privateServiceId) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      // @ts-ignore
+      // @ts-expect-error
       (s) => s.private_service === privateServiceId,
     );
   }
@@ -211,10 +211,10 @@ export const getFilteredCalendarEvents = createSelector(
     if (periodFilter) {
       return Object.values(eventData).filter(
         (v) =>
-          // @ts-ignore
+          // @ts-expect-error
           DateTime.fromISO(v.date_start) >=
             DateTime.fromISO(periodFilter.start) &&
-          // @ts-ignore
+          // @ts-expect-error
           DateTime.fromISO(v.date_start) <= DateTime.fromISO(periodFilter.end),
       );
     }

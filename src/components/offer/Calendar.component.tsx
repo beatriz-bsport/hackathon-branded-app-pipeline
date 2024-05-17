@@ -86,7 +86,7 @@ class Calendar extends PureComponent<Props, State> {
         dateSelected={dateSelected}
         day={day}
         displayMode={this.state.displayMode}
-        // @ts-ignore fix me
+        // @ts-expect-error fix me
         events={this.props.events}
         onDateChange={this.props.onDateChange}
         previewOnly={this.props.previewOnly}
@@ -178,7 +178,7 @@ class Calendar extends PureComponent<Props, State> {
         ]: boolean[]) => (
           <Menu
             keepMounted
-            // @ts-ignore fix me
+            // @ts-expect-error fix me
             anchorEl={this.anchorRef?.current}
             onClose={this.handleCloseMenu}
             open={!!this.anchorRef && this.state.isMenuOpen}
@@ -306,7 +306,7 @@ class Calendar extends PureComponent<Props, State> {
   renderSearchBar = () => {
     let DividerComponent = Divider;
     if (this.props.loading) {
-      // @ts-ignore fix me
+      // @ts-expect-error fix me
       DividerComponent = LinearProgress;
     }
     if (this.props.searchBar) {

@@ -23,7 +23,7 @@ import {
   withFranchiseeRoles,
   hasFranchiseRoleUpsertPermission,
 } from '#libs/role/selectors';
-// @ts-ignore
+// @ts-expect-error
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
@@ -149,7 +149,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['role']),
   withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),

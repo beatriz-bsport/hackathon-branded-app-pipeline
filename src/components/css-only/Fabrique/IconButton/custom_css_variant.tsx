@@ -13,7 +13,7 @@ import {
 } from '#Fabrique/ButtonV2/types';
 import { Star06 } from '#components/untitledui';
 
-// @ts-ignore
+// @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import IconButtonCss from '!!raw-loader!./styles.css';
 

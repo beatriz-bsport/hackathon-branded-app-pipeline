@@ -137,7 +137,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-ignore
+  // @ts-expect-error
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
   React.memo,

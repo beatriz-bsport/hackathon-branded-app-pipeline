@@ -71,9 +71,9 @@ const SubscriptionRowItem = (props: Props) => {
         <ListItemAvatar>
           <Avatar
             src={
-              // @ts-ignore
+              // @ts-expect-error
               props.subscription?.member?.photo
-                ? // @ts-ignore
+                ? // @ts-expect-error
                   props.subscription.member.photo
                 : null
             }

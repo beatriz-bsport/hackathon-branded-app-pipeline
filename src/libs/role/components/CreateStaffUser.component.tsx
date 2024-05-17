@@ -18,7 +18,7 @@ import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-// @ts-ignore
+// @ts-expect-error
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';

@@ -6,6 +6,7 @@ exports.default = {
     establishmentEmptyState: 'This studio has no establishments to display.',
     establishment: 'Establishments',
     members: 'Members',
+    manageOnStudio: 'Manage on {{studio_name}}',
     emptySelect: 'Select a studio to see more information.',
     searchPlaceholder: 'Search a studio',
   },

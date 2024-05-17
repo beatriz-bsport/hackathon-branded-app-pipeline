@@ -240,9 +240,9 @@ export const SubscriptionContractRegister = (props: Props) => {
           <DialogContent>
             {currentDate.hasSame(selectedDate, 'month') ? (
               t('contract.pastDate.alertSameMonth', {
-                lostDays: currentDate
-                  .startOf('day')
-                  .diff(selectedDate.startOf('day'), 'days').days,
+                lostDays: Math.floor(
+                  currentDate.diff(selectedDate, 'days').as('days'),
+                ),
               })
             ) : (
               <div className={props.classes.alertContent}>

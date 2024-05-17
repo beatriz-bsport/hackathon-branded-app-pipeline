@@ -186,10 +186,9 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
       until_date: this.state.untilDate,
       days:
         Math.round(
-          DateTime.fromISO(this.state.untilDate).diff(
-            DateTime.fromISO(this.state.fromDate),
-            'days',
-          ).days,
+          DateTime.fromISO(this.state.untilDate)
+            .diff(DateTime.fromISO(this.state.fromDate), 'days')
+            .as('days'),
         ) + 1,
       name: this.state.pauseExplanation,
       contract: this.props.contractId,
@@ -224,10 +223,9 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
     const { classes, t, openForm, contractPauseBeingEdited } = this.props;
     const deltaDays = Math.round(
       Math.round(
-        DateTime.fromISO(this.state.untilDate).diff(
-          DateTime.fromISO(this.state.fromDate),
-          'days',
-        ).days,
+        DateTime.fromISO(this.state.untilDate)
+          .diff(DateTime.fromISO(this.state.fromDate), 'days')
+          .as('days'),
       ),
     );
     const isDateRangeValid = deltaDays >= 0;

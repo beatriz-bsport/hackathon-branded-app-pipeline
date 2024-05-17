@@ -128,10 +128,11 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
       if (!firstOffer) {
         onClose();
       }
-      const day_delta = DateTime.fromISO(values.timeStart).diff(
-        DateTime.fromISO(firstOffer.date_start).startOf('day'),
-        'days',
-      ).days;
+      const day_delta = Math.floor(
+        DateTime.fromISO(values.timeStart)
+          .diff(DateTime.fromISO(firstOffer.date_start).startOf('day'), 'days')
+          .as('days'),
+      );
 
       const offers_data = offersGroup.map((o) => ({
         ...o,

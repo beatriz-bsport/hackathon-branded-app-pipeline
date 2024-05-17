@@ -335,8 +335,11 @@ export class SubscriptionCreate extends Component<Props, State> {
             <DialogContent>
               {this.state.firstBillingDate.hasSame(DateTime.now(), 'month') ? (
                 this.props.t('contract.pastDate.alertSameMonth', {
-                  lostDays: DateTime.now().diff(this.state.firstBillingDate)
-                    .days,
+                  lostDays: Math.floor(
+                    DateTime.now()
+                      .diff(this.state.firstBillingDate, 'days')
+                      .as('days'),
+                  ),
                 })
               ) : (
                 <div>

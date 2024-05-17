@@ -176,10 +176,9 @@ class PauseFormDialog extends React.Component<Props, State> {
       from_date: this.state.fromDate,
       days:
         Math.round(
-          DateTime.fromISO(this.state.untilDate).diff(
-            DateTime.fromISO(this.state.fromDate),
-            'days',
-          ).days,
+          DateTime.fromISO(this.state.untilDate)
+            .diff(DateTime.fromISO(this.state.fromDate), 'days')
+            .as('days'),
         ) + 1,
       name: this.state.pauseExplanation,
     };
@@ -202,10 +201,9 @@ class PauseFormDialog extends React.Component<Props, State> {
   render() {
     const { classes, t, pauseBeingEdited } = this.props;
     const deltaDays = Math.round(
-      DateTime.fromISO(this.state.untilDate).diff(
-        DateTime.fromISO(this.state.fromDate),
-        'days',
-      ).days,
+      DateTime.fromISO(this.state.untilDate)
+        .diff(DateTime.fromISO(this.state.fromDate), 'days')
+        .as('days'),
     );
     const isDateRangeValid = deltaDays >= 0;
     const buttons = this.getFormButtons(

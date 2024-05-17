@@ -68,10 +68,11 @@ export const ResendEmailForConfirmation = (props: Props) => {
               {canBeResent
                 ? t('emailConfirmation.dialog.canBeResent')
                 : t('emailConfirmation.dialog.cannotBeResent', {
-                    timeLeftBeforeNewSent: DateTime.fromISO(
-                      lastTimeSentEmailConfirmation,
-                    ).diff(DateTime.now().minus({ minute: 6 }), 'minutes')
-                      .minutes,
+                    timeLeftBeforeNewSent: Math.floor(
+                      DateTime.fromISO(lastTimeSentEmailConfirmation)
+                        .diff(DateTime.now().minus({ minute: 6 }), 'minutes')
+                        .as('minutes'),
+                    ),
                   })}
             </Typography>
           </DialogContent>

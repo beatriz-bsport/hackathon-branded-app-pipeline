@@ -113,7 +113,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     const dayOfWeek = startOfMonth.weekday - 1;
     const endingDate = endOfMonth?.plus({ day: 6 - dayOfWeek });
 
-    return Math.ceil(endingDate.diff(startingDay, 'week').weeks);
+    return Math.floor(endingDate.diff(startingDay, 'weeks').as('weeks'));
   }, [dateDisplayed, startOfMonth, startingDay]);
 
   const isDayDisabled = useCallback(

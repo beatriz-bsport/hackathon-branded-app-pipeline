@@ -45,9 +45,9 @@ const ConsumerExtensionCreateForm: React.FC<Props> = ({
 
   const handleSelectNewValidityDate = useCallback(
     (selectedDate: DateTime) => {
-      const numberOfDaysToAdd = selectedDate.diff(
-        DateTime.fromISO(passEndingDate),
-      ).days;
+      const numberOfDaysToAdd = Math.floor(
+        selectedDate.diff(DateTime.fromISO(passEndingDate), 'days').as('days'),
+      );
       setFieldValue('nbDays', numberOfDaysToAdd);
     },
     [passEndingDate, setFieldValue],

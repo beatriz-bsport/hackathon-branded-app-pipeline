@@ -138,7 +138,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
 const dateFormatter = (domain: [string, string]) => (d: string) => {
   const start = parseRechartsDate(domain[0]);
   const end = parseRechartsDate(domain[1]);
-  const durationInDays = Math.floor(end.diff(start).as('days'));
+  const durationInDays = Math.floor(end.diff(start, 'days').as('days'));
 
   const date = parseRechartsDate(d);
 

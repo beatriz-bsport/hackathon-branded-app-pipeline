@@ -39,7 +39,7 @@ type Props = {
 const dateFormatter = (domain: Array<string>) => {
   const start = parseRechartsDate(domain[0]);
   const end = parseRechartsDate(domain[1]);
-  const durationInDays = Math.floor(end.diff(start).as('days'));
+  const durationInDays = Math.floor(end.diff(start, 'days').as('days'));
 
   if (durationInDays > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
     return (d: string) => parseRechartsDate(d).toFormat('MMM yyyy');

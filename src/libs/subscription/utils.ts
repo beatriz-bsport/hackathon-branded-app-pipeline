@@ -24,7 +24,9 @@ export const computeProrataPriceForSubscription = (
     monthBillingDay,
   );
   const daysLeft = Math.abs(
-    firstBillingDate.diff(secondBillingDate, 'days').days,
+    parseInt(
+      firstBillingDate.diff(secondBillingDate, 'days').as('days').toString(),
+    ),
   );
 
   if (daysLeft === 0) {

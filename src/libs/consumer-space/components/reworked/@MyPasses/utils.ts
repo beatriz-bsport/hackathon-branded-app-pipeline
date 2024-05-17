@@ -24,7 +24,11 @@ export const getAvailabilityInformation = ({
     : null;
 
   const daysBeforeExpiration = parsedExpirationDate
-    ? parsedExpirationDate.diff(DateTime.now().startOf('day'), 'days').valueOf()
+    ? Math.floor(
+        parsedExpirationDate
+          .diff(DateTime.now().startOf('day'), 'days')
+          .as('days'),
+      )
     : null;
 
   let availability = null;

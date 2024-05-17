@@ -117,7 +117,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
       member.consumer?.birthday || DateTime.now().toISODate();
 
     const age = Math.floor(
-      DateTime.now().diff(DateTime.fromISO(memberBirthday), 'years').years,
+      DateTime.now()
+        .diff(DateTime.fromISO(memberBirthday), 'years')
+        .as('years'),
     );
 
     // @ts-expect-error

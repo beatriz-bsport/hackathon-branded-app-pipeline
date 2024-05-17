@@ -61,9 +61,11 @@ export class BroadcastRoom extends React.Component<Props, State> {
       return;
     }
     this.setState({
-      minutesLeft: DateTime.fromISO(this.props.date_start)
-        .diff(DateTime.now(), 'minutes')
-        .plus({ minutes: 1 }).minutes,
+      minutesLeft: Math.ceil(
+        DateTime.fromISO(this.props.date_start)
+          .diff(DateTime.now(), 'minutes')
+          .as('minutes'),
+      ),
     });
 
     if (

@@ -14,7 +14,9 @@ import type { Level } from '#libs/level/types';
 import type { LuxonDateTime } from '#src/types';
 
 export function isDateTooFar(dateISO: string) {
-  return DateTime.fromISO(dateISO).diff(DateTime.now(), 'years').years > 3;
+  return (
+    DateTime.fromISO(dateISO).diff(DateTime.now(), 'years').as('years') > 3
+  );
 }
 
 export function getCoachOrSubstitute(offer: Offer) {
@@ -42,7 +44,7 @@ export function getOfferRecurrenceDates(
       OFFER_RECURRENCE.MONTHLY,
       OFFER_RECURRENCE.DAILY,
     ].includes(recurrence) ||
-    dateIntervalEnd.diff(DateTime.now()).years > 3
+    dateIntervalEnd.diff(DateTime.now(), 'years').as('years') > 3
   ) {
     return [dateIntervalStart];
   }
@@ -76,7 +78,7 @@ export function _generateRecurrenceDates(
       OFFER_RECURRENCE.MONTHLY,
       OFFER_RECURRENCE.DAILY,
     ].includes(recurrence) ||
-    end.diff(DateTime.now()).years > 3
+    end.diff(DateTime.now(), 'years').as('years') > 3
   ) {
     return [start];
   }

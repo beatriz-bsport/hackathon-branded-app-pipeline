@@ -150,7 +150,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     const dayOfWeek = startOfMonth.weekday;
     const endingDate = endOfMonth.plus({ days: 6 - dayOfWeek });
 
-    return Math.ceil(endingDate.diff(startingDay, 'weeks').weeks);
+    return Math.floor(endingDate.diff(startingDay, 'weeks').as('weeks'));
   }, [dateDisplayed, startOfMonth, startingDay]);
 
   const isDayDisabled = useCallback(

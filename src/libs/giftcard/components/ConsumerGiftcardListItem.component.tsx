@@ -23,9 +23,12 @@ import type {
   ConsumerGiftcard,
   GiftcardTemplate,
 } from '#src/libs/giftcard/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { Member } from '#src/libs/member/types';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
 
 type SenderProps = {
+  sourceFranchiseCompany: FranchiseCompany;
   consumerGiftcard: ConsumerGiftcard;
   giftcard: Giftcard | GiftcardTemplate;
   disableItemIfNoMember?: boolean;
@@ -37,6 +40,7 @@ type SenderProps = {
 
 const GiftcardSender: React.FC<SenderProps> = React.memo(
   ({
+    sourceFranchiseCompany,
     consumerGiftcard,
     giftcard,
     disableItemIfNoMember,
@@ -49,9 +53,21 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
     const { t } = useTranslation('member');
 
     const handleOnClickSender = React.useCallback(
-      () => isClickable && onClick(consumerGiftcard.id, memberSender.id),
-      // @ts-expect-error
-      [consumerGiftcard?.id, isClickable, memberSender?.id, onClick],
+      () =>
+        isClickable &&
+        onClick(
+          consumerGiftcard.id,
+          sourceFranchiseCompany ? memberSender.user_id : memberSender.id,
+        ),
+      [
+        consumerGiftcard.id,
+        // @ts-expect-error
+        isClickable,
+        memberSender?.id,
+        memberSender?.user_id,
+        onClick,
+        sourceFranchiseCompany,
+      ],
     );
 
     const isClickable = React.useMemo(
@@ -111,6 +127,7 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
                 consumerGiftcard.date_created,
               ).toLocaleString(DateTime.DATE_SHORT)}`}
             />
+            <CompanyChip company={sourceFranchiseCompany} />
           </ListItem>
         )}
       </ObjectLevelPermissionProvider>
@@ -125,6 +142,7 @@ type ReceiverProps = {
   memberReceiver?: Member;
   selected?: boolean;
   sharedFromFranchisor?: boolean;
+  sourceFranchiseCompany?: FranchiseCompany;
   showMember?: boolean;
   onClick: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
@@ -138,6 +156,7 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
     memberReceiver,
     selected,
     sharedFromFranchisor,
+    sourceFranchiseCompany,
     showMember,
     onClick,
     onClickSendInvitation,
@@ -189,9 +208,22 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
     );
 
     const handleOnClickReceiver = React.useCallback(
-      () => isClickable && onClick(consumerGiftcard.id, memberReceiver.id),
-      // @ts-expect-error
-      [consumerGiftcard?.id, isClickable, memberReceiver?.id, onClick],
+      () =>
+        isClickable &&
+        onClick(
+          consumerGiftcard.id,
+          sourceFranchiseCompany ? memberReceiver.user_id : memberReceiver.id,
+        ),
+
+      [
+        consumerGiftcard?.id,
+        // @ts-expect-error
+        isClickable,
+        sourceFranchiseCompany,
+        memberReceiver?.id,
+        memberReceiver?.user_id,
+        onClick,
+      ],
     );
 
     const isClickable = React.useMemo(
@@ -321,6 +353,7 @@ const Container: React.FC<ContainerProps> = React.memo(
 type Props = {
   giftcard: Giftcard | GiftcardTemplate;
   consumerGiftcard: ConsumerGiftcard;
+  sourceFranchiseCompany?: FranchiseCompany;
   memberSender?: Member;
   memberReceiver?: Member;
   showAsRecipient?: boolean;
@@ -337,6 +370,7 @@ type Props = {
 
 const ConsumerGiftcardListItem: React.FC<Props> = ({
   giftcard,
+  sourceFranchiseCompany,
   consumerGiftcard,
   memberSender,
   memberReceiver,
@@ -364,6 +398,7 @@ const ConsumerGiftcardListItem: React.FC<Props> = ({
       onClick={onClickSender}
       selected={selected_}
       showMember={showSender}
+      sourceFranchiseCompany={sourceFranchiseCompany}
     />
   );
   const receiver = (selected_: boolean) => (
@@ -377,6 +412,7 @@ const ConsumerGiftcardListItem: React.FC<Props> = ({
       selected={selected_}
       sharedFromFranchisor={sharedFromFranchisor}
       showMember={showReceiver}
+      sourceFranchiseCompany={sourceFranchiseCompany}
     />
   );
 

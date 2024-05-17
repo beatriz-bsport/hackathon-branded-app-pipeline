@@ -5,6 +5,7 @@ import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import Select from 'react-select';
 import { Props as SelectProps } from 'react-select/lib/Select';
+import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import { useObjectSearch } from '#libs/fuzzy-search/components/useObjectSearch';
@@ -112,13 +113,13 @@ const connector = connect(
 
 const ObjectSearchComponent = compose<Props, OwnProps>(
   connector,
-  React.memo,
+  (component: React.FC) => React.memo(component, isEqual),
 )(ObjectSearch);
 
 export const ObjectSearchForStorybook = compose<Props, OwnProps>(
   connector,
   marketplaceCssHoc(),
-  React.memo,
+  (component: React.FC) => React.memo(component, isEqual),
 )(ObjectSearch);
 
 export default ObjectSearchComponent;

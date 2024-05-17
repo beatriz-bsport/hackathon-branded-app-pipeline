@@ -256,6 +256,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}
         getShopItemTemplateState={this.props.getShopItemTemplateState}
+        goToShopItemTemplate={this.props.goToShopItemTemplate}
         subshopTemplateList={this.props.subshopTemplateList}
         supplierTemplateList={
           this.props.shopSupplierTemplateState.suppliers ?? []

@@ -33,6 +33,7 @@ type Props = {
   supplierTemplateListPage: number;
   supplierTemplateListCount: number;
   isSupplierTemplateListLoading?: boolean;
+  goToShopItemTemplate: (shopItemTemplateId: number) => void;
   getShopItemTemplateState: (
     subshopTemplateId: number,
   ) => ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
@@ -79,6 +80,7 @@ const FranchiseShopList: React.FC<Props> = ({
   supplierTemplateListPage,
   supplierTemplateListCount,
   isSupplierTemplateListLoading,
+  goToShopItemTemplate,
   getShopItemTemplateState,
   createSubshopTemplate,
   updateSubshopTemplate,
@@ -255,6 +257,7 @@ const FranchiseShopList: React.FC<Props> = ({
         deleteSubshopTemplate={deleteSubshopTemplate}
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
+        goToShopItemTemplate={goToShopItemTemplate}
         handleEditSupplierTemplate={handleEditSupplierTemplate}
         handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
         handleOpenSupplierTemplateModal={handleOpenSupplierTemplateModal}

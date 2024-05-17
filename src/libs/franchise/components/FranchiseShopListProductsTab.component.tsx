@@ -20,6 +20,7 @@ import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/F
 
 type Props = {
   subshopTemplateList: SubshopTemplate[];
+  goToShopItemTemplate: (shopItemTemplateId: number) => void;
   getShopItemTemplateState: (
     subshopTemplateId: number,
   ) => ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
@@ -46,6 +47,7 @@ type Props = {
 
 const FranchiseShopListProductsTab: React.FC<Props> = ({
   subshopTemplateList,
+  goToShopItemTemplate,
   getShopItemTemplateState,
   createSubshopTemplate,
   updateSubshopTemplate,
@@ -163,6 +165,7 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
       <FranchiseSubshopTemplateList
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
+        goToShopItemTemplate={goToShopItemTemplate}
         handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
         handleOpenSubshopTemplateDialog={handleOpenSubshopTemplateDialog}
         handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}

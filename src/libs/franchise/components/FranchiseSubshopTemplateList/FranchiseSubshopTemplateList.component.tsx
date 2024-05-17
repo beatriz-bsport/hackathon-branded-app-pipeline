@@ -30,6 +30,7 @@ import { SHOP_ITEM_TEMPLATE_PAGE_SIZE } from '#src/libs/shop/constants';
 
 type Props = {
   subshopTemplateList: SubshopTemplate[];
+  goToShopItemTemplate: (shopItemTemplateId: number) => void;
   getShopItemTemplateState: (
     subshopTemplateId: number,
   ) => ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
@@ -67,6 +68,7 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
       fetchShopItemTemplateList,
       handleOpenShopItemTemplateForm,
       handleSetShopItemTemplateToDelete,
+      goToShopItemTemplate,
     }) => {
       const { t } = useTranslation(['common', 'shop']);
 
@@ -212,6 +214,7 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
                   <FranchiseShopItemTemplateListItem
                     key={shopItemTemplate.id}
                     className={classes.shopItemTemplateListItem}
+                    goToShopItemTemplate={goToShopItemTemplate}
                     handleDelete={handleDeleteShopItemTemplate(
                       shopItemTemplate,
                     )}
@@ -250,6 +253,7 @@ const FranchiseSubshopTemplateList: React.FC<Props> = ({
   handleOpenSubshopTemplateDialog,
   handleOpenShopItemTemplateForm,
   handleSetShopItemTemplateToDelete,
+  goToShopItemTemplate,
 }) => {
   return (
     <>
@@ -257,6 +261,7 @@ const FranchiseSubshopTemplateList: React.FC<Props> = ({
         <FranchiseSubshopTemplateListItem
           key={subshopTemplate.id}
           fetchShopItemTemplateList={fetchShopItemTemplateList}
+          goToShopItemTemplate={goToShopItemTemplate}
           handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}
           handleOpenSubshopTemplateDialog={handleOpenSubshopTemplateDialog}
           handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}

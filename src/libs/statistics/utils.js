@@ -1,33 +1,35 @@
 import { DateTime } from 'luxon';
 import { getCurrencyDisplay } from '../theme/selectors';
-import { STATISTICS_FORMAT } from './constants';
 
 export const DAILY_DURATION_DISPLAY_LIMIT = 1;
 export const WEEKLY_DURATION_DISPLAY_LIMIT = 15;
 export const MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS = 60;
 export const MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS = 100;
 
-export const dateFormatter = (domain: string[]) => {
-  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
-  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
-  const duration = end.diff(start, 'days');
-
-  if (duration.days > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
-    return (d) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('MMM yyyy');
-  }
-  if (duration.days > WEEKLY_DURATION_DISPLAY_LIMIT) {
-    return (d) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT)
-        .plus({ days: 3 })
-        .toFormat('dd MMM');
-  }
-  if (duration.days > DAILY_DURATION_DISPLAY_LIMIT) {
-    return (d) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('ccc dd MMM');
-  }
-  return (d) => DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('t');
+export const parseRechartsDate = (date: string): DateTime => {
+  const luxonDate = DateTime.fromISO(date);
+  return luxonDate.isValid ? luxonDate : DateTime.fromFormat(date, 'yyyy-MM');
 };
+
+export const dateFormatter =
+  ([start, end]: [string, string]) =>
+  (date: string) => {
+    const duration = Math.floor(
+      parseRechartsDate(end).diff(parseRechartsDate(start)).as('days'),
+    );
+    const luxonDate = parseRechartsDate(date);
+
+    if (duration > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
+      return luxonDate.toFormat('MMM yyyy');
+    }
+    if (duration > WEEKLY_DURATION_DISPLAY_LIMIT) {
+      return luxonDate.plus({ days: 3 }).toFormat('dd MMM');
+    }
+    if (duration > DAILY_DURATION_DISPLAY_LIMIT) {
+      return luxonDate.toFormat('ccc dd MMM');
+    }
+    return luxonDate.toFormat('t');
+  };
 
 const hasArabicText = (str: string) => {
   const matchArabicUnicodeRegex = /[\u0600-\u06FF\u0750-\u077F]/;
@@ -50,22 +52,24 @@ export const numberFormatter = (isCurrencyFormat) => (x) => {
   return `${isCurrencyFormat ? getCurrencyDisplay() : ''}${parts.join('.')}`;
 };
 
-export const tooltipLabelFormatter = (domain: string[]) => (date: string) => {
-  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
-  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
-  const duration = end.diff(start, 'days');
+export const tooltipLabelFormatter =
+  ([start, end]: [string, string]) =>
+  (date: string) => {
+    const duration = Math.floor(
+      parseRechartsDate(end).diff(parseRechartsDate(start)).as('days'),
+    );
 
-  if (
-    duration.days <= MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS &&
-    duration.days > WEEKLY_DURATION_DISPLAY_LIMIT
-  ) {
-    const startOfWeek = DateTime.fromFormat(date, STATISTICS_FORMAT)
-      .startOf('week')
-      .toFormat('dd-MMM');
-    const endOfWeek = DateTime.fromFormat(date, STATISTICS_FORMAT)
-      .endOf('week')
-      .toFormat('dd-MMM');
-    return `${startOfWeek} - ${endOfWeek}`;
-  }
-  return date;
-};
+    if (
+      duration <= MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS &&
+      duration > WEEKLY_DURATION_DISPLAY_LIMIT
+    ) {
+      const startOfWeek = parseRechartsDate(date)
+        .startOf('week')
+        .toFormat('dd-MMM');
+      const endOfWeek = parseRechartsDate(date)
+        .endOf('week')
+        .toFormat('dd-MMM');
+      return `${startOfWeek} - ${endOfWeek}`;
+    }
+    return date;
+  };

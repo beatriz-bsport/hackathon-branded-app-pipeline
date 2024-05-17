@@ -10,13 +10,12 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
-import { DateTime } from 'luxon';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
+  parseRechartsDate,
 } from '#libs/statistics/utils';
-import { STATISTICS_FORMAT } from '#libs/statistics/constants';
 
 type Props = {
   data: Array<any>,
@@ -38,23 +37,20 @@ type Props = {
 };
 
 const dateFormatter = (domain: Array<string>) => {
-  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
-  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
-  const durationInDays = end.diff(start, 'days').days;
+  const start = parseRechartsDate(domain[0]);
+  const end = parseRechartsDate(domain[1]);
+  const durationInDays = Math.floor(end.diff(start).as('days'));
 
   if (durationInDays > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('MMM yyyy');
+    return (d: string) => parseRechartsDate(d).toFormat('MMM yyyy');
   }
   if (durationInDays > WEEKLY_DURATION_DISPLAY_LIMIT) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('dd MMM');
+    return (d: string) => parseRechartsDate(d).toFormat('dd MMM');
   }
   if (durationInDays > DAILY_DURATION_DISPLAY_LIMIT) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('ccc dd MMM');
+    return (d: string) => parseRechartsDate(d).toFormat('ccc dd MMM');
   }
-  return (d: string) => DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('t');
+  return (d: string) => parseRechartsDate(d).toFormat('t');
 };
 
 export function TwoStackedAreasChart(props: Props) {

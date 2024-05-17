@@ -6,7 +6,6 @@ import createCachedSelector from 're-reselect';
 import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
 import type { RootState } from 'src/reducers';
-import { STATISTICS_FORMAT } from '#libs/statistics/constants';
 import type {
   DateRange,
   NumberDateRange,
@@ -99,8 +98,8 @@ export const getStats: (
         cancelledBookings,
         offers: formattedOffers,
         waitingLists,
-        start: startMoment.toFormat(STATISTICS_FORMAT),
-        end: endMoment.toFormat(STATISTICS_FORMAT),
+        start: startMoment.toFormat('yyyy-MM-dd hh:mm a'),
+        end: endMoment.toFormat('yyyy-MM-dd hh:mm a'),
       };
     }
     return null;

@@ -16,13 +16,12 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 import {
+  parseRechartsDate,
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
 } from '#libs/statistics/utils';
-import { STATISTICS_FORMAT } from '#libs/statistics/constants';
 
 const DEBOUNCING_LIMIT = 200;
 
@@ -136,26 +135,23 @@ const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
   },
 );
 
-const dateFormatter = (domain: Array<string>) => {
-  const start = DateTime.fromFormat(domain[0], STATISTICS_FORMAT);
-  const end = DateTime.fromFormat(domain[1], STATISTICS_FORMAT);
-  const durationInDays = end.diff(start, 'days').days;
+const dateFormatter = (domain: [string, string]) => (d: string) => {
+  const start = parseRechartsDate(domain[0]);
+  const end = parseRechartsDate(domain[1]);
+  const durationInDays = Math.floor(end.diff(start).as('days'));
+
+  const date = parseRechartsDate(d);
 
   if (durationInDays > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('MMM yyyy');
+    return date.toFormat('MMM yyyy');
   }
   if (durationInDays > WEEKLY_DURATION_DISPLAY_LIMIT) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('dd MMM');
+    return date.toFormat('dd MMM');
   }
   if (durationInDays > DAILY_DURATION_DISPLAY_LIMIT) {
-    return (d: string) =>
-      DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('ccc dd MMM');
+    return date.toFormat('ccc dd MMM');
   }
-  return (d: string) => {
-    return DateTime.fromFormat(d, STATISTICS_FORMAT).toFormat('t');
-  };
+  return date.toFormat('t');
 };
 
 export function StackedBarChart(props: Props) {

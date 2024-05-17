@@ -219,12 +219,17 @@ export const fetchShopSupplierTemplateList = (
   params: PaginationFilterParams,
   options?: OptionCallback<PaginatedResponse<ShopSupplierTemplate>>,
 ) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const supplierStatePage =
+      getState().shopReworked.shopTemplates.supplierTemplate.page ?? 1;
     try {
       dispatch(fetchShopSupplierTemplateListActions.isLoading(true));
       dispatch(fetchShopSupplierTemplateListActions.error(null));
 
-      const response = await fetchShopSupplierTemplateListAPI(params);
+      const response = await fetchShopSupplierTemplateListAPI({
+        page: params?.page ?? supplierStatePage,
+        page_size: SHOP_SUPPLIER_PAGE_SIZE,
+      });
 
       dispatch(fetchShopSupplierTemplateListActions.success(response.data));
       options?.onSuccess?.(response.data);

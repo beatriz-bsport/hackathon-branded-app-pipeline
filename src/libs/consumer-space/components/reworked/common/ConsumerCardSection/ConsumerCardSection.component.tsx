@@ -35,6 +35,7 @@ const ConsumerCardSection: React.FC<Props> = ({
     <div
       className={classNames(
         'bs-consumer-card__section__text-container',
+        { 'bs-consumer-card__section__text-container--hidden': !title },
         classes?.textContainer,
       )}
     >

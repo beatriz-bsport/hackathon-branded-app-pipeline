@@ -19,6 +19,10 @@
   margin-bottom: var(--bs-space-size-1);
 }
 
+.bs-consumer-card__section__text-container--hidden {
+  display: none;
+}
+
 .bs-consumer-card__section__title {
   width: 100%;
   font-weight: 700;

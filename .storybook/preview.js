@@ -11,8 +11,8 @@ import { MemoryRouter } from 'react-router';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Settings } from 'luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import LuxonUtils from '@date-io/luxon';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { LocalizedLuxonUtils } from '../src/i18n/utils/luxon-picker-utils';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { ConnectedRouter } from 'connected-react-router';
 import { I18nextProvider } from 'react-i18next';
@@ -35,7 +35,10 @@ export const decorators = [
     </MuiThemeProvider>
   ),
   (Story) => (
-    <MuiPickersUtilsProvider utils={LuxonUtils} locale={Settings.defaultLocale}>
+    <MuiPickersUtilsProvider
+      utils={LocalizedLuxonUtils}
+      locale={Settings.defaultLocale}
+    >
       <Story />
     </MuiPickersUtilsProvider>
   ),

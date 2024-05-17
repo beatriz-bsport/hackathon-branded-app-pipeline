@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import { DateTime, Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import { useFormikContext } from 'formik';
@@ -10,7 +9,6 @@ import {
   FormControlLabel,
   FormHelperText,
 } from '@material-ui/core';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import FormSection from '#components/forms/FormSection';
@@ -93,29 +91,24 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
             label={t('form.with_expiration_date.label')}
           />
           <div className={classes.dateField}>
-            <MuiPickersUtilsProvider
-              locale={Settings.defaultLocale}
-              utils={LuxonUtils}
-            >
-              <DatePicker
-                clearable
-                keyboard
-                cancelLabel={t('form.expiration_date.cancel')}
-                clearLabel={t('form.expiration_date.clear_date')}
-                disabled={isDatePickerDisabled}
-                error={
-                  errors.expiration_date ===
-                  'coupon:uniqueCodeCoupon.form.errors.expirationDate'
-                }
-                format="D"
-                id="unique-code-coupon-form-expiration-date-input"
-                initialFocusedDate={initialFocusedDate}
-                label={t('form.expiration_date.label')}
-                minDate={DateTime.now()}
-                onChange={handleExpirationDateChange}
-                value={values.expiration_date}
-              />
-            </MuiPickersUtilsProvider>
+            <DatePicker
+              clearable
+              keyboard
+              cancelLabel={t('form.expiration_date.cancel')}
+              clearLabel={t('form.expiration_date.clear_date')}
+              disabled={isDatePickerDisabled}
+              error={
+                errors.expiration_date ===
+                'coupon:uniqueCodeCoupon.form.errors.expirationDate'
+              }
+              format="D"
+              id="unique-code-coupon-form-expiration-date-input"
+              initialFocusedDate={initialFocusedDate}
+              label={t('form.expiration_date.label')}
+              minDate={DateTime.now()}
+              onChange={handleExpirationDateChange}
+              value={values.expiration_date}
+            />
           </div>
         </div>
       </div>

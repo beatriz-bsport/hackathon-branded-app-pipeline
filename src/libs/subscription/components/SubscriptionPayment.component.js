@@ -33,13 +33,11 @@ import { Alert } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import { DateTime, Settings } from 'luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import { DateTime } from 'luxon';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import LuxonUtils from '@date-io/luxon';
 import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
@@ -530,36 +528,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   {t('contract.actions.iwanttostarton')}
                 </Typography>
                 <div className={classes.column}>
-                  <MuiPickersUtilsProvider
-                    locale={Settings.defaultLocale}
-                    utils={LuxonUtils}
-                  >
-                    <DatePicker
-                      disablePast
-                      required
-                      format="D"
-                      mask={(value) => {
-                        if (value) {
-                          return [
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                          ];
-                        }
-                        return [];
-                      }}
-                      onChange={setDate}
-                      returnMoment={false}
-                      value={date}
-                    />
-                  </MuiPickersUtilsProvider>
+                  <DatePicker
+                    disablePast
+                    required
+                    format="D"
+                    onChange={setDate}
+                    returnMoment={false}
+                    value={date}
+                  />
                 </div>
               </div>
             )}

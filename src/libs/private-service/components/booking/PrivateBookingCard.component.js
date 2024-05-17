@@ -9,9 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import { DateTime, Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
+import { DateTime } from 'luxon';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
@@ -195,22 +193,17 @@ export const PrivateBookingCard = (props: Props) => {
         )}
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
-          >
-            <InlineDateTimePicker
-              keyboard
-              ampm={false}
-              format="y/MM/dd HH:mm"
-              onChange={props.setUpdatedTime}
-              onError={console.error}
-              value={
-                props.updatedTime ||
-                DateTime.fromISO(props.private_booking.date_start)
-              }
-            />
-          </MuiPickersUtilsProvider>
+          <InlineDateTimePicker
+            keyboard
+            ampm={false}
+            format="y/MM/dd HH:mm"
+            onChange={props.setUpdatedTime}
+            onError={console.error}
+            value={
+              props.updatedTime ||
+              DateTime.fromISO(props.private_booking.date_start)
+            }
+          />
           <Typography
             className={classes.updatedTimeExplain}
             color="textSecondary"

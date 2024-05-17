@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import LuxonUtils from '@date-io/luxon';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,10 +7,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import { DateTime, Settings } from 'luxon';
+import { DateTime } from 'luxon';
 import { OptionCallback } from '../../../state/types';
 import { PlannedInvoice } from '../types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
@@ -41,26 +39,21 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
     <Dialog open>
       <DialogTitle>{t('plannedInvoice.dateUpdater.title')}</DialogTitle>
       <DialogContent>
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
-          <DatePicker
-            disablePast
-            keyboard
-            format="D"
-            maxDate={DateTime.fromISO(props.plannedInvoice.date)
-              .plus({ months: 1 })
-              .minus({ days: 1 })
-              .toISODate()}
-            minDate={DateTime.fromISO(props.plannedInvoice.date)
-              .plus({ months: -1 })
-              .minus({ days: 1 })
-              .toISODate()}
-            onChange={handleDateChange}
-            value={date}
-          />
-        </MuiPickersUtilsProvider>
+        <DatePicker
+          disablePast
+          keyboard
+          format="D"
+          maxDate={DateTime.fromISO(props.plannedInvoice.date)
+            .plus({ months: 1 })
+            .minus({ days: 1 })
+            .toISODate()}
+          minDate={DateTime.fromISO(props.plannedInvoice.date)
+            .plus({ months: -1 })
+            .minus({ days: 1 })
+            .toISODate()}
+          onChange={handleDateChange}
+          value={date}
+        />
         <Typography className={classes.explain}>
           {t('plannedInvoice.dateUpdater.explain')}
         </Typography>

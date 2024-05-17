@@ -13,10 +13,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import type { Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
-import { DateTime, Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
+import { DateTime } from 'luxon';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 // @ts-expect-error
@@ -271,18 +269,13 @@ export const SubscriptionContractRegister = (props: Props) => {
           <Typography className={props.classes.buttonLeftText}>
             {t('contract.actions.iwanttostarton')}
           </Typography>
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
-          >
-            <DatePicker
-              required
-              format="D"
-              minDate={DateTime.now().minus({ years: 1 }).toISODate()}
-              onChange={handleSetDate}
-              value={props.date}
-            />
-          </MuiPickersUtilsProvider>
+          <DatePicker
+            required
+            format="D"
+            minDate={DateTime.now().minus({ years: 1 }).toISODate()}
+            onChange={handleSetDate}
+            value={props.date}
+          />
         </div>
 
         <Divider />

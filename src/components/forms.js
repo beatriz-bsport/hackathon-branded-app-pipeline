@@ -8,8 +8,6 @@ import { Field, ErrorMessage, useField } from 'formik';
 
 import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 
-import LuxonUtils from '@date-io/luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -28,7 +26,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { DateTime, Settings } from 'luxon';
+import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 
 import * as Yup from 'yup';
@@ -334,10 +332,7 @@ export const DateField = (
         meta: { touched, error },
         form: { setFieldValue, setFieldTouched },
       }) => (
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
+        <>
           <DatePicker
             {...field}
             {...props}
@@ -378,7 +373,7 @@ export const DateField = (
               )}
             />
           )}
-        </MuiPickersUtilsProvider>
+        </>
       )}
     </Field>
   );
@@ -390,36 +385,31 @@ export const TimeField = (props: TimeFieldProps) => {
     <Field {...props}>
       {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
         <>
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
-          >
-            <TimePicker
-              {...field}
-              {...props}
-              ampm={i18n.language === 'en-US'}
-              error={!!(touched && error)}
-              // format="t"
-              label={
-                touched && error && !props.outsideErrorDisplay ? (
-                  <Typography color="error" variant="caption">
-                    {t(error)}
-                  </Typography>
-                ) : (
-                  props.label
-                )
-              }
-              onChange={(time: DateTime) => {
-                setFieldValue(
-                  props.name,
-                  props.parseAsString
-                    ? formatISOStringAsTime(time.toISO())
-                    : time,
-                );
-              }}
-              style={{ width: 100 }}
-            />
-          </MuiPickersUtilsProvider>
+          <TimePicker
+            {...field}
+            {...props}
+            ampm={i18n.language === 'en-US'}
+            error={!!(touched && error)}
+            // format="t"
+            label={
+              touched && error && !props.outsideErrorDisplay ? (
+                <Typography color="error" variant="caption">
+                  {t(error)}
+                </Typography>
+              ) : (
+                props.label
+              )
+            }
+            onChange={(time: DateTime) => {
+              setFieldValue(
+                props.name,
+                props.parseAsString
+                  ? formatISOStringAsTime(time.toISO())
+                  : time,
+              );
+            }}
+            style={{ width: 100 }}
+          />
           <AccessTimeIcon
             style={{ marginLeft: -25, marginBottom: 4, color: 'grey' }}
           />

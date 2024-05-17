@@ -4,12 +4,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LuxonUtils from '@date-io/luxon';
-import { DateTime, Settings } from 'luxon';
+import { DateTime } from 'luxon';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 import { withTranslation, TFunction } from 'react-i18next';
@@ -64,19 +62,14 @@ export const SubscriptionContractCard = (props: Props) => {
                 {props.t('contract.actions.iwanttostarton')}
               </Typography>
               <div className={props.classes.column}>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LuxonUtils}
-                >
-                  <DatePicker
-                    disablePast
-                    required
-                    format="D"
-                    onChange={props.setDate}
-                    returnMoment={false}
-                    value={props.date}
-                  />
-                </MuiPickersUtilsProvider>
+                <DatePicker
+                  disablePast
+                  required
+                  format="D"
+                  onChange={props.setDate}
+                  returnMoment={false}
+                  value={props.date}
+                />
               </div>
             </div>
           )}

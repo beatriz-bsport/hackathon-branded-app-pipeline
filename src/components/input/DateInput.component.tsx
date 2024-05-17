@@ -1,7 +1,5 @@
 import React, { JSX } from 'react';
-import LuxonUtils from '@date-io/luxon';
-import { DateTime, Settings } from 'luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import { DateTime } from 'luxon';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import {
   InputLabelProps as InputLabelPropsType,
@@ -50,26 +48,24 @@ export const DateInput: React.FC<Props> = ({
   const classes = useStyle();
 
   return (
-    <MuiPickersUtilsProvider locale={Settings.defaultLocale} utils={LuxonUtils}>
-      <DatePicker
-        className={`${className || ''} ${classes.container}`}
-        clearable={clearable}
-        disabled={disabled}
-        error={error}
-        format={format || 'D'}
-        InputLabelProps={InputLabelProps}
-        InputProps={{
-          endAdornment,
-        }}
-        label={label}
-        maxDate={maxDate}
-        minDate={minDate}
-        name={name}
-        onChange={onChange}
-        required={required}
-        value={value}
-      />
-    </MuiPickersUtilsProvider>
+    <DatePicker
+      className={`${className || ''} ${classes.container}`}
+      clearable={clearable}
+      disabled={disabled}
+      error={error}
+      format={format || 'D'}
+      InputLabelProps={InputLabelProps}
+      InputProps={{
+        endAdornment,
+      }}
+      label={label}
+      maxDate={maxDate}
+      minDate={minDate}
+      name={name}
+      onChange={onChange}
+      required={required}
+      value={value}
+    />
   );
 };
 

@@ -9,9 +9,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import LuxonUtils from '@date-io/luxon';
-import { Settings } from 'luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
@@ -114,34 +111,29 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
           )}
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
-          <div className={classes.datePicker}>
-            <InlineDatePicker
-              keyboard
-              ampm={false}
-              className={classes.input}
-              format="yyyy/MM/dd"
-              onChange={(ev) => onChange({ date_start: ev.toISODate() })}
-              onError={console.error}
-              value={filter_data.date_start}
-            />
-          </div>
-          {t(`filters.${filter_data.filter_identifier}.third`)}
-          <div className={classes.datePicker}>
-            <InlineDatePicker
-              keyboard
-              ampm={false}
-              className={classes.input}
-              format="yyyy/MM/dd"
-              onChange={(ev) => onChange({ date_end: ev.toISODate() })}
-              onError={console.error}
-              value={filter_data.date_end}
-            />
-          </div>
-        </MuiPickersUtilsProvider>
+        <div className={classes.datePicker}>
+          <InlineDatePicker
+            keyboard
+            ampm={false}
+            className={classes.input}
+            format="yyyy/MM/dd"
+            onChange={(ev) => onChange({ date_start: ev.toISODate() })}
+            onError={console.error}
+            value={filter_data.date_start}
+          />
+        </div>
+        {t(`filters.${filter_data.filter_identifier}.third`)}
+        <div className={classes.datePicker}>
+          <InlineDatePicker
+            keyboard
+            ampm={false}
+            className={classes.input}
+            format="yyyy/MM/dd"
+            onChange={(ev) => onChange({ date_end: ev.toISODate() })}
+            onError={console.error}
+            value={filter_data.date_end}
+          />
+        </div>
         {t(`filters.${filter_data.filter_identifier}.fourth`)}
         <Select
           required

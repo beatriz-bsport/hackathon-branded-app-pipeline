@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useState } from 'react';
-import { DateTime, Info, Settings } from 'luxon';
+import { DateTime, Info } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import {
   Theme,
@@ -10,8 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import LuxonUtils from '@date-io/luxon';
-import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { DatePicker } from 'material-ui-pickers';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -142,24 +141,19 @@ export const CalendarHeader = forwardRef(
             />
           </IconButton>
           <div>
-            <MuiPickersUtilsProvider
-              locale={Settings.defaultLocale}
-              utils={LuxonUtils}
-            >
-              <DatePicker
-                DialogProps={{ open }}
-                format={LUXON_ISO_SHORT_DATE}
-                initialFocusedDate={
-                  props.dateSelected
-                    ? props.dateSelected
-                    : DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
-                }
-                onChange={setNewDate}
-                onClose={closePicker}
-                TextFieldComponent={hiddenDiv}
-                value={null}
-              />
-            </MuiPickersUtilsProvider>
+            <DatePicker
+              DialogProps={{ open }}
+              format="D"
+              initialFocusedDate={
+                props.dateSelected
+                  ? props.dateSelected
+                  : DateTime.now().toISODate()
+              }
+              onChange={setNewDate}
+              onClose={closePicker}
+              TextFieldComponent={hiddenDiv}
+              value={null}
+            />
           </div>
         </div>
         <div className={classes.trick}>

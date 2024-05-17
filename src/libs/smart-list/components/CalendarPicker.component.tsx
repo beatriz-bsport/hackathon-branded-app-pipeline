@@ -7,8 +7,7 @@ import {
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles } from '@material-ui/styles';
-import { DateTime, Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
+import { DateTime } from 'luxon';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -23,11 +22,7 @@ import Dialog from '@material-ui/core/Dialog';
 
 import { createStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
-import {
-  MuiPickersUtilsProvider,
-  Calendar,
-  BasePicker,
-} from 'material-ui-pickers';
+import { Calendar, BasePicker } from 'material-ui-pickers';
 import NumericInput from '../../../components/input/NumericInput.component';
 
 import {
@@ -253,58 +248,53 @@ export class CalendarPicker extends Component<Props, State> {
           </Select>
         </div>
 
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
-          <div className={classes.calendarsContainer}>
-            {/* @ts-expect-error */}
+        <div className={classes.calendarsContainer}>
+          {/* @ts-expect-error */}
+          <BasePicker>
+            {() => (
+              <div className={classes.picker}>
+                <Calendar
+                  // @ts-expect-error
+                  autoOk
+                  date={date ? DateTime.fromISO(date) : DateTime.now()}
+                  maxDate={
+                    this.state.date_filter_type === DATE_BETWEEN
+                      ? DateTime.fromISO(date_second)
+                      : undefined
+                  }
+                  onChange={(ev) =>
+                    this.setState({
+                      date: ev.toISODate(),
+                    })
+                  }
+                />
+              </div>
+            )}
+          </BasePicker>
+          {this.state.date_filter_type === DATE_BETWEEN ? (
+            // @ts-expect-error
             <BasePicker>
               {() => (
                 <div className={classes.picker}>
+                  {/* @ts-expect-error */}
                   <Calendar
-                    // @ts-expect-error
-                    autoOk
-                    date={date ? DateTime.fromISO(date) : DateTime.now()}
-                    maxDate={
-                      this.state.date_filter_type === DATE_BETWEEN
+                    date={
+                      date_second
                         ? DateTime.fromISO(date_second)
-                        : undefined
+                        : DateTime.now()
                     }
+                    minDate={DateTime.fromISO(date)}
                     onChange={(ev) =>
                       this.setState({
-                        date: ev.toISODate(),
+                        date_second: ev.toISODate(),
                       })
                     }
                   />
                 </div>
               )}
             </BasePicker>
-            {this.state.date_filter_type === DATE_BETWEEN ? (
-              // @ts-expect-error
-              <BasePicker>
-                {() => (
-                  <div className={classes.picker}>
-                    {/* @ts-expect-error */}
-                    <Calendar
-                      date={
-                        date_second
-                          ? DateTime.fromISO(date_second)
-                          : DateTime.now()
-                      }
-                      minDate={DateTime.fromISO(date)}
-                      onChange={(ev) =>
-                        this.setState({
-                          date_second: ev.toISODate(),
-                        })
-                      }
-                    />
-                  </div>
-                )}
-              </BasePicker>
-            ) : null}
-          </div>
-        </MuiPickersUtilsProvider>
+          ) : null}
+        </div>
       </div>
     );
   };

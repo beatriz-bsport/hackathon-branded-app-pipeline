@@ -26,13 +26,12 @@ import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import InfoIcon from '@material-ui/icons/Info';
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
-import LuxonUtils from '@date-io/luxon';
+import { DatePicker } from 'material-ui-pickers';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { DateTime, Info, Settings } from 'luxon';
+import { DateTime, Info } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
@@ -812,25 +811,20 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           </div>
         )}
         <div>
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
-          >
-            <DatePicker
-              DialogProps={{ open: this.state.datePickerOpen }}
-              initialFocusedDate={
-                this.calendarRef.current
-                  ? DateTime.fromJSDate(
-                      this.calendarRef?.current?.getApi().getDate(),
-                    ).toISODate()
-                  : DateTime.now().toISODate()
-              }
-              onChange={this.setNewDate}
-              onClose={this.onCloseDatePicker}
-              TextFieldComponent={this.hiddenDiv}
-              value={null}
-            />
-          </MuiPickersUtilsProvider>
+          <DatePicker
+            DialogProps={{ open: this.state.datePickerOpen }}
+            initialFocusedDate={
+              this.calendarRef.current
+                ? DateTime.fromJSDate(
+                    this.calendarRef?.current?.getApi().getDate(),
+                  ).toISODate()
+                : DateTime.now().toISODate()
+            }
+            onChange={this.setNewDate}
+            onClose={this.onCloseDatePicker}
+            TextFieldComponent={this.hiddenDiv}
+            value={null}
+          />
         </div>
         <FullCalendar
           ref={this.calendarRef}

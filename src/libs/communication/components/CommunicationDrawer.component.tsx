@@ -1,7 +1,6 @@
 import React from 'react';
-import { DateTime, Settings } from 'luxon';
+import { DateTime } from 'luxon';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
-import LuxonUtils from '@date-io/luxon';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -28,7 +27,6 @@ import Typography from '@material-ui/core/Typography';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import TimePicker from 'material-ui-pickers/TimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -1079,35 +1077,30 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             {t('scheduled.when')}
                           </Typography>
                           <div className={classes.datePickerSection}>
-                            <MuiPickersUtilsProvider
-                              locale={Settings.defaultLocale}
-                              utils={LuxonUtils}
-                            >
-                              <DatePicker
-                                required
-                                adornmentPosition="start"
-                                className={classes.dateAndTimePickers}
-                                format="D"
-                                helperText={null}
-                                id="offer-form-date-start-input"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <IconButton
-                                        className={classes.inputIconAdornment}
-                                      >
-                                        <CalendarTodayIcon />
-                                      </IconButton>
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                onChange={this.updateCommunicationScheduledDate}
-                                placeholder={t('scheduled.chooseDate')}
-                                size="small"
-                                value={this.state.communicationScheduledDate}
-                                variant="outlined"
-                              />
-                            </MuiPickersUtilsProvider>
+                            <DatePicker
+                              required
+                              adornmentPosition="start"
+                              className={classes.dateAndTimePickers}
+                              format="D"
+                              helperText={null}
+                              id="offer-form-date-start-input"
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <IconButton
+                                      className={classes.inputIconAdornment}
+                                    >
+                                      <CalendarTodayIcon />
+                                    </IconButton>
+                                  </InputAdornment>
+                                ),
+                              }}
+                              onChange={this.updateCommunicationScheduledDate}
+                              placeholder={t('scheduled.chooseDate')}
+                              size="small"
+                              value={this.state.communicationScheduledDate}
+                              variant="outlined"
+                            />
                             <Typography variant="body1">
                               {t('scheduled.at')}
                             </Typography>

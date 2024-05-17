@@ -8,9 +8,6 @@ import Button from '@material-ui/core/Button';
 import { DateRange } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { useFormikContext } from 'formik';
-import { Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import FormSection from '#components/forms/FormSection';
 import Calendar from '#components/offer/Calendar.component';
@@ -94,21 +91,16 @@ export const OfferFormRecurrencePreview = (props: Props) => {
         sectionIconContainerStyle={offerFormClasses.sectionIconContainer}
         sectionTitle={t('offer:form.dialog.recurrencePreview')}
       >
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
-          <Calendar
-            forceMonthDisplay
-            previewOnly
-            activeWrapperStyle={offerFormClasses.activeCalendarDay}
-            date={calendarSelectedDate}
-            events={recurrenceCalendarEvents}
-            onDateChange={handleDateChange}
-            weekRowContainerStyle={classes.weekRowStyle}
-            wrapperStyle={classes.calendarDayBase}
-          />
-        </MuiPickersUtilsProvider>
+        <Calendar
+          forceMonthDisplay
+          previewOnly
+          activeWrapperStyle={offerFormClasses.activeCalendarDay}
+          date={calendarSelectedDate}
+          events={recurrenceCalendarEvents}
+          onDateChange={handleDateChange}
+          weekRowContainerStyle={classes.weekRowStyle}
+          wrapperStyle={classes.calendarDayBase}
+        />
 
         <Alert className={formClasses.recurrencePreviewAlert} severity="info">
           {t('offer:form.section.dateTime.field.recurrence.previewCount', {

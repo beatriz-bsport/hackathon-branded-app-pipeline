@@ -15,10 +15,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import LuxonUtils from '@date-io/luxon';
-import { Settings } from 'luxon';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import isEqual from 'lodash/isEqual';
 import { MaterialStyleType } from '../../utils/types';
@@ -518,22 +515,17 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Typography>
                   {t('form.repeat.fromDate').toLowerCase()}
                 </Typography>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LuxonUtils}
-                >
-                  <DatePicker
-                    className={classes.margin}
-                    disabled={radioRepeatValue === 1 || !!initial?.rrule}
-                    format="L"
-                    onChange={(date: Date) => {
-                      setRrule({ ...rrule, dtstart: date });
-                    }}
-                    style={{ width: 120 }}
-                    value={rrule.dtstart}
-                  />
-                  <InsertInvitationIcon className={classes.calendarIcon} />
-                </MuiPickersUtilsProvider>
+                <DatePicker
+                  className={classes.margin}
+                  disabled={radioRepeatValue === 1 || !!initial?.rrule}
+                  format="L"
+                  onChange={(date: Date) => {
+                    setRrule({ ...rrule, dtstart: date });
+                  }}
+                  style={{ width: 120 }}
+                  value={rrule.dtstart}
+                />
+                <InsertInvitationIcon className={classes.calendarIcon} />
               </div>
               <div
                 className={classnames(
@@ -544,44 +536,34 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               >
                 <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LuxonUtils}
-                >
-                  <DatePicker
-                    className={classes.margin}
-                    disabled={radioRepeatValue !== 1 || !!initial?.rrule}
-                    format="L"
-                    onChange={(date: Date) => {
-                      setRrule({ ...rrule, dtstart: date });
-                      if (rrule.until < date) {
-                        setRrule({ ...rrule, until: date });
-                      }
-                    }}
-                    style={{ width: 120 }}
-                    value={rrule.dtstart}
-                  />
-                  <InsertInvitationIcon className={classes.calendarIcon} />
-                </MuiPickersUtilsProvider>
-                <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
-                <MuiPickersUtilsProvider
-                  locale={Settings.defaultLocale}
-                  utils={LuxonUtils}
-                >
-                  <DatePicker
-                    className={classes.margin}
-                    disabled={radioRepeatValue !== 1 || !!initial?.disabled}
-                    format="L"
-                    maxDate={maxDate}
-                    minDate={rrule.dtstart}
-                    onChange={(date: Date) => {
+                <DatePicker
+                  className={classes.margin}
+                  disabled={radioRepeatValue !== 1 || !!initial?.rrule}
+                  format="L"
+                  onChange={(date: Date) => {
+                    setRrule({ ...rrule, dtstart: date });
+                    if (rrule.until < date) {
                       setRrule({ ...rrule, until: date });
-                    }}
-                    style={{ width: 120 }}
-                    value={rrule.until}
-                  />
-                  <InsertInvitationIcon className={classes.calendarIcon} />
-                </MuiPickersUtilsProvider>
+                    }
+                  }}
+                  style={{ width: 120 }}
+                  value={rrule.dtstart}
+                />
+                <InsertInvitationIcon className={classes.calendarIcon} />
+                <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
+                <DatePicker
+                  className={classes.margin}
+                  disabled={radioRepeatValue !== 1 || !!initial?.disabled}
+                  format="L"
+                  maxDate={maxDate}
+                  minDate={rrule.dtstart}
+                  onChange={(date: Date) => {
+                    setRrule({ ...rrule, until: date });
+                  }}
+                  style={{ width: 120 }}
+                  value={rrule.until}
+                />
+                <InsertInvitationIcon className={classes.calendarIcon} />
               </div>
             </RadioGroup>
           </div>

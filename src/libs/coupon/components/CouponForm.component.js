@@ -1,11 +1,9 @@
 import React from 'react';
-import { DateTime, Settings } from 'luxon';
-import LuxonUtils from '@date-io/luxon';
+import { DateTime } from 'luxon';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import Collapse from '@material-ui/core/Collapse';
 import FormControl from '@material-ui/core/FormControl';
@@ -420,33 +418,26 @@ export class CouponForm extends React.Component<Props, State> {
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
         />
-        <MuiPickersUtilsProvider
-          locale={Settings.defaultLocale}
-          utils={LuxonUtils}
-        >
-          <DatePicker
-            clearable
-            keyboard
-            openToYearSelection
-            cancelLabel={t('form.expiration_date.cancel')}
-            clearLabel={t('form.expiration_date.clear_date')}
-            disabled={
-              !!initial?.coupon_template_instance ||
-              !this.state.with_expiration_date ||
-              !this.state.is_active
-            }
-            format="D"
-            initialFocusedDate={DateTime.now().toFormat('D')}
-            label={t('form.expiration_date.label')}
-            minDate={DateTime.now()}
-            onChange={(date) =>
-              this.handleChange('expiration_date', false)(date)
-            }
-            required={this.state.with_expiration_date && this.state.is_active}
-            returnMoment={false}
-            value={this.state.expiration_date}
-          />
-        </MuiPickersUtilsProvider>
+        <DatePicker
+          clearable
+          keyboard
+          openToYearSelection
+          cancelLabel={t('form.expiration_date.cancel')}
+          clearLabel={t('form.expiration_date.clear_date')}
+          disabled={
+            !!initial?.coupon_template_instance ||
+            !this.state.with_expiration_date ||
+            !this.state.is_active
+          }
+          format="D"
+          initialFocusedDate={DateTime.now().toFormat('D')}
+          label={t('form.expiration_date.label')}
+          minDate={DateTime.now()}
+          onChange={(date) => this.handleChange('expiration_date', false)(date)}
+          required={this.state.with_expiration_date && this.state.is_active}
+          returnMoment={false}
+          value={this.state.expiration_date}
+        />
       </div>
     );
   };

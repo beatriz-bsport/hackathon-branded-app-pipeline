@@ -13,10 +13,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
-import { DateTime, Settings } from 'luxon';
+import { DateTime } from 'luxon';
 
-import LuxonUtils from '@date-io/luxon';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
@@ -282,18 +280,13 @@ export class FormField extends Component<Props, State> {
       case 'lower_date':
       case 'date':
         return (
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
-          >
-            <DatePicker
-              keyboard
-              disabled={disabled}
-              format="D"
-              onChange={this.handleDateChange}
-              value={selectedDate}
-            />
-          </MuiPickersUtilsProvider>
+          <DatePicker
+            keyboard
+            disabled={disabled}
+            format="D"
+            onChange={this.handleDateChange}
+            value={selectedDate}
+          />
         );
       case 'hour':
         return (

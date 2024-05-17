@@ -1,11 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import {
-  BasePicker,
-  Calendar,
-  MuiPickersUtilsProvider,
-} from 'material-ui-pickers';
-import LuxonUtils from '@date-io/luxon';
-import { DateTime, Interval, Settings } from 'luxon';
+import { BasePicker, Calendar } from 'material-ui-pickers';
+import { DateTime, Interval } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
@@ -85,15 +80,13 @@ const DateRangePicker: React.FC<Props> = (props) => {
   );
 
   return (
-    <MuiPickersUtilsProvider locale={Settings.defaultLocale} utils={LuxonUtils}>
-      {/* @ts-ignore */}
-      <BasePicker>
-        {() => (
-          // @ts-ignore
-          <Calendar date={date} onChange={onDateChange} renderDay={renderDay} />
-        )}
-      </BasePicker>
-    </MuiPickersUtilsProvider>
+    // @ts-ignore
+    <BasePicker>
+      {() => (
+        // @ts-ignore
+        <Calendar date={date} onChange={onDateChange} renderDay={renderDay} />
+      )}
+    </BasePicker>
   );
 };
 

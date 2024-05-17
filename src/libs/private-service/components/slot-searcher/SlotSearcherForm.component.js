@@ -4,13 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import LuxonUtils from '@date-io/luxon';
-import { DateTime, Settings } from 'luxon';
-import {
-  MuiPickersUtilsProvider,
-  Calendar,
-  BasePicker,
-} from 'material-ui-pickers';
+import { DateTime } from 'luxon';
+import { Calendar, BasePicker } from 'material-ui-pickers';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
@@ -213,33 +208,25 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
           />
         ) : null}
         {this.props.onDateChange || this.props.searchAvailableSlots ? (
-          <MuiPickersUtilsProvider
-            locale={Settings.defaultLocale}
-            utils={LuxonUtils}
+          <BasePicker
+            onChange={this.handleDateChange}
+            value={this.state.date_selected}
           >
-            <BasePicker
-              onChange={this.handleDateChange}
-              value={this.state.date_selected}
-            >
-              {() => (
-                <div className="picker">
-                  <Paper style={{ overflow: 'hidden' }}>
-                    <Calendar
-                      disablePast
-                      date={DateTime.fromISO(this.state.date_selected)}
-                      disableFuture={
-                        !(
-                          this.state.service_selected &&
-                          this.state.slot_selected
-                        )
-                      }
-                      onChange={this.handleDateChange}
-                    />
-                  </Paper>
-                </div>
-              )}
-            </BasePicker>
-          </MuiPickersUtilsProvider>
+            {() => (
+              <div className="picker">
+                <Paper style={{ overflow: 'hidden' }}>
+                  <Calendar
+                    disablePast
+                    date={DateTime.fromISO(this.state.date_selected)}
+                    disableFuture={
+                      !(this.state.service_selected && this.state.slot_selected)
+                    }
+                    onChange={this.handleDateChange}
+                  />
+                </Paper>
+              </div>
+            )}
+          </BasePicker>
         ) : null}
       </div>
     );

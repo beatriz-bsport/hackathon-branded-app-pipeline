@@ -10,9 +10,9 @@ import { ConnectedRouter } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
-import LuxonUtils from '@date-io/luxon';
+import { LocalizedLuxonUtils } from './i18n/utils/luxon-picker-utils';
 import withSentryErrorReporting from './hocs/error-boundary.hoc';
 import LoadingBackoffice from './components/navigation/LoadingBackoffice.component';
 
@@ -58,7 +58,7 @@ export class App extends Component<{}, {}> {
               <Suspense fallback={<LoadingBackoffice />}>
                 <MuiPickersUtilsProvider
                   locale={Settings.defaultLocale}
-                  utils={LuxonUtils}
+                  utils={LocalizedLuxonUtils}
                 >
                   <SnackbarPile />
                   <BackgroundSnackbar />

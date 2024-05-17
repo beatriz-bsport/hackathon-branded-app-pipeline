@@ -47,6 +47,7 @@ import {
   SHOP_ITEM_VARIANTS_PAGE_SIZE,
   SHOP_ITEM_TEMPLATE_PAGE_SIZE,
 } from '#libs/shop/constants';
+import type { RootState } from '#src/reducers';
 
 export const fetchShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
@@ -653,7 +654,12 @@ export const fetchShopItemTemplateList = (
   params: ShopItemTemplateFilterParams,
   options?: OptionCallback<PaginatedResponse<ShopItemTemplate>>,
 ) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const page =
+      params.page ??
+      getState().shopReworked.shopTemplates.shopItemTemplate
+        .bySubshopTemplateId[params.sub_shop_template]?.page ??
+      1;
     try {
       dispatch(
         fetchShopItemTemplateListActions.isLoading({
@@ -671,7 +677,7 @@ export const fetchShopItemTemplateList = (
       const response = await fetchShopItemTemplateListAPI({
         ...params,
         page_size: SHOP_ITEM_TEMPLATE_PAGE_SIZE,
-        page: params.page ?? 1,
+        page,
       });
 
       dispatch(

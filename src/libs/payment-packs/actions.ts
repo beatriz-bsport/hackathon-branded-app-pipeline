@@ -409,7 +409,11 @@ export function fetchPaymentPackBulk(
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
+
     if (ids_uniq.length === 0) {
+      if (options && options.onSuccess) {
+        options.onSuccess([]);
+      }
       return;
     }
     dispatch(paymentPackBulkActions.isLoading(true));
@@ -446,6 +450,9 @@ export function fetchPaymentPackBulkWidget(
   return async () => {
     const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
     if (ids_uniq.length === 0) {
+      if (options && options.onSuccess) {
+        options.onSuccess([]);
+      }
       return;
     }
     try {

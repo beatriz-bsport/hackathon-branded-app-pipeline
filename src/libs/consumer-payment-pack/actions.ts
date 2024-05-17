@@ -465,7 +465,12 @@ export function retrieveConsumerPackBulk(
   options: OptionCallback<ConsumerPaymentPack[]>,
 ) {
   return async (dispatch: Dispatch) => {
-    if (!ids || ids.length === 0) return;
+    if (!ids || ids.length === 0) {
+      if (options && options.onSuccess) {
+        options.onSuccess([]);
+        return;
+      }
+    }
     dispatch(retrieveBulk.isLoading(true));
     dispatch(retrieveBulk.error(null));
     try {

@@ -20,8 +20,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 // @ts-expect-error
-import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
-import { provincialTaxHelperText } from '../../theme/utils';
+import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
+import { provincialTaxHelperText } from '#libs/theme/utils';
 import {
   TextField,
   PriceField,
@@ -33,20 +33,13 @@ import {
 import ToolTip from '#components/Tooltip.component';
 import { ALMOST_100 } from '../../../constants';
 
-import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 // @ts-expect-error
-import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
-// @ts-expect-error
-import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
-// @ts-expect-error
-import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
-import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
+import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
 
-import { PaymentCombo, PaymentComboItem } from '../types';
-import { PaymentPack } from '../../payment-packs/types';
-import { ShopItem } from '../../shop/types';
-import { PrivatePass } from '../../private-service/types';
+import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
+import { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
@@ -60,6 +53,11 @@ import Config from '../../../config';
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { ShopItem } from '#libs/shop/types';
+import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
+import { ShopItemSelector } from '#libs/shop/components/ShopItemSelector.component';
+import { PrivatePassSelector } from '#libs/private-service/components/pass/PrivatePassSelector.component';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

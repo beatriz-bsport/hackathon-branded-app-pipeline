@@ -279,7 +279,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
           <InlineDateTimePicker
             keyboard
             ampm={false}
-            format="YYYY/MM/DD HH:mm"
+            format="yyyy/MM/dd HH:mm"
             onChange={this.handleDateChange}
             onError={console.error}
             value={this.state.date}

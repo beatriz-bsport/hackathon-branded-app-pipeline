@@ -1,5 +1,4 @@
 import { TFunction } from 'i18next';
-import moment from 'moment-timezone';
 import { DateTime } from 'luxon';
 import {
   GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY,
@@ -8,8 +7,6 @@ import {
 } from './constants';
 import { RecurrenceRuleGroupOffer } from './types';
 
-// Keeping moment in this method for now
-// because DateTime doesn't have ordinal formatting
 export const getDisplayDateFromRecurrence = (
   date: DateTime,
   recurrence_rule: RecurrenceRuleGroupOffer,
@@ -24,28 +21,26 @@ export const getDisplayDateFromRecurrence = (
     return getDisplayDateForWeekAndDay(date, t);
   }
   if (recurrence_rule.frequence === GROUPED_OFFERS_RECURSIVE_YEARLY_FREQUENCE)
-    // TODO: annoying format which cannot be done with luxon
-    return `${moment(date.toISODate()).format(
-      'Mo MMMM',
-    )} - ${getDisplayDateForWeekAndDay(date, t)}`;
+    // TODO see with product. Old format: 'Mo MMMM'
+    return `${date.toFormat('d MMMM')} - ${getDisplayDateForWeekAndDay(
+      date,
+      t,
+    )}`;
   return '';
 };
 
-// Keeping moment in this method for now
-// because DateTime doesn't have ordinal formatting
 const getDisplayDateForWeekAndDay = (date: DateTime<true>, t: TFunction) => {
   if (getWeekOfMonth(date) < 5) {
     const weekOfDate = date.localWeekNumber;
     const weekOfStartOfMonth = date.startOf('month').localWeekNumber;
 
-    return moment(
-      DateTime.now()
-        .set({
-          localWeekday: date.localWeekday,
-          localWeekNumber: weekOfDate - weekOfStartOfMonth || 1,
-        })
-        .toISODate(),
-    ).format('Wo dddd');
+    // TODO see with product. Old format: 'Wo dddd'
+    return DateTime.now()
+      .set({
+        localWeekday: date.localWeekday,
+        localWeekNumber: weekOfDate - weekOfStartOfMonth || 1,
+      })
+      .toFormat('W EEEE');
   }
 
   return `${t('groupedOption.last')} ${date.toFormat('cccc')}`;

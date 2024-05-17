@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { DateTime } from 'luxon';
 import {
   BarChart,
   Bar,
@@ -57,8 +56,8 @@ export function TemporalBarChart(props: Props) {
     barSize,
     isCurrencyFormat,
   } = props;
-  const start = DateTime.fromISO(data[0].d);
-  const end = DateTime.fromISO(data[data.length - 1].d);
+  const start = data[0].d;
+  const end = data[data.length - 1].d;
   const xFormatter = dateFormatter([start, end]);
 
   const yLabelFormatted = `${yLabel}${

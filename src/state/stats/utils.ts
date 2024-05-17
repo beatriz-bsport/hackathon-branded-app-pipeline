@@ -17,20 +17,20 @@ export const discretizeByAndFillMissing = memoize(
   ) => {
     const duration = DateTime.fromISO(end).diff(DateTime.fromISO(start));
     let unitOfTime = 'month' as 'month' | 'week' | 'day' | 'hour';
-    let format = 'YYYY-MM' as 'YYYY-MM' | 'YYYY-MM-DD' | 'YYYY-MM-DD LT';
+    let format = 'yyyy-MM' as 'yyyy-MM' | 'yyyy-MM-dd' | 'yyyy-MM-dd t';
 
     if (duration.as('days') > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
       unitOfTime = 'month';
-      format = 'YYYY-MM';
+      format = 'yyyy-MM';
     } else if (duration.as('days') > WEEKLY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'week';
-      format = 'YYYY-MM-DD';
+      format = 'yyyy-MM-dd';
     } else if (duration.as('days') > DAILY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'day';
-      format = 'YYYY-MM-DD';
+      format = 'yyyy-MM-dd';
     } else {
       unitOfTime = 'hour';
-      format = 'YYYY-MM-DD LT';
+      format = 'yyyy-MM-dd t';
     }
 
     const grouped = groupBy(table, (u) =>
@@ -95,7 +95,7 @@ export const discretizeByAndFillMissing = memoize(
       finalTable.unshift({
         d: DateTime.fromISO(finalTable[0].d)
           .minus({ hours: 1 })
-          .toFormat('YYYY-MM-DD LT'),
+          .toFormat('yyyy-MM-dd t'),
         v: 0,
       });
     }

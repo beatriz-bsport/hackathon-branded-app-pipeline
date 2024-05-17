@@ -35,7 +35,6 @@ type Props = {
   offers: Array<Offer>,
   showOfferGender?: boolean,
   bookedOffers?: number[],
-  locale: string,
 };
 
 type State = {
@@ -224,7 +223,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             const isToday = currentDate.hasSame(DateTime.now(), 'day');
             return (
               <div
-                key={currentDate.format('YYYY-MM-DD')}
+                key={currentDate.toFormat('yyyy-MM-dd')}
                 className={classes.rowItem}
               >
                 <Typography
@@ -232,9 +231,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   color={isToday ? 'primary' : 'textSecondary'}
                   variant="h5"
                 >
-                  {`${day} ${currentDate.format(
-                    this.props.locale === 'nl' ? 'D' : 'Do',
-                  )}`}
+                  {/* TODO ordinals */}
+                  {`${day} ${currentDate.toFormat('d')}`}
                 </Typography>
               </div>
             );

@@ -37,10 +37,11 @@ const YLegend = (props: { classes: any, value: number }) => (
 
 export const TimeslotGridChart = (props: Props) => {
   const hour_start = props.schedule_timerange_begin
-    ? DateTime.fromISO(props.schedule_timerange_begin).hour
+    ? DateTime.fromFormat(props.schedule_timerange_begin, 'yyyy-MM-dd HH:mm')
+        .hour
     : 6;
   const hour_end = props.schedule_timerange_end
-    ? DateTime.fromISO(props.schedule_timerange_end).hour
+    ? DateTime.fromFormat(props.schedule_timerange_end, 'yyyy-MM-dd HH:mm').hour
     : 23;
   const classes = useStyles(props.height);
   const { t } = useTranslation(['datetime']);

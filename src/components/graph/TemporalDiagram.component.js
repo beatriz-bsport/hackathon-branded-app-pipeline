@@ -33,12 +33,12 @@ const colors = [
 
 function dateFormatter(kind) {
   if (kind === 'month') {
-    return (d) => DateTime.fromISO(d).toFormat('MMM YYYY');
+    return (d) => DateTime.fromISO(d).toFormat('MMM yyyy');
   }
   if (kind === 'week') {
-    return (d) => `Semaine du ${DateTime.fromISO(d).toFormat('DD MMM YYYY')}`;
+    return (d) => `Semaine du ${DateTime.fromISO(d).toFormat('dd MMM yyyy')}`;
   }
-  return (d) => DateTime.fromISO(d).toFormat('ddd DD MMM');
+  return (d) => DateTime.fromISO(d).toFormat('EEEE dd MMM');
 }
 
 export const TemporalStatistic = React.memo((props: Props) => {

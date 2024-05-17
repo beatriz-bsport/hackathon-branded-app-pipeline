@@ -155,8 +155,8 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
   const handlePeriodChange = useCallback(
     (_values) =>
       setPeriodFilter({
-        min_date: _values.dateStart.format('YYYY-MM-DD'),
-        max_date: _values.dateEnd.format('YYYY-MM-DD'),
+        min_date: _values.dateStart.toFormat('yyyy-MM-dd'),
+        max_date: _values.dateEnd.toFormat('yyyy-MM-dd'),
       }),
     [setPeriodFilter],
   );

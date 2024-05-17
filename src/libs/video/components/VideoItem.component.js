@@ -84,7 +84,7 @@ export const VideoItem = (props: Props) => {
               interpolation: {
                 escapeValue: false,
               },
-              expiration_date: expiration_date.format('L'),
+              expiration_date: expiration_date.toFormat('D'),
             },
           )}
         </Typography>

@@ -99,7 +99,7 @@ export type MetaActivityFilter = {
 };
 
 export type OffersGroupFilter = Partial<{
-  min_date: string; // Format: YYYY-mm-DD
-  max_date: string; // Format: YYYY-mm-DD
+  min_date: string; // Format: yyyy-MM-dd
+  max_date: string; // Format: yyyy-MM-dd
   meta_activity__in: number[];
 }>;

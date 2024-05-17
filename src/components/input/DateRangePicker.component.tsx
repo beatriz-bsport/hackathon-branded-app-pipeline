@@ -80,10 +80,10 @@ const DateRangePicker: React.FC<Props> = (props) => {
   );
 
   return (
-    // @ts-ignore
+    // @ts-expect-error
     <BasePicker>
       {() => (
-        // @ts-ignore
+        // @ts-expect-error
         <Calendar date={date} onChange={onDateChange} renderDay={renderDay} />
       )}
     </BasePicker>

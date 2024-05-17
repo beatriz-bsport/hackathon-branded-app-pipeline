@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 

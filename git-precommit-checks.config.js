@@ -65,5 +65,11 @@ module.exports = {
       message: '😫 Always import from @bsport/common/lib',
       regex: /@bsport\/common\/src/,
     },
+    {
+      filter: /\.(js|ts|tsx|jsx)$/,
+      message:
+        'Always use named imports from index when working with material-ui-pickers',
+      regex: /material-ui-pickers\//,
+    },
   ],
 };

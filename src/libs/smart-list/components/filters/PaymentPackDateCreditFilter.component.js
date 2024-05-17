@@ -9,7 +9,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
+import { InlineDatePicker } from 'material-ui-pickers';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import Tooltip from '../../../../components/Tooltip.component';

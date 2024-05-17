@@ -15,8 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
-import DateTimePicker from 'material-ui-pickers/DateTimePicker';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DateTimePicker, DatePicker } from 'material-ui-pickers';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import Sport from '../../libs/category/components/SCT.component';

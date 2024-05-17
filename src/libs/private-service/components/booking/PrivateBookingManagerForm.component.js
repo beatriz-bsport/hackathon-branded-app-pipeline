@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InlineDateTimePicker from 'material-ui-pickers/DateTimePicker/DateTimePickerInline';
+import { InlineDateTimePicker } from 'material-ui-pickers';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';

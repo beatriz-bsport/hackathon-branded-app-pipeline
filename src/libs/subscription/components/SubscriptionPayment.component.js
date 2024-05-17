@@ -34,7 +34,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import { DateTime } from 'luxon';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';

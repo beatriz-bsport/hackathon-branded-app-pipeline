@@ -164,7 +164,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
               openToYearSelection
               cancelLabel={t('common.cancel')}
               clearLabel={t('form.clearDate')}
-              format="L"
+              format="D"
               initialFocusedDate="1990/01/01"
               label={t('form.birthday')}
               name="birthday"
@@ -203,7 +203,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
             <DateField
               allowNullValue
               clearable
-              format="L"
+              format="D"
               label={t('form.startWorking')}
               name="date_joined_company"
             />
@@ -213,7 +213,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
               allowNullValue
               bottomError
               clearable
-              format="L"
+              format="D"
               label={t('form.endWorking')}
               name="date_left_company"
             />

@@ -17,7 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InlineDateTimePicker from 'material-ui-pickers/DateTimePicker/DateTimePickerInline';
+import { InlineDateTimePicker } from 'material-ui-pickers';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';

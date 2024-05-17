@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import Collapse from '@material-ui/core/Collapse';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

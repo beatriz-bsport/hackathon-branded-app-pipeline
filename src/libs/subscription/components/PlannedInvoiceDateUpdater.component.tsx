@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { DateTime } from 'luxon';

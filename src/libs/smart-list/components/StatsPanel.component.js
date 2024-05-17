@@ -4,7 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';

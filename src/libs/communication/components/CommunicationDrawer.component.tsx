@@ -25,8 +25,7 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
-import TimePicker from 'material-ui-pickers/TimePicker';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { TimePicker, DatePicker } from 'material-ui-pickers';
 
 import {
   COMMUNICATION_KIND_EMAIL,

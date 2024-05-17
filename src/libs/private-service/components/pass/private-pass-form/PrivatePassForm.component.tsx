@@ -452,7 +452,7 @@ export const PrivatePassForm = (props: Props) => {
             <DateField
               allowNullValue
               disabled={!!props.initial?.template_instance}
-              format="L"
+              format="D"
               minDate={DateTime.now()}
               name="expiration_date"
             />

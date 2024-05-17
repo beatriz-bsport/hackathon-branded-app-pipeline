@@ -15,7 +15,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import isEqual from 'lodash/isEqual';
 import { MaterialStyleType } from '../../utils/types';
@@ -518,7 +518,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <DatePicker
                   className={classes.margin}
                   disabled={radioRepeatValue === 1 || !!initial?.rrule}
-                  format="L"
+                  format="D"
                   onChange={(date: Date) => {
                     setRrule({ ...rrule, dtstart: date });
                   }}
@@ -539,7 +539,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <DatePicker
                   className={classes.margin}
                   disabled={radioRepeatValue !== 1 || !!initial?.rrule}
-                  format="L"
+                  format="D"
                   onChange={(date: Date) => {
                     setRrule({ ...rrule, dtstart: date });
                     if (rrule.until < date) {
@@ -554,7 +554,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <DatePicker
                   className={classes.margin}
                   disabled={radioRepeatValue !== 1 || !!initial?.disabled}
-                  format="L"
+                  format="D"
                   maxDate={maxDate}
                   minDate={rrule.dtstart}
                   onChange={(date: Date) => {

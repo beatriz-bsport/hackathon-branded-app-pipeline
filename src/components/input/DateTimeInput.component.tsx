@@ -1,5 +1,5 @@
 import React from 'react';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classNames from 'classnames';
 

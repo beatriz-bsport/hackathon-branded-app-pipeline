@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 
 import { withTranslation, TFunction } from 'react-i18next';
 

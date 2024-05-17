@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { withFormik, Form, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import TimePicker from 'material-ui-pickers/TimePicker';
+import { TimePicker } from 'material-ui-pickers';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import {
   Button,

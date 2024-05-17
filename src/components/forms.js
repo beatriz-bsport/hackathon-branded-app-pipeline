@@ -8,8 +8,7 @@ import { Field, ErrorMessage, useField } from 'formik';
 
 import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 
-import DatePicker from 'material-ui-pickers/DatePicker';
-import TimePicker from 'material-ui-pickers/TimePicker';
+import { DatePicker, TimePicker } from 'material-ui-pickers';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';

@@ -426,7 +426,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             cancelLabel={t('translation:common.cancel')}
             clearLabel={t('translation:form.clearDate')}
             disabled={props.asManager || !props.field.editable}
-            format="L"
+            format="D"
             initialFocusedDate={now}
             label={label}
             name={`custom_form_field.${props.index}.answer`}

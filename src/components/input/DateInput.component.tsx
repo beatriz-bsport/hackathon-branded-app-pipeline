@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import { DateTime } from 'luxon';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import {
   InputLabelProps as InputLabelPropsType,
   makeStyles,

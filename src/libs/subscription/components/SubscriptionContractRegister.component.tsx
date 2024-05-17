@@ -12,7 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import type { Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 
 import { DateTime } from 'luxon';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';

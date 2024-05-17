@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   FormHelperText,
 } from '@material-ui/core';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import { DatePicker } from 'material-ui-pickers';
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import FormSection from '#components/forms/FormSection';
 

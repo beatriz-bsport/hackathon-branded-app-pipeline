@@ -9,12 +9,12 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import LocaleSelector from '../../../components/input/LocaleSelector.component';
 import TimezoneSelector from '../../../components/input/TimezoneSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 import { OptionCallback } from '../../../state/types';
+import { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
 
 import Config from '../../../config';
 
@@ -130,10 +130,6 @@ export const CompanySignupForm = (props: Props) => {
           country={props.locale.slice(3, 6)}
           label={t('signupCompany.form.timezone.label')}
           onChange={props.setTimezone}
-          timezoneList={moment.tz.zonesForCountry(
-            props.locale.slice(3, 6),
-            true,
-          )}
           value={props.timezone_name}
         />
       </div>
@@ -234,12 +230,12 @@ export default compose(
       }),
       validateCaptcha: () => (validatedCaptcha) => ({ validatedCaptcha }),
       setLocale: () => (ev) => {
-        const timezoneList = moment.tz.zonesForCountry(
+        const timezoneList = getTimezonesForCountry(
           ev.target.value.slice(3, 6),
         );
         let timezone_name = null;
         if (timezoneList?.length === 1) {
-          timezone_name = timezoneList[0];
+          timezone_name = timezoneList[0].name;
         }
         return {
           locale: ev.target.value,

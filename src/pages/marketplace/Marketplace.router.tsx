@@ -10,7 +10,6 @@ import {
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
-// @ts-expect-error
 import namespaces from '../../i18n/namespaces.json';
 
 const MarketplaceResolver = asyncComponent(

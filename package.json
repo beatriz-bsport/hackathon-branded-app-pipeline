@@ -174,7 +174,8 @@
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook",
+    "refresh-timezone-by-country": "ts-node src/utils/timezone-country/scripts/refresh-timezone-db.ts"
   },
   "browserslist": "> 0.25%",
   "eslintConfig": {
@@ -214,6 +215,7 @@
     "@types/jest": "^26.0.20",
     "@types/leaflet": "^1.9.3",
     "@types/lodash": "^4.14.165",
+    "@types/luxon": "^3.4.2",
     "@types/memoize-one": "^4.1.1",
     "@types/mui-datatables": "^2.0.5",
     "@types/node": "^14.14.10",
@@ -256,7 +258,6 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/eslint-plugin-tslint": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "@types/luxon": "^3.4.2",
     "axios-mock-adapter": "^1.19.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",

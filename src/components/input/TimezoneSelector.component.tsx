@@ -5,40 +5,10 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import moment, { MomentZoneOffset, MomentZone } from 'moment-timezone';
-
-const getTimezoneListExtended = (
-  timezoneList: Array<MomentZone | MomentZoneOffset>,
-  country: string,
-) => {
-  if (country === 'FR') {
-    return [
-      ...timezoneList,
-      moment.tz.zone('Indian/Reunion'),
-      moment.tz.zone('America/Martinique'),
-      moment.tz.zone('Indian/Antananarivo'),
-      moment.tz.zone('America/Cayenne'),
-      moment.tz.zone('Africa/Casablanca'),
-      moment.tz.zone('Africa/Tunis'),
-      moment.tz.zone('Pacific/Noumea'),
-    ];
-  }
-  if (country === 'US') {
-    return [
-      ...timezoneList,
-      moment.tz.zone('America/Jamaica'),
-      moment.tz.zone('Asia/Manila'),
-      moment.tz.zone('Asia/Kuala_Lumpur'),
-    ];
-  }
-  if (country === 'NL') {
-    return [...timezoneList, moment.tz.zone('America/Curacao')];
-  }
-  return timezoneList;
-};
+import { EXTRA_TIMEZONES } from '#src/i18n';
+import type { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
 
 type Props = {
-  timezoneList: Array<MomentZone | MomentZoneOffset>;
   country: string;
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
@@ -47,10 +17,9 @@ type Props = {
 
 export const TimezoneSelector = (props: Props) => {
   const classes = useStyles();
-  const timezoneListExtended = getTimezoneListExtended(
-    props.timezoneList,
-    props.country,
-  );
+  const timezoneListExtended = getTimezonesForCountry(props.country, true, {
+    additionalTimezones: EXTRA_TIMEZONES,
+  });
   return (
     <FormControl className={classes.formControl}>
       {!!props.label && (

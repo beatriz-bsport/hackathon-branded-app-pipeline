@@ -11,3 +11,6 @@ flow
 # Ignore files
 **/*.mdx
 **/*.md
+
+# Generated JSON file
+src/i18n/utils/timezone-country/data.json

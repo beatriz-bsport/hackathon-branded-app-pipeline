@@ -34,7 +34,6 @@ import {
 import { FranchiseDetails } from '#libs/franchise/types';
 // @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
-// @ts-expect-error
 import namespaces from '../../i18n/namespaces.json';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginRouterStyles.css';

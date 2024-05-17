@@ -29,6 +29,20 @@ const backendOptions = {};
 
 const STORAGE_LANGUAGE_KEY = 'bsport:selected-language';
 
+export const EXTRA_TIMEZONES = {
+  FR: [
+    'Indian/Reunion',
+    'America/Martinique',
+    'Indian/Antananarivo',
+    'America/Cayenne',
+    'Africa/Casablanca',
+    'Africa/Tunis',
+    'Pacific/Noumea',
+  ],
+  US: ['America/Jamaica', 'Asia/Manila', 'Asia/Kuala_Lumpur'],
+  NL: ['America/Curacao'],
+};
+
 if (config.I18N_TRANSLATION_DOMAIN || process.env.NODE_ENV !== 'production') {
   backendOptions.request = (options, url, payload, callback) => {
     const _url = `${config.I18N_TRANSLATION_DOMAIN}${url}`;

@@ -19,7 +19,6 @@ import LoginBackground from '#libs/login/components/LoginBackground.component';
 import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
 import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
-// @ts-expect-error
 import namespaces from '../../i18n/namespaces.json';
 import { RootState } from '../../reducers';
 import './ConfirmEmailRouterStyles.css';

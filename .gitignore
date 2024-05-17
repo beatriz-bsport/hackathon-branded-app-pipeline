@@ -68,4 +68,6 @@ tags
 #Vscode
 .vscode
 
-#
+# cache folder
+.tmp/*
+!.tmp/.gitkeep

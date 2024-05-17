@@ -336,7 +336,7 @@ const CoachSchema = (props: Props) =>
       .nullable(false),
   });
 
-export const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
+const CoachFormHOC = withFormik<Props & HOCProps, InitialValues>({
   enableReinitialize: true,
   // @ts-expect-error
   mapPropsToValues: ({ initial, defaultEmail }: Props) =>

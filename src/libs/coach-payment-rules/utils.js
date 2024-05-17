@@ -57,68 +57,6 @@ export const checkConformity = (bonuses) => {
   }
   return true;
 };
-export const computePerformanceSynthese = (CoachesWithPerformances) => {
-  const synthese = [
-    COACH_PERFORMANCE_FOR_SESSION,
-    COACH_PERFORMANCE_FOR_APPOINTMENT,
-  ].map((kind) =>
-    CoachesWithPerformances.map((coachwithPerf) =>
-      (coachwithPerf.performance[kind] || []).reduce(
-        (accumulator, perf) => {
-          accumulator.payment += parseFloat(perf.coach_total_payment) || 0;
-          accumulator.confirmedBookings +=
-            parseFloat(perf.confirmed_bookings) || 0;
-          accumulator.cancelledBookings +=
-            parseFloat(perf.cancelled_bookings) || 0;
-
-          return accumulator;
-        },
-        {
-          id: coachwithPerf.id,
-          name: coachwithPerf.name,
-          nbSessions:
-            ((coachwithPerf.performance[COACH_PERFORMANCE_FOR_SESSION] &&
-              coachwithPerf.performance[COACH_PERFORMANCE_FOR_SESSION]
-                .length) ||
-              0) +
-            ((coachwithPerf.performance[COACH_PERFORMANCE_FOR_APPOINTMENT] &&
-              coachwithPerf.performance[COACH_PERFORMANCE_FOR_APPOINTMENT]
-                .length) ||
-              0),
-          payment: 0,
-          bonus: 0,
-          confirmedBookings: 0,
-          cancelledBookings: 0,
-        },
-      ),
-    ),
-  );
-
-  const syntheseaccu = synthese[0]
-    .concat(synthese[1])
-    .reduce((newArr, synth) => {
-      const buffer = newArr;
-      const index = buffer.findIndex(
-        (accumulator) => accumulator.id === synth.id,
-      );
-      if ((index || index === 0) && index !== -1) {
-        buffer[index] = {
-          ...buffer[index],
-          payment: buffer[index].payment + synth.payment,
-          bonus: buffer[index].bonus + synth.bonus,
-          confirmedBookings:
-            buffer[index].confirmedBookings + synth.confirmedBookings,
-          cancelledBookings:
-            buffer[index].cancelledBookings + synth.cancelledBookings,
-        };
-      } else {
-        buffer.push(synth);
-      }
-      return buffer;
-    }, []);
-
-  return syntheseaccu;
-};
 
 export const openPdfDocument = (response) => {
   const filename = response.data.split('/').at(-1);

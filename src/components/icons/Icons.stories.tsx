@@ -1,7 +1,6 @@
 import React, { SVGProps } from 'react';
 import { ComponentMeta } from '@storybook/react';
 
-import CalendarIcon from './CalendarIcon.component';
 import FemaleIcon, { FemaleIconProps } from './FemaleIcon.component';
 import MaleIcon, { MaleIconProps } from './MaleIcon.component';
 import IntercomIcon from './IntercomIcon.component';
@@ -19,23 +18,14 @@ import CardRefusedIcon, {
 import WarningIcon from './WarningIcon.component';
 import TriggeredPersonIcon from './TriggeredPersonIcon.component';
 import WarningIconRounded from './WarningIconRounded.component';
-import WorkflowIcon from './WorkflowIcon.component';
-import SwitchVerticalIcon from './SwitchVerticalIcon.component';
+
 import SwitchHorizontalIcon from './SwitchHorizontalIcon.component';
-import SwitchHorizontalShadowIcon from './SwitchHorizontalShadowIcon.component';
-import SwitchHorizontalSquareFramedIcon from './SwitchHorizontalSquareFramedIcon.component';
-import SwitchHorizontalDiamondFramedIcon from './SwitchHorizontalDiamondFramedIcon.component';
+
 import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { CustomStarIcon } from './CustomStarIcon.component';
 import TrophyIcon from './TrophyIcon.component';
 
 const FILL_CONTROL = { fill: { control: 'color' } };
-
-const CalendarTemplate = (args: SVGProps<SVGElement>) => (
-  <CalendarIcon {...args} />
-);
-export const Calendar = CalendarTemplate.bind({});
-Calendar.argTypes = FILL_CONTROL;
 
 const FemaleTemplate = (args: FemaleIconProps) => <FemaleIcon {...args} />;
 export const Female = FemaleTemplate.bind({});
@@ -109,41 +99,11 @@ WarningRounded.args = {
   fill: '#FF9800',
 };
 
-const WorkflowTemplate = () => <WorkflowIcon />;
-export const Workflow = WorkflowTemplate.bind({});
-
-const SwitchVerticalTemplate = (args: SvgIconProps) => (
-  <SwitchVerticalIcon {...args} />
-);
-export const SwitchVertical = SwitchVerticalTemplate.bind({});
-SwitchVertical.argTypes = { fill: { control: 'color' } };
-
 const SwitchHorizontalTemplate = (args: SvgIconProps) => (
   <SwitchHorizontalIcon {...args} />
 );
 export const SwitchHorizontal = SwitchHorizontalTemplate.bind({});
 SwitchHorizontal.argTypes = { fill: { control: 'color' } };
-
-const SwitchHorizontalShadowTemplate = (args: SvgIconProps) => (
-  <SwitchHorizontalShadowIcon {...args} />
-);
-export const SwitchHorizontalShadow = SwitchHorizontalShadowTemplate.bind({});
-SwitchHorizontalShadow.argTypes = { fill: { control: 'color' } };
-
-const SwitchHorizontalSquareFramedTemplate = () => (
-  <SwitchHorizontalSquareFramedIcon />
-);
-export const SwitchHorizontalSquareFramed =
-  SwitchHorizontalSquareFramedTemplate.bind({});
-
-const SwitchHorizontalDiamondFramedTemplate = (args: SvgIconProps) => (
-  <SwitchHorizontalDiamondFramedIcon {...args} />
-);
-export const SwitchHorizontalDiamondFramed =
-  SwitchHorizontalDiamondFramedTemplate.bind({});
-SwitchHorizontalDiamondFramed.argTypes = {
-  displayBackgroundColor: { control: 'boolean' },
-};
 
 const CustomStarIconTemplate = () => <CustomStarIcon />;
 export const CustomStar = CustomStarIconTemplate.bind({});

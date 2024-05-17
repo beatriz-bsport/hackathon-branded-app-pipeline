@@ -25,12 +25,6 @@ const getHistoryDataList = createSelector(
   (list, dict) => list.map((id) => dict[id]),
 );
 
-export const getHistoryClockin = (state: RootState) => ({
-  count: _getClockinState(state).history.count,
-  loading: _getClockinState(state).history.loading,
-  results: getHistoryDataList(state),
-});
-
 export const getUsersPaginatedWithRolesWithRealTimeAttendance = createSelector(
   [getUsersPaginatedWithRole, _getAttendanceClockinDataByUser],
   (usersPaginated, attendanceByUserDict) => {

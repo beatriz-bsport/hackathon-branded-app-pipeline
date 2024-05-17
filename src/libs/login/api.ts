@@ -5,7 +5,6 @@ import {
   API_V1_URI,
   getAuth,
   postAuth,
-  putAuth,
   post,
   buildUrlParams,
 } from '../../http';
@@ -81,10 +80,6 @@ export const checkEmailExists = async (email: string) => {
   return post(`${API_V1_URI}/authentication/signup/exists/`, {
     email,
   });
-};
-
-export const updateProfile = async (data: any) => {
-  return putAuth(`${API_URI}/profile/update`, data);
 };
 
 export async function changePassword({

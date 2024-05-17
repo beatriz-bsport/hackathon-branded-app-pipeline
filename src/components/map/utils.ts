@@ -17,7 +17,7 @@ export const centerMarker = (markers: Array<MarkerType>) => {
   return null;
 };
 
-export const getDistance = (m1: MarkerType, m2: MarkerType) => {
+const getDistance = (m1: MarkerType, m2: MarkerType) => {
   return {
     location: {
       latitude: Math.abs(m1.location.latitude - m2.location.latitude),

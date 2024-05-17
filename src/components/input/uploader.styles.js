@@ -38,15 +38,3 @@ export const styles = (theme) => ({
     right: 0,
   },
 });
-
-export const smallStyles = (theme) => ({
-  ...styles(theme),
-  dropzone: {
-    width: 32,
-    height: 32,
-    minHeight: 20 * theme.spacing(1),
-    border: '2px gray dashed',
-    backgroundColor: '#F7F7F7',
-    cursor: 'pointer',
-  },
-});

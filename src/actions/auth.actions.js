@@ -6,7 +6,6 @@ import { createAction } from 'redux-actions';
 
 import { DateTime } from 'luxon';
 import {
-  updateProfile as updateProfileAPI,
   getRelationToken as getRelationTokenAPI,
   impersonateAdmin as impersonateAdminAPI,
   checkEmailExists as checkEmailExistsAPI,
@@ -35,32 +34,7 @@ import {
 
 export const initiateInterface = createAction('initiate');
 
-export function profileUpdated() {
-  // return { email, firstname, lastname, type: types.PROFILE_UPDATED };
-  return { type: types.PROFILE_UPDATED };
-}
-
-export function updateProfile({
-  email,
-  firstname,
-  lastname,
-}: {
-  email: string,
-  firstname: string,
-  lastname: string,
-}) {
-  return async (dispatch: Dispatch) => {
-    // TODO update firstname email and lastname in reducer
-    await updateProfileAPI({
-      email,
-      first_name: firstname,
-      last_name: lastname,
-    });
-    dispatch(profileUpdated());
-  };
-}
-
-export function networkError(error: ?Error) {
+function networkError(error: ?Error) {
   return { type: 'LOGIN/NETWORK_ERROR', error };
 }
 
@@ -279,15 +253,15 @@ export function requestLogin(
   };
 }
 
-export function checkEmailExistsLoading(loading: boolean) {
+function checkEmailExistsLoading(loading: boolean) {
   return { type: types.CHECK_EMAIL_EXISTS_LOADING, loading };
 }
 
-export function checkEmailExistsError(error: ?Error) {
+function checkEmailExistsError(error: ?Error) {
   return { type: types.CHECK_EMAIL_EXISTS_ERROR, error };
 }
 
-export function checkEmailExistsSuccess(exists: boolean) {
+function checkEmailExistsSuccess(exists: boolean) {
   return { type: types.CHECK_EMAIL_EXISTS_SUCCESS, exists };
 }
 
@@ -366,7 +340,7 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
   };
 }
 
-export function setLogin(
+function setLogin(
   {
     username,
     token,
@@ -533,7 +507,7 @@ export function goToLastCompanySignup() {
   };
 }
 
-export function impersonateManagerLoading(loading: boolean) {
+function impersonateManagerLoading(loading: boolean) {
   return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
 }
 

@@ -92,12 +92,6 @@ export function setAccessControlBroadcastsChannelId(uuid: string) {
   storage.setItem('bsport:accm-channel:id', uuid);
 }
 
-export function getCookie(name: string) {
-  const values = document.cookie.split(';').map((s) => s.split('='));
-  const item = values.find((c) => c[0].trim() === name);
-  return item && item[1];
-}
-
 export const getTimezoneName = () => {
   return Settings.defaultZone.name || 'Europe/Paris';
 };

@@ -1,7 +1,6 @@
 // @ts-expect-error
 import { AuthAction } from './auth/types';
-// @ts-expect-error
-import { PaymentRulesState } from '#libs/payment-rules/types';
+
 import { StatsState } from './stats/types';
 import { CoachState } from '../libs/associated-coach/types';
 import { SubscriptionState } from '../libs/subscription/types';
@@ -56,7 +55,6 @@ export type State = {
   partnership: PartnershipState;
   paymentCombo: PaymentComboState;
   paymentPack: PaymentPackState;
-  paymentRules: PaymentRulesState;
   performanceTracking: PerformanceTrackingState;
   privateService: PrivateServiceState;
   relationship: RelationshipState;

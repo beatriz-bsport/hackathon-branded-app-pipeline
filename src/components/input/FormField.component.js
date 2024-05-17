@@ -21,10 +21,10 @@ import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import Sport from '../../libs/category/components/SCT.component';
 
 // dont change to number unless good testing
-export const NOT_RECURRENT = '0';
-export const WEEKLY = '1';
-export const MONTHLY = '2';
-export const DAILY = '3';
+const NOT_RECURRENT = '0';
+const WEEKLY = '1';
+const MONTHLY = '2';
+const DAILY = '3';
 
 const styles = (theme) => ({
   textInput: {

@@ -6,16 +6,11 @@ import type { RootState } from 'src/reducers';
 import { getSmartListDict } from '#libs/smart-list/selectors';
 import type { Account, Link, LinkApi, LinkState } from './types';
 
-export const getActiveCampaignAccount = (state: RootState) =>
-  state.activeCampaign.account.item;
+const getActiveCampaignLinksIds = (state: RootState): LinkState['allIds'] =>
+  state.activeCampaign.links.allIds;
 
-export const getActiveCampaignLinksIds = (
-  state: RootState,
-): LinkState['allIds'] => state.activeCampaign.links.allIds;
-
-export const getActiveCampaignLinksDict = (
-  state: RootState,
-): LinkState['byId'] => state.activeCampaign.links.byId;
+const getActiveCampaignLinksDict = (state: RootState): LinkState['byId'] =>
+  state.activeCampaign.links.byId;
 
 export const getActiveCampaignLinks = createSelector(
   [getActiveCampaignLinksDict, getActiveCampaignLinksIds],

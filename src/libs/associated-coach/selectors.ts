@@ -1,16 +1,7 @@
 import { createSelector } from 'reselect';
-import createCachedSelector from 're-reselect';
 
-import Immutable from 'seamless-immutable';
-import { Coach, CoachPerformanceContainer } from './types';
+import { Coach } from './types';
 import { RootState } from '../../reducers';
-
-// @ts-expect-error
-const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
-  loading: false,
-  result: [],
-  error: null,
-});
 
 export const getAllCoachesDict = (state: RootState): { [key: string]: Coach } =>
   state.coach.byId;
@@ -57,19 +48,6 @@ export const getCoachById = (state: RootState) => (id: number) => {
   return state.coach.byId[id];
 };
 
-export const getCoachWithPaymentRule = createSelector(
-  getActiveCoaches,
-  (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id),
-);
-export const getCoachWithCoachPaymentRule = createSelector(
-  getActiveCoaches,
-  (coaches) =>
-    coaches.filter(
-      (coach) =>
-        !!coach.coach_payment_rule_id || !!coach.private_coach_payment_rule_id,
-    ),
-);
-
 export const associatedCoachSelector = {
   get: (state: RootState, coachId: number) =>
     Object.values(getAllCoaches(state)).find(
@@ -81,38 +59,6 @@ export const associatedCoachSelector = {
     Object.values(state.coach.byId).filter(
       (x) => !!x.default_payment_rule_id && !x.disabled,
     ),
-};
-
-export const coachSelector = (state: RootState, coachId: number) =>
-  state.coach.byId[coachId];
-
-const getCoachPerformanceState = (state: RootState) => state.coach.performance;
-
-const getCoachPerformanceStateById = (
-  state: RootState,
-  associatedCoachId: number,
-) => {
-  const performanceContainer =
-    getCoachPerformanceState(state)[associatedCoachId];
-  if (performanceContainer) {
-    return performanceContainer;
-  }
-  return EMPTY_PERFORMANCE;
-};
-
-const getCoachPerformance = createCachedSelector(
-  [getCoachPerformanceStateById],
-  (performanceContainer) => performanceContainer.result,
-)((state, associatedCoachId) => associatedCoachId);
-
-const isLoadingCoachPerformance = createCachedSelector(
-  [getCoachPerformanceStateById],
-  (performanceContainer) => performanceContainer.loading,
-)((state, associatedCoachId) => associatedCoachId);
-
-export const coachPerformanceSelector = {
-  getPerformance: getCoachPerformance,
-  isLoading: isLoadingCoachPerformance,
 };
 
 export const getFreshCoachIds = createSelector(getAllCoachesDict, (coachDict) =>

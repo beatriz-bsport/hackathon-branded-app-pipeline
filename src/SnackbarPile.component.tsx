@@ -199,6 +199,7 @@ const mapDispatchToProps = {
   deleteAccessControlSnackbar: deleteAccessControlSnackbarAction,
 };
 
+// Unused export used in bsport-widget
 export const SnackbarDataProvider = [mapStateToProps, mapDispatchToProps];
 
 export default connect(

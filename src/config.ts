@@ -36,26 +36,6 @@ if (runtimeBsport && runtimeBsport.env) setConfigFrom(runtimeBsport.env);
 
 export default Config;
 
-// function checkConfigValue(name: keyof ConfigType, silent?: boolean) {
-//   const value = Config[name];
-//   if (!value) {
-//
-//     const text = `The config value for ${name} is invalid (got: ${value})`;
-//     if (!silent) {
-//       throw new Error(text);
-//     } else console.error(text);
-//   }
-// }
-
-export function setConfigValue(name: keyof ConfigType, value: string) {
-  Config[name] = value;
-}
-
-// checkConfigValue('REACT_APP_BASE_URI');
-// checkConfigValue('REACT_APP_API_URI');
-// checkConfigValue('REACT_APP_STRIPE_PK_KEY');
-// checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
-
 if (Config.NODE_ENV === 'production') {
   // checkConfigValue('REACT_APP_SENTRY_DSN', true);
 }

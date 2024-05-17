@@ -65,10 +65,6 @@ export async function deleteCoach(id: number) {
   return deleteAuth(`${API_V1_URI}/coach/${id}`);
 }
 
-export async function canDeleteCoach(id: number) {
-  return getAuth(`${API_V1_URI}/coach/${id}/can_destroy/`);
-}
-
 export async function restoreCoach(id: number) {
   return putAuth(`${API_V1_URI}/associated_coach/${id}/restore/`); // set {disabled: false}
 }

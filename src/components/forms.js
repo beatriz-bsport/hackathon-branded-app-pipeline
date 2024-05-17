@@ -28,8 +28,6 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 
-import * as Yup from 'yup';
-
 import MuiTextField from '@material-ui/core/TextField';
 import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
@@ -669,75 +667,6 @@ export const IconField = (props: { name: string, label?: string }) => {
   );
 };
 
-type AddressFieldsProps = {
-  t: TFunction,
-  autoComplete: boolean,
-  required: boolean,
-  disabled?: boolean,
-};
-
-export const AddressFieldsSchema = {
-  address_line_1: Yup.string().required(),
-  address_line_2: Yup.string(),
-  city: Yup.string().required(),
-  zipcode: Yup.string().required(),
-  country: Yup.string().required(),
-};
-
-export const AddressFields = withTranslation([])(
-  (props: AddressFieldsProps) => {
-    const { t, autoComplete, required, disabled } = props;
-    return (
-      <div>
-        <TextField
-          fullWidth
-          autoComplete={autoComplete ? 'address-line1' : null}
-          disabled={!!disabled}
-          label={t('form.address.addressLine1')}
-          name="address_line_1"
-          required={required}
-        />
-        <TextField
-          fullWidth
-          autoComplete={autoComplete ? 'address-line2' : null}
-          disabled={!!disabled}
-          label={t('form.address.addressLine2')}
-          name="address_line_2"
-        />
-        <Grid container direction="row" spacing={2}>
-          <Grid item>
-            <TextField
-              autoComplete={autoComplete ? 'zipcode' : null}
-              disabled={!!disabled}
-              label={t('form.address.zipcode')}
-              name="zipcode"
-              required={required}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              autoComplete={autoComplete ? 'city' : null}
-              disabled={!!disabled}
-              label={t('form.address.city')}
-              name="city"
-              required={required}
-            />
-          </Grid>
-        </Grid>
-        <TextField
-          autoComplete={autoComplete ? 'country' : null}
-          disabled={!!disabled}
-          label={t('form.address.country')}
-          name="country"
-          required={required}
-        />
-      </div>
-    );
-  },
-);
-
-type PhoneFieldProps = {};
-
 const phoneStyles = () => ({
   phoneInput: { marginTop: 18 },
   labelRoot: {
@@ -749,7 +678,7 @@ const phoneStyles = () => ({
   },
 });
 export const PhoneField = withTranslation([])(
-  withStyles(phoneStyles)((props: PhoneFieldProps) => {
+  withStyles(phoneStyles)((props: any) => {
     const { t, label, name, classes, fullWidth, required } = props;
     return (
       <Field {...props}>
@@ -1016,32 +945,6 @@ export const DURATION_CHOICES_SHORT = [
   { value: 999999, label: 'form.never' },
 ];
 
-const DURATION_CHOICES_LONG = [
-  { value: 0, label: 'form.zeroMinute' },
-  { value: 60, label: 'form.oneHour' },
-  { value: 60 * 12, label: 'form.twelveHour' },
-  { value: 24 * 60, label: 'form.oneDay' },
-  { value: 2 * 24 * 60, label: 'form.twoDays' },
-  { value: 7 * 24 * 60, label: 'form.oneWeek' },
-  { value: 10 * 24 * 60, label: 'form.tenDays' },
-  { value: 14 * 24 * 60, label: 'form.twoWeeks' },
-  { value: 30 * 24 * 60, label: 'form.oneMonth' },
-  { value: 999999, label: 'form.never' },
-];
-
-export const DurationMinuteSelectField = withTranslation()(
-  (props: SelectFieldProps) => (
-    <SelectField
-      choices={
-        props.variant === 'long'
-          ? DURATION_CHOICES_LONG
-          : DURATION_CHOICES_SHORT
-      }
-      {...props}
-    />
-  ),
-);
-
 export const IntervalRecurrenceSelectField = withTranslation()(
   (props: SelectFieldProps & { displayPeriod?: boolean }) => (
     <SelectField
@@ -1175,60 +1078,6 @@ export const MultipleCheckboxField = (props: Props) => {
       </FormGroup>
       <FormHelperText>{helperText}</FormHelperText>
     </Container>
-  );
-};
-
-type CheckboxFieldWithActionProps = Props & {
-  reverted?: boolean,
-  disabled?: boolean,
-  label?: string,
-  helperText?: string,
-  classes?: { [key: string]: string },
-  handleOnChange: () => void,
-};
-
-export const CheckboxFieldWithAction = (
-  props: CheckboxFieldWithActionProps,
-) => {
-  const { reverted, disabled, label, helperText, classes, handleOnChange } =
-    props;
-
-  const onChangeCheckboxFieldWithAction = React.useCallback(
-    (setValue, name, value) => () => {
-      setValue(name, value);
-      handleOnChange();
-    },
-    [handleOnChange],
-  );
-
-  return (
-    <FormControl>
-      <Field {...props}>
-        {({ field, form: { setFieldValue }, meta: { touched, error } }) => (
-          <FormControlLabel
-            classes={classes}
-            control={
-              <Checkbox
-                checked={reverted ? !field.value : field.value}
-                disabled={!!disabled}
-                {...props}
-                {...field}
-                error={!!(touched && error)}
-                onChange={onChangeCheckboxFieldWithAction(
-                  setFieldValue,
-                  field.name,
-                  !field.value,
-                )}
-              />
-            }
-            helperText={helperText}
-            id="checkbox"
-            label={label}
-          />
-        )}
-      </Field>
-      <FormHelperText style={{ marginTop: -8 }}>{helperText}</FormHelperText>
-    </FormControl>
   );
 };
 
@@ -1415,48 +1264,6 @@ export const SelectFieldWithEnhancedLabeLError = withStyles(selectFieldStyles)(
                   props.label
                 )
               }
-            />
-          );
-        }}
-      </Field>
-    );
-  },
-);
-
-export const TagSelectorFieldMulti: React.FC<Props> = React.memo(
-  (props: Props) => {
-    const { shrink, name, selectedTags } = props;
-    const classes = useSelectFieldStyles();
-    const onTagSelectorChange = useCallback(
-      (setFieldValue: () => void) =>
-        (items: Array<{ item: Tag & { label: string, value: number } }>) => {
-          return setFieldValue(
-            name,
-            items.map((item) => item.value),
-          );
-        },
-      [name],
-    );
-    const onTagDelete = useCallback(
-      (setFieldValue: () => void) => (itemId: number) =>
-        setFieldValue(
-          name,
-          selectedTags.filter((tagId) => tagId !== itemId),
-        ),
-      [name, selectedTags],
-    );
-    return (
-      <Field {...props}>
-        {({ field, meta: { touched, error }, form: { setFieldValue } }) => {
-          return (
-            <TagSelector
-              className={classes.field}
-              shrink={shrink}
-              {...field}
-              {...omit(props, ['field'])}
-              error={!!(touched && error)}
-              onChange={onTagSelectorChange(setFieldValue)}
-              onDeleteTag={onTagDelete(setFieldValue)}
             />
           );
         }}

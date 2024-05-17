@@ -9,10 +9,6 @@ import {
 } from '../../http';
 import type { ClockInData, ClockInQueryParams } from './types';
 
-export const retrieveLastClockin = async () => {
-  return getAuth(`${API_V1_URI}/clockin/last`);
-};
-
 export const clockIn = async ({ userId }: { userId?: number }) =>
   postBaseAuth(`${API_V1_URI}/clockin/`, { user: userId });
 

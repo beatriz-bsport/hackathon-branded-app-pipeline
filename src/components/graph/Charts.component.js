@@ -2,10 +2,8 @@
 
 import React from 'react';
 import {
-  BarChart as BarChartBase,
   ResponsiveContainer,
   Bar,
-  Legend,
   Line,
   ComposedChart as ComposedChartBase,
   YAxis,
@@ -58,49 +56,7 @@ function getStyle(color) {
   return colors[color || bsportColors.secondary] || colors.green;
 }
 
-export function SimpleBarChart(props: Props) {
-  const { height, data, color, xKey, yKey, xFormatter, domain } = props;
-  const style = getStyle(color);
-  return (
-    <ResponsiveContainer height={height} width="100%">
-      <BarChartBase
-        data={data}
-        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-      >
-        <XAxis hide dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
-        <YAxis hide dataKey={yKey} />
-        <Bar barSize={30} dataKey={yKey} fill={style.fill} />
-      </BarChartBase>
-    </ResponsiveContainer>
-  );
-}
-
 type BarChartProps = Props;
-
-export function BarChart(props: BarChartProps) {
-  const { height, data, xKey, yKey, color, domain, xFormatter, yFormatter } =
-    props;
-  return (
-    <ResponsiveContainer height={height} width="100%">
-      <BarChartBase
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
-        <YAxis dataKey={yKey} />
-        <Legend />
-        <Bar
-          barSize={60}
-          dataKey={yKey}
-          fill={getStyle(color).fill}
-          label={{ stroke: 'white', position: 'center', formatter: yFormatter }}
-          name={props.label}
-        />
-      </BarChartBase>
-    </ResponsiveContainer>
-  );
-}
 
 export const ComposedChart = React.memo((props: BarChartProps) => {
   const {

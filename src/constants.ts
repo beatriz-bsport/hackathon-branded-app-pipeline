@@ -17,21 +17,6 @@ export const BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION =
   'bsport-request-from';
 
 /**
- *  @description The given sequence is a regular expression that represents a pattern for a date in the format "dd/mm/yyyy.
- */
-export const DATE_PICKER_MASK = [
-  /\d/,
-  /\d/,
-  '/',
-  /\d/,
-  /\d/,
-  '/',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/,
-];
-/**
  * @description In order to avoid 6-digits numbers for all taxes, we limit the number of digits to 5.
  */
 export const ALMOST_100 = 99.999;

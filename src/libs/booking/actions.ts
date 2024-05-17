@@ -542,7 +542,7 @@ export function refreshBookingsByOffer(
   };
 }
 
-export const registerActions = {
+const registerActions = {
   success: createAction('BOOKING/REGISTER/SUCCESS'),
   isLoading: createAction('BOOKING/REGISTER/IS_LOADING'),
   error: createAction('BOOKING/REGISTER/ERROR'),

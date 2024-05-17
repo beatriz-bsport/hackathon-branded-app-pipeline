@@ -37,21 +37,6 @@ export const StatsPanel = (props: Props) => {
         </div>
       </Typography>
       <Grid container>
-        {/* statistics.expensesSegments ? (
-          <Grid item xs={6}>
-            <PieChart
-              loading={statistics.expensesSegments.loading}
-              data={statistics.expensesSegments.data}
-              title={`${t(
-                'graphs.expensesSegments.title.first',
-              )} ${props.dateRange.start.toFormat('dd/MM/yyyy')} ${t(
-                'graphs.expensesSegments.title.second',
-              )} ${props.dateRange.end.toFormat('dd/MM/yyyy')}`}
-              width={400}
-              height={250}
-            />
-          </Grid>
-	) : null */}
         {statistics.expensesSegments ? (
           <Grid item xs={6}>
             <PieChart

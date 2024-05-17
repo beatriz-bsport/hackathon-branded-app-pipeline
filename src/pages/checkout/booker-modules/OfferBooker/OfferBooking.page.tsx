@@ -333,7 +333,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
           blockByGroup: true,
         });
       }
-      // @ts-expect-error
       let offersToAdd = [];
       if (fullBookingOnly) {
         offersToAdd = offers;

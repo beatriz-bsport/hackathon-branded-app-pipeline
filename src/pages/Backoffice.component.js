@@ -44,7 +44,6 @@ import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 import { fetchSCT } from '../libs/category/actions';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
-import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import {
   fetchAllCoachPaymentRules,
   fetchAllCoachPaymentRuleGroups,
@@ -276,7 +275,6 @@ type Props = {
   fetchSCT: (params: any) => void,
   fetchPaymentPackList: (params: any) => void,
   fetchShop: () => void,
-  fetchPaymentRules: () => void,
   fetchAllCoachPaymentRules: () => void,
   fetchAssociatedCoaches: () => void,
   fetchAllCoachPaymentRuleGroups: () => void,
@@ -479,7 +477,6 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchSCT({ as_company: true });
     this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     this.props.fetchShop();
-    this.props.fetchPaymentRules();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllCoachPaymentRuleGroups();
     // this.props.fetchAssociatedCoaches();
@@ -1045,7 +1042,6 @@ export default compose(
       fetchSCT,
       fetchPaymentPackList: fetchPaymentPackListAction,
       fetchShop,
-      fetchPaymentRules,
       fetchAllCoachPaymentRules,
       fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoaches,

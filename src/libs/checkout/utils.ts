@@ -40,47 +40,6 @@ import { Subscription } from '#libs/subscription/types';
 const SPOT_NOT_AVAILABLE = 8001;
 const OFFER_BOOKABLE_STATUS_FULL = 3;
 
-export const getBasketTotalPriceExcludingTax = (
-  basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
-  excludeDeliveryFee?: boolean,
-): string => {
-  // if we don't have items, or items with no quantity, price returned is always 0
-  if (
-    !basket.checkout_items.length ||
-    basket.checkout_items.reduce((acc, ci) => acc + ci.quantity || 0, 0) === 0
-  ) {
-    return parseFloat('0').toFixed(2);
-  }
-
-  const sum_prices_without_vouchers = basket.checkout_items.reduce(
-    (acc, ci) => (ci.tax ? acc + ci.unit_price * ci.quantity : acc),
-    0,
-  );
-
-  // we calculate the mean tax among products to apply it to the entire basket
-  const mean_tax =
-    sum_prices_without_vouchers !== 0
-      ? // if the sum of the prices is not null, we take the mean tax pondered by prices
-        basket.checkout_items.reduce(
-          (acc, ci) => acc + ci.unit_price * (ci.tax || 0) * ci.quantity,
-          0,
-        ) / sum_prices_without_vouchers
-      : // else, in the situation where all prices are null, we ponderate through quantity
-        basket.checkout_items.reduce(
-          (acc, ci) => acc + (ci.tax || 0) * ci.quantity,
-          0,
-        ) / basket.checkout_items.reduce((acc, ci) => acc + ci.quantity, 0);
-
-  const sum_prices = basket.checkout_items.reduce(
-    (acc, ci) =>
-      excludeDeliveryFee && ci.buyable_item_identifier === BUYABLE_ITEM_FEE
-        ? acc
-        : acc + ci.unit_price * ci.quantity,
-    0,
-  );
-  return parseFloat(getPrice(sum_prices, true, mean_tax)).toFixed(2);
-};
-
 /**
  * Calculates the sub total basket price excluding the tax
  *

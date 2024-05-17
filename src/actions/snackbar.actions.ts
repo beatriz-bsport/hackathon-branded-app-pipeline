@@ -12,7 +12,7 @@ function sleep(time: number) {
 }
 
 const id = 0;
-export function displaySnackbar(kind: SnackKind) {
+function displaySnackbar(kind: SnackKind) {
   return (message: string) => async (dispatch: Dispatch) => {
     const myId = id + 1;
     dispatch(snackbarDisplay({ id: myId, message, kind }));

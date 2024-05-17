@@ -7,7 +7,7 @@ import type { State, Dispatch } from '../state/types';
 
 import types from './search.types';
 
-export function actionSearchTextStart(
+function actionSearchTextStart(
   text: string,
   path: string,
   changeLocation: boolean,
@@ -16,11 +16,7 @@ export function actionSearchTextStart(
   return { type: types.SEARCH_TEXT_START, text, path_ };
 }
 
-export function actionSearchTextSuccess(response: Response) {
-  return { type: types.SEARCH_TEXT_SUCCESS, response };
-}
-
-export function actionSearchTextError(error: ?Error) {
+function actionSearchTextError(error: ?Error) {
   return { type: types.SEARCH_TEXT_ERROR, error };
 }
 
@@ -61,15 +57,11 @@ export function clearSearch(changeLocation: boolean) {
   };
 }
 
-export function actionSearchSelectEntityStart(entity: any) {
+function actionSearchSelectEntityStart(entity: any) {
   return { type: types.SEARCH_SELECT_ENTITY_START, entity };
 }
 
-export function actionSearchSelectEntitySuccess(response: Response) {
-  return { type: types.SEARCH_SELECT_ENTITY_SUCCESS, response };
-}
-
-export function actionSearchSelectEntityError(error: ?Error) {
+function actionSearchSelectEntityError(error: ?Error) {
   return { type: types.SEARCH_SELECT_ENTITY_ERROR, error };
 }
 
@@ -79,10 +71,7 @@ export function selectEntity(entity: any) {
     dispatch(actionSearchSelectEntityError(null));
 
     try {
-      // if (entity) {
-      //   dispatch(fetchMember(entity.data.id));
-      // }
-      // dispatch( actionSearchSelectEntitySuccess({ }));
+      // TODO : Delete
     } catch (error) {
       dispatch(actionSearchSelectEntityError(error));
     }

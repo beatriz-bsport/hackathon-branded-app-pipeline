@@ -45,7 +45,7 @@ const ClockInHistoryHeaderSchema = Yup.object().shape({
     ),
 });
 
-export const ClockInHistoryHeaderForm: React.FC<HOCProps> = ({
+const ClockInHistoryHeaderForm: React.FC<HOCProps> = ({
   handleExportation,
 }) => {
   const { t } = useTranslation();

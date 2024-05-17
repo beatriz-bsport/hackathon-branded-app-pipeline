@@ -94,41 +94,6 @@ export const CoachPaymentRuleByKindSelector = createSelector(
   },
 );
 
-export const getAssociatedCoachSessionPerformance = (
-  state: RootState,
-  associatedCoachId: number,
-) =>
-  // @ts-expect-error
-  state.coachPaymentRules.performance.session.byAssociatedCoachId[
-    associatedCoachId
-  ]?.data;
-export const getAssociatedCoachPrivateServicePerformance = (
-  state: RootState,
-  associatedCoachId: number,
-) =>
-  // @ts-expect-error
-  state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
-    associatedCoachId
-  ]?.data;
-
-export const getAssociatedCoachPerformances = (
-  state: RootState,
-  associatedCoachId: number,
-) => {
-  return {
-    [COACH_PERFORMANCE_FOR_SESSION]:
-      // @ts-expect-error
-      state.coachPaymentRules.performance.session.byAssociatedCoachId[
-        associatedCoachId
-      ]?.data,
-    [COACH_PERFORMANCE_FOR_APPOINTMENT]:
-      // @ts-expect-error
-      state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
-        associatedCoachId
-      ]?.data,
-  };
-};
-
 export const getCachedDataTimestampsList = (state: RootState) =>
   state.coachPaymentRules.performance.cached_data.allTimestamps;
 

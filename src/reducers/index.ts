@@ -53,8 +53,6 @@ import partnership from '#libs/partnership/reducers';
 import paymentBackend from '#libs/payment/reducers';
 import paymentCombo from '#libs/payment-combo/reducers';
 import paymentPack from '#libs/payment-packs/reducers';
-// @ts-expect-error
-import paymentRulesReducer from '#libs/payment-rules/reducers';
 import performanceTracking from '#libs/performance-tracking/reducers';
 // @ts-expect-error
 import platformBilling from '#libs/platform-billing/reducers';
@@ -187,7 +185,6 @@ const rootReducer = (history: any) =>
     communication: communicationReducers,
     communicationV2: communicationV2Reducers,
     checkout: checkoutReducers,
-    paymentRules: paymentRulesReducer,
     clockIn: ClockinReducer,
     coachPaymentRules: CoachPaymentRuleReducer,
     consumer: consumerReducers,

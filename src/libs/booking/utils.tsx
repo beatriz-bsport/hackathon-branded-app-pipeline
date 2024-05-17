@@ -96,9 +96,7 @@ const getBookingStatusCode = (
   t: TFunction,
 ) => {
   const cancelled_by = [
-    // @ts-expect-error
     ...booking?.staff_history?.filter(
-      // @ts-expect-error
       (sh) =>
         sh?.action_identifier === BOOKING_CANCELLED_BY_STAFF ||
         sh?.action_identifier === PRIVATE_BOOKING_CANCELLED_BY_STAFF ||

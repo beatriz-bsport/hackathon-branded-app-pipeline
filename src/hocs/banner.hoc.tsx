@@ -39,42 +39,7 @@ export const BannerProvider = (props: { children: React.ReactNode }) => {
   );
 };
 
-export const useShowBanner = (banner: React.ReactChildren) => {
-  const { onChangeBanner, onChangeDisplayBanner } = useContext(BannerContext);
-
-  useEffect(() => {
-    onChangeDisplayBanner(true);
-    onChangeBanner(banner);
-
-    return () => {
-      onChangeDisplayBanner(false);
-      onChangeBanner(null);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-};
-
-const BannerHOC = (props: {
-  banner: React.ReactChildren;
-  children: React.ReactNode;
-}) => {
-  useShowBanner(props.banner);
-
-  return <>{props.children}</>;
-};
-
-export const withBannerHOC =
-  (banner: React.ReactChildren) => (WrappedComponent: React.ComponentType) =>
-    class extends React.Component {
-      render() {
-        return (
-          <BannerHOC banner={banner}>
-            <WrappedComponent {...this.props} />
-          </BannerHOC>
-        );
-      }
-    };
-export const useShowMemberBanner = (member: Member) => {
+const useShowMemberBanner = (member: Member) => {
   const { onChangeBanner, onChangeDisplayBanner } = useContext(BannerContext);
   useEffect(() => {
     if (member?.archived) {
@@ -89,6 +54,7 @@ export const useShowMemberBanner = (member: Member) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member]);
 };
+
 const MemberBannerHOC = (props: { member: any; children: React.ReactNode }) => {
   useShowMemberBanner(props.member);
 

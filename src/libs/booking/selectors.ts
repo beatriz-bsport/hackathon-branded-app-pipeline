@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import {
@@ -24,10 +23,8 @@ const _getConsumerBookingIds = (state: RootState) =>
 const _getOfferBookingId = (state: RootState) => state.booking.byOffer.allIds;
 const _getConsumerPackBookingId = (state: RootState) =>
   state.booking.byConsumerPack.allIds;
-const _getConsumerDashboardId = (state: RootState) =>
-  state.booking.consumerDashboard.allIds;
 
-export const getMemberBookingList = createSelector(
+const getMemberBookingList = createSelector(
   [_getData, _getMemberBookingId],
   (data, ids) => ids.map((id) => data[id]),
 );
@@ -127,14 +124,6 @@ export const getOfferBookingListWithConsumerPack = createSelector(
         (cpp) => cpp.id === b.consumer_payment_pack,
       ),
     })),
-);
-
-export const getConsumerDasboardBookingList = createSelector(
-  [_getData, _getConsumerDashboardId],
-  (data, ids) =>
-    ids
-      .map((id) => data[id])
-      .filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id),
 );
 
 export const withOfferFull = memoize((selector) =>

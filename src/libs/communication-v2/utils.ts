@@ -517,55 +517,6 @@ const getAvailableTagsCategoriesByContext = (contextIdentifier: number) => {
   }
 };
 
-// #endregion
-// #region DWELL WITH MEMBER LISTS
-
-export const getMemberListFromFilteredBooking = memoize(
-  (
-    memberList: Member[],
-    bookingList: Booking[],
-    bookingPendingList: BookingOption[],
-    filters: number[],
-  ) => {
-    if (filters.length === 0) {
-      return memberList;
-    }
-    const filteredMemberList: Member[] = [];
-    if (filters.includes(COMMUNICATION_RECIPIENT_BOOKINGS)) {
-      filteredMemberList.concat(
-        bookingList
-          .filter(
-            (booking: Booking) =>
-              booking.booking_status_code === BOOKING_STATUS_OK.id,
-          )
-          .map((booking: Booking) =>
-            memberList.find((member: Member) => booking.member === member.id),
-          ),
-      );
-    }
-    if (filters.includes(COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED)) {
-      filteredMemberList.concat(
-        bookingList
-          .filter(
-            (booking: Booking) =>
-              booking.booking_status_code !== BOOKING_STATUS_OK.id,
-          )
-          .map((booking: Booking) =>
-            memberList.find((member: Member) => booking.member === member.id),
-          ),
-      );
-    }
-    if (filters.includes(COMMUNICATION_RECIPIENT_WAITING_LIST)) {
-      filteredMemberList.concat(
-        bookingPendingList.map((booking: BookingOption) =>
-          memberList.find((member: Member) => booking.member === member.id),
-        ),
-      );
-    }
-    return filteredMemberList;
-  },
-);
-
 export const getMemberIdListsFromMemberList = memoize(
   (memberList: Member[]) => {
     const allMemberIds = memberList.map((member: Member) => member.id);

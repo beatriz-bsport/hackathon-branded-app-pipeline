@@ -43,7 +43,7 @@
 }
 
 .bs-fabrique-avatar__icon--xl {
-  width: var(--bs-icon-size-xxl);
+  width: var(--bs-icon-size-3xl);
   height: var(--bs-icon-size-xxl);
 }
 

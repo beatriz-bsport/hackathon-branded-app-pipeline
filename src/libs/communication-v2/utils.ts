@@ -365,16 +365,18 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
       const today = DateTime.now().toISO();
       if (dateStartFilter) {
         const dateStart = DateTime.fromSeconds(dateStartFilter);
-        const diffDaysStart = Math.round(
-          DateTime.fromISO(today).diff(dateStart, 'days').days,
+        const diffDaysStart = Math.floor(
+          DateTime.fromISO(today).diff(dateStart, 'days').as('days'),
         );
+
         if (diffDaysStart < 0) return true;
       }
       if (dateEndFilter) {
         const dateEnd = DateTime.fromSeconds(dateEndFilter);
-        const diffDaysEnd = Math.round(
-          DateTime.fromISO(today).diff(dateEnd, 'days').days,
+        const diffDaysEnd = Math.floor(
+          DateTime.fromISO(today).diff(dateEnd, 'days').as('days'),
         );
+
         if (diffDaysEnd > 0) return true;
       }
       return false;

@@ -74,20 +74,22 @@ const InboxThreadListItem: React.FC<Props> = ({
 
       let display = '';
 
-      if (now.diff(momentDate, 'hours').hours < 1) {
-        const minutes = now.diff(momentDate, 'minutes').minutes;
+      if (now.diff(momentDate, 'hours').as('hours') < 1) {
+        const minutes = Math.floor(
+          now.diff(momentDate, 'minutes').as('minutes'),
+        );
         display = `·\u00A0${minutes}\u00A0${t('thread.item.minutes')}`;
-      } else if (now.diff(momentDate, 'days').days < 1) {
-        const hours = now.diff(momentDate, 'hours').hours;
+      } else if (now.diff(momentDate, 'days').as('days') < 1) {
+        const hours = Math.floor(now.diff(momentDate, 'hours').as('hours'));
         display = `·\u00A0${hours}\u00A0${t('thread.item.hours')}`;
-      } else if (now.diff(momentDate, 'weeks').weeks < 1) {
-        const days = now.diff(momentDate, 'days').days;
+      } else if (now.diff(momentDate, 'weeks').as('weeks') < 1) {
+        const days = Math.floor(now.diff(momentDate, 'days').as('days'));
         display = `·\u00A0${days}\u00A0${t('thread.item.days')}`;
-      } else if (now.diff(momentDate, 'years').years < 1) {
-        const weeks = now.diff(momentDate, 'weeks').weeks;
+      } else if (now.diff(momentDate, 'years').as('years') < 1) {
+        const weeks = Math.floor(now.diff(momentDate, 'weeks').as('weeks'));
         display = `·\u00A0${weeks}\u00A0${t('thread.item.weeks')}`;
       } else {
-        const years = now.diff(momentDate, 'years').years;
+        const years = Math.floor(now.diff(momentDate, 'years').as('years'));
         display = `·\u00A0${t('thread.item.year', { count: years })}`;
       }
 

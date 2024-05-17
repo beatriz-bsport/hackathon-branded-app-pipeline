@@ -89,9 +89,15 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
     const timeState = inProgress ? 'inProgress' : notInProgress;
 
     // time To show in the interface
-    const timeToShowInProgress = datetime.diff(dateStart, 'seconds');
-    const timeToShowNotStartedYet = dateStart.diff(datetime, 'seconds');
-    const timeToShowFinished = datetime.diff(dateEnd, 'seconds');
+    const timeToShowInProgress = Math.floor(
+      datetime.diff(dateStart, 'seconds').as('seconds'),
+    );
+    const timeToShowNotStartedYet = Math.floor(
+      dateStart.diff(datetime, 'seconds').as('seconds'),
+    );
+    const timeToShowFinished = Math.floor(
+      datetime.diff(dateEnd, 'seconds').as('seconds'),
+    );
     const timeToShowNotInProgress = notStartedYet
       ? timeToShowNotStartedYet
       : timeToShowFinished;
@@ -117,7 +123,7 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
               <Countdown
                 color={color}
                 currentTime={props.currentTime}
-                timeToShow={timeToShow.as('seconds')}
+                timeToShow={timeToShow}
               />
             </div>
           </React.Fragment>

@@ -155,7 +155,7 @@ const ClockInDialog: React.FC<Props> = ({
     );
     const duration = start.diff(end);
 
-    return duration.toFormat('HH:mm');
+    return duration.toFormat('hh:mm');
   };
 
   return (

@@ -46,9 +46,13 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
 
   const [displayBarcodeDialog, setDisplayBarcodeDialog] = useState(false);
 
-  const age = DateTime.now().diff(
-    DateTime.fromISO(member?.birthday || DateTime.now().toISO()),
-    'years',
+  const age = Math.floor(
+    DateTime.now()
+      .diff(
+        DateTime.fromISO(member?.birthday || DateTime.now().toISO()),
+        'years',
+      )
+      .as('years'),
   );
 
   const today = DateTime.now();

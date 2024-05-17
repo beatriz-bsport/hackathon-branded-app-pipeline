@@ -11,12 +11,10 @@ import MUIDataTable, {
 } from 'mui-datatables';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import {
-  MuiThemeProvider,
-  createTheme,
-  type Theme,
-  type WithStyles,
-} from '@material-ui/core';
+import type { Theme, WithStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core';
+import createTheme from '@material-ui/core/styles/createTheme';
+import useTheme from '@material-ui/core/styles/useTheme';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -320,11 +318,13 @@ export class MemberTable extends PureComponent<Props, State> {
     this.props.goToMember?.(this.state.members[rowIndex].id);
   };
 
-  getMuiTheme = () =>
-    createTheme({
+  getMuiTheme = () => {
+    const defaultTheme = useTheme();
+    return createTheme({
+      ...defaultTheme,
       overrides: {
         MuiTableCell: {
-          root: {
+          body: {
             maxWidth: 200,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -333,6 +333,7 @@ export class MemberTable extends PureComponent<Props, State> {
         },
       },
     });
+  };
 
   render() {
     const { t } = this.props;
@@ -386,7 +387,7 @@ export class MemberTable extends PureComponent<Props, State> {
           <TableFooter>
             <TableRow>
               <div className={this.props.classes.footerContainer}>
-                {!this.props.hideAddButton && (
+                {!this.props.hideAddButton ? (
                   <ObjectLevelPermissionWrapper
                     forcedBehavior="hidden"
                     requiredPermission="member.allowed_actions.create"
@@ -400,6 +401,8 @@ export class MemberTable extends PureComponent<Props, State> {
                       {t('addMember')}
                     </Button>
                   </ObjectLevelPermissionWrapper>
+                ) : (
+                  <div />
                 )}
                 <TablePagination
                   count={count}

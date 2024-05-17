@@ -1269,8 +1269,8 @@
       "showSms": "Show SMS",
       "showNotification": "Show notification",
       "numberOfRecipientsCompact": "Recipients: {{count}}",
-      "numberOfRecipients": "Send to recipient (1)",
-      "numberOfRecipients_plural": "Send to recipients ({{count}})",
+      "numberOfRecipients": "Sent to recipient (1)",
+      "numberOfRecipients_plural": "Sent to recipients ({{count}})",
       "isAnswerWarning": "Caution! Only you can see this message"
     },
     "send": { "error": "Error while sending", "success": "Sending..." },

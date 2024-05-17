@@ -741,7 +741,6 @@ export default compose(
   routerParamsToProps({ selectedTagId: 'selectedTagId:number' }),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['tagKind'], 'queryParams', 'setQueryParams']),
-  // @ts-expect-error
   withProps(({ queryParams, selectedTagId, tagGroups }) => ({
     tagKind: queryParams?.tagKind || 'member',
     selectedTag: selectedTagId

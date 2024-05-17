@@ -6,7 +6,6 @@ import {
 } from './SubscriptionRecap.component';
 
 const SubscriptionRecapTemplate = (args: Props) => (
-  // @ts-expect-error
   <div
     style={{
       width: '342px',

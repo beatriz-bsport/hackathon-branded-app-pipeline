@@ -160,7 +160,6 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
           {!partial_payment_enabled && (
             <>
               <Grid item xs={6}>
-                {/* @ts-expect-error */}
                 <MaterialUiSingleSelectorField
                   inScrollBar
                   name="recurrency"

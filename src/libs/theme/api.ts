@@ -1,4 +1,3 @@
-// @ts-expect-error
 import { API_V1_URI, getAuthDeprecated, patchAuth } from '../../http';
 
 const fetchCompanyTheme = async (companyId: number) => {

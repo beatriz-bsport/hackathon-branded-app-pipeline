@@ -168,14 +168,10 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   }
   if (validity_daterange) {
     return {
-      start: DateTime.fromISO(
-        // @ts-expect-error
-        JSON.parse(validity_daterange).lower,
-      ).toFormat('D'),
-      end: DateTime.fromISO(
-        // @ts-expect-error
-        JSON.parse(validity_daterange).upper,
-      ).toFormat('D'),
+      start: DateTime.fromISO(JSON.parse(validity_daterange).lower).toFormat(
+        'D',
+      ),
+      end: DateTime.fromISO(JSON.parse(validity_daterange).upper).toFormat('D'),
     };
   }
 

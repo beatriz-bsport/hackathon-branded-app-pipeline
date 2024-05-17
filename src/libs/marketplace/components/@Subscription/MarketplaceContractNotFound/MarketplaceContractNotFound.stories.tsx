@@ -3,7 +3,6 @@ import React from 'react';
 import { MarketplaceContractNotFoundForStorybook } from '.';
 
 const ConbtractNotFoundTemplate = () => (
-  // @ts-expect-error
   <MarketplaceContractNotFoundForStorybook />
 );
 

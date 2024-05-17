@@ -15,7 +15,6 @@ import { offerFactory } from '#libs/offer/factories';
 import { PrepaidLine } from '#libs/checkout/types';
 
 const SubscriptionBasketSummaryTemplate = (args: Props) => (
-  // @ts-expect-error
   <div
     style={{
       width: '600px',

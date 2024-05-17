@@ -25,11 +25,10 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LanguageIcon from '@material-ui/icons/Language';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-// @ts-expect-error eslint-disable-next-line import/no-unresolved
 import FuzeSearch from '#components/FuzeSearch.component';
-// @ts-expect-error eslint-disable-next-line import/no-unresolved
+// @ts-expect-error
 import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
-// @ts-expect-error eslint-disable-next-line import/no-unresolved
+// @ts-expect-error
 import SubShopList from '#pages/shop/SubShopList.component';
 import ShopListSubshopForm from '#libs/shop/components/ShopListSubshopForm';
 

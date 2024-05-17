@@ -9,11 +9,9 @@ const CustomTemplate = (args: OwnProps) => <FranchiseMembersTable {...args} />;
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 
-// @ts-expect-error
 const users = FranchiseUserFactory(3);
 const userWithCompanies = users.map((user) => ({
   ...user,
-  // @ts-expect-error
   companies: FranchiseCompanyListFactory(5),
 }));
 

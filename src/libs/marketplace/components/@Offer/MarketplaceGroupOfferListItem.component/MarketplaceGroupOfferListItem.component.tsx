@@ -463,7 +463,6 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       }
                       loading={false}
                       metaActivity={metaActivity}
-                      // @ts-expect-error
                       offer={{
                         ...offer,
                         // @ts-expect-error

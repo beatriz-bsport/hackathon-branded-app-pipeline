@@ -112,7 +112,6 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
   }
 
   componentDidMount = () => {
-    // @ts-expect-error
     this.svg = document.getElementById(this.svgId);
     this.props.onSvgId(this.svgId);
     this.props.registerFunction({

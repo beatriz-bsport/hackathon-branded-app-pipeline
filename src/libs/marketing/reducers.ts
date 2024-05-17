@@ -172,12 +172,9 @@ export default handleActions<
       state,
       { payload },
     ) => {
-      return (
-        state
-          .merge({ byId: { [payload.id]: payload } }, { deep: true })
-          // @ts-expect-error
-          .setIn(['allIds'], [...state.allIds, payload.id])
-      );
+      return state
+        .merge({ byId: { [payload.id]: payload } }, { deep: true })
+        .setIn(['allIds'], [...state.allIds, payload.id]);
     },
     [marketingNotificationUpdateActions.isLoading.toString()]: (
       state,

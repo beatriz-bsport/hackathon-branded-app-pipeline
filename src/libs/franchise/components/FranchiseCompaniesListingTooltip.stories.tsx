@@ -12,7 +12,6 @@ const CustomTemplate = (args: OwnProps) => (
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 
-// @ts-expect-error
 const companies = FactoryBot.FranchiseCompany.create(5);
 
 CompleteDefaultState.args = {

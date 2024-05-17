@@ -309,7 +309,6 @@ const ReportGenerationForm: React.FC<Props> = ({
       <Form>
         <div className={classes.flexRow}>
           <div className={classes.datePickerContainer}>
-            {/* @ts-expect-error */}
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
                 date_end={DateTime.fromISO(values.dateEnd).toUnixInteger()}
@@ -323,7 +322,6 @@ const ReportGenerationForm: React.FC<Props> = ({
                 timePeriod={values.time_period}
               />
             )}
-            {/* @ts-expect-error */}
             {reportConfiguration.date_type === 'single' && (
               // @ts-expect-error
               <DatePickerSelector

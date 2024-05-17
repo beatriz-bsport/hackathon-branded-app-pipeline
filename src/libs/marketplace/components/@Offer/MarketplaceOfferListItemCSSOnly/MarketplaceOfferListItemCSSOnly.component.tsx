@@ -515,7 +515,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                             isVariantCoachHighlighted,
                         }}
-                        // @ts-expect-error
                         coach={coach}
                         hideCoach={hideCoach}
                         // @ts-expect-error

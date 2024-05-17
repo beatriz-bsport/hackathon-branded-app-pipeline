@@ -61,7 +61,6 @@ Sentry.init({
       error &&
       // @ts-expect-error
       error.message &&
-      // @ts-expect-error
       exceptionMessageRegexpToIgnore.reduce(
         (shouldBeIgnore, regexp) =>
           // @ts-expect-error

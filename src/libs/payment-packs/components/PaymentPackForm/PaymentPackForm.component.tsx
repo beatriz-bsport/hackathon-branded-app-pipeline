@@ -236,7 +236,6 @@ export const PaymentPackForm: React.FC<Props> = ({
     <div>
       <Formik
         enableReinitialize
-        // @ts-expect-error
         initialValues={
           initial
             ? {

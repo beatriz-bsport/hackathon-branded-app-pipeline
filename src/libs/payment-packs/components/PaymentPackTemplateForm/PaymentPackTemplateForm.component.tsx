@@ -345,7 +345,6 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         {},
     ),
   validationSchema: PaymentPackTemplateSchema,
-  // @ts-expect-error
   handleSubmit: (
     values,
     {

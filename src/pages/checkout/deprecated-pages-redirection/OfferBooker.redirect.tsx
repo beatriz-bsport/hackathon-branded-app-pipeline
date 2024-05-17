@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import RedirectionLoading from './RedirectionLoading.component';
 import { fetchOfferBulk } from '../../../libs/offer/actions';
 import { OptionCallback } from '../../../state/types';
-// @ts-expect-error
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import type { CompanyTheme } from '#libs/theme/types';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';

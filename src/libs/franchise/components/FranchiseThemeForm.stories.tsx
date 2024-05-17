@@ -7,7 +7,6 @@ const CustomTemplate = (args: OwnProps) => <FranchiseThemeForm {...args} />;
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 
-// @ts-expect-error
 const franchise = FactoryBot.Franchise.createOne();
 
 const RGBtoHex = (rgb: [number, number, number]) =>

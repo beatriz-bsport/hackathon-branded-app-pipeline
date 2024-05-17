@@ -19810,7 +19810,7 @@
             "afterTitle": "Période d'entrée avant le début de la session",
             "minutes": "Minutes",
             "hours": "Heures",
-            "description": "Fixer la période de temps d'entrée des membres avant et après le début de leur session dans un établissement compatible.",
+            "description": "Indiquer la période de temps autorisant l'entrée des membres avant et après le début de leur séance dans un établissement compatible.",
             "title": "Période d'entrée des membres"
         },
         "liveHistory": {

@@ -9398,7 +9398,7 @@
             "category": "Categorie di pacchetti"
         },
         "noCategory": {
-            "empty": "Aucune catégorie",
+            "empty": "Non ci sono pacchetti associati a questa categoria da visualizzare.",
             "name": "Nessuna categoria",
             "help": "Questi pass appariranno in una categoria senza nome nel marketplace"
         },

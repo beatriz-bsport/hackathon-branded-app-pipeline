@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -17,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
+// @ts-expect-error
 import { Actions, Submit, TextField } from '../../../components/forms';
 import NotificationContentInput from '../../communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '../../communication/constants';
@@ -50,6 +50,7 @@ const NotificationForm = (props: Omit<Props, 'initial' | 'onSubmit'>) => {
         <Form>
           <div className={classes.fieldContainer}>
             <Typography
+              // @ts-expect-error
               className={classNames([classes.spacingTop], {
                 [classes.errorText]:
                   errors.notificationTitle || errors.notificationContent,
@@ -120,6 +121,7 @@ const PaymentPackNotificationSchema = Yup.object().shape({
 
 export default compose<any, Props>(
   withFormik({
+    // @ts-expect-error
     mapPropsToValues: ({ initial }) => {
       if (initial) {
         const { push_notification_title, push_notification_content } = initial;
@@ -136,6 +138,7 @@ export default compose<any, Props>(
       return values;
     },
     validationSchema: PaymentPackNotificationSchema,
+    // @ts-expect-error
     handleSubmit: (values, { props: { onSubmit } }) => {
       const data = {
         push_notification_title: values.notificationTitle,

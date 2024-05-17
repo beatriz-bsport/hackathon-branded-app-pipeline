@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -62,6 +61,7 @@ export const CompanySignupForm = (props: Props) => {
         } else {
           props.onSubmit(recaptchaRef.current.getValue(), {
             onError: () => {
+              // @ts-expect-error
               recaptchaRef.reset();
             },
           });
@@ -100,6 +100,7 @@ export const CompanySignupForm = (props: Props) => {
         {props.checkEmailExistsLoading && <CircularProgress size={12} />}
       </div>
       <PasswordInput
+        // @ts-expect-error
         required
         className={classes.field}
         label={t('signupCompany.form.password1.label')}
@@ -108,6 +109,7 @@ export const CompanySignupForm = (props: Props) => {
         value={props.password1}
       />
       <PasswordInput
+        // @ts-expect-error
         required
         className={classes.field}
         error={props.passwordMismatch}
@@ -129,6 +131,7 @@ export const CompanySignupForm = (props: Props) => {
           fullWidth
           country={props.locale.slice(3, 6)}
           label={t('signupCompany.form.timezone.label')}
+          // @ts-expect-error
           onChange={props.setTimezone}
           value={props.timezone_name}
         />
@@ -136,6 +139,7 @@ export const CompanySignupForm = (props: Props) => {
       <div className={classes.field}>
         <ReCAPTCHA
           ref={recaptchaRef}
+          // @ts-expect-error
           onChange={(v: boolean) => {
             props.validateCaptcha(!!v);
           }}
@@ -261,4 +265,5 @@ export default compose(
         });
       },
   }),
+  // @ts-expect-error
 )(CompanySignupForm);

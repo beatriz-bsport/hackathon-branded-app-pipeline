@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -122,6 +121,7 @@ export class MarketingEmail extends Component<Props> {
     options?: OptionCallback,
   ) => {
     this.props.emailTemplateUpdate(id, data, {
+      // @ts-expect-error
       onSuccess: options?.onSuccess,
       onError: options?.onError,
     });

@@ -1,6 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 
+// @ts-expect-error
 import ReportFilterConfigForm, { Props } from './ReportFilterConfigForm.drawer';
 
 const CustomTemplate = (args: Props) => <ReportFilterConfigForm {...args} />;

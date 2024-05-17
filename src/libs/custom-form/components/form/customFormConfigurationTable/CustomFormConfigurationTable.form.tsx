@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import green from '@material-ui/core/colors/green';
@@ -31,6 +30,7 @@ import type {
 } from '../../../types';
 import { MaterialStyleType } from '../../../../../utils/types';
 import { TagGroup, Tag } from '../../../../tag/types';
+// @ts-expect-error
 import withConfirm from '../../../../../hocs/with-confirm.hoc';
 import CustomFormConfigurationBanner from '../../CustomFormConfigurationBanner.component';
 import FormikChangesLookUp from './CustomFormConfigurationTableConnect.component';
@@ -111,6 +111,7 @@ export function CustomFormConfigurationTable(props: Props) {
       ...otherValues
     } = values;
     props.handleUpdateView &&
+      // @ts-expect-error
       props.handleUpdateView({
         ...otherValues,
         custom_form_field: [
@@ -190,6 +191,7 @@ export function CustomFormConfigurationTable(props: Props) {
                 ],
               }
             : {
+                // @ts-expect-error
                 name: '',
                 date_created: '',
                 disabled: false,
@@ -204,6 +206,7 @@ export function CustomFormConfigurationTable(props: Props) {
             custom_form_field_disabled,
             ...otherValues
           } = values;
+          // @ts-expect-error
           return props.onSubmit({
             ...otherValues,
             custom_form_field: [
@@ -224,6 +227,7 @@ export function CustomFormConfigurationTable(props: Props) {
             <>
               <FormikChangesLookUp
                 isSubmitting={isSubmitting}
+                // @ts-expect-error
                 registeredSignUpQuestions={registeredSignUpQuestions}
                 setNumberOfQuestionsHasChanged={
                   props.setNumberOfQuestionsHasChanged
@@ -285,6 +289,7 @@ export function CustomFormConfigurationTable(props: Props) {
                       <Container
                         useDragHandle
                         hideSortableGhost={false}
+                        // @ts-expect-error
                         onSortEnd={(e) =>
                           onSortEnd(
                             e,
@@ -306,6 +311,7 @@ export function CustomFormConfigurationTable(props: Props) {
                                   isLayoutActive={layoutActive}
                                   isMemberForm={props.initial.is_member_form}
                                   isSignUpForm={props.initial.is_signup}
+                                  // @ts-expect-error
                                   name={`custom_form_field_enabled.${i}`}
                                   onClickDelete={() => {
                                     custom_form_field_disabled.push({
@@ -413,6 +419,7 @@ export function CustomFormConfigurationTable(props: Props) {
                                 field,
                                 replace,
                                 push,
+                                // @ts-expect-error
                                 mainFormik.values,
                               );
                             }}
@@ -594,5 +601,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormConfigurationTable);

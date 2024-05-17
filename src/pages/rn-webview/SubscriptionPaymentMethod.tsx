@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -9,6 +8,7 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 import withStyles from '@material-ui/styles/withStyles';
 import { CircularProgress } from '@material-ui/core';
 
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
@@ -18,6 +18,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
@@ -29,6 +30,7 @@ import type { StripeInit } from '#libs/payment/types';
 
 const SubscriptionPayment = asyncComponent(
   () =>
+    // @ts-expect-error
     import('../../libs/subscription/components/SubscriptionPayment.component'),
 );
 
@@ -62,6 +64,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
 
   fetchData = () => {
     this.fetchPaymentMethods();
+    // @ts-expect-error
     this.props.fetchMembership(this.props.query.member, {
       onSuccess: (membership: Membership) => {
         this.props.fetchCompanyTheme(membership.company, {
@@ -70,6 +73,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
         });
       },
     });
+    // @ts-expect-error
     this.props.fetchMember(this.props.query.member);
   };
 
@@ -86,10 +90,12 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   };
 
   onCancel = () => {
+    // @ts-expect-error
     window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'cancel' }));
   };
 
   requestSetupIntentSecret = () =>
+    // @ts-expect-error
     requestSetupIntentSecretAPI(null, this.props.query.company);
 
   render() {
@@ -144,6 +150,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     this.props.switchSubscriptionPaymentMethod(
       this.props.subscription,
       {
+        // @ts-expect-error
         is_v2: true,
         payment_method_id: source || payment_method_id,
         payment_engine: PAYMENT_ENGINE_STRIPE,
@@ -151,12 +158,14 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
       {
         onSuccess: () => {
           this.setState({ processing: false });
+          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),
           );
         },
         onError: () => {
           this.setState({ processing: false });
+          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'error' }),
           );
@@ -166,6 +175,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   };
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   container: {
     paddingLeft: theme.spacing(2),
@@ -182,6 +192,7 @@ const styles = (theme) => ({
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   savedPaymentMethodList: getSavedPaymentMethodList(state),
+  // @ts-expect-error
   member: getMember(state, ownProps.query.member),
   auth: state.auth,
   theme: state.theme.theme,

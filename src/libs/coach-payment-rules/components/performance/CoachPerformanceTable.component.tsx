@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
@@ -31,6 +30,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
 import type { OptionCallback } from '../../../../state/types';
+// @ts-expect-error
 import { getFilteredAssociatedCoachWithPerformance } from '#libs/coach-payment-rules/utils';
 
 interface HeadersProps {
@@ -131,6 +131,7 @@ export const CoachPerformanceTableRow = (
     COACH_PERFORMANCE_FOR_SESSION
   ]
     ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
         0,
       )
@@ -140,6 +141,7 @@ export const CoachPerformanceTableRow = (
     COACH_PERFORMANCE_FOR_SESSION
   ]
     ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.total_margin_value) || 0),
         0,
       )
@@ -164,6 +166,7 @@ export const CoachPerformanceTableRow = (
   ]
     ? coachWithPerformance.performance[
         COACH_PERFORMANCE_FOR_APPOINTMENT
+        // @ts-expect-error
       ].reduce((a, b) => a + (parseFloat(b.coach_total_payment) || 0), 0)
     : null;
   const totalMarginValuePrivateBookings = coachWithPerformance.performance[
@@ -171,6 +174,7 @@ export const CoachPerformanceTableRow = (
   ]
     ? coachWithPerformance.performance[
         COACH_PERFORMANCE_FOR_APPOINTMENT
+        // @ts-expect-error
       ].reduce((a, b) => a + (parseFloat(b.total_margin_value) || 0), 0)
     : null;
 
@@ -282,6 +286,7 @@ export const CoachPerformanceTableRow = (
               handlePdfExportation={handlePdfExportation}
               isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               setCoachPaymentRule={setCoachPaymentRule}
+              // @ts-expect-error
               setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
               setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
               setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}

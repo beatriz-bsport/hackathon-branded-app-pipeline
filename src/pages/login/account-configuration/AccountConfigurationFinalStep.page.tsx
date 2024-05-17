@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
+// @ts-expect-error
 import { fetchAccessLevel } from '../../../actions/auth.actions';
 import { getAuthToken } from '../../../http';
 import { RootState } from '../../../reducers';

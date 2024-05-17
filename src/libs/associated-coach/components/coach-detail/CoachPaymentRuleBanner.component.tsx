@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import values from 'lodash/values';
 import { compose } from 'recompose';
@@ -41,6 +40,7 @@ import {
 import PrivateSlotSelectorStyled from '#libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
 import { PrivateServiceWithSlots } from '#libs/private-service/types';
 import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+// @ts-expect-error
 import type { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
@@ -279,6 +279,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 isClearable
                 isGroupSelect
                 noMulti
+                // @ts-expect-error
                 coachPaymentRulesList={coachPaymentRuleGroups}
                 onChange={(item: { value: number; label: string }) => {
                   this.setState({
@@ -290,6 +291,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   );
                   if (!item) {
                     this.setState({
+                      // @ts-expect-error
                       private_slots_coach_payment_rules: specificPrivateSlots,
                     });
                   }
@@ -305,6 +307,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               disabled={!coach.coach_payment_rule_group_id}
               onClick={() => {
                 this.setState({
+                  // @ts-expect-error
                   private_slots_coach_payment_rules: specificPrivateSlots,
                 });
                 setCoachPaymentRuleGroup(coach.id, -8000);
@@ -339,6 +342,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item className={classes.selector} xs={8}>
+              {/* @ts-expect-error */}
               <CoachPaymentRuleSelectorStyled
                 isClearable
                 noMulti
@@ -375,6 +379,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item className={classes.selector} xs={8}>
+              {/* @ts-expect-error */}
               <CoachPaymentRuleSelectorStyled
                 isClearable
                 noMulti
@@ -411,6 +416,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item className={classes.selector} xs={8}>
+              {/* @ts-expect-error */}
               <CoachPaymentRuleSelectorStyled
                 isClearable
                 noMulti
@@ -486,6 +492,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                         <>
                           <TableRow>
                             <TableCell>
+                              {/* @ts-expect-error */}
                               <PrivateSlotSelectorStyled
                                 noMulti
                                 disabled={!!coach.coach_payment_rule_group_id}
@@ -505,6 +512,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                               />
                             </TableCell>
                             <TableCell>
+                              {/* @ts-expect-error */}
                               <CoachPaymentRuleSelectorStyled
                                 noMulti
                                 coachPaymentRulesList={
@@ -577,6 +585,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   this.props.updateCoachPrivateSlotsPaymentRule({
                     id: coach.id,
                     associated_coach_id: coach.associated_coach_id,
+                    // @ts-expect-error
                     private_slots_coach_payment_rules: specificPrivateSlots,
                   });
                 }}
@@ -591,6 +600,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   flexRow: {
     display: 'flex',
@@ -623,6 +633,7 @@ const styles = (theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['coach', 'paymentRules']),
 )(CoachPaymentRuleBanner);

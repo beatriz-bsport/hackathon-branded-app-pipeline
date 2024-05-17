@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -81,6 +80,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
 )(TagDetailHeader);

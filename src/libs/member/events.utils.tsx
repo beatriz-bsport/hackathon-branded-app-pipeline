@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   ShoppingBasket as BasketPaidIcon,
@@ -20,6 +19,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 const getPrimaryText = (event: GenericEvent<MemberEvent>, t: TFunction) => {
   return t(
     `member:events.${event.event_type}.primaryText`,
+    // @ts-expect-error
     getTranslationDataFromEvent(event, t),
   );
 };
@@ -61,11 +61,14 @@ const getTranslationDataFromEvent = (
       return {
         private_slot_name: event.data?.private_slot_name || '',
         private_service_name: event.data?.private_service_name || '',
+        // @ts-expect-error
         date_start: event.data?.date_start || '',
       };
     case MEMBER_EVENTS.booking_canceled:
       return {
+        // @ts-expect-error
         name: event.data?.name || '',
+        // @ts-expect-error
         date_start: event.data?.date_start || '',
       };
 
@@ -203,6 +206,7 @@ export const getMemberEventPath = (
       return `${defaultPath}/form/`;
 
     case MEMBER_EVENTS.giftcard_used:
+      // @ts-expect-error
       return `${defaultPath}/giftcard/${event.data?.giftcard_id || ''}`;
 
     case MEMBER_EVENTS.invoice_paid:

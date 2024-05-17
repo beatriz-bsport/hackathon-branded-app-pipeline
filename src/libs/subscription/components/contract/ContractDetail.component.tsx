@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,8 +8,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
+// @ts-expect-error
 import TypographyWithShowMore from '#components/typo/TypographyWithShowMore.component';
 import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+// @ts-expect-error
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';

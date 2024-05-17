@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import CanvasSpot, { CanvasSpotProps } from './CanvasSpot.component';
@@ -6,6 +5,7 @@ import CanvasSpot, { CanvasSpotProps } from './CanvasSpot.component';
 const CustomTemplate = (args: CanvasSpotProps) => {
   return (
     <svg width="1000" height="1000">
+      {/* @ts-expect-error */}
       <CanvasSpot {...args} />
     </svg>
   );

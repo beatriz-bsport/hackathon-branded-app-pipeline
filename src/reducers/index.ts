@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { combineReducers } from 'redux';
 
 import { connectRouter } from 'connected-react-router';
 import activeCampaign from '#libs/active-campaign/reducers';
 import alertingReducer from '#libs/alerting/reducers';
+// @ts-expect-error
 import authReducers from './auth';
 import backgroundDialogReducer from '#libs/background-dialog/reducers';
 import backgroundTaskReducers from '#libs/background-task/reducers';
@@ -15,6 +15,7 @@ import checkoutReducers from '#libs/checkout/reducers';
 import ClockinReducer from '#libs/clock-in/reducers';
 import CoachPaymentRuleReducer from '#libs/coach-payment-rules/reducers';
 import coachReducers from '#libs/associated-coach/reducers';
+// @ts-expect-error
 import communicationReducers from '#libs/communication/reducers/reducers';
 import communicationV2Reducers from '#libs/communication-v2/reducers';
 import company from '#libs/company/reducers';
@@ -23,6 +24,7 @@ import consumerReducers from '#libs/consumer-space/reducers';
 import consumerReducersReworked from '#libs/consumer-space/reducersReworked';
 import couponReducers from '#libs/coupon/reducers';
 import CustomFormReducer from '#libs/custom-form/reducers';
+// @ts-expect-error
 import dashboardSettings from '#libs/dashboard/reducers';
 import emailTemplateReducer from '#libs/email-editor/reducers';
 import establishmentReducers from '#libs/establishment/reducers';
@@ -34,33 +36,41 @@ import groupOfferReducer from '#libs/group-offer/reducers';
 import instalmentPayment from '#libs/instalment-payment-configuration/reducers';
 import invoiceReducers from '#libs/invoice/reducers';
 import levelReducer from '#libs/level/reducers';
+// @ts-expect-error
 import login from '#libs/login/reducers';
 import marketingNotification from '#libs/marketing/reducers';
 import marketplace from '#libs/marketplace/reducers';
 import memberReducer from '#libs/member/reducers';
 import membership from '#libs/membership/reducers';
 import metaActivityReducers from '#libs/meta-activity/reducers';
+// @ts-expect-error
 import network from '#libs/network/reducers';
 import notificationRule from '#libs/notification-rule/reducers';
 import offer from '#libs/offer/reducers';
 import orderReducers from '#libs/order/reducers';
 import partnership from '#libs/partnership/reducers';
+// @ts-expect-error
 import paymentBackend from '#libs/payment/reducers';
 import paymentCombo from '#libs/payment-combo/reducers';
 import paymentPack from '#libs/payment-packs/reducers';
+// @ts-expect-error
 import paymentRulesReducer from '#libs/payment-rules/reducers';
 import performanceTracking from '#libs/performance-tracking/reducers';
+// @ts-expect-error
 import platformBilling from '#libs/platform-billing/reducers';
 import playlist from '#libs/playlist/reducers';
 import plugin from '#libs/plugin/reducers';
 import pollReducers from '#libs/sign-up-form/reducers';
 import privateService from '#libs/private-service/reducers';
 import QuickbooksAppReducer from '#libs/quickbooks/reducers';
+// @ts-expect-error
 import relationship from '#libs/relationship/reducers';
+// @ts-expect-error
 import reminder from '#libs/reminder/reducers';
 import replacementRequestReducer from '#libs/replacement-request/reducers';
 import reportingReducer from '#libs/reporting/reducers';
 import roleReducers from '#libs/role/reducers';
+// @ts-expect-error
 import searchReducer from './search.reducers';
 import settingsReducer from '#libs/settings/reducers';
 import shopReducer from '#libs/shop/reducers';
@@ -69,12 +79,14 @@ import smartListReducer from '#libs/smart-list/reducers';
 import snackbarReducer from '#libs/snackbar/reducers';
 import spotSchedulingReducers from '#libs/spot-scheduling/reducers';
 import statsReducers from '#libs/statistics/reducers';
+// @ts-expect-error
 import subscriptionReducer from '#libs/subscription/reducers';
 import tagReducers from '#libs/tag/reducers';
 import themeReducers from '#libs/theme/reducers';
 import userPreference from '#libs/user-preference/reducers';
 import video from '#libs/video/reducers';
 import waitingListReducers from '#libs/waiting-list/reducers';
+// @ts-expect-error
 import webhook from '#libs/webhook/reducers';
 import zoomAppReducers from '#libs/zoom-app/reducers';
 import terminalReducers from '#libs/terminal/reducers';
@@ -146,6 +158,7 @@ import type { ThemeState } from '#libs/theme/types';
 import type { UserPreference } from '#libs/user-preference/types';
 import type { VideoState } from '#libs/video/types';
 import type { TerminalState } from '#libs/terminal/types';
+// @ts-expect-error
 import actionTypes from '../actions/auth.types';
 import type { LevelState } from '#libs/level/types';
 import type { DatatypeFilteringState } from '#libs/datatype-filtering/types';
@@ -357,6 +370,7 @@ export default (history: any) => (state: any, action: any) => {
 
   if (action.type === actionTypes.RESET_STORE) {
     return rootReducer(history)(
+      // @ts-expect-error
       {
         router: state.router,
         auth: state.auth,

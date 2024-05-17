@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import {
   ButtonBase,
@@ -18,6 +17,7 @@ import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-r
 
 import { DeepPartial } from '../../../utils/types';
 import { MarketingNotification } from '../types';
+// @ts-expect-error
 import { Contract } from '#libs/subscription/types.ts';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';

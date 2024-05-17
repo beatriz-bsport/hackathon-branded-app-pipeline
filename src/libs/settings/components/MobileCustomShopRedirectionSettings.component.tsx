@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -41,6 +40,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import MobileShopCustomShopRedirectionDialog from './MobileShopCustomShopRedirectionDialog.dialog';
 import MuiIcon from '#components/MuiIcon.component';
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
 import { OptionCallback } from '../../../state/types';
@@ -124,6 +124,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
   }) => {
     if (param.id) {
       updateCustomShopRedirection(
+        // @ts-expect-error
         { id: param.id, data: param.values },
         {
           onSuccess: () => {
@@ -140,6 +141,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
       );
       return;
     }
+    // @ts-expect-error
     createCustomShopRedirection(param.values, {
       onSuccess: () => {
         param.options.onSuccess();
@@ -284,6 +286,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
           open
           initial={editingShopRedirection}
           onClose={handleCloseShopRedirectionDialog}
+          // @ts-expect-error
           onSubmit={handleSubmitShopRedirection}
         />
       )}
@@ -306,6 +309,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
   );
 };
 
+// @ts-expect-error
 const SortableTableRow = (props) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: props.id });

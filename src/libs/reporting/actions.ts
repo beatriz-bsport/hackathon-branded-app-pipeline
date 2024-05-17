@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import {
   OptionCallback,
@@ -116,6 +115,7 @@ export function exportExcelReport(
                 backgroundTaskUuid,
                 options?.backgroundDialog?.message,
                 options?.backgroundDialog?.title,
+                // @ts-expect-error
                 response.data,
               ),
             );
@@ -155,6 +155,7 @@ export function fetchReportOfferManagement(
 
       dispatch(fetchReportOfferManagementActions.success(response.data));
       dispatch(fetchReportOfferManagementActions.isLoading(false));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       dispatch(fetchReportOfferManagementActions.error(err));
@@ -267,6 +268,7 @@ export function createReport(props: {
       dispatch(fetchReports());
 
       if (typeof options?.onSuccess === 'function') {
+        // @ts-expect-error
         options?.onSuccess(response.data);
       }
     } catch (error) {
@@ -313,6 +315,7 @@ export const createReportFilterConfigActions = {
 
 export function createReportFilterConfig(
   reportId: number,
+  // @ts-expect-error
   data: Omit<ReportFilterConfig, ['id', 'report']>,
   options?: OptionCallback<ReportFilterConfig>,
 ) {
@@ -353,6 +356,7 @@ export function editReportFilterConfig(
     try {
       const response = await editReportFilterConfigAPI(
         reportFilterConfigId,
+        // @ts-expect-error
         data,
       );
 
@@ -385,10 +389,12 @@ export function fetchReportFilterConfigList(
 
       dispatch(
         fetchReportFilterConfigListActions.success(
+          // @ts-expect-error
           response.data?.results ?? response.data,
         ),
       );
       dispatch(fetchReportFilterConfigListActions.isLoading(false));
+      // @ts-expect-error
       options?.onSuccess(response.data);
     } catch (error) {
       options?.onError(error);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,6 +21,7 @@ export const CustomFormCompletedListItem = (props: Props) => {
       onClick={() => props.onClick(props.customFormFilled.id)}
     >
       <div className={classes.fullwidth}>
+        {/* @ts-expect-error */}
         <Typography>{props.customFormFilled?.customFormData?.name}</Typography>
       </div>
       <div className={classes.flexFullWidth}>

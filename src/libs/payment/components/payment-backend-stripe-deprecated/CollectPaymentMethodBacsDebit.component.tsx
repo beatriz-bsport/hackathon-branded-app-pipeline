@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
@@ -29,8 +28,10 @@ import { AxiosResponse } from 'axios';
 import { makeStyles } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 import { TFunction } from 'i18next';
+// @ts-expect-error
 import { TextField } from '#components/forms';
 import { getStripePkKey } from '../../../theme/selectors';
+// @ts-expect-error
 import StripeErrorCode from './StripeErrorCode.component';
 import LocaleSelector from '#components/input/LocaleSelector.component';
 import type { StripeInit } from '#libs/payment/types';
@@ -138,6 +139,7 @@ const BacsDebitForm = ({
             defaultValue="GB"
             label={t('translation:form.address.country')}
             onChange={(ev) => {
+              // @ts-expect-error
               setFieldValue('country', ev.target.value);
             }}
             value={values.country}

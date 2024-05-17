@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
@@ -161,12 +160,16 @@ export const withCoachAnswers = memoize((selector: (state: RootState) => any) =>
         return {
           ...replacementRequests,
           coach_answer: replacementRequests.coach_answer
+            // @ts-expect-error
             .map((answerId) => coachAnswers.find((ca) => ca.id === answerId))
+            // @ts-expect-error
             .filter((ca) => !!ca)
+            // @ts-expect-error
             .map((ca) => ({
               ...ca,
               coach: coaches.find((coach) => coach.id === ca.coach),
             }))
+            // @ts-expect-error
             .filter((ca) => !!ca.coach),
         };
       }
@@ -174,12 +177,16 @@ export const withCoachAnswers = memoize((selector: (state: RootState) => any) =>
       return replacementRequests.map((rr) => ({
         ...rr,
         coach_answer: rr.coach_answer
+          // @ts-expect-error
           .map((answerId) => coachAnswers.find((ca) => ca.id === answerId))
+          // @ts-expect-error
           .filter((ca) => !!ca)
+          // @ts-expect-error
           .map((ca) => ({
             ...ca,
             coach: coaches.find((coach) => coach.id === ca.coach),
           }))
+          // @ts-expect-error
           .filter((ca) => !!ca.coach),
       }));
     },
@@ -206,6 +213,7 @@ export const getAllDisciplineGroups = createSelector(
   },
 );
 
+// @ts-expect-error
 export const getAllDisciplineGroupsWithFullData: (
   state: RootState,
 ) => DisciplineGroup<

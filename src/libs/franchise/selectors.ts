@@ -1,6 +1,6 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+// @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import { RootState } from '../../reducers';
 import { FranchiseCompany, FranchiseState } from './types';
@@ -48,6 +48,7 @@ export const getFranchiseTheme = (state: RootState) => {
 
 export const getFranchiseThemeLoading = (state: RootState) => {
   if (getState(state)?.franchisor) {
+    // @ts-expect-error
     return getState(state).loading.loading;
   }
   return null;
@@ -158,6 +159,7 @@ export const getFranchiseCompanyById = (state: RootState) => {
   return null;
 };
 
+// @ts-expect-error
 export const getFranchiseCompanies = (state: RootState) => {
   if (getState(state).companies?.allIds) {
     const companies = getState(state).companies?.allIds;
@@ -171,8 +173,10 @@ export const getFranchiseCompanies = (state: RootState) => {
 };
 
 export const getAllowedFranchiseCompanies = (state: RootState) =>
+  // @ts-expect-error
   getFranchiseCompanies(state).filter((c: FranchiseCompany) => c.isAllowed);
 
+// @ts-expect-error
 export const getAllFranchiseCompanies = (state: RootState) => {
   if (getState(state).companies?.allIds) {
     const companies = getState(state).companies?.allIds;

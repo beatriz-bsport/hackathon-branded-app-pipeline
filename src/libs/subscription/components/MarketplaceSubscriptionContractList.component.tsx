@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -75,6 +74,7 @@ const ContractCard = (
           </Typography>
         </CardContent>
         <CardActions>
+          {/* @ts-expect-error */}
           <Button
             color={
               props.selected === props.contract.id ? 'primary' : 'secondary'

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useCallback, useState, useRef } from 'react';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -60,6 +59,7 @@ import {
 
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+// @ts-expect-error
 import { Submit, DelayTextField, CheckboxField } from '#components/forms';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
@@ -93,6 +93,7 @@ export type OuterProps = {
   t: TFunction;
 };
 
+// @ts-expect-error
 const onTrack = (initial, values, track) => {
   /**
    * track an event
@@ -150,8 +151,10 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
       for (const [key, value] of Object.entries(
         currentGraphMetadata.choices.graph_families[newGraphFamilyValue],
       )) {
+        // @ts-expect-error
         newGraphParams[key] = value[0];
       }
+      // @ts-expect-error
       newGraphParams.aggregation_function_name = 'sum';
       setFieldValue('graph_params', newGraphParams);
     },
@@ -182,6 +185,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
         newSelectedGraphMetadata.choices.graph_families,
       )[0];
       setFieldValue('graph_family', newGraphFamily);
+      // @ts-expect-error
       setNewGraphParamValues(newGraphFamily, newSelectedGraphMetadata);
 
       const newDateIdentifierForFilter =
@@ -219,6 +223,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
       setFieldValue('graph_family', value);
+      // @ts-expect-error
       setNewGraphParamValues(value, selectedGraphMetadata);
     },
     [setFieldValue, setNewGraphParamValues, selectedGraphMetadata],
@@ -287,6 +292,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
     (uuid: number) => () => {
       const groupsWithoutFilter = values.filter_config.groups.map((g) => ({
         ...g,
+        // @ts-expect-error
         filters_data: g.filters_data.filter((d) => d.uuid !== uuid),
       }));
 
@@ -436,6 +442,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                     className={classes.selectInput}
                     name="dashboard_graph_identifier"
                     onChange={handleDashboardGraphIdentifierChange}
+                    // @ts-expect-error
                     options={dashboardGraphIdentifierOptions}
                     placeholder={t(
                       'graphFormDrawer.placeholders.dashboardGraphIdentifier',
@@ -477,6 +484,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               <div className={classes.chartComponentContainer}>
                 <ChartComponentFieldInput
                   name="chart_component"
+                  // @ts-expect-error
                   options={chartComponentOptions}
                 />
               </div>
@@ -522,6 +530,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               {values.graph_family === 'week_timeslots' && (
                 <GraphParamTimeslotsForm
                   currentGraphMetadata={selectedGraphMetadata}
+                  // @ts-expect-error
                   helperText={graphParamHelperText}
                   setFieldValue={setFieldValue}
                 />
@@ -568,6 +577,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                       values.graph_family === 'week_timeslots'
                     }
                     name="date_filter_config.groups[0].filters_data[0].identifier"
+                    // @ts-expect-error
                     options={filterableDateOptions}
                     placeholder={t(
                       'graphFormDrawer.placeholders.dashboardGraphIdentifier',
@@ -907,6 +917,7 @@ export default compose(
         ? generateFilterConfigBookingStatusOk()
         : {
             group_operand: GROUP_AND_OPERAND,
+            // @ts-expect-error
             groups: [],
           };
 
@@ -918,12 +929,15 @@ export default compose(
         accumulate_total_data: false,
       };
       for (const [key, value] of Object.entries(
+        // @ts-expect-error
         defaultSelectedGraph.choices.graph_families[defaultGraphFamily],
       )) {
+        // @ts-expect-error
         defaultGraphParams[key] = value[0];
       }
 
       const defaultChartComponent =
+        // @ts-expect-error
         CHART_COMPONENTS_CHOICES_PER_GRAPH_FAMILY[defaultGraphFamily][0];
 
       return {
@@ -960,6 +974,7 @@ export default compose(
 
       const filter_config =
         values.filter_config.groups.length > 0 ? values.filter_config : {};
+      // @ts-expect-error
       data.filter_config = filter_config;
 
       const graph_params: any = {};
@@ -968,6 +983,7 @@ export default compose(
       if (values.graph_family === 'temporal') {
         graph_params.date =
           values.date_filter_config.groups[0].filters_data[0].identifier;
+        // @ts-expect-error
         graph_params.date_value = values.graph_params.date_value;
         graph_params.accumulate_total_data =
           values.graph_params.accumulate_total_data;
@@ -982,12 +998,14 @@ export default compose(
           !matchingDateValueMetadata.summable &&
           !matchingDateValueMetadata.averageable
             ? 'count'
-            : values.graph_params.aggregation_function_name;
+            : // @ts-expect-error
+              values.graph_params.aggregation_function_name;
         graph_params.aggregation_function_name = aggregation_function_name;
       }
 
       // Case qualitative
       if (values.graph_family === 'qualitative') {
+        // @ts-expect-error
         const { group_by, group_by_value } = values.graph_params;
 
         const aggregation_function_name = selectedGraphMetadata.metadata.find(
@@ -1002,13 +1020,16 @@ export default compose(
       }
 
       if (values.graph_family === 'week_timeslots') {
+        // @ts-expect-error
         const { date_for_slots, ref_for_frequency } = values.graph_params;
 
         graph_params.date_for_slots = date_for_slots;
         graph_params.ref_for_frequency = ref_for_frequency;
       }
+      // @ts-expect-error
       data.graph_params = graph_params;
 
+      // @ts-expect-error
       onSubmit(data, {
         onSuccess: () => {
           onTrack(initial, values, trackFormSuccess);

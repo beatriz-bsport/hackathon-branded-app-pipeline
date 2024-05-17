@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -74,6 +73,7 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
             !!this.props.privatePassTemplateListAvailable.length ||
             !!this.props.privatePassTemplateListManagerOnly.length
           }
+          // @ts-expect-error
           onCreate={this.props.openCreateDialog}
           onCreateLabel={t('privatePassTemplate.actions.create')}
           text={t('privatePassTemplate.isEmptyExplain')}
@@ -89,9 +89,12 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
                 {this.props.privatePassTemplateListAvailable.map((ppt) => (
                   <PrivatePassTemplateListItem
                     key={ppt.id}
+                    // @ts-expect-error
                     divider
                     onClick={this.props.goToTemplateDetail}
+                    // @ts-expect-error
                     onDelete={this.props.openDeleteDialog}
+                    // @ts-expect-error
                     onEdit={this.props.openEditDialog}
                     privatePassTemplate={ppt}
                   />
@@ -109,9 +112,12 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
                 {this.props.privatePassTemplateListManagerOnly.map((ppt) => (
                   <PrivatePassTemplateListItem
                     key={ppt.id}
+                    // @ts-expect-error
                     divider
                     onClick={this.props.goToTemplateDetail}
+                    // @ts-expect-error
                     onDelete={this.props.openDeleteDialog}
+                    // @ts-expect-error
                     onEdit={this.props.openEditDialog}
                     privatePassTemplate={ppt}
                   />
@@ -120,23 +126,34 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
             </>
           )}
         </div>
+        {/* @ts-expect-error */}
         {!!this.props.createModalOpen && (
           <PrivatePassTemplateFormDrawer
             onCancel={this.props.closeCreateDialog}
+            // @ts-expect-error
             onSubmit={this.props.createOrUpdatePrivatePassTemplate}
+            // @ts-expect-error
             open={this.props.createModalOpen}
           />
         )}
         <PrivatePassTemplateDeleteDialog
+          // @ts-expect-error
           onClose={this.props.closeDeleteDialog}
+          // @ts-expect-error
           onSubmit={this.props.deletePrivatePassTemplate}
+          // @ts-expect-error
           open={!!this.props.templateToDelete}
         />
+        {/* @ts-expect-error */}
         {!!this.props.privatePassTemplateForEdit && (
           <PrivatePassTemplateFormDrawer
+            // @ts-expect-error
             initial={this.props.privatePassTemplateForEdit}
+            // @ts-expect-error
             onCancel={this.props.closeEditDialog}
+            // @ts-expect-error
             onSubmit={this.props.createOrUpdatePrivatePassTemplate}
+            // @ts-expect-error
             open={this.props.privatePassTemplateForEdit}
           />
         )}
@@ -177,10 +194,13 @@ export default compose(
       openCreateDialog: () => () => ({ createModalOpen: true }),
       closeCreateDialog: () => () => ({ createModalOpen: false }),
       openEditDialog:
-        (_, { privatePassTemplateData }) =>
-        (id) => ({
-          privatePassTemplateForEdit: privatePassTemplateData[id],
-        }),
+        // @ts-expect-error
+
+
+          (_, { privatePassTemplateData }) =>
+          (id) => ({
+            privatePassTemplateForEdit: privatePassTemplateData[id],
+          }),
       closeEditDialog: () => () => ({ privatePassTemplateForEdit: null }),
       openDeleteDialog: () => (id) => ({ templateToDelete: id }),
       closeDeleteDialog: () => () => ({ templateToDelete: null }),

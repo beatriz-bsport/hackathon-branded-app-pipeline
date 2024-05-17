@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -26,6 +25,7 @@ const RoomBlueprintListItem = (props: Props) => {
   const { t } = useTranslation(['spotScheduling']);
   return (
     <ListItem
+      // @ts-expect-error
       button={!!props.onClick}
       onClick={props.onClick ? () => props.onClick(props.roomBlueprint) : null}
       selected={props.selected}

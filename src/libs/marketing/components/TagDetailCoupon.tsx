@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -43,6 +42,7 @@ class TagDetailCoupon extends React.PureComponent<Props> {
             <Button
               className={classes.marginTop}
               color="primary"
+              // @ts-expect-error
               onClick={this.props.goToCoupon}
               variant="outlined"
             >
@@ -114,6 +114,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
 )(TagDetailCoupon);

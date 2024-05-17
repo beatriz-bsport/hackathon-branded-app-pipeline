@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
@@ -37,8 +36,10 @@ import {
   getCoachPaymentRuleListCoaches,
 } from '../../libs/coach-payment-rules/selectors';
 import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
+// @ts-expect-error
 import CoachPaymentRuleFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDrawer.component';
 import CoachPaymentRuleGroupFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDrawer.component';
+// @ts-expect-error
 import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
 import CoachPaymentRuleSimulationDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDrawer.component';
 import type {
@@ -196,10 +197,12 @@ export class PaymentRulesDashboard extends Component<Props> {
             getPaymentPack={this.props.getPaymentPack}
             handleClose={this.props.handleClose}
             initial={
+              // @ts-expect-error
               this.props.initial && this.props.initial.bonus_coach_payment
                 ? {
                     ...this.props.initial,
                     bonus_coach_payment: [
+                      // @ts-expect-error
                       ...this.props.initial.bonus_coach_payment,
                     ],
                   }
@@ -211,6 +214,7 @@ export class PaymentRulesDashboard extends Component<Props> {
           />
         ) : null}
         {this.props.simulationOpen && this.props.ruleForSimulation ? (
+          // @ts-expect-error
           <CoachPaymentRuleSimulationDrawer
             coachPaymentRule={this.props.ruleForSimulation}
             handleCloseSimulation={this.props.handleCloseSimulation}
@@ -224,12 +228,14 @@ export class PaymentRulesDashboard extends Component<Props> {
         ) : null}
         {this.props.groupDialogFormOpen ? (
           <CoachPaymentRuleGroupFormDrawer
+            // @ts-expect-error
             associated_coaches={this.props.associated_coaches}
             error={this.props.error}
             handleClose={this.props.handleCloseGroup}
             initial={this.props.initialGroup}
             onSubmit={(g) =>
               this.props.upsertCoachPaymentRuleGroup(g, {
+                // @ts-expect-error
                 onSuccess: (group: CoachPaymentRuleGroup) => {
                   const updateCoacheIds = this.props.associated_coaches
                     .filter(
@@ -354,6 +360,7 @@ const mapWithHandlers = {
   upsertCoachPaymentRule:
     (props: OwnAndConnectedProps) => (p: CoachPaymentRule) =>
       props.upsertCoachPaymentRule(p, {
+        // @ts-expect-error
         onSuccess: (payload: CoachPaymentRule) => {
           props.showSimulationDialog(true);
           props.setRuleForSimulation(payload);
@@ -362,6 +369,7 @@ const mapWithHandlers = {
   upsertCoachPaymentRuleGroup:
     (props: OwnAndConnectedProps) =>
     (g: CoachPaymentRuleGroup, options: OptionCallback) =>
+      // @ts-expect-error
       props.upsertCoachPaymentRuleGroup(g, options),
   runCoachPaymenrRuleSimulation:
     (props: OwnAndConnectedProps) => (id: number, params: any) =>
@@ -390,8 +398,10 @@ const withStateHandlersSetter = {
   },
 };
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['paymentRules']),
+  // @ts-expect-error
   withTitle(({ t }: TFunction) => t('pageTitle')),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),

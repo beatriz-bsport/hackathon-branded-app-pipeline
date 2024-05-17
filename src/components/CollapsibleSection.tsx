@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   Typography,
@@ -32,6 +31,7 @@ class CollapsibleSection extends React.PureComponent<Props> {
   };
 
   render() {
+    // @ts-expect-error
     const Wrapper = this.props.onSwitch ? ButtonBase : (p) => <div {...p} />;
     return (
       <div className={this.props.classes.container}>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -52,7 +51,9 @@ export const DisciplineGroupList: React.FC<Props> = ({
           <DisciplineGroupListItem
             key={disciplineGroup?.id}
             disciplineGroup={disciplineGroup}
+            // @ts-expect-error
             handleDelete={handleDelete}
+            // @ts-expect-error
             handleEdit={handleEdit}
             loading={loading}
           />

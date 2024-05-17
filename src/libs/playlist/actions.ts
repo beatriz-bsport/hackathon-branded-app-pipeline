@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { RootState } from '../../reducers';
 
@@ -33,6 +32,7 @@ export function retrievePlaylist(
       const response = await retrievePlaylistAPI(id);
       dispatch(retrievePlaylistActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -108,6 +108,7 @@ export function fetchMorePlaylist(
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { nextPage } = getState().playlist.list;
     if (nextPage) {
+      // @ts-expect-error
       dispatch(fetchPlaylistList(params, nextPage, options));
     }
   };
@@ -123,8 +124,10 @@ export function fetchPlaylistList(
     dispatch(listPlaylistActions.error(null));
     try {
       const response = await fetchPlaylistListAPI({ ...params, page });
+      // @ts-expect-error
       dispatch(listPlaylistActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -151,6 +154,7 @@ export function createOrUpdatePlaylist(data: any, options?: OptionCallback) {
       const response = await createOrUpdatePlaylistAPI(data);
       dispatch(createOrUpdatePlaylistActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
       dispatch(snackbarSuccess('playlist.createOrUpdate.success'));
@@ -177,6 +181,7 @@ export function deletePlaylist(id: number, options?: OptionCallback) {
       await deletePlaylistAPI(id);
       dispatch(deletePlaylistActions.success(id));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(id);
       }
       dispatch(snackbarSuccess('playlist.delete.success'));

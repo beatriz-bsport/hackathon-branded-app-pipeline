@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import {
@@ -155,6 +154,7 @@ export class MarketingRuleListBooking extends React.PureComponent<
     const sessionsKeys = Object.keys(bySession);
     const allSessionIndex = sessionsKeys.findIndex((it) => it === '0');
     allSessionIndex !== -1 &&
+      // @ts-expect-error
       sessionsKeys.push(sessionsKeys.splice(allSessionIndex, 1));
 
     return sessionsKeys.map((sessionNumber) => {
@@ -231,6 +231,7 @@ export class MarketingRuleListBooking extends React.PureComponent<
                   onClick={() => {
                     this.setHideById({
                       ...this.state.hideById,
+                      // @ts-expect-error
                       [key]: !this.state.hideById[key],
                     });
                   }}
@@ -238,13 +239,14 @@ export class MarketingRuleListBooking extends React.PureComponent<
                   <Typography color="primary" variant="h5">
                     {name}
                   </Typography>
+                  {/* @ts-expect-error */}
                   {!this.state.hideById[key] ? (
                     <ExpandLessIcon />
                   ) : (
                     <ExpandMoreIcon />
                   )}
                 </ButtonBase>
-
+                {/* @ts-expect-error */}
                 <Collapse in={!this.state.hideById[key]}>
                   {this.renderSession(group.bySession)}
                 </Collapse>

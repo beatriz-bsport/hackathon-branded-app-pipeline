@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { Theme, Collapse, makeStyles } from '@material-ui/core';
 import Fuse, { FuseOptions } from 'fuse.js';
@@ -58,12 +57,14 @@ function FuzzySearchIcon<T>(props: Props<T>) {
       setSearchResult(result);
     };
 
+  // @ts-expect-error
   const Cell = ({ columnIndex, rowIndex, style }) => (
     <div className={classes.cell} style={style}>
       {itemRenderer(searchResult[columnIndex + rowIndex * numberOfColumns])}
     </div>
   );
 
+  // @ts-expect-error
   const CellEmptySearch = ({ columnIndex, rowIndex, style }) => (
     <div className={classes.cell} style={style}>
       <div>{itemRenderer(items[columnIndex + rowIndex * numberOfColumns])}</div>
@@ -80,6 +81,7 @@ function FuzzySearchIcon<T>(props: Props<T>) {
           }}
           items={items}
           placeholder={placeholder}
+          // @ts-expect-error
           searchFields={searchFields}
           searchText={search}
         />

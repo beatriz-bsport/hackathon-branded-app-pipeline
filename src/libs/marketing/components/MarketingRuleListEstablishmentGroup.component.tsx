@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import { DeepPartial } from 'seamless-immutable';
 import { TFunction } from 'i18next';
 import { MarketingNotification } from '#libs/marketing/types';
 import { EmailTemplateSummary } from '#libs/email-editor/types';
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 
 type OwnProps = {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form, Formik } from 'formik';
+// @ts-expect-error
 import { TextField } from '#components/forms';
 
 type Props = {

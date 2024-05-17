@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import type { CustomFormState } from './types';
@@ -89,10 +88,12 @@ export default handleActions(
       return state
         .set(
           'allIds',
+          // @ts-expect-error
           payload.results.map((cus) => cus.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
@@ -111,10 +112,12 @@ export default handleActions(
       return state
         .set(
           'allIds',
+          // @ts-expect-error
           payload.results.map((cus) => cus.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
@@ -141,6 +144,7 @@ export default handleActions(
     ) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.results.reduce((acc: any, ps: any) => {
             acc[ps.id] = ps;
             return acc;
@@ -156,20 +160,28 @@ export default handleActions(
       return state.set('error', payload);
     },
     [fetchCustomFormActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       if (!state.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['byId', payload.id], payload)
-          .setIn(['allIds'], [...state.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['byId', payload.id], payload)
+            // @ts-expect-error
+            .setIn(['allIds'], [...state.allIds, payload.id])
+        );
       }
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [disableCustomFormActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [disableCustomFormActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
     [restoreCustomFormactions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [restoreCustomFormactions.isLoading.toString()]: (state, { payload }) => {
@@ -180,8 +192,11 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['byId', payload.formId, 'custom_form_field'],
+        // @ts-expect-error
         state.byId[payload.formId].custom_form_field.map((field) =>
+          // @ts-expect-error
           field.id !== payload.data.id ? field : payload.data,
         ),
       );
@@ -190,14 +205,21 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.formId], payload);
     },
     [upsertCustomFormActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       if (!state.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['byId', payload.id], payload)
-          .setIn(['allIds'], [...state.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['byId', payload.id], payload)
+            // @ts-expect-error
+            .setIn(['allIds'], [...state.allIds, payload.id])
+        );
       }
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [upsertCustomFormActions.isLoading.toString()]: (state, { payload }) => {
@@ -210,6 +232,7 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [updateCustomFormLayoutActions.isLoading.toString()]: (
@@ -222,9 +245,13 @@ export default handleActions(
       return state.setIn(['layout', 'error'], payload);
     },
     [duplicateCustomFormActions.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(['byId', payload.id], payload)
-        .setIn(['allIds'], [...state.allIds, payload.id]);
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['byId', payload.id], payload)
+          // @ts-expect-error
+          .setIn(['allIds'], [...state.allIds, payload.id])
+      );
     },
     [duplicateCustomFormActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
@@ -251,11 +278,13 @@ export default handleActions(
       return state
         .setIn(
           ['filled', 'allIds'],
+          // @ts-expect-error
           payload.results.map((cus) => cus.id),
         )
         .merge(
           {
             filled: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -266,11 +295,17 @@ export default handleActions(
         );
     },
     [submitCustomFormActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       if (!state.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['filled', 'byId', payload.id], payload)
-          .setIn(['filled', 'allIds'], [...state.filled.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['filled', 'byId', payload.id], payload)
+            // @ts-expect-error
+            .setIn(['filled', 'allIds'], [...state.filled.allIds, payload.id])
+        );
       }
+      // @ts-expect-error
       return state.setIn(['filled', 'byId', payload.id], payload);
     },
     [submitCustomFormActions.isLoading.toString()]: (state, { payload }) => {
@@ -307,11 +342,13 @@ export default handleActions(
       return state
         .setIn(
           ['statistics', 'allIds'],
+          // @ts-expect-error
           payload.results.map((cus_stats) => cus_stats.id),
         )
         .merge(
           {
             statistics: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -340,11 +377,13 @@ export default handleActions(
       return state
         .setIn(
           ['display_rule', 'allIds'],
+          // @ts-expect-error
           payload.results.map((display_rule) => display_rule.id),
         )
         .merge(
           {
             display_rule: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -373,6 +412,7 @@ export default handleActions(
       return state.merge(
         {
           display_rule: {
+            // @ts-expect-error
             byId: payload.results.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -398,14 +438,20 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.display_rule.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['display_rule', 'byId', payload.id], payload)
-          .setIn(
-            ['display_rule', 'allIds'],
-            [...state.display_rule.allIds, payload.id],
-          );
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['display_rule', 'byId', payload.id], payload)
+            .setIn(
+              ['display_rule', 'allIds'],
+              // @ts-expect-error
+              [...state.display_rule.allIds, payload.id],
+            )
+        );
       }
+      // @ts-expect-error
       return state.setIn(['display_rule', 'byId', payload.id], payload);
     },
     [deleteCustomFormDisplayRuleActions.success.toString()]: (
@@ -414,6 +460,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['display_rule', 'allIds'],
+        // @ts-expect-error
         state.display_rule.allIds.filter((id) => id !== payload),
       );
     },
@@ -473,8 +520,11 @@ export default handleActions(
         {
           modelBasedAnswer: {
             byMemberId: {
+              // @ts-expect-error
               [payload.member_id]: {
+                // @ts-expect-error
                 [payload.datatype]: {
+                  // @ts-expect-error
                   [payload.kind]: payload,
                 },
               },

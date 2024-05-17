@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
@@ -17,6 +16,7 @@ const initialState: Immutable.Immutable<QuickbooksState> =
   Immutable<QuickbooksState>({
     loading: false,
     error: null,
+    // @ts-expect-error
     detail: {},
     update: {
       loading: false,

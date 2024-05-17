@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import {
@@ -15,11 +14,13 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Contract } from '#libs/subscription/types';
 import { MetaActivity } from '../../meta-activity/types';
+// @ts-expect-error
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
 import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
@@ -140,6 +141,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'private_pass') {
       objectId = this.state.selectedPrivatePass;
     }
+    // @ts-expect-error
     this.props.onSubmit(objectId);
   };
 
@@ -185,6 +187,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 noMulti
                 metaActivities={this.props.metaActivities || []}
                 selectedMetaActivities={this.state.selectedMetaActivity}
+                // @ts-expect-error
                 selectOption={({ value }) =>
                   this.onChange('meta_activity', value)
                 }
@@ -197,6 +200,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 noMulti
                 establishments={this.props.establishments}
                 selectedEstablishments={this.state.selectedEstablishment}
+                // @ts-expect-error
                 selectOption={({ value }) => {
                   this.onChange('establishment', value);
                 }}
@@ -207,6 +211,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 <MaterialUISelector
                   isMulti={false}
                   onChange={(option) =>
+                    // @ts-expect-error
                     this.onChange('establishment_group', option.value)
                   }
                   options={[...establishmentGroups].map(

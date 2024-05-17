@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { VariableSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -118,6 +117,7 @@ const PaymentPackTemplateList = (props: {
           return (
             <PaymentPackTemplateListItem
               key={ppt.id}
+              // @ts-expect-error
               divider
               index={index}
               onClick={props.onClick}

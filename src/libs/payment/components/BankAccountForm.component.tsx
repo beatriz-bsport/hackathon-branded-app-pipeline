@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { OptionCallback } from '../../../state/types';
 import { getStripePkKey } from '#libs/theme/selectors';
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+// @ts-expect-error
 import { CompanySetup } from '../types';
 import BankAccountFormRegistry from './BankAccountFormRegistry';
 
@@ -37,6 +37,7 @@ export const BankAccountForm = (props: Props) => {
     )
   ) {
     const BankAccountFormBase =
+      // @ts-expect-error
       BankAccountFormRegistry[props.currency] || BankAccountFormRegistry.eur;
 
     content = (
@@ -129,6 +130,7 @@ const BankAccountFormComposed = compose(
           });
       },
   }),
+  // @ts-expect-error
 )(BankAccountForm);
 
 export default (props: Props) => (
@@ -136,6 +138,7 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <BankAccountFormComposed
+          // @ts-expect-error
           elements={elements}
           stripe={stripe}
           {...props}

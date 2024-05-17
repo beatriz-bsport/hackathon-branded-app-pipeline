@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { AutomatedCampaign, SmartListState } from './types';
@@ -79,6 +78,7 @@ const initialState: Immutable.Immutable<SmartListState> =
     csvExports: {
       loading: false,
       error: null,
+      // @ts-expect-error
       byId: {},
     },
   });
@@ -258,6 +258,7 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
     [filterDeleteAction.success.toString()]: (state, { payload }) => {
       return state.updateIn(
         ['filtersByCategoryId', payload.filter_identifier],
+        // @ts-expect-error
         (x) => x.without(`${payload.id}`),
       );
     },
@@ -281,6 +282,7 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         .merge(
           {
             smartListTagRules: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -291,6 +293,7 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         )
         .setIn(
           ['smartListTagRules', 'allIds'],
+          // @ts-expect-error
           payload.map((tg) => tg.id),
         );
     },
@@ -504,9 +507,9 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         .setIn(
           ['automatedCampaign', 'bySmartListId', payload.smartlist],
           [
-            ...(
-              state.automatedCampaign.bySmartListId[payload.smartlist] || []
-            ).filter((auto_c) => auto_c.id !== payload.id),
+            ...(state.automatedCampaign.bySmartListId[payload.smartlist] || [])
+              // @ts-expect-error
+              .filter((auto_c) => auto_c.id !== payload.id),
             payload,
           ],
         );
@@ -533,9 +536,9 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         .setIn(
           ['automatedCampaign', 'bySmartListId', payload.smartlist],
           [
-            ...(
-              state.automatedCampaign.bySmartListId[payload.smartlist] || []
-            ).filter((auto_c) => auto_c.id !== payload.id),
+            ...(state.automatedCampaign.bySmartListId[payload.smartlist] || [])
+              // @ts-expect-error
+              .filter((auto_c) => auto_c.id !== payload.id),
             payload,
           ],
         );

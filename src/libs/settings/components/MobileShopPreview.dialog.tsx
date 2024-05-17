@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
@@ -319,6 +318,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: 16,
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(2),
+    // @ts-expect-error
     color: getTextColorFromRGB(theme.palette.primary.main),
   },
   subtitle: {

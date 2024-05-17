@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -178,6 +177,7 @@ export class OrderTable extends Component<Props, State> {
           ),
         },
       },
+      // @ts-expect-error
       onTableChange: (action, tableState: { page: number }) => {
         this.handlePageChange(tableState.page + 1);
       },
@@ -186,6 +186,7 @@ export class OrderTable extends Component<Props, State> {
       <MUIDataTable
         columns={getColumnData(this.props.t)}
         data={renderRows(this.props.orders, this.props.t)}
+        // @ts-expect-error
         options={options}
         title={this.props.title}
       />

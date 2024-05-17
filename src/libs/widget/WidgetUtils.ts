@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_IFRAME,
@@ -9,43 +8,54 @@ import { WidgetApiMessageType, WidgetMessageType } from './types';
 
 export class WidgetUtils {
   static setWidgetContext() {
+    // @ts-expect-error
     window.env.APP_CONTEXT = 'widget';
   }
 
   static isWidget() {
+    // @ts-expect-error
     return window && window.env && window.env.APP_CONTEXT === 'widget';
   }
 
   static setDialogMode(dialogMode: number) {
+    // @ts-expect-error
     window.env = {
+      // @ts-expect-error
       ...(window.env || {}),
       WIDGET_DIALOG_MODE: dialogMode,
     };
   }
 
   static getDialogMode() {
+    // @ts-expect-error
     return window?.env?.WIDGET_DIALOG_MODE ?? null;
   }
 
   static setWidgetType(widgetType: number) {
+    // @ts-expect-error
     window.env = {
+      // @ts-expect-error
       ...(window.env || {}),
       WIDGET_TYPE: widgetType,
     };
   }
 
   static getWidgetType() {
+    // @ts-expect-error
     return window?.env?.WIDGET_TYPE ?? null;
   }
 
   static setParentElementId(parentElementId: string) {
+    // @ts-expect-error
     window.env = {
+      // @ts-expect-error
       ...(window.env || {}),
       WIDGET_PARENT_ELEMENT_ID: parentElementId,
     };
   }
 
   static getParentElementId() {
+    // @ts-expect-error
     return window?.env?.WIDGET_PARENT_ELEMENT_ID ?? null;
   }
 
@@ -103,6 +113,7 @@ export class WidgetUtils {
     });
   }
 
+  // @ts-expect-error
   static videoRegistered(videoId) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.VIDEO_REGISTERED,

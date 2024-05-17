@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
@@ -114,6 +113,7 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
             ? `${this.props.myProfile?.first_name} ${this.props.myProfile?.last_name}`
             : null
         }
+        // @ts-expect-error
         onPaymentMethodSuccess={this.onPaymentMethodAdded}
         paymentMethodLoading={this.props.savedPaymentMethodListLoading}
         paymentMethodRegistered={

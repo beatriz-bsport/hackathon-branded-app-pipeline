@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -10,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
+// @ts-expect-error
 import { Actions, Submit } from '#components/forms';
 import { SmartList } from '#libs/smart-list/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
@@ -92,6 +92,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
         <MarketingRuleSendingMethodField
           email_design={email_design}
           emailDetailLoading={emailDetailLoading}
+          // @ts-expect-error
           emailDetails={emailDetails}
           emailListLoading={emailListLoading}
           emails={emails}
@@ -158,6 +159,7 @@ const BirthdayNotificationSchema = Yup.object().shape({
 export default compose<any, Props>(
   withFormik({
     validateOnMount: true,
+    // @ts-expect-error
     mapPropsToValues: ({ initial }) => {
       if (initial) {
         const {
@@ -182,14 +184,18 @@ export default compose<any, Props>(
         send_notification_push: false,
         notificationContent: '',
         notificationTitle: '',
+        // @ts-expect-error
         smartlist_include: [],
+        // @ts-expect-error
         smartlist_exclude: [],
       };
       return values;
     },
     validationSchema: BirthdayNotificationSchema,
+    // @ts-expect-error
     handleSubmit: (values, { props: { onSubmit } }) => {
       const data = {
+        // @ts-expect-error
         email_design: values.send_email ? values.email_design : null,
         push_notification_title: values.send_notification_push
           ? values.notificationTitle

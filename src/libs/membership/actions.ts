@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/react';
@@ -45,11 +44,13 @@ export function fetchMembershipListAsConsumer(
       });
       dispatch(
         listAsConsumerActions.success({
+          // @ts-expect-error
           ...response.data,
           page: 1,
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -80,11 +81,13 @@ export function fetchMoreMembership(
       });
       dispatch(
         listAsConsumerActions.success({
+          // @ts-expect-error
           ...response.data,
           page: next_page,
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -106,8 +109,10 @@ export function fetchMembership(
 
     try {
       const response = await fetchMembershipAPI(id);
+      // @ts-expect-error
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -151,8 +156,10 @@ export function fetchMembershipByBasket(
 
     try {
       const response = await fetchMembershipByBasketAPI(data);
+      // @ts-expect-error
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -203,6 +210,7 @@ export function linkMeToCompany(
       }
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -243,6 +251,7 @@ export function requestMembershipValidation(
       dispatch(requestMemberShipValidationActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

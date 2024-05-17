@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
@@ -82,6 +81,7 @@ export const getEstablishmentById = (state: RootState) => (id: number) =>
 export const retrieveEstablishmentGroup = (
   state: RootState,
   id: number,
+  // @ts-expect-error
 ): EstablishmentGroup => state.establishment.establishmentGroup.byId[id];
 
 const getEstablishmentGroupAllIds = (state: RootState) =>
@@ -122,8 +122,10 @@ export const getFavoriteEstablishment = (state: RootState) =>
 export const getEstablishmentGroupByAddress = createSelector(
   [withBookingNotification(getAvailableEstablishmentList)],
   (establishmentList) =>
+    // @ts-expect-error
     establishmentList.reduce((accumulator, establishmentItem) => {
       const temp = accumulator.findIndex(
+        // @ts-expect-error
         (group) =>
           group.address.toUpperCase() ===
           establishmentItem.location.address.toUpperCase(),

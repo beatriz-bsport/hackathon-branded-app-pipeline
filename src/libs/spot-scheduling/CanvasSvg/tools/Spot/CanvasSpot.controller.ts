@@ -1,8 +1,8 @@
-// @ts-nocheck
 import { ElementDOMController } from '../BaseClasses/Base.controller';
 import CanvasSpotComponent, { CanvasSpotProps } from './CanvasSpot.component';
 
 export default class SpotDOMController extends ElementDOMController<CanvasSpotProps> {
+  // @ts-expect-error
   getProps = () => {
     let x = 0;
     let y = 0;
@@ -52,12 +52,15 @@ export default class SpotDOMController extends ElementDOMController<CanvasSpotPr
   setPosition = (x: number, y: number) => {
     if (this.elm) {
       const rotation = this.getRotation();
+      // @ts-expect-error
       let transform = CanvasSpotComponent.getTransform(x, y, rotation);
       switch (this.elm.getAttribute('type')) {
         case 'rectangle':
+          // @ts-expect-error
           transform = CanvasSpotComponent.getTransformRectangle(x, y, rotation);
           break;
         case 'triangle':
+          // @ts-expect-error
           transform = CanvasSpotComponent.getTransformTriangle(x, y, rotation);
           break;
         default:

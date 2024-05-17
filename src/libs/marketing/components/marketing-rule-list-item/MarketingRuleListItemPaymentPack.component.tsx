@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
@@ -76,6 +75,7 @@ const PaymentPackNotification = (props: Props) => {
     <div>
       <Paper className={classes.paper}>
         {notifications.items.map((notif) => (
+          // @ts-expect-error
           <div key={notif.id} className={props.classes}>
             <ListItem divider>
               <NotificationListInner
@@ -161,6 +161,7 @@ const PaymentPackNotification = (props: Props) => {
           resolvedGenericTags={props.resolvedGenericTags}
           smartListLoading={props.smartListLoading}
           smartLists={props.smartLists}
+          // @ts-expect-error
           tags={mergeTags}
         />
       )}
@@ -253,4 +254,5 @@ export default compose(
         setSelectedNotification(null);
       },
   }),
+  // @ts-expect-error
 )(PaymentPackNotification);

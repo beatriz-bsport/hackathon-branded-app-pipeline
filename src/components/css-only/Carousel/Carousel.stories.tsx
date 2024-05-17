@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 
 import { paymentPackListFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Props, CarouselForStorybook } from '#csscomponents/Carousel';
 
+// @ts-expect-error
 const CarouselTemplate = (args: Props<PaymentPack>) => <Carousel {...args} />;
 
 export const ItemCarousel = CarouselTemplate.bind({});

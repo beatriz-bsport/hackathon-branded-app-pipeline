@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 import { RoleState } from './types';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import { OWNER_ROLE } from './role-types';
 
 export const getRoleStateAllIds = (state: RootState) => state.role.allIds;

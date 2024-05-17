@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -82,6 +81,7 @@ type State = {
 
 class CanvasEditorComponent extends React.PureComponent<Props, State> {
   get tool() {
+    // @ts-expect-error
     return CanvasSelectableToolStrategy[this.state.selectedTool];
   }
 
@@ -108,6 +108,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
       showGrid: false,
       coachHeight: this.props.selectedRoomBlueprint.canvas.coachHeight || 1,
       spiviBoxId: this.props.selectedRoomBlueprint?.spivi_box_id,
+      // @ts-expect-error
       openCanvasCssForm: false,
     };
   }
@@ -128,6 +129,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     if (prevProps.spotToSelect !== this.props.spotToSelect) {
       this.props.selectedTool &&
         this.props.spotToSelect &&
+        // @ts-expect-error
         this.onChangeTool('spot', this.props.spotToSelect);
     }
   }
@@ -187,9 +189,11 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   };
 
   onHeightCoachChange = (coefficient: string) => {
+    // @ts-expect-error
     this.setState({ coachHeight: coefficient });
   };
 
+  // @ts-expect-error
   onSpiviBoxIdChange = (ev) => {
     this.setState({ spiviBoxId: ev.target.value });
   };
@@ -233,16 +237,20 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     });
   };
 
+  // @ts-expect-error
   deleteSpotType = (spotType) => {
     this.onClickSave();
+    // @ts-expect-error
     this.props.onDeleteSpotType(spotType);
     this.toolCancel();
   };
 
   hasBlueprintChanged = () => {
     let old_elements = [];
+    // @ts-expect-error
     if (this.props.selectedRoomBlueprint.canvas?.elements?.asMutable) {
       old_elements =
+        // @ts-expect-error
         this.props.selectedRoomBlueprint.canvas?.elements?.asMutable();
     } else {
       old_elements = this.props.selectedRoomBlueprint.canvas?.elements;
@@ -250,7 +258,9 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
 
     let current_elements = [];
 
+    // @ts-expect-error
     if (this.props.current.elements.asMutable) {
+      // @ts-expect-error
       current_elements = this.props.current.elements.asMutable();
     } else {
       current_elements = this.props.current.elements;
@@ -264,10 +274,12 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   };
 
   handleOpenCanvasCssForm = () => {
+    // @ts-expect-error
     this.setState({ openCanvasCssForm: true });
   };
 
   handleCloseCanvasCssForm = () => {
+    // @ts-expect-error
     this.setState({ openCanvasCssForm: false });
   };
 
@@ -312,6 +324,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               disabledEdit={this.props.disableEdit}
               elements={this.elements}
               fillColor={this.props.current.fillColor}
+              // @ts-expect-error
               getAsset={this.getAsset}
               isBoutiqueDisplay={this.props.isBoutiqueDisplay}
               isMobile={this.props.isMobile}
@@ -367,6 +380,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               openAssetUploader={this.props.openAssetUploader}
               openDeleteModal={this.props.openDeleteModal}
               openPreviewDialog={this.handleOpenCanvasCssForm}
+              // @ts-expect-error
               openSpotCreationForm={(defaultSpot: boolean) => {
                 this.onClickSave();
                 this.props.openSpotCreationForm?.(defaultSpot);
@@ -399,9 +413,11 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               coachDisplay={this.props.coachDisplay}
               coachHeight={this.state.coachHeight}
               elements={this.elements}
+              // @ts-expect-error
               getAsset={this.getAsset}
               isMobile={this.props.isMobile}
               onClose={this.handleCloseCanvasCssForm}
+              // @ts-expect-error
               open={this.state.openCanvasCssForm}
               roomBluePrint={this.props.selectedRoomBlueprint}
               spotTypes={this.props.spotTypes}
@@ -431,7 +447,9 @@ const styles = (theme: Theme) => ({
     border: 'none',
   },
   containerSelecting: {
+    // @ts-expect-error
     paddingRight: theme.spacing(3),
+    // @ts-expect-error
     paddingLeft: theme.spacing(3),
     backgroundColor: 'white',
   },
@@ -443,7 +461,9 @@ const styles = (theme: Theme) => ({
   canvasContainer: {
     display: 'flex',
     flex: 1,
+    // @ts-expect-error
     paddingBottom: theme.spacing(3),
+    // @ts-expect-error
     paddingTop: theme.spacing(3),
     overflow: 'hidden',
   },
@@ -462,8 +482,8 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-expect-error
   withTheme,
+  // @ts-expect-error
   withStyles(styles),
   withUndoRedoState({
     elements: [],

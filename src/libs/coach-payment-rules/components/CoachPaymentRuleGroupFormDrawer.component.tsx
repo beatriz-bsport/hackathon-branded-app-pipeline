@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -9,6 +8,7 @@ import { Form } from 'formik';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+// @ts-expect-error
 import { Submit } from '../../../components/forms';
 
 import CoachPaymentRuleFormGroupFields, {
@@ -31,6 +31,7 @@ export function CoachPaymentRuleGroupFormDrawer(props: Props) {
       title={t('coach_payment_rule_groups.dialogTitle')}
     >
       <Form>
+        {/* @ts-expect-error */}
         <CoachPaymentRuleFormGroupFields {...props} />
         <DialogActions>
           <Button

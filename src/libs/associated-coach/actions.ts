@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
@@ -27,6 +26,7 @@ import {
 import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#libs/replacement-request/api';
 import { getFreshCoachIds } from '#libs/associated-coach/selectors';
 
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import {
   OptionCallback,
@@ -113,9 +113,11 @@ export function restoreCoach(id: number, options?: OptionCallback) {
     dispatch(restoreActions.isLoading(true));
     try {
       const response = await restoreCoachAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(coachDetailAction.success(payload));
       dispatch(snackbarSuccess('coach.restore.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -142,6 +144,7 @@ export function fetchAssociatedCoachesList(
     try {
       const response = await fetchAssociatedCoachesAPI({
         ...params,
+        // @ts-expect-error
         page: 1,
       });
       dispatch(
@@ -151,6 +154,7 @@ export function fetchAssociatedCoachesList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -180,6 +184,7 @@ export function fetchAdditionalAssociatedCoachesList(
     try {
       const response = await fetchAssociatedCoachesAPI({
         ...params,
+        // @ts-expect-error
         page: 1,
       });
       dispatch(
@@ -189,6 +194,7 @@ export function fetchAdditionalAssociatedCoachesList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -228,11 +234,14 @@ export function fetchAssociatedCoachesPaginatedList(
       });
       dispatch(
         coachPaginatedListActions.success({
+          // @ts-expect-error
           coachDict: createDictionnaryById(response.data.results),
+          // @ts-expect-error
           coachIdList: createIdList(response.data.results),
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -257,6 +266,7 @@ export function fetchAssociatedCoach(id: number) {
     dispatch(coachDetailAction.error(null));
     try {
       const response = await fetchAssociatedCoachAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(coachDetailAction.success(payload));
     } catch (error) {
@@ -285,11 +295,11 @@ export function createOrUpdateCoach(
       const response = await createOrUpdate(coachData);
 
       if (response.status !== 201 && response.status !== 200) {
+        // @ts-expect-error
         throw new Error(response);
       }
       const key = coachData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`coach.${key}.success`));
-      // @ts-expect-error TODO check this
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -387,6 +397,7 @@ export function setCoachPaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = {
         coachId,
+        // @ts-expect-error
         coach_payment_rule_id: response.data.coach_payment_rule,
       };
       dispatch(setCoachPaymentRuleActions.success(payload));
@@ -436,6 +447,7 @@ export function setCoachWorkshopPaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = {
         coachId,
+        // @ts-expect-error
         workshop_coach_payment_rule_id: response.data.coach_payment_rule,
       };
       dispatch(setCoachWorkshopPaymentRuleActions.success(payload));
@@ -484,6 +496,7 @@ export function setCoachPrivatePaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = {
         coachId,
+        // @ts-expect-error
         private_coach_payment_rule_id: response.data.coach_payment_rule,
       };
       dispatch(setCoachPrivatePaymentRuleActions.success(payload));
@@ -557,6 +570,7 @@ export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
         page_size: null,
       });
       dispatch(bulkRetrieveActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -740,6 +754,7 @@ export const retrieveMyAssociatedCoachProfile = (
     try {
       const response = await retrieveMyAssociatedCoachProfileAPI(params);
       dispatch(retrieveMyAssociatedCoachProfileActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(retrieveMyAssociatedCoachProfileActions.error(error));
@@ -840,6 +855,7 @@ export const retrieveAssociatedCoachLateReplacementRequestStatus = (
         params,
       );
       dispatch(retrieveLateReplacementRequestStatus.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(retrieveLateReplacementRequestStatus.error(error));

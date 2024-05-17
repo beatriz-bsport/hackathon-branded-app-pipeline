@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useMemo } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -16,6 +15,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { PRIVATEBOOKING_EVENT_RULES } from '@bsport/common/lib/master-data/notification-rule-events';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
+// @ts-expect-error
 import { IntegerField, CheckboxField, Submit } from '#components/forms';
 import { SmartList } from '#libs/smart-list/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
@@ -54,6 +54,7 @@ type Props = {
 };
 
 const getNotificationKind = (kind: number) => {
+  // @ts-expect-error
   switch (parseInt(kind, 10)) {
     case PRIVATE_BOOKING_NOTIFICATION_KIND_VALID:
       return 'valid';
@@ -220,6 +221,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
           <MarketingRuleSendingMethodField
             email_design={email_design}
             emailDetailLoading={emailDetailLoading}
+            // @ts-expect-error
             emailDetails={emailDetails}
             emailListLoading={emailListLoading}
             emails={emails}
@@ -345,6 +347,7 @@ const PrivateBookingNotificationSchema = Yup.object().shape({
 
 export default compose(
   withFormik({
+    // @ts-expect-error
     mapPropsToValues: ({ initial, serviceId }) => {
       if (initial) {
         const {
@@ -400,8 +403,10 @@ export default compose(
       };
     },
     validationSchema: PrivateBookingNotificationSchema,
+    // @ts-expect-error
     handleSubmit: (values, { props: { onSubmit } }) => {
       const [daysSubmit, hoursSubmit] = getSendingTimeNotification(
+        // @ts-expect-error
         values.timeComparator,
         values.periodScale,
         values.relativeTimeValue,
@@ -430,4 +435,5 @@ export default compose(
       onSubmit(data);
     },
   }),
+  // @ts-expect-error
 )(MarketingRuleFormPrivateBooking);

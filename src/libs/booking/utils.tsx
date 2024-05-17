@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
@@ -97,7 +96,9 @@ const getBookingStatusCode = (
   t: TFunction,
 ) => {
   const cancelled_by = [
+    // @ts-expect-error
     ...booking?.staff_history?.filter(
+      // @ts-expect-error
       (sh) =>
         sh?.action_identifier === BOOKING_CANCELLED_BY_STAFF ||
         sh?.action_identifier === PRIVATE_BOOKING_CANCELLED_BY_STAFF ||
@@ -224,8 +225,11 @@ export function filterBookingListByOfferDate<T>(
     bookingList,
     (booking) =>
       DateTime.fromISO(
+        // @ts-expect-error
         booking.offer_date_start ||
+          // @ts-expect-error
           booking.date_start ||
+          // @ts-expect-error
           booking.offer?.date_start,
       ).toUnixInteger(),
     order,

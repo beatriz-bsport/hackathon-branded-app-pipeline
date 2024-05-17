@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -150,4 +149,5 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+// @ts-expect-error
 export default compose(withTranslation(['navigation']))(MultipleSessionDetails);

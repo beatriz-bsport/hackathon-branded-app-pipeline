@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { withStyles, Theme, WithTheme } from '@material-ui/core';
 import { compose } from 'recompose';
@@ -61,6 +60,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
+// @ts-expect-error
 export default compose<any, OwnProps>(withStyles(styles, { withTheme: true }))(
   HighlightedText,
 );

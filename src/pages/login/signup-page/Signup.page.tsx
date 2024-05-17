@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withStateHandlers } from 'recompose';
 
@@ -95,6 +94,7 @@ export class SignupPage extends Component<Props> {
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
       });
+      // @ts-expect-error
       this.props.retrieveCompanyCssConfiguration(
         parseInt(this.props.membership, 10),
       );
@@ -107,6 +107,7 @@ export class SignupPage extends Component<Props> {
 
   submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
     this.props.submitSignUpCustomForm(
+      // @ts-expect-error
       formdata,
       this.props?.membership || null,
       {
@@ -184,7 +185,8 @@ export class SignupPage extends Component<Props> {
     }
     // TODO : remove
     const fieldsAreIndependent = !!(
-      this.props.membership === 2073 || this.props.membership === '2073'
+      // @ts-expect-error
+      (this.props.membership === 2073 || this.props.membership === '2073')
     );
 
     return (
@@ -212,6 +214,7 @@ export class SignupPage extends Component<Props> {
                 isCssVariantActivated={this.shoulDisplayCssVariant()}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
+                // @ts-expect-error
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.props.setLoginInformations}
                 rowHeight={

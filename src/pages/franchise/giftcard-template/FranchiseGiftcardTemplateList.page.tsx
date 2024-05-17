@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -70,6 +69,7 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
   getTemplateFranchiseCompanyList = (template: GiftcardTemplate) => {
     return template.companies
       .map((company_id) =>
+        // @ts-expect-error
         this.props.allFranchiseCompaniesWithAllowed.find(
           (c: FranchiseCompany) => c.id === company_id,
         ),

@@ -1,9 +1,9 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
+// @ts-expect-error
 import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -124,6 +124,7 @@ export class ExpenseList extends Component<Props> {
             this.props.setSelectedExpense(this.props.expenseId);
             this.props.setExpenseFormOpen(true);
           }
+          // @ts-expect-error
           this.props.setPage(result.page);
         },
       },
@@ -192,6 +193,7 @@ export class ExpenseList extends Component<Props> {
           />
           {this.props.loading && <LinearProgress />}
           <ExpenseTable
+            // @ts-expect-error
             count={this.props.count}
             deleteDialogOpen={this.props.deleteDialogOpen}
             expenseList={this.props.expenseList}
@@ -214,6 +216,7 @@ export class ExpenseList extends Component<Props> {
         <GenericResponsiveDrawer
           onClose={() => {
             trackFormCancel(
+              // @ts-expect-error
               this.props.expenseList?.find(
                 (exp: Expense) => exp.id === this.props.selectedExpense,
               )?.id,
@@ -222,6 +225,7 @@ export class ExpenseList extends Component<Props> {
           }}
           open={this.props.expenseFormOpen}
           title={
+            // @ts-expect-error
             this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,
             )
@@ -229,9 +233,11 @@ export class ExpenseList extends Component<Props> {
               : t('form.titleAdd')
           }
         >
+          {/* @ts-expect-error */}
           <ExpenseForm
             isInDrawer
             editChoice={this.props.editChoice}
+            // @ts-expect-error
             initial={this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,
             )}

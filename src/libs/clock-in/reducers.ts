@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -55,9 +54,13 @@ export default handleActions(
       state.setIn(['lastClockIn', 'error'], payload),
     [retrieveLastClockInActions.success.toString()]: (state, { payload }) =>
       state
+        // @ts-expect-error
         .setIn(['lastClockIn', 'dateStart'], payload?.date_start)
+        // @ts-expect-error
         .setIn(['lastClockIn', 'dateEnd'], payload?.date_end)
+        // @ts-expect-error
         .setIn(['lastClockIn', 'onGoing'], payload?.on_going)
+        // @ts-expect-error
         .setIn(['lastClockIn', 'id'], payload?.id),
 
     [clockInActions.loading.toString()]: (state, { payload }) =>
@@ -70,6 +73,7 @@ export default handleActions(
     [editClockInActions.error.toString()]: (state, { payload }) =>
       state.set('error', payload),
     [editClockInActions.success.toString()]: (state, { payload }) =>
+      // @ts-expect-error
       state.setIn(['history', 'byId', payload.id], payload),
     [deleteClockInActions.loading.toString()]: (state, { payload }) =>
       state.set('loading', payload),
@@ -78,6 +82,7 @@ export default handleActions(
     [deleteClockInActions.success.toString()]: (state, { payload }) =>
       state.setIn(
         ['history', 'allIds'],
+        // @ts-expect-error
         state.history.allIds.filter((id) => id !== payload.clockInId),
       ),
     [listStaffAttendanceRealTimeActions.loading.toString()]: (
@@ -93,16 +98,21 @@ export default handleActions(
       { payload },
     ) =>
       state
+        // @ts-expect-error
         .setIn(['currentAttendance', 'count'], payload.count)
+        // @ts-expect-error
         .setIn(['currentAttendance', 'next_page'], payload.next_page)
+        // @ts-expect-error
         .setIn(['currentAttendance', 'previous_page'], payload.previous_page)
         .setIn(
           ['currentAttendance', 'allIds'],
+          // @ts-expect-error
           payload.results.map((r) => r.id),
         )
         .merge(
           {
             currentAttendance: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -113,6 +123,7 @@ export default handleActions(
         )
         .setIn(
           ['currentAttendance', 'byUserId'],
+          // @ts-expect-error
           payload.results.reduce((acc: any, ps: any) => {
             acc[ps.user] = ps;
             return acc;
@@ -131,16 +142,21 @@ export default handleActions(
       { payload },
     ) =>
       state
+        // @ts-expect-error
         .setIn(['history', 'count'], payload.count)
+        // @ts-expect-error
         .setIn(['history', 'next_page'], payload.next_page)
+        // @ts-expect-error
         .setIn(['history', 'previous_page'], payload.previous_page)
         .setIn(
           ['history', 'allIds'],
+          // @ts-expect-error
           payload.results.map((r) => r.id),
         )
         .merge(
           {
             history: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;

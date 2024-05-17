@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation } from 'react-i18next';
 import * as Sentry from '@sentry/react';
 
@@ -18,6 +17,7 @@ export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
   const validityInfo = useMemo(() => {
     if (paymentPack.validity_daterange) {
       try {
+        // @ts-expect-error
         const validityDateRange = JSON.parse(paymentPack.validity_daterange);
         return t('genericCard.validForDuration.validFromTo', {
           duration_date_start: formatAsDate(validityDateRange.lower),
@@ -244,11 +244,14 @@ export const formatOffPeakScheduleOnDisplay = (
   const formattedOffPeakSchedule = {};
   if (off_peak_schedule) {
     Object.entries(off_peak_schedule).forEach((days) => {
+      // @ts-expect-error
       if (!formattedOffPeakSchedule[days[0][0]]) {
+        // @ts-expect-error
         formattedOffPeakSchedule[days[0][0]] = [];
       }
       Object.values(days[1]).forEach((dates) => {
         const [start_time, end_time] = Object.values(dates);
+        // @ts-expect-error
         formattedOffPeakSchedule[days[0][0]].push([start_time, end_time]);
       });
     });

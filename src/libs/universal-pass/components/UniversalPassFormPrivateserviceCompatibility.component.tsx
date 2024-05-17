@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
@@ -160,12 +159,16 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                                   canEditCompatibilities || isCreatingPass
                                 }
                                 onDelete={() => {
+                                  // prettier-ignore
                                   const psArray: number[] =
                                     props.initial &&
                                     props.initial
+                                      // @ts-expect-error
                                       ?.linked_private_pass_compatibility
                                       ?.length
-                                      ? props.initial.linked_private_pass_compatibility.map(
+                                      ? // @ts-expect-error
+                                        props.initial.linked_private_pass_compatibility.map(
+                                          // @ts-expect-error
                                           (p_s) => p_s.private_service,
                                         )
                                       : [];
@@ -242,6 +245,7 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                     updateSlotData(data, replace)
                   }
                   privateServices={props.privateServices}
+                  // @ts-expect-error
                   selectedService={selectedService}
                 />
                 <Dialog open={openDeleteCompatibilityDialog}>

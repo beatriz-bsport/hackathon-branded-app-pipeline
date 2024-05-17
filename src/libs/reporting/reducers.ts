@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -57,6 +56,7 @@ const initialState: Immutable.Immutable<ReportingState> =
       results: [],
     },
     reportFilterConfigs: {
+      // @ts-expect-error
       dynamicDataHasBeenLoaded: defaultDynamicDataHasBeenLoaded,
       byId: {},
       allIds: [],
@@ -180,12 +180,14 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
       state
         .setIn(
           ['reportFilterConfigs', 'allIds'],
+          // @ts-expect-error
           [...(state.reportFilterConfigs.allIds ?? []), payload.id],
         )
         .merge(
           {
             reportFilterConfigs: {
               byId: {
+                // @ts-expect-error
                 [payload.id]: {
                   ...payload,
                 },
@@ -205,6 +207,7 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
         {
           reportFilterConfigs: {
             byId: {
+              // @ts-expect-error
               [payload.id]: {
                 ...payload,
               },
@@ -228,11 +231,13 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
       state
         .setIn(
           ['reportFilterConfigs', 'allIds'],
+          // @ts-expect-error
           payload.map((rf) => rf.id),
         )
         .merge(
           {
             reportFilterConfigs: {
+              // @ts-expect-error
               byId: payload.reduce((acc, rf) => {
                 acc[rf.id] = rf;
                 return acc;
@@ -254,6 +259,7 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
       state.setIn(
         ['reportFilterConfigs', 'allIds'],
         [...(state.reportFilterConfigs.allIds ?? [])].filter(
+          // @ts-expect-error
           (id) => id !== payload,
         ),
       ),

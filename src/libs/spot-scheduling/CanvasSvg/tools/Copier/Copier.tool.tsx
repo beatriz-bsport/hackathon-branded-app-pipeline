@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import CanvasAbstractTool, {
@@ -30,6 +29,7 @@ type SelectedElement = {
  *              For certain element types, height and width can be customized.
  *              If not specified, default values are used.
  */
+// @ts-expect-error
 const getDeltaDimensions = (element) => {
   if (element.type === CANVAS_SELECTABLE_TOOLS.rect) {
     return {
@@ -59,6 +59,7 @@ const getDeltaDimensions = (element) => {
  *              It takes into consideration the element's dimensions and the canvas size.
  *              If the adjusted position would exceed the canvas bounds, it adjusts accordingly.
  */
+// @ts-expect-error
 const adjustPosition = (element) => {
   const { height, width } = getDeltaDimensions(element);
 

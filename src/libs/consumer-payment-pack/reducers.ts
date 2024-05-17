@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
@@ -125,6 +124,7 @@ const initialState = Immutable<ConsumerPaymentPackState>({
 });
 
 export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
+  // @ts-expect-error
   {
     [partialRefundActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['partialRefund', 'loading'], payload);
@@ -133,6 +133,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state.setIn(['partialRefund', 'error'], payload);
     },
     [partialRefundActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [partialRefundActions.list.toString()]: (state, { payload }) => {
@@ -211,6 +212,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state.merge(
         {
           incompatibilitiesByOfferByConsumerPack: {
+            // @ts-expect-error
             byId: payload,
           },
         },
@@ -251,22 +253,28 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state.setIn(['byMember', 'error'], payload);
     },
     [byMember.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(['byMember', 'page'], payload.page)
-        .setIn(['byMember', 'count'], payload.count)
-        .setIn(
-          ['byMember', 'allIds'],
-          payload.results.map((cpp) => cpp.id),
-        )
-        .merge(
-          {
-            byId: payload.results.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        );
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['byMember', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['byMember', 'count'], payload.count)
+          .setIn(
+            ['byMember', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((cpp) => cpp.id),
+          )
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+            { deep: true },
+          )
+      );
     },
     [universalbyMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['universalbyMember', 'loading'], payload);
@@ -275,43 +283,55 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state.setIn(['universalbyMember', 'error'], payload);
     },
     [universalbyMember.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(['universalbyMember', 'page'], payload.page)
-        .setIn(['universalbyMember', 'count'], payload.count)
-        .setIn(
-          ['universalbyMember', 'allIds'],
-          payload.results.map((cpp) => cpp.id),
-        )
-        .merge(
-          {
-            byId: payload.results.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        );
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['universalbyMember', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['universalbyMember', 'count'], payload.count)
+          .setIn(
+            ['universalbyMember', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((cpp) => cpp.id),
+          )
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+            { deep: true },
+          )
+      );
     },
     [byPaymentPack.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'loading'], payload);
     },
     [byPaymentPack.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(
-          ['byPaymentPack', 'allIds'],
-          payload.results.map((cpp) => cpp.id),
-        )
-        .merge(
-          {
-            byId: payload.results.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        )
-        .setIn(['byPaymentPack', 'count'], payload.count)
-        .setIn(['byPaymentPack', 'page'], payload.page);
+      return (
+        state
+          .setIn(
+            ['byPaymentPack', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((cpp) => cpp.id),
+          )
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+            { deep: true },
+          )
+          // @ts-expect-error
+          .setIn(['byPaymentPack', 'count'], payload.count)
+          // @ts-expect-error
+          .setIn(['byPaymentPack', 'page'], payload.page)
+      );
     },
     [byPaymentPack.error.toString()]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
@@ -329,10 +349,12 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state
         .setIn(
           ['forBooking', 'allIds'],
+          // @ts-expect-error
           payload.map((cpp) => cpp.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -365,25 +387,31 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
     [updateConsumerPack.success.toString()]: (state, { payload }) => {
       let newState = state;
       const indexByMember = state.byOfferByMember.items.findIndex(
+        // @ts-expect-error
         (cpp) => cpp.id === payload.id,
       );
       if (indexByMember >= 0) {
         newState = newState.setIn(
+          // @ts-expect-error
           ['byOfferByMember', 'items', indexByMember],
           payload,
         );
       }
+      // @ts-expect-error
       return newState.setIn(['byId', payload.id], payload);
     },
     [updateConsumerPack.isLoading.toString()]: (state, { payload }) => {
       if (!payload.loading) {
+        // @ts-expect-error
         return state.setIn(['updatingById', payload.id], false);
       }
+      // @ts-expect-error
       return state.setIn(['updatingById', payload.id], true);
     },
     [retrieveBulk.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.reduce((acc, ps) => {
             acc[ps.id] = ps;
             return acc;
@@ -414,10 +442,12 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state
         .setIn(
           ['compatible', 'allIds'],
+          // @ts-expect-error
           payload.map((cpp) => cpp.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -448,6 +478,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.merge({ maxout_booking: { byId: payload } }, { deep: true });
     },
     [listConsumerPaymentPackCompatibleActions.error.toString()]: (
@@ -460,10 +491,15 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(['penalty', 'items'], payload.results)
-        .setIn(['penalty', 'page'], payload.page)
-        .setIn(['penalty', 'count'], payload.count);
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['penalty', 'items'], payload.results)
+          // @ts-expect-error
+          .setIn(['penalty', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['penalty', 'count'], payload.count)
+      );
     },
     [listConsumerPaymentPackActions.isLoading.toString().toString()]: (
       state,
@@ -488,22 +524,28 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['basePaginationState', 'allIds'],
-          payload.results.map((cpp) => cpp.id),
-        )
-        .setIn(['basePaginationState', 'page'], payload.page)
-        .setIn(['basePaginationState', 'count'], payload.count)
-        .merge(
-          {
-            byId: payload.results.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        );
+      return (
+        state
+          .setIn(
+            ['basePaginationState', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((cpp) => cpp.id),
+          )
+          // @ts-expect-error
+          .setIn(['basePaginationState', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['basePaginationState', 'count'], payload.count)
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+            { deep: true },
+          )
+      );
     },
   },
   initialState,

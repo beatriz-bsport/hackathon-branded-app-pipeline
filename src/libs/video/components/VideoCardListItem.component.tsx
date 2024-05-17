@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { Theme, withStyles } from '@material-ui/core/styles';
@@ -19,6 +18,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+// @ts-expect-error
 import SCT from '../../category/components/SCT.component';
 import { Video } from '../types';
 import { Coach } from '../../associated-coach/types';
@@ -85,6 +85,7 @@ export class VideoCardListItem extends React.PureComponent<Props> {
                   variant="subtitle1"
                 >
                   {`(${t('video:video.durationMinute', {
+                    // @ts-expect-error
                     minute: parseInt(this.props.video.duration_second / 60, 10),
                   })})`}
                 </Typography>
@@ -159,7 +160,6 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-expect-error
   withStyles(styles),
   withTranslation([]),
 )(VideoCardListItem);

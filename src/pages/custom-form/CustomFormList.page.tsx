@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { SyntheticEvent } from 'react';
 
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -103,9 +102,12 @@ export class CustomFormListPage extends React.Component<Props, State> {
     }
   };
 
+  // @ts-expect-error
   changeSearch = (fuse) => (ev: SyntheticEvent<HTMLElement>) => {
     this.setState({
+      // @ts-expect-error
       searchText: ev.target.value,
+      // @ts-expect-error
       searchResult: fuse.search(ev.target.value),
     });
   };
@@ -150,6 +152,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     )}
                     placeholder={this.props.t('customForm.search')}
                     searchFields={['name', 'description']}
+                    // @ts-expect-error
                     searchResult={this.state.searchResult}
                     searchText={this.state.searchText}
                   />
@@ -189,6 +192,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                               onClickDuplicate={(id) =>
                                 this.props.duplicateCustomForm(id, {
                                   onSuccess: (payload) =>
+                                    // @ts-expect-error
                                     this.props.goToEdit(payload.id),
                                 })
                               }
@@ -220,6 +224,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       onClickDuplicate={(id: number) =>
                         this.props.duplicateCustomForm(id, {
                           onSuccess: (payload) =>
+                            // @ts-expect-error
                             this.props.goToEdit(payload.id),
                         })
                       }
@@ -288,6 +293,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
               <>
                 <div className={classes.row}>
                   <Typography variant="h5">
+                    {/* @ts-expect-error */}
                     {this.props.customForm.name}
                   </Typography>
                   <IconButton
@@ -328,6 +334,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                 <div className={classes.displayRulePanel}>
                   <CustomFormDisplayRulePanel
                     withItemDivider
+                    // @ts-expect-error
                     customForm={this.props.customForm}
                   />
                 </div>
@@ -337,6 +344,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     key={this.props.customFormSelected}
                     asManager
                     shouldWrapLayerInCssHoc
+                    // @ts-expect-error
                     initial={this.props.customForm}
                     isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                   />
@@ -361,6 +369,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
         </Grid>
         {this.props.openCreateDialog && (
           <CustomFormCreateDialog
+            // @ts-expect-error
             customFormSelected={this.props.customForm}
             handleClose={() => {
               this.props.setOpenCreateDialog(false);
@@ -456,8 +465,10 @@ const mapStateToProps = (
   { customFormSelected }: { customFormSelected: number },
 ) => ({
   theme: state.theme.theme,
+  // @ts-expect-error
   customForm: withDisplayRule(getCustomFormWithEnableField)(
     state,
+    // @ts-expect-error
     customFormSelected,
   ),
   customFormList: withDisplayRule(getAllCustomForm)(state),
@@ -497,6 +508,7 @@ const mapWithHandlers = {
             custom_form_field: [],
           },
           {
+            // @ts-expect-error
             onSuccess: (createdCustomForm: CustomForm) => {
               if (options && options.onSuccess) options.onSuccess();
               props.setOpenCreateDialog(false);
@@ -545,6 +557,7 @@ const withStateHandlersSetter = {
 };
 export default compose<any, OwnProps>(
   withTranslation(['marketing']),
+  // @ts-expect-error
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('customForm.title')),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

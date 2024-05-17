@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
@@ -6,6 +5,7 @@ import type { AxiosResponse } from 'axios';
 import URI from 'urijs';
 
 import * as Sentry from '@sentry/react';
+// @ts-expect-error
 import type { RootState } from '../../reducers/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
@@ -137,6 +137,7 @@ export function fetchMemberByBarcode(
       if (response.data.results.length) {
         dispatch(barcodeRetrieveAction.success(response.data.results[0]));
         if (options && options.onSuccess) {
+          // @ts-expect-error
           options.onSuccess(response.data.results[0]);
         }
       } else {
@@ -244,6 +245,7 @@ export function fetchMemberBulkById(
     try {
       const response = await fetchFilteredMembersAPI({ id__in: id_uniq });
       dispatch(memberBulkActions.success(response.data.results));
+      // @ts-expect-error
       options?.onSuccess?.(response.data.results);
     } catch (err) {
       console.error(err);
@@ -287,6 +289,7 @@ export function fetchCommunicationsPaginatedMembers(
         const response = await fetchCommunicationsPaginatedMembersAPI(params);
         dispatch(
           memberListForCommunicationActions.success({
+            // @ts-expect-error
             ...response.data,
             page: params.page || 1,
           }),
@@ -312,6 +315,7 @@ export function linkMeToCompany(data: any) {
   return async (dispatch: Dispatch) => {
     try {
       const response = await linkMeToCompanyAPI(data);
+      // @ts-expect-error
       dispatch(successLinkConsumer(response.data));
     } catch (err) {
       console.error(err);
@@ -337,8 +341,10 @@ export function tag(memberId: number, tagId: number, options?: OptionCallback) {
     try {
       const response = await tagApi(memberId, tagId);
       const member = response.data;
+      // @ts-expect-error
       dispatch(successTag(member));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(member);
       }
     } catch (err) {
@@ -422,6 +428,7 @@ export function incrementalSearch(
       dispatch(incrementalSearchAction.error(false));
       dispatch(incrementalSearchAction.success(members));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response);
       }
       return members;
@@ -448,7 +455,9 @@ export function search(
       if (text) {
         const response = await searchApi(text, params);
         const members = response.data;
+        // @ts-expect-error
         dispatch(successSearch(members));
+        // @ts-expect-error
         dispatch(searchArchivedMembers.success(members.archive));
         if (options && options.onSuccess) {
           options.onSuccess(response);
@@ -485,6 +494,7 @@ export function searchArchived(
       });
       dispatch(searchArchivedMembers.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response);
       }
     } catch (err) {
@@ -511,6 +521,7 @@ export function fetchMember(
       const member = response.data;
       dispatch(hasFetchedMember(member));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(member);
       }
     } catch (err) {
@@ -541,6 +552,7 @@ export function regularizeDebt(
       const response = await regularizeDebtAPI(memberId, data);
       dispatch(memberRegularizeDebtActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response);
       }
     } catch (err) {
@@ -749,9 +761,11 @@ export function mergeMembers(
     dispatch(push(`/member/${src}`));
 
     try {
+      // @ts-expect-error
       const response: AxiosResponse<void> = await mergeApi(src, dst);
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       if (response.status !== 200) {
+        // @ts-expect-error
         throw new Error(response);
       }
 
@@ -924,6 +938,7 @@ export function adjustCreditWithoutPaymentNote(
       );
       dispatch(adjustCreditWithoutPaymentNoteActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -978,6 +993,7 @@ export function archiveMember(
     try {
       const response = await archiveMemberAPI(memberId);
       dispatch(archiveMemberActions.success(response.data));
+      // @ts-expect-error
       const { data }: { data: Member } = response;
       if (options && options.onSuccess) {
         options.onSuccess(data);
@@ -1009,6 +1025,7 @@ export function unArchiveMember(
     try {
       const response = await unArchiveMemberAPI(memberId);
       dispatch(unArchiveMemberActions.success(response.data));
+      // @ts-expect-error
       const { data }: { data: Member } = response;
       if (options && options.onSuccess) {
         options.onSuccess(data);
@@ -1039,6 +1056,7 @@ export function interrogateMemberStatus(
 
     try {
       const response = await interrogateMemberStatusAPI(memberId);
+      // @ts-expect-error
       const { data }: { data: Array<number> } = response;
       dispatch(interrogateMemberStatusActions.success({ memberId, data }));
       if (options && options.onSuccess) {
@@ -1076,6 +1094,7 @@ export function createChangeEmailRequest(
       dispatch(createChangeEmailRequestActions.success(response.data));
       dispatch(snackbarSuccess('member.changeEmailRequest.create.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -1108,6 +1127,7 @@ export function retrieveChangeEmailRequest(
       const response = await retrieveChangeEmailRequestAPI(uuid);
       dispatch(retrieveChangeEmailRequestActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -1138,6 +1158,7 @@ export function retrieveMinimalChangeEmailRequest(
       const response = await retrieveMinimalChangeEmailRequestAPI(uuid);
       dispatch(retrieveMinimalChangeEmailRequestActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -1172,6 +1193,7 @@ export function answerChangeEmailRequest(
       const response = await answerChangeEmailRequestAPI(uuid, data);
       dispatch(answerChangeEmailRequestActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -1207,6 +1229,7 @@ export function retrieveMemberPendingEmail(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -1256,6 +1279,7 @@ export function updateSpiviPrivacySettings(
       );
       dispatch(hasFetchedMember(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

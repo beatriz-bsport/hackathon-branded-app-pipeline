@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -17,12 +16,15 @@ const getFieldOptions = (
 ) =>
   fieldOptions.map((option) => ({ value: option.value, label: option.label }));
 
+// @ts-expect-error
 const SingleValue = ({ children, ...props }) => (
+  // @ts-expect-error
   <components.SingleValue {...props}>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <FieldIcon
         field_id={props.selectProps.value[0].value}
         fontSize="small"
+        // @ts-expect-error
         style={{ marginRight: '10px' }}
       />
       {props.selectProps.t(`customForm.field.${children}`)}
@@ -30,12 +32,15 @@ const SingleValue = ({ children, ...props }) => (
   </components.SingleValue>
 );
 
+// @ts-expect-error
 const Option = ({ children, ...props }) => (
+  // @ts-expect-error
   <components.Option {...props}>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <FieldIcon
         field_id={props.value}
         fontSize="small"
+        // @ts-expect-error
         style={{ marginRight: '10px' }}
       />
       {props.selectProps.t(`customForm.field.${children}`)}
@@ -44,8 +49,11 @@ const Option = ({ children, ...props }) => (
 );
 
 const fieldStyles = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -76,6 +84,7 @@ const fieldStyles = {
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -83,10 +92,12 @@ const fieldStyles = {
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,

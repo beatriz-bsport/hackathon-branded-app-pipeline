@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
@@ -32,6 +31,7 @@ class CanvasPreview extends React.PureComponent<Props> {
     }
 
     return (
+      // @ts-expect-error
       <CanvasEditorComponent
         disableEdit
         assets={this.props.assets}
@@ -44,6 +44,7 @@ class CanvasPreview extends React.PureComponent<Props> {
           selectedSpot: this.props.selectedSpot,
         })}
         selectedTool={CANVAS_SELECTABLE_TOOLS.hand}
+        // @ts-expect-error
         spotTypes={this.props?.spotTypes?.concat({ id: -1 })}
       />
     );

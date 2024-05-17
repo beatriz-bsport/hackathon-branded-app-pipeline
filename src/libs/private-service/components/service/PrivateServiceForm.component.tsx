@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import * as Yup from 'yup';
 import omit from 'lodash/omit';
@@ -23,10 +22,12 @@ import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
+// @ts-expect-error
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
+// @ts-expect-error
 import PrivateServiceGroupField from '../service-group/PrivateServiceGroupField.component';
 
 import {
@@ -37,7 +38,9 @@ import {
   RadioGroupField,
   DurationField,
   SwitchField,
+  // @ts-expect-error
 } from '../../../../components/forms';
+// @ts-expect-error
 import ImageField from '../../../../components/forms/ImageField.component';
 import type { Coach } from '#libs/associated-coach/types';
 import type {
@@ -240,6 +243,7 @@ export const PrivateServiceForm = (props: Props) => {
                     <EstablishmentSelector
                       closeMenuOnSelect
                       nullCurrentValue
+                      // @ts-expect-error
                       showCapacity
                       establishments={[
                         ...props.availableEstablishments.filter(
@@ -248,6 +252,7 @@ export const PrivateServiceForm = (props: Props) => {
                       ]}
                       selectedEstablishments={[]}
                       selectOption={(ev) => {
+                        // @ts-expect-error
                         if (ev.length) push(ev[0].value);
                       }}
                     />
@@ -304,12 +309,14 @@ export const PrivateServiceForm = (props: Props) => {
                     {coaches.map((id: number, i: number) => (
                       <CoachListItemBasic
                         key={`${id}-${i}`}
+                        // @ts-expect-error
                         coach={props.allCoaches.find((c) => c.id === id)}
                         onDelete={() => remove(i)}
                       />
                     ))}
                     <CoachSelector
                       closeMenuOnSelect
+                      // @ts-expect-error
                       nullCurrentValue
                       coaches={[
                         ...props.coaches.filter((c) => !coaches.includes(c.id)),
@@ -517,6 +524,7 @@ export const PrivateServiceSchema = Yup.object().shape({
 });
 
 export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
+  // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial) {
       return {
@@ -532,6 +540,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           ...initial.establishments.map((ae: AssociatedEstablishment) => ae.id),
         ],
         coaches: [...initial.coaches.map((ac: Coach) => ac.id)],
+        // @ts-expect-error
         coach_capacity_used: parseInt(12 / initial.coach_capacity_used, 10),
         coach_consumer_attribution:
           initial.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER,
@@ -565,12 +574,14 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
     };
   },
   validationSchema: PrivateServiceSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(
       omit(
         {
           ...values,
           coaches: values.is_without_coach ? [] : values.coaches,
+          // @ts-expect-error
           coach_capacity_used: parseInt(12 / values.coach_capacity_used, 10),
           coach_attribution: values.coach_consumer_attribution
             ? RESOURCE_ATTRIBUTION_CONSUMER
@@ -595,11 +606,13 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           'company',
           'slots_duration_minute',
           'has_own_availability_slots',
+          // @ts-expect-error
           ...(!values.private_service_group ? ['private_service_group'] : []),
         ],
       ),
       {
         onSuccess: () => {
+          // @ts-expect-error
           trackFormSuccess(values?.id);
           setSubmitting(false);
         },

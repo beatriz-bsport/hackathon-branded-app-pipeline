@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
@@ -6,6 +5,7 @@ import Immutable from 'seamless-immutable';
 import { Coach, CoachPerformanceContainer } from './types';
 import { RootState } from '../../reducers';
 
+// @ts-expect-error
 const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   loading: false,
   result: [],

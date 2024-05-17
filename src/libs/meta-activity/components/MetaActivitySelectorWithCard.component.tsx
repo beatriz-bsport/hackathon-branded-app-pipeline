@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import Fuse, { FuseOptions } from 'fuse.js';

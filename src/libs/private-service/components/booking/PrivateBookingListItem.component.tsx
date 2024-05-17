@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItem from '@material-ui/core/ListItem';
@@ -40,6 +39,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   return (
     <ListItem
+      // @ts-expect-error
       button={!!props.onClick}
       className={
         props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id
@@ -51,6 +51,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
       selected={!!props.selected}
     >
       <ListItemText
+        // @ts-expect-error
         className={classes.listItemText}
         primary={
           <div className={classes.rowPrimary}>
@@ -78,19 +79,25 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
         secondary={
           <div>
             {props.private_booking.private_consumer_pass &&
+              // @ts-expect-error
               props.private_booking.private_consumer_pass.private_pass && (
                 <Typography color="primary" variant="caption">
                   {props.private_booking.is_unpaid
                     ? null
-                    : `${
+                    : // prettier-ignore
+                      `${
+                        // @ts-expect-error
                         props.private_booking.private_consumer_pass.private_pass
                           .name
                       } (${getCreditsDividedDisplay(
+                        // @ts-expect-error
                         props.private_booking.private_consumer_pass.private_pass
                           .credits -
                           props.private_booking.private_consumer_pass
+                            // @ts-expect-error
                             .used_credits,
                       )}/${getCreditsDividedDisplay(
+                        // @ts-expect-error
                         props.private_booking.private_consumer_pass.private_pass
                           .credits,
                       )})`}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
@@ -67,12 +66,14 @@ export default handleActions(
           ['program', 'allIds'],
           uniq([
             ...state.program.allIds,
+            // @ts-expect-error
             ...payload.map((program) => program.id),
           ]),
         )
         .merge(
           {
             program: {
+              // @ts-expect-error
               byId: payload.reduce((acc, program) => {
                 acc[program.id] = program;
                 return acc;
@@ -93,15 +94,18 @@ export default handleActions(
         .setIn(
           ['memberProgram', 'allIds'],
 
+          // @ts-expect-error
           payload.map((memberProgram) => memberProgram.id),
         )
         .merge(
           {
             memberProgram: {
+              // @ts-expect-error
               byId: payload.reduce((acc, memberProgram) => {
                 acc[memberProgram.id] = memberProgram;
                 return acc;
               }, {}),
+              // @ts-expect-error
               byMemberId: payload.reduce((acc, memberProgram) => {
                 acc[memberProgram.member] = Array.isArray(
                   acc[memberProgram.member],
@@ -128,12 +132,18 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.program.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['program', 'byId', payload.id], payload)
-          .setIn(['program', 'allIds'], [...state.program.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['program', 'byId', payload.id], payload)
+            // @ts-expect-error
+            .setIn(['program', 'allIds'], [...state.program.allIds, payload.id])
+        );
       }
 
+      // @ts-expect-error
       return state.setIn(['program', 'byId', payload.id], payload);
     },
     [MetricListActions.error.toString()]: (state, { payload }) => {
@@ -146,6 +156,7 @@ export default handleActions(
       return state.merge(
         {
           metricList: {
+            // @ts-expect-error
             byId: payload.reduce((acc, metric) => {
               acc[metric.id] = metric;
               return acc;
@@ -165,16 +176,44 @@ export default handleActions(
       return state.setIn(['program', 'createOrUpdate', 'loading'], payload);
     },
     [ProgramCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       if (!state.program.allIds.find((id) => id === payload.id)) {
-        return state
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['program', 'byId', payload.id], {
+              ...payload,
+              // @ts-expect-error
+              metric_list: payload.metric_list.map((metric) => metric.id),
+            })
+            // @ts-expect-error
+            .setIn(['program', 'allIds'], [...state.program.allIds, payload.id])
+            .merge(
+              {
+                metricList: {
+                  // @ts-expect-error
+                  byId: payload.metric_list.reduce((acc, metric) => {
+                    acc[metric.id] = metric;
+                    return acc;
+                  }, {}),
+                },
+              },
+              { deep: true },
+            )
+        );
+      }
+      return (
+        state
+          // @ts-expect-error
           .setIn(['program', 'byId', payload.id], {
             ...payload,
+            // @ts-expect-error
             metric_list: payload.metric_list.map((metric) => metric.id),
           })
-          .setIn(['program', 'allIds'], [...state.program.allIds, payload.id])
           .merge(
             {
               metricList: {
+                // @ts-expect-error
                 byId: payload.metric_list.reduce((acc, metric) => {
                   acc[metric.id] = metric;
                   return acc;
@@ -182,24 +221,8 @@ export default handleActions(
               },
             },
             { deep: true },
-          );
-      }
-      return state
-        .setIn(['program', 'byId', payload.id], {
-          ...payload,
-          metric_list: payload.metric_list.map((metric) => metric.id),
-        })
-        .merge(
-          {
-            metricList: {
-              byId: payload.metric_list.reduce((acc, metric) => {
-                acc[metric.id] = metric;
-                return acc;
-              }, {}),
-            },
-          },
-          { deep: true },
-        );
+          )
+      );
     },
     [MemberProgramCreateOrUpdateOrRetrieveActions.error.toString()]: (
       state,
@@ -220,32 +243,51 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.memberProgram.allIds.find((id) => id === payload.id)) {
+        // @ts-expect-error
         if (state.memberProgram.byMemberId[payload.member]) {
-          return state
+          return (
+            state
+              // @ts-expect-error
+              .setIn(['memberProgram', 'byId', payload.id], payload)
+              .setIn(
+                ['memberProgram', 'allIds'],
+                // @ts-expect-error
+                [...state.memberProgram.allIds, payload.id],
+              )
+              .setIn(
+                // @ts-expect-error
+                ['memberProgram', 'byMemberId', payload.member],
+                // @ts-expect-error
+                [...state.memberProgram.byMemberId[payload.member], payload.id],
+              )
+          );
+        }
+
+        return (
+          state
+            // @ts-expect-error
             .setIn(['memberProgram', 'byId', payload.id], payload)
             .setIn(
               ['memberProgram', 'allIds'],
+              // @ts-expect-error
               [...state.memberProgram.allIds, payload.id],
             )
             .setIn(
+              // @ts-expect-error
               ['memberProgram', 'byMemberId', payload.member],
-              [...state.memberProgram.byMemberId[payload.member], payload.id],
-            );
-        }
-
-        return state
-          .setIn(['memberProgram', 'byId', payload.id], payload)
-          .setIn(
-            ['memberProgram', 'allIds'],
-            [...state.memberProgram.allIds, payload.id],
-          )
-          .setIn(['memberProgram', 'byMemberId', payload.member], [payload.id]);
+              // @ts-expect-error
+              [payload.id],
+            )
+        );
       }
+      // @ts-expect-error
       return state.setIn(['memberProgram', 'byId', payload.id], payload);
     },
     [disableMemberProgramActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
+        // @ts-expect-error
         ['memberProgram', 'byId', payload.memberProgramId, 'is_disabled'],
         true,
       );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
@@ -71,6 +70,7 @@ const ClockInRealTime: React.FC<Props> = ({
           clockOut={clockOut}
           fetchAttendance={getStaffsAttendanceRealTime}
           fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
+          // @ts-expect-error
           value={usersPaginatedWithRoles}
         />
       )}

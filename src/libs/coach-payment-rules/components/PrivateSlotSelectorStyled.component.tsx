@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -27,8 +24,11 @@ const getPrivateSlotOptions = (
   }));
 
 const ruleStyles = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -59,6 +59,7 @@ const ruleStyles = {
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -66,10 +67,12 @@ const ruleStyles = {
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 import { push } from 'connected-react-router';
@@ -119,6 +118,7 @@ export function fetchCompanyUserRolesPaginated(
       });
       const data = response.data;
       dispatch(userRoleListPaginated.success(data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(data);
     } catch (err) {
       console.error(err);
@@ -337,6 +337,7 @@ export function fetchFranchiseUserRolesPaginated(
       });
       const data = response.data;
       dispatch(franchiseUserRoleListPaginated.success(data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(data);
     } catch (err) {
       console.error(err);
@@ -587,6 +588,7 @@ export function updateUserCommission(
     dispatch(userCommissionUpdate.error(null));
 
     try {
+      // @ts-expect-error
       const response = await updateUserCommissionAPI(userId, params);
       const commissionValue = response.data;
       dispatch(userCommissionUpdate.success(commissionValue));
@@ -620,6 +622,7 @@ export function updateFranchiseUserCommission(
     dispatch(franchiseUserCommissionUpdate.error(null));
 
     try {
+      // @ts-expect-error
       const response = await updateFranchiseUserCommissionAPI(userId, params);
       const commissionValue = response.data;
       dispatch(franchiseUserCommissionUpdate.success(commissionValue));

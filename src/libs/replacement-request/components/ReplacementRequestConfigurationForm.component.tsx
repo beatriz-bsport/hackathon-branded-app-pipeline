@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -22,6 +21,7 @@ import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/Gene
 
 import { OptionCallback } from '../../../state/types';
 import { ReplacementRequestConfiguration } from '#libs/replacement-request/types';
+// @ts-expect-error
 import { IntegerField, SwitchField } from '#components/forms';
 
 interface FormikValues {

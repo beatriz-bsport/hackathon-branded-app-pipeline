@@ -1,13 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 import OfferSpotSelector from '../../../../pages/checkout/booker-modules/OfferBooker/OfferSpotSelector';
 
 import SpotSelectorDialogComponent from './SpotSelectorDialog.component';
 
+// @ts-expect-error
 const CustomTemplate = (args: Props) => (
   <SpotSelectorDialogComponent {...args} />
 );
 
+// @ts-expect-error
 const CustomTemplateOffer = (args: Props) => <OfferSpotSelector {...args} />;
 
 export const Template = CustomTemplate.bind({});
@@ -19,6 +20,7 @@ const offer = {
   level: 1,
   custom_level: 1,
   available: true,
+  // @ts-expect-error
   coach_override: null,
   coach: {
     firstname: 'Alpha',
@@ -28,6 +30,7 @@ const offer = {
     rating: '-1.00',
     id: 4,
     birthday: '1993-01-22',
+    // @ts-expect-error
     photo: null,
     description:
       'dsjkhfksdfjhsdkf\r\njkl\r\n\r\nhttps://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -39,9 +42,12 @@ const offer = {
     disabled: false,
     default_payment_rule_id: 8,
     coach_payment_rule_id: 6,
+    // @ts-expect-error
     workshop_coach_payment_rule_id: null,
     private_coach_payment_rule_id: 17,
+    // @ts-expect-error
     coach_payment_rule_group_id: null,
+    // @ts-expect-error
     private_slots_coach_payment_rules: [],
     facebook_url: 'fffeeffe00000',
     instagram_url: 'moon0000',
@@ -51,6 +57,7 @@ const offer = {
   establishment: {
     id: 29,
     title: 'Cycling',
+    // @ts-expect-error
     cover: null,
     location: {
       address: "11 Rue de l'Arbre Sec , 75001 Paris, France",
@@ -75,6 +82,7 @@ const offer = {
     tzname: 'Europe/Paris',
     practical_info: '',
     capacity: 30,
+    // @ts-expect-error
     on_booking_notification: [],
     disabled: false,
     has_next_slots: true,
@@ -87,6 +95,7 @@ const offer = {
     rating: '-1.00',
     SCT: 46,
     parent_category: 9,
+    // @ts-expect-error
     images: [],
     establishments: [
       {
@@ -137,11 +146,13 @@ const offer = {
     is_broadcast: false,
     customer_enabled: true,
     color: '',
+    // @ts-expect-error
     on_booking_notification: [],
     auto_discard_active: false,
     auto_discard_hours_before_start: 6,
     auto_discard_min_bookings_nb: 1,
     ordering_in_category: 1,
+    // @ts-expect-error
     category: null,
     alt_cover_main: 'cover main',
   },
@@ -150,12 +161,15 @@ const offer = {
   date_start: '2022-06-29T00:00:00+02:00',
   duration_minute: 30,
   effectif: 10,
+  // @ts-expect-error
   establishment_override: null,
   id: 17975,
   recurrence_id: '1d30b0ff-cba8-4a1d-afbd-deca10531ebc',
   waiting_list_max_size: 10,
   waiting_list_disabled: false,
+  // @ts-expect-error
   bookings: [],
+  // @ts-expect-error
   booking_options: [],
   meta_activity_color: '',
   tot_slots: 0,
@@ -164,11 +178,15 @@ const offer = {
   is_waiting_list_full: false,
   timezone_name: 'Europe/Paris',
   room_blueprint: 4,
+  // @ts-expect-error
   coach_payment_rule_id: null,
   available_on_partnership: true,
   manager_only: false,
+  // @ts-expect-error
   whitelist_tags: [],
+  // @ts-expect-error
   blacklist_tags: [],
+  // @ts-expect-error
   group: null,
   allow_guest_offer: true,
 };
@@ -374,10 +392,13 @@ const spotType = {
   company: 670,
   blueprint: 191,
   fill_color: '#bd10e0',
+  // @ts-expect-error
   free_image: null,
+  // @ts-expect-error
   taken_image: null,
   stroke_color: '#c5f811',
   establishment: '2286',
+  // @ts-expect-error
   selected_image: null,
 };
 

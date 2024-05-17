@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 
@@ -37,6 +36,7 @@ export const getUsableCreditAccountBalance = (state: RootState, id: number) => {
     return null;
   }
   const creditAccountBalance = parseFloat(
+    // @ts-expect-error
     _getMembershipData(state)[id]?.credit_account_balance,
   );
   if (!creditAccountBalance || creditAccountBalance < 0) {

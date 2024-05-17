@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CanvasAbstractTool, {
   CanvasElement,
   CanvasSvgMouseParamsI,
@@ -13,6 +12,7 @@ export default class CanvasTeacherTool extends CanvasAbstractTool<CanvasTeacherP
 
   hideNativeCursor = true;
 
+  // @ts-expect-error
   onClick = (params: CanvasSvgMouseParamsI, coachHeight: number) => {
     const { x, y, elements, settings } = params;
     const { fillColor, strokeColor } = settings;

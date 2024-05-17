@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as Sentry from '@sentry/react';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
@@ -111,6 +110,7 @@ export function fetchMetaActivityBulkWidget(
         id__in: ids_uniq,
         page_size: null,
       });
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       Sentry.captureException(err);
@@ -164,6 +164,7 @@ export function fetchMetaActivityFavorite(
     try {
       const response = await fetchMetaActivityFavoriteAPI(company);
       dispatch(favoriteActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       if (err.response && err.response.status === 404) {
@@ -225,6 +226,7 @@ export function fetchMetaActivityDetails(id: number): ThunkAction {
 
     try {
       const response = await fetchMetaActivityDetailsAPI(id);
+      // @ts-expect-error
       const metaActivityDictObject = { [response.data.id]: response.data };
       dispatch(metaActivityDetailActions.success(metaActivityDictObject));
     } catch (err) {
@@ -254,6 +256,7 @@ export function makeActivityCopy(
       const response = await makeActivityCopyAPI(id, suffix);
       dispatch(copyActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -292,6 +295,7 @@ export function fetchActivitiesCompany(
       });
       dispatch(metaActivityListActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -452,8 +456,10 @@ export function fetchMetaActivities(
     dispatch(listingActions.isLoading(true));
     dispatch(listingActions.error(null));
     try {
+      // @ts-expect-error
       const response = await fetchMetaActivitiesAPI(params ?? {});
       dispatch(listingActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -480,9 +486,11 @@ export function fetchWorkshopList(
     try {
       const response = await fetchMetaActivitiesAPI({
         ...params,
+        // @ts-expect-error
         is_workshop: true,
       });
       dispatch(workshopListingActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -519,13 +527,16 @@ export function restoreMetaActivity(id: number, options: OptionCallback) {
     dispatch(metaActivityRestoreActions.isLoading(true));
     try {
       const response = await restoreMetaActivityAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(metaActivityDetailActions.success(payload));
+      // @ts-expect-error
       if (response.data.customer_enabled) {
         // we can safely remove it from the disabled list
         dispatch(disabledMetaActivitiesActions.remove(id));
       }
       dispatch(snackbarSuccess('metaActivity.restore.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -553,6 +564,7 @@ export function editOrderMetaActivity(
     try {
       const response = await editOrderMetaActivityAPI(data);
       dispatch(metaActivityUpdateOrderActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -601,6 +613,7 @@ export function updateMetaActivityCategoryOrder(
     try {
       const response = await editCategoryOrderAPI(data);
       dispatch(updateMetaActivityCategoryOrderActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.update.error`));
@@ -633,6 +646,7 @@ export function upsertMetaActivityCategory(
         : await createMetaActivityCategoryAPI(category);
       dispatch(upsertMetaActivityCategoryActions.success(response.data));
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.${kind}.error`));
@@ -704,8 +718,10 @@ export function fetchDisabledMetaActivityPaginatedList(
         customer_enabled: false,
         ...(isWorkshop !== undefined ? { is_workshop: isWorkshop } : {}),
       });
+      // @ts-expect-error
       dispatch(disabledMetaActivitiesActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

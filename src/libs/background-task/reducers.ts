@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -23,6 +22,7 @@ export default handleActions(
     [backgroundTaskDetail.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
+          // @ts-expect-error
           byUuid: { [payload.uuid]: payload },
         },
         { deep: true },

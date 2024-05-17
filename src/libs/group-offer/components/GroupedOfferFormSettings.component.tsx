@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
@@ -42,6 +41,7 @@ import {
   IntegerField,
   AlertError,
   IntervalRecurrenceSelectField,
+  // @ts-expect-error
 } from '#components/forms';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
@@ -262,12 +262,14 @@ export const GroupedOfferFormSettings: React.FC<
   const editSyncOnSpivi = useCallback(
     (offers: Offer[]) => {
       const offersHaveSpiviBoxId = allOffersHaveSpiviBoxId(offers);
+      // @ts-expect-error
       if (offersHaveSpiviBoxId && !touched.sync_on_spivi) {
         setFieldValue('sync_on_spivi', true);
       } else if (!offersHaveSpiviBoxId) {
         setFieldValue('sync_on_spivi', false);
       }
     },
+    // @ts-expect-error
     [touched.sync_on_spivi, setFieldValue, allOffersHaveSpiviBoxId],
   );
 
@@ -284,6 +286,7 @@ export const GroupedOfferFormSettings: React.FC<
     (data) => {
       const offers = [
         ...values.offers,
+        // @ts-expect-error
         ...data.dates.map((date) => ({
           ...data,
           group: -1,
@@ -314,6 +317,7 @@ export const GroupedOfferFormSettings: React.FC<
       const offers = values.offers
         .reduce((acc, value) => {
           if (
+            // @ts-expect-error
             DateTime.fromSeconds(value.date_start).toFormat(
               'yyyy-LL-dd HH:mm',
             ) !== offerEdited.date_start
@@ -324,8 +328,11 @@ export const GroupedOfferFormSettings: React.FC<
 
           acc.push({
             ...offerEdited,
+            // @ts-expect-error
             establishment: offerEdited?.establishment?.id,
+            // @ts-expect-error
             coach: offerEdited?.coach?.id,
+            // @ts-expect-error
             coach_override: offerEdited?.coach_override?.id,
             ...data,
             ...(data?.date_start
@@ -361,6 +368,7 @@ export const GroupedOfferFormSettings: React.FC<
       <Form>
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
+            {/* @ts-expect-error */}
             <InfoIcon className={classes.sectionIcon} />
             <Typography variant="h6">
               {t('groupedOption.modal.form.subtitle')}
@@ -383,6 +391,7 @@ export const GroupedOfferFormSettings: React.FC<
             name="level"
             onCreateLevel={createLevel}
             onDeleteLevel={handleDeleteLevel}
+            // @ts-expect-error
             onEditLevel={updateLevel}
           />
         </div>
@@ -444,7 +453,6 @@ export const GroupedOfferFormSettings: React.FC<
               {t('groupedOption.modal.form.subtitleSettings')}
             </Typography>
           </div>
-
           <CheckboxField
             label={t('groupedOption.modal.form.fullBookingOnly')}
             name="full_booking_only"
@@ -463,7 +471,6 @@ export const GroupedOfferFormSettings: React.FC<
               </Typography>
             </>
           )}
-
           <ManagerOnlyToggle
             manager_only={values.manager_only}
             onChange={(manager_only) =>
@@ -481,10 +488,12 @@ export const GroupedOfferFormSettings: React.FC<
               </Typography>
             </div>
           )}
+          {/* @ts-expect-error */}
           <Collapse in={spiviEnabled && allOffersHaveSpiviBoxId(values.offers)}>
             <FormToggle
               onChange={handleChangeSyncOnSpivi}
               title={t('groupedOption.modal.form.syncOnSpivi')}
+              // @ts-expect-error
               value={values.sync_on_spivi}
             />
           </Collapse>
@@ -511,6 +520,7 @@ export const GroupedOfferFormSettings: React.FC<
                 </Typography>
               </div>
               <SwitchField
+                // @ts-expect-error
                 className={classes.switch}
                 color="primary"
                 label={t('groupedOption.modal.form.withRecurrence')}
@@ -540,6 +550,7 @@ export const GroupedOfferFormSettings: React.FC<
                   </div>
 
                   <Field name="recurrence_method">
+                    {/* @ts-expect-error */}
                     {({ field }) => (
                       <RadioGroup
                         onChange={(_, value) =>
@@ -622,6 +633,7 @@ export const GroupedOfferFormSettings: React.FC<
         availableRoomBlueprints={availableRoomBlueprints}
         coaches={coaches}
         coachPaymentRulesByKind={coachPaymentRulesByKind}
+        // @ts-expect-error
         handleAddOffer={handleAddOffer}
         handleCloseOffersModal={handleCloseOffersModal}
         handleEditOffer={handleEditOffer}
@@ -672,6 +684,7 @@ const OfferDialogs: React.FC<{
   handleCloseOffersModal,
   coachPaymentRulesByKind,
   offerEdited,
+  // @ts-expect-error
   creditScaleFactor,
   handleResetEdit,
   allRoomBlueprints,
@@ -695,6 +708,7 @@ const OfferDialogs: React.FC<{
         subtitle={t('translation:common.offerCreation')}
         title={t('translation:common.offers')}
       >
+        {/* @ts-expect-error */}
         <OfferCreateForm
           editableCoachPaymentRule
           hideActivitySection
@@ -726,6 +740,7 @@ const OfferDialogs: React.FC<{
         <OfferEditForm
           editableCoachPaymentRule
           isOfferInGroup
+          // @ts-expect-error
           allEstablishments={allEstablishments}
           allRoomBlueprints={allRoomBlueprints}
           availableEstablishments={availableEstablishments}
@@ -791,6 +806,7 @@ const OffersList: React.FC<{
             ?.map((coachId) => coaches?.find((c) => c.id === coachId) ?? null)
             ?.filter((c) => c !== null),
           coach_override: coaches?.find((c) => c.id === o.coach_override),
+          // @ts-expect-error
           credit_price_override: o.credits,
         };
 
@@ -817,11 +833,13 @@ const OffersList: React.FC<{
                 <div>
                   <div>
                     {getDisplayDateFromRecurrence(
+                      // @ts-expect-error
                       DateTime.fromSeconds(offer.date_start).setZone(
                         offer.timezone_name,
                       ),
                       {
                         interval: recurrence_interval,
+                        // @ts-expect-error
                         frequence:
                           FREQUENCE_NUMBER_CONVERTER[recurrence_frequence],
                       },
@@ -829,9 +847,11 @@ const OffersList: React.FC<{
                     )}
                   </div>
                   <div>
+                    {/* @ts-expect-error */}
                     {`${DateTime.fromSeconds(offer.date_start)
                       .setZone(offer.timezone_name)
                       .toFormat('HH:mm')} - ${DateTime.fromSeconds(
+                      // @ts-expect-error
                       offer.date_start,
                     )
                       .setZone(offer.timezone_name)
@@ -879,9 +899,11 @@ const OffersList: React.FC<{
                 onClick={() => {
                   setOfferEdited({
                     ...offer,
+                    // @ts-expect-error
                     date_start: DateTime.fromSeconds(offer.date_start).toFormat(
                       'yyyy-LL-dd HH:mm',
                     ),
+                    // @ts-expect-error
                     customlevel: {
                       id: level,
                     },
@@ -977,6 +999,7 @@ export default compose<any, OuterProps>(
       if (initial) {
         return {
           name: initial.name,
+          // @ts-expect-error
           level: initial.level || initial.level_id || 1,
           full_booking_only: initial.full_booking_only,
           allow_booking_after_start: initial.allow_booking_after_start,
@@ -992,11 +1015,13 @@ export default compose<any, OuterProps>(
             ? DateTime.fromSeconds(initial.recurrence_rule.until).toISODate()
             : DateTime.now().plus({ months: 1 }).toISODate(),
           offers: [...(initial?.offers ?? [])]?.sort(
+            // @ts-expect-error
             (a, b) => a.date_start - b.date_start,
           ),
           whitelist_tags: initial?.offers?.[0]?.whitelist_tags ?? [],
           blacklist_tags: initial?.offers?.[0]?.blacklist_tags ?? [],
           isOfferInGroup: true,
+          // @ts-expect-error
           sync_on_spivi: initial?.sync_on_spivi,
         };
       }

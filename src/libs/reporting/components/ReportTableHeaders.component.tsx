@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
@@ -23,6 +22,7 @@ const CardHeaders: React.FC<{
   const { t } = useTranslation('reporting');
 
   const converters = (headerDetails || []).map((detail) =>
+    // @ts-expect-error
     getConverter(detail, classes, t, reportCategory),
   );
 
@@ -78,6 +78,7 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.averageable}
             headerTitle="average"
+            // @ts-expect-error
             reportCategory={reportCategory}
           />
         )}
@@ -86,6 +87,7 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.summable}
             headerTitle="sum"
+            // @ts-expect-error
             reportCategory={reportCategory}
           />
         )}

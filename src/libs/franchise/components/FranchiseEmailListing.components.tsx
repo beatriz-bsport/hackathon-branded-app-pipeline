@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import { Divider, List, makeStyles, Theme } from '@material-ui/core';
@@ -97,6 +96,7 @@ const FranchiseEmailListing = (props: Props) => {
                   email?.available_for_companies.length ===
                   Object.keys(companyDic).length
                 }
+                // @ts-expect-error
                 companies={sortCompanyListByIsAllowedAndName(
                   email?.available_for_companies.map(
                     (comp) => companyDic?.[comp],
@@ -123,6 +123,7 @@ const FranchiseEmailListing = (props: Props) => {
                 onDelete={onDelete}
                 onEdit={onEdit}
                 search={search}
+                // @ts-expect-error
                 selectedId={selectedId}
               />
             );
@@ -137,6 +138,7 @@ const FranchiseEmailListing = (props: Props) => {
       <div className={classes.grouping}>
         <Typography variant="body1">{t('emails.groupBy')}</Typography>
         <div className={classes.dropdown}>
+          {/* @ts-expect-error */}
           <Select
             isClearable
             nullCurrentValue={!isGrouped}
@@ -174,6 +176,7 @@ const FranchiseEmailListing = (props: Props) => {
                       email?.available_for_companies.length ===
                       Object.keys(companyDic).length
                     }
+                    // @ts-expect-error
                     companies={sortCompanyListByIsAllowedAndName(
                       email?.available_for_companies.map(
                         (comp) => companyDic?.[comp],
@@ -216,6 +219,7 @@ const FranchiseEmailListing = (props: Props) => {
                                 navigateTo={navigateTo}
                                 onDelete={onDelete}
                                 onEdit={onEdit}
+                                // @ts-expect-error
                                 selectedId={selectedId}
                               />
                             ),
@@ -235,6 +239,7 @@ const FranchiseEmailListing = (props: Props) => {
                       navigateTo={navigateTo}
                       onDelete={onDelete}
                       onEdit={onEdit}
+                      // @ts-expect-error
                       selectedId={selectedId}
                     />
                   ))}
@@ -245,6 +250,7 @@ const FranchiseEmailListing = (props: Props) => {
         </div>
       ) : (
         <EmailVirtualizedList
+          // @ts-expect-error
           companiesEmailsByCompanyId={companiesEmailsByCompanyId}
           companyDic={companyDic}
           emails={emails}

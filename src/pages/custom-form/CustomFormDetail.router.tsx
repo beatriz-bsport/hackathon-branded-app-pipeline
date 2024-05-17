@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 import { connect } from 'react-redux';
@@ -68,6 +67,7 @@ export const CustomFormDetailRouter = (props: Props) => {
 
 export default compose<any, Props>(
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
     id: 'id:number',
   }),

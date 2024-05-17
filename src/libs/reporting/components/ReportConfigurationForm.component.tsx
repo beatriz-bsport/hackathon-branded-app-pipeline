@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { compose, withProps } from 'recompose';
@@ -15,6 +14,7 @@ import {
   FormControl,
   Actions,
   defaultHandleSubmit,
+  // @ts-expect-error
 } from '#components/forms';
 import { ReportMetadataValue } from '#libs/reporting/types';
 import ReportCategoriesSelector from './ReportCategoriesSelector.component';
@@ -59,6 +59,7 @@ const ReportConfigurationForm: React.FC<Props> = ({
       <AlertError name="description" />
       <FormControl label={t('form.category')}>
         <Field name="category">
+          {/* @ts-expect-error */}
           {({ field: { value, onChange } }) => (
             <ReportCategoriesSelector
               categories={categories}
@@ -98,6 +99,7 @@ const ReportConfigurationForm: React.FC<Props> = ({
 
 export default compose(
   withFormik({
+    // @ts-expect-error
     mapPropsToValues: ({ initial }) => {
       return {
         name: initial.name || '',
@@ -110,8 +112,11 @@ export default compose(
     handleSubmit: defaultHandleSubmit,
   }),
   withProps(({ metadata, values: { category } }) => ({
+    // @ts-expect-error
     categoryMetadata: metadata.find((m) => m.category === category),
+    // @ts-expect-error
     categories: metadata.map((c) => c.category),
+    // @ts-expect-error
     globalCategories: metadata.map((c) => c.global_category),
   })),
 )(ReportConfigurationForm);

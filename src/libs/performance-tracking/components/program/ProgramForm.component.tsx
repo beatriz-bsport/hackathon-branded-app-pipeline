@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -22,6 +21,7 @@ import {
   TextFieldEnhancedLabelWithError,
   ColorField,
   IconField,
+  // @ts-expect-error
 } from '../../../../components/forms';
 import {
   PerformanceTrackingMetric,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -243,6 +242,7 @@ export class PrivatePassList extends React.Component<Props, State> {
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       this.setState({
         searchText: ev.target.value,
+        // @ts-expect-error
         searchResult: fuse.search(ev.target.value),
       });
     };
@@ -268,6 +268,7 @@ export class PrivatePassList extends React.Component<Props, State> {
       ordering_in_category: number;
     }> | null = [];
     this.props.privatePassByCategory.forEach(
+      // @ts-expect-error
       (category: PrivatePassCategoryWithPasses) => {
         const sorted = [...category.passes].sort((pp1, pp2) =>
           sortFunction(pp1, pp2),
@@ -370,11 +371,13 @@ export class PrivatePassList extends React.Component<Props, State> {
           arr.findIndex((sct) => sct.id === value.id) === index,
       );
 
+    // @ts-expect-error
     const passSelectedForDelete = this.props.privatePassList.find(
       (private_pass: PrivatePass) =>
         private_pass.id === this.props.openDeletePassDialog,
     );
     if (
+      // @ts-expect-error
       (this.props.privatePassList || []).length +
         (this.props.disabledPrivatePassList || []).length ===
         0 &&
@@ -401,12 +404,15 @@ export class PrivatePassList extends React.Component<Props, State> {
               bookkeepingAccounts={this.props.bookingAccounts}
               categoryList={paymentPackCategoryList}
               compatibleServicePass={this.props.compatibleServicePass}
+              // @ts-expect-error
               establishmentList={establishmentList}
               metaActivityList={metaActivities}
               onCancel={() => this.props.closePrivatePassForm()}
               onSubmit={this.props.createOrUpdatePrivatePass}
               privatePassCategories={this.props.privatePassCategories}
+              // @ts-expect-error
               privateServices={this.props.privateServices}
+              // @ts-expect-error
               tagList={this.props.allTagsWithTagGroup}
             />
           </GenericResponsiveDrawer>
@@ -434,6 +440,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                   <FuzeSearch
                     changeSearch={this.changeSearch}
                     clearSearch={this.clearSearch}
+                    // @ts-expect-error
                     items={this.props.privatePassListCustomerEnabled}
                     placeholder={t('searshAppointmentPass')}
                     searchFields={['name']}
@@ -488,6 +495,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                           hasEditPermission && this.getOpenEditFormHandler(pass)
                         }
                         pass={pass}
+                        // @ts-expect-error
                         updatePrivatePass={this.props.createOrUpdatePrivatePass}
                       />
                     ))}
@@ -496,6 +504,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             </Paper>
             <PaymentPackFilterAndSortHeader
               categoryFilterOnchange={this.categoryFilterOnchange}
+              // @ts-expect-error
               categoryOptions={this.categoryOptions()}
               categoryValue={this.state.selectedCategories}
               managerOnlyOnChange={this.managerOnlyOnChange}
@@ -504,6 +513,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               sortValue={this.state.selectedSortOption}
             />
             <div className={this.props.classes.leftPanel}>
+              {/* @ts-expect-error */}
               {!this.props.privatePassList.length && !this.props.loading && (
                 <Typography variant="caption">
                   {this.props.t('privatePass.list.isEmpty')}
@@ -516,6 +526,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                 goToPass={this.props.goToPass}
                 itemsDraggable={hasEditPermission}
                 onEditPass={hasEditPermission && this.OpenEditForm}
+                // @ts-expect-error
                 privatePassCategoryById={this.props.privatePassByCategory}
                 privatePassOrder={this.state.privatePassOrderByCategory}
                 setOpenDeletePassDialog={
@@ -557,6 +568,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                       (pass: PrivatePass) => (
                         <PrivatePassListItem
                           key={pass.id}
+                          // @ts-expect-error
                           disabled
                           divider
                           onRestore={
@@ -589,8 +601,11 @@ export class PrivatePassList extends React.Component<Props, State> {
                 bookkeepingAccounts={this.props.bookingAccounts}
                 categoryList={paymentPackCategoryList}
                 compatibleServicePass={this.props.compatibleServicePass}
+                // @ts-expect-error
                 establishmentList={establishmentList}
+                // @ts-expect-error
                 initial={getFormInitial(
+                  // @ts-expect-error
                   this.props.selectedPrivatePass,
                   this.props.compatibleServicePass,
                 )}
@@ -601,8 +616,10 @@ export class PrivatePassList extends React.Component<Props, State> {
                 }}
                 onSubmit={this.props.createOrUpdatePrivatePass}
                 privatePassCategories={this.props.privatePassCategories}
+                // @ts-expect-error
                 privateServices={this.props.privateServices}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                // @ts-expect-error
                 tagList={this.props.allTagsWithTagGroup}
               />
             </GenericResponsiveDrawer>
@@ -729,12 +746,15 @@ const styles = (theme: Theme): any => ({
 
 const mapStateToProps = (state: RootState) => ({
   privatePassListCustomerEnabled: withLinkedPaymentPack(
+    // @ts-expect-error
     getPrivatePassCustomerEnabled,
   )(state),
+  // @ts-expect-error
   privatePassList: withLinkedPaymentPack(getAvailablePrivatePasses)(state),
   disabledPrivatePassList: getUnavailablePrivatePasses(state),
   privatePassCategories: getPrivatePassCategories(state),
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
+    // @ts-expect-error
     withLinkedPaymentPack(getAvailablePrivatePasses),
   )(state),
   loading: state.privateService.privatePass.loading,
@@ -790,6 +810,7 @@ const mapDispatchToProps = {
   fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 
+// @ts-expect-error
 const withStateHandlersInit: StateHandlerInit = {
   openCreateForm: false,
   openEditForm: false,
@@ -826,10 +847,13 @@ const withStateHandlersSetter = {
   closePrivatePassForm: () => () => ({
     openCreateForm: false,
     openEditForm: false,
+    // @ts-expect-error
     openDeletePassDialog: null,
+    // @ts-expect-error
     selectedPrivatePass: null,
   }),
   closePrivatePassCategoryForm: () => () => {
+    // @ts-expect-error
     return { showCategoryDialog: false, selectedCategory: null };
   },
 
@@ -886,6 +910,7 @@ const mapWithHandlers = {
     if (props.selectedPrivatePass) {
       props.fetchCompatibleServicePassList(props.selectedPrivatePass.id, {
         onSuccess: (csps) => {
+          // @ts-expect-error
           const private_service__in = csps?.map(
             (c: PrivateSlot) => c.private_service,
           );
@@ -899,10 +924,13 @@ const mapWithHandlers = {
     }
   },
   fetchBookkeepingAccountList:
-    ({ fetchBookkeepingAccountList }) =>
-    () => {
-      fetchBookkeepingAccountList({ is_active: true });
-    },
+    // @ts-expect-error
+
+
+      ({ fetchBookkeepingAccountList }) =>
+      () => {
+        fetchBookkeepingAccountList({ is_active: true });
+      },
 };
 
 export default compose(
@@ -912,6 +940,7 @@ export default compose(
   withTranslation(['privateService']),
   withTitle(({ t }) => t('pageTitles.passList')),
   withStyles(styles),
+  // @ts-expect-error
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
   withState(

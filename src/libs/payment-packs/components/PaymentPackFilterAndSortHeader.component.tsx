@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { compose } from 'recompose';
@@ -56,17 +55,21 @@ const sortOptions = (t: TFunction) => [
 ];
 
 export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
+  // @ts-expect-error
   categoryFilterOnchange = (categories) => {
     this.props.categoryFilterOnchange(
+      // @ts-expect-error
       categories.map((selected) => parseInt(selected.value, 10)),
     );
   };
 
+  // @ts-expect-error
   managerOnlyOnChange = (value) =>
     this.props.managerOnlyOnChange(
       parseInt(value?.value || ManagerOnly.showAll, 10),
     );
 
+  // @ts-expect-error
   sortOnChange = (sortOpt) => {
     this.props.sortOnChange(
       parseInt(sortOpt?.value || SortOption.customSort, 10),

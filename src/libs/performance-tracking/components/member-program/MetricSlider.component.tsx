@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Add, Remove } from '@material-ui/icons';
 import React from 'react';
 import { IconButton } from '@material-ui/core';
@@ -24,6 +23,7 @@ type MouseOrTouchEvent = React.MouseEvent & React.TouchEvent;
 
 const RADIUS = 94;
 export default class MetricSlider extends React.Component<Props, State> {
+  // @ts-expect-error
   box = null;
 
   constructor(props: Props) {

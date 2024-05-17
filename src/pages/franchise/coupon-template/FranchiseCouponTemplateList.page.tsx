@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -55,9 +54,11 @@ const styles = (theme: Theme) =>
     },
   });
 
+// @ts-expect-error
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 
+// @ts-expect-error
 type Props = ConnectedProps<typeof connector> &
   WithStyles &
   WithTranslation &
@@ -92,6 +93,7 @@ export class FranchiseCouponTemplateList extends Component<Props> {
               <Typography variant="h4">{t('list.activeCoupons')}</Typography>
               <Divider className={classes.divider} />
               <Paper>
+                {/* @ts-expect-error */}
                 {(this.props.activeCouponTemplates || []).map((ct) => (
                   <CouponTemplateListItem
                     key={ct.id}
@@ -109,6 +111,7 @@ export class FranchiseCouponTemplateList extends Component<Props> {
               <Typography variant="h4">{t('list.inactiveCoupons')}</Typography>
               <Divider className={classes.divider} />
               <Paper>
+                {/* @ts-expect-error */}
                 {(this.props.inactiveCouponTemplates || []).map((ct) => (
                   <CouponTemplateListItem
                     key={ct.id}
@@ -123,6 +126,7 @@ export class FranchiseCouponTemplateList extends Component<Props> {
           ) : null}
         </div>
         {!!this.props.createModalOpen && (
+          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             onClose={this.props.closeCreateDialog}
@@ -132,6 +136,7 @@ export class FranchiseCouponTemplateList extends Component<Props> {
           />
         )}
         {!!this.props.couponTemplateToEdit && (
+          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             initial={this.props.couponTemplateToEdit}
@@ -177,6 +182,7 @@ const withStateHandlersInit = {
   couponTemplateIdToDelete: null as any,
 };
 
+// @ts-expect-error
 const withStateHandlersSetter = {
   openCreateDialog: () => () => ({ createModalOpen: true }),
   closeCreateDialog: () => () => ({ createModalOpen: false }),

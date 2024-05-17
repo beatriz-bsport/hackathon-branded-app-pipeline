@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -26,6 +25,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { Alert } from '@material-ui/lab';
 import { MaterialStyleType } from '../../../utils/types';
 
+// @ts-expect-error
 import { DurationField } from '../../../components/forms';
 
 import TagSelector from '#libs/tag/components/TagSelector.selector';
@@ -141,6 +141,7 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
             },
           }) => (
             <>
+              {/* @ts-expect-error */}
               {custom_restriction_rule.map((crr, i: number) => (
                 <div
                   key={`custoom_restriction_${i}`}
@@ -169,6 +170,7 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                     className={classes.personnalizedRestrictionInnerContainer}
                   >
                     {custom_restriction_rule_error &&
+                      // @ts-expect-error
                       custom_restriction_rule_error[i]?.tags && (
                         <div>
                           <Typography color="error" variant="caption">
@@ -181,7 +183,9 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                         closeMenuOnSelect
                         inScrollBar
                         isClearable
+                        // @ts-expect-error
                         allTagsWithTagGroup={tags || []}
+                        // @ts-expect-error
                         onChange={(
                           items: Array<{
                             item: Tag & { label: string; value: number };
@@ -189,6 +193,7 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                         ) => {
                           return setFieldValue(
                             `custom_restriction_rule.${i}.tags`,
+                            // @ts-expect-error
                             items.map((item) => item.value),
                           );
                         }}

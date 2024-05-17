@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -148,6 +147,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
   };
 
   getTagUsage = (tagId: number) => {
+    // @ts-expect-error
     const usage = this.props.tagUsageById[tagId];
     if (!usage) return '-';
     switch (this.props.filterBy) {
@@ -239,6 +239,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                   <TableRow>
                     <TableCell align="left">
                       <div className={classes.iconAndName}>
+                        {/* @ts-expect-error */}
                         <LabelIcon
                           className={classes.icon}
                           color="disabled"
@@ -269,6 +270,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                     hover={!!this.props.onSelectTag}
                     onClick={
                       this.props.onSelectTag &&
+                      // @ts-expect-error
                       ((ev) => {
                         ev.preventDefault();
                         this.props.onSelectTag(tag);
@@ -375,6 +377,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
           <DialogTitle>{t('management.tagColumn.tag')}</DialogTitle>
           <DialogContent>
             <TagForm
+              // @ts-expect-error
               initial={this.state.editTag}
               onCancel={() => {
                 this.setState({ createTag: false, editTag: null });
@@ -450,6 +453,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
   withTheme,

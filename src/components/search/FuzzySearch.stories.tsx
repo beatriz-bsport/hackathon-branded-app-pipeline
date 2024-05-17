@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { faker } from '@faker-js/faker';
 import React from 'react';
 import FuzzySearch, { OwnProps } from './FuzzySearch.component';
@@ -6,6 +5,7 @@ import FactoryBotUser from '../../libs/franchise/factories/FranchiseUserFactory'
 import { Avatar, ListItem } from '@material-ui/core';
 import HighlightedText from '../HighlightedText/HighlightedText.component';
 
+// @ts-expect-error
 const CustomTemplate = (args: OwnProps) => <FuzzySearch {...args} />;
 
 export const NoMatchState = CustomTemplate.bind({});
@@ -16,6 +16,7 @@ NoMatchState.args = {
   items: users,
   placeholder: `Search user, type ${users[0].name}`,
   searchFields: ['name'],
+  // @ts-expect-error
   itemRenderer: (item, search) => (
     <ListItem key={item.id} button divider>
       <div

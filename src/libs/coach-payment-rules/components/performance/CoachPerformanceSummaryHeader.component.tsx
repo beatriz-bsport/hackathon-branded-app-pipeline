@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -11,12 +10,14 @@ import {
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import makeStyles from '@material-ui/styles/makeStyles';
+// @ts-expect-error
 import Figure from '../../../../components/graph/Figure.component';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import type { CoachPerformance } from '../../types';
 import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
+  // @ts-expect-error
   performances: Object<Array<CoachPerformance>>;
   isCoach?: boolean;
 };
@@ -32,6 +33,7 @@ export function CoachPerformanceSummary(props: Props) {
 
   const nbBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (b.confirmed_bookings || 0),
         0,
       )
@@ -39,6 +41,7 @@ export function CoachPerformanceSummary(props: Props) {
 
   const durationTotalBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (b.duration_minute || 0),
         0,
       )
@@ -46,6 +49,7 @@ export function CoachPerformanceSummary(props: Props) {
 
   const totalOnBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
         0,
       )
@@ -54,6 +58,7 @@ export function CoachPerformanceSummary(props: Props) {
     COACH_PERFORMANCE_FOR_SESSION
   ]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.total_margin_value) || 0),
         0,
       )
@@ -68,6 +73,7 @@ export function CoachPerformanceSummary(props: Props) {
     COACH_PERFORMANCE_FOR_APPOINTMENT
   ]
     ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        // @ts-expect-error
         (a, b) => a + (b.confirmed_bookings || 0),
         0,
       )
@@ -77,6 +83,7 @@ export function CoachPerformanceSummary(props: Props) {
     COACH_PERFORMANCE_FOR_APPOINTMENT
   ]
     ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        // @ts-expect-error
         (a, b) => a + (b.duration_minute || 0),
         0,
       )
@@ -84,6 +91,7 @@ export function CoachPerformanceSummary(props: Props) {
 
   const totalOnPrivateServices = performances[COACH_PERFORMANCE_FOR_APPOINTMENT]
     ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
         0,
       )
@@ -92,6 +100,7 @@ export function CoachPerformanceSummary(props: Props) {
     COACH_PERFORMANCE_FOR_APPOINTMENT
   ]
     ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        // @ts-expect-error
         (a, b) => a + (parseFloat(b.total_margin_value) || 0),
         0,
       )
@@ -166,7 +175,9 @@ export function CoachPerformanceSummary(props: Props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    // @ts-expect-error
     paddingTop: theme.spacing(1) * 1,
+    // @ts-expect-error
     paddingBottom: theme.spacing(2),
   },
 }));

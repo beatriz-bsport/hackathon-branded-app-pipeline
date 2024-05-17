@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Route, Switch } from 'react-router';
 import EstablishmentLocationRouter from './EstablishmentLocation.router';
 import EstablishmentDetailRouter from './EstablishmentDetail.router';
+// @ts-expect-error
 import EstablishmentFormPage from './EstablishmentForm.page';
 
 export default () => {

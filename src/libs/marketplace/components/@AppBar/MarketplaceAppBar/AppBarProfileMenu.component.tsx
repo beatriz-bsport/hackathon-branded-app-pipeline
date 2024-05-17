@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,6 +47,7 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
   const classes = useStyles();
   const { t } = useTranslation(['translation', 'consumerSpace']);
 
+  // @ts-expect-error
   if (auth.authenticated) {
     return (
       <Popover
@@ -70,10 +70,13 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
           />
         )}
         <Typography className={classes.menuNameTypo} variant="subtitle1">
+          {/* @ts-expect-error  */}
           {auth.name !== ' ' ? auth.name : auth.username}
         </Typography>
+        {/* @ts-expect-error */}
         {auth.name !== ' ' && (
           <Typography className={classes.menuUsernameTypo} variant="body2">
+            {/* @ts-expect-error */}
             {auth.username}
           </Typography>
         )}

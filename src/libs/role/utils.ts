@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
 
@@ -28,7 +27,9 @@ export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {
     return role.name;
   }
+  // @ts-expect-error
   if (role?.identifier !== undefined && role.identifier !== null) {
+    // @ts-expect-error
     return t(`role:roleDescription.${role.identifier}.name`);
   }
   return t(`role:roleDescription.${role?.id}.name`);
@@ -56,6 +57,7 @@ export const checkRequiredPermissions = (
 
     return (
       value &&
+      // @ts-expect-error
       Object.keys(value).some((key) => checkNestedPermission(value?.[key]))
     );
   };
@@ -82,6 +84,7 @@ export const checkRequiredPermissions = (
 
 export const checkRequiredPermissionsForPath = memoize(
   (url: ProtectedUrls, permissions: RolePermission) => {
+    // @ts-expect-error
     const urlWithoutTrailingSlash: ProtectedUrls =
       url?.replace(/\/$/, '') ?? '';
 
@@ -139,12 +142,14 @@ export const setAllValuesInObject = (object: Object, value: any): Object => {
     const objectValue = object[key];
 
     if (isStictObject(objectValue)) {
+      // @ts-expect-error
       acc[key] = setAllValuesInObject(objectValue, value);
       return acc;
     }
 
     // ignoring array
     if (Array.isArray(objectValue)) {
+      // @ts-expect-error
       acc[key] = objectValue;
       return acc;
     }
@@ -178,6 +183,7 @@ export const getOptionsFromIds = memoize(
       .filter((object) => ids.includes(object.id))
       .map((object) => ({
         value: object.id,
+        // @ts-expect-error
         label: object.name || object.title,
       }));
   },
@@ -358,9 +364,12 @@ export const getNestedKeyInObject = (object: Object, keys: string[]) => {
     return keys.reduce(
       (currentNestedObject, key) =>
         currentNestedObject &&
+        // @ts-expect-error
         currentNestedObject[key] !== null &&
+        // @ts-expect-error
         currentNestedObject[key] !== undefined
-          ? currentNestedObject[key]
+          ? // @ts-expect-error
+            currentNestedObject[key]
           : null,
       object,
     );
@@ -381,6 +390,7 @@ export const checkNestedKeyInObject = (
     Object.prototype.hasOwnProperty.call(object, currentKey)
   )
     return true;
+  // @ts-expect-error
   return checkNestedKeyInObject(object[currentKey], restKey);
 };
 

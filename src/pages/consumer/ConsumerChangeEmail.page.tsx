@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -48,6 +47,7 @@ import {
 } from '#libs/member/components/change_email/consumer-space/content';
 
 import LoginComponent from '#csscomponents/Login/Login.component';
+// @ts-expect-error
 import { requestLogin } from '../../actions/auth.actions';
 
 type StateHandlerInit = {
@@ -206,14 +206,17 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
             errorFields={this.props.errorFields}
             isPremium={this.props.theme.is_premium}
             loading={this.props.loginProcessing}
+            // @ts-expect-error
             t={this.props.t}
             theme={this.props.theme}
           />
         </div>
       );
     }
+    // @ts-expect-error
     if (authenticated && this.props.error?.response?.status === 403) {
       return (
+        // @ts-expect-error
         <ConsumerAppBar backgroundColor="white">
           <div className={classes.container}>
             <UnAuthorizedContent companyTheme={this.props.theme} />
@@ -222,6 +225,7 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
       );
     }
     return (
+      // @ts-expect-error
       <ConsumerAppBar backgroundColor="white">
         <div className={classes.container}>{this.renderContent()}</div>
         {changeEmailRequest && (
@@ -372,7 +376,9 @@ const withStateHandlersSetter = {
 export default compose(
   withStyles(styles),
   routerParamsToProps({
+    // @ts-expect-error
     companyId: 'companyId',
+    // @ts-expect-error
     uuid: 'uuid',
   }),
   withTranslation('member'),

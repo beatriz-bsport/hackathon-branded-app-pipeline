@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose';
 import { connect } from 'react-redux';
@@ -186,6 +185,7 @@ export class QuickBooks extends React.Component<Props, State> {
         <QuickBooksConfigrationForm
           connectQuickbooks={this.connectQuickBooks}
           loading={this.props.loading}
+          // @ts-expect-error
           onSubmitTheme={this.onSubmitTheme}
           processing={this.props.processing}
           quickbooksApp={this.props.quickbooksApp}
@@ -198,6 +198,7 @@ export class QuickBooks extends React.Component<Props, State> {
             loading={this.props.taxDataLoading}
             quickbooksApp={this.props.quickbooksApp}
             submitTaxCodeSelection={this.submitTaxCodeSelection}
+            // @ts-expect-error
             taxCodesList={this.props.taxCodesList}
             upsertLoading={this.props.taxUpsertLoading}
           />

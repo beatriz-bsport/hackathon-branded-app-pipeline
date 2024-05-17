@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useEffect } from 'react';
 import { compose } from 'recompose';
@@ -113,6 +112,7 @@ const connector = connect(
     settingsData: state.notificationRule.settings.data,
     loading:
       state.notificationRule.rule.loading ||
+      // @ts-expect-error
       state.emailTemplate.isLoading ||
       state.notificationRule.settings.loading ||
       state.marketingNotification.loading,

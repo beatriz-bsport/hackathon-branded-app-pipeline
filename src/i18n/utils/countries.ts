@@ -1,4 +1,3 @@
-// @ts-nocheck
 export const countries: Array<{
   code: string;
   label: string;
@@ -60,6 +59,7 @@ export const countries: Array<{
     code: 'CA',
     label: 'Canada',
     phone: '1',
+    // @ts-expect-error
     suggested: true,
   },
   {
@@ -100,6 +100,7 @@ export const countries: Array<{
     code: 'DE',
     label: 'Germany',
     phone: '49',
+    // @ts-expect-error
     suggested: true,
   },
   { code: 'DJ', label: 'Djibouti', phone: '253' },
@@ -135,6 +136,7 @@ export const countries: Array<{
     code: 'FR',
     label: 'France',
     phone: '33',
+    // @ts-expect-error
     suggested: true,
   },
   { code: 'GA', label: 'Gabon', phone: '241' },
@@ -195,6 +197,7 @@ export const countries: Array<{
     code: 'JP',
     label: 'Japan',
     phone: '81',
+    // @ts-expect-error
     suggested: true,
   },
   { code: 'KE', label: 'Kenya', phone: '254' },
@@ -390,6 +393,7 @@ export const countries: Array<{
     code: 'US',
     label: 'United States',
     phone: '1',
+    // @ts-expect-error
     suggested: true,
   },
   { code: 'UY', label: 'Uruguay', phone: '598' },

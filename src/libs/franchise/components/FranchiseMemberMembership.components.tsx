@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import {
@@ -44,6 +43,7 @@ const FranchiseMemberMembership = (props: Props) => {
           return (
             <ListItem
               key={company.id}
+              // @ts-expect-error
               button={company?.isAllowed}
               className={classNames(classes.row, {
                 [classes.isLast]: index === companies.length - 1,
@@ -119,4 +119,5 @@ const styles = (theme: Theme) =>
 export default compose(
   withStyles(styles),
   withTranslation(['franchise']),
+  // @ts-expect-error
 )(FranchiseMemberMembership);

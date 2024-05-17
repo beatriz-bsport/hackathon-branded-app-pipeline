@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -169,6 +168,7 @@ export class ProgramList extends Component<Props, State> {
           <Grid container spacing={4}>
             <Grid item xs={6}>
               <div className={classes.program}>
+                {/* @ts-expect-error */}
                 <ProgramListComponent
                   isSearchDisplayed
                   onClickOnItem={(program) => this.clickItem(program.id)}
@@ -183,6 +183,7 @@ export class ProgramList extends Component<Props, State> {
                   programSelectedId={selectedProgramId}
                 />
                 {!!programListDisabled?.length && (
+                  // @ts-expect-error
                   <ProgramListComponent
                     onRestore={(program) => {
                       enableOrDisableProgram({ id: program.id, enabled: true });
@@ -298,6 +299,7 @@ const connector = connect(
     goToDefaultPage: () => pushRouter(`/performance-tracking/`),
     fetchMemberProgram: fetchMemberProgramAction,
     fetchMemberBulkById,
+    // @ts-expect-error
     goToMemberProgramPage: (memberId?: number, memberProgramId: number) =>
       pushRouter(`/member/${memberId}/performance-tracking/${memberProgramId}`),
   },

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { withFormik, Form, FormikProps } from 'formik';
@@ -9,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
 
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { SwitchField } from '#components/forms';
 
 interface FormikValues {

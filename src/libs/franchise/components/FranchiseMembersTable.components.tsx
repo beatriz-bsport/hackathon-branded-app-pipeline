@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import {
@@ -115,6 +114,7 @@ const FranchiseMembersTable = (props: Props) => {
           })}
         </TableBody>
       </Table>
+      {/* @ts-expect-error */}
       <TablePagination
         backIconButtonProps={{
           'aria-label': t('pagination.previousPage'),

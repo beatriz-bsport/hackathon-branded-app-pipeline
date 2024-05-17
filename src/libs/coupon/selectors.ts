@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import { createSelector } from 'reselect';
@@ -70,6 +69,7 @@ export const getActiveCoupons: (state: RootState) => Array<Coupon> =
     coupons.filter((coupon) => isCurrentlyActive(coupon)),
   );
 
+// @ts-expect-error
 export const getInactiveCoupons: (State) => Array<Coupon> = createSelector(
   getAvailableCoupons,
   (coupons) => coupons.filter((coupon) => !isCurrentlyActive(coupon)),
@@ -102,6 +102,7 @@ export const getCouponTemplateList: (
             ?.map((cti) => cti.company),
           allowed_franchisee_ids,
           companyById,
+          // @ts-expect-error
         )?.filter((c: Company) => !!c),
       })),
 );
@@ -111,6 +112,7 @@ export const getActiveCouponTemplates: (
 ) => Array<CouponTemplate> = createSelector(
   [getCouponTemplateList],
   (couponTemplateList) =>
+    // @ts-expect-error
     couponTemplateList.filter((ct) => isCurrentlyActive(ct)),
 );
 
@@ -119,6 +121,7 @@ export const getInactiveCouponTemplates: (
 ) => Array<CouponTemplate> = createSelector(
   [getCouponTemplateList],
   (couponTemplateList) =>
+    // @ts-expect-error
     couponTemplateList.filter((ct) => !isCurrentlyActive(ct)),
 );
 
@@ -145,6 +148,7 @@ export const getCouponTemplate: (
         ),
         allowed_franchisee_ids,
         companyById,
+        // @ts-expect-error
       ).filter((c: Company) => !!c),
     };
   },

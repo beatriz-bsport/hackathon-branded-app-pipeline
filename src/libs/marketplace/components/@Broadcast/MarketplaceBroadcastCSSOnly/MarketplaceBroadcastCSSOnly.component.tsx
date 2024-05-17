@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
@@ -29,11 +28,15 @@ const MarketplaceBroadcastCSSOnly: React.FC<Props> = ({
       style={
         {
           '--broadcast-background-color': activityDialog
-            ? theme.palette.primary.main
-            : lighten(theme.palette.primary.light, 0.8),
+            ? // @ts-expect-error
+              theme.palette.primary.main
+            : // @ts-expect-error
+              lighten(theme.palette.primary.light, 0.8),
           '--broadcast-color': activityDialog
-            ? theme.palette.primary.contrastText
-            : theme.palette.primary.main,
+            ? // @ts-expect-error
+              theme.palette.primary.contrastText
+            : // @ts-expect-error
+              theme.palette.primary.main,
         } as CSSProperties
       }
     >

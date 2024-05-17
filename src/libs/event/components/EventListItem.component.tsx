@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +8,11 @@ import InfoIcon from '@material-ui/icons/Info';
 import { GenericEvent, GenericEventSpec } from '../types';
 
 type Props = {
+  // @ts-expect-error
   event: GenericEvent;
+  // @ts-expect-error
   onEventClick?: (event: GenericEvent) => void;
+  // @ts-expect-error
   eventSpec: GenericEventSpec;
 };
 
@@ -54,6 +56,7 @@ export const GenericEventListItem = (props: Props) => {
     : defaultSecondaryText;
 
   return (
+    // @ts-expect-error
     <ListItem dense button={!!onClick} onClick={onClick}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { withTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { Field, ErrorMessage } from 'formik';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { MaterialStyleType } from '../../utils/types';
 
+// @ts-expect-error
 const styles = (theme) => ({
   hide: {
     display: 'none',
@@ -22,6 +22,7 @@ const styles = (theme) => ({
 
 type OwnProps = {
   name: string;
+  // @ts-expect-error
   onChange: (any) => void;
   id: string;
 };
@@ -32,6 +33,7 @@ export class ImageFieldInput extends Component<Props> {
   render() {
     return (
       <Field {...this.props}>
+        {/* @ts-expect-error  */}
         {({ field, form: { setFieldValue } }) => (
           <div>
             <input
@@ -55,6 +57,7 @@ export class ImageFieldInput extends Component<Props> {
                   className={this.props.classes.alertError}
                   variant="body2"
                 >
+                  {/* @ts-expect-error */}
                   {this.props.t(message)}
                 </Typography>
               )}
@@ -66,4 +69,5 @@ export class ImageFieldInput extends Component<Props> {
   }
 }
 
+// @ts-expect-error
 export default withStyles(styles)(withTranslation([])(ImageFieldInput));

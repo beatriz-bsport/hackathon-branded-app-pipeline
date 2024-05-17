@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import List from '@material-ui/core/List';
 import { Theme } from '@material-ui/core';
@@ -162,6 +161,7 @@ export const UserWithRoleList: React.FC<Props> = ({
             hasOwnerPermission={hasOwnerPermission}
             isFranchisor={isFranchisor}
             roles={roles}
+            // @ts-expect-error
             user={user}
           />
         </div>
@@ -186,6 +186,7 @@ export const UserWithRoleList: React.FC<Props> = ({
           hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
           hasMultiLocationUpsell={hasMultiLocationUpsell}
           onClose={onCloseCreateStaffDialog}
+          // @ts-expect-error
           onSubmit={onSubmitStaffUserCreation}
           open={openCreateStaffDialog}
           roles={roles}
@@ -196,6 +197,7 @@ export const UserWithRoleList: React.FC<Props> = ({
         coachList={coachList}
         coachListLoading={coachListLoading}
         customRole={roles?.find((role_) => role_.id === selectedUserRole?.role)}
+        // @ts-expect-error
         establishmentGroupList={establishmentGroupList}
         establishmentGroupListLoading={establishmentGroupListLoading}
         establishmentList={establishmentList}

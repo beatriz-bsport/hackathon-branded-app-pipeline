@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -51,6 +50,7 @@ type Props = OwnProps &
 class SimilarOffersSelector extends React.PureComponent<Props> {
   get availableOffers() {
     return this.props.similarOffers.filter((o) => {
+      // @ts-expect-error
       return o.id !== this.props.offer.id;
     });
   }
@@ -66,12 +66,14 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
   };
 
   componentWillMount = () => {
+    // @ts-expect-error
     this.props.resetSimilarOffers();
   };
 
   onClickSelectAllOffers = () => {
     const offers = this.availableOffers.filter((o) => {
       const { isBookable, isRegistered, blockedByTags } = getOfferFeature(
+        // @ts-expect-error
         o,
         this.props.offerStatusById,
         this.props.acceptDoubleBooking,
@@ -82,6 +84,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
         !isBookable ||
         isRegistered ||
         blockedByTags ||
+        // @ts-expect-error
         this.props.offerStatusById[o?.id]?.blocked_by_tags
       ) {
         return false;
@@ -91,10 +94,12 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
         return true;
       }
 
+      // @ts-expect-error
       return !this.props.selectedOffers.find((so) => so.offer.id === o.id);
     });
 
     offers.forEach((o) => {
+      // @ts-expect-error
       this.props.onSelectOffer(o);
     });
   };
@@ -153,15 +158,20 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
 
         <div className={classes.similarOffersContainer}>
           {this.availableOffers.map((o) => {
+            // @ts-expect-error
             const offerStatus = this.props.offerStatusById[o.id];
             if (
+              // @ts-expect-error
               !o.establishment ||
+              // @ts-expect-error
               !o.coach ||
               !offerStatus ||
+              // @ts-expect-error
               !o.meta_activity
             ) {
               return (
                 <Box
+                  // @ts-expect-error
                   key={`skeleton-${o.id}`}
                   className={classes.similarOfferItem}
                   height={60}
@@ -186,6 +196,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
 
             const { isBookable, isRegistered, isWaitingList, noInteraction } =
               getOfferFeature(
+                // @ts-expect-error
                 o,
                 this.props.offerStatusById,
                 this.props.acceptDoubleBooking,
@@ -194,23 +205,28 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
 
             const isSelected = Boolean(
               this.props.selectedOffers.find(
+                // @ts-expect-error
                 (offerData) => offerData.offer.id === o.id,
               ),
             );
 
             return (
+              // @ts-expect-error
               <Collapse key={o.id} in={!isSelected}>
                 <div className={classes.similarOfferItem}>
                   <OfferItem
                     coachDisplay={coachDisplay}
+                    // @ts-expect-error
                     disabled={o.group ? false : noInteraction}
                     height={200}
                     hideCoach={this.props.hideCoach}
                     isBookable={isBookable}
                     isRegistered={isRegistered}
                     isWaitingList={isWaitingList}
+                    // @ts-expect-error
                     offer={o}
                     offerStatus={offerStatus}
+                    // @ts-expect-error
                     onAdd={this.props.onSelectOffer}
                   />
                 </div>

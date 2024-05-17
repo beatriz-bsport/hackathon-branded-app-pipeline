@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 import { withTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
 
+// @ts-expect-error
 import WorkshopActivityList from './WorkshopActivityList.page';
 import WorkshopActivityGroup from './WorkshopActivityGroup.page';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
@@ -68,6 +68,7 @@ const connector = connect(() => ({}), {
 export default compose(
   connector,
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
   }),
   withTranslation(['workshop', 'titles']),

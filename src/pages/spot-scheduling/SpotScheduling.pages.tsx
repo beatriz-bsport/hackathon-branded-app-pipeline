@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -46,6 +45,7 @@ import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDel
 import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 import SpiviConfirmationDialog from '#libs/spot-scheduling/component/SpiviConfirmationDialog.component';
 
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -72,6 +72,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     deleteModalOpen: false,
     spotTypeToDelete: true,
     defaultSpot: false,
+    // @ts-expect-error
     spotToSelect: null,
     spiviDialogIsOpen: false,
     spotCorrespondence: {},
@@ -93,7 +94,9 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
       onSuccess: () => this.props.success('spotScheduling:saved'),
       onError: (error) => {
         if (
+          // @ts-expect-error
           isErrorWithCustomCode(error) &&
+          // @ts-expect-error
           error.response.data?.error_code ===
             ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED
         ) {
@@ -224,6 +227,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     spot.append('shape', shape);
     spot.append('fill_color', fill_color);
     spot.append('stroke_color', stroke_color);
+    // @ts-expect-error
     spot.append('default_spot', default_spot);
     if (customization === PERSONALIZED_CUSTOMIZATION) {
       spot.append('free_image', free_image);
@@ -240,6 +244,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
       this.props.createSpotForBlueprint(spot, {
         onSuccess: (response) => {
           this.setState({
+            // @ts-expect-error
             spotToSelect: response.data.id,
             selectedTool: 'spot',
           });
@@ -269,6 +274,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     newAsset.append('blueprint', this.props.id.toString());
     newAsset.append('identifier', uuid4());
     newAsset.append('asset', image);
+    // @ts-expect-error
     newAsset.append('is_unbound', true);
 
     this.props.createUnboundAssetForBlueprint(newAsset, {
@@ -358,15 +364,18 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     );
   };
 
+  // @ts-expect-error
   fetchSpotForBlueprintAndBuildSpiviCorrespondence = (data) => {
     this.props.fetchSpotForBlueprint(data, {
       onSuccess: this.setSpiviCorrespondence,
     });
   };
 
+  // @ts-expect-error
   handlePageChange = (ev, value, spotTypeId) => {
     this.setState((prevState) => ({
       tablePages: {
+        // @ts-expect-error
         ...prevState.tablePages,
         [spotTypeId]: value,
       },
@@ -397,9 +406,12 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     };
 
     const currentCanvasEditor = this.canvasEditorRef?.current;
+    // @ts-expect-error
     currentCanvasEditor?.state?.current?.elements &&
+      // @ts-expect-error
       currentCanvasEditor.setStateWithHistory({
         elements: [
+          // @ts-expect-error
           ...(currentCanvasEditor?.state?.current?.elements ?? []),
           newSvgElement,
         ],
@@ -418,6 +430,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
         {this.props.roomBlueprint ? (
           <div style={{ width: '100%' }}>
             <CanvasEditorComponent
+              // @ts-expect-error
               ref={this.canvasEditorRef}
               assets={this.props.assets}
               blueprints={this.props.allBlueprints}
@@ -435,15 +448,21 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               openSpotCreationForm={this.openSpotCreationForm}
               openSpotUpdateForm={this.openSpotUpdateForm}
               selectedRoomBlueprint={this.props.roomBlueprint}
+              // @ts-expect-error
               selectedTool={this.state.selectedTool}
               spotToSelect={this.state.spotToSelect}
+              // @ts-expect-error
               spotTypes={this.props.spotTypes.concat({ id: -1 })}
+              // @ts-expect-error
               spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
             />
             <CanvasSpotCreatorDrawer
+              // @ts-expect-error
               closeDialog={this.closeCreationForm}
               defaultSpot={this.state.defaultSpot}
+              // @ts-expect-error
               onCreateSpot={this.onCreateSpot}
+              // @ts-expect-error
               onUpdateSpot={this.onUpdateSpotType}
               open={this.state.creationFormIsOpen}
               spotTypeToUpdate={this.state.spotTypeToUpdate}
@@ -453,17 +472,20 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               closeDialog={this.handleCloseAssetUploader}
               defaultSpot={this.state.defaultSpot}
               onClickUnboundAsset={this.onClickUnboundAsset}
+              // @ts-expect-error
               onCreateAsset={this.onUnboundCreateAsset}
               open={this.state.assetUploaderIsOpen}
               spotTypeToUpdate={this.state.spotTypeToUpdate}
             />
             <CanvasSpotDeleteModal
               deleteSpotType={(spotType) => {
+                // @ts-expect-error
                 this.newOnDeleteSpot(spotType.id, {
                   onSuccess: this.closeDeleteModal,
                 });
               }}
               onClose={() => this.setState({ deleteModalOpen: false })}
+              // @ts-expect-error
               spotTypeToDeleteId={
                 this.state.deleteModalOpen
                   ? this.state.spotTypeToDelete || true
@@ -479,7 +501,9 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
                         handlePageChange={this.handlePageChange}
                         onClose={this.closeSpiviDialog}
                         open={this.state.spiviDialogIsOpen}
+                        // @ts-expect-error
                         spotCorrespondence={this.state.spotCorrespondence}
+                        // @ts-expect-error
                         spotTypes={this.props.spotTypes.concat({
                           id: -1,
                         })}
@@ -543,7 +567,6 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-expect-error
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(mapStateToProps, mapDispatchToProps),

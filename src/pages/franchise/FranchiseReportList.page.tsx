@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -65,6 +64,7 @@ const FranchiseReportList = (props: Props) => {
 
     createReport({
       data,
+      // @ts-expect-error
       options,
     });
   };

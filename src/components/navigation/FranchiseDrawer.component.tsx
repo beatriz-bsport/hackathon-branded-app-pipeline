@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -61,7 +60,9 @@ import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { openIntercomHelp } from '../../intercom';
+// @ts-expect-error
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
+// @ts-expect-error
 import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
@@ -375,11 +376,13 @@ export const FranchiseDrawer = (props: Props) => {
               <Grid container alignItems="center" direction="row" wrap="nowrap">
                 <>
                   <Grid item>
+                    {/* @ts-expect-error */}
                     <IconButton onClick={openIntercomHelp}>
                       <Help />
                     </IconButton>
                   </Grid>
                   <Grid item className={classes.searchBar}>
+                    {/* @ts-expect-error */}
                     <FranchiseUserSearchBarComponent changeLocation />
                   </Grid>
 
@@ -782,4 +785,5 @@ export default compose<any, OwnProps>(
   withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
+  // @ts-expect-error
 )(withRouter(FranchiseDrawer));

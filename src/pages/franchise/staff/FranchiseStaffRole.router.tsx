@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -7,6 +6,7 @@ import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
@@ -67,6 +67,7 @@ const connector = connect(() => ({}), {
 export default compose(
   connector,
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
   }),
   withTranslation('franchise'),

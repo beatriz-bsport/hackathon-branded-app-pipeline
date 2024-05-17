@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushAction } from 'connected-react-router';
@@ -28,6 +27,7 @@ import Divider from '@material-ui/core/Divider';
 import withTitle from '../../hocs/with-title.hoc';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import {
@@ -118,6 +118,7 @@ type State = {
 };
 
 export class GiftcardListPage extends Component<Props, State> {
+  // @ts-expect-error
   state = { showDisabled: false, searchText: '', searchResult: [] };
 
   componentDidMount() {
@@ -125,6 +126,7 @@ export class GiftcardListPage extends Component<Props, State> {
     this.props.fetchGiftcardBackgroundImageList(this.props.company);
     this.props.fetchTags();
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      // @ts-expect-error
       this.props.fetchAvailableBookkeepingAccounts();
   }
 
@@ -142,7 +144,9 @@ export class GiftcardListPage extends Component<Props, State> {
 
   changeSearch = (fuse: string) => (ev: MouseEvent) => {
     this.setState({
+      // @ts-expect-error
       searchText: ev.target.value,
+      // @ts-expect-error
       searchResult: fuse.search(ev.target.value),
     });
   };
@@ -159,6 +163,7 @@ export class GiftcardListPage extends Component<Props, State> {
         {this.props.giftcardListActive?.length ? (
           <>
             <FuzeSearch
+              // @ts-expect-error
               changeSearch={this.changeSearch}
               clearSearch={this.clearSearch}
               items={[...this.props.giftcardListActive]}
@@ -190,6 +195,7 @@ export class GiftcardListPage extends Component<Props, State> {
                         giftcard={giftcard}
                         onClick={this.props.goToGiftcard}
                         onEdit={this.props.openEditForm}
+                        // @ts-expect-error
                         onRemove={this.props.deleteGiftcard}
                       />
                     ))}
@@ -237,6 +243,7 @@ export class GiftcardListPage extends Component<Props, State> {
             <GiftcardList
               giftcardList={this.props.giftcardListActive}
               onClick={this.props.goToGiftcard}
+              // @ts-expect-error
               onDuplicate={this.props.makeGiftcardCopy}
               onEdit={this.props.openEditForm}
               onRemove={this.props.deleteGiftcard}
@@ -302,6 +309,7 @@ export class GiftcardListPage extends Component<Props, State> {
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.queryParams?.isCreateFormOpen}
+          // @ts-expect-error
           tagList={this.props.allTagsWithTagGroup}
         />
         <GiftcardFormDrawer
@@ -311,6 +319,7 @@ export class GiftcardListPage extends Component<Props, State> {
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.giftcardToEdit}
+          // @ts-expect-error
           tagList={this.props.allTagsWithTagGroup}
         />
         {this.props.queryParams.isBackgroundImageUploaderOpen && (
@@ -430,6 +439,7 @@ export default compose(
       (data: ConsumerGiftcard, options: OptionCallback<ConsumerGiftcard>) => {
         const id = parseInt(queryParams?.giftcardToEdit, 10);
         createOrUpdateGiftcard(id, data, {
+          // @ts-expect-error
           onSuccess: (g) => {
             fetchGiftcardList();
             closeForms(() => push(`/giftcard/${g.id}/`));

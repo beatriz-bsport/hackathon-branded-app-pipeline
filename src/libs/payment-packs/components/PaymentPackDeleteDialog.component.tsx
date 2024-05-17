@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 
@@ -22,6 +21,7 @@ type Props = {
   open: boolean;
   pack: PaymentPack;
   isUsedInCombo: boolean;
+  // @ts-expect-error
   consumerPackSummary: React.Node;
   onDelete: () => void;
   onCancel: (consumerPackId: number) => void;
@@ -48,6 +48,7 @@ export function PaymentPackDeleteDialog(props: Props) {
       <DialogContent>
         {props.pack?.linked_private_pass && (
           <DialogContentText className={classes.warningMessage}>
+            {/* @ts-expect-error */}
             <WarningIcon
               className={classes.warningIcon}
               color="error"
@@ -61,6 +62,7 @@ export function PaymentPackDeleteDialog(props: Props) {
         )}
         {props.isUsedInCombo && (
           <DialogContentText className={classes.warningMessage}>
+            {/* @ts-expect-error */}
             <WarningIcon
               alignItems="center"
               className={classes.warningIcon}
@@ -74,6 +76,7 @@ export function PaymentPackDeleteDialog(props: Props) {
           </DialogContentText>
         )}
         <DialogContentText className={classes.warningMessage}>
+          {/* @ts-expect-error */}
           <WarningIcon
             alignItems="center"
             className={classes.warningIcon}
@@ -88,6 +91,7 @@ export function PaymentPackDeleteDialog(props: Props) {
         <div className={classes.framed}>{props.consumerPackSummary}</div>
       </DialogContent>
       <DialogActions>
+        {/* @ts-expect-error */}
         <Button color="secondary" onClick={props.onCancel} variant="outlined">
           {t('form.paymentPack.delete.actions.cancel')}
         </Button>

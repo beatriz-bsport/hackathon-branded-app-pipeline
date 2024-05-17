@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -12,10 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { makeStyles, Theme } from '@material-ui/core';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 
 import { OptionCallback } from '../../../state/types';
 import type { CompanyTheme } from '../types';
+// @ts-expect-error
 import { SwitchField } from '#components/forms';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -38,6 +39,7 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
   dirty,
   isValid,
   errors,
+  // @ts-expect-error
   setDisplayConfiguration,
   values,
 }) => {
@@ -54,6 +56,7 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
     <form>
       <Form>
         <FeatureListProvider>
+          {/* @ts-expect-error */}
           {(featureList) => (
             <>
               <div className={classes.titleContainer}>
@@ -286,6 +289,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         values.has_coach_access_to_replacement_request,
     };
 
+    // @ts-expect-error
     onSubmit(theme.company, data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

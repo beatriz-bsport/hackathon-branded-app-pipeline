@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -99,12 +98,13 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
       calendarFilters.f_metaActivities = `[${booking.offer.meta_activity.id}]`;
       // @ts-expect-error
       calendarFilters.f_establishments = `[${booking.offer.establishment.id}]`;
-      // @ts-expect-error
       if (!this.props.hideCoach) {
+        // @ts-expect-error
         calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
       }
     }
 
+    // @ts-expect-error
     this.props.goToCalendar(calendarFilters, booking.meta_activity);
   };
 
@@ -120,6 +120,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         <div className={this.props.classes.marginTop}>
           <BookingConsumerItem
             key={`booking-${booking.id}`}
+            // @ts-expect-error
             booking={booking}
             coachDisplay={this.props.coachDisplay}
             goToBroadcast={this.props.goToBroadcast}

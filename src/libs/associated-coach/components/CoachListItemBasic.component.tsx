@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -34,6 +33,7 @@ export const CoachListItem: React.FC<Props> = ({
   return (
     <ListItem
       key={coach.id}
+      // @ts-expect-error
       button={!!onClick}
       divider={divider}
       onClick={onClick}

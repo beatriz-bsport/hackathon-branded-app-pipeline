@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core';
@@ -91,6 +90,7 @@ export const SlotDetailDialog: React.FC<Props> = ({
     setSelectedResourceType(newValue);
   };
 
+  // @ts-expect-error
   const availabilityDetails = detailByResourceType[selectedResourceType];
 
   if (!availabilityDetails) {
@@ -143,6 +143,7 @@ export const SlotDetailDialog: React.FC<Props> = ({
         </div>
 
         <div className={classes.slotContainer}>
+          {/* @ts-expect-error  */}
           {availabilityDetails.map((availabilityDetail, index) => (
             <SlotDetailListItem
               key={`SlotDetailListItem-${index}`}

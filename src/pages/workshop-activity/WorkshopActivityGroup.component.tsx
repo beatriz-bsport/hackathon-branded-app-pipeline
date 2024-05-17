@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState, useCallback } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { ConnectedProps } from 'react-redux';
@@ -33,11 +32,13 @@ import GroupedOfferDuplicate from '#libs/group-offer/components/GroupedOfferDupl
 import GroupedOfferDeleteDialog from '#libs/group-offer/components/GroupedOfferDelete.dialog';
 
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
+// @ts-expect-error
 import OfferCard from '#components/offer/OfferCard.component';
 import MetaActivityGroupsFilter from '#libs/meta-activity/components/MetaActivityGroupsFilter.component';
 import GroupCard from '#libs/group-offer/components/GroupCard.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Offer } from '#libs/offer/types';
+// @ts-expect-error
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
@@ -156,6 +157,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           ...filter,
           page,
           page_size,
+          // @ts-expect-error
           available: true,
           ...(metaActivityId ? { meta_activity__in: [metaActivityId] } : {}),
         },
@@ -362,6 +364,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   };
 
   const onEditOffer = ({ offerId, data }: { offerId: number; data: Offer }) => {
+    // @ts-expect-error
     editOffers(offerId, data, {
       onSuccess: () => {
         handleCloseEditModal();
@@ -372,6 +375,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
       onBackgroundSuccess: () => {
         fetchOfferBulk([
           selectedOfferId,
+          // @ts-expect-error
           ...(data?.custom_selection_ids ?? []),
         ]);
       },
@@ -590,6 +594,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                         bookingsLoading={bookingsLoading || !bookings}
                         companyId={companyId}
                         companyTheme={theme}
+                        // @ts-expect-error
                         creditScaleFactor={theme.pass_credit_factor}
                         goToOfferManagement={navigateToOffer}
                         members={members}
@@ -628,6 +633,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             )}
             {/* Groups Modal */}
             <GroupedOfferCreateForm
+              // @ts-expect-error
               allEstablishments={allEstablishments}
               allRoomBlueprints={allRoomBlueprints}
               availableEstablishments={availableEstablishments}
@@ -636,12 +642,15 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createGroupOffers={handleCreateGroup}
               createLevel={createLevel}
+              // @ts-expect-error
               creditScaleFactor={theme.pass_credit_factor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}
               fetchLevelList={handleFetchLevel}
               fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+              // @ts-expect-error
               generatePreview={generateGroupOffersPreview}
+              // @ts-expect-error
               groupPreview={groupPreview}
               metaActivities={[..._metaActivities]}
               metaActivity={metaActivity}
@@ -649,12 +658,15 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               onClose={handleCloseCreateModal}
               open={openCreateModal}
               resetPreview={resetPreview}
+              // @ts-expect-error
               tagList={allTagsWithTagGroup}
               theme={theme}
+              // @ts-expect-error
               updateLevel={updateLevel}
               zoomAppDetail={zoomAppDetail}
             />
             <GroupedOfferEditDrawer
+              // @ts-expect-error
               allEstablishments={allEstablishments}
               allRoomBlueprints={allRoomBlueprints}
               availableEstablishments={availableEstablishments}
@@ -662,6 +674,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               coaches={coaches}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createLevel={createLevel}
+              // @ts-expect-error
               creditScaleFactor={theme.pass_credit_factor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}
@@ -674,8 +687,10 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               onClose={handleCloseEditGroupModal}
               onSubmit={handleEditGroup}
               open={!!editingGroup}
+              // @ts-expect-error
               tagList={allTagsWithTagGroup}
               theme={theme}
+              // @ts-expect-error
               updateLevel={updateLevel}
               zoomAppDetail={zoomAppDetail}
             />
@@ -696,8 +711,11 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             {!!duplicatingGroup && (
               <GroupedOfferDuplicate
                 createGroupOffers={handleCreateGroup}
+                // @ts-expect-error
                 generatePreview={generateGroupOffersPreview}
+                // @ts-expect-error
                 group={duplicatingGroup}
+                // @ts-expect-error
                 groupPreview={groupPreview}
                 metaActivity={_metaActivities.find(
                   (o) => o.id === duplicatingGroup?.meta_activity,
@@ -728,6 +746,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                   coaches={coaches}
                   coachPaymentRulesByKind={coachPaymentRulesByKind}
                   createLevel={createLevel}
+                  // @ts-expect-error
                   creditScaleFactor={theme.pass_credit_factor}
                   deleteLevel={deleteLevel}
                   fetchLevelList={handleFetchLevel}
@@ -744,11 +763,13 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                   }
                   offer={selectedOffer}
                   onCancel={handleCloseEditModal}
+                  // @ts-expect-error
                   onSubmit={onEditOffer}
                   processing={editOfferProcessing}
                   roomBlueprints={availableRoomBlueprints}
                   showPartnership={theme.has_partnership}
                   similarOffers={similarOffers}
+                  // @ts-expect-error
                   tagList={allTagsWithTagGroup}
                   updateLevel={updateLevel}
                   zoomAppDetail={zoomAppDetail}

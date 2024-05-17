@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -91,9 +90,11 @@ export const PaymentPackFormDrawer = (props: Props) => {
         closeForm={closeForm}
         compatibleServicePass={compatibleServicePass}
         displayNewCheckoutFlow={displayNewCheckoutFlow}
+        // @ts-expect-error
         initial={initial}
         metaActivityList={metaActivityList}
         onCancelText={onCancelText}
+        // @ts-expect-error
         onSubmit={onSubmit}
         paymentPackCategories={paymentPackCategories}
         privateServices={privateServices}

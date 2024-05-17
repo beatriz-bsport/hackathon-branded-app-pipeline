@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withState } from 'recompose';
 
@@ -12,6 +10,7 @@ import { push } from 'connected-react-router';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { parseQueryString } from '../../http';
+// @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 // import Analytics from '#components/analytics/Analytics.component';
@@ -23,6 +22,7 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
+// @ts-expect-error
 import { getFranchiseTheme } from '../../theme';
 import {
   getFranchiseThemeLoading,
@@ -71,6 +71,7 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
       authenticated,
       classes,
       franchiseTheme,
+      // @ts-expect-error
       paymentPackTemplateCompanies,
       context,
     } = this.props;
@@ -109,6 +110,7 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
         <div className={classes.container}>
           <FranchiseCompanyLogin
             authenticated={authenticated}
+            // @ts-expect-error
             companies={companiesSelectable}
             context={context}
             disconnect={this.props.disconnect}

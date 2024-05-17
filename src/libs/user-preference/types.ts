@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   ManagerOnly,
   SortOption,

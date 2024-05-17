@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
@@ -27,6 +26,7 @@ DefaultPopover.args = {
   children: <DefaultChildren />,
   title: 'This is the title',
 };
+// @ts-expect-error
 DefaultPopover.play = async ({ canvasElement }) => {
   const popoverTextAbsent = document.getElementById('popover');
   expect(popoverTextAbsent).toBeNull();

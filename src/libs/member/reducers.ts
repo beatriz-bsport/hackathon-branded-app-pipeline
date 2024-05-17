@@ -1,8 +1,8 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 
 import { handleActions } from 'redux-actions';
+// @ts-expect-error
 import authActionTypes from '../../actions/auth.types';
 
 import {
@@ -124,6 +124,7 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     current: null,
     minimal: null,
   },
+  // @ts-expect-error
   spivi_privacy_settings: {
     error: null,
     loading: false,
@@ -167,7 +168,6 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         )
         .setIn(
           ['allIds'],
-          // @ts-expect-error
           [...state.allIds, ...action.payload.map((m: Member) => m.id)],
         );
     },
@@ -283,7 +283,9 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     },
     [actionTypes.MEMBER_TAG_SUCCESS.toString()]: (state, action) => {
       return state.setIn(
+        // @ts-expect-error
         ['detailData', action.member.id, 'tags'],
+        // @ts-expect-error
         action.member.tags,
       );
     },
@@ -296,10 +298,12 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       return state
         .setIn(
           ['search', 'allIds'],
+          // @ts-expect-error
           state.search.allIds.filter((m) => m.id !== action.src),
         )
         .set(
           'allIds',
+          // @ts-expect-error
           state.allIds.filter((m) => m.id !== action.src),
         );
     },
@@ -312,11 +316,13 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       return state
         .setIn(
           ['search', 'allIds'],
+          // @ts-expect-error
           action.members.map((m: Member) => m.id),
         )
         .setIn(['search', 'loading'], false)
         .merge(
           {
+            // @ts-expect-error
             listData: action.members.reduce(
               (acc: MemberState['byId'], m: Member) => {
                 acc[m.id] = m;
@@ -398,6 +404,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       return state.set('loading', false);
     },
     [actionTypes.HAS_FETCHED_MEMBER.toString()]: (state, action) => {
+      // @ts-expect-error
       const { member } = action;
       return state
         .set('member', member.id)
@@ -405,7 +412,6 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         .set('loading', false)
         .set('historyListIds', [
           member.id,
-          // @ts-expect-error
           ...state.historyListIds.filter((m) => m !== member.id).slice(0, 10),
         ]);
     },
@@ -427,11 +433,14 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       action,
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['detailData', action.note.member, 'notes'],
         [
+          // @ts-expect-error
           action.note,
           ...// @ts-expect-error
           (state.detailData[action.note.member] || { notes: [] }).notes.filter(
+            // @ts-expect-error
             (n: MemberNote) => n.id !== action.note.id,
           ),
         ],
@@ -441,9 +450,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       // @ts-expect-error
       if (state.detailData[action.memberId]) {
         return state.setIn(
+          // @ts-expect-error
           ['detailData', action.memberId, 'notes'],
           // @ts-expect-error
           state.detailData[action.memberId].notes.filter(
+            // @ts-expect-error
             (n: MemberNote) => n.id !== action.noteId,
           ),
         );
@@ -452,6 +463,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     },
 
     [actionTypes.MEMBER_ADD_FILE_LOADING.toString()]: (state, action) => {
+      // @ts-expect-error
       return state.setIn(['upsert', ' loading'], action.loading);
     },
 
@@ -463,6 +475,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       // @ts-expect-error
       if (state.detailData[action.response.member]) {
         return state.setIn(
+          // @ts-expect-error
           ['detailData', action.response.member, 'files'],
           // @ts-expect-error
           [action.response, ...state.detailData[action.response.member].files],
@@ -486,6 +499,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     },
 
     [actionTypes.MEMBER_REMOVE_FILE_LOADING.toString()]: (state, action) => {
+      // @ts-expect-error
       return state.setIn(['upsert', ' loading'], action.loading);
     },
 
@@ -496,9 +510,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       // @ts-expect-error
       if (state.detailData[action.response.memberId]) {
         return state.setIn(
+          // @ts-expect-error
           ['detailData', action.response.memberId, 'files'],
           // @ts-expect-error
           state.detailData[action.response.memberId].files.filter(
+            // @ts-expect-error
             (n: any) => n.id !== action.response.fileId,
           ),
         );

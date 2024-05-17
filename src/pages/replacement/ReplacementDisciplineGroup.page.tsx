@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import uniq from 'lodash/uniq';
 import { connect, ConnectedProps } from 'react-redux';
@@ -225,6 +224,7 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
               {t('disciplineGroup.title')}
             </Typography>
             <DisciplineGroupList
+              // @ts-expect-error
               disciplineGroups={props.disciplineGroupList}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
@@ -239,9 +239,11 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
               {t('compatibleCoaches.title')}
             </Typography>
             <CompatibleCoachesList
+              // @ts-expect-error
               activities={activitiesToDisplay}
               compatibleCoachesByCategory={compatibleCoachesByCategory}
               SCTs={SCTsToDisplay}
+              // @ts-expect-error
               workshops={workshopsToDisplay}
             />
           </Paper>
@@ -255,16 +257,20 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
         open={deleteOpen}
       />
       <DisciplineGroupFormDrawer
+        // @ts-expect-error
         activityList={props.activityList}
         categoryList={myStudioSCTs}
         coachList={props.coachList}
         companyTheme={props.theme}
+        // @ts-expect-error
         disciplineGroup={disciplineGroupSelected}
+        // @ts-expect-error
         establishmentGroupList={props.establishmentGroupList}
         establishmentList={props.establishmentList}
         handleClose={handleEditClose}
         onSubmit={handleSubmit}
         open={editOpen}
+        // @ts-expect-error
         workshopList={props.workshopList}
       />
     </>

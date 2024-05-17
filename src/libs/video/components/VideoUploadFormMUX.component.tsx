@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -111,6 +110,7 @@ export class VideoUploadFormMUX extends React.Component<Props, State> {
       await this.requestStrategy({
         method,
         url,
+        // @ts-expect-error
         providerStrategy: providerType,
         body,
       });
@@ -127,6 +127,7 @@ export class VideoUploadFormMUX extends React.Component<Props, State> {
           fowardedRef={(ref) => {
             this.DROPZONE_REF = ref;
           }}
+          // @ts-expect-error
           processing={this.state.isUploading}
         />
         {this.state.isUploading && (

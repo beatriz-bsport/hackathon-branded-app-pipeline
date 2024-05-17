@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import compact from 'lodash/compact';
 import { compose } from 'recompose';
@@ -30,8 +29,10 @@ import {
   COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
   COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+// @ts-expect-error
 import { TextField, AlertError } from '../../../../components/forms';
 
+// @ts-expect-error
 import CoachPaymentRuleGroupSchema from './schemaValidation';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
@@ -107,6 +108,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
+                      {/* @ts-expect-error */}
                       <CoachPaymentRuleSelectorStyled
                         isClearable
                         noMulti
@@ -149,6 +151,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
+                      {/* @ts-expect-error */}
                       <CoachPaymentRuleSelectorStyled
                         isClearable
                         noMulti
@@ -190,6 +193,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
+                      {/* @ts-expect-error */}
                       <CoachPaymentRuleSelectorStyled
                         isClearable
                         noMulti
@@ -267,6 +271,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                   <TableCell>
                                     <PrivateSlotSelectorStyled
                                       noMulti
+                                      // @ts-expect-error
                                       id={`private_slots_coach_payment_rules.${i}.private_slot`}
                                       onChange={(item: {
                                         value: number;
@@ -287,6 +292,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                     />
                                   </TableCell>
                                   <TableCell>
+                                    {/* @ts-expect-error */}
                                     <CoachPaymentRuleSelectorStyled
                                       noMulti
                                       coachPaymentRulesList={
@@ -415,6 +421,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     <CoachSelector
                       associatedCoachOutput
                       isClearable
+                      // @ts-expect-error
                       isMulti
                       nullCurrentValue
                       coaches={associated_coaches.filter(
@@ -454,6 +461,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
 }
 
 export const CoachPaymentRuleGroupFormHOC = withFormik({
+  // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
     if (initial) {
       return {
@@ -486,6 +494,7 @@ export const CoachPaymentRuleGroupFormHOC = withFormik({
     };
   },
   validationSchema: CoachPaymentRuleGroupSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),
@@ -516,5 +525,6 @@ const styles = (theme: MaterialTheme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation(['paymentRules']),
+  // @ts-expect-error
   withStyles(styles),
 )(CoachPaymentRuleGroupFormFields);

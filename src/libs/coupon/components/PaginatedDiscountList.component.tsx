@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import DiscountListItem from './DiscountListItem.component';
 

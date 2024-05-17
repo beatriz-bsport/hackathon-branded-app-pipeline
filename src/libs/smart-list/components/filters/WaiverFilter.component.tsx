@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -42,6 +41,7 @@ export class WaiverFilter extends Component<Props> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   container: {},
   content: {
@@ -56,5 +56,6 @@ const styles = (theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['smartList']),
+  // @ts-expect-error
   withStyles(styles),
 )(WaiverFilter);

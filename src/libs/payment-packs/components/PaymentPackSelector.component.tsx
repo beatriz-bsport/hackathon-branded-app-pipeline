@@ -1,9 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 
 import classNames from 'classnames';
+// @ts-expect-error
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
+// @ts-expect-error
 import Selector from '../../../components/Selector.component';
 
 import type {
@@ -35,11 +36,13 @@ type OptionProps = {
 function paymentPackOption(props: OptionProps) {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
+    // @ts-expect-error
     <div ref={innerRef} {...innerProps}>
       <PaymentPackSummary
         button
         noDivider
         isFocused={isFocused}
+        // @ts-expect-error
         paymentPack={data.pp}
         selected={isSelected}
       />
@@ -57,9 +60,11 @@ export function PaymentPackSelector(props: Props) {
     helperText,
     nullCurrentValue,
     autofocus,
+    // @ts-expect-error
     error,
   } = props;
   const suggestions = [...paymentPacks]
+    // @ts-expect-error
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
   return (
@@ -74,8 +79,10 @@ export function PaymentPackSelector(props: Props) {
       nullCurrentValue={nullCurrentValue}
       onChange={(event: number | { value: number; label: string }) => {
         if (props.isMulti) {
+          // @ts-expect-error
           onChange(event);
         } else {
+          // @ts-expect-error
           onChange(event.value);
         }
       }}

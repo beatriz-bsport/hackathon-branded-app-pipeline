@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -94,6 +93,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
   Props,
   State
 > {
+  // @ts-expect-error
   constructor(props) {
     super(props);
     this.state = {
@@ -101,6 +101,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     };
   }
 
+  // @ts-expect-error
   state: State = {};
 
   onCancel = () => {
@@ -108,6 +109,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       kind: this.props.createFormOpenType,
     });
     this.props.onCancel();
+    // @ts-expect-error
     this.props.closeForm();
     this.setState({ sourceObjectId: null });
   };
@@ -130,6 +132,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     } else {
       trackFormSuccess(undefined, { kind: this.props.createFormOpenType });
       this.props.onCreateMarketingNotification(n, {});
+      // @ts-expect-error
       this.props.closeForm();
       this.setState({ sourceObjectId: null });
     }
@@ -190,9 +193,11 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
               : this.props.metaActivities
           }
           onCancel={this.onCancel}
+          // @ts-expect-error
           onClose={this.props.closeForm}
           onSubmit={(sourceObjectId) => {
             this.setState({
+              // @ts-expect-error
               sourceObjectId,
             });
           }}
@@ -266,6 +271,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     ) {
       return (
         <MarketingRuleFormBooking
+          // @ts-expect-error
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.emailDetails}
           emailListLoading={this.props.emailListLoading}
@@ -290,6 +296,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     if (identifier === 'private_service') {
       return (
         <MarketingRuleFormPrivateBooking
+          // @ts-expect-error
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.emailDetails}
           emailListLoading={this.props.emailListLoading}
@@ -314,6 +321,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       return (
         <MarketingRuleFormProduct
           emailDetailLoading={this.props.emailDetailLoading}
+          // @ts-expect-error
           emailDetails={this.props.emailDetails}
           emailListLoading={this.props.emailListLoading}
           emails={this.props.emailSummaryList}
@@ -330,6 +338,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           resolvedGenericTags={this.props.resolvedGenericTags}
           smartListLoading={this.props.smartListLoading}
           smartLists={this.props.smartLists}
+          // @ts-expect-error
           tags={this.getMergeTags()}
         />
       );
@@ -342,6 +351,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       return (
         <MarketingRuleFormBirthday
           emailDetailLoading={this.props.emailDetailLoading}
+          // @ts-expect-error
           emailDetails={this.props.emailDetails}
           emailListLoading={this.props.emailListLoading}
           emails={this.props.emailSummaryList}
@@ -355,6 +365,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onSubmitIntent={this.onSubmitIntent}
           resolvedGenericTags={this.props.resolvedGenericTags}
           smartLists={this.props.smartLists}
+          // @ts-expect-error
           tags={this.getMergeTags()}
         />
       );
@@ -378,6 +389,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           resolvedGenericTags={this.props.resolvedGenericTags}
           smartListLoading={this.props.smartListLoading}
           smartLists={this.props.smartLists}
+          // @ts-expect-error
           tags={this.getMergeTags()}
         />
       );

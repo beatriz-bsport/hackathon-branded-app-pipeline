@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 import { connect, ConnectedProps } from 'react-redux';
@@ -7,7 +6,9 @@ import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
+// @ts-expect-error
 import EstablishmentDetail from './EstablishmentDetail.page';
+// @ts-expect-error
 import EstablishmentCalendar from './EstablishmentCalendar.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
@@ -68,6 +69,7 @@ const connector = connect(null, {
 
 export default compose<any, Props>(
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
     id: 'id:number',
   }),

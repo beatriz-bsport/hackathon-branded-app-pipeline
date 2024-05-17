@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
@@ -17,11 +16,13 @@ import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
 import { RootState } from '../../../reducers';
+// @ts-expect-error
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { fetchBasket } from '#libs/checkout/actions';
 import { getBasket } from '#libs/checkout/selectors';
+// @ts-expect-error
 import CheckoutItemListItem from '#libs/checkout/components/CheckoutItemListItem.component';
 import { Offer_FULL } from '#libs/offer/types';
 import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
@@ -37,6 +38,7 @@ import {
   fetchOfferBulk,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
 } from '#libs/offer/actions';
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
@@ -90,36 +92,45 @@ type Props = OwnProps &
 
 export class ValidationCheckout extends React.Component<Props> {
   componentDidMount() {
+    // @ts-expect-error
     this.props.fetchMembershipByCompany(this.props.companyId);
 
     if (
       this.props.queryParams?.basket &&
       this.props.queryParams.basket !== 'null'
     ) {
+      // @ts-expect-error
       this.props.fetchBasket(this.props.queryParams.basket, {
         onSuccess: this.fetchOfferData,
       });
     }
     this.fetchOfferData();
 
+    // @ts-expect-error
     if (this.props.membership) {
       this.fetchMemberData();
     }
   }
 
   componentDidUpdate(prevProps: Props) {
+    // @ts-expect-error
     if (!prevProps.membership && this.props.membership) {
       this.fetchMemberData();
     }
   }
 
   fetchMemberData = () => {
+    // @ts-expect-error
     this.props.fetchMember(this.props.membership.id);
 
+    // @ts-expect-error
     if (this.props.theme.is_referral_program_activated) {
+      // @ts-expect-error
       this.props.retrieveReferralProgramForCompany(
+        // @ts-expect-error
         this.props.membership.company,
       );
+      // @ts-expect-error
       this.props.retrieveReferralMemberStatus(this.props.membership.id);
     }
   };
@@ -156,6 +167,7 @@ export class ValidationCheckout extends React.Component<Props> {
             setTimeout(this.trackBookings, 500);
           });
 
+          // @ts-expect-error
           this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
           this.props.fetchOfferWaitingListPositionList(
             this.props.offerPreBookedIdList,
@@ -193,6 +205,7 @@ export class ValidationCheckout extends React.Component<Props> {
           <Typography className={classes.confirmation}>
             {getBookingErrorMessage(
               this.props.t,
+              // @ts-expect-error
               this.props.offerNotBookableIdWithErrorCodeList[0],
             )}
           </Typography>
@@ -255,16 +268,22 @@ export class ValidationCheckout extends React.Component<Props> {
   render() {
     const { classes } = this.props;
 
+    // @ts-expect-error
     const referralLink = this.props.theme.is_referral_program_activated
       ? `${Config.PUBLIC_URL}${buildMemberReferralLink(
+          // @ts-expect-error
           this.props.companyId,
+          // @ts-expect-error
           this.props?.member?.referral_uuid,
         )}`
       : '';
 
     const hasToDisplayReferralink =
+      // @ts-expect-error
       this.props.theme.is_referral_program_activated &&
+      // @ts-expect-error
       this.props.referralProgram &&
+      // @ts-expect-error
       this.props.referralMemberStatus?.nb_remaining_referral_uses;
 
     return (
@@ -299,8 +318,10 @@ export class ValidationCheckout extends React.Component<Props> {
                           ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
+                              // @ts-expect-error
                               coachDisplay={this.props.theme.coach_display}
                               hideCoach={this.props.hideCoach}
+                              // @ts-expect-error
                               offer={o}
                               offerSpot={o.spot_id}
                               offerSpotInformation={o.spot_information}
@@ -309,6 +330,7 @@ export class ValidationCheckout extends React.Component<Props> {
                         </div>
                       </div>
                     )}
+                    {/* @ts-expect-error */}
                     {this.props.basket && (
                       <div className={classes.section}>
                         <div className={classes.iconAndText}>
@@ -318,6 +340,7 @@ export class ValidationCheckout extends React.Component<Props> {
                           </Typography>
                         </div>
                         <div className={classes.paper}>
+                          {/* @ts-expect-error */}
                           {this.props.basket.checkout_items.map((ci) => (
                             <CheckoutItemListItem
                               key={ci.id}
@@ -343,17 +366,22 @@ export class ValidationCheckout extends React.Component<Props> {
                           ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
+                              // @ts-expect-error
                               coachDisplay={this.props.theme.coach_display}
                               displayPositionInWaitingList={
+                                // @ts-expect-error
                                 this.props.waitingListConfiguration
                                   ?.display_member_position &&
+                                // @ts-expect-error
                                 this.props.waitingListConfiguration?.dynamic ===
                                   WAITING_LIST_DYNAMIC_ORDERED
                               }
                               hideCoach={this.props.hideCoach}
+                              // @ts-expect-error
                               offer={o}
                               offerSpotInformation={o.spot_information}
                               waitingListPosition={
+                                // @ts-expect-error
                                 this.props.offerStatusWaitinListPositionById[
                                   o.id
                                 ]?.waiting_list_position
@@ -385,8 +413,10 @@ export class ValidationCheckout extends React.Component<Props> {
                             return (
                               <div key={o.id} className={classes.paper}>
                                 <OfferBookableItem
+                                  // @ts-expect-error
                                   coachDisplay={this.props.theme.coach_display}
                                   hideCoach={this.props.hideCoach}
+                                  // @ts-expect-error
                                   offer={o}
                                   offerSpotInformation={o.spot_information}
                                 />
@@ -418,6 +448,7 @@ export class ValidationCheckout extends React.Component<Props> {
                     <div className={classes.referralLinkContainer}>
                       <ReferralLinkIncentive
                         referralLink={referralLink}
+                        // @ts-expect-error
                         referralProgram={this.props.referralProgram}
                       />
                     </div>
@@ -554,44 +585,56 @@ const styles = (theme: Theme) =>
 
 const mapWithHandlers = {
   onContinue:
-    ({ replace, companyId, queryParams }) =>
-    () => {
-      if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
-        if (queryParams && queryParams.onValidation === 'close') {
-          window.close();
+    // @ts-expect-error
+
+
+      ({ replace, companyId, queryParams }) =>
+      () => {
+        if (WidgetUtils.isWidget()) {
+          WidgetUtils.paymentSuccess();
+          if (queryParams && queryParams.onValidation === 'close') {
+            window.close();
+          }
+          return;
         }
-        return;
-      }
-      replace(`/c/${companyId}`);
-    },
+        replace(`/c/${companyId}`);
+      },
   goToMarketplace:
-    ({ replace, companyId, queryParams, theme }) =>
-    () => {
-      if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
-        if (queryParams && queryParams.onValidation === 'close') {
-          window.close();
+    // @ts-expect-error
+
+
+      ({ replace, companyId, queryParams, theme }) =>
+      () => {
+        if (WidgetUtils.isWidget()) {
+          WidgetUtils.paymentSuccess();
+          if (queryParams && queryParams.onValidation === 'close') {
+            window.close();
+          }
+          return;
         }
-        return;
-      }
-      replace(urlToMarketplace(theme.company_name, companyId));
-    },
+        replace(urlToMarketplace(theme.company_name, companyId));
+      },
 };
 
 const connector = connect(
   (
     state,
     {
+      // @ts-expect-error
       offerBookedIdList,
+      // @ts-expect-error
       offerPreBookedIdList,
+      // @ts-expect-error
       offerNotBookableIdWithErrorCodeList,
+      // @ts-expect-error
       offerExtraDataList,
     },
   ) => ({
+    // @ts-expect-error
     hideCoach: themeSelectors.getTheme(state).hideCoach,
     offerBookedList: withExtraDataFromQueryParams(
       withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        // @ts-expect-error
         state,
         offerBookedIdList,
       ),
@@ -599,6 +642,7 @@ const connector = connect(
     ),
     offerPreBookedList: withExtraDataFromQueryParams(
       withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        // @ts-expect-error
         state,
         offerPreBookedIdList,
       ),
@@ -606,7 +650,9 @@ const connector = connect(
     ),
     offerNotBookableList: withExtraDataFromQueryParams(
       withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        // @ts-expect-error
         state,
+        // @ts-expect-error
         offerNotBookableIdWithErrorCodeList.map((ie) => ie[0]),
       ),
       offerExtraDataList,
@@ -633,6 +679,7 @@ export default compose<any, OwnProps>(
   withTranslation(['checkout', 'snackbar']),
 
   connect(
+    // @ts-expect-error
     (state: RootState, { companyId, queryParams }) => ({
       theme: themeSelectors.getTheme(state),
       basket:
@@ -672,7 +719,9 @@ export default compose<any, OwnProps>(
     offerBookedIdList: [
       ...((user_registration_response || {}).offers_booked || []),
       ...flatten(
+        // @ts-expect-error
         ((basket || {}).checkout_items || []).map((ci) =>
+          // @ts-expect-error
           ci?.extra_data?.offers_data?.map((d) => d.offer_id),
         ),
       ),

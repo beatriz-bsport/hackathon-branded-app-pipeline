@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -57,6 +56,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
     errors = props.errors[props.componentType];
   }
 
+  // @ts-expect-error
   const SettingForm = ExportableComponentSettingForm[props.componentType];
 
   if (!SettingForm) return null;

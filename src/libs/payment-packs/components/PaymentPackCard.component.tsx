@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import memoize from 'memoize-one';
 import { compose, withStateHandlers } from 'recompose';
@@ -34,6 +33,7 @@ import {
   getCreditInfo,
 } from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+// @ts-expect-error
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
 import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
@@ -703,14 +703,18 @@ export class PaymentPackCard extends Component<Props, State> {
             <PaymentPackScaleCreditDialog
               loading={this.props.scaleCreditLoading}
               onClose={this.props.toogleScaleMenuOpen}
+              // @ts-expect-error
               onSubmit={(data) =>
                 this.props.onScaleCredit(this.props.pack.id, data)
               }
               open={this.props.scaleMenuOpen}
             />
             <PaymentPackCompatibilityDialog
+              // @ts-expect-error
               activities={metaActivities}
+              // @ts-expect-error
               categories={categories}
+              // @ts-expect-error
               establishments={establishments}
               isManager={isManager}
               onClose={() => this.setState({ compatibilityDialogOpen: false })}
@@ -718,10 +722,12 @@ export class PaymentPackCard extends Component<Props, State> {
               open={this.state.compatibilityDialogOpen}
             />
             <PaymentPackTagsDialog
+              // @ts-expect-error
               blacklistTags={blacklist_tags}
               onClose={() => this.setState({ tagsDialogOpen: false })}
               onModify={this.onEditPaymentPack}
               open={this.state.tagsDialogOpen}
+              // @ts-expect-error
               whitelistTags={whitelist_tags}
             />
           </Paper>
@@ -841,6 +847,7 @@ const styles = (theme: any) => ({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['paymentPack', 'datetime']),
   withStateHandlers(

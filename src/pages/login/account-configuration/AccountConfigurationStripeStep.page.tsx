@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
@@ -43,6 +42,7 @@ export class AccountConfigurationStripeStepPage extends Component<
       return_url: AccountConfigurationStripeStepUrl,
     })
       .then((r) => {
+        // @ts-expect-error
         window.location = r.data.url;
       })
       .catch((err) => {

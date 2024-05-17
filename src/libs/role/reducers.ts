@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
@@ -68,10 +67,12 @@ export default handleActions<Immutable.Immutable<RoleState>>(
         .set('users', payload)
         .set(
           'allIds',
+          // @ts-expect-error
           payload.map((user) => user.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, r) => {
               acc[r.id] = r;
               return acc;
@@ -87,8 +88,10 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state.set('error', payload);
     },
     [userRoleUpdate.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const idx = state.users.findIndex((u) => u.id === payload.id);
       const idx_ = idx >= 0 ? idx : state.users.length;
+      // @ts-expect-error
       return state.setIn(['users', idx_], payload);
     },
     [userRoleUpdate.isLoading.toString()]: (state, { payload }) => {
@@ -98,8 +101,10 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [userCommissionUpdate.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const index = state.users.findIndex((user) => user.id === payload.id);
       const index_ = index >= 0 ? index : state.users.length;
+      // @ts-expect-error
       return state.setIn(['users', index_], payload);
     },
     [userCommissionUpdate.isLoading.toString()]: (state, { payload }) => {
@@ -111,6 +116,7 @@ export default handleActions<Immutable.Immutable<RoleState>>(
     [userRoleDelete.success.toString()]: (state, { payload }) => {
       return state.set(
         'users',
+        // @ts-expect-error
         state.users.filter((u) => u.id !== payload),
       );
     },
@@ -124,11 +130,13 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state
         .setIn(
           ['role', 'allIds'],
+          // @ts-expect-error
           payload.map((r) => r.id),
         )
         .merge(
           {
             role: {
+              // @ts-expect-error
               byId: payload.reduce((acc, r) => {
                 acc[r.id] = r;
                 return acc;
@@ -146,14 +154,20 @@ export default handleActions<Immutable.Immutable<RoleState>>(
     },
     [roleUpdate.success.toString()]: (state, { payload }) => {
       const allIds = state.role.allIds.asMutable();
+      // @ts-expect-error
       const index = allIds.findIndex((id) => id === payload.id);
+      // @ts-expect-error
       index === -1 && allIds.push(payload.id);
-      return state
-        .setIn(['role', 'allIds'], allIds)
-        .setIn(['role', 'byId', payload.id], payload);
+      return (
+        state
+          .setIn(['role', 'allIds'], allIds)
+          // @ts-expect-error
+          .setIn(['role', 'byId', payload.id], payload)
+      );
     },
     [roleUpdate.delete.toString()]: (state, { payload }) => {
       const allIds = state.role.allIds.asMutable();
+      // @ts-expect-error
       const index = allIds.findIndex((id) => id === payload);
       index !== -1 && allIds.splice(index, 1);
       return state.setIn(['role', 'allIds'], allIds);
@@ -165,16 +179,21 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       state.setIn(['users_paginated', 'error'], payload),
     [userRoleListPaginated.success.toString()]: (state, { payload }) =>
       state
+        // @ts-expect-error
         .setIn(['users_paginated', 'count'], payload.count)
+        // @ts-expect-error
         .setIn(['users_paginated', 'next_page'], payload.next_page)
+        // @ts-expect-error
         .setIn(['users_paginated', 'previous_page'], payload.previous_page)
         .setIn(
           ['users_paginated', 'allIds'],
+          // @ts-expect-error
           payload.results.map((r) => r.id),
         )
         .merge(
           {
             users_paginated: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -188,10 +207,12 @@ export default handleActions<Immutable.Immutable<RoleState>>(
         .set('users', payload)
         .set(
           'allIds',
+          // @ts-expect-error
           payload.map((user) => user.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, r) => {
               acc[r.id] = r;
               return acc;
@@ -207,8 +228,10 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state.set('error', payload);
     },
     [franchiseUserRoleUpdate.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const idx = state.users.findIndex((u) => u.id === payload.id);
       const idx_ = idx >= 0 ? idx : state.users.length;
+      // @ts-expect-error
       return state.setIn(['users', idx_], payload);
     },
     [franchiseUserRoleUpdate.isLoading.toString()]: (state, { payload }) => {
@@ -220,6 +243,7 @@ export default handleActions<Immutable.Immutable<RoleState>>(
     [franchiseUserRoleDelete.success.toString()]: (state, { payload }) => {
       return state.set(
         'users',
+        // @ts-expect-error
         state.users.filter((u) => u.id !== payload),
       );
     },
@@ -227,8 +251,10 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       const index = state.users.findIndex((user) => user.id === payload.id);
       const index_ = index >= 0 ? index : state.users.length;
+      // @ts-expect-error
       return state.setIn(['users', index_], payload);
     },
     [franchiseUserCommissionUpdate.isLoading.toString()]: (
@@ -250,11 +276,13 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state
         .setIn(
           ['franchiseRole', 'allIds'],
+          // @ts-expect-error
           payload.map((r) => r.id),
         )
         .merge(
           {
             franchiseRole: {
+              // @ts-expect-error
               byId: payload.reduce((acc, r) => {
                 acc[r.id] = r;
                 return acc;
@@ -275,14 +303,20 @@ export default handleActions<Immutable.Immutable<RoleState>>(
     },
     [franchiseRoleUpdate.success.toString()]: (state, { payload }) => {
       const allIds = [...state.franchiseRole.allIds];
+      // @ts-expect-error
       const index = allIds.findIndex((id) => id === payload.id);
+      // @ts-expect-error
       index === -1 && allIds.push(payload.id);
-      return state
-        .setIn(['franchiseRole', 'allIds'], allIds)
-        .setIn(['franchiseRole', 'byId', payload.id], payload);
+      return (
+        state
+          .setIn(['franchiseRole', 'allIds'], allIds)
+          // @ts-expect-error
+          .setIn(['franchiseRole', 'byId', payload.id], payload)
+      );
     },
     [franchiseRoleUpdate.delete.toString()]: (state, { payload }) => {
       const allIds = [...state.franchiseRole.allIds];
+      // @ts-expect-error
       const index = allIds.findIndex((id) => id === payload);
       index !== -1 && allIds.splice(index, 1);
       return state.setIn(['franchiseRole', 'allIds'], allIds);
@@ -296,16 +330,21 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       state.setIn(['users_paginated', 'error'], payload),
     [franchiseUserRoleListPaginated.success.toString()]: (state, { payload }) =>
       state
+        // @ts-expect-error
         .setIn(['users_paginated', 'count'], payload.count)
+        // @ts-expect-error
         .setIn(['users_paginated', 'next_page'], payload.next_page)
+        // @ts-expect-error
         .setIn(['users_paginated', 'previous_page'], payload.previous_page)
         .setIn(
           ['users_paginated', 'allIds'],
+          // @ts-expect-error
           payload.results.map((r) => r.id),
         )
         .merge(
           {
             users_paginated: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;

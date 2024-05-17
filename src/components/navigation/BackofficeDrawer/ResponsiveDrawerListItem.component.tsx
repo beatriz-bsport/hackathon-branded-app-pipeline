@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -67,18 +66,22 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
   return (
     <div
       className={classNames({
+        // @ts-expect-error
         [classes.relativeDiv]: item.icon === TutorialIconWithAlertings,
       })}
     >
       <ListItem
+        // @ts-expect-error
         ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
         button
         aria-describedby={id}
         className={classNames({
           [classes.nestedItem]: isNested,
         })}
+        // @ts-expect-error
         dense={item.dense || isNested}
         onClick={() => {
+          // @ts-expect-error
           item.action && item.action();
           onMenuItemClick();
         }}
@@ -93,11 +96,14 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
 
         {!iconsOnly && (
           <ListItemText
+            // @ts-expect-error
             id={item.id}
+            // @ts-expect-error
             primary={item.text}
             primaryTypographyProps={{
               style: { color: 'initial' },
             }}
+            // @ts-expect-error
             secondary={item.subtext}
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
@@ -108,6 +114,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
         )}
       </ListItem>
       <Hidden smDown>
+        {/* @ts-expect-error */}
         {item.icon === TutorialIconWithAlertings &&
         updateUserAcknowlegdeTutorial &&
         !tutorialDialogOpen ? (

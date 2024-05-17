@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import MUIDataTable from 'mui-datatables';
@@ -24,15 +23,18 @@ const renderRows = (subscriptions: Array<Subscription>, t: TFunction) => {
     member: renderMemberName(
       {
         memberName: sub.memberName,
+        // @ts-expect-error
         memberArchived: sub.memberArchived,
       },
       t,
     ),
     name: sub.name,
+    // @ts-expect-error
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
     status: t(`billing_plan_status.${sub.status}`),
     recurrent_price: `${getCurrencyDisplayWithPrice(
+      // @ts-expect-error
       parseFloat(sub.recurrent_price).toFixed(2),
     )}`,
     paymentMethodInfo: {
@@ -105,6 +107,7 @@ const getColumnData = (
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
+                  // @ts-expect-error
                   '&>*': { marginRight: 8 },
                 }}
               >
@@ -228,6 +231,7 @@ export class SubscriptionTable extends Component<Props, State> {
       onChangeRowsPerPage: (rows: number) => {
         this.handleRowsPerPageChange(rows);
       },
+      // @ts-expect-error
       onTableChange: (action, tableState: SubscriptionQueryParams) => {
         this.handlePageChange(tableState.page + 1);
       },
@@ -255,6 +259,7 @@ export class SubscriptionTable extends Component<Props, State> {
                 ? []
                 : renderRows(this.props.subscriptionList, this.props.t)
             }
+            // @ts-expect-error
             options={{ ...options, print: hasPermission }}
             title={this.props.title}
           />

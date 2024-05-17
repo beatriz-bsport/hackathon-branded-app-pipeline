@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -71,6 +70,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       !booking?.offer.meta_activity?.custom_restriction_rule ||
       booking?.offer.meta_activity?.custom_restriction_rule?.length === 0
     ) {
+      // @ts-expect-error
       return (booking || {}).is_discardable;
     }
     const custom_restriction_rule =
@@ -132,14 +132,19 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                     </Alert>
                     {similarBookings?.map((b) => (
                       <div key={b.id} className={classes.item}>
+                        {/* @ts-expect-error */}
                         <OfferListItemV2
                           divider={false}
                           offer={{
+                            // @ts-expect-error
                             ...b.offer,
+                            // @ts-expect-error
                             coach: b.coach,
+                            // @ts-expect-error
                             customLevel: b.customLevel,
                           }}
                         />
+                        {/* @ts-expect-error */}
                         {!b.is_discardable && (
                           <Typography color="error">
                             {t('consumer.booking.willNotBeRefund')}
@@ -179,15 +184,20 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                     </Alert>
                     {similarBookings?.map((b) => (
                       <div key={b.id} className={classes.item}>
+                        {/* @ts-expect-error */}
                         <OfferListItemV2
                           divider={false}
                           offer={{
+                            // @ts-expect-error
                             ...b.offer,
+                            // @ts-expect-error
                             coach: b.coach,
+                            // @ts-expect-error
                             customLevel: b.customLevel,
                           }}
                         />
                         {t(
+                          // @ts-expect-error
                           b.is_discardable
                             ? 'consumer.booking.willBeRefund'
                             : 'consumer.booking.willNotBeRefund',

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { Dispatch, OptionCallback } from '../../state/types';
@@ -33,6 +32,7 @@ export const getLastClockin = ({ options }: { options?: OptionCallback }) => {
       const response = await fetchLastClockInListAPI({});
 
       dispatch(
+        // @ts-expect-error
         retrieveLastClockInActions.success(response.data?.results?.[0] ?? {}),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -61,6 +61,7 @@ export const clockIn = (
     try {
       const response = await clockInAPI(params);
       dispatch(clockInActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -86,6 +87,7 @@ export const clockOut = (
     try {
       const response = await clockOutAPI(params);
       dispatch(clockInActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -240,6 +242,7 @@ export function exportStaffAttendanceHistory(
                 backgroundTaskUuid,
                 options?.backgroundDialog?.message,
                 options?.backgroundDialog?.title,
+                // @ts-expect-error
                 response.data,
               ),
             );

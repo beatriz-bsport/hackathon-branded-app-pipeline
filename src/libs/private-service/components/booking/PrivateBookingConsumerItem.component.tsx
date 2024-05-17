@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
@@ -43,6 +42,7 @@ export const PrivateBookingConsumerItem = (props: Props) => {
         <Typography variant="h5">{private_booking.name}</Typography>
       </div>
       <div className={classes.subtitle}>
+        {/* @ts-expect-error */}
         <Typography variant="subtitle2">{private_booking.subtitle}</Typography>
       </div>
       <Divider />
@@ -100,18 +100,24 @@ export const PrivateBookingConsumerItem = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   container: {},
   largeAvatar: {
+    // @ts-expect-error
     width: theme.spacing(14),
+    // @ts-expect-error
     height: theme.spacing(14),
+    // @ts-expect-error
     marginBottom: theme.spacing(-4),
   },
   translucentPaper: {
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
   subtitle: {
+    // @ts-expect-error
     paddingLeft: theme.spacing(2),
+    // @ts-expect-error
     paddingBottom: theme.spacing(1),
   },
   header: {
+    // @ts-expect-error
     paddingLeft: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
@@ -122,14 +128,19 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    // @ts-expect-error
     paddingTop: theme.spacing(1),
+    // @ts-expect-error
     marginLeft: theme.spacing(1),
+    // @ts-expect-error
     marginBottom: theme.spacing(2),
     '&>*': {
+      // @ts-expect-error
       marginRight: theme.spacing(1),
     },
   },
   leftIcon: {
+    // @ts-expect-error
     marginRight: theme.spacing(1),
   },
 }));

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { SettingsState } from './types';
@@ -46,11 +45,13 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
       state
         .setIn(
           ['customShopRedirection', 'allIds'],
+          // @ts-expect-error
           payload.map((p) => p.id),
         )
         .merge(
           {
             customShopRedirection: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -128,11 +129,13 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
       state
         .setIn(
           ['customMobilePopup', 'allIds'],
+          // @ts-expect-error
           payload.map((p) => p.id),
         )
         .merge(
           {
             customMobilePopup: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;

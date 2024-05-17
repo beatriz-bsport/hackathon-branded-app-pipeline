@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
@@ -71,6 +70,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         ...customLevels.map((level) => ({
           value: level.id,
           label: getLevelTranslation(level.id, level.name, t),
+          // @ts-expect-error
           levelColor: getLevelColor(level.id, level.color, theme),
         })),
       ].sort((a, b) => a.value - b.value),
@@ -102,6 +102,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   );
 
   const metaActivitiesOption = useMemo(() => {
+    // @ts-expect-error
     const defaultArray = [];
     if (Object.values(metaActivities)) {
       return Object.values(metaActivities)
@@ -111,6 +112,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
           value: ma.id,
         }));
     }
+    // @ts-expect-error
     return defaultArray;
   }, [metaActivities]);
 
@@ -163,6 +165,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
           onSearch={onSearch}
         />
       )}
+      {/* @ts-expect-error */}
       <MarketplaceFilter
         id="bs-marketplace-calendar-filters__activity"
         onSelect={handleChange('activity__in')}
@@ -179,6 +182,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         text={t('offer:levels.select.placeholder')}
       />
       {!hideCoach && (
+        // @ts-expect-error
         <MarketplaceFilter
           id="bs-marketplace-calendar-filters__coach"
           onSelect={handleChange('coaches')}
@@ -187,9 +191,11 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
           text={t('coach:coach')}
         />
       )}
+      {/* @ts-expect-error */}
       <MarketplaceFilter
         id="bs-marketplace-calendar-filters__establishment"
         onSelect={handleChange('establishments')}
+        // @ts-expect-error
         options={establishmentsOptions.concat(disabledEstablishmentOptions)}
         selectedOptions={filters.establishments}
         text={t('establishment:room')}
@@ -197,6 +203,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       {showMultiLocalization &&
         establishmentGroupList &&
         establishmentGroupList.length !== 0 && (
+          // @ts-expect-error
           <MarketplaceFilter
             id="bs-marketplace-calendar-filters__establishment_group"
             onSelect={handleChange('establishment_group__in')}

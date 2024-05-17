@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -40,6 +39,7 @@ import {
 import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackTemplateInstanceFormDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
 import PaymentPackTemplateInstanceDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
@@ -80,6 +80,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
             deletePaymentPackTemplate={this.props.openPaymentPackDeleteDialog}
             editPaymentPackTemplate={this.props.openEditDialog}
             onCreatePaymentPackTemplateInstance={this.props.openCreateForm}
+            // @ts-expect-error
             onDelete={this.props.openDeleteDialog}
             onDeleteCompany={this.props.openDeleteDialog}
             paymentPackTemplate={this.props.paymentPackTemplate}
@@ -87,6 +88,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
         </Grid>
         <Grid item md={6} xs={12}>
           <Paper>
+            {/* @ts-expect-error */}
             <PaginatedConsumerPackList
               allowedFranchisees={this.props.allowedFranchisees}
               itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
@@ -108,6 +110,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
           </Paper>
         </Grid>
         <PaymentPackTemplateInstanceFormDialog
+          // @ts-expect-error
           companies={this.props.companies}
           onClose={this.props.closeCreateForm}
           onSubmit={this.props.createPaymentPackTemplateInstance}
@@ -123,6 +126,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
         {!!this.props.isEditDialogOpen && (
           <PaymentPackTemplateFormDrawer
             initial={this.props.paymentPackTemplate}
+            // @ts-expect-error
             onClose={this.props.closeEditDialog}
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             open={this.props.isEditDialogOpen}
@@ -157,6 +161,7 @@ const connector = connect(
   }),
   {
     pushRouter: pushAction,
+    // @ts-expect-error
     goToConsumerPaymentPackDetail: (companyId, memberId, consumerPackId) =>
       navigateAsCompanyAdmin(
         companyId,
@@ -230,6 +235,7 @@ const mapWithHandlers = {
     (data: any, options: OptionCallback<PaymentPackTemplateAPI>) =>
       createOrUpdatePaymentPackTemplate(data, {
         onError: options && options.onError,
+        // @ts-expect-error
         onSuccess: (template: PaymentPackTemplateAPI) => {
           closeEditDialog();
           if (options && options.onSuccess) {
@@ -244,6 +250,7 @@ const mapWithHandlers = {
       retrievePaymentPackTemplate,
       closeDeleteDialog,
     }: BeforeHandlerProps) =>
+    // @ts-expect-error
     (id, options) => {
       deletePaymentPackTemplateInstance(id, {
         onSuccess: (...args) => {
@@ -261,6 +268,7 @@ const mapWithHandlers = {
       retrievePaymentPackTemplate,
       closeCreateForm,
     }: BeforeHandlerProps) =>
+    // @ts-expect-error
     (data, options) => {
       createPaymentPackTemplateInstance(
         { ...data, payment_pack_template: paymentPackTemplateId },
@@ -287,9 +295,11 @@ const mapWithHandlers = {
         {
           onSuccess: (consumerPackList) => {
             fetchPaymentPackBulk(
+              // @ts-expect-error
               consumerPackList.map((cpp) => cpp.payment_pack),
             );
             fetchFilteredMembers({
+              // @ts-expect-error
               id__in: consumerPackList.map((b: any) => b.member_id),
             });
           },

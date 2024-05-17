@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -82,7 +81,9 @@ export const LevelSelector: React.FC<Props> = ({
       values: Omit<Level, 'id'>;
       options: OptionCallback<Level>;
     }) => {
+      // @ts-expect-error
       if (values.id) {
+        // @ts-expect-error
         onEditLevel(values.id, values, {
           onSuccess: () => {
             setEditLevelId(null);
@@ -250,6 +251,7 @@ export const LevelSelector: React.FC<Props> = ({
             setIsModalOpen(false);
             setEditLevelId(null);
           }}
+          // @ts-expect-error
           onSubmit={handleModalSubmit}
           open={isModalOpen}
         />

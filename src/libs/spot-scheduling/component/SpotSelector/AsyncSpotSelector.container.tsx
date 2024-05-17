@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import SpotSelectorDialog from './SpotSelectorDialog.component';
@@ -80,6 +79,7 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
     const id = typeof _offer === 'number' ? _offer : _offer.id;
 
     this.props.fetchOfferById(id, {
+      // @ts-expect-error
       onSuccess: (offer: Offer) => {
         this.setState({ offer });
         if (offer.room_blueprint) {
@@ -122,6 +122,7 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
   };
 
   onClose = () => {
+    // @ts-expect-error
     this.props.onCancelRegisterMember();
     this.setState(
       {
@@ -151,6 +152,7 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
       return null;
     }
 
+    // @ts-expect-error
     const selectedSpotType = this.props.spotTypes.filter(
       (spotType: SpotType) => spotType.id === this.state.selectedSpotTypeId,
     )[0];
@@ -162,7 +164,9 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 
     return (
       <SpotSelectorDialog
+        // @ts-expect-error
         assets={this.props.assetsForBlueprintById[offer?.room_blueprint]}
+        // @ts-expect-error
         fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
         offer={offer}
         onClose={this.onClose}
@@ -173,6 +177,7 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
         selectedIndex={this.state.selectedIndex}
         selectedIndexType={selectedIndexType}
         selectedSpot={selectedSpotType}
+        // @ts-expect-error
         spotTypesOfBlueprint={this.props.spotTypes.filter((spotType) =>
           spotTypesIdOfBlueprint?.includes(spotType.id),
         )}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withState } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -106,6 +105,7 @@ export class RoleList extends React.PureComponent<Props> {
             </div>
 
             <ListItemResponsiveAction
+              // @ts-expect-error
               actions={[
                 ...(hasOwnerPermission
                   ? [
@@ -139,6 +139,7 @@ export class RoleList extends React.PureComponent<Props> {
         ))}
         {isFranchisor ? (
           <CreateFranchiseRoleDialog
+            // @ts-expect-error
             franchisorRole={this.props.currentRole}
             onClose={this.onCloseCreateRoleDialog}
             onSubmit={this.onSubmit}
@@ -146,10 +147,12 @@ export class RoleList extends React.PureComponent<Props> {
           />
         ) : (
           <CreateRoleDialog
+            // @ts-expect-error
             featureList={this.props.featureList}
             onClose={this.onCloseCreateRoleDialog}
             onSubmit={this.onSubmit}
             open={this.props.openCreateRoleDialog}
+            // @ts-expect-error
             role={this.props.currentRole}
           />
         )}

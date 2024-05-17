@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { Component } from 'react';
 import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
@@ -167,6 +166,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.fetchCompatibleServicePasses();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchAllPrivatePassCategory();
+    // @ts-expect-error
     this.props.fetchPrivatePassMassExtensionList({
       private_pass: this.props.id,
     });
@@ -205,6 +205,7 @@ export class PrivatePassDetails extends Component<Props> {
       {
         onSuccess: () => {
           this.props.setLoadingMassExtension(false);
+          // @ts-expect-error
           this.props.fetchPrivatePassMassExtensionList({
             private_pass: this.props.id,
           });
@@ -286,6 +287,7 @@ export class PrivatePassDetails extends Component<Props> {
                   />
                   <div className={classes.compatiblePSCard}>
                     <PrivatePassCompatibleServiceList
+                      // @ts-expect-error
                       isManager
                       canEdit={hasCompatibilityPermission}
                       compatibleServicePass={this.props.compatibleServicePass}
@@ -309,6 +311,7 @@ export class PrivatePassDetails extends Component<Props> {
                 createNotification={this.createNotification}
                 deleteNotification={this.props.deleteMarketingNotification}
                 emailDetailLoading={this.props.emailDetailLoading}
+                // @ts-expect-error
                 emailDetails={this.props.email_templates_details}
                 emailListLoading={this.props.emailListLoading}
                 emails={this.props.email_templates_list}
@@ -320,6 +323,7 @@ export class PrivatePassDetails extends Component<Props> {
                 private_pass={this.props.privatePass}
                 resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListLoading={this.props.smartListLoading}
+                // @ts-expect-error
                 smartLists={this.props.smartLists}
                 tags={this.props.tagCategories}
                 updateNotification={this.props.updateMarketingNotification}
@@ -346,6 +350,7 @@ export class PrivatePassDetails extends Component<Props> {
                 <PaginatedConsumerPrivatePass
                   consumerPrivatePassUpdating={this.props.consumerPass.updating}
                   itemPerPage={CONSUMER_PrivatePass_PAGINATION_SIZE}
+                  // @ts-expect-error
                   items={this.props.consumerPass.items}
                   loading={this.props.consumerPass.loading}
                   nbItems={this.props.consumerPass.count}
@@ -434,6 +439,7 @@ export class PrivatePassDetails extends Component<Props> {
                 bookkeepingAccountById={this.props.bookkeepingAccountById}
                 bookkeepingAccounts={this.props.bookkeepingAccounts}
                 compatibleServicePass={this.props.compatibleServicePass}
+                // @ts-expect-error
                 initial={getFormInitial(
                   this.props.privatePass,
                   this.props.compatibleServicePass,
@@ -441,8 +447,10 @@ export class PrivatePassDetails extends Component<Props> {
                 onCancel={() => this.props.setOpenEditForm(false)}
                 onSubmit={(data: any) => this.props.onSubmit(data)}
                 privatePassCategories={this.props.privatePassCategories}
+                // @ts-expect-error
                 privateServices={this.props.private_services}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                // @ts-expect-error
                 tagList={this.props.allTagsWithTagGroup}
               />
             </GenericResponsiveDrawer>
@@ -541,6 +549,7 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
+  // @ts-expect-error
   privatePass: withAvailable(withServices(getPrivatePass))(state, id),
   private_services: getPrivateServices(state),
   theme: themeSelectors.getTheme(state),
@@ -549,6 +558,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
     count: state.privateService.privateConsumerPass.byPrivatePass.count,
     loading: state.privateService.privateConsumerPass.byPrivatePass.loading,
     page: state.privateService.privateConsumerPass.byPrivatePass.page,
+    // @ts-expect-error
     updating: state.privateService.privateConsumerPass.updatingConsumerPass,
   },
   massExtension: {
@@ -604,6 +614,7 @@ const mapDispatchToProps = {
     pageSize: number,
     filters: PrivatePassFilters,
     options: OptionCallback,
+    // @ts-expect-error
   ) => fetchByPrivatePass(privatePassId, page, pageSize, options, filters),
   fetchFilteredMembers: fetchFilteredMembersActions,
   resetConsumerPrivatePass: resetByPrivatePassAction,
@@ -665,12 +676,14 @@ const mapWithHandlers = {
       props.fetchConsumerPrivatePass(props.id, page, pageSize, props.filters, {
         onSuccess: (cpps) =>
           props.fetchFilteredMembers({
+            // @ts-expect-error
             id__in: cpps.map((b: { member: any }) => b.member),
           }),
       }),
   fetchCompatibleServicePasses: (props: WithStateProps) => () =>
     props.fetchCompatibleServicePassList(props.id, {
       onSuccess: (csps) => {
+        // @ts-expect-error
         const private_service__in = csps?.map(
           (c: PrivateSlot) => c.private_service,
         );

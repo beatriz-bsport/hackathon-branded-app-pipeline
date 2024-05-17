@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withState } from 'recompose';
@@ -107,6 +106,7 @@ export class MemberProgramList extends Component<Props> {
       (mp) => mp?.program?.id,
     );
     const memberAvailablePrograms =
+      // @ts-expect-error
       programList?.filter((p) => !alreadyRegisterdProgramIds?.includes(p.id)) ||
       [];
     if (memberProgramLoading || programLoading) {
@@ -223,6 +223,7 @@ export class MemberProgramList extends Component<Props> {
                   onChange={(values) => {
                     const memberProgramSelected = memberProgramList.find(
                       (memberProgram) =>
+                        // @ts-expect-error
                         memberProgram.program.id === values.value,
                     );
                     pushToRouter(memberProgramSelected.id);

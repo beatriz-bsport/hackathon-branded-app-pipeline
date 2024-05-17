@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useState } from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 
@@ -18,8 +17,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Tooltip from '#components/Tooltip.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constants';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
+// @ts-expect-error
 import { CheckboxField, TextField } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import type { FeatureList } from '#libs/company/types';
@@ -162,6 +163,7 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                     helperText={t(
                       'paymentPack:notification.form.mailSelection',
                     )}
+                    // @ts-expect-error
                     name="email_design"
                     onChange={(eventValue) => {
                       setFieldValue('email_design', eventValue || null);

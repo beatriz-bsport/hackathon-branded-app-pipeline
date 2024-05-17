@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import omit from 'lodash/omit';
 
 import React, { Component } from 'react';
@@ -34,6 +31,7 @@ export class AvatarField extends Component<Props, State> {
 
     return (
       <Field {...this.props}>
+        {/* @ts-expect-error  */}
         {({ field, form: { setFieldValue } }) => (
           <div>
             <input
@@ -41,6 +39,7 @@ export class AvatarField extends Component<Props, State> {
               className={classes.input}
               id="avatar-loader-button"
               {...omit(field, ['value'])}
+              // @ts-expect-error
               {...this.inputProps}
               onChange={(e) => {
                 const { files } = e.target;
@@ -56,6 +55,7 @@ export class AvatarField extends Component<Props, State> {
             <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
               <Avatar
                 noname
+                // @ts-expect-error
                 user={{ photo: getUrl(previewUrl, field.value) }}
                 variant="large"
               />
@@ -67,6 +67,7 @@ export class AvatarField extends Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 function getUrl(previewUrl, value) {
   return (
     previewUrl ||

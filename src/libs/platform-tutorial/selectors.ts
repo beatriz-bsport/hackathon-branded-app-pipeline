@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { memoize } from 'lodash';
 import { createSelector } from 'reselect';
 
@@ -160,6 +159,7 @@ export const withLessons = memoize((selector) =>
 
 export const withLessonTutorialCompletion = memoize(
   (selector: (state: RootState, id?: number) => any) =>
+    // @ts-expect-error
     createSelector(
       [selector, getUserTutorialCompletion],
       (
@@ -192,6 +192,7 @@ export const withLessonTutorialCompletion = memoize(
 );
 export const withSectionTutorialCompletion = memoize(
   (selector: (state: RootState, id?: number) => any) =>
+    // @ts-expect-error
     createSelector(
       [selector, getUserTutorialCompletion],
       (

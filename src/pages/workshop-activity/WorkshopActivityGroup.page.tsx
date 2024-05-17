@@ -1,4 +1,3 @@
-// @ts-nocheck
 import memoize from 'lodash/memoize';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -129,12 +128,16 @@ export const workshopActivityGroupConnector = connect(
     selectedOffer: withTags(
       withMetaActivity(
         withGroup(
+          // @ts-expect-error
           withCustomLevel(
+            // @ts-expect-error
             withEstablishment(withCoach(withGender(getOfferById))),
           ),
         ),
       ),
+      // @ts-expect-error
     )(state, routerProps.selectedOfferId),
+    // @ts-expect-error
     bookings: getOfferBookingList(state),
     bookingsLoading: state.booking.byOffer.loading,
     members: withMemberTag(getAllMembers)(state),

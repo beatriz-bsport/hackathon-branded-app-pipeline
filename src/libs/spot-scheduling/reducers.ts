@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
@@ -63,10 +62,12 @@ export default handleActions(
     [roomBlueprintActions.list.toString()]: (state, { payload }) => {
       const byId = { ...state.roomBlueprint.byId };
 
+      // @ts-expect-error
       payload.forEach((room) => {
         byId[room.id] = room;
       });
 
+      // @ts-expect-error
       const ids = payload.map((room) => room.id);
 
       return state
@@ -77,10 +78,12 @@ export default handleActions(
       const byId = { ...state.roomBlueprint.byId };
       const { results } = payload;
 
+      // @ts-expect-error
       results.forEach((room) => {
         byId[room.id] = room;
       });
 
+      // @ts-expect-error
       const ids = results.map((room) => room.id);
 
       return state
@@ -131,6 +134,7 @@ export default handleActions(
         [key: string]: { [key: string]: AssetForBlueprint };
       } = {};
 
+      // @ts-expect-error
       payload.forEach((room) => {
         byId[room.id] = room;
         if (!byBlueprintById[room.blueprint])
@@ -138,6 +142,7 @@ export default handleActions(
         byBlueprintById[room.blueprint][room.id] = room;
       });
 
+      // @ts-expect-error
       const ids = payload.map((room) => room.id);
 
       return state
@@ -156,6 +161,7 @@ export default handleActions(
 
       const { results } = payload;
 
+      // @ts-expect-error
       results.forEach((room) => {
         byId[room.id] = room;
         if (!byBlueprintById[room.blueprint])
@@ -163,6 +169,7 @@ export default handleActions(
         byBlueprintById[room.blueprint][room.id] = room;
       });
 
+      // @ts-expect-error
       const ids = results.map((room) => room.id);
 
       return state
@@ -195,10 +202,12 @@ export default handleActions(
         .setIn(['spotForBlueprint', 'ids'], ids);
     },
     [spotForBlueprintActions.list.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const ids = payload.map((spotType) => spotType.id);
       return state.merge(
         {
           spotForBlueprint: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -214,10 +223,12 @@ export default handleActions(
       { payload },
     ) => {
       const { results } = payload;
+      // @ts-expect-error
       const ids = results.map((spotType) => spotType.id);
       return state.merge(
         {
           spotForBlueprint: {
+            // @ts-expect-error
             byId: results.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -268,7 +279,9 @@ export default handleActions(
             ...(state.assetUnboundForBlueprint.byBlueprintId?.[blueprintId]
               ?.allIds ?? []),
             ...((data?.results ?? [])
+              // @ts-expect-error
               .filter((_asset) => _asset.is_unbound)
+              // @ts-expect-error
               .map((asset) => asset.id) ?? []),
           ]),
         )

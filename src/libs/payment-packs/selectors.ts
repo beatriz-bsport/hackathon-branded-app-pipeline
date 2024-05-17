@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
@@ -111,6 +110,7 @@ export const withSCT = memoize((selector: PaymentPackSelector) =>
       return validPaymentPacks.map((pp) => ({
         ...pp,
         categories: pp.categories?.map((category: number | SCT) => {
+          // @ts-expect-error
           return category?.id
             ? category
             : SCTs.find((sct) => sct.id === category);
@@ -123,6 +123,7 @@ export const withSCT = memoize((selector: PaymentPackSelector) =>
         categories: (
           paymentPacks as Immutable.Immutable<PaymentPack>
         ).categories?.map((category: number | SCT) => {
+          // @ts-expect-error
           return category?.id
             ? category
             : SCTs.find((sct) => sct.id === category);
@@ -148,6 +149,7 @@ export const withMetaActivities = memoize((selector: PaymentPackSelector) =>
       if (paymentPacks) {
         return {
           ...paymentPacks,
+          // @ts-expect-error
           metaActivities: paymentPacks.metaActivities.map(
             (id: number) => metaActivityData[id],
           ),
@@ -171,6 +173,7 @@ export const withEstablishments = memoize((selector: PaymentPackSelector) =>
       if (paymentPacks) {
         return {
           ...paymentPacks,
+          // @ts-expect-error
           establishments: paymentPacks.establishments.map(
             (id: number) => establishmentData[id],
           ),
@@ -200,9 +203,11 @@ export const withTags = memoize((selector: PaymentPackSelector) =>
         return {
           ...paymentPacks,
           whitelist_tags: tagList.filter((tag) =>
+            // @ts-expect-error
             paymentPacks.whitelist_tags.includes(tag.id),
           ),
           blacklist_tags: tagList.filter((tag) =>
+            // @ts-expect-error
             paymentPacks.blacklist_tags.includes(tag.id),
           ),
         };
@@ -226,6 +231,7 @@ export const getPaymentPackListCompatibleWithVideo = createSelector(
     ),
 );
 
+// @ts-expect-error
 export const getAllPaymentPacks: PaymentPackArraySelector = createSelector(
   getPaymentPackById,
   (paymentPacks) => Immutable(Object.values(paymentPacks)),
@@ -248,6 +254,7 @@ export const getMarketplacePaymentPacks = createSelector(
       }),
     );
 
+    // @ts-expect-error
     return filterUnaccessiblePaymentPack(paymentPacksWithCategories, {
       memberTagIdsList: memberTagList,
       authenticated,
@@ -296,6 +303,7 @@ export const filterByNoCategory = memoize(
 
 export const getPaymentPackCategories = (selector: PaymentPackArraySelector) =>
   createSelector([selector], (enabledPackList) => {
+    // @ts-expect-error
     return enabledPackList.map((e: PaymentPack) => e.category);
   });
 
@@ -350,6 +358,7 @@ export const getPaymentPackTemplateList: (
           ),
           allowed_franchisee_ids,
           companyById,
+          // @ts-expect-error
         )?.filter((c: FranchiseCompany) => !!c),
       })),
 );
@@ -376,10 +385,12 @@ export const getPaymentPackTemplateManagerOnlyList: (
           ),
           allowed_franchisee_ids,
           companyById,
+          // @ts-expect-error
         )?.filter((c: FranchiseCompany) => !!c),
       })),
 );
 
+// @ts-expect-error
 const _getId = (state, id) => id;
 
 export const getPaymentPackTemplate: (
@@ -403,6 +414,7 @@ export const getPaymentPackTemplate: (
         ),
         allowed_franchisee_ids,
         companyById,
+        // @ts-expect-error
       )?.filter((c: FranchiseCompany) => !!c),
     };
   },
@@ -453,6 +465,7 @@ export const excludeUnaccessiblePacks = memoize(
         }),
       ],
       (paymentPacks, { memberTagList, authenticated }) =>
+        // @ts-expect-error
         filterUnaccessiblePaymentPack(paymentPacks, {
           memberTagIdsList: memberTagList,
           authenticated,
@@ -469,6 +482,7 @@ export const withLinkedPrivatePass = memoize((selector: PaymentPackSelector) =>
         return {
           ...packObject,
           linked_private_pass: privatePasses?.find(
+            // @ts-expect-error
             (ps) => ps.id === packObject.linked_private_pass,
           ),
         };
@@ -493,12 +507,14 @@ export const getPaymentPackCategoriesWithPacks = createSelector(
     return Immutable<PaymentPackCategoryWithPacks[]>([
       ...categoryIdList.map((catId: number) => ({
         ...categoryData[catId],
+        // @ts-expect-error
         packs: paymentPackList.filter((e) => e.category === catId),
       })),
       {
         id: null,
         name: '',
         category_ordering: Number.MAX_SAFE_INTEGER,
+        // @ts-expect-error
         packs: paymentPackList.filter((pack) => !pack.category),
       },
     ]);

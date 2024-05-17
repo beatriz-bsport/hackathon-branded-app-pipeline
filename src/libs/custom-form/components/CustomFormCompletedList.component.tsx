@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -35,6 +34,7 @@ export const CustomFormFilledList = (props: Props) => {
       {props.customFormFilledList.map((formfilled) => (
         <CustomFormCompletedListItem
           key={formfilled.id}
+          // @ts-expect-error
           customFormFilled={formfilled}
           onClick={props.onClickItem}
         />

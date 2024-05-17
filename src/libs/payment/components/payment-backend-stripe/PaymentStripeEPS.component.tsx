@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useImperativeHandle, forwardRef } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useTranslation } from 'react-i18next';
@@ -128,6 +127,7 @@ export const PaymentStripeEPS = forwardRef(
         // https://reactjs.org/docs/forms.html#controlled-components
 
         const { error } = await stripe.confirmEpsPayment(clientSecret, {
+          // @ts-expect-error
           payment_method: {
             billing_details: {
               name,

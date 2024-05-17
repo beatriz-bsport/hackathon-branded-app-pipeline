@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { paymentPackListFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
@@ -7,6 +6,7 @@ import { ListForStorybook, Props } from '#components/css-only/Search/List';
 const paymentPacks = paymentPackListFactory(10);
 
 const CustomTemplate = (args: Props) => {
+  // @ts-expect-error
   return <ListForStorybook {...args} />;
 };
 

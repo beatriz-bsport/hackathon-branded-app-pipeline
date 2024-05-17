@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
@@ -31,16 +30,20 @@ export const getPrivatePassByCategoryWithPasses = memoize(
       [selector, _getAllPrivatePassCategoryIds, _getPrivatePassCategoryById],
       (privatePassList, privatePassCategoryIds, privatePassCategoryById) => {
         return Immutable<PrivatePassCategoryWithPasses[]>([
+          // @ts-expect-error
           ...privatePassCategoryIds.map((categoryId) => ({
             ...privatePassCategoryById[categoryId],
+            // @ts-expect-error
             passes: privatePassList.filter(
               (pass: PrivatePass) => pass.category === categoryId,
             ),
           })),
+          // @ts-expect-error
           {
             name: '',
             id: null,
             category_ordering: privatePassCategoryIds.length,
+            // @ts-expect-error
             passes: privatePassList.filter(
               (pass: PrivatePass) => !pass.category,
             ),

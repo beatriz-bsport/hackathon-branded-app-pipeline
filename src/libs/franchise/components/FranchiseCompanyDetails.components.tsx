@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
@@ -23,6 +22,7 @@ import Room from '@material-ui/icons/Room';
 
 import { Member } from '../../member/types';
 import { Establishment } from '../../establishment/types';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 export type OwnProps = {
@@ -256,4 +256,5 @@ const styles = (theme: Theme) =>
 export default compose(
   withTranslation(['franchise']),
   withStyles(styles, { withTheme: true }),
+  // @ts-expect-error
 )(FranchiseCompanyDetails);

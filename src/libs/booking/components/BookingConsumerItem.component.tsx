@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, pure } from 'recompose';
@@ -94,6 +93,7 @@ export const BookingConsumerItem = (props: Props) => {
           secondary={offer ? formatISOStringAsTime(offer.date_start) : ' - '}
         />
       </ListItem>
+      {/* @ts-expect-error */}
       <div>{props.booking?.spot_prefix}</div>
       {typeof props.booking.spot_id === 'number' && (
         <ListItem dense className={classes.translucentPaper}>
@@ -105,8 +105,10 @@ export const BookingConsumerItem = (props: Props) => {
             {props.booking.spot_id && (
               <PlaceNumber
                 spotInformation={
+                  // @ts-expect-error
                   Object.keys(props.booking.spot_information).length > 0
-                    ? props.booking.spot_information
+                    ? // @ts-expect-error
+                      props.booking.spot_information
                     : {
                         indexType: props.booking.spot_id,
                       }
@@ -126,7 +128,6 @@ export const BookingConsumerItem = (props: Props) => {
           </div>
         </ListItem>
       )}
-
       <ListItem dense className={classes.translucentPaper}>
         <ListItemIcon>
           <NearMeIcon />
@@ -140,7 +141,6 @@ export const BookingConsumerItem = (props: Props) => {
           secondary={establishment ? establishment.title : ''}
         />
       </ListItem>
-
       {!props.hideCoach && (
         <ListItem dense className={classes.translucentPaper}>
           <ListItemIcon>
@@ -190,6 +190,7 @@ export const BookingConsumerItem = (props: Props) => {
   );
 };
 
+// @ts-expect-error
 const styles = (theme) => ({
   container: {
     marginBottom: theme.spacing(2),
@@ -236,6 +237,8 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['consumerSpace']),
+  // @ts-expect-error
   withStyles(styles),
   pure,
+  // @ts-expect-error
 )(BookingConsumerItem);

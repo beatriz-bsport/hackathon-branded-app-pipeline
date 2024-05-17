@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,9 +15,13 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+// @ts-expect-error
 import VideoStatus from './VideoStatus.component';
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
+// @ts-expect-error
 import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
+// @ts-expect-error
 import SCT from '../../category/components/SCT.component';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 import { Video } from '../types';
@@ -48,6 +51,7 @@ const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
 export const VideoCardGridItem = (props: Props) => {
   const classes = useStyles(props);
   const { t } = useTranslation(['video']);
+  // @ts-expect-error
   const Wrapper = props.onClick ? CardActionArea : (p) => <div {...p} />;
   return (
     <Card style={{ height: '100%' }}>
@@ -134,6 +138,7 @@ export const VideoCardGridItem = (props: Props) => {
                     variant="body2"
                   >
                     {t('video.durationMinute', {
+                      // @ts-expect-error
                       minute: parseInt(props.video.duration_second / 60, 10),
                     })}
                   </Typography>
@@ -162,6 +167,7 @@ export const VideoCardGridItem = (props: Props) => {
         <div>
           {!!props.video.coaches && !!props.video.coaches.length && (
             <div className={classes.coachContainer}>
+              {/* @ts-expect-error */}
               <CoachGroupAvatar coaches={props.video.coaches} size="small" />
             </div>
           )}

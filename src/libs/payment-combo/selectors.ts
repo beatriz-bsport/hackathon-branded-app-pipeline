@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
@@ -94,6 +93,7 @@ export const withPaymentPack = memoize((selector: (state: RootState) => any) =>
       if (!Array.isArray(comboList)) {
         return {
           ...comboList,
+          // @ts-expect-error
           payment_packs: comboList.payment_packs.map((pp) => ({
             ...pp,
             data: paymentPackData[pp.id] || {},
@@ -104,6 +104,7 @@ export const withPaymentPack = memoize((selector: (state: RootState) => any) =>
         .filter((pc) => !!pc)
         .map((pc) => ({
           ...pc,
+          // @ts-expect-error
           payment_packs: pc.payment_packs.map((pp) => ({
             ...pp,
             data: paymentPackData[pp.id] || {},

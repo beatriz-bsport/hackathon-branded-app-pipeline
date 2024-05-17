@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import Immutable from 'seamless-immutable';
@@ -24,6 +23,7 @@ import {
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
     error: false,
+    // @ts-expect-error
     loading: false,
     franchisor: undefined,
     users: {
@@ -183,12 +183,16 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(['companyGroup', 'byId', payload.id], payload)
-        .setIn(
-          ['companyGroup', 'allIds'],
-          [payload.id, ...state.companyGroup.allIds],
-        );
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['companyGroup', 'byId', payload.id], payload)
+          .setIn(
+            ['companyGroup', 'allIds'],
+            // @ts-expect-error
+            [payload.id, ...state.companyGroup.allIds],
+          )
+      );
     },
     [listCompanyGroupActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['companyGroup', 'loading'], payload);
@@ -198,6 +202,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
     [listCompanyGroupActions.success.toString()]: (
       state,
+      // @ts-expect-error
       { payload }: Array<CompanyGroup>,
     ) => {
       return state

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -7,9 +6,11 @@ import { compose } from 'recompose';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
 import { CheckboxField, Submit } from '../../../components/forms';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+// @ts-expect-error
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
 
 import { Establishment } from '../../establishment/types';
@@ -129,6 +130,7 @@ export const PartnershipFormHoc = withFormik({
       : initial;
   },
   validationSchema: PartnershipSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),

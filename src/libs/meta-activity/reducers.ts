@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
@@ -249,6 +248,7 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
       return state.merge(
         {
           byId: payload.reduce(
+            // @ts-expect-error
             (acc, curr) => ({ ...acc, [curr.id]: curr }),
             state.byId,
           ),
@@ -275,12 +275,14 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
       return state
         .setIn(
           ['metaActivityCategory', 'allIds'],
+          // @ts-expect-error
           payload.results.map((pp) => pp.id),
         )
         .merge(
           {
             metaActivityCategory: {
               byId: payload.results.reduce(
+                // @ts-expect-error
                 (acc, v) => ({ ...acc, [v.id]: v }),
                 {},
               ),
@@ -350,6 +352,7 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
         {
           metaActivityCategory: {
             byId: payload.reduce(
+              // @ts-expect-error
               (acc, cat) => ({ ...acc, [cat.id]: cat }),
               state.metaActivityCategory.byId,
             ),

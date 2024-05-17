@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   formatAsDatetime,
@@ -36,6 +35,7 @@ export const PrivatebookingStaffHistory: React.FC<Props> = ({
   const classes = useStyles();
   const staffHistoryFiltered = [
     ...privateBooking?.staff_history?.filter(
+      // @ts-expect-error
       (sh) => sh.action_identifier !== PRIVATE_BOOKING_CREATED_BY_STAFF,
     ),
   ].sort((sh, sh_) => {
@@ -80,7 +80,8 @@ export const PrivatebookingStaffHistory: React.FC<Props> = ({
                           withStaff={false}
                         />
                         <Typography color="textSecondary" variant="body2">
-                          - {formatAsDatetimeWithoutHyphen(1000 * sh.timestamp)}
+                          - {/* @ts-expect-error */}
+                          {formatAsDatetimeWithoutHyphen(1000 * sh.timestamp)}
                         </Typography>
                       </div>
                       <div className={classes.parameterRow}>
@@ -88,6 +89,7 @@ export const PrivatebookingStaffHistory: React.FC<Props> = ({
                           {t('privateBooking.detail.initialDateTime')} :
                         </Typography>
                         <Typography>
+                          {/* @ts-expect-error */}
                           {formatAsDatetime(1000 * sh.old_date_start)}
                         </Typography>
                       </div>

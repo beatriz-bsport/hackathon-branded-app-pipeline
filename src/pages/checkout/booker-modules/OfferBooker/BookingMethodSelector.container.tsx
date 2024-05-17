@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
@@ -60,6 +59,7 @@ import {
 } from '../../../../libs/consumer-payment-pack/actions';
 import BookingMethodSelector from '../../../../libs/booker-module/components/BookingMethodSelector.component';
 
+// @ts-expect-error
 import SubscriptionContractBooking from '../SubscriptionPaymentDialog.component';
 
 import {
@@ -69,6 +69,7 @@ import {
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
+  // @ts-expect-error
 } from '../../../../libs/subscription/selectors';
 import {
   OfferData,
@@ -199,12 +200,16 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
   };
 
   getAvailablePaymentPackCategories(packs: Array<PaymentPack>) {
-    return this.props.paymentPackCategories
-      .map((cat) => ({
-        ...cat,
-        packs: packs.filter((p) => p.category === cat.id),
-      }))
-      .filter((cat) => cat.packs.length);
+    return (
+      this.props.paymentPackCategories
+        // @ts-expect-error
+        .map((cat) => ({
+          ...cat,
+          packs: packs.filter((p) => p.category === cat.id),
+        }))
+        // @ts-expect-error
+        .filter((cat) => cat.packs.length)
+    );
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -234,6 +239,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
           loadDefaultEstablishmentBillingGroupFromOffers(
             this.props.theme.enable_multi_localization,
             this.props.establishmentBillingGroups,
+            // @ts-expect-error
             [this.props.offer],
           ),
       });
@@ -333,6 +339,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     let bookableCount =
       offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE ||
       (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
+        // @ts-expect-error
         offerStatus.waiting_list_status ===
           OFFER_WAITING_LIST_STATUS_CONVERTIBLE)
         ? 1
@@ -367,12 +374,14 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
 
     return (
       <React.Fragment>
+        {/* @ts-expect-error */}
         <BookingMethodSelector
           availableComboPacks={availableComboPacks}
           availableConsumerPacks={availableConsumerPacks}
           contractList={availableContracts}
           isExcludingTax={this.props.isExcludingTax}
           offersConstraint={this.props.offersConstraint}
+          // @ts-expect-error
           onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
           onPackChange={this.props.onPackChange}
           paymentPackCategories={availablePaymentPackCategories}
@@ -380,16 +389,18 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
           selectedPack={this.props.selectedPack}
           theme={this.props.theme}
           unCategorizedPacks={availablePaymentPacks.filter(
+            // @ts-expect-error
             (pack) => !pack.category,
           )}
         />
-
         <SubscriptionContractBooking
           companyId={this.props.offer && this.props.offer.company}
+          // @ts-expect-error
           contract={this.props.openSubscriptionModal}
           defaultBillingGroupFromOffer={this.state.defaultBillingGroupFromOffer}
           establishmentBillingGroups={this.props.establishmentBillingGroups}
           isExcludingTax={this.props.isExcludingTax}
+          // @ts-expect-error
           onCancel={this.props.closeSubscripionModal}
           onSubmit={this.goToValidationPage}
           requestSetupIntentSecret={this.requestSetupIntentSecret}
@@ -479,17 +490,21 @@ const mapHandlers = {
       fetchPaymentPackBulk,
       fetchPaymentComboFromContract,
     }: OwnAndConnectedProps) =>
+    // @ts-expect-error
     (offer, company) => {
       fetchContractForBooking(offer, company, {
         onSuccess: (contractList) => {
+          // @ts-expect-error
           fetchPaymentPackBulk(contractList.map((c) => c.payment_pack));
           const uniqPaymentComboIds = uniq(
+            // @ts-expect-error
             contractList.map((c) => c.payment_combo),
           ).filter((id) => !!id);
           if (uniqPaymentComboIds.length) {
             fetchPaymentComboFromContract(
               {
                 company,
+                // @ts-expect-error
                 id__in: uniqPaymentComboIds,
               },
               {
@@ -536,7 +551,9 @@ const mapStateToProps = (
   consumerPaymentPackList: withPaymentPackForConsumer(
     getConsumerPaymentPackForBooking,
   )(state) as ConsumerPaymentPack<PaymentPack>[],
+  // @ts-expect-error
   paymentPackList: excludeUnaccessiblePacks(getPaymentPackForBooking)(state, {
+    // @ts-expect-error
     memberTagList,
     authenticated,
   }) as PaymentPack[],
@@ -572,7 +589,6 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, OwnProps>(
-  // @ts-expect-error
   withStyles(styles),
   withTranslation(['paymentPack', 'booking']),
   connect(mapMemberInfoStateToProps),

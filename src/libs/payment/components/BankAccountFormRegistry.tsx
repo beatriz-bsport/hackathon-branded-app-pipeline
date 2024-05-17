@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
@@ -34,6 +33,7 @@ type Props = {
     account_holder_name: string,
     account_number: string,
     routingNumber?: string,
+    // @ts-expect-error
     country: string,
   ) => void;
   error: Error | null;
@@ -80,6 +80,7 @@ const EuropeanBankAccount = (props: Props) => {
         <LocaleSelector
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -179,8 +180,10 @@ const CanadaBankAccount = (props: Props) => {
           noMargin
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
+          // @ts-expect-error
           variant="outlined"
         />
       </div>
@@ -274,6 +277,7 @@ const USABankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -352,6 +356,7 @@ const MexicoBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -439,6 +444,7 @@ const AustraliaBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -543,6 +549,7 @@ const BrazilBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -647,6 +654,7 @@ const HongKongBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -740,6 +748,7 @@ const IndiaBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -822,6 +831,7 @@ const MalaysiaBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -899,6 +909,7 @@ const NewZealandBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -919,6 +930,7 @@ const NewZealandBankAccount = (props: Props) => {
             color="primary"
             disabled={!account_holder_name || !account_number || props.loading}
             onClick={() =>
+              // @ts-expect-error
               props.onSubmit(
                 account_holder_name,
                 account_number,
@@ -996,6 +1008,7 @@ const SingapourBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />
@@ -1088,6 +1101,7 @@ const UnitedKingdomBankAccount = (props: Props) => {
           hideLang
           required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          // @ts-expect-error
           onChange={(ev) => setCountry(ev.target.value)}
           value={country}
         />

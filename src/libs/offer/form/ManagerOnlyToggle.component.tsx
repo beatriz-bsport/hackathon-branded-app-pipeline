@@ -1,7 +1,7 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import FormToggle from '#components/forms/FormToggle.component';

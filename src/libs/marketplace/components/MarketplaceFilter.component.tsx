@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { Grid, Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+// @ts-expect-error
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 import { MaterialStyleType } from '../../../utils/types';
@@ -55,6 +55,7 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
             establishmentGroupList.length !== 0 && (
               <EstablishmentGroupSelector
                 closeMenuOnSelect
+                // @ts-expect-error
                 isMulti
                 establishmentGroups={establishmentGroupList.filter(
                   (group) => group.establishment.length !== 0,
@@ -88,6 +89,7 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
         </Grid>
         <Grid item className={classes.selector} md={6} xs={12}>
           <EstablishmentSelector
+            // @ts-expect-error
             isMulti
             establishments={establishments}
             selectedEstablishments={filters.establishments}

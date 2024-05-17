@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { DateTime } from 'luxon';
@@ -133,11 +132,14 @@ export class ResourceAllocationConfirmDialog extends React.Component<
 
       this.setState(
         {
+          // @ts-expect-error
           coachUnavailable: this.isNotAvailable(responseCoach?.data),
           establishmentUnavailable: this.isNotAvailable(
+            // @ts-expect-error
             responseEstablishment?.data,
           ),
           privateServiceUnavailable: this.isNotAvailable(
+            // @ts-expect-error
             responsePrivateService?.data,
           ),
         },

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import { createAction } from 'redux-actions';
@@ -81,6 +80,7 @@ export function fetchSharedConsumerPaymentPacks(
     try {
       const response = await fetchSharedConsumerPacksAPI({ member_relation });
       dispatch(sharedConsumerPackListActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -112,6 +112,7 @@ export function fetchConsumerPaymentPackLinks(
         id__in: links,
       });
       dispatch(consumerPackLinksActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -137,6 +138,7 @@ export function fetchMemberRelations(
     try {
       const response = await fetchMemberRelationsAPI(memberId);
       dispatch(memberRelationListActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -265,6 +267,7 @@ export function fetchSharedPrivateConsumerPasses(
         member_relation,
       });
       dispatch(sharedPrivateConsumerPassListActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -481,9 +484,11 @@ export const fetchRelatedMembersNamesByConsumerPaymentPackLinks =
 
       dispatch(
         fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.success(
+          // @ts-expect-error
           response.data,
         ),
       );
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response);
     } catch (err) {
       dispatch(
@@ -527,9 +532,11 @@ export const fetchRelatedMembersNamesByPrivateConsumerPassLinks =
 
       dispatch(
         fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.success(
+          // @ts-expect-error
           response.data,
         ),
       );
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response);
     } catch (err) {
       dispatch(

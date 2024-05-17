@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
@@ -29,9 +28,11 @@ export function fetchMarketingNotificationList(
     let data = null;
     try {
       const response_custom = await fetchMarketingNotificationListAPI(params);
+      // @ts-expect-error
       data = [...response_custom.data];
       dispatch(marketingNotificationListActions.success(data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(data);
       }
     } catch (error) {
@@ -65,6 +66,7 @@ export function fetchMarketingNotification(
       const response = await fetchMarketingNotificationAPI(id);
       dispatch(marketingNotificationActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -97,6 +99,7 @@ export function deleteMarketingNotification(
       await deleteMarketingNotificationAPI(id);
       dispatch(deleteMarketingNotificationActions.success(id));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(id);
       }
     } catch (error) {
@@ -134,6 +137,7 @@ export function createOrUpdateMarketingNotification(
       dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
       dispatch(fetchMarketingNotificationList());
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -169,6 +173,7 @@ export function createMarketingNotification(
       dispatch(marketingNotificationCreateActions.error(null));
       dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -204,6 +209,7 @@ export function updateMarketingNotification(
       dispatch(marketingNotificationUpdateActions.error(null));
       dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -239,9 +245,11 @@ export function fetchMarketingNotificationByEstablishmentGroupAction(
     let data = null;
     try {
       const response_custom = await fetchMarketingNotificationListAPI(params);
+      // @ts-expect-error
       data = [...response_custom.data];
       dispatch(marketingNotificationByEstablishmentGroupActions.success(data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(data);
       }
     } catch (error) {

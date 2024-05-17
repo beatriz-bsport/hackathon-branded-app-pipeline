@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -33,6 +32,7 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
   fetchEmailTemplateSummariesBulk,
 } from '#libs/email-editor/actions';
+// @ts-expect-error
 import { getActiveContractList } from '#libs/subscription/selectors';
 import {
   fetchAllPrivateServices,
@@ -146,7 +146,9 @@ export class MarketingRuleListPage extends Component<Props, State> {
       );
       this.props.fetchMarketingNotification(this.props.notificationId, {
         onSuccess: (data) => {
+          // @ts-expect-error
           if (data.email_design) {
+            // @ts-expect-error
             this.props.fetchEmailTemplateComplete(data.email_design);
           }
         },
@@ -282,6 +284,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
     option?: OptionCallback,
   ) => {
     this.props.createMarketingNotification(notification, {
+      // @ts-expect-error
       onSuccess: (data: MarketingNotification) => {
         if (data.email_design) {
           this.props.fetchEmailTemplateComplete(data.email_design);
@@ -358,22 +361,27 @@ export class MarketingRuleListPage extends Component<Props, State> {
             bookingNotifications={this.props.notifications.bookings}
             emailSummariesById={this.props.emailSummariesById}
             establishmentById={this.props.establishmentById}
+            // @ts-expect-error
             establishmentGroupById={this.props.establishmentGroupById}
             metaActivityBydId={this.props.metaActivityById}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListPrivateBooking
             emailSummariesById={this.props.emailSummariesById}
             establishmentById={this.props.establishmentById}
+            // @ts-expect-error
             establishmentGroupById={this.props.establishmentGroupById}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            // @ts-expect-error
             privateBookingNotifications={
               this.props.notifications.privateBookings
             }
             privateServiceById={this.props.privateServicebyId}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListPaymentPack
@@ -382,6 +390,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             onUpdateNotification={this.props.updateMarketingNotification}
             paymentPackById={this.props.paymentPackById}
             paymentPackNotifications={this.props.notifications.byPaymentPack}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListPrivatePass
@@ -390,6 +399,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             onUpdateNotification={this.props.updateMarketingNotification}
             privatePassById={this.props.privatePassById}
             privatePassNotifications={this.props.notifications.byPrivatePass}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListContract
@@ -398,6 +408,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             emailSummariesById={this.props.emailSummariesById}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
 
@@ -406,6 +417,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             notifications={this.props.notifications.birthday}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
           />
           <div className={classes.bottomPaddingFix} />
@@ -417,6 +429,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             emailDetails={this.getSelectedEmailTemplateDetail()}
             emailSummary={this.getSelectedEmailTemplateSummary()}
             establishmentById={this.props.establishmentById}
+            // @ts-expect-error
             establishmentGroupById={this.props.establishmentGroupById}
             loading={
               this.props.emailTemplateLoading ||
@@ -447,6 +460,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
         <MarketingRuleFormGeneric
           closeForm={this.closeForm}
           contracts={this.props.contracts}
+          // @ts-expect-error
           createFormOpenType={this.state.createFormOpen}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.emailDetailById}
@@ -468,8 +482,10 @@ export class MarketingRuleListPage extends Component<Props, State> {
           resolvedGenericTags={this.props.resolvedGenericTags}
           selectedNotification={this.state.editNotification}
           smartListLoading={this.props.smartListLoading}
+          // @ts-expect-error
           smartLists={this.props.smartLists}
           tags={this.props.tagCategories}
+          // @ts-expect-error
           workshopList={this.props.workshopList}
         />
         <ObjectLevelPermissionWrapper

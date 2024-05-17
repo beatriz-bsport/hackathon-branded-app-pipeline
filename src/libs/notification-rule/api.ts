@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   getAuth,
   postAuth,
@@ -8,6 +7,7 @@ import {
   API_V1_URI,
   buildUrlParams,
 } from '../../http';
+// @ts-expect-error
 import { FranchiseCompleteNotificationRule } from './types';
 
 const NOTIFICATION_RULE_ENDPOINT = `${API_V1_URI}/notification`;

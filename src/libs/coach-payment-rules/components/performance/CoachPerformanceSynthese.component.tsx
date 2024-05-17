@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation, WithTranslation } from 'react-i18next';
@@ -98,6 +97,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               isClearable
               isGroupSelect
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRuleGroups}
               onChange={(item: { value: number; label: string }) => {
                 props.setCoachPaymentRuleGroup(
@@ -116,6 +116,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
@@ -131,6 +132,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -147,6 +149,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
@@ -162,6 +165,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -178,6 +182,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
@@ -191,6 +196,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -207,8 +213,10 @@ export const CoachPerformanceSynthese = (props: Props) => {
         <CoachPerformanceTabs
           allPerformance={performance}
           coach={coach}
+          // @ts-expect-error
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           loading={loading}
+          // @ts-expect-error
           setSessionCoachPaymentRule={(data: {
             associatedCoachId: number;
             sessionId: number;
@@ -216,6 +224,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
           }) => {
             props.setSessionCoachPaymentRule(data);
           }}
+          // @ts-expect-error
           updatePrivateBookingCoachPaymentRule={(data: {
             associatedCoachId: number;
             privateBookingId: number;

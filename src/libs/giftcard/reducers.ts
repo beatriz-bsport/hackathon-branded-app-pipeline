@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import Immutable from 'seamless-immutable';
@@ -98,35 +97,42 @@ export default handleActions(
       return state.setIn(['giftcard', 'error'], payload);
     },
     [retrieveGiftcardActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['giftcard', 'byId', payload.id], payload);
     },
     [retrieveConsumerGiftcardActions.success.toString()]: (
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['consumerGiftcard', 'byId', payload.id], payload);
     },
     [deleteGiftcardActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['giftcard', 'byId', payload.id], payload);
     },
     [restoreGiftcardActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['giftcard', 'byId', payload.id], payload);
     },
     [createOrUpdateGiftcardActions.success.toString()]: (
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['giftcard', 'byId', payload.id], payload);
     },
     [listGiftcardActions.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['giftcard', 'allIds'],
+          // @ts-expect-error
           payload.map((g: Giftcard) => g.id),
         )
         .merge(
           {
             giftcard: {
+              // @ts-expect-error
               byId: payload.reduce(
                 (acc: { [id: number]: Giftcard }, g: Giftcard) => {
                   acc[g.id] = g;
@@ -140,9 +146,11 @@ export default handleActions(
         );
     },
     [attributeToMemberActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['consumerGiftcard', 'byId', payload.id], payload);
     },
     [sendEmailInvitationActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['consumerGiftcard', 'byId', payload.id], payload);
     },
     [listConsumerGiftcardActions.isLoading.toString()]: (
@@ -155,30 +163,36 @@ export default handleActions(
       return state.setIn(['consumerGiftcard', 'error'], payload);
     },
     [listConsumerGiftcardActions.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(
-          ['consumerGiftcard', 'allIds'],
-          payload.results.map((g: ConsumerGiftcard) => g.id),
-        )
-        .setIn(['consumerGiftcard', 'page'], payload.page)
-        .setIn(['consumerGiftcard', 'count'], payload.count)
-        .merge(
-          {
-            consumerGiftcard: {
-              byId: payload.results.reduce(
-                (
-                  acc: { [id: number]: ConsumerGiftcard },
-                  g: ConsumerGiftcard,
-                ) => {
-                  acc[g.id] = g;
-                  return acc;
-                },
-                {},
-              ),
+      return (
+        state
+          .setIn(
+            ['consumerGiftcard', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((g: ConsumerGiftcard) => g.id),
+          )
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'count'], payload.count)
+          .merge(
+            {
+              consumerGiftcard: {
+                // @ts-expect-error
+                byId: payload.results.reduce(
+                  (
+                    acc: { [id: number]: ConsumerGiftcard },
+                    g: ConsumerGiftcard,
+                  ) => {
+                    acc[g.id] = g;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
             },
-          },
-          { deep: true },
-        );
+            { deep: true },
+          )
+      );
     },
     [listGiftcardBackgroundImageActions.isLoading.toString()]: (
       state,
@@ -199,11 +213,13 @@ export default handleActions(
       return state
         .setIn(
           ['giftcardBackgroundImage', 'allIds'],
+          // @ts-expect-error
           payload.map((g: GiftcardBackgroundImage) => g.id),
         )
         .merge(
           {
             giftcardBackgroundImage: {
+              // @ts-expect-error
               byId: payload.reduce(
                 (
                   acc: { [id: number]: GiftcardBackgroundImage },
@@ -223,12 +239,16 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['giftcardBackgroundImage', 'allIds'],
-          [payload.id, ...state.giftcardBackgroundImage.allIds],
-        )
-        .setIn(['giftcardBackgroundImage', 'byId', payload.id], payload);
+      return (
+        state
+          .setIn(
+            ['giftcardBackgroundImage', 'allIds'],
+            // @ts-expect-error
+            [payload.id, ...state.giftcardBackgroundImage.allIds],
+          )
+          // @ts-expect-error
+          .setIn(['giftcardBackgroundImage', 'byId', payload.id], payload)
+      );
     },
     [deleteGiftcardBackgroundImageActions.success.toString()]: (
       state,
@@ -236,6 +256,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['giftcardBackgroundImage', 'allIds'],
+        // @ts-expect-error
         state.giftcardBackgroundImage.allIds.filter((id) => id !== payload),
       );
     },
@@ -255,30 +276,36 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['consumerGiftcard', 'asSender', 'allIds'],
-          payload.results.map((g: ConsumerGiftcard) => g.id),
-        )
-        .setIn(['consumerGiftcard', 'asSender', 'page'], payload.page)
-        .setIn(['consumerGiftcard', 'asSender', 'count'], payload.count)
-        .merge(
-          {
-            consumerGiftcard: {
-              byId: payload.results.reduce(
-                (
-                  acc: { [id: number]: ConsumerGiftcard },
-                  g: ConsumerGiftcard,
-                ) => {
-                  acc[g.id] = g;
-                  return acc;
-                },
-                {},
-              ),
+      return (
+        state
+          .setIn(
+            ['consumerGiftcard', 'asSender', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((g: ConsumerGiftcard) => g.id),
+          )
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'asSender', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'asSender', 'count'], payload.count)
+          .merge(
+            {
+              consumerGiftcard: {
+                // @ts-expect-error
+                byId: payload.results.reduce(
+                  (
+                    acc: { [id: number]: ConsumerGiftcard },
+                    g: ConsumerGiftcard,
+                  ) => {
+                    acc[g.id] = g;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
             },
-          },
-          { deep: true },
-        );
+            { deep: true },
+          )
+      );
     },
     [listConsumerGiftcardReceivedActions.isLoading.toString()]: (
       state,
@@ -299,27 +326,34 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['consumerGiftcard', 'asReceiver', 'allIds'],
-          payload.results.map((g) => g.id),
-        )
-        .setIn(['consumerGiftcard', 'asReceiver', 'page'], payload.page)
-        .setIn(['consumerGiftcard', 'asReceiver', 'count'], payload.count)
-        .merge(
-          {
-            consumerGiftcard: {
-              byId: payload.results.reduce(
-                (acc: { [id: number]: ConsumerGiftcard }, g) => {
-                  acc[g.id] = g;
-                  return acc;
-                },
-                {},
-              ),
+      return (
+        state
+          .setIn(
+            ['consumerGiftcard', 'asReceiver', 'allIds'],
+            // @ts-expect-error
+            payload.results.map((g) => g.id),
+          )
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'asReceiver', 'page'], payload.page)
+          // @ts-expect-error
+          .setIn(['consumerGiftcard', 'asReceiver', 'count'], payload.count)
+          .merge(
+            {
+              consumerGiftcard: {
+                // @ts-expect-error
+                byId: payload.results.reduce(
+                  // @ts-expect-error
+                  (acc: { [id: number]: ConsumerGiftcard }, g) => {
+                    acc[g.id] = g;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
             },
-          },
-          { deep: true },
-        );
+            { deep: true },
+          )
+      );
     },
     [listBulkGiftcardActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['giftcard', 'loading'], payload);
@@ -331,6 +365,7 @@ export default handleActions(
       return state.merge(
         {
           giftcard: {
+            // @ts-expect-error
             byId: payload.reduce((acc: { [id: number]: Giftcard }, g) => {
               acc[g.id] = g;
               return acc;
@@ -353,11 +388,13 @@ export default handleActions(
       return state
         .setIn(
           ['giftcardTemplate', 'allIds'],
+          // @ts-expect-error
           payload.map((gt: GiftcardTemplate) => gt.id),
         )
         .merge(
           {
             giftcardTemplate: {
+              // @ts-expect-error
               byId: payload.reduce(
                 (
                   acc: { [id: number]: GiftcardTemplate },
@@ -386,17 +423,22 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['giftcardTemplate', 'allIds'],
-          [...state.giftcardTemplate.allIds, payload.id],
-        )
-        .setIn(['giftcardTemplate', 'byId', payload.id], payload);
+      return (
+        state
+          .setIn(
+            ['giftcardTemplate', 'allIds'],
+            // @ts-expect-error
+            [...state.giftcardTemplate.allIds, payload.id],
+          )
+          // @ts-expect-error
+          .setIn(['giftcardTemplate', 'byId', payload.id], payload)
+      );
     },
     [updateGiftcardTemplateActions.success.toString()]: (
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['giftcardTemplate', 'byId', payload.id], payload);
     },
     [deleteGiftcardTemplateActions.isLoading.toString()]: (
@@ -414,6 +456,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['giftcardTemplate', 'allIds'],
+        // @ts-expect-error
         state.giftcardTemplate.allIds.filter((id: number) => id !== payload),
       );
     },
@@ -433,6 +476,7 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['giftcardTemplate', 'byId', payload.id], payload);
     },
     [createGiftcardTemplateInstanceActions.isLoading.toString()]: (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Select from '@material-ui/core/Select';
 
@@ -65,6 +64,7 @@ class TagRuleSelector extends React.PureComponent<Props> {
 
     return (
       <Select
+        // @ts-expect-error
         dense
         disabled={this.props.disabled}
         id="standard-select-currency"
@@ -72,6 +72,7 @@ class TagRuleSelector extends React.PureComponent<Props> {
         onChange={(event) =>
           this.props.onChange({
             ...this.props.selected,
+            // @ts-expect-error
             kind: event.target.value,
           })
         }

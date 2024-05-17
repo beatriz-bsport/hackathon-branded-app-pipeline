@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import { fetchEventList as fetchEventListAPI } from './api';
@@ -26,6 +25,7 @@ export function fetchEventList(
       dispatch(listEventActions.success({ identifier, items: response.data }));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+// @ts-expect-error
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
 
 import { Establishment } from '../../establishment/types';
@@ -24,7 +24,9 @@ type Props = {
 };
 
 const emptyConf = {
+  // @ts-expect-error
   reference_establishment: null,
+  // @ts-expect-error
   associated_establishment_list: [],
 };
 export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
@@ -35,10 +37,14 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   const classes = useStyles();
 
   const [configuration, setConfiguration] = React.useState<any>(
+    // @ts-expect-error
     props.partnershipEstablishmentMergeList.map((pem) => ({
       reference_establishment: pem.reference_establishment,
+      // @ts-expect-error
       associated_establishment_list: props.associatedEstablishmentList
+        // @ts-expect-error
         .filter((ae) => ae.partnership_merged_as === pem.id)
+        // @ts-expect-error
         .map((ae) => ae.id),
     })) || [emptyConf],
   );
@@ -46,8 +52,10 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
   const selectedEstablishments = props.establishmentList
     .filter((e) =>
       [
+        // @ts-expect-error
         ...configuration.map((pem) => pem.reference_establishment),
         ...flatten(
+          // @ts-expect-error
           configuration.map((pem) => pem.associated_establishment_list),
         ),
       ].includes(e.associatedestablishment_set[0]),
@@ -56,6 +64,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
 
   return (
     <div>
+      {/* @ts-expect-error */}
       {configuration.map((conf, idx_ref) => (
         <div key={conf.reference_establishment}>
           <div className={classes.selector}>
@@ -195,7 +204,9 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
         color="primary"
         disabled={!configuration?.length}
         onClick={() =>
+          // @ts-expect-error
           props.onSubmit({
+            // @ts-expect-error
             ...(props.initial || {}),
             configuration,
             override_establishment_pk: null,
@@ -261,6 +272,7 @@ export const PartnershipFormHoc = withFormik({
       : initial;
   },
   validationSchema: PartnershipSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),

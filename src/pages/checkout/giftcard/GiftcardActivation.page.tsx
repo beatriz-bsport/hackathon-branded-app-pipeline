@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
@@ -75,6 +74,7 @@ export class GiftcardCheckout extends React.Component<Props> {
       return null;
     const { classes, t } = this.props;
     return (
+      // @ts-expect-error
       <ConsumerAppBarContainer companyId={this.props.companyId}>
         <div className={classes.container}>
           <div className={classes.innerContainer}>
@@ -199,6 +199,7 @@ const connector = connect(
   (state: RootState, { activationCode }: { activationCode: string }) => ({
     consumerGiftcard: withGiftcard(getConsumerGiftcardByActivationCode)(
       state,
+      // @ts-expect-error
       activationCode,
     ),
     theme: themeSelectors.getTheme(state),
@@ -217,6 +218,7 @@ export default compose(
   withTranslation(['giftcard']),
   withStyles(styles),
   routerParamsToProps({
+    // @ts-expect-error
     activationCode: 'activationCode',
     companyId: 'companyId:number',
   }),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import Dialog from '@material-ui/core/Dialog';
@@ -60,6 +59,7 @@ const DeleteDialog = (props: DialogProps) => {
   return (
     <Dialog disableBackdropClick open={open}>
       <DialogTitle>
+        {/* @ts-expect-error */}
         <div className={classes.title}>
           <Typography>{t('customForm.modal.delete.title')}</Typography>
         </div>
@@ -104,6 +104,7 @@ export const CustomFormListItem = (props: Props) => {
   return (
     <>
       <ListItem
+        // @ts-expect-error
         button={!!props.onClick}
         className={classes.listitem}
         divider={divider}

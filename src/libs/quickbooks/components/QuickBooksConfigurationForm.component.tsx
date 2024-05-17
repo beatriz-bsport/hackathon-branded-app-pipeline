@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -10,6 +9,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import CustomColorButton from '../../../components/button/CustomColorButton.component';
 import RedButton from '../../../components/button/RedButton.component';
 import type { QuickbooksApp } from '../types';
@@ -43,6 +43,7 @@ export const QuickBooksConfigurationForm = (props: Props) => {
             }
             onChange={() => {
               props.onSubmitTheme(
+                // @ts-expect-error
                 !props.theme.is_quickbook_integration_enabled,
               );
             }}
@@ -76,6 +77,7 @@ export const QuickBooksConfigurationForm = (props: Props) => {
           </CustomColorButton>
           {is_configured && (
             <RedButton
+              // @ts-expect-error
               disabled={props.zoomLoading || props.loading}
               onClick={props.revokeQuickBooks}
               variant="contained"
@@ -146,6 +148,7 @@ const styles = (theme: Theme) => ({
   },
 });
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation('settings'),
 )(QuickBooksConfigurationForm);

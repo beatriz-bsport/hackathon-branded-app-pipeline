@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -95,6 +94,7 @@ export default function VirtualRowItem(props: RowProps) {
             email?.available_for_companies.length ===
             Object.keys(companyDic).length
           }
+          // @ts-expect-error
           companies={sortCompanyListByIsAllowedAndName(
             email?.available_for_companies.map((comp) => companyDic?.[comp]),
           )}
@@ -143,6 +143,7 @@ export default function VirtualRowItem(props: RowProps) {
                 className={style.categoryTitle}
                 variant="h5"
               >
+                {/* @ts-expect-error */}
                 {companyDic?.[categoryId]?.name}
               </Typography>
               <Divider className={style.divider} />
@@ -150,6 +151,7 @@ export default function VirtualRowItem(props: RowProps) {
           );
         }
         const indexInCat: number = index - categoryStartIndex - 1;
+        // @ts-expect-error
         const email = companiesEmailsByCompanyId[categoryId][indexInCat];
         return (
           <EmailListItem
@@ -160,6 +162,7 @@ export default function VirtualRowItem(props: RowProps) {
             navigateTo={navigateTo}
             onDelete={onDelete}
             onEdit={onEdit}
+            // @ts-expect-error
             selectedId={selectedId}
           />
         );
@@ -176,6 +179,7 @@ export default function VirtualRowItem(props: RowProps) {
             navigateTo={navigateTo}
             onDelete={onDelete}
             onEdit={onEdit}
+            // @ts-expect-error
             selectedId={selectedId}
           />
         );
@@ -223,6 +227,7 @@ export default function VirtualRowItem(props: RowProps) {
           email={email}
           navigateTo={navigateTo}
           onDuplicate={onDuplicate}
+          // @ts-expect-error
           selectedId={selectedId}
         />
       );

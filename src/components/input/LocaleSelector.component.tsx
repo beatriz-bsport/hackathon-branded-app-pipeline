@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import classnames from 'classnames';
@@ -425,6 +424,7 @@ export const CountrySelector = (props: Props) => {
       {!!props.label && (
         <InputLabel
           id="locale-simple-select-label"
+          // @ts-expect-error
           style={props.variant === 'outlined' ? { marginLeft: 16 } : {}}
         >
           {props.label}
@@ -433,9 +433,11 @@ export const CountrySelector = (props: Props) => {
       <Select
         defaultValue={props.defaultValue}
         disabled={props.disabled}
+        // @ts-expect-error
         onChange={props.onChange}
         required={props.required}
         value={props.value}
+        // @ts-expect-error
         variant={props.variant}
       >
         {localeList.map((localeContainer) => {

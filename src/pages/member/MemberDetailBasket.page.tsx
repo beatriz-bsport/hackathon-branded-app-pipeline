@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { replace } from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';
@@ -13,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
+// @ts-expect-error
 import { COMPANY_EVENTS } from '../../libs/checkout/event.utils';
 import BasketListItem from '../../libs/checkout/components/BasketListItem.component';
 import BasketConsumer from '../../libs/checkout/components/BasketConsumer.component';
@@ -91,6 +91,7 @@ export class MemberDetailBasket extends Component<Props> {
     return (
       <Grid container spacing={2}>
         <Grid item md={6} sm={12}>
+          {/* @ts-expect-error */}
           <Typography className={classes.secontionTitle} variant="h4">
             {t('historyTitle')}
           </Typography>
@@ -109,19 +110,23 @@ export class MemberDetailBasket extends Component<Props> {
         <Grid item md={6} sm={12}>
           {this.props.selectedBasketId ? (
             <>
+              {/* @ts-expect-error */}
               <Typography className={classes.secontionTitle} variant="h4">
                 {t('myBasket.title')}
               </Typography>
               <Divider className={classes.divider} />
               <Paper>
+                {/* @ts-expect-error */}
                 <BasketConsumer withPrice basket={this.props.selectedBasket} />
               </Paper>
+              {/* @ts-expect-error */}
               <Typography className={classes.secontionTitle} variant="h4">
                 {t('eventHistory.sectionTitle')}
               </Typography>
               <Divider className={classes.divider} />
               <Paper>
                 <EventPanel
+                  // @ts-expect-error
                   eventList={this.props.eventList.items}
                   eventSpec={COMPANY_EVENTS}
                   extraFetchParams={{ object_id: this.props.selectedBasketId }}
@@ -135,7 +140,9 @@ export class MemberDetailBasket extends Component<Props> {
             <div className={classes.paddedContent}>
               <div className={classes.emptyMessageContainer}>
                 <Alert
+                  // @ts-expect-error
                   className={classes.alertIcon}
+                  // @ts-expect-error
                   color="grey"
                   severity="info"
                 >
@@ -177,6 +184,7 @@ export default compose(
   withTranslation(['checkout']),
   routerParamsToProps({
     id: 'id:number',
+    // @ts-expect-error
     selectedBasketId: 'selectedBasketId',
   }),
   connector,

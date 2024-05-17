@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -17,6 +16,7 @@ import withTitle from '../../../hocs/with-title.hoc';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { OptionCallback } from '../../../state/types';
 
@@ -59,6 +59,7 @@ import {
   WithFranchiseCompanies,
   FranchiseCompany,
 } from '#libs/franchise/types';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 
 type OwnProps = {
@@ -169,6 +170,7 @@ export class GiftcardDetailPage extends Component<Props> {
               this.props.giftcardTemplate?.id || this.props.giftcardTemplateId
             }
             {...this.getGiftcardTemplateCardProps()}
+            // @ts-expect-error
             allCompanies={this.props.allFranchisedCompanies}
           />
         </Grid>
@@ -254,6 +256,7 @@ const connector = connect(
     ),
     giftcardTemplate: withAllowedFranchisees(getGiftcardTemplateDetail)(
       state,
+      // @ts-expect-error
       giftcardTemplateId,
     ),
     allFranchisedCompanies: getFranchiseCompanies(state),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FC, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,6 +28,7 @@ import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionLi
 import RedButton from '../../../components/button/RedButton.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
+// @ts-expect-error
 import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 import PlannedPaymentEventErrorListItem from './PlannedPaymentEventErrorListItem.component';
@@ -254,6 +254,7 @@ const PaymentActions: FC<{
                 props.amountToPayCts === 0 ||
                 processing
               }
+              // @ts-expect-error
               invoice={props.invoice}
               loading={props.loading}
             />
@@ -366,6 +367,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
 
   const paymentActionsLoading =
     !props.accountBalance &&
+    // @ts-expect-error
     props.accountBalance !== 0 &&
     !props.invoice.is_member_pos;
 
@@ -405,6 +407,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
         )}
         {!props.paymentLoading &&
           !props.paymentList.length &&
+          // @ts-expect-error
           !props.paymentGroupRequiringActionList.length && (
             <Typography color="textSecondary" variant="caption">
               {t('paymentPanel.paymentList.isEmpty')}
@@ -425,11 +428,14 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               plannedPaymentError={p}
             />
           ))}
+          {/* @ts-expect-error */}
           {props.invoice.is_fully_paid
             ? null
-            : props.paymentGroupRequiringActionList.map((p) => (
+            : // @ts-expect-error
+              props.paymentGroupRequiringActionList.map((p) => (
                 <PaymentGroupRequiringActionListItem
                   key={p.id}
+                  // @ts-expect-error
                   onValidate={props.onValidate}
                   paymentGroup={p}
                 />
@@ -451,6 +457,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                     actions={props.plannedPaymentEventActions}
                     invoice={props.invoice}
                     plannedPaymentEvent={p}
+                    // @ts-expect-error
                     requestSetupIntentSecret={props.requestSetupIntentSecret}
                   />
                 ))}
@@ -523,6 +530,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
         props.invoice.invoice_type,
       ) && (
         <PaymentActions
+          // @ts-expect-error
           accountBalance={props.accountBalance}
           accountBalanceLoading={props.accountBalanceLoading}
           amountToPayCts={amountToPayCts}
@@ -531,8 +539,10 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           consumeBalance={props.consumeBalance}
           consumerGiftcardList={props.consumerGiftcardList}
           invoice={props.invoice}
+          // @ts-expect-error
           is_reverse={is_reverse}
           loading={paymentActionsLoading}
+          // @ts-expect-error
           onInstalmentPayment={props.onInstalmentPayment}
           onPaymentIntent={props.onPaymentIntent}
           onRevert={props.onRevert}

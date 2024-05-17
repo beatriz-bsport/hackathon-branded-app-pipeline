@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@material-ui/icons/Edit';
@@ -40,6 +39,7 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
   return (
     <ListItem
       divider
+      // @ts-expect-error
       button={!!onClick}
       onClick={onClick && (() => onClick(template.id))}
     >
@@ -54,6 +54,7 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
             : t('specifications.unlimitedCredits')
         } - ${getCurrencyDisplayWithPrice(template.price)}${` - ${dateInfo}`}`}
       />
+      {/* @ts-expect-error */}
       <FranchiseCompanyChipList companies={template.companies} />
       {!template.is_usable_by_staff && !template.disabled && (
         <IconButton onClick={null}>
@@ -70,6 +71,7 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
         </IconButton>
       )}
       <ListItemResponsiveAction
+        // @ts-expect-error
         actions={
           template.disabled
             ? [

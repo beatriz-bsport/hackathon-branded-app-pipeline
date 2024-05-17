@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -94,6 +93,7 @@ const MetaActivityListItem: React.FC<Props> = (props) => {
   return (
     <ListItem
       alignItems="center"
+      // @ts-expect-error
       button={!!onClick}
       dense={props.dense}
       divider={props.divider}
@@ -136,9 +136,11 @@ const MetaActivityListItem: React.FC<Props> = (props) => {
             : t('activity.noNextSlot')
         }
       />
+      {/* @ts-expect-error */}
       {metaActivity.hasActiveNotification && (
         <Tooltip
           aria-label="info"
+          // @ts-expect-error
           classes={classes}
           title={
             <Typography variant="subtitle2">

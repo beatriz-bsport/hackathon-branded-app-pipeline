@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { contractFactory } from '#libs/subscription/factory';
 import { MarketplaceContractDetailModalForStorybook, Props } from '.';
@@ -19,6 +18,7 @@ export default {
 
 const ContractModalTemplate: ComponentStory<
   typeof MarketplaceContractDetailModalForStorybook
+  // @ts-expect-error
 > = (args: Props) => <MarketplaceContractDetailModalForStorybook {...args} />;
 
 export const ContractModal = ContractModalTemplate.bind({});

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Divider from '@material-ui/core/Divider';
@@ -61,6 +60,7 @@ const PaymentMethodInfo = ({
   if (subscription.payment_method === 2) {
     return (
       <RedButton
+        // @ts-expect-error
         onClick={(ev) => {
           ev.stopPropagation();
           changePaymentMethod(subscription.id);

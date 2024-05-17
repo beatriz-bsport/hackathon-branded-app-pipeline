@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import CouponTemplateInstanceForm, {
   CouponTemplateInstanceFormikHOC,
 } from './CouponTemplateInstanceForm.component';
 
+// @ts-expect-error
 import { Submit } from '../../../components/forms';
 import type { FranchiseCompany } from '../../franchise/types';
 import type { PaymentPackTemplate } from '#libs/payment-packs/types';
@@ -39,6 +39,7 @@ const CouponTemplateInstanceFormDialog = (props: Props) => {
       <Form>
         <DialogTitle>{t('couponTemplateInstance.create.title')}</DialogTitle>
         <DialogContent>
+          {/* @ts-expect-error */}
           <CouponTemplateInstanceForm {...props} />
         </DialogContent>
         <DialogActions>
@@ -66,5 +67,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default CouponTemplateInstanceFormikHOC(
+  // @ts-expect-error
   CouponTemplateInstanceFormDialog,
 );

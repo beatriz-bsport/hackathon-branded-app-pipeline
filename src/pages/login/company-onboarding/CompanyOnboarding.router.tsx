@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
@@ -10,6 +9,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import CompanyOnboardingWelcomePage from './CompanyOnboardingWelcome.page';
 import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';
+// @ts-expect-error
 import EmailValidationPage from './EmailValidation.page';
 
 type OwnProps = {
@@ -72,7 +72,9 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
   );
 };
 
+// @ts-expect-error
 export default compose(routerParamsToProps({ activeStep: 'activeStep' }))(
+  // @ts-expect-error
   CompanyOnboardingRouter,
 );
 

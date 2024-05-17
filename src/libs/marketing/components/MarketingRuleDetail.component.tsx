@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 
@@ -32,6 +31,7 @@ import { MetaActivity } from '../../meta-activity/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MarketingNotificationMailStat } from '../../communication/types';
+// @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
 import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';

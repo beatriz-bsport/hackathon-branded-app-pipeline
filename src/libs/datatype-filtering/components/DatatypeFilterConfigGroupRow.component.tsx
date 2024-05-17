@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -89,9 +88,11 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               filterItem={filterItem}
               getDataByType={getDataByType}
               groupOperand={filterGroup.inner_operand}
+              // @ts-expect-error
               hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               hidePrefix={indexFilter === 0}
               isPreview={isPreview}
+              // @ts-expect-error
               onDelete={onDelete(filterItem.uuid)}
               prefix={`${prefix}.filters_data[${indexFilter}]`}
               reportColumns={reportColumns}

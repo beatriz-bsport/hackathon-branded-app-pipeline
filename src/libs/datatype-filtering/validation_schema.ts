@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as Yup from 'yup';
 
 import {
@@ -33,6 +32,7 @@ const BaseSchema = {
                   function CheckAmout(item) {
                     return getComparatorsByDataType(
                       this.parent.datatype,
+                      // @ts-expect-error
                     ).includes(item);
                   },
                 ),

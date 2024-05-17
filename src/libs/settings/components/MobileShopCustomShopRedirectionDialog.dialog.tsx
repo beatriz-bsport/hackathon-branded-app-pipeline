@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { withFormik, Form, FormikProps } from 'formik';
@@ -14,6 +13,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
+// @ts-expect-error
 import { TextField, IconField, AlertError } from '#components/forms';
 import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
 import { OptionCallback } from '../../../state/types';
@@ -150,6 +150,7 @@ const MobileShopCustomShopRedirectionDialogHOC = withFormik<
   FormikValues
 >({
   mapPropsToValues: (props) => {
+    // @ts-expect-error
     if (props?.inital) {
       return {
         name: '',
@@ -166,7 +167,9 @@ const MobileShopCustomShopRedirectionDialogHOC = withFormik<
   validationSchema: MobileShopCustomShopRedirectionDialogSchema,
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit({
+      // @ts-expect-error
       id: initial?.id,
+      // @ts-expect-error
       values: omit(values, 'id'),
       options: {
         onSuccess: () => setSubmitting(false),

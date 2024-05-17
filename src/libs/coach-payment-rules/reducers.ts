@@ -1,4 +1,3 @@
-// @ts-nocheck
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
@@ -86,6 +85,7 @@ export default handleActions(
     [fetchAllPaymentRules.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
+          // @ts-expect-error
           items: payload.reduce((acc: any, ps: any) => {
             acc[ps.id] = ps;
             return acc;
@@ -95,6 +95,7 @@ export default handleActions(
       );
     },
     [coachPaymentRuleSetUpsert.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['items', payload.id], payload);
     },
     [coachPaymentRuleSetUpsert.isLoading.toString()]: (state, { payload }) => {
@@ -104,9 +105,11 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [coachPaymentRuleSetDelete.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.set('items', omit(state.items, payload.id));
     },
     [coachPaymentSimulation.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['simulation', 'result', payload.id], payload);
     },
     [coachPaymentSimulation.isLoading.toString()]: (state, { payload }) => {
@@ -122,10 +125,14 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (payload.sessionId) {
+        // @ts-expect-error
         const index = state.performance.session.byAssociatedCoachId[
+          // @ts-expect-error
           payload.associatedCoachId
         ].data.findIndex(
+          // @ts-expect-error
           (sessionperf) => sessionperf.session_id === payload.sessionId,
         );
         return state.setIn(
@@ -133,10 +140,12 @@ export default handleActions(
             'performance',
             'session',
             'byAssociatedCoachId',
+            // @ts-expect-error
             payload.associatedCoachId,
             'data',
             index,
           ],
+          // @ts-expect-error
           payload.data[0],
         );
       }
@@ -145,9 +154,11 @@ export default handleActions(
           'performance',
           'session',
           'byAssociatedCoachId',
+          // @ts-expect-error
           [payload.associatedCoachId],
           'data',
         ],
+        // @ts-expect-error
         payload.data,
       );
     },
@@ -155,21 +166,21 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!payload.associatedCoachId) {
         return state.setIn(['performance', 'loading'], payload.loading);
       }
-      return state
-        .setIn(['performance', 'loading'], payload.loading)
-        .setIn(
-          [
-            'performance',
-            'session',
-            'byAssociatedCoachId',
-            [payload.associatedCoachId],
-            'loading',
-          ],
-          payload.loading,
-        );
+      return state.setIn(['performance', 'loading'], payload.loading).setIn(
+        [
+          'performance',
+          'session',
+          'byAssociatedCoachId',
+          // @ts-expect-error
+          [payload.associatedCoachId],
+          'loading',
+        ],
+        payload.loading,
+      );
     },
     [coachSessionPerformanceActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['performance', 'error'], payload);
@@ -206,11 +217,16 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (payload.privateBookingId) {
+        // @ts-expect-error
         const index = state.performance.private_service.byAssociatedCoachId[
+          // @ts-expect-error
           payload.associatedCoachId
         ].data.findIndex(
+          // @ts-expect-error
           (privateperf) =>
+            // @ts-expect-error
             privateperf.private_booking_id === payload.privateBookingId,
         );
         return state.setIn(
@@ -218,10 +234,12 @@ export default handleActions(
             'performance',
             'private_service',
             'byAssociatedCoachId',
+            // @ts-expect-error
             payload.associatedCoachId,
             'data',
             index,
           ],
+          // @ts-expect-error
           payload.data[0],
         );
       }
@@ -230,9 +248,11 @@ export default handleActions(
           'performance',
           'private_service',
           'byAssociatedCoachId',
+          // @ts-expect-error
           [payload.associatedCoachId],
           'data',
         ],
+        // @ts-expect-error
         payload.data,
       );
     },
@@ -240,21 +260,21 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!payload.associatedCoachId) {
         return state.setIn(['performance', 'loading'], payload.loading);
       }
-      return state
-        .setIn(['performance', 'loading'], payload.loading)
-        .setIn(
-          [
-            'performance',
-            'private_service',
-            'byAssociatedCoachId',
-            [payload.associatedCoachId],
-            'loading',
-          ],
-          payload.loading,
-        );
+      return state.setIn(['performance', 'loading'], payload.loading).setIn(
+        [
+          'performance',
+          'private_service',
+          'byAssociatedCoachId',
+          // @ts-expect-error
+          [payload.associatedCoachId],
+          'loading',
+        ],
+        payload.loading,
+      );
     },
     [coachPrivateServicePerformanceActions.error.toString()]: (
       state,
@@ -297,18 +317,24 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [sessionCoachPaymentRule.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const index = state.performance.session.byAssociatedCoachId[
+        // @ts-expect-error
         payload.associatedCoachId
+        // @ts-expect-error
       ].data.findIndex((s) => s.session_id === payload.sessionId);
       const session =
+        // @ts-expect-error
         state.performance.session.byAssociatedCoachId[payload.associatedCoachId]
           .data[index];
+      // @ts-expect-error
       const updatedSession = { ...session, ...payload.data };
       return state.setIn(
         [
           'performance',
           'session',
           'byAssociatedCoachId',
+          // @ts-expect-error
           payload.associatedCoachId,
           'data',
           index,
@@ -332,17 +358,23 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       const index = state.performance.private_service.byAssociatedCoachId[
+        // @ts-expect-error
         payload.associatedCoachId
       ].data.findIndex(
+        // @ts-expect-error
         (s) => s.private_booking_id === payload.privateBookingId,
       );
       const private_service =
+        // @ts-expect-error
         state.performance.private_service.byAssociatedCoachId[
+          // @ts-expect-error
           payload.associatedCoachId
         ].data[index];
       const updatedPrivateService = {
         ...private_service,
+        // @ts-expect-error
         ...payload.data,
       };
       return state.setIn(
@@ -350,6 +382,7 @@ export default handleActions(
           'performance',
           'private_service',
           'byAssociatedCoachId',
+          // @ts-expect-error
           payload.associatedCoachId,
           'data',
           index,
@@ -368,11 +401,13 @@ export default handleActions(
       return state
         .setIn(
           ['groups', 'allIds'],
+          // @ts-expect-error
           payload.map((g) => g.id),
         )
         .merge(
           {
             groups: {
+              // @ts-expect-error
               byId: payload.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -383,19 +418,29 @@ export default handleActions(
         );
     },
     [coachPaymentRuleGroupDelete.success.toString()]: (state, { payload }) => {
-      return state
-        .setIn(['groups', 'byId'], omit(state.groups.byId, payload.id))
-        .setIn(
-          ['groups', 'allIds'],
-          state.groups.allIds.filter((id) => id !== payload.id),
-        );
+      return (
+        state
+          // @ts-expect-error
+          .setIn(['groups', 'byId'], omit(state.groups.byId, payload.id))
+          .setIn(
+            ['groups', 'allIds'],
+            // @ts-expect-error
+            state.groups.allIds.filter((id) => id !== payload.id),
+          )
+      );
     },
     [upsertPaymentGroupActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       if (!state.groups.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['groups', 'byId', payload.id], payload)
-          .setIn(['groups', 'allIds'], [...state.groups.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['groups', 'byId', payload.id], payload)
+            // @ts-expect-error
+            .setIn(['groups', 'allIds'], [...state.groups.allIds, payload.id])
+        );
       }
+      // @ts-expect-error
       return state.setIn(['groups', 'byId', payload.id], payload);
     },
     [upsertPaymentGroupActions.isLoading.toString()]: (state, { payload }) => {
@@ -411,12 +456,14 @@ export default handleActions(
       return state
         .setIn(
           ['performance', 'cached_data', 'allTimestamps'],
+          // @ts-expect-error
           payload?.map((data: CoachPerformanceCachedData) => data.timestamp),
         )
         .merge(
           {
             performance: {
               cached_data: {
+                // @ts-expect-error
                 byTimestamp: payload.reduce(
                   (
                     acc: { [timestamp: number]: CoachPerformanceCachedData },

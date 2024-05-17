@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -14,6 +13,7 @@ import AccountConfigurationStepSwitcherRouter from './AccountConfigurationStepSw
 import { retrieveStripeCompanyAction } from '#libs/company/actions';
 import AccountConfigurationStripeStepPage from './AccountConfigurationStripeStep.page';
 import AccountConfigurationBankAccountStepPage from './AccountConfigurationBankAccountStep.page';
+// @ts-expect-error
 import LanguageButton from '../../../components/button/LanguageButton.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import themeSelectors from '#libs/theme/selectors';

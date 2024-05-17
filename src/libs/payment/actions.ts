@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import type {
   Dispatch,
@@ -159,6 +158,7 @@ export function fetchOnSpotPaymentReport(
       const response = await fetchOnSpotPaymentReportAPI(params);
       dispatch(onSpotPaymentReportActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -185,6 +185,7 @@ export function fetchPaymentGroupList(
       const response = await fetchPaymentGroupListAPI(params);
       dispatch(listPaymentGroupActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -222,6 +223,7 @@ export function fetchIncrementalPayoutList(
       });
       dispatch(incrementalListPayoutActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -251,8 +253,10 @@ export function fetchPayoutList(
         ...(params || {}),
         page: nextPage,
       });
+      // @ts-expect-error
       dispatch(listPayoutActions.success({ ...response.data, page: nextPage }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -386,6 +390,7 @@ export function fetchStripeBalance(
     try {
       const response = await fetchStripeBalanceAPI();
 
+      // @ts-expect-error
       dispatch(stripeBalanceActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
@@ -416,12 +421,15 @@ export function fetchStripePayoutList(
     const { startingAfter } = getState().paymentBackend.stripePayout;
 
     try {
+      // @ts-expect-error
       const response = await fetchStripePayoutListAPI({
         ...(params || {}),
         ...(startingAfter ? { starting_after: startingAfter } : {}),
       });
 
+      // @ts-expect-error
       dispatch(listStripePayoutActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
@@ -482,6 +490,7 @@ export function fetchBookkeepingAccountList(
     dispatch(listBookkeepingAccountActions.error(null));
     try {
       const response = await fetchBookkeepingAccountListAPI(params);
+      // @ts-expect-error
       dispatch(listBookkeepingAccountActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {

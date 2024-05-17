@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { pure } from 'recompose';
 import type { Theme } from '@material-ui/core/styles';
@@ -22,6 +21,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
   nbTutorialAlerting,
 }) => {
   const classes = useStyles({ iconsOnly });
+  // @ts-expect-error
   if (item?.icon) {
     if (!iconsOnly) {
       return (
@@ -31,17 +31,20 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
             [classes.disabledIconPadding]: iconsOnly,
           })}
         >
+          {/* @ts-expect-error */}
           <item.icon {...(nbTutorialAlerting ? { nbTutorialAlerting } : {})} />
         </ListItemIcon>
       );
     }
     return (
+      // @ts-expect-error
       <ToolTip placement="right-start" title={item.text}>
         <ListItemIcon
           className={classNames(classes.disabledIconPadding, {
             [classes.nestedIcon]: isNested,
           })}
         >
+          {/* @ts-expect-error */}
           <item.icon {...(nbTutorialAlerting ? { nbTutorialAlerting } : {})} />
         </ListItemIcon>
       </ToolTip>

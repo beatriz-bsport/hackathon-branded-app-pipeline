@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -28,6 +27,7 @@ import {
   EmailTemplateSummary,
 } from '../../email-editor/types';
 import FranchiseNotificationRuleFormModal from './FranchiseNotificationRuleFormModal.component';
+// @ts-expect-error
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { OptionCallback } from '../../../state/types';

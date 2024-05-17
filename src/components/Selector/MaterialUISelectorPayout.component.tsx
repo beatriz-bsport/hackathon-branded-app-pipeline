@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useMemo } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { makeStyles } from '@material-ui/core';
@@ -59,6 +58,7 @@ const MaterialUISelectorPayout: React.FC<MaterialUISelectorPayoutProps> = ({
 
   return (
     <div className={classes.container}>
+      {/* @ts-expect-error */}
       <MaterialUISelectorHandleScroll
         fetch={handleFetch}
         isLoading={isLoading}

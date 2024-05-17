@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
@@ -303,6 +302,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
 
           <LevelChip
             isChip
+            // @ts-expect-error
             customLevel={replacementRequest.offer.customLevel}
             smallFont={isMobile}
           />
@@ -317,6 +317,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                   ? replacementRequest.coach_answer[0].answer
                   : null
               }
+              // @ts-expect-error
               handleCoachAnswer={handleCoachAnswerWithReplacementRequest}
               smallFont={isMobile}
             />
@@ -417,6 +418,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           <div className={classes.level}>
             <LevelChip
               isChip
+              // @ts-expect-error
               customLevel={replacementRequest.offer.customLevel}
             />
           </div>
@@ -514,6 +516,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                     ? replacementRequest.coach_answer[0].answer
                     : null
                 }
+                // @ts-expect-error
                 handleCoachAnswer={handleCoachAnswerWithReplacementRequest}
               />
             </TableCell>

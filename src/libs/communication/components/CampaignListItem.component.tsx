@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -89,6 +88,7 @@ const MultiRecipientStatAction: React.FC<{
   return (
     <Button
       className={classes.button}
+      // @ts-expect-error
       disabled={campaign.status === COMMUNICATION_SEND_STATUS_PROCESSING}
       onClick={onClickReport}
       variant="outlined"
@@ -183,8 +183,10 @@ export const CampaignListItem: React.FC<Props> = ({
     return newString;
   };
 
+  // @ts-expect-error
   const handleClickShow = () => onClickShow(interpolate(body || campaign.text));
 
+  // @ts-expect-error
   const isProcessing = campaign.status === COMMUNICATION_SEND_STATUS_PROCESSING;
 
   return (

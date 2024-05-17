@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -24,6 +23,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
   const { t, classes } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  // @ts-expect-error
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -40,20 +40,27 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
     }
   }, [anchorEl]);
   const [tagRuleState, setTagRuleState] = React.useState(
+    // @ts-expect-error
     props.choice_tag_rule
       ? {
+          // @ts-expect-error
           ...props.choice_tag_rule,
+          // @ts-expect-error
           ...(props.choice_tag_rule && {
+            // @ts-expect-error
             tag_group: props.tag_groups.find((group) =>
+              // @ts-expect-error
               group.tags.find((tag) => tag.id === props.choice_tag_rule.tag_id),
             ),
           }),
         }
       : null,
   );
+  // @ts-expect-error
   const handleTagGroupSelection = (value) => {
     setTagRuleState({
       ...tagRuleState,
+      // @ts-expect-error
       tag_group: props.tag_groups.find((group) => group.id === value),
     });
   };
@@ -99,6 +106,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
     <>
       <IconButton
         onClick={() => {
+          // @ts-expect-error
           props.deleteTagRule();
           setTagRuleState(null);
           setShowTagRule(false);
@@ -110,11 +118,13 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
       </IconButton>
       <FormControl className={classes.select}>
         <Select
+          // @ts-expect-error
           disabled={!!props.choice_tag_rule?.tag_id}
           labelId="tag-group"
           onChange={(event) => handleTagGroupSelection(event.target.value)}
           value={`${tagRuleState?.tag_group && tagRuleState.tag_group.id}`}
         >
+          {/* @ts-expect-error */}
           {props.tag_groups.map((group) => (
             <MenuItem key={group.id} value={group.id}>
               {group.name}
@@ -128,15 +138,18 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
           disabled={!!tagRuleState?.tag_id}
           labelId="tag_name"
           onChange={(event) => {
+            // @ts-expect-error
             props.setTag(event.target.value);
             setTagRuleState({
               ...tagRuleState,
+              // @ts-expect-error
               tag_id: event.target.value && parseInt(event.target.value),
             });
           }}
           value={`${tagRuleState?.tag_id && tagRuleState.tag_id.toString()}`}
         >
           {tagRuleState &&
+            // @ts-expect-error
             tagRuleState?.tag_group?.tags?.map((tag) => (
               <MenuItem key={tag.id} value={tag.id.toString()}>
                 {tag.name}
@@ -162,5 +175,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormBuilderTagRuleSelector);

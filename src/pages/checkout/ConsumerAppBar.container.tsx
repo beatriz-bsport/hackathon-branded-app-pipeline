@@ -1,17 +1,20 @@
-// @ts-nocheck
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
+// @ts-expect-error
 import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } from '../../actions/auth.actions';
+// @ts-expect-error
 import { auth as authActions } from '../../actions';
 import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
+// @ts-expect-error
 import Analytics from '../../components/analytics/Analytics.component';
 import themeSelectors from '../../libs/theme/selectors';
+// @ts-expect-error
 import { getTheme } from '../../theme';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
@@ -71,6 +74,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
         ) : (
           <MarketplaceAppBar
             auth={auth}
+            // @ts-expect-error
             companyId={companyId}
             disconnect={disconnect}
             goToUserSpace={() => goToUserSpace(theme.company)}

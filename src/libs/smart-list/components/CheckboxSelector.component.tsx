@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
@@ -75,6 +74,7 @@ export class CheckboxSelector<T extends Item> extends Component<
     }
   };
 
+  // @ts-expect-error
   handleClick = (event) => {
     const { currentTarget } = event;
     this.setState((state) => ({
@@ -150,6 +150,7 @@ export class CheckboxSelector<T extends Item> extends Component<
             {[...this.props.items]
               .filter(
                 (i) =>
+                  // @ts-expect-error
                   !(i?.disabled ?? false) ||
                   this.state.selectedItems.includes(i.id),
               )
@@ -207,4 +208,5 @@ const styles = (theme: Theme) =>
     dropdownArrow: { color: '#757575' },
   });
 
+// @ts-expect-error
 export default compose<any, OwnProps>(withStyles(styles))(CheckboxSelector);

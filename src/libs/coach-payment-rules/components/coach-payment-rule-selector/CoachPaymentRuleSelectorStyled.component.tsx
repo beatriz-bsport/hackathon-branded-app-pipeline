@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -21,6 +20,7 @@ const getPaymentRuleOptions = (coachPaymentRule: Array<CoachPaymentRule>) =>
   coachPaymentRule.map((rule) => ({ value: rule.id, label: rule.name }));
 
 const DropdownIndicator = (
+  // @ts-expect-error
   props: ReturnType<typeof components.DropdownIndicator>,
 ) => {
   return (
@@ -33,7 +33,9 @@ const DropdownIndicator = (
     </components.DropdownIndicator>
   );
 };
+// @ts-expect-error
 const SingleValue = ({ children, ...props }) => (
+  // @ts-expect-error
   <components.SingleValue {...props}>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       {props.selectProps.isGroupSelect ? (
@@ -43,7 +45,9 @@ const SingleValue = ({ children, ...props }) => (
     </div>
   </components.SingleValue>
 );
+// @ts-expect-error
 const Placeholder = ({ children, ...props }) => (
+  // @ts-expect-error
   <components.Placeholder {...props}>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       {props.selectProps.isGroupSelect ? (
@@ -54,8 +58,11 @@ const Placeholder = ({ children, ...props }) => (
   </components.Placeholder>
 );
 const ruleStyles = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -86,6 +93,7 @@ const ruleStyles = {
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -93,10 +101,12 @@ const ruleStyles = {
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
@@ -108,6 +118,7 @@ const ruleStyles = {
 };
 
 type OwnProps = {
+  // @ts-expect-error
   onChange: (Suggestion) => void;
   id?: string;
   coachPaymentRulesList: Array<CoachPaymentRule>;
@@ -148,6 +159,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
   if (enableReset) {
     suggestions.push({
       value: DISSOCIATED_COACH_PAYMENT_RULE,
+      // @ts-expect-error
       label: (
         <Typography color="error" variant="subtitle2">
           {t('select.reset')}

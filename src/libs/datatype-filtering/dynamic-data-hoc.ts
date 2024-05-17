@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -22,6 +21,7 @@ import { getAllPrivateSlots } from '#libs/private-service/selectors/private-slot
 import { getAllGiftcardList } from '#libs/giftcard/selectors';
 import { getAllCoupons } from '#libs/coupon/selectors';
 import { getVideoList } from '#libs/video/selectors';
+// @ts-expect-error
 import { getAvailableContractList } from '#libs/subscription/selectors';
 import { getTheme } from '#libs/theme/selectors';
 import { getSubShopsByCompany } from '#libs/shop/selectors';
@@ -147,9 +147,11 @@ export default function withDatatypeDynamicData(
         (
           type: DynamicFilterDataType,
           valueId?: number[],
+          // @ts-expect-error
           columnName: string,
         ) => {
           if (
+            // @ts-expect-error
             !props.dynamicDataLoading[type] &&
             !props.dynamicDataHasBeenLoaded[type]
           ) {
@@ -326,9 +328,11 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
+              // @ts-expect-error
               case ReportFilterableDataType.ESTABLISHMENT_GROUP:
                 props.fetchAllEstablishmentGroup(props.companyId, {
                   onSuccess: () => {
+                    // @ts-expect-error
                     props.setDynamicDataHasBeenLoaded('establishment_group');
                   },
                 });
@@ -338,6 +342,7 @@ export default function withDatatypeDynamicData(
           }
 
           if (
+            // @ts-expect-error
             props.dynamicDataLoading[type] &&
             !props.dynamicDataHasBeenLoaded[type]
           ) {
@@ -354,12 +359,14 @@ export default function withDatatypeDynamicData(
 
               case ReportFilterableDataType.PAYMENT_PACK:
                 return props.paymentPacks.find(
+                  // @ts-expect-error
                   (paymentPack) =>
                     paymentPack.id.toString() === stringifiedValue,
                 )?.name;
 
               case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
                 return props.paymentPackCategories.find(
+                  // @ts-expect-error
                   (paymentPackCategories) =>
                     paymentPackCategories.id.toString() === stringifiedValue,
                 )?.name;
@@ -385,6 +392,7 @@ export default function withDatatypeDynamicData(
                     establishment.id.toString() === stringifiedValue,
                 )?.title;
 
+              // @ts-expect-error
               case ReportFilterableDataType.ESTABLISHMENT_GROUP:
                 return props.establishmentGroups.find(
                   (establishmentGroup) =>
@@ -446,6 +454,7 @@ export default function withDatatypeDynamicData(
 
               case ReportFilterableDataType.CONTRACT:
                 return props.contracts.find(
+                  // @ts-expect-error
                   (contract) => contract.id.toString() === stringifiedValue,
                 )?.name;
 
@@ -471,10 +480,13 @@ export default function withDatatypeDynamicData(
               case ReportFilterableDataType.COMPANY: {
                 const matchingFranchiseCompany = (
                   props.franchiseCompanies ?? []
-                ).find(
-                  (franchiseCompany) =>
-                    franchiseCompany?.id?.toString() === stringifiedValue,
-                )?.name;
+                )
+                  // @ts-expect-error
+                  .find(
+                    // @ts-expect-error
+                    (franchiseCompany) =>
+                      franchiseCompany?.id?.toString() === stringifiedValue,
+                  )?.name;
                 return matchingFranchiseCompany || null;
               }
               default:
@@ -489,12 +501,14 @@ export default function withDatatypeDynamicData(
                 columnName,
               }));
             case ReportFilterableDataType.PAYMENT_PACK:
+              // @ts-expect-error
               return props.paymentPacks.map((p) => ({
                 label: p.name,
                 value: p.id,
                 columnName,
               }));
             case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
+              // @ts-expect-error
               return props.paymentPackCategories.map((paymentPackCategory) => ({
                 label: paymentPackCategory.name,
                 value: paymentPackCategory.id,
@@ -574,6 +588,7 @@ export default function withDatatypeDynamicData(
                 columnName,
               }));
             case ReportFilterableDataType.CONTRACT:
+              // @ts-expect-error
               return props.contracts.map((contract) => ({
                 label: contract.name,
                 value: contract.id,
@@ -595,6 +610,7 @@ export default function withDatatypeDynamicData(
               }));
             case ReportFilterableDataType.COMPANY:
               return (
+                // @ts-expect-error
                 props.franchiseCompanies?.map((c) => ({
                   label: c.name,
                   value: c.id,
@@ -616,6 +632,7 @@ export default function withDatatypeDynamicData(
               }));
             default:
               return [];
+            // @ts-expect-error
             case ReportFilterableDataType.ESTABLISHMENT_GROUP:
               return props.establishmentGroups.map((establishment_group) => ({
                 label: establishment_group.name,

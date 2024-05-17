@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   useEffect,
   useMemo,
@@ -37,6 +36,7 @@ import {
   DatatypeFilterConfigGroup,
 } from '#libs/datatype-filtering/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+// @ts-expect-error
 import { Submit, DelayTextField } from '#components/forms';
 
 import {
@@ -121,6 +121,7 @@ const ReportFilterConfigFormDrawer: React.FC<
   // Columns management
   //
   const consumableColumns = useMemo(
+    // @ts-expect-error
     () => getFilterableColumns(values.config.groups, columns, isFranchisor),
     [columns, values.config.groups, isFranchisor],
   );
@@ -168,6 +169,7 @@ const ReportFilterConfigFormDrawer: React.FC<
     (uuid: number) => () => {
       const groupsWithoutFilter = values.config.groups.map((g) => ({
         ...g,
+        // @ts-expect-error
         filters_data: g.filters_data.filter((d) => d.uuid !== uuid),
       }));
 
@@ -415,6 +417,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default compose<any, OuterProps>(
   withFormik<OuterProps, Values>({
+    // @ts-expect-error
     mapPropsToValues: ({ initial, columns, isFranchisor }) => {
       if (initial) {
         return {
@@ -446,6 +449,7 @@ export default compose<any, OuterProps>(
       const { id, ...restInitial } = initial ?? {};
       onSubmit({
         id,
+        // @ts-expect-error
         valuesHandledByDrawer: {
           ...(restInitial ?? {}),
           ...values,

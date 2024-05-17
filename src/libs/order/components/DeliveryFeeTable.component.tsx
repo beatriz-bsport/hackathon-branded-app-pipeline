@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import type { DeliveryFee } from '#libs/order/types';
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 
 type Props = {

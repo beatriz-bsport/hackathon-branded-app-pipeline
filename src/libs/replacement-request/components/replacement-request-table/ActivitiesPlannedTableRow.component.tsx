@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useCallback } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -77,6 +76,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
   const { t } = useTranslation('replacement');
 
   const onClickCheckbox = useCallback(
+    // @ts-expect-error
     () => handleCheckboxAction(offer),
     [handleCheckboxAction, offer],
   );
@@ -100,6 +100,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
       replacementDisplay === ReplacementDisplays.REPLACEMENT_DISPLAY_CALENDAR &&
       reasonCoachCannotAskForReplacement(
         coach,
+        // @ts-expect-error
         offer,
         hasPendingReplacementRequest,
         hasRefusedReplacementRequest,
@@ -247,6 +248,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             <div className={classes.level}>
               <LevelChip
                 isChip
+                // @ts-expect-error
                 customLevel={offer.customLevel}
                 smallFont={isMobile}
               />
@@ -318,6 +320,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
       </TableCell>
       <TableCell className={classes.tableCell}>
         <div className={classes.level}>
+          {/* @ts-expect-error */}
           <LevelChip isChip customLevel={offer.customLevel} />
         </div>
       </TableCell>

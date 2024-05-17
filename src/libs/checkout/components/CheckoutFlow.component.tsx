@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +6,9 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
 import BasketConsumer from './BasketConsumer.component';
 
+// @ts-expect-error
 import BasketFinalizer from './BasketFinalizer.component';
+// @ts-expect-error
 import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
 import { CheckoutItem, Basket, PrepaidLine } from '../types';
 import { ShopItem } from '../../shop/types';
@@ -160,6 +161,7 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
             companyCountry={props.companyCountry}
             creditAccountBalance={props.creditAccountBalance}
             defaultEstablishmentBillingGroup={
+              // @ts-expect-error
               props.defaultEstablishmentBillingGroup
             }
             enableMultiLocalization={props.enableMultiLocalization}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useCallback, useRef } from 'react';
 import { TFunction } from 'i18next';
 
@@ -23,7 +22,9 @@ import {
   Typography,
 } from '@material-ui/core';
 
+// @ts-expect-error
 import { Submit, IntegerField, ColorField } from '#components/forms';
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { CompanyTheme, WidgetCustomCSS } from '#libs/theme/types';
@@ -141,6 +142,7 @@ export const WidgetCssThemeOverrideForm: React.FC<
               <MaterialUiSingleSelectorField
                 label="Font"
                 name="fontFamily"
+                // @ts-expect-error
                 options={SAFE_FONTS}
                 placeholder="Font"
               />
@@ -366,6 +368,7 @@ const ResetableField: React.FC<{ name: keyof Values; theme: CompanyTheme }> = ({
   children,
 }) => {
   const classes = useStyles();
+  // @ts-expect-error
   const defaultValue = useRef(getDefault(theme)?.[name]);
   const [field, , helpers] = useField(name);
   const handleReset = useCallback(() => {

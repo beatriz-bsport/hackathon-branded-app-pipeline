@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useEffect, useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikProps, FieldArray } from 'formik';
@@ -17,6 +16,7 @@ import {
   CheckboxField,
   Actions,
   Submit,
+  // @ts-expect-error
 } from '#components/forms';
 import CoachListItem from '#libs/associated-coach/components/CoachListItem.component';
 import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
@@ -84,6 +84,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
   const { t } = useTranslation('replacement');
 
   useEffect(() => {
+    // @ts-expect-error
     trackFormAdd(initial?.id);
   }, [initial]);
 
@@ -178,11 +179,13 @@ export const DisciplineGroupForm: React.FC<Props> = ({
           valuesToSubmit.categories = [];
         }
 
+        // @ts-expect-error
         trackFormSubmitIntent(valuesToSubmit.id);
 
         onSubmit(valuesToSubmit, {
           onSuccess: () => {
             actions.setSubmitting(false);
+            // @ts-expect-error
             trackFormSuccess(valuesToSubmit.id);
             handleClose();
           },
@@ -203,6 +206,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
           _: ChangeEvent<HTMLInputElement>,
           value: string,
         ) => {
+          // @ts-expect-error
           setMultiLocationChoice(value);
           setFieldValue('establishments', []);
           setFieldValue('establishment_groups', []);
@@ -278,7 +282,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           placeholder={t('disciplineGroup.form.pickActivity')}
                           value={
                             all_activities === false
-                              ? meta_activities?.map((id) => ({
+                              ? // @ts-expect-error
+                                meta_activities?.map((id) => ({
                                   label: activityList.find((ma) => ma.id === id)
                                     ?.name,
                                   value: id,
@@ -328,7 +333,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           placeholder={t('disciplineGroup.form.pickWorkshop')}
                           value={
                             all_workshops === false
-                              ? workshops?.map((id) => ({
+                              ? // @ts-expect-error
+                                workshops?.map((id) => ({
                                   label: workshopList.find((w) => w.id === id)
                                     ?.name,
                                   value: id,
@@ -392,7 +398,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           placeholder={t('disciplineGroup.form.pickCategory')}
                           value={
                             all_categories === false
-                              ? categories?.map((id) => ({
+                              ? // @ts-expect-error
+                                categories?.map((id) => ({
                                   label: categoryList.find(
                                     (sct) => sct.id === id,
                                   )?.name,
@@ -454,6 +461,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                         </div>
                       )}
                       {multiLocationChoice === MultilocationChoice.Locations ? (
+                        // @ts-expect-error
                         <EstablishmentGroupSelector
                           isClearable
                           establishmentGroups={establishmentGroupList}
@@ -464,6 +472,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           selectOption={selectOptionLocations}
                         />
                       ) : (
+                        // @ts-expect-error
                         <EstablishmentSelector
                           isClearable
                           establishments={establishmentList}
@@ -497,6 +506,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                       <CoachSelector
                         associatedCoachOutput
                         closeMenuOnSelect
+                        // @ts-expect-error
                         nullCurrentValue
                         coaches={[
                           ...choicesForCoachSelector.filter(
@@ -541,6 +551,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
               <Button
                 onClick={() => {
                   handleClose();
+                  // @ts-expect-error
                   initial?.id ? trackFormCancel(initial.id) : trackFormCancel();
                 }}
               >

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
@@ -182,7 +181,9 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   };
 
   const groups = Object.keys(groupPreview).map((key) => ({
+    // @ts-expect-error
     ...groupPreview[key]?.group,
+    // @ts-expect-error
     offers: groupPreview[key]?.offers_data,
   }));
 
@@ -219,6 +220,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               interval: values.recurrence_interval,
             }
           : null,
+        // @ts-expect-error
         offers_data: values.offers.map((o) => ({
           ...o,
           whitelist_tags: values.whitelist_tags,
@@ -228,6 +230,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
         })),
       };
 
+      // @ts-expect-error
       generatePreview(previewData, {
         onSuccess: () => {
           handleNextStep();
@@ -242,10 +245,12 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
     ({ values, options }) => {
       // for each groups add the group details
       const group_data_with_offers = values.reduce(
+        // @ts-expect-error
         (acc, formikGroup, index) => {
           const { offers, ...group } = formikGroup;
           acc[index] = {
             group,
+            // @ts-expect-error
             offers_data: offers.map((o) => ({
               waiting_list_max_size: parseInt(o.waiting_list_max_size),
               effectif: parseInt(o.effectif),
@@ -296,6 +301,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
       <div className={classes.drawerInner}>
         {step === STEP_METACTIVITY_SELECT && (
           <GroupedOfferFormMetaActivitySelect
+            // @ts-expect-error
             handleNextStep={handleNextStep}
             handlePreviousStep={handlePreviousStep}
             handleSelectActivity={handleSelectActivity}
@@ -315,6 +321,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               coaches={coaches}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createLevel={createLevel}
+              // @ts-expect-error
               creditScaleFactor={creditScaleFactor}
               customLevels={customLevels}
               deleteLevel={deleteLevel}

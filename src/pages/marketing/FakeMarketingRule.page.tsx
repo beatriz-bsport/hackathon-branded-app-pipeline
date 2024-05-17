@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -224,6 +223,7 @@ export class MarketingRule extends Component<Props, State> {
             </Grid>
           </Grid>
         </Grid>
+        {/* @ts-expect-error */}
         {rule.actions.map((a) => (
           <Grid item xs={12}>
             <Paper className={classes.paperContainer}>
@@ -238,6 +238,7 @@ export class MarketingRule extends Component<Props, State> {
 
 export default withStyles(styles)(
   withTranslation()(
+    // @ts-expect-error
     withTitle(({ t }: { t: TFunction }) => t('titles:marketing.marketingRule'))(
       MarketingRule,
     ),

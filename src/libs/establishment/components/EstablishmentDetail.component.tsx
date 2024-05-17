@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,10 +11,13 @@ import TypographyMultiline from '../../../components/typo/TypographyMultiline.co
 
 import type { Establishment, Offer } from '../../../api/types';
 
+// @ts-expect-error
 import TimeTable from '../../../components/offer/TimeTable.component';
 import Calendar from '../../../components/offer/Calendar.component';
+// @ts-expect-error
 import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
+// @ts-expect-error
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
 import EstablishmentSpotScheduling from './EstablishmentSpotScheduling.component';
 import { RoomBlueprint } from '../../spot-scheduling/types';
@@ -96,9 +98,11 @@ export class EstablishmentDetail extends Component<Props, State> {
           events={events.reduce((acc, offer) => {
             const midnight = DateTime.fromISO(offer.date_start).startOf('day');
             if (Object.hasOwnProperty.call(events, midnight)) {
+              // @ts-expect-error
               acc[midnight].push(offer);
               return acc;
             }
+            // @ts-expect-error
             acc[midnight] = [offer];
             return acc;
           }, {})}
@@ -152,13 +156,17 @@ export class EstablishmentDetail extends Component<Props, State> {
                     variant="subtitle2"
                   >
                     {t('capacity.explain', {
+                      // @ts-expect-error
                       count: establishment.capacity,
+                      // @ts-expect-error
                       capacity: establishment.capacity,
                     })}
                   </Typography>
                   <EasyAccessStack
                     className={classes.easyAccess}
+                    // @ts-expect-error
                     lines={establishment.easy_access.lines}
+                    // @ts-expect-error
                     name={establishment.easy_access.name}
                     size="xs"
                   />
@@ -184,6 +192,7 @@ export class EstablishmentDetail extends Component<Props, State> {
                 />
               </Paper>
               <BookingCreationNotification
+                // @ts-expect-error
                 createNotification={this.props.createNotification}
                 deleteNotification={this.props.deleteNotification}
                 emailDetailLoading={this.props.emailDetailLoading}
@@ -213,6 +222,7 @@ export class EstablishmentDetail extends Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   noMoreOffersMessage: {
     margin: theme.spacing(2),

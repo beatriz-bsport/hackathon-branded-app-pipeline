@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -41,10 +40,13 @@ type Props = {
   identifier: 'establishment' | 'meta_activity';
 
   isDeleteModalOpen: boolean;
+  // @ts-expect-error
   setIsDeleteModalOpen: (boolean) => void;
   selectedNotification: any;
+  // @ts-expect-error
   setSelectedNotification: (any) => void;
   isFormOpen: boolean;
+  // @ts-expect-error
   setIsFormOpen: (boolean) => void;
 
   closeForm: () => void;
@@ -143,6 +145,7 @@ const BookingCreationNotification = (props: Props) => {
       </ObjectLevelPermissionWrapper>
       {props.isFormOpen && (
         <MarketingRuleFormBooking
+          // @ts-expect-error
           emailDetailLoading={props.emailDetailLoading}
           emailDetails={props.emailDetails}
           emailListLoading={props.emailListLoading}
@@ -250,4 +253,5 @@ export default compose(
         setSelectedNotification(null);
       },
   }),
+  // @ts-expect-error
 )(BookingCreationNotification);

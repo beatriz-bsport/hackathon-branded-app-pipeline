@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -34,6 +33,7 @@ import {
 import { RootState } from '../../reducers';
 import type { Membership } from '../../libs/membership/types';
 import { getMembership } from '../../libs/membership/selectors';
+// @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
 import {
   getCustomFormListWithEnableField,
@@ -56,6 +56,7 @@ type StateHandlerInit = {
   customFormListIsSubmitting: boolean;
   currentCustomFormSubmittingId: null | number;
 };
+// @ts-expect-error
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 type OwnProps = {
@@ -70,6 +71,7 @@ type OwnProps = {
 };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
+// @ts-expect-error
 type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
 type Props = OwnAndConnectedProps;
 export class MemberShipValidationWrapper extends React.Component<Props> {
@@ -100,6 +102,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     return this.props.requestMemberCustomFormNotification(
       { company_id: this.props.companyId },
       {
+        // @ts-expect-error
         onSuccess: (payload) => {
           this.props.fetchMissingCustomFormBulk({
             id__in: payload.missing_custom_form_informations.map(
@@ -270,8 +273,10 @@ const mapStateToProps = (
   userProfile: state.member.userProfile.profile,
   memberLoading: state.member.loading,
   customFormLoading: state.customForm.loading,
+  // @ts-expect-error
   customFormList: withUserProfileData(getCustomFormListWithEnableField)(
     state,
+    // @ts-expect-error
     customFormIdsList,
   ),
   customFormDisplayRuleList: getCustomFormDisplayRuleBlockingList(
@@ -300,6 +305,7 @@ const withStateHandlersInit: StateHandlerInit = {
   customFormListIsSubmitting: false,
   currentCustomFormSubmittingId: null,
 };
+// @ts-expect-error
 const withStateHandlersSetter = {
   setTemporaryCustomFormData:
     (props: OwnAndConnectedProps) =>

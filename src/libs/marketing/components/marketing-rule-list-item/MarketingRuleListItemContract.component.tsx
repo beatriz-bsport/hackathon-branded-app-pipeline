@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
@@ -17,6 +16,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 
 import { compose } from 'recompose';
 import { MaterialStyleType } from '../../../../utils/types';
+// @ts-expect-error
 import { EmailTemplateSummary } from '#libs/email-editor/types.ts';
 
 import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';

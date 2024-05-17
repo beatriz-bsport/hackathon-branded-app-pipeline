@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
@@ -56,6 +55,7 @@ export const marketplaceByMetaActivityEmptyState = Immutable({
 
 const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   // event stuff (simplified offer objects)
+  // @ts-expect-error
   calendar: [],
   paginatedCalendar: {
     next_page: null,
@@ -168,6 +168,7 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     loading: false,
     error: null,
   },
+  // @ts-expect-error
   groups: {},
   bookingGuest: {
     bookingGuestNumberLeft: 0,
@@ -269,15 +270,21 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         .setIn(['similarOffers', 'next_page'], 1);
     },
     [similarOffers.successPaginated.toString()]: (state, { payload }) => {
-      return state
-        .setIn(
-          ['similarOffers', 'items'],
-          [...state.similarOffers.items, ...payload.results],
-        )
-        .setIn(['similarOffers', 'next_page'], payload.next_page)
-        .setIn(['similarOffers', 'lastFetched'], new Date())
-        .setIn(['similarOffers', 'count'], payload.count)
-        .setIn(['similarOffers', 'page'], payload.page);
+      return (
+        state
+          .setIn(
+            ['similarOffers', 'items'],
+            // @ts-expect-error
+            [...state.similarOffers.items, ...payload.results],
+          )
+          // @ts-expect-error
+          .setIn(['similarOffers', 'next_page'], payload.next_page)
+          .setIn(['similarOffers', 'lastFetched'], new Date())
+          // @ts-expect-error
+          .setIn(['similarOffers', 'count'], payload.count)
+          // @ts-expect-error
+          .setIn(['similarOffers', 'page'], payload.page)
+      );
     },
     [compatiblePacks.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['compatiblePacks', 'loading'], payload);
@@ -291,10 +298,12 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         .setIn(['compatiblePacks', 'lastFetched'], new Date());
     },
     [offers.delete.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const items = state.calendar.filter((o) => o.id !== payload);
       return state.set('calendar', items);
     },
     [disableOfferActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const items = state.calendar.filter((o) => o.id !== payload.id);
       return state.set('calendar', items);
     },
@@ -314,12 +323,14 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state.setIn(['retrieve', 'loading'], payload);
     },
     [offerByDay.bulk.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [offerByDay.success.toString()]: (state, { payload }) => {
       return state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -329,6 +340,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         )
         .setIn(
           ['byDay', 'allIds'],
+          // @ts-expect-error
           payload.map((o) => o.id),
         );
     },
@@ -336,6 +348,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -345,6 +358,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         )
         .setIn(
           ['marketplace', 'allIds'],
+          // @ts-expect-error
           payload.map((o) => o.id),
         );
     },
@@ -355,8 +369,10 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.marketplace.byMetaActivity[payload]?.allIds) {
         return state.setIn(
+          // @ts-expect-error
           ['marketplace', 'byMetaActivity', payload],
           marketplaceByMetaActivityEmptyState,
         );
@@ -375,24 +391,32 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     ) => {
       return state
         .setIn(
+          // @ts-expect-error
           ['marketplace', 'byMetaActivity', payload.metaActivityId, 'allIds'],
           uniq([
+            // @ts-expect-error
             ...(state.marketplace.byMetaActivity?.[payload.metaActivityId]
               ?.allIds ?? []),
+            // @ts-expect-error
             ...(payload?.value?.results?.map((o) => o.id) ?? []),
           ]),
         )
         .setIn(
+          // @ts-expect-error
           ['marketplace', 'byMetaActivity', payload.metaActivityId, 'nextPage'],
+          // @ts-expect-error
           payload?.value?.next_page,
         )
         .setIn(
+          // @ts-expect-error
           ['marketplace', 'byMetaActivity', payload.metaActivityId, 'count'],
+          // @ts-expect-error
           payload?.value?.count,
         )
         .merge(
           {
             byId:
+              // @ts-expect-error
               payload?.value?.results?.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -406,7 +430,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['marketplace', 'byMetaActivity', payload.metaActivityId, 'error'],
+        // @ts-expect-error
         payload.value,
       );
     },
@@ -415,7 +441,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['marketplace', 'byMetaActivity', payload.metaActivityId, 'loading'],
+        // @ts-expect-error
         payload.value,
       );
     },
@@ -440,6 +468,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     [offerBulkActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.reduce((acc, ps) => {
             acc[ps.id] = ps;
             return acc;
@@ -455,6 +484,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state.setIn(['retrieve', 'loading'], payload);
     },
     [retrieveByIdActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [bookedGenderActions.isLoading.toString()]: (state, { payload }) => {
@@ -467,11 +497,13 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state
         .setIn(
           ['genderCount', 'allIds'],
+          // @ts-expect-error
           payload.map((ps) => ps.id),
         )
         .merge(
           {
             genderCount: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -488,12 +520,14 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state.setIn(['offerStatus', 'error'], payload);
     },
     [offerStatusActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['offerStatus', 'byId', payload.id], payload);
     },
     [offerStatusActions.list.toString()]: (state, { payload }) => {
       return state.merge(
         {
           offerStatus: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -524,6 +558,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['offerStatusWaitinglistPosition', 'byId', payload.id],
         payload,
       );
@@ -535,6 +570,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state.merge(
         {
           offerStatusWaitinglistPosition: {
+            // @ts-expect-error
             byId: payload.reduce((acc, offerPositionDetails) => {
               acc[offerPositionDetails.id] = offerPositionDetails;
               return acc;
@@ -596,6 +632,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -605,6 +642,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         )
         .setIn(
           ['numberOfMassDisabledOfferInGroup', 'allIds'],
+          // @ts-expect-error
           payload.map((o) => o.id),
         );
     },
@@ -642,6 +680,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state
         .merge(
           {
+            // @ts-expect-error
             byId: payload?.results?.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -650,7 +689,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
           { deep: true },
         )
         .setIn(
+          // @ts-expect-error
           ['groups', payload?.results?.[0]?.group, 'allIds'],
+          // @ts-expect-error
           payload?.results?.map((o) => o.id),
         );
     },
@@ -672,6 +713,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       // Override this key on each fetch
       state.setIn(
         ['hasPendingReplacementRequest', 'byOfferId'],
+        // @ts-expect-error
         payload.reduce((acc, offerId) => {
           acc[offerId] = true;
           return acc;
@@ -692,6 +734,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       // Override this key on each fetch
       state.setIn(
         ['hasRefusedReplacementRequest', 'byOfferId'],
+        // @ts-expect-error
         payload.reduce((acc, offerId) => {
           acc[offerId] = true;
           return acc;
@@ -701,6 +744,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       const { groupId, offersIds } = payload;
       return state.setIn(
         ['groups', groupId, 'allIds'],
@@ -744,7 +788,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['byId', payload.id, 'roll_call_needs_validation'],
+        // @ts-expect-error
         payload.roll_call_needs_validation,
       );
     },
@@ -753,7 +799,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['byId', payload.id, 'date_roll_call_last_modified'],
+        // @ts-expect-error
         payload.date_roll_call_last_modified,
       );
     },

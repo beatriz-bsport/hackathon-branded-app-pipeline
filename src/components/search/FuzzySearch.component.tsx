@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useState } from 'react';
 import { Theme, Paper, Collapse, List, makeStyles } from '@material-ui/core';
@@ -41,6 +40,7 @@ function FuzzySearch<T>(props: Props<T>) {
         }}
         items={items}
         placeholder={placeholder}
+        // @ts-expect-error
         searchFields={searchFields}
         searchText={search}
       />

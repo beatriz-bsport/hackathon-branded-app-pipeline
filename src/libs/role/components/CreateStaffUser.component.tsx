@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -18,10 +17,10 @@ import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-// @ts-expect-error
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
 import { Coach } from '#libs/associated-coach/types';
@@ -58,6 +57,7 @@ type State = {
   staff_commission_percentage: number;
 };
 
+// @ts-expect-error
 function withUserRoleAdvancedSettings(Component) {
   return function EnhancedComponent({
     coachList,
@@ -111,6 +111,7 @@ function withUserRoleAdvancedSettings(Component) {
 }
 
 export class CreateStaffUser extends React.Component<Props, State> {
+  // @ts-expect-error
   state: State = {
     email: null,
     password: null,
@@ -120,6 +121,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
     staff_commission_percentage: 0.0,
   };
 
+  // @ts-expect-error
   handleOnCommissionChange = (ev) => {
     let parsedValue = Number.parseFloat(ev.target.value.toString());
     parsedValue = parseFloat(parsedValue.toFixed(2));
@@ -157,6 +159,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
       first_name,
       coaches_in_role_ids: selectedCoaches.map((c) => c.value),
       establishments_in_role_ids: selectedEstablishments.map((e) => e.value),
+      // @ts-expect-error
       staff_commission_percentage,
     });
     handleResetAdvancedSettings?.();
@@ -226,6 +229,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
             <div className={classes.field}>
               <PasswordInput
                 fullWidth
+                // @ts-expect-error
                 required
                 onChange={(ev: any) =>
                   this.setState({ password: ev.target.value })
@@ -235,6 +239,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               />
             </div>
             <TextField
+              // @ts-expect-error
               castAsNumber
               fullWidth
               className={classes.field}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import type { EstablishmentListGroupByAddress as EstablishmentListGroupByAddressType } from '../types';
@@ -19,6 +18,7 @@ export const EstablishmentListGroupByAddress = (props: Props) => {
       {establishmentGroupByAddress.map((estaGroup) => (
         <>
           <EstablishmentGroupByAddressItem
+            // @ts-expect-error
             establishmentGroup={estaGroup}
             onClick={props.onClick}
             onClickDelete={props.onClickDelete}

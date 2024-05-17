@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import CodeIcon from '@material-ui/icons/Code';
 import CanvasAbstractTool, {
@@ -44,6 +43,7 @@ export default class CanvasBeautifierTool extends CanvasAbstractTool<null> {
 
   onCancel = () => {
     if (this.selectedElement) {
+      // @ts-expect-error
       this.selectedElement.controller.setDimension(
         this.selectedElement.elementDownW,
         this.selectedElement.elementDownH,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+// @ts-expect-error
 import CheckoutItemListItem from './CheckoutItemListItem.component';
 import PrepaidLineListItem from './PrepaidLineListItem.component';
 
@@ -92,6 +92,7 @@ export const BasketConsumer = (props: Props) => {
                       checkoutItem.buyable_item_identifier,
                     buyable_item_id: checkoutItem.buyable_item_id,
                     extra_data: null,
+                    // @ts-expect-error
                     name: checkoutItem.name,
                     price: Number(checkoutItem.unit_price),
                   });

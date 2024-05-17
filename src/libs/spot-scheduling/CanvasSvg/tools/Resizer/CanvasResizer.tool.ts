@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CanvasAbstractTool, {
   CanvasSvgMouseParamsI,
   CanvasElementMouseParamI,
@@ -34,11 +33,13 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
     }
   };
 
+  // @ts-expect-error
   onMove = (params: CanvasSvgMouseParamsI) => {
     const { x, y } = params;
 
     if (this.selectedElement && this.selectedElement.controller) {
       if (x < 0 || x > SVG_WORK_SIZE) {
+        // @ts-expect-error
         this.selectedElement.controller.setDimension(
           this.selectedElement.elementDownX,
           this.selectedElement.elementDownY,
@@ -46,6 +47,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
         return undefined;
       }
       if (y < 0 || y > SVG_WORK_SIZE) {
+        // @ts-expect-error
         this.selectedElement.controller.setDimension(
           this.selectedElement.elementDownX,
           this.selectedElement.elementDownY,
@@ -62,6 +64,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
     if (this.selectedElement && this.selectedElement.controller) {
       this.selectedElement.controller.blur();
 
+      // @ts-expect-error
       this.selectedElement.controller.setDimension(
         this.selectedElement.elementDownW,
         this.selectedElement.elementDownH,
@@ -73,6 +76,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
 
   onCancel = () => {
     if (this.selectedElement) {
+      // @ts-expect-error
       this.selectedElement.controller.setDimension(
         this.selectedElement.elementDownW,
         this.selectedElement.elementDownH,
@@ -88,6 +92,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
     }
     const { x, y } = this.getMousePosition(svgId, mouseEvent);
     const position = controller.select(clickedElement.id).getPosition();
+    // @ts-expect-error
     const dimensions = controller.select(clickedElement.id).getDimensions();
 
     this.selectedElement = {
@@ -191,6 +196,7 @@ export default class CanvasResizerTool extends CanvasAbstractTool<null> {
       height: this.selectedElement.elementDownH + vector.y,
     };
 
+    // @ts-expect-error
     this.selectedElement.controller.setDimension(
       elementDimensions.width,
       elementDimensions.height,

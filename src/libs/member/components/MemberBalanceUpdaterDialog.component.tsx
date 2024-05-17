@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -63,6 +62,7 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
 
   const handleSelectEstablishmentBillingGroup = React.useCallback(
     (item: EstablishmentBillingGroup) => {
+      // @ts-expect-error
       setSelectedEstablishmentBillingGroup(item || null);
       setMissingValue(!item);
     },
@@ -83,8 +83,10 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
           ) {
             setMissingValue(true);
           } else if (balanceUpdateType === 'decaissement') {
+            // @ts-expect-error
             onSubmit(-parseFloat(balanceUpdateValue), withoutPaymentNote);
           } else {
+            // @ts-expect-error
             onSubmit(parseFloat(balanceUpdateValue), withoutPaymentNote);
           }
         }}
@@ -98,6 +100,7 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
             <Select
               className={classes.field}
               id="balance-type-select"
+              // @ts-expect-error
               onChange={(ev) => selectBalanceUpdateType(ev.target.value)}
               style={{ minWidth: 200 }}
               value={balanceUpdateType}
@@ -111,11 +114,13 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
             </Select>
             <PriceInput
               fullWidth
+              // @ts-expect-error
               className={classes.field}
               InputProps={{
                 inputProps: { step: 0.01, min: 0, max: 5000 },
               }}
               label={t('balance.updaterDialog.balanceValueLabel')}
+              // @ts-expect-error
               onChange={(ev) => selectBalanceUpdateValue(ev.target.value)}
               value={balanceUpdateValue}
               variant="outlined"
@@ -155,9 +160,11 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
                   isOptionDisabled
                   isRequired
                   noMulti
+                  // @ts-expect-error
                   establishmentBillingGroups={establishmentBillingGroups}
                   isLoading={establishmentBillingGroupsLoading}
                   requiredValueIsMissing={missingValue}
+                  // @ts-expect-error
                   selectedEstablishmentBillingGroup={
                     selectedEstablishmentBillingGroup
                   }

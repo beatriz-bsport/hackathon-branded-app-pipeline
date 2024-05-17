@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Fuse from 'fuse.js';
 import React from 'react';
 import { compose } from 'recompose';
@@ -7,6 +6,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import memoize from 'memoize-one';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -27,11 +27,14 @@ import {
   getSearchedMembersArchived,
 } from '#libs/member/selectors';
 import { getPermissions } from '../libs/role/selectors';
+// @ts-expect-error
 import RolePermission from '../libs/role/types';
 
+// @ts-expect-error
 import ResultList from '#components/search/ResultList.component';
 import SearchBar from '#components/SearchBar.component';
 
+// @ts-expect-error
 import { search as searchActions } from '../actions';
 import { MemberMinimal, Member } from '#libs/member/types';
 
@@ -90,6 +93,7 @@ type State = {
   memberArchivedCloseMatch: Member;
 };
 
+// @ts-expect-error
 const styles = (theme) => ({
   mobileOnly: {
     paddingTop: theme.spacing(1) * 1,
@@ -181,10 +185,12 @@ export class SearchResults extends React.Component<Props, State> {
     return new Fuse(items, options);
   });
 
+  // @ts-expect-error
   selectEntity = (entity) => {
     if (entity.type === 'member') {
       this.props.pushToMember(entity.data.id);
     } else {
+      // @ts-expect-error
       this.props.selectEntity(entity);
     }
   };
@@ -205,7 +211,9 @@ export class SearchResults extends React.Component<Props, State> {
     const fuzeSearch = this.getFuse(this.props.membersArchived).search(
       searchText,
     );
+    // @ts-expect-error
     if (fuzeSearch?.length !== 0 && fuzeSearch[0].score < 0.00001) {
+      // @ts-expect-error
       this.setState({ memberArchivedCloseMatch: fuzeSearch[0].item });
     }
   };
@@ -225,6 +233,7 @@ export class SearchResults extends React.Component<Props, State> {
     this.props.checkMemberInEstablishment(
       {
         memberId: member.id,
+        // @ts-expect-error
         establishmentIds: this.props.establishmentsSelectedInRole,
       },
       {
@@ -239,10 +248,12 @@ export class SearchResults extends React.Component<Props, State> {
   };
 
   hideAccessMonitoringButton =
+    // @ts-expect-error
     !hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING) ||
     !this.props.permissions?.navigationMenu?.accessMonitoring?.perform;
 
   disableAccessMonitoringButton =
+    // @ts-expect-error
     !this.props.establishmentsSelectedInRole?.length;
 
   render() {
@@ -252,12 +263,14 @@ export class SearchResults extends React.Component<Props, State> {
     return (
       <Grid container>
         <Grid item className={classes.root} md={6} xs={12}>
+          {/* @ts-expect-error */}
           <SearchBar changeLocation className={classes.mobileOnly} />
           {hasLoaded ? (
             <Button
               fullWidth
               className={classes.buttonGoBack}
               color="secondary"
+              // @ts-expect-error
               onClick={() => this.props.selectEntity(null)}
             >
               {t('go_back')}
@@ -273,6 +286,7 @@ export class SearchResults extends React.Component<Props, State> {
                 </div>
                 <MemberMinimalListItem
                   bottomCredit
+                  // @ts-expect-error
                   member={this.state.memberArchivedCloseMatch}
                   onClick={() => {
                     this.props.pushToMember(
@@ -348,6 +362,7 @@ export class SearchResults extends React.Component<Props, State> {
                   </div>
                   <MemberMinimalListItem
                     bottomCredit
+                    // @ts-expect-error
                     member={this.state.memberArchivedCloseMatch}
                     onClick={() => {
                       this.props.pushToMember(
@@ -366,6 +381,7 @@ export class SearchResults extends React.Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 function mapStateToProps(state) {
   const { member } = state.member;
   const { selectedId } = state.search;
@@ -385,6 +401,7 @@ function mapStateToProps(state) {
   };
 }
 
+// @ts-expect-error
 function getSearchText(state, location) {
   if (state.search.searchText) {
     return state.search.searchText;
@@ -394,6 +411,7 @@ function getSearchText(state, location) {
 }
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['search']),
   connect(mapStateToProps, {
@@ -404,6 +422,7 @@ export default compose(
       searchArchivedMembers(text, { only_archived: true }),
     checkMemberInEstablishment: checkMemberInEstablishmentAction,
   }),
+  // @ts-expect-error
   connect((state, { location }) => ({
     searchText: getSearchText(state, location),
   })),

@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+// @ts-expect-error
 export const DividerLinearGradient = (props) => {
   const classes = useStyles();
   return (

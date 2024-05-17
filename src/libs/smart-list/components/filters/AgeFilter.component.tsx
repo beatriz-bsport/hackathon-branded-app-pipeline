@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -60,6 +59,7 @@ export class AgeFilter extends Component<Props> {
           : t(`filters.${filter_data?.filter_identifier}.to`)}
         <DelayedNumericInput
           classes={classes}
+          // @ts-expect-error
           InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({
@@ -74,6 +74,7 @@ export class AgeFilter extends Component<Props> {
         {filter_data?.comparator === BETWEEN_COMPARATOR ? (
           <DelayedNumericInput
             classes={classes}
+            // @ts-expect-error
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({

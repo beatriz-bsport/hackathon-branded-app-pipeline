@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -23,6 +22,7 @@ const fakeContractHighlightedAsRecommended = contractFactory({
 
 const SubscriptionTemplate: ComponentStory<
   typeof MarketplaceContractCardForStorybook
+  // @ts-expect-error
 > = (args: Props) => <MarketplaceContractCardForStorybook {...args} />;
 
 export const BasicSubscriptionCard = SubscriptionTemplate.bind({});

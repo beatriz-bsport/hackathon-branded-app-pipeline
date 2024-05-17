@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -27,6 +26,7 @@ import type {
   Layout,
   ResponsiveLayouts,
 } from '../../types';
+// @ts-expect-error
 import { mapFormDataWithObject } from '../../../../pages/form.utils';
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
 import { emailValidationRegExp } from '#libs/custom-form/constants';
@@ -53,6 +53,7 @@ export const ConsumerFormFields = (props: Props) => {
   // thousands of errors are raised by MUI
   /* eslint-disable */
   const {
+    // @ts-expect-error
     classes,
     fieldsAreIndependent,
     isCssVariantActivated,
@@ -87,6 +88,7 @@ export const ConsumerFormFields = (props: Props) => {
                       name={`custom_form_field.${i}.answer`}
                     >
                       {() => (
+                        // @ts-expect-error
                         <CustomFormConsumerInput
                           {...restProps}
                           field={field}
@@ -99,6 +101,7 @@ export const ConsumerFormFields = (props: Props) => {
                 ))
               : custom_form_field?.map((field: CustomFormField, i: number) => (
                   <div key={field?.id?.toString()}>
+                    {/* @ts-expect-error */}
                     <CustomFormConsumerInput
                       {...restProps}
                       field={field}
@@ -204,6 +207,7 @@ const ValidationSchema = Yup.object().shape({
     ),
 });
 export const ConsumerFormFieldsHOC = withFormik({
+  // @ts-expect-error
   mapPropsToValues: ({ initial, initialWithAnswer }) => {
     if (initialWithAnswer) {
       return {
@@ -268,18 +272,29 @@ export const ConsumerFormFieldsHOC = withFormik({
   },
   enableReinitialize: true,
   validationSchema: ValidationSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const {
       /* eslint-disable */
+      // @ts-expect-error
       date_created,
+      // @ts-expect-error
       name,
+      // @ts-expect-error
       disabled,
+      // @ts-expect-error
       id,
+      // @ts-expect-error
       custom_form_field,
+      // @ts-expect-error
       layout,
+      // @ts-expect-error
       is_member_form,
+      // @ts-expect-error
       is_signup,
+      // @ts-expect-error
       passwordConfirm,
+      // @ts-expect-error
       layout_configuration,
       /* eslint-disable */
       ...cleaned_values

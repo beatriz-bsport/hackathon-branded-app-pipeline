@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { withFormik, Form, FormikProps } from 'formik';
@@ -43,10 +42,12 @@ import {
   TextField,
   SwitchField,
   HoursDaysIntervalRecurrenceSelectField,
+  // @ts-expect-error
 } from '#components/forms';
 
 import { OptionCallback } from '../../../state/types';
 import { CompanyTheme } from '../types';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -112,6 +113,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   setFieldValue,
   values,
   errors,
+  // @ts-expect-error
   theme,
 }) => {
   const { t } = useTranslation(['theme', 'translation']);
@@ -298,6 +300,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                     (element) => element.value === values.allow_guest_frequency,
                   )}
                   onChange={(option) =>
+                    // @ts-expect-error
                     setFieldValue('allow_guest_frequency', option.value)
                   }
                   options={guestFrequencyOptions}
@@ -874,6 +877,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             <Typography className={classes.namesHeader}>
               {t('forms.themePersonalization.resetPassword.title')}
             </Typography>
+            {/* @ts-expect-error */}
             <Typography className={classes.container}>
               {t('forms.themePersonalization.resetPassword.helperText')}
             </Typography>
@@ -1142,6 +1146,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
+  // @ts-expect-error
   mapPropsToValues: ({ theme }) => {
     const defaulScheduletBegin = DateTime.now().set({ hour: 6 }).toISO();
     const defaultScheduleEnd = DateTime.now().set({ hour: 23 }).toISO();
@@ -1188,8 +1193,10 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
 
         gender_max_shift_for_booking: theme.gender_max_shift_for_booking,
         max_future_booking: theme.max_future_booking,
+        // @ts-expect-error
         max_future_workshop: theme.max_future_workshop,
         booking_option_included_in_max_future_booking:
+          // @ts-expect-error
           theme.booking_option_included_in_max_future_booking,
         default_booking_ordering: theme.default_booking_ordering,
         basket_expiration_days: theme.basket_expiration_days,
@@ -1228,6 +1235,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         show_free_session_label: theme.show_free_session_label,
         hide_book_button: theme.hide_book_button,
         show_past_sessions_calendar: theme.show_past_sessions_calendar,
+        // @ts-expect-error
         start_calendar_week_on_today: theme.start_calendar_week_on_today,
       };
     }
@@ -1322,10 +1330,12 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_free_session_label',
       'hide_book_button',
       'show_past_sessions_calendar',
+      // @ts-expect-error
       'start_calendar_week_on_today',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {
+        // @ts-expect-error
         data.append('hidden_from_marketplace', !values[key]);
       } else if (key === 'no_show_validated_time') {
         if (theme.is_roll_call_mandatory) {
@@ -1354,6 +1364,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
           data.append('no_show_email_sent_number_of_hours', '0');
         }
       } else {
+        // @ts-expect-error
         data.append(key, values[key]);
       }
     });

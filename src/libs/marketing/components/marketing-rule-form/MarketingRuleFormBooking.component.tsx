@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -21,6 +20,7 @@ import {
   RadioGroupField,
   CheckboxField,
   Submit,
+  // @ts-expect-error
 } from '#components/forms';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import MarketingRuleBasicTypeField from '../MarketingRuleBasicTypeField.component';
@@ -64,6 +64,7 @@ type Props = {
 };
 
 const getNotificationKind = (kind: number) => {
+  // @ts-expect-error
   switch (parseInt(kind, 10)) {
     case BOOKING_NOTIFICATION_VALID_ATTENDANCE:
       return 'attendance';
@@ -288,6 +289,7 @@ const MarketingRuleFormBooking = (props: Props) => {
           <MarketingRuleSendingMethodField
             email_design={email_design}
             emailDetailLoading={emailDetailLoading}
+            // @ts-expect-error
             emailDetails={emailDetails}
             emailListLoading={emailListLoading}
             emails={emails}
@@ -418,6 +420,7 @@ const BookingNotificationSchema = Yup.object().shape({
 
 export default compose(
   withFormik({
+    // @ts-expect-error
     mapPropsToValues: ({ initial, objectId, identifier }) => {
       if (initial) {
         const {
@@ -474,39 +477,56 @@ export default compose(
         notificationContent: '',
         notificationTitle: '',
         marketingKind: BOOKING_CREATION_NOTIFICATION,
+        // @ts-expect-error
         email_design: null,
         notifyAllEvents: false,
         notify_booking_nb: 1,
         eventKind: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
         eventType: 'valid',
+        // @ts-expect-error
         smartlist_include: [],
+        // @ts-expect-error
         smartlist_exclude: [],
         periodScale: 'hours',
         relativeTimeValue: 2,
         timeComparator: 'before',
       };
       if (identifier === 'establishment') {
+        // @ts-expect-error
         values.establishment_id = objectId;
+        // @ts-expect-error
         values.meta_activity_id = null;
+        // @ts-expect-error
         values.establishment_group_id = null;
       } else if (identifier === 'meta_activity') {
+        // @ts-expect-error
         values.establishment_id = null;
+        // @ts-expect-error
         values.meta_activity_id = objectId;
+        // @ts-expect-error
         values.establishment_group_id = null;
       } else if (identifier === 'workshop') {
+        // @ts-expect-error
         values.establishment_id = null;
+        // @ts-expect-error
         values.meta_activity_id = objectId;
+        // @ts-expect-error
         values.establishment_group_id = null;
       } else if (identifier === 'establishment_group') {
+        // @ts-expect-error
         values.establishment_id = null;
+        // @ts-expect-error
         values.meta_activity_id = null;
+        // @ts-expect-error
         values.establishment_group_id = objectId;
       }
       return values;
     },
     validationSchema: BookingNotificationSchema,
+    // @ts-expect-error
     handleSubmit: (values, { props: { onSubmit } }) => {
       const [daysSubmit, hoursSubmit] = getSendingTimeNotification(
+        // @ts-expect-error
         values.timeComparator,
         values.periodScale,
         values.relativeTimeValue,
@@ -522,8 +542,11 @@ export default compose(
           ? values.notificationContent
           : '',
         event_rules: {
+          // @ts-expect-error
           establishment_id: values.establishment_id,
+          // @ts-expect-error
           meta_activity_id: values.meta_activity_id,
+          // @ts-expect-error
           establishment_group_id: values.establishment_group_id,
           notify_booking_nb: values.notifyAllEvents
             ? 0
@@ -538,4 +561,5 @@ export default compose(
       onSubmit(data);
     },
   }),
+  // @ts-expect-error
 )(MarketingRuleFormBooking);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
@@ -66,6 +65,7 @@ const initialState: Immutable.Immutable<ReplacementRequestState> =
       page: 1,
     },
     configuration: {
+      // @ts-expect-error
       configuration: {},
       loading: false,
       error: null,
@@ -94,6 +94,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
       state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.results.reduce(
               (acc: any, l: ReplacementRequest) => ({ ...acc, [l.id]: l }),
               {},
@@ -103,6 +104,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         )
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           payload.results.map((l: ReplacementRequest) => l.id),
         )
         .setIn(['count'], payload.count)
@@ -115,6 +117,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         .merge(
           {
             pendingRequests: {
+              // @ts-expect-error
               byId: payload.results.reduce(
                 (acc: any, l: ReplacementRequest) => ({ ...acc, [l.id]: l }),
                 {},
@@ -125,6 +128,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         )
         .setIn(
           ['pendingRequests', 'allIds'],
+          // @ts-expect-error
           payload.results.map((l: ReplacementRequest) => l.id),
         )
         .setIn(['pendingRequests', 'count'], payload.count)
@@ -137,6 +141,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         .merge(
           {
             teacherFoundRequests: {
+              // @ts-expect-error
               byId: payload.results.reduce(
                 (acc: any, l: ReplacementRequest) => ({ ...acc, [l.id]: l }),
                 {},
@@ -147,6 +152,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         )
         .setIn(
           ['teacherFoundRequests', 'allIds'],
+          // @ts-expect-error
           payload.results.map((l: ReplacementRequest) => l.id),
         )
         .setIn(['teacherFoundRequests', 'count'], payload.count)
@@ -166,6 +172,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
       state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce(
               (acc: any, l: ReplacementRequest) => ({ ...acc, [l.id]: l }),
               {},
@@ -175,6 +182,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         )
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           payload.map((l: ReplacementRequest) => l.id),
         ),
     [fetchHasUnseenConfirmedRequestsActions.success.toString()]: (
@@ -210,6 +218,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
         .merge(
           {
             replacementRequestCoachAnswer: {
+              // @ts-expect-error
               byId: payload.reduce(
                 (acc: any, l: ReplacementRequestCoachAnswer) => ({
                   ...acc,
@@ -225,6 +234,7 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
           ['replacementRequestCoachAnswer', 'allIds'],
           uniq([
             ...state.replacementRequestCoachAnswer.allIds,
+            // @ts-expect-error
             ...payload.map((coachAnswer) => coachAnswer.id),
           ]),
         ),
@@ -237,7 +247,9 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
     [updateReplacementRequestActions.success.toString()]: (
       state,
       { payload },
-    ) => state.setIn(['byId', payload.id], payload),
+    ) =>
+      // @ts-expect-error
+      state.setIn(['byId', payload.id], payload),
     // Coach discipline group
     [deleteDisciplineGroupActions.loading.toString()]: (state, { payload }) =>
       state.setIn(['disciplineGroup', 'loading'], payload),
@@ -270,11 +282,13 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
       state
         .setIn(
           ['disciplineGroup', 'allIds'],
+          // @ts-expect-error
           payload.map((group) => group.id),
         )
         .merge(
           {
             disciplineGroup: {
+              // @ts-expect-error
               byId: payload.reduce((acc, group) => {
                 acc[group.id] = group;
                 return acc;

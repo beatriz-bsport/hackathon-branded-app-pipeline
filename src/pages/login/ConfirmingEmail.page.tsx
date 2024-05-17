@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
@@ -13,9 +12,11 @@ import {
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import classNames from 'classnames';
 import themeSelectors from '#libs/theme/selectors';
+// @ts-expect-error
 import { requestConfirmationEmail as requestConfirmationEmailAction } from '../../actions/auth.actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 
 type Props = {
@@ -45,6 +46,7 @@ export const ConfirmingEmailPage = (props: Props) => {
   }, [companyId, fetchCompanyTheme]);
   useEffect(() => {
     requestConfirmationEmail(uuid, companyId, {
+      // @ts-expect-error
       onSuccess: ({ token }) => fetchAccessLevel(token),
     });
   }, [
@@ -86,6 +88,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default compose(
+  // @ts-expect-error
   routerParamsToProps({ uuid: 'uuid' }),
   withQueryParams([['membership'], 'queryParams']),
 
@@ -96,7 +99,9 @@ export default compose(
   })),
   connect(
     (state) => ({
+      // @ts-expect-error
       emailConfirmed: state.auth.email_confirmed,
+      // @ts-expect-error
       theme: themeSelectors.getTheme(state),
     }),
     {
@@ -105,4 +110,5 @@ export default compose(
       fetchCompanyTheme: fetchCompanyThemeAction,
     },
   ),
+  // @ts-expect-error
 )(ConfirmingEmailPage);

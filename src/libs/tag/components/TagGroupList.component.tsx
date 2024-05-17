@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/styles';
@@ -80,6 +79,7 @@ class TagGroupList extends React.PureComponent<Props> {
           {this.props.tagGroupList.map((tagGroup) => (
             <TagGroupItem
               key={tagGroup.id}
+              // @ts-expect-error
               filterBy={this.props.tagKind}
               onCreateTag={this.props.onCreateOrUpdateTag}
               onDeleteTag={this.props.onDeleteTag}
@@ -89,6 +89,7 @@ class TagGroupList extends React.PureComponent<Props> {
               onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
               selectedTag={this.props.selectedTag}
               tagGroup={tagGroup}
+              // @ts-expect-error
               tagUsageById={this.props.tagUsageById}
             />
           ))}

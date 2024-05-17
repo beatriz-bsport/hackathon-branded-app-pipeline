@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
@@ -52,6 +51,7 @@ export const getMemberBookingListWithConsumerPack = createSelector(
     bookings.map((b) => ({
       ...b,
       consumer_payment_pack: consumerPackList.find(
+        // @ts-expect-error
         (cpp) => cpp.id === b.consumer_payment_pack,
       ),
     })),
@@ -63,6 +63,7 @@ export const getConsumerBookingListWithConsumerPack = createSelector(
     bookings.map((b) => ({
       ...b,
       consumer_payment_pack: consumerPackList.find(
+        // @ts-expect-error
         (cpp) => cpp.id === b.consumer_payment_pack,
       ),
     })),
@@ -74,15 +75,18 @@ export const getConsumerPackBookingListWithConsumerPack = createSelector(
     bookings.map((b) => ({
       ...b,
       consumer_payment_pack: consumerPackList.find(
+        // @ts-expect-error
         (cpp) => cpp.id === b.consumer_payment_pack,
       ),
     })),
 );
 
+// @ts-expect-error
 export const getMemberBookingWithConsumerPack = (state, id) => ({
   ..._getData(state)[id],
   consumer_payment_pack: getConsumerPacksWithPaymentPack(state).find(
     (consumerPaymentPackItem) =>
+      // @ts-expect-error
       consumerPaymentPackItem.id === _getData(state)[id]?.consumer_payment_pack,
   ),
 });
@@ -119,6 +123,7 @@ export const getOfferBookingListWithConsumerPack = createSelector(
     bookings.map((b) => ({
       ...b,
       consumer_payment_pack: consumerPackList.find(
+        // @ts-expect-error
         (cpp) => cpp.id === b.consumer_payment_pack,
       ),
     })),
@@ -139,15 +144,19 @@ export const withOfferFull = memoize((selector) =>
       withEstablishment(withMetaActivity(withCoach(getOfferDataList))),
     ],
     (bookingList, offerData) =>
+      // @ts-expect-error
       bookingList.map((b) => ({
         ...b,
+        // @ts-expect-error
         offer: offerData.find((o) => o.id === b.offer),
       })),
   ),
 );
 
+// @ts-expect-error
 const _getRecurrenceRuleBookingData = (state) =>
   state.booking.recurrenceRule.byId;
+// @ts-expect-error
 const _getRecurrenceRuleBookingListIds = (state) =>
   state.booking.recurrenceRule.allIds;
 
@@ -161,7 +170,9 @@ export const getRecurrenceRuleBookingList = createSelector(
   ],
   (ids, data, memberData, metaActivityData, establishmentData) =>
     ids
+      // @ts-expect-error
       .map((id) => data[id])
+      // @ts-expect-error
       .map((rb) => ({
         ...rb,
         meta_activity: metaActivityData[rb.meta_activity],
@@ -183,22 +194,28 @@ export const getFutureBookingsByMemberCount = (
   state: State,
   memberId: number,
 ) => {
+  // @ts-expect-error
   const futureBookingsByMember = state.booking.futureBookingsByMember.byId;
   return futureBookingsByMember[memberId]?.length ?? 0;
 };
 
 const __getOffersWithCancelledBookingsData = (state: State) =>
+  // @ts-expect-error
   state.booking.recurrenceRule.offersWithCancelledBookings.byId;
 
 export const getOffersIds = (state: State) =>
+  // @ts-expect-error
   state.booking.recurrenceRule.offersWithCancelledBookings.allIds;
 
 export const getOffersWithCancelledBookingsLoading = (state: State) =>
+  // @ts-expect-error
   state.booking.recurrenceRule.offersWithCancelledBookings.loading;
 export const getUpdateOffersToRetryLoading = (state: State) =>
+  // @ts-expect-error
   state.booking.recurrenceRule.offersWithCancelledBookings.updateOffersToRetry
     .loading;
 export const getOffersDataList = createSelector(
   [__getOffersWithCancelledBookingsData, getOffersIds],
+  // @ts-expect-error
   (data, ids) => ids.map((id) => data[id]),
 );

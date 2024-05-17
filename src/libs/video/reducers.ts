@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -64,6 +63,7 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
     items: [],
     page: 1,
     count: 0,
+    // @ts-expect-error
     purchaseByMember: 0,
     byId: {},
     associatedVideoPurchase: [],
@@ -135,14 +135,14 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       return state.set('error', payload);
     },
     [setVideoProviderActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [listVideoActions.success.toString()]: (state, { payload }: any) => {
       const newAllIds =
         payload.page === 1
           ? payload.results.map((v: Video) => v.id)
-          : // @ts-expect-error
-            [...state.list.allIds, ...payload.results.map((v: Video) => v.id)];
+          : [...state.list.allIds, ...payload.results.map((v: Video) => v.id)];
       return state
         .merge(
           {
@@ -206,6 +206,7 @@ export default handleActions<Immutable.Immutable<VideoState>>(
         .merge(
           {
             purchase: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -259,6 +260,7 @@ export default handleActions<Immutable.Immutable<VideoState>>(
         .merge(
           {
             purchase: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -365,6 +367,7 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       );
     },
     [setExternalUrlActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [setExternalUrlActions.error.toString()]: (state, { payload }) => {

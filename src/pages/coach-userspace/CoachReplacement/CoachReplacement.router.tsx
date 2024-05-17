@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { compose } from 'redux';
@@ -120,7 +119,9 @@ export default compose(
     t('titles:coachUserSpace.replacement'),
   ),
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
+    // @ts-expect-error
     companyId: 'companyId',
   }),
   connector,

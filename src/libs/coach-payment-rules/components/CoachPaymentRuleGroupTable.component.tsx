@@ -1,6 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
+// @ts-expect-error
 import { WithTranslation, withTranslation, TFunction } from 'react-i18next';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import type { CoachPaymentRuleGroup } from '../types';
 
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type OwnProps = {

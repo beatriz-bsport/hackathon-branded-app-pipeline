@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -31,6 +30,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
       state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc: any, l: Level) => {
               acc[l.id] = l;
               return acc;
@@ -40,6 +40,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
         )
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           payload.map((l: Level) => l.id),
         ),
     [fetchLevelBulkActions.loading.toString()]: (state, { payload }) =>
@@ -50,6 +51,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
       state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc: any, l: Level) => {
               acc[l.id] = l;
               return acc;
@@ -59,6 +61,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
         )
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           uniq([...state.allIds, ...payload.map((l: Level) => l.id)]),
         ),
 
@@ -70,6 +73,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
       state.merge(
         {
           byId: {
+            // @ts-expect-error
             [payload.id]: payload,
           },
         },
@@ -84,6 +88,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
       state.merge(
         {
           byId: {
+            // @ts-expect-error
             [payload.id]: payload,
           },
         },
@@ -103,11 +108,13 @@ export default handleActions<Immutable.Immutable<LevelState>>(
         .merge(
           {
             byId: {
+              // @ts-expect-error
               [payload.id]: payload,
             },
           },
           { deep: true },
         )
+        // @ts-expect-error
         .setIn(['allIds'], [...state.allIds, payload.id]),
 
     [deleteLevelActions.loading.toString()]: (state, { payload }) =>
@@ -118,6 +125,7 @@ export default handleActions<Immutable.Immutable<LevelState>>(
       state.merge(
         {
           byId: {
+            // @ts-expect-error
             [payload.id]: {
               enabled: false,
             },

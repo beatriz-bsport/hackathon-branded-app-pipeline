@@ -1,8 +1,8 @@
-// @ts-nocheck
 // @flow
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+// @ts-expect-error
 import type { ReactRef } from 'react-grid-layout';
 
 type WPDefaultProps = {
@@ -32,7 +32,9 @@ type ComposedProps<Config> = {
 const LAYOUT_CLASS_NAME = 'react-grid-layout';
 
 export default function WidthProvideRGL<Config>(
+  // @ts-expect-error
   ComposedComponent: React.AbstractComponent<Config>,
+  // @ts-expect-error
 ): React.AbstractComponent<ComposedProps<Config>> {
   return class WidthProvider extends React.Component<
     ComposedProps<Config>,
@@ -91,6 +93,7 @@ export default function WidthProvideRGL<Config>(
           <div
             ref={this.elementRef}
             className={clsx(this.props.className, LAYOUT_CLASS_NAME)}
+            // @ts-expect-error
             style={this.props.style}
           />
         );

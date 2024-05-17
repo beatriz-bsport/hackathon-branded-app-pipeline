@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import {
   fetchCoachPaymentRules,
@@ -26,6 +25,7 @@ import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
+// @ts-expect-error
 import { openPdfDocument } from './utils';
 
 export const fetchAllPaymentRules = {
@@ -87,6 +87,7 @@ export function upsertCoachPaymentRule(
       dispatch(coachPaymentRuleSetUpsert.success(response.data));
       dispatch(snackbarSuccess(`paymentRules.${kind}.success`));
       dispatch(showDialog(false));
+      // @ts-expect-error
       if (options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentRules.${kind}.error`));
@@ -449,6 +450,7 @@ export function upsertCoachPaymentRuleGroup(
       dispatch(upsertPaymentGroupActions.success(response.data));
       dispatch(snackbarSuccess(`paymentRuleGroups.${kind}.success`));
       dispatch(showGroupDialog(false));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentRuleGroups.${kind}.error`));
@@ -519,6 +521,7 @@ export function exportExcelPerformance(
                 backgroundTaskUuid,
                 options?.backgroundDialog?.message,
                 options?.backgroundDialog?.title,
+                // @ts-expect-error
                 response.data,
               ),
             );

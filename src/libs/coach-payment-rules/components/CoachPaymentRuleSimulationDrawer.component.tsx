@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -18,8 +17,10 @@ import Theme from '@material-ui/core';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { CoachPaymentRule } from '../types';
+// @ts-expect-error
 import Figure from '../../../components/graph/Figure.component';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '#libs/coach-payment-rules/constants.ts';
 
 type OwnProps = {
@@ -290,6 +291,7 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
   );
 };
 
+// @ts-expect-error
 const styles = (theme: Theme) => ({
   dialogContent: {
     display: 'flex',
@@ -336,6 +338,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, Props>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['paymentRules']),
 )(CoachPaymentRuleSimulationDrawer);

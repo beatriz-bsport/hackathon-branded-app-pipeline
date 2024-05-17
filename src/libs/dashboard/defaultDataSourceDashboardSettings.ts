@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { v4 as uuidv4 } from 'uuid';
 import type { DataSourceDashboardSettings } from './types';
 import {
@@ -25,6 +24,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             date_value: 'payment_price',
             aggregation_function_name: 'sum',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'bar',
           date_filter_config: {
@@ -59,6 +59,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             date_for_slots: 'date_start',
             ref_for_frequency: 'offer_pk',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'timeslots',
           date_filter_config: {
@@ -204,6 +205,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             date_value: 'plannedinvoice_pk',
             aggregation_function_name: 'count',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'bar',
           date_filter_config: {
@@ -239,6 +241,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             date_value: 'price',
             aggregation_function_name: 'sum',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'bar',
           date_filter_config: {
@@ -275,6 +278,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             accumulate_total_data: false,
             aggregation_function_name: 'count',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'bar',
           date_filter_config: {
@@ -366,6 +370,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             accumulate_total_data: false,
             aggregation_function_name: 'count',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'bar',
           date_filter_config: {
@@ -401,6 +406,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             date_value: 'total_price_notax',
             aggregation_function_name: 'sum',
           },
+          // @ts-expect-error
           filter_config: {},
           chart_component: 'area',
           date_filter_config: {

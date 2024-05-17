@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -8,6 +7,7 @@ import { LinearProgress } from '@material-ui/core';
 import { MaterialStyleType } from '../../utils/types';
 import { getMembership } from '../../libs/membership/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
 import ConsumerSubscription from '../consumer/ConsumerSubscription.page';
 import { RootState } from '../../reducers';
 
@@ -38,6 +38,7 @@ class ConsumerSubscriptionPage extends React.PureComponent<Props> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   container: {
     display: 'flex',
@@ -55,8 +56,10 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
+    // @ts-expect-error
     companyName: 'companyName',
   }),
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(),
   connect(mapStateToProps),

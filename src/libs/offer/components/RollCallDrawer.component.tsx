@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +6,7 @@ import { PeopleAlt } from '@material-ui/icons';
 import chroma from 'chroma-js';
 import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+// @ts-expect-error
 import BookingTable from '#libs/booking/components/BookingTable.component';
 import { Member } from '#libs/member/types';
 import { Tag, TagGroup } from '#libs/tag/types';
@@ -114,6 +114,7 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
             <Button
               color="primary"
               disabled={
+                // @ts-expect-error
                 props.isLoading || !props.offer?.roll_call_needs_validation
               }
               onClick={openConfirmationRollCallDialog}

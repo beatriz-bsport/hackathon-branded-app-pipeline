@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useEffect, useState } from 'react';
 
@@ -45,6 +44,7 @@ import { colors } from '@bsport/common/lib/colors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { openIntercomHelp } from '../../intercom';
+// @ts-expect-error
 import LanguageButton from '#components/button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '#hocs/with-title.hoc';
@@ -311,6 +311,7 @@ export const CoachDrawer = (props: Props) => {
               <Grid container alignItems="center" direction="row" wrap="nowrap">
                 <>
                   <Grid item>
+                    {/* @ts-expect-error */}
                     <IconButton onClick={openIntercomHelp}>
                       <Help />
                     </IconButton>
@@ -418,8 +419,11 @@ const getNavigationItems = (props: Props): NavigationItem[] => {
   const {
     disconnect,
     companyId,
+    // @ts-expect-error
     has_coach_access_to_calendar,
+    // @ts-expect-error
     has_coach_access_to_compensation,
+    // @ts-expect-error
     has_coach_access_to_replacement_request,
   } = props;
 

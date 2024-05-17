@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 
+// @ts-expect-error
 import { OffersGroup, MetaActivity } from '#libs/meta-activity/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -131,6 +131,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
           fetchLevelList={fetchLevelList}
           handlePreviousStep={onClose}
           initial={group}
+          // @ts-expect-error
           metaActivity={metaActivity}
           onSubmit={handleSubmit}
           tagList={tagList}

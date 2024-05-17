@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
@@ -25,12 +24,17 @@ import {
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+// @ts-expect-error
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+// @ts-expect-error
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import GiftcardSelector from '../../giftcard/components/GiftcardSelector.component';
+// @ts-expect-error
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
+// @ts-expect-error
 import { BuyableItemTypes } from '../types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
@@ -46,6 +50,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
     switch (buyableItemIdentifier) {
       case BUYABLE_ITEM_PASS:
         return (
+          // @ts-expect-error
           <PaymentPackSelector
             autofocus
             onChange={onSelect}
@@ -82,6 +87,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
         );
       case BUYABLE_ITEM_GIFTCARD:
         return (
+          // @ts-expect-error
           <GiftcardSelector
             autofocus
             giftcardList={availableBuyableItems[buyableItemIdentifier]}
@@ -101,6 +107,7 @@ type Props = {
     buyableItem: BuyableItemTypes,
   ) => void;
   availableBuyableItems: {
+    // @ts-expect-error
     [buyableItemIdentifier: QuicksaleBasketItem]: BuyableItemTypes[];
   };
   member: { credit_account_balance: number };
@@ -160,7 +167,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
   const buyableItemPrice: string = useMemo(() => {
+    // @ts-expect-error
     const currentItem = availableBuyableItems[buyableItemIdentifier].find(
+      // @ts-expect-error
       (buyableItem) => buyableItem.id === buyableItemId,
     );
     return currentItem?.price || '0';
@@ -189,7 +198,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
       setVoucherPercent(null);
       setErrors(false);
       setFinalPricePreview(
+        // @ts-expect-error
         availableBuyableItems[buyableItemIdentifier].find(
+          // @ts-expect-error
           (buyableItem) => buyableItem.id === item_id,
         )?.price || '0.00',
       );
@@ -208,13 +219,18 @@ const InvoiceItemEditor: React.FC<Props> = ({
     if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
       const data = {
         buyable_item_id: 0,
+        // @ts-expect-error
         price: parseFloat(buyableItemId).toFixed(2),
+        // @ts-expect-error
         voucher: parseFloat(voucher || 0).toFixed(2),
         name: t('invoiceItem.credit.label'),
       };
+      // @ts-expect-error
       onAddBuyableItem(buyableItemIdentifier, data);
     } else {
+      // @ts-expect-error
       const buyableItem = availableBuyableItems[buyableItemIdentifier].find(
+        // @ts-expect-error
         (bi) => bi.id === buyableItemId,
       );
       // eslint-disable-next-line
@@ -249,9 +265,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
+        // @ts-expect-error
         availableBuyableItems[buyableItemIdentifier]
       ) {
+        // @ts-expect-error
         const item = availableBuyableItems[buyableItemIdentifier].find(
+          // @ts-expect-error
           (b) => b.id === buyableItemId,
         );
 
@@ -293,9 +312,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
+        // @ts-expect-error
         availableBuyableItems[buyableItemIdentifier]
       ) {
+        // @ts-expect-error
         const item = availableBuyableItems[buyableItemIdentifier].find(
+          // @ts-expect-error
           (b) => b.id === buyableItemId,
         );
 
@@ -345,9 +367,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
+        // @ts-expect-error
         availableBuyableItems[buyableItemIdentifier]
       ) {
+        // @ts-expect-error
         const item = availableBuyableItems[buyableItemIdentifier].find(
+          // @ts-expect-error
           (b) => b.id === buyableItemId,
         );
         if (item) {
@@ -391,12 +416,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
     if (!buyableItemId || !buyableItemIdentifier || !member) {
       return setWarnManagerOnInvoice(false);
     }
+    // @ts-expect-error
     const item = availableBuyableItems[buyableItemIdentifier].find(
+      // @ts-expect-error
       (bi) => bi.id === buyableItemId,
     );
 
     if (buyableItemIdentifier === BUYABLE_ITEM_PASS) {
       return setWarnManagerOnInvoice(
+        // @ts-expect-error
         paymentPackTagsAndMemberTagsCompatibilty(item, member?.tags),
       );
     }
@@ -456,6 +484,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
               <BuyableItemSelector
                 availableBuyableItems={availableBuyableItems}
                 buyableItemIdentifier={buyableItemIdentifier}
+                // @ts-expect-error
                 member={member}
                 onSelect={handleSelectBuyableItem}
                 value={buyableItemId}

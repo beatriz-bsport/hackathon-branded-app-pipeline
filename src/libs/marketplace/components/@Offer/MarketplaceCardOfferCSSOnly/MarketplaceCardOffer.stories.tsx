@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { MarketPlaceCardOfferCSSOnlyForStorybook } from './MarketPlaceCardOfferCSSOnly.component';
 import { levelFactory } from '#libs/level/factories';
@@ -27,6 +26,7 @@ const metaActivity = {
   rating: '-1.00',
   SCT: 119,
   parent_category: 9,
+  // @ts-expect-error
   images: [],
   establishments: [{ id: fakeEstablishment.id }],
   next_slot: '2023-08-30T14:30:00+02:00',
@@ -41,11 +41,13 @@ const metaActivity = {
   is_broadcast: false,
   customer_enabled: true,
   color: '#ff2100',
+  // @ts-expect-error
   on_booking_notification: [],
   auto_discard_active: false,
   auto_discard_hours_before_start: 6,
   auto_discard_min_bookings_nb: 1,
   ordering_in_category: 516,
+  // @ts-expect-error
   category: null,
 };
 
@@ -78,11 +80,14 @@ const offer = {
   date_start: '2023-06-30T14:30:00+02:00',
   duration_minute: 150,
   effectif: 30,
+  // @ts-expect-error
   establishment_override: null,
   recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
   waiting_list_max_size: 5,
   waiting_list_disabled: false,
+  // @ts-expect-error
   bookings: [],
+  // @ts-expect-error
   booking_options: [],
   meta_activity_color: '',
   tot_slots: 0,
@@ -90,12 +95,14 @@ const offer = {
   full: true,
   is_waiting_list_full: false,
   timezone_name: 'Europe/Paris',
+  // @ts-expect-error
   room_blueprint: null,
   coach_payment_rule_id: 78,
   available_on_partnership: true,
   manager_only: false,
 };
 
+// @ts-expect-error
 const Template = (args: Props) => {
   return <MarketPlaceCardOfferCSSOnlyForStorybook {...args} />;
 };
@@ -131,6 +138,7 @@ export default {
     },
   },
   decorators: [
+    // @ts-expect-error
     (Story) => (
       <div
         style={{

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DeepPartial } from '../utils/types';
@@ -82,6 +81,7 @@ const withUndoRedoState = (initialState: any) => {
       render() {
         return (
           <WrappedComponent
+            // @ts-expect-error
             {...this.props}
             current={this.state.current}
             redo={this.redo}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -99,6 +98,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           <svg height={73} width={105}>
             <CanvasSpotComponent
               selectingSpot
+              // @ts-expect-error
               asset_identifier="spot_free"
               assets={this.props.assets}
               getAsset={getAsset}
@@ -127,6 +127,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             <CanvasSpotComponent
               selectingSpot
               taken
+              // @ts-expect-error
               asset_identifier="spot_taken"
               assets={this.props.assets}
               getAsset={getAsset}
@@ -155,6 +156,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             <CanvasSpotComponent
               selected
               selectingSpot
+              // @ts-expect-error
               asset_identifier="spot_taken"
               assets={this.props.assets}
               getAsset={getAsset}
@@ -178,6 +180,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
   renderOtherSpotTypesLegend = () => {
     return (
       <div className={this.props.classes.spotTypesLegendContainer}>
+        {/* @ts-expect-error */}
         {this.props.assets && this.renderRowLegend({}, this.getAsset)}
         {this.props?.spotTypesOfBlueprint
           .filter(
@@ -223,11 +226,13 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             assets={this.props.assets}
             coach={getCoachOrSubstitute(this.props.offer)}
             coachDisplay={this.props.coachDisplay}
+            // @ts-expect-error
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             isMobile={isMobile}
             onSelectSpot={this.onSelectSpot}
             onSelectTakenSpot={this.onSelectTakenSpot}
             roomBlueprint={this.props.roomBlueprint}
+            // @ts-expect-error
             selectedSpot={this.props.selectedIndex}
             spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
             takenSpot={this.props.takenSpot}
@@ -254,6 +259,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 </Typography>
                 <Typography className={classes.metaActivityName} variant="h6">
                   {this.props.offer?.name_override ||
+                    // @ts-expect-error
                     this.props.offer?.meta_activity?.name}
                 </Typography>
                 <div className={classes.dateContainer}>
@@ -285,11 +291,13 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 <button
                   className={clx([
                     classes.submitButton,
+                    // @ts-expect-error
                     this.props.selectedIndex && !this.state.takenSpotError
                       ? classes.submitButtonAvailable
                       : null,
                   ])}
                   disabled={
+                    // @ts-expect-error
                     !this.props.selectedIndex || this.state.takenSpotError
                   }
                   onClick={this.props.onSubmit}
@@ -299,11 +307,15 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                     className={classes.submitText}
                     variant="subtitle1"
                   >
+                    {/* @ts-expect-error */}
                     {typeof this.props.selectedIndex === 'number'
                       ? t('spotSelectorDialog.book', {
+                          // @ts-expect-error
                           prefix: this.props.selectedSpot?.prefix,
                           indexType:
+                            // @ts-expect-error
                             this.props?.selectedIndexType ||
+                            // @ts-expect-error
                             this.props.selectedIndex,
                         })
                       : t('spotSelectorDialog.title')}
@@ -331,22 +343,28 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 className={clx([
                   classes.submitButton,
                   classes.submitButtonMobile,
+                  // @ts-expect-error
                   this.props.selectedIndex && !this.state.takenSpotError
                     ? classes.submitButtonAvailable
                     : null,
                 ])}
                 disabled={
+                  // @ts-expect-error
                   !this.props.selectedIndex || this.state.takenSpotError
                 }
                 onClick={this.props.onSubmit}
                 type="button"
               >
                 <Typography className={classes.submitText} variant="subtitle1">
+                  {/* @ts-expect-error */}
                   {typeof this.props.selectedIndex === 'number'
                     ? t('spotSelectorDialog.book', {
+                        // @ts-expect-error
                         prefix: this.props.selectedSpot?.prefix,
                         indexType:
+                          // @ts-expect-error
                           this.props?.selectedIndexType ||
+                          // @ts-expect-error
                           this.props.selectedIndex,
                       })
                     : t('spotSelectorDialog.title')}
@@ -400,6 +418,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
 
             <Typography className={classes.metaActivityNameMobile} variant="h6">
               {this.props.offer?.name_override ||
+                // @ts-expect-error
                 this.props.offer?.meta_activity?.name}
             </Typography>
             <div className={classes.dateContainer}>

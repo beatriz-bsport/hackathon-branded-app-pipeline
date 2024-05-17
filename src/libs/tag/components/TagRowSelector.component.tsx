@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 
@@ -36,19 +35,23 @@ export const TagFilterForm = (props: Props) => {
     <div className={classes.container}>
       <MaterialUISelector
         className={classes.selector}
+        // @ts-expect-error
         onChange={(option: typeof includeOption) =>
           props.setForm({ ...props.form, include: option.value })
         }
+        // @ts-expect-error
         options={[includeOption, excludeOption]}
         placeholder={t('form.filter.includeLabel')}
       />
       <div className={classes.selector}>
+        {/* @ts-expect-error */}
         <TagSelector
           noMulti
           allTagsWithTagGroup={tagList}
           onChange={(option) =>
             props.setForm({
               ...props.form,
+              // @ts-expect-error
               tagId: option.tag.id,
             })
           }

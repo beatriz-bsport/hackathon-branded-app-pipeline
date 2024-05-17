@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 // @ts-expect-error
@@ -12,7 +11,9 @@ type Props = {
 export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   return class extends React.Component<Props & P> {
     getMuiTheme = () => {
+      // @ts-expect-error
       if (!!this.props.franchisor && !!this.props.franchiseTheme) {
+        // @ts-expect-error
         return getFranchiseTheme(this.props.franchiseTheme);
       }
       return getTheme(this.props.theme);

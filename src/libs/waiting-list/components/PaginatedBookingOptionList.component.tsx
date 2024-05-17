@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Paper, Theme } from '@material-ui/core';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import { BookingOptionWithActivity } from '../../booking/types';

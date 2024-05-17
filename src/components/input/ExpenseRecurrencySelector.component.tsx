@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { RRule } from 'rrule';
@@ -355,6 +354,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
             <FormControl component="fieldset">
               <RadioGroup
                 aria-label="montly-repeat"
+                // @ts-expect-error
                 disabled={!!initial?.rrule}
                 name="montly-repeat"
                 onChange={this.handleMonthlyRules}
@@ -553,6 +553,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
                 <DatePicker
                   className={classes.margin}
+                  // @ts-expect-error
                   disabled={radioRepeatValue !== 1 || !!initial?.disabled}
                   format="D"
                   maxDate={maxDate}

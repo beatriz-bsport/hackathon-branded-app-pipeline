@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import cloneDeep from 'lodash/cloneDeep';
@@ -22,6 +21,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+// @ts-expect-error
 import { Actions } from '#components/forms';
 import {
   DEFAULT_OBJECT_LEVEL_PERMISSIONS,
@@ -443,6 +443,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 .map((key) => (
                   <RecursiveCheckBoxComponent
                     key={key}
+                    // @ts-expect-error
                     checkBoxData={this.state.permissions}
                     disabled={this.props.role && !this.props.role.editable}
                     keysAccumulator={[key]}
@@ -450,6 +451,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     rightKey={key}
                     updatePermission={(permissions) => {
                       this.setState({
+                        // @ts-expect-error
                         permissions,
                       });
                     }}

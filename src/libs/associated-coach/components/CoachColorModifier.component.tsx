@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import chroma from 'chroma-js';
@@ -18,6 +17,7 @@ import { Theme } from '@material-ui/core/styles/createTheme';
 
 import { getTextColorFromRGB } from '../../../utils/color';
 import Tooltip from '#components/Tooltip.component';
+// @ts-expect-error
 import ColorInput from '#components/input/ColorInput.component';
 import CoachListItem from './CoachListItem.component';
 import type { Coach } from '../types';

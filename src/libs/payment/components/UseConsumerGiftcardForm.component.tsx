@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import type { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { PriceField } from '../../../components/forms';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { Invoice } from '#libs/invoice/types';
@@ -240,6 +240,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                         }
                       >
                         <ButtonBase
+                          // @ts-expect-error
                           onClick={() => handleSelection(cgc)}
                           style={{ width: '100%' }}
                         >
@@ -247,15 +248,18 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                             <Radio
                               checked={values.giftcard_selected === cgc.id}
                               className={classes.radio}
+                              // @ts-expect-error
                               onClick={() => handleSelection(cgc)}
                             />
                             <ConsumerGiftcardListItem
                               key={cgc.id}
                               showAsRecipient
                               showSender
+                              // @ts-expect-error
                               consumerGiftcard={cgc}
                               giftcard={cgc.giftcard}
                               memberReceiver={props.invoice.member}
+                              // @ts-expect-error
                               memberSender={cgc.src_member}
                             />
                           </div>

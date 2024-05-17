@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -15,6 +14,7 @@ import {
 import {
   TextFieldEnhancedLabelWithError,
   ColorField,
+  // @ts-expect-error
 } from '../../../../components/forms';
 
 type OwnProps = {

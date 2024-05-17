@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
@@ -65,6 +64,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
             {
               onSuccess: (payload) => {
                 this.props.fetchMissingCustomFormBulk({
+                  // @ts-expect-error
                   id__in: payload.missing_custom_form_informations.map(
                     (info: {
                       custom_form_id: number;
@@ -73,6 +73,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                   ),
                 });
                 this.props.fetchBlockingCustomFormDisplayRuleBulk({
+                  // @ts-expect-error
                   id__in: payload.missing_custom_form_informations.map(
                     (info: {
                       custom_form_id: number;
@@ -140,10 +141,12 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     const isRelationNavigation = !!window.localStorage.getItem(
       'bsport:relatedMemberMaster:http:token',
     );
+    // @ts-expect-error
     if (!this.props.theme && !this.props.authenticated) {
       return this.props.children;
     }
     return (
+      // @ts-expect-error
       <MemberShipValidationWrapperInnerComponent
         {...this.props}
         isFormUrl={this.checkForFormUrlLocation()}

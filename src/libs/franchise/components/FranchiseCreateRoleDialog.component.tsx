@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Stepper from '@material-ui/core/Stepper';
@@ -24,6 +23,7 @@ import { compose } from 'recompose';
 import classNames from 'classnames';
 import { Divider } from '@material-ui/core';
 import chroma from 'chroma-js';
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CreateRoleMasterAccount from '#libs/franchise/components/FranchiseCreateRoleMasterAccount.component';

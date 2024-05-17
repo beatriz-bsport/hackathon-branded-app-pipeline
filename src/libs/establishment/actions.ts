@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as Sentry from '@sentry/react';
 
 import { push } from 'connected-react-router';
@@ -29,6 +28,7 @@ import {
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
@@ -87,9 +87,11 @@ export function restoreEstablishment(id: number, options?: OptionCallback) {
     dispatch(restoreActions.isLoading(true));
     try {
       const response = await restoreEstablishmentAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(detailActions.success(payload));
       dispatch(snackbarSuccess('establishment.restore.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -114,16 +116,20 @@ export function fetchEstablishments(
 
     try {
       const response = await fetchEstablishmentListAPI({
+        // @ts-expect-error
         page_size: 200,
         ...(params || {}),
       });
       dispatch(
         listLoaded({
+          // @ts-expect-error
           establishmentDict: createDictionnaryById(response.data.results),
+          // @ts-expect-error
           establishmentIdList: createIdList(response.data.results),
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -151,6 +157,7 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
       const response = await createOrUpdate(establishmentData);
 
       if (response.status !== 200 && response.status !== 201) {
+        // @ts-expect-error
         throw new Error(response.data);
       }
 
@@ -175,6 +182,7 @@ export const UpdateOrCreateEstablishmentsActionsV2 = {
 };
 export function createOrUpdateEstablishmentV2(
   id?: number,
+  // @ts-expect-error
   data: EstablishmentAddressInput,
   options?: OptionCallback,
 ) {
@@ -187,10 +195,12 @@ export function createOrUpdateEstablishmentV2(
         : await addEstablishmentV2API(data);
       dispatch(
         UpdateOrCreateEstablishmentsActionsV2.success({
+          // @ts-expect-error
           id: id || response.data.id,
           data: response.data,
         }),
       );
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -271,6 +281,7 @@ export function fetchEstablishmentDetail(id: number) {
 
     try {
       const response = await fetchEstablishmentAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(detailActions.success(payload));
     } catch (error) {
@@ -330,6 +341,7 @@ function fetchEstablishmentBulkBase(
       });
       promise = response.data;
       dispatch(establishmentBulkRetrieveActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(establishmentBulkRetrieveActions.error(error));
@@ -411,6 +423,7 @@ export function fetchEstablishmentFavorite(
     try {
       const response = await fetchEstablishmentFavoriteAPI(company);
       dispatch(favoriteActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -434,12 +447,14 @@ export function fetchAllEstablishmentGroup(
   companyId?: number,
   options?: OptionCallback,
 ) {
+  // @ts-expect-error
   return async (dispatch: Dispatch<any>) => {
     dispatch(fetchAllEstablishmentGroupActions.isLoading(true));
     dispatch(fetchAllEstablishmentGroupActions.error(null));
     try {
       const response = await fetchAllEstablishmentGroupAPI(companyId);
       dispatch(fetchAllEstablishmentGroupActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(favoriteActions.error(error));
@@ -471,6 +486,7 @@ export function upsertEstablishmentGroup(
 
       dispatch(upsertEstablishmentGroupActions.success(response.data));
       dispatch(snackbarSuccess(`establishmentGroup.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`establishmentGroup.${kind}.error`));
@@ -498,6 +514,7 @@ export function deleteEstablishmentGroup(
     dispatch(deleteEstablishmentGroupActions.error(null));
     try {
       await deleteEstablishmentGroupAPI(establishmentGroup.id);
+      // @ts-expect-error
       dispatch(deleteEstablishmentGroupActions.success(establishmentGroup));
       dispatch(snackbarSuccess(`establishmentGroup.delete.success`));
       if (options && options.onSuccess) options.onSuccess();
@@ -525,10 +542,12 @@ export function fetchAllEstablishmentBillingGroup(
     dispatch(fetchAllEstablishmentBillingGroupActions.isLoading(true));
     dispatch(fetchAllEstablishmentBillingGroupActions.error(null));
     try {
+      // @ts-expect-error
       const response = await fetchAllEstablishmentBillingGroupAPI({
         ...options?.params,
       });
       dispatch(fetchAllEstablishmentBillingGroupActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchAllEstablishmentBillingGroupActions.error(error));
@@ -560,6 +579,7 @@ export function upsertEstablishmentBillingGroup(
 
       dispatch(upsertEstablishmentBillingGroupActions.success(response.data));
       dispatch(snackbarSuccess(`establishmentBillingGroup.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`establishmentBillingGroup.${kind}.error`));

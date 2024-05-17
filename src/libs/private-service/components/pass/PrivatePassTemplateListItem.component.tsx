@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -41,6 +40,7 @@ const PrivatePassTemplateListItem = (props: Props) => {
   return (
     <ListItem
       divider
+      // @ts-expect-error
       button={!!onClick}
       onClick={onClick && (() => onClick(template.id))}
     >
@@ -53,6 +53,7 @@ const PrivatePassTemplateListItem = (props: Props) => {
           template.price,
         )}${` - ${dateInfo}`}`}
       />
+      {/* @ts-expect-error */}
       <FranchiseCompanyChipList companies={template.companies} />
       {!template.is_usable_by_staff && !template.disabled && (
         <IconButton onClick={null}>
@@ -69,6 +70,7 @@ const PrivatePassTemplateListItem = (props: Props) => {
         </IconButton>
       )}
       <ListItemResponsiveAction
+        // @ts-expect-error
         actions={
           template.disabled
             ? [

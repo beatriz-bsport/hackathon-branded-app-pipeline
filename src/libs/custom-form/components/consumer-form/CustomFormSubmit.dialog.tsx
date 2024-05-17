@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -63,5 +62,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormSubmitDialog);

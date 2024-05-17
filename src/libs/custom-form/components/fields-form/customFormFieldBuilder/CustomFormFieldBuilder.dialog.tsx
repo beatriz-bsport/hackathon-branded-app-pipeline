@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { compose } from 'recompose';
@@ -32,6 +31,7 @@ import {
   TextField,
   AlertError,
   CheckboxField,
+  // @ts-expect-error
 } from '../../../../../components/forms';
 import CustomFormFieldSelector from '../CustomFormBuilderField.selector';
 import {
@@ -178,6 +178,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 ...props.initial,
                 choices: [...props.initial.choices],
                 custom_form_field_tag_rule: [
+                  // @ts-expect-error
                   ...props.initial.custom_form_field_tag_rule,
                 ],
               }
@@ -317,6 +318,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                               <ClearIcon />
                             </IconButton>
                             <CustomFormFieldTagRuleSelector
+                              // @ts-expect-error
                               choice_tag_rule={formik.values.custom_form_field_tag_rule.find(
                                 (rule) => rule.answer_for_tag === choices[i],
                               )}
@@ -403,6 +405,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                   <div className={classes.textAndIcon}>
                     <Alert
                       className={classes.alertInfo}
+                      // @ts-expect-error
                       color="grey"
                       severity="info"
                     >
@@ -415,6 +418,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 <div className={classes.textAndIcon}>
                   <Alert
                     className={classes.alertInfo}
+                    // @ts-expect-error
                     color="grey"
                     severity="info"
                   >
@@ -496,5 +500,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormFieldBuilderDialog);

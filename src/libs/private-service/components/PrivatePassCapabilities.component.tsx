@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useCallback, useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -119,7 +118,8 @@ export const PrivatePassCapabilities = (props: Props) => {
                   divider
                   onBook={() => {
                     props.recurrenceRule
-                      ? props.createRecurrentRule(null, true)
+                      ? // @ts-expect-error
+                        props.createRecurrentRule(null, true)
                       : props.registerUnPaidPrivateBooking();
                   }}
                   privateSlotCredit={props.privateSlotCredit}
@@ -137,6 +137,7 @@ export const PrivatePassCapabilities = (props: Props) => {
                           ? props.createRecurrentRule(options)
                           : props.registerPrivateBooking(pcp.id, options)
                       }
+                      // @ts-expect-error
                       private_consumer_pass={pcp}
                     />
                   ),
@@ -217,6 +218,7 @@ export const PrivatePassCapabilities = (props: Props) => {
                             ? props.createRecurrentRule(options)
                             : props.registerPrivateBooking(pcp.id, options)
                         }
+                        // @ts-expect-error
                         private_consumer_pass={pcp}
                         privateSlotId={props.privateSlot}
                       />

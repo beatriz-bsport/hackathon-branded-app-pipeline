@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme, Typography, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
@@ -11,6 +10,7 @@ import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-r
 
 import { MarketingNotification } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { SmartList } from '../../smart-list/types';
 

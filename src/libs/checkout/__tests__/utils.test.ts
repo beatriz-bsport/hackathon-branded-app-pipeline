@@ -1,8 +1,8 @@
-// @ts-nocheck
 import { getSubTotal } from '../utils';
 import { Basket, CheckoutItem } from '../types';
 
 const checkoutItems: Array<CheckoutItem> = [
+  // @ts-expect-error
   {
     quantity: 1,
     id: '0',
@@ -13,6 +13,7 @@ const checkoutItems: Array<CheckoutItem> = [
     editable: true,
     tax: 10,
   },
+  // @ts-expect-error
   {
     quantity: 2,
     id: '1',
@@ -23,6 +24,7 @@ const checkoutItems: Array<CheckoutItem> = [
     editable: true,
     tax: 12,
   },
+  // @ts-expect-error
   {
     quantity: 3,
     id: '2',
@@ -36,6 +38,7 @@ const checkoutItems: Array<CheckoutItem> = [
 ];
 
 const checkoutItemsWithVoucher: Array<CheckoutItem> = [
+  // @ts-expect-error
   {
     quantity: 1,
     id: '4',
@@ -45,6 +48,7 @@ const checkoutItemsWithVoucher: Array<CheckoutItem> = [
     buyable_item_id: 0,
     editable: true,
   },
+  // @ts-expect-error
   {
     quantity: 1,
     id: '0',
@@ -55,6 +59,7 @@ const checkoutItemsWithVoucher: Array<CheckoutItem> = [
     editable: true,
     tax: 10,
   },
+  // @ts-expect-error
   {
     quantity: 2,
     id: '1',
@@ -65,6 +70,7 @@ const checkoutItemsWithVoucher: Array<CheckoutItem> = [
     editable: true,
     tax: 12,
   },
+  // @ts-expect-error
   {
     quantity: 3,
     id: '2',
@@ -78,6 +84,7 @@ const checkoutItemsWithVoucher: Array<CheckoutItem> = [
 ];
 
 const checkoutItemsEmpty: Array<CheckoutItem> = [
+  // @ts-expect-error
   {
     quantity: 0,
     id: '0',
@@ -88,6 +95,7 @@ const checkoutItemsEmpty: Array<CheckoutItem> = [
     editable: true,
     tax: 10,
   },
+  // @ts-expect-error
   {
     quantity: 0,
     id: '1',
@@ -98,6 +106,7 @@ const checkoutItemsEmpty: Array<CheckoutItem> = [
     editable: true,
     tax: 12,
   },
+  // @ts-expect-error
   {
     quantity: 0,
     id: '2',
@@ -115,9 +124,12 @@ const basket: Basket = {
   id: '0',
   is_finalized: true,
   total_price: '100',
+  // @ts-expect-error
   total_price_cts: '6000',
   checkout_items: checkoutItems,
+  // @ts-expect-error
   company: '0',
+  // @ts-expect-error
   need_address: 'need_address',
   first_name: 'first_name',
   last_name: 'last_name',
@@ -128,6 +140,7 @@ const basket: Basket = {
   country: 'country',
   city: 'city',
   available_payment_methods: [],
+  // @ts-expect-error
   total_price_prepaid_lines: 0,
   prepaid_lines: [],
 };
@@ -137,9 +150,12 @@ const basketWithVoucher: Basket = {
   id: '0',
   is_finalized: true,
   total_price: '50',
+  // @ts-expect-error
   total_price_cts: '5000',
   checkout_items: checkoutItemsWithVoucher,
+  // @ts-expect-error
   company: '0',
+  // @ts-expect-error
   need_address: 'need_address',
   first_name: 'first_name',
   last_name: 'last_name',
@@ -150,6 +166,7 @@ const basketWithVoucher: Basket = {
   country: 'country',
   city: 'city',
   available_payment_methods: [],
+  // @ts-expect-error
   total_price_prepaid_lines: 0,
   prepaid_lines: [],
 };
@@ -159,9 +176,12 @@ const basketEmpty: Basket = {
   id: '0',
   is_finalized: true,
   total_price: '100',
+  // @ts-expect-error
   total_price_cts: '10000',
   checkout_items: [],
+  // @ts-expect-error
   company: '0',
+  // @ts-expect-error
   need_address: 'need_address',
   first_name: 'first_name',
   last_name: 'last_name',
@@ -172,6 +192,7 @@ const basketEmpty: Basket = {
   country: 'country',
   city: 'city',
   available_payment_methods: [],
+  // @ts-expect-error
   total_price_prepaid_lines: 0,
   prepaid_lines: [],
 };
@@ -181,9 +202,12 @@ const basketEmptyQuantity: Basket = {
   id: '0',
   is_finalized: true,
   total_price: '100',
+  // @ts-expect-error
   total_price_cts: '6000',
   checkout_items: checkoutItemsEmpty,
+  // @ts-expect-error
   company: '0',
+  // @ts-expect-error
   need_address: 'need_address',
   first_name: 'first_name',
   last_name: 'last_name',
@@ -194,6 +218,7 @@ const basketEmptyQuantity: Basket = {
   country: 'country',
   city: 'city',
   available_payment_methods: [],
+  // @ts-expect-error
   total_price_prepaid_lines: 0,
   prepaid_lines: [],
 };

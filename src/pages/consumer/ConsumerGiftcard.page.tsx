@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
@@ -15,6 +14,7 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import themeSelectors from '#libs/theme/selectors';
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { OptionCallback } from '../../state/types';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
@@ -85,6 +85,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
       onSuccess: (...args) => {
         props.retrieveConsumerGiftcard(consumerGiftcardToInvite.id);
         selectConsumerGiftcardToInvite(null);
+        // @ts-expect-error
         if (options?.onSuccess) options.onSuccess(...args);
       },
       onError: options?.onError,
@@ -196,6 +197,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
           companyId={consumerGiftcardToInvite.source_company_id}
           consumerGiftcard={consumerGiftcardToInvite}
           onClose={() => selectConsumerGiftcardToInvite(null)}
+          // @ts-expect-error
           onSubmit={sendInvitations}
           snackbarSuccess={props.snackbarSuccess}
         />
@@ -230,6 +232,7 @@ const connector = connect(
     sendEmailInvitation,
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
     goToGiftcard: (name: string, id: number) =>
+      // @ts-expect-error
       push(`${urlToMarketplace(name, id)}/giftcard`),
     fetchConsumerGiftcardSentList: fetchConsumerGiftcardSentListAction,
   },
@@ -284,4 +287,5 @@ export default compose(
         );
       },
   }),
+  // @ts-expect-error
 )(ConsumerGiftcardPage);

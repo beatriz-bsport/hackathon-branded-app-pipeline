@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -50,6 +49,7 @@ const FranchiseCompanyLogin = (props: Props) => {
   return (
     <div className={classes.container}>
       <FranchiseCompanySearchList
+        // @ts-expect-error
         companies={companies}
         handleCompanySelected={handleCompanySelected}
         selectedCompanyId={props.selectedFranchisee}

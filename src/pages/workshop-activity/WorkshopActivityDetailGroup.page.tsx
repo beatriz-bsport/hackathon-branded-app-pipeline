@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { compose } from 'recompose';
 import { withWidth } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -13,6 +12,7 @@ import { RootState } from '../../reducers';
 export default compose(
   routerParamsToProps({
     selectedOfferId: 'selectedOfferId:number',
+    // @ts-expect-error
     id: 'metaActivityId',
   }),
   withWidth(),

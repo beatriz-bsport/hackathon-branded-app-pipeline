@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { Form, FormikProps, withFormik } from 'formik';
 import { compose } from 'recompose';
@@ -20,6 +19,7 @@ import {
   RadioGroupField,
   Actions,
   Submit,
+  // @ts-expect-error
 } from '#components/forms';
 import { MarketingNotification } from '../../types';
 import {
@@ -273,6 +273,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         }}
                         name="periodScale"
                         onChange={(selected) =>
+                          // @ts-expect-error
                           setFieldValue('periodScale', selected.value)
                         }
                         options={[
@@ -328,6 +329,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         }}
                         name="periodScale"
                         onChange={(selected) =>
+                          // @ts-expect-error
                           setFieldValue('periodScale', selected.value)
                         }
                         options={[
@@ -356,6 +358,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         }}
                         name="timeComparator"
                         onChange={(selected) =>
+                          // @ts-expect-error
                           setFieldValue('timeComparator', selected.value)
                         }
                         options={[
@@ -445,6 +448,7 @@ const MarketingRuleFormContract = (props: Props) => {
                       }}
                       name="periodScale"
                       onChange={(selected) =>
+                        // @ts-expect-error
                         setFieldValue('periodScale', selected.value)
                       }
                       options={[
@@ -473,6 +477,7 @@ const MarketingRuleFormContract = (props: Props) => {
                       }}
                       name="timeComparator"
                       onChange={(selected) =>
+                        // @ts-expect-error
                         setFieldValue('timeComparator', selected.value)
                       }
                       options={[
@@ -737,8 +742,10 @@ export default compose<any, Props>(
     },
     validationSchema: MarketingRuleFormContractSchema,
 
+    // @ts-expect-error
     handleSubmit: (
       values: FinalFormikData,
+      // @ts-expect-error
       { props: { onSubmit }, setSubmitting },
     ) => {
       const data: MarketingNotification = {

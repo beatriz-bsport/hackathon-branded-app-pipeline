@@ -1,10 +1,10 @@
-// @ts-nocheck
 import { ElementDOMController } from '../BaseClasses/Base.controller';
 import CanvasTeacherComponent, {
   CanvasTeacherProps,
 } from './CanvasTeacher.component';
 
 export default class TeacherDOMController extends ElementDOMController<CanvasTeacherProps> {
+  // @ts-expect-error
   getProps = () => {
     const { x, y } = this.getPosition();
     const rotation = this.getRotation();

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -52,6 +51,7 @@ export const PrivatePassListItem = (props: Props) => {
   return (
     <ConditionalWrapper condition={!props.removePaper} WrapperComponent={Paper}>
       <ListItem
+        // @ts-expect-error
         button={!!props.onClick}
         dense={props.dense}
         divider={props.divider}
@@ -64,6 +64,7 @@ export const PrivatePassListItem = (props: Props) => {
         )}
         <ListItemText
           primary={props.pass.name}
+          // @ts-expect-error
           secondary={`${t('privatePass.parameters.nbCredits', {
             count: getCreditsDividedDisplay(props.pass.credits),
             credits: getCreditsDividedValue(props.pass.credits),
@@ -106,6 +107,7 @@ export const PrivatePassListItem = (props: Props) => {
                 label: t('privatePass.delete.delete'),
                 onClick: props.onDelete,
               },
+            // @ts-expect-error
             props.onRestore &&
               !props.pass.template_instance && {
                 icon: RestoreFromTrashIcon,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { SortableContainer } from 'react-sortable-hoc';
@@ -54,6 +53,7 @@ export const MetricList = (props: Props) => {
         <Container
           useDragHandle
           hideSortableGhost={false}
+          // @ts-expect-error
           onSortEnd={(e) => {
             const oldIndex = e.oldIndex;
             const newIndex = e.newIndex;

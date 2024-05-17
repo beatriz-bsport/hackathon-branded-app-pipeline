@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -56,6 +55,7 @@ export function PaymentComboFormDrawer(props: Props) {
     >
       <Form>
         <div className={classes.content}>
+          {/* @ts-expect-error */}
           {open ? <PaymentComboFields {...props} /> : null}
           <DialogActions>
             <Button

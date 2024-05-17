@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -80,6 +79,7 @@ export function fetchStripeReaders(options?: OptionCallback): ThunkAction {
       const response = await fetchStripeReadersAPI();
       dispatch(
         fetchStripeReadersActions.success(
+          // @ts-expect-error
           response.data.data ? response.data.data : [],
         ),
       );

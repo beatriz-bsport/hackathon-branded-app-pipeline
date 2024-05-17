@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   closestCenter,
   DndContext,
@@ -87,7 +86,8 @@ const handleDragEndCategory = memoize(
             categoryOrderingOverride[privatePassCategoryIds[index]] ||
             categoryOrderingOverride[privatePassCategoryIds[index]] === 0
               ? categoryOrderingOverride[privatePassCategoryIds[index]]
-              : items.find((cat) => privatePassCategoryIds[index] === cat.id)
+              : // @ts-expect-error
+                items.find((cat) => privatePassCategoryIds[index] === cat.id)
                   .category_ordering;
           overrideIndex = {
             ...overrideIndex,
@@ -138,6 +138,7 @@ const handleDragEndPaymentPack = memoize(
       }
       // build the list of passes that changed position and update them
       if (arr) {
+        // @ts-expect-error
         const toUpdate = [];
         arr.forEach((pp, index) => {
           if (pp.id !== passes[index].id) {
@@ -152,6 +153,7 @@ const handleDragEndPaymentPack = memoize(
             });
           }
         });
+        // @ts-expect-error
         updatePassOrder(toUpdate);
       }
     }
@@ -183,6 +185,7 @@ export const PrivatePassCategoryList = (props: Props) => {
     return null;
   };
 
+  // @ts-expect-error
   const handleDragStart = ({ active }) => {
     setActiveId(active.id);
     if (
@@ -193,6 +196,7 @@ export const PrivatePassCategoryList = (props: Props) => {
       setIsCategoryDragging(true);
   };
 
+  // @ts-expect-error
   const handleDragEnd = (event) => {
     if (isCategoryDragging) {
       setCategoryOrderingOverride(
@@ -218,19 +222,26 @@ export const PrivatePassCategoryList = (props: Props) => {
 
   let userOrder = {};
   props.privatePassOrder?.forEach((pass) => {
+    // @ts-expect-error
     userOrder[pass.id] = pass.ordering_in_category;
   });
   if (!props.privatePassOrder) userOrder = null;
 
   const items = [...props.privatePassCategoryById].sort(
     (cat1, cat2) =>
+      // @ts-expect-error
       (categoryOrderingOverride[cat1.id] ||
+      // @ts-expect-error
       categoryOrderingOverride[cat1.id] === 0
-        ? categoryOrderingOverride[cat1.id]
+        ? // @ts-expect-error
+          categoryOrderingOverride[cat1.id]
         : cat1.category_ordering) -
+      // @ts-expect-error
       (categoryOrderingOverride[cat2.id] ||
+      // @ts-expect-error
       categoryOrderingOverride[cat2.id] === 0
-        ? categoryOrderingOverride[cat2.id]
+        ? // @ts-expect-error
+          categoryOrderingOverride[cat2.id]
         : cat2.category_ordering),
   );
 
@@ -257,6 +268,7 @@ export const PrivatePassCategoryList = (props: Props) => {
               filterManagerOnly={props.filterManagerOnly}
               isCategoryDragging={isCategoryDragging}
               isCategoryFiltered={!!props.filteredCategories.length}
+              // @ts-expect-error
               itemsDraggable={props.itemsDraggable}
               onClick={props.goToPass}
               onDelete={props.setOpenDeletePassDialog}

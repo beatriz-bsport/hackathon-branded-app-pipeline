@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
@@ -7,6 +6,7 @@ import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
+// @ts-expect-error
 import MarketplaceShopComponent from '#marketplacecomponents/MarketplaceShop.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
@@ -63,6 +63,7 @@ const mapStateToProps = (
 ) => ({
   currentBasket: getCurrentBasket(state),
   subShops: shopSelectors
+    // @ts-expect-error
     .getSubShopsByCompany(state, companyId, true)
     .filter((sub: any) => sub.shopItems.length),
   authenticated: state.auth.authenticated,

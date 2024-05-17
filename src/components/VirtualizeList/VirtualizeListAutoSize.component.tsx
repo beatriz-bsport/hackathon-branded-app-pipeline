@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -31,6 +30,7 @@ const VirtualizeListAutoSize: React.FC<Props> = ({
         itemSize={itemSize}
         width={as.width}
       >
+        {/* @ts-expect-error */}
         {(r: { index: number; style: CSSProperties }) => (
           <Row style={r.style}>{renderRow(r.index)}</Row>
         )}

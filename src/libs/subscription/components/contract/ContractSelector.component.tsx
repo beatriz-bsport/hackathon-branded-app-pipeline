@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
@@ -25,6 +24,7 @@ export const ContractSelector = (props: Props) => {
       isDisabled={props.isDisabled}
       menuPortalTarget={document.querySelector('body')}
       onChange={(option) => {
+        // @ts-expect-error
         props.onChange(option.value);
       }}
       options={contractOptions}

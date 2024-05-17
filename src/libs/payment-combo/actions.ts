@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -103,8 +102,10 @@ export function fetchPaymentComboBulk(
 
     try {
       const response = await fetchSelectedPaymentCombosAPI(params);
+      // @ts-expect-error
       dispatch(paymentComboBulkActions.success(response.data));
       dispatch(paymentComboBulkActions.error(null));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -255,6 +256,7 @@ export function fetchRelatedPrivatePassBulk(ids: number[]) {
       const response = await fetchPrivatePassListAPI({
         id__in: uniq(ids.filter((id) => !!id)),
       });
+      // @ts-expect-error
       dispatch(relatedPrivatePassBulkActions.success(response.data));
     } catch (err) {
       console.error(err);

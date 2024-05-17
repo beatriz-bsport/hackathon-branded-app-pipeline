@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
@@ -58,6 +57,7 @@ class CanvasViewController extends React.PureComponent<Props> {
 
   svgId = '';
 
+  // @ts-expect-error
   svgFunction: {
     centerSvg: (params: {
       minX: number;
@@ -82,6 +82,7 @@ class CanvasViewController extends React.PureComponent<Props> {
       clickedElement: null,
     };
 
+    // @ts-expect-error
     this.anchorRef = React.createRef();
   }
 
@@ -90,6 +91,7 @@ class CanvasViewController extends React.PureComponent<Props> {
       return undefined;
     }
 
+    // @ts-expect-error
     return CanvasSelectableToolStrategy[this.props.selectedTool];
   }
 
@@ -108,6 +110,7 @@ class CanvasViewController extends React.PureComponent<Props> {
       let maxX = 0;
       let maxY = 0;
       this.props.elements.forEach((element) => {
+        // @ts-expect-error
         const tool = CanvasSelectableToolStrategy[element.type];
         if (tool?.getBoundaries) {
           const boundaries = tool.getBoundaries(element);
@@ -157,6 +160,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           },
           mouseEvent,
         },
+        // @ts-expect-error
         this.props.spotTypeId,
         this.props.coachHeight,
       );
@@ -194,6 +198,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           },
           mouseEvent,
         },
+        // @ts-expect-error
         this.props.spotTypeId,
       );
       elements && this.props.onElementsChange(elements);
@@ -220,6 +225,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           },
           mouseEvent,
         },
+        // @ts-expect-error
         this.props.spotTypeId,
       );
     }
@@ -240,6 +246,7 @@ class CanvasViewController extends React.PureComponent<Props> {
     if (this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.beautifier) {
       mouseEvent.persist();
       this.setState((prevState) => ({
+        // @ts-expect-error
         openBeautifyPopover: !prevState.openBeautifyPopover,
         anchorEl: mouseEvent.target,
         clickedElement,
@@ -259,6 +266,7 @@ class CanvasViewController extends React.PureComponent<Props> {
   };
 
   onSubmitBeautifier = (values: any) => {
+    // @ts-expect-error
     const canvasElement = this.state.clickedElement;
 
     const newElements = [
@@ -385,6 +393,7 @@ class CanvasViewController extends React.PureComponent<Props> {
         // @ts-expect-error
         const tool = CanvasSelectableToolStrategy[elementOrDraft.draftType];
 
+        // @ts-expect-error
         if (this.state.isUnsafeZone) {
           return null;
         }
@@ -435,6 +444,7 @@ class CanvasViewController extends React.PureComponent<Props> {
               coach={this.props.coach}
               coachDisplay={this.props.coachDisplay}
               coachHeight={this.props.coachHeight}
+              // @ts-expect-error
               selectingSpot={this.props?.selectingSpot}
               spotType={
                 this.props?.spotTypes?.filter(
@@ -467,6 +477,7 @@ class CanvasViewController extends React.PureComponent<Props> {
         })}
       >
         {this.props.isBoutiqueDisplay ? (
+          // @ts-expect-error
           <CanvasSvgDisplayOnly
             containerRef={this.props.containerRef}
             isMobile={this.props.isMobile}
@@ -475,6 +486,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           </CanvasSvgDisplayOnly>
         ) : (
           <CanvasSvg
+            // @ts-expect-error
             ref={this.anchorRef}
             disabledEdit={this.props.disabledEdit}
             enablePan={
@@ -482,6 +494,7 @@ class CanvasViewController extends React.PureComponent<Props> {
               [
                 CANVAS_SELECTABLE_TOOLS.hand,
                 CANVAS_SELECTABLE_TOOLS.spot_selector,
+                // @ts-expect-error
               ].includes(this.props.selectedTool)
             }
             onClick={this.onSvgClick}
@@ -499,16 +512,23 @@ class CanvasViewController extends React.PureComponent<Props> {
           </CanvasSvg>
         )}
         <Popover
+          // @ts-expect-error
           anchorEl={this.state.anchorEl}
+          // @ts-expect-error
           anchorOrigin="right"
           onClose={this.handleClosePopover}
           open={
+            // @ts-expect-error
             !!this.state.anchorEl &&
+            // @ts-expect-error
             this.state.openBeautifyPopover &&
+            // @ts-expect-error
             !!this.state.clickedElement
           }
         >
+          {/* @ts-expect-error */}
           <BeautifierForm
+            // @ts-expect-error
             canvasElement={this.state.clickedElement}
             onSubmit={this.onSubmitBeautifier}
             spotTypes={this.props.spotTypes}
@@ -552,6 +572,7 @@ const styles = () => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['spotScheduling']),
 )(CanvasViewController);

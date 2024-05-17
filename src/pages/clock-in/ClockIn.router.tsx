@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { memo, useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 import { withTranslation } from 'react-i18next';
@@ -7,6 +6,7 @@ import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -88,6 +88,7 @@ const ClockInRouter: React.FC<Props> = ({
       onChange={onChange}
       pageHeight={pageHeight}
       tab={tab}
+      // @ts-expect-error
       tabsData={isNavBar ? tabsData : []}
     >
       <ClockInSwitcher permissions={permissions} />
@@ -107,6 +108,7 @@ const connector = connect(
 export default compose(
   connector,
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
   }),
   withTranslation('clockIn'),

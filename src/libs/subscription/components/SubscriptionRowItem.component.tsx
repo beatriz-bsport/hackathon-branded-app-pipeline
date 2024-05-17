@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -67,6 +66,7 @@ const SubscriptionRowItem = (props: Props) => {
   const { t } = useTranslation('subscription');
   return (
     <div>
+      {/* @ts-expect-error */}
       <ListItem dense button={!!props.onClick} onClick={props.onClick || null}>
         <ListItemAvatar>
           <Avatar

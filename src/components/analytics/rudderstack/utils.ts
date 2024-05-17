@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as rudderanalytics from 'rudder-sdk-js';
 import { captureException as SentryCaptureException } from '@sentry/react';
 import Config from '../../../config';
@@ -31,6 +30,7 @@ export async function rudderStackIdentify(params: {
   }
 }
 
+// @ts-expect-error
 function handleAddData(additional_data) {
   /**
    * format additional_data into a dict : {data : additional_data} if additional_data != {}
@@ -126,6 +126,7 @@ export const rudderStackFormTrackingFunctionsRegistry = (
 });
 
 export async function rudderStackPage(parsedQueryString: {
+  // @ts-expect-error
   [key: any]: string;
 }) {
   try {

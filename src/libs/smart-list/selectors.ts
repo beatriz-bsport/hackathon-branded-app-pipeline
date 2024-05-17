@@ -1,4 +1,3 @@
-// @ts-nocheck
 import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
@@ -57,6 +56,7 @@ export const getSmartListFilters = (state: RootState, id: number): any =>
 
 // SMARTLIST MEMBERS
 export const getSmartListMembers = (state: RootState, id: number): any =>
+  // @ts-expect-error
   state.smartList.membersBySmartListId[id];
 
 // SMARTLIST AUTOTAGRULES
@@ -75,10 +75,14 @@ export const getSmartListAutoTag = createSelector(
 export const getAutotagRuleBySmartlist = (
   state: RootState,
 ): { [key: string]: AutoTagRule[] } => {
+  // @ts-expect-error
   return getSmartListAutoTag(state).reduce((acc, val) => {
+    // @ts-expect-error
     if (!acc[val.smartlist]) {
+      // @ts-expect-error
       acc[val.smartlist] = [];
     }
+    // @ts-expect-error
     acc[val.smartlist].push(val);
     return acc;
   }, {});
@@ -86,7 +90,9 @@ export const getAutotagRuleBySmartlist = (
 
 export const getSmartListAutoTagFiltered = (state: RootState, id: number) =>
   objectAssign
+    // @ts-expect-error
     .values(state.smartList.smartListTagRules.byId)
+    // @ts-expect-error
     .filter((tg) => tg.smartlist === id);
 
 // AUTOMATED CAMPAIGN

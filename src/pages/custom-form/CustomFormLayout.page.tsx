@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -42,11 +41,13 @@ export class CustomFormLayoutPage extends Component<Props> {
 
   render() {
     if (this.props.loading || !this.props.customForm?.custom_form_field) {
+      // @ts-expect-error
       return <BackofficeLinearProgress additionalMargin={1} color="primary" />;
     }
 
     return (
       <>
+        {/* @ts-expect-error */}
         <CustomFormLayout
           asManager
           editable
@@ -93,6 +94,7 @@ const mapWithHandlers = {
 };
 
 const withStateHandlersInit = {
+  // @ts-expect-error
   responsiveLayouts: null,
 };
 const withStateHandlersSetter = {

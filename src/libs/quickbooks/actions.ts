@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import {
@@ -58,6 +57,7 @@ export function updateQuickbooksApp(
       const response = await updateQuickbooksAppAPI(companyId, data);
       dispatch(retrieveQuickbooksAppActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -87,6 +87,7 @@ export function revokeQuickbooksApp(
       const response = await revokeQuickbooksAppAPI(company_id);
       dispatch(revokeQuickbooksAppActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CanvasAbstractTool, {
   CanvasSvgMouseParamsI,
   CanvasElementMouseParamI,
@@ -32,6 +31,7 @@ export default class CanvasPointerTool extends CanvasAbstractTool<null> {
     }
   };
 
+  // @ts-expect-error
   onMove = (params: CanvasSvgMouseParamsI) => {
     const { x, y } = params;
 

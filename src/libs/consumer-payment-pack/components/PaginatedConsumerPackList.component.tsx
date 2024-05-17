@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { Theme } from '@material-ui/core';
@@ -6,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import { withTranslation, WithTranslation } from 'react-i18next';
+// @ts-expect-error
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
@@ -73,6 +73,7 @@ export const PaginatedConsumerPackList: React.FC<Props> = React.memo(
           ) => {
             const paymentPack = props.paymentPack || cpp.payment_pack || null;
             return (
+              // @ts-expect-error
               <ConsumerPackRowItem
                 key={cpp.id}
                 consumerPack={cpp}

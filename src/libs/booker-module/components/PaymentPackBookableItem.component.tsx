@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -75,6 +74,7 @@ const PaymentPackItem = (props: Props) => {
           </Typography>
         </div>
         <div>
+          {/* @ts-expect-error */}
           {!!props.paymentPack.linked_private_pass && (
             <Tooltip title={t('form.paymentPack.universalPass.label')}>
               <IconButton onClick={null}>

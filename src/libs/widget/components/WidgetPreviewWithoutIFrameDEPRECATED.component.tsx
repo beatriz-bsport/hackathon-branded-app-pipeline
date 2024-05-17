@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
@@ -41,7 +40,9 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
   const [, setLoading] = useState(true);
 
   const onLoad = useCallback(() => {
+    // @ts-expect-error
     if (window.BsportWidget) {
+      // @ts-expect-error
       window.BsportWidget.mount({
         parentElement: `bsport-widget${uuid || ''}`,
         companyId: company,
@@ -89,6 +90,7 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
     }
     script = document.createElement('script');
     script.id = 'bsport-widget-cdn';
+    // @ts-expect-error
     script.src = url;
     document.body.appendChild(script);
     script.addEventListener('load', onLoad);
@@ -117,6 +119,7 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
   });
   return (
     <>
+      {/* @ts-expect-error */}
       <WidgetPreview codeStringPreview={codeStringPreview} />
       <div ref={setRef} id={`bsport-widget${uuid || ''}`} />
       {divRef?.children?.length === 0 && (

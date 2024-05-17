@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation, WithTranslation } from 'react-i18next';
@@ -50,6 +49,7 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 ] || []
               }
+              // @ts-expect-error
               onChange={(
                 items: Array<{
                   item: Tag & { label: string; value: number };
@@ -57,6 +57,7 @@ export const PrivateServiceFormTag = (props: Props) => {
               ) => {
                 return setFieldValue(
                   'unpaid_whitelist_tags',
+                  // @ts-expect-error
                   items.map((item) => item.value),
                 );
               }}
@@ -92,6 +93,7 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 ] || []
               }
+              // @ts-expect-error
               onChange={(
                 items: Array<{
                   item: Tag & { label: string; value: number };
@@ -99,6 +101,7 @@ export const PrivateServiceFormTag = (props: Props) => {
               ) => {
                 return setFieldValue(
                   'unpaid_blacklist_tags',
+                  // @ts-expect-error
                   items.map((item) => item.value),
                 );
               }}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -24,9 +23,11 @@ const PrivatePassTemplateFormDrawer = (props: Props) => {
       open={props.open}
       title={t('privatePassTemplate.form.title')}
     >
+      {/* @ts-expect-error */}
       <PrivatePassTemplateForm {...props} />
     </GenericResponsiveDrawer>
   );
 };
 
+// @ts-expect-error
 export default PrivatePassTemplateFormikHOC(PrivatePassTemplateFormDrawer);

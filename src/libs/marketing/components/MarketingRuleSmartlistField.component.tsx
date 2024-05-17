@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 
 import {
@@ -15,6 +14,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 import WarningIcon from '@material-ui/icons/Warning';
+// @ts-expect-error
 import { OptionTypeBase } from 'react-select';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { SmartList } from '#libs/smart-list/types';
@@ -72,6 +72,7 @@ const MarketingRuleSmartlistField = (props: Props) => {
                 placeholder={t(
                   'notificationForm.smartLists.smartListSelection',
                 )}
+                // @ts-expect-error
                 value={smartListSelectOptions?.filter((opt) =>
                   smartlist_exclude?.includes(opt?.value),
                 )}
@@ -82,6 +83,7 @@ const MarketingRuleSmartlistField = (props: Props) => {
                 {t('notificationForm.smartLists.smartListHelperInclude')}
               </Typography>
               <MaterialUiMultiSelectorField
+                // @ts-expect-error
                 isClearable
                 isMulti
                 name="smartlist_include"

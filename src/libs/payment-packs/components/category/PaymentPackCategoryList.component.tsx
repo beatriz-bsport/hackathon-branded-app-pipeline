@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { memo, useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -97,7 +96,8 @@ const handleDragEndCategory = memoize(
             categoryOrderingOverride[paymentPackCategoryIds[index]] ||
             categoryOrderingOverride[paymentPackCategoryIds[index]] === 0
               ? categoryOrderingOverride[paymentPackCategoryIds[index]]
-              : items.find((cat) => paymentPackCategoryIds[index] === cat.id)
+              : // @ts-expect-error
+                items.find((cat) => paymentPackCategoryIds[index] === cat.id)
                   .category_ordering;
           overrideIndex = {
             ...overrideIndex,
@@ -197,6 +197,7 @@ export const PaymentPackListByCategory = memo((props: Props) => {
     return null;
   };
 
+  // @ts-expect-error
   const handleDragStart = ({ active }) => {
     setActiveId(active.id);
     if (
@@ -207,6 +208,7 @@ export const PaymentPackListByCategory = memo((props: Props) => {
       setIsCategoryDragging(true);
   };
 
+  // @ts-expect-error
   const handleDragEnd = (event) => {
     if (isCategoryDragging) {
       setCategoryOrderingOverride(
@@ -232,19 +234,26 @@ export const PaymentPackListByCategory = memo((props: Props) => {
 
   let userOrder = {};
   props.paymentPackOrder?.forEach((pack) => {
+    // @ts-expect-error
     userOrder[pack.id] = pack.ordering_in_category;
   });
   if (!props.paymentPackOrder) userOrder = null;
 
   const items = [...props.paymentPackByCategory].sort(
     (cat1, cat2) =>
+      // @ts-expect-error
       (categoryOrderingOverride[cat1.id] ||
+      // @ts-expect-error
       categoryOrderingOverride[cat1.id] === 0
-        ? categoryOrderingOverride[cat1.id]
+        ? // @ts-expect-error
+          categoryOrderingOverride[cat1.id]
         : cat1.category_ordering) -
+      // @ts-expect-error
       (categoryOrderingOverride[cat2.id] ||
+      // @ts-expect-error
       categoryOrderingOverride[cat2.id] === 0
-        ? categoryOrderingOverride[cat2.id]
+        ? // @ts-expect-error
+          categoryOrderingOverride[cat2.id]
         : cat2.category_ordering),
   );
 

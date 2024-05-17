@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
@@ -13,6 +12,7 @@ export const getGroupListCount = (state: RootState) => state.groupOffer.count;
 
 export const getGroupData = (state: RootState) => state.groupOffer.byId;
 
+// @ts-expect-error
 export const getGroupDataById = (state: RootState, id: number) =>
   state.groupOffer.byId?.[id] ?? [];
 
@@ -30,7 +30,9 @@ const localeGetOfferData = (state: RootState) => state.offer.byId;
 export const getOffersListByGroup = createCachedSelector(
   [getGroupDataById, localeGetOfferData],
   (group, offersData) => {
+    // @ts-expect-error
     if (!group.offers) return [];
+    // @ts-expect-error
     return group.offers.map((id) => offersData[id]);
   },
 )((state: RootState, groupId: number) => groupId);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
@@ -20,6 +19,7 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import withTitle from '../../hocs/with-title.hoc';
 import CouponListComponent from '#libs/coupon/components/CouponList.component';
 import CouponListItem from '#libs/coupon/components/CouponListItem.component';
+// @ts-expect-error
 import CouponDeleteModal from '#libs/coupon/components/CouponDeleteModal.component';
 import {
   fetchCouponPage,
@@ -120,6 +120,7 @@ type State = {
 export class CouponList extends React.PureComponent<Props, State> {
   state = {
     searchText: '',
+    // @ts-expect-error
     searchResult: [],
     couponFormState: { open: false, initial: null as Coupon },
     uniqueCodeCouponFormState: { open: false, initial: null as Coupon },
@@ -127,6 +128,7 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    // @ts-expect-error
     this.addCouponRef = React.createRef(null);
   }
 
@@ -145,6 +147,7 @@ export class CouponList extends React.PureComponent<Props, State> {
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       this.setState({
         searchText: ev.target.value,
+        // @ts-expect-error
         searchResult: fuse.search(ev.target.value),
       });
     };
@@ -168,6 +171,7 @@ export class CouponList extends React.PureComponent<Props, State> {
               },
             });
             this.props.fetchCouponPage(1);
+            // @ts-expect-error
             if (options && options.onSuccess) options.onSuccess(id);
           },
           onError: () => {
@@ -354,12 +358,14 @@ export class CouponList extends React.PureComponent<Props, State> {
       <div>
         {this.props.loading ? <LinearProgress /> : null}
         {this.props.inactiveCoupons.length === 0 &&
+        // @ts-expect-error
         this.props.activeCoupons.length === 0 &&
         !this.props.loading ? (
           <IsEmptyList
             hideBottomActions
             button={this.props.t('createCoupon')}
             onCreate={() => {
+              // @ts-expect-error
               this.addCouponRef.current?.onClick();
             }}
             text={this.props.t('list.isEmpty')}
@@ -370,6 +376,7 @@ export class CouponList extends React.PureComponent<Props, State> {
               <FuzeSearch
                 changeSearch={this.changeSearch}
                 clearSearch={this.clearSearch}
+                // @ts-expect-error
                 items={this.props.allCoupons}
                 placeholder={t('search')}
                 searchFields={['name']}
@@ -408,7 +415,9 @@ export class CouponList extends React.PureComponent<Props, State> {
             </div>
 
             <CouponListComponent
+              // @ts-expect-error
               activeCoupons={this.props.activeCoupons}
+              // @ts-expect-error
               goToCoupon={this.props.goToCoupon}
               inactiveCoupons={this.props.inactiveCoupons}
               onEdit={this.onEditCouponListComponent}
@@ -420,6 +429,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           allPaymentCombosById={this.props.allPaymentCombosById}
           allPaymentPacksById={this.props.allPaymentPacksById}
           allPrivatePassesById={this.props.allPrivatePassesById}
+          // @ts-expect-error
           allShopItemsById={this.props.shopItemBaseAndStandaloneById}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
@@ -431,6 +441,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           onSubmit={this.createOrUpdateCoupon}
           open={this.state.couponFormState.open}
           paymentCombos={this.props.paymentCombos}
+          // @ts-expect-error
           paymentPacks={this.props.paymentPacks}
           privatePasses={this.props.privatePasses}
           processing={this.props.createOrUpdateLoading}
@@ -446,11 +457,14 @@ export class CouponList extends React.PureComponent<Props, State> {
           open={this.state.uniqueCodeCouponFormState.open}
           paymentCombos={this.props.paymentCombos}
           paymentCombosById={this.props.allPaymentCombosById}
+          // @ts-expect-error
           paymentPacks={this.props.paymentPacks}
           paymentPacksById={this.props.allPaymentPacksById}
           privatePasses={this.props.privatePasses}
           privatePassesById={this.props.allPrivatePassesById}
+          // @ts-expect-error
           shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
+          // @ts-expect-error
           shopItemsById={this.props.shopItemBaseAndStandaloneById}
           uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
         />
@@ -462,6 +476,7 @@ export class CouponList extends React.PureComponent<Props, State> {
         />
         <div className={classes.addButtonContainer}>
           <FabWithItems
+            // @ts-expect-error
             ref={this.addCouponRef}
             items={this.fabItems}
             label={t('createCoupon')}
@@ -496,8 +511,10 @@ const styles = (theme: Theme) => ({
 
 const connector = connect(
   (state: RootState) => ({
+    // @ts-expect-error
     allCoupons: withTags(getAllCoupons)(state),
     inactiveCoupons: getInactiveCoupons(state),
+    // @ts-expect-error
     activeCoupons: withTags(getActiveCoupons)(state),
     loading: state.coupon.coupon.loading,
     createOrUpdateLoading: state.coupon.coupon.createOrUpdate.loading,
@@ -632,6 +649,7 @@ const mapWithHandlers = {
 export default compose(
   withTranslation(['coupon']),
   connector,
+  // @ts-expect-error
   withStyles(styles),
   withState('couponToDelete', 'setCouponToDelete', null),
   withProps(({ setCouponToDelete, couponToDelete, deleteCouponAction }) => ({

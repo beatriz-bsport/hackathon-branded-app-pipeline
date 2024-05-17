@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -28,6 +27,7 @@ import { getFreshEmailTemplateSummariesIds } from './selectors';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { RootState } from '../../reducers';
 import {
@@ -154,22 +154,35 @@ export function emailTemplateComplete(id: number): ThunkAction {
       dispatch(
         emailTemplateCompleteAction.success({
           summary: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               title: response.data.title,
+              // @ts-expect-error
               subject: response.data.subject,
+              // @ts-expect-error
               date_created: response.data.date_created,
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               category: response.data.category,
+              // @ts-expect-error
               ordering_in_category: response.data.ordering_in_category,
+              // @ts-expect-error
               available_for_companies: response.data.available_for_companies,
             },
           },
           detail: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               html: response.data.html,
+              // @ts-expect-error
               design: response.data.design
-                ? JSON.parse(response.data.design)
+                ? // @ts-expect-error
+                  JSON.parse(response.data.design)
                 : {},
             },
           },
@@ -199,6 +212,7 @@ export function bulkEmailTemplateDetail(
 
     try {
       const response = await fetchBulkEmailTemplateDetailAPI({ id__in });
+      // @ts-expect-error
       dispatch(bulkEmailTemplateDetailAction.success(response.data.results));
       dispatch(bulkEmailTemplateDetailAction.error(null));
       typeof options?.onSuccess === 'function' && options.onSuccess();
@@ -227,6 +241,7 @@ export function emailTemplateDetail(
       const response = await fetchEmailTemplateDetailAPI(id);
       dispatch(
         emailTemplateDetailAction.success({
+          // @ts-expect-error
           [response.data.id]: response.data,
         }),
       );
@@ -258,23 +273,36 @@ export function emailDesignCreate(
       const response = await createEmailTemplateAPI(data);
       dispatch(
         createEmailDesignAction.success({
+          // @ts-expect-error
           id: response.data.id,
           summary: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               title: response.data.title,
+              // @ts-expect-error
               subject: response.data.subject,
+              // @ts-expect-error
               date_created: response.data.date_created,
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               category: response.data.category,
+              // @ts-expect-error
               ordering_in_category: response.data.ordering_in_category,
             },
           },
           detail: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               html: response.data.html,
+              // @ts-expect-error
               design: response.data.design
-                ? JSON.parse(response.data.design)
+                ? // @ts-expect-error
+                  JSON.parse(response.data.design)
                 : {},
             },
           },
@@ -282,6 +310,7 @@ export function emailDesignCreate(
       );
       dispatch(createEmailDesignAction.error(null));
       dispatch(snackbarSuccess('email.create.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data.id);
     } catch (error) {
       dispatch(createEmailDesignAction.error(error));
@@ -312,20 +341,31 @@ export function emailTemplateUpdate(
       dispatch(
         updateEmailTemplateAction.success({
           summary: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               name: response.data.name,
+              // @ts-expect-error
               date_created: response.data.date_created,
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               category: response.data.category,
+              // @ts-expect-error
               ordering_in_category: response.data.ordering_in_category,
             },
           },
           detail: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               html: response.data.html,
+              // @ts-expect-error
               design: response.data.design
-                ? JSON.parse(response.data.design)
+                ? // @ts-expect-error
+                  JSON.parse(response.data.design)
                 : {},
             },
           },
@@ -335,6 +375,7 @@ export function emailTemplateUpdate(
       dispatch(snackbarSuccess('email.update.success'));
 
       if (typeof options?.onSuccess === 'function')
+        // @ts-expect-error
         options?.onSuccess(response.data.id);
     } catch (error) {
       console.error(error);
@@ -359,21 +400,33 @@ export function restoreEmailTemplate(
       dispatch(
         updateEmailTemplateAction.success({
           summary: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               name: response.data.name,
+              // @ts-expect-error
               date_created: response.data.date_created,
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               category: response.data.category,
+              // @ts-expect-error
               ordering_in_category: response.data.ordering_in_category,
+              // @ts-expect-error
               available: response.data.available,
             },
           },
           detail: {
+            // @ts-expect-error
             [response.data.id]: {
+              // @ts-expect-error
               id: response.data.id,
+              // @ts-expect-error
               html: response.data.html,
+              // @ts-expect-error
               design: response.data.design
-                ? JSON.parse(response.data.design)
+                ? // @ts-expect-error
+                  JSON.parse(response.data.design)
                 : {},
             },
           },
@@ -383,6 +436,7 @@ export function restoreEmailTemplate(
       dispatch(snackbarSuccess('email.update.success'));
 
       if (typeof options?.onSuccess === 'function')
+        // @ts-expect-error
         options?.onSuccess(response.data.id);
     } catch (error) {
       dispatch(updateEmailTemplateAction.error(error));
@@ -409,6 +463,7 @@ export function emailTemplateDuplicate(props: {
     try {
       const response = await fetchEmailTemplateAPI(props.id);
 
+      // @ts-expect-error
       const originalTitle = response.data.title;
       const copyFlag = ` (${props.copyTranslation || 'copy'})`;
 
@@ -428,19 +483,26 @@ export function emailTemplateDuplicate(props: {
       }
 
       const data = {
+        // @ts-expect-error
         design: response.data.design,
+        // @ts-expect-error
         html: response.data.html,
         title: newTitle,
+        // @ts-expect-error
         subject: response.data.subject,
+        // @ts-expect-error
         category: response.data.category,
+        // @ts-expect-error
         available_for_companies: response.data.available_for_companies,
       };
+      // @ts-expect-error
       const newTemplate = await createEmailTemplateAPI(data);
 
       dispatch(resetEmails());
       dispatch(emailTemplatesSummaries());
       dispatch(snackbarSuccess('email.duplicate.success'));
       if (typeof props.options?.onSuccess === 'function') {
+        // @ts-expect-error
         props.options?.onSuccess(newTemplate.data.id);
       }
     } catch (error) {
@@ -487,6 +549,7 @@ export function updateFranchisePageFilter(
 
     try {
       const response = await updateFranchisePageFilterAPI({ filters: data });
+      // @ts-expect-error
       dispatch(updateFranchisePageFilterAction.success(response.data.filters));
     } catch (error) {
       dispatch(updateFranchisePageFilterAction.error(error));
@@ -543,6 +606,7 @@ export function editOrderEmailTemplate(
     try {
       const response = await editOrderEmailTemplateAPI(data);
       dispatch(emailTemplateUpdateOrderActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -612,6 +676,7 @@ export function updateEmailTemplateCategoryOrder(
     try {
       const response = await editCategoryOrderAPI(data);
       dispatch(updateEmailTemplateCategoryOrderActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.update.error`));
@@ -644,6 +709,7 @@ export function upsertEmailTemplateCategory(
         : await createEmailTemplateCategoryAPI(category);
       dispatch(upsertEmailTemplateCategoryActions.success(response.data));
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.${kind}.error`));

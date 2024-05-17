@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -48,8 +47,10 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+// @ts-expect-error
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
+// @ts-expect-error
 import { FormValues as SubscriptionContractFormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 import { fetchMarketingNotificationList } from '#libs/marketing/actions';
@@ -66,6 +67,7 @@ import {
   getAvailableContractListCustomer,
   getContract,
   withPaymentPack,
+  // @ts-expect-error
 } from '../../libs/subscription/selectors';
 import {
   createOrUpdateContract as createOrUpdateContractAction,
@@ -99,6 +101,7 @@ import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/
 export class SubscriptionList extends React.Component<Props, State> {
   state = {
     searchText: '',
+    // @ts-expect-error
     searchResult: [],
   };
 
@@ -139,6 +142,7 @@ export class SubscriptionList extends React.Component<Props, State> {
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       this.setState({
         searchText: ev.target.value,
+        // @ts-expect-error
         searchResult: fuse.search(ev.target.value),
       });
     };
@@ -210,6 +214,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                   items={this.props.contractListAvailableAll}
                   placeholder={this.props.t('search')}
                   searchFields={['name']}
+                  // @ts-expect-error
                   searchResult={this.state.searchResult}
                   searchText={this.state.searchText}
                 />
@@ -386,6 +391,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                   this.props.theme.force_billing_details_on_cards
                 }
                 companyId={this.props.companyId}
+                // @ts-expect-error
                 contract={this.props.selectedContractData}
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                   {
@@ -419,6 +425,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                 requestSetupIntentSecret={this.props.requestSetupIntentSecret}
                 savedPaymentMethodList={this.props.savedPaymentMethodList}
                 searchedMembers={this.props.searchedMembers}
+                // @ts-expect-error
                 searchLoading={this.props.searchMemberLoading}
                 searchMembers={this.props.searchMembers}
                 stripeReaders={this.props.stripeReaders || []}
@@ -433,8 +440,10 @@ export class SubscriptionList extends React.Component<Props, State> {
               onSubmit={this.props.onCreate}
               open={this.props.createContractFormOpen}
               paymentComboList={this.props.paymentComboList}
+              // @ts-expect-error
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
+              // @ts-expect-error
               tagList={this.props.allTagsWithTagGroup}
             />
           </div>
@@ -566,9 +575,11 @@ const withStateHandlersSetter = {
   onRequestCreate: () => () => ({ createContractFormOpen: true }),
   onCreate:
     (
+      // @ts-expect-error
       _,
       { createOrUpdateContract, fetchContractList }: typeof mapDispatchToProps,
     ) =>
+    // @ts-expect-error
     (data, options) => {
       createOrUpdateContract(data, {
         onSuccess: () => {
@@ -605,10 +616,15 @@ const mapWithHandlers = {
     },
   registerContractBackground:
     ({
+      // @ts-expect-error
       registerContractBackground,
+      // @ts-expect-error
       displayBackgroundDialog,
+      // @ts-expect-error
       deletebackgroundDialog,
+      // @ts-expect-error
       setContractRegisterOpen,
+      // @ts-expect-error
       t,
     }) =>
     (id: number, data: any, options: OptionCallback) => {
@@ -622,6 +638,7 @@ const mapWithHandlers = {
         BackgroundDialogDisplayMode.INFORMATION,
       );
       registerContractBackground(id, data, {
+        // @ts-expect-error
         onError: (err) => {
           deletebackgroundDialog(uuid);
           if (options?.onError) options?.onError(err);
@@ -632,6 +649,7 @@ const mapWithHandlers = {
         onBackgroundError: () => {
           deletebackgroundDialog(uuid);
         },
+        // @ts-expect-error
         onBackgroundSuccess: (responseData) => {
           deletebackgroundDialog(uuid);
           displayBackgroundDialog(
@@ -695,7 +713,9 @@ export default compose(
   ),
   connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  // @ts-expect-error
   withHandlers(mapWithHandlers),
+  // @ts-expect-error
   connect((state, { selectedContract }) => ({
     selectedContractData: getContract(state, selectedContract),
   })),

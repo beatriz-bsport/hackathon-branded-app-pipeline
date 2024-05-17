@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
@@ -9,8 +8,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
 import MaterialUISelector, {
+  // @ts-expect-error
   itemRendererProps,
+  // @ts-expect-error
   chipsRendererProps,
+  // @ts-expect-error
   Props as MaterialUISelectorProps,
 } from '#components/Selector/MaterialUISelector.component';
 
@@ -78,6 +80,7 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
               disabled={!!disabled}
               {...props}
               {...field}
+              // @ts-expect-error
               error={!!(meta.touched && meta.error)}
               onChange={() => {
                 onChange && onChange(!field.value);
@@ -111,6 +114,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
 
   const handleFieldOnChange = React.useCallback(
     (fieldValue) => () => {
+      // @ts-expect-error
       onChange ? onChange() : helpers.setValue(!fieldValue);
     },
     [onChange, helpers],
@@ -123,6 +127,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
           <FormControlLabel
             id={id}
             {...field}
+            // @ts-expect-error
             checked={revertValue ? !field.value : field.value}
             control={<Switch color={switchColor ?? 'primary'} />}
             disabled={disabled}
@@ -264,6 +269,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             isMenuListVirtualized={props.isMenuListVirtualized}
             itemRenderer={props.itemRenderer}
             onChange={(optionList) => {
+              // @ts-expect-error
               const valueList = optionList.map((option) => option.value);
               helpers.setValue(valueList);
               helpers.setTouched(true, false);

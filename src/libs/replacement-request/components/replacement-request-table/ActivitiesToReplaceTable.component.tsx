@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -187,6 +186,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     handleCheckboxAction={handleCheckboxAction}
                     isLastItem={index === offers.length - 1}
                     nbLateRequestsLeft={nbLateRequestsLeft}
+                    // @ts-expect-error
                     offer={offer}
                     replacementDisplay={replacementDisplay}
                     selectedOffers={selectedOffers}
@@ -289,6 +289,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     }
                     handleCheckboxAction={handleCheckboxAction}
                     nbLateRequestsLeft={nbLateRequestsLeft}
+                    // @ts-expect-error
                     offer={offer}
                     replacementDisplay={replacementDisplay}
                     selectedOffers={selectedOffers}
@@ -296,6 +297,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                   />
                 ))
               : replacementRequestList.map((replacementRequest) => (
+                  // @ts-expect-error
                   <ActivitiesToReplaceTableRow
                     key={replacementRequest.id}
                     coach={coach || null}

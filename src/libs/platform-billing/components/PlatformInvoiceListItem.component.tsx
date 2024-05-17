@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -63,6 +62,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
       <Typography color="textSecondary" variant="caption">
         {getCustomCurrencyDisplayWithPrice(
           total_price_cts / 100,
+          // @ts-expect-error
           defaultCurrencyDisplay,
         )}
       </Typography>
@@ -107,6 +107,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
       {!!pdf_url && (
         <IconButton
           onClick={() => {
+            // @ts-expect-error
             window.location = pdf_url;
           }}
         >

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
@@ -61,6 +60,7 @@ import {
   DatatypeFilterConfigItem,
   DatatypeFilterConfigItemTypeById,
 } from '#libs/datatype-filtering/types';
+// @ts-expect-error
 import { PriceField, PercentField, TextField } from '#components/forms';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import DatePickerSelector from '#components/date/DatePickerSelector.component';
@@ -175,6 +175,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
           isDisabled={isPreview}
           itemRenderer={!!itemRenderer && itemRenderer}
           name={`${prefix}.value`}
+          // @ts-expect-error
           options={booleanOptions}
         />
       </div>
@@ -194,11 +195,13 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
           </NestedAlertError>
           <div className={classes.rowValue}>
             <DatatypeFilterConfigValueFloat
+              // @ts-expect-error
               datatype={filterItem.datatype}
               isPreview={isPreview}
               name={`${prefix}.value[0]`}
             />
             <DatatypeFilterConfigValueFloat
+              // @ts-expect-error
               datatype={filterItem.datatype}
               isPreview={isPreview}
               name={`${prefix}.value[1]`}
@@ -210,6 +213,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
 
     return (
       <DatatypeFilterConfigValueFloat
+        // @ts-expect-error
         datatype={filterItem.datatype}
         isPreview={isPreview}
         name={`${prefix}.value`}
@@ -221,9 +225,11 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
     return (
       <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
+        // @ts-expect-error
         chipsRenderer={!!chipsRenderer && chipsRenderer}
         closeMenuOnSelect={closeMenuOnSelect}
         columnName={filterItem.identifier}
+        // @ts-expect-error
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
         inScrollBar={inScrollBar}
@@ -293,6 +299,7 @@ const TimeInputFormik: React.FC<{
         <TextField
           disabled={isPreview}
           id="time_picker"
+          // @ts-expect-error
           onChange={(ev) => {
             setFieldValue(
               name,
@@ -348,6 +355,7 @@ const DatePickerSelectorFormik: React.FC<{
         field: { value },
         form: { setFieldValue },
       }: FieldAttributes<any>) => (
+        // @ts-expect-error
         <DatePickerSelector
           date={value?.value}
           isDisabled={isPreview}
@@ -459,6 +467,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'staff':
       case 'bookkeeping_account':
       case 'establishment_group':
+        // @ts-expect-error
         return getDataByType(datatype, [], columnName);
 
       case 'payout_status':
@@ -584,6 +593,7 @@ const DatatypeFilterConfigValueList: React.FC<{
           },
         ];
 
+      // @ts-expect-error
       case 'coupon_type_excluding_referrals':
         return [
           {
@@ -617,6 +627,7 @@ const DatatypeFilterConfigValueList: React.FC<{
           .fill(0)
           .map((_, i) => ({
             label: DateTime.now()
+              // @ts-expect-error
               .set({ weekday: i + 1 })
               .toFormat('cccc'),
             value: i + 1,
@@ -679,8 +690,10 @@ const DatatypeFilterConfigValueList: React.FC<{
               error={!!(meta.touched && meta.error)}
               inScrollBar={inScrollBar}
               isDisabled={isPreview}
+              // @ts-expect-error
               kind={datatype}
               onChange={(optionList) => {
+                // @ts-expect-error
                 const valueList = optionList.map((option) => option.value);
                 setFieldTouched(name, true, false);
                 setFieldValue(name, valueList);
@@ -702,6 +715,7 @@ const DatatypeFilterConfigValueList: React.FC<{
           meta,
         }: FieldAttributes<any>) => {
           return (
+            // @ts-expect-error
             <MaterialUISelectorPayout
               isMenuListVirtualized
               isMulti
@@ -710,6 +724,7 @@ const DatatypeFilterConfigValueList: React.FC<{
               inScrollBar={inScrollBar}
               isDisabled={isPreview}
               onChange={(optionList) => {
+                // @ts-expect-error
                 const valueList = optionList.map((option) => option.value);
                 setFieldTouched(name, true, false);
                 setFieldValue(name, valueList);
@@ -764,6 +779,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         name={name}
         openMenuOnClear={openMenuOnClear}
         openMenuOnFocus={openMenuOnFocus}
+        // @ts-expect-error
         options={[...getOptions()]}
         placeholder={t('filter.form.placeholderList')}
         withoutConfirmButton={withoutConfirmButton}

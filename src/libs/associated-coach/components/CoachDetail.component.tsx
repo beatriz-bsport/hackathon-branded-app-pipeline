@@ -1,10 +1,11 @@
-// @ts-nocheck
 import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+// @ts-expect-error
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
+// @ts-expect-error
 import CoachInformation from './coach-detail/CoachInformation.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
 import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
@@ -27,6 +28,7 @@ import {
   DisciplineGroup,
   AssignAssociatedCoachDisciplineGroupParams,
 } from '#libs/replacement-request/types';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -146,6 +148,7 @@ export const CoachDetail: React.FC<Props> = ({
                     setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
                     setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
                     setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
+                    // @ts-expect-error
                     updateCoachPrivateSlotsPaymentRule={
                       updateCoachPrivateSlotsPaymentRule
                     }

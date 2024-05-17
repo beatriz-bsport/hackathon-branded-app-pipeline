@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -22,6 +21,7 @@ const BasketListItem = (props: Props) => {
   const { basket, onClick } = props;
   return (
     <ListItem
+      // @ts-expect-error
       button={!!onClick}
       onClick={() => onClick(basket.id)}
       selected={props.selected}

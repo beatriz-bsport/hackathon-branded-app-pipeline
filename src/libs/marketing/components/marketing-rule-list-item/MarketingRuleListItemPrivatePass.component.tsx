@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -161,6 +160,7 @@ const PrivatePasssNotification = (props: Props) => {
           resolvedGenericTags={resolvedGenericTags}
           smartListLoading={props.smartListLoading}
           smartLists={props.smartLists}
+          // @ts-expect-error
           tags={mergeTags}
         />
       )}

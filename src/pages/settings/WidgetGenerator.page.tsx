@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
@@ -110,6 +109,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     super(props);
 
     const state: State = {
+      // @ts-expect-error
       uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       componentType: props.isFranchisor
         ? EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE
@@ -167,16 +167,19 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevState.containerConfig !== this.state.containerConfig) {
       this.setState({
+        // @ts-expect-error
         uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       });
     }
     if (prevState.componentType !== this.state.componentType) {
       this.setState({
+        // @ts-expect-error
         uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       });
     }
     if (prevState.config !== this.state.config) {
       this.setState({
+        // @ts-expect-error
         uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       });
     }
@@ -199,6 +202,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
   };
 
   getCodeString = () => {
+    // @ts-expect-error
     return WidgetCodeStringGenerator.getString({
       company: this.props.theme.company,
       franchise: this.props.franchiseId,
@@ -217,6 +221,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
   getCodeStringPreview = () => {
     let codeStringPreview = '';
 
+    // @ts-expect-error
     codeStringPreview = WidgetCodeStringGenerator.getString({
       company: this.props.theme.company,
       franchise: this.props.franchiseId,
@@ -304,6 +309,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               hideTypeSelector={this.props.hideTypeSelector}
               isFranchisor={this.props.isFranchisor}
               metaActivities={this.props.metaActivities}
+              // @ts-expect-error
               metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
               onComponentTypeChange={this.onComponentTypeChange}
               onConfigChange={this.onConfigChange}
@@ -327,15 +333,18 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             config={this.state.config}
             configIndex={this.props.defaultValue?.configIndex}
             copyToClipboard={this.copyToClipboard}
+            // @ts-expect-error
             error={error}
             theme={this.props.theme}
           />
           <WidgetCodePreview
             codeString={codeString}
             copyToClipboard={this.copyToClipboard}
+            // @ts-expect-error
             error={error}
           />
         </div>
+        {/* @ts-expect-error */}
         <WidgetPreview codeStringPreview={codeStringPreview} />
       </div>
     );

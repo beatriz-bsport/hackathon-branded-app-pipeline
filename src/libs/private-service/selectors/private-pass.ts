@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 import type {
   PrivatePass,
+  // @ts-expect-error
   PrivatePassWithService,
   PrivatePassTemplate,
   PrivatePassTemplateAPI,
@@ -38,6 +38,7 @@ const _getPrivatePassListIds = (state: RootState) =>
 
 export const getPrivatePassById = (
   state: RootState,
+  // @ts-expect-error
 ): Array<PrivatePassWithService> => state.privateService.privatePass.byId;
 
 export const getPrivatePass = (
@@ -136,6 +137,7 @@ export const withServices = memoize((selector) =>
       if (Array.isArray(passesList)) {
         return passesList.map((pass) => ({
           ...pass,
+          // @ts-expect-error
           private_services: pass.private_services.map((ps) => servicesById[ps]),
         }));
       }
@@ -143,6 +145,7 @@ export const withServices = memoize((selector) =>
         return {
           ...passesList,
           private_services: passesList.private_services.map(
+            // @ts-expect-error
             (ps) => servicesById[ps],
           ),
         };
@@ -222,34 +225,49 @@ export const getCompatibilityPassWithService: (
       return compatibilityList.map((c) => ({
         ...c,
         private_service: {
+          // @ts-expect-error
           ...servicesById[c.private_service],
+          // @ts-expect-error
           slots: servicesById[c.private_service]
-            ? servicesById[c.private_service].slots.map((s) => slotData[s])
+            ? // @ts-expect-error
+              servicesById[c.private_service].slots.map((s) => slotData[s])
             : [],
         },
         included_slots:
+          // @ts-expect-error
           servicesById[c.private_service] && c.excluded_slot_ids
-            ? servicesById[c.private_service].slots
+            ? // @ts-expect-error
+              servicesById[c.private_service].slots
+                // @ts-expect-error
                 .filter((s) => !c.excluded_slot_ids.includes(s))
+                // @ts-expect-error
                 .map((s) => slotData[s])
             : null,
       }));
     }
     if (compatibilityList) {
       return {
+        // @ts-expect-error
         ...compatibilityList,
         private_service: {
+          // @ts-expect-error
           ...servicesById[compatibilityList.private_service],
+          // @ts-expect-error
           slots: servicesById[compatibilityList.private_service]
-            ? servicesById[compatibilityList.private_service].slots.map(
+            ? // @ts-expect-error
+              servicesById[compatibilityList.private_service].slots.map(
                 (s) => slotData[s],
               )
             : [],
         },
         included_slots:
+          // @ts-expect-error
           servicesById[compatibilityList.private_service] &&
+          // @ts-expect-error
           compatibilityList.excluded_slot_ids
-            ? servicesById[compatibilityList.private_service].slots
+            ? // @ts-expect-error
+              servicesById[compatibilityList.private_service].slots
+                // @ts-expect-error
                 .filter((s) => !compatibilityList.excluded_slot_ids.includes(s))
                 .map((s) => slotData[s])
             : null,
@@ -287,6 +305,7 @@ export const getPrivatePassTemplateList: (
           ),
           allowed_franchisee_ids,
           companyById,
+          // @ts-expect-error
         ).filter((c: FranchiseCompany) => !!c),
       })),
 );
@@ -314,6 +333,7 @@ export const getPrivatePassTemplate: (
         ),
         allowed_franchisee_ids,
         companyById,
+        // @ts-expect-error
       )?.filter((c: FranchiseCompany) => !!c),
     };
   },
@@ -345,6 +365,7 @@ export const withLinkedPaymentPack = memoize((selector: PrivatePassSelector) =>
       return {
         ...passObject,
         linked_payment_pack: paymentPacks?.find(
+          // @ts-expect-error
           (ps) => ps.id === passObject.linked_payment_pack,
         ),
       };

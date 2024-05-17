@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,7 +11,9 @@ import { LinearProgress, Theme } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+// @ts-expect-error
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
+// @ts-expect-error
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
@@ -92,7 +93,9 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   }
 
   requestVideoAccess = () => {
+    // @ts-expect-error
     if (this.props.requestVideoAccess) {
+      // @ts-expect-error
       return this.props.requestVideoAccess();
     }
 
@@ -150,7 +153,9 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
           </Grid>
         </Grid>
         {this.props.registerVideoOpen &&
+          // @ts-expect-error
           !!this.props.video?.company &&
+          // @ts-expect-error
           !!this.props.video?.id && (
             <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
               <div
@@ -162,7 +167,9 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
                 }}
               >
                 <VideoCheckoutComponent
+                  // @ts-expect-error
                   companyId={this.props.video.company}
+                  // @ts-expect-error
                   id={this.props.video.id}
                   onSuccess={this.onRegisterSuccess}
                 />
@@ -201,6 +208,7 @@ const styles = (theme: Theme) => ({
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   companyTheme: themeSelectors.getTheme(state),
+  // @ts-expect-error
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
   videoListSimilar: withCoach(withCategory(getVideoList))(state),
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
@@ -286,6 +294,7 @@ export default compose(
   routerParamsToProps({
     videoId: 'videoId:number',
     companyId: 'companyId:number',
+    // @ts-expect-error
     companyName: 'companyName',
   }),
   connect(

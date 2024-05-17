@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import {
@@ -83,6 +82,7 @@ export class Partnership extends React.Component<Props> {
     this.props.fetchPartnershipList();
     this.props.fetchPartnershipEstablishmentMergeList();
     this.props.fetchEstablishments();
+    // @ts-expect-error
     this.props.fetchAssociatedEstablishments({ company: this.props.company });
   }
 
@@ -110,7 +110,9 @@ export class Partnership extends React.Component<Props> {
         .map((pem) => pem.reference_establishment)
         .join(', ');
     }
+    // @ts-expect-error
     if (this.props.classpass?.override_establishment_pk) {
+      // @ts-expect-error
       venueIds = `${this.props.classpass?.override_establishment_pk}`;
     }
 
@@ -166,6 +168,7 @@ export class Partnership extends React.Component<Props> {
                     }
                     establishmentList={this.props.establishmentList}
                     initial={this.props.classpass}
+                    // @ts-expect-error
                     iSubmitting={this.props.isSubmitting}
                     onSubmit={this.updatePartnership}
                     partnershipEstablishmentMergeList={

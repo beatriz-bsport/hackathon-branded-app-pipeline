@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -16,6 +15,7 @@ import * as Yup from 'yup';
 import { Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { CheckboxField, Submit, PriceField } from '#components/forms';
 import { type Subscription, PlannedInvoice } from '../types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';

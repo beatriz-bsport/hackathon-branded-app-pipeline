@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +15,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
 import EstablishmentsSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+// @ts-expect-error
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 
 import {
@@ -136,6 +136,7 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
     fetchAllEstablishmentGroup(companyId);
     fetchEstablishments({
       company: companyId,
+      // @ts-expect-error
       diabled: false,
     });
   }, [
@@ -152,7 +153,9 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
     [fetchCompatibleReplacementRequests, filters],
   );
 
+  // @ts-expect-error
   const handleFilterSelect = (filterName: string) => (ev) =>
+    // @ts-expect-error
     setFilters({ ...filters, [filterName]: ev.map((e) => e.value) });
 
   return (

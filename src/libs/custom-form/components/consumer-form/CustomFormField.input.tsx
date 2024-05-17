@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -45,6 +44,7 @@ import {
   RadioGroupField,
   TextFieldEnhancedLabelWithError,
   SelectFieldWithEnhancedLabeLError,
+  // @ts-expect-error
 } from '../../../../components/forms';
 
 import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
@@ -340,6 +340,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               <img
                 alt="signature"
                 className={classes.signature}
+                // @ts-expect-error
                 src={props.values.custom_form_field[props.index].answer}
               />
             </div>
@@ -361,6 +362,7 @@ export const CustomFormConsumerInput = (props: Props) => {
           <FileUploaderCustomized
             allowPreview={props.asManager}
             disabled={props.asManager}
+            // @ts-expect-error
             file={props.values.custom_form_field[props.index].answer}
             label={t('member:file.drop_file')}
             onAddFile={(file: File) =>
@@ -386,8 +388,10 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
+      // @ts-expect-error
       return <CustomFormFieldSignUpInput {...props} />;
     case CUSTOM_FORM_FIELD_LOCATION_OPTION:
+      // @ts-expect-error
       return <CustomFormFieldLocationInput {...props} />;
     default:
       return <div />;
@@ -448,5 +452,6 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['marketing', 'member']),
+  // @ts-expect-error
   withStyles(styles),
 )(CustomFormConsumerInput);

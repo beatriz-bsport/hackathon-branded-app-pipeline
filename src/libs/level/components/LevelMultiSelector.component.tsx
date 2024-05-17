@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
@@ -130,6 +129,7 @@ export const LevelMultiSelector: React.FC<Props> = ({
       inScrollBar={inScrollBar}
       itemRenderer={itemRenderer}
       onChange={handleChange}
+      // @ts-expect-error
       options={groupedOption}
       placeholder={t('levels.select.placeholder')}
       // Temporarly until the selector is uniform

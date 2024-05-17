@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -50,9 +49,13 @@ const RestrictionsSection: React.FC<{
     max_purchase_per_member,
     penalty_active,
     penalty_kind,
+    // @ts-expect-error
     penalty_nb_late_cancellations,
+    // @ts-expect-error
     penalty_days_blocked,
+    // @ts-expect-error
     penalty_account_value,
+    // @ts-expect-error
     penalty_nb_days,
   } = paymentPackTemplate;
   if (
@@ -255,12 +258,14 @@ const PaymentPackTemplateCard = (props: Props) => {
                   {template.name}
                 </Typography>
               </div>
+              {/* @ts-expect-error */}
               {template.description && (
                 <div>
                   <TypographyMultilineComponent
                     className={classes.description}
                     variant="caption"
                   >
+                    {/* @ts-expect-error */}
                     {template.description}
                   </TypographyMultilineComponent>
                 </div>
@@ -366,6 +371,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                     <div className={classes.chipContainer}>
                       <CompanyChip
                         key={c.id}
+                        // @ts-expect-error
                         company={c}
                         onDelete={
                           onDeleteCompany && (() => onDeleteCompany(c.id))

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { Component } from 'react';
 
@@ -129,6 +128,7 @@ export class OfferFormPage extends Component<Props, {}> {
               coaches={this.props.coaches}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               createLevel={this.props.createLevel}
+              // @ts-expect-error
               creditScaleFactor={this.props.theme.pass_credit_factor}
               deleteLevel={this.props.deleteLevel}
               error={this.props.error}
@@ -146,6 +146,7 @@ export class OfferFormPage extends Component<Props, {}> {
               processing={this.props.processing}
               roomBlueprints={this.props.roomBlueprints}
               showPartnership={this.props.showPartnership}
+              // @ts-expect-error
               tagList={allTagsWithTagGroup}
               timezone={this.props.timezone}
               updateLevel={this.props.updateLevel}

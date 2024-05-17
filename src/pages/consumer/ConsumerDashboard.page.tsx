@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
@@ -17,10 +16,14 @@ import { WidgetUtils } from '#libs/widget/WidgetUtils';
 import themeSelectors from '#libs/theme/selectors';
 import BookingCancellationDialog from '#libs/booking/components/BookingCancellationDialog.component';
 import MemberBillingProblemCard from '#libs/member/components/MemberBillingProblemCard.component';
+// @ts-expect-error
 import BookingOptionCancelDialog from '#libs/waiting-list/components/BookingOptionCancelDialog.component';
 import ConsumerDashboardBookingPanel from '#libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
+// @ts-expect-error
 import ConsumerDashboardHeader from '#libs/consumer-space/components/ConsumerDashboardHeader.component';
+// @ts-expect-error
 import ConsumerDashboardPassPanel from '#libs/consumer-space/components/ConsumerDashboardPassPanel.component';
+// @ts-expect-error
 import ConsumerDashboardBookingOptionPanel from '#libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
 import { fetchMember } from '#libs/member/actions';
@@ -125,6 +128,7 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import CanvasPreviewDialog from '#libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { fetchConsumerPaymentPackLinks } from '#libs/relationship/actions';
 import { withIsSharedActive } from '#libs/relationship/selectors';
@@ -147,6 +151,7 @@ type OwnConnectedStateHandlerProps = OwnProps &
   ConnectedProps &
   StateHandlerType;
 
+// @ts-expect-error
 type Props = WithHandlerType<typeof mapWithHandlers> &
   OwnConnectedStateHandlerProps &
   WithTranslation &
@@ -191,14 +196,17 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         min_date: DateTime.now().toISODate(),
       },
       {
+        // @ts-expect-error
         onSuccess: (options) => {
           this.props.fetchOfferWaitingListPositionList(
+            // @ts-expect-error
             options.map((option) => option.offer.id),
           );
           if (options?.length > 0) {
             this.props.fetchLevelList({
               company: this.props.companyId,
               id__in: Array.from(
+                // @ts-expect-error
                 new Set(options?.results?.map((option) => option.level) ?? []),
               ),
             });
@@ -256,15 +264,20 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
   };
 
   handleSetBookingToCancel = (booking: Booking) => {
+    // @ts-expect-error
     if (booking.offer.group) {
       this.props.resetGroupOffer();
+      // @ts-expect-error
       this.props.fetchGroupOffer(booking.offer.group);
       this.props.fetchSimilarFuturBookingInGroup(booking.id, {
+        // @ts-expect-error
         onSuccess: (data) => {
           this.props.fetchOfferBulk(
+            // @ts-expect-error
             Array.from(new Set(data.results?.map((b) => b.offer))),
           );
           this.props.fetchCoachBulk(
+            // @ts-expect-error
             Array.from(new Set(data.results?.map((b) => b.coach))),
           );
         },
@@ -297,6 +310,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         />
         <div style={{ marginBottom: 32 }}>
           {!!this.props.member && !this.props.companyThemeLoading && (
+            // @ts-expect-error
             <MemberBillingProblemCard
               asConsumer
               allowConsumerToUseInternalAccount={
@@ -335,6 +349,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         </div>
         <Grid container direction="row" spacing={2}>
           <Grid item md={6} xs={12}>
+            {/* @ts-expect-error */}
             <ConsumerDashboardBookingPanel
               bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
               coachDisplay={this.props.companyTheme.coach_display}
@@ -406,6 +421,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         />
 
         {this.props.spotPreview && (
+          // @ts-expect-error
           <CanvasPreviewDialog
             open
             assets={
@@ -446,6 +462,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
+// @ts-expect-error
 const mapStateToProps = (state: RootState, props) => ({
   bookingsAndPrivateBookings: getAllBookingAndPrivateBooking(state),
   bookingsAndPrivateBookingsLoading:
@@ -453,6 +470,7 @@ const mapStateToProps = (state: RootState, props) => ({
   hasMoreBookingsAndPrivateBookings:
     state.consumer.bookingAndPrivateBooking.hasMore,
 
+  // @ts-expect-error
   bookingOptionList: withCustomLevel(getBookingOptionConsumerList)(state),
 
   privateConsumerPassList: excludeUnPaidPrivateConsumerPass(
@@ -512,6 +530,7 @@ const mapDispatchToProps = {
     options: OptionCallback,
     params: any,
   ) =>
+    // @ts-expect-error
     fetchConsumerPackByMemberAction({
       member: memberId,
       page,
@@ -541,6 +560,7 @@ const mapDispatchToProps = {
       is_draft: false,
       is_v2: true,
       unpaid: true,
+      // @ts-expect-error
       member: id,
     }),
   fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
@@ -583,6 +603,7 @@ const withStateHandlersSetter = {
     },
 };
 
+// @ts-expect-error
 const mapWithHandlers = {
   confirmBookingOption:
     (props: OwnConnectedStateHandlerProps) =>
@@ -628,25 +649,19 @@ const mapWithHandlers = {
         options: {
           onSuccess: (allObj) => {
             props.fetchOfferBulk(
+              // @ts-expect-error
               allObj.booking.results.map((b) => b.offer),
               {
-                // @ts-expect-error
                 onSuccess: (offerList) => {
-                  // @ts-expect-error
                   props.fetchMetaActivityBulk(
-                    // @ts-expect-error
                     offerList.map((b) => b.meta_activity),
                   );
                   props.fetchCoachBulk([
-                    // @ts-expect-error
                     ...offerList.map((b) => b.coach),
-                    // @ts-expect-error
                     ...offerList.map((b) => b.coach_override),
                   ]);
                   props.fetchEstablishmentBulk([
-                    // @ts-expect-error
                     ...offerList.map((b) => b.establishment),
-                    // @ts-expect-error
                     ...offerList.map((b) => b.establishment_override),
                   ]);
                 },
@@ -671,6 +686,7 @@ const mapWithHandlers = {
             props.fetchPaymentPackBulk(cpps.map((c: any) => c.payment_pack));
             props.fetchConsumerPaymentPackLinks(
               flatten(
+                // @ts-expect-error
                 cpps.map((cpp) =>
                   cpp.src_consumer_payment_pack.map((id: number) => id),
                 ),

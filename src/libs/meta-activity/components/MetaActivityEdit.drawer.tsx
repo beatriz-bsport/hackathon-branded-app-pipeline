@@ -1,6 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
+// @ts-expect-error
 import MetaActivityForm from './MetaActivityForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Tag, TagGroup } from '#libs/tag/types';

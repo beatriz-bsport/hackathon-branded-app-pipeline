@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
@@ -6,8 +5,10 @@ import { compose } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+// @ts-expect-error
 import VideoPlayerBase from './VideoPlayerBase.component';
 import { Video, VideoStatusEnum } from '../types';
+// @ts-expect-error
 import VideoLockOverlay from './VideoLockOverlay.component';
 
 import './videojs-fullscreen.css';
@@ -148,4 +149,5 @@ const styles = createStyles((theme: Theme) => ({
 export default compose(
   withTranslation(['video']),
   withStyles(styles),
+  // @ts-expect-error
 )(VideoPlayer);

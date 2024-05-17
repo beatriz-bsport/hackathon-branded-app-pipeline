@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +18,9 @@ const AppBarAuth: React.FC<AuthProps> = ({ auth }) => {
       color="inherit"
       variant="subtitle2"
     >
+      {/* @ts-expect-error */}
       {!auth.authenticated && t('consumerSpace:appbar.login')}
+      {/*  @ts-expect-error */}
       {auth.authenticated && (auth.name !== ' ' ? auth.name : auth.username)}
     </Typography>
   );

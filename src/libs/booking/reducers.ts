@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
@@ -90,6 +89,7 @@ export const initialState: Immutable.Immutable<BookingsState> =
         loading: false,
         error: null,
       },
+      // @ts-expect-error
       offersWithCancelledBookings: {
         allIds: [],
         byId: {},
@@ -104,6 +104,7 @@ export const initialState: Immutable.Immutable<BookingsState> =
       error: null,
     },
     futureBookingsByMember: {
+      // @ts-expect-error
       byId: {},
       loading: false,
       error: null,
@@ -455,6 +456,7 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
       return state
         .setIn(
           ['similar', 'allIds'],
+          // @ts-expect-error
           payload.map((b) => b.id),
         )
         .merge(
@@ -484,6 +486,7 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
       { payload }: { payload: { memberId: number; bookings: Booking[] } },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['futureBookingsByMember', 'byId', payload.memberId],
         payload.bookings.map((booking: Booking) => booking.id),
       );

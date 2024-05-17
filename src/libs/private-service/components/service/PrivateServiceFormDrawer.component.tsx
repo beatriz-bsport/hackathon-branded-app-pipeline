@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import { Form } from 'formik';
@@ -8,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+// @ts-expect-error
 import { Submit } from '../../../../components/forms';
 
 import PrivateServiceFields, {
@@ -58,6 +58,7 @@ export const PrivateServiceFormDrawer = (props: Props) => {
     >
       <div className={classes.container}>
         <Form>
+          {/* @ts-expect-error */}
           <PrivateServiceFields {...props} />
           <DialogActions>
             <Button onClick={cancel}>{t('service.form.actions.cancel')}</Button>

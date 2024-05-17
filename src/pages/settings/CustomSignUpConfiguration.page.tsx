@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -184,6 +183,7 @@ export class FormsConfiguration extends React.Component<Props> {
                 </Typography>
                 <Paper className={classes.paperContainer}>
                   <CustomFormView
+                    // @ts-expect-error
                     key={this.props.customFormSelected}
                     asManager
                     shouldWrapLayerInCssHoc
@@ -325,6 +325,7 @@ const mapWithHandlers = {
   },
 };
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['theme', 'marketing']),
   connect(mapStateToProps, mapDispatchToProps),

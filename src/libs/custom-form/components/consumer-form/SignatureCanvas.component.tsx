@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import './styles.css';
 import { compose } from 'recompose';
@@ -28,9 +27,11 @@ export const SignatureCanvas = (props: Props) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const signCanvas = React.useRef({});
+  // @ts-expect-error
   const clear = () => signCanvas.current.clear();
   const save = () => {
     setTrimmedDataURL(
+      // @ts-expect-error
       signCanvas.current.getTrimmedCanvas().toDataURL('image/png'),
     );
     props.closeCanvas();
@@ -51,6 +52,7 @@ export const SignatureCanvas = (props: Props) => {
         </div>
 
         <SignaturePad
+          // @ts-expect-error
           ref={signCanvas}
           canvasProps={{ className: 'signatureCanvas' }}
         />
@@ -95,5 +97,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
+  // @ts-expect-error
   withStyles(styles),
 )(SignatureCanvas);

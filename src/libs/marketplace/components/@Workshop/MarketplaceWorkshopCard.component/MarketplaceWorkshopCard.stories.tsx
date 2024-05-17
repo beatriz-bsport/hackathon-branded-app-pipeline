@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import MarketPlaceWorkshopCard, {
   Props,
 } from './MarketplaceWorkshopCard.component';
 import { coachFactory } from '#libs/associated-coach/factories';
+// @ts-expect-error
 import { defaultThemeParams } from '../../../../../theme';
 
 import './MarketplaceWorkshopCard.css';
@@ -15,6 +15,7 @@ const metaActivity = {
   rating: '-1.00',
   SCT: 119,
   parent_category: 9,
+  // @ts-expect-error
   images: [],
   establishments: [{ id: 154 }],
   next_slot: '2022-04-30T14:30:00+02:00',
@@ -29,11 +30,13 @@ const metaActivity = {
   is_broadcast: false,
   customer_enabled: true,
   color: '',
+  // @ts-expect-error
   on_booking_notification: [],
   auto_discard_active: false,
   auto_discard_hours_before_start: 6,
   auto_discard_min_bookings_nb: 1,
   ordering_in_category: 516,
+  // @ts-expect-error
   category: null,
 };
 
@@ -62,11 +65,17 @@ const offer = {
     associated_coach_id: 30955,
     associatedcoach_set: [30955, 22871],
     disabled: false,
+    // @ts-expect-error
     default_payment_rule_id: null,
+    // @ts-expect-error
     coach_payment_rule_id: null,
+    // @ts-expect-error
     workshop_coach_payment_rule_id: null,
+    // @ts-expect-error
     private_coach_payment_rule_id: null,
+    // @ts-expect-error
     coach_payment_rule_group_id: null,
+    // @ts-expect-error
     private_slots_coach_payment_rules: [],
     facebook_url: '',
     instagram_url: '',
@@ -98,9 +107,11 @@ const offer = {
     tzname: 'Europe/Paris',
     practical_info: 'porte en verre sur rue',
     capacity: 30,
+    // @ts-expect-error
     on_booking_notification: [],
     disabled: false,
     has_next_slots: true,
+    // @ts-expect-error
     establishment_billing_group_id: null,
   },
   credit_price_override: 1,
@@ -108,11 +119,14 @@ const offer = {
   date_start: '2022-04-30T14:30:00+02:00',
   duration_minute: 150,
   effectif: 30,
+  // @ts-expect-error
   establishment_override: null,
   recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
   waiting_list_max_size: 5,
   waiting_list_disabled: false,
+  // @ts-expect-error
   bookings: [],
+  // @ts-expect-error
   booking_options: [],
   meta_activity_color: '',
   tot_slots: 0,
@@ -120,6 +134,7 @@ const offer = {
   full: true,
   is_waiting_list_full: false,
   timezone_name: 'Europe/Paris',
+  // @ts-expect-error
   room_blueprint: null,
   coach_payment_rule_id: 78,
   available_on_partnership: true,
@@ -153,11 +168,17 @@ const offers = {
         associated_coach_id: 30955,
         associatedcoach_set: [30955, 22871],
         disabled: false,
+        // @ts-expect-error
         default_payment_rule_id: null,
+        // @ts-expect-error
         coach_payment_rule_id: null,
+        // @ts-expect-error
         workshop_coach_payment_rule_id: null,
+        // @ts-expect-error
         private_coach_payment_rule_id: null,
+        // @ts-expect-error
         coach_payment_rule_group_id: null,
+        // @ts-expect-error
         private_slots_coach_payment_rules: [],
         facebook_url: '',
         instagram_url: '',
@@ -189,9 +210,11 @@ const offers = {
         tzname: 'Europe/Paris',
         practical_info: 'porte en verre sur rue',
         capacity: 30,
+        // @ts-expect-error
         on_booking_notification: [],
         disabled: false,
         has_next_slots: true,
+        // @ts-expect-error
         establishment_billing_group_id: null,
       },
       credit_price_override: 1,
@@ -199,12 +222,16 @@ const offers = {
       date_start: '2022-04-30T14:30:00+02:00',
       duration_minute: 150,
       effectif: 30,
+      // @ts-expect-error
       establishment_override: null,
+      // @ts-expect-error
       id: 5543008,
       recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
       waiting_list_max_size: 5,
       waiting_list_disabled: false,
+      // @ts-expect-error
       bookings: [],
+      // @ts-expect-error
       booking_options: [],
       meta_activity_color: '#0fa0f0',
       tot_slots: 0,
@@ -212,6 +239,7 @@ const offers = {
       full: true,
       is_waiting_list_full: false,
       timezone_name: 'Europe/Paris',
+      // @ts-expect-error
       room_blueprint: null,
       coach_payment_rule_id: 78,
       available_on_partnership: true,
@@ -288,6 +316,7 @@ const offers = {
       duration_minute: 150,
       effectif: 30,
       establishment_override: null,
+      // @ts-expect-error
       id: 5543008,
       recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
       waiting_list_max_size: 5,

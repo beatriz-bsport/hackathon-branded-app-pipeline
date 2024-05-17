@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +52,7 @@ const onlyIfFuture =
   () => {
     if (
       DateTime.fromISO(
+        // @ts-expect-error
         plannedPaymentEvent.next_retry_date || plannedPaymentEvent.future_date,
       ) <= DateTime.now()
     ) {
@@ -89,6 +89,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     },
   };
 
+  // @ts-expect-error
   let { onDisable, onEnable, onRegisterNow, onEdit, onChangeMethod } = {};
 
   let StatusIcon = HourglassEmptyIcon;
@@ -97,6 +98,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     | ((PlannedPaymentPevent: PlannedPaymentEvent) => void)
     | null = null;
 
+  // @ts-expect-error
   if (plannedPaymentEvent.nb_retries > 0) {
     StatusIcon = RefreshIcon;
   }
@@ -109,8 +111,10 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onRegisterNow = null;
     onEdit = null;
     onEnable =
+      // @ts-expect-error
       parseInt(props.invoice.amount_paid_cts) +
         parseInt(props.plannedPaymentEvent.amount_cts) <=
+        // @ts-expect-error
         parseInt(props.invoice.amount_due_cts) && props.actions?.onEnable;
     onChangeMethod = null;
 
@@ -122,6 +126,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onDisable = null;
     onRegisterNow = null;
     onEnable = null;
+    // @ts-expect-error
     secondaryAction = (props.actions?.recoverableErrorActions || {})[
       plannedPaymentEvent.recoverable_error_type || 'none'
     ];
@@ -140,6 +145,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
         <CircularProgress />
       </Backdrop>
       <div className={classes.row}>
+        {/* @ts-expect-error */}
         <StatusIcon className={classes.leftIcon} color={statusColor} />
         <div className={classes.leftColumn}>
           <Typography
@@ -148,7 +154,8 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
                 PLANNED_PAYMENT_EVENT_STATUS_ERROR,
               ].includes(plannedPaymentEvent.status)
-                ? { 'text-decoration': 'line-through' }
+                ? // @ts-expect-error
+                  { 'text-decoration': 'line-through' }
                 : null
             }
           >
@@ -161,6 +168,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 `paymentMethod.label.${plannedPaymentEvent.payment_method_identifier}`,
               )}
           </Typography>
+          {/* @ts-expect-error */}
           {plannedPaymentEvent.nb_retries === 0 && (
             <div className={classes.row}>
               <Typography
@@ -170,7 +178,8 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                     PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
                     PLANNED_PAYMENT_EVENT_STATUS_ERROR,
                   ].includes(plannedPaymentEvent.status)
-                    ? { 'text-decoration': 'line-through' }
+                    ? // @ts-expect-error
+                      { 'text-decoration': 'line-through' }
                     : null
                 }
                 variant="caption"
@@ -184,6 +193,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
               </Typography>
             </div>
           )}
+          {/* @ts-expect-error */}
           {plannedPaymentEvent.nb_retries !== 0 && (
             <div className={classes.row}>
               <Typography
@@ -193,13 +203,15 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                     PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
                     PLANNED_PAYMENT_EVENT_STATUS_ERROR,
                   ].includes(plannedPaymentEvent.status)
-                    ? { 'text-decoration': 'line-through' }
+                    ? // @ts-expect-error
+                      { 'text-decoration': 'line-through' }
                     : null
                 }
                 variant="caption"
               >
                 {t('plannedPaymentEvent.nextRetryDate', {
                   d: formatAsDatetimeAdapted(
+                    // @ts-expect-error
                     props.plannedPaymentEvent.next_retry_date,
                     'DDD',
                   ),
@@ -229,8 +241,10 @@ export const PlannedPaymentEventListItem = (props: Props) => {
               PLANNED_PAYMENT_EVENT_STATUS_CANCELED
           ) &&
             (!props.invoice.reverse_invoices ||
+              // @ts-expect-error
               !props.reverse_invoices?.length) &&
             !props.invoice.reverted && (
+              // @ts-expect-error
               <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>
                 <MoreVertIcon />
               </IconButton>

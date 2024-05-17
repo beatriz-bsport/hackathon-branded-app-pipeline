@@ -1,4 +1,3 @@
-// @ts-nocheck
 // eslint-disable-next-line max-classes-per-file
 import React, { useEffect, useContext, useState, Component } from 'react';
 import { Member } from '../libs/member/types';
@@ -80,6 +79,7 @@ export const useShowMemberBanner = (member: Member) => {
   useEffect(() => {
     if (member?.archived) {
       onChangeDisplayBanner(true);
+      // @ts-expect-error
       onChangeBanner(<MemberArchiveBanner member={member} />);
     }
     return () => {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -60,6 +59,7 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
       return (
         <GenericResponsiveDialog open>
           <RevalidateMandate
+            // @ts-expect-error
             onCancel={props.onCancel}
             onSuccess={props.onSuccess}
             paymentGroupMethodIdentifier={props.paymentGroupMethodIdentifier}

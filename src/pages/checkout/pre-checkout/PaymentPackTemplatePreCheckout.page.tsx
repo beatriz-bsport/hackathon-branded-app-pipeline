@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -17,10 +16,12 @@ import { Theme } from '@material-ui/core';
 import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
 import { parseQueryString } from '../../../http';
+// @ts-expect-error
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import themeSelectors from '../../../libs/theme/selectors';
+// @ts-expect-error
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,
@@ -32,6 +33,7 @@ import {
   retrievePaymentPackTemplate,
 } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
 import Analytics from '../../../components/analytics/Analytics.component';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Basket } from '#libs/checkout/types';
@@ -70,7 +72,9 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
   addItemToBasket = (basket: Basket, paymentPack: PaymentPack) => {
     if (!this.state.processing) {
       this.setState({ processing: true });
+      // @ts-expect-error
       const { nextOffer } = parseQueryString(this.props.location.search);
+      // @ts-expect-error
       const { force } = parseQueryString(this.props.location.search);
       Analytics.addPassToCart(paymentPack, 'payment_pack');
       this.props.addItemToBasket(
@@ -85,6 +89,7 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
           onError: () => this.setState({ error: true }),
           onSuccess: () => {
             this.props.goToCheckout(
+              // @ts-expect-error
               paymentPack.company_id || paymentPack.company,
               this.props.theme?.display_new_checkout_flow,
             );
@@ -104,6 +109,7 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
         this.props.fetchPaymentPack(packId, {
           onSuccess: (paymentPack) => {
             this.props.fetchCurrentBasket(
+              // @ts-expect-error
               paymentPack.company_id || paymentPack.company,
               {
                 onSuccess: (basket) => {
@@ -168,17 +174,20 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
 }
 const mapWithHandlers = {
   goToCheckout:
-    ({ replace, queryParams }: OwnProps & ConnectedProps<typeof connector>) =>
-    (companyId: number, isNewCheckoutFlow: boolean) => {
-      replace(
-        getCheckoutUrl(companyId, isNewCheckoutFlow, {
-          ...(queryParams?.context ? { context: queryParams.context } : {}),
-          ...(queryParams?.onValidation
-            ? { onValidation: queryParams.onValidation }
-            : {}),
-        }),
-      );
-    },
+    // @ts-expect-error
+
+
+      ({ replace, queryParams }: OwnProps & ConnectedProps<typeof connector>) =>
+      (companyId: number, isNewCheckoutFlow: boolean) => {
+        replace(
+          getCheckoutUrl(companyId, isNewCheckoutFlow, {
+            ...(queryParams?.context ? { context: queryParams.context } : {}),
+            ...(queryParams?.onValidation
+              ? { onValidation: queryParams.onValidation }
+              : {}),
+          }),
+        );
+      },
 };
 
 const styles = (theme: Theme) =>

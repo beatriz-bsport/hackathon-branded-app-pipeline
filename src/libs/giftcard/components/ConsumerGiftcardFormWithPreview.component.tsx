@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -8,6 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Grid from '@material-ui/core/Grid';
+// @ts-expect-error
 import { Submit } from '../../../components/forms';
 import { Giftcard, ConsumerGiftcardPersonnalizationElements } from '../types';
 import ConsumerGiftcardPreview from './ConsumerGiftcardPreview.component';
@@ -48,8 +48,11 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
     false: (p: any) => <div className={classes.center}>{p.children}</div>,
   };
 
+  // @ts-expect-error
   const C = GridWrapper[!props.forceVertical];
+  // @ts-expect-error
   const D1 = GridFirstChildWrapper[!props.forceVertical];
+  // @ts-expect-error
   const D2 = GridSecondChildWrapper[!props.forceVertical];
   return (
     <Form className={classes.container}>
@@ -69,6 +72,7 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
         </D1>
         <D2 className={classes.innerContainer}>
           <Paper className={classes.formContainer}>
+            {/* @ts-expect-error */}
             <ConsumerGiftcardForm {...props} />
             <div className={classes.actions}>
               {props.onCancel && (
@@ -148,4 +152,5 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+// @ts-expect-error
 export default ConsumerGiftcardFormFieldHOC(ConsumerGiftcardFormWithPreview);

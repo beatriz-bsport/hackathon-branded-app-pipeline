@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -6,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form } from 'formik';
+// @ts-expect-error
 import { Submit } from '../../../../components/forms';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import PaymentPackTemplateForm, {
@@ -31,6 +31,7 @@ const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
       title={t('paymentPackTemplate.form.title')}
     >
       <Form>
+        {/* @ts-expect-error */}
         <PaymentPackTemplateForm {...props} />
         <DialogActions className={classes.actions}>
           <Button disabled={isSubmitting} onClick={props.onClose}>
@@ -61,4 +62,5 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+// @ts-expect-error
 export default PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDrawer);

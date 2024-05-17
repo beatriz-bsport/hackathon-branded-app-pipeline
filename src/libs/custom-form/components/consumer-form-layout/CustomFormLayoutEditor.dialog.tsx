@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -59,6 +58,7 @@ export const CustomFormLayoutEditor = (props: Props) => {
         </div>
       </DialogContextText>
       <div className={classes.container}>
+        {/* @ts-expect-error */}
         <CustomFormLayout
           asManager
           defaultEditMode
@@ -94,6 +94,7 @@ export const CustomFormLayoutEditor = (props: Props) => {
 };
 const useStyles = makeStyles((theme) => ({
   paper: {
+    // @ts-expect-error
     minWidth: (maxWidth) => `${maxWidth + 50}px`,
     padding: theme.spacing(2),
     backgroundColor: 'rgba(255,255, 255, 0.9)',

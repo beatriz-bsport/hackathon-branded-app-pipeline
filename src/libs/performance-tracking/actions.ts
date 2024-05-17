@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -48,6 +47,7 @@ export function createOrUpdateProgram(
       });
 
       dispatch(ProgramCreateOrUpdateActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
       if (data.id) {
         dispatch(
@@ -91,6 +91,7 @@ export function fetchProgram(
     try {
       const response = await fetchProgramAPI(params);
       dispatch(ProgramListActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(ProgramListActions.error(error));
@@ -133,7 +134,9 @@ export function fetchMemberProgram(
         throw new Error('paramsNotValid');
       }
       const response = await fetchMemberProgramAPI(params);
+      // @ts-expect-error
       dispatch(MemberProgramListActions.success(response.data.results));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(MemberProgramListActions.error(error));
@@ -159,6 +162,7 @@ export function enableOrDisableProgram(
     try {
       const response = await enableOrDisableProgramAPI(params);
       dispatch(ProgramEnableOrDisableActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
       if (params.enabled) {
         dispatch(
@@ -205,6 +209,7 @@ export function fetchMetric(
       const response = await fetchMetricAPI(params);
 
       dispatch(MetricListActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(MetricListActions.error(error));
@@ -239,6 +244,7 @@ export function createMemberProgram(
       dispatch(
         MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
       dispatch(
         snackbarSuccess(
@@ -283,6 +289,7 @@ export function retrieveMemberProgram(
       dispatch(
         MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
@@ -311,6 +318,7 @@ export function updateMemberMetricValue(
       dispatch(
         MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
@@ -336,6 +344,7 @@ export function disableMemberProgram(
     try {
       await disableMemberProgramAPI(memberProgramId);
       dispatch(disableMemberProgramActions.success({ memberProgramId }));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess({ memberProgramId });
       dispatch(
         snackbarSuccess(

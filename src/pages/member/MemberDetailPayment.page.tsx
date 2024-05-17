@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { Theme } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,6 +23,7 @@ import type {
   SubscriptionQueryParams,
 } from '../../libs/subscription/types';
 
+// @ts-expect-error
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
 import {
   getInvoiceList,
@@ -100,6 +101,7 @@ export class MemberDetailPayment extends Component<Props> {
           />
         </div>
         <div className={this.props.classes.table}>
+          {/* @ts-expect-error */}
           <SubscriptionTable
             showOnlyCore
             count={this.props.subscriptionCount}
@@ -129,7 +131,9 @@ export default compose(
     (state: RootState) => ({
       subscriptionList: getSubscriptionListByMember(state),
       subscriptionLoading: state.subscription.list.loading,
+      // @ts-expect-error
       subscriptionCount: state.subscription.byMember.count,
+      // @ts-expect-error
       invoiceList: withInvoiceItem(withPayment(getInvoiceList))(state),
       count: state.invoice.list.count,
       page: state.invoice.list.page,

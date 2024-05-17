@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
@@ -10,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
+// @ts-expect-error
 import EstablishmentListItem from './EstablishmentListItem.component';
 import { MaterialStyleType } from '../../../utils/types';
 import type { EstablishmentGroup, AssociatedEstablishment } from '../types';
@@ -30,12 +30,14 @@ export const EstablishmentGroupByAddressItem = (props: Props) => {
         className={classes.flexHeader}
         onClick={() => setOpenCollapse(!openCollapse)}
       >
+        {/* @ts-expect-error */}
         <Typography variant="h5">{establishmentGroup.address}</Typography>
         {openCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ButtonBase>
       <Divider className={classes.divider} />
       <Collapse in={openCollapse}>
         <Paper>
+          {/* @ts-expect-error */}
           {establishmentGroup.establishmentList.map(
             (establishment: AssociatedEstablishment) => (
               <EstablishmentListItem

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 // eslint-disable-next-line max-classes-per-file
@@ -17,9 +16,11 @@ export function windowTitleToProps<P extends { title: string }>(
     };
 
     changeTitle = (ev: MutationRecord[]) => {
+      // @ts-expect-error
       if (ev[0].target?.innerText === DefaultTitle) {
         this.setState({ title: '' });
       } else {
+        // @ts-expect-error
         this.setState({ title: ev[0].target?.innerText });
       }
     };

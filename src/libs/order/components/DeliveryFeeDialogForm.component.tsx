@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -24,6 +23,7 @@ export const DeliveryFeeDialogForm: React.FC<Props> = (props) => (
     <DialogTitle>{props.t('deliveryFee.forms.title')}</DialogTitle>
     <DialogContent>
       <DeliveryFeeForm
+        // @ts-expect-error
         initial={props.deliveryFee}
         onCancel={props.onClose}
         onSubmit={(data: DeliveryFeeCreationOrUpdatePayload) => {

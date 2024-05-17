@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -126,6 +125,7 @@ export function SubscriptionComponent(props: Props) {
                 pauseList={props.subscription.pauses}
                 plannedInvoiceList={props.subscription.planned_invoices}
                 plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
+                // @ts-expect-error
                 requestUpdatePrice={props.requestUpdatePrice}
                 subscription={props.subscription}
                 toogleAutoRenew={props.updateSubscriptionRenewal}
@@ -147,6 +147,7 @@ export function SubscriptionComponent(props: Props) {
                   requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
                   requestPaymentPackSwitch={props.requestPaymentPackSwitch}
                   requestPrivatePassSwitch={props.requestPrivatePassSwitch}
+                  // @ts-expect-error
                   subscription={props.subscription}
                   unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
                   updateRenewal={props.updateSubscriptionRenewal}
@@ -156,6 +157,7 @@ export function SubscriptionComponent(props: Props) {
                 loading={props.paymentMethodLoading}
                 onEdit={props.requestPaymentMethodSwitch}
                 paymentEngine={props.subscription.payment_engine}
+                // @ts-expect-error
                 paymentMethod={props.paymentMethod}
               />
               <div className={classes.divider} />

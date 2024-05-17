@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -46,6 +45,7 @@ const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
   if (offerStatus.blocked_by_tags) {
     statusColor = 'red';
     statusText = t('offer.offerStatus.blockedByTags');
+    // @ts-expect-error
     StatusIcon = BlockIcon;
   } else if (
     [
@@ -58,14 +58,17 @@ const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
     statusText = t(
       `offer.offerStatus.bookable_status.${offerStatus.bookable_status}`,
     );
+    // @ts-expect-error
     StatusIcon = BlockIcon;
   } else if (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE) {
     return null;
   } else if (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL) {
+    // @ts-expect-error
     StatusIcon = HourglassEmptyIcon;
     statusText = t(
       `offer.offerStatus.waiting_list_status.${offerStatus.waiting_list_status}`,
     );
+    // @ts-expect-error
     if (offerStatus.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL) {
       statusColor = 'red';
     }
@@ -85,6 +88,7 @@ const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
       }}
     >
       <StatusIcon
+        // @ts-expect-error
         fontSize="small"
         style={{ color: statusColor, marginRight: 4 }}
       />
@@ -138,6 +142,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
           classes.container,
           props.disabled ? classes.disableContainer : null,
         ])}
+        // @ts-expect-error
         disableRipple={!onClick || props.onRemove}
         onClick={!props.onRemove && onClick}
       >
@@ -166,6 +171,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
           </Typography>
           {props.offerSpot && (
             <PlaceNumber
+              // @ts-expect-error
               spotInformation={
                 Object.keys(props?.offerSpotInformation || {}).length > 0
                   ? props.offerSpotInformation

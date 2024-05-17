@@ -1,6 +1,6 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
+// @ts-expect-error
 import { InputActionTypes } from 'react-select';
 
 import MaterialUISelector, {

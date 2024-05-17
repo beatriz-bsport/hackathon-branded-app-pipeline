@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import chroma from 'chroma-js';
 import { withTheme } from '@material-ui/styles';
@@ -68,6 +67,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     } ${(height ?? TRIANGLE_LENGTH) / 2 + 13})`;
   }
 
+  // @ts-expect-error
   getSpotTextColor(spotFillColor) {
     return this.props.taken
       ? chroma('black').alpha(0.5).hex()
@@ -81,21 +81,35 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       rotation,
       indexType,
       index,
+      // @ts-expect-error
       height,
+      // @ts-expect-error
       width,
       fill: _fill,
       stroke,
+      // @ts-expect-error
       strokeWidth,
+      // @ts-expect-error
       fontSize,
+      // @ts-expect-error
       fontStyle,
+      // @ts-expect-error
       textOffsetX,
+      // @ts-expect-error
       textOffsetY,
+      // @ts-expect-error
       fontColor,
+      // @ts-expect-error
       fontColorOnTaken,
+      // @ts-expect-error
       fontColorOnSelected,
+      // @ts-expect-error
       fontWeight,
+      // @ts-expect-error
       strokeDasharray,
+      // @ts-expect-error
       textStroke,
+      // @ts-expect-error
       textStrokeWidth,
     } = this.props;
     let image = spotType?.free_image;
@@ -200,13 +214,21 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       index,
       fill: _fill,
       stroke,
+      // @ts-expect-error
       height,
+      // @ts-expect-error
       strokeWidth,
+      // @ts-expect-error
       fontSize,
+      // @ts-expect-error
       textOffsetX,
+      // @ts-expect-error
       textOffsetY,
+      // @ts-expect-error
       fontColor,
+      // @ts-expect-error
       fontWeight,
+      // @ts-expect-error
       strokeDasharray,
     } = this.props;
     const fill = _fill || spotType.fill_color || 'white';
@@ -215,6 +237,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     return (
       <g
         {...this.BaseProps}
+        // @ts-expect-error
         transform={CanvasSpotComponent.getTransform(
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
@@ -260,6 +283,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           fontSize={fontSize ?? '30'}
           style={{ userSelect: 'none' }}
           textAnchor="middle"
+          // @ts-expect-error
           transform={CanvasSpotComponent.getTransform(
             0,
             0,
@@ -296,13 +320,21 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       index,
       fill: _fill,
       stroke,
+      // @ts-expect-error
       height,
+      // @ts-expect-error
       strokeWidth,
+      // @ts-expect-error
       fontSize,
+      // @ts-expect-error
       textOffsetX,
+      // @ts-expect-error
       textOffsetY,
+      // @ts-expect-error
       fontColor,
+      // @ts-expect-error
       fontWeight,
+      // @ts-expect-error
       strokeDasharray,
     } = this.props;
     const fill = _fill || spotType.fill_color || 'white';
@@ -392,14 +424,23 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       index,
       fill: _fill,
       stroke,
+      // @ts-expect-error
       height,
+      // @ts-expect-error
       width,
+      // @ts-expect-error
       strokeWidth,
+      // @ts-expect-error
       fontSize,
+      // @ts-expect-error
       textOffsetX,
+      // @ts-expect-error
       textOffsetY,
+      // @ts-expect-error
       fontColor,
+      // @ts-expect-error
       fontWeight,
+      // @ts-expect-error
       strokeDasharray,
     } = this.props;
     const fill = _fill || spotType.fill_color || 'white';
@@ -492,13 +533,21 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       index,
       fill: _fill,
       stroke,
+      // @ts-expect-error
       height,
+      // @ts-expect-error
       strokeWidth,
+      // @ts-expect-error
       fontSize,
+      // @ts-expect-error
       textOffsetX,
+      // @ts-expect-error
       textOffsetY,
+      // @ts-expect-error
       fontColor,
+      // @ts-expect-error
       fontWeight,
+      // @ts-expect-error
       strokeDasharray,
     } = this.props;
     const fill = _fill || spotType.fill_color || 'white';
@@ -507,6 +556,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     return (
       <g
         {...this.BaseProps}
+        // @ts-expect-error
         transform={CanvasSpotComponent.getTransform(
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
@@ -579,8 +629,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       fill_color: this.props.fill || 'white',
       stroke_color: this.props.stroke || 'black',
       shape: this.props.type || 'circular',
+      // @ts-expect-error
       prefix: this.props.prefix || '',
     };
+    // @ts-expect-error
     const asset_identifier = this.props.asset_identifier || 'spot_free';
     const asset = this.props.getAsset && this.props?.getAsset(asset_identifier);
 
@@ -592,28 +644,38 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     if (this.props.selected)
       predefinedSpotType = {
         ...predefinedSpotType,
+        // @ts-expect-error
         fill_color: this.props.theme.palette.primary.main,
+        // @ts-expect-error
         stroke_color: this.props.theme.palette.primary.dark,
       };
     if (this.props.taken)
       predefinedSpotType = {
         ...predefinedSpotType,
+        // @ts-expect-error
         fill_color: this.props.theme.palette.grey[400],
+        // @ts-expect-error
         stroke_color: this.props.theme.palette.grey[600],
       };
     if (this.props?.spotType?.customization === PERSONALIZED_CUSTOMIZATION)
       return this.renderPersonalizedSpot(this.props.spotType);
+    // @ts-expect-error
     if (asset?.asset && this.props?.asset_identifier)
+      // @ts-expect-error
       return this.renderPersonalizedSpot(oldVersionSpotType);
     switch (predefinedSpotType.shape) {
       case 'square':
+        // @ts-expect-error
         return this.renderSquareSpot(predefinedSpotType);
       case 'rectangle':
+        // @ts-expect-error
         return this.renderRectSpot(predefinedSpotType);
       case 'triangle':
+        // @ts-expect-error
         return this.renderTriangleSpot(predefinedSpotType);
       case 'circular':
       default:
+        // @ts-expect-error
         return this.renderCircularSpot(predefinedSpotType);
     }
   }

@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
 import { v4 as uuidv4 } from 'uuid';
 import { TFunction } from 'i18next';
 import isEqual from 'lodash/isEqual';
+// @ts-expect-error
 import type { Graph } from '../statistics/types';
 import type {
   DataSourceDashboardGraph,
@@ -84,6 +84,7 @@ export const getDateRangeFromGraphFilter = (
       start = end.minus({ week: 1 });
       break;
     default:
+      // @ts-expect-error
       [startTimestamp, endTimestamp] = dateFilterDict.value;
       start = DateTime.fromSeconds(startTimestamp);
       end = DateTime.fromSeconds(endTimestamp);

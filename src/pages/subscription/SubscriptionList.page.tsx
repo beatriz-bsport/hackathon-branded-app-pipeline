@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -20,6 +19,7 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
+// @ts-expect-error
 import PlannedInvoiceList from '../../libs/subscription/components/PlannedInvoiceList.component';
 import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
 import {
@@ -33,6 +33,7 @@ import {
   getSubscriptionEventList,
   getSubscriptionEventState,
   getPlannedInvoiceList,
+  // @ts-expect-error
 } from '../../libs/subscription/selectors';
 import {
   fetchSubscriptionList as fetchSubscriptionListAction,
@@ -113,6 +114,7 @@ export class SubscriptionList extends React.Component<Props> {
           {this.props.t('subscription.list.title')}
         </Typography>
         <Divider className={this.props.classes.divider} />
+        {/* @ts-expect-error */}
         <SubscriptionTable
           count={this.props.subscriptionCount}
           goToSubscription={this.props.goToSubscription}
@@ -145,11 +147,13 @@ export default compose(
   connect(
     (state: RootState) => ({
       subscriptionList: getSubscriptionList(state),
+      // @ts-expect-error
       subscriptionCount: state.subscription.list.count,
       subscriptionLoading: state.subscription.list.loading,
       eventList: getSubscriptionEventList(state),
       eventPage: getSubscriptionEventState(state).page,
       eventLoading: getSubscriptionEventState(state).loading,
+      // @ts-expect-error
       plannedInvoiceCount: state.subscription.plannedInvoice.count,
       plannedInvoiceLoading: state.subscription.plannedInvoice.loading,
       plannedInvoiceList: getPlannedInvoiceList(state),

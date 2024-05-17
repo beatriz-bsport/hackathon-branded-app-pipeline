@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -14,6 +13,7 @@ import { withRouter } from 'react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import Fab from '@material-ui/core/Fab';
+// @ts-expect-error
 import { getLanguage } from '../../i18n';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
@@ -180,6 +180,7 @@ export class TutorialMenu extends React.Component<Props> {
             sections={this.props.sections}
             shareObject={this.getShareObject}
             statistics={this.props.statistics}
+            // @ts-expect-error
             tutorial_completion={this.props.tutorial_completion}
           />
           <TutorialGenericDialog
@@ -189,6 +190,7 @@ export class TutorialMenu extends React.Component<Props> {
             open={this.props.openShareDialog.dialogOpen}
           />
         </div>
+        {/* @ts-expect-error */}
         <Fab
           className={this.props.classes.helpButton}
           color="primary"
@@ -276,6 +278,7 @@ export default compose(
     object: null,
   }),
   routerParamsToProps({
+    // @ts-expect-error
     defaultSelectedSectionId: 'defaultSelectedSectionId',
   }),
   withRouter,

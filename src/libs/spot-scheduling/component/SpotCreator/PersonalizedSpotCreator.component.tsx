@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Grid, Typography } from '@material-ui/core';
 import { useTheme, withStyles } from '@material-ui/styles';
 import React from 'react';
@@ -9,6 +8,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ImageFieldInput from '../../../../components/forms/ImageFieldInput';
 
+// @ts-expect-error
 export const PersonalizedSpotCreator = (props) => {
   const { t } = useTranslation('spotScheduling');
   const { classes, renderExample, values } = props;
@@ -16,8 +16,10 @@ export const PersonalizedSpotCreator = (props) => {
 
   const renderImageUpload = (name: string, id: string) => {
     return (
+      // @ts-expect-error
       <ImageFieldInput id={id} name={name} style={{ maxWidth: 173 }}>
         <div className={classes.imageInput}>
+          {/* @ts-expect-error */}
           <ImageIcon color={theme.palette.grey[700]} />
           <Typography color="textSecondary" variant="caption">
             {t('spotImageDialog.imageUploadButton')}
@@ -27,6 +29,7 @@ export const PersonalizedSpotCreator = (props) => {
     );
   };
 
+  // @ts-expect-error
   const renderPreview = (file, name, id) => {
     let image = '';
     try {
@@ -41,6 +44,7 @@ export const PersonalizedSpotCreator = (props) => {
             <image height={60} href={image} width={60} x={10} y={5} />;
           </svg>
           <div className={classes.rightIcons}>
+            {/* @ts-expect-error */}
             <ImageFieldInput id={id} name={name}>
               <CreateIcon className={classes.imageInputIcon} color="primary" />
             </ImageFieldInput>
@@ -81,6 +85,7 @@ export const PersonalizedSpotCreator = (props) => {
           <Typography className={classes.spotStatus} variant="body1">
             {t('spotCreatorForm.taken')}
           </Typography>
+          {/* @ts-expect-error  */}
           {renderExample('', theme.palette.grey[600], theme.palette.grey[400])}
           {!values.taken_image
             ? renderImageUpload('taken_image', 'taken-spot-image-input')
@@ -96,7 +101,9 @@ export const PersonalizedSpotCreator = (props) => {
           </Typography>
           {renderExample(
             '',
+            // @ts-expect-error
             theme.palette.primary.main,
+            // @ts-expect-error
             theme.palette.primary.light,
           )}
           {!values.selected_image
@@ -118,6 +125,7 @@ export const PersonalizedSpotCreator = (props) => {
   );
 };
 
+// @ts-expect-error
 const styles = (theme) => ({
   container: {
     paddingTop: theme.spacing(3),
@@ -173,4 +181,5 @@ const styles = (theme) => ({
   spotStatus: { whiteSpace: 'nowrap', overFlow: 'hidden' },
 });
 
+// @ts-expect-error
 export default withStyles(styles)(PersonalizedSpotCreator);

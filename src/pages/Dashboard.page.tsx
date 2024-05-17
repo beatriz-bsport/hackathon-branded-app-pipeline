@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -22,10 +21,15 @@ import { prepareGraphPropsForDisplay } from '#libs/dashboard/utils';
 
 import DashboardTabBar from '#libs/dashboard/components/DashboardTabBar.component';
 import DashboardGraphFormDrawer from '#libs/dashboard/components/DashboardGraphForm.drawer';
+// @ts-expect-error
 import TemporalBarChart from '#components/graph/TemporalBarChart.component';
+// @ts-expect-error
 import TemporalAreaChart from '#components/graph/TemporalAreaChart.component';
+// @ts-expect-error
 import TimeslotGridChart from '#components/graph/TimeslotGridChart.component';
+// @ts-expect-error
 import PieChart from '#components/graph/PieChart.component';
+// @ts-expect-error
 import QualitativeBarChart from '#components/graph/QualitativeBarChart.component';
 import withTitle from '../hocs/with-title.hoc';
 import withDatatypeDynamicData, {
@@ -35,11 +39,13 @@ import {
   fetchDataSourceDashboardGraphMetadata,
   fetchDataSourceDashboardSettings,
   updateDataSourceDashboardSettings,
+  // @ts-expect-error
 } from '#libs/dashboard/actions';
 import {
   getDataSourceDashboardGraphMetadata,
   getDataSourceDashboardSettings,
   getDataSourceDashboardSettingsTab,
+  // @ts-expect-error
 } from '#libs/dashboard/selectors';
 import { fetchDataSourceDashboardStatistics } from '#libs/statistics/actions';
 import { getDataSourceDashboardTabStatistics } from '#libs/statistics/selectors';
@@ -226,14 +232,17 @@ export class DashboardPage extends Component<Props> {
                       <DashboardGraphWrapper
                         graph={graph}
                         graphHeight={GRAPH_HEIGHT}
+                        // @ts-expect-error
                         loadingData={graphData[graph.uuid].loading}
                         loadingSettings={dashboardSettingsLoading}
                         onDelete={deleteGraph}
                         onEdit={this.onEditDashboardGraph}
                       >
                         <ChartComponent
+                          // @ts-expect-error
                           data={graphData[graph.uuid].data}
                           height={GRAPH_HEIGHT}
+                          // @ts-expect-error
                           {...graphPropsForDisplay[graph.uuid]}
                           schedule_timerange_begin={
                             this.props.theme.schedule_timerange_begin
@@ -272,6 +281,7 @@ export class DashboardPage extends Component<Props> {
 
         {isDrawerOpen && (
           <DashboardGraphFormDrawer
+            // @ts-expect-error
             open
             graphMetadata={graphMetadata}
             handleGetDynamicDataForFilters={
@@ -288,6 +298,7 @@ export class DashboardPage extends Component<Props> {
 }
 
 const settingsAndMetadataconnector = connect(
+  // @ts-expect-error
   (state: RootState, { currentTabIndex }) => ({
     theme: getTheme(state),
     graphMetadata: getDataSourceDashboardGraphMetadata(state),
@@ -306,6 +317,7 @@ const settingsAndMetadataconnector = connect(
 
 const graphDataConnector = connect(
   (state: RootState, { dashboardTab }: SettingsAndMetadataConnectedProps) => ({
+    // @ts-expect-error
     graphData: getDataSourceDashboardTabStatistics(state, dashboardTab),
   }),
 );
@@ -345,6 +357,7 @@ const mapWithHandlers = {
     },
   deleteTab: (props: AllConnectedProps) => (tabIndexToDelete: number) => {
     props.updateSettings(
+      // @ts-expect-error
       props.dashboardSettings.filter((_, i: number) => i !== tabIndexToDelete),
       { onSuccess: () => props.setCurrentTabIndex(0) },
     );

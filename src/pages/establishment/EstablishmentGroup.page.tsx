@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -79,6 +78,7 @@ type Props = OwnAndConnectedProps &
 const BOOKING_CREATION_NOTIFICATION = 2;
 
 export class EstablishmentGroup extends React.Component<Props> {
+  // @ts-expect-error
   state = { establishmentGroupForNotificationCreation: null };
 
   componentDidMount() {
@@ -167,6 +167,7 @@ export class EstablishmentGroup extends React.Component<Props> {
                   this.props.deleteEstablishmentGroupAction(group)
                 }
                 onEditEstablishmentGroup={(group: EstablishmentGroupType) => {
+                  // @ts-expect-error
                   this.props.setInitialGroup(group);
                   this.props.setOpenDialogForm(true);
                 }}
@@ -193,6 +194,7 @@ export class EstablishmentGroup extends React.Component<Props> {
               this.props.setOpenDialogForm(false);
               this.props.setInitialGroup(null);
             }}
+            // @ts-expect-error
             onSubmit={this.props.upsertEstablishmentGroup}
             open={this.props.openDialogForm}
           />
@@ -256,7 +258,9 @@ export class EstablishmentGroup extends React.Component<Props> {
               this.setState({ establishmentGroupForNotificationCreation: null })
             }
             onCreateMarketingNotification={this.handleCreateNotification}
+            // @ts-expect-error
             onUpdateMarketingNotification={this.onEditNotification}
+            // @ts-expect-error
             smartLists={this.props.smartLists}
             sourceObjectId={
               this.state.establishmentGroupForNotificationCreation
@@ -276,6 +280,7 @@ export class EstablishmentGroup extends React.Component<Props> {
           onCancel={this.closeNotificationEditForm}
           onUpdateMarketingNotification={this.updateNotification}
           selectedNotification={this.props.notificationToEdit}
+          // @ts-expect-error
           smartLists={this.props.smartLists}
         />
       </>
@@ -382,6 +387,7 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:establishment.establishmentGroupPage'),
   ),
+  // @ts-expect-error
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),

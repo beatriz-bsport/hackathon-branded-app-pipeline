@@ -1,12 +1,13 @@
-// @ts-nocheck
 import { Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
 import { ColorField } from '../../../../components/forms';
 import CanvasSpotComponent from '../../CanvasSvg/tools/Spot/CanvasSpot.component';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
+// @ts-expect-error
 export const PersonalizedSpotCreator = (props) => {
   const { t } = useTranslation('spotScheduling');
   const { classes, choices, values, setFieldValue } = props;
@@ -17,6 +18,7 @@ export const PersonalizedSpotCreator = (props) => {
         className={classes.selectField}
         defaultValue={props.defaultValue}
         name="shape"
+        // @ts-expect-error
         onChange={(option) => {
           setFieldValue('shape', option.value);
         }}
@@ -42,6 +44,7 @@ export const PersonalizedSpotCreator = (props) => {
               fill={values?.fill_color}
               index={1}
               indexType={1}
+              // @ts-expect-error
               prefix={values?.prefix}
               stroke={values?.stroke_color}
               trianglePreview={values?.shape === 'triangle'}
@@ -56,6 +59,7 @@ export const PersonalizedSpotCreator = (props) => {
   );
 };
 
+// @ts-expect-error
 const styles = (theme) => ({
   selectField: { marginTop: theme.spacing(4), maxWidth: '40%' },
   sectionContainer: {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
@@ -38,6 +37,7 @@ import {
   deletePaymentPackMassExtensionActions,
 } from './actions';
 
+// @ts-expect-error
 const initialState: PaymentPackState = Immutable({
   updatingConsumerPacks: [],
   updatingPaymentPacks: [],
@@ -109,8 +109,10 @@ const initialState: PaymentPackState = Immutable({
 });
 
 export function paymentPackReducer(state = initialState, action = {}) {
+  // @ts-expect-error
   switch (action.type) {
     case actionTypes.HAS_FETCHED_ALL_PAYMENT_PACKS:
+      // @ts-expect-error
       return Immutable.merge(state, {
         loading: false,
         error: false,
@@ -122,26 +124,34 @@ export function paymentPackReducer(state = initialState, action = {}) {
     case actionTypes.UPDATING_CONSUMER_PACK_CREDIT: {
       const updatingConsumerPacks = [
         ...state.updatingConsumerPacks,
+        // @ts-expect-error
         action.consumerPackId,
       ];
+      // @ts-expect-error
       return Immutable.merge(state, { updatingConsumerPacks });
     }
     case actionTypes.UPDATE_CONSUMER_PACK_CREDIT_FAILED:
     case actionTypes.UPDATE_CONSUMER_PACK_CREDIT_DONE: {
+      // @ts-expect-error
       return Immutable.merge(state, {
         updatingConsumerPacks: state.updatingConsumerPacks.filter(
+          // @ts-expect-error
           (id) => id !== action.consumerPackId,
         ),
       });
     }
 
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_START: {
+      // @ts-expect-error
       return Immutable.merge(state, { createOrUpdatePending: true });
     }
+    // @ts-expect-error
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_ERROR: {
+      // @ts-expect-error
       return Immutable.merge(state, { createOrUpdatePending: false });
     }
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_SUCCESS: {
+      // @ts-expect-error
       const { paymentPack } = action;
       return state
         .set('createOrUpdatePending', false)
@@ -160,6 +170,7 @@ export function paymentPackReducer(state = initialState, action = {}) {
 }
 
 export const newPaymentPackReducer = handleActions(
+  // @ts-expect-error
   {
     [fetchActivityCompatibleAction.reset.toString()]: (state) => {
       return state
@@ -177,6 +188,7 @@ export const newPaymentPackReducer = handleActions(
       return state.setIn(['forBooking', 'loading'], payload);
     },
     [updatePaymentPackActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [updatePaymentPackActions.isLoading.toString()]: (state, { payload }) => {
@@ -191,6 +203,7 @@ export const newPaymentPackReducer = handleActions(
     ) => {
       return state.set(
         'updatingPaymentPacks',
+        // @ts-expect-error
         state.updatingPaymentPacks.filter((p) => p !== payload),
       );
     },
@@ -198,6 +211,7 @@ export const newPaymentPackReducer = handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
     [updatePaymentPackOrderActions.isLoading.toString()]: (
@@ -231,11 +245,14 @@ export const newPaymentPackReducer = handleActions(
       return state
         .set(
           'allIds',
+          // @ts-expect-error
           (payload || payload.results).map((pp) => pp.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: (payload || payload.results).reduce(
+              // @ts-expect-error
               (acc, v) => ({ ...acc, [v.id]: v }),
               {},
             ),
@@ -253,10 +270,12 @@ export const newPaymentPackReducer = handleActions(
       return state
         .set(
           'allIds',
+          // @ts-expect-error
           payload.map((pp) => pp.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
           },
           { deep: true },
@@ -269,6 +288,7 @@ export const newPaymentPackReducer = handleActions(
       const idToKeep = Object.values(state.byId).filter((pp) =>
         Object.entries(pp).reduce(
           (acc, [k, v]) =>
+            // @ts-expect-error
             (!requestedKeys.includes(k) || v !== payload[k]) && acc,
           true,
         ),
@@ -306,11 +326,13 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackTemplate', 'allIds'],
+          // @ts-expect-error
           payload.map((pp) => pp.id),
         )
         .merge(
           {
             paymentPackTemplate: {
+              // @ts-expect-error
               byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
             },
           },
@@ -324,11 +346,13 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackTemplate', 'allIdsManagerOnly'],
+          // @ts-expect-error
           payload.map((pp) => pp.id),
         )
         .merge(
           {
             paymentPackTemplate: {
+              // @ts-expect-error
               byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
             },
           },
@@ -352,6 +376,7 @@ export const newPaymentPackReducer = handleActions(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['paymentPackTemplate', 'byId', payload, 'disabled'],
         true,
       );
@@ -372,6 +397,7 @@ export const newPaymentPackReducer = handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['paymentPackTemplate', 'byId', payload.id], payload);
     },
     [createOrUpdatePaymentPackTemplateActions.isLoading.toString()]: (
@@ -391,27 +417,36 @@ export const newPaymentPackReducer = handleActions(
       { payload },
     ) => {
       let newState = state;
+      // @ts-expect-error
       if (payload.manager_only || !payload.is_usable_by_staff)
         newState = state.setIn(
           ['paymentPackTemplate', 'allIdsManagerOnly'],
           [
+            // @ts-expect-error
             payload.id,
+            // @ts-expect-error
             ...state.paymentPackTemplate.allIdsManagerOnly.filter(
+              // @ts-expect-error
               (id) => id !== payload.id,
             ),
           ],
         );
-      return newState
-        .setIn(
-          ['paymentPackTemplate', 'allIds'],
-          [
-            payload.id,
-            ...state.paymentPackTemplate.allIds.filter(
-              (id) => id !== payload.id,
-            ),
-          ],
-        )
-        .setIn(['paymentPackTemplate', 'byId', payload.id], payload);
+      return (
+        newState
+          .setIn(
+            ['paymentPackTemplate', 'allIds'],
+            [
+              // @ts-expect-error
+              payload.id,
+              ...state.paymentPackTemplate.allIds.filter(
+                // @ts-expect-error
+                (id) => id !== payload.id,
+              ),
+            ],
+          )
+          // @ts-expect-error
+          .setIn(['paymentPackTemplate', 'byId', payload.id], payload)
+      );
     },
     [paymentPackForBookingActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['forBooking', 'error'], payload);
@@ -422,14 +457,21 @@ export const newPaymentPackReducer = handleActions(
           forBooking: {
             allIds: [
               ...state.forBooking.allIds,
+              // @ts-expect-error
               ...payload.results
+                // @ts-expect-error
                 .filter((pp) => !state.forBooking.allIds.includes(pp.id))
+                // @ts-expect-error
                 .map((pp) => pp.id),
             ],
+            // @ts-expect-error
             count: payload.count,
+            // @ts-expect-error
             page: payload.next_page,
           },
+          // @ts-expect-error
           byId: payload.results.reduce(
+            // @ts-expect-error
             (acc, v) => ({ ...acc, [v.id]: v }),
             state.byId,
           ),
@@ -453,10 +495,14 @@ export const newPaymentPackReducer = handleActions(
       return state.merge(
         {
           byActivity: {
+            // @ts-expect-error
             allIds: payload.paymentPacksAllIds,
+            // @ts-expect-error
             count: payload.count,
+            // @ts-expect-error
             page: payload.page,
           },
+          // @ts-expect-error
           byId: payload.paymentPacksById,
         },
         { deep: true },
@@ -469,10 +515,14 @@ export const newPaymentPackReducer = handleActions(
       return state.merge(
         {
           compatible: {
+            // @ts-expect-error
             allIds: payload.results.map((pp) => pp.id),
+            // @ts-expect-error
             count: payload.count,
+            // @ts-expect-error
             next_page: payload.next_page,
           },
+          // @ts-expect-error
           byId: payload.results.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
         },
         { deep: true },
@@ -495,6 +545,7 @@ export const newPaymentPackReducer = handleActions(
         {
           compatible: {
             allIds: [],
+            // @ts-expect-error
             count: 0,
             next_page: 1,
           },
@@ -513,6 +564,7 @@ export const newPaymentPackReducer = handleActions(
     },
     [fetchMarketplacePacksAction.success.toString()]: (state, { payload }) => {
       return state.merge(
+        // @ts-expect-error
         { allIds: payload.paymentPacksAllIds, byId: payload.paymentPacksById },
         { deep: true },
       );
@@ -524,13 +576,16 @@ export const newPaymentPackReducer = handleActions(
       return state.set('error', payload);
     },
     [paymentPackBulkActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.merge({ byId: payload.paymentPacksById }, { deep: true });
     },
     [paymentPackBulkWidgetActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const { results } = payload;
       return state.merge(
         {
           byId: results.reduce<{ [id: number]: PaymentPack }>(
+            // @ts-expect-error
             (acc, paymentPack) => {
               acc[paymentPack.id] = paymentPack;
               return acc;
@@ -548,6 +603,7 @@ export const newPaymentPackReducer = handleActions(
       return state.setIn(['byActivity', 'error'], payload);
     },
     [fetchOneAction.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload);
     },
 
@@ -570,12 +626,15 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackCategory', 'allIds'],
+          // @ts-expect-error
           payload.results.map((pp) => pp.id),
         )
         .merge(
           {
             paymentPackCategory: {
+              // @ts-expect-error
               byId: payload.results.reduce(
+                // @ts-expect-error
                 (acc, v) => ({ ...acc, [v.id]: v }),
                 {},
               ),
@@ -603,7 +662,9 @@ export const newPaymentPackReducer = handleActions(
       return state.merge(
         {
           paymentPackCategory: {
+            // @ts-expect-error
             byId: payload.reduce(
+              // @ts-expect-error
               (acc, v) => ({ ...acc, [v.id]: v }),
               state.paymentPackCategory.byId,
             ),
@@ -628,14 +689,20 @@ export const newPaymentPackReducer = handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.paymentPackCategory.allIds.includes(payload.id)) {
-        return state
-          .setIn(['paymentPackCategory', 'byId', payload.id], payload)
-          .setIn(
-            ['paymentPackCategory', 'allIds'],
-            [...state.paymentPackCategory.allIds, payload.id],
-          );
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['paymentPackCategory', 'byId', payload.id], payload)
+            .setIn(
+              ['paymentPackCategory', 'allIds'],
+              // @ts-expect-error
+              [...state.paymentPackCategory.allIds, payload.id],
+            )
+        );
       }
+      // @ts-expect-error
       return state.setIn(['paymentPackCategory', 'byId', payload.id], payload);
     },
     [deletePaymentPackCategoryActions.isLoading.toString()]: (
@@ -657,10 +724,12 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackCategory', 'byId'],
+          // @ts-expect-error
           omit(state.paymentPackCategory.byId, payload.id),
         )
         .setIn(
           ['paymentPackCategory', 'allIds'],
+          // @ts-expect-error
           state.paymentPackCategory.allIds.filter((id) => id !== payload.id),
         );
     },
@@ -681,7 +750,9 @@ export const newPaymentPackReducer = handleActions(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['archivationWarning', payload.id, 'used_in_combo'],
+        // @ts-expect-error
         payload.is_used_in_payment_combo,
       );
     },
@@ -770,5 +841,7 @@ export const newPaymentPackReducer = handleActions(
   initialState,
 );
 
+// @ts-expect-error
 export default (state = initialState, action = { type: null }) =>
+  // @ts-expect-error
   newPaymentPackReducer(paymentPackReducer(state, action), action);

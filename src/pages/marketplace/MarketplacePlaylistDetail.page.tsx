@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,6 +7,7 @@ import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
 import { Theme } from '@material-ui/core';
+// @ts-expect-error
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
@@ -69,7 +69,9 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     this.props.retrievePlaylist();
     if (this.props.videoId) {
       this.props.retrieveVideo(this.props.videoId);
+      // @ts-expect-error
       if (this.props.authenticated) {
+        // @ts-expect-error
         this.props.getPlaybackUrl(this.props.videoId);
       }
     }
@@ -93,17 +95,23 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     }
 
     if (
+      // @ts-expect-error
       (this.props.videoId !== prevProps.videoId && this.props.authenticated) ||
+      // @ts-expect-error
       (this.props.authenticated && !prevProps.authenticated)
     ) {
+      // @ts-expect-error
       this.props.getPlaybackUrl(this.props.videoId);
     }
   }
 
   requestVideoAccess = () => {
+    // @ts-expect-error
     if (this.props.requestVideoAccess) {
+      // @ts-expect-error
       return this.props.requestVideoAccess();
     }
+    // @ts-expect-error
     if (!this.props.authenticated) {
       return this.props.requestSignUp();
     }
@@ -115,10 +123,14 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     if (
       !props.videoId &&
       !!props.playlist &&
+      // @ts-expect-error
       !!props.playlist.videos &&
+      // @ts-expect-error
       !!props.playlist.videos.length &&
+      // @ts-expect-error
       !!props.playlist.videos[0]
     ) {
+      // @ts-expect-error
       return props.playlist.videos[0].id;
     }
     return null;
@@ -126,6 +138,7 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
 
   onRegisterSuccess = () => {
     this.props.retrieveVideo(this.props.videoId);
+    // @ts-expect-error
     this.props.getPlaybackUrl(this.props.videoId);
     this.props.setRegisterVideoOpen(false);
   };
@@ -138,11 +151,16 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
       <div className={this.props.classes.container}>
         <div className={this.props.classes.playlistDetailContainer}>
           <PlaylistDetail
+            // @ts-expect-error
             accessDenied={this.props.accessDenied}
+            // @ts-expect-error
             authenticated={this.props.authenticated}
+            // @ts-expect-error
             getPlaybackUrl={this.props.getPlaybackUrl}
             onOpenVideo={this.props.goToVideoInPlaylist}
+            // @ts-expect-error
             playbackUrl={this.props.playbackUrl}
+            // @ts-expect-error
             playbackUrlLoading={this.props.playbackUrlLoading}
             playlist={this.props.playlist}
             requestVideoAccess={this.requestVideoAccess}
@@ -151,7 +169,9 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
           />
         </div>
         {this.props.registerVideoOpen &&
+          // @ts-expect-error
           !!this.props.video?.company &&
+          // @ts-expect-error
           !!this.props.video?.id && (
             <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
               <div
@@ -163,7 +183,9 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
                 }}
               >
                 <VideoCheckoutComponent
+                  // @ts-expect-error
                   companyId={this.props.video.company}
+                  // @ts-expect-error
                   id={this.props.video.id}
                   onSuccess={this.onRegisterSuccess}
                 />
@@ -205,9 +227,12 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+  // @ts-expect-error
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
+  // @ts-expect-error
   playlist: withCoachInVideo(getPlaylist)(state, ownProps.id),
   loading: state.playlist.loading,
+  // @ts-expect-error
   selectedVideo: withCategory(withCoach(getVideo))(state, ownProps.videoId),
 });
 
@@ -252,6 +277,7 @@ const mapHandlers = {
       }
       const url = urlToMarketplaceTab(
         props.companyName,
+        // @ts-expect-error
         props.companyId,
         `vod/playlist/${props.id}/video/${videoId}`,
       );
@@ -271,6 +297,7 @@ const mapHandlers = {
 
       const url = urlToMarketplaceTab(
         props.companyName,
+        // @ts-expect-error
         props.companyId,
         `vod/playlist/${id}/video/${videoId}`,
       );
@@ -301,6 +328,7 @@ export default compose(
   routerParamsToProps({
     id: 'id:number',
     videoId: 'videoId:number',
+    // @ts-expect-error
     companyName: 'companyName',
     companyId: 'companyId:number',
   }),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
@@ -84,6 +83,7 @@ export const getDisabledPureMetaActivities = createSelector(
   getPureMetaActivitiesDict,
   (metactivities) =>
     Immutable(Object.values(metactivities)).filter(
+      // @ts-expect-error
       (ma) => !ma.customer_enabled,
     ),
 );
@@ -100,12 +100,14 @@ export const getActivitiesByIdList = memoize((state: RootState, idList: any) =>
 export const getPagePureMetaActivities = createSelector(
   [getMetaActivitiesIdList, getPureMetaActivitiesDict],
   (idList, metaActivities) =>
+    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
 export const getPageMetaActivities = createSelector(
   [getMetaActivitiesIdList, getMetaActivitiesDict],
   (idList, metaActivities) =>
+    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
@@ -241,6 +243,7 @@ export const withCustomRestrictionsTags = memoize((selector: any) =>
         return metaActivities.map((meta) => ({
           ...meta,
           custom_restriction_rule: meta?.custom_restriction_rule?.map(
+            // @ts-expect-error
             (crr) => ({
               ...crr,
               tags: tagList.filter((tag) => crr?.tags.includes(tag.id)),
@@ -252,6 +255,7 @@ export const withCustomRestrictionsTags = memoize((selector: any) =>
         return {
           ...metaActivities,
           custom_restriction_rule: metaActivities?.custom_restriction_rule?.map(
+            // @ts-expect-error
             (crr) => ({
               ...crr,
               tags: tagList.filter((tag) => crr?.tags.includes(tag.id)),
@@ -270,6 +274,7 @@ export const getDisabledMetaActivityIdList = (state: RootState) =>
 export const getDisabledMetaActivityList = createSelector(
   [getDisabledMetaActivityIdList, getPureMetaActivitiesDict],
   (idList, metaActivities) =>
+    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 

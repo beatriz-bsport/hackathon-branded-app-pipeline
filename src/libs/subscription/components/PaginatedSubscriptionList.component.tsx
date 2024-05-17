@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import SubscriptionRowItem from './SubscriptionRowItem.component';
 import { Subscription } from '../types';

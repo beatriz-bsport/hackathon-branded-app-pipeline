@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -15,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import DelayedNumericInput from '#components/DelayedNumericInput.component';
 
 import type { PaymentPack } from '../../../payment-packs/types';
+// @ts-expect-error
 import Selector from '../MultiSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import { MaterialStyleType } from '../../../../utils/types';
@@ -112,6 +112,7 @@ export class ActivePassesFilter extends Component<Props> {
           <DelayedNumericInput
             isPositive
             classes={classes}
+            // @ts-expect-error
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
@@ -128,6 +129,7 @@ export class ActivePassesFilter extends Component<Props> {
             <DelayedNumericInput
               isPositive
               classes={classes}
+              // @ts-expect-error
               InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) =>
                 onChange({

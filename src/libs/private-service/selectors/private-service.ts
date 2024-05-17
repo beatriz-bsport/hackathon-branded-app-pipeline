@@ -1,8 +1,6 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-// @ts-expect-error
 import { State } from '../../../state/types';
 
 import { PrivateService, PrivateSlot } from '../types';
@@ -111,6 +109,7 @@ export const getPrivateServiceListByGroup = createSelector(
   (groupList, services) => {
     return groupList.map((g) => ({
       ...g,
+      // @ts-expect-error
       private_services: services.filter((s) =>
         g.private_services.includes(s.id),
       ),
@@ -140,7 +139,6 @@ export const getPrivateServiceById: (
     establishments: ps.establishments
       .map((c) =>
         Object.values(establishmentData).find((e_) =>
-          // @ts-expect-error TODO TYPES
           e_.associatedestablishment_set.includes(c),
         ),
       )
@@ -158,22 +156,26 @@ export const withAssociatedCoach = memoize(
           return privateServices.map((ps) => ({
             ...ps,
             coaches: ps.coaches
+              // @ts-expect-error
               .map((c) =>
                 Object.values(coachData).find(
                   (c_) => c_.associated_coach_id === c,
                 ),
               )
+              // @ts-expect-error
               .filter((c) => !!c),
           }));
         }
         return {
           ...privateServices,
           coaches: privateServices.coaches
+            // @ts-expect-error
             .map((c) =>
               Object.values(coachData).find(
                 (c_) => c_.associated_coach_id === c,
               ),
             )
+            // @ts-expect-error
             .filter((c) => !!c),
         };
       },
@@ -220,13 +222,16 @@ export const withPrivateSlots = memoize((selector: (State: RootState) => any) =>
       if (Array.isArray(privateServices)) {
         return privateServices.map((ps) => ({
           ...ps,
+          // @ts-expect-error
           slots: ps.slots.map((s) => slotsData[s]).filter((s) => !!s),
         }));
       }
       return {
         ...privateServices,
         slots: privateServices.slots
+          // @ts-expect-error
           .map((s) => slotsData[s])
+          // @ts-expect-error
           .filter((s) => !!s),
       };
     },
@@ -243,20 +248,25 @@ export const withAvailablePrivateSlots = memoize(
           return privateServices.map((ps) => ({
             ...ps,
             slots: ps.slots
+              // @ts-expect-error
               .map((s) => slotsData[s])
+              // @ts-expect-error
               .filter((s) => !!s && s.available),
           }));
         }
         return {
           ...privateServices,
           slots: privateServices.slots
+            // @ts-expect-error
             .map((s) => slotsData[s])
+            // @ts-expect-error
             .filter((s) => !!s && s.available),
         };
       },
     ),
 );
 
+// @ts-expect-error
 export const getPrivateServicesList: (
   state: State,
   // TODO TYPES any
@@ -279,7 +289,6 @@ export const getPrivateServicesList: (
         ),
         establishments: ps.establishments.map((e) =>
           Object.values(allEstablishments).find((ae) =>
-            // @ts-expect-error TODO TYPES
             ae.associatedestablishment_set.includes(e),
           ),
         ),
@@ -287,6 +296,7 @@ export const getPrivateServicesList: (
       })),
 );
 
+// @ts-expect-error
 export const getPrivateServicesForMarketplace: (state: State) => Array<any> =
   createSelector(
     [
@@ -307,7 +317,6 @@ export const getPrivateServicesForMarketplace: (state: State) => Array<any> =
           ),
           establishments: ps.establishments.map((e) =>
             Object.values(allEstablishments).find((ae) =>
-              // @ts-expect-error TODO TYPES
               ae.associatedestablishment_set.includes(e),
             ),
           ),
@@ -317,6 +326,7 @@ export const getPrivateServicesForMarketplace: (state: State) => Array<any> =
         })),
   );
 
+// @ts-expect-error
 export const _getPrivateServiceDict: (State) => {
   [id: number]: PrivateService;
 } = (state) => state.privateService.privateService.byId;

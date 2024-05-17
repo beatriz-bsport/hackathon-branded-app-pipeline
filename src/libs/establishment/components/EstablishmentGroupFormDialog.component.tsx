@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
@@ -25,8 +24,10 @@ import type {
   AssociatedEstablishment,
 } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import { TextField } from '../../../components/forms';
 import EstablishmentSelector from './EstablishmentSelector.component';
+// @ts-expect-error
 import EstablishmentListItem from './EstablishmentListItem.component';
 
 type InitialValues = {
@@ -75,14 +76,18 @@ export function EstablishmentGroupForm(props: Props) {
           const temp = accumulator.findIndex(
             (group) =>
               group.address.toUpperCase() ===
+              // @ts-expect-error
               establishmentItem.location.address.toUpperCase(),
           );
           if (temp === -1) {
             accumulator.push({
+              // @ts-expect-error
               address: establishmentItem.location.address,
+              // @ts-expect-error
               establishmentList: [establishmentItem],
             });
           } else {
+            // @ts-expect-error
             accumulator[temp].establishmentList.push(establishmentItem);
           }
           return accumulator;
@@ -270,5 +275,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('establishment'),
+  // @ts-expect-error
   withStyles(styles),
 )(EstablishmentGroupForm);

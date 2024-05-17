@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -40,6 +39,7 @@ class ActivitySummary extends React.PureComponent<Props> {
 
     const { meta_activity } = offer;
 
+    // @ts-expect-error
     const coach: Coach = getCoachOrSubstitute(offer);
 
     const coachName = getCoachDisplayName(

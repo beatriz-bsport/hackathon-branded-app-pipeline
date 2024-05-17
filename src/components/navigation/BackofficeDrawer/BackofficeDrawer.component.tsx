@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -57,7 +56,9 @@ import { getAllUnreadAnswersCount } from '#libs/communication-v2/selectors';
 
 import BillingBanner from '../BillingBanner.component';
 import StripeOnboardingBanner from '../StripeOnboardingBanner.component';
+// @ts-expect-error
 import LanguageButton from '../../button/LanguageButton.component';
+// @ts-expect-error
 import TempPasswordDialog from '#libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '#libs/cashbook/components/CashBookForm.component';
 import SearchBar from '../../SearchBar.component';
@@ -271,6 +272,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
 
   const classes = useStyles({ drawerIconsOnly });
   const location = useLocation();
+  // @ts-expect-error
   const previousLocation = usePrevious(location);
 
   React.useEffect(() => {
@@ -481,6 +483,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
           {permissions?.appbarButtons?.ledger && (
             <MenuItem
               onClick={() => {
+                // @ts-expect-error
                 fetchOnSpotPaymentReport({
                   name: t('reporting:categories.on_spot_payments'),
                 });
@@ -521,6 +524,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               />
             </MenuItem>
           </ObjectLevelPermissionWrapper>
+          {/* @ts-expect-error */}
           <MenuItem onClick={openIntercomHelp}>
             <ListItemIcon>
               <Grid item>
@@ -628,9 +632,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                             <AlertButtonMenu
                               withCommunicationAlerts
                               deleteAlert={deleteAlert}
+                              // @ts-expect-error
                               dialogOpen={messageDialogOpen}
                               nbAlerting={countAlertingCommunication}
                               overrideIcon={MessageIcon}
+                              // @ts-expect-error
                               setDialogOpen={handleMessageNotificationButton}
                               showMore={fetchMoreAlertingKind}
                             />
@@ -715,6 +721,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         <Grid item>
                           <IconButton
                             onClick={() => {
+                              // @ts-expect-error
                               fetchOnSpotPaymentReport({
                                 name: t(
                                   'reporting:categories.on_spot_payments',
@@ -755,8 +762,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       <Grid item>
                         <AlertButtonMenu
                           deleteAlert={deleteAlert}
+                          // @ts-expect-error
                           dialogOpen={dialogOpen}
                           nbAlerting={nbAlerting}
+                          // @ts-expect-error
                           setDialogOpen={handleNotificationButton}
                           showMore={fetchMoreAlertingKind}
                         />
@@ -764,6 +773,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     )}
                     <Hidden xsDown>
                       <Grid item>
+                        {/* @ts-expect-error */}
                         <IconButton onClick={openIntercomHelp}>
                           <HelpIcon />
                         </IconButton>
@@ -773,6 +783,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         requiredPermission="member.allowed_actions.search"
                       >
                         <Grid item className={classes.searchBar}>
+                          {/* @ts-expect-error */}
                           <SearchBar changeLocation />
                         </Grid>
                       </ObjectLevelPermissionWrapper>
@@ -835,6 +846,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <div>
               <Hidden mdUp>
                 <Drawer
+                  // @ts-expect-error
                   anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                   classes={{
                     paper: classes.drawerPaper,
@@ -856,6 +868,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       theme?.has_limited_access_to_sequential_marketing
                     }
                     iconsOnly={drawerIconsOnly}
+                    // @ts-expect-error
                     location={location}
                     logo={logo}
                     objectLevelPermissions={objectLevelPermissions}
@@ -883,6 +896,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       theme?.has_limited_access_to_sequential_marketing
                     }
                     iconsOnly={drawerIconsOnly}
+                    // @ts-expect-error
                     location={location}
                     logo={logo}
                     nbTutorialAlerting={nbTutorialAlerting}
@@ -903,6 +917,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             </div>
           ) : (
             <Drawer
+              // @ts-expect-error
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               classes={{
                 paper: classes.drawerPaper,
@@ -922,6 +937,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                   theme?.has_limited_access_to_sequential_marketing
                 }
                 iconsOnly={drawerIconsOnly}
+                // @ts-expect-error
                 location={location}
                 logo={logo}
                 nbTutorialAlerting={nbTutorialAlerting}
@@ -1147,6 +1163,7 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.primary.main,
+    // @ts-expect-error
     color: getTextColorFromRGB(theme.palette.primary.main),
   },
   buttonFranchise: {

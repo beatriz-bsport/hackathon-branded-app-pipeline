@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
 import { RootState } from '../../reducers';
@@ -54,14 +53,18 @@ export const composeProgramWithMetrics = memoize(
           return programOrProgramList.map((program) => ({
             ...program,
             metric_list: program?.metric_list
+              // @ts-expect-error
               ?.map((id) => metricDict[id])
+              // @ts-expect-error
               .filter((metric) => metric?.is_disabled === false),
           }));
         }
         return {
           ...programOrProgramList,
           metric_list: programOrProgramList?.metric_list
+            // @ts-expect-error
             ?.map((id) => metricDict[id])
+            // @ts-expect-error
             .filter((metric) => metric?.is_disabled === false),
         };
       },
@@ -223,10 +226,12 @@ export const composeMemberProgramWithMetric = memoize(
             general: {
               ...memberProgram?.metric_record.general,
               metrics: memberProgram?.metric_record?.general.metrics
+                // @ts-expect-error
                 ?.map((metric) => ({
                   ...metric,
                   metric: { ...metricDict[metric.metric_id] },
                 }))
+                // @ts-expect-error
                 .filter((metric) => metric.metric?.is_disabled === false),
             },
           },
@@ -239,10 +244,12 @@ export const composeMemberProgramWithMetric = memoize(
           general: {
             ...mp.metric_record?.general,
             metrics: mp.metric_record?.general.metrics
+              // @ts-expect-error
               ?.map((metric) => ({
                 ...metric,
                 metric: metricDict[metric?.metric_id],
               }))
+              // @ts-expect-error
               .filter((metric) => metric.metric?.is_disabled === false),
           },
         },

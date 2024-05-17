@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import classnames from 'classnames';
@@ -89,6 +88,7 @@ export const BalanceChip: React.FC<Props> = (props: Props) => {
       className={classnames(classes.chip, {
         [classes.errorBackground]: chipColor === Color.COLOR_ERROR,
       })}
+      // @ts-expect-error
       color={chipColor}
       label={
         unpaidIconOn ? (

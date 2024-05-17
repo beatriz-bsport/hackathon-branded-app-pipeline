@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -21,6 +20,7 @@ export const Banner = (props: Props) => {
         <Slide in={!networkAvailable}>
           <ButtonBase
             className={classes.errorBanner}
+            // @ts-expect-error
             onClick={() => document.location.reload(true)}
           >
             <div className={classes.text}>{t('banner.networkError')}</div>

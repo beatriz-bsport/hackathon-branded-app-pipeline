@@ -1,13 +1,15 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { Button, createStyles, Theme } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+// @ts-expect-error
 import EmailInput from '../../../components/input/EmailInput.component';
 
+// @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
+// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 
 export type OwnProps = {
@@ -100,6 +102,7 @@ const FranchiseThemeForm = (props: Props) => {
         <EmailInput
           autoComplete="email"
           label={t('marketingEmail.label')}
+          // @ts-expect-error
           onChange={(ev) => handleChange('marketingEmail')(ev.target.value)}
           placeholder={t('marketingEmail.placeholder')}
           type="email"

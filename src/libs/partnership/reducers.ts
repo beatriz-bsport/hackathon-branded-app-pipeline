@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import Immutable from 'seamless-immutable';
@@ -39,6 +38,7 @@ export default handleActions(
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [updatePartnershipActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.identifier], payload);
     },
     [updatePartnershipActions.isLoading.toString()]: (state, { payload }) => {
@@ -75,6 +75,7 @@ export default handleActions(
       return state
         .set(
           'byId',
+          // @ts-expect-error
           payload.reduce(
             (
               acc: { [identifier: string]: PartnershipCompany },
@@ -88,6 +89,7 @@ export default handleActions(
         )
         .set(
           'allIds',
+          // @ts-expect-error
           payload.map((pc: PartnershipCompany) => pc.id),
         );
     },

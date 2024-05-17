@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
@@ -181,6 +180,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
         <WidgetCustomizationPreview
           key={this.state.uuid}
+          // @ts-expect-error
           cssOnly
           coaches={this.props.coaches}
           company={this.props.theme.company}

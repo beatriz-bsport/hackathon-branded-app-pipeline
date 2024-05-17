@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useMemo } from 'react';
 import { IconButton, Theme, makeStyles, Paper } from '@material-ui/core';
@@ -71,6 +70,7 @@ const NotificationRulePreview = (props: Props) => {
       {!event && (
         <div className={classes.center}>
           <div className={classes.emptyState}>
+            {/* @ts-expect-error */}
             <Alert className={classes.alertInfo} color="grey" severity="info">
               {t('preview.emptyState')}
             </Alert>
@@ -114,6 +114,7 @@ const NotificationRulePreview = (props: Props) => {
             event.rule.push_notification_title === '' ||
             event.rule.push_notification_content === '') && (
             <div className={classes.emptyState}>
+              {/* @ts-expect-error */}
               <Alert className={classes.alertInfo} color="grey" severity="info">
                 {t('preview.emptyStateNotification')}
               </Alert>

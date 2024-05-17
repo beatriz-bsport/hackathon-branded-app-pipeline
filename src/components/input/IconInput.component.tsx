@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useRef } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -56,6 +55,7 @@ export function IconInput(props: Props) {
   return (
     <div>
       <Typography className={classes.title} color="textSecondary">
+        {/* @ts-expect-error */}
         {props?.label || t('form.tag.icon')}
       </Typography>
 

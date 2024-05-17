@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   ChangeEvent,
   useCallback,
@@ -8,6 +7,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
+// @ts-expect-error
 import Select, { GroupTypeBase, Styles, OptionTypeBase } from 'react-select';
 import Immutable from 'seamless-immutable';
 
@@ -257,8 +257,10 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
   const onChangeRadioButton = useCallback(
     (_: ChangeEvent<HTMLInputElement>, value: string) => {
       clearEstablishmentSelector();
+      // @ts-expect-error
       setMultiLocationChoice(value);
     },
+    // @ts-expect-error
     [clearEstablishmentSelector],
   );
 
@@ -331,6 +333,7 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
                   );
                   return;
                 }
+                // @ts-expect-error
                 assignDisciplineGroupHandler(ev.value);
               }}
               options={[...disciplineGroupOptions] || []}
@@ -538,6 +541,7 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           )}
           <div className={classes.establishmentSeletor}>
             {multiLocationChoice === MultilocationChoice.Locations ? (
+              // @ts-expect-error
               <EstablishmentGroupSelector
                 isClearable
                 disabled={!!values.disciplineGroup}
@@ -547,6 +551,7 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
                 selectOption={selectOptionLocations}
               />
             ) : (
+              // @ts-expect-error
               <EstablishmentSelector
                 isClearable
                 disabled={!!values.disciplineGroup}
@@ -612,8 +617,11 @@ const selectStyles: Partial<
     }>
   >
 > = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const colorChroma = chroma(colors.secondary);
 
@@ -658,6 +666,7 @@ const selectStyles: Partial<
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -665,10 +674,12 @@ const selectStyles: Partial<
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,

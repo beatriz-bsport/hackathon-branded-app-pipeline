@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -120,6 +119,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
           {hasDeleteMemberPermission &&
           props.member &&
           props.member.archived ? (
+            // @ts-expect-error
             <GreenFab
               className={classes.bottomButton}
               onClick={props.unArchiveMember}
@@ -129,6 +129,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
               {t('restoreMember')}
             </GreenFab>
           ) : (
+            // @ts-expect-error
             <RedFab
               className={classes.bottomButton}
               onClick={props.interrogateMemberStatus}

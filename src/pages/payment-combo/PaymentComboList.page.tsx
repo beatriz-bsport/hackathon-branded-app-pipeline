@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -28,13 +27,16 @@ import {
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
+// @ts-expect-error
 import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
+// @ts-expect-error
 import PaymentComboList from '#libs/payment-combo/components/PaymentComboList.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { MaterialStyleType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
+// @ts-expect-error
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
@@ -66,6 +68,7 @@ type State = {
 export class PaymentComboListPage extends React.Component<Props, State> {
   state = {
     searchText: '',
+    // @ts-expect-error
     searchResult: [],
   };
 
@@ -93,6 +96,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       this.setState({
         searchText: ev.target.value,
+        // @ts-expect-error
         searchResult: fuse.search(ev.target.value),
       });
     };
@@ -133,6 +137,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
               items={paymentComboList}
               placeholder={t('search')}
               searchFields={['name']}
+              // @ts-expect-error
               searchResult={this.state.searchResult}
               searchText={this.state.searchText}
             />
@@ -255,6 +260,7 @@ const connector = connect(
 
 export default compose<any, Props>(
   withTranslation(['paymentCombo']),
+  // @ts-expect-error
   withStyles(styles),
   connector,
   withHandlers({

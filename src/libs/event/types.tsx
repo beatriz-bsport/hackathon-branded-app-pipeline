@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import { ReactNode } from 'react';
 import { Subscription } from '#libs/subscription/types';
@@ -80,6 +79,7 @@ export type EventState = {
       page: number;
       error: boolean;
       loading: boolean;
+      // @ts-expect-error
       items: Array<GenericEvent>;
     };
   };

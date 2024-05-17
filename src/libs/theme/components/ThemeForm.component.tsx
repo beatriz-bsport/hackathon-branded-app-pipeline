@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import TextField from '@material-ui/core/TextField';
@@ -12,11 +11,15 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+// @ts-expect-error
 import tinycolor from 'tinycolor2';
 import classNames from 'classnames';
+// @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
+// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
+// @ts-expect-error
 import AnalyticsDialog from './AnalyticsDialog.component';
 import { MaterialStyleType } from '../../../utils/types';
 import RedButton from '#components/button/RedButton.component';
@@ -177,6 +180,7 @@ export class ThemeForm extends Component<Props, State> {
       <div>
         <Dialog open={this.state.isWarningDialogOpen}>
           <DialogTitle>
+            {/* @ts-expect-error */}
             <Typography className={classes.bold} variant="h6">
               {t('forms.warningColorBrightness.title')}
             </Typography>

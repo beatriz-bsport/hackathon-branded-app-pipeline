@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import {
@@ -26,6 +25,7 @@ export function fetchPartnershipList(options: OptionCallback) {
       dispatch(listPartnershipActions.success(response.data));
       dispatch(listPartnershipActions.error(null));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -59,6 +59,7 @@ export function requestPartnership(
       dispatch(requestPartnershipActions.success(response.data));
       dispatch(requestPartnershipActions.error(null));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -93,6 +94,7 @@ export function updatePartnership(
       dispatch(updatePartnershipActions.success(response.data));
       dispatch(updatePartnershipActions.error(null));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -127,6 +129,7 @@ export function fetchPartnershipEstablishmentMergeList(
       dispatch(listPartnershipEstablishmentMergeActions.error(null));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

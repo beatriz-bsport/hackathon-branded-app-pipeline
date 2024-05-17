@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import InfoIcon from '@material-ui/icons/Info';
@@ -12,10 +11,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Divider, Typography } from '@material-ui/core';
 import classNames from 'classnames';
+// @ts-expect-error
 import { Actions, Submit } from '#components/forms';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
-// @ts-expect-error
 import PasswordInput from '#components/input/PasswordInput.component';
 import {
   FranchiseUserRoleData,
@@ -23,6 +22,7 @@ import {
   FranchiseRole,
 } from '#libs/role/types';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Company } from '#libs/company/types';
@@ -108,6 +108,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
       last_name,
       first_name,
       franchisees_in_role_ids,
+      // @ts-expect-error
       staff_commission_percentage,
     });
     this.setState({
@@ -121,6 +122,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
     });
   };
 
+  // @ts-expect-error
   handleOnCommissionChange = (ev) => {
     let parsedValue = Number.parseFloat(ev.target.value.toString());
     parsedValue = parseFloat(parsedValue.toFixed(2));
@@ -209,6 +211,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             <div className={classes.field}>
               <PasswordInput
                 fullWidth
+                // @ts-expect-error
                 required
                 error={missingFields.password}
                 onChange={(ev: any) =>
@@ -219,6 +222,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
               />
             </div>
             <TextField
+              // @ts-expect-error
               castAsNumber
               fullWidth
               className={classes.field}

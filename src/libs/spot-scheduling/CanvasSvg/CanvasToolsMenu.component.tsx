@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   ButtonBase,
   Button,
@@ -34,11 +33,13 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import EraserIcon from './tools/Eraser/Eraser.icon';
+// @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 import CanvasSpotToolMenu from './CanvasSpotToolMenu.component';
 
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -97,6 +98,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
   };
 
   render() {
+    // @ts-expect-error
     const sortSpots = (a, b) => b.id - a.id;
     const { classes, t } = this.props;
     const copySpotTypes = [...(this.props.spotTypes || [])];
@@ -366,6 +368,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                       )
                     }
                     openSpotUpdateForm={() => {
+                      // @ts-expect-error
                       this.props.openSpotCreationForm(true);
                     }}
                     selected={
@@ -402,6 +405,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <ButtonBase
                 className={classes.addSpotButton}
                 onClick={() => {
+                  // @ts-expect-error
                   this.props.openSpotCreationForm(false);
                 }}
               >
@@ -653,6 +657,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['spotScheduling']),
 )(CanvasToolsMenu);

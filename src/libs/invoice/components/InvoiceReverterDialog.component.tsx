@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -331,6 +330,7 @@ export const InvoiceReverterDialog = ({
       </GenericResponsiveDialog>
 
       <GenericResponsiveDialog
+        // @ts-expect-error
         className={classes.container}
         maxWidth="sm"
         onClose={handleCloseAutoDebitModal}
@@ -365,6 +365,7 @@ export const InvoiceReverterDialog = ({
       </GenericResponsiveDialog>
 
       <GenericResponsiveDialog
+        // @ts-expect-error
         className={classes.container}
         maxWidth="sm"
         onClose={handleCloseBlockedModal}

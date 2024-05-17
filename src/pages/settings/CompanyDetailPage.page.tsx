@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
@@ -14,6 +13,7 @@ import {
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
 } from '#libs/company/actions';
 import { CompanySetup } from '#libs/company/types';
+// @ts-expect-error
 import CompanyDetail from '#components/companies/CompanyDetail.component';
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
@@ -80,6 +80,7 @@ export default compose(
   withHandlers({
     attachExternalAccount:
       ({ attachExternalAccount, retrieveMyCompanySetup }) =>
+      // @ts-expect-error
       (data, options) => {
         attachExternalAccount(data, {
           onSuccess: () => {

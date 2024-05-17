@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withState, withHandlers, withProps } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
@@ -49,8 +49,10 @@ import {
   showVaccinationStatus,
   withMemberProfileData,
 } from '../../libs/custom-form/selectors';
+// @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
 import type { OptionCallback } from '../../state/types';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
@@ -132,6 +134,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
   };
 
   submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
+    // @ts-expect-error
     this.props.submitCustomForm(formdata, this.props.membership.company, {
       onSuccess: () => {
         this.props.setEditMember(false);
@@ -186,7 +189,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
             showVaccinationStatus={this.props.showVaccinationStatus}
           />
         </Grid>
-
+        {/* @ts-expect-error  */}
         <CustomFormViewDialog
           fullWidth
           isWidget={WidgetUtils.isWidget()}
@@ -201,10 +204,13 @@ export class ConsumerProfile extends React.Component<Props, State> {
                 general_terms_and_conditions={
                   this.props.theme.general_terms_of_use
                 }
+                // @ts-expect-error
                 initial={this.props.memberCustomForm}
                 isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                // @ts-expect-error
                 layouts={this.props.memberCustomForm.layout}
                 onCancel={() => this.props.setEditMember(false)}
+                // @ts-expect-error
                 onSubmit={this.submitCustomForm}
                 waiver={this.props.theme.waiver}
               />
@@ -213,6 +219,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
         </CustomFormViewDialog>
         <Grid item md={6} xs={12}>
           <Paper className={classes.gridItemContainer}>
+            {/* @ts-expect-error */}
             <MemberPaymentMethodPanel
               detachPaymentMethod={this.props.detachPaymentMethod}
               detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
@@ -300,6 +307,7 @@ const connector = connect(
       getMemberCustomFormWithEnabledField,
     )(state, membership?.id),
     showVaccinationStatus: showVaccinationStatus(state),
+    // @ts-expect-error
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
     referralProgram: getTheReferralProgram(state),
     referralProgramLoading: getReferralProgramsLoading(state),

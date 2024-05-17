@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -87,11 +86,13 @@ export class OrderDetail extends Component<Props> {
           goToMember={goToMember}
           invoice={invoice}
           onInvoiceClick={onInvoiceClick}
+          // @ts-expect-error
           order={order}
           sendCommunication={this.props.sendCommunication}
           showVaccinationStatus={this.props.showVaccinationStatus}
           updateOrderState={(state) =>
             this.props.patchOrder(
+              // @ts-expect-error
               order.id,
               { state },
               {
@@ -110,6 +111,7 @@ const connector = connect(
     state: RootState,
     { orderId, relatedInvoice }: { orderId: string; relatedInvoice: string },
   ) => ({
+    // @ts-expect-error
     order: withMember(getOrder)(state, orderId),
     invoice: getInvoice(state, relatedInvoice),
     email_templates_list: getAllEmailTemplatesSummaries(state),
@@ -140,6 +142,7 @@ const mapWithHandlers = {
       setRelatedInvoice,
     }: OrderDetailConnectedProps & WithStateProps) =>
     (params: { order: string }) => {
+      // @ts-expect-error
       fetchByQueryInvoice(params, {
         onSuccess: (inv: Invoice) => setRelatedInvoice(inv.uuid),
       });
@@ -147,6 +150,7 @@ const mapWithHandlers = {
 };
 
 export default compose(
+  // @ts-expect-error
   routerParamsToProps({ id: 'orderId' }),
   withState('relatedInvoice', 'setRelatedInvoice', null),
   connector,

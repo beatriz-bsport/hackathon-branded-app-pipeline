@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -27,7 +26,9 @@ import {
   PriceField,
   TextField,
   SwitchField,
+  // @ts-expect-error
 } from '../../../../components/forms';
+// @ts-expect-error
 import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
 
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
@@ -339,6 +340,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 name="theorical_margin_value"
               />
             </Grid>
+            {/* @ts-expect-error */}
             <Grid item md={6} xs={0} />
           </>
         )}
@@ -399,6 +401,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <div className={classes.row}>
               <CheckboxField
                 disabled={initial && !initial?.editable}
+                // @ts-expect-error
                 id="paymentpack-form-penalty-cancellations-checkbox"
                 label={t('form.paymentPack.penalty.cancellationsCheckbox')}
                 name="penalty_active"
@@ -409,13 +412,14 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <div className={classes.row}>
               <CheckboxField
                 disabled={initial && !initial?.editable}
+                // @ts-expect-error
                 id="paymentpack-form-penalty-noshow-checkbox"
                 label={t('form.paymentPack.penalty.noShowCheckbox')}
                 name="no_show_penalty_active"
               />
             </div>
           </Grid>
-
+          {/* @ts-expect-error */}
           <Collapse in={errors.apply_penalties}>
             <Alert className={classes.alert} severity="error">
               {t(errors.apply_penalties)}
@@ -432,7 +436,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
               </Typography>
             </Grid>
           </Collapse>
-
           <Collapse in={values.penalty_active}>
             <Grid container className={classes.marginTop} spacing={4}>
               <>

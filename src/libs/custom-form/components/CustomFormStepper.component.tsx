@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -119,6 +118,7 @@ export const CustomFormStepper = (props: Props) => {
       formData: FormData,
       options?: OptionCallback,
     ) => {
+      // @ts-expect-error
       return props.onDirectSubmit(formData, customForm.id, false, options);
     };
     const handleDirectSubmitSnoozed = () => {
@@ -156,6 +156,7 @@ export const CustomFormStepper = (props: Props) => {
             isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             isSubmitting={props.customFormListIsSubmitting}
             onCancel={() => props.onDisconnect()}
+            // @ts-expect-error
             onSubmit={handleDirectSubmit}
           />
         </div>
@@ -213,13 +214,17 @@ export const CustomFormStepper = (props: Props) => {
                 isMulti
                 shouldWrapLayerInCssHoc
                 initial={customForm}
+                // @ts-expect-error
                 initialWithAnswer={getDraftData(customForm.id)}
                 isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                 isSubmitting={props.customFormListIsSubmitting}
+                // @ts-expect-error
                 onCancel={
                   customFormStep !== 0 ? handleCustomFormPrevious : null
                 }
+                // @ts-expect-error
                 onSubmit={handleCustomFormNext}
+                // @ts-expect-error
                 onSubmitDraft={(values: CustomForm) =>
                   handleSubmitDraft(customForm.id, values)
                 }

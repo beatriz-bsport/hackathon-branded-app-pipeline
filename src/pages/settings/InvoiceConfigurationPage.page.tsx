@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
@@ -19,6 +18,7 @@ import { RootState } from '../../reducers/index';
 
 import InfoTypography from '#components/typo/InfoTypography.components';
 
+// @ts-expect-error
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
 import {
   fetchInvoiceConfiguration,
@@ -171,6 +171,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
                     this.props.setOpenDialogForm(false);
                     this.props.setInitialBillingGroup(null);
                   }}
+                  // @ts-expect-error
                   onSubmit={this.props.upsertEstablishmentBillingGroup}
                   open={this.props.openDialogForm}
                 />
@@ -180,6 +181,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
           <>
             <BookkeepingAccountSection
               bookkeepingAccounts={this.props.bookkeepingAccounts}
+              // @ts-expect-error
               createBookkeepingAccount={this.props.createBookkeepingAccount}
               fetchDisplayedBookkeepingAccounts={
                 this.props.fetchBookkeepingAccountList
@@ -254,6 +256,7 @@ const mapWithHandlers = {
     (data: FormData, options: OptionCallback) => {
       props.submitTheme(props.theme.company, data, options);
     },
+  // @ts-expect-error
   patchInvoiceConfiguration: (props: OwnAndConnectedProps) => (data) => {
     props.patchInvoiceConfigurationAction(data, {
       onSuccess: () => props.snackbarSuccess('settings.update.success'),
@@ -326,9 +329,12 @@ const mapWithHandlers = {
       });
     },
   fetchBookkeepingAccountList:
-    ({ fetchBookkeepingAccountList }) =>
-    () =>
-      fetchBookkeepingAccountList({ is_active: true }),
+    // @ts-expect-error
+
+
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
 };
 const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,

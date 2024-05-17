@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import Select from 'react-select';
 import EstablishmentsSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+// @ts-expect-error
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 
 import { Coach } from '#libs/associated-coach/types';
@@ -64,30 +64,35 @@ const ReplacementRequestFilters: React.FC<Props> = ({
         case FILTER_COACH:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             coach__in: newValues.map((e) => e.value),
           });
           break;
         case FILTER_ESTABLISHMENT:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             establishment__in: newValues.map((e) => e.value),
           });
           break;
         case FILTER_ESTABLISHMENT_GROUP:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             establishment_group__in: newValues.map((e) => e.value),
           });
           break;
         case FILTER_ACTIVITY:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             meta_activity__in: newValues.map((e) => e.value),
           });
           break;
         case FILTER_CATEGORY:
           setReplacementRequestManagerFilter({
             ...replacementRequestManagerFilter,
+            // @ts-expect-error
             category__in: newValues.map((e) => e.value),
           });
           break;
@@ -121,6 +126,7 @@ const ReplacementRequestFilters: React.FC<Props> = ({
           selectedEstablishments={
             replacementRequestManagerFilter.establishment__in
           }
+          // @ts-expect-error
           selectOption={(ev) => setFilter(ev, FILTER_ESTABLISHMENT)}
         />
       </div>
@@ -134,6 +140,7 @@ const ReplacementRequestFilters: React.FC<Props> = ({
             selectedEstablishmentGroups={
               replacementRequestManagerFilter.establishment_group__in
             }
+            // @ts-expect-error
             selectOption={(ev) => setFilter(ev, FILTER_ESTABLISHMENT_GROUP)}
           />
         </div>
@@ -145,6 +152,7 @@ const ReplacementRequestFilters: React.FC<Props> = ({
           selectedMetaActivities={
             replacementRequestManagerFilter.meta_activity__in
           }
+          // @ts-expect-error
           selectOption={(ev) => setFilter(ev, FILTER_ACTIVITY)}
         />
       </div>
@@ -152,6 +160,7 @@ const ReplacementRequestFilters: React.FC<Props> = ({
         <Select
           isClearable
           isMulti
+          // @ts-expect-error
           onChange={(ev) => setFilter(ev, FILTER_CATEGORY)}
           options={SCTOptions}
           placeholder={t('selects.category')}

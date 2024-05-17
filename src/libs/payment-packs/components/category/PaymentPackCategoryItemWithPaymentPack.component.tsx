@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -33,6 +32,7 @@ import type {
   PaymentPackCategoryWithPacks,
 } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
+// @ts-expect-error
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 import { ManagerOnly } from '../PaymentPackFilterAndSortHeader.component';
 
@@ -381,6 +381,7 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
           <Collapse className={classes.collapse} in={expandCollapse}>
             {!!(paymentPackCategory && paymentPackCategory.packs) &&
               (paymentPackCategory.packs.length ? (
+                // @ts-expect-error
                 <SortablePaymentPackList
                   {...props}
                   empty={t('selector.noAvailable')}
@@ -441,10 +442,12 @@ export const PresentationalComponentPackCategory = compose<
   SimplifiedCategoryProps
 >(
   withTranslation('paymentPack'),
+  // @ts-expect-error
   withStyles(styles),
 )(PresentationalComponentPaymentPackCategory);
 
 export default compose<any, OwnProps>(
   withTranslation('paymentPack'),
+  // @ts-expect-error
   withStyles(styles),
 )(PaymentPackCategoryItemWithPaymentPack);

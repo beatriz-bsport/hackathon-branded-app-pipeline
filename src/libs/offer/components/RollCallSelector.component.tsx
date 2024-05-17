@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
@@ -39,8 +38,11 @@ const RollCallSelector: React.FC<Props> = (props: Props) => {
 };
 
 const rollCallStyles = {
+  // @ts-expect-error
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     let backgroundColor = null;

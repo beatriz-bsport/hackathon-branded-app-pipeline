@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -7,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+// @ts-expect-error
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 import { formatAsDatetime } from '../../../utils/datetime';
 import { BookingSource } from '../../booking/utils';
@@ -48,6 +48,7 @@ class WaitingListDetail extends React.PureComponent<Props> {
               <Typography>
                 {`${t('member.detail.registrationSource')}: `}
               </Typography>
+              {/* @ts-expect-error */}
               <BookingSource source={bookingOption.source} t={this.props.t} />
             </div>
           </div>
@@ -69,6 +70,7 @@ class WaitingListDetail extends React.PureComponent<Props> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   parametersContainer: {
     padding: theme.spacing(2),
@@ -86,6 +88,7 @@ const styles = (theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['waitingList']),
 )(WaitingListDetail);

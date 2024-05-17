@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +5,7 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 import { Divider, Theme, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';

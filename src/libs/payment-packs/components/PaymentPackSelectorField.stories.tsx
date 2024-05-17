@@ -1,8 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import withFormik from '@bbbtech/storybook-formik';
+// @ts-expect-error
 import PaymentPackSelectorField from './PaymentPackSelectorField.component';
+// @ts-expect-error
 import PaymentPackFactoryBot from '../factory';
 
 const basicChoices = PaymentPackFactoryBot.PaymentPack.create(10);

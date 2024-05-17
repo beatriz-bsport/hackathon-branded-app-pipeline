@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import * as Yup from 'yup';
+// @ts-expect-error
 import { Submit } from '../../../components/forms';
+// @ts-expect-error
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import type { PaymentPack } from '#libs/payment-packs/types';
 
@@ -94,6 +95,7 @@ export const PriceUpdaterSchema = Yup.object().shape({
 });
 
 export const SubscriptionPackSwitcherFormikHoc = withFormik({
+  // @ts-expect-error
   mapPropsToValues: ({ subscription }) => ({
     subscription: subscription.id,
     payment_pack: subscription.payment_pack
@@ -101,6 +103,7 @@ export const SubscriptionPackSwitcherFormikHoc = withFormik({
       : null,
   }),
   validationSchema: PriceUpdaterSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),

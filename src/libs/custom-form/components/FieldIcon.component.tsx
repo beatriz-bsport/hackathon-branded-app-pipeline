@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import TitleIcon from '@material-ui/icons/Title';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
@@ -32,26 +31,37 @@ type Props = {
 export function FieldIcon(props: Props) {
   switch (props.field_id) {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
+      // @ts-expect-error
       return <TitleIcon {...props} />;
     case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
+      // @ts-expect-error
       return <TextFieldsIcon {...props} />;
     case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
+      // @ts-expect-error
       return <ShortTextIcon {...props} />;
     case CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION:
+      // @ts-expect-error
       return <NotesIcon {...props} />;
     case CUSTOM_FORM_FIELD_RADIO_OPTION:
+      // @ts-expect-error
       return <RadioButtonCheckedIcon {...props} />;
     case CUSTOM_FORM_FIELD_CHECHBOX_OPTION:
+      // @ts-expect-error
       return <CheckBoxIcon {...props} />;
     case CUSTOM_FORM_FIELD_SELECT_OPTION:
+      // @ts-expect-error
       return <ArrowDropDownCircleIcon {...props} />;
     case CUSTOM_FORM_FIELD_SIGNATURE_OPTION:
+      // @ts-expect-error
       return <BorderColorIcon {...props} />;
     case CUSTOM_FORM_FIELD_FILE_OPTION:
+      // @ts-expect-error
       return <CloudUploadIcon {...props} />;
     case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
+      // @ts-expect-error
       return <HelpOutlineIcon {...props} />;
     case CUSTOM_FORM_FIELD_LOCATION_OPTION:
+      // @ts-expect-error
       return <LocationCityIcon {...props} />;
     default:
       return <div />;

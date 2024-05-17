@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -82,6 +81,7 @@ const GraphParamQualitativeForm: React.FC<Props> = ({
             className={classNames(classes.selectInput)}
             isDisabled={groupByOptions.length === 1}
             name="graph_params.group_by"
+            // @ts-expect-error
             options={groupByOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
@@ -106,6 +106,7 @@ const GraphParamQualitativeForm: React.FC<Props> = ({
             className={classes.selectInput}
             isDisabled={groupByValueOptions.length === 1}
             name="graph_params.group_by_value"
+            // @ts-expect-error
             options={groupByValueOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',

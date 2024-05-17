@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation, WithTranslation } from 'react-i18next';
@@ -73,8 +72,10 @@ export const CoachPerformanceSynthese = (props: Props) => {
               isClearable
               isGroupSelect
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRuleGroups}
               onChange={(item: { value: number; label: string }) => {
+                // @ts-expect-error
                 props.setCoachPaymentRuleGroup(
                   coach.id,
                   item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
@@ -106,6 +107,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -137,6 +139,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -166,6 +169,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               }}
               placeholder={t('paymentRules:label')}
               selectedRules={[
+                // @ts-expect-error
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
                       coach.coach_payment_rule_group_id
@@ -231,8 +235,11 @@ export default React.memo(
   compose<any, OwnProps>()(CoachPerformanceSynthese),
   (props: Props, NextProps: Props) => {
     if (
+      // @ts-expect-error
       !props.loading &&
+      // @ts-expect-error
       NextProps.loading &&
+      // @ts-expect-error
       !NextProps.performance?.performanceLoading
     ) {
       return true;

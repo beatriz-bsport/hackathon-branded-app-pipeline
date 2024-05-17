@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +16,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
+// @ts-expect-error
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -129,7 +129,8 @@ export const MemberBillingProblemCard = (props: Props) => {
         invoice: invoiceToBill ? invoiceToBill.uuid : null,
         member: props.memberId,
         requested_price_cts: amountToBill
-          ? parseInt(parseFloat(amountToBill) * 100, 10)
+          ? // @ts-expect-error
+            parseInt(parseFloat(amountToBill) * 100, 10)
           : null,
         ...(params || {}),
       },
@@ -178,6 +179,7 @@ export const MemberBillingProblemCard = (props: Props) => {
     props.applyBalanceToInvoice(invoiceToBill?.uuid, options);
 
   let color = 'secondary';
+  // @ts-expect-error
   const parsedBalance = parseFloat(balance);
   if (parsedBalance > 0) {
     color = 'primary';
@@ -190,9 +192,11 @@ export const MemberBillingProblemCard = (props: Props) => {
     () =>
       invoiceToBill
         ? parseFloat(
+            // @ts-expect-error
             invoiceToBill.amount_due_cts - invoiceToBill.amount_paid_cts,
           ).toFixed(2)
-        : Math.round(amountToBill * 100),
+        : // @ts-expect-error
+          Math.round(amountToBill * 100),
     [invoiceToBill, amountToBill],
   );
   return (
@@ -222,6 +226,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                     <div className={classes.buttonContainer}>
                       <Typography
                         inline
+                        // @ts-expect-error
                         color={color}
                         component="span"
                         variant="h6"
@@ -237,6 +242,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                           disabled={props.memberLoading}
                           onClick={() => {
                             if (props.asConsumer) {
+                              // @ts-expect-error
                               setAmountToBill(Math.abs(parseFloat(balance)));
                             } else {
                               setAdjustBalanceDialogOpen(true);
@@ -267,6 +273,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                       <div className={classes.buttonContainer}>
                         <Typography
                           inline
+                          // @ts-expect-error
                           color={color}
                           component="span"
                           variant="h6"
@@ -312,6 +319,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                     consumerGiftcardList={props.consumerGiftcardList}
                     invoiceList={unpaidInvoiceList}
                     loading={props.invoiceLoading}
+                    // @ts-expect-error
                     onBill={
                       props.asConsumer && props.onlinePaymentEnabled === false
                         ? null
@@ -329,6 +337,7 @@ export const MemberBillingProblemCard = (props: Props) => {
               !props.asConsumer && (
                 <div className={classes.payAllButtonContainer}>
                   <Button
+                    // @ts-expect-error
                     className={classes.payAllButton}
                     color="primary"
                     onClick={() => setRegularizeFullDebt(true)}
@@ -343,7 +352,9 @@ export const MemberBillingProblemCard = (props: Props) => {
                 open
                 asManager={props.asConsumer === false}
                 enableMultiLocalization={props.enableMultiLocalization}
+                // @ts-expect-error
                 establishmentBillingGroups={props.establishmentBillingGroups}
+                // @ts-expect-error
                 initialValue={parseFloat(props.balance)}
                 onClose={() => setAdjustBalanceDialogOpen(false)}
                 onSubmit={(arg, withoutPaymentNote) => {
@@ -351,13 +362,16 @@ export const MemberBillingProblemCard = (props: Props) => {
                     props.adjustCreditWithoutPaymentNote(arg);
                     setAdjustBalanceDialogOpen(false);
                   } else {
+                    // @ts-expect-error
                     setAmountToBill(arg);
                     setAdjustBalanceDialogOpen(false);
                   }
                 }}
+                // @ts-expect-error
                 selectedEstablishmentBillingGroup={
                   selectedEstablishmentBillingGroup
                 }
+                // @ts-expect-error
                 setSelectedEstablishmentBillingGroup={
                   setSelectedEstablishmentBillingGroup
                 }
@@ -392,6 +406,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                 memberId={props.memberId}
                 onCancel={() => {
                   setInvoiceToBill(null);
+                  // @ts-expect-error
                   setAmountToBill(0);
                   setRegularizeFullDebt(false);
                   if (props.onInvoicePaymentDialogClose)
@@ -399,10 +414,13 @@ export const MemberBillingProblemCard = (props: Props) => {
                 }}
                 onError={() => {}}
                 onlyInternal={
+                  // @ts-expect-error
                   (amountToBill && amountToBill < 0) ||
+                  // @ts-expect-error
                   props.forceOnlyInternal ||
                   (!props.asConsumer &&
                     !regularizeFullDebt &&
+                    // @ts-expect-error
                     amountDisplayed <
                       TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS)
                 }

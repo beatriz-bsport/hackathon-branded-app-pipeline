@@ -1,4 +1,3 @@
-// @ts-nocheck
 import reduce from 'lodash/reduce';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
@@ -22,6 +21,7 @@ export const getSignUpFormConfigurationDict = createSelector(
       {},
     );
 
+    // @ts-expect-error
     configDict.password = {
       field_identifier: 'password',
       is_always_required: true,
@@ -32,6 +32,7 @@ export const getSignUpFormConfigurationDict = createSelector(
       show_on_creation: true,
       show_on_edition: true,
     };
+    // @ts-expect-error
     configDict.passwordConfirm = {
       field_identifier: 'passwordConfirm',
       is_always_required: true,

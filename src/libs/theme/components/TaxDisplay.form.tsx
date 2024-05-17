@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -38,6 +37,7 @@ export const TaxDisplayForm = (props: Props) => {
           const data = new FormData();
           data.append(
             'is_tax_excluded_in_marketplace',
+            // @ts-expect-error
             values.is_tax_excluded_in_marketplace,
           );
           submit(data, {

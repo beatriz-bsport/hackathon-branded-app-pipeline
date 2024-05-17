@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -86,6 +85,7 @@ const GraphParamTimeslotsForm: React.FC<Props> = ({
               {
                 // This value matches the one from Formik's values so that this entry
                 // shows as selected
+                // @ts-expect-error
                 value: dateForSlots,
                 label: t('dataSourceIdentifiers.booking_effectif_timeslots'),
               },

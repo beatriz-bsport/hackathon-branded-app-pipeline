@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Field } from 'formik';
@@ -14,6 +13,7 @@ type Props = CarouselInputProps & {
 export const CarouselInputField = (props: Props) => {
   return (
     <Field {...props} name={props.textFieldName}>
+      {/* @ts-expect-error */}
       {({ field, form: { touched, errors, setFieldValue } }) => {
         return (
           <div>

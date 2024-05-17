@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -17,6 +16,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyCode } from '../../theme/selectors';
+// @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';

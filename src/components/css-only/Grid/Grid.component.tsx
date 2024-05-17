@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classNames from 'classnames';
 import GridItem from './GridItem';
@@ -12,6 +11,7 @@ export type Props = {
 
 export const Grid: React.FC<Props> = ({ children, classes }) => {
   const GridItemComponents = React.Children.toArray(children).filter(
+    // @ts-expect-error
     (child) => child?.type?.name === GridItem.name,
   );
 

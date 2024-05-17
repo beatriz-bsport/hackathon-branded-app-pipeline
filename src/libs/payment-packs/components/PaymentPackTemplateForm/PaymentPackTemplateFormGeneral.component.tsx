@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -24,6 +23,7 @@ import {
   PriceField,
   TextField,
   SwitchField,
+  // @ts-expect-error
 } from '#components/forms';
 
 import {
@@ -58,6 +58,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
     { label: t('addPaymentPack.unlimited'), value: 'unlimited' },
   ];
 
+  // @ts-expect-error
   const handleCreditNumberChange = (_, value) => {
     if (value === 'limited') {
       setFieldValue('unlimited', false);
@@ -209,6 +210,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               name="theorical_margin_value"
             />
           </Grid>
+          {/* @ts-expect-error */}
           <Grid item md={6} xs={0} />
         </>
       )}
@@ -278,7 +280,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             />
           </div>
         </Grid>
-
+        {/* @ts-expect-error */}
         <Collapse in={errors.apply_penalties}>
           <Alert className={classes.alertContainer} severity="error">
             {t(errors.apply_penalties)}
@@ -295,7 +297,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
             </Typography>
           </Grid>
         </Collapse>
-
         <Collapse in={values.penalty_active}>
           <Grid container className={classes.marginTop} spacing={4}>
             <>

@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React from 'react';
 
 import classNames from 'classnames';
 import GiftcardListItem from './GiftcardListItem.component';
+// @ts-expect-error
 import Selector from '../../../components/Selector.component';
 
 import { Giftcard } from '../types';
@@ -41,6 +41,7 @@ function paymentComboOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <GiftcardListItem
+        // @ts-expect-error
         button
         dense
         noDivider
@@ -64,6 +65,7 @@ export function GiftcardSelector(props: Props) {
     classes,
   } = props;
   const suggestions = [...(giftcardList || [])]
+    // @ts-expect-error
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
 
@@ -74,6 +76,7 @@ export function GiftcardSelector(props: Props) {
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
       nullCurrentValue={nullCurrentValue}
+      // @ts-expect-error
       onChange={(event) => onChange(event.value)}
       placeholder={helperText}
       selected={value}

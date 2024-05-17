@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -77,6 +76,7 @@ export class GiftcardCheckout extends React.Component<Props> {
       <ConsumerAppBarContainer>
         <div className={classes.container}>
           <ConsumerGiftcardFormWithPreview
+            // @ts-expect-error
             companyCover={this.props.theme.cover}
             giftcard={this.props.giftcard}
             giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}

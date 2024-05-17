@@ -1,4 +1,3 @@
-// @ts-nocheck
 // tests back
 // validation front
 // page DETAIL
@@ -9,6 +8,7 @@ import uniq from 'lodash/uniq';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
+// @ts-expect-error
 import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
 
 import { getFreshSmartListIds } from './selectors';
@@ -47,6 +47,7 @@ import type {
   OptionPaginatedCallback,
 } from '../../state/types';
 
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import {
   AutomatedCampaign,
@@ -101,6 +102,7 @@ export function fetchSmartLists(params: any, options?: OptionCallback) {
     try {
       const res = await fetchSmartListListAPI(params);
       dispatch(smartListFilterAction.success(res.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(res.data);
     } catch (err) {
       dispatch(smartListFilterAction.error(err));
@@ -185,6 +187,7 @@ export function copySmartList(
       dispatch(smartListCopyAction.success(response.data));
       dispatch(snackbarSuccess('smartlist.duplicate.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.id);
       }
       dispatch(smartListCopyAction.error(null));
@@ -216,6 +219,7 @@ export function smartListCreate(
       dispatch(createSmartListAction.success(response.data));
       dispatch(createSmartListAction.error(null));
       dispatch(snackbarSuccess('smartlist.create.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(createSmartListAction.error(error));
@@ -320,6 +324,7 @@ export function createFilter(
       if (options && options.callback) options.callback(smartListId);
       if (options && options.onSuccess) options.onSuccess();
       const filterData = response.data;
+      // @ts-expect-error
       filterData.filter_identifier = filter_identifier;
       dispatch(
         filterCreateAction.success({
@@ -622,6 +627,7 @@ export function fetchSmartListAutomatedCampaign(
     try {
       const response = await fetchSmartListAutomatedCampaignsAPI(params);
       dispatch(
+        // @ts-expect-error
         listSmartListAutomatedCampaignActions.success(response.data.results),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -648,6 +654,7 @@ export const createSmartListAutomatedCampaign = (
     try {
       const response = await createSmartListAutomatedCampaignAPI(data);
       dispatch(createSmartListAutomatedCampaignActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -681,6 +688,7 @@ export const updateSmartListAutomatedCampaign = (
     try {
       const response = await updateSmartListAutomatedCampaignAPI(id, data);
       dispatch(updateSmartListAutomatedCampaignActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -781,6 +789,7 @@ export function getMemberTableBackground(id: number, options?: OptionCallback) {
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       dispatch(
         monitorBackgroundTask(backgroundTaskUuid, {
+          // @ts-expect-error
           onSuccess: options?.onSuccess,
         }),
       );
@@ -815,15 +824,19 @@ export function fetchStoredCsvExports(id: number, options?: OptionCallback) {
       const response = await fetchStoredCsvExportsAPI(id);
 
       // the data is formatted with the date of the generation of the csv in this format 'date_created|export_link'
+      // @ts-expect-error
       if (response.data.includes('|')) {
+        // @ts-expect-error
         const dateAndLink = response.data.split('|');
         dispatch(
+          // @ts-expect-error
           fetchStoredCsvExportsActions.successDate({
             smartlist_id: id,
             date: dateAndLink[0],
           }),
         );
         dispatch(
+          // @ts-expect-error
           fetchStoredCsvExportsActions.successLink({
             smartlist_id: id,
             link: dateAndLink[1],
@@ -831,6 +844,7 @@ export function fetchStoredCsvExports(id: number, options?: OptionCallback) {
         );
       }
 
+      // @ts-expect-error
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchStoredCsvExportsActions.error(error));

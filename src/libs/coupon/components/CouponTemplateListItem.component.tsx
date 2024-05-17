@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@material-ui/icons/Edit';
@@ -43,6 +42,7 @@ const CouponTemplateListItem = React.memo(
     return (
       <ListItem
         divider
+        // @ts-expect-error
         button={!!onClick}
         onClick={onClick && (() => onClick(template.id))}
       >
@@ -50,8 +50,10 @@ const CouponTemplateListItem = React.memo(
           primary={`${template.name} (${template.nb_discounts})`}
           secondary={renderSecondaryText(template)}
         />
+        {/* @ts-expect-error */}
         <FranchiseCompanyChipList companies={template.companies} />
         <ListItemResponsiveAction
+          // @ts-expect-error
           actions={
             template.disabled
               ? [

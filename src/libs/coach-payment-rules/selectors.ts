@@ -1,4 +1,3 @@
-// @ts-nocheck
 import values from 'lodash/values';
 import compact from 'lodash/compact';
 import memoize from 'memoize-one';
@@ -18,14 +17,19 @@ import {
 } from '#libs/associated-coach/selectors';
 
 import type {
+  // @ts-expect-error
   AssociatedCoachWithPerformance,
   Coach,
+  // @ts-expect-error
   CoachPaymentRule,
+  // @ts-expect-error
   CoachPaymentRuleGroup,
+  // @ts-expect-error
   CoachPaymentRuleGroupAPI,
 } from '#libs/associated-coach/types';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
+  // @ts-expect-error
   state.coachPaymentRules.items[id];
 const _CoachPaymentRulesDict = (state: RootState) =>
   state.coachPaymentRules.items;
@@ -94,6 +98,7 @@ export const getAssociatedCoachSessionPerformance = (
   state: RootState,
   associatedCoachId: number,
 ) =>
+  // @ts-expect-error
   state.coachPaymentRules.performance.session.byAssociatedCoachId[
     associatedCoachId
   ]?.data;
@@ -101,6 +106,7 @@ export const getAssociatedCoachPrivateServicePerformance = (
   state: RootState,
   associatedCoachId: number,
 ) =>
+  // @ts-expect-error
   state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
     associatedCoachId
   ]?.data;
@@ -111,10 +117,12 @@ export const getAssociatedCoachPerformances = (
 ) => {
   return {
     [COACH_PERFORMANCE_FOR_SESSION]:
+      // @ts-expect-error
       state.coachPaymentRules.performance.session.byAssociatedCoachId[
         associatedCoachId
       ]?.data,
     [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+      // @ts-expect-error
       state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
         associatedCoachId
       ]?.data,
@@ -146,6 +154,7 @@ export const getCoachPerformanceCachedDataList = createSelector(
 
 export const getAllAssociatecCoachPerformanceFromCachedData = (
   state: RootState,
+  // @ts-expect-error
   _,
   timestamp: number | null,
 ) => {
@@ -192,9 +201,11 @@ export const withCachedCoachPerformance = memoize((selector: any) =>
               performanceLoading:
                 coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
                   ass.associated_coach_id
+                  // @ts-expect-error
                 ]?.loading ||
                 coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
                   ass.associated_coach_id
+                  // @ts-expect-error
                 ]?.loading ||
                 false,
             },
@@ -220,17 +231,21 @@ export const withCoachPerformance = memoize((selector: any) =>
           ...ass,
           performance: {
             [COACH_PERFORMANCE_FOR_SESSION]:
+              // @ts-expect-error
               coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
                 ass.associated_coach_id
               ]?.data,
             [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+              // @ts-expect-error
               coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
                 ass.associated_coach_id
               ]?.data,
             performanceLoading:
+              // @ts-expect-error
               coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
                 ass.associated_coach_id
               ]?.loading ||
+              // @ts-expect-error
               coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
                 ass.associated_coach_id
               ]?.loading ||
@@ -241,19 +256,24 @@ export const withCoachPerformance = memoize((selector: any) =>
 
       return {
         ...associatedCoachList,
+        // @ts-expect-error
         performance: {
           [COACH_PERFORMANCE_FOR_SESSION]:
+            // @ts-expect-error
             coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
               associatedCoachList.associated_coach_id
             ]?.data,
           [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+            // @ts-expect-error
             coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
               associatedCoachList.associated_coach_id
             ]?.data,
           performanceLoading:
+            // @ts-expect-error
             coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
               associatedCoachList.associated_coach_id
             ]?.loading ||
+            // @ts-expect-error
             coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
               associatedCoachList.associated_coach_id
             ]?.loading ||

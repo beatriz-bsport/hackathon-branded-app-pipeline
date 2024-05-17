@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -11,6 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+// @ts-expect-error
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { Contract } from '../types';
@@ -81,6 +81,7 @@ const SubscriptionContractDetail = (props: Props) => {
               divider
               hidePacksNumber
               isExcludingTax={props.isExcludingTax}
+              // @ts-expect-error
               pack={payment_pack}
             />
           </div>
@@ -88,6 +89,7 @@ const SubscriptionContractDetail = (props: Props) => {
         {!!private_pass && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.privatePass')}</Typography>
+            {/* @ts-expect-error */}
             <PrivatePassListItem divider pass={private_pass} />
           </div>
         )}

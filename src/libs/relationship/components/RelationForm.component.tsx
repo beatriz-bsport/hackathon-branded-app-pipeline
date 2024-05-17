@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 
@@ -18,6 +17,7 @@ import { Link as LinkIcon, Mail, People } from '@material-ui/icons';
 import { Formik } from 'formik';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { Member } from '#libs/member/types';
+// @ts-expect-error
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import { OptionCallback } from '../../../state/types';

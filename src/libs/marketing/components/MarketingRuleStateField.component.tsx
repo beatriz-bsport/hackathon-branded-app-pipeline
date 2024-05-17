@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Typography, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+// @ts-expect-error
 import { RadioGroupField } from '#components/forms';
 
 import { useStyles } from './marketing-rule-form/marketing_rule_form.hooks';

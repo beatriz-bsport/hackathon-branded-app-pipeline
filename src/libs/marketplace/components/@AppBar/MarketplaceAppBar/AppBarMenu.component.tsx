@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -60,7 +59,10 @@ const AppBarMenu: React.FC<MenuProps> = ({
         value={parseInt(tabSelected, 10)}
         variant="scrollable"
       >
-        {(
+        {
+          // prettier-ignore
+          (
+        // @ts-expect-error
           (settings.config && settings.config.tabs ? [] : settings.config) || []
         ).map((tab, i) => {
           if (
@@ -85,7 +87,8 @@ const AppBarMenu: React.FC<MenuProps> = ({
               value={i}
             />
           );
-        })}
+        })
+        }
       </Tabs>
     </AppBar>
   );

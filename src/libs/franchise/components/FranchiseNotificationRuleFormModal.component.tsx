@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useRef, useState } from 'react';
 import { compose } from 'recompose';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
@@ -26,6 +25,7 @@ import {
   CheckboxField,
   Submit,
   TextField,
+  // @ts-expect-error
 } from '../../../components/forms';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import FranchiseCompaniesSelector from './FranchiseCompaniesSelector.component';
@@ -33,6 +33,7 @@ import {
   EmailTemplateDetail,
   EmailTemplateSummary,
 } from '../../email-editor/types';
+// @ts-expect-error
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import InfoBox from '#components/box/InfoBox.component';
@@ -61,11 +62,17 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
     open,
     companies,
     emailTemplates,
+    // @ts-expect-error
     isSubmitting,
+    // @ts-expect-error
     setFieldValue,
+    // @ts-expect-error
     values,
+    // @ts-expect-error
     handleSubmit,
+    // @ts-expect-error
     dirty,
+    // @ts-expect-error
     isValid,
     onClose,
     classes,
@@ -121,6 +128,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
           <div className={classes.selector}>
             <div className={classes.emailSelector}>
               <EmailSelector
+                // @ts-expect-error
                 error
                 disabled={restrictedAccess}
                 emails={
@@ -183,6 +191,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
             onChange={(newValue) => {
               setFieldValue(
                 'selectedCompanies',
+                // @ts-expect-error
                 newValue.map((val) => parseInt(val?.value, 10)), // don't touch selected unallowed companies {...selectedCompanies.filter((id)=> companies.some((c)=>c.id=id && !c.allowed)), ...newValue.blabla}
               );
             }}
@@ -325,6 +334,7 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['notificationRule']),
   withFormik({
+    // @ts-expect-error
     mapPropsToValues: ({ initial, rule }) =>
       initial || {
         name: rule?.title ?? '',
@@ -336,6 +346,7 @@ export default compose<any, OwnProps>(
     validationSchema: NoticationSchema,
     handleSubmit: (
       values,
+      // @ts-expect-error
       { props: { onSubmit, notification_event }, setSubmitting },
     ) => {
       const data = {

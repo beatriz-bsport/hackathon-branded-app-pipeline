@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -162,6 +161,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
   };
 
   toggleCollapse = () => {
+    // @ts-expect-error
     this.setState((prevState) => {
       if (prevState.advancedSectionOpen) {
         return { advancedSectionOpen: false, selectedEstablishments: [] };
@@ -173,6 +173,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
   onSpecificEstablishmentChange = (
     newValues: Array<{ label: string; value: string | number }>,
   ) => {
+    // @ts-expect-error
     this.setState({ selectedEstablishments: newValues.map((e) => e.value) });
   };
 

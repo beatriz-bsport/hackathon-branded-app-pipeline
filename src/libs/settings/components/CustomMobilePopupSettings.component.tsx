@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +21,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+// @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
 import { CustomMobilePopup } from '#libs/settings/types';
 import CustomMobilePopupDialog from './CustomMobilePopupDialog.dialog';
@@ -79,6 +79,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
   }) => {
     if (param.id) {
       updateCustomMobilePopup(
+        // @ts-expect-error
         { id: param.id, data: param.values },
         {
           onSuccess: () => {
@@ -95,6 +96,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
       );
       return;
     }
+    // @ts-expect-error
     createCustomMobilePopup(param.values, {
       onSuccess: () => {
         param.options.onSuccess();
@@ -165,6 +167,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
 
                     <DeleteWithConfirm
                       color="secondary"
+                      // @ts-expect-error
                       onClick={handleDelete(popup.id)}
                     />
                   </TableCell>

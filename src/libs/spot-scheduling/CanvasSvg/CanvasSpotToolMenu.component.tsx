@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ButtonBase, Theme, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
@@ -39,6 +38,7 @@ export const CanvasSpotToolMenu = (props: Props) => {
 
   return (
     <div className={classes.itemContainer}>
+      {/* @ts-expect-error */}
       <ButtonBase
         className={clx({
           [classes.spot]: true,
@@ -197,4 +197,5 @@ const styles = (theme: Theme) => ({
   },
 });
 
+// @ts-expect-error
 export default withStyles(styles)(CanvasSpotToolMenu);

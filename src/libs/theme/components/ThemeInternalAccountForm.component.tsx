@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
@@ -75,6 +74,7 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
   onSubmit = () => {
     const data = new FormData();
     ['consumer_regularize_debt', 'allow_consumer_to_use_internal_account'].map(
+      // @ts-expect-error
       (key) => data.append(key, this.state.theme[key]),
     );
     this.props.onSubmit(this.props.theme.company, data);
@@ -167,6 +167,7 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
                 <div className={classes.goToReportRow}>
                   <Button
                     color="secondary"
+                    // @ts-expect-error
                     onClick={() => this.props.goToReports()}
                     variant="outlined"
                   >
@@ -267,6 +268,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['theme', 'common']),
 )(ThemeInternalAccountForm);

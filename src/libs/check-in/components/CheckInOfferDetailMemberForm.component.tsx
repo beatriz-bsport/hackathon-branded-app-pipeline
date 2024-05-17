@@ -1,13 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withProps } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 
 import { snackbar } from '../../snackbar/actions';
+// @ts-expect-error
 import MemberForm from '../../member/MemberForm.component';
 import { MemberMap } from '../../member/utils';
 
+// @ts-expect-error
 import { mapFormData } from '../../../pages/form.utils';
 import { OptionCallback } from '../../../state/types';
 

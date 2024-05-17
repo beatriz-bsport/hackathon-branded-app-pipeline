@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -42,6 +41,7 @@ export const MemberBaseFilter = (props: Props) => {
             onChange={(ev) =>
               smartListUpdate(smartlist.id, {
                 ...smartlist,
+                // @ts-expect-error
                 member_base: ev.target.value,
               })
             }

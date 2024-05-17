@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
@@ -175,7 +174,9 @@ import {
   showDeleteDialog,
 } from '#components/genericDialog/CustomDialogs';
 import FiltersPanel from '#libs/smart-list/components/FiltersPanel.component';
+// @ts-expect-error
 import AutoTagPanel from '#libs/smart-list/components/AutoTagPanel.component';
+// @ts-expect-error
 import SmartListEditDialog from '#libs/smart-list/components/SmartListFormDialog.component';
 import AutomatedCampaignDrawer from '#libs/smart-list/components/automated_campaign/AutomatedCampaignDrawer.component';
 import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
@@ -391,12 +392,16 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   };
 
   getAlreadyConfiguredCommunicationKind = () => {
-    return this.props.smartlist_automated_campaigns
-      ?.filter(
-        (_campaign: AutomatedCampaign) =>
-          _campaign?.event_kind === this.props.automatedCampaignCreateEventkind,
-      )
-      ?.map((aut_co: AutomatedCampaign) => aut_co.communication_kind);
+    return (
+      this.props.smartlist_automated_campaigns
+        // @ts-expect-error
+        ?.filter(
+          (_campaign: AutomatedCampaign) =>
+            _campaign?.event_kind ===
+            this.props.automatedCampaignCreateEventkind,
+        )
+        ?.map((aut_co: AutomatedCampaign) => aut_co.communication_kind)
+    );
   };
 
   handleCommunicationDrawerClose = () => {
@@ -404,6 +409,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   };
 
   handleBackgroundCsvExport = () => {
+    // @ts-expect-error
     this.props.getMemberTableBackground(this.props.id);
   };
 
@@ -555,7 +561,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     ) {
       const now = DateTime.now().setZone(timezone);
       return (
+        // @ts-expect-error
         earliestHourToSendCommunications > now.hours() ||
+        // @ts-expect-error
         now.hours() >= latestHourToSendCommunications
       );
     }
@@ -641,6 +649,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     return (
       <div>
         <FiltersPanel
+          // @ts-expect-error
           cadences={this.props.cadences}
           cancelCommunicationScheduled={
             this.openCommunicationScheduledDeletionDialog
@@ -693,6 +702,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           onAdd={this.onAddAutomatedCampaign}
           onDelete={this.props.deleteAutomatedCampaign}
           onEdit={this.handleEditAutomatedCampaign}
+          // @ts-expect-error
           smartListAutomatedCampaigns={this.props.smartlist_automated_campaigns}
         />
         <AutoTagPanel
@@ -715,6 +725,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           >
             <Typography
               className={this.props.memberTitle}
+              // @ts-expect-error
               color={this.props.closeMemberTable ? 'textSecondary' : 'default'}
               variant="h6"
             >
@@ -775,6 +786,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           open={this.props.openAutomatedCampaignDrawer}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
+        {/* @ts-expect-error */}
         <CommunicationDrawerDEPRECATED
           hideMemberList
           closeDrawerForTooLateUpdate={
@@ -1363,6 +1375,7 @@ const mapWithHandlers = {
       values: FormData;
       options?: OptionCallback;
     }) => {
+      // @ts-expect-error
       param.values.append('smartlist_id', props.id);
       props.sendSmartListPopup(param.values, {
         ...param.options,
@@ -1410,6 +1423,7 @@ export default compose(
     ({ smartlist_filters, availablePrivateService, privateServicesById }) => {
       let smartListServicesIds: Array<number> = [];
 
+      // @ts-expect-error
       smartlist_filters.forEach((filter) => {
         if (filter.private_services) {
           smartListServicesIds = [

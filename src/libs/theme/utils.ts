@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import isNil from 'lodash/isNil';
 import { getCreditFactor } from '#libs/theme/selectors';
@@ -12,6 +11,7 @@ export const provincialTaxHelperText = (
     return '';
   }
 
+  // @ts-expect-error
   if (parseFloat(tax) <= parseFloat(provincialTax)) {
     return t('theme:provincialTax.helperText');
   }

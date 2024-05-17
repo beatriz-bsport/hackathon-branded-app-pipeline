@@ -1,9 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+// @ts-expect-error
 import { get as getSubscriptionById } from '../../libs/subscription/selectors';
 import { fetch as fetchSubscription } from '../../libs/subscription/actions';
+// @ts-expect-error
 import SubscriptionDetailDEPRECATED from './SubscriptionDetailDEPRECATED.page';
 import SubscriptionDetail from './SubscriptionDetail.page';
 
@@ -29,6 +30,7 @@ export class SubscriptionDetailRouter extends React.Component<Props> {
       return <BackofficeLinearProgress />;
     }
     if (this.props.subscription.is_v2) {
+      // @ts-expect-error
       return <SubscriptionDetail id={this.props.id} />;
     }
     return <SubscriptionDetailDEPRECATED id={this.props.id} />;
@@ -38,6 +40,7 @@ export class SubscriptionDetailRouter extends React.Component<Props> {
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   connect(
+    // @ts-expect-error
     (state, { id }) => ({
       subscription: getSubscriptionById(state, id),
     }),

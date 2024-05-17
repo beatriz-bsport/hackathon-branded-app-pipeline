@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -6,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
+// @ts-expect-error
 import CoachInput from '#components/input/CoachInput.component';
 import CoachColorModifier from '../CoachColorModifier.component';
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 
 import * as Yup from 'yup';
@@ -19,6 +18,7 @@ import { DateRange } from '@material-ui/icons';
 import classNames from 'classnames';
 
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { ColorField } from '#components/forms';
 import { Level as LevelType } from '../types';
 import FormSection from '#components/forms/FormSection';

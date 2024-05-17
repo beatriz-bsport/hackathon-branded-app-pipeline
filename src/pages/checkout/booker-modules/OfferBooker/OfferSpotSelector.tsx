@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
@@ -66,8 +65,11 @@ const OfferSpotSelector = (props: Props) => {
       open
       assets={assets}
       coachDisplay={coachDisplay}
+      // @ts-expect-error
       fetchSpotForBlueprint={props.fetchSpotForBlueprint}
+      // @ts-expect-error
       offer={offer}
+      // @ts-expect-error
       onClose={props.onCancel(offer)}
       onSelectSpot={(index, spotTypeId) =>
         onSelectSpot(offer.id, index, spotTypeId)
@@ -76,6 +78,7 @@ const OfferSpotSelector = (props: Props) => {
       roomBlueprint={roomBlueprint}
       selectedIndex={selectedIndex}
       selectedIndexType={selectedIndexType}
+      // @ts-expect-error
       selectedSpot={selectedSpotType}
       spotTypesOfBlueprint={props.spotTypes.filter((spotType) =>
         spotTypesIdOfBlueprint?.includes(spotType.id),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -39,6 +38,7 @@ export const VideoCardList = (props: Props) => {
         <List disablePadding>
           {props.videoList.map((v) => (
             <VideoCardListItem
+              // @ts-expect-error
               withStatus
               goToDetail={props.goToDetail}
               onDelete={props.onDelete}

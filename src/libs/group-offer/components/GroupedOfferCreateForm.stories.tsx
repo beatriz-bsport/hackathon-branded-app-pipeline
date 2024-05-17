@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { establishment_factory } from '#libs/establishment/factory';
@@ -59,6 +58,7 @@ const THEME = {
   show_workshops_customer: false,
   max_future_booking: 0,
   cover: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
+  // @ts-expect-error
   mobile_cover: null,
   company: 349,
   company_name: 'MIDTOWN CHAMPS-ÉLYSÉES',
@@ -90,7 +90,9 @@ const THEME = {
   coach_can_edit_attendance: true,
   autotag_rule_extended: false,
   performance_tracking: false,
+  // @ts-expect-error
   provincial_tax_name: null,
+  // @ts-expect-error
   provincial_tax_value: null,
   is_tax_excluded_in_marketplace: false,
   hide_unnecessary_compatible_purchase_method: false,

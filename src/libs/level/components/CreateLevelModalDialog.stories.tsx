@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React from 'react';
+// @ts-expect-error
 import CreateLevelModal, { OuterProps } from './CreateLevelModal.dialog';
 
 const CustomTemplate = (args: OuterProps) => <CreateLevelModal {...args} />;

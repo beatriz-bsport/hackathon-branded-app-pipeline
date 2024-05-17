@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -9,6 +8,7 @@ import List from '@material-ui/core/List';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+// @ts-expect-error
 import { Theme } from '@material-ui/styles';
 
 type Props = {

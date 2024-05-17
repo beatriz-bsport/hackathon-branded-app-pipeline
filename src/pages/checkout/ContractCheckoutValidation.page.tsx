@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withProps } from 'recompose';
@@ -15,6 +14,7 @@ import { Button, Typography, Paper } from '@material-ui/core';
 import { Payment } from '@material-ui/icons';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
 import withTheme from '#hocs/company-themifier.hoc';
 
@@ -22,6 +22,7 @@ import { WithHandlerType } from '../../utils/types';
 import themeSelectors from '../../libs/theme/selectors';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import WidgetUtils from '#libs/widget/WidgetUtils';
+// @ts-expect-error
 import { getContract } from '#libs/subscription/selectors';
 import { fetchContractDetail } from '#libs/subscription/actions';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
@@ -170,6 +171,7 @@ const mapWithHandlers = {
         return props.replace(props.next);
       }
       return props.replace(
+        // @ts-expect-error
         getContractCheckoutUrl(props.companyId, props.contractId),
       );
     },

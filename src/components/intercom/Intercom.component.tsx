@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 
 import Intercom from 'react-intercom';
+// @ts-expect-error
 import withSentryErrorReporting from '#hocs/error-boundary-hidden.hoc';
 import { Theme } from '#libs/theme/types';
 
@@ -42,8 +42,11 @@ export const IntercomComponent = (props: Props) => {
   let email = props.email;
 
   if (props.environment === 'staging') {
+    // @ts-expect-error
     if (company && company.id && company.name) {
+      // @ts-expect-error
       company.id = -company.id;
+      // @ts-expect-error
       company.name = `[STAGING] ${company.name}`;
     }
     if ((email || '').includes('@')) {
@@ -60,6 +63,7 @@ export const IntercomComponent = (props: Props) => {
       email={props.email}
       environment={props.environment}
       language_override={props.language_override}
+      // @ts-expect-error
       name={props.name}
       release={props.release}
       role={props.role}

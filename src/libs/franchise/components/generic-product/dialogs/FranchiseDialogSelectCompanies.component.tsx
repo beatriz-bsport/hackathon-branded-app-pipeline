@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, Theme } from '@material-ui/core';
@@ -66,6 +65,7 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
     },
   ];
   return (
+    // @ts-expect-error
     <CustomMuiDialog
       buttons={buttons}
       fullScreenBreakpoint="xs"
@@ -93,6 +93,7 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
           menuPortalTarget={document.querySelector('body')}
           onChange={(newValue) => {
             setSelectedCompanies(
+              // @ts-expect-error
               newValue.map((val) => parseInt(val?.value, 10)),
             );
           }}

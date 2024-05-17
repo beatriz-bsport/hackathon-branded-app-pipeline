@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -8,9 +7,11 @@ import { push } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core';
 
 import { BsportRequestFromHeaderValue } from '../../constants';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
 
+// @ts-expect-error
 import { getFranchiseTheme } from '../../theme';
 import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
 import {
@@ -157,6 +158,7 @@ const FranchiseRouter = (props: Props) => {
           fetchTempPassword={fetchTempPassword}
           franchisePermissions={franchisePermissions}
           generateTempPassword={generateTempPassword}
+          // @ts-expect-error
           push={pushRouter}
           syncMembersAcrossCompanies={franchisor.sync_members_across_companies}
           tempPasswordState={tempPasswordState}
@@ -245,6 +247,7 @@ const connector = connect(
     isFranchisor: state.auth.is_franchisor,
     username: state.auth.username,
     franchisor: getFranchisor(state),
+    // @ts-expect-error
     tempPasswordState: getTempPasswordState(state),
     storedToken: state.auth.token,
     franchisePermissions: getFranchisePermissions(state),

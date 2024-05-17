@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -14,9 +13,11 @@ type Props = {};
 const PrivatePassTemplateInstanceForm = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
+  // @ts-expect-error
   const { values, companies, setFieldValue } = props;
 
   const companyDic = companies?.reduce<Record<number, FranchiseCompany>>(
+    // @ts-expect-error
     (dic, company) => {
       // eslint-disable-next-line no-param-reassign
       dic[company.id] = company;
@@ -39,11 +40,14 @@ const PrivatePassTemplateInstanceForm = (props: Props) => {
         onChange={(newValue) => {
           setFieldValue(
             'selectedCompanies',
+            // @ts-expect-error
             newValue.map((val) => parseInt(val?.value, 10)),
           );
         }}
         selectedCompanies={companies
+          // @ts-expect-error
           .filter((c) => values.selectedCompanies.includes(c.id))
+          // @ts-expect-error
           .map((c) => ({
             label: c.name,
             value: `${c.id}`,
@@ -68,6 +72,7 @@ export const PrivatePassTemplateInstanceFormikHOC = withFormik({
     selectedCompanies: [],
   }),
   validationSchema: PrivatePassTemplateInstanceSchema,
+  // @ts-expect-error
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     const data = {
       companies: values.selectedCompanies,

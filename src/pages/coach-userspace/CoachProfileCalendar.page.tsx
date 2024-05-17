@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
@@ -36,6 +35,7 @@ import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-prefere
 import { getScheduleFilter } from '#libs/user-preference/selectors';
 import { ScheduleFilter } from '#libs/user-preference/types';
 
+// @ts-expect-error
 import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
 
 import { getMyAvailabilitySlots } from '#libs/private-service/selectors/availability-slot';
@@ -158,6 +158,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     };
     this.enableCoachAvailabilitySlot(
       { ...slotUpdateData, restriction_on_associated_establishments },
+      // @ts-expect-error
       options,
     );
     this.onCancelAvailabilityUpdate();
@@ -293,6 +294,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         {this.state.updateAvailabilitySlotData && (
           <SlotSpecificEstablishmentDialog
             isCoachProfile
+            // @ts-expect-error
             establishments={this.props.establishments}
             onCancel={this.onCancelAvailabilityUpdate}
             onSubmit={this.submitAvailabilitySlotUpdate}
@@ -311,11 +313,13 @@ const styles = (theme: Theme) =>
 
 const connector = connect(
   (state: RootState, { periodFilter }: withStateType) => ({
+    // @ts-expect-error
     availabilitySlots: getMyAvailabilitySlots(state),
     customEventList: getCustomEventList(state, periodFilter),
     companyTheme: state.theme.theme,
     privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
       state,
+      // @ts-expect-error
       null,
       periodFilter,
     ),
@@ -395,6 +399,7 @@ const mapWithHandlers = {
     () => {
       fetchPrivateBookings(
         {
+          // @ts-expect-error
           coach: coach.id,
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
@@ -444,6 +449,7 @@ const mapWithHandlers = {
             const idList = associatedEstablishments.map((ae) => ae.id) || [];
             if (idList.length > 0) {
               fetchEstablishments({
+                // @ts-expect-error
                 associated_establishment__in: idList,
                 page_size: 300,
               });
@@ -463,6 +469,7 @@ export default compose(
   }),
 
   connector,
+  // @ts-expect-error
   withHandlers(mapWithHandlers),
   withTitle(({ t }: { t: TFunction }) =>
     t('navigation:backofficeMenu.schedule'),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray } from 'seamless-immutable';
@@ -114,6 +113,7 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
 
     const errors = checkExportableComponentConfig(componentType, tabConfig);
     setConfigError(errors);
+    // @ts-expect-error
     if (Object.values(errors).reduce((e, acc) => !!e || acc, false)) {
       return;
     }
@@ -183,6 +183,7 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
             establishments={props.establishments}
             giftcards={props.giftcards}
             metaActivities={props.metaActivities}
+            // @ts-expect-error
             metaActivitiesWorkshop={props.metaActivitiesWorkshop}
             onChange={(config) =>
               setTabConfig({ [componentType]: config[componentType] })

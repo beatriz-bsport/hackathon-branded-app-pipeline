@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -13,18 +12,24 @@ import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from './CompanyDetailPage.page';
 import RoleConfigurationPage from './RoleConfiguration.page';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.page';
+// @ts-expect-error
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.page';
 import BroadcastConfiguration from './BroadcastConfiguration.page';
+// @ts-expect-error
 import ShopConfigurationPage from './ShopConfigurationPage.page';
+// @ts-expect-error
 import ThemeConfigurationPage from './ThemeConfiguration.page';
 import CoachPlaceSettingsPage from './CoachPlaceSettings.page';
+// @ts-expect-error
 import SettingsPersonalizePage from './SettingsPersonalizePage.page';
+// @ts-expect-error
 import WebhookConfigurationPage from './WebhookConfigurationPage.page';
 import NotificationRulePage from './NotificationRule.page';
 import NotificationRuleDetailPage from './NotificationRuleDetail.page';
 import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.page';
 import EditReferralProgramSettingsPage from './EditReferralProgramSettingsPage.page';
+// @ts-expect-error
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings.page';
@@ -157,6 +162,7 @@ export const Settings = () => {
 
 export default compose<any, Props>(
   withTranslation(['settings']),
+  // @ts-expect-error
   routerParamsToProps({ tab: 'tab' }),
   withRouter,
   connect(null, { push }),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { compose, withProps } from 'recompose';
 import React, { useEffect, useState } from 'react';
 
@@ -6,21 +5,26 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
 import asyncComponent from '../AsyncComponent';
 import { getAuthToken } from '../http';
 import { RootState } from '../reducers';
 import MultipleSessions from './MultipleSessions.page';
 
+// @ts-expect-error
 import { disconnect as disconnectAction } from '../actions/auth.actions';
+// @ts-expect-error
 import withQueryParams from '../hocs/with-query-params.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
 import namespaces from '../i18n/namespaces.json';
 
+// @ts-expect-error
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
 const CoachHome = asyncComponent(
   () => import('./coach-userspace/CoachProfile.page'),
 );
+// @ts-expect-error
 const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 const FranchiseHome = asyncComponent(
   () => import('./franchise/Franchise.router'),
@@ -70,6 +74,7 @@ export const UserspaceSwitcher = (props: Props) => {
   }, [setTokenChangedInOtherTab, authToken, storedToken]);
 
   if (tokenChangedInOtherTab) {
+    // @ts-expect-error
     return <MultipleSessions newToken={authToken} />;
   }
 
@@ -121,4 +126,5 @@ export default compose(
     companyId: parseInt(queryParams?.membership),
   })),
   connector,
+  // @ts-expect-error
 )(UserspaceSwitcher);

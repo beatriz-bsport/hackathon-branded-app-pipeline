@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import {
   SPIVI_EVENT_DURATION_EXCEPTION,
@@ -54,6 +53,7 @@ export function fetchGroupsOfferList(
       dispatch(fetchGroupsOfferListActions.error(null));
 
       dispatch(fetchGroupsOfferListActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchGroupsOfferListActions.error(error));
@@ -284,6 +284,7 @@ export function fetchSimilarGroupOffers(
 
       dispatch(fetchSimilarGroupOffersActions.loading(false));
       dispatch(fetchSimilarGroupOffersActions.error(null));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchSimilarGroupOffersActions.error(error));
@@ -361,6 +362,7 @@ export function fetchGroupsOfferBulk(
       dispatch(fetchGroupsOfferBulkActions.error(null));
 
       dispatch(fetchGroupsOfferBulkActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchGroupsOfferBulkActions.error(error));

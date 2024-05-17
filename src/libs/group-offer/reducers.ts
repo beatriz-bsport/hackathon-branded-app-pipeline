@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
@@ -73,11 +72,13 @@ export default handleActions<Immutable.Immutable<GroupOfferState>, any>(
       return state
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           payload.results.map((go) => go.id),
         )
         .setIn(['count'], payload.count)
         .merge(
           {
+            // @ts-expect-error
             byId: payload.results.reduce((acc, go) => {
               acc[go.id] = go;
               return acc;
@@ -95,6 +96,7 @@ export default handleActions<Immutable.Immutable<GroupOfferState>, any>(
     [fetchGroupsOfferBulkActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.reduce((acc, go) => {
             acc[go.id] = go;
             return acc;
@@ -202,10 +204,12 @@ export default handleActions<Immutable.Immutable<GroupOfferState>, any>(
       return state
         .setIn(
           ['similar', 'allIds'],
+          // @ts-expect-error
           payload.map((p) => p.id),
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, go) => {
               acc[go.id] = go;
               return acc;

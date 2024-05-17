@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -76,6 +75,7 @@ export const PrivateBookingDisableDialog: React.FC<Props> = ({
             />
             <Typography>
               {t('privateBooking.delete.sendCancellationMail', {
+                // @ts-expect-error
                 name: private_booking.member?.name ?? '',
               })}
             </Typography>

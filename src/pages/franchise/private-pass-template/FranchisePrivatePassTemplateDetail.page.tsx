@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -30,6 +29,7 @@ import withTitle from '#hocs/with-title.hoc';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 
 import PrivatePassTemplateInstanceDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 // / import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
@@ -56,6 +56,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
       // eslint-disable-next-line
       parseQueryString(location.search || '').openTemplateInstanceForm
     ) {
+      // @ts-expect-error
       this.props.openCreateForm();
     }
   }
@@ -68,7 +69,9 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
       <Grid container spacing={2}>
         <Grid item md={6} xs={12}>
           <PrivatePassTemplateCard
+            // @ts-expect-error
             onCreatePrivatePassTemplateInstance={this.props.openCreateForm}
+            // @ts-expect-error
             onDeleteCompany={this.props.openDeleteDialog}
             privatePassTemplate={this.props.privatePassTemplate}
           />
@@ -87,8 +90,10 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
             <Divider />
             <PaginatedConsumerPrivatePass
               allowedFranchisees={this.props.allowedFranchisees}
+              // @ts-expect-error
               consumerPrivatePassUpdating={this.props.consumerPass.updating}
               itemPerPage={PAGINATION_SIZE}
+              // @ts-expect-error
               items={this.props.consumerPass.items}
               loading={this.props.consumerPass.loading}
               nbItems={this.props.consumerPass.count}
@@ -104,6 +109,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
                 );
               }}
               onPageRequested={(page: number, pageSize: number) => {
+                // @ts-expect-error
                 this.props.fetchPrivateConsumerPassList(page, pageSize);
               }}
               page={this.props.consumerPass.page}
@@ -111,15 +117,21 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
           </Paper>
         </Grid>
         <PrivatePassTemplateInstanceFormDialog
+          // @ts-expect-error
           companies={this.props.companies}
+          // @ts-expect-error
           onClose={this.props.closeCreateForm}
           onSubmit={this.props.createPrivatePassTemplateInstance}
+          // @ts-expect-error
           open={this.props.createFormOpen}
         />
         <PrivatePassTemplateInstanceDeleteDialog
+          // @ts-expect-error
           companyId={this.props.companyTemplateInstanceIdToDelete}
+          // @ts-expect-error
           onClose={this.props.closeDeleteDialog}
           onSubmit={this.props.deletePrivatePassTemplateInstance}
+          // @ts-expect-error
           open={!!this.props.companyTemplateInstanceIdToDelete}
           privatePassTemplate={this.props.privatePassTemplate}
         />
@@ -136,14 +148,17 @@ const connector = connect(
     allowedFranchisees: getAllowedFranchisees(state),
     privatePassTemplate: getPrivatePassTemplate(state, privatePassTemplateId),
     consumerPass: {
+      // @ts-expect-error
       count: state.privateService.privateConsumerPass.count,
       loading: state.privateService.privateConsumerPass.loading,
+      // @ts-expect-error
       page: state.privateService.privateConsumerPass.page,
       items: withMember(getPrivateConsumerPassList)(state),
     },
     companies: getFranchiseCompanies(state),
   }),
   {
+    // @ts-expect-error
     goToPrivateConsumerPassDetail: (companyId, memberId, consumerPackId) =>
       navigateAsCompanyAdmin(
         companyId,
@@ -215,8 +230,10 @@ export default compose(
         retrievePrivatePassTemplate,
         closeDeleteDialog,
       }) =>
+      // @ts-expect-error
       (id, options) => {
         deletePrivatePassTemplateInstance(id, {
+          // @ts-expect-error
           onSuccess: (...args) => {
             retrievePrivatePassTemplate(privatePassTemplateId);
             closeDeleteDialog();
@@ -232,10 +249,12 @@ export default compose(
         retrievePrivatePassTemplate,
         closeCreateForm,
       }) =>
+      // @ts-expect-error
       (data, options) => {
         createPrivatePassTemplateInstance(
           { ...data, private_pass_template: privatePassTemplateId },
           {
+            // @ts-expect-error
             onSuccess: (...args) => {
               retrievePrivatePassTemplate(privatePassTemplateId);
               closeCreateForm();
@@ -256,8 +275,10 @@ export default compose(
         fetchPrivateConsumerPassList(
           { page, page_size, private_pass_template },
           {
+            // @ts-expect-error
             onSuccess: (consumerPackList) => {
               fetchPrivatePassBulk(
+                // @ts-expect-error
                 consumerPackList.map((cpp) => cpp.private_pass?.id),
               );
               fetchFilteredMembers({

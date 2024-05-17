@@ -1,9 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Route, Switch } from 'react-router';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
+// @ts-expect-error
 import withStayEvent from '../../hocs/tracking/stay-event.hoc';
 
 const ProgramList = asyncComponent(() => import('./ProgramList.page'));

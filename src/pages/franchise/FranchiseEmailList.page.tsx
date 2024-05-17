@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect } from 'react';
 
 import { compose } from 'recompose';
@@ -130,6 +129,7 @@ const FranchiseEmailList = (props: Props) => {
   };
 
   if (emailListLoading) {
+    // @ts-expect-error
     return <LinearProgress className={classes.loader} />;
   }
 

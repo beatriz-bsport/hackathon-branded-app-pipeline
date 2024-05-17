@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import {
@@ -157,6 +156,7 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
           />
           <NumericInput
             fullWidth
+            // @ts-expect-error
             classes={{ textInput: classes.marginLeft }}
             InputProps={{
               inputProps: { step: 1, min: 0 },
@@ -242,6 +242,7 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['video']),
+  // @ts-expect-error
   withStyles(styles),
   withProps(({ fowardedRef }) => ({ ref: fowardedRef })),
 )(VideoProviderUrl);

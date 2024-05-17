@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS } from '@bsport/common/lib/master-data/custom-form';
@@ -6,6 +5,7 @@ import { RootState } from '../../reducers';
 import type {
   CustomForm,
   CustomFormFilledAPI,
+  // @ts-expect-error
   CustomFormFieldAnswerAPI,
   CustomFormDisplayRule,
 } from './types';
@@ -59,11 +59,16 @@ export const getFavoriteEstablishmentGroupList = createSelector(
   ],
   (theme, customAnswerByMember, associatedGroupdata, id) => {
     if (!customAnswerByMember || !theme.enable_multi_localization) return null;
-    return customAnswerByMember?.[id]?.[
-      CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP
-    ][MODEL_BASED_QUESTION_FAVORITE].answer
-      ?.map((establishmentGroupId) => associatedGroupdata[establishmentGroupId])
-      .filter((establishmentGroup) => establishmentGroup);
+    // prettier-ignore
+    return (
+      customAnswerByMember?.[id]?.[CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP][
+        MODEL_BASED_QUESTION_FAVORITE
+      ].answer
+        // @ts-expect-error
+        ?.map((establishmentGroupId) => associatedGroupdata[establishmentGroupId],
+        )
+        .filter((establishmentGroup) => establishmentGroup)
+    );
   },
 );
 
@@ -130,6 +135,7 @@ export const withMemberProfileData = memoize(
           ...custom_form,
           custom_form_field: custom_form.custom_form_field.map((field) => ({
             ...field,
+            // @ts-expect-error
             answer: insertMemberProfileDataToAnswer(field, memberData),
           })),
         };
@@ -139,6 +145,7 @@ export const withMemberProfileData = memoize(
           ...cf,
           custom_form_field: cf?.custom_form_field.map((field) => ({
             ...field,
+            // @ts-expect-error
             answer: insertMemberProfileDataToAnswer(field, memberData),
           })),
         };

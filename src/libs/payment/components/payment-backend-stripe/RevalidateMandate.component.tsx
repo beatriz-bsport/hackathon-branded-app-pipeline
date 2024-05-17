@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import {
@@ -7,6 +6,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 
 import * as Sentry from '@sentry/react';
+// @ts-expect-error
 import { Elements, ElementsConsumer, Stripe } from '@stripe/react-stripe-js';
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
@@ -67,6 +67,7 @@ const Wrapper: React.FC<{ variant: string }> = ({ children, variant }) => {
   if (variant === 'div') {
     return <div>{children}</div>;
   }
+  // @ts-expect-error
   return <Modal open>{children}</Modal>;
 };
 
@@ -348,6 +349,7 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <RevalidateMandateCompose
+          // @ts-expect-error
           elements={elements}
           stripe={stripe}
           {...props}

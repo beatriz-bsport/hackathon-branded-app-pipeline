@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   Avatar,
   ListItem,
@@ -54,6 +53,7 @@ export default function GiftcardListItem(props: Props) {
   return (
     <>
       <ListItem
+        // @ts-expect-error
         button={!!onClick}
         divider={divider}
         onClick={() => onClick && onClick(giftcard.id)}

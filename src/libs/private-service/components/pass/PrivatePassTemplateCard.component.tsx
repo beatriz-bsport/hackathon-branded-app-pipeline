@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -55,12 +54,14 @@ const PrivatePassTemplateCard = (props: Props) => {
               <div className={classes.restrictionBlock}>
                 <Typography>{getValidityInfo(template, t)}</Typography>
               </div>
+              {/* @ts-expect-error */}
               {template.description && (
                 <div className={classes.descripotionContainer}>
                   <TypographyMultilineComponent
                     className={classes.description}
                     variant="caption"
                   >
+                    {/* @ts-expect-error */}
                     {template.description}
                   </TypographyMultilineComponent>
                 </div>
@@ -76,6 +77,7 @@ const PrivatePassTemplateCard = (props: Props) => {
                 {getCurrencyDisplayWithPrice(
                   (
                     parseFloat(template.price) /
+                    // @ts-expect-error
                     ((100 + parseInt(template.tax, 10)) / 100)
                   ).toFixed(2),
                 )}{' '}
@@ -109,8 +111,10 @@ const PrivatePassTemplateCard = (props: Props) => {
               <div className={classes.chipContainer}>
                 <CompanyChip
                   key={c.id}
+                  // @ts-expect-error
                   company={c}
                   onDelete={
+                    // @ts-expect-error
                     props.onDeleteCompany && (() => props.onDeleteCompany(c.id))
                   }
                 />
@@ -120,6 +124,7 @@ const PrivatePassTemplateCard = (props: Props) => {
         </div>
         <Button
           color="primary"
+          // @ts-expect-error
           onClick={props.onCreatePrivatePassTemplateInstance}
           variant="outlined"
         >

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -19,6 +18,7 @@ import {
   TextFieldEnhancedLabelWithError,
   DateField,
   IntegerFieldEnhancedHelperTextError,
+  // @ts-expect-error
 } from '../../../../components/forms';
 import { getValidityString } from '../../utils';
 import type { PrivatePass } from '#libs/private-service/types';

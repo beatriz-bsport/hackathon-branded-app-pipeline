@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Chip, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import MaterialUISelector, { OwnProps } from './MaterialUISelector.component';
@@ -7,9 +6,11 @@ import { AccessAlarm } from '@material-ui/icons';
 const CustomTemplate = (args: OwnProps<{ label: string; value: string }>) => {
   const [value, setValue] = useState(args.value);
   return (
+    // @ts-expect-error
     <MaterialUISelector
       {...args}
       value={value}
+      // @ts-expect-error
       onChange={(e) => {
         setValue(e);
       }}
@@ -52,6 +53,7 @@ const GroupedOption = [
 
 const defaultOption = {
   options: options,
+  // @ts-expect-error
   value: null,
 };
 

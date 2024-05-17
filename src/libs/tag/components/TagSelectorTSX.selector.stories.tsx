@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import TagSelector, { Props as SelectorProps } from './TagSelector.selector';
 import type { Tag, TagGroup } from '#libs/tag/types';
@@ -26,6 +25,7 @@ export const TagSelectorTemplate = (args: SelectorProps) => {
       onChange={onChange}
       onDeleteTag={onDeleteTag}
       allTagsWithTagGroup={[
+        // @ts-expect-error
         { name: 'Tag 1', id: 1, group: { name: 'Tag Group', id: 45 } },
       ]}
     />

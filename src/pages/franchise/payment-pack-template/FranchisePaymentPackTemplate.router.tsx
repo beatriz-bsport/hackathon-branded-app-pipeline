@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 
 const FranchisePaymentPackTemplateListPage = asyncComponent(

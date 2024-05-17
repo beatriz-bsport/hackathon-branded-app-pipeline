@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 import { Route, Switch, Redirect } from 'react-router';
@@ -76,6 +75,7 @@ export default compose<any>(
   withTranslation(['replacement', 'titles']),
   withTitle(({ t }: { t: TFunction }) => t('titles:replacement')),
   routerParamsToProps({
+    // @ts-expect-error
     tab: 'tab',
   }),
   connector,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -12,6 +11,7 @@ import { getPaymentPackTemplateList } from '#libs/payment-packs/selectors';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#libs/payment-packs/actions';
 import { getPrivatePassTemplateList } from '#libs/private-service/selectors/private-pass';
 import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#libs/private-service/actions';
+// @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import CouponTemplateDeleteDialog from '#libs/coupon/components/CouponTemplateDeleteDialog.component';
 import CouponTemplateInstanceFormDialog from '#libs/coupon/components/CouponTemplateInstanceFormDialog.component';
@@ -82,6 +82,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
           <Grid item md={6} xs={12}>
             <PaginatedDiscountList
               allowedFranchisees={this.props.allowedFranchisees}
+              // @ts-expect-error
               companies={this.props.couponTemplate.companies}
               goToBillingPlan={this.props.goToBillingPlan}
               goToInvoice={this.props.goToInvoice}
@@ -90,6 +91,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
               loading={this.props.discount.loading}
               nbItems={this.props.discount.count}
               onPageRequested={(page: number, pageSize: number) => {
+                // @ts-expect-error
                 this.props.fetchDiscountList(page, pageSize);
               }}
               page={this.props.discount.page}
@@ -97,6 +99,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
           </Grid>
         </Grid>
         {this.props.editTemplateDialogOpen && (
+          // @ts-expect-error
           <CouponTemplateFormDrawer
             open
             initial={this.props.couponTemplate}
@@ -108,6 +111,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
         )}
         <CouponTemplateDeleteDialog
           onClose={this.props.closeDeleteTemplateDialog}
+          // @ts-expect-error
           onSubmit={this.props.deleteCouponTemplate}
           open={this.props.deleteTemplateDialogOpen}
         />
@@ -115,9 +119,11 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
           !this.props.privatePassTemplateListLoading &&
           this.props.createInstanceDialogOpen && (
             <CouponTemplateInstanceFormDialog
+              // @ts-expect-error
               companies={this.props.companies}
               couponTemplate={this.props.couponTemplate}
               onClose={this.props.closeCreateInstanceDialog}
+              // @ts-expect-error
               onSubmit={this.props.createCouponTemplateInstance}
               paymentPackTemplateList={this.props.paymentPackTemplateList}
               privatePassTemplateList={this.props.privatePassTemplateList}

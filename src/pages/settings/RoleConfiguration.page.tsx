@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -31,7 +30,6 @@ import {
 } from '#libs/role/selectors';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
-// @ts-expect-error
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
@@ -119,6 +117,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             coachListLoading={this.props.coachListLoading}
             createUserRole={this.props.createStaffUser}
             deleteUserRole={this.props.deleteStaffUser}
+            // @ts-expect-error
             establishmentGroupList={this.props.establishmentGroupList}
             establishmentGroupListLoading={
               this.props.establishmentGroupListLoading
@@ -136,6 +135,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
             updateCommission={this.props.updateUserCommission}
             updateUserRole={this.props.updateUserRole}
+            // @ts-expect-error
             users={users}
           />
         </Paper>
@@ -146,10 +146,14 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
         <Paper className={classes.rolePaper} id="text_staff_roles">
           <RoleList
             currentRole={this.state.currentRole}
+            // @ts-expect-error
             featureList={this.props.featureList}
             hasOwnerPermission={hasOwnerPermission}
+            // @ts-expect-error
             onCreateRole={(role) => this.props.createCompanyRole(role)}
+            // @ts-expect-error
             onDeleteRole={(role) => this.props.deleteCompanyRole(role)}
+            // @ts-expect-error
             onEditRole={(role) => this.props.updateCompanyRole(role)}
             openCreateRoleDialog={this.state.openCreateRoleDialog}
             roles={roles}
@@ -164,11 +168,13 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
         <BottomActionsButtonCustom
           buttonsProperties={[
             {
+              // @ts-expect-error
               onClick: this.setOpenCreateStaffDialog,
               text: t('forms.user.create.buttonLabel'),
               icon: <AddIcon />,
             },
             {
+              // @ts-expect-error
               onClick: this.setOpenCreateRoleDialog,
               text: t('forms.role.create.buttonCreate'),
               icon: <AddIcon />,

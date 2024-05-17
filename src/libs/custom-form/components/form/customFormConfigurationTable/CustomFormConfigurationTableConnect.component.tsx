@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
@@ -51,9 +50,11 @@ type Props = {
   setregisteredSignUpQuestions: (kind_list: Array<number>) => void;
 } & FormikProps<FormikValuesProps>;
 export const FormikChangesLookUp = (props: Props) => {
+  // @ts-expect-error
   const {
     dirty,
     resetForm,
+    // @ts-expect-error
     initialValues,
     values,
   }: {
@@ -67,6 +68,7 @@ export const FormikChangesLookUp = (props: Props) => {
 
   React.useEffect(() => {
     if (props.isSubmitting) {
+      // @ts-expect-error
       resetForm({ dirty: false });
       props.setNumberOfQuestionsHasChanged(false);
     }

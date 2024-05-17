@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -148,6 +147,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
 )(TagDetailSmartlist);

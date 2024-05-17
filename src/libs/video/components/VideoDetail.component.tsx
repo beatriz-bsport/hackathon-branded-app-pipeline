@@ -1,10 +1,10 @@
-// @ts-nocheck
 // @flow
 import React, { Component } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { DateTime } from 'luxon';
 import type { VideoAnalyticsData, VideoPurchase } from '../types';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+// @ts-expect-error
 import VodVideoAnalytics from './VodVideoAnalytics.component';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
@@ -47,6 +48,7 @@ type State = {
 };
 
 export class VideoDetail extends Component<Props, State> {
+  // @ts-expect-error
   constructor(props) {
     super(props);
     this.state = {
@@ -105,6 +107,7 @@ export class VideoDetail extends Component<Props, State> {
           <React.Fragment>
             {this.props.loading && <LinearProgress />}
             {this.props.analytics ? (
+              // @ts-expect-error
               <div className={classes.detailContainer}>
                 <Typography component="h2" variant="h5">
                   {t('details.title')}
@@ -114,20 +117,27 @@ export class VideoDetail extends Component<Props, State> {
                   loading={
                     this.props.analytics.loading || !selectedVideoPurchase
                   }
+                  // @ts-expect-error
                   videoDateCreated={selectedVideoPurchase?.video?.date_created}
                 />
               </div>
             ) : null}
+            {/* @ts-expect-error */}
             {selectedVideoPurchase?.video?.rental_days > 0 && (
+              // @ts-expect-error
               <div className={classes.detailContainer}>
+                {/* @ts-expect-error */}
                 <div className={classes.rental}>
+                  {/* @ts-expect-error */}
                   <div className={classes.rentalContainer}>
                     <PlayCircleOutlineIcon />
+                    {/* @ts-expect-error */}
                     <Typography className={classes.rentText}>
                       {t('video.rental.forRent')}
                     </Typography>
                   </div>
                   {!!this.props.relatedVideoPurchaseList?.length && (
+                    // @ts-expect-error
                     <div className={classes.rental}>
                       <IconButton
                         disabled={this.state.currentPage === 1}
@@ -136,10 +146,12 @@ export class VideoDetail extends Component<Props, State> {
                       >
                         <NavigateBeforeIcon fontSize="small" />
                       </IconButton>
+                      {/* @ts-expect-error */}
                       <Typography className={classes.rentText} variant="body2">
                         {`${this.state.currentPage}/${this.props.relatedVideoPurchaseList.length}`}
                       </Typography>
                       <IconButton
+                        // @ts-expect-error
                         className={classes.rentText}
                         disabled={
                           this.state.currentPage ===
@@ -154,6 +166,7 @@ export class VideoDetail extends Component<Props, State> {
                   )}
                 </div>
                 <Typography
+                  // @ts-expect-error
                   className={classes.marginTop}
                   color="textSecondary"
                   variant="body2"
@@ -163,6 +176,7 @@ export class VideoDetail extends Component<Props, State> {
                   ).toFormat('D')} -> ${DateTime.fromISO(
                     selectedVideoPurchase.date_created,
                   )
+                    // @ts-expect-error
                     .plus({ days: selectedVideoPurchase.video.rental_days })
                     .toFormat('D')}`}
                 </Typography>
@@ -181,10 +195,12 @@ export class VideoDetail extends Component<Props, State> {
               </div>
             )}
             {this.props.invoice ? (
+              // @ts-expect-error
               <div className={classes.detailContainer}>
                 <Typography component="h3" variant="h6">
                   {this.props.t('details.invoiceTitle')}
                 </Typography>
+                {/* @ts-expect-error */}
                 <Paper className={this.props.classes.paper}>
                   <InvoiceListItem
                     invoice={this.props.invoice}
@@ -195,27 +211,33 @@ export class VideoDetail extends Component<Props, State> {
                 </Paper>
               </div>
             ) : null}
-
             {selectedVideoPurchase?.consumer_payment_pack && (
+              // @ts-expect-error
               <div className={classes.detailContainer}>
                 <Typography component="h3" variant="h6">
                   {t('details.consumerPaymentPackTitle')}
                 </Typography>
+                {/* @ts-expect-error */}
                 <Paper className={classes.paperContainer}>
                   <ConsumerPackRowItem
                     hideConsumer
+                    // @ts-expect-error
                     consumerPack={selectedVideoPurchase.consumer_payment_pack}
                     decrementCredit={
+                      // prettier-ignore
                       hasPaymentPackManagementPermission(
                         selectedVideoPurchase.consumer_payment_pack
+                          // @ts-expect-error
                           ?.payment_pack,
                         hasManageCreditPermission,
                         hasBlockPermission,
                       ) && this.props.decrementCredit
                     }
                     incrementCredit={
+                      // prettier-ignore
                       hasPaymentPackManagementPermission(
                         selectedVideoPurchase.consumer_payment_pack
+                          // @ts-expect-error
                           ?.payment_pack,
                         hasManageCreditPermission,
                         hasBlockPermission,
@@ -223,12 +245,16 @@ export class VideoDetail extends Component<Props, State> {
                     }
                     onClick={() =>
                       this.props.onConsumerPassSelected(
+                        // @ts-expect-error
                         selectedVideoPurchase.consumer_payment_pack.id,
                       )
                     }
+                    // prettier-ignore
                     paymentPack={
                       selectedVideoPurchase.consumer_payment_pack
-                        ? selectedVideoPurchase.consumer_payment_pack
+                        ? 
+                          selectedVideoPurchase.consumer_payment_pack
+                            // @ts-expect-error
                             .payment_pack
                         : null
                     }
@@ -237,24 +263,31 @@ export class VideoDetail extends Component<Props, State> {
               </div>
             )}
             {selectedVideoPurchase?.private_consumer_pass && (
+              // @ts-expect-error
               <div className={classes.detailContainer}>
                 <Typography component="h3" variant="h6">
                   {t('details.consumerPaymentPackTitle')}
                 </Typography>
+                {/* @ts-expect-error */}
                 <Paper className={classes.paperContainer}>
                   <ConsumerPackRowItem
                     hideConsumer
+                    // @ts-expect-error
                     consumerPack={selectedVideoPurchase.private_consumer_pass}
                     decrementCredit={this.props.decrementCredit}
                     incrementCredit={this.props.incrementCredit}
                     onClick={() =>
                       this.props.onPrivatePassSelected(
+                        // @ts-expect-error
                         selectedVideoPurchase.private_consumer_pass.id,
                       )
                     }
                     paymentPack={
+                      // prettier-ignore
                       selectedVideoPurchase.private_consumer_pass
-                        ? selectedVideoPurchase.private_consumer_pass
+                        ?
+                          selectedVideoPurchase.private_consumer_pass
+                            // @ts-expect-error
                             .private_pass
                         : null
                     }
@@ -269,6 +302,7 @@ export class VideoDetail extends Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   detailContainer: {
     paddingBottom: theme.spacing(2),
@@ -311,6 +345,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['video']),
 )(VideoDetail);

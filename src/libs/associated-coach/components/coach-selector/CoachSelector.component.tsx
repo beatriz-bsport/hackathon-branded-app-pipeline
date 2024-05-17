@@ -1,11 +1,14 @@
-// @ts-nocheck
 import React, { FocusEventHandler, useCallback } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import Select, {
+  // @ts-expect-error
   ActionMeta,
+  // @ts-expect-error
   GroupTypeBase,
+  // @ts-expect-error
   OptionsType,
+  // @ts-expect-error
   Styles,
 } from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
@@ -75,6 +78,7 @@ export const CoachSelector: React.FC<Props> = ({
         coach?.name,
         coach?.firstname,
       );
+      // @ts-expect-error
       return coach.user ? coach.user.name : coachName;
     },
     [coachDisplay],
@@ -86,7 +90,9 @@ export const CoachSelector: React.FC<Props> = ({
     sortDisabled?: boolean,
   ) => {
     coachOptions.sort((c, c_) => {
+      // @ts-expect-error
       if (c.user && c_.user) {
+        // @ts-expect-error
         if (c.user.name.toUpperCase() < c_.user.name.toUpperCase()) {
           return -1;
         }
@@ -195,7 +201,9 @@ const coachStyles: Partial<
     }>
   >
 > = {
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -226,6 +234,7 @@ const coachStyles: Partial<
     };
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -233,10 +242,12 @@ const coachStyles: Partial<
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,

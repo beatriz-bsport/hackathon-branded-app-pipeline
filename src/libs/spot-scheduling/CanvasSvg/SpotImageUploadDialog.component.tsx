@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   Button,
@@ -14,6 +13,7 @@ import { Form, withFormik } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
+// @ts-expect-error
 import { Submit } from '../../../components/forms';
 import ImageFieldInput from '../../../components/forms/ImageFieldInput';
 import { MaterialStyleType } from '../../../utils/types';
@@ -88,36 +88,36 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
             </div>
 
             <div className={classes.inputsContainer}>
+              {/* @ts-expect-error */}
               <ImageFieldInput id="free-spot-image-input" name="spot_free">
                 <div className={classes.input}>
                   <Typography>{t('spotImageDialog.freeImageLabel')}</Typography>
-
                   <Typography className={classes.inputFakeButton}>
                     {t('spotImageDialog.imageUploadButton')}
                   </Typography>
-
+                  {/* @ts-expect-error */}
                   {this.props.values.spot_free && (
                     <Typography className={classes.imageName}>
+                      {/* @ts-expect-error */}
                       {this.props.values.spot_free.name}
                     </Typography>
                   )}
                 </div>
               </ImageFieldInput>
-
               <div className={classes.marginTop} />
-
+              {/* @ts-expect-error */}
               <ImageFieldInput id="taken-spot-image-input" name="spot_taken">
                 <div className={classes.input}>
                   <Typography>
                     {t('spotImageDialog.takenImageLabel')}
                   </Typography>
-
                   <Typography className={classes.inputFakeButton}>
                     {t('spotImageDialog.imageUploadButton')}
                   </Typography>
-
+                  {/* @ts-expect-error */}
                   {this.props.values.spot_taken && (
                     <Typography className={classes.imageName}>
+                      {/* @ts-expect-error */}
                       {this.props.values.spot_taken.name}
                     </Typography>
                   )}
@@ -136,12 +136,13 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
 
           <DialogActions>
             <Button
+              // @ts-expect-error
               disabled={this.props.isSubmitting}
               onClick={this.props.onClose}
             >
               {t('spotImageDialog.actions.cancel')}
             </Button>
-
+            {/* @ts-expect-error */}
             <Submit disabled={this.props.isSubmitting}>
               {t('spotImageDialog.actions.submit')}
             </Submit>
@@ -152,6 +153,7 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   content: {
     minWidth: 700,
@@ -235,6 +237,7 @@ export const SpotImageFormHOC = withFormik({
 
 export default compose<any, OwnProps>(
   withTranslation(['spotScheduling']),
+  // @ts-expect-error
   withStyles(styles),
   SpotImageFormHOC,
 )(SpotImageUploadDialog);

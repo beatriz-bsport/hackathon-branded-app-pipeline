@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -7,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import { isLessonViewed, isUpsellNotSubscribed } from '../utils';
 
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import ToolTip from '#components/Tooltip.component';
 

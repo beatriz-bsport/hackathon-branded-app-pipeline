@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
@@ -100,7 +99,9 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
   const groups = useMemo(
     () =>
       Object.keys(groupPreview).map((key) => ({
+        // @ts-expect-error
         ...groupPreview[key]?.group,
+        // @ts-expect-error
         offers: groupPreview[key]?.offers_data,
       })),
     [groupPreview],
@@ -152,7 +153,9 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
             manager_only,
             name: values.name,
           },
+          // @ts-expect-error
           recurrence_rule: values.copyRecurrence ? group.recurrence_rule : null,
+          // @ts-expect-error
           offers_data,
         },
         {
@@ -169,10 +172,12 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
     ({ values }) => {
       // for each groups add the group details
       const group_data_with_offers = values.reduce(
+        // @ts-expect-error
         (acc, formikGroup, index) => {
           const { offers, ..._formikGroup } = formikGroup;
           acc[index] = {
             group: _formikGroup,
+            // @ts-expect-error
             offers_data: offers.map((o) => ({
               waiting_list_max_size: parseInt(o.waiting_list_max_size),
               effectif: parseInt(o.effectif),
@@ -218,6 +223,7 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
         {step === STEP_GROUPED_OPTION_FORM && (
           <GroupedOfferCreateDuplicationForm
             handlePreviousStep={handlePreviousStep}
+            // @ts-expect-error
             initial={group}
             onSubmit={generatePreviewFromSettings}
           />
@@ -226,6 +232,7 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
           <GroupedOfferPreviewForm
             groups={groups}
             handlePreviousStep={handlePreviousStep}
+            // @ts-expect-error
             metaActivity={metaActivity}
             onSubmit={handlecreateGroupOffer}
           />

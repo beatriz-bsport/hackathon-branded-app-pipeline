@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation, WithTranslation } from 'react-i18next';
@@ -170,6 +169,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               isClearable
               isGroupSelect
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRuleGroups}
               onChange={memoSetCoachPaymentRuleGroup}
               placeholder={t('paymentRules:select.group')}
@@ -183,6 +183,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
@@ -191,6 +192,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachPaymentRule}
               placeholder={t('paymentRules:label')}
+              // @ts-expect-error
               selectedRules={[memoSelectedSessionRule]}
             />
           </div>
@@ -202,6 +204,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
@@ -210,6 +213,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachWorkShopPaymentRule}
               placeholder={t('paymentRules:label')}
+              // @ts-expect-error
               selectedRules={[memoSelectedWorkShopRule]}
             />
           </div>
@@ -221,12 +225,14 @@ export const CoachPerformanceSynthese = (props: Props) => {
             <CoachPaymentRuleSelectorStyled
               isClearable
               noMulti
+              // @ts-expect-error
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachPrivatePaymentRule}
               placeholder={t('paymentRules:label')}
+              // @ts-expect-error
               selectedRules={[memoSelectedPrivateServiceRule]}
             />
           </div>
@@ -238,6 +244,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
         <CoachPerformanceTabs
           allPerformance={performance}
           coach={coach}
+          // @ts-expect-error
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           loading={loading}
           setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}

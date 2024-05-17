@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
@@ -63,6 +62,7 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
       <div>
         {this.props.value ? (
           <div>
+            {/* @ts-expect-error */}
             <RoomBlueprintListItem
               onClickCancel={() => {
                 this.props.onChange(null);
@@ -76,7 +76,9 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
           </div>
         ) : (
           <div>
+            {/* @ts-expect-error */}
             <Button
+              // @ts-expect-error
               className={this.props.classes.button}
               id={this.props.id}
               onClick={this.onClickFuzeSearch}
@@ -87,17 +89,21 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
                 items={this.props.roomBlueprints}
                 placeholder={this.props.placeholder}
                 searchFields={['name']}
+                // @ts-expect-error
                 searchResult={this.state.searchResult}
                 searchText={this.state.searchText}
                 variant="outlined"
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (
+              // @ts-expect-error
               <Paper className={this.props.classes.searchPaperDisplayed}>
                 <Collapse
+                  // @ts-expect-error
                   in={this.state.displayList && this.state.searchResult}
                 >
                   {this.state.searchResult.map((roomBlueprint) => (
+                    // @ts-expect-error
                     <RoomBlueprintListItem
                       key={roomBlueprint.id}
                       onClick={this.props.onChange}
@@ -114,6 +120,7 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   button: { width: '100%', padding: '0' },
   searchPaperDisplayed: {

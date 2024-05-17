@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 
@@ -93,8 +92,10 @@ export function fetchPlannedInvoiceList(
     dispatch(listPlannedInvoiceActions.isLoading(true));
     try {
       const response = await fetchPlannedInvoiceListAPI(page, pageSize, params);
+      // @ts-expect-error
       dispatch(listPlannedInvoiceActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -125,6 +126,7 @@ export function fetchSubscriptionList(
       dispatch(listSubscriptionActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -158,6 +160,7 @@ export function fetchSubscriptionBulk(
       dispatch(subscriptionBulkActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -190,6 +193,7 @@ export function fetchSubscriptionListByMember(
       dispatch(byMemberSubscriptionActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -224,6 +228,7 @@ export function fetch(id: number, options?: OptionCallback): ThunkAction {
 
       dispatch(detailActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -292,6 +297,7 @@ export function fetchContractList(params?: any, options?: OptionCallback) {
     try {
       const response = await api.fetchContractList(params);
       dispatch(contractListActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -317,8 +323,10 @@ export function fetchContractDetail(
     dispatch(contractDetailActions.error(null));
     try {
       const response = await fetchContractDetailAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(contractDetailActions.success(payload));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -336,6 +344,7 @@ export function createOrUpdateContract(data: any, options: OptionCallback) {
     try {
       const response = await api.createOrUpdateContract(data);
       dispatch(contractCreateOrUpdateActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -372,9 +381,11 @@ export function restoreContract(id: number, options?: OptionCallback) {
     dispatch(contractRestoreActions.isLoading(true));
     try {
       const response = await restoreContractAPI(id);
+      // @ts-expect-error
       const payload = { [response.data.id]: response.data };
       dispatch(contractDetailActions.success(payload));
       dispatch(snackbarSuccess('subscription.contract.restore.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -403,10 +414,13 @@ export function fetchMarketplaceContractList(
         company,
         manager_only: false,
         disabled: false,
+        // @ts-expect-error
         page_size: 300,
       });
+      // @ts-expect-error
       dispatch(contractMarketplaceListActions.success(response.data.results));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -442,6 +456,7 @@ export function updatePlannedInvoicePrice(
       dispatch(updatePlannedInvoiceActions.success(response.data));
       dispatch(snackbarSuccess('subscription.updatePrice.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -481,6 +496,7 @@ export function updateSubscriptionRenewal(
       const response = await updateSubscriptionRenewalAPI(id, data);
       dispatch(updateSubscriptionActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -508,10 +524,13 @@ export function freezeSubscription(
     dispatch(freezeSubscriptionActions.isLoading(true));
     try {
       const response = await freezeSubscriptionAPI(id, data);
+      // @ts-expect-error
       if (response.data.subscription) {
+        // @ts-expect-error
         dispatch(freezeSubscriptionActions.success(response.data.subscription));
       }
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -545,6 +564,7 @@ export function switchSubscriptionPaymentPack(
       dispatch(switchPaymentPackActions.success(response.data));
       dispatch(snackbarSuccess('subscription.switchPack.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -585,6 +605,7 @@ export function switchSubscriptionPrivatePass(
       dispatch(switchPrivatePassActions.success(response.data));
       dispatch(snackbarSuccess('subscription.switchPrivatePass.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -623,6 +644,7 @@ export function switchSubscriptionPaymentCombo(
       dispatch(switchPaymentComboActions.success(response.data));
       dispatch(snackbarSuccess('subscription.switchPaymentCombo.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -662,10 +684,12 @@ export function switchSubscriptionPaymentMethod(
     dispatch(switchPaymentMethodActions.error(null));
     dispatch(switchPaymentMethodActions.isLoading(true));
     try {
+      // @ts-expect-error
       const response = await switchSubscriptionPaymentMethodAPI(id, data);
       dispatch(switchPaymentMethodActions.success(response.data));
       dispatch(snackbarSuccess('subscription.switchPaymentMethod.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -706,6 +730,7 @@ export function fetchContractForBooking(
       dispatch(subscriptionForBookingActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -814,6 +839,7 @@ export function updatePlannedInvoiceDate(
       const response = await updatePlannedInvoiceDateAPI(id, data);
       dispatch(updatePlannedInvoiceDateActions.success(id));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -845,6 +871,7 @@ export function fetchContractPauseList(
       dispatch(listContractPauseActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -884,6 +911,7 @@ export function createOrUpdateContractPause(
       dispatch(
         monitorBackgroundTask(backgroundTaskUuid, {
           onSuccess: () => {
+            // @ts-expect-error
             dispatch(fetchContractPause(response.data.id));
           },
         }),
@@ -990,6 +1018,7 @@ export function fetchContractPause(id: number, options?: OptionCallback) {
       dispatch(retrieveContractPauseActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -1039,6 +1068,7 @@ export function registerContractBackground(
                 registerContractBackgroundActions.success(response.data),
               );
               if (options && options.onBackgroundSuccess) {
+                // @ts-expect-error
                 options.onBackgroundSuccess(responseData?.return_value);
               }
             },
@@ -1048,6 +1078,7 @@ export function registerContractBackground(
       );
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

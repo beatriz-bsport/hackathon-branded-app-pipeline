@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -18,6 +17,7 @@ import {
 import { Info } from '@material-ui/icons';
 import classNames from 'classnames';
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
 import { ALMOST_100 } from '../../../constants';
 
@@ -43,6 +43,7 @@ export const ProvincialTaxForm = (props: Props) => {
         onSubmit={(values, actions) => {
           const data = new FormData();
           data.append('provincial_tax_name', values.name);
+          // @ts-expect-error
           data.append('provincial_tax_value', values.value);
           submit(data, {
             onSuccess: () => {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FocusEventHandler } from 'react';
 import chroma from 'chroma-js';
 import { compose } from 'recompose';
@@ -14,6 +13,7 @@ import classNames from 'classnames';
 import type { SelectComponents } from 'react-select/lib/components';
 import type { Establishment, EstablishmentSelectOption } from '../types';
 
+// @ts-expect-error
 export const GroupHeading = ({ children, ...props }) => {
   const theme = useTheme();
   return (
@@ -37,17 +37,22 @@ export const GroupHeading = ({ children, ...props }) => {
   );
 };
 
+// @ts-expect-error
 const Menu = ({ children, ...props }) => {
   if (props.selectProps.isLoading) {
     return <div />;
   }
+  // @ts-expect-error
   return <components.Menu {...props}>{children}</components.Menu>;
 };
 
+// @ts-expect-error
 const Group = ({ children, ...props }) => {
+  // @ts-expect-error
   const groupOptionsValueList = props.options.map((opt) => opt.data.value);
   const [checked] = React.useState(
     groupOptionsValueList.every(
+      // @ts-expect-error
       (item) =>
         props.selectProps.selectedEstablishments &&
         props.selectProps.selectedEstablishments.includes(item),
@@ -78,7 +83,7 @@ const Group = ({ children, ...props }) => {
           />
         </div>
       )}
-
+      {/* @ts-expect-error */}
       <components.Group {...props}>{children}</components.Group>
     </div>
   );
@@ -141,6 +146,7 @@ const getEstablishmentList = (establishments: Array<Establishment>) => {
 const controlStyle = (controlError: boolean, colorError: string) => {
   return controlError
     ? {
+        // @ts-expect-error
         control: (styles) => ({
           ...styles,
           backgroundColor: 'white',
@@ -148,6 +154,7 @@ const controlStyle = (controlError: boolean, colorError: string) => {
         }),
       }
     : {
+        // @ts-expect-error
         control: (styles) => ({
           ...styles,
           backgroundColor: 'white',
@@ -156,6 +163,7 @@ const controlStyle = (controlError: boolean, colorError: string) => {
 };
 
 const establishmentStyles = {
+  // @ts-expect-error
   menuPortal: (base) => {
     return {
       ...base,
@@ -165,6 +173,7 @@ const establishmentStyles = {
     };
   },
   option: (
+    // @ts-expect-error
     styles,
     {
       isDisabled,
@@ -198,11 +207,13 @@ const establishmentStyles = {
           !isDisabled &&
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
+      // @ts-expect-error
       groupHeading: (base) => ({ ...base, margin: 0 }),
     };
 
     /* eslint-enable */
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
@@ -210,10 +221,12 @@ const establishmentStyles = {
       backgroundColor: color.alpha(0.1).css(),
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
@@ -283,7 +296,8 @@ export function EstablishmentSelector(props: Props) {
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
-      ? getEstablishmentList(establishments).filter((est) =>
+      ? // @ts-expect-error
+        getEstablishmentList(establishments).filter((est) =>
           selectedEstablishments.includes(est.value),
         )
       : null;
@@ -350,7 +364,9 @@ export const EstablishmentSelectorControlled = (props: OwnProps) => {
       selectedEstablishments={value}
       selectOption={(sList) => {
         if (!sList) setValue([]);
+        // @ts-expect-error
         else if (props.noMulti) setValue([sList.value]);
+        // @ts-expect-error
         else setValue(sList.map((s) => s.value));
       }}
     />

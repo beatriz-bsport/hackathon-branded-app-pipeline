@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+// @ts-expect-error
 import { PrivateSlotCompatibleServiceForm } from './PrivateSlotCompatibleServiceForm.component';
 import {
   PrivateService,
@@ -40,7 +40,9 @@ export const PrivateSlotSelectionDialog = (props: Props) => {
 
       if (
         !private_services.includes(id) ||
+        // @ts-expect-error
         (!compServicePass.excluded_slot_ids?.length &&
+          // @ts-expect-error
           !compServicePass.included_slots?.length)
       ) {
         const privateService = props.privateServices.find((ps) => ps.id === id);

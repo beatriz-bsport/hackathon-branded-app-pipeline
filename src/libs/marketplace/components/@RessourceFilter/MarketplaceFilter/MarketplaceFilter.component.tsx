@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   useCallback,
   useState,
@@ -67,6 +66,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     const onScroll = throttle((ev: Event) => {
       if (
         isOpen &&
+        // @ts-expect-error
         !ev.target?.className?.includes('bs-marketplace-filter__menu__list')
       ) {
         handleCloseMenu();
@@ -100,6 +100,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     }
     setSelected(
       options
+        // @ts-expect-error
         .flatMap((opt) => (opt.options ? opt.options : opt))
         .filter((opt) => opt?.value !== undefined)
         .map((opt) => opt.value),
@@ -178,6 +179,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                   })}
                 >
                   {options.map((opt) => {
+                    // @ts-expect-error
                     if (opt?.options) {
                       const newOpt = opt as {
                         label: string;
@@ -197,12 +199,15 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                               <div
                                 key={subOption.value}
                                 className="bs-marketplace-filter__menu__list__sub-item"
+                                // @ts-expect-error
                                 id={subOption.value}
                               >
                                 <Checkbox
+                                  // @ts-expect-error
                                   checked={selected.includes(subOption.value)}
                                   className="bs-marketplace-filter__menu__list__sub-item__checkbox"
                                   color="primary"
+                                  // @ts-expect-error
                                   onClick={handleSelect(subOption.value)}
                                 />
                                 {subOption.label}
@@ -218,10 +223,12 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                       <div
                         key={simpleOption.value}
                         className="bs-marketplace-filter__menu__list__item"
+                        // @ts-expect-error
                         id={simpleOption.value}
                         style={
                           {
                             '--levelChipColor':
+                              // @ts-expect-error
                               simpleOption?.levelColor ?? '#f00',
                           } as CSSProperties
                         }
@@ -230,9 +237,11 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                           <div className="bs-marketplace-filter__menu__list__item__chip__level" />
                         )}
                         <Checkbox
+                          // @ts-expect-error
                           checked={selected.includes(simpleOption.value)}
                           className="bs-marketplace-filter__menu__list__item__checkbox"
                           color="primary"
+                          // @ts-expect-error
                           onClick={handleSelect(simpleOption.value)}
                         />
                         {simpleOption.label}

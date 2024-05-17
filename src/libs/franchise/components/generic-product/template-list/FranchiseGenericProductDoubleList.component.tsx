@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -70,7 +69,8 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
     const activeDictionary = activeItemList.reduce<
       Record<number, FranchiseCompany[]>
     >((_dic, item: GenericProductTemplate) => {
-      // eslint-disable-next-line no-param-reassign
+      /* eslint-disable no-param-reassign */
+      // @ts-expect-error
       _dic[item.id] = sortCompanyListByIsAllowedAndName(
         getItemFranchiseCompanies(item),
       );
@@ -79,12 +79,13 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
     const inactiveDictionary = inactiveItemList.reduce<
       Record<number, FranchiseCompany[]>
     >((_dic, item: GenericProductTemplate) => {
-      // eslint-disable-next-line no-param-reassign
+      // @ts-expect-error
       _dic[item.id] = sortCompanyListByIsAllowedAndName(
         getItemFranchiseCompanies(item),
       );
       return _dic;
     }, {});
+    /* eslint-enable no-param-reassign */
     return { ...activeDictionary, ...inactiveDictionary };
   }, [activeItemList, inactiveItemList, getItemFranchiseCompanies]);
 
@@ -105,7 +106,6 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
         {!displayEmptyText && props.withFuzzySearch && (
           <FuzzySearch
             className={classes.fuzzySearch}
-            // @ts-expect-error
             itemRenderer={(item: GenericProductTemplate) => {
               if (
                 fuzzySearchItemList.some((template) => template.id === item.id)
@@ -116,6 +116,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
                     companies={itemIdToSortedCompanyList[item.id]}
                     cover={!!props.getItemCover && props.getItemCover(item)}
                     id={item.id}
+                    // @ts-expect-error
                     manager_only={!!item?.manager_only}
                     onClick={props.goToItemDetailPage}
                     onDelete={setTemplateToDelete}
@@ -131,6 +132,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
             }}
             items={fuzzySearchItemList}
             placeholder={t('genericProduct.list.fuzzySearch')}
+            // @ts-expect-error
             searchFields={props.fuzzySearchSearchFields ?? ['name']}
           />
         )}
@@ -150,6 +152,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
                   companies={itemIdToSortedCompanyList[item.id]}
                   cover={!!props.getItemCover && props.getItemCover(item)}
                   id={item.id}
+                  // @ts-expect-error
                   manager_only={!!item?.manager_only}
                   onClick={props.goToItemDetailPage}
                   onDelete={setTemplateToDelete}
@@ -183,6 +186,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
                   companies={itemIdToSortedCompanyList[item.id]}
                   cover={props.getItemCover && props.getItemCover(item)}
                   id={item.id}
+                  // @ts-expect-error
                   manager_only={!!item?.manager_only}
                   onClick={props.goToItemDetailPage}
                   onDelete={setTemplateToDelete}

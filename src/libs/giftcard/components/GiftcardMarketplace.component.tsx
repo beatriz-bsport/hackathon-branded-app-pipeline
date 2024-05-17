@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -23,6 +22,7 @@ export function GiftcardMarketplace(props: Props) {
         {giftcard.cover ? (
           <img alt="" className={classes.image} src={giftcard.cover} />
         ) : (
+          // @ts-expect-error
           <div alt="" className={classes.image} />
         )}
       </ButtonBase>

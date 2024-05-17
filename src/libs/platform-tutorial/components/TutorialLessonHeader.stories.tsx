@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { TutorialLessonFactory, TutorialSectionFactory } from '../factories';
 
@@ -20,6 +19,7 @@ const CustomTemplate = (args: Props) => {
     sectionId: number | string,
     lessonId: number | string,
   ) => {
+    // @ts-expect-error
     setSelectedLesson(section_completed.lessons[lessonId]);
   };
   return (

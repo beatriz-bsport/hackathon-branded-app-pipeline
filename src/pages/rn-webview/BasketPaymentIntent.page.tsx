@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { loadStripe } from '@stripe/stripe-js';
 import isNil from 'lodash/isNil';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -19,12 +18,14 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
 } from '#libs/payment/api';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
@@ -71,6 +72,7 @@ import {
 import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
+// @ts-expect-error
 import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
 import { isErrorWithCustomCode } from '#libs/utils';
 import {
@@ -155,6 +157,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   setIsEstablishmentBillingGroupSelected = (
+    // @ts-expect-error
     isEstablishmentBillingGroupSelected,
   ) => {
     this.setState({
@@ -163,6 +166,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    // @ts-expect-error
     if (hasRedirectionFailed(this.props.queryParams)) {
       this.props.snackbarError(
         this.props.t(
@@ -196,6 +200,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             },
             {
               onSuccess: (data) => {
+                // @ts-expect-error
                 this.props.fetchMember(data.id, {
                   onError: () => {
                     this.setState({
@@ -211,6 +216,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       },
     });
     this.props.fetchPaymentMethodList({ basket: this.props.basketId });
+    // @ts-expect-error
     this.props.refreshBasket();
   }
 
@@ -239,6 +245,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   }
 
   getSecret = () => {
+    // @ts-expect-error
     if (shouldNotRetrieveSecret(this.props.queryParams)) {
       return;
     }
@@ -283,6 +290,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         'validation.sections.confirmationStatusTitle.errors.generic',
       ),
     );
+    // @ts-expect-error
     this.props.setQueryParams('check_payment_intent', 'false');
   };
 
@@ -302,7 +310,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     ];
     const sendMessage = (i: number) => {
       setTimeout(() => {
+        // @ts-expect-error
         if (window.ReactNativeWebView) {
+          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),
           );
@@ -335,7 +345,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       const { data } = await verifyPriceBasketAPI(this.props.basket.id);
       if (
         (!!this.props.basket.total_price_cts ||
+          // @ts-expect-error
           parseFloat(this.props.basket.total_price_cts) === 0) &&
+        // @ts-expect-error
         parseFloat(this.props.basket.total_price_cts) !== data
       ) {
         this.setState({ selfProcessing: false });
@@ -407,11 +419,13 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         </div>
       );
     }
+    // @ts-expect-error
     if (shouldCheckPaymentStatus(this.props.queryParams)) {
       return (
         <CheckPaymentStatus
           onFail={this.onFail}
           onSuccess={this.onSuccess}
+          // @ts-expect-error
           paymentIntent={this.props.queryParams.payment_intent}
         />
       );
@@ -679,8 +693,10 @@ const connector = connect(
   },
 );
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['checkout']),
+  // @ts-expect-error
   routerParamsToProps({ basketId: 'basketId' }),
   withState('basketError', 'setBasketError', null),
   withState('paymentProcessing', 'setPaymentProcessing', false),
@@ -696,6 +712,7 @@ export default compose(
       attachPayment(data, basketId, {
         onSuccess: (response: any) => {
           if (options && options.onSuccess) options.onSuccess(response);
+          // @ts-expect-error
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),
           );
@@ -709,10 +726,13 @@ export default compose(
   withHandlers({
     fetchOfferWithEstablishmentAndActivityBulk:
       ({ fetchOfferBulk, fetchEstablishmentBulk }) =>
+      // @ts-expect-error
       (ids) => {
         fetchOfferBulk(ids, {
+          // @ts-expect-error
           onSuccess: (offerList) => {
             fetchEstablishmentBulk(
+              // @ts-expect-error
               offerList?.map((b) => b.establishment) || [],
             );
           },
@@ -724,19 +744,24 @@ export default compose(
       ({ fetchBasket, basketId, fetchOfferWithEstablishmentAndActivityBulk }) =>
       (options: OptionCallback) =>
         fetchBasket(basketId, {
+          // @ts-expect-error
           onSuccess: (basket) => {
             options?.onSuccess?.();
             const offerIdsList =
               basket.checkout_items
                 ?.filter(
+                  // @ts-expect-error
                   (checkoutItem) =>
                     checkoutItem?.extra_data?.offers_data?.length,
                 )
+                // @ts-expect-error
                 ?.map((checkoutItem) =>
                   checkoutItem.extra_data.offers_data.map(
+                    // @ts-expect-error
                     (offerData) => offerData?.offer_id,
                   ),
                 )
+                // @ts-expect-error
                 ?.filter((offerId) => !!offerId)
                 ?.flat() || [];
             fetchOfferWithEstablishmentAndActivityBulk(offerIdsList);

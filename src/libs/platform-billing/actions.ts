@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import { createAction } from 'redux-actions';
@@ -45,6 +44,7 @@ export function fetchPlatformInvoiceList(
       const response = await fetchPlatformInvoiceListAPI(params);
       dispatch(listPlatformInvoiceActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -76,6 +76,7 @@ export function fetchUpsellPackage(upsellIdentifier: number) {
       const response = await fetchUpsellPackagesAPI({
         upsell_identifier: upsellIdentifier,
       });
+      // @ts-expect-error
       dispatch(fetchUpsellPackageActions.success(response.data));
     } catch (err) {
       console.error(err);
@@ -106,6 +107,7 @@ export function fetchUpsellPackages(params: any = {}, options: OptionCallback) {
       const response = await fetchUpsellPackagesAPI(params);
       dispatch(listUpsellPackagesActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -135,6 +137,7 @@ export const listUpsellPackageSubscribedIdsActions = {
  * @returns - The async thunk function.
  */
 export function fetchUpsellPackageSubscribedIds(
+  // @ts-expect-error
   params,
   options: OptionCallback,
 ) {
@@ -145,6 +148,7 @@ export function fetchUpsellPackageSubscribedIds(
       const response = await fetchUpsellPackageSubscribedIdsAPI(params);
       dispatch(listUpsellPackageSubscribedIdsActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -175,6 +179,7 @@ export function fetchPlatformBillingPlanList(
       const response = await fetchPlatformBillingPlanListAPI(params);
       dispatch(listBillingPlanActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -203,6 +208,7 @@ export function fetchPlatformBillingStageList(
       const response = await fetchPlatformBillingStageListAPI(params);
       dispatch(listBillingStageActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -231,6 +237,7 @@ export function retrievePlatformSubscription(
       const response = await retrieveSubscriptionAPI();
       dispatch(retrieveSubscriptionActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -256,6 +263,7 @@ export function retrievePlatformBillingGroup(options: OptionCallback) {
       const response = await retrievePlatformBillingPlanGroupAPI();
       dispatch(retrievePlatformBillingPlanGroupActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -284,6 +292,7 @@ export function requestUpsellPackage(
       const response = await requestUpsellPackageAPI(upsellIdentifier);
       dispatch(requestUpsellPackageActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -321,6 +330,7 @@ export function subscribeUpsellPackage(id: number, options: OptionCallback) {
       dispatch(getFeatureListWithoutLoading());
       dispatch(subscribeUpsellPackageActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -348,6 +358,7 @@ export function checkPlatformSubscriptionSetup(options: OptionCallback) {
       const response = await checkPlatformSubscriptionSetupAPI();
       dispatch(checkPlatformSubscriptionSetupActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -377,6 +388,7 @@ export function payNowInvoice(
       dispatch(payInvoiceActions.success(response.data));
       if (options && options.onSuccess) {
         dispatch(snackbarSuccess('platformBilling.payNowInvoice.success'));
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -410,6 +422,7 @@ export function retrievePlatformSubscriptionPaymentStatusAction(
         retrievePlatformSubscriptionPaymentStatusActions.success(response.data),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

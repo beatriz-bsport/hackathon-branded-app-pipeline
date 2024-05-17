@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -53,13 +52,16 @@ import {
   get as getSubscriptionById,
   getSubscriptionEventList,
   getSubscriptionEventState,
+  // @ts-expect-error
 } from '#libs/subscription/selectors';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SubscriptionComponent from '#libs/subscription/components/Subscription.component';
 import SubscriptionPaymentComboSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentComboSwitcherDialog.component';
+// @ts-expect-error
 import SubscriptionPaymentMethodSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
 import SubscriptionPaymentPackSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
 import SubscriptionPrivatePassSwitcherDialog from '#libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
+// @ts-expect-error
 import SubscriptionScheduledStopDialog from '#libs/subscription/components/SubscriptionScheduledStopDialog.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
@@ -120,6 +122,7 @@ export class SubscriptionDetail extends Component<Props> {
           goToSubscribe={goToSubscribe}
           loading={this.props.loading}
           paymentMethod={this.props.savedPaymentMethodList.find(
+            // @ts-expect-error
             (pm) => pm.id === subscription.stripe_payment_method_id,
           )}
           paymentMethodLoading={this.props.paymentMethodLoading}
@@ -143,11 +146,14 @@ export class SubscriptionDetail extends Component<Props> {
           requestUpdatePrice={this.props.updatePlannedInvoicePrice}
           subscription={subscription}
           unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
+          // @ts-expect-error
           updateDate={this.props.updatePlannedInvoiceDate}
+          // @ts-expect-error
           updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
         />
         {this.props.switchPackDialogOpen ? (
           <SubscriptionPaymentPackSwitcherDialog
+            // @ts-expect-error
             loading={this.props.switchSubscriptionItemLoading}
             onCancel={() => this.props.setSwitchPackDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPaymentPack}
@@ -160,6 +166,7 @@ export class SubscriptionDetail extends Component<Props> {
           <SubscriptionPrivatePassSwitcherDialog
             loading={this.props.switchSubscriptionItemLoading}
             onCancel={() => this.props.setSwitchPrivatePassDialogOpen(false)}
+            // @ts-expect-error
             onSubmit={this.props.switchSubscriptionPrivatePass}
             open={!!this.props.switchPrivatePassDialogOpen}
             privatePassList={this.props.availablePrivatePassList}
@@ -170,6 +177,7 @@ export class SubscriptionDetail extends Component<Props> {
           <SubscriptionPaymentComboSwitcherDialog
             loading={this.props.switchSubscriptionItemLoading}
             onCancel={() => this.props.setSwitchPaymentComboDialogOpen(false)}
+            // @ts-expect-error
             onSubmit={this.props.switchSubscriptionPaymentCombo}
             open={!!this.props.switchPaymentComboDialogOpen}
             paymentComboList={this.props.availablePaymentComboList}
@@ -263,6 +271,7 @@ const connector = connect(
     paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     theme: themeSelectors.getTheme(state),
     plannedInvoiceUpdateLoading:
+      // @ts-expect-error
       state.subscription.plannedInvoice.createOrUpdate.loading,
     stripeReaders: getStripeReaders(state),
   }),
@@ -309,6 +318,7 @@ const mapWithHandlers1 = {
   fetchSubscriptionEventList:
     ({ fetchSubscriptionEventList, id }: BeforeHandlerProps) =>
     (params = {}) =>
+      // @ts-expect-error
       fetchSubscriptionEventList({ ...params, object_id: id }),
   openPaymentMethodSwitch:
     ({ setSwitchPaymentMethodDialogOpen }: BeforeHandlerProps) =>
@@ -330,6 +340,7 @@ const mapWithHandlers1 = {
         id,
         {
           is_v2: true,
+          // @ts-expect-error
           payment_method_id,
           payment_engine: PAYMENT_ENGINE_STRIPE,
         },
@@ -351,6 +362,7 @@ const mapWithHandlers1 = {
     }: BeforeHandlerProps) =>
     () => {
       fetchSubscription(id, {
+        // @ts-expect-error
         onSuccess: (sub: Subscription) => {
           fetchPaymentPackBulk([sub.payment_pack]);
           fetchMember(sub.member);
@@ -390,6 +402,7 @@ const mapWithHandlers1 = {
     }: BeforeHandlerProps) =>
     (data: { payment_pack: number }, options: OptionCallback<Subscription>) => {
       switchSubscriptionPaymentPack(id, data, {
+        // @ts-expect-error
         onSuccess: (sub: Subscription) => {
           setSwitchPackDialogOpen(false);
           if (options && options.onSuccess) options.onSuccess(sub);
@@ -409,6 +422,7 @@ const mapWithHandlers1 = {
     }: BeforeHandlerProps) =>
     (data: { private_pass: number }, options: OptionCallback<Subscription>) => {
       switchSubscriptionPrivatePass(id, data, {
+        // @ts-expect-error
         onSuccess: (sub: Subscription) => {
           setSwitchPrivatePassDialogOpen(false);
           if (options && options.onSuccess) options.onSuccess(sub);
@@ -431,6 +445,7 @@ const mapWithHandlers1 = {
       options: OptionCallback<Subscription>,
     ) => {
       switchSubscriptionPaymentCombo(id, data, {
+        // @ts-expect-error
         onSuccess: (sub: Subscription) => {
           setSwitchPaymentComboDialogOpen(false);
           if (options && options.onSuccess) options.onSuccess(sub);
@@ -460,6 +475,7 @@ const mapWithHandlers1 = {
   updateSubscriptionRenewal:
     ({ id, updateSubscriptionRenewal }: BeforeHandlerProps) =>
     (data: any, options: OptionCallback<Subscription>) => {
+      // @ts-expect-error
       updateSubscriptionRenewal(id, data, options);
     },
 };
@@ -469,8 +485,10 @@ const mapWithHandlers2 = {
     ({ cancelPause, fetchSubscription, id }: BeforeHandlerProps) =>
     (pauseId: number, options: OptionCallback<Subscription>) => {
       cancelPause(id, pauseId, {
+        // @ts-expect-error
         onSuccess: (args?: Subscription) => {
           if (options && options.onSuccess) options.onSuccess(args);
+          // @ts-expect-error
           fetchSubscription();
         },
         onError: () => {
@@ -490,6 +508,7 @@ const mapWithHandlers2 = {
       updatePlannedInvoiceDate(id, data, {
         onSuccess: () => {
           if (options && options.onSuccess) options.onSuccess();
+          // @ts-expect-error
           fetchSubscription();
         },
         onError: () => {
@@ -501,6 +520,7 @@ const mapWithHandlers2 = {
     ({ flagPlannedInvoiceAsLast, fetchSubscription }: BeforeHandlerProps) =>
     (id: number, note?: string) => {
       flagPlannedInvoiceAsLast(id, note, {
+        // @ts-expect-error
         onSuccess: fetchSubscription,
       });
     },
@@ -508,6 +528,7 @@ const mapWithHandlers2 = {
     ({ unflagPlannedInvoiceAsLast, fetchSubscription }: BeforeHandlerProps) =>
     (id: number) => {
       unflagPlannedInvoiceAsLast(id, {
+        // @ts-expect-error
         onSuccess: fetchSubscription,
       });
     },
@@ -529,6 +550,7 @@ const mapWithHandlers2 = {
       updatePlannedInvoicePrice(id, data, {
         onSuccess: (args: any) => {
           options && options.onSuccess(args);
+          // @ts-expect-error
           fetchSubscription();
         },
         onError: options.onError,
@@ -620,6 +642,7 @@ export default compose(
   withHandlers(mapWithHandlers1),
   withHandlers(mapWithHandlers2),
   withTitle(({ subscription }) => (subscription ? subscription.name : '')),
+  // @ts-expect-error
   withMemberBannerHOC(({ subscription }) => ({
     name: subscription.memberName,
     archived: subscription.memberArchived,

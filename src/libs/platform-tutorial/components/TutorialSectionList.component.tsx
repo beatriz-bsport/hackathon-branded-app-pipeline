@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -24,6 +23,7 @@ import {
   TutorialSection,
 } from '#libs/platform-tutorial/types';
 import TutorialLessonList from '#libs/platform-tutorial/components/TutorialLessonList.component';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { FeatureList } from '#libs/company/types';
 import MuiIcon from '#components/MuiIcon.component';

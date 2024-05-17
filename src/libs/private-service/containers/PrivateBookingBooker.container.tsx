@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -26,6 +25,7 @@ import {
 } from '../selectors/private-consumer-pass';
 import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
 import { MemberMap } from '../../member/utils';
+// @ts-expect-error
 import { mapFormData } from '../../../pages/form.utils';
 import {
   fetchAllPrivateServices,
@@ -43,6 +43,7 @@ import { getAvailablePrivateServices } from '../selectors/private-service';
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
 
+// @ts-expect-error
 import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { getSearchedMembers } from '../../member/selectors';
@@ -55,8 +56,10 @@ import {
 import { getLatest as getLatestMember } from '../../member/api';
 import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../api';
 
+// @ts-expect-error
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
+// @ts-expect-error
 import RecurrenceRulePrivateBookingFields from '../components/booking/RecurrenceRulePrivateBookingFields.component';
 
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
@@ -312,17 +315,21 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           open
           country={this.props.country}
           createMember={this.props.createMember}
+          // @ts-expect-error
           generalTermsAndConditions={this.props.generalTermsAndConditions}
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({
+              // @ts-expect-error
               member: { ...member, consumer: member.consumer?.consumer },
             })
           }
           onClose={this.onClose}
           searchedMembers={this.props.searchedMembers.filter(
+            // @ts-expect-error
             (m) => m.id !== this.props.id,
           )}
           searchMembers={this.props.searchMembers}
+          // @ts-expect-error
           waiver={this.props.waiver}
         />
       );
@@ -353,6 +360,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         <div className={this.props.classes.innerDialog}>
           <MemberMinimalListItem
             bottomCredit
+            // @ts-expect-error
             member={this.state.member}
             showVaccinationStatus={this.props.showVaccinationStatus}
           />
@@ -466,6 +474,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                   compatibleWithUnpaidBooking={
                     this.props.compatibleWithUnpaidBooking
                   }
+                  // @ts-expect-error
                   createRecurrentRule={this.createRecurrentRule}
                   fetchIncompatibilitiesReasonsBySlotByConsumerPass={
                     this.fetchIncompatibilitiesReasonsBySlotByConsumerPass

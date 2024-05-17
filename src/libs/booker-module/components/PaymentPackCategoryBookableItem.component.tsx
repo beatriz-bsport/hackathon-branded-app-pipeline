@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
@@ -118,5 +117,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('booking'),
+  // @ts-expect-error
   withStyles(styles),
 )(PaymentPackCategoryBookableItem);

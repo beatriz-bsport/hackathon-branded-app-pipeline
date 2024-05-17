@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { AssetForBlueprint } from './types';
@@ -119,6 +118,7 @@ export const getSpotTypesOfCompanyByBlueprintId = (
           state.spotScheduling.roomBlueprint.byId[
             blueprint
           ].company.toString() &&
+        // @ts-expect-error
         !spotType.disabled,
     );
 };
@@ -132,6 +132,7 @@ export const getSpotTypesOfCompany = createSelector(
         (spotType) =>
           !!spotType &&
           spotType.company.toString() === theme.company.toString() &&
+          // @ts-expect-error
           !spotType.disabled,
       ),
 );

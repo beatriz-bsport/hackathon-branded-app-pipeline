@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -37,6 +36,7 @@ export function fetchListTutorialSections(
     try {
       const response = await fetchListTutorialSectionsAPI(params);
       dispatch(listTutorialSectionActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -62,6 +62,7 @@ export function retrieveTutorialSection(
     try {
       const response = await retrieveTutorialSectionAPI(params);
       dispatch(retrieveTutorialSectionActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -88,6 +89,7 @@ export function fetchListTutorialLessons(
     try {
       const response = await fetchListTutorialLessonsAPI(params);
       dispatch(listTutorialLessonActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -114,6 +116,7 @@ export function retrieveTutorialLesson(
     try {
       const response = await retrieveTutorialLessonAPI(params);
       dispatch(retrieveTutorialLessonActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -140,6 +143,7 @@ export function fetchUserTutorialCompletion(
     try {
       const response = await fetchUserTutorialCompletionAPI(params);
       dispatch(detailTutorialCompletionActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -171,6 +175,7 @@ export function updateTutorialLessonViewedStatus(
       dispatch(
         updateTutorialLessonUserCompletionStatusAction.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -194,6 +199,7 @@ export function updateTutorialLessonCompletedStatus(
       dispatch(
         updateTutorialLessonUserCompletionStatusAction.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -216,6 +222,7 @@ export function updateUserAcknowlegdeTutorial(
       dispatch(
         updateTutorialLessonUserCompletionStatusAction.success(response.data),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);

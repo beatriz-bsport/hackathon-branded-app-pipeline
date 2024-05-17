@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { push, goBack } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -23,6 +22,7 @@ import Paper from '@material-ui/core/Paper';
 
 import FuzeSearch from '#components/FuzeSearch.component';
 
+// @ts-expect-error
 import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreate.drawer';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
@@ -117,6 +117,7 @@ import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
 import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+// @ts-expect-error
 import { mapFormData, unmap } from '../form.utils';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
@@ -195,6 +196,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   changeSearch = (fuse: MetaActivity) => (ev: any) => {
     this.setState({
       searchText: ev.target.value,
+      // @ts-expect-error
       searchResult: fuse.search(ev.target.value),
     });
   };
@@ -211,6 +213,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     if (this.props.disabledMetaActivities.length === 1) {
       this.setState({ showDisabled: false });
     }
+    // @ts-expect-error
     this.props.restoreMetaActivity(id);
   };
 
@@ -236,6 +239,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     );
 
   onCancelForm = () => {
+    // @ts-expect-error
     this.props.setFormIsOpen(false);
   };
 
@@ -341,11 +345,14 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     return initialData;
   };
 
+  // @ts-expect-error
   openNoShowPenaltyDialog = () => this.props.setOpenNoShowPenaltyDialog(true);
 
   closeNoShowPenaltyDialog = () => {
+    // @ts-expect-error
     this.props.setOpenNoShowPenaltyDialog(false);
     this.onCancelForm();
+    // @ts-expect-error
     this.props.fetchPaymentPacks();
   };
 
@@ -362,11 +369,13 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           <IsEmptyList
             button={this.props.t('actions.addActivity')}
             onCreate={() => {
+              // @ts-expect-error
               this.props.setFormIsOpen(true);
             }}
             onCreateLabel={this.props.t('actions.addActivity')}
             text={this.props.t('noActivities')}
           />
+          {/* @ts-expect-error */}
           {!!this.props.formIsOpen && this.renderCreateActivity()}
         </div>
       );
@@ -387,6 +396,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             <NoShowPenaltyDialog
               goToSettings={this.props.goToSettings}
               onClose={this.closeNoShowPenaltyDialog}
+              // @ts-expect-error
               open={this.props.openNoShowPenaltyDialog}
             />
             {this.props.enabledMetaActivities.length > 0 && (
@@ -399,6 +409,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                       items={this.props.enabledMetaActivities}
                       placeholder={t('actions.search')}
                       searchFields={['name', 'description']}
+                      // @ts-expect-error
                       searchResult={this.state.searchResult}
                       searchText={this.state.searchText}
                     />
@@ -430,6 +441,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                       this.state.searchText !== ''
                     }
                   >
+                    {/* @ts-expect-error */}
                     <MetaActivityList
                       deleteMetaActivity={this.props.setActivityToDelete}
                       goToDetail={this.props.goToDetail}
@@ -471,6 +483,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 {([hasEditPermission, hasDeletePermission]: boolean[]) => (
                   <CategoryList
                     hideTitle
+                    // @ts-expect-error
                     categoryWithItems={
                       this.props.metaActivityCategoriesWithActivities
                     }
@@ -553,14 +566,14 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 </Collapse>
               </div>
             )}
-
             <MetaActivityDeleteDialog
+              // @ts-expect-error
               canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+              // @ts-expect-error
               deleteMetaActivity={this.props.deleteMetaActivity}
               metaActivityId={this.props.activityToDelete}
               onClose={() => this.props.setActivityToDelete(null)}
             />
-
             <MetaActivityEditDrawer
               initial={{
                 ...this.getSelectedMetaActivityInitialData(),
@@ -570,17 +583,19 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               onSubmit={this.props.onSubmit}
               open={!!this.props.selectedMetaActivity}
               SCTs={this.props.SCTs}
+              // @ts-expect-error
               tags={this.props.allTagsWithTagGroup}
             />
-
             {hasCreatePermission && (
               <BottomActionButtons
                 onCreate={() => {
+                  // @ts-expect-error
                   this.props.setFormIsOpen(true);
                 }}
                 onCreateLabel={this.props.t('actions.addActivity')}
               />
             )}
+            {/*  @ts-expect-error */}
             {this.props.formIsOpen &&
               this.renderCreateActivity(hasAddSessionPermission)}
           </div>
@@ -598,6 +613,7 @@ const styles = (theme: Theme) =>
     search: { marginBottom: theme.spacing(2) },
     searchPaperDisplayed: {
       border: '1px solid',
+      // @ts-expect-error
       borderColor: theme.primary_color,
       borderTop: '0px',
       borderTopLeftRadius: 0,
@@ -746,6 +762,7 @@ const handlers = {
     ({ makeActivityCopy, goToDetail }: HandlersProps) =>
     (id: number, suffix: string) => {
       makeActivityCopy(id, suffix, {
+        // @ts-expect-error
         onSuccess: (data: MetaActivity) => {
           // eslint-disable-next-line no-unused-expressions
           data?.id && goToDetail(data.id);
@@ -787,25 +804,35 @@ const handlers = {
         deniedAccessDialog: { display: true },
       });
     },
+  // @ts-expect-error
   goToSettings: (props) => () => {
     props.push('/settings/personalization');
   },
   createOrUpdatePaymentPack:
     ({
+      // @ts-expect-error
       createOrUpdate,
+      // @ts-expect-error
       fetchCompanyTheme,
+      // @ts-expect-error
       fetchPaymentPacks,
+      // @ts-expect-error
       companyId,
+      // @ts-expect-error
       isRollCallMandatory,
+      // @ts-expect-error
       setFormIsOpen,
+      // @ts-expect-error
       setOpenNoShowPenaltyDialog,
     }) =>
     (data: any, options: OptionCallback) => {
       createOrUpdate(data, {
         ...options,
+        // @ts-expect-error
         onSuccess: (res) => {
           options.onSuccess(res);
           fetchCompanyTheme(companyId, {
+            // @ts-expect-error
             onSuccess: (theme) => {
               if (!isRollCallMandatory && theme.is_roll_call_mandatory) {
                 setOpenNoShowPenaltyDialog(true);

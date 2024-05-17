@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles, TextField } from '@material-ui/core';
@@ -29,6 +28,7 @@ const ExportablePaymentPackTemplateSettings: React.FC<Props> = (props) => {
         onChange={(e, values) =>
           props.onChange({
             paymentPackTemplateList: values.map(
+              // @ts-expect-error
               (paymentPackTemplate) => paymentPackTemplate.id,
             ),
           })

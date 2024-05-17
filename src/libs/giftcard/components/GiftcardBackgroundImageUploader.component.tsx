@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+// @ts-expect-error
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
 import ConsumerGiftcardPreview from './ConsumerGiftcardPreview.component';
 import CarouselInput from '../../../components/input/carousel-input';
@@ -83,6 +83,7 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
             background_image:
               props.giftcardBackgroundImageList[selectedImage]?.image,
           }}
+          // @ts-expect-error
           giftcard={{
             amount_gifted: t(
               'consumerGiftcard.previewPlaceholder.giftcard_amount',

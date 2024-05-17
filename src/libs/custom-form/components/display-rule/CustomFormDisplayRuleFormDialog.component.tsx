@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -32,6 +31,7 @@ import {
   CUSTOM_FORM_DISPLAY_ON_SIGN_UP,
 } from '@bsport/common/lib/master-data/custom-form';
 import type { CustomFormDisplayRule } from '../../types';
+// @ts-expect-error
 import { IntegerField } from '../../../../components/forms';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../state/types';
@@ -113,6 +113,7 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
       }
       onSubmit={(values) => {
         return props.onSubmit(
+          // @ts-expect-error
           { ...values },
           {
             onSuccess: () => trackFormSuccess(props.initial?.id),

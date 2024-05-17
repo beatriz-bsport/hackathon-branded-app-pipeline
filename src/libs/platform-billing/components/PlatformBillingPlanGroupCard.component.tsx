@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -79,6 +78,7 @@ const PlatformBillingPlanCard = React.memo(
         <div className={classes.planDescription}>
           {platformBillingPlan.description_html ? (
             <iframe
+              // @ts-expect-error
               className={classes.iframe}
               frameBorder="0"
               srcDoc={platformBillingPlan.description_html}
@@ -98,6 +98,7 @@ const PlatformBillingPlanCard = React.memo(
                 <PlatformBillingStageCard
                   couponCts={props.couponCts}
                   defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+                  // @ts-expect-error
                   isSelected={props.currentPlatformBillingStageId === ps.id}
                   platformBillingStage={ps}
                 />
@@ -129,6 +130,7 @@ const PlatformBillingPlanGroupCard = (props: {
                 props.currentPlatformBillingStageId
               }
               defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+              // @ts-expect-error
               isSelected={plan.id === props.currentPlatformBillingPlanId}
               platformBillingPlan={plan}
             />

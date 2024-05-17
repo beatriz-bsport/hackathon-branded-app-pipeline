@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -115,6 +114,7 @@ const ReportGeneration: React.FC<Props> = ({
   editReportFilterConfig,
   fetchReportFilterConfigList,
   deleteReportFilterConfig,
+  // @ts-expect-error
   allowedFranchisees,
   userPermissions,
   objectLevelPermissions,
@@ -159,6 +159,7 @@ const ReportGeneration: React.FC<Props> = ({
       )}
       {report.date_start && (
         <ReportGenerationForm
+          // @ts-expect-error
           allowedFranchisees={allowedFranchisees}
           columnsMetadata={columnsMetadata}
           createReportFilterConfig={createReportFilterConfig}
@@ -179,6 +180,7 @@ const ReportGeneration: React.FC<Props> = ({
           setShowDialog={setShowDialog}
           showDialog={showDialog}
           timeWindowFilteringEnabled={
+            // @ts-expect-error
             !!reportMetadata?.time_window_filtering_enabled
           }
         />
@@ -188,6 +190,7 @@ const ReportGeneration: React.FC<Props> = ({
         <>
           <ReportTableHeaders
             handleGenerateHeaders={handleGenerateHeaders}
+            // @ts-expect-error
             reportCategory={report.category}
             reportHeaders={reportHeaders}
             reportHeadersLoading={reportHeadersLoading}
@@ -220,11 +223,13 @@ const ReportGeneration: React.FC<Props> = ({
             </Alert>
           )}
           {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
+          {/* @ts-expect-error */}
           {!report.loading && !!reportStoreRows && (
             <Paper>
               <ReportTable
                 handleGenerateNextPage={handleGenerateNextPage}
                 handleGeneratePreviousPage={handleGeneratePreviousPage}
+                // @ts-expect-error
                 loading={resultLoading}
                 metadata={metadata}
                 nextPage={nextPage}

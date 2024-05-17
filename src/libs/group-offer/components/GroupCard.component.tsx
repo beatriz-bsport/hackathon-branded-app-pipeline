@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import chroma from 'chroma-js';
 import { DateTime } from 'luxon';
@@ -18,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+// @ts-expect-error
 import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import ReccurenceDisplay from './RecurrenceDisplay.component';
@@ -128,6 +128,7 @@ export const GroupCard: React.FC<Props> = ({
         {offers.map((offer) => {
           if (!offer) return null;
           const nbBookings = offer.validated_booking_count ?? 0;
+          // @ts-expect-error
           const cancelledOffer = (offer.bookings?.length ?? 0) - nbBookings;
 
           return (

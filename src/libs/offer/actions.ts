@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
@@ -84,15 +83,18 @@ export function fetchSimilarOffers(
     dispatch(similarOffers.error(null));
     try {
       const response = await fetchSimilarOffersAPI(offerId, params);
+      // @ts-expect-error
       if (!response.data.results && !params.page) {
         dispatch(similarOffers.success([]));
         dispatch(similarOffers.success(response.data));
         if (options && options.onSuccess) {
+          // @ts-expect-error
           options.onSuccess(response.data);
         }
       } else {
         dispatch(similarOffers.successPaginated(response.data));
         if (options && options.onSuccess) {
+          // @ts-expect-error
           options.onSuccess(response.data.results);
         }
       }
@@ -194,6 +196,7 @@ export function fetchAllOffers(
       const response = await fetchAllEventsAPI(params);
       dispatch(offers.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -226,6 +229,7 @@ export function fetchAllOffersPaginated(
       const response = await fetchAllEventsAPI(params);
       dispatch(offersPaginated.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -274,8 +278,11 @@ export function retrieveOfferAsManager(id: number, options: OptionCallback) {
     dispatch(offerByDay.error(null));
     try {
       const response = await fetchOffersByDayAPI({ id__in: [id] });
+      // @ts-expect-error
       if (response.data.length === 1) {
+        // @ts-expect-error
         dispatch(offerByDay.bulk(response.data[0]));
+        // @ts-expect-error
         if (options && options.onSuccess) options.onSuccess(response.data[0]);
       }
     } catch (error) {
@@ -298,6 +305,7 @@ export function refreshOffersByDay(params: any, options: OptionCallback) {
         ...filters,
       });
       dispatch(offerByDay.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(offerByDay.error(error));
@@ -317,6 +325,7 @@ export function fetchOffersByDay(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));
+    // @ts-expect-error
     dispatch(refreshOffersByDay(day, options));
   };
 }
@@ -334,6 +343,7 @@ export function fetchOfferById(id: number, options?: OptionCallback<Offer>) {
     try {
       const response = await fetchByIdAPI(id);
       dispatch(retrieveActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(retrieveActions.error(error));
@@ -398,19 +408,29 @@ const createOfferFilter = (filters: OfferFilterData | OfferFilter) => {
   const filterData: OfferFilterData = {};
   // do not delete this, migration
   if (filters) {
+    // @ts-expect-error
     if (filters.establishments && filters.establishments.length > 0) {
+      // @ts-expect-error
       filterData.establishment__in = filters.establishments;
     }
+    // @ts-expect-error
     if (filters.coaches && filters.coaches.length > 0) {
+      // @ts-expect-error
       filterData.coach__in = filters.coaches;
     }
+    // @ts-expect-error
     if (filters.metaActivities && filters.metaActivities.length > 0) {
+      // @ts-expect-error
       filterData.activity__in = filters.metaActivities;
     }
+    // @ts-expect-error
     if (filters.levels && filters.levels.length > 0) {
+      // @ts-expect-error
       filterData.level__in = filters.levels;
     }
+    // @ts-expect-error
     if (filters.establishmentGroups && filters.establishmentGroups.length > 0) {
+      // @ts-expect-error
       filterData.establishment_group__in = filters.establishmentGroups;
     }
   }
@@ -442,8 +462,10 @@ export function fetchMarketplaceOfferList(
         ...params,
         ...createOfferFilter(filters),
       });
+      // @ts-expect-error
       dispatch(offerMarketplaceListActions.success(response.data.results));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -481,6 +503,7 @@ export function fetchNextAvailableOffer(
       // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
+        // @ts-expect-error
         only_future_strict: true,
         max_date: DateTime.now().plus({ months: 4 }).toISODate(),
         ...params,
@@ -490,9 +513,11 @@ export function fetchNextAvailableOffer(
         page: 1,
       });
 
+      // @ts-expect-error
       dispatch(offerNextActions.success(response.data?.results?.[0] ?? null));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data?.results?.[0] ?? null);
       }
     } catch (error) {
@@ -538,8 +563,10 @@ export function fetchOfferBulk(
       if (ignoreManagerOnly)
         filterParams.ignore_manager_only = !!ignoreManagerOnly;
       const response = await fetchOffersListAPI(filterParams);
+      // @ts-expect-error
       dispatch(offerBulkActions.success(response.data.results));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -609,7 +636,9 @@ export function fetchOfferStatusList(
     try {
       const response = await fetchOfferStatusListAPI(ids, params);
 
+      // @ts-expect-error
       dispatch(offerStatusActions.list(response.data.results));
+      // @ts-expect-error
       options && options.onSuccess && options.onSuccess(response.data.results);
     } catch (error) {
       console.error(error);
@@ -636,6 +665,7 @@ export function retrieveOffer(id: number, options?: OptionCallback<Offer>) {
       const response = await retrieveOfferAPI(id);
       dispatch(retrieveByIdActions.success(response.data));
 
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(retrieveByIdActions.error(error));
@@ -670,6 +700,7 @@ export function disableMassOffers(
         if (options && options.onSuccess) {
           dispatch(
             monitorBackgroundTask(backgroundTaskUuid, {
+              // @ts-expect-error
               onSuccess: options.onSuccess,
             }),
           );
@@ -707,6 +738,7 @@ export function retrieveNumberOfMassDisabledOfferAction(
         ...params?.options,
       });
       dispatch(numberOfMassDisabledOfferRetrieveActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(numberOfMassDisabledOfferRetrieveActions.error(error));
@@ -742,8 +774,10 @@ export function retrieveNumberOfMassDisabledOfferInGroup(
         ...params?.options,
       });
       dispatch(
+        // @ts-expect-error
         numberOfMassDisabledOfferInGroupActions.success(response.data.results),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data.results);
     } catch (error) {
       dispatch(numberOfMassDisabledOfferInGroupActions.error(error));
@@ -769,6 +803,7 @@ export function fetchOfferRegisteredIds(
       const response = await userRegistrationAPI();
       if (response.status === 200) {
         if (options && options.onSuccess) {
+          // @ts-expect-error
           options.onSuccess(response.data);
         }
         dispatch(listRegisteredIds.success(response.data));
@@ -812,18 +847,23 @@ export function fetchBookedGender(params: any, options?: OptionCallback) {
           filters.establishmentGroups &&
           filters.establishmentGroups.length > 0
         ) {
+          // @ts-expect-error
           filterData.establishment_group__in = filters.establishmentGroups;
         }
         if (filters.establishments && filters.establishments.length > 0) {
+          // @ts-expect-error
           filterData.establishment__in = filters.establishments;
         }
         if (filters.coaches && filters.coaches.length > 0) {
+          // @ts-expect-error
           filterData.coach__in = filters.coaches;
         }
         if (filters.metaActivities && filters.metaActivities.length > 0) {
+          // @ts-expect-error
           filterData.activity__in = filters.metaActivities;
         }
         if (filters.levels && filters.levels.length > 0) {
+          // @ts-expect-error
           filterData.level__in = filters.levels;
         }
       }
@@ -835,6 +875,7 @@ export function fetchBookedGender(params: any, options?: OptionCallback) {
       });
       dispatch(bookedGenderActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -859,6 +900,7 @@ export function fetchBookedGenderBulk(
       });
       dispatch(bookedGenderActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -883,11 +925,14 @@ export function offerUserRegistration(
     dispatch(offerUserRegistrationAction.isLoading(true));
     try {
       const response = await postUserRegistrationAPI(data, params);
+      // @ts-expect-error
       if (response && response.data && response.data.buyable_item_error_code) {
+        // @ts-expect-error
         const error_code = response.data.buyable_item_error_code;
         if (ALL_ERROR_CODES.includes(error_code)) {
           dispatch(
             snackbarError(
+              // @ts-expect-error
               `canNotBuyErrorCode.${response.data.buyable_item_error_code}`,
             ),
           );
@@ -896,6 +941,7 @@ export function offerUserRegistration(
         }
       }
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -966,6 +1012,7 @@ export function fetchMarketplaceOfferByMetaActivityList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
       dispatch(
@@ -1101,6 +1148,7 @@ export function checkOfferTagEligibility(
       const response = await checkOfferTagEligibilityAPI(offerId, data);
       if (response.status === 200) {
         if (options && options.onSuccess) {
+          // @ts-expect-error
           options.onSuccess(response.data);
         }
         dispatch(checkOfferTagEligibilityAactions.success(response.data));
@@ -1138,6 +1186,7 @@ export function unTagAllOffers(
         if (options && options.onSuccess) {
           dispatch(
             monitorBackgroundTask(backgroundTaskUuid, {
+              // @ts-expect-error
               onSuccess: options.onSuccess,
             }),
           );
@@ -1179,6 +1228,7 @@ export function unTagOffer(
         if (options && options.onSuccess) {
           dispatch(
             monitorBackgroundTask(backgroundTaskUuid, {
+              // @ts-expect-error
               onSuccess: options.onSuccess,
             }),
           );
@@ -1313,6 +1363,7 @@ export function fetchOffersInGroup(
       });
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data?.results ?? []);
       }
       dispatch(fetchOffersInGroupAction.isLoading(false));
@@ -1343,6 +1394,7 @@ export function fetchBookingGuestNumber(
       const response = await fetchBookingGuestNumberAPI(offerId);
       const result = response.data;
       dispatch(bookingGuestNumberActions.success(result));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(bookingGuestNumberActions.error(error));
@@ -1497,6 +1549,7 @@ export function fetchOfferWaitingListPosition(
       const response = await fetchOfferWaitingListPositionAPI(id, params);
       const data = { ...response.data, id };
       dispatch(offerStatusWaitingListPositionActions.success(data));
+      // @ts-expect-error
       options?.onSuccess?.(data);
     } catch (error) {
       dispatch(offerStatusWaitingListPositionActions.error(error));
@@ -1527,6 +1580,7 @@ export function fetchOfferWaitingListPositionList(
       dispatch(
         offerStatusWaitingListPositionActions.list(response.data.results),
       );
+      // @ts-expect-error
       options && options.onSuccess && options.onSuccess(response.data.results);
     } catch (error) {
       console.error(error);
@@ -1551,6 +1605,7 @@ export function updateInternalNote(
     dispatch(updateInternalNoteActions.loading(true));
     try {
       const response = await updateInternalNoteAPI(offerId, data);
+      // @ts-expect-error
       options?.onSuccess(response.data);
       dispatch(retrieveActions.success(response.data));
       dispatch(snackbarSuccess('dashboard.save.success'));

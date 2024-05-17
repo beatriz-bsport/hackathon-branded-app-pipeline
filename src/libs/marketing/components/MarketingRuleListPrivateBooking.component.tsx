@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import {
@@ -133,6 +132,7 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
     const sessionsKeys = Object.keys(bySession);
     const allSessionIndex = sessionsKeys.findIndex((it) => it === '0');
     allSessionIndex !== -1 &&
+      // @ts-expect-error
       sessionsKeys.push(sessionsKeys.splice(allSessionIndex, 1));
 
     return sessionsKeys.map((sessionNumber) => {

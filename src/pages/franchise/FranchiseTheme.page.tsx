@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import { compose } from 'recompose';
@@ -20,6 +19,7 @@ import {
 import { getFranchiseId, getFranchisor } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import FranchiseThemeForm from '../../libs/franchise/components/FranchiseThemeForm.components';
+// @ts-expect-error
 import { emailRegexp } from '../../components/input/EmailInput.component';
 
 type OwnProps = {};
@@ -103,6 +103,7 @@ const FranchiseTheme = (props: Props) => {
     <div className={classes.container}>
       <Paper className={classes.paperContainer}>
         <FranchiseThemeForm
+          // @ts-expect-error
           cover={cover}
           handleChange={handleChange}
           handleCoverChange={handleCoverChange}

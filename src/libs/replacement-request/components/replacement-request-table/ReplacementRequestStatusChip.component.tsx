@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
@@ -76,6 +75,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
 
         <Typography className={classnames({ [classes.smallFont]: isMobile })}>
           {t(
+            // @ts-expect-error
             `replacementStatus.${REPLACEMENT_REQUEST_STATUS_LABELS[replacementRequestStatus]}`,
           )}
         </Typography>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,9 +21,11 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
 } from '@bsport/common/lib/master-data/custom-form';
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import FieldIcon from './FieldIcon.component';
+// @ts-expect-error
 import { CheckboxField } from '../../../components/forms';
 import { TextField } from './GenericFormik.input';
 import type { CustomFormField } from '../types';
@@ -132,6 +133,7 @@ export const CustomFormFieldListItem = (props: Props) => {
       </ToolTip>
       <div className={classes.label}>
         <TextField
+          // @ts-expect-error
           className={classes.label}
           disabled={
             props.customFormField.signup_question_kind ===
@@ -226,6 +228,7 @@ export const CustomFormFieldListItem = (props: Props) => {
                       iconButtonComponent: ButtonWithConfirm,
                       onClick: () => props.onClickDelete(),
                       color: 'secondary',
+                      // @ts-expect-error
                       fontSize: 'small',
                     },
                   props.onClickRestore && {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -182,10 +181,12 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
               {this.props.t('calendar.customEvent.dateStart')}
             </Typography>
             <DateTimeForm
+              // @ts-expect-error
               onChange={(customEventDateStart: string) =>
                 this.setState({ customEventDateStart })
               }
               timezone={this.props.timezone}
+              // @ts-expect-error
               value={this.state.customEventDateStart}
             />
             <Typography
@@ -196,10 +197,12 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
               {this.props.t('calendar.customEvent.dateEnd')}
             </Typography>
             <DateTimeForm
+              // @ts-expect-error
               onChange={(customEventDateEnd: string) =>
                 this.setState({ customEventDateEnd })
               }
               timezone={this.props.timezone}
+              // @ts-expect-error
               value={this.state.customEventDateEnd}
             />
           </div>
@@ -247,7 +250,6 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  // @ts-expect-error
   withStyles(styles),
   withTranslation(['privateService']),
 )(FabPrivateCalendar);

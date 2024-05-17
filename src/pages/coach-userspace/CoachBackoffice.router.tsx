@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState, useMemo } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -102,6 +102,7 @@ const CoachBackoffice = (props: Props) => {
       }}
     >
       <CoachDrawer
+        // @ts-expect-error
         coachProfileLoading={props.coachProfileLoading}
         companyId={companyId}
         cover={theme?.cover}

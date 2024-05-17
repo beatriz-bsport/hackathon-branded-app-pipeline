@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classnames from 'classnames';
 import { compose } from 'recompose';
@@ -17,6 +16,7 @@ import { OptionCallback } from '../../../../state/types';
 import PersonalizedSpotCreator from './PersonalizedSpotCreator.component';
 import PredefinedSpotCreator from './PredefinedSpotCreator.component';
 
+// @ts-expect-error
 import { TextField, RadioGroupField } from '../../../../components/forms';
 import { SpotType } from '#libs/spot-scheduling/types';
 
@@ -164,6 +164,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
             {
               onSuccess: () => {
                 actions.setSubmitting(false);
+                // @ts-expect-error
                 closeDialog && closeDialog(defaultSpot);
                 resetInitial && resetInitial();
               },
@@ -254,6 +255,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
             {formikProps.values?.customization ===
               PERSONALIZED_CUSTOMIZATION && (
               <PersonalizedSpotCreator
+                // @ts-expect-error
                 renderExample={(text?, stroke?, fill?) =>
                   renderExample(
                     classes.exampleBottom,
@@ -413,6 +415,8 @@ const CanvasSpotCreatorSchema = Yup.object().shape({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation('spotScheduling'),
+  // @ts-expect-error
 )(CanvasSpotCreatorForm);

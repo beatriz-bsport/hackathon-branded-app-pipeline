@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 import Welcome from './Welcome.component';
 
+// @ts-expect-error
 const WelcomeTemplate = (args: {}) => <Welcome {...args} />;
 
 export const Validation = WelcomeTemplate.bind({});

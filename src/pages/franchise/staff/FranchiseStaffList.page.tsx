@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -25,7 +24,6 @@ import {
   getAllFranchiseRoles,
   hasFranchiseRoleUpsertPermission,
 } from '#libs/role/selectors';
-// @ts-expect-error
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
@@ -73,6 +71,7 @@ export class FranchiseStaffConfiguration extends React.Component<Props, State> {
           isFranchisor
           createUserRole={this.props.createStaffFranchiseUser}
           deleteUserRole={this.props.deleteStaffFranchiseUser}
+          // @ts-expect-error
           franchiseeList={this.props.franchiseeList}
           franchiseeListLoading={this.props.franchiseeListLoading}
           franchiseRoles={franchiseRoles}
@@ -81,6 +80,7 @@ export class FranchiseStaffConfiguration extends React.Component<Props, State> {
           setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
           updateCommission={this.props.updateFranchiseUserCommission}
           updateUserRole={this.props.updateFranchiseUserRole}
+          // @ts-expect-error
           users={users}
         />
         <BottomActionsButtonCustom
@@ -92,6 +92,7 @@ export class FranchiseStaffConfiguration extends React.Component<Props, State> {
               color: 'primary',
             },
           ]}
+          // @ts-expect-error
           openCreateStaffDialog={this.state.openCreateStaffDialog}
           setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
         />
@@ -145,7 +146,6 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-expect-error
   withStyles(styles),
   withTranslation(['franchise', 'role']),
   withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),

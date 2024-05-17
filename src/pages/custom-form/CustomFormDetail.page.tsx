@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { push as pushRouter } from 'connected-react-router';
@@ -106,10 +105,12 @@ export class CustomFormDetail extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       (prevProps.customForm &&
+        // @ts-expect-error
         prevProps.customForm.custom_form_field &&
         prevProps.customForm !== this.props.customForm) ||
       (this.props.customForm && !this.props.customFormRefresh)
     ) {
+      // @ts-expect-error
       this.handleUpdateView({ ...this.props.customForm });
     }
     if (prevProps.id !== this.props.id) {
@@ -118,6 +119,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
   }
 
   getDisplayRuleOnSignUpAlreadyExists = () => {
+    // @ts-expect-error
     return this.props.customForm?.display_rules?.find(
       (rule: CustomFormDisplayRule) =>
         rule.kind === CUSTOM_FORM_DISPLAY_ON_SIGN_UP,
@@ -132,6 +134,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
       this.props.loading
     ) {
       return (
+        // @ts-expect-error
         <BackofficeLinearProgress additionalMargin={1} color="secondary" />
       );
     }
@@ -140,7 +143,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
         <div className={classes.container}>
           <Grid container direction="row" spacing={3}>
             <Grid item lg={7} md={12} xl={6}>
+              {/* @ts-expect-error */}
               {this.props.customForm?.is_member_form ||
+              // @ts-expect-error
               this.props.customForm?.is_signup ? null : (
                 <>
                   <Typography variant="h5">
@@ -184,10 +189,10 @@ export class CustomFormDetail extends React.Component<Props, State> {
                   </div>
                 </>
               )}
-
               <CustomFormConfigurationTable
                 companyTheme={this.props.companyTheme}
                 handleUpdateView={this.handleUpdateView}
+                // @ts-expect-error
                 initial={this.props.customForm}
                 isSubmitting={this.props.isSubmitting}
                 navigateToMemberForm={this.props.navigateToMemberForm}
@@ -201,11 +206,14 @@ export class CustomFormDetail extends React.Component<Props, State> {
               />
             </Grid>
             <Grid item lg={5} md={12} xl={6}>
+              {/* @ts-expect-error */}
               {this.props.customForm?.is_member_form ||
+              // @ts-expect-error
               this.props.customForm?.is_signup ? null : (
                 <div className={classes.displayRulePanel}>
                   <CustomFormDisplayRulePanel
                     withItemDivider
+                    // @ts-expect-error
                     customForm={this.props.customForm}
                     onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
                     onDeleteDisplayRule={this.props.deleteCustomFormDisplayRule}
@@ -220,7 +228,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
               )}
               <div className={classes.previewTitle}>
                 <Typography variant="h6">{t('customForm.preview')}</Typography>
+                {/* @ts-expect-error */}
                 {this.props.customForm?.layout &&
+                  // @ts-expect-error
                   Object.keys(this.props.customForm.layout || {})?.length ===
                     4 && (
                     <Button
@@ -258,6 +268,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
           </Grid>
         </div>
         {this.props.openDisplayRuleDialog && (
+          // @ts-expect-error
           <CustomFormDisplayFormDialog
             initial={this.props.initialDisplayRule}
             onClose={() => {
@@ -283,6 +294,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
             open={this.props.openLayoutUpdateDialog}
             saveLayouts={(layouts) =>
               this.props.updateCutsomFormLayout(
+                // @ts-expect-error
                 { formId: this.props.customForm.id, layout: layouts },
                 { noSuccessMessage: true },
               )
@@ -343,6 +355,7 @@ const styles = (theme: Theme) => ({
   },
 });
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
+  // @ts-expect-error
   customForm: withDisplayRule(getCustomForm)(state, id),
   loading: state.customForm.loading,
   theme: state.theme.theme,
@@ -388,6 +401,7 @@ const mapWithHandlers = {
     (display_rule: CustomFormDisplayRule, options?: OptionCallback) => {
       props.setDisplayRuleSubmitting(true);
       props.upsertCustomFormDisplayRuleAction(
+        // @ts-expect-error
         { ...display_rule, custom_form_id: props.customForm.id },
         {
           onSuccess: () => {

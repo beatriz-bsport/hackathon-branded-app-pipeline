@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
@@ -114,6 +113,7 @@ const GraphParamTemporalForm: React.FC<Props> = ({
             isDisabled={dateValueOptions.length === 1}
             name="graph_params.date_value"
             onChange={handleDateValueChange}
+            // @ts-expect-error
             options={dateValueOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
@@ -145,6 +145,7 @@ const GraphParamTemporalForm: React.FC<Props> = ({
                   className={classes.selectInput}
                   isDisabled={aggregationFunctionNameChoices.length === 1}
                   name="graph_params.aggregation_function_name"
+                  // @ts-expect-error
                   options={aggregationFunctionNameChoices}
                   placeholder={t(
                     'graphFormDrawer.placeholders.aggregationSelector',

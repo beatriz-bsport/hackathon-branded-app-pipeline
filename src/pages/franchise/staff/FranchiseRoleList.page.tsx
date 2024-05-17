@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -23,7 +22,6 @@ import {
   withFranchiseeRoles,
   hasFranchiseRoleUpsertPermission,
 } from '#libs/role/selectors';
-// @ts-expect-error
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
@@ -99,6 +97,7 @@ export class RoleConfiguration extends React.Component<Props, State> {
         <BottomActionsButtonCustom
           buttonsProperties={[
             {
+              // @ts-expect-error
               onClick: this.setOpenCreateRoleDialog,
               text: t('forms.role.create.buttonCreate'),
               icon: <AddIcon />,
@@ -149,7 +148,6 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-expect-error
   withStyles(styles),
   withTranslation(['role']),
   withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),

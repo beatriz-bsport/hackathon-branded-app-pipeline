@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -30,6 +29,7 @@ import COMMON_ROLES, {
   OWNER_ROLE,
   CHECKIN_APP_ROLE,
   ADMIN_ROLE,
+  // @ts-expect-error
 } from '../role-types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { Company } from '#libs/company/types';
@@ -85,6 +85,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
     super(props);
     this.state = {
       selectedFranchisees: null,
+      // @ts-expect-error
       commission: parseFloat(this.props.user.staff_commission_percentage),
     };
   }
@@ -146,6 +147,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
 
     const disableRoleMenuItem = (role: FranchiseRole | Role) => {
       if (isFranchisor) {
+        // @ts-expect-error
         return role.identifier === OWNER_ROLE;
       }
       return role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE;
@@ -159,6 +161,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
       }
     };
 
+    // @ts-expect-error
     const handleOnCommissionChange = (ev) => {
       let parsedValue = Number.parseFloat(ev.target.value.toString());
       parsedValue = parseFloat(parsedValue.toFixed(2));
@@ -171,6 +174,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
     const handleOnCommissionFocus = () => {
       if (Number.isNaN(this.state.commission)) {
         this.setState({
+          // @ts-expect-error
           commission: this.props.user.staff_commission_percentage,
         });
       } else {
@@ -233,6 +237,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
 
             {!isRoleIn([OWNER_ROLE]) && (
               <TextField
+                // @ts-expect-error
                 castAsNumber
                 className={classes.commissionField}
                 disabled={!hasOwnerPermission || isRelatedToFranchisor}
@@ -263,6 +268,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
                 classes={{ colorPrimary: classes.infoBadge }}
                 color="primary"
               >
+                {/* @ts-expect-error */}
                 <IconButton
                   className={classes.advancedSettingsButton}
                   onClick={handleOpenAdvancedRoleSettings}

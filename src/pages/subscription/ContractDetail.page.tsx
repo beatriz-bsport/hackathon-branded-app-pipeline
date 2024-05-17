@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -19,6 +18,7 @@ import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+// @ts-expect-error
 import ContractDeleteDialog from '#libs/subscription/components/SubscriptionContractDeleteModal.component';
 import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
@@ -62,6 +62,7 @@ import {
   withPaymentPack,
   getContractDetailSubscription,
   getContractPauseList,
+  // @ts-expect-error
 } from '#libs/subscription/selectors';
 import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
 import ContractDetail from '#libs/subscription/components/contract/ContractDetail.component';
@@ -244,6 +245,7 @@ export class ContractDetailPage extends Component<Props> {
               <Grid item className={classes.detailContainer} md={6} xs={12}>
                 <ContractDetail
                   company={this.getCompany(this.props.theme)}
+                  // @ts-expect-error
                   companyTheme={this.props.theme}
                   contract={this.props.contract}
                   goToCombo={this.props.goToCombo}
@@ -266,6 +268,7 @@ export class ContractDetailPage extends Component<Props> {
                     this.props.setDeleteNotificationModalOpen
                   }
                   setSelectedNotification={this.props.setSelectedNotification}
+                  // @ts-expect-error
                   smartLists={this.props.smartLists}
                   updateNotification={this.props.updateMarketingNotification}
                 />
@@ -296,7 +299,9 @@ export class ContractDetailPage extends Component<Props> {
                     onSubmit={this.props.submitNotificationForm}
                     resolvedGenericTags={this.props.resolvedGenericTags}
                     smartListLoading={this.props.smartListLoading}
+                    // @ts-expect-error
                     smartLists={this.props.smartLists}
+                    // @ts-expect-error
                     tags={getMergeTags(this.props.tagCategories, t)}
                   />
                 )}
@@ -366,6 +371,7 @@ export class ContractDetailPage extends Component<Props> {
                 )}
               </Grid>
               <BottomActionsButtonCustom
+                // @ts-expect-error
                 buttonsProperties={
                   hasPausePermission ? this.getBottomActionsProperties(t) : null
                 }
@@ -392,8 +398,10 @@ export class ContractDetailPage extends Component<Props> {
               onSubmit={this.submitContractForm}
               open={!!this.props.contractToEdit}
               paymentComboList={this.props.paymentComboList}
+              // @ts-expect-error
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
+              // @ts-expect-error
               tagList={this.props.allTagsWithTagGroup}
             />
           </div>

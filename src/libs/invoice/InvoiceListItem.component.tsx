@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { formatAsDatetime } from '../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
+// @ts-expect-error
 import LoadingListItem from '#components/LoadingListItem.component';
 import { Invoice } from '#libs/invoice/types';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';

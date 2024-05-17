@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CanvasAbstractTool, {
   CanvasElement,
   CanvasSvgMouseParamsI,
@@ -13,6 +12,7 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
 
   hideNativeCursor = true;
 
+  // @ts-expect-error
   onClick = (params: CanvasSvgMouseParamsI, spotTypeId: number) => {
     const { x, y, elements } = params;
 
@@ -28,6 +28,7 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
       y,
       index: index + 1,
       indexType: indexType + 1,
+      // @ts-expect-error
       spotTypeId,
       taken: false,
       selected: false,
@@ -36,6 +37,7 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
     return [...elements, spot];
   };
 
+  // @ts-expect-error
   onMove = (params: CanvasSvgMouseParamsI, spotTypeId: number) => {
     const { x, y } = params;
 
@@ -46,6 +48,7 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
     }
   };
 
+  // @ts-expect-error
   onMouseOut = (spotTypeId: number) => {
     if (!spotTypeId) {
       new SpotDOMController().select(this.draftId).setPosition(-100, -100);
@@ -55,6 +58,7 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
       .setPosition(-100, -100);
   };
 
+  // @ts-expect-error
   onCancel = (spotTypeId: number) => {
     if (!spotTypeId) {
       new SpotDOMController().select(this.draftId).setPosition(-100, -100);

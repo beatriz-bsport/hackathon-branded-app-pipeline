@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -109,6 +108,7 @@ const initialState: Immutable.Immutable<CommunicationState> =
       byId: {},
       allIds: [],
     },
+    // @ts-expect-error
     inboxThread: {
       byId: {},
       ...Object.fromEntries(
@@ -158,6 +158,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         .merge(
           {
             sent: {
+              // @ts-expect-error
               byId: { [payload.id]: payload },
             },
           },
@@ -165,6 +166,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         )
         .setIn(
           ['sent', 'messageList', 'allIds'],
+          // @ts-expect-error
           [...state.sent.messageList.allIds, payload.id],
         );
     },
@@ -272,6 +274,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.merge({ sent: { byId: payload } }, { deep: true });
     },
     [flagAllUnreadCommunicationsAsReadInContextActions.error.toString()]: (
@@ -303,7 +306,9 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'error'],
+        // @ts-expect-error
         payload.error,
       );
     },
@@ -312,7 +317,9 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'loading'],
+        // @ts-expect-error
         payload.loading,
       );
     },
@@ -320,6 +327,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       const kind = COMMUNICATION_KIND[payload.kind];
       return state.setIn(
         ['company_communication_provider', kind, 'provider'],
@@ -331,7 +339,9 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'update', 'error'],
+        // @ts-expect-error
         payload.error,
       );
     },
@@ -340,7 +350,9 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
+        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'update', 'loading'],
+        // @ts-expect-error
         payload.loading,
       );
     },
@@ -439,6 +451,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         .merge(
           {
             inboxThread: {
+              // @ts-expect-error
               byId: payload.results.reduce(
                 (
                   acc: CommunicationThread[],

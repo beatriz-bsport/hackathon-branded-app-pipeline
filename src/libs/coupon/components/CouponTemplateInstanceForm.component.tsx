@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -122,6 +121,7 @@ const CouponTemplateInstanceForm = (props: Props) => {
         onChange={(newValue) => {
           setFieldValue(
             'selectedCompanies',
+            // @ts-expect-error
             newValue.map((val) => parseInt(val?.value, 10)),
           );
         }}

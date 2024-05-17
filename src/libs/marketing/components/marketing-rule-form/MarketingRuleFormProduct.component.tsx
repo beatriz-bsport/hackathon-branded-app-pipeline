@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
@@ -24,6 +23,7 @@ import {
   RadioGroupField,
   Actions,
   Submit,
+  // @ts-expect-error
 } from '#components/forms';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getCreditFactor } from '#libs/theme/selectors';
@@ -189,9 +189,11 @@ const ProductNotificationForm = (props: Props) => {
     getSmartLists();
   }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
+  // @ts-expect-error
   if (verboseNotifKind !== 'creditsLeft' && credits_left === '') {
     setFieldValue('credits_left', 0);
   }
+  // @ts-expect-error
   if (verboseNotifKind === 'creditsLeft' && days_left === '') {
     setFieldValue('days_left', 0);
   }
@@ -370,6 +372,7 @@ const ProductNotificationForm = (props: Props) => {
         <MarketingRuleSendingMethodField
           email_design={email_design}
           emailDetailLoading={emailDetailLoading}
+          // @ts-expect-error
           emailDetails={emailDetails}
           emailListLoading={emailListLoading}
           emails={emails}
@@ -600,6 +603,7 @@ export default compose<any, Props>(
     validationSchema: ProductNotificationSchema,
     handleSubmit: (
       values: FinalFormikData,
+      // @ts-expect-error
       { props: { onSubmit, identifier } },
     ) => {
       const data: MarketingNotification = {

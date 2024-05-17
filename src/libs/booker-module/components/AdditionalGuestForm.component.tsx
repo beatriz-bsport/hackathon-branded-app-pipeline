@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -80,6 +79,7 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
                 <TextField
                   autoFocus
                   required
+                  // @ts-expect-error
                   shrink
                   label={t('guest.form.firstname.label')}
                   onChange={(v) => {
@@ -90,6 +90,7 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
                   value={this.state.first_name || ''}
                 />
                 <TextField
+                  // @ts-expect-error
                   shrink
                   label={t('guest.form.lastname.label')}
                   onChange={(v) => {
@@ -100,6 +101,7 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
                   value={this.state.last_name || ''}
                 />
                 <TextField
+                  // @ts-expect-error
                   shrink
                   label={t('guest.form.email.label')}
                   onChange={(v) => {

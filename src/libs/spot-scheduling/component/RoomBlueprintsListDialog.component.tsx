@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -60,6 +59,7 @@ class RoomBlueprintsListDialog extends React.PureComponent<Props, State> {
         <DialogContent style={{ width: 400 }}>
           <List aria-label="main mailbox folders" component="nav">
             {this.props.blueprints.map((roomBlueprint: RoomBlueprint) => (
+              // @ts-expect-error
               <RoomBlueprintListItem
                 key={roomBlueprint.id}
                 onClick={(selected: RoomBlueprint) =>

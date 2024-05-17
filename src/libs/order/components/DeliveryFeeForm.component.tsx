@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
@@ -61,6 +60,7 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
       free_threshold: this.state.data.free_threshold,
       id: this.state.data.id,
     };
+    // @ts-expect-error
     this.props.onSubmit(data);
   };
 
@@ -85,6 +85,7 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
             onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               this.handleChange('fee')(ev.target.value)
             }
+            // @ts-expect-error
             value={fee}
           />
         </div>
@@ -96,6 +97,7 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
             onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               this.handleChange('free_threshold')(ev.target.value)
             }
+            // @ts-expect-error
             value={free_threshold}
           />
         </div>

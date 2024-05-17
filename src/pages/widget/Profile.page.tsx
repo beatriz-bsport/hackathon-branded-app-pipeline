@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withState } from 'recompose';
@@ -30,6 +29,7 @@ class ProfileWidgetPage extends React.PureComponent<Props> {
   }
 
   render() {
+    // @ts-expect-error
     return <ConsumerProfile membership={this.props.membership} />;
   }
 }
@@ -57,6 +57,7 @@ const mapWithHandlers = {};
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
+    // @ts-expect-error
     companyName: 'companyName',
   }),
   withStyles(styles),

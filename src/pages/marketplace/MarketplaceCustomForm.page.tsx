@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
@@ -97,6 +96,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
   }
 
   getLoginUrl = () => {
+    // @ts-expect-error
     const { pathname } = this.props.location;
     return getLoginRedirectionUrl(
       this.props.companyId,
@@ -131,7 +131,9 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
           <div className={classes.container}>
             <Grid container className={classes.gridContainer}>
               <Grid item md={6} xs={12}>
+                {/* @ts-expect-error */}
                 {this.props.customFormWithEnabledField?.disabled ||
+                // @ts-expect-error
                 this.props.customFormWithEnabledField?.is_signup ? (
                   <Paper className={classes.disabledFormPaper}>
                     <Typography
@@ -159,8 +161,10 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                       general_terms_and_conditions={
                         this.props.theme.general_terms_of_use
                       }
+                      // @ts-expect-error
                       initial={this.props.customFormWithEnabledField}
                       isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                      // @ts-expect-error
                       layouts={this.props.customFormWithEnabledField?.layout}
                       onSubmit={this.props.submitCustomForm}
                       waiver={this.props.theme.waiver}
@@ -231,8 +235,10 @@ const mapStateToProps = (
   theme: themeSelectors.getTheme(state),
   activeMemberShip: getMembership(state, props.companyId),
   customFormLoading: state.customForm.loading,
+  // @ts-expect-error
   customFormWithEnabledField: withUserProfileData(getCustomFormWithEnableField)(
     state,
+    // @ts-expect-error
     props.customFormId,
   ),
   authenticated: state.auth.authenticated,
@@ -270,7 +276,9 @@ const withStateHandlersSetter = {
 export default compose<any, Props>(
   withTranslation('marketing'),
   routerParamsToProps({
+    // @ts-expect-error
     companyId: 'companyId',
+    // @ts-expect-error
     customFormId: 'customFormId',
   }),
   connect(mapStateToProps, mapDispatchToProps),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Theme, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import Dropzone from 'react-dropzone';
@@ -25,6 +24,7 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
   };
 
   onDropAccepted = async (files: Array<File>) => {
+    // @ts-expect-error
     if (this.props.processing) return;
     if (files.length === 1) {
       /* eslint-disable-next-line */
@@ -83,11 +83,12 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
                 ...(isDragReject ? rejectStyle : {}),
               };
               return (
+                // @ts-expect-error
                 <div style={styles} {...getRootProps()}>
+                  {/* @ts-expect-error */}
                   {this.props.processing && <CircularProgress />}
                   <input {...getInputProps()} />
                   <p>{this.props.t('video.upload.content')}</p>
-
                   <Typography color="textSecondary" variant="caption">
                     mp4, mov, avi, mkv, etc...
                   </Typography>
@@ -160,6 +161,7 @@ const styles = (theme: Theme) => ({
 
 export default compose<any, OwnProps>(
   withTranslation(['video']),
+  // @ts-expect-error
   withStyles(styles),
   withProps(({ fowardedRef }) => ({ ref: fowardedRef })),
 )(VideoProviderDropzone);

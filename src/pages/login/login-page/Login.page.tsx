@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withState } from 'recompose';
 
@@ -10,10 +9,13 @@ import { push } from 'connected-react-router';
 import type { Dispatch } from '../../../state/types';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString } from '../../../http';
+// @ts-expect-error
 import { requestLogin, disconnect } from '../../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import Login from '#csscomponents/Login/Login.component';
+// @ts-expect-error
 import { withQueryParamsUndecoded } from '#hocs/with-query-params.hoc';
 import type { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
@@ -79,6 +81,7 @@ export class ConsumerLoginPage extends Component<Props> {
       );
     }
     if (this.props.franchisor) {
+      // @ts-expect-error
       this.props.fetchFranchiseTheme(parseInt(this.props.franchisor, 10));
     }
   }
@@ -89,9 +92,11 @@ export class ConsumerLoginPage extends Component<Props> {
 
   onRequestSignup = () => {
     if (this.props.franchisorId) {
+      // @ts-expect-error
       return this.props.setQueryParams('step')(STEPS.franchiseeSelection);
     }
 
+    // @ts-expect-error
     return this.props.replace(`/login/signup${window.location.search}`);
   };
 
@@ -138,7 +143,9 @@ export class ConsumerLoginPage extends Component<Props> {
       ?.map((company) => parseInt(company));
 
     if (companyList?.length) {
+      // @ts-expect-error
       companiesSelectable = companiesSelectable?.filter((comp) =>
+        // @ts-expect-error
         paymentPackTemplateCompanies.includes(comp?.id),
       );
     }
@@ -173,6 +180,7 @@ export class ConsumerLoginPage extends Component<Props> {
               originalLoginNextLink={goNext}
               requestSignUp={this.onRequestSignup}
               simplifyUI={simplifyUI}
+              // @ts-expect-error
               t={t}
               theme={theme}
             />
@@ -185,9 +193,11 @@ export class ConsumerLoginPage extends Component<Props> {
               disconnect={this.props.disconnect}
               franchiseTheme={this.props.franchisor}
               franchisor={this.props.franchisorId}
+              // @ts-expect-error
               goToSignup={goToSignup}
               selectedFranchisee={this.props.selectedFranchisee}
               setSelectedFranchisee={this.props.setSelectedFranchisee}
+              // @ts-expect-error
               setStep={this.props.setQueryParams('step')}
             />
           )}
@@ -301,6 +311,7 @@ export default compose(
       step,
     };
   }),
+  // @ts-expect-error
   connect(mapStateToProps, mapDispatchToProps),
   connect(null, properMapDispatchToProps),
   withHandlers(mapWithHandlers),

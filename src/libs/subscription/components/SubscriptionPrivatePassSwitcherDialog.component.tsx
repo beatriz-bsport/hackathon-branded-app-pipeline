@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
 import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
 import { Submit } from '#components/forms';
+// @ts-expect-error
 import PrivatePassSelectorField from '#libs/private-service/components/pass/PrivatePassSelectorField.component';
 import type { PrivatePass } from '#libs/private-service/types';
 import { Subscription } from '../types';

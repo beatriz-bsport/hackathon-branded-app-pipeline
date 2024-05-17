@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import type { Graph } from '../statistics/types';
 import { ErrorAndLoading } from '#libs/types';
 import {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +7,7 @@ import {
   Props,
   ClickableItemForStorybook,
 } from '#components/css-only/ClickableItem';
+// @ts-expect-error
 import { PaymentPackStorybookFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
 import {
@@ -30,9 +30,11 @@ export const PassClickableItem = (args: Props) => {
   return (
     <ClickableItemForStorybook
       secondary={getSearchItemIndicator(
+        // @ts-expect-error
         { item: paymentPack, itemType: ItemType.PAYMENT_PACK },
         t,
       )}
+      // @ts-expect-error
       tertiary={getSearchItemPrice(
         { item: paymentPack, itemType: ItemType.PAYMENT_PACK },
         t,

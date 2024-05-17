@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import cloneDeep from 'lodash/cloneDeep';
@@ -11,6 +10,7 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
+// @ts-expect-error
 import { Actions, Submit } from '#components/forms';
 
 import {
@@ -54,6 +54,7 @@ const defaultPermissions: FranchiseRolePermission = {
       giftcardTemplates: true,
       couponTemplates: true,
     },
+    // @ts-expect-error
     marketing: {
       campaigns: true,
       emailTemplates: true,
@@ -129,10 +130,12 @@ export class CreateRoleMasterAccountDialog extends React.Component<
 
     const disabled = this.props.role && !this.props.role.editable;
 
+    // @ts-expect-error
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
 
     const description = disabled
-      ? getRoleDescription(this.props.role, t)
+      ? // @ts-expect-error
+        getRoleDescription(this.props.role, t)
       : this.state.description;
 
     return (
@@ -182,10 +185,12 @@ export class CreateRoleMasterAccountDialog extends React.Component<
                 disabled={this.props.role && !this.props.role.editable}
                 isLocalOrDevEnv={isLocalOrDevEnv}
                 keysAccumulator={[key]}
+                // @ts-expect-error
                 permissions={this.state.permissions}
                 rightKey={key}
                 updatePermission={(permissions) => {
                   this.setState({
+                    // @ts-expect-error
                     permissions,
                   });
                 }}

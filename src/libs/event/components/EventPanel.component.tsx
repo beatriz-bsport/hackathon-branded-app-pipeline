@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles, Theme } from '@material-ui/core';
@@ -15,15 +14,19 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { OptionCallback } from '../../../state/types';
 import { EventListParams, GenericEvent, GenericEventSpec } from '../types';
 import EventListItem from './EventListItem.component';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { WithHandlerType } from '../../../utils/types';
 
 type OwnProps = {
   fetchEventList: (params: EventListParams, options?: OptionCallback) => void;
+  // @ts-expect-error
   eventSpec: GenericEventSpec;
   loading: boolean;
   page: number;
+  // @ts-expect-error
   onEventClick?: (event: GenericEvent) => void;
+  // @ts-expect-error
   eventList: Array<GenericEvent>;
   extraFetchParams?: any;
 };
@@ -71,6 +74,7 @@ export class GenericEventPanel extends React.Component<Props, State> {
     return (
       <div>
         <div className={this.props.classes.row}>
+          {/* @ts-expect-error */}
           <Typography variant="subtitle">
             {this.props.t('list.title.latestEvents')}
           </Typography>
@@ -133,6 +137,7 @@ export class GenericEventPanel extends React.Component<Props, State> {
           nbItems={0}
           onPageRequested={this.fetchEventPageFiltered}
           page={this.props.page}
+          // @ts-expect-error
           renderItem={(event: GenericEvent) => (
             <EventListItem
               key={`${event.date}:${event.identifier}`}
@@ -170,14 +175,17 @@ const styles: any = (theme: Theme) => ({
 
 const handlers = {
   fetchEventPage:
-    ({ fetchEventList, eventSpec, extraFetchParams }) =>
-    (page: number, eventTypeList?: Array<string>) =>
-      fetchEventList({
-        page,
-        page_size: 10,
-        event_types: eventTypeList || Object.keys(eventSpec),
-        ...(extraFetchParams || {}),
-      }),
+    // @ts-expect-error
+
+
+      ({ fetchEventList, eventSpec, extraFetchParams }) =>
+      (page: number, eventTypeList?: Array<string>) =>
+        fetchEventList({
+          page,
+          page_size: 10,
+          event_types: eventTypeList || Object.keys(eventSpec),
+          ...(extraFetchParams || {}),
+        }),
 };
 
 export default compose<any, OwnProps>(

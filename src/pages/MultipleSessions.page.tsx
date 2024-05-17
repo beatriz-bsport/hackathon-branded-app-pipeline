@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -6,10 +5,12 @@ import { connect, ConnectedProps } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core';
 
 import { RootState } from '../reducers';
+// @ts-expect-error
 import { getTheme } from '../theme';
 import {
   fetchAccessLevel as fetchAccessLevelAction,
   fetchAccessLevelWithoutConnect as fetchAccessLevelWithoutConnectAction,
+  // @ts-expect-error
 } from '../actions/auth.actions';
 import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
 
@@ -52,6 +53,7 @@ export const MultipleSessions = (props: Props) => {
   return (
     <MuiThemeProvider theme={getTheme(previousTheme)}>
       <MultipleSessionDetails
+        // @ts-expect-error
         currentName={currentConnexionRight?.username}
         currentStatus={getStatus(currentConnexionRight)}
         previousName={previousConnexionRight?.username}
@@ -94,4 +96,5 @@ const connector = connect(
   },
 );
 
+// @ts-expect-error
 export default compose(connector)(MultipleSessions);

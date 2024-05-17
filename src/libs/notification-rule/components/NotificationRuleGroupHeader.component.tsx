@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +13,7 @@ import {
   NotificationRuleEventType,
   NotificationRuleSettings,
 } from '#libs/notification-rule/types';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';

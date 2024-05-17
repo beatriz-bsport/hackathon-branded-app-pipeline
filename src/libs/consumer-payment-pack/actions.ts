@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import type {
@@ -56,6 +55,7 @@ export function fetchByOfferByMember(
       const response = await fetchByOfferByMemberV2API(offer, { member });
       dispatch(byOfferByMember.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -107,6 +107,7 @@ export function fetchNonCompatibleByOfferByMember(
       });
       dispatch(nonCompatibleByOfferByMember.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -132,6 +133,7 @@ export function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
         await fetchIncompatibilitiesReasonsByOfferByConsumerPackAPI(cpp, offer);
       dispatch(
         incompatibilitiesReasonsByOfferByConsumerPack.success(
+          // @ts-expect-error
           response.data.incompatibilities_to_offer,
         ),
       );
@@ -188,8 +190,10 @@ export function fetchByPaymentPack(
       dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
       if (options && options.onSuccess) {
         if (response.data.results) {
+          // @ts-expect-error
           options.onSuccess(response.data.results);
         } else {
+          // @ts-expect-error
           options.onSuccess(response.data);
         }
       }
@@ -273,8 +277,10 @@ export function fetchConsumerPaymentPackCreditRefundList(
         consumer_payment_pack,
         page_size: 10,
       });
+      // @ts-expect-error
       dispatch(partialRefundActions.list(response.data.results)); // TODO fix pagination
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -309,6 +315,7 @@ export function fetchConsumerPaymentPackMaxoutBooking(
 
       dispatch(consumerPaymentPackMaxoutBookingAction.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -334,6 +341,7 @@ export function refundConsumerPaymentPack(
       const response = await refundConsumerPaymentPackAPI(id, data);
       dispatch(partialRefundActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -392,6 +400,7 @@ export function fetchByMember({
       const current_page = response.data?.page ?? page;
       dispatch(byMember.success({ ...response.data, page: current_page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -431,6 +440,7 @@ export function fetchUniversalByMember(
       });
       dispatch(universalbyMember.success({ ...response.data, page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -465,6 +475,7 @@ export function retrieveConsumerPackBulk(
       });
       dispatch(retrieveBulk.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -499,6 +510,7 @@ export function fetchConsumerPaymentPackForBooking(
       const response = await fetchByOfferByMemberAPI(offer, { mine: true });
       dispatch(forBookingActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -633,6 +645,7 @@ export function fetchConsumerPaymentPackCompatibleList(
     try {
       const response = await fetchConsumerPaymentPackCompatibleListAPI(params);
       dispatch(listConsumerPaymentPackCompatibleActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -665,6 +678,7 @@ export function fetchConsumerPaymentPackPenalty(
       });
       dispatch(
         listConsumerPaymentPackPenaltyActions.success({
+          // @ts-expect-error
           ...response.data,
           page,
         }),
@@ -700,6 +714,7 @@ export function fetchConsumerPaymentPackList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {

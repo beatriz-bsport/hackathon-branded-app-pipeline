@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -115,6 +114,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
         WrapperComponent={Paper}
       >
         <ListItem
+          // @ts-expect-error
           button={!!this.props.onClick}
           className={classNames({
             [this.props.classes.container]: !this.props.dense,
@@ -197,9 +197,11 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             this.props.onDelete &&
             !this.props.pack.template_instance ? (
               <div style={{ display: 'flex', flexDirection: 'row' }}>
+                {/* @ts-expect-error */}
                 {this.props.pack.hasActiveNotification && (
                   <Tooltip
                     aria-label="info"
+                    // @ts-expect-error
                     classes={this.props.classes}
                     title={
                       <Typography variant="subtitle2">

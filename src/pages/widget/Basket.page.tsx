@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -58,12 +57,14 @@ class BasketPage extends React.PureComponent<Props> {
               <BasketConsumer
                 fullWidth
                 withPrice
+                // @ts-expect-error
                 basket={this.props.basket}
                 loading={this.props.loading}
                 onAddCheckoutItem={(data: any, options?: OptionCallback) =>
                   this.props.addItemToBasket(
                     this.props.basket.id,
                     data,
+                    // @ts-expect-error
                     options,
                   )
                 }
@@ -150,6 +151,7 @@ const mapDispatchToProps = {
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
+    // @ts-expect-error
     companyName: 'companyName',
   }),
   // @ts-expect-error

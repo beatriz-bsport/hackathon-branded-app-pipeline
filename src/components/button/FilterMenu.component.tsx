@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -154,11 +153,13 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                 )}
                 <Typography variant="inherit">{m.label}</Typography>
                 {m.openFunction && !m.open && (
+                  // @ts-expect-error
                   <ListItemIcon button>
                     <ExpandMoreSharpIcon color="primary" />
                   </ListItemIcon>
                 )}
                 {m.openFunction && m.open && (
+                  // @ts-expect-error
                   <ListItemIcon button>
                     <ExpandLessIcon color="primary" />
                   </ListItemIcon>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ReactPropTypes } from 'react';
 
 export type SuportedConverter =
@@ -23,6 +22,7 @@ export default function withQueryParamsToProps([
         const match = regex.exec(search);
 
         return (
+          // @ts-expect-error
           <WrappedComponent
             {...this.props}
             {...{

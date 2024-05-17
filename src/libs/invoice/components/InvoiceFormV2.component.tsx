@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { withStyles, WithStyles, Theme } from '@material-ui/core';
 import { compose } from 'recompose';
@@ -14,6 +13,7 @@ import { TFunction } from 'i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InvoiceContent from './InvoiceContent.component';
+// @ts-expect-error
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 import {
@@ -78,11 +78,16 @@ const asEditable = (editable: boolean, items: Array<any>) => {
 
 export class InvoiceForm extends React.Component<Props, State> {
   state = {
+    // @ts-expect-error
     invoiceItemList: [],
+    // @ts-expect-error
     coupon_list: [],
     couponLoading: false,
+    // @ts-expect-error
     selectedEstablishmentBillingGroup: null,
+    // @ts-expect-error
     giftcardToConfigureList: [],
+    // @ts-expect-error
     giftcardConfigList: [],
     requiredEstablishmentIsMissing: false,
   };
@@ -182,6 +187,7 @@ export class InvoiceForm extends React.Component<Props, State> {
           invoice_amount: this.getInvoiceItemAmount(),
         },
       );
+      // @ts-expect-error
       if (data.can_be_applied) {
         this.setState((prevState) => {
           return {
@@ -189,7 +195,9 @@ export class InvoiceForm extends React.Component<Props, State> {
               ...prevState.coupon_list,
               {
                 coupon_code: couponCode,
+                // @ts-expect-error
                 coupon_voucher: data.voucher,
+                // @ts-expect-error
                 compatible_items: data.compatible_items,
               },
             ],
@@ -237,7 +245,9 @@ export class InvoiceForm extends React.Component<Props, State> {
   finalizeInvoiceItems = () => {
     this.setState((prevState: State) => {
       const giftcardToConfigureList = prevState.invoiceItemList
+        // @ts-expect-error
         .filter((ii) => ii.buyable_item_identifier === BUYABLE_ITEM_GIFTCARD)
+        // @ts-expect-error
         .map((b) => b.buyable_item_id);
       if (!giftcardToConfigureList.length) this.onSubmit([]);
       return {
@@ -256,6 +266,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     } else {
       this.props.onSubmit({
         buyable_items: this.state.invoiceItemList,
+        // @ts-expect-error
         coupon_codes: this.state.coupon_list.map(
           (coupon) => coupon.coupon_code,
         ),
@@ -266,6 +277,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     }
   };
 
+  // @ts-expect-error
   storeGiftcardConfig = (giftcardConfig) => {
     this.setState((prevState) => {
       const newState = {
@@ -304,6 +316,7 @@ export class InvoiceForm extends React.Component<Props, State> {
           <Typography className={classes.title} variant="h4">
             {this.props.t('invoice.editor.sumup')}
           </Typography>
+          {/* @ts-expect-error */}
           <InvoiceContent
             withEstablishment
             amountInvoiceItem={invoiceItemAmount}
@@ -347,6 +360,7 @@ export class InvoiceForm extends React.Component<Props, State> {
         <FinalizeInvoiceDialog
           onClose={this.props.closeFinalizeInvoiceDialog}
           onSubmit={() => {
+            // @ts-expect-error
             this.props.finalizeInvoice();
             this.props.closeFinalizeInvoiceDialog();
           }}
@@ -370,12 +384,14 @@ export class InvoiceForm extends React.Component<Props, State> {
                 >
                   <div style={{ width: '100%' }}>
                     <ConsumerGiftcardFormWithPreview
+                      // @ts-expect-error
                       forceVertical
                       giftcard={giftcardToConfigure}
                       giftcardBackgroundImageList={
                         this.props.giftcardBackgroundImageList
                       }
                       isManager={this.props.imageCarouselChangeable}
+                      // @ts-expect-error
                       onSubmit={(data) =>
                         this.storeGiftcardConfig({
                           ...data,
@@ -432,6 +448,7 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['invoice']),
 )(InvoiceForm);

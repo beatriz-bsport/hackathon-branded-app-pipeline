@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { showGenericDialog } from './GenericDialog';
+// @ts-expect-error
 import i18n from '../../i18n';
 
 export const showDeleteDialog = async (title: string, text: string) => {

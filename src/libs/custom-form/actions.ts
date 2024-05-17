@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import {
@@ -159,6 +158,7 @@ export function upsertCustomForm(form: CustomForm, options?: OptionCallback) {
 
       dispatch(upsertCustomFormActions.success(response.data));
       dispatch(snackbarSuccess(`customForm.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
@@ -195,6 +195,7 @@ export function updateCutsomFormLayout(
       dispatch(updateCustomFormLayoutActions.success(response.data));
       if (!options?.noSuccessMessage)
         dispatch(snackbarSuccess(`customForm.update.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`customForm.update.error`));
@@ -219,6 +220,7 @@ export function disableCustomForm(formId: number, options?: OptionCallback) {
       const response = await disableCustomFormAPI(formId);
       dispatch(disableCustomFormActions.success(response.data));
       dispatch(snackbarSuccess('customForm.disable.success'));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(disableCustomFormActions.error(formId));
@@ -313,6 +315,7 @@ export function duplicateCustomForm(formId: number, options?: OptionCallback) {
       const response = await duplicateCustomFormAPI(formId);
       dispatch(duplicateCustomFormActions.success(response.data));
       dispatch(snackbarSuccess(`customForm.duplicate.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`customForm.duplicate.error`));
@@ -361,6 +364,7 @@ export function submitCustomForm(
       const response = await submitCustomFormAPI(form_filled, companyId);
 
       dispatch(submitCustomFormActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
@@ -398,6 +402,7 @@ export function submitCustomFormDraft(
       const response = await submitDraftCustomFormAPI(params);
 
       dispatch(submitCustomFormDratActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
@@ -506,6 +511,7 @@ export function upsertCustomFormDisplayRule(
 
       dispatch(upsertCustomFormDisplayRuleActions.success(response.data));
       dispatch(snackbarSuccess(`customFormDisplayRule.${kind}.success`));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
@@ -569,6 +575,7 @@ export function requestMemberCustomFormNotification(
       dispatch(requestCustomFormNotificationActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -656,6 +663,7 @@ export function submitSignUpCustomForm(
     dispatch(signUpViaCustomFormActions.error(null));
     try {
       const response = await submitSignUpCustomFormAPI(
+        // @ts-expect-error
         sign_up_custom_form_filled,
         company,
         referral_uuid,
@@ -701,6 +709,7 @@ export function fetchModelBasedAnswer(
     try {
       const response = await fetchModelBasedAnswerApi(params);
       dispatch(fetchModelBasedAnswerActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();

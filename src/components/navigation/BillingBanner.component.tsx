@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -60,6 +59,7 @@ const BillingBanner = (props: Props) => {
           </Typography>
         </div>
       </ButtonBase>
+      {/* @ts-expect-error */}
       <CheckPermission requiredPermissions="navigationMenu.settings">
         {!window.location.pathname.includes('settings') && (
           <Dialog open={modalOpen}>

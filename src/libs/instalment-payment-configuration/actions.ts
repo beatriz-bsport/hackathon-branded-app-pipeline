@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { OptionCallback, ThunkAction, Dispatch } from '../../state/types';
 import { InstalmentPaymentApi } from './types';
@@ -62,6 +61,7 @@ export function createOrUpdateInstalmentPayment(
       const response = await apiCall(data);
 
       dispatch(instalmentPaymentCreateOrUpdateActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
       if (data.id) {
         dispatch(snackbarSuccess('instalmentPayment:action.edit.success'));
@@ -101,6 +101,7 @@ export function fetchInstalmentPayment(
     try {
       const response = await fetchInstalmentPaymentAPI(params);
       dispatch(instalmentPaymentListActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(instalmentPaymentListActions.error(error));
@@ -131,6 +132,7 @@ export function fetchInstalmentPaymentByBasket(
           basketId,
         }),
       );
+      // @ts-expect-error
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(instalmentPaymentForBasketListActions.error(error));

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -344,6 +343,7 @@ export function fetchConsumerGiftcardList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardActions.error(null));
@@ -416,6 +416,7 @@ export function sendEmailInvitation(
     dispatch(sendEmailInvitationActions.error(null));
 
     try {
+      // @ts-expect-error
       const response = await sendEmailInvitationAPI(id, recipientList);
       dispatch(sendEmailInvitationActions.success(response.data));
       if (options && options.onSuccess) {
@@ -450,6 +451,7 @@ export function fetchGiftcardBackgroundImageList(
       const response = await fetchGiftcardBackgroundImageListAPI(companyId);
       dispatch(listGiftcardBackgroundImageActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
       dispatch(listConsumerGiftcardActions.error(null));
@@ -544,6 +546,7 @@ export function fetchConsumerGiftcardReceivedList(
         ...(params || {}),
         ...(memberId ? { dst_member: memberId } : { as_received: true }),
       });
+      // @ts-expect-error
       const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardReceivedActions.success({
@@ -552,6 +555,7 @@ export function fetchConsumerGiftcardReceivedList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardReceivedActions.error(null));
@@ -584,6 +588,7 @@ export function fetchConsumerGiftcardSentList(
         ...(params || {}),
         ...(memberId ? { src_member: memberId } : { as_sent: true }),
       });
+      // @ts-expect-error
       const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardSentActions.success({
@@ -592,6 +597,7 @@ export function fetchConsumerGiftcardSentList(
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
       dispatch(listConsumerGiftcardSentActions.error(null));
@@ -609,6 +615,7 @@ export function makeGiftcardCopy(id: number, options: OptionCallback) {
     try {
       const response = await makeGiftcardCopyAPI(id);
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -637,6 +644,7 @@ export function fetchGiftcardTemplateList(
     try {
       const response = await fetchGiftcardTemplateListAPI();
       dispatch(listGiftcardTemplateActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -663,6 +671,7 @@ export function retrieveGiftcardTemplate(
     try {
       const response = await retrieveGiftcardTemplateAPI(id);
       dispatch(retrieveGiftcardTemplateActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -699,6 +708,7 @@ export function createOrUpdateGiftcardTemplate(
       } else {
         dispatch(updateGiftcardTemplateActions.success(response.data));
       }
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);

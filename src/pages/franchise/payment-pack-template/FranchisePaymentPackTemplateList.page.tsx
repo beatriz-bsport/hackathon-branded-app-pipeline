@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers, withState } from 'recompose';
@@ -81,6 +80,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
   state: State = { showManagerOnly: false, showAvailable: true };
 
   componentDidMount() {
+    // @ts-expect-error
     this.props.fetchPaymentPackTemplateAvailable();
   }
 
@@ -142,9 +142,12 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               <Collapse in={this.state.showAvailable}>
                 <Paper>
                   <VirtualizedPaymentPackTemplateList
+                    // @ts-expect-error
                     divider
                     onClick={this.props.goToTemplateDetail}
+                    // @ts-expect-error
                     onDelete={this.props.openDeleteDialog}
+                    // @ts-expect-error
                     onEdit={this.props.openEditDialog}
                     paymentPackTemplateList={
                       this.props.paymentPackTemplateListAvailable
@@ -166,6 +169,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               )}
             </IconButton>
           </div>
+          {/*  @ts-expect-error */}
           {this.props.paymentPackManagerOnlyLoading ? (
             <div className={classes.divider}>
               <LinearProgress />
@@ -178,7 +182,9 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               <Paper>
                 <VirtualizedPaymentPackTemplateList
                   onClick={this.props.goToTemplateDetail}
+                  // @ts-expect-error
                   onDelete={this.props.openDeleteDialog}
+                  // @ts-expect-error
                   onEdit={this.props.openEditDialog}
                   paymentPackTemplateList={
                     this.props.paymentPackTemplateListManagerOnly
@@ -188,23 +194,33 @@ export class FranchisePaymentPackTemplateListPage extends Component<
             </Collapse>
           )}
         </div>
+        {/* @ts-expect-error */}
         {!!this.props.createModalOpen && (
           <PaymentPackTemplateFormDrawer
+            // @ts-expect-error
             onClose={this.props.closeCreateDialog}
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
+            // @ts-expect-error
             open={this.props.createModalOpen}
           />
         )}
         <PaymentPackTemplateDeleteDialog
+          // @ts-expect-error
           onClose={this.props.closeDeleteDialog}
+          // @ts-expect-error
           onSubmit={this.props.deletePaymentPackTemplate}
+          // @ts-expect-error
           open={!!this.props.templateToDelete}
         />
+        {/* @ts-expect-error */}
         {!!this.props.paymentPackTemplateForEdit && (
           <PaymentPackTemplateFormDrawer
+            // @ts-expect-error
             initial={this.props.paymentPackTemplateForEdit}
+            // @ts-expect-error
             onClose={this.props.closeEditDialog}
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
+            // @ts-expect-error
             open={this.props.paymentPackTemplateForEdit}
           />
         )}
@@ -253,10 +269,13 @@ export default compose(
       openCreateDialog: () => () => ({ createModalOpen: true }),
       closeCreateDialog: () => () => ({ createModalOpen: false }),
       openEditDialog:
-        (_, { paymentPackTemplateData }) =>
-        (id) => ({
-          paymentPackTemplateForEdit: paymentPackTemplateData[id],
-        }),
+        // @ts-expect-error
+
+
+          (_, { paymentPackTemplateData }) =>
+          (id) => ({
+            paymentPackTemplateForEdit: paymentPackTemplateData[id],
+          }),
       closeEditDialog: () => () => ({ paymentPackTemplateForEdit: null }),
       openDeleteDialog: () => (id) => ({ templateToDelete: id }),
       closeDeleteDialog: () => () => ({ templateToDelete: null }),

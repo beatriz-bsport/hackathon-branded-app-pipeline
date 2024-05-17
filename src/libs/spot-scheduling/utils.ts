@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CANVAS_SELECTABLE_TOOLS } from './CanvasSvg/tools/CanvasStrategy';
 import { CanvasSpotProps } from './CanvasSvg/tools/Spot/CanvasSpot.component';
 import { RoomBlueprint, SpotType } from './types';
@@ -19,14 +18,18 @@ export default class SpotSchedulingHelper {
         const data = { ...el.data } as CanvasSpotProps;
         if (params.takenSpot && params.takenSpot.includes(el.data.index)) {
           data.taken = true;
+          // @ts-expect-error
           if (data.asset_identifier) {
+            // @ts-expect-error
             data.asset_identifier = 'spot_taken';
           }
         }
 
         if (params.selectedSpot === data.index) {
           data.selected = true;
+          // @ts-expect-error
           if (data.asset_identifier) {
+            // @ts-expect-error
             data.asset_identifier = 'spot_taken';
           }
         }
@@ -152,21 +155,27 @@ export const buildSpiviCorrespondence = (
   const tablePages = {};
   const tableCountPages = {};
   if (spotTypes && roomBlueprint) {
+    // @ts-expect-error
     const spotTypesWithDefault = spotTypes.concat({
       id: -1,
       prefix: '',
     });
 
     spotTypesWithDefault.forEach((spotType) => {
+      // @ts-expect-error
       spotCorrespondence[spotType.id] = [];
+      // @ts-expect-error
       prefixes[spotType.id] = spotType.prefix;
     });
 
     roomBlueprint.canvas.elements
       .filter((el) => el.type === 'spot')
       .forEach((el) => {
+        // @ts-expect-error
         if (spotCorrespondence[el.data.spotTypeId]) {
+          // @ts-expect-error
           spotCorrespondence[el.data.spotTypeId].push([
+            // @ts-expect-error
             prefixes[el.data.spotTypeId] + el.data.indexType,
             el.data.index,
           ]);
@@ -174,8 +183,11 @@ export const buildSpiviCorrespondence = (
       });
 
     spotTypesWithDefault.forEach((spotType) => {
+      // @ts-expect-error
       tablePages[spotType.id] = 1;
+      // @ts-expect-error
       tableCountPages[spotType.id] = Math.ceil(
+        // @ts-expect-error
         spotCorrespondence[spotType.id].length /
           SPIVI_CORRESPONDENCE_TABLE_PAGE_SIZE,
       );

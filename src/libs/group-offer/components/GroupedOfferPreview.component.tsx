@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
 
@@ -24,6 +23,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
 import Calendar from '#components/offer/Calendar.component';
 import DelayedTextField from '#components/DelayedTextField.component';
+// @ts-expect-error
 import { Submit } from '#components/forms';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
@@ -90,14 +90,19 @@ export const GroupedOfferPreviewForm: React.FC<
         (acc, group) => {
           acc.groups.push([
             ...group.offers.map((o) =>
+              // @ts-expect-error
               DateTime.fromSeconds(o.date_start).toISODate(),
             ),
           ]);
           group.offers.forEach((o) => {
+            // @ts-expect-error
             const midnight = DateTime.fromSeconds(o.date_start).startOf('day');
+            // @ts-expect-error
             if (!acc.events[midnight]) {
+              // @ts-expect-error
               acc.events[midnight] = [];
             }
+            // @ts-expect-error
             acc.events[midnight].push(o);
           });
           return acc;
@@ -116,6 +121,7 @@ export const GroupedOfferPreviewForm: React.FC<
   const outOfTheScopeGroupedOffers = useMemo(() => {
     return groups.filter((group) => {
       return group.offers.some((offer) => {
+        // @ts-expect-error
         const luxonOfferDateStart = DateTime.fromSeconds(offer.date_start);
         return luxonOfferDateStart.diffNow('years').years > 3;
       });
@@ -125,9 +131,11 @@ export const GroupedOfferPreviewForm: React.FC<
   const outOfTheScopeGroupedOffersListItems = outOfTheScopeGroupedOffers.map(
     (group) => {
       const firstOfferDate = DateTime.fromSeconds(
+        // @ts-expect-error
         group.offers[0].date_start,
       ).toISODate();
       const lastOfferDate = DateTime.fromSeconds(
+        // @ts-expect-error
         group.offers[group.offers.length - 1].date_start,
       ).toISODate();
       return (
@@ -138,6 +146,7 @@ export const GroupedOfferPreviewForm: React.FC<
                 <div className={classes.listItemInner}>
                   <DelayedTextField
                     disabled
+                    // @ts-expect-error
                     shrink
                     className={classes.textField}
                     label={t('groupedOption.modal.form.groupName')}
@@ -165,6 +174,7 @@ export const GroupedOfferPreviewForm: React.FC<
   const [dateSelected, setDateSelected] = useState(
     values?.formikGroups?.[0]?.offers?.[0]?.date_start
       ? DateTime.fromSeconds(
+          // @ts-expect-error
           values?.formikGroups?.[0]?.offers?.[0]?.date_start,
         ).toISODate()
       : DateTime.now().toISODate(),
@@ -178,12 +188,14 @@ export const GroupedOfferPreviewForm: React.FC<
     const frequenceIsYearly = recurrence_rule.frequence >= 2;
 
     const firstDate = values?.formikGroups?.[0]?.offers?.[0]?.date_start
-      ? DateTime.fromSeconds(values?.formikGroups?.[0]?.offers?.[0]?.date_start)
+      ? // @ts-expect-error
+        DateTime.fromSeconds(values?.formikGroups?.[0]?.offers?.[0]?.date_start)
       : DateTime.now();
 
     if (frequenceIsYearly) {
       return (
         <div className={classes.row}>
+          {/* @ts-expect-error */}
           <Alert className={classes.alertInfo} color="grey" severity="info">
             {t(
               `groupedOption.helperText.year${
@@ -193,6 +205,7 @@ export const GroupedOfferPreviewForm: React.FC<
                 count: recurrence_rule.interval ?? 0,
                 day: getDisplayDateFromRecurrence(
                   firstDate,
+                  // @ts-expect-error
                   {
                     frequence: 1,
                   },
@@ -208,6 +221,7 @@ export const GroupedOfferPreviewForm: React.FC<
 
     return (
       <div className={classes.row}>
+        {/*  @ts-expect-error */}
         <Alert className={classes.alertInfo} color="grey" severity="info">
           <Typography color="textSecondary">
             {t(
@@ -277,6 +291,7 @@ export const GroupedOfferPreviewForm: React.FC<
                 values: { formikGroups },
               },
             }) =>
+              // @ts-expect-error
               formikGroups.map((group, index) => {
                 const firstOfferDate = DateTime.fromSeconds(
                   group.offers[0].date_start,
@@ -311,9 +326,11 @@ export const GroupedOfferPreviewForm: React.FC<
                           >
                             <DelayedTextField
                               required
+                              // @ts-expect-error
                               shrink
                               className={classes.textField}
                               error={
+                                // @ts-expect-error
                                 errors?.formikGroups?.[index]?.name ?? false
                               }
                               label={t('groupedOption.modal.form.groupName')}
@@ -485,6 +502,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     boxShadow:
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+    // @ts-expect-error
     color: (metaActivity) => metaActivity.color,
   },
 }));
@@ -494,6 +512,7 @@ export default compose<any, OuterProps>(
     mapPropsToValues: ({ groups }) => {
       const filteredGroups = [...groups].filter((group) => {
         return group.offers.every((offer) => {
+          // @ts-expect-error
           const luxonOfferDateStart = DateTime.fromSeconds(offer.date_start);
           return luxonOfferDateStart.diffNow('years').years < 3;
         });

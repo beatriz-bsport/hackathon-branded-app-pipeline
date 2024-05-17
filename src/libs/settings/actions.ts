@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import {
@@ -27,6 +26,7 @@ export function fetchCustomShopRedirections(options?: OptionCallback) {
     try {
       const response = await fetchCustomShopRedirectionsAPI();
       dispatch(fetchCustomShopRedirectionsActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -53,6 +53,7 @@ export function createCustomShopRedirection(
     try {
       const response = await createCustomShopRedirectionAPI(data);
       dispatch(createCustomShopRedirectionActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -80,6 +81,7 @@ export function updateCustomShopRedirection(
       const response = await editCustomShopRedirectionAPI(id, data);
       dispatch(editCustomShopRedirectionActions.success(response.data));
       dispatch(fetchCustomShopRedirections());
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -131,6 +133,7 @@ export function fetchCustomMobilePopups(options?: OptionCallback) {
     try {
       const response = await fetchCustomMobilePopupsAPI();
       dispatch(fetchCustomMobilePopupsActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -157,6 +160,7 @@ export function createCustomMobilePopup(
     try {
       const response = await createCustomMobilePopupAPI(data);
       dispatch(createCustomMobilePopupActions.success(response.data));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -184,6 +188,7 @@ export function updateCustomMobilePopup(
       const response = await editCustomMobilePopupAPI(id, data);
       dispatch(editCustomMobilePopupActions.success(response.data));
       dispatch(fetchCustomMobilePopups());
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);

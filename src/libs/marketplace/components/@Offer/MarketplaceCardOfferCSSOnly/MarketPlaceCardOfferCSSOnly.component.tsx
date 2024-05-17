@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { pure } from 'recompose';
 import GroupIcon from '@material-ui/icons/Group';
@@ -227,6 +226,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     [coaches, offer?.additional_coaches],
   );
 
+  // @ts-expect-error
   const genderCountOffer = genderCount ? genderCount[offer?.id] : undefined;
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
@@ -257,6 +257,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       })}
       disabled={isBookingDisabled}
       id={cardOfferId}
+      // @ts-expect-error
       onClick={handleClick}
       type="button"
     >
@@ -278,6 +279,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                     'bs-card-offer__button__title',
                 })}
                 disabled={isBookingDisabled}
+                // @ts-expect-error
                 onClick={handleClick}
                 type="button"
               >
@@ -330,6 +332,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                     'bs-card-offer__button__title',
                 })}
                 disabled={isBookingDisabled}
+                // @ts-expect-error
                 onClick={handleClick}
                 type="button"
               >
@@ -356,6 +359,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             )}
             {!isOfferPassed && (
               <div className="bs-card-offer__content__status-chip">
+                {/* @ts-expect-error */}
                 <MarketplaceOfferStatusChip
                   companyTheme={theme}
                   isRegistered={isRegistered}
@@ -369,6 +373,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             <FreeOfferChip
               companyTheme={theme}
               credits={offer?.credit_price}
+              // @ts-expect-error
               creditsOverride={offer?.credit_price_override}
             />
             <MarketplaceLevel
@@ -390,22 +395,26 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 'bs-card-offer__button__title': 'bs-card-offer__button__title',
               })}
               disabled={isBookingDisabled}
+              // @ts-expect-error
               onClick={handleClick}
               type="button"
             >
               <MarketplaceCoachInfos
                 reverse
                 classes={{
+                  // @ts-expect-error
                   [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
                     MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
                   ],
                   'bs-card-offer__content__coach':
                     'bs-card-offer__content__coach',
+                  // @ts-expect-error
                   'bs-card-offer__content__coach--coach-highlighted':
                     isVariantCoachHighlighted,
                 }}
                 coach={coach}
                 hideCoach={hideCoach}
+                // @ts-expect-error
                 offer={offer}
                 theme={theme}
               />
@@ -428,11 +437,13 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                   classes={{
                     'bs-card-offer__content__coach':
                       'bs-card-offer__content__coach',
+                    // @ts-expect-error
                     'bs-card-offer__content__coach--coach-highlighted':
                       isVariantCoachHighlighted,
                   }}
                   coach={coach}
                   hideCoach={hideCoach}
+                  // @ts-expect-error
                   offer={offer}
                   theme={theme}
                 />
@@ -446,11 +457,13 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 classes={{
                   'bs-card-offer__content__coach':
                     'bs-card-offer__content__coach',
+                  // @ts-expect-error
                   'bs-card-offer__content__coach--coach-highlighted':
                     isVariantCoachHighlighted,
                 }}
                 coach={additionalCoach}
                 hideCoach={hideCoach}
+                // @ts-expect-error
                 offer={offer}
                 theme={theme}
               />
@@ -480,10 +493,12 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               {showOfferGender ? (
                 <div className="bs-card-offer__content__bottom__left__gender">
                   <div className="bs-card-offer__content__bottom__left__gender__sex">
+                    {/* @ts-expect-error */}
                     <MaleIcon />
                     <div>{genderCountOffer?.nb_booked_male ?? 0}</div>
                   </div>
                   <div className="bs-card-offer__content__bottom__left__gender__sex">
+                    {/* @ts-expect-error */}
                     <FemaleIcon />
                     <div>{genderCountOffer?.nb_booked_female ?? 0}</div>
                   </div>
@@ -500,7 +515,8 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                   <GroupIcon className="bs-card-offer__icon" />
                   <div className="bs-card-offer__content__bottom__left__group__number">
                     {showOfferFilling
-                      ? `  ${offer.tot_slots}/${offer.effectif}`
+                      ? // @ts-expect-error
+                        `  ${offer.tot_slots}/${offer.effectif}`
                       : ''}{' '}
                   </div>
                 </div>

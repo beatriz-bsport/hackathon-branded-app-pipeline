@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -44,6 +43,7 @@ class EstablishmentSpotScheduling extends React.PureComponent<Props> {
 
         <List disablePadding>
           {this.props.roomBlueprints.map((roomBlueprint) => (
+            // @ts-expect-error
             <RoomBlueprintListItem
               onClick={this.props.onClickPreview}
               onClickDelete={this.props.onClickDelete}
@@ -67,6 +67,7 @@ class EstablishmentSpotScheduling extends React.PureComponent<Props> {
   }
 }
 
+// @ts-expect-error
 const styles = (theme) => ({
   header: {
     borderWidth: 0,

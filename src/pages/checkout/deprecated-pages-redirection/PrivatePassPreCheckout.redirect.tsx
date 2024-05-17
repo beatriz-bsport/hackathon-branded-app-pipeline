@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { replace } from 'connected-react-router';
@@ -17,6 +16,7 @@ type Props = {
 
 export class PaymentPackPreCheckoutRedirect extends React.Component<Props> {
   componentDidMount() {
+    // @ts-expect-error
     this.props.fetchPrivatePassRetrieve(this.props.id, {
       onSuccess: (privatePass: any) => {
         this.props.replace(

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
@@ -13,6 +12,7 @@ import {
   EmailTemplateDetail,
   EmailTemplateSummary,
 } from '../../email-editor/types';
+// @ts-expect-error
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import { FranchiseCompany } from '../types';
 import { OptionCallback } from '../../../state/types';

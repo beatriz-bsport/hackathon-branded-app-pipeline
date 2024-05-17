@@ -1,4 +1,3 @@
-// @ts-nocheck
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { SCT } from './types';
 import { generateRandomInt } from '../../utils/factories';
@@ -42,6 +41,7 @@ export function factory_scts(num_el: number): Array<SCT> {
   const SCS_NMS = [...Array(num_el)].map(
     (_, i) => SCS_NAMES[i % SCS_NAMES.length],
   );
+  // @ts-expect-error
   return SCT_IDS.map((id) => ({
     id: id + 1,
     name: NMS[id],

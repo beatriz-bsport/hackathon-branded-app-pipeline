@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import classNames from 'classnames';
@@ -28,6 +27,7 @@ import { TFunction } from 'i18next';
 
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { EmailTemplateSummary } from '../types';
 import HighlightedText from '../../../components/HighlightedText/HighlightedText.component';
@@ -257,6 +257,7 @@ class EmailListItem extends React.PureComponent<Props> {
       return (
         <ListItem
           divider
+          // @ts-expect-error
           button={!disabled}
           className={classes.listItem}
           onClick={navigationTo}

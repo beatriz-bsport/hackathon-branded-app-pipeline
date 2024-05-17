@@ -1,4 +1,3 @@
-// @ts-nocheck
 import groupBy from 'lodash/groupBy';
 import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
@@ -29,6 +28,7 @@ import { getGroupOffersStatusById } from '#libs/group-offer/selectors';
 
 const getState = (state: RootState) => state.offer;
 
+// @ts-expect-error
 const getAll = (state: RootState) => getState(state).offers;
 
 export const getOfferCalendarState = (state: RootState) =>
@@ -72,6 +72,7 @@ export const getSimilars = (state: RootState) =>
   state.offer.similarOffers.items;
 
 export const getSimilarsPage = (state: RootState) =>
+  // @ts-expect-error
   state.offer.similarOffers.page;
 
 export const getSimilarsCount = (state: RootState) =>
@@ -88,6 +89,7 @@ export const withMetaActivity = memoize(
             ...offers,
             meta_activity:
               metaActivityData[offers.meta_activity] ||
+              // @ts-expect-error
               workshopData[offers.meta_activity],
           };
         }
@@ -95,6 +97,7 @@ export const withMetaActivity = memoize(
           ...o,
           meta_activity:
             metaActivityData[o.meta_activity] ||
+            // @ts-expect-error
             workshopData[o.meta_activity] ||
             o.meta_activity,
         }));
@@ -157,6 +160,7 @@ export const withCoach = memoize(
             : null,
           additional_coaches:
             offers?.additional_coaches?.map(
+              // @ts-expect-error
               (coachId) => coachData[coachId] || coachId,
             ) ?? [],
         };
@@ -169,6 +173,7 @@ export const withCoach = memoize(
           : null,
         additional_coaches:
           o?.additional_coaches?.map(
+            // @ts-expect-error
             (coachId) => coachData[coachId] || coachId,
           ) ?? [],
       }));
@@ -214,10 +219,14 @@ export const withTags = memoize((selector: (state: RootState) => any) =>
       return {
         ...offerObject,
         blacklist_tags: offerObject?.blacklist_tags
+          // @ts-expect-error
           ?.map((id) => tagListById?.[id]?.[0])
+          // @ts-expect-error
           .filter((tag) => tag),
         whitelist_tags: offerObject?.whitelist_tags
+          // @ts-expect-error
           .map((id) => tagListById?.[id]?.[0])
+          // @ts-expect-error
           .filter((tag) => tag),
       };
     }
@@ -264,8 +273,10 @@ export const getManagerOffersFiltered = createSelector(
         filters.levels.includes(o.level),
       );
     }
+    // @ts-expect-error
     if ((filters.metaActivities || []).length) {
       offersFiltered = offersFiltered.filter((o) =>
+        // @ts-expect-error
         filters.metaActivities.includes(o.meta_activity),
       );
     }
@@ -304,8 +315,10 @@ export const getAvailableOffersFiltered = createSelector(
         filters.levels.includes(o.level),
       );
     }
+    // @ts-expect-error
     if ((filters.metaActivities || []).length) {
       offersFiltered = offersFiltered.filter((o) =>
+        // @ts-expect-error
         filters.metaActivities.includes(o.meta_activity),
       );
     }
@@ -336,6 +349,7 @@ export const getListCalendarOfferFromNow = createSelector(
 export const getBookedGenderOffer = (state: RootState) =>
   state.offer.genderCount.byId;
 
+// @ts-expect-error
 export const withGender = memoize((selector: (State) => any) =>
   createSelector([selector, getBookedGenderOffer], (offers, genderData) => {
     if (!offers) return null;
@@ -372,6 +386,7 @@ export const getOfferWithRelated = (state: RootState, id: number) => {
 };
 
 const _getOfferEventList = (state: RootState) => state.offer.calendar;
+// @ts-expect-error
 const periodFilterExtractor = (state, params, periodFilter) => periodFilter;
 
 export const getOfferAsEventList = createSelector(
@@ -392,7 +407,9 @@ export const getOfferAsEventList = createSelector(
         Immutable({
           ...o,
           meta_activity:
+            // @ts-expect-error
             metaActivityData[o.meta_activity] ||
+            // @ts-expect-error
             workshopData[o.meta_activity] ||
             o.meta_activity,
         }),
@@ -432,6 +449,7 @@ export const getOffersListByMetaActivity = createCachedSelector(
 )((state: RootState, metaActivityId: number) => metaActivityId);
 
 export const getOffersDataByGroup = (state: RootState, id: number) => {
+  // @ts-expect-error
   return state.offer.groups?.[id] ?? { allIds: [] };
 };
 

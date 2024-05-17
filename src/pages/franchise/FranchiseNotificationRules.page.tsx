@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -109,6 +108,7 @@ export const FranchiseNotificationRule = (props: Props) => {
       createOrUpdateNotificationRule(data, {
         onError: (error: Error) => {
           if (
+            // @ts-expect-error
             error.response?.data.error_code ===
               EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS &&
             options?.onError
@@ -134,6 +134,7 @@ export const FranchiseNotificationRule = (props: Props) => {
           {
             onError: (error: Error) => {
               if (
+                // @ts-expect-error
                 error.response?.data.error_code ===
                   EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS &&
                 options?.onError
@@ -161,6 +162,7 @@ export const FranchiseNotificationRule = (props: Props) => {
       <Grid container direction="row" spacing={3}>
         <Grid item className={classes.column} md={6} xs={12}>
           <FranchiseNotificationRuleList
+            // @ts-expect-error
             eventListWithRule={eventListWithRule}
             navigateToNotification={handleNavigation}
             notificationId={notificationId}
@@ -168,6 +170,7 @@ export const FranchiseNotificationRule = (props: Props) => {
         </Grid>
         <Grid item className={classes.column} md={6} xs={12}>
           <FranchiseNotificationRuleDetails
+            // @ts-expect-error
             companies={companies}
             emailDesignList={emailDesignList}
             fetchEmailDesignDetail={fetchEmailDesignDetail}

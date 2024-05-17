@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
@@ -9,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+// @ts-expect-error
 import EstablishmentListItem from './EstablishmentListItem.component';
 import FuzeSearch from '../../../components/FuzeSearch.component';
 import { Establishment } from '../types';
@@ -33,10 +33,12 @@ type State = {
 export class EstablishmentSelectorWithCard extends Component<Props, State> {
   state = {
     searchText: '',
+    // @ts-expect-error
     searchResult: [],
     displayList: false,
   };
 
+  // @ts-expect-error
   changeSearch = (fuse) => (ev) => {
     this.setState({
       searchText: ev.target.value,
@@ -97,6 +99,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
           </div>
         ) : (
           <div>
+            {/* @ts-expect-error */}
             <Button
               className={this.props.classes.button}
               id={this.props.id}
@@ -116,6 +119,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                 items={this.props.establishments}
                 placeholder={this.props.placeholder}
                 searchFields={['title', 'location.adress']}
+                // @ts-expect-error
                 searchResult={this.state.searchResult}
                 searchText={this.state.searchText}
                 variant="outlined"
@@ -124,6 +128,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
             {this.state.displayList && this.state.searchResult ? (
               <Paper className={this.props.classes.searchPaperDisplayed}>
                 <Collapse
+                  // @ts-expect-error
                   in={this.state.displayList && this.state.searchResult}
                 >
                   {this.getEstablishmentGroupByAddres(
@@ -149,6 +154,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                             button
                             noDivider
                             establishment={establishment}
+                            // @ts-expect-error
                             onClick={() => this.props.onChange(establishment)}
                           />
                         ),

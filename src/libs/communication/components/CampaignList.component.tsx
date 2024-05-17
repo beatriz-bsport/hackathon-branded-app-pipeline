@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert/Alert';
@@ -14,6 +13,7 @@ import { CommunicationSentGroup } from '#libs/communication/types';
 
 type Props = {
   loading: boolean;
+  // @ts-expect-error
   campaignList: ImmutableArray<CommunicationSentGroup | Campaign, Recipient>;
   fetchMore: () => void;
   onClickReport: (campaign_uuid: string) => void;
@@ -38,6 +38,7 @@ export const CampaignList: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
+      {/* @ts-expect-error  */}
       {campaignList.map(([campaignItem, recipient]) => (
         <CampaignListItem
           key={campaignItem.uuid}
@@ -56,6 +57,7 @@ export const CampaignList: React.FC<Props> = ({
         )}
         {!loading && campaignList.length === 0 && (
           <div className={classes.column}>
+            {/* @ts-expect-error */}
             <Alert className={classes.alertInfo} color="grey" severity="info">
               {t('campaign.list.isEmpty')}
             </Alert>

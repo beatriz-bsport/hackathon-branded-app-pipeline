@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useRef } from 'react';
 import { compose } from 'recompose';
 
@@ -55,6 +54,7 @@ const getColor = (
 };
 
 const tagGroupStyles = {
+  // @ts-expect-error
   groupHeading: (base) => ({
     ...base,
     margin: 0,
@@ -64,6 +64,7 @@ const tagGroupStyles = {
     fontSize: '14px',
     borderBottom: '1px solid #868686',
   }),
+  // @ts-expect-error
   control: (styles) => ({
     ...styles,
     backgroundColor: 'white',
@@ -71,8 +72,10 @@ const tagGroupStyles = {
     paddingBottom: '4px',
     zIndex: 1,
   }),
+  // @ts-expect-error
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (
+    // @ts-expect-error
     styles,
     {
       isDisabled,
@@ -96,16 +99,19 @@ const tagGroupStyles = {
       },
     };
   },
+  // @ts-expect-error
   multiValue: (styles) => {
     return {
       ...styles,
       backgroundColor: 'transparent',
     };
   },
+  // @ts-expect-error
   multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
+  // @ts-expect-error
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
@@ -135,10 +141,12 @@ const MultiValueContainer = ({ ...props }) => (
   </components.MultiValueContainer>
 );
 const MultiValue = ({ ...props }) => {
+  // @ts-expect-error
   return <components.MultiValue {...props} />;
 };
 const SingleValue = ({ ...props }) => {
   return (
+    // @ts-expect-error
     <components.SingleValue {...props}>
       {props?.data.tag && (
         <TagChip
@@ -153,6 +161,7 @@ const SingleValue = ({ ...props }) => {
 
 const DropdownIndicator = ({ ...props }) => {
   return (
+    // @ts-expect-error
     <components.DropdownIndicator {...props}>
       {props.selectProps.isDisabled ? (
         <BlockIcon fontSize="small" />
@@ -169,11 +178,14 @@ const getTagListOptions = (tags: Array<Tag>) =>
 const getTagGroupedByTagGroup = (tag_list: Array<Tag>) => {
   const tagGroupByGroup = tag_list?.reduce((accumulator, tagItem) => {
     const temp = accumulator.findIndex(
+      // @ts-expect-error
       (group) => group.id === tagItem.group.id,
     );
     if (temp === -1) {
       accumulator.push({
+        // @ts-expect-error
         label: tagItem.group.name,
+        // @ts-expect-error
         id: tagItem.group.id,
         options: [
           {
@@ -186,6 +198,7 @@ const getTagGroupedByTagGroup = (tag_list: Array<Tag>) => {
     } else {
       accumulator[temp].options.push({
         value: tagItem.id,
+        // @ts-expect-error
         id: tagItem.group.id,
         label: tagItem.name,
         tag: tagItem,
@@ -241,7 +254,8 @@ export function TagSelector(props: Props) {
   const uuid = useRef(uuidv4());
   const tagsOptionsSelected =
     selectedTags && allTagsWithTagGroup
-      ? getTagListOptions(allTagsWithTagGroup).filter(
+      ? // @ts-expect-error
+        getTagListOptions(allTagsWithTagGroup).filter(
           (tagOption: { value: number; label: string }) =>
             selectedTags.includes(tagOption.value),
         )
@@ -269,6 +283,7 @@ export function TagSelector(props: Props) {
           onChange={onChange}
           onDeleteTag={onDeleteTag}
           options={getTagGroupedByTagGroup(
+            // @ts-expect-error
             allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
           )}
           placeholder={placeholder || t('select')}
@@ -305,6 +320,7 @@ export function TagSelector(props: Props) {
       onChange={onChange}
       onDeleteTag={onDeleteTag}
       options={getTagGroupedByTagGroup(
+        // @ts-expect-error
         allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
       )}
       placeholder={placeholder || t('select')}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -38,9 +37,11 @@ export class UserHasPhoneFilter extends Component<Props> {
           value={filter_data.value}
         >
           {/* eslint-disable-next-line */}
-          <MenuItem key="true" value={true}>
+          {/* @ts-expect-error */}
+          <MenuItem key="true" value>
             {t(`filters.${filter_data.filter_identifier}.true`)}
           </MenuItem>
+          {/* @ts-expect-error */}
           <MenuItem key="false" value={false}>
             {t(`filters.${filter_data.filter_identifier}.false`)}
           </MenuItem>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { DateTime } from 'luxon';
@@ -8,6 +7,7 @@ import { withStyles, WithStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
+// @ts-expect-error
 import RuleCard from '#components/marketing/RuleCard.component';
 
 import withTitle from '../../hocs/with-title.hoc';

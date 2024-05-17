@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core';
@@ -26,6 +25,7 @@ const ReportList: React.FC<Props> = ({ items, className, itemProps }) => {
       <List className={classes.list}>
         {items.map((reportConfiguration) => {
           return (
+            // @ts-expect-error
             <ReportListItem
               key={reportConfiguration.id}
               report={reportConfiguration}

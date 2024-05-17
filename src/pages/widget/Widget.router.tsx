@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
@@ -6,8 +5,10 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import themeSelectors from '../../libs/theme/selectors';
+// @ts-expect-error
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { Theme } from '../../libs/theme/types';
@@ -25,11 +26,13 @@ const BookingsAndPrivateBookings = asyncComponent(
 
 interface Props {
   theme: Theme;
+  // @ts-expect-error
   fetchCompanyTheme: (number) => void;
 }
 
 class WidgetRouter extends React.Component<Props> {
   componentDidMount() {
+    // @ts-expect-error
     this.props.fetchCompanyTheme(this.props.companyId);
   }
 
@@ -66,10 +69,12 @@ class WidgetRouter extends React.Component<Props> {
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
+    // @ts-expect-error
     companyName: 'companyName',
   }),
   connect(
     (state) => ({
+      // @ts-expect-error
       theme: themeSelectors.getTheme(state),
     }),
     {

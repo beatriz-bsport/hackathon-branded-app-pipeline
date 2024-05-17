@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 
@@ -67,8 +66,10 @@ export function fetchRoomBlueprints(
     dispatch(roomBlueprintActions.error(null));
     try {
       const response = await api.fetchRoomBlueprints(data);
+      // @ts-expect-error
       dispatch(roomBlueprintActions.list(response.data.results));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -94,6 +95,7 @@ export function fetchRoomBlueprintsWidget(
     try {
       const response = await api.fetchRoomBlueprints(data);
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -116,6 +118,7 @@ export function fetchRoomBlueprintDetail(
       const response = await api.fetchRoomBlueprintDetail(id);
       dispatch(roomBlueprintActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -140,6 +143,7 @@ export function createRoomBlueprint(
       const response = await api.createRoomBlueprint(data);
       dispatch(roomBlueprintActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -165,6 +169,7 @@ export function updateRoomBlueprint(
       const response = await api.updateRoomBlueprint(id, data);
       dispatch(roomBlueprintActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -211,6 +216,7 @@ export function fetchAssetForBlueprint(
     dispatch(assetForBlueprintActions.error(null));
     try {
       const response = await api.fetchAssetForBlueprint(data);
+      // @ts-expect-error
       dispatch(assetForBlueprintActions.list(response.data.results));
       if (options && options.onSuccess) {
         options.onSuccess();
@@ -236,8 +242,10 @@ export function fetchAssetForBlueprintWidget(
 ): ThunkAction {
   return async () => {
     try {
+      // @ts-expect-error
       const response = await api.fetchAssetForBlueprint(data);
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -279,6 +287,7 @@ export function fetchUnboundAssetForBlueprintPaginated(
       }
       const response = await api.fetchAssetForBlueprint({
         ...params,
+        // @ts-expect-error
         is_unbound: true,
         page: nextPage ?? 1,
       });
@@ -365,6 +374,7 @@ export function createSpotForBlueprint(
       response = await api.createSpotForBlueprint(data);
       dispatch(createOrUpdateSpotForBlueprintActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response);
       }
     } catch (error) {
@@ -390,6 +400,7 @@ export function updateSpotForBlueprint(
       const response = await api.updateSpotForBlueprint(id, data);
       dispatch(createOrUpdateSpotForBlueprintActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -412,6 +423,7 @@ export function fetchSpotForBlueprint(
     dispatch(spotForBlueprintActions.error(null));
     try {
       const response = await api.fetchSpotForBlueprint(data);
+      // @ts-expect-error
       dispatch(spotForBlueprintActions.list(response.data.results));
       if (options && options.onSuccess) {
         options.onSuccess();
@@ -440,9 +452,11 @@ export function fetchSpotForBlueprintWidget(
 ): ThunkAction {
   return async () => {
     try {
+      // @ts-expect-error
       const response = await api.fetchSpotForBlueprint(data);
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

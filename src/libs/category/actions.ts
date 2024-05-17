@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import api from './api';
@@ -15,6 +14,7 @@ export function fetchSCT(params: any = {}) {
     try {
       const categories = await api.fetchSCT(params);
       const SCTs = categories.data;
+      // @ts-expect-error
       dispatch(fetchedCategories(SCTs));
     } catch (err) {
       console.error(err);

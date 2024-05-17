@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -7,6 +6,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Button from '@material-ui/core/Button';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+// @ts-expect-error
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
 
 import { Establishment } from '../../establishment/types';
@@ -22,6 +22,7 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
   const classes = useStyles();
 
   const [overrideAssociatedEstablishment, setOverrideAssociatedEstablishment] =
+    // @ts-expect-error
     React.useState<number | null>(props.initial?.override_establishment_pk);
 
   return (
@@ -63,6 +64,7 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
         color="primary"
         disabled={!overrideAssociatedEstablishment}
         onClick={() =>
+          // @ts-expect-error
           props.onSubmit({
             ...(props.initial || {}),
             associated_establishment_ids: [],

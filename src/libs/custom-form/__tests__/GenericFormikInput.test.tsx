@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-// @ts-nocheck
 
 import React from 'react';
 import { fireEvent, render, act, waitFor } from '@testing-library/react';
@@ -17,6 +16,7 @@ describe('GenericFormik: <TextField />', () => {
         <Formik initialValues={{ label: '' }} onSubmit={() => {}}>
           <TextField
             disabled={false}
+            // @ts-expect-error
             id="label"
             label="label"
             name="label"

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
   CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
@@ -65,6 +64,7 @@ const memberProfileData: Omit<Member, 'address'> &
   next_booking: '',
   previous_booking: '',
   billing_plans: '',
+  // @ts-expect-error
   files: '',
   general_terms_and_conditions_date_accepted: null,
   general_terms_and_conditions_accepted: false,

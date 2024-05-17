@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -40,6 +39,7 @@ export function fetchTagList(options?: OptionCallback) {
       dispatch(tagAvailableListActions.success(response.data));
       dispatch(tagAvailableListActions.error(null));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -65,10 +65,13 @@ export function fetchNotificationRuleList(
     try {
       const response_custom = await fetchNotificationRuleListAPI();
       const response_generic_rules = await fetchNotificationRuleGenericListAPI(
+        // @ts-expect-error
         params,
       );
 
+      // @ts-expect-error
       const { rules } = response_generic_rules.data;
+      // @ts-expect-error
       const data = [...response_custom.data, ...rules];
       dispatch(notificationRuleListActions.success(data));
       dispatch(notificationRuleListActions.error(null));
@@ -140,6 +143,7 @@ export function createOrUpdateNotificationRule(
       dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
       dispatch(fetchNotificationRuleList());
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

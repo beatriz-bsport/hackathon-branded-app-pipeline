@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
@@ -8,9 +7,11 @@ import namespaces from '../../../i18n/namespaces.json';
 import { BsportRequestFromHeaderValue } from '../../../constants';
 
 import useSaasRouterTracker from '../../../hooks/useSaasRouterTracker';
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 
 const MarketplaceAsManager = asyncComponent(
+  // @ts-expect-error
   () => import('../../marketplace/MarketplaceAsManager.page'),
 );
 
@@ -76,6 +77,7 @@ export const DeprecatedPages = (props: { is_manager: boolean }) => {
 
 export default withTranslation(namespaces)(
   connect((state) => ({
+    // @ts-expect-error
     is_manager: state.auth.is_manager,
   }))(DeprecatedPages),
 );

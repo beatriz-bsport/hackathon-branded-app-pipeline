@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -25,6 +24,7 @@ import {
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import { LanguageSelect } from '../../../components/button/LanguageButton.component';
 import { getIntercomLink } from '../utils';
 

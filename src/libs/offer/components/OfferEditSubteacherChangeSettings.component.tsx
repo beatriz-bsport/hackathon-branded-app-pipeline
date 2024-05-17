@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { FormControlLabel, RadioGroup, Radio } from '@material-ui/core';
@@ -70,6 +69,7 @@ const OfferEditSubteacherChangeSettings = (props: Props) => {
             <SimilarOffersList
               isCoachOverrideWarning
               coaches={coaches}
+              // @ts-expect-error
               similarOfferLoading={similarOfferLoading}
               similarOffers={similarOffers}
             />
@@ -81,6 +81,7 @@ const OfferEditSubteacherChangeSettings = (props: Props) => {
 
 const useStyles = makeStyles((theme) => ({
   radioGroup: {
+    // @ts-expect-error
     marginTop: theme.spacing(2),
   },
 }));

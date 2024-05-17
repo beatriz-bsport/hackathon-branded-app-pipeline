@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Route, Switch } from 'react-router';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
 const FakeMarketingDashboard = asyncComponent(

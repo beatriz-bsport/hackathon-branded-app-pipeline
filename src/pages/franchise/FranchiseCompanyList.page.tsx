@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -37,6 +36,7 @@ import {
   getEstablishment,
 } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
+// @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 
 type OwnProps = {
@@ -134,6 +134,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
     this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
   };
 
+  // @ts-expect-error
   createOrUpdateCompanyGroup = (data, options) => {
     this.props.createOrUpdateCompanyGroup(data, {
       onSuccess: (...args) => {
@@ -174,6 +175,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
         </div>
         <div className={classes.right}>
           <FranchiseCompanyDetails
+            // @ts-expect-error
             companyId={companyId}
             companyName={companiesById?.[companyId]?.name}
             establishmentsByLocation={establishmentsByLocation}

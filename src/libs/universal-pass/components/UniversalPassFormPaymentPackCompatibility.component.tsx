@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
@@ -62,6 +61,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                     onDelete: () => void;
                   }) => (
                     <SCTChip
+                      // @ts-expect-error
                       color="primary"
                       onDelete={chipProps.onDelete}
                       parentCategory={chipProps.data.parentCategory}
@@ -72,6 +72,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                   onChange={(options) => {
                     setFieldValue(
                       'linked_payment_pack_categories',
+                      // @ts-expect-error
                       options?.map((option) => option.value),
                     );
                   }}
@@ -119,6 +120,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                   onChange={(options) => {
                     setFieldValue(
                       'linked_payment_pack_establishments',
+                      // @ts-expect-error
                       options?.map((option) => option.value),
                     );
                   }}
@@ -151,6 +153,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                   inScrollBar
                   isMulti
                   chipsRenderer={(chipProps: {
+                    // @ts-expect-error
                     data;
                     onDelete: () => void;
                   }) => (

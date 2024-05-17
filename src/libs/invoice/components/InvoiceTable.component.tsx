@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -98,7 +97,9 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
   const { invoice } = props;
   const { t } = useTranslation(['invoice', 'payment']);
   const amount_remaining = parseFloat(
+    // @ts-expect-error
     parseInt(invoice.amount_due_cts, 10) / 100 -
+      // @ts-expect-error
       parseInt(invoice.amount_paid_cts, 10) / 100,
   );
   let amount_remaining_color;
@@ -139,6 +140,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
       return (
         <Chip
           avatar={
+            // @ts-expect-error
             <Avatar noname alt="QB LOGO" src={quickbooksLogo} variant="small" />
           }
           label={t('quickbooks.invoice.onQuickbooks')}
@@ -230,13 +232,16 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
             ? ' - '
             : getCurrencyDisplayWithPrice(
                 parseFloat(
+                  // @ts-expect-error
                   invoice.is_v2
-                    ? parseInt(invoice.amount_due_cts, 10) / 100
+                    ? // @ts-expect-error
+                      parseInt(invoice.amount_due_cts, 10) / 100
                     : invoice.price_due,
                 ).toFixed(2),
               )}
         </TableCell>
         <TableCell>
+          {/* @ts-expect-error */}
           <Typography color={amount_remaining_color}>
             {getCurrencyDisplayWithPrice(amount_remaining.toFixed(2))}
           </Typography>
@@ -260,6 +265,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                   <>
                     <Menu
                       keepMounted
+                      // @ts-expect-error
                       anchorEl={downloadMenuOpen}
                       id="simple-menu"
                       onClick={(e) => e.stopPropagation()}
@@ -305,6 +311,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                     <IconButton
                       onClick={(ev) => {
                         ev.stopPropagation();
+                        // @ts-expect-error
                         setDownloadMenuOpen(ev.currentTarget);
                       }}
                     >
@@ -322,6 +329,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
         </ObjectLevelPermissionProvider>
         {props.quickbooksIntegrated && (
           <TableCell>
+            {/* @ts-expect-error */}
             {processing && !invoice.can_be_sent_to_quickbooks ? (
               <CircularProgress />
             ) : (
@@ -352,6 +360,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
             <TableCell>
               <RedButton
                 disabled={isPaymentGroupBeingProcessed}
+                // @ts-expect-error
                 onClick={() => props.onBill(invoice)}
                 variant="outlined"
               >
@@ -371,6 +380,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                 <UseConsumerGiftcardForm
                   outlinedIconVariant
                   applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                  // @ts-expect-error
                   consumerGiftcardList={relatedconsumerGiftcardList}
                   invoice={invoice}
                 />
@@ -381,6 +391,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
               (props.asConsumer ? (
                 <Button
                   disabled={isPaymentGroupBeingProcessed}
+                  // @ts-expect-error
                   onClick={() => props.onClickInvoice(invoice.uuid, invoice)}
                   variant="outlined"
                 >
@@ -450,12 +461,15 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                         .filter((ii) => !!ii)
                         .map((invoiceItem) => {
                           return (
+                            // @ts-expect-error
                             <TableRow key={invoiceItem.id}>
                               <TableCell component="th" scope="row">
+                                {/* @ts-expect-error */}
                                 {invoiceItem.name}
                               </TableCell>
                               <TableCell>
                                 {getCurrencyDisplayWithPrice(
+                                  // @ts-expect-error
                                   parseFloat(invoiceItem.total_price).toFixed(
                                     2,
                                   ),
@@ -463,12 +477,14 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                               </TableCell>
                               <TableCell>
                                 {getCurrencyDisplayWithPrice(
+                                  // @ts-expect-error
                                   parseFloat(invoiceItem.voucher).toFixed(2),
                                 )}
                               </TableCell>
                               <TableCell>
                                 {getCurrencyDisplayWithPrice(
                                   parseFloat(
+                                    // @ts-expect-error
                                     invoiceItem.total_price_notax,
                                   ).toFixed(2),
                                 )}
@@ -477,6 +493,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                           );
                         })
                     }
+                    {/* @ts-expect-error */}
                     {!!invoice.invoice_items.length === 0 && (
                       <TableRow>
                         <TableCell component="th" scope="row">
@@ -531,36 +548,51 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                         .map(
                           (payment) =>
                             !!payment && (
+                              // @ts-expect-error
                               <TableRow key={payment.id}>
                                 <TableCell component="th" scope="row">
                                   {t(
+                                    // @ts-expect-error
                                     `payment:paymentMethod.${payment.payment_method}`,
                                   )}
                                 </TableCell>
                                 <TableCell>
                                   {getCurrencyDisplayWithPrice(
+                                    // @ts-expect-error
                                     parseFloat(payment.price).toFixed(2),
                                   )}
                                 </TableCell>
                                 <TableCell>
+                                  {/* @ts-expect-error */}
                                   {DateTime.fromISO(payment.date).toFormat('D')}
                                 </TableCell>
                                 <TableCell>
+                                  {/* @ts-expect-error */}
                                   {payment.payment_received === null && (
+                                    // @ts-expect-error
                                     <HourglassEmptyIcon size="small" />
                                   )}
+                                  {/* @ts-expect-error */}
                                   {!payment.payment_received &&
+                                    // @ts-expect-error
                                     payment.payment_received !== null && (
+                                      // @ts-expect-error
                                       <ErrorIcon color="error" size="small" />
                                     )}
+                                  {/* @ts-expect-error */}
                                   {payment.payment_received &&
+                                    // @ts-expect-error
                                     !payment.payment_method ===
                                       PAYMENT_METHOD_DISPUTE.id && (
+                                      // @ts-expect-error
                                       <CheckIcon color="primary" size="small" />
                                     )}
+                                  {/* @ts-expect-error */}
                                   {payment.payment_received &&
+                                    // @ts-expect-error
                                     payment.payment_method ===
                                       PAYMENT_METHOD_DISPUTE.id && (
+                                      // @ts-expect-error
                                       <WarningIcon color="error" size="small" />
                                     )}
                                 </TableCell>
@@ -577,6 +609,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                   <Button
                     color="primary"
                     onClick={() => {
+                      // @ts-expect-error
                       props.onClickInvoice(invoice.uuid, invoice);
                     }}
                     style={{ marginTop: 16 }}
@@ -679,6 +712,7 @@ export const InvoiceTable = (props: {
                         asConsumer={!!props.asConsumer}
                         compactMode={props.compactMode}
                         companyId={props.companyId}
+                        // @ts-expect-error
                         consumerGiftcardList={props.consumerGiftcardList}
                         finalizeInvoice={props.finalizeInvoice}
                         getInvoicePaymentGroupIsProcessing={
@@ -687,9 +721,11 @@ export const InvoiceTable = (props: {
                         hideMemberName={props.hideMemberName}
                         hidePayButton={!hasTakePaymentPermission}
                         hidePaymentLink={!hasPaymentLinkPermission}
+                        // @ts-expect-error
                         invoice={invoice}
                         nestedDataLoading={props.nestedDataLoading}
                         onBill={props.onBill}
+                        // @ts-expect-error
                         onClickInvoice={props.onClickInvoice}
                         onInvoiceExpand={props.onInvoiceExpand}
                         open={invoice.uuid === open}
@@ -710,6 +746,7 @@ export const InvoiceTable = (props: {
       </Table>
       {props.loading && <LinearProgress />}
       {!props.hidePagination && (
+        // @ts-expect-error
         <TablePagination
           component="div"
           count={props.count || 0}

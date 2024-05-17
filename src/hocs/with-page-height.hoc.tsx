@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
@@ -39,6 +38,7 @@ const PageHeightCalculator = (props: { children: React.ReactChild }) => {
   if (!React.isValidElement(children)) {
     return null;
   }
+  // @ts-expect-error
   const childrenWithProps = React.cloneElement(children, { pageHeight });
 
   return (

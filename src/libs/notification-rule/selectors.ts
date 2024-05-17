@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { NotificationRule, NotificationRuleEventType } from './types';
@@ -19,6 +18,7 @@ const getRuleList = createSelector([getRuleData, getRuleListIds], (data, ids) =>
   ids.map((id) => data[id]),
 );
 
+// @ts-expect-error
 const _groupEvents = (acc, v) => {
   if (acc[v.notification_group]) {
     acc[v.notification_group] = [...acc[v.notification_group], v];

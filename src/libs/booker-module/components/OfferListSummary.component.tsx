@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { SyntheticEvent } from 'react';
 import { compose } from 'recompose';
 
@@ -87,6 +86,7 @@ class OfferListSummary extends React.PureComponent<Props> {
     const { classes, t, offer, offerStatus, coachDisplay } = this.props;
 
     const offerLevelTranslation = getLevelTranslation(
+      // @ts-expect-error
       Number.parseInt(this.props.offer.level),
       ' ',
       this.props.t,
@@ -116,6 +116,7 @@ class OfferListSummary extends React.PureComponent<Props> {
       noInteraction,
       isBookingLimitReached,
     } = getOfferFeature(
+      // @ts-expect-error
       offer,
       this.props.offerStatusById,
       this.props.acceptDoubleBooking,
@@ -125,7 +126,9 @@ class OfferListSummary extends React.PureComponent<Props> {
     const hasCustomLevel =
       this.props.offer.level !== this.props.offer?.custom_level;
     const hasLevel =
+      // @ts-expect-error
       (Number.parseInt(offer.level) !== 1 &&
+        // @ts-expect-error
         Number.parseInt(offer.level) !== 5) ||
       hasCustomLevel;
     const numberOfGuestsAvailable =
@@ -134,6 +137,7 @@ class OfferListSummary extends React.PureComponent<Props> {
 
     const spotId = this.props.spotsForOffers[offer.id];
 
+    // @ts-expect-error
     const roomBlueprint = this.props?.roomBlueprintsById[offer.room_blueprint];
 
     const spotInformation = getSpotTypeMinimal(
@@ -161,7 +165,9 @@ class OfferListSummary extends React.PureComponent<Props> {
                 <Select
                   id="member-select-filled"
                   labelId="member-select-filled-label"
+                  // @ts-expect-error
                   onChange={(ev: SyntheticEvent) => {
+                    // @ts-expect-error
                     this.props.onSelectMember(parseInt(ev.target.value, 10));
                   }}
                   value={this.props.member ? this.props.member.id : '-1'}
@@ -190,8 +196,10 @@ class OfferListSummary extends React.PureComponent<Props> {
               isBookingLimitReached={isBookingLimitReached}
               isRegistered={isRegistered}
               isWaitingList={isWaitingList}
+              // @ts-expect-error
               offer={offer}
               offerSpot={spotId}
+              // @ts-expect-error
               offerSpotInformation={spotInformation}
               offerStatus={offerStatus}
             />
@@ -209,6 +217,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 this.props.spotsForOffers[offerData.offer.id];
 
               const similarOfferRoomBlueprint =
+                // @ts-expect-error
                 this.props?.roomBlueprintsById[offerData.offer.room_blueprint];
 
               const similarOfferSpotInformation = getSpotTypeMinimal(
@@ -218,6 +227,7 @@ class OfferListSummary extends React.PureComponent<Props> {
               );
 
               const offerFeature = getOfferFeature(
+                // @ts-expect-error
                 offerData.offer,
                 this.props.offerStatusById,
                 this.props.acceptDoubleBooking,
@@ -227,6 +237,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 <React.Fragment key={offerData.offer.id}>
                   <OfferBookableItem
                     disabled={
+                      // @ts-expect-error
                       offerData.group ? offerFeature.noInteraction : false
                     }
                     hideCoach={this.props.hideCoach}
@@ -234,10 +245,13 @@ class OfferListSummary extends React.PureComponent<Props> {
                     isBookingLimitReached={offerFeature.isBookingLimitReached}
                     isRegistered={offerFeature.isRegistered}
                     isWaitingList={offerFeature.isWaitingList}
+                    // @ts-expect-error
                     offer={offerData.offer}
                     offerSpot={spotId}
+                    // @ts-expect-error
                     offerSpotInformation={similarOfferSpotInformation}
                     offerStatus={this.props.offerStatusById[offerData.offer.id]}
+                    // @ts-expect-error
                     onRemove={
                       offerData.extra_data?.protected
                         ? null
@@ -276,6 +290,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                   this.props.showBookingButton &&
                   this.props.packAllowsBookingGuest && (
                     <AdditionalGuestForm
+                      // @ts-expect-error
                       disabled={
                         !!this.props.additionalGuestList?.length &&
                         this.props.additionalGuestList.length + 1 >=

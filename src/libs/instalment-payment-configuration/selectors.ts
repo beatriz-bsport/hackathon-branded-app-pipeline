@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
 import { RootState } from '../../reducers';
@@ -41,14 +40,18 @@ export const withPaymentPack = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             payment_pack_list: instalmentPayment.payment_pack_list
+              // @ts-expect-error
               .map((id) => paymentPackById[id])
+              // @ts-expect-error
               .filter((pp) => pp),
           }));
         }
         return {
           ...instalmentPaymentList,
           payment_pack_list: instalmentPaymentList.payment_pack_list
+            // @ts-expect-error
             .map((id) => paymentPackById[id])
+            // @ts-expect-error
             .filter((pp) => pp),
         };
       },
@@ -67,6 +70,7 @@ export const withGiftcard = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             giftcard_list: instalmentPayment.giftcard_list.map(
+              // @ts-expect-error
               (id) => giftcardById[id],
             ),
           }));
@@ -74,6 +78,7 @@ export const withGiftcard = memoize(
         return {
           ...instalmentPaymentList,
           giftcard_list: instalmentPaymentList.giftcard_list.map(
+            // @ts-expect-error
             (id) => giftcardById[id],
           ),
         };
@@ -93,6 +98,7 @@ export const withCombo = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             payment_combo_list: instalmentPayment.payment_combo_list.map(
+              // @ts-expect-error
               (id) => paymentComboById[id],
             ),
           }));
@@ -100,6 +106,7 @@ export const withCombo = memoize(
         return {
           ...instalmentPaymentList,
           payment_combo_list: instalmentPaymentList.payment_combo_list.map(
+            // @ts-expect-error
             (id) => paymentComboById[id],
           ),
         };
@@ -119,6 +126,7 @@ export const withPrivatePass = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             private_pass_list: instalmentPayment.private_pass_list.map(
+              // @ts-expect-error
               (id) => privatePassData[id],
             ),
           }));
@@ -126,6 +134,7 @@ export const withPrivatePass = memoize(
         return {
           ...instalmentPaymentList,
           private_pass_list: instalmentPaymentList.private_pass_list.map(
+            // @ts-expect-error
             (id) => privatePassData[id],
           ),
         };
@@ -145,6 +154,7 @@ export const withShopItems = memoize(
           return instalmentPaymentList.map((instalmentPayment) => ({
             ...instalmentPayment,
             shop_item_list: instalmentPayment.shop_item_list.map(
+              // @ts-expect-error
               (id) => shopItemStandaloneData[id] ?? shopItemBaseData[id],
             ),
           }));
@@ -152,6 +162,7 @@ export const withShopItems = memoize(
         return {
           ...instalmentPaymentList,
           shop_item_list: instalmentPaymentList.shop_item_list.map(
+            // @ts-expect-error
             (id) => shopItemStandaloneData[id] ?? shopItemBaseData[id],
           ),
         };

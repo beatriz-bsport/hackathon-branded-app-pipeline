@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -82,6 +81,7 @@ export const invoiceConfigurationPatchActions = {
 };
 
 export const refreshUnpaidInvoiceAlerting = () =>
+  // @ts-expect-error
   refreshAlertingByKind(UNEVEN_INVOICE_ALERT);
 
 export function patchInvoiceConfiguration(
@@ -337,6 +337,7 @@ export function fetchByQueryInvoice(
 
     try {
       const response = await fetchByQueryAPI(params);
+      // @ts-expect-error
       const invoice = response.data[0];
       dispatch(retrieveInvoiceActions.success(invoice));
       options?.onSuccess?.(invoice);
@@ -539,6 +540,7 @@ export function fetchPaymentList(
 
     try {
       const response = await fetchPaymentListAPI(params);
+      // @ts-expect-error
       dispatch(listPaymentActions.success(response.data.results));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -576,6 +578,7 @@ export function fetchInvoiceItemList(
     try {
       const response = await fetchInvoiceItemListAPI(params);
       dispatch(
+        // @ts-expect-error
         listInvoiceItemActions.success(response.data.results || response.data),
       );
       if (options && options.onSuccess) {
@@ -620,7 +623,9 @@ export function fetchInvoiceList(
     dispatch(listInvoiceActions.isLoading(true));
     dispatch(listInvoiceActions.error(null));
     try {
+      // @ts-expect-error
       const response = await fetchByQueryAPI(params);
+      // @ts-expect-error
       if (params?.page && response.data.results) {
         dispatch(
           listInvoiceActions.success({ ...response.data, page: params.page }),
@@ -628,6 +633,7 @@ export function fetchInvoiceList(
       } else {
         dispatch(listInvoiceActions.success(response.data));
       }
+      // @ts-expect-error
       options?.onSuccess?.(response.data.results || response.data);
     } catch (err) {
       dispatch(listInvoiceActions.error(err));
@@ -755,6 +761,7 @@ export function fetchPlannedPaymentEventList(
 
     try {
       const response = await fetchPlannedPaymentEventAPI(params);
+      // @ts-expect-error
       dispatch(listPlannedPaymentEventActions.success(response.data.results));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -1142,6 +1149,7 @@ export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
       dispatch(applyBalanceToInvoiceActions.success(response.data));
       dispatch(snackbarSuccess('invoice.applyBalance.success'));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
@@ -17,18 +16,29 @@ import {
   Typography,
 } from '@material-ui/core';
 import Select, {
+  // @ts-expect-error
   NamedProps,
   components,
+  // @ts-expect-error
   MenuProps,
+  // @ts-expect-error
   MenuListComponentProps,
+  // @ts-expect-error
   OptionProps,
+  // @ts-expect-error
   PlaceholderProps,
+  // @ts-expect-error
   ValueContainerProps,
+  // @ts-expect-error
   ControlProps,
+  // @ts-expect-error
   SingleValueProps,
+  // @ts-expect-error
   InputActionTypes,
 } from 'react-select';
+// @ts-expect-error
 import { NoticeProps } from 'react-select/src/components/Menu';
+// @ts-expect-error
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import { ActionMeta } from 'react-select/lib/types';
 import { CSSProperties } from '@emotion/serialize';
@@ -167,6 +177,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
         onChange(data);
       }
     } else {
+      // @ts-expect-error
       onChange(data);
     }
 
@@ -253,6 +264,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           [classes.error]: props.error,
         })}
       >
+        {/* @ts-expect-error */}
         <Select
           captureMenuScroll
           classes={{ ...classes, ...(props?.classes ?? {}) }}
@@ -331,12 +343,14 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
   const [selected, setSelected] = useState<T[]>([...props.getValue()]);
   const { t } = useTranslation(['common']);
   const displayedOption = [
+    // @ts-expect-error
     ...props.options.filter((opt) =>
       props.selectProps.filterOption(opt, props.selectProps.inputValue),
     ),
   ];
 
   const onSelect = (data: T) => {
+    // @ts-expect-error
     const indexOf = selected.findIndex((row) => row.value === data.value);
     if (indexOf !== -1) {
       const selectedValuesWithoutIndex = [
@@ -530,12 +544,14 @@ const ShowMoreButton: React.FC<{
   );
 };
 
+// @ts-expect-error
 const getItemPositionData = (selectProps, data) => {
   /**
   This function is used to get the index of the current item in the selected values
   */
   const selectedValues = selectProps?.value ?? [];
   const index =
+    // @ts-expect-error
     selectedValues.findIndex((value) => value?.value === data?.value) ?? -1;
   const maxDisplay = selectProps?.defaultNumberShown ?? 4;
   const overflowValues = selectedValues.length - maxDisplay;
@@ -643,6 +659,7 @@ function MenuList<T extends OptionTypeBase>(
 
   return (props: MenuListComponentProps<T, boolean, any>) => {
     const displayedOption = [
+      // @ts-expect-error
       ...props.selectProps.options.filter((opt) =>
         props.selectProps.filterOption(opt, props.selectProps.inputValue),
       ),
@@ -654,6 +671,7 @@ function MenuList<T extends OptionTypeBase>(
         <components.MenuList {...props} getStyles={resetStyle}>
           {headerListRenderer && headerListRenderer()}
           {props.selectProps.isMenuListVirtualized && hasValue ? (
+            // @ts-expect-error
             <VirtualizedList
               height={
                 displayedOption.length < 300 ? displayedOption.length * 50 : 300
@@ -681,11 +699,14 @@ function MenuList<T extends OptionTypeBase>(
 }
 
 const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
+  // @ts-expect-error
   const { displayAllOptionsPlaceholder } = props?.selectProps;
   const classes = useStyles();
 
   const { index, maxDisplay, data } = getItemPositionData(
+    // @ts-expect-error
     props.selectProps,
+    // @ts-expect-error
     props.data,
   );
 

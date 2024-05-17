@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
@@ -90,9 +89,13 @@ export default handleActions(
     },
     [favoriteActions.success.toString()]: (state, { payload }) => {
       if (payload) {
-        return state
-          .setIn(['favorite', 'id'], payload.id)
-          .setIn(['byId', payload.id], payload);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['favorite', 'id'], payload.id)
+            // @ts-expect-error
+            .setIn(['byId', payload.id], payload)
+        );
       }
       return state.setIn(['favorite', 'id'], null);
     },
@@ -114,6 +117,7 @@ export default handleActions(
     ) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.results.reduce((acc, ps) => {
             acc[ps.id] = ps;
             return acc;
@@ -122,16 +126,20 @@ export default handleActions(
         { deep: true },
       );
     },
+    // @ts-expect-error
     [resetAction]: (state) => {
       return state.setIn(['allIds'], []);
     },
     [deleteActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.without(['allIds', payload]).without(['byId', payload]);
     },
+    // @ts-expect-error
     [listIsLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
     [detailActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.merge({ byId: payload }, { deep: true });
     },
     [detailActions.error.toString()]: (state, { payload }) => {
@@ -140,28 +148,36 @@ export default handleActions(
     [detailActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'loading'], payload);
     },
+    // @ts-expect-error
     [listLoaded]: (state, { payload }) => {
       return state
         .merge({ byId: payload.establishmentDict }, { deep: true })
         .set('allIds', payload.establishmentIdList);
     },
+    // @ts-expect-error
     [listError]: (state, { payload }) => {
       return state.set('error', payload);
     },
+    // @ts-expect-error
     [upsertIsLoading]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
+    // @ts-expect-error
     [upsertError]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
+    // @ts-expect-error
     [actionStartUpdate]: (state, { payload }) => {
       return state.set('updated', payload);
     },
     [addImage.isLoading.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id, 'loading'], payload.loading);
     },
     [addImage.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       const { id, image } = payload;
+      // @ts-expect-error
       const { images } = state.byId[id];
       const newImages = images ? [image].concat(images) : [image];
       return state.setIn(['byId', id, 'images'], newImages);
@@ -203,6 +219,7 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload.data);
     },
     [fetchAllEstablishmentGroupActions.isLoading.toString()]: (
@@ -224,11 +241,13 @@ export default handleActions(
       return state
         .setIn(
           ['establishmentGroup', 'allIds'],
+          // @ts-expect-error
           payload.results.map((group) => group.id),
         )
         .merge(
           {
             establishmentGroup: {
+              // @ts-expect-error
               byId: payload.results.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -254,14 +273,20 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.establishmentGroup.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['establishmentGroup', 'byId', payload.id], payload)
-          .setIn(
-            ['establishmentGroup', 'allIds'],
-            [...state.establishmentGroup.allIds, payload.id],
-          );
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['establishmentGroup', 'byId', payload.id], payload)
+            .setIn(
+              ['establishmentGroup', 'allIds'],
+              // @ts-expect-error
+              [...state.establishmentGroup.allIds, payload.id],
+            )
+        );
       }
+      // @ts-expect-error
       return state.setIn(['establishmentGroup', 'byId', payload.id], payload);
     },
     [deleteEstablishmentGroupActions.isLoading.toString()]: (
@@ -283,6 +308,7 @@ export default handleActions(
       return state.setIn(
         ['establishmentGroup', 'allIds'],
         state.establishmentGroup.allIds.filter(
+          // @ts-expect-error
           (id: number) => id !== payload.id,
         ),
       );
@@ -306,6 +332,7 @@ export default handleActions(
       return state
         .setIn(
           ['establishmentBillingGroup', 'allIds'],
+          // @ts-expect-error
           payload.results.map(
             (billing_group: EstablishmentBillingGroup) => billing_group.id,
           ),
@@ -313,6 +340,7 @@ export default handleActions(
         .merge(
           {
             establishmentBillingGroup: {
+              // @ts-expect-error
               byId: payload.results.reduce(
                 (
                   acc: { [key: number]: EstablishmentBillingGroup },
@@ -351,16 +379,22 @@ export default handleActions(
       { payload },
     ) => {
       if (
+        // @ts-expect-error
         !state.establishmentBillingGroup.allIds.find((id) => id === payload.id)
       ) {
-        return state
-          .setIn(['establishmentBillingGroup', 'byId', payload.id], payload)
-          .setIn(
-            ['establishmentBillingGroup', 'allIds'],
-            [payload.id, ...state.establishmentBillingGroup.allIds],
-          );
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['establishmentBillingGroup', 'byId', payload.id], payload)
+            .setIn(
+              ['establishmentBillingGroup', 'allIds'],
+              // @ts-expect-error
+              [payload.id, ...state.establishmentBillingGroup.allIds],
+            )
+        );
       }
       return state.setIn(
+        // @ts-expect-error
         ['establishmentBillingGroup', 'byId', payload.id],
         payload,
       );
@@ -390,6 +424,7 @@ export default handleActions(
       return state.setIn(
         ['establishmentBillingGroup', 'allIds'],
         state.establishmentBillingGroup.allIds.filter(
+          // @ts-expect-error
           (id: number) => id !== payload.id,
         ),
       );

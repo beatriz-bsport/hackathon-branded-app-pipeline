@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React, { Component } from 'react';
@@ -245,6 +244,7 @@ export class MarketingEmail extends Component<Props, State> {
                   items={this.props.email_templates}
                   placeholder={t('search')}
                   searchFields={['title', 'subject']}
+                  // @ts-expect-error
                   searchResult={this.state.searchResult}
                   searchText={this.state.searchText}
                 />
@@ -314,6 +314,7 @@ export class MarketingEmail extends Component<Props, State> {
                     deleteCategory={this.onDeleteCategory}
                     editCategory={this.onEditCategory}
                     itemLoading={this.props.listLoading}
+                    // @ts-expect-error
                     ListItemComponent={EmailListItem}
                     onClickItem={this.selected}
                     onDeleteItem={this.props.emailTemplateDelete}
@@ -494,11 +495,13 @@ const styles = (theme: Theme) =>
     search: { marginBottom: theme.spacing(2) },
     searchPaperDisplayed: {
       border: '1px solid',
+      // @ts-expect-error
       borderColor: theme.primary_color,
       borderTop: '0px',
     },
     searchPaperHidden: {
       border: '1px solid',
+      // @ts-expect-error
       borderColor: theme.primary_color,
       borderTop: '0px',
       boderBottom: '0px',

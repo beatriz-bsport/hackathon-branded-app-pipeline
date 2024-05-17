@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { MouseEvent } from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
@@ -247,8 +246,10 @@ export class PaymentPackList extends React.Component<Props, State> {
   updateOrderBySortOption(
     sortFunction: (pp1: PaymentPack, pp2: PaymentPack) => number,
   ) {
+    // @ts-expect-error
     const toUpdate = [];
     this.props.paymentPackByCategory.forEach(
+      // @ts-expect-error
       (category: PaymentPackCategoryWithPacks) => {
         const sorted = [...category.packs].sort((pp1, pp2) =>
           sortFunction(pp1, pp2),
@@ -267,6 +268,7 @@ export class PaymentPackList extends React.Component<Props, State> {
         );
       },
     );
+    // @ts-expect-error
     this.setState({ paymentPackOrderByCategory: toUpdate });
   }
 
@@ -299,6 +301,7 @@ export class PaymentPackList extends React.Component<Props, State> {
   }
 
   requestEdit = (pp: PaymentPack) => {
+    // @ts-expect-error
     this.setState({ paymentPackToEdit: pp }, () =>
       this.props.setOpenPaymentPackFormDialog(true),
     );
@@ -332,7 +335,9 @@ export class PaymentPackList extends React.Component<Props, State> {
 
   changeSearch = (fuse: string) => (ev: MouseEvent) => {
     this.setState({
+      // @ts-expect-error
       searchText: ev.target.value,
+      // @ts-expect-error
       searchResult: fuse.search(ev.target.value),
     });
   };
@@ -356,6 +361,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               key={pack.id}
               disabled
               divider
+              // @ts-expect-error
               creditScaleFactor={this.props.theme.pass_credit_factor}
               onClick={
                 pack.disabled ? null : () => this.props.goToPack(pack.id)
@@ -370,6 +376,7 @@ export class PaymentPackList extends React.Component<Props, State> {
   };
 
   onShowDisabled = () => {
+    // @ts-expect-error
     this.setState((prevState: State) => {
       if (!prevState.showDisabled) {
         this.props.fetchPaymentPackList(
@@ -391,17 +398,20 @@ export class PaymentPackList extends React.Component<Props, State> {
     }),
   ]);
 
+  // @ts-expect-error
   categoryFilterOnchange = (categories) => {
     this.setState({
       selectedCategories: categories,
     });
   };
 
+  // @ts-expect-error
   managerOnlyOnChange = (value) =>
     this.setState({
       selectedDisponibility: value,
     });
 
+  // @ts-expect-error
   sortOnChange = (sortOpt) => {
     this.setState({
       selectedSortOption: sortOpt,
@@ -461,6 +471,7 @@ export class PaymentPackList extends React.Component<Props, State> {
       );
 
     if (
+      // @ts-expect-error
       (this.props.enabledPacks || []).length +
         (this.props.disabledPacks || []).length ===
         0 &&
@@ -497,13 +508,17 @@ export class PaymentPackList extends React.Component<Props, State> {
             }
             closeForm={this.closePaymentPackFormDrawer}
             compatibleServicePass={this.props.compatibleServicePass}
+            // @ts-expect-error
             creditFactor={this.props.theme.pass_credit_factor}
+            // @ts-expect-error
             initial={this.state.paymentPackToEdit}
             metaActivityList={metaActivities}
             onSubmit={this.props.createOrUpdatePaymentPack}
             open={this.props.openPaymentPackFormDialog}
             paymentPackCategories={paymentPackCategories}
+            // @ts-expect-error
             privateServices={this.props.privateServices}
+            // @ts-expect-error
             tagList={allTagsWithTagGroup}
           />
         </>
@@ -538,11 +553,14 @@ export class PaymentPackList extends React.Component<Props, State> {
           ]: boolean[]) => (
             <div className={classes.container}>
               <div className={classes.buttonRow}>
+                {/* @ts-expect-error */}
                 {!!this.props.enabledPacks?.length && (
                   <div style={{ flex: 1 }}>
                     <FuzeSearch
+                      // @ts-expect-error
                       changeSearch={this.changeSearch}
                       clearSearch={this.clearSearch}
+                      // @ts-expect-error
                       items={[...this.props.enabledPacks]}
                       placeholder={t('search')}
                       searchFields={['name']}
@@ -587,7 +605,9 @@ export class PaymentPackList extends React.Component<Props, State> {
                         <PaymentPackListItem
                           key={pack.id}
                           divider
+                          // @ts-expect-error
                           creditScaleFactor={
+                            // @ts-expect-error
                             this.props.theme.pass_credit_factor
                           }
                           onClick={
@@ -615,6 +635,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               </Paper>
               <PaymentPackFilterAndSortHeader
                 categoryFilterOnchange={this.categoryFilterOnchange}
+                // @ts-expect-error
                 categoryOptions={this.categoryOptions()}
                 categoryValue={this.state.selectedCategories}
                 managerOnlyOnChange={this.managerOnlyOnChange}
@@ -645,6 +666,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                 onDelete={hasDeletePermission && this.requestDelete}
                 onEdit={hasEditPermission && this.requestEdit}
                 onRestore={hasEditPermission && this.restorePaymentPack}
+                // @ts-expect-error
                 paymentPackByCategory={this.props.paymentPackByCategory}
                 paymentPackOrder={this.state.paymentPackOrderByCategory}
                 setSelectedCategory={this.props.setSelectedCategory}
@@ -669,6 +691,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                   </IconButton>
                 </div>
                 {this.state.disabledLoading ? (
+                  // @ts-expect-error
                   <LinearProgress className={classes.divider} />
                 ) : (
                   <Divider className={classes.divider} />
@@ -688,6 +711,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               <PaymentPackDeleteDialog
                 consumerPackSummary={
                   this.state.paymentPackToDelete ? (
+                    // @ts-expect-error
                     <PaginatedConsumerPackList
                       consumerPacksUpdatingById={
                         this.props.consumerPacks.updatingById
@@ -736,17 +760,21 @@ export class PaymentPackList extends React.Component<Props, State> {
                 }
                 closeForm={this.closePaymentPackFormDrawer}
                 compatibleServicePass={this.props.compatibleServicePass}
+                // @ts-expect-error
                 creditScaleFactor={this.props.theme.pass_credit_factor}
                 displayNewCheckoutFlow={
                   this.props.theme.display_new_checkout_flow
                 }
+                // @ts-expect-error
                 initial={this.state.paymentPackToEdit}
                 metaActivityList={metaActivities}
                 onSubmit={this.props.createOrUpdatePaymentPack}
                 open={this.props.openPaymentPackFormDialog}
                 paymentPackCategories={paymentPackCategories}
+                // @ts-expect-error
                 privateServices={this.props.privateServices}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                // @ts-expect-error
                 tagList={allTagsWithTagGroup}
               />
               {hasCreatePermission && (
@@ -760,6 +788,7 @@ export class PaymentPackList extends React.Component<Props, State> {
         </ObjectLevelPermissionProviderComponent>
         {(this.props.selectedCategory || this.props.showCategoryDialog) && (
           <PaymentPackCategoryCreationDialog
+            // @ts-expect-error
             compatibleServicePass={this.props.compatibleServicePass}
             handleClose={() => {
               trackFormCancel(this.props.selectedCategory?.id);
@@ -833,6 +862,7 @@ const styles = (theme: Theme) =>
   });
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
+  // @ts-expect-error
   enabledPacks: withSCT(withLinkedPrivatePass(getEnabledPaymentPacks))(state),
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
@@ -850,11 +880,13 @@ const mapStateToProps = (state: RootState) => ({
   categoryList: getEditableSCTs(state),
   paymentPackByCategory: groupByCategory(
     withPaymentPackNotification(
+      // @ts-expect-error
       withLinkedPrivatePass(withSCT(getEnabledPaymentPacks)),
     ),
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),
   consumerPacks: {
+    // @ts-expect-error
     items: state.consumerPaymentPack.byPaymentPack.items,
     count: state.consumerPaymentPack.byPaymentPack.count,
     loading: state.consumerPaymentPack.byPaymentPack.loading,
@@ -941,6 +973,7 @@ const mapWithHandlers = {
   onCreate: (props: OwnAndConnectedProps) => () => {
     props.pushRouter('/payment-pack/add');
   },
+  // @ts-expect-error
   fetchMarketingNotificationList: (props: OwnAndConnectedProps) => (params) => {
     props.fetchMarketingNotificationList(params);
   },
@@ -1008,6 +1041,7 @@ const mapWithHandlers = {
           paymentPack.linked_private_pass?.id,
           {
             onSuccess: (csps) => {
+              // @ts-expect-error
               const private_service__in = csps?.map(
                 (c: PrivateSlot) => c.private_service,
               );
@@ -1025,9 +1059,12 @@ const mapWithHandlers = {
     props.pushRouter('/settings/personalization');
   },
   fetchAvailableBookkeepingAccountList:
-    ({ fetchBookkeepingAccountList }) =>
-    () =>
-      fetchBookkeepingAccountList({ is_active: true }),
+    // @ts-expect-error
+
+
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
 };
 const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,

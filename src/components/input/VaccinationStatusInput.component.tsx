@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 
@@ -8,8 +7,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
+// @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 
+// @ts-expect-error
 const styles = (theme) => ({
   formControl: {
     minWidth: 200,
@@ -30,6 +31,7 @@ export function VaccinationStatusInput(props: Props) {
   const { t, value, onChange, classes, fullWidth } = props;
   return (
     <FormControl
+      // @ts-expect-error
       className={classes.formControl}
       fullWidth={fullWidth}
       required={props.required}
@@ -37,6 +39,7 @@ export function VaccinationStatusInput(props: Props) {
       <InputLabel shrink htmlFor="vaccination-status-helper">
         {t('common.vaccination_status')}
       </InputLabel>
+      {/* @ts-expect-error */}
       <Select onChange={onChange} required={props.required} value={value}>
         <MenuItem key="true" value="true">
           <Typography align="left">{t('common.vaccinationDone')}</Typography>
@@ -56,4 +59,5 @@ export function VaccinationStatusInput(props: Props) {
 
 VaccinationStatusInput.defaultProps = { fullWidth: false };
 
+// @ts-expect-error
 export default withStyles(styles)(withTranslation()(VaccinationStatusInput));

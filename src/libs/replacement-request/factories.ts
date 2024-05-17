@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { offerFactory } from '#libs/offer/factory';
 import { generateRandomInt } from '../../utils/factories';
 
@@ -48,6 +47,7 @@ export function replacementRequestFactory(
       new Date(2023, 0, 1, 0, 0),
     ).toString(),
     closing_date_override: null,
+    // @ts-expect-error
     offer: offerFactory(),
     coach_answer: [],
     has_requested_late: generateRandomInt(3) === 0,
@@ -67,6 +67,7 @@ export function replacementRequestsFactory(
   Level
 >[] {
   const ids = [...Array(number).keys()];
+  // @ts-expect-error
   return ids.map((id) => ({
     id,
     company: generateRandomInt(999),

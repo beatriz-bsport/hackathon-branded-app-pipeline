@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import { compose, withHandlers, withProps } from 'recompose';
@@ -30,10 +29,12 @@ import {
 } from '@bsport/common/lib/master-data/available-payment';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import withTheme from '#hocs/company-themifier.hoc';
 import { RootState } from '../../../../reducers';
@@ -303,10 +304,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
       const group = this.props.offer.group;
       const fullBookingOnly = group.full_booking_only;
       const offersInGroup = this.props.similarOfferGroups?.filter(
+        // @ts-expect-error
         (o) => o.id !== this.props.id,
       );
       let offers = [];
       if (fullBookingOnly) {
+        // @ts-expect-error
         offers = offersInGroup.filter((o) =>
           this.props.groupOffersIdsTobeBooked?.includes(o.id),
         );
@@ -316,6 +319,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
       if (
         fullBookingOnly &&
+        // @ts-expect-error
         offers.some((offer) => {
           return (
             (!!offer.bookableStatus?.bookable_status &&
@@ -329,11 +333,13 @@ class OfferBooking extends React.PureComponent<Props, State> {
           blockByGroup: true,
         });
       }
+      // @ts-expect-error
       let offersToAdd = [];
       if (fullBookingOnly) {
         offersToAdd = offers;
       } else {
         offersToAdd = offers.filter(
+          // @ts-expect-error
           (offer) =>
             !offer.bookableStatus?.blocked_by_tags &&
             (offer.bookableStatus?.bookable_status ===
@@ -346,6 +352,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.setState(
         () => ({
           selectedOffers: [
+            // @ts-expect-error
             ...offersToAdd.map((offer) => ({
               offer,
               extra_data: {
@@ -405,6 +412,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     this.setState((prevState: State) => {
       return {
         offersConstraint: getOfferContraints(
+          // @ts-expect-error
           this.props.offer,
           prevState.selectedOffers,
           this.props.offerStatusById,
@@ -437,6 +445,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
   showBookingButton = () => {
     const { areBookable, areWaitingList } = getCanIBook(
       this.props.offerStatusById,
+      // @ts-expect-error
       this.props.offer,
       this.state.selectedOffers,
       this.state.selectedPack,
@@ -462,6 +471,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       .filter((_off) => !!_off)
       .filter((offer) => {
         const offerFeature = getOfferFeature(
+          // @ts-expect-error
           offer,
           this.props.offerStatusById,
           this.props.theme.accept_double_booking,
@@ -538,6 +548,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       .filter(
         (offerData) =>
           getOfferFeature(
+            // @ts-expect-error
             offerData.offer,
             this.props.offerStatusById,
             this.props.theme.accept_double_booking,
@@ -571,6 +582,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       .filter(
         (offerData) =>
           getOfferFeature(
+            // @ts-expect-error
             offerData.offer,
             this.props.offerStatusById,
             this.props.theme.accept_double_booking,
@@ -701,6 +713,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
   getIsRegisteringForWaitingList = () => {
     const { areBookable, areWaitingList } = getCanIBook(
       this.props.offerStatusById,
+      // @ts-expect-error
       this.props.offer,
       this.props.offer ? [{ offer: this.props.offer }] : [],
       this.state.selectedPack,
@@ -722,6 +735,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       blockedByTags,
       isBookingLimitReached,
     } = getOfferFeature(
+      // @ts-expect-error
       this.props.offer,
       this.props.offerStatusById,
       this.props.theme.accept_double_booking,
@@ -738,6 +752,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         isBookingLimitReached)
     ) {
       const { message, icon } = getMainOfferNotBookableReason(
+        // @ts-expect-error
         this.props.offer,
         offerStatus,
         {
@@ -816,10 +831,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
     let comboAllowsGuest = false;
     if (pack?.paymentPackCombo) {
       pack.paymentPackCombo.payment_packs.forEach((item) => {
+        // @ts-expect-error
         if (item.data.allow_guest_pass) {
           comboAllowsGuest = true;
+          // @ts-expect-error
           if (item.data.credits > maxComboGuest)
+            // @ts-expect-error
             maxComboGuest = item.data.credits;
+          // @ts-expect-error
           if (item.data.unlimited) {
             maxComboGuest = this.props.theme.allow_guest_max_number;
           }
@@ -883,6 +902,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     maxGuestNumberFromAllPacks={
                       this.state.guestMaxNumberOverAllPacks
                     }
+                    // @ts-expect-error
                     member={this.state.selectedMember}
                     numberBookingGuestLeft={this.props.bookingGuestNumberLeft}
                     offer={this.props.offer}
@@ -912,6 +932,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     selectedOffers={this.state.selectedOffers}
                     showBookingButton={this.showBookingButton()}
                     spotsForOffers={this.state.spotsForOffers}
+                    // @ts-expect-error
                     spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
                   />
                 </div>
@@ -981,11 +1002,13 @@ class OfferBooking extends React.PureComponent<Props, State> {
               onClose={this.closeSimilarOfferSelector}
               onSelectOffer={this.onSelectOffer}
               open={this.state.showSimilarOffers}
+              // @ts-expect-error
               resetSimilarOffers={this.props.resetSimilarOffers}
               selectedOffers={this.state.selectedOffers}
               similarOffers={
                 this.props.offer.group
                   ? this.props.similarOfferGroups.filter(
+                      // @ts-expect-error
                       (o) =>
                         o?.bookableStatus?.bookable_status ===
                         OFFER_BOOKABLE_STATUS_BOOKABLE,
@@ -1001,11 +1024,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
               }
               coachDisplay={this.props.theme.coach_display}
               fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              // @ts-expect-error
               offer={this.state.offersWaitingForSpotSelection[0]}
               offerStatusById={this.props.offerStatusById}
+              // @ts-expect-error
               onCancel={this.onCancelSpotSelection}
               refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
               roomBlueprintsById={this.props.roomBlueprintsById}
+              // @ts-expect-error
               spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
               updateSpotsForOffer={this.updateSpotsForOffers}
             />
@@ -1191,14 +1217,17 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
     assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
     similarOfferGroups: withMetaActivity(
+      // @ts-expect-error
       withBookableStatus(
         withCoach(withEstablishment(similarOffersSelector)),
       ) as Offer_FULL[],
+      // @ts-expect-error
     )(state, offer?.group?.id ?? offer?.group),
     similarOfferGroupsLoading:
       state.establishment.loading ||
       state.coach.loading ||
       state.offer.offerStatus.loading ||
+      // @ts-expect-error
       (state.offer.groups?.[offer?.group?.id ?? offer?.group]?.loading ??
         false),
     bookingGuestNumberLeft: getBookingGuestNumberLeft(state),
@@ -1255,6 +1284,7 @@ const mapWithHandlers = {
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
       window.close();
+      // @ts-expect-error
     } else if (props.queryParams.fromWorkshop === 'true') {
       props.push(
         `${urlToMarketplace(
@@ -1332,7 +1362,6 @@ export default compose(
       REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED,
     ),
   })),
-  // @ts-expect-error
   withTranslation(['booking']),
   routerParamsToProps({
     id: 'id:number',
@@ -1340,5 +1369,6 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withTheme,
   withHandlers(mapWithHandlers),
+  // @ts-expect-error
   withStyles(styles),
 )(OfferBooking);

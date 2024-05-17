@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 
@@ -14,6 +13,7 @@ const greenTheme = createTheme({
     },
   },
   typography: {
+    // @ts-expect-error
     useNextVariants: true,
   },
 });

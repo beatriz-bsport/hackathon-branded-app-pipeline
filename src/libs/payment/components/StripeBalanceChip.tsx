@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classnames from 'classnames';
 
@@ -54,10 +53,12 @@ export const StripeBalanceChip: React.FC<Props> = ({
           />
         )}
         {isAvailableBalanceChip || isPendingBalanceNonNull ? (
+          // @ts-expect-error
           <Typography variant="default">
             {isAvailableBalanceChip ? balanceAvailableText : balancePendingText}
           </Typography>
         ) : (
+          // @ts-expect-error
           <Typography variant="default">{balancePendingText}</Typography>
         )}
       </div>

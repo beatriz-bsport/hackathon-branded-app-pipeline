@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { withFormik, Form, FormikProps } from 'formik';
@@ -16,7 +15,9 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
+// @ts-expect-error
 import { TextField, AlertError } from '#components/forms';
+// @ts-expect-error
 import ImageField from '#components/forms/ImageField.component';
 
 import { OptionCallback } from '../../../state/types';
@@ -234,6 +235,7 @@ const getUrl = (value: string | Object) => {
   }
 
   if (typeof value === 'object') {
+    // @ts-expect-error
     return createUrl(value);
   }
 
@@ -257,6 +259,7 @@ const CustomMobilePopupDialogSchema = Yup.object().shape({
 
 const CustomMobilePopupDialogHOC = withFormik<Props, FormikValues>({
   mapPropsToValues: (props) => {
+    // @ts-expect-error
     if (props?.inital) {
       return {
         name: '',
@@ -277,10 +280,12 @@ const CustomMobilePopupDialogHOC = withFormik<Props, FormikValues>({
       formData.append('image', image);
     }
     keys.forEach((key) => {
+      // @ts-expect-error
       formData.append(key, values[key]);
     });
 
     onSubmit({
+      // @ts-expect-error
       id: initial?.id,
       values: formData,
       options: {

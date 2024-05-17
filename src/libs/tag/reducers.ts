@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -90,6 +89,7 @@ export default handleActions(
       return state.setIn(['tag', 'items'], payload).merge(
         {
           tag: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -103,6 +103,7 @@ export default handleActions(
       return state.merge(
         {
           tagUsage: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -125,10 +126,12 @@ export default handleActions(
       return state.setIn(['tag', 'createOrUpdate', 'error'], payload);
     },
     [tagCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       let idx = state.tag.items.findIndex((t) => t.id === payload.id);
       if (idx === -1) {
         idx = state.tag.items.length;
       }
+      // @ts-expect-error
       return state.setIn(['tag', 'items', idx], payload);
     },
     // GROUP
@@ -143,6 +146,7 @@ export default handleActions(
       return state.setIn(['group', 'items'], payload).merge(
         {
           group: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -165,10 +169,12 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       let idx = state.group.items.findIndex((g) => g.id === payload.id);
       if (idx === -1) {
         idx = state.group.items.length;
       }
+      // @ts-expect-error
       return state.setIn(['group', 'items', idx], payload);
     },
     [fetchMemberTagListActions.isLoading.toString()]: (state, { payload }) => {
@@ -180,6 +186,7 @@ export default handleActions(
     [fetchMemberTagListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['marketPlaceMemberTag', 'tagIdsList'],
+        // @ts-expect-error
         payload.map((tag) => tag.id),
       );
     },
@@ -195,6 +202,7 @@ export default handleActions(
       return state.setIn(['tagTemplate', 'items'], payload).merge(
         {
           tagTemplate: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -208,6 +216,7 @@ export default handleActions(
       return state.merge(
         {
           tagTemplateUsage: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -239,10 +248,12 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       let idx = state.tagTemplate.items.findIndex((t) => t.id === payload.id);
       if (idx === -1) {
         idx = state.tagTemplate.items.length;
       }
+      // @ts-expect-error
       return state.setIn(['tagTemplate', 'items', idx], payload);
     },
     // GROUP TEMPLATE
@@ -260,6 +271,7 @@ export default handleActions(
       return state.setIn(['groupTemplate', 'items'], payload).merge(
         {
           groupTemplate: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -288,10 +300,12 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       let idx = state.groupTemplate.items.findIndex((g) => g.id === payload.id);
       if (idx === -1) {
         idx = state.groupTemplate.items.length;
       }
+      // @ts-expect-error
       return state.setIn(['groupTemplate', 'items', idx], payload);
     },
   },

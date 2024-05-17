@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -16,6 +15,7 @@ import {
   SIMPLE_MULTIPLE_MODE,
   OVERRIDE_MODE,
   MULTIPLE_MERGE_MODE,
+  // @ts-expect-error
 } from '../utils';
 import {
   Establishment,
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PartnershipConfigurationForm = (props: Props) => {
   const [configurationType, setConfigurationType] = React.useState<number>(
+    // @ts-expect-error
     (props.initial?.override_establishment_pk && OVERRIDE_MODE) ||
       (props.partnershipEstablishmentMergeList?.length &&
         MULTIPLE_MERGE_MODE) ||
@@ -88,6 +89,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
         <Collapse in={configurationType === SIMPLE_MULTIPLE_MODE}>
           <div className={classes.form}>
             <PartnershipConfigurationMultipleEstablishmentForm
+              // @ts-expect-error
               associatedEstablishmentList={props.associatedEstablishmentList}
               establishmentList={props.establishmentList}
               initial={props.initial}
@@ -114,6 +116,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
         <Collapse in={configurationType === OVERRIDE_MODE}>
           <div className={classes.form}>
             <PartnershipConfigurationOverrideForm
+              // @ts-expect-error
               associatedEstablishmentList={props.associatedEstablishmentList}
               establishmentList={props.establishmentList}
               initial={props.initial}
@@ -140,6 +143,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
       <Collapse in={configurationType === MULTIPLE_MERGE_MODE}>
         <div className={classes.form}>
           <PartnershipConfigurationAdvancedForm
+            // @ts-expect-error
             associatedEstablishmentList={props.associatedEstablishmentList}
             establishmentList={props.establishmentList}
             initial={props.initial}

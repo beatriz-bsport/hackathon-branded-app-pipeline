@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -47,6 +46,7 @@ export const InstalmentPaymentList: React.FC<Props> = (props) => {
     };
   let instalmentPaymentListFiltered = [] as InstalmentPayment[];
   if (!search && instalmentPaymentList) {
+    // @ts-expect-error
     instalmentPaymentListFiltered = instalmentPaymentList;
   } else {
     instalmentPaymentListFiltered = searchResult;

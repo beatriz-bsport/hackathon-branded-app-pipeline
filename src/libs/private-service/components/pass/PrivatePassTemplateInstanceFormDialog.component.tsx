@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import PrivatePassTemplateInstanceForm, {
   PrivatePassTemplateInstanceFormikHOC,
 } from './PrivatePassTemplateInstanceForm.component';
 
+// @ts-expect-error
 import { Submit } from '#components/forms';
 
 type Props = {
@@ -31,6 +31,7 @@ const PrivatePassTemplateInstanceFormDialog = (props: Props) => {
       <Form>
         <DialogTitle>{t('privatePassTemplateInstance.form.title')}</DialogTitle>
         <DialogContent>
+          {/* @ts-expect-error */}
           <PrivatePassTemplateInstanceForm {...props} />
         </DialogContent>
         <DialogActions>
@@ -58,5 +59,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default PrivatePassTemplateInstanceFormikHOC(
+  // @ts-expect-error
   PrivatePassTemplateInstanceFormDialog,
 );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
@@ -86,6 +85,7 @@ export const fetchAllReplacementRequests = (
       });
 
       const page = params.page || 1;
+      // @ts-expect-error
       const payload = { ...response.data, page };
       dispatch(fetchAllReplacementRequestsActions.success(payload));
 
@@ -96,6 +96,7 @@ export const fetchAllReplacementRequests = (
           fetchAllReplacementRequestsActions.successTeacherFound(payload),
         );
 
+      // @ts-expect-error
       options?.onSuccess?.(response.data.results);
     } catch (error) {
       dispatch(fetchAllReplacementRequestsActions.error(error));
@@ -127,10 +128,12 @@ export const createReplacementRequestBulk = (
       const response = await createReplacementRequestBulkAPI(data);
 
       dispatch(createReplacementRequestBulkActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       }
@@ -160,10 +163,12 @@ export const postponeReplacementRequestClosingDate = (
       const response = await postponeReplacementRequestClosingDateAPI(id, date);
 
       dispatch(updateReplacementRequestActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       }
@@ -186,10 +191,12 @@ export const refuseReplacementRequest = (
       const response = await refuseReplacementRequestAPI(id);
 
       dispatch(updateReplacementRequestActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       }
@@ -219,6 +226,7 @@ export const approveReplacementRequestCoachAnswer = (
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       }
@@ -240,14 +248,17 @@ export const cancelReplacementRequest = (
       const response = await cancelReplacementRequestAPI(requestId);
 
       dispatch(updateReplacementRequestActions.success(response.data));
+      // @ts-expect-error
       dispatch(snackbarSuccess('replacement.cancelReplacementRequest.success'));
       options?.onSuccess?.();
     } catch (error) {
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       } else {
+        // @ts-expect-error
         dispatch(snackbarError('replacement.cancelReplacementRequest.error'));
       }
       dispatch(updateReplacementRequestActions.error());
@@ -273,6 +284,7 @@ export const createOrUpdateReplacementRequestCoachAnswer = (
       );
 
       dispatch(updateReplacementRequestActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(updateReplacementRequestActions.error(error));
@@ -379,6 +391,7 @@ export const fetchDisciplineGroupList = (
     try {
       const response = await fetchDisciplineGroupListAPI();
       dispatch(fetchDisciplineGroupListActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(fetchDisciplineGroupListActions.error(error));
@@ -405,10 +418,13 @@ export const createDisciplineGroup = (
     try {
       const response = await createDisciplineGroupAPI(data);
       dispatch(createDisciplineGroupActions.success(response.data));
+      // @ts-expect-error
       dispatch(snackbarSuccess('replacement.disciplineGroup.create.success'));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(createDisciplineGroupActions.error(error));
+      // @ts-expect-error
       dispatch(snackbarError('replacement.disciplineGroup.create.error'));
       options?.onError?.();
     }
@@ -435,7 +451,9 @@ export const updateDisciplineGroup = (
       const response = await updateDisciplineGroupAPI(id, data);
 
       dispatch(updateDisciplineGroupActions.success(response.data));
+      // @ts-expect-error
       dispatch(snackbarSuccess('replacement.disciplineGroup.update.success'));
+      // @ts-expect-error
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(updateDisciplineGroupActions.error(error));
@@ -444,11 +462,13 @@ export const updateDisciplineGroup = (
         REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME
       ) {
         dispatch(
+          // @ts-expect-error
           snackbarError(
             `replacement.errors.${REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME}`,
           ),
         );
       } else {
+        // @ts-expect-error
         dispatch(snackbarError('replacement.disciplineGroup.update.error'));
       }
       options?.onError?.();
@@ -469,10 +489,12 @@ export const deleteDisciplineGroup = (id: number, options?: OptionCallback) => {
 
     try {
       await deleteDisciplineGroupAPI(id);
+      // @ts-expect-error
       dispatch(snackbarSuccess('replacement.disciplineGroup.delete.success'));
       options?.onSuccess?.();
     } catch (error) {
       dispatch(deleteDisciplineGroupActions.error(error));
+      // @ts-expect-error
       dispatch(snackbarError('replacement.disciplineGroup.delete.error'));
       options?.onError?.();
     }
@@ -528,12 +550,14 @@ export const updateReplacementConfiguration = (
       dispatch(
         updateReplacementRequestConfigurationActions.success(response.data),
       );
+      // @ts-expect-error
       dispatch(snackbarSuccess('companyTheme.update.success'));
       options?.onSuccess?.();
     } catch (error) {
       dispatch(updateReplacementRequestConfigurationActions.error(error));
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
+          // @ts-expect-error
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
       }

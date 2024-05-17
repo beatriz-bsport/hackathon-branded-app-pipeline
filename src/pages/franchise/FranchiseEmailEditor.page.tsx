@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect } from 'react';
 
 import { compose } from 'recompose';
@@ -109,6 +108,7 @@ const FranchiseEmailEditor = (props: Props) => {
       emailId: number,
       data: EmailTemplate,
       availableCompanies?: number[],
+      // @ts-expect-error
       options: OptionCallback,
     ) => {
       emailTemplateUpdate(
@@ -118,6 +118,7 @@ const FranchiseEmailEditor = (props: Props) => {
           franchise_id,
         },
         {
+          // @ts-expect-error
           onSuccess: options?.onSuccess,
           onError: options?.onError,
         },

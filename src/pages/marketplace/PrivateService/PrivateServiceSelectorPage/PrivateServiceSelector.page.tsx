@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -24,7 +23,6 @@ import { _getPrivateServicesMarketplace } from '../../../../libs/private-service
 import TypographyWithShowMore from '../../../../components/typo/TypographyWithShowMore.component';
 import { RootState } from '../../../../reducers';
 import { PrivateService } from '../../../../libs/private-service/types';
-// @ts-expect-error
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
@@ -95,6 +93,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
     if (this.props.loading) {
       return (
         <div className={classes.container2}>
+          {/* @ts-expect-error */}
           <Grid container align="stretch" className={classes.servicesContainer}>
             {[1, 2, 3].map((i) => (
               <Grid key={i} item lg={3} md={4} sm={6} xs={12}>
@@ -139,6 +138,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
           </div>
         )}
         <div className={classes.container2}>
+          {/* @ts-expect-error */}
           <Grid container align="stretch" className={classes.servicesContainer}>
             {this.props._privateServices.map((ps: PrivateService) => (
               <Grid key={ps.id} item lg={3} md={4} sm={6} xs={12}>
@@ -341,6 +341,7 @@ export const PrivateServiceSelectorDataProvider = compose<any, OwnProps>(
 );
 
 export default compose(
+  // @ts-expect-error
   routerParamsToProps(mapParamsToProps),
   PrivateServiceSelectorDataProvider,
   withQueryParams([

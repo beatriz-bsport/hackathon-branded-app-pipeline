@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   checkRequiredPermissions,
   checkRequiredPermissionsForPath,
@@ -30,6 +29,7 @@ const permissionA: RolePermission = {
     dashboard: true,
     calendar: true,
     schedule: true,
+    // @ts-expect-error
     myClub: {
       activities: true,
       workshops: true,
@@ -66,6 +66,7 @@ const permissionA: RolePermission = {
       smartlists: false,
       notifications: false,
       tags: false,
+      // @ts-expect-error
       strategies: false,
     },
     digitalOffer: {
@@ -74,6 +75,7 @@ const permissionA: RolePermission = {
     },
     member: true,
     reporting: true,
+    // @ts-expect-error
     settings: {
       generals: true,
       marketplace: true,
@@ -155,6 +157,7 @@ describe('TEST check on path', () => {
 
     expect(checkRequiredPermissionsForPath('/search', permissionA)).toBe(true);
     // Should send true if the url is not known
+    // @ts-expect-error
     expect(checkRequiredPermissionsForPath('/toto', permissionA)).toBe(true);
     // Should send true if the permission array is empty
     expect(checkRequiredPermissionsForPath('/empty', permissionA)).toBe(true);
@@ -175,6 +178,7 @@ describe('TEST setAllValuesInObject', () => {
   const values = setAllValuesInObject(permissionA, false);
 
   it('Should set all value in the deeply nested object doesnt touch array', () => {
+    // @ts-expect-error
     expect(values.restrictedPaths).toStrictEqual([]);
   });
 

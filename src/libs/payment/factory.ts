@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { PaymentMethod } from './types';
 import { generateRandomInt } from '../../utils/factories';
 
@@ -35,6 +34,7 @@ function generateId(num: number): string {
 
 export function card_list_factory(num: number): Array<PaymentMethod> {
   const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
+  // @ts-expect-error
   return card_ids.map((id) => {
     return {
       additional_info: '10/23',
@@ -49,6 +49,7 @@ export function card_list_factory(num: number): Array<PaymentMethod> {
 
 export function sepa_list_factory(num: number): Array<PaymentMethod> {
   const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
+  // @ts-expect-error
   return card_ids.map((id) => {
     return {
       additional_info: 'Jean Durand',

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   closestCenter,
   DndContext,
@@ -34,12 +33,15 @@ export const PrivatePassCategory = (props: Props) => {
   const [frontendOrderingOverride, setFrontendOrderingOverride] =
     React.useState({});
 
+  // @ts-expect-error
   const handleDragEnd = (event) => {
     const { active, over } = event;
     let overrideIndex = frontendOrderingOverride;
     const passes = [...props.privatePassList].sort(
       (pp1, pp2) =>
+        // @ts-expect-error
         (frontendOrderingOverride[pp1.id] || pp1.ordering_in_category) -
+        // @ts-expect-error
         (frontendOrderingOverride[pp2.id] || pp2.ordering_in_category),
     );
     if (
@@ -66,6 +68,7 @@ export const PrivatePassCategory = (props: Props) => {
         ];
       }
       if (arr) {
+        // @ts-expect-error
         const toUpdate = [];
         arr.forEach((pp, index) => {
           if (pp.id !== passes[index].id) {
@@ -80,6 +83,7 @@ export const PrivatePassCategory = (props: Props) => {
             });
           }
         });
+        // @ts-expect-error
         props.updatePassOrder(toUpdate);
       }
     }
@@ -88,13 +92,19 @@ export const PrivatePassCategory = (props: Props) => {
 
   const items = [...props.privatePassList].sort(
     (pp1, pp2) =>
+      // @ts-expect-error
       (frontendOrderingOverride[pp1.id] ||
+      // @ts-expect-error
       frontendOrderingOverride[pp1.id] === 0
-        ? frontendOrderingOverride[pp1.id]
+        ? // @ts-expect-error
+          frontendOrderingOverride[pp1.id]
         : pp1.ordering_in_category) -
+      // @ts-expect-error
       (frontendOrderingOverride[pp2.id] ||
+      // @ts-expect-error
       frontendOrderingOverride[pp2.id] === 0
-        ? frontendOrderingOverride[pp2.id]
+        ? // @ts-expect-error
+          frontendOrderingOverride[pp2.id]
         : pp2.ordering_in_category),
   );
 
@@ -119,6 +129,7 @@ export const PrivatePassCategory = (props: Props) => {
             }}
             onDelete={() => props.setOpenDeletePassDialog(pass.id)}
             pass={pass}
+            // @ts-expect-error
             updatePrivatePass={props.updatePrivatePass}
           />
         ))}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -52,15 +51,18 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             value={filter_data.all_filters_must_be_right}
           >
             {/* eslint-disable-next-line */}
-            <MenuItem key="true" value={true}>
+            {/* @ts-expect-error */}
+            <MenuItem key="true" value>
               {t(`filters.${filter_data.filter_identifier}.allNeeded`)}
             </MenuItem>
+            {/* @ts-expect-error */}
             <MenuItem key="false" value={false}>
               {t(`filters.${filter_data.filter_identifier}.oneNeeded`)}
             </MenuItem>
           </Select>
         </div>
         <div className={classes.inlineContainer}>
+          {/* @ts-expect-error */}
           {this.props.renderSelectorWarning(
             t('multiSelector.userMarketingNotifications.warning'),
             !filter_data.email_filter_active && !filter_data.sms_filter_active,
@@ -92,9 +94,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
               value={filter_data.email_value}
             >
               {/* eslint-disable-next-line */}
-              <MenuItem key="true" value={true}>
+              {/* @ts-expect-error */}
+              <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}
               </MenuItem>
+              {/* @ts-expect-error */}
               <MenuItem key="false" value={false}>
                 {t(`filters.${filter_data.filter_identifier}.false`)}
               </MenuItem>
@@ -128,9 +132,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
               value={filter_data.sms_value}
             >
               {/* eslint-disable-next-line */}
-              <MenuItem key="true" value={true}>
+              {/* @ts-expect-error */}
+              <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}
               </MenuItem>
+              {/* @ts-expect-error */}
               <MenuItem key="false" value={false}>
                 {t(`filters.${filter_data.filter_identifier}.false`)}
               </MenuItem>

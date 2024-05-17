@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -80,7 +79,6 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
     React.useState(false);
   const [openSelectCompaniesDialog, setOpenSelectCompaniesDialog] =
     React.useState(
-      // @ts-expect-error
       // eslint-disable-next-line
       !!parseQueryString(location.search || '')?.openSelectCompaniesForm,
     );
@@ -133,6 +131,7 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
         headerRightSecondary={headerRightSecondary}
       >
         <GenericTemplateCardCompanyList
+          // @ts-expect-error
           companies={sortedCompaniesInTemplate}
           nbCompanyChips={nbCompanyChips}
           onCreateTemplateInstance={() => setOpenSelectCompaniesDialog(true)}

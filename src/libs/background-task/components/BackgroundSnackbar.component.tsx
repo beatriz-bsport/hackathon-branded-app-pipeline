@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -18,6 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 
 import { RootState } from '../../../reducers';
+// @ts-expect-error
 import { deleteBackgroundSnackbar } from '../../snackbar/actions.ts';
 import { BackgroundSnack } from '../../snackbar/types';
 

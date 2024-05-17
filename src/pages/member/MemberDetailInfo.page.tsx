@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +12,9 @@ import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
 import Config from '../../config';
 
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
+// @ts-expect-error
 import TaskList from '#libs/reminder/components/TaskList.component';
 import { getUsersWithRole } from '#libs/role/selectors';
 
@@ -43,11 +44,14 @@ import {
   getMemberEventState,
 } from '#libs/member/selectors';
 import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
+// @ts-expect-error
 import TagDeleteDialog from '#libs/tag/components/TagDeleteDialog.component';
+// @ts-expect-error
 import TagGroupDeleteDialog from '#libs/tag/components/TagGroupDeleteDialog.component';
 import MemberCRM from '#libs/member/components/MemberCRM.component';
 import ModalDeleteFile from '#components/ModalConfirm.component';
 import MemberSearchModal from '#libs/member/components/MemberSearchModal.component';
+// @ts-expect-error
 import FileUploadDialog from '#components/FileUploadDialog';
 import MemberBillingProblemCard from '#libs/member/components/MemberBillingProblemCard.component';
 import { getMemberTagGroups } from '#libs/tag/selectors';
@@ -69,8 +73,10 @@ import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
   updateTaskStatus,
+  // @ts-expect-error
 } from '#libs/reminder/actions';
 import type { OptionCallback } from '../../state/types';
+// @ts-expect-error
 import { memberTaskListSelector } from '#libs/reminder/selectors';
 import { fetchCompanyUserRoles } from '#libs/role/actions';
 
@@ -127,6 +133,7 @@ import {
   withReceiver,
   onlyUsable,
 } from '#libs/giftcard/selectors';
+// @ts-expect-error
 import { resetPassword } from '../../actions/auth.actions';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -428,6 +435,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
     const { memberLoading, member } = this.props;
 
     const fileUploaderOptions = {
+      // @ts-expect-error
       onAddFile: (file: File) => this.props.addFile(this.props.id, file),
       onRemoveFile: (fileId: number) =>
         this.props.removeFile(this.props.id, fileId),
@@ -465,6 +473,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             }
             member={this.props.member}
             mergeMember={this.handleMergeMember}
+            // @ts-expect-error
             referringMemberId={
               this.props.referralMemberStatus?.referring_member_id
             }
@@ -493,6 +502,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 }
                 companyId={this.props.companyId}
                 consumerGiftcardList={this.props.consumerGiftcardList}
+                // @ts-expect-error
                 detachPaymentMethod={this.props.detachPaymentMethod}
                 detachPaymentMethodLoading={
                   this.props.detachPaymentMethodLoading
@@ -516,6 +526,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                 stripeId={this.props.companyTheme.stripe_id}
                 stripeReaders={this.props.stripeReaders || []}
+                // @ts-expect-error
                 unpaidInvoiceList={this.props.unpaidInvoiceList}
               />
               <TaskList
@@ -543,6 +554,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             deleteNote={this.props.deleteNote}
             deleteTag={this.deleteTag}
             deleteTagGroup={this.deleteTagGroup}
+            // @ts-expect-error
             detachPaymentMethod={this.props.detachPaymentMethod}
             detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
             is_referral_program_activated={
@@ -564,6 +576,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             referralLink={referralLink}
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             // Payment
+            // @ts-expect-error
             snackbarSuccess={this.props.snackbarSuccess}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             spiviPrivacySettingsLoading={this.props.spiviPrivacySettingsLoading}
@@ -577,6 +590,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             uploadedFiles={this.props.member?.files || []}
           />
           <MemberEventPanel
+            // @ts-expect-error
             eventList={this.props.eventList}
             eventListLoading={this.props.eventListLoading}
             eventListPage={this.props.eventListPage}
@@ -621,6 +635,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         )}
         <MemberSearchModal
           asManager
+          // @ts-expect-error
           companyCountry={this.props.companyCountry}
           handlMemberSelected={this.handleMemberSelected}
           onClose={this.handleCloseSearchModal}
@@ -642,6 +657,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         <ModalDeleteFile
           handleCancel={this.handleCancelDeleteFile}
           handleConfirm={this.handleSubmitDeleteFile}
+          // @ts-expect-error
           open={this.state.fileToDelete}
           options={this.deleteFileOptions}
         />
@@ -678,6 +694,7 @@ const connector = connect(
       props.id,
     ),
     searchedMembers: getSearchedMembers(state),
+    // @ts-expect-error
     filteredSearchedMembers: getFilteredSearchedMembers(state, props.id),
     tagGroups: getMemberTagGroups(state),
     tagGroupsLoading: state.tag.group.loading,
@@ -714,6 +731,7 @@ const connector = connect(
     eventList: getMemberEventState(state).items,
     eventListLoading: getMemberEventState(state).loading,
     eventListPage: getMemberEventState(state).page,
+    // @ts-expect-error
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
     // Referral
     referralProgram: getTheReferralProgram(state),
@@ -845,6 +863,7 @@ const mapWithHandler2 = {
         is_v2: true,
         is_draft: false,
         unpaid: true,
+        // @ts-expect-error
         member: id,
       });
     },
@@ -870,9 +889,11 @@ const mapWithHandler3 = {
       WithTranslation) =>
     (pm_id: number, options?: OptionCallback) => {
       detachPaymentMethodAction(
+        // @ts-expect-error
         { member: id, payment_method_id: pm_id },
         {
           onSuccess: () => {
+            // @ts-expect-error
             fetchMemberPaymentMethod({ member: id });
             if (options && options.onSuccess) options.onSuccess();
           },

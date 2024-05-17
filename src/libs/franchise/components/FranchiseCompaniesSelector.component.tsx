@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { compose } from 'recompose';
@@ -68,6 +67,7 @@ const FranchiseCompaniesSelector = (props: Props) => {
         return (
           <CompanyChip
             company={companyDic[parseInt(chip.data?.value ?? '')]}
+            // @ts-expect-error
             onDelete={chip.onDelete}
           />
         );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useRef, useState, useEffect } from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -29,24 +28,32 @@ export const CarouselInput = (props: Props) => {
   const classes = useStyles();
 
   const ref = useRef();
+  // @ts-expect-error
   const [scrollLeft, setScrollLeft] = useState(ref?.current?.scrollLeft);
 
   const updateCarousel = (isLeftButton: boolean) => {
     isLeftButton
-      ? setScrollLeft(ref?.current?.scrollLeft - 150)
-      : setScrollLeft(ref?.current?.scrollLeft + 150);
+      ? // @ts-expect-error
+        setScrollLeft(ref?.current?.scrollLeft - 150)
+      : // @ts-expect-error
+        setScrollLeft(ref?.current?.scrollLeft + 150);
 
+    // @ts-expect-error
     if (ref?.current?.scrollLeft >= 0) {
+      // @ts-expect-error
       ref.current.scrollTo({
         left: isLeftButton
-          ? ref.current.scrollLeft - 150
-          : ref.current.scrollLeft + 150,
+          ? // @ts-expect-error
+            ref.current.scrollLeft - 150
+          : // @ts-expect-error
+            ref.current.scrollLeft + 150,
         behavior: 'smooth',
       });
     }
   };
 
   useEffect(() => {
+    // @ts-expect-error
     setScrollLeft(ref?.current?.scrollLeft);
   }, []);
 
@@ -106,6 +113,7 @@ export const CarouselInput = (props: Props) => {
         </div>
         <div
           className={
+            // @ts-expect-error
             scrollLeft >= ref?.current?.scrollLeftMax ? classes.hidden : ''
           }
         >

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { DateTime } from 'luxon';
 
@@ -53,6 +52,7 @@ export function retrieveBooking(id: number, options?: OptionCallback) {
       const response = await retrieveBookingAPI(id);
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -234,6 +234,7 @@ export function cancelBooking(id: number, data: any, options?: OptionCallback) {
           ...data,
           bookings_in_same_group: [...data.bookings_in_same_group, id],
         });
+        // @ts-expect-error
         dispatch(updateActions.successMultiple(response.data));
       } else {
         response = await cancelBookingAPI(id, data);
@@ -241,6 +242,7 @@ export function cancelBooking(id: number, data: any, options?: OptionCallback) {
       }
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -315,6 +317,7 @@ export function fetchConsumerDashboardBookingList(
         page: pageToFetch,
         page_size: 5,
         mine: true,
+        // @ts-expect-error
         min_date: DateTime.now().toISODate(),
         booking_status_code: BOOKING_STATUS_OK.id,
         ordering: 'offer__date_start',
@@ -322,6 +325,7 @@ export function fetchConsumerDashboardBookingList(
 
       dispatch(consumerDashboardActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -347,6 +351,7 @@ export function fetchBookingBroadcastRoom(id: number, options: OptionCallback) {
       const response = await fetchBookingBroadcastRoomAPI(id);
       dispatch(retrieveBookingBroadcastRoom.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -397,6 +402,7 @@ export function fetchBookingsByMember({
         byMemberActions.success({ ...response.data, page: current_page }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -426,16 +432,19 @@ export function fetchFutureBookingsByMember(
       const response = await fetchBookingListAPI({
         member,
         page_size: 30,
+        // @ts-expect-error
         booking_status_code: 0,
         future_booking: true,
       });
       dispatch(
         fetchFutureBookingsByMemberActions.success({
           memberId: member,
+          // @ts-expect-error
           bookings: response.data.results,
         }),
       );
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -464,12 +473,14 @@ export function fetchBookingsByConsumerPack(
 
     try {
       const response = await fetchBookingListAPI({
+        // @ts-expect-error
         consumer_payment_pack,
         page,
         page_size,
       });
       dispatch(byConsumerPackActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -520,6 +531,7 @@ export function refreshBookingsByOffer(
       });
       dispatch(byOfferActions.success(response.data));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -555,6 +567,7 @@ export function registerBooking(
       dispatch(registerActions.success(booking));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(booking);
       }
     } catch (err) {
@@ -600,12 +613,14 @@ export function fetchBookingBulk(ids: Array<number>, options: OptionCallback) {
     dispatch(bulkActions.error(null));
 
     try {
+      // @ts-expect-error
       const response = await fetchBookingListAPI({
         ids_in: ids,
         page_size: ids.length,
       });
       dispatch(bulkActions.success(response.data.results));
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (err) {
@@ -635,12 +650,14 @@ export function fetchRecurrenceRuleBooking(
       });
       dispatch(
         listRecurrenceRuleBookingActions.success({
+          // @ts-expect-error
           ...response.data,
           page: params.page,
         }),
       );
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data.results);
       }
     } catch (error) {
@@ -673,6 +690,7 @@ export function createRecurrenceRuleBooking(
       dispatch(snackbarSuccess('booking:recurrenceRule.createModal.success'));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -740,6 +758,7 @@ export function updateRecurrenceRuleBooking(
       dispatch(snackbarSuccess('booking:recurrenceRule.editModal.success'));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -774,6 +793,7 @@ export function fetchSimilarFuturBookingInGroup(
       dispatch(fetchSimilarFuturBookingInGroupActions.success(response.data));
 
       if (options && options.onSuccess) {
+        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {

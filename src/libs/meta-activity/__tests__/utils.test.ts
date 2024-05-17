@@ -1,6 +1,6 @@
-// @ts-nocheck
 import { MarketPlaceFilter } from '#libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
+// @ts-expect-error
 import { MetaActivityFilter } from './types';
 
 const defaultFilter: MetaActivityFilter = {
@@ -28,6 +28,7 @@ const completeFilter: MetaActivityFilter = {
 
 describe('Utils: convert marketplace filter into metaActivity filter', () => {
   it('Check for the empty filter', () => {
+    // @ts-expect-error
     expect(convertMarketplaceFilterForMetaActivityCall(1, {})).toStrictEqual(
       defaultFilter,
     );

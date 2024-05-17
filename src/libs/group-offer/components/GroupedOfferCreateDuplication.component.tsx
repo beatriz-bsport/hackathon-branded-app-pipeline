@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { compose } from 'recompose';
@@ -23,8 +22,10 @@ import {
   DateField,
   SwitchField,
   AlertError,
+  // @ts-expect-error
 } from '#components/forms';
 import { OffersGroup } from '#libs/group-offer/types';
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';

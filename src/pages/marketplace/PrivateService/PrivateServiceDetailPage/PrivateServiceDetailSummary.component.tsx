@@ -1,9 +1,7 @@
-// @ts-nocheck
 import { Paper, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
 
-// @ts-expect-error
 import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
 
 import {

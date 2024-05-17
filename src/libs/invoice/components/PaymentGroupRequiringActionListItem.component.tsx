@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   paymentGroup: PaymentGroup;
+  // @ts-expect-error
   onValidate: (PaymentGroup) => void;
 };
 
@@ -31,6 +31,7 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
               )}`}
             </Typography>
             <Typography color="textSecondary" variant="caption">
+              {/* @ts-expect-error */}
               {formatAsDatetimeAdapted(paymentGroup.date_created, 'DDD')}
             </Typography>
             <Typography variant="caption">
@@ -42,6 +43,7 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
         <div className={classes.secondaryAction}>
           <div>
             {getCurrencyDisplayWithPrice(
+              // @ts-expect-error
               parseFloat(parseInt(paymentGroup.price_cts, 10) / 100).toFixed(2),
             )}
           </div>

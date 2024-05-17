@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Typography, FormControl, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+// @ts-expect-error
 import { IntegerField } from '#components/forms';
 import { useStyles } from './marketing-rule-form/marketing_rule_form.hooks';
 
@@ -52,6 +52,7 @@ const MarketingRuleBasicTypeField = (props: Props) => {
               }}
               name="periodScale"
               onChange={(selected) =>
+                // @ts-expect-error
                 setFieldValue('periodScale', selected.value)
               }
               options={[
@@ -78,6 +79,7 @@ const MarketingRuleBasicTypeField = (props: Props) => {
               }}
               name="timeComparator"
               onChange={(selected) =>
+                // @ts-expect-error
                 setFieldValue('timeComparator', selected.value)
               }
               options={[

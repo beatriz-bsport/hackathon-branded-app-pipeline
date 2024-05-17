@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Seamless from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -914,11 +913,13 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['recurrenceRule', 'allIds'],
+          // @ts-expect-error
           payload.map((pb) => pb.id),
         )
         .merge(
           {
             recurrenceRule: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -1286,6 +1287,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         {
           privatePass: {
             byId: payload.reduce(
+              // @ts-expect-error
               (acc, curr) => ({ ...acc, [curr.id]: curr }),
               state.privatePass.byId,
             ),
@@ -1330,11 +1332,13 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['privateConsumerPass', 'byMember', 'allIds'],
+          // @ts-expect-error
           payload.map((pcp) => pcp.id),
         )
         .merge(
           {
             privateConsumerPass: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -1348,6 +1352,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.merge(
         {
           privateConsumerPass: {
+            // @ts-expect-error
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
               return acc;
@@ -1595,17 +1600,21 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     ) => {
       return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
     },
+    // @ts-expect-error
     [privateConsumerPassBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'loading'], payload);
     },
+    // @ts-expect-error
     [privateConsumerPassBulkActions.error]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'error'], payload);
     },
+    // @ts-expect-error
     [privateConsumerPassBulkActions.success]: (state, { payload }) => {
       return state
         .merge(
           {
             privateConsumerPass: {
+              // @ts-expect-error
               byId: payload.reduce((acc, ps) => {
                 acc[ps.id] = ps;
                 return acc;
@@ -1616,9 +1625,11 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         )
         .updateIn(
           ['privateConsumerPass', 'allIds'],
+          // @ts-expect-error
           (myList, newId) => {
             return myList.concat(newId);
           },
+          // @ts-expect-error
           payload.map((pcp) => pcp.id),
         );
     },
@@ -1683,12 +1694,14 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['privatePassCategory', 'allIds'],
+          // @ts-expect-error
           payload.results.map((pp) => pp.id),
         )
         .merge(
           {
             privatePassCategory: {
               byId: payload.results.reduce(
+                // @ts-expect-error
                 (acc, v) => ({ ...acc, [v.id]: v }),
                 {},
               ),
@@ -1757,6 +1770,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         {
           privatePassCategory: {
             byId: payload.reduce(
+              // @ts-expect-error
               (acc, cat) => ({ ...acc, [cat.id]: cat }),
               state.privatePassCategory.byId,
             ),
@@ -1793,11 +1807,13 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['privatePassTemplate', 'allIds'],
+          // @ts-expect-error
           payload.map((pp) => pp.id),
         )
         .merge(
           {
             privatePassTemplate: {
+              // @ts-expect-error
               byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
             },
           },
@@ -1943,6 +1959,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           {
             compatibleServicePass: {
               byId: payload.reduce((acc, serviceCompatibityPass) => {
+                // @ts-expect-error
                 acc[serviceCompatibityPass.id] = serviceCompatibityPass;
                 return acc;
               }, {}),

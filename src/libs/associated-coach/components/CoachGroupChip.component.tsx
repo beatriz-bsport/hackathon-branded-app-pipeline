@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -72,6 +71,7 @@ export const CoachGroupChip: React.FC<Props> = ({
         <div>
           <div
             className={classNames(classes.superpose, 'shiftable')}
+            // @ts-expect-error
             style={{ '--index': index + 1 }}
           >
             <CoachChip

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
@@ -12,6 +11,7 @@ import { withStyles } from '@material-ui/styles';
 import { getTheme } from '#libs/theme/selectors';
 import { MaterialStyleType } from '../../../utils/types';
 import withTitle from '#hocs/with-title.hoc';
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { RootState } from '../../../reducers';
@@ -228,6 +228,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               onCreateOrUpdateTagGroup={this.createOrUpdateTagGroup}
               onDeleteTag={this.onDeleteTag}
               onDeleteTagGroup={this.deleteTagGroup}
+              // @ts-expect-error
               onSelectTag={DETAIL_PANEL_ENABLED && this.onSelectTag}
               selectedTag={this.props.selectedTag}
               tagGroupList={this.props.tagGroups}
@@ -250,11 +251,13 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     membersWithTagListCount={membersWithTagList.count}
                     membersWithTagListLoading={membersWithTagList.loading}
                     membersWithTagListPage={membersWithTagList.page}
+                    // @ts-expect-error
                     onClickMember={this.props.onClickMember}
                     onClickTagMember={this.onClickTagMember}
                     onClickUntagMember={this.onClickUntagMember}
                     onPageRequestWithoutTag={this.loadMembersWithoutTag}
                     onPageRequestWithTag={this.loadMembersWithTag}
+                    // @ts-expect-error
                     tag={this.props.selectedTag}
                   />
                 )}
@@ -308,6 +311,7 @@ const mapDispatchToProps = {
   // unTagOfferAction,
 };
 
+// @ts-expect-error
 const styles = (theme) => ({
   tagDetail: {
     maxHeight: '90vh',
@@ -352,6 +356,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  // @ts-expect-error
   withStyles(styles),
   withTranslation(['tag']),
   routerParamsToProps({ selectedTagId: 'selectedTagId:number' }),

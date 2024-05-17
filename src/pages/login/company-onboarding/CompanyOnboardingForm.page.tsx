@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -8,6 +7,7 @@ import { parseQueryString } from '../../../http';
 import {
   checkEmailExists,
   requestLogin as requestLoginAction,
+  // @ts-expect-error
 } from '../../../actions/auth.actions';
 
 import CompanyOnboardingForm from '../../../libs/login/components/CompanySignupForm.component';
@@ -25,6 +25,7 @@ type Props = {
 export const CompanyOnboardingFormPage = (props: Props) => {
   return (
     <CompanyOnboardingForm
+      // @ts-expect-error
       checkEmailExists={props.checkEmailExists}
       checkEmailExistsLoading={props.checkEmailExistsLoading}
       emailExists={props.emailExists}
@@ -72,4 +73,5 @@ export default compose(
         );
       },
   }),
+  // @ts-expect-error
 )(CompanyOnboardingFormPage);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import memoize from 'memoize-one';
@@ -54,6 +53,7 @@ export const getMemberRelations = createSelector(
 );
 
 export const getMemberRelationById = (state: RootState, id: number) =>
+  // @ts-expect-error
   getMemberRelations(state).find((mr) => mr.id === id);
 
 const _getConsumerPackLinks = (state: RootState) =>
@@ -63,12 +63,14 @@ export const getAllSharedConsumerPaymentPacks = createSelector(
   [_getConsumerPackLinks, getConsumerPacksWithPaymentPack],
   (consumerPackLinks, consumerPacks) =>
     consumerPackLinks
+      // @ts-expect-error
       .map((link) => ({
         ...link,
         src: consumerPacks.find((cpp) => cpp.id === link.src),
         dst: consumerPacks.find((cpp) => cpp.id === link.dst),
       }))
       .filter(
+        // @ts-expect-error
         (cpp_link) =>
           (cpp_link.src && cpp_link.src.id) ||
           (cpp_link.dst && cpp_link.dst.id),
@@ -83,11 +85,14 @@ const _getConsumerPackWithLinks = (
 
 export const withIsSharedActive = memoize((selector) =>
   createSelector([selector, _getConsumerPackWithLinks], (cppList, links) =>
+    // @ts-expect-error
     cppList.map((cpp) => ({
       ...cpp,
       isSharedActive:
+        // @ts-expect-error
         links[cpp.id] && links[cpp.id].length
-          ? links[cpp.id].reduce((acc: number, e: ConsumerPaymentPackLink) => {
+          ? // @ts-expect-error
+            links[cpp.id].reduce((acc: number, e: ConsumerPaymentPackLink) => {
               return acc || e.is_active;
             }, 0)
           : false,
@@ -100,6 +105,7 @@ export const getSharedConsumerPacksByRelation = (
   relationId: number,
 ) =>
   getAllSharedConsumerPaymentPacks(state).filter(
+    // @ts-expect-error
     (scpp) => scpp.member_relation === relationId,
   );
 
@@ -110,12 +116,14 @@ export const getAllSharedPrivateConsumerPasses = createSelector(
   [_getPrivateConsumerPassLinks, getPrivateConsumerPassList],
   (privateConsumerPassLinks, privateConsumerPasses) =>
     privateConsumerPassLinks
+      // @ts-expect-error
       .map((link) => ({
         ...link,
         src: privateConsumerPasses.find((pcp) => pcp.id === link.src),
         dst: privateConsumerPasses.find((pcp) => pcp.id === link.dst),
       }))
       .filter(
+        // @ts-expect-error
         (pcp_link) =>
           (pcp_link.src && pcp_link.src.id) ||
           (pcp_link.dst && pcp_link.dst.id),
@@ -127,6 +135,7 @@ export const getSharedPrivateConsumerPassesByRelation = (
   relationId: number,
 ) =>
   getAllSharedPrivateConsumerPasses(state).filter(
+    // @ts-expect-error
     (spcp) => spcp.member_relation === relationId,
   );
 

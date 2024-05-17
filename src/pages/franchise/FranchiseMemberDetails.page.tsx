@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 import { TFunction } from 'i18next';
 import { push as pushAction } from 'connected-react-router';
@@ -25,6 +24,7 @@ import {
 import FranchiseMemberDetailsCard from '../../libs/franchise/components/FranchiseMemberDetailsCard.components';
 import FranchiseMemberMembership from '../../libs/franchise/components/FranchiseMemberMembership.components';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 
 type OwnProps = {
@@ -74,6 +74,7 @@ const FranchiseMemberDetails = (props: Props) => {
           </div>
           <div className={classes.content}>
             <FranchiseMemberMembership
+              // @ts-expect-error
               companies={user?.companies}
               goToCompanyDetails={goToCompanyDetails}
               goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
@@ -114,6 +115,7 @@ const styles = (theme: Theme) =>
 
 const connector = connect(
   (state: RootState, props: { userId: number }) => ({
+    // @ts-expect-error
     user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
   }),
   {

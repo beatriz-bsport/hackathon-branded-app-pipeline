@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
@@ -32,6 +31,7 @@ import {
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import CustomFormCompletedList from '../../libs/custom-form/components/CustomFormCompletedList.component';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+// @ts-expect-error
 import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
 import themeSelector from '../../libs/theme/selectors';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
@@ -45,8 +45,10 @@ type StateHandlerInit = {
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 type OwnProps = {};
+// @ts-expect-error
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
+// @ts-expect-error
 type OwnAndConnectedProps = ConnectedProps & StateHandlerType;
 type Props = OwnProps &
   OwnAndConnectedProps &
@@ -131,6 +133,7 @@ export class MemberCustomForm extends React.Component<Props> {
                         <div className={classes.column}>
                           <Alert
                             className={classes.alertIcon}
+                            // @ts-expect-error
                             color="grey"
                             severity="info"
                           >
@@ -147,6 +150,7 @@ export class MemberCustomForm extends React.Component<Props> {
                     <div className={classes.column}>
                       <Alert
                         className={classes.alertIcon}
+                        // @ts-expect-error
                         color="grey"
                         severity="info"
                       >
@@ -242,11 +246,14 @@ const styles = (theme: Theme) => ({
   },
 });
 
+// @ts-expect-error
 const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
   theme: themeSelector.getTheme(state),
   loading: state.customForm.loading || state.customForm.filled.loading,
+  // @ts-expect-error
   customFormFilledList: excludeDraftCustomFormFilled(getMemberCustomFormFilled)(
     state,
+    // @ts-expect-error
     props.id,
   ),
   customFormWithAnswer: getCustomFormListWithEnabledFieldAnswered(state),
@@ -277,11 +284,13 @@ const withStateHandlersSetter = {
 };
 export default compose<any, OwnProps>(
   withTranslation(['marketing']),
+  // @ts-expect-error
   withStyles(styles),
   routerParamsToProps({
     id: 'id:number',
   }),
   withTitle(({ t }: { t: TFunction }) => t('customForm.title')),
+  // @ts-expect-error
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),

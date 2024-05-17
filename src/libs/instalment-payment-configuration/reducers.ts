@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import {
@@ -50,13 +49,19 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.allIds.find((id) => id === payload.id)) {
-        return state
-          .setIn(['byId', payload.id], {
-            ...payload,
-          })
-          .setIn(['allIds'], [...state.allIds, payload.id]);
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['byId', payload.id], {
+              ...payload,
+            })
+            // @ts-expect-error
+            .setIn(['allIds'], [...state.allIds, payload.id])
+        );
       }
+      // @ts-expect-error
       return state.setIn(['byId', payload.id], {
         ...payload,
       });
@@ -77,7 +82,9 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       const instalmentPaymentDeleted = state.byId[payload];
+      // @ts-expect-error
       return state.setIn(['byId', payload], {
         ...instalmentPaymentDeleted,
         is_disabled: true,
@@ -96,10 +103,12 @@ export default handleActions(
       return state
         .setIn(
           ['allIds'],
+          // @ts-expect-error
           [...payload.map((instalmentPayment) => instalmentPayment.id)],
         )
         .merge(
           {
+            // @ts-expect-error
             byId: payload.reduce((acc, instalmentPayment) => {
               acc[instalmentPayment.id] = instalmentPayment;
               return acc;
@@ -124,21 +133,26 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(
-          ['byBasket', 'allIds'],
-          payload.items.map((instalmentPayment) => instalmentPayment.id),
-        )
-        .setIn(['byBasket', 'basketId'], payload.basketId)
-        .merge(
-          {
-            byId: payload.items.reduce((acc, instalmentPayment) => {
-              acc[instalmentPayment.id] = instalmentPayment;
-              return acc;
-            }, {}),
-          },
-          { deep: true },
-        );
+      return (
+        state
+          .setIn(
+            ['byBasket', 'allIds'],
+            // @ts-expect-error
+            payload.items.map((instalmentPayment) => instalmentPayment.id),
+          )
+          // @ts-expect-error
+          .setIn(['byBasket', 'basketId'], payload.basketId)
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.items.reduce((acc, instalmentPayment) => {
+                acc[instalmentPayment.id] = instalmentPayment;
+                return acc;
+              }, {}),
+            },
+            { deep: true },
+          )
+      );
     },
   },
   initialState,

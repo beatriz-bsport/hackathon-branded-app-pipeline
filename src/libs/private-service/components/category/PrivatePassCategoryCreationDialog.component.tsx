@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { withTranslation, WithTranslation } from 'react-i18next';
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
@@ -130,5 +129,6 @@ const styles = (theme: Theme) => ({
 });
 export default compose<any, OwnProps>(
   withTranslation('paymentPack'),
+  // @ts-expect-error
   withStyles(styles),
 )(PrivatePassCategoryCreationDialogComponent);

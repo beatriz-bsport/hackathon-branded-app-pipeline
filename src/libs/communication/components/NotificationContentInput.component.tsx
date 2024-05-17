@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { FieldAttributes, useField } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 
+// @ts-expect-error
 import { TextField } from '../../../components/forms';
 import MaterialUISelector, {
   OptionTypeBase,
@@ -26,7 +26,9 @@ const NotificationContentInput = (props: Props) => {
   const [field, _, helper] = useField(rest);
 
   const handleAddvariable = (data: OptionTypeBase) => {
+    // @ts-expect-error
     if (data.value) {
+      // @ts-expect-error
       helper.setValue(`${field.value} ${data.value}`, true);
     }
   };

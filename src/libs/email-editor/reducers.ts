@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import Immutable from 'seamless-immutable';
@@ -76,14 +75,18 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .merge(
-          {
-            byId: payload.emailTemplatesDict,
-          },
-          { deep: true },
-        )
-        .set('allIds', payload.emailTemplatesIdList);
+      return (
+        state
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.emailTemplatesDict,
+            },
+            { deep: true },
+          )
+          // @ts-expect-error
+          .set('allIds', payload.emailTemplatesIdList)
+      );
     },
     [emailTemplatesSummariesAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
@@ -99,14 +102,18 @@ export default handleActions(
     },
 
     [emailTemplateBulkAction.success.toString()]: (state, { payload }) => {
-      return state
-        .merge(
-          {
-            byId: payload.emailTemplatesDict,
-          },
-          { deep: true },
-        )
-        .set('allIds', payload.emailTemplatesIdList);
+      return (
+        state
+          .merge(
+            {
+              // @ts-expect-error
+              byId: payload.emailTemplatesDict,
+            },
+            { deep: true },
+          )
+          // @ts-expect-error
+          .set('allIds', payload.emailTemplatesIdList)
+      );
     },
     [emailTemplateBulkAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
@@ -117,6 +124,7 @@ export default handleActions(
 
     // Load the html end design of one specific template
     [emailTemplateDetailAction.success.toString()]: (state, { payload }) => {
+      // @ts-expect-error
       return state.merge({ detail: { byId: payload } }, { deep: true });
     },
 
@@ -133,6 +141,7 @@ export default handleActions(
       return state.merge(
         {
           detail: {
+            // @ts-expect-error
             byId: payload.reduce((acc, email) => {
               acc[email.id] = email;
               return acc;
@@ -156,6 +165,7 @@ export default handleActions(
     // Get all infos about one template, used when go to edit page
     [emailTemplateCompleteAction.success.toString()]: (state, { payload }) => {
       return state.merge(
+        // @ts-expect-error
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
@@ -173,7 +183,9 @@ export default handleActions(
       return state
         .merge(
           {
+            // @ts-expect-error
             byId: payload.summary,
+            // @ts-expect-error
             detail: { byId: payload.detail },
           },
           { deep: true },
@@ -183,6 +195,7 @@ export default handleActions(
           (myList, newId) => {
             return myList.concat([newId]);
           },
+          // @ts-expect-error
           payload.id,
         );
     },
@@ -194,6 +207,7 @@ export default handleActions(
     },
     [updateEmailTemplateAction.success.toString()]: (state, { payload }) => {
       return state.merge(
+        // @ts-expect-error
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
@@ -243,10 +257,13 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(['savedFilter', 'loading'], false)
-        .setIn(['savedFilter', 'error'], null)
-        .setIn(['savedFilter', 'filters'], payload[0].filters);
+      return (
+        state
+          .setIn(['savedFilter', 'loading'], false)
+          .setIn(['savedFilter', 'error'], null)
+          // @ts-expect-error
+          .setIn(['savedFilter', 'filters'], payload[0].filters)
+      );
     },
     [updateFranchisePageFilterAction.loading.toString()]: (
       state,
@@ -268,10 +285,13 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state
-        .setIn(['savedFilter', 'loading'], false)
-        .setIn(['savedFilter', 'error'], null)
-        .setIn(['savedFilter', 'filters'], payload[0].filters);
+      return (
+        state
+          .setIn(['savedFilter', 'loading'], false)
+          .setIn(['savedFilter', 'error'], null)
+          // @ts-expect-error
+          .setIn(['savedFilter', 'filters'], payload[0].filters)
+      );
     },
     [emailTemplateUpdateOrderActions.loading.toString()]: (
       state,
@@ -291,7 +311,9 @@ export default handleActions(
     ) => {
       return state.merge(
         {
+          // @ts-expect-error
           byId: payload.reduce(
+            // @ts-expect-error
             (acc, curr) => ({ ...acc, [curr.id]: curr }),
             state.byId,
           ),
@@ -318,12 +340,15 @@ export default handleActions(
       return state
         .setIn(
           ['emailTemplateCategory', 'allIds'],
+          // @ts-expect-error
           payload.results.map((pp) => pp.id),
         )
         .merge(
           {
             emailTemplateCategory: {
+              // @ts-expect-error
               byId: payload.results.reduce(
+                // @ts-expect-error
                 (acc, v) => ({ ...acc, [v.id]: v }),
                 {},
               ),
@@ -351,15 +376,21 @@ export default handleActions(
       state,
       { payload },
     ) => {
+      // @ts-expect-error
       if (!state.emailTemplateCategory.allIds.includes(payload.id)) {
-        return state
-          .setIn(['emailTemplateCategory', 'byId', payload.id], payload)
-          .setIn(
-            ['emailTemplateCategory', 'allIds'],
-            [...state.emailTemplateCategory.allIds, payload.id],
-          );
+        return (
+          state
+            // @ts-expect-error
+            .setIn(['emailTemplateCategory', 'byId', payload.id], payload)
+            .setIn(
+              ['emailTemplateCategory', 'allIds'],
+              // @ts-expect-error
+              [...state.emailTemplateCategory.allIds, payload.id],
+            )
+        );
       }
       return state.setIn(
+        // @ts-expect-error
         ['emailTemplateCategory', 'byId', payload.id],
         payload,
       );
@@ -385,6 +416,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['emailTemplateCategory', 'allIds'],
+        // @ts-expect-error
         state.emailTemplateCategory.allIds.filter((id) => id !== payload.id),
       );
     },
@@ -395,7 +427,9 @@ export default handleActions(
       return state.merge(
         {
           emailTemplateCategory: {
+            // @ts-expect-error
             byId: payload.reduce(
+              // @ts-expect-error
               (acc, cat) => ({ ...acc, [cat.id]: cat }),
               state.emailTemplateCategory.byId,
             ),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 
 import { compose } from 'recompose';
@@ -123,16 +122,19 @@ export function ReportDashboard(props: Props) {
           />
           <ReportCategorySelector
             categories={metadata?.map((c) => c.category) ?? []}
+            // @ts-expect-error
             onSelect={setSelectedCategory}
             selected={selectedCategory}
           />
           <div>
             <ReportList
               className={classes.list}
+              // @ts-expect-error
               itemProps={itemProps}
               items={configurations}
             />
             <ModalConfirm
+              // @ts-expect-error
               close={onCancelDeletion}
               handleCancel={onCancelDeletion}
               handleConfirm={onConfirmDeletion}
@@ -186,6 +188,7 @@ export function ReportDashboard(props: Props) {
           </DialogTitle>
           <DialogContent>
             <ReportConfigurationForm
+              // @ts-expect-error
               initial={reportConfiguration || { category: selectedCategory }}
               metadata={metadata}
               onClose={() => {
@@ -199,6 +202,7 @@ export function ReportDashboard(props: Props) {
                   options: {
                     onSuccess: (response) => {
                       setShowModalAdd(false);
+                      // @ts-expect-error
                       onReportDetail(reportConfiguration?.id || response?.id);
                       trackFormSuccess(
                         reportConfiguration?.id,

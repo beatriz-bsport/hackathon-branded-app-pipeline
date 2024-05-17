@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -70,6 +69,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
   }
 
   getStep = () => {
+    // @ts-expect-error
     if (this.props.video.provider_identifier_defined_by_user) {
       return STEP_FINISH;
     }
@@ -97,7 +97,9 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <FormControl>
                 <RadioGroup
                   aria-label="provider-type"
+                  // @ts-expect-error
                   disabled={
+                    // @ts-expect-error
                     this.state.isUploading || this.props.video.upload_id
                   }
                   name="provider-type"
@@ -217,6 +219,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
             )}
             {this.props.video.provider_identifier ===
               VideoProvider.YOUTUBE_URL_PROVIDER && (
+              // @ts-expect-error
               <VideoUploadFormYoutube
                 onClose={this.props.onClose}
                 setExternalUrl={this.props.setExternalUrl}
@@ -225,6 +228,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
             )}
             {this.props.video.provider_identifier ===
               VideoProvider.VIMEO_URL_PROVIDER && (
+              // @ts-expect-error
               <VideoUploadFormVimeo
                 onClose={this.props.onClose}
                 setExternalUrl={this.props.setExternalUrl}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Offer_FULL } from '../offer/types';
 import { ExtraDataFromQueryParams } from './types';
 
@@ -11,7 +10,9 @@ export function withExtraDataFromQueryParams(
       offerExtraDataList.find((data) => {
         return data.offer_id === offer.id;
       }) || {};
+    // @ts-expect-error
     const spot_id = offerExtraData?.spot_id;
+    // @ts-expect-error
     const spot_information = offerExtraData?.spot_information;
 
     return { ...offer, spot_id, spot_information };

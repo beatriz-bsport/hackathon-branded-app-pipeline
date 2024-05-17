@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -6,6 +5,7 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
+// @ts-expect-error
 import Selector, { Suggestion } from '../../../components/Selector.component';
 import { CoachPaymentRuleGroup } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -43,6 +43,7 @@ export const CoachPaymentRuleGroupSelector = (props: Props) => {
   if (enableReset) {
     suggestions.push({
       value: -8000,
+      // @ts-expect-error
       label: (
         <Typography color="error" variant="subtitle2">
           {t('select.reset')}

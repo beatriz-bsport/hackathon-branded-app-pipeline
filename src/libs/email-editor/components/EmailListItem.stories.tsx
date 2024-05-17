@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import EmailListItem, { OwnProps } from './EmailListItem.components';
 import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';
@@ -18,6 +17,7 @@ const companies: FranchiseCompany[] =
 
 const defaultArgs: OwnProps = {
   email,
+  // @ts-expect-error
   selectedId: 0,
   navigateTo: () => {},
   onEdit: () => {},

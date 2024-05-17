@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -159,6 +158,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     label?: string;
     value: AllComparator;
   }) => {
+    // @ts-expect-error
     const newColumn = columsOptions.find((c) => c.value === option.value);
     const newAvailableComparator = getComparatorsByDataType(newColumn.datatype);
     const newComparator = !newAvailableComparator.includes(
@@ -179,6 +179,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       `${prefix}.value`,
       getDefaultValueForComparator({
         comparator: newComparator,
+        // @ts-expect-error
         datatype: newColumn.datatype,
         currentValue: filterItem.value,
       }),
@@ -189,7 +190,9 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       `${prefix}.time_period`,
       getDefaultValueForTimePeriod({
         comparator: newComparator,
+        // @ts-expect-error
         sub_datatype: sub_datatype(),
+        // @ts-expect-error
         datatype: newColumn.datatype,
         currentTimePeriod: filterItem.time_period,
       }),
@@ -250,6 +253,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       <div className={classNames(classes.flexOne, classes.relative)}>
         <MaterialUiSingleSelectorField
           inScrollBar
+          // @ts-expect-error
           chipsRenderer={({ data }) => (
             <div className={classes.warningSelect}>
               <div>{data.label}</div>
@@ -266,6 +270,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           isDisabled={isPreview}
           name={`${prefix}.identifier`}
           onChange={handleColumnChange}
+          // @ts-expect-error
           options={columsOptions}
         />
       </div>
@@ -273,6 +278,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
         <div className={classes.flexOne}>
           <MaterialUiSingleSelectorField
             inScrollBar
+            // @ts-expect-error
             classes={{ root: classes.select }}
             isDisabled={isPreview}
             name={`${prefix}.sub_datatype`}
@@ -283,6 +289,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       <div className={classes.flexOne}>
         <MaterialUiSingleSelectorField
           inScrollBar
+          // @ts-expect-error
           classes={{ root: classes.select }}
           isDisabled={isPreview}
           name={`${prefix}.comparator`}

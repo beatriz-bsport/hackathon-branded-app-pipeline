@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { DateTime, Settings } from 'luxon';
 import TextField from '@material-ui/core/TextField';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles, { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
@@ -13,7 +13,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import {
   VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
@@ -37,22 +37,29 @@ import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import debounce from 'lodash/debounce';
+import { TFunction } from 'i18next';
+import { Theme } from '@material-ui/core';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 
 import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+// @ts-expect-error
 import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
 import ShopItemSelector from '#src/libs/shop/components/ShopItemSelector.component';
 import PrivatePassSelector from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
+// @ts-expect-error
 import PaymentComboSelector from '#src/libs/payment-combo/components/PaymentComboSelector.component';
+// @ts-expect-error
 import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
 
 import NumericInput from '#src/components/input/NumericInput.component';
 import PriceInput from '#src/components/input/PriceInput.component';
 import PercentInput from '#src/components/input/PercentInput.component';
+// @ts-expect-error
 import Checkbox from '#src/components/input/Checkbox.component';
+import type { Coupon, CheckCouponCodePayload } from '../types';
 
 import { PaymentPack } from '#src/libs/payment-packs/types';
 import { ShopItem } from '#src/libs/shop/types';
@@ -62,8 +69,7 @@ import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { checkCouponCodeValidity } from '#src/libs/coupon/api';
-import type { OptionCallback } from '../../../state/types';
-import type { Coupon, CheckCouponCodePayload } from '../types';
+import type { OptionCallback } from '#src/state/types';
 
 const {
   trackFormAdd,
@@ -76,38 +82,38 @@ const {
 const ALL_BUYABLES = 100;
 
 type Props = {
-  initial: ?Coupon,
-  onSubmit: (data: *, options?: OptionCallback) => void,
-  onCancel: () => void,
-  processing: boolean,
+  initial?: Coupon;
+  onSubmit: (data: any, options?: OptionCallback) => void;
+  onCancel: () => void;
+  processing: boolean;
 
-  t: TFunction,
-  classes: Object,
+  t: TFunction;
+  classes: ClassNameMap<keyof ReturnType<typeof styles>>;
 
-  paymentPacks: Array<PaymentPack>,
-  allPaymentPacksById: { [key: number]: PaymentPack },
-  shopItems: Array<ShopItem>,
-  allShopItemsById: { [key: number]: ShopItem },
-  privatePasses: Array<PrivatePass>,
-  allPrivatePassesById: { [key: number]: PrivatePass },
-  paymentCombos: Array<PaymentCombo>,
-  allPaymentCombosById: { [key: number]: PaymentCombo },
-  tagList: Array<Tag<TagGroupAPI>>,
-  tagsLoading: boolean,
-  fetchSelectedPaymentPacks: (ids: Number[]) => void,
+  paymentPacks: Array<PaymentPack>;
+  allPaymentPacksById: { [key: number]: PaymentPack };
+  shopItems: Array<ShopItem>;
+  allShopItemsById: { [key: number]: ShopItem };
+  privatePasses: Array<PrivatePass>;
+  allPrivatePassesById: { [key: number]: PrivatePass };
+  paymentCombos: Array<PaymentCombo>;
+  allPaymentCombosById: { [key: number]: PaymentCombo };
+  tagList: Array<Tag<TagGroupAPI>>;
+  tagsLoading: boolean;
+  fetchSelectedPaymentPacks: (ids: Number[]) => void;
   fetchSelectedShopItems: (
     companyId: Number | undefined,
     ids: Number[],
-  ) => void,
-  fetchSelectedPrivatePasses: (ids: Number[]) => void,
+  ) => void;
+  fetchSelectedPrivatePasses: (ids: Number[]) => void;
   fetchSelectedPaymentCombos: (
-    params: { company: Number, id__in?: Number[] },
+    params: { company: Number; id__in?: Number[] },
     options?: OptionCallback<PaymentCombo[]>,
-  ) => void,
+  ) => void;
 };
 
 type State = {
-  with_expiration_date: boolean,
+  with_expiration_date: boolean;
 } & Coupon;
 
 export class CouponForm extends React.Component<Props, State> {
@@ -131,12 +137,15 @@ export class CouponForm extends React.Component<Props, State> {
         subscription_mode: props.initial.subscription_mode,
         voucher_type: props.initial.voucher_type,
         with_expiration_date: !!props.initial.expiration_date,
+        // @ts-expect-error
         expiration_date: props.initial.expiration_date
           ? DateTime.fromISO(props.initial.expiration_date)
           : DateTime.now().plus({ month: 1 }),
         whitelist_tags:
+          // @ts-expect-error
           props.initial?.whitelist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
         blacklist_tags:
+          // @ts-expect-error
           props.initial?.blacklist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
       };
     } else {
@@ -156,6 +165,7 @@ export class CouponForm extends React.Component<Props, State> {
         only_on_objects: [],
         voucher_type: VOUCHER_TYPE_PERCENT,
         with_expiration_date: false,
+        // @ts-expect-error
         expiration_date: DateTime.now().plus({ month: 1 }),
         subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
         whitelist_tags: [],
@@ -187,6 +197,7 @@ export class CouponForm extends React.Component<Props, State> {
           break;
         case BUYABLE_ITEM_COMBO_ITEM:
           this.props.fetchSelectedPaymentCombos(
+            // @ts-expect-error
             this.props.initial.company,
             this.props.initial.only_on_objects,
           );
@@ -205,21 +216,21 @@ export class CouponForm extends React.Component<Props, State> {
         ? [this.props.initial.id]
         : [],
     };
-    try {
-      const { data } = await checkCouponCodeValidity(payload);
-      if (
-        this.state.isCodeUsedError !== data?.is_used &&
-        code === this.state.code
-      ) {
-        this.setState({ isCodeUsedError: data?.is_used });
-      }
-    } catch (e) {
-      console.error(e);
+    const { data } = await checkCouponCodeValidity(payload);
+    if (
+      // @ts-expect-error
+      this.state.isCodeUsedError !== data?.is_used &&
+      code === this.state.code
+    ) {
+      // @ts-expect-error
+      this.setState({ isCodeUsedError: data?.is_used });
     }
   }, 500);
 
+  // @ts-expect-error
   handleChange = (key: string, isEvent: boolean) => (value) => {
     const inputValue = isEvent ? value.target.value : value;
+    // @ts-expect-error
     this.setState({ [key]: inputValue });
     if (key === 'code') {
       this.checkCouponCodeAvailability(inputValue);
@@ -248,13 +259,16 @@ export class CouponForm extends React.Component<Props, State> {
       blacklist_tags: this.state.blacklist_tags,
     };
     if (this.state.with_expiration_date && this.state.is_active) {
+      // @ts-expect-error
       data.expiration_date = this.state.expiration_date.toISODate();
     } else {
+      // @ts-expect-error
       data.expiration_date = null;
     }
 
     this.props.onSubmit(data, {
       onSuccess: (id) => {
+        // @ts-expect-error
         trackFormSuccess(id);
       },
     });
@@ -262,16 +276,17 @@ export class CouponForm extends React.Component<Props, State> {
 
   handleIsActiveChange = (ev: React.ChangeEvent<HTMLElement>) => {
     this.setState({
+      // @ts-expect-error
       is_active: ev.target.checked,
       with_expiration_date: false,
     });
   };
 
   renderVoucherConfig = () => {
-    const { t, classes, initial } = this.props;
+    const { t, initial } = this.props;
     return (
       <div>
-        <FormControl className={classes.radioGroup} component="fieldset">
+        <FormControl component="fieldset">
           <RadioGroup
             aria-label="Voucher type"
             name="voucher_type"
@@ -305,6 +320,7 @@ export class CouponForm extends React.Component<Props, State> {
             />
           </RadioGroup>
           <Collapse in={this.state.voucher_type === VOUCHER_TYPE_PERCENT}>
+            {/* @ts-expect-error */}
             <PercentInput
               fullWidth
               disabled={!!initial?.coupon_template_instance}
@@ -328,12 +344,13 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderSubscriptionModeConfig = () => {
-    const { t, classes, initial } = this.props;
+    const { t, initial } = this.props;
     return (
       <div>
-        <FormControl className={classes.radioGroup} component="fieldset">
+        <FormControl component="fieldset">
           <RadioGroup
             aria-label="Subscription mode"
+            // @ts-expect-error
             disabled={!!initial?.coupon_template_instance}
             name="subscription_mode"
             onChange={(ev) =>
@@ -420,6 +437,7 @@ export class CouponForm extends React.Component<Props, State> {
             !!initial?.coupon_template_instance || !this.state.is_active
           }
           label={t('form.with_expiration_date.label')}
+          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
@@ -447,6 +465,7 @@ export class CouponForm extends React.Component<Props, State> {
               this.handleChange('expiration_date', false)(date)
             }
             required={this.state.with_expiration_date && this.state.is_active}
+            // @ts-expect-error
             returnMoment={false}
             value={this.state.expiration_date}
           />
@@ -485,6 +504,7 @@ export class CouponForm extends React.Component<Props, State> {
                 ALL_BUYABLES,
               ].includes(parseInt(ev.target.value, 10))
             ) {
+              // @ts-expect-error
               this.handleChange('only_on_objects')([]);
               this.handleChange(
                 'applies_to',
@@ -517,6 +537,7 @@ export class CouponForm extends React.Component<Props, State> {
                   newObjects = [];
                 }
                 newObjects.push(id);
+                // @ts-expect-error
                 this.handleChange('only_on_objects')(newObjects);
               }}
               paymentPacks={paymentPacks
@@ -532,6 +553,7 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
+                      // @ts-expect-error
                       this.handleChange('only_on_objects')(newObjects);
                     }}
                     pack={allPaymentPacksById[id]}
@@ -551,9 +573,11 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <ShopItemSelector
+              // @ts-expect-error
               nullCurrentValue
               disabled={!!initial?.coupon_template_instance}
               helperText={t('form.selectorPlaceholder.shopitem')}
+              // @ts-expect-error
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
                 if (this.state.applies_to !== BUYABLE_ITEM_SHOP_ITEM) {
@@ -564,6 +588,7 @@ export class CouponForm extends React.Component<Props, State> {
                   newObjects = [];
                 }
                 newObjects.push(id);
+                // @ts-expect-error
                 this.handleChange('only_on_objects')(newObjects);
               }}
               shopItemList={shopItems
@@ -582,6 +607,7 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
+                      // @ts-expect-error
                       this.handleChange('only_on_objects')(newObjects);
                     }}
                     shopitem={allShopItemsById[id]}
@@ -601,10 +627,11 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <PrivatePassSelector
+              // @ts-expect-error
               nullCurrentValue
               disabled={!!initial?.coupon_template_instance}
               helperText={t('form.selectorPlaceholder.privatePass')}
-              onChange={(id) => {
+              onChange={(id: number) => {
                 let newObjects = [...this.state.only_on_objects];
 
                 if (this.state.applies_to !== BUYABLE_ITEM_PRIVATE_PASS) {
@@ -615,6 +642,7 @@ export class CouponForm extends React.Component<Props, State> {
                   newObjects = [];
                 }
                 newObjects.push(id);
+                // @ts-expect-error
                 this.handleChange('only_on_objects')(newObjects);
               }}
               privatePassList={privatePasses
@@ -629,11 +657,13 @@ export class CouponForm extends React.Component<Props, State> {
                   <PrivatePassListItem
                     key={`${id}-${i}`}
                     dense
+                    // @ts-expect-error
                     disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
+                      // @ts-expect-error
                       this.handleChange('only_on_objects')(newObjects);
                     }}
                     pass={allPrivatePassesById[id]}
@@ -656,6 +686,7 @@ export class CouponForm extends React.Component<Props, State> {
               nullCurrentValue
               disabled={!!initial?.coupon_template_instance}
               helperText={t('form.selectorPlaceholder.paymentCombo')}
+              // @ts-expect-error
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
 
@@ -667,6 +698,7 @@ export class CouponForm extends React.Component<Props, State> {
                   newObjects = [];
                 }
                 newObjects.push(id);
+                // @ts-expect-error
                 this.handleChange('only_on_objects')(newObjects);
               }}
               paymentComboList={paymentCombos.filter(
@@ -684,6 +716,7 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
+                      // @ts-expect-error
                       this.handleChange('only_on_objects')(newObjects);
                     }}
                     paymentCombo={allPaymentCombosById[id]}
@@ -733,6 +766,7 @@ export class CouponForm extends React.Component<Props, State> {
         <Divider />
         <div className={classes.flexFormControl}>
           <div className={classes.selector}>
+            {/* @ts-expect-error */}
             <TagSelector
               isClearable
               allTagsWithTagGroup={tagList.filter((tag) => {
@@ -753,14 +787,18 @@ export class CouponForm extends React.Component<Props, State> {
               }
               onChange={(options) => {
                 const newObjects = options.map((option) => option.value);
+                // @ts-expect-error
                 this.handleChange(tag_list_kind)(newObjects);
               }}
               onDeleteTag={(tagId) => {
+                // @ts-expect-error
                 const newObject = this.state[tag_list_kind].filter(
-                  (id) => tagId !== id,
+                  (id: number) => tagId !== id,
                 );
+                // @ts-expect-error
                 this.handleChange(tag_list_kind)(newObject);
               }}
+              // @ts-expect-error
               selectedTags={this.state[tag_list_kind]}
             />
           </div>
@@ -799,8 +837,10 @@ export class CouponForm extends React.Component<Props, State> {
           required
           className={classes.field}
           disabled={!!initial?.coupon_template_instance}
+          // @ts-expect-error
           error={this.state.isCodeUsedError}
           helperText={
+            // @ts-expect-error
             this.state.isCodeUsedError
               ? t('form.code.codeAlreadyInUse')
               : t('form.code.helperText')
@@ -850,12 +890,10 @@ export class CouponForm extends React.Component<Props, State> {
             value={this.state.usage_total}
           />
         </div>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.subscription')}
         </Typography>
         {this.renderSubscriptionModeConfig()}
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.advanced')}
         </Typography>
@@ -863,6 +901,7 @@ export class CouponForm extends React.Component<Props, State> {
           checked={this.state.only_on_first_checkout}
           disabled={!!initial?.coupon_template_instance}
           label={t('form.only_on_first_checkout.label')}
+          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange(
               'only_on_first_checkout',
@@ -874,6 +913,7 @@ export class CouponForm extends React.Component<Props, State> {
           checked={this.state.combinable}
           disabled={!!initial?.coupon_template_instance}
           label={t('form.combinable.label')}
+          // @ts-expect-error
           onChange={(ev) =>
             this.handleChange('combinable', false)(ev.target.checked)
           }
@@ -890,8 +930,10 @@ export class CouponForm extends React.Component<Props, State> {
         <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.tags')}
         </Typography>
+        {/* @ts-expect-error */}
         {this.state.tag_selection_error && (
           <Typography color="error">
+            {/* @ts-expect-error */}
             {t(this.state.tag_selection_error)}
           </Typography>
         )}
@@ -916,7 +958,9 @@ export class CouponForm extends React.Component<Props, State> {
               !!initial?.coupon_template_instance ||
               this.props.processing ||
               this.state.minimum_amount < 0 ||
+              // @ts-expect-error
               this.state.tag_selection_error ||
+              // @ts-expect-error
               this.state.isCodeUsedError
             }
             onClick={(ev) => {
@@ -935,7 +979,7 @@ export class CouponForm extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -1024,5 +1068,6 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['coupon']),
+  // @ts-expect-error
   withStyles(styles),
 )(CouponForm);

@@ -17,6 +17,7 @@ import type {
   Recipient,
   RecipientsNumberAndExportable,
   CampaignExportStartEndDates,
+  CampaignListParams,
 } from './types';
 
 export const sendCommunication = (data: any) => {
@@ -26,7 +27,7 @@ export const sendCommunication = (data: any) => {
   );
 };
 
-export const fetchCampaignList = (params: any) => {
+export const fetchCampaignList = (params: CampaignListParams) => {
   return getAuth(`${API_V1_URI}/communication/email/${buildUrlParams(params)}`);
 };
 

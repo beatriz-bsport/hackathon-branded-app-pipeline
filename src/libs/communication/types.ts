@@ -260,3 +260,13 @@ export type RecipientsNumberAndExportable = {
   recipient_count: number;
   xlsx_exportable: boolean;
 };
+
+export type CampaignListParams = {
+  member: number;
+  no_automated_campaign: boolean;
+  only_automated_campaign: boolean;
+  page_size: number;
+  page: number;
+  smartlist: number;
+  without_member_info: boolean;
+};

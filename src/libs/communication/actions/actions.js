@@ -64,6 +64,7 @@ export function fetchCampaignSmartlist(
         smartlist,
         page,
         no_automated_campaign: true,
+        without_member_info: true,
       });
       dispatch(campaignBySmartlistActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
@@ -96,6 +97,7 @@ export function fetchCampaignSmartlistAutomated(
         smartlist,
         page,
         only_automated_campaign: true,
+        without_member_info: true,
       });
       dispatch(
         smartlistAutomatedCampaignListActions.success({

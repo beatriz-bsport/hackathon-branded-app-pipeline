@@ -20,8 +20,8 @@ import { defaultHandleSubmit } from '#components/forms';
 
 const ALL_DAY_SELECTION = {
   timePeriod: 'allDay',
-  timeStart: '00:00',
-  timeEnd: '23:59',
+  timeStart: '00:00:00',
+  timeEnd: '23:59:59',
 };
 
 export type Props = {
@@ -48,8 +48,8 @@ const timeValidationSchema = Yup.object().shape({
       function checkIsAfterStart(timeEnd) {
         const { timeStart } = this.parent;
         return (
-          DateTime.fromFormat(timeStart, 'HH:mm') <=
-          DateTime.fromFormat(timeEnd, 'HH:mm')
+          DateTime.fromFormat(timeStart, 'HH:mm:ss') <=
+          DateTime.fromFormat(timeEnd, 'HH:mm:ss')
         );
       },
     ),
@@ -72,7 +72,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   const menuRef = useRef<HTMLButtonElement | null>(null);
 
   const formatTime = useCallback((datetime: DateTime) => {
-    return datetime.toFormat('HH:mm');
+    return datetime.toFormat('HH:mm:ss');
   }, []);
 
   const handleClose = useCallback(() => {
@@ -190,7 +190,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   ampm={false}
                   label={t('header.start')}
                   onChange={handleTimeStartChange}
-                  value={DateTime.fromFormat(values.timeStart, 'HH:mm:ss.SSS')}
+                  value={DateTime.fromFormat(values.timeStart, 'HH:mm:ss')}
                 />
               </div>
               <div>
@@ -198,7 +198,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   ampm={false}
                   label={t('header.end')}
                   onChange={handleTimeEndChange}
-                  value={DateTime.fromFormat(values.timeEnd, 'HH:mm:ss.SSS')}
+                  value={DateTime.fromFormat(values.timeEnd, 'HH:mm:ss')}
                 />
                 <ErrorMessage
                   name="timeEnd"

@@ -7,8 +7,6 @@ import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../i18n';
 import type { Theme } from '#libs/theme/types';
 import type { LuxonDateTime } from '#src/types';
 
-export const LUXON_ISO_SHORT_DATE = 'yyyy-MM-dd';
-
 /**
  * Returns a calendar date from an ISO date
  * @param date A formatted ISO date

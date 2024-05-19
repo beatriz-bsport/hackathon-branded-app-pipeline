@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 import { store, setBookings, setPrivateBookings } from './actionTestHelper';
 import { fetchBookingsAndPrivateBookings } from '../actions';
 import { DATA_SET_1, DATA_SET_2, DATA_SET_3 } from './dataSet';
@@ -17,7 +16,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
           fetchBookingsAndPrivateBookings({
             member: 1,
             page: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
         const { bookingAndPrivateBooking } = store.getState().consumer;
@@ -45,7 +44,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
         await store.dispatch(
           fetchBookingsAndPrivateBookings({
             member: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
 
@@ -73,7 +72,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
         await store.dispatch(
           fetchBookingsAndPrivateBookings({
             member: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
         const { bookingAndPrivateBooking } = store.getState().consumer;
@@ -94,7 +93,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
           fetchBookingsAndPrivateBookings({
             member: 1,
             page: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
 
@@ -115,7 +114,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
         await store.dispatch(
           fetchBookingsAndPrivateBookings({
             member: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
 
@@ -137,7 +136,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
         await store.dispatch(
           fetchBookingsAndPrivateBookings({
             member: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
         const { bookingAndPrivateBooking } = store.getState().consumer;
@@ -158,7 +157,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
           fetchBookingsAndPrivateBookings({
             member: 1,
             page: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
 
@@ -181,7 +180,7 @@ describe('☻ BOOKING AND PRIVATE BOOKING ACTION PAGINATION', () => {
         await store.dispatch(
           fetchBookingsAndPrivateBookings({
             member: 1,
-            date_start: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+            date_start: DateTime.now().toISODate(),
           }),
         );
 

@@ -18,7 +18,6 @@ import { EventWithElementTarget } from '#libs/marketplace/types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 import {
-  LUXON_ISO_SHORT_DATE,
   formatAsDate,
   formatAsTitle,
   getLocaleWeekdays,
@@ -89,7 +88,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       onSelect(
         dateSelected
           .plus({ days: type === 'subtract' ? -rangeSize : rangeSize })
-          .toFormat(LUXON_ISO_SHORT_DATE),
+          .toISODate(),
       );
     },
     [dateSelected, onSelect, rangeSize],
@@ -156,9 +155,8 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   const isDayDisabled = useCallback(
     (currentDayDate: string) =>
       disablePast &&
-      DateTime.fromFormat(currentDayDate, LUXON_ISO_SHORT_DATE)
-        .startOf('day')
-        .toSeconds() < DateTime.now().startOf('day').toSeconds(),
+      DateTime.fromISO(currentDayDate).startOf('day').toSeconds() <
+        DateTime.now().startOf('day').toSeconds(),
     [disablePast],
   );
 
@@ -213,7 +211,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
             onClick={handleOpenMenu}
             type="button"
           >
-            {formatAsDate(dateSelected.toFormat(LUXON_ISO_SHORT_DATE))}
+            {formatAsDate(dateSelected.toISODate())}
           </button>
         )}
       </div>
@@ -285,23 +283,13 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                               });
                               return (
                                 <MarketplaceDatePickerDay
-                                  key={currentDayDate.toFormat(
-                                    LUXON_ISO_SHORT_DATE,
-                                  )}
-                                  date={currentDayDate.toFormat(
-                                    LUXON_ISO_SHORT_DATE,
-                                  )}
-                                  dateDisplayed={dateDisplayed.toFormat(
-                                    LUXON_ISO_SHORT_DATE,
-                                  )}
-                                  dateSelected={dateSelected.toFormat(
-                                    LUXON_ISO_SHORT_DATE,
-                                  )}
+                                  key={currentDayDate.toISODate()}
+                                  date={currentDayDate.toISODate()}
+                                  dateDisplayed={dateDisplayed.toISODate()}
+                                  dateSelected={dateSelected.toISODate()}
                                   handleSelect={handleSelect}
                                   isDisabled={isDayDisabled(
-                                    currentDayDate.toFormat(
-                                      LUXON_ISO_SHORT_DATE,
-                                    ),
+                                    currentDayDate.toISODate(),
                                   )}
                                 />
                               );

@@ -32,7 +32,6 @@ import { withGroup } from '#libs/group-offer/selectors';
 
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 
 const formatDate = (date: string) => {
   const formattedDate = DateTime.fromFormat(date, 'yyyy-MM-dd');
@@ -164,7 +163,7 @@ const PlanningWithDateAndOffer = compose(
           )
         : null;
     return {
-      date: date.toFormat(LUXON_ISO_SHORT_DATE),
+      date: date.toISODate(),
       selectedOffer,
       hybridOfferLinkedToSelectedOffer,
     };

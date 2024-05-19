@@ -13,7 +13,7 @@ import {
 import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
 import Menu from '#Fabrique/Menu';
 import YearPicker from './YearPicker';
-import { LUXON_ISO_SHORT_DATE, getLocaleWeekdays } from '#src/utils/datetime';
+import { getLocaleWeekdays } from '#src/utils/datetime';
 
 import type { LuxonDateTime } from '#src/types';
 
@@ -136,14 +136,12 @@ const DatePickerMenuContent: React.FC<DatePickerMenuContentProps> = React.memo(
                     const day = weekStartingDay.plus({
                       days: trashValueDay + dayNumber,
                     });
-                    const dayString = day.toFormat(LUXON_ISO_SHORT_DATE);
+                    const dayString = day.toISODate();
                     return (
                       <MarketplaceDatePickerDay
                         key={dayString}
                         date={dayString}
-                        dateDisplayed={dateDisplayed.toFormat(
-                          LUXON_ISO_SHORT_DATE,
-                        )}
+                        dateDisplayed={dateDisplayed.toISODate()}
                         dateSelected={dateSelected}
                         handleSelect={handleSelect}
                         isDisabled={isDayDisabled(dayString)}

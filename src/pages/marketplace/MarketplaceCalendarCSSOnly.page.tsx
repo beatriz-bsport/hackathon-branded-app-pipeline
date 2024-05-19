@@ -21,7 +21,6 @@ import MarketplaceCalendarComponent from '#marketplacecomponents/@Calendar/Marke
 import MarketplaceActivityDialogV2 from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 
-import { LUXON_ISO_SHORT_DATE } from '#utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
 import {
@@ -274,26 +273,22 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   start_date = () => {
     const paramsStartDate = this.props.otherParams.date
-      ? DateTime.fromFormat(this.props.otherParams.date, LUXON_ISO_SHORT_DATE)
+      ? DateTime.fromISO(this.props.otherParams.date)
       : DateTime.now();
 
     return this.getStartCalendarWeekOnToday()
-      ? paramsStartDate.toFormat(LUXON_ISO_SHORT_DATE)
-      : paramsStartDate
-          .startOf('week', { useLocaleWeeks: true })
-          .toFormat(LUXON_ISO_SHORT_DATE);
+      ? paramsStartDate.toISODate()
+      : paramsStartDate.startOf('week', { useLocaleWeeks: true }).toISODate();
   };
 
   end_date = () => {
     const paramsStartDate = this.props.otherParams.date
-      ? DateTime.fromFormat(this.props.otherParams.date, LUXON_ISO_SHORT_DATE)
+      ? DateTime.fromISO(this.props.otherParams.date)
       : DateTime.now();
 
     return this.getStartCalendarWeekOnToday()
-      ? paramsStartDate.plus({ days: 7 }).toFormat(LUXON_ISO_SHORT_DATE)
-      : paramsStartDate
-          .endOf('week', { useLocaleWeeks: true })
-          .toFormat(LUXON_ISO_SHORT_DATE);
+      ? paramsStartDate.plus({ days: 7 }).toISODate()
+      : paramsStartDate.endOf('week', { useLocaleWeeks: true }).toISODate();
   };
 
   fetchData = () => {
@@ -389,12 +384,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       }
 
       const prevPropsDate = prevProps.otherParams.date
-        ? DateTime.fromFormat(prevProps.otherParams.date, LUXON_ISO_SHORT_DATE)
+        ? DateTime.fromISO(prevProps.otherParams.date)
         : DateTime.now();
-      const propsDate = DateTime.fromFormat(
-        this.props.otherParams.date,
-        LUXON_ISO_SHORT_DATE,
-      );
+      const propsDate = DateTime.fromISO(this.props.otherParams.date);
 
       if (this.getStartCalendarWeekOnToday()) {
         return prevPropsDate.toSeconds() !== propsDate.toSeconds();
@@ -519,10 +511,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   handleDateChange = (date: string) => {
-    const newDate = date
-      ? DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
-      : DateTime.now();
-    const formattedDate = newDate.toFormat(LUXON_ISO_SHORT_DATE);
+    const newDate = date ? DateTime.fromISO(date) : DateTime.now();
+    const formattedDate = newDate.toISODate();
 
     this.props.setOtherParams('date')(formattedDate);
   };
@@ -537,7 +527,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     if (this.props.nextAvailableOffer.date_start) {
       const newDate = DateTime.fromISO(
         this.props.nextAvailableOffer.date_start,
-      ).toFormat(LUXON_ISO_SHORT_DATE);
+      ).toISODate();
       this.handleDateChange(newDate);
     }
   };
@@ -684,10 +674,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           searchedOffers={this.state.offerSearchResult?.offerList}
           selectedDate={
             this.props.otherParams.date
-              ? DateTime.fromFormat(
-                  this.props.otherParams.date,
-                  LUXON_ISO_SHORT_DATE,
-                )
+              ? DateTime.fromISO(this.props.otherParams.date)
               : DateTime.now()
           }
           setFilters={this.props.setFilters}

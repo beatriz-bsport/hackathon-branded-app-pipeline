@@ -14,7 +14,6 @@ import {
 } from '#libs/exportable-components/types';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 const fakeConsumerPass = consumerPaymentPackFactory();
 const fakePaymentPack = paymentPackFactory();
@@ -78,8 +77,8 @@ const usePropsFromVariation = (
   const isUnlimited = variationsSelected?.isUnlimited?.value === 'true';
   const expirationDate =
     variationsSelected?.expiresSoon?.value === 'true'
-      ? DateTime.now().plus({ day: 1 }).toFormat(LUXON_ISO_SHORT_DATE)
-      : DateTime.now().plus({ days: 10 }).toFormat(LUXON_ISO_SHORT_DATE);
+      ? DateTime.now().plus({ day: 1 }).toISODate()
+      : DateTime.now().plus({ days: 10 }).toISODate();
   return { isShared, isSuspended, isUnlimited, expirationDate };
 };
 

@@ -20,7 +20,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import { getLocaleWeekdays, LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
+import { getLocaleWeekdays } from '#src/utils/datetime';
 
 import { CalendarDay } from './CalendarDay.component';
 import { CalendarHeader } from './CalendarHeader.component';
@@ -75,7 +75,7 @@ class Calendar extends PureComponent<Props, State> {
   }
 
   getDateSelected = () => {
-    return DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE);
+    return DateTime.fromISO(this.props.date);
   };
 
   renderDay = (day: LuxonDateTime) => {
@@ -107,7 +107,7 @@ class Calendar extends PureComponent<Props, State> {
         .plus({
           [this.state.displayMode === MONTHMODE ? 'months' : 'weeks']: 1,
         })
-        .toFormat(LUXON_ISO_SHORT_DATE),
+        .toISODate(),
     );
   };
 
@@ -121,7 +121,7 @@ class Calendar extends PureComponent<Props, State> {
         .minus({
           [this.state.displayMode === MONTHMODE ? 'months' : 'weeks']: 1,
         })
-        .toFormat(LUXON_ISO_SHORT_DATE),
+        .toISODate(),
     );
   };
 
@@ -269,9 +269,7 @@ class Calendar extends PureComponent<Props, State> {
       const firstDayInRow = firstDayMonth.plus({ day: i * 7 });
       if (
         firstDayInRow.startOf('month') <=
-        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE).startOf(
-          'month',
-        )
+        DateTime.fromISO(this.props.date).startOf('month')
       ) {
         weekRows.push(
           <div key={`week-${i}`} className={this.props.classes.weekRow}>

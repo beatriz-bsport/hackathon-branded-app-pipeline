@@ -5,7 +5,6 @@ import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factorie
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { action } from '@storybook/addon-actions';
 import { DateTime } from 'luxon';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 ConsumerPassCardStorybook.displayName = 'ConsumerPassCard';
 
@@ -34,12 +33,8 @@ const defaultArgs = {
     fakeConsumerPass.available_credits - fakeConsumerPass.used_credits
   ).toString(),
   passName: fakePaymentPack.name,
-  expirationDate: DateTime.fromISO(fakeConsumerPass.ending_date).toFormat(
-    LUXON_ISO_SHORT_DATE,
-  ),
-  startDate: DateTime.fromISO(fakeConsumerPass.starting_date).toFormat(
-    LUXON_ISO_SHORT_DATE,
-  ),
+  expirationDate: DateTime.fromISO(fakeConsumerPass.ending_date).toISODate(),
+  startDate: DateTime.fromISO(fakeConsumerPass.starting_date).toISODate(),
   isShared: false,
   isSuspended: false,
   isUnlimited: false,
@@ -56,30 +51,22 @@ EverythingDisplayed.args = {
 export const ExpiredPass = ConsumerPassCardTemplate.bind({});
 ExpiredPass.args = {
   ...defaultArgs,
-  startDate: DateTime.now().minus({ days: 10 }).toFormat(LUXON_ISO_SHORT_DATE),
-  expirationDate: DateTime.now()
-    .minus({ day: 1 })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().minus({ days: 10 }).toISODate(),
+  expirationDate: DateTime.now().minus({ day: 1 }).toISODate(),
 };
 
 export const FuturePass = ConsumerPassCardTemplate.bind({});
 FuturePass.args = {
   ...defaultArgs,
-  startDate: DateTime.now()
-    .plus({ days: daysToAdd.start })
-    .toFormat(LUXON_ISO_SHORT_DATE),
-  expirationDate: DateTime.now()
-    .plus({ days: daysToAdd.end })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().plus({ days: daysToAdd.start }).toISODate(),
+  expirationDate: DateTime.now().plus({ days: daysToAdd.end }).toISODate(),
 };
 
 export const ExpiresSoon = ConsumerPassCardTemplate.bind({});
 ExpiresSoon.args = {
   ...defaultArgs,
-  startDate: DateTime.now().minus({ days: 10 }).toFormat(LUXON_ISO_SHORT_DATE),
-  expirationDate: DateTime.now()
-    .plus({ days: daysToAdd.soon })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().minus({ days: 10 }).toISODate(),
+  expirationDate: DateTime.now().plus({ days: daysToAdd.soon }).toISODate(),
 };
 
 export const UnlimitedPass = ConsumerPassCardTemplate.bind({});

@@ -12,7 +12,6 @@ import {
   PrivateConsumerPassDetailsCardProps,
 } from '.';
 import { DateTime } from 'luxon';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 const monthToAdd = 1;
 
@@ -46,16 +45,14 @@ const defaultArgs: PrivateConsumerPassDetailsCardProps = {
   compatibleEstablishments: null,
   creditsLeft: faker.number.int(5),
   description: fakePrivateConsumerPass.description,
-  expirationDate: DateTime.now()
-    .plus({ months: monthToAdd })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  expirationDate: DateTime.now().plus({ months: monthToAdd }).toISODate(),
   isSuspended: false,
   isUnlimited: false,
   name: fakePrivateConsumerPass.name,
   isMobile: false,
   sharedBy: null,
   sharedWith: null,
-  startDate: DateTime.now().minus({ month: 1 }).toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().minus({ month: 1 }).toISODate(),
   suspensionDate: null,
   totalCredits: faker.number.int({ min: 5, max: 10 }),
   isCompatibleWithVod: null,
@@ -137,23 +134,19 @@ export const isSuspendedWithSuspensionDate =
 isSuspendedWithSuspensionDate.args = {
   ...defaultArgs,
   isSuspended: true,
-  suspensionDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+  suspensionDate: DateTime.now().toISODate(),
 };
 
 export const isFuture = PrivateConsumerPassDetailsCardTemplate.bind({});
 isFuture.args = {
   ...defaultArgs,
-  startDate: DateTime.now()
-    .plus({ months: monthToAdd })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().plus({ months: monthToAdd }).toISODate(),
 };
 
 export const isExpired = PrivateConsumerPassDetailsCardTemplate.bind({});
 isExpired.args = {
   ...defaultArgs,
-  expirationDate: DateTime.now()
-    .minus({ month: 1 })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  expirationDate: DateTime.now().minus({ month: 1 }).toISODate(),
 };
 
 export const MobileVersion = PrivateConsumerPassDetailsCardMobileTemplate.bind(

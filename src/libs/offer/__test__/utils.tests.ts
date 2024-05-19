@@ -1,18 +1,14 @@
 import { _generateRecurrenceDates, getOfferRecurrenceDates } from '../utils';
 import { OFFER_RECURRENCE } from '../constants';
 import { DateTime } from 'luxon';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 import type { LuxonDateTime } from '#src/types';
 
 const invalidDates = ['2023-02-29', '1700-12-32', '1234-56-78', '2025-99-70'];
 const randomInvalidDate =
   invalidDates[Math.floor(Math.random() * invalidDates.length)];
 
-const INVALID_DATE = DateTime.fromFormat(
-  randomInvalidDate,
-  LUXON_ISO_SHORT_DATE,
-);
-const TODAY = DateTime.fromFormat('2023-05-04', LUXON_ISO_SHORT_DATE).set({
+const INVALID_DATE = DateTime.fromISO(randomInvalidDate);
+const TODAY = DateTime.fromISO('2023-05-04').set({
   hour: 10,
   minute: 30,
 });

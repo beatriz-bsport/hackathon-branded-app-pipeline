@@ -12,7 +12,6 @@ import memoize from 'memoize-one';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
-  LUXON_ISO_SHORT_DATE,
   formatAsDateWithWeekday,
   formatWeekDay,
   getLocaleWeekdays,
@@ -415,7 +414,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       !this.props.forceDayDisplayOnly
     ) {
       // @ts-expect-error
-      next_days.push(next_day.toFormat(LUXON_ISO_SHORT_DATE));
+      next_days.push(next_day.toISODate());
       next_day = next_day.plus({ days: 1 });
     }
 
@@ -482,9 +481,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   })}
                   disabled={isCardModeDisplay}
                   onClick={() =>
-                    this.props.onSelectDate(
-                      currentDate.toFormat(LUXON_ISO_SHORT_DATE),
-                    )
+                    this.props.onSelectDate(currentDate.toISODate())
                   }
                   type="button"
                 >

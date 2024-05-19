@@ -37,7 +37,7 @@ import type {
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
-import { getUserZone, LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
+import { getUserZone } from '#src/utils/datetime';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -192,7 +192,7 @@ export default function useConsumerBookingsDataManager({
   } | null>(null);
 
   const [calendarBookingDate, setCalendarBookingDate] = useState<string>(
-    DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+    DateTime.now().toISODate(),
   );
 
   const fetchMoreDataHandlerMap = useMemo(

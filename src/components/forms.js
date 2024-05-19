@@ -33,7 +33,7 @@ import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneInput from 'react-phone-number-input';
-import { LUXON_ISO_SHORT_DATE, formatISOStringAsTime } from '../utils/datetime';
+import { formatISOStringAsTime } from '../utils/datetime';
 import TagSelector from '../libs/tag/components/TagSelector.selector';
 import type { Tag } from '../libs/tag/types';
 
@@ -317,10 +317,7 @@ export const DateField = (
   const { t } = useTranslation();
   const classes = useDateFieldStyles();
 
-  const now = DateTime.now()
-    .startOf('year')
-    .minus({ year: 30 })
-    .toFormat(LUXON_ISO_SHORT_DATE);
+  const now = DateTime.now().startOf('year').minus({ year: 30 }).toISODate();
 
   return (
     <Field {...props}>
@@ -352,9 +349,7 @@ export const DateField = (
               setFieldTouched(props.name);
               setFieldValue(
                 props.name,
-                props.parseAsString
-                  ? date.toFormat(LUXON_ISO_SHORT_DATE)
-                  : date,
+                props.parseAsString ? date.toISODate() : date,
               );
             }}
             style={{ minWidth: 120 }}

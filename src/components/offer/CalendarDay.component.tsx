@@ -8,7 +8,6 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 import { WEEKMODE } from './Calendar.component';
 import type { LuxonDateTime } from '#src/types';
 
@@ -27,7 +26,7 @@ type Props = {
 
 export const CalendarDay: React.FC<Props> = ({
   events = {},
-  ranges = [], // list of tuples of strings formatted with LUXON_ISO_SHORT_DATE
+  ranges = [], // list of tuples of ISO strings
   dateSelected,
   day,
   showDayName,
@@ -38,8 +37,8 @@ export const CalendarDay: React.FC<Props> = ({
   onDateChange,
 }) => {
   const isDayInRangeOf = ranges.filter(([start, end]) => {
-    const startDatetime = DateTime.fromFormat(start, LUXON_ISO_SHORT_DATE);
-    const endDatetime = DateTime.fromFormat(end, LUXON_ISO_SHORT_DATE);
+    const startDatetime = DateTime.fromISO(start);
+    const endDatetime = DateTime.fromISO(end);
     return day <= endDatetime && day >= startDatetime;
   });
 
@@ -52,16 +51,12 @@ export const CalendarDay: React.FC<Props> = ({
   const isFirstDayOfRange =
     isDayInRange &&
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ranges.some(([start, end]) =>
-      DateTime.fromFormat(start, LUXON_ISO_SHORT_DATE).hasSame(day, 'day'),
-    );
+    ranges.some(([start, end]) => DateTime.fromISO(start).hasSame(day, 'day'));
 
   const isLastDayOfRange =
     isDayInRange &&
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ranges.some(([start, end]) =>
-      DateTime.fromFormat(end, LUXON_ISO_SHORT_DATE).hasSame(day, 'day'),
-    );
+    ranges.some(([start, end]) => DateTime.fromISO(end).hasSame(day, 'day'));
 
   if (previewOnly && wrapperStyle) {
     return (
@@ -86,7 +81,7 @@ export const CalendarDay: React.FC<Props> = ({
 
   return (
     <ButtonBase
-      key={`calendar-day-${day.toFormat(LUXON_ISO_SHORT_DATE)}`}
+      key={`calendar-day-${day.toISODate()}`}
       className={classNames(classes.dayButton, {
         [classes.dayButtonSelected]: isSelected,
         [classes.dayButtonDisabled]: isDisabled,
@@ -95,9 +90,9 @@ export const CalendarDay: React.FC<Props> = ({
         [classes.dayButonEndRange]: isLastDayOfRange,
       })}
       color="primary"
-      id={`calendar-day-${day.toFormat(LUXON_ISO_SHORT_DATE)}`}
+      id={`calendar-day-${day.toISODate()}`}
       onClick={() => {
-        onDateChange(day.toFormat(LUXON_ISO_SHORT_DATE));
+        onDateChange(day.toISODate());
       }}
     >
       <div />
@@ -113,10 +108,7 @@ export const CalendarDay: React.FC<Props> = ({
             {(events?.[day.startOf('day').toISO()] ?? [])
               .slice(0, 3)
               .map((_, idx) => (
-                <div key={`${day.toFormat(LUXON_ISO_SHORT_DATE)}-${idx}`}>
-                  {' '}
-                  •{' '}
-                </div>
+                <div key={`${day.toISODate()}-${idx}`}> • </div>
               ))}
           </div>
         </div>

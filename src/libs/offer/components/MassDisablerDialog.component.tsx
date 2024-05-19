@@ -25,7 +25,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import type { LuxonDateTime } from '#src/types';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 import {
   DateField,
@@ -76,8 +75,8 @@ export const MassDisablerDialog = (props: Props) => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           props.onSubmit({
-            start: values.startDate.toFormat(LUXON_ISO_SHORT_DATE),
-            end: values.endDate.toFormat(LUXON_ISO_SHORT_DATE),
+            start: values.startDate.toISODate(),
+            end: values.endDate.toISODate(),
           });
 
           actions.setSubmitting(false);
@@ -150,13 +149,8 @@ export const MassDisablerDialog = (props: Props) => {
                       disabled={!formikProps.isValid}
                       onClick={() => {
                         props.retrieveNumberOfDeletedOffer({
-                          start:
-                            formikProps.values.startDate.toFormat(
-                              LUXON_ISO_SHORT_DATE,
-                            ),
-                          end: formikProps.values.endDate.toFormat(
-                            LUXON_ISO_SHORT_DATE,
-                          ),
+                          start: formikProps.values.startDate.toISODate(),
+                          end: formikProps.values.endDate.toISODate(),
                         });
                         setSecondWarningOpen(true);
                       }}

@@ -12,7 +12,6 @@ import {
   UniversalPassDetailsCardStorybook,
   UniversalPassDetailsCardProps,
 } from '.';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 const monthToAdd = 1;
 
@@ -204,23 +203,19 @@ export const isSuspendedWithSuspensionDate =
 isSuspendedWithSuspensionDate.args = {
   ...defaultArgs,
   isSuspended: true,
-  suspensionDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+  suspensionDate: DateTime.now().toISODate(),
 };
 
 export const isFuture = UniversalPassDetailsCardTemplate.bind({});
 isFuture.args = {
   ...defaultArgs,
-  startDate: DateTime.now()
-    .plus({ months: monthToAdd })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  startDate: DateTime.now().plus({ months: monthToAdd }).toISODate(),
 };
 
 export const isExpired = UniversalPassDetailsCardTemplate.bind({});
 isExpired.args = {
   ...defaultArgs,
-  expirationDate: DateTime.now()
-    .minus({ month: 1 })
-    .toFormat(LUXON_ISO_SHORT_DATE),
+  expirationDate: DateTime.now().minus({ month: 1 }).toISODate(),
 };
 
 export const MobileVersion = UniversalPassDetailsCardMobileTemplate.bind({});

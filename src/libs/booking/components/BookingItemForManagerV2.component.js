@@ -53,7 +53,6 @@ import {
   formatAsDate,
   formatISOStringAsTime,
   formatAsDatetimeAdapted,
-  LUXON_ISO_SHORT_DATE,
 } from '#utils/datetime';
 
 import type { Member } from '#libs/member/types';
@@ -114,8 +113,7 @@ const getPackDate = (consumerPack) => {
   const { ending_date, starting_date } = consumerPack;
   return [
     `${formatAsDate(starting_date)}→${formatAsDate(ending_date)}`,
-    DateTime.fromFormat(ending_date, LUXON_ISO_SHORT_DATE) <
-      DateTime.now().plus({ day: 6 }),
+    DateTime.fromISO(ending_date) < DateTime.now().plus({ day: 6 }),
   ];
 };
 
@@ -767,10 +765,7 @@ export class BookingItemForManager extends Component<Props, State> {
 
     const isBirthday = this.props.member?.birthday
       ? DateTime.now().toFormat('MM-dd') ===
-        DateTime.fromFormat(
-          this.props.member.birthday,
-          LUXON_ISO_SHORT_DATE,
-        ).toFormat('MM-DD')
+        DateTime.fromISO(this.props.member.birthday).toFormat('MM-DD')
       : false;
 
     return this.wrapToolTip(

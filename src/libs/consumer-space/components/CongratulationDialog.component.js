@@ -10,7 +10,6 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
 import { DateTime } from 'luxon';
 import { withTranslation, TFunction } from 'react-i18next';
-import { LUXON_ISO_SHORT_DATE } from '#src/utils/datetime';
 
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 
@@ -60,7 +59,7 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                           f_coaches: `[${offerBooked.coach.id}]`,
                           date: DateTime.fromISO(
                             offerBooked.date_start,
-                          ).toFormat(LUXON_ISO_SHORT_DATE),
+                          ).toISODate(),
                         })
                     : null
                 }
@@ -79,9 +78,7 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                         f_metaActivities: `[${o.meta_activity.id}]`,
                         f_establishments: `[${o.establishment.id}]`,
                         f_coaches: `[${o.coach.id}]`,
-                        date: DateTime.fromISO(o.date_start).toFormat(
-                          LUXON_ISO_SHORT_DATE,
-                        ),
+                        date: DateTime.fromISO(o.date_start).toISODate(),
                       })
                     }
                     variant="after_checkout"

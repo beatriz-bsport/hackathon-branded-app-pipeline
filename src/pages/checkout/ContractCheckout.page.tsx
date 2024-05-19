@@ -82,7 +82,6 @@ import Carousel from '#components/css-only/Carousel';
 import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#libs/member/actions';
-import { LUXON_ISO_SHORT_DATE } from '#utils/datetime';
 
 import './styles.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
@@ -164,7 +163,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.state = {
       processing: false,
       stripePromise: null,
-      billingStartDate: DateTime.now().toFormat(LUXON_ISO_SHORT_DATE),
+      billingStartDate: DateTime.now().toISODate(),
       isDirectBuyingLink: false,
       isContractCooldownDialogOpen: false,
       openContractTermsDialog: false,

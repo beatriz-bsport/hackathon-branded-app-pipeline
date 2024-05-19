@@ -140,7 +140,6 @@ import OfferSearchBar, {
 } from '#libs/offer/components/OfferSearchBar.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
-import { LUXON_ISO_SHORT_DATE } from '../../utils/datetime';
 
 import CheckPermission from '#libs/role/components/CheckPermission.component';
 import {
@@ -524,8 +523,8 @@ export class Planning extends PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       prevProps.date !== this.props.date &&
-      !DateTime.fromFormat(prevProps.date, LUXON_ISO_SHORT_DATE).hasSame(
-        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE),
+      !DateTime.fromISO(prevProps.date).hasSame(
+        DateTime.fromISO(this.props.date),
         'month',
       )
     ) {
@@ -550,8 +549,8 @@ export class Planning extends PureComponent<Props, State> {
       this.props.fetchBookingStatsOfTheWeek();
     }
     if (
-      !DateTime.fromFormat(prevProps.date, LUXON_ISO_SHORT_DATE).hasSame(
-        DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE),
+      !DateTime.fromISO(prevProps.date).hasSame(
+        DateTime.fromISO(this.props.date),
         'week',
       )
     ) {
@@ -566,10 +565,7 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   loadDayData = (day?: string) => {
-    const datetime = DateTime.fromFormat(
-      day || this.props.date,
-      LUXON_ISO_SHORT_DATE,
-    );
+    const datetime = DateTime.fromISO(day || this.props.date);
     const base = `/calendar/${datetime.year}/${datetime.month}/${
       datetime.day
     }/${this.props.offerId ?? ''}`;
@@ -863,10 +859,7 @@ export class Planning extends PureComponent<Props, State> {
             onSubmit={this.createOffers}
             processing={this.props.creatingOffers}
             roomBlueprints={this.props.roomBlueprints}
-            selectedDate={DateTime.fromFormat(
-              this.props.date,
-              LUXON_ISO_SHORT_DATE,
-            )}
+            selectedDate={DateTime.fromISO(this.props.date)}
             showPartnership={this.props.showPartnership}
             tagList={allTagsWithTagGroup}
             timezone={this.props.theme.timezone_name}
@@ -1129,7 +1122,7 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   fetchOffersOfSelectedDate = () => {
-    const datetime = DateTime.fromFormat(this.props.date, LUXON_ISO_SHORT_DATE);
+    const datetime = DateTime.fromISO(this.props.date);
     this.fetchOffersOfDate(datetime);
   };
 
@@ -1541,12 +1534,10 @@ export default compose(
       ),
       bookingStatistics: getStats(
         state,
-        DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+        DateTime.fromISO(date)
           .startOf('week', { useLocaleWeeks: true })
           .toISO(),
-        DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
-          .endOf('week', { useLocaleWeeks: true })
-          .toISO(),
+        DateTime.fromISO(date).endOf('week', { useLocaleWeeks: true }).toISO(),
       ),
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
@@ -1624,26 +1615,26 @@ export default compose(
       ({ fetchAllOffers, theme, fetchBookedGender, offerFilters, date }) =>
       () => {
         fetchAllOffers({
-          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          min_date: DateTime.fromISO(date)
             .startOf('month')
             .startOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
-          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .toISODate(),
+          max_date: DateTime.fromISO(date)
             .endOf('month')
             .endOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
+            .toISODate(),
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),
         });
         if (theme && theme.show_booked_gender_offer) {
           fetchBookedGender({
-            min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            min_date: DateTime.fromISO(date)
               .startOf('month')
               .startOf('week', { useLocaleWeeks: true })
-              .toFormat(LUXON_ISO_SHORT_DATE),
-            max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+              .toISODate(),
+            max_date: DateTime.fromISO(date)
               .endOf('month')
               .endOf('week', { useLocaleWeeks: true })
-              .toFormat(LUXON_ISO_SHORT_DATE),
+              .toISODate(),
             ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           });
         }
@@ -1677,23 +1668,23 @@ export default compose(
       }) =>
       () => {
         fetchBookingStatistics('createdBookings', {
-          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          min_date: DateTime.fromISO(date)
             .startOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
-          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .toISODate(),
+          max_date: DateTime.fromISO(date)
             .endOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
+            .toISODate(),
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           date_field: 'offer__date_start',
           kind: 'count',
         });
         fetchBookingStatistics('cancelledBookings', {
-          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          min_date: DateTime.fromISO(date)
             .startOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
-          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .toISODate(),
+          max_date: DateTime.fromISO(date)
             .endOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
+            .toISODate(),
           booking_status_code__in: [
             BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
             BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
@@ -1704,12 +1695,12 @@ export default compose(
           kind: 'count',
         });
         fetchOffersWaitingListStatistics('waitingLists', {
-          min_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+          min_date: DateTime.fromISO(date)
             .startOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
-          max_date: DateTime.fromFormat(date, LUXON_ISO_SHORT_DATE)
+            .toISODate(),
+          max_date: DateTime.fromISO(date)
             .endOf('week', { useLocaleWeeks: true })
-            .toFormat(LUXON_ISO_SHORT_DATE),
+            .toISODate(),
           date_field: 'offer__date_start',
           kind: 'count',
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),

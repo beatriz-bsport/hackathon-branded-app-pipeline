@@ -18,7 +18,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import TodayIcon from '@material-ui/icons/Today';
 import classNames from 'classnames';
 import { MONTHMODE } from './Calendar.component';
-import { LUXON_ISO_SHORT_DATE, formatAsTitle } from '../../utils/datetime';
+import { formatAsTitle } from '../../utils/datetime';
 import type { LuxonDateTime } from '#src/types';
 
 type Props = {
@@ -66,12 +66,12 @@ export const CalendarHeader = forwardRef(
     }, [getDateSelected, displayMode]);
 
     const goToToday = useCallback(() => {
-      onDateChange(DateTime.now().toFormat(LUXON_ISO_SHORT_DATE));
+      onDateChange(DateTime.now().toISODate());
     }, [onDateChange]);
 
     const setNewDate = useCallback(
       (newDate: LuxonDateTime) => {
-        onDateChange(newDate.toFormat(LUXON_ISO_SHORT_DATE));
+        onDateChange(newDate.toISODate());
       },
       [onDateChange],
     );
@@ -161,10 +161,7 @@ export const CalendarHeader = forwardRef(
             <div className={classes.trick} />
             <Button
               className={classes.showOnWideScreen}
-              disabled={
-                props.dateSelected ===
-                DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
-              }
+              disabled={props.dateSelected === DateTime.now().toISODate()}
               onClick={goToToday}
               variant="outlined"
             >
@@ -172,10 +169,7 @@ export const CalendarHeader = forwardRef(
             </Button>
             <IconButton
               className={classes.showOnNarrowScreen}
-              disabled={
-                props.dateSelected ===
-                DateTime.now().toFormat(LUXON_ISO_SHORT_DATE)
-              }
+              disabled={props.dateSelected === DateTime.now().toISODate()}
               onClick={goToToday}
             >
               <TodayIcon />

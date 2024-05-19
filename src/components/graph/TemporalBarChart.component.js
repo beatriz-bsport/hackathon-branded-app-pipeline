@@ -58,6 +58,7 @@ export function TemporalBarChart(props: Props) {
   } = props;
   const start = data[0].d;
   const end = data[data.length - 1].d;
+
   const xFormatter = dateFormatter([start, end]);
 
   const yLabelFormatted = `${yLabel}${

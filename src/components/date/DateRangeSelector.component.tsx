@@ -96,8 +96,8 @@ const RAPID_SELECTIONS = [
 
 const getStartEndDates: (
   timePeriod: DateFilterRangeEnum,
-  date_start: number,
-  date_end: number,
+  date_start?: number,
+  date_end?: number,
 ) => {
   dateStart: DateTime;
   dateEnd: DateTime;
@@ -115,8 +115,8 @@ const getStartEndDates: (
     };
   }
   return {
-    dateStart: DateTime.fromSeconds(date_start),
-    dateEnd: DateTime.fromSeconds(date_end),
+    dateStart: date_start ? DateTime.fromSeconds(date_start) : DateTime.now(),
+    dateEnd: date_end ? DateTime.fromSeconds(date_end) : DateTime.now(),
     timePeriod,
   };
 };

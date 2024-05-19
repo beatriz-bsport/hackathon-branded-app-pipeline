@@ -295,26 +295,31 @@ const TimeInputFormik: React.FC<{
       {({
         field: { value },
         form: { setFieldValue },
-      }: FieldAttributes<any>) => (
-        <TextField
-          disabled={isPreview}
-          id="time_picker"
-          // @ts-expect-error
-          onChange={(ev) => {
-            setFieldValue(
-              name,
-              DateTime.now()
-                .set({
-                  hour: ev.target.value.split(':')[0],
-                  minute: ev.target.value.split(':')[1],
-                })
-                .toUnixInteger(),
-            );
-          }}
-          type="time"
-          value={DateTime.fromSeconds(value).toFormat('HH:mm')}
-        />
-      )}
+      }: FieldAttributes<any>) => {
+        return (
+          <TextField
+            disabled={isPreview}
+            id="time_picker"
+            // @ts-expect-error
+            onChange={(ev) => {
+              setFieldValue(
+                name,
+                DateTime.now()
+                  .set({
+                    hour: ev.target.value.split(':')[0],
+                    minute: ev.target.value.split(':')[1],
+                  })
+                  .toUnixInteger(),
+              );
+            }}
+            type="time"
+            value={(value && !Array.isArray(value)
+              ? DateTime.fromSeconds(value)
+              : DateTime.now()
+            ).toFormat('HH:mm')}
+          />
+        );
+      }}
     </Field>
   );
 };

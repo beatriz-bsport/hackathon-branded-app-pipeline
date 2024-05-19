@@ -15,7 +15,10 @@ export const discretizeByAndFillMissing = memoize(
     end,
     aggregationFunctionName?: 'count' | 'sum' | 'avg' | 'min' | 'max',
   ) => {
-    const duration = DateTime.fromISO(end).diff(DateTime.fromISO(start));
+    const duration = DateTime.fromISO(end).diff(
+      DateTime.fromISO(start),
+      'days',
+    );
     let unitOfTime = 'month' as 'month' | 'week' | 'day' | 'hour';
     let format = 'yyyy-MM' as 'yyyy-MM' | 'yyyy-MM-dd' | 'yyyy-MM-dd t';
 
@@ -34,7 +37,7 @@ export const discretizeByAndFillMissing = memoize(
     }
 
     const grouped = groupBy(table, (u) =>
-      DateTime.fromISO(u.d).startOf(unitOfTime).toFormat('yyyy-MM'),
+      DateTime.fromISO(u.d).startOf(unitOfTime).toFormat(format),
     );
 
     for (

@@ -9,7 +9,6 @@ import type { RootState } from 'src/reducers';
 import type {
   DateRange,
   NumberDateRange,
-  StatisticPoint,
   StringStatisticPoint,
   StringStatisticPointTable,
 } from './types';
@@ -34,17 +33,17 @@ const selectOffersFromCalendar = (state: RootState) => state.offer.calendar;
 
 const selectCreatedBookings = (
   state: RootState,
-): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
+): Immutable.ImmutableArray<Immutable.Immutable<StringStatisticPoint>> =>
   state.stats.stats.createdBookings?.data;
 
 const selectCancelledBookings = (
   state: RootState,
-): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
+): Immutable.ImmutableArray<Immutable.Immutable<StringStatisticPoint>> =>
   state.stats.stats.cancelledBookings?.data;
 
 const selectOffersWaitingList = (
   state: RootState,
-): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
+): Immutable.ImmutableArray<Immutable.Immutable<StringStatisticPoint>> =>
   state.stats.stats.waitingLists?.data;
 
 const selectStart = (state: RootState, start: string) => start;
@@ -57,13 +56,15 @@ export const getStats: (
   end: string,
 ) => {
   createdBookings: Immutable.ImmutableArray<
-    Immutable.Immutable<StatisticPoint>
+    Immutable.Immutable<StringStatisticPoint>
   >;
   cancelledBookings: Immutable.ImmutableArray<
-    Immutable.Immutable<StatisticPoint>
+    Immutable.Immutable<StringStatisticPoint>
   >;
-  offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
-  waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
+  offers: Immutable.ImmutableArray<Immutable.Immutable<StringStatisticPoint>>;
+  waitingLists: Immutable.ImmutableArray<
+    Immutable.Immutable<StringStatisticPoint>
+  >;
   start: string;
   end: string;
 } = createSelector(
@@ -89,7 +90,7 @@ export const getStats: (
         )
         .map((offer) => {
           return Immutable({
-            d: DateTime.fromISO(offer.date_start).valueOf(),
+            d: DateTime.fromISO(offer.date_start).toISO(),
             v: 1,
           });
         });
@@ -98,8 +99,8 @@ export const getStats: (
         cancelledBookings,
         offers: formattedOffers,
         waitingLists,
-        start: startMoment.toFormat('yyyy-MM-dd hh:mm a'),
-        end: endMoment.toFormat('yyyy-MM-dd hh:mm a'),
+        start: startMoment.toISO(),
+        end: endMoment.toISO(),
       };
     }
     return null;

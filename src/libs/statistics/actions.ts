@@ -52,7 +52,7 @@ async function fetchStatsWithTime(dispatch, identifier, callee, params) {
     const data = (await callee(params))
       // @ts-expect-error
       .map((row) => {
-        return { d: DateTime.fromISO(row.d).toMillis(), v: row.v };
+        return { d: DateTime.fromISO(row.d).toISO(), v: row.v };
       })
       // @ts-expect-error
       .sort((u, v) => u.d - v.d);

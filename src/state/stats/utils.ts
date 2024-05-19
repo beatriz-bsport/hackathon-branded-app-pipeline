@@ -37,7 +37,9 @@ export const discretizeByAndFillMissing = memoize(
     }
 
     const grouped = groupBy(table, (u) =>
-      DateTime.fromISO(u.d).startOf(unitOfTime).toFormat(format),
+      DateTime.fromISO(u.d)
+        .startOf(unitOfTime, { useLocaleWeeks: true })
+        .toFormat(format),
     );
 
     for (
@@ -87,7 +89,9 @@ export const discretizeByAndFillMissing = memoize(
         }
       })
       .sort((a, b) => {
-        if (DateTime.fromISO(a.d) < DateTime.fromISO(b.d)) {
+        if (
+          DateTime.fromFormat(a.d, format) < DateTime.fromFormat(b.d, format)
+        ) {
           return -1;
         }
         return 1;

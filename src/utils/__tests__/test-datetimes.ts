@@ -1,6 +1,8 @@
-import { Settings } from 'luxon';
-// @ts-expect-error
-import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../../i18n';
+import {
+  LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
+  setLuxonLocale,
+  // @ts-expect-error
+} from '../../i18n';
 import { getLocaleWeekdays } from '#src/utils/datetime';
 
 describe('Test getLocaleWeekdays', () => {
@@ -11,7 +13,7 @@ describe('Test getLocaleWeekdays', () => {
           Math.random() * LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY.length,
         )
       ];
-    Settings.defaultLocale = locale;
+    setLuxonLocale(locale);
 
     expect(getLocaleWeekdays('long')).toStrictEqual([
       'Sunday',
@@ -25,7 +27,7 @@ describe('Test getLocaleWeekdays', () => {
   });
 
   it('Should return Monday as first element for the others', () => {
-    Settings.defaultLocale = 'en-GB';
+    setLuxonLocale('en-GB');
 
     expect(getLocaleWeekdays('long')).toStrictEqual([
       'Monday',

@@ -1,8 +1,6 @@
 import { TFunction } from 'i18next';
-import { DateTime, Info, Settings, SystemZone } from 'luxon';
+import { DateTime, Info, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
-// @ts-expect-error
-import { LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY } from '../i18n';
 
 import type { Theme } from '#libs/theme/types';
 import type { LuxonDateTime } from '#src/types';
@@ -239,17 +237,10 @@ export function isDateInThePast(date: string) {
  * getLocaleWeekdays('narrow')
  */
 export const getLocaleWeekdays = (length: 'narrow' | 'short' | 'long') => {
-  const weekdays = Info.weekdays(length);
-  if (Info.features().localeWeek) {
-    // this environment supports different weekdays for the start of the week based on the locale
-    return weekdays;
-  }
+  const isoWeekdays = Info.weekdays(length);
+  const startOfWeek = Info.getStartOfWeek();
 
-  if (
-    LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY.includes(Settings.defaultLocale)
-  ) {
-    return [weekdays[6], ...weekdays.slice(0, 6)];
-  }
-
-  return weekdays;
+  return Array(7)
+    .fill('')
+    .map((_, index) => isoWeekdays[(index + startOfWeek - 1) % 7]);
 };

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 
+import { DateTime } from 'luxon';
 import Paper from '@material-ui/core/Paper';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -157,7 +158,9 @@ export const CouponCard = React.memo(
             <ListItemText
               primary={
                 coupon.expiration_date
-                  ? `${t('card.expiration')} ${coupon.expiration_date}`
+                  ? `${t('card.expiration')} ${DateTime.fromISO(
+                      coupon.expiration_date,
+                    ).toLocaleString(DateTime.DATE_SHORT)}`
                   : t('card.no_expiration')
               }
             />

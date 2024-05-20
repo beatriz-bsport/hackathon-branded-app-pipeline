@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { DateTime } from 'luxon';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -125,7 +126,9 @@ export const CouponCard = (props: Props) => {
           <ListItemText
             primary={
               couponTemplate.expiration_date
-                ? `${t('card.expiration')} ${couponTemplate.expiration_date}`
+                ? `${t('card.expiration')} ${DateTime.fromISO(
+                    couponTemplate.expiration_date,
+                  ).toLocaleString(DateTime.DATE_SHORT)}`
                 : t('card.no_expiration')
             }
           />

@@ -24,10 +24,9 @@ export const ConsumerUnsubscriber: React.FC<Props> = ({
   fetchCompanyTheme,
 }) => {
   useEffect(() => {
-    if (!companyTheme?.id && !companyThemeLoading) {
-      fetchCompanyTheme(companyId);
-    }
-  }, [companyTheme?.id, companyThemeLoading, companyId, fetchCompanyTheme]);
+    fetchCompanyTheme(companyId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Unsubscribe

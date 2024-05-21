@@ -142,6 +142,10 @@ export const PaymentComboForm: React.FC<Props> = ({
 
   const formatOptions = React.useCallback(
     (options: PrivatePass[] | ShopItem[] | PaymentPack[]) => {
+      /**
+       * Here the use of "pp" is because we use the components from the old selectors, which require it.
+       * Those will be refactored when deleting the old selectors.
+       */
       return options.map((option) => ({
         label: option.name,
         value: option.id,

@@ -43,14 +43,9 @@ import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
 
 import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
-import PaymentPackSelector from '#src/libs/payment-packs/components/PaymentPackSelector.component';
 // @ts-expect-error
 import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
-import ShopItemSelector from '#src/libs/shop/components/ShopItemSelector.component';
-import PrivatePassSelector from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
-// @ts-expect-error
-import PaymentComboSelector from '#src/libs/payment-combo/components/PaymentComboSelector.component';
 // @ts-expect-error
 import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
 
@@ -70,6 +65,17 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { checkCouponCodeValidity } from '#src/libs/coupon/api';
 import type { OptionCallback } from '#src/state/types';
+import {
+  WithObjectSearch,
+  withObjectSearch,
+} from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { SelectOption } from '#src/libs/types';
+import { paymentPackOption } from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+import { shopItemOption } from '#src/libs/shop/components/ShopItemSelector.component';
+import { privatePassOption } from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
+// @ts-expect-error
+import { paymentComboOption } from '#src/libs/payment-combo/components/PaymentComboSelector.component';
 
 const {
   trackFormAdd,
@@ -90,27 +96,12 @@ type Props = {
   t: TFunction;
   classes: ClassNameMap<keyof ReturnType<typeof styles>>;
 
-  paymentPacks: Array<PaymentPack>;
-  allPaymentPacksById: { [key: number]: PaymentPack };
-  shopItems: Array<ShopItem>;
   allShopItemsById: { [key: number]: ShopItem };
   privatePasses: Array<PrivatePass>;
-  allPrivatePassesById: { [key: number]: PrivatePass };
   paymentCombos: Array<PaymentCombo>;
-  allPaymentCombosById: { [key: number]: PaymentCombo };
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
-  fetchSelectedPaymentPacks: (ids: Number[]) => void;
-  fetchSelectedShopItems: (
-    companyId: Number | undefined,
-    ids: Number[],
-  ) => void;
-  fetchSelectedPrivatePasses: (ids: Number[]) => void;
-  fetchSelectedPaymentCombos: (
-    params: { company: Number; id__in?: Number[] },
-    options?: OptionCallback<PaymentCombo[]>,
-  ) => void;
-};
+} & WithObjectSearch;
 
 type State = {
   with_expiration_date: boolean;
@@ -142,10 +133,10 @@ export class CouponForm extends React.Component<Props, State> {
           ? DateTime.fromISO(props.initial.expiration_date)
           : DateTime.now().plus({ month: 1 }),
         whitelist_tags:
-          // @ts-expect-error
+          //@ts-expect-error
           props.initial?.whitelist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
         blacklist_tags:
-          // @ts-expect-error
+          //@ts-expect-error
           props.initial?.blacklist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
       };
     } else {
@@ -176,36 +167,6 @@ export class CouponForm extends React.Component<Props, State> {
 
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
-
-    if (this.props.initial && this.props.initial.only_on_objects.length) {
-      switch (this.props.initial.applies_to) {
-        case BUYABLE_ITEM_PASS:
-          this.props.fetchSelectedPaymentPacks(
-            this.props.initial.only_on_objects,
-          );
-          break;
-        case BUYABLE_ITEM_SHOP_ITEM:
-          this.props.fetchSelectedShopItems(
-            this.props.initial.company,
-            this.props.initial.only_on_objects,
-          );
-          break;
-        case BUYABLE_ITEM_PRIVATE_PASS:
-          this.props.fetchSelectedPrivatePasses(
-            this.props.initial.only_on_objects,
-          );
-          break;
-        case BUYABLE_ITEM_COMBO_ITEM:
-          this.props.fetchSelectedPaymentCombos(
-            // @ts-expect-error
-            this.props.initial.company,
-            this.props.initial.only_on_objects,
-          );
-          break;
-        default:
-          break;
-      }
-    }
   }
 
   checkCouponCodeAvailability = debounce(async (code: string) => {
@@ -235,6 +196,20 @@ export class CouponForm extends React.Component<Props, State> {
     if (key === 'code') {
       this.checkCouponCodeAvailability(inputValue);
     }
+  };
+
+  formatSearchOptions = (
+    searchResults: PaymentPack[] | PaymentCombo[] | ShopItem[] | PrivatePass[],
+  ) => {
+    /**
+     * Here we keep "pp" as we use the components from the soon-to-be-deprecated selectors, which all need this prop.
+     * This will be refactored when deleting them, once they are all replaced by ObjectSearch.
+     */
+    return searchResults.map((result) => ({
+      label: result.name,
+      value: result.id,
+      pp: result,
+    }));
   };
 
   onSubmit = (ev: SyntheticEvent<any>) => {
@@ -281,6 +256,33 @@ export class CouponForm extends React.Component<Props, State> {
       with_expiration_date: false,
     });
   };
+
+  createHandleAppliesToChange =
+    (objectId: number) =>
+    ({ value }: SelectOption<number>) => {
+      let newObjects = [...this.state.only_on_objects];
+
+      if (this.state.applies_to !== objectId) {
+        this.handleChange('applies_to', false)(objectId);
+        newObjects = [];
+      }
+      newObjects.push(value);
+      this.handleChange('only_on_objects', false)(newObjects);
+    };
+
+  handlePassChange = this.createHandleAppliesToChange(BUYABLE_ITEM_PASS);
+
+  handleShopItemChange = this.createHandleAppliesToChange(
+    BUYABLE_ITEM_SHOP_ITEM,
+  );
+
+  handlePrivatePassChange = this.createHandleAppliesToChange(
+    BUYABLE_ITEM_PRIVATE_PASS,
+  );
+
+  handleComboItemChange = this.createHandleAppliesToChange(
+    BUYABLE_ITEM_COMBO_ITEM,
+  );
 
   renderVoucherConfig = () => {
     const { t, initial } = this.props;
@@ -476,14 +478,9 @@ export class CouponForm extends React.Component<Props, State> {
 
   renderApply = () => {
     const {
-      paymentPacks,
-      allPaymentPacksById,
       privatePasses,
-      allPrivatePassesById,
-      shopItems,
       allShopItemsById,
       paymentCombos,
-      allPaymentCombosById,
       t,
       classes,
       initial,
@@ -525,24 +522,24 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_PASS}
           />
           <div className={classes.fullWidth}>
-            <PaymentPackSelector
-              nullCurrentValue
-              disabled={!!initial?.coupon_template_instance}
-              helperText={t('form.selectorPlaceholder.paymentPack')}
-              onChange={(id) => {
-                let newObjects = [...this.state.only_on_objects];
-
-                if (this.state.applies_to !== BUYABLE_ITEM_PASS) {
-                  this.handleChange('applies_to', false)(BUYABLE_ITEM_PASS);
-                  newObjects = [];
-                }
-                newObjects.push(id);
-                // @ts-expect-error
-                this.handleChange('only_on_objects')(newObjects);
+            <ObjectSearchComponent
+              additionalParams={{
+                disabled: false,
+                id__not_in:
+                  this.state.applies_to === BUYABLE_ITEM_PASS
+                    ? this.state.only_on_objects
+                    : [],
               }}
-              paymentPacks={paymentPacks
-                .filter((pp) => !pp.disabled)
-                .filter((pp) => !this.state.only_on_objects.includes(pp.id))}
+              components={{
+                Option: paymentPackOption,
+              }}
+              disabled={!!initial?.coupon_template_instance}
+              initialValues={this.state.only_on_objects}
+              onChange={this.handlePassChange}
+              optionsFormatter={this.formatSearchOptions}
+              placeholder={t('form.selectorPlaceholder.paymentPack')}
+              searchedObjectType="payment_pack"
+              value={[]}
             />
             {this.state.applies_to === BUYABLE_ITEM_PASS
               ? this.state.only_on_objects.map((id, i) => (
@@ -553,10 +550,9 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
-                      // @ts-expect-error
-                      this.handleChange('only_on_objects')(newObjects);
+                      this.handleChange('only_on_objects', false)(newObjects);
                     }}
-                    pack={allPaymentPacksById[id]}
+                    pack={this.props.getResultsById('payment_pack')[id]}
                   />
                 ))
               : null}
@@ -572,30 +568,25 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_SHOP_ITEM}
           />
           <div className={classes.fullWidth}>
-            <ShopItemSelector
-              // @ts-expect-error
-              nullCurrentValue
-              disabled={!!initial?.coupon_template_instance}
-              helperText={t('form.selectorPlaceholder.shopitem')}
-              // @ts-expect-error
-              onChange={(id) => {
-                let newObjects = [...this.state.only_on_objects];
-                if (this.state.applies_to !== BUYABLE_ITEM_SHOP_ITEM) {
-                  this.handleChange(
-                    'applies_to',
-                    false,
-                  )(BUYABLE_ITEM_SHOP_ITEM);
-                  newObjects = [];
-                }
-                newObjects.push(id);
-                // @ts-expect-error
-                this.handleChange('only_on_objects')(newObjects);
+            <ObjectSearchComponent
+              hideSelectedOptions
+              additionalParams={{
+                disabled: false,
+                id__not_in:
+                  this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
+                    ? this.state.only_on_objects
+                    : [],
               }}
-              shopItemList={shopItems
-                .filter((item) => item.subshop && !item.disabled)
-                .filter(
-                  (item) => !this.state.only_on_objects.includes(item.id),
-                )}
+              components={{
+                Option: shopItemOption,
+              }}
+              disabled={!!initial?.coupon_template_instance}
+              initialValues={this.state.only_on_objects}
+              onChange={this.handleShopItemChange}
+              optionsFormatter={this.formatSearchOptions}
+              placeholder={t('form.selectorPlaceholder.shopitem')}
+              searchedObjectType="shop_item"
+              value={[]}
             />
             {this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
               ? this.state.only_on_objects.map((id, i) => (
@@ -607,8 +598,7 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
-                      // @ts-expect-error
-                      this.handleChange('only_on_objects')(newObjects);
+                      this.handleChange('only_on_objects', false)(newObjects);
                     }}
                     shopitem={allShopItemsById[id]}
                   />
@@ -626,30 +616,25 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_PRIVATE_PASS}
           />
           <div className={classes.fullWidth}>
-            <PrivatePassSelector
-              // @ts-expect-error
-              nullCurrentValue
-              disabled={!!initial?.coupon_template_instance}
-              helperText={t('form.selectorPlaceholder.privatePass')}
-              onChange={(id: number) => {
-                let newObjects = [...this.state.only_on_objects];
-
-                if (this.state.applies_to !== BUYABLE_ITEM_PRIVATE_PASS) {
-                  this.handleChange(
-                    'applies_to',
-                    false,
-                  )(BUYABLE_ITEM_PRIVATE_PASS);
-                  newObjects = [];
-                }
-                newObjects.push(id);
-                // @ts-expect-error
-                this.handleChange('only_on_objects')(newObjects);
+            <ObjectSearchComponent
+              additionalParams={{
+                available: true,
+                id__not_in:
+                  this.state.applies_to === BUYABLE_ITEM_PRIVATE_PASS
+                    ? this.state.only_on_objects
+                    : [],
               }}
-              privatePassList={privatePasses
-                .filter((pp) => pp.available)
-                .filter(
-                  (pass) => !this.state.only_on_objects.includes(pass.id),
-                )}
+              components={{
+                Option: privatePassOption,
+              }}
+              disabled={!!initial?.coupon_template_instance}
+              getOptionLabel={(option) => option.label}
+              initialValues={this.state.only_on_objects}
+              onChange={this.handlePrivatePassChange}
+              optionsFormatter={this.formatSearchOptions}
+              placeholder={t('form.selectorPlaceholder.privatePass')}
+              searchedObjectType="private_pass"
+              value={[]}
             />
             {this.state.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
             privatePasses.length
@@ -663,10 +648,9 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
-                      // @ts-expect-error
-                      this.handleChange('only_on_objects')(newObjects);
+                      this.handleChange('only_on_objects', false)(newObjects);
                     }}
-                    pass={allPrivatePassesById[id]}
+                    pass={this.props.getResultsById('private_pass')[id]}
                   />
                 ))
               : null}
@@ -682,28 +666,22 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_COMBO_ITEM}
           />
           <div className={classes.fullWidth}>
-            <PaymentComboSelector
-              nullCurrentValue
-              disabled={!!initial?.coupon_template_instance}
-              helperText={t('form.selectorPlaceholder.paymentCombo')}
-              // @ts-expect-error
-              onChange={(id) => {
-                let newObjects = [...this.state.only_on_objects];
-
-                if (this.state.applies_to !== BUYABLE_ITEM_COMBO_ITEM) {
-                  this.handleChange(
-                    'applies_to',
-                    false,
-                  )(BUYABLE_ITEM_COMBO_ITEM);
-                  newObjects = [];
-                }
-                newObjects.push(id);
-                // @ts-expect-error
-                this.handleChange('only_on_objects')(newObjects);
+            <ObjectSearchComponent
+              additionalParams={{
+                available: true,
+                id__not_in:
+                  this.state.applies_to === BUYABLE_ITEM_COMBO_ITEM
+                    ? this.state.only_on_objects
+                    : [],
               }}
-              paymentComboList={paymentCombos.filter(
-                (combo) => !this.state.only_on_objects.includes(combo.id),
-              )}
+              components={{ Option: paymentComboOption }}
+              disabled={!!initial?.coupon_template_instance}
+              initialValues={this.state.only_on_objects}
+              onChange={this.handleComboItemChange}
+              optionsFormatter={this.formatSearchOptions}
+              placeholder={t('form.selectorPlaceholder.paymentCombo')}
+              searchedObjectType="payment_combo"
+              value={[]}
             />
             {this.state.applies_to === BUYABLE_ITEM_COMBO_ITEM &&
             paymentCombos.length
@@ -716,10 +694,11 @@ export class CouponForm extends React.Component<Props, State> {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
-                      // @ts-expect-error
-                      this.handleChange('only_on_objects')(newObjects);
+                      this.handleChange('only_on_objects', false)(newObjects);
                     }}
-                    paymentCombo={allPaymentCombosById[id]}
+                    paymentCombo={
+                      this.props.getResultsById('payment_combo')[id]
+                    }
                   />
                 ))
               : null}
@@ -1070,4 +1049,5 @@ export default compose(
   withTranslation(['coupon']),
   // @ts-expect-error
   withStyles(styles),
+  withObjectSearch,
 )(CouponForm);

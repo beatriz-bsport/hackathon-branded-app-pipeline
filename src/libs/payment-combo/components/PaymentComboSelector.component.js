@@ -31,7 +31,7 @@ type OptionProps = {
   isFocused: boolean,
 };
 
-function paymentComboOption(props: OptionProps) {
+export function paymentComboOption(props: OptionProps) {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     <div ref={innerRef} {...innerProps}>

@@ -124,6 +124,7 @@ export type PaymentComboFactoryOptions = {
 
 export type PaymentComboAPIParams = {
   id__in?: number[];
+  id__not_in?: number[];
   offer?: number;
   as_consumer_of_company?: number;
   video?: number;

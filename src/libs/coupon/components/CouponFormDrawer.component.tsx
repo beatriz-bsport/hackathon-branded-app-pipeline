@@ -10,7 +10,6 @@ import type { PaymentCombo } from '#src/libs/payment-combo/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { Coupon } from '../types';
-// @ts-expect-error
 import CouponForm from './CouponForm.component';
 import { OptionCallback } from '../../../state/types';
 

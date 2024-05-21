@@ -692,9 +692,9 @@ export type PrivateSlotQueryParams = {
 export type PrivatePassQueryParams = {
   video?: number;
   id__in?: number[];
+  id__not_in?: number[];
   include_expired?: boolean;
   company?: number;
-  id__not_in?: number[];
   available?: boolean;
   manager_only?: boolean;
 };

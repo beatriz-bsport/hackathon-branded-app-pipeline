@@ -119,7 +119,7 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
     ) =>
     (companyToDelete: Company) =>
       onChange(
-        [...selectedCompanies].filter(
+        selectedCompanies.filter(
           (company) => parseInt(company.value) !== companyToDelete.id,
         ),
       );
@@ -131,7 +131,7 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
     ) =>
     (companyGroupToDelete: CompanyGroup) =>
       onChange(
-        [...selectedCompanyGroups].filter(
+        selectedCompanyGroups.filter(
           (companyGroup) =>
             parseInt(companyGroup.value) !== companyGroupToDelete.id,
         ),

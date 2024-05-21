@@ -1,3 +1,6 @@
+import type { PaymentMethod } from '#src/libs/payment/types';
+import type { OptionCallback } from '#src/state/types';
+
 export type ConsumerSummaryCardProps = {
   acceptEmail: boolean;
   acceptSms: boolean;
@@ -27,4 +30,15 @@ export type ConsumerSummaryCardProps = {
   spiviPrivacySettingsLoading: boolean;
   totalUnpaidAmount: string;
   updateSpiviPrivacySettings: (memberId: number, value: boolean) => void;
+};
+
+export type PaymentMethodsCardProps = {
+  paymentMethods: PaymentMethod[];
+  paymentMethodLoading: boolean;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    option?: OptionCallback,
+  ) => void;
+  openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
 };

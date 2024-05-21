@@ -1,0 +1,51 @@
+.bs-consumer-payment-methods-card__root {
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 800px;
+}
+
+.bs-consumer-payment-methods-card__title {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer-payment-methods-card__text {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer-payment-methods-card__text--hidden {
+  display: none;
+}
+
+.bs-consumer-payment-methods-card__card-section {
+}
+
+.bs-consumer-payment-methods-card__card-section--hidden {
+  display: none;
+}
+
+.bs-consumer-payment-methods-card__list {
+}
+
+.bs-consumer-payment-methods-card__list-item {
+}
+
+.bs-consumer-payment-methods-card__list-item__caption-text {
+  color: var(--bs-color-text-weaker);
+}
+
+.bs-consumer-payment-methods-card__list-item__icon-button {
+}
+
+.bs-consumer-payment-methods-card__direct-payment-section {
+}
+
+.bs-consumer-payment-methods-card__direct-payment-section--hidden {
+  display: none;
+}
+
+.bs-consumer-payment-methods-card__button-section {
+  align-items: stretch;
+}
+
+.bs-consumer-payment-methods-card__button-section__button {
+}

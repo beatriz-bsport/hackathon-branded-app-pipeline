@@ -33,7 +33,7 @@ function generateId(num: number): string {
 }
 
 export function card_list_factory(num: number): Array<PaymentMethod> {
-  const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
+  const card_ids: Array<number> = [...Array(num).keys()];
   // @ts-expect-error
   return card_ids.map((id) => {
     return {
@@ -48,7 +48,7 @@ export function card_list_factory(num: number): Array<PaymentMethod> {
 }
 
 export function sepa_list_factory(num: number): Array<PaymentMethod> {
-  const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
+  const card_ids: Array<number> = [...Array(num).keys()];
   // @ts-expect-error
   return card_ids.map((id) => {
     return {

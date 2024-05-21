@@ -19,3 +19,11 @@ export type BarcodeModalsAndDrawersProps = ModalsAndDrawersProps & {
 export type BarcodePortalProps = PortalProps & {
   barcode: string;
 };
+
+export type TermsModalsAndDrawersProps = ModalsAndDrawersProps & {
+  terms: string;
+};
+
+export type TermsPortalProps = PortalProps & {
+  terms: string;
+};

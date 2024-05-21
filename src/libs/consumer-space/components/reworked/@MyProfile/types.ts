@@ -49,6 +49,11 @@ export type TermsAndConditionsCardProps = {
   openTermsAndConditionsDialog: () => void;
   openTermsOfUseDialog: () => void;
 };
+
+export type ConsumerHeaderProps = {
+  isLoading: boolean;
+};
+
 export type ConsumerProfileContextType = {
   closeAddPaymentMethodPortal: () => void;
   closeEditProfilePortal: () => void;

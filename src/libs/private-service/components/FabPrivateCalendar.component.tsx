@@ -186,8 +186,7 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
                 this.setState({ customEventDateStart })
               }
               timezone={this.props.timezone}
-              // @ts-expect-error
-              value={this.state.customEventDateStart}
+              value={DateTime.fromISO(this.state.customEventDateStart)}
             />
             <Typography
               className={this.props.classes.marginTop}
@@ -197,13 +196,11 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
               {this.props.t('calendar.customEvent.dateEnd')}
             </Typography>
             <DateTimeForm
-              // @ts-expect-error
-              onChange={(customEventDateEnd: string) =>
-                this.setState({ customEventDateEnd })
+              onChange={(value: DateTime) =>
+                this.setState({ customEventDateEnd: value.toISO() })
               }
               timezone={this.props.timezone}
-              // @ts-expect-error
-              value={this.state.customEventDateEnd}
+              value={DateTime.fromISO(this.state.customEventDateEnd)}
             />
           </div>
           <DialogActions>

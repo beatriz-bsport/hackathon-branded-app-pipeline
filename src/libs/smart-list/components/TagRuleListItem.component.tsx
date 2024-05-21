@@ -97,9 +97,11 @@ export const TagRuleListItem = (props: Props) => {
           <AccessTimeIcon />
           <Typography>
             {t('tag_rules.activeSince', {
-              since: `${DateTime.fromISO(props.tagRule.date_created).toFormat(
-                'D',
-              )}`,
+              since: `${
+                props.tagRule.date_created
+                  ? DateTime.fromISO(props.tagRule.date_created).toFormat('D')
+                  : DateTime.now().toFormat('D')
+              }`,
               interpolation: { escapeValue: false },
             })}
           </Typography>

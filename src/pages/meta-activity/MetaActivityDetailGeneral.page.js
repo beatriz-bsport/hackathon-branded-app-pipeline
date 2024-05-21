@@ -360,7 +360,7 @@ export default compose(
         fetchOffersByDay({
           year: luxonDate.year,
           month: luxonDate.month,
-          day: luxonDate.date,
+          day: luxonDate.day,
         });
       },
       onSubmit: (values, options) => {

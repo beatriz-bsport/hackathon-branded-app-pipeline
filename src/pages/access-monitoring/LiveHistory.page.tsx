@@ -113,9 +113,9 @@ const useLiveHistoryPageDataManager = ({
     (params: { page: number; member?: number }) => {
       // If current time is before 2am, we need to fetch yesterday's data as well
       const datetime_created_after = DateTime.now()
-        .toUTC()
         .minus({ hour: 2 })
         .startOf('day')
+        .toUTC()
         .toISO();
 
       // If the staff user has the permission to perform access monitoring, we will only show the member visits performed by him

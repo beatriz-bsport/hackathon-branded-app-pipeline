@@ -354,6 +354,10 @@ export class FiltersPanel extends Component<Props, State> {
         .includes(UPSELL_IDENTIFIER_CUSTOM_APP),
     );
 
+    const sanitizedCSVExportDate = this.props.csvExportDate
+      ? DateTime.fromSeconds(parseInt(this.props.csvExportDate))
+      : DateTime.now();
+
     return (
       <div>
         <div className={classes.buttonsRow}>
@@ -456,14 +460,8 @@ export class FiltersPanel extends Component<Props, State> {
             <Typography>
               {this.props.csvExportLink
                 ? t('lastGenerated', {
-                    date: DateTime.fromSeconds(
-                      // @ts-expect-error
-                      this.props.csvExportDate,
-                    ).toFormat('D'),
-                    time: DateTime.fromSeconds(
-                      // @ts-expect-error
-                      this.props.csvExportDate,
-                    ).toFormat('t'),
+                    date: sanitizedCSVExportDate.toFormat('D'),
+                    time: sanitizedCSVExportDate.toFormat('t'),
                   })
                 : t('generateHelperText')}
             </Typography>

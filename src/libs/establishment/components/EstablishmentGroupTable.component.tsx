@@ -91,7 +91,7 @@ export const EstablishmentGroupTable = (props: Props) => {
                   isDisabled={
                     !marketingNotificationByEstablishmentGroup[
                       group.id
-                    ]?.filter((m) => m.active)?.length
+                    ]?.filter((m) => !!m?.active)?.length
                   }
                   onClick={() =>
                     setEstablishmentGroupNotificationsToEdit(group.id)

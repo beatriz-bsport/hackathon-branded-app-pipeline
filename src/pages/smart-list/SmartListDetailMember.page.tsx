@@ -561,10 +561,8 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     ) {
       const now = DateTime.now().setZone(timezone);
       return (
-        // @ts-expect-error
-        earliestHourToSendCommunications > now.hours() ||
-        // @ts-expect-error
-        now.hours() >= latestHourToSendCommunications
+        earliestHourToSendCommunications > now.hour ||
+        now.hour >= latestHourToSendCommunications
       );
     }
     return false;

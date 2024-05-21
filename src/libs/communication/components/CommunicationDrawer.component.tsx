@@ -295,9 +295,11 @@ class CommunicationDrawer extends React.Component<Props, State> {
     this.setState({ isSmsCostReminderModalOpen: false });
 
   formatScheduledDate() {
-    return `${this.state.communicationScheduledDate
+    const dateToFormat =
+      this.state.communicationScheduledDate ?? DateTime.now();
+    return `${dateToFormat
       .setZone(this.props.timezone)
-      .toISODate()}T${this.state.communicationScheduledDate
+      .toISODate()}T${dateToFormat
       .setZone(this.props.timezone)
       .toFormat('HH:mm')}`;
   }

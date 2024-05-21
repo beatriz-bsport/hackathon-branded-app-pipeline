@@ -1,0 +1,25 @@
+.bs-consumer-payment-terms-card__root {
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 800px;
+  gap: var(--bs-space-size-1, 4px);
+}
+
+.bs-consumer-payment-terms-card__title {
+}
+
+.bs-consumer-payment-terms-card__list {
+  gap: unset;
+}
+
+.bs-consumer-payment-terms-card__list-item {
+  padding: unset;
+}
+
+.bs-consumer-payment-terms-card__list-item__button {
+  padding: unset;
+}
+
+.bs-consumer-payment-terms-card__list-item__caption-text {
+  color: var(--bs-color-text-weaker);
+}

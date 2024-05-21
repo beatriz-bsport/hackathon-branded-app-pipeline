@@ -42,3 +42,10 @@ export type PaymentMethodsCardProps = {
   ) => void;
   openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
 };
+
+export type TermsAndConditionsCardProps = {
+  dateJoined: string;
+  generalTermsAndConditionsDateAccepted: string | null;
+  openTermsAndConditionsDialog: () => void;
+  openTermsOfUseDialog: () => void;
+};

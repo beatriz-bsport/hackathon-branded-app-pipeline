@@ -21,6 +21,14 @@ import CoachSelector from '#libs/associated-coach/components/coach-selector/Coac
 import CoachGroupChip from '#libs/associated-coach/components/CoachGroupChip.component';
 
 import type { Coach } from '#libs/associated-coach/types';
+import type { Company } from '#libs/company/types';
+import CompanyFilterChipPreview from '#src/libs/franchise/components/CompanyFilterChipPreview.component';
+import FranchiseCompaniesSelector from '#libs/franchise/components/FranchiseCompaniesSelector.component';
+import type {
+  CompanyGroup,
+  CompanyOptionTypeBase,
+} from '#libs/franchise/types';
+import FranchiseCompanyGroupsSelector from '#libs/franchise/components/FranchiseCompanyGroupsSelector.component';
 
 type SubMenuProps = {
   onClick: () => void;
@@ -44,6 +52,12 @@ type MenuProps = {
 
   coaches?: Array<Coach>;
   selectedCoaches?: Array<number>;
+
+  companies?: Company[];
+  selectedCompanies?: CompanyOptionTypeBase[];
+  companyGroups?: CompanyGroup[];
+  selectedCompanyGroups?: CompanyOptionTypeBase[];
+  onChangeCompany?: (optionTypeBase: CompanyOptionTypeBase[]) => void;
 };
 
 type Props = {
@@ -58,7 +72,7 @@ const getCoachesById = (coaches: Array<Coach>, coaches_id: Array<number>) =>
 
 export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
   const classes = useStyles();
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation(['booking', 'paymentPack']);
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
@@ -77,7 +91,13 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
   };
 
   const noFilter = menu.reduce(
-    (acc, m) => acc && m.subMenu?.filter((s) => s.show).length === 0,
+    (acc, m) =>
+      acc &&
+      ((m.type === 'coach' && m.selectedCoaches.length === 0) ||
+        (m.type === 'company' && m.selectedCompanies.length === 0) ||
+        (m.type === 'company_group' && m.selectedCompanyGroups.length === 0) ||
+        (!['coach', 'company', 'company_group'].includes(m.type) &&
+          m.subMenu?.filter((s) => s.show).length === 0)),
     true,
   );
 
@@ -91,6 +111,80 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
         'coaches',
         [...selectedCoaches].filter((c) => c !== coach.id),
       );
+
+  const handleCompanyDelete =
+    (
+      selectedCompanies: CompanyOptionTypeBase[],
+      onChange: (newCompanies: CompanyOptionTypeBase[]) => void,
+    ) =>
+    (companyToDelete: Company) =>
+      onChange(
+        [...selectedCompanies].filter(
+          (company) => parseInt(company.value) !== companyToDelete.id,
+        ),
+      );
+
+  const handleCompanyGroupDelete =
+    (
+      selectedCompanyGroups: CompanyOptionTypeBase[],
+      onChange: (newCompanyGroups: CompanyOptionTypeBase[]) => void,
+    ) =>
+    (companyGroupToDelete: CompanyGroup) =>
+      onChange(
+        [...selectedCompanyGroups].filter(
+          (companyGroup) =>
+            parseInt(companyGroup.value) !== companyGroupToDelete.id,
+        ),
+      );
+
+  const getCompanyDic = React.useCallback(
+    (companies: Company[]) =>
+      (companies ?? [])?.reduce<Record<number, Company>>((acc, company) => {
+        acc[company.id] = company;
+        return acc;
+      }, {}),
+    [],
+  );
+
+  const handleChange = React.useCallback(
+    (onChangeCompany: (optionTypeBase: CompanyOptionTypeBase[]) => void) =>
+      (companyOptions: CompanyOptionTypeBase[]) => {
+        onChangeCompany(companyOptions);
+      },
+    [],
+  );
+
+  const getSelectedCompanies = React.useCallback(
+    (
+      companies: Company[],
+      selectedCompaniesOptions: CompanyOptionTypeBase[],
+    ) => {
+      const selectedCompanyIds = selectedCompaniesOptions
+        .filter((companyOption) => !!companyOption?.value)
+        .map((companyOption) => parseInt(companyOption.value));
+
+      return companies.filter((company) =>
+        selectedCompanyIds.includes(company.id),
+      );
+    },
+    [],
+  );
+
+  const getSelectedCompanyGroups = React.useCallback(
+    (
+      companyGroups: CompanyGroup[],
+      selectedCompanyGroupsOptions: CompanyOptionTypeBase[],
+    ) => {
+      const selectedCompanyGroupIds = selectedCompanyGroupsOptions
+        .filter((companyGroupOption) => !!companyGroupOption?.value)
+        .map((companyGroupOption) => parseInt(companyGroupOption.value));
+
+      return companyGroups.filter((companyGroup) =>
+        selectedCompanyGroupIds.includes(companyGroup.id),
+      );
+    },
+    [],
+  );
 
   return (
     <div className={classes.row}>
@@ -166,12 +260,12 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                 )}
               </MenuItem>
               <Collapse in={m.open}>
-                {m.type === 'coach' ? (
+                {m.type === 'coach' && (
                   <div className={classes.marginSelector}>
                     <CoachSelector
                       isClearable
                       coaches={m.coaches}
-                      placeholder={t('filters.pickCoach')}
+                      placeholder={t('bookings:filters.pickCoach')}
                       selectedCoaches={m.selectedCoaches}
                       selectOption={(
                         ev: { value: number; label: string }[],
@@ -183,7 +277,29 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                       }}
                     />
                   </div>
-                ) : (
+                )}
+                {m.type === 'company' && (
+                  <div className={classes.marginSelector}>
+                    <FranchiseCompaniesSelector
+                      // @ts-expect-error
+                      companies={m.companies}
+                      // @ts-expect-error
+                      companyDic={getCompanyDic(m.companies)}
+                      onChange={handleChange(m.onChangeCompany)}
+                      selectedCompanies={m.selectedCompanies}
+                    />
+                  </div>
+                )}
+                {m.type === 'company_group' && (
+                  <div className={classes.marginSelector}>
+                    <FranchiseCompanyGroupsSelector
+                      companyGroups={m.companyGroups}
+                      onChange={handleChange(m.onChangeCompany)}
+                      selectedCompanyGroups={m.selectedCompanyGroups}
+                    />
+                  </div>
+                )}
+                {!['coach', 'company', 'company_group'].includes(m.type) && (
                   <List subheader={<li />}>
                     <Divider color="primary" />
                     {m.subMenu.map((s) => (
@@ -228,20 +344,53 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
             </div>
           ) : (
             <>
-              {m.label === t('filters.coach') ? (
+              {m.label === t('booking:filters.coach') && (
                 <div key={m.label} className={classes.filters}>
                   <CoachGroupChip
                     coaches={getCoachesById(m.coaches, m.selectedCoaches)}
                     onDelete={handleCoachDelete(m.selectedCoaches, m.onChange)}
                   />
                 </div>
-              ) : (
+              )}
+              {m.label === t('paymentPack:filters.company') && (
+                <div key={m.label} className={classes.filters}>
+                  <CompanyFilterChipPreview
+                    companies={getSelectedCompanies(
+                      m.companies,
+                      m.selectedCompanies,
+                    )}
+                    onDelete={handleCompanyDelete(
+                      m.selectedCompanies,
+                      m.onChangeCompany,
+                    )}
+                  />
+                </div>
+              )}
+              {m.label === t('paymentPack:filters.companyGroup') && (
+                <div key={m.label} className={classes.filters}>
+                  <CompanyFilterChipPreview
+                    companies={getSelectedCompanyGroups(
+                      m.companyGroups,
+                      m.selectedCompanyGroups,
+                    )}
+                    onDelete={handleCompanyGroupDelete(
+                      m.selectedCompanyGroups,
+                      m.onChangeCompany,
+                    )}
+                  />
+                </div>
+              )}
+              {![
+                t('booking:filters.coach'),
+                t('paymentPack:filters.company'),
+                t('paymentPack:filters.companyGroup'),
+              ].includes(m.label) &&
                 m.subMenu.reduce(
                   (previous, s) => previous || s.show,
                   false,
                 ) && (
                   <div key={m.label} className={classes.filters}>
-                    {m.subMenu.map(
+                    {m.subMenu?.map(
                       (s) =>
                         s.show && (
                           <div key={s.label}>
@@ -256,8 +405,7 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                         ),
                     )}
                   </div>
-                )
-              )}
+                )}
             </>
           ),
         )}

@@ -7,8 +7,12 @@ import React, { useCallback } from 'react';
 import { Field, ErrorMessage, useField } from 'formik';
 
 import { useTranslation, withTranslation, TFunction } from 'react-i18next';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+  TimePicker,
+} from 'material-ui-pickers';
 
-import { DatePicker, TimePicker } from 'material-ui-pickers';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
@@ -25,7 +29,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { makeStyles } from '@material-ui/core';
 
 import MuiTextField from '@material-ui/core/TextField';
@@ -33,6 +37,7 @@ import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneInput from 'react-phone-number-input';
+import { LocalizedLuxonUtils } from '../i18n/utils/luxon-picker-utils';
 import { formatISOStringAsTime } from '../utils/datetime';
 import TagSelector from '../libs/tag/components/TagSelector.selector';
 import type { Tag } from '../libs/tag/types';
@@ -326,7 +331,10 @@ export const DateField = (
         meta: { touched, error },
         form: { setFieldValue, setFieldTouched },
       }) => (
-        <>
+        <MuiPickersUtilsProvider
+          locale={Settings.defaultLocale}
+          utils={LocalizedLuxonUtils}
+        >
           <DatePicker
             {...field}
             {...props}
@@ -365,7 +373,7 @@ export const DateField = (
               )}
             />
           )}
-        </>
+        </MuiPickersUtilsProvider>
       )}
     </Field>
   );
@@ -376,7 +384,10 @@ export const TimeField = (props: TimeFieldProps) => {
   return (
     <Field {...props}>
       {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
-        <>
+        <MuiPickersUtilsProvider
+          locale={Settings.defaultLocale}
+          utils={LocalizedLuxonUtils}
+        >
           <TimePicker
             {...field}
             {...props}
@@ -405,7 +416,7 @@ export const TimeField = (props: TimeFieldProps) => {
           <AccessTimeIcon
             style={{ marginLeft: -25, marginBottom: 4, color: 'grey' }}
           />
-        </>
+        </MuiPickersUtilsProvider>
       )}
     </Field>
   );

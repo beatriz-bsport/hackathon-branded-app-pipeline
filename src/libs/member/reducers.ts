@@ -124,11 +124,11 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     current: null,
     minimal: null,
   },
-  // @ts-expect-error
   spivi_privacy_settings: {
     error: null,
     loading: false,
   },
+  // @ts-expect-error
   updateDefaultEstablishmentBillingGroup: {
     error: null,
     loading: false,

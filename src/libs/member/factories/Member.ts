@@ -124,6 +124,7 @@ export function MemberFactory(
     accept_email: randomBoolean(),
     accept_sms: randomBoolean(),
     email,
+    // @ts-expect-error
     address: '3 Avenue du Bar',
     internal_account: generateRandomInt(50),
     credit_account_balance,

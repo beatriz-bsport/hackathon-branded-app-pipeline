@@ -93,7 +93,14 @@ export type Member<Tag = number, CA = number> = {
   accept_email: boolean;
   accept_sms: boolean;
   email: string;
-  address: string;
+  address: {
+    address_line_1: string;
+    address_line_2: string;
+    city: string;
+    country: string;
+    state: string;
+    zipcode: string;
+  };
   internal_account: number;
   credit_account_balance: CA;
   total_unpaid_amount: string;
@@ -184,6 +191,7 @@ export type MemberState = ErrorAndLoading &
       current: ChangeEmailRequest | null;
       minimal: ChangeEmailRequestMinimal | null;
     } & ErrorAndLoading;
+    spivi_privacy_settings: ErrorAndLoading;
   };
 
 export type MemberUploadedFile = {

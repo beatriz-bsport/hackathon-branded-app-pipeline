@@ -45,6 +45,7 @@ export type PaymentMethodsCardProps = {
 
 export type TermsAndConditionsCardProps = {
   dateJoined: string;
+  generalTermsOfUseDateAccepted: string | null;
   generalTermsAndConditionsDateAccepted: string | null;
   openTermsAndConditionsDialog: () => void;
   openTermsOfUseDialog: () => void;

@@ -731,7 +731,6 @@ const connector = connect(
     eventList: getMemberEventState(state).items,
     eventListLoading: getMemberEventState(state).loading,
     eventListPage: getMemberEventState(state).page,
-    // @ts-expect-error
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
     // Referral
     referralProgram: getTheReferralProgram(state),

@@ -22,7 +22,7 @@ import './styles.css';
 
 export type TooltipProps = {
   /** The id of the tooltip. */
-  id: string;
+  id?: string;
   /** Tooltip contents. */
   children: React.ReactNode;
   /** Override or extend the styles applied to the tooltip. */

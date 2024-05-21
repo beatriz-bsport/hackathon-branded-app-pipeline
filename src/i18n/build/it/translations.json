@@ -319,7 +319,7 @@
                 "coachChangeWarning": "La modifica dell'insegnante avrà effetto su tutte le sessioni future. Si può scegliere di utilizzare anche il campo \"Insegnante sostituto\".  Anche tutte le altre modifiche (stabilimento, prezzo, ecc.) saranno applicate a tutte le sessioni.",
                 "levelChangeWarning": "La modifica del livello avrà effetto su tutte le sessioni future. Anche tutte le altre modifiche (stabilimento, prezzo, ecc.) saranno applicate a tutte le sessioni.",
                 "establishmentChangeWarning": "La modifica dello stabilimento avrà effetto su tutte le sessioni future. È possibile utilizzare anche il campo \"Stabilimento sostitutivo\". Tutte le altre modifiche (insegnante, prezzo, ecc.) saranno applicate a tutte le sessioni.",
-                "substituteCoachLabel": "Sostituisci",
+                "substituteCoachLabel": "Sostituto",
                 "coachLabel": "Insegnante",
                 "establishmentLabel": "Stabilimento predefinito",
                 "substituteEstablishmentLabel": "Stabilimento sostitutivo",
@@ -966,7 +966,7 @@
                 }
             },
             "vod": "Video su richiesta",
-            "substitute": "Sostituisci",
+            "substitute": "Sostituto",
             "substituted": "Assente",
             "teacher": "Insegnante",
             "backToCalendar": "Precedente",

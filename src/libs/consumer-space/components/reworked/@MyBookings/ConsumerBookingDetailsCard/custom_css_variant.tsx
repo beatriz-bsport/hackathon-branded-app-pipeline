@@ -142,8 +142,9 @@ const usePropsFromVariation = (
     description: DESCRIPTION,
     waitlistPosition: showWaitlistPositionSelected && WAITLIST_POSITION,
     coachDescription: DESCRIPTION,
-    metaActivityLastDiscardMinutes:
-      showCancellationPolicySelected && META_ACTIVITY.last_discard_minutes,
+    metaActivityLastDiscardMinutes: showCancellationPolicySelected
+      ? META_ACTIVITY.last_discard_minutes
+      : 0,
     coachPicture: COACH_PICTURE,
     coachName: COACH_NAME,
     coachOverrideDescription: hasCoachOverrideSelected && DESCRIPTION,

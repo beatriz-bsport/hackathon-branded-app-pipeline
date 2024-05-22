@@ -63,7 +63,9 @@ const RecapSubscription = (props: RecapProps) => (
         className={props.classes.highlightText}
         color="primary"
       >
-        {DateTime.fromMillis(props.dateStart).toISODate() || '--/--/----'}
+        {DateTime.fromMillis(props.dateStart).toLocaleString(
+          DateTime.DATE_SHORT,
+        ) || '--/--/----'}
       </Typography>
       <Typography inline>{`${props.t('recap.to')}`}</Typography>
       <Typography
@@ -74,7 +76,7 @@ const RecapSubscription = (props: RecapProps) => (
         {props.nbPeriod
           ? DateTime.fromMillis(props.dateStart)
               .plus({ months: props.nbPeriod })
-              .toISODate()
+              .toLocaleString(DateTime.DATE_SHORT)
           : '--/--/----'}
       </Typography>
     </div>

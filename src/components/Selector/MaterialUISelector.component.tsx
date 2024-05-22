@@ -331,6 +331,22 @@ function MaterialUISelector<T extends OptionTypeBase>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!onMenuClose, stopEventPropagationOnClickAway]);
 
+  useEffect(() => {
+    if (!withoutConfirmButton || !onConfirm) return () => {};
+
+    const listener = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        onConfirm?.();
+      }
+    };
+
+    document.addEventListener('keydown', listener, { capture: true });
+    return () => {
+      document.removeEventListener('keydown', listener, { capture: true });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [!!onConfirm, withoutConfirmButton]);
+
   return (
     <SelectorContext.Provider
       value={{

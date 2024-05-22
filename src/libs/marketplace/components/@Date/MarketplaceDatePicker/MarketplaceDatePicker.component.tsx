@@ -134,23 +134,23 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     return `${formatAsTitle(start)} - ${formatAsTitle(end)}`;
   }, [dateSelected, rangeSize, startWeekOnDaySelected]);
 
-  const startOfMonth = useMemo(
-    () => dateDisplayed.startOf('month'),
-    [dateDisplayed],
-  );
+  const firstDayDisplayedInCalendar = dateDisplayed
+    .startOf('month')
+    .startOf('week', {
+      useLocaleWeeks: true,
+    });
 
-  const startingDay = useMemo(() => {
-    const dayOfWeek = startOfMonth.weekday;
-    return startOfMonth.minus({ days: dayOfWeek });
-  }, [startOfMonth]);
+  const lastDayDisplayedInCalendar = dateDisplayed
+    .endOf('month')
+    .endOf('week', { useLocaleWeeks: true });
 
   const nbDisplayedWeeks = useMemo(() => {
-    const endOfMonth = dateDisplayed.endOf('month');
-    const dayOfWeek = startOfMonth.weekday;
-    const endingDate = endOfMonth.plus({ days: 6 - dayOfWeek });
-
-    return Math.floor(endingDate.diff(startingDay, 'weeks').as('weeks'));
-  }, [dateDisplayed, startOfMonth, startingDay]);
+    return Math.ceil(
+      lastDayDisplayedInCalendar
+        .diff(firstDayDisplayedInCalendar, 'weeks')
+        .as('weeks'),
+    );
+  }, [lastDayDisplayedInCalendar, firstDayDisplayedInCalendar]);
 
   const isDayDisabled = useCallback(
     (currentDayDate: string) =>
@@ -268,18 +268,18 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                   ))}
                   {Array(nbDisplayedWeeks)
                     .fill(0)
-                    .map((trashValueWeek, weekNumber) => {
-                      const weekStartingDay = startingDay.plus({
-                        days: 7 * weekNumber + trashValueWeek,
+                    .map((_, weekNumber) => {
+                      const weekStartingDay = firstDayDisplayedInCalendar.plus({
+                        week: weekNumber,
                       });
 
                       return (
                         <>
                           {Array(7)
                             .fill(0)
-                            .map((trashValueDay, dayNumber) => {
+                            .map((__, dayNumber) => {
                               const currentDayDate = weekStartingDay.plus({
-                                days: trashValueDay + dayNumber,
+                                days: dayNumber,
                               });
                               return (
                                 <MarketplaceDatePickerDay

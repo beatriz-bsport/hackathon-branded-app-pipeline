@@ -18,6 +18,7 @@ import {
   createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
   fetchShopItemVariantCombinationListActions,
+  retrieveShopItemTemplateDetailsActions,
   fetchShopItemTemplateListActions,
   deleteShopItemTemplateActions,
   updateShopItemTemplateActions,
@@ -147,6 +148,13 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
       },
       shopItemTemplate: {
         bySubshopTemplateId: {},
+        itemDetails: {
+          error: null,
+          loading: false,
+          byId: {},
+          updateDetails: { error: null, loading: false },
+          delete: { error: null, loading: false },
+        },
         create: { error: null, loading: false },
         updateShopItemTemplate: { error: null, loading: false },
         delete: { error: null, loading: false },
@@ -565,6 +573,39 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopTemplates', 'shopItemTemplate', 'create', 'error'],
+        payload,
+      );
+    },
+    [retrieveShopItemTemplateDetailsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemDetails', 'loading'],
+        payload,
+      );
+    },
+    [retrieveShopItemTemplateDetailsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemDetails', 'error'],
+        payload,
+      );
+    },
+    [retrieveShopItemTemplateDetailsActions.success.toString()]: (
+      state,
+      { payload }: { payload: ShopItemTemplate },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'itemDetails',
+          'byId',
+          payload.id,
+        ],
         payload,
       );
     },

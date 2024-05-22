@@ -262,6 +262,11 @@ export type ShopStateReworked = {
       bySubshopTemplateId: {
         [key: number]: ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
       };
+      itemDetails: {
+        byId: { [key: number]: ShopItemTemplate };
+        updateDetails: ErrorAndLoading;
+        delete: ErrorAndLoading;
+      } & ErrorAndLoading;
       create: ErrorAndLoading;
       updateShopItemTemplate: ErrorAndLoading;
       delete: ErrorAndLoading;

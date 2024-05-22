@@ -147,6 +147,23 @@ export const getShopItemDetail = (state: RootState, id: number) => {
   return state.shopReworked.shopItemReworked.itemDetails.byId[id] ?? null;
 };
 
+/** Retrieves a shop item template object for franchisor */
+export const getShopItemTemplateDetail = (state: RootState, id: number) => {
+  if (!id) return null;
+  return (
+    state.shopReworked.shopTemplates.shopItemTemplate.itemDetails.byId[id] ??
+    null
+  );
+};
+
+/** Returns the loading state of the shop item template details */
+export const getShopItemTemplateDetailLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemDetails.loading;
+
+/** Returns the loading state when deleting a shop item template */
+export const getShopItemTemplateDetailDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemDetails.delete.loading;
+
 /** Returns the loading state when updating a variant item */
 export const getShopItemVariantUpdateLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemVariant.updateVariant.loading;

@@ -1,5 +1,6 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import type { OptionCallback } from '#state/types';
 import type {
   FuzzySearchAPIParams,
@@ -49,6 +50,8 @@ type HookProps = {
  * It performs a first search on mount to have initial options (hydration), then
  * it debounces the search to avoid performing too many requests.
  *
+ * When a change in the additionalParams is detected, it will perform a new hydration, in order to apply potential new filters.
+ *
  */
 
 export const useObjectSearch = ({
@@ -60,6 +63,8 @@ export const useObjectSearch = ({
   hasHydratedResults,
   optionsFormatter,
 }: HookProps) => {
+  const paramsRef = useRef(additionalParams);
+  const compareTextRef = useRef('');
   const hydrateOptions = useCallback(() => {
     searchObjects({
       params: {
@@ -72,6 +77,10 @@ export const useObjectSearch = ({
   }, [additionalParams, searchObjects, searchedObjectType]);
 
   const handleInputChange = debounce((text: string) => {
+    if (compareTextRef.current === text) {
+      return;
+    }
+    compareTextRef.current = text;
     searchObjects({
       params: {
         searchObjectURI: getSearchObjectURI(searchedObjectType),
@@ -84,11 +93,19 @@ export const useObjectSearch = ({
 
   useEffect(() => {
     resetSearch(searchedObjectType);
+  }, [resetSearch, searchedObjectType]);
+
+  useEffect(() => {
     if (hasHydratedResults) {
       hydrateOptions();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydration should only be done on mount
-  }, [searchedObjectType, hasHydratedResults]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- options hydration should only be performed after results hydration
+  }, [hasHydratedResults]);
+
+  if (!isEqual(paramsRef.current, additionalParams)) {
+    hydrateOptions();
+    paramsRef.current = additionalParams;
+  }
 
   const formattedResults = optionsFormatter
     ? optionsFormatter(rawResults)

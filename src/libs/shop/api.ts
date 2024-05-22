@@ -486,6 +486,14 @@ export const fetchShopItemTemplateList = (
 };
 
 /**
+ * Retrieves a base/standalone item template
+ * @param id The ID of the shop item template
+ */
+export const retrieveShopItemTemplate = (id: number) => {
+  return getAuth<ShopItemTemplate>(`${API_V1_URI}/shop/shopitemtemplate/${id}`);
+};
+
+/**
  * Creates a new shop item template. Creates shop item variants template if variant properties are detected (async task).
  * @param data Form data containing shop item properties and required `sub_shop_template` in addition to `company_ids[n]`
  */

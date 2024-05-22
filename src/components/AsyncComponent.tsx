@@ -1,8 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, ReactComponentElement } from 'react';
 
-export default function asyncComponent(importComponent) {
-  class AsyncComponent extends Component {
-    constructor(props) {
+type ImportComponentType = () => Promise<{ default: React.ComponentType<any> }>;
+
+interface Props {}
+interface State {
+  component: React.ComponentType<any> | null;
+}
+
+export default function asyncComponent(importComponent: ImportComponentType) {
+  class AsyncComponent extends Component<Props, State> {
+    constructor(props: Props) {
       super(props);
 
       this.state = {

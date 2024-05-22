@@ -292,11 +292,13 @@ export const PaymentPackForm: React.FC<Props> = ({
                   initial?.penalty_active || initial?.no_show_penalty_active,
                 // @ts-expect-error
                 applies_for_payroll: initial?.applies_for_payroll,
-                // @ts-expect-error
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: offPeakScheduleIsEmpty,
                 off_peak_schedule: offPeakGroupOnEdit,
                 unusable_by_staff: !initial.is_usable_by_staff,
+                expiration_date: initial.expiration_date
+                  ? DateTime.fromISO(initial.expiration_date)
+                  : null,
               }
             : {
                 id: null,
@@ -410,9 +412,9 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.no_show_penalty_active = false;
           }
           if (values.expiration_date_active && values.expiration_date) {
-            sanitizedValues.expiration_date = DateTime.fromISO(
-              values.expiration_date,
-            ).toISODate();
+            // @ts-expect-error
+            sanitizedValues.expiration_date =
+              values.expiration_date.toISODate();
           } else {
             sanitizedValues.expiration_date = null;
           }
@@ -425,6 +427,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             // @ts-expect-error
             sanitizedValues.off_peak_schedule = {};
           }
+
           const keys = [
             'name',
             'price',

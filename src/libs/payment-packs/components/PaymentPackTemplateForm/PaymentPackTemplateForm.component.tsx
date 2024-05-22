@@ -333,6 +333,9 @@ export const PaymentPackTemplateFormikHOC = withFormik({
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
         expiration_date_active: !!initial?.expiration_date,
+        expiration_date: initial.expiration_date
+          ? DateTime.fromISO(initial.expiration_date)
+          : null,
         off_peak_active:
           !!initial?.off_peak_schedule &&
           !!Object.keys(initial.off_peak_schedule).length,
@@ -444,7 +447,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     data.max_purchase_per_member = values.max_purchase_per_member || null;
 
     if (values.expiration_date_active && values.expiration_date) {
-      data.expiration_date = values.expiration_date;
+      data.expiration_date = values.expiration_date.toISODate();
     } else {
       data.expiration_date = null;
     }

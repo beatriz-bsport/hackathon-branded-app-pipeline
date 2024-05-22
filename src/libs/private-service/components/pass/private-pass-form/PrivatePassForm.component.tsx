@@ -115,7 +115,7 @@ export interface FormikValues {
   unusable_by_staff: boolean;
   applies_for_payroll: boolean;
   on_behalf_of_teacher: boolean;
-  expiration_date?: string;
+  expiration_date: DateTime | null;
   description?: string | null;
   tags_on_consumer_item_creation?: Array<number>;
   bookkeepingAccount: BookkeepingAccount;
@@ -1085,8 +1085,10 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         applies_for_payroll: initial.applies_for_payroll,
         // @ts-expect-error
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
-        // @ts-expect-error
         expiration_date_active: !!initial?.expiration_date,
+        expiration_date: initial.expiration_date
+          ? DateTime.fromISO(initial.expiration_date)
+          : null,
         credits: initial?.credits,
         tags_on_consumer_item_creation:
           initial.tags_on_consumer_item_creation || [],
@@ -1141,7 +1143,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       expiration_date:
         // @ts-expect-error
         values.expiration_date_active && values.expiration_date
-          ? DateTime.fromISO(values.expiration_date).toISODate()
+          ? values.expiration_date.toISODate()
           : null,
       credits,
     };

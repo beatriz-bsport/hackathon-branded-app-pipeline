@@ -613,6 +613,9 @@ export const PaymentComboFormHoc = withFormik({
         new_member_only: initial.new_member_only,
         unusable_by_staff: !initial.is_usable_by_staff,
         expiration_date_active: !!initial?.expiration_date,
+        expiration_date: initial.expiration_date
+          ? DateTime.fromISO(initial.expiration_date)
+          : null,
         tags_on_consumer_item_creation:
           initial.tags_on_consumer_item_creation || [],
       };
@@ -649,7 +652,7 @@ export const PaymentComboFormHoc = withFormik({
       is_usable_by_staff: !valuesFormik.unusable_by_staff,
       expiration_date:
         valuesFormik.expiration_date_active && valuesFormik.expiration_date
-          ? DateTime.fromISO(valuesFormik.expiration_date).toISODate()
+          ? valuesFormik.expiration_date.toISODate()
           : null,
     };
 

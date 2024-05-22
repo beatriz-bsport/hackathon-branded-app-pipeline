@@ -204,6 +204,7 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
   linked_payment_pack?: LPP;
   is_usable_by_staff: boolean;
   tags_on_consumer_item_creation?: Array<number>;
+  expiration_date: string | null;
 };
 
 export type PrivateConsumerPass<AssociatedMember = number> = {

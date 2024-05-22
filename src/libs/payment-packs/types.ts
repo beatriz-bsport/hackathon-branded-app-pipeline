@@ -5,6 +5,7 @@ import {
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
 
+import type { DateTime } from 'luxon';
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
@@ -132,6 +133,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   off_peak_schedule: Record<string, string[][]>;
   highlighted_as_recommended: boolean;
   bookkeeping_account?: number;
+  expiration_date: string | null;
 };
 
 export type PaymentPackTemplateInstance = {
@@ -324,7 +326,7 @@ export type PaymentPackFormValues<LPP = number> = {
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
   allow_guest_pass?: boolean;
   unusable_by_staff?: boolean;
-  expiration_date: string;
+  expiration_date: DateTime | null;
   expiration_date_active: boolean;
   off_peak_active: boolean;
   off_peak_schedule: OffPeakSchedule[];

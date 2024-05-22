@@ -163,6 +163,7 @@ export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
       options?.isAppliesForPayroll ?? faker.datatype.boolean(),
     off_peak_schedule: _paymentPackOffPeakScheduleFactory(),
     highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
+    expiration_date: null as unknown as string,
   };
 };
 

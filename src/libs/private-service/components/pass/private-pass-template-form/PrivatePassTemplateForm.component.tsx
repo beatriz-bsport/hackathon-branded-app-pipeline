@@ -60,6 +60,8 @@ interface FormikValues {
   start_date_method: string;
   expiration_days_before_first_use: number;
   unusable_by_staff: boolean;
+  expiration_date_active: boolean;
+  expiration_date: DateTime | null;
 }
 type Props = {
   isSubmitting: boolean;
@@ -364,8 +366,10 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
         ...initial,
         start_date_method: `${initial.start_date_method}`,
         unusable_by_staff: !initial.is_usable_by_staff,
-        // @ts-expect-error
         expiration_date_active: !!initial?.expiration_date,
+        expiration_date: initial.expiration_date
+          ? DateTime.fromISO(initial.expiration_date)
+          : null,
       };
 
     return {
@@ -394,10 +398,8 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
         ...values,
         is_usable_by_staff: !values.unusable_by_staff,
         expiration_date:
-          // @ts-expect-error
           values.expiration_date_active && values.expiration_date
-            ? // @ts-expect-error
-              DateTime.fromISO(values.expiration_date).toISODate()
+            ? values.expiration_date.toISODate()
             : null,
       },
 

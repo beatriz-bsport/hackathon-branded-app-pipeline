@@ -38,7 +38,7 @@ function dateFormatter(kind) {
   if (kind === 'week') {
     return (d) => `Semaine du ${parseRechartsDate(d).toFormat('dd MMM yyyy')}`;
   }
-  return (d) => parseRechartsDate(d).toFormat('EEEE dd MMM');
+  return (d) => parseRechartsDate(d).toFormat('EEE dd MMM');
 }
 
 export const TemporalStatistic = React.memo((props: Props) => {

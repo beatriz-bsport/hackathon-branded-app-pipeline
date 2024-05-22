@@ -1,5 +1,5 @@
 import LuxonUtils from '@date-io/luxon';
-import type { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { getLocaleWeekdays } from '#src/utils/datetime';
 
 /**
@@ -16,11 +16,14 @@ export class LocalizedLuxonUtils extends LuxonUtils {
 
   // eslint-disable-next-line
   public getWeekArray(date: DateTime) {
-    const { days } = date
+    const dateWithProperLocale = date.setLocale(Settings.defaultLocale);
+    const { days } = dateWithProperLocale
       .endOf('month')
       .endOf('week', { useLocaleWeeks: true })
       .diff(
-        date.startOf('month').startOf('week', { useLocaleWeeks: true }),
+        dateWithProperLocale
+          .startOf('month')
+          .startOf('week', { useLocaleWeeks: true }),
         'days',
       )
       .toObject();
@@ -30,7 +33,7 @@ export class LocalizedLuxonUtils extends LuxonUtils {
       .fill(0)
       .map((_, i) => i)
       .map((day) =>
-        date
+        dateWithProperLocale
           .startOf('month')
           .startOf('week', { useLocaleWeeks: true })
           .plus({ days: day }),

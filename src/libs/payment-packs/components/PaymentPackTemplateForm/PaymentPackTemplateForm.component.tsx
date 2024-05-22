@@ -328,7 +328,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         upper_date: initial.validity_daterange
           ? // @ts-expect-error
             DateTime.fromISO(JSON.parse(initial.validity_daterange).upper)
-          : DateTime.now().plus({ days: 365 }),
+          : DateTime.now().plus({ year: 1 }),
         apply_penalties:
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,

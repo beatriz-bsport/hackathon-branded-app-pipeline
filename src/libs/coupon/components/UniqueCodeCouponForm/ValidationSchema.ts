@@ -42,7 +42,7 @@ const ValidationSchema = Yup.object().shape({
       test: function isInvalidExpirationDate(value) {
         if (value) {
           const isExpirationDateBeforeNow =
-            DateTime.fromISO(value) < DateTime.now();
+            DateTime.fromJSDate(value) < DateTime.now();
           if (isExpirationDateBeforeNow) {
             return this.createError({
               message:

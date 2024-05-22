@@ -67,7 +67,7 @@ export const AllPerformancePagination = (props: Props) => {
           {props.oldestUpdate
             ? t('cachedData.oldestUpdate', {
                 date: DateTime.fromSeconds(props.oldestUpdate).toFormat(
-                  'cccc, DD h:mm a',
+                  'EEEE, DDD t',
                 ),
               })
             : t('cachedData.undeterminedOldestUpdate')}

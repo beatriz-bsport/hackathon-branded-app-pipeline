@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
@@ -34,7 +34,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onClose,
   onSelect,
 }) => {
-  const [dateDisplayed, setDateDisplayed] = useState<DateTime | null>(null);
+  const [dateDisplayed, setDateDisplayed] = useState<DateTime | null>(
+    dateSelected ? DateTime.fromISO(dateSelected) : null,
+  );
 
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
 
@@ -58,13 +60,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
     },
     [dateDisplayed, handleCloseYearPicker],
   );
-
-  // Initialize date sate
-  useEffect(() => {
-    if (!dateDisplayed) {
-      setDateDisplayed(DateTime.fromISO(dateSelected));
-    }
-  }, [dateDisplayed, dateSelected, isOpen, handleCloseMenu]);
 
   const handleChangeDateDisplayed = useCallback(
     (type: 'add' | 'subtract') =>

@@ -428,7 +428,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
           {!props.asCoach && props.displayLastUpdate && oldestUpdate
             ? t('coachPerformance:cachedData.oldestUpdate', {
                 date: DateTime.fromSeconds(oldestUpdate).toFormat(
-                  'cccc, DD h:mm a',
+                  'EEEE, DDD t',
                 ),
               })
             : t('coachPerformance:cachedData.undeterminedOldestUpdate')}

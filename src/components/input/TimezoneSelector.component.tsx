@@ -27,19 +27,13 @@ export const TimezoneSelector = (props: Props) => {
       )}
       <Select onChange={props.onChange} value={props.value}>
         {timezoneListExtended.map((tzData) => {
-          // @ts-expect-error
-          const { name, offset, abbrs } = tzData;
-          let offsetName = '';
-          if (offset) {
-            // @ts-expect-error
-            offsetName = `UTC${parseInt(offset, 10) <= 0 ? '+' : '-'}${Math.abs(
-              // @ts-expect-error
-              parseInt(offset / 60, 10),
-            )}`;
-          }
-          if (abbrs) {
-            offsetName = abbrs.join('');
-          }
+          const { name, offset } = tzData;
+          const hourOffset = Math.abs(Math.floor(offset / 60));
+          const minutesOffset = offset % 60;
+
+          const offsetName = `UTC${offset < 0 ? '-' : '+'}${
+            hourOffset < 10 ? '0' : ''
+          }${hourOffset}:${minutesOffset < 10 ? '0' : ''}${minutesOffset}`;
           return (
             <MenuItem key={name} value={name}>
               {`${name.split('/').slice(1).join(', ')} (${offsetName})`}

@@ -236,6 +236,7 @@ export default compose(
       setLocale: () => (ev) => {
         const timezoneList = getTimezonesForCountry(
           ev.target.value.slice(3, 6),
+          false,
         );
         let timezone_name = null;
         if (timezoneList?.length === 1) {

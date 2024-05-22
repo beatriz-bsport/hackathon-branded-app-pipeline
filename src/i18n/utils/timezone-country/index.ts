@@ -27,11 +27,23 @@ export type OptionTimezonesForCountry = {
  * @param options.additionalTimezones Adds extra timezones by country codes that will taken into account in the function.
  * @returns
  */
-export const getTimezonesForCountry = (
+export function getTimezonesForCountry(
   countryCode: string,
-  includeOffset: boolean = false,
-  options: OptionTimezonesForCountry = {},
-): TimezoneAndOffset<typeof includeOffset>[] | null => {
+  includeOffset: true,
+  options: OptionTimezonesForCountry,
+): TimezoneAndOffset<true>[];
+// eslint-disable-next-line no-redeclare
+export function getTimezonesForCountry(
+  countryCode: string,
+  includeOffset: false,
+  options?: OptionTimezonesForCountry,
+): TimezoneAndOffset<false>[];
+// eslint-disable-next-line no-redeclare
+export function getTimezonesForCountry(
+  countryCode: string,
+  includeOffset?: boolean,
+  options?: OptionTimezonesForCountry,
+): TimezoneAndOffset<boolean>[] | null {
   const timezones = [].concat(
     (data as Record<string, string[]>)?.[countryCode] ?? [],
     options?.additionalTimezones?.[countryCode] || [],
@@ -43,4 +55,4 @@ export const getTimezonesForCountry = (
     name,
     offset: includeOffset ? getOffsetFromTimezone(name) : undefined,
   }));
-};
+}

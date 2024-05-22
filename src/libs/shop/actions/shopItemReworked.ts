@@ -15,6 +15,7 @@ import {
   duplicateShopItem as duplicateShopItemAPI,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAPI,
   fetchShopItemTemplateList as fetchShopItemTemplateListAPI,
+  retrieveShopItemTemplate as retrieveShopItemTemplateAPI,
   createShopItemTemplate as createShopItemTemplateAPI,
   updateShopItemTemplate as updateShopItemTemplateAPI,
   deleteShopItemTemplate as deleteShopItemTemplateAPI,
@@ -703,6 +704,39 @@ export const fetchShopItemTemplateList = (
           isLoading: false,
         }),
       );
+    }
+  };
+};
+
+export const retrieveShopItemTemplateDetailsActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/DETAILS/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/DETAILS/ERROR'),
+  success: createAction<ShopItem>('SHOP_ITEM_TEMPLATE/DETAILS/SUCCESS'),
+};
+
+/**
+ * Retrieves a base/standalone item template
+ * @param id The ID of the shop item template
+ */
+export const retrieveShopItemTemplate = (
+  id: number,
+  options?: OptionCallback<ShopItemTemplate>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(retrieveShopItemTemplateDetailsActions.isLoading(true));
+      dispatch(retrieveShopItemTemplateDetailsActions.error(null));
+
+      const result = await retrieveShopItemTemplateAPI(id);
+
+      dispatch(retrieveShopItemTemplateDetailsActions.success(result.data));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(retrieveShopItemTemplateDetailsActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(retrieveShopItemTemplateDetailsActions.isLoading(false));
     }
   };
 };

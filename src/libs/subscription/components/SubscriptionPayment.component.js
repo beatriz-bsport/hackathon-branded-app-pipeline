@@ -33,11 +33,12 @@ import { Alert } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import { DateTime } from 'luxon';
-import { DatePicker } from 'material-ui-pickers';
+import { DateTime, Settings } from 'luxon';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
@@ -528,14 +529,19 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   {t('contract.actions.iwanttostarton')}
                 </Typography>
                 <div className={classes.column}>
-                  <DatePicker
-                    disablePast
-                    required
-                    format="D"
-                    onChange={setDate}
-                    returnMoment={false}
-                    value={date}
-                  />
+                  <MuiPickersUtilsProvider
+                    locale={Settings.defaultLocale}
+                    utils={LocalizedLuxonUtils}
+                  >
+                    <DatePicker
+                      disablePast
+                      required
+                      format="D"
+                      onChange={setDate}
+                      returnMoment={false}
+                      value={date}
+                    />
+                  </MuiPickersUtilsProvider>
                 </div>
               </div>
             )}

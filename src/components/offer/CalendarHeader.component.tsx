@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useState } from 'react';
-import { DateTime, Info } from 'luxon';
+import { DateTime, Info, Settings } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import {
   Theme,
@@ -10,13 +10,14 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FilterIcon from '@material-ui/icons/FilterList';
 import TodayIcon from '@material-ui/icons/Today';
 import classNames from 'classnames';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import { MONTHMODE } from './Calendar.component';
 import { formatAsTitle } from '../../utils/datetime';
 import type { LuxonDateTime } from '#src/types';
@@ -141,19 +142,24 @@ export const CalendarHeader = forwardRef(
             />
           </IconButton>
           <div>
-            <DatePicker
-              DialogProps={{ open }}
-              format="D"
-              initialFocusedDate={
-                props.dateSelected
-                  ? props.dateSelected
-                  : DateTime.now().toISODate()
-              }
-              onChange={setNewDate}
-              onClose={closePicker}
-              TextFieldComponent={hiddenDiv}
-              value={null}
-            />
+            <MuiPickersUtilsProvider
+              locale={Settings.defaultLocale}
+              utils={LocalizedLuxonUtils}
+            >
+              <DatePicker
+                DialogProps={{ open }}
+                format="D"
+                initialFocusedDate={
+                  props.dateSelected
+                    ? props.dateSelected
+                    : DateTime.now().toISODate()
+                }
+                onChange={setNewDate}
+                onClose={closePicker}
+                TextFieldComponent={hiddenDiv}
+                value={null}
+              />
+            </MuiPickersUtilsProvider>
           </div>
         </div>
         <div className={classes.trick}>

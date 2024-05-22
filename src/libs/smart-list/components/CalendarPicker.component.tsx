@@ -7,7 +7,7 @@ import {
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithStyles } from '@material-ui/styles';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -22,7 +22,12 @@ import Dialog from '@material-ui/core/Dialog';
 
 import { createStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
-import { Calendar, BasePicker } from 'material-ui-pickers';
+import {
+  Calendar,
+  BasePicker,
+  MuiPickersUtilsProvider,
+} from 'material-ui-pickers';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import NumericInput from '../../../components/input/NumericInput.component';
 
 import {
@@ -253,21 +258,26 @@ export class CalendarPicker extends Component<Props, State> {
           <BasePicker>
             {() => (
               <div className={classes.picker}>
-                <Calendar
-                  // @ts-expect-error
-                  autoOk
-                  date={date ? DateTime.fromISO(date) : DateTime.now()}
-                  maxDate={
-                    this.state.date_filter_type === DATE_BETWEEN
-                      ? DateTime.fromISO(date_second)
-                      : undefined
-                  }
-                  onChange={(ev) =>
-                    this.setState({
-                      date: ev.toISODate(),
-                    })
-                  }
-                />
+                <MuiPickersUtilsProvider
+                  locale={Settings.defaultLocale}
+                  utils={LocalizedLuxonUtils}
+                >
+                  <Calendar
+                    // @ts-expect-error
+                    autoOk
+                    date={date ? DateTime.fromISO(date) : DateTime.now()}
+                    maxDate={
+                      this.state.date_filter_type === DATE_BETWEEN
+                        ? DateTime.fromISO(date_second)
+                        : undefined
+                    }
+                    onChange={(ev) =>
+                      this.setState({
+                        date: ev.toISODate(),
+                      })
+                    }
+                  />
+                </MuiPickersUtilsProvider>
               </div>
             )}
           </BasePicker>
@@ -276,20 +286,25 @@ export class CalendarPicker extends Component<Props, State> {
             <BasePicker>
               {() => (
                 <div className={classes.picker}>
-                  {/* @ts-expect-error */}
-                  <Calendar
-                    date={
-                      date_second
-                        ? DateTime.fromISO(date_second)
-                        : DateTime.now()
-                    }
-                    minDate={DateTime.fromISO(date)}
-                    onChange={(ev) =>
-                      this.setState({
-                        date_second: ev.toISODate(),
-                      })
-                    }
-                  />
+                  <MuiPickersUtilsProvider
+                    locale={Settings.defaultLocale}
+                    utils={LocalizedLuxonUtils}
+                  >
+                    {/* @ts-expect-error */}
+                    <Calendar
+                      date={
+                        date_second
+                          ? DateTime.fromISO(date_second)
+                          : DateTime.now()
+                      }
+                      minDate={DateTime.fromISO(date)}
+                      onChange={(ev) =>
+                        this.setState({
+                          date_second: ev.toISODate(),
+                        })
+                      }
+                    />
+                  </MuiPickersUtilsProvider>
                 </div>
               )}
             </BasePicker>

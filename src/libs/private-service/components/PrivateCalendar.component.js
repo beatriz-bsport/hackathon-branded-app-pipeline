@@ -26,14 +26,15 @@ import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import InfoIcon from '@material-ui/icons/Info';
-import { DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import { Settings, DateTime, Info } from 'luxon';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { DateTime, Info } from 'luxon';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
@@ -811,20 +812,25 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           </div>
         )}
         <div>
-          <DatePicker
-            DialogProps={{ open: this.state.datePickerOpen }}
-            initialFocusedDate={
-              this.calendarRef.current
-                ? DateTime.fromJSDate(
-                    this.calendarRef?.current?.getApi().getDate(),
-                  ).toISODate()
-                : DateTime.now().toISODate()
-            }
-            onChange={this.setNewDate}
-            onClose={this.onCloseDatePicker}
-            TextFieldComponent={this.hiddenDiv}
-            value={null}
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <DatePicker
+              DialogProps={{ open: this.state.datePickerOpen }}
+              initialFocusedDate={
+                this.calendarRef.current
+                  ? DateTime.fromJSDate(
+                      this.calendarRef?.current?.getApi().getDate(),
+                    ).toISODate()
+                  : DateTime.now().toISODate()
+              }
+              onChange={this.setNewDate}
+              onClose={this.onCloseDatePicker}
+              TextFieldComponent={this.hiddenDiv}
+              value={null}
+            />
+          </MuiPickersUtilsProvider>
         </div>
         <FullCalendar
           ref={this.calendarRef}

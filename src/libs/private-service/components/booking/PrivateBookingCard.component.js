@@ -9,7 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,7 +17,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { InlineDateTimePicker } from 'material-ui-pickers';
+import {
+  InlineDateTimePicker,
+  MuiPickersUtilsProvider,
+} from 'material-ui-pickers';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -31,6 +34,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
@@ -193,17 +197,22 @@ export const PrivateBookingCard = (props: Props) => {
         )}
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
-          <InlineDateTimePicker
-            keyboard
-            ampm={false}
-            format="y/MM/dd HH:mm"
-            onChange={props.setUpdatedTime}
-            onError={console.error}
-            value={
-              props.updatedTime ||
-              DateTime.fromISO(props.private_booking.date_start)
-            }
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <InlineDateTimePicker
+              keyboard
+              ampm={false}
+              format="y/MM/dd HH:mm"
+              onChange={props.setUpdatedTime}
+              onError={console.error}
+              value={
+                props.updatedTime ||
+                DateTime.fromISO(props.private_booking.date_start)
+              }
+            />
+          </MuiPickersUtilsProvider>
           <Typography
             className={classes.updatedTimeExplain}
             color="textSecondary"

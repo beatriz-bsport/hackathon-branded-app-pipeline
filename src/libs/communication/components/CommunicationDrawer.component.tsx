@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
@@ -25,13 +25,17 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
-import { TimePicker, DatePicker } from 'material-ui-pickers';
-
+import {
+  MuiPickersUtilsProvider,
+  TimePicker,
+  DatePicker,
+} from 'material-ui-pickers';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
 import Config from '../../../config';
 
@@ -1078,73 +1082,78 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             {t('scheduled.when')}
                           </Typography>
                           <div className={classes.datePickerSection}>
-                            <DatePicker
-                              required
-                              adornmentPosition="start"
-                              className={classes.dateAndTimePickers}
-                              format="D"
-                              helperText={null}
-                              id="offer-form-date-start-input"
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <IconButton
-                                      className={classes.inputIconAdornment}
-                                    >
-                                      <CalendarTodayIcon />
-                                    </IconButton>
-                                  </InputAdornment>
-                                ),
-                              }}
-                              onChange={this.updateCommunicationScheduledDate}
-                              placeholder={t('scheduled.chooseDate')}
-                              size="small"
-                              value={this.state.communicationScheduledDate}
-                              variant="outlined"
-                            />
-                            <Typography variant="body1">
-                              {t('scheduled.at')}
-                            </Typography>
-                            <TimePicker
-                              required
-                              adornmentPosition="start"
-                              ampm={isAmPmTimeFormat()}
-                              className={classes.dateAndTimePickers}
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AccessTimeIcon
-                                      className={classes.timePickerIcon}
-                                    />
-                                  </InputAdornment>
-                                ),
-                              }}
-                              onChange={this.updateCommunicationScheduledDate}
-                              placeholder={t('scheduled.chooseTime')}
-                              size="small"
-                              TextFieldComponent={(
-                                props: React.ComponentProps<typeof TextField>,
-                              ) => (
-                                <CustomMuiThemeWrapper
-                                  primary={
-                                    !this.checkIsMessageScheduledDuringDaytime() &&
-                                    'warning'
-                                  }
-                                >
-                                  <TextField
-                                    {...props}
-                                    error={!this.checkIsMessageSchedulable()}
-                                    focused={
-                                      !this.checkIsMessageScheduledDuringDaytime() ||
-                                      !this.checkIsMessageSchedulable()
+                            <MuiPickersUtilsProvider
+                              locale={Settings.defaultLocale}
+                              utils={LocalizedLuxonUtils}
+                            >
+                              <DatePicker
+                                required
+                                adornmentPosition="start"
+                                className={classes.dateAndTimePickers}
+                                format="D"
+                                helperText={null}
+                                id="offer-form-date-start-input"
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <IconButton
+                                        className={classes.inputIconAdornment}
+                                      >
+                                        <CalendarTodayIcon />
+                                      </IconButton>
+                                    </InputAdornment>
+                                  ),
+                                }}
+                                onChange={this.updateCommunicationScheduledDate}
+                                placeholder={t('scheduled.chooseDate')}
+                                size="small"
+                                value={this.state.communicationScheduledDate}
+                                variant="outlined"
+                              />
+                              <Typography variant="body1">
+                                {t('scheduled.at')}
+                              </Typography>
+                              <TimePicker
+                                required
+                                adornmentPosition="start"
+                                ampm={isAmPmTimeFormat()}
+                                className={classes.dateAndTimePickers}
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <AccessTimeIcon
+                                        className={classes.timePickerIcon}
+                                      />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                                onChange={this.updateCommunicationScheduledDate}
+                                placeholder={t('scheduled.chooseTime')}
+                                size="small"
+                                TextFieldComponent={(
+                                  props: React.ComponentProps<typeof TextField>,
+                                ) => (
+                                  <CustomMuiThemeWrapper
+                                    primary={
+                                      !this.checkIsMessageScheduledDuringDaytime() &&
+                                      'warning'
                                     }
-                                    variant="outlined"
-                                  />
-                                </CustomMuiThemeWrapper>
-                              )}
-                              value={this.state.communicationScheduledDate}
-                              variant="outlined"
-                            />
+                                  >
+                                    <TextField
+                                      {...props}
+                                      error={!this.checkIsMessageSchedulable()}
+                                      focused={
+                                        !this.checkIsMessageScheduledDuringDaytime() ||
+                                        !this.checkIsMessageSchedulable()
+                                      }
+                                      variant="outlined"
+                                    />
+                                  </CustomMuiThemeWrapper>
+                                )}
+                                value={this.state.communicationScheduledDate}
+                                variant="outlined"
+                              />
+                            </MuiPickersUtilsProvider>
                           </div>
                         </div>
                         {!this.checkIsMessageSchedulable() && (

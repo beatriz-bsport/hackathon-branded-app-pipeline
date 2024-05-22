@@ -10,15 +10,20 @@ import { useTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { DatePicker, TimePicker } from 'material-ui-pickers';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+  TimePicker,
+} from 'material-ui-pickers';
+import { Settings, DateTime } from 'luxon';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import { DateTime } from 'luxon';
 import FormSection from '#components/forms/FormSection';
 import useOfferFormStyles from '#libs/offer/hooks/useOfferFormStyles';
 import OfferFormField from '#libs/offer/form/OfferFormField.component';
@@ -230,36 +235,41 @@ const OfferFormDateTime = (props: Props) => {
           id="offer-form-date-start-time-field"
           label={t('offer:form.section.dateTime.field.dateIntervalStartTime')}
         >
-          <TimePicker
-            required
-            adornmentPosition="start"
-            ampm={isAmPmTimeFormat()}
-            className={classNames(classes.timeInput)}
-            disabled={!!disabled}
-            error={
-              typeof errors.dateIntervalStart === 'string' &&
-              errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
-            }
-            id="offer-form-date-start-time-input"
-            InputProps={{
-              classes: {
-                adornedEnd: classes.dateInputAdornedEnd,
-                adornedStart: classes.dateInputAdornedStart,
-              },
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton className={classes.inputIconAdornment}>
-                    <AccessTime />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleChangeStartTime}
-            placeholder="00:00"
-            size="small"
-            value={dateIntervalStart.setZone(timezone)}
-            variant="outlined"
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <TimePicker
+              required
+              adornmentPosition="start"
+              ampm={isAmPmTimeFormat()}
+              className={classNames(classes.timeInput)}
+              disabled={!!disabled}
+              error={
+                typeof errors.dateIntervalStart === 'string' &&
+                errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
+              }
+              id="offer-form-date-start-time-input"
+              InputProps={{
+                classes: {
+                  adornedEnd: classes.dateInputAdornedEnd,
+                  adornedStart: classes.dateInputAdornedStart,
+                },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton className={classes.inputIconAdornment}>
+                      <AccessTime />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleChangeStartTime}
+              placeholder="00:00"
+              size="small"
+              value={dateIntervalStart.setZone(timezone)}
+              variant="outlined"
+            />
+          </MuiPickersUtilsProvider>
         </OfferFormField>
 
         <OfferFormField
@@ -363,37 +373,42 @@ const OfferFormDateTime = (props: Props) => {
         label={t('offer:form.section.dateTime.field.dateIntervalStart')}
       >
         <div className={classes.errorContainer}>
-          <DatePicker
-            required
-            adornmentPosition="start"
-            className={classes.dateInput}
-            disabled={!!disabled}
-            error={
-              typeof errors.dateIntervalStart === 'string' &&
-              errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
-            }
-            format="D"
-            helperText={null}
-            id="offer-form-date-start-input"
-            InputProps={{
-              classes: {
-                adornedEnd: classes.dateInputAdornedEnd,
-                adornedStart: classes.dateInputAdornedStart,
-              },
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton className={classes.inputIconAdornment}>
-                    <CalendarToday />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleChangeDateStart}
-            placeholder={datePickerPlaceholder}
-            size="small"
-            value={dateIntervalStart}
-            variant="outlined"
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <DatePicker
+              required
+              adornmentPosition="start"
+              className={classes.dateInput}
+              disabled={!!disabled}
+              error={
+                typeof errors.dateIntervalStart === 'string' &&
+                errors.dateIntervalStart === 'offer:form.errors.dateTooFar'
+              }
+              format="D"
+              helperText={null}
+              id="offer-form-date-start-input"
+              InputProps={{
+                classes: {
+                  adornedEnd: classes.dateInputAdornedEnd,
+                  adornedStart: classes.dateInputAdornedStart,
+                },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton className={classes.inputIconAdornment}>
+                      <CalendarToday />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleChangeDateStart}
+              placeholder={datePickerPlaceholder}
+              size="small"
+              value={dateIntervalStart}
+              variant="outlined"
+            />
+          </MuiPickersUtilsProvider>
 
           {!!errors.dateIntervalStart &&
             typeof errors.dateIntervalStart === 'string' && (
@@ -454,27 +469,32 @@ const OfferFormDateTime = (props: Props) => {
                 label={t('offer:form.section.dateTime.field.dateIntervalEnd')}
               >
                 <div className={classes.errorContainer}>
-                  <DatePicker
-                    keyboard
-                    required
-                    className={classes.dateInput}
-                    error={!!errors.dateIntervalEnd}
-                    format="D"
-                    helperText={null}
-                    id="offer-form-date-end-input"
-                    InputProps={{
-                      classes: {
-                        adornedEnd: classes.dateInputAdornedEnd,
-                      },
-                    }}
-                    keyboardIcon={<CalendarToday />}
-                    minDate={dateIntervalStart}
-                    onChange={handleChangeDateEnd}
-                    placeholder={datePickerPlaceholder}
-                    size="small"
-                    value={dateIntervalEnd}
-                    variant="outlined"
-                  />
+                  <MuiPickersUtilsProvider
+                    locale={Settings.defaultLocale}
+                    utils={LocalizedLuxonUtils}
+                  >
+                    <DatePicker
+                      keyboard
+                      required
+                      className={classes.dateInput}
+                      error={!!errors.dateIntervalEnd}
+                      format="D"
+                      helperText={null}
+                      id="offer-form-date-end-input"
+                      InputProps={{
+                        classes: {
+                          adornedEnd: classes.dateInputAdornedEnd,
+                        },
+                      }}
+                      keyboardIcon={<CalendarToday />}
+                      minDate={dateIntervalStart}
+                      onChange={handleChangeDateEnd}
+                      placeholder={datePickerPlaceholder}
+                      size="small"
+                      value={dateIntervalEnd}
+                      variant="outlined"
+                    />
+                  </MuiPickersUtilsProvider>
 
                   {!!errors.dateIntervalEnd &&
                     typeof errors.dateIntervalEnd === 'string' && (

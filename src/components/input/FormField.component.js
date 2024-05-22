@@ -14,6 +14,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { Settings } from 'luxon';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
 import { DateTimePicker, DatePicker } from 'material-ui-pickers';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
@@ -268,10 +271,15 @@ export class FormField extends Component<Props, State> {
         );
       case 'date_time':
         return (
-          <DateTimePicker
-            onChange={this.handleDateChange}
-            value={selectedDate}
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <DateTimePicker
+              onChange={this.handleDateChange}
+              value={selectedDate}
+            />
+          </MuiPickersUtilsProvider>
         );
       case 'date_interval_start':
       case 'date_interval_end':
@@ -279,13 +287,18 @@ export class FormField extends Component<Props, State> {
       case 'lower_date':
       case 'date':
         return (
-          <DatePicker
-            keyboard
-            disabled={disabled}
-            format="D"
-            onChange={this.handleDateChange}
-            value={selectedDate}
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <DatePicker
+              keyboard
+              disabled={disabled}
+              format="D"
+              onChange={this.handleDateChange}
+              value={selectedDate}
+            />
+          </MuiPickersUtilsProvider>
         );
       case 'hour':
         return (

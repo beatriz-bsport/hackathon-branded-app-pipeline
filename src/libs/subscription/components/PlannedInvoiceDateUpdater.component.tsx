@@ -6,10 +6,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
-import { DatePicker } from 'material-ui-pickers';
+import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { Settings, DateTime } from 'luxon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import { DateTime } from 'luxon';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import { OptionCallback } from '../../../state/types';
 import { PlannedInvoice } from '../types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
@@ -39,21 +40,26 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
     <Dialog open>
       <DialogTitle>{t('plannedInvoice.dateUpdater.title')}</DialogTitle>
       <DialogContent>
-        <DatePicker
-          disablePast
-          keyboard
-          format="D"
-          maxDate={DateTime.fromISO(props.plannedInvoice.date)
-            .plus({ months: 1 })
-            .minus({ days: 1 })
-            .toISODate()}
-          minDate={DateTime.fromISO(props.plannedInvoice.date)
-            .plus({ months: -1 })
-            .minus({ days: 1 })
-            .toISODate()}
-          onChange={handleDateChange}
-          value={date}
-        />
+        <MuiPickersUtilsProvider
+          locale={Settings.defaultLocale}
+          utils={LocalizedLuxonUtils}
+        >
+          <DatePicker
+            disablePast
+            keyboard
+            format="D"
+            maxDate={DateTime.fromISO(props.plannedInvoice.date)
+              .plus({ months: 1 })
+              .minus({ days: 1 })
+              .toISODate()}
+            minDate={DateTime.fromISO(props.plannedInvoice.date)
+              .plus({ months: -1 })
+              .minus({ days: 1 })
+              .toISODate()}
+            onChange={handleDateChange}
+            value={date}
+          />
+        </MuiPickersUtilsProvider>
         <Typography className={classes.explain}>
           {t('plannedInvoice.dateUpdater.explain')}
         </Typography>

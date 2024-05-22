@@ -14,9 +14,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import { DatePicker } from 'material-ui-pickers';
+import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { Settings } from 'luxon';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import isEqual from 'lodash/isEqual';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import { MaterialStyleType } from '../../utils/types';
 import { ExpenseWithUser } from '../../libs/expense/types';
 import WeekdaySelector from '#components/Selector/WeekdaySelector.component';
@@ -515,16 +517,21 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Typography>
                   {t('form.repeat.fromDate').toLowerCase()}
                 </Typography>
-                <DatePicker
-                  className={classes.margin}
-                  disabled={radioRepeatValue === 1 || !!initial?.rrule}
-                  format="D"
-                  onChange={(date: Date) => {
-                    setRrule({ ...rrule, dtstart: date });
-                  }}
-                  style={{ width: 120 }}
-                  value={rrule.dtstart}
-                />
+                <MuiPickersUtilsProvider
+                  locale={Settings.defaultLocale}
+                  utils={LocalizedLuxonUtils}
+                >
+                  <DatePicker
+                    className={classes.margin}
+                    disabled={radioRepeatValue === 1 || !!initial?.rrule}
+                    format="D"
+                    onChange={(date: Date) => {
+                      setRrule({ ...rrule, dtstart: date });
+                    }}
+                    style={{ width: 120 }}
+                    value={rrule.dtstart}
+                  />
+                </MuiPickersUtilsProvider>
                 <InsertInvitationIcon className={classes.calendarIcon} />
               </div>
               <div
@@ -536,34 +543,44 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               >
                 <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>
-                <DatePicker
-                  className={classes.margin}
-                  disabled={radioRepeatValue !== 1 || !!initial?.rrule}
-                  format="D"
-                  onChange={(date: Date) => {
-                    setRrule({ ...rrule, dtstart: date });
-                    if (rrule.until < date) {
-                      setRrule({ ...rrule, until: date });
-                    }
-                  }}
-                  style={{ width: 120 }}
-                  value={rrule.dtstart}
-                />
+                <MuiPickersUtilsProvider
+                  locale={Settings.defaultLocale}
+                  utils={LocalizedLuxonUtils}
+                >
+                  <DatePicker
+                    className={classes.margin}
+                    disabled={radioRepeatValue !== 1 || !!initial?.rrule}
+                    format="D"
+                    onChange={(date: Date) => {
+                      setRrule({ ...rrule, dtstart: date });
+                      if (rrule.until < date) {
+                        setRrule({ ...rrule, until: date });
+                      }
+                    }}
+                    style={{ width: 120 }}
+                    value={rrule.dtstart}
+                  />
+                </MuiPickersUtilsProvider>
                 <InsertInvitationIcon className={classes.calendarIcon} />
                 <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
-                <DatePicker
-                  className={classes.margin}
-                  // @ts-expect-error
-                  disabled={radioRepeatValue !== 1 || !!initial?.disabled}
-                  format="D"
-                  maxDate={maxDate}
-                  minDate={rrule.dtstart}
-                  onChange={(date: Date) => {
-                    setRrule({ ...rrule, until: date });
-                  }}
-                  style={{ width: 120 }}
-                  value={rrule.until}
-                />
+                <MuiPickersUtilsProvider
+                  locale={Settings.defaultLocale}
+                  utils={LocalizedLuxonUtils}
+                >
+                  <DatePicker
+                    className={classes.margin}
+                    // @ts-expect-error
+                    disabled={radioRepeatValue !== 1 || !!initial?.disabled}
+                    format="D"
+                    maxDate={maxDate}
+                    minDate={rrule.dtstart}
+                    onChange={(date: Date) => {
+                      setRrule({ ...rrule, until: date });
+                    }}
+                    style={{ width: 120 }}
+                    value={rrule.until}
+                  />
+                </MuiPickersUtilsProvider>
                 <InsertInvitationIcon className={classes.calendarIcon} />
               </div>
             </RadioGroup>

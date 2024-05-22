@@ -4,10 +4,12 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import { Settings } from 'luxon';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import TemporalStatistic from '../../../components/graph/TemporalDiagram.component';
 import PieChart from '../../../components/graph/DEPRECATEDPieChart.component';
 
@@ -62,27 +64,32 @@ export const StatsPanel = (props: Props) => {
         />
       ) : null}
       <div className={props.classes.datePickerContainer}>
-        <DatePicker
-          keyboard
-          className={props.classes.datePicker}
-          format="D"
-          label={t('dashboard:dateRange.start')}
-          maxDate={props.dateRange.end.toISODate()}
-          onChange={(value) =>
-            props.changeDateRange(value, props.dateRange.end, null)
-          }
-          value={props.dateRange.start.toISODate()}
-        />
-        <DatePicker
-          keyboard
-          format="D"
-          label={t('dashboard:dateRange.end')}
-          minDate={props.dateRange.start.toISODate()}
-          onChange={(value) =>
-            props.changeDateRange(props.dateRange.start, value, null)
-          }
-          value={props.dateRange.end.toISODate()}
-        />
+        <MuiPickersUtilsProvider
+          locale={Settings.defaultLocale}
+          utils={LocalizedLuxonUtils}
+        >
+          <DatePicker
+            keyboard
+            className={props.classes.datePicker}
+            format="D"
+            label={t('dashboard:dateRange.start')}
+            maxDate={props.dateRange.end.toISODate()}
+            onChange={(value) =>
+              props.changeDateRange(value, props.dateRange.end, null)
+            }
+            value={props.dateRange.start.toISODate()}
+          />
+          <DatePicker
+            keyboard
+            format="D"
+            label={t('dashboard:dateRange.end')}
+            minDate={props.dateRange.start.toISODate()}
+            onChange={(value) =>
+              props.changeDateRange(props.dateRange.start, value, null)
+            }
+            value={props.dateRange.end.toISODate()}
+          />
+        </MuiPickersUtilsProvider>
       </div>
     </div>
   );

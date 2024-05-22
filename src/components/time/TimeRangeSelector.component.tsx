@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import { withFormik, Form, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { TimePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, TimePicker } from 'material-ui-pickers';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import {
   Button,
@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 // @ts-expect-error
 import { defaultHandleSubmit } from '#components/forms';
 
@@ -185,30 +186,38 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
               {t('header.selectTimeRange')}
             </Typography>
             <div className={classes.row}>
-              <div>
-                <TimePicker
-                  ampm={false}
-                  label={t('header.start')}
-                  onChange={handleTimeStartChange}
-                  value={DateTime.fromFormat(values.timeStart, 'HH:mm:ss')}
-                />
-              </div>
-              <div>
-                <TimePicker
-                  ampm={false}
-                  label={t('header.end')}
-                  onChange={handleTimeEndChange}
-                  value={DateTime.fromFormat(values.timeEnd, 'HH:mm:ss')}
-                />
-                <ErrorMessage
-                  name="timeEnd"
-                  render={(message) => (
-                    <Typography className={classes.alertError} variant="body2">
-                      {message}
-                    </Typography>
-                  )}
-                />
-              </div>
+              <MuiPickersUtilsProvider
+                locale={Settings.defaultLocale}
+                utils={LocalizedLuxonUtils}
+              >
+                <div>
+                  <TimePicker
+                    ampm={false}
+                    label={t('header.start')}
+                    onChange={handleTimeStartChange}
+                    value={DateTime.fromFormat(values.timeStart, 'HH:mm:ss')}
+                  />
+                </div>
+                <div>
+                  <TimePicker
+                    ampm={false}
+                    label={t('header.end')}
+                    onChange={handleTimeEndChange}
+                    value={DateTime.fromFormat(values.timeEnd, 'HH:mm:ss')}
+                  />
+                  <ErrorMessage
+                    name="timeEnd"
+                    render={(message) => (
+                      <Typography
+                        className={classes.alertError}
+                        variant="body2"
+                      >
+                        {message}
+                      </Typography>
+                    )}
+                  />
+                </div>
+              </MuiPickersUtilsProvider>
             </div>
             <div className={classes.rapidSelection}>
               <Typography color="textSecondary">

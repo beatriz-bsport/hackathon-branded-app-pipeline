@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,9 +8,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import { DatePicker } from 'material-ui-pickers';
+import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
 type Props = {
   onSubmit: (
@@ -77,14 +78,19 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
           <Typography variant="subtitle2">
             {t('calendar.form.explain')}
           </Typography>
-          <DatePicker
-            disablePast
-            keyboard
-            required
-            format="D"
-            onChange={handleDateChange}
-            value={date}
-          />
+          <MuiPickersUtilsProvider
+            locale={Settings.defaultLocale}
+            utils={LocalizedLuxonUtils}
+          >
+            <DatePicker
+              disablePast
+              keyboard
+              required
+              format="D"
+              onChange={handleDateChange}
+              value={date}
+            />
+          </MuiPickersUtilsProvider>
         </DialogContent>
         <DialogActions>
           {loading ? (

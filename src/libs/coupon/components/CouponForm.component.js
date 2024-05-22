@@ -1,10 +1,10 @@
 import React from 'react';
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import Collapse from '@material-ui/core/Collapse';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -37,6 +37,7 @@ import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import debounce from 'lodash/debounce';
+import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
@@ -418,26 +419,33 @@ export class CouponForm extends React.Component<Props, State> {
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
         />
-        <DatePicker
-          clearable
-          keyboard
-          openToYearSelection
-          cancelLabel={t('form.expiration_date.cancel')}
-          clearLabel={t('form.expiration_date.clear_date')}
-          disabled={
-            !!initial?.coupon_template_instance ||
-            !this.state.with_expiration_date ||
-            !this.state.is_active
-          }
-          format="D"
-          initialFocusedDate={DateTime.now().toFormat('D')}
-          label={t('form.expiration_date.label')}
-          minDate={DateTime.now()}
-          onChange={(date) => this.handleChange('expiration_date', false)(date)}
-          required={this.state.with_expiration_date && this.state.is_active}
-          returnMoment={false}
-          value={this.state.expiration_date}
-        />
+        <MuiPickersUtilsProvider
+          locale={Settings.defaultLocale}
+          utils={LocalizedLuxonUtils}
+        >
+          <DatePicker
+            clearable
+            keyboard
+            openToYearSelection
+            cancelLabel={t('form.expiration_date.cancel')}
+            clearLabel={t('form.expiration_date.clear_date')}
+            disabled={
+              !!initial?.coupon_template_instance ||
+              !this.state.with_expiration_date ||
+              !this.state.is_active
+            }
+            format="D"
+            initialFocusedDate={DateTime.now().toFormat('D')}
+            label={t('form.expiration_date.label')}
+            minDate={DateTime.now()}
+            onChange={(date) =>
+              this.handleChange('expiration_date', false)(date)
+            }
+            required={this.state.with_expiration_date && this.state.is_active}
+            returnMoment={false}
+            value={this.state.expiration_date}
+          />
+        </MuiPickersUtilsProvider>
       </div>
     );
   };

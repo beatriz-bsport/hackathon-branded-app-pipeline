@@ -219,11 +219,13 @@ export class MailDialog extends Component<Props, State> {
                     )
                       .concat(
                         prevState.mailToWaitingList
-                          ? bookingOptionsPending.map((booking) =>
-                              this.props.members.find(
-                                (member) => member.id === booking.member,
-                              ),
-                            )
+                          ? bookingOptionsPending
+                              .filter((booking) => !booking.cancelled)
+                              .map((booking) =>
+                                this.props.members.find(
+                                  (member) => member.id === booking.member,
+                                ),
+                              )
                           : [],
                       )
                       .concat(

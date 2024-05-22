@@ -124,7 +124,7 @@ const RenderLegend = (props: { payload: any }) => {
       >
         <Paper className={classes.popperPaper}>
           <div className={classes.popperInnerContainer}>
-            {payload.slice(10).map((entry) => (
+            {payload.slice(MAX_NB_ENTRIES_LEGEND).map((entry) => (
               <div
                 key={entry.payload.name}
                 className={classes.inlineContainerStart}

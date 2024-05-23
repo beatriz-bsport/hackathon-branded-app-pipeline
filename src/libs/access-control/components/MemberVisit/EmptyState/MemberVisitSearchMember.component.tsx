@@ -93,6 +93,7 @@ const MemberVisitSearchMember: React.FC<Props> = ({
         <div className={classes.memberSearch}>
           <MemberSearchBar
             fullWidth
+            autoFocus={false}
             disabled={disabled}
             onChange={onChange}
             onReset={clearSearch}

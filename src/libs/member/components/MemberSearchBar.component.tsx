@@ -18,6 +18,7 @@ import type { MemberMinimal } from '#libs/member/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
+  autoFocus?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
   memberHistory?: MemberMinimal[];
@@ -31,6 +32,7 @@ type Props = {
 };
 
 const MemberSearchBar: React.FC<Props> = ({
+  autoFocus,
   disabled,
   fullWidth,
   memberHistory,
@@ -95,6 +97,7 @@ const MemberSearchBar: React.FC<Props> = ({
       </Popover>
       <DelayedTextField
         fullWidth
+        autoFocus={autoFocus}
         className={classes.field}
         disabled={disabled}
         InputProps={{

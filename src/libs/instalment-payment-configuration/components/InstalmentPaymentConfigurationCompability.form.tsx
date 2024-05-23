@@ -8,23 +8,10 @@ import DoneAll from '@material-ui/icons/DoneAll';
 
 import {
   CheckboxField,
-  MaterialUiMultiSelectorField,
+  ObjectSearchField,
 } from '#src/libs/custom-form/components/GenericFormik.input';
 
-import { getShopItemName } from '#src/libs/shop/utils';
-
-import type { PaymentPack } from '#src/libs/payment-packs/types';
-import type { PrivatePass } from '#src/libs/private-service/types';
-import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { Giftcard } from '#src/libs/giftcard/types';
-import type { ShopItem } from '#src/libs/shop/types';
-
 type OwnProps = {
-  paymentPackList: Array<PaymentPack>;
-  privatePassList: Array<PrivatePass>;
-  comboList: Array<PaymentCombo>;
-  shopItemList: Array<ShopItem>;
-  giftcardList: Array<Giftcard>;
   is_available_on_all_payment_pack: boolean;
   is_available_on_all_giftcard: boolean;
   is_available_on_all_payment_combo: boolean;
@@ -37,11 +24,6 @@ type OwnProps = {
 type Props = OwnProps;
 
 export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
-  paymentPackList,
-  privatePassList,
-  comboList,
-  shopItemList,
-  giftcardList,
   is_available_on_all_payment_pack,
   is_available_on_all_giftcard,
   is_available_on_all_payment_combo,
@@ -52,46 +34,6 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['instalmentPayment', 'shop']);
   const classes = useStyles();
-
-  const paymentPackOptions = paymentPackList?.length
-    ? [...paymentPackList].map((paymentPack) => ({
-        value: paymentPack.id,
-        label: paymentPack.name,
-      }))
-    : [];
-
-  const privatePassOptions = privatePassList?.length
-    ? [...privatePassList].map((privatePass) => ({
-        value: privatePass.id,
-        label: privatePass.name,
-      }))
-    : [];
-
-  const comboOptions = comboList?.length
-    ? [...comboList].map((combo) => ({
-        value: combo.id,
-        label: combo.name,
-      }))
-    : [];
-
-  const shopItemOptions = shopItemList?.length
-    ? [...shopItemList].map((shopItem) => ({
-        value: shopItem.id,
-        label: getShopItemName({
-          name: shopItem?.name ?? '',
-          variantCount:
-            shopItem?.number_of_variants &&
-            t('shop:variantCount', { count: shopItem.number_of_variants }),
-        }),
-      }))
-    : [];
-
-  const giftcardOptions = giftcardList?.length
-    ? [...giftcardList].map((giftcard) => ({
-        value: giftcard.id,
-        label: giftcard.name,
-      }))
-    : [];
 
   return (
     <div className={!isInDrawer ? classes.padding : classes.paddingTop}>
@@ -111,17 +53,17 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
-            <MaterialUiMultiSelectorField
-              inScrollBar
+            <Typography className={classes.bold}>
+              {t('instalmentPayment:form.compability.pack')}
+            </Typography>
+            <ObjectSearchField
+              isMulti
+              additionalParams={{ disabled: false }}
               isDisabled={is_available_on_all_payment_pack}
               name="payment_pack_list"
-              options={paymentPackOptions}
               placeholder={t('instalmentPayment:form.compability.selectPack')}
-              title={
-                <Typography className={classes.bold}>
-                  {t('instalmentPayment:form.compability.pack')}
-                </Typography>
-              }
+              searchedObjectType="payment_pack"
+              variant="mui-selector"
             />
             <div className={classes.row}>
               <CheckboxField
@@ -138,19 +80,19 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
-            <MaterialUiMultiSelectorField
-              inScrollBar
+            <Typography className={classes.bold}>
+              {t('instalmentPayment:form.compability.privateBooking')}
+            </Typography>
+            <ObjectSearchField
+              isMulti
+              additionalParams={{ available: true }}
               isDisabled={is_available_on_all_private_pass}
               name="private_pass_list"
-              options={privatePassOptions}
               placeholder={t(
                 'instalmentPayment:form.compability.selectPrivatePass',
               )}
-              title={
-                <Typography className={classes.bold}>
-                  {t('instalmentPayment:form.compability.privateBooking')}
-                </Typography>
-              }
+              searchedObjectType="private_pass"
+              variant="mui-selector"
             />
             <div className={classes.row}>
               <CheckboxField
@@ -167,17 +109,17 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
-            <MaterialUiMultiSelectorField
-              inScrollBar
+            <Typography className={classes.bold}>
+              {t('instalmentPayment:form.compability.combo')}
+            </Typography>
+            <ObjectSearchField
+              isMulti
+              additionalParams={{ available: true }}
               isDisabled={is_available_on_all_payment_combo}
               name="payment_combo_list"
-              options={comboOptions}
               placeholder={t('instalmentPayment:form.compability.selectCombo')}
-              title={
-                <Typography className={classes.bold}>
-                  {t('instalmentPayment:form.compability.combo')}
-                </Typography>
-              }
+              searchedObjectType="payment_combo"
+              variant="mui-selector"
             />
             <div className={classes.row}>
               <CheckboxField
@@ -194,20 +136,20 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
-            <MaterialUiMultiSelectorField
-              inScrollBar
+            <Typography className={classes.bold}>
+              {t('instalmentPayment:form.compability.shopItem')}
+            </Typography>
+            <ObjectSearchField
+              isMulti
               isDisabled={is_available_on_all_shop_item}
               name="shop_item_list"
-              options={shopItemOptions}
               placeholder={t(
                 'instalmentPayment:form.compability.selectShopItem',
               )}
-              title={
-                <Typography className={classes.bold}>
-                  {t('instalmentPayment:form.compability.shopItem')}
-                </Typography>
-              }
+              searchedObjectType="shop_item"
+              variant="mui-selector"
             />
+
             <div className={classes.row}>
               <CheckboxField
                 name="is_available_on_all_shop_item"
@@ -223,19 +165,19 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
         </Grid>
         <Grid item xs={6}>
           <div className={classes.column}>
-            <MaterialUiMultiSelectorField
-              inScrollBar
+            <Typography className={classes.bold}>
+              {t('instalmentPayment:form.compability.giftcard')}
+            </Typography>
+            <ObjectSearchField
+              isMulti
+              additionalParams={{ disabled: false, manager_only: false }}
               isDisabled={is_available_on_all_giftcard}
               name="giftcard_list"
-              options={giftcardOptions}
               placeholder={t(
                 'instalmentPayment:form.compability.selectGiftcard',
               )}
-              title={
-                <Typography className={classes.bold}>
-                  {t('instalmentPayment:form.compability.giftcard')}
-                </Typography>
-              }
+              searchedObjectType="giftcard"
+              variant="mui-selector"
             />
             <div className={classes.row}>
               <CheckboxField

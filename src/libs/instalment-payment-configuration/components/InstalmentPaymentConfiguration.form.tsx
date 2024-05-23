@@ -8,25 +8,19 @@ import { Formik, FormikHelpers, FormikProps } from 'formik';
 
 import { Button, Divider, LinearProgress } from '@material-ui/core';
 
-import type { ShopItem } from '#src/libs/shop/types';
-
-import { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { OptionCallback } from '#src/state/types';
+import type { InstalmentPaymentApi } from '../types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
   MONTHLY,
 } from '#src/libs/instalment-payment-configuration/constants';
 
-import { PaymentPack } from '#src/libs/payment-packs/types';
-import { Giftcard } from '#src/libs/giftcard/types';
-import { PrivatePass } from '#src/libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCompability.form';
 import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
 import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';
-import { InstalmentPaymentApi } from '../types';
-import { OptionCallback } from '../../../state/types';
 
 const {
   trackFormAdd,
@@ -45,28 +39,12 @@ type OwnProps = {
   initial?: InstalmentPaymentApi;
   closeDialog?: () => void;
   resetInitial?: () => void;
-  paymentPackList: Array<PaymentPack>;
-  privatePassList: Array<PrivatePass>;
   isInDrawer: boolean;
-  comboList: Array<PaymentCombo>;
-  shopItemList: Array<ShopItem>;
-  giftcardList: Array<Giftcard>;
 };
 type Props = OwnProps;
 
 export const InstalmentPaymentConfiguration = (props: Props) => {
-  const {
-    initial,
-    closeDialog,
-    resetInitial,
-    submit,
-    paymentPackList,
-    privatePassList,
-    isInDrawer,
-    comboList,
-    shopItemList,
-    giftcardList,
-  } = props;
+  const { initial, closeDialog, resetInitial, submit, isInDrawer } = props;
   React.useEffect(() => {
     trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,8 +109,6 @@ export const InstalmentPaymentConfiguration = (props: Props) => {
                 <InstalmentPaymentGeneralInfoForm />
                 <Divider className={classes.divider} />
                 <InstalmentPaymentCompabilityForm
-                  comboList={comboList}
-                  giftcardList={giftcardList}
                   is_available_on_all_giftcard={
                     formikProps.values.is_available_on_all_giftcard
                   }
@@ -149,10 +125,7 @@ export const InstalmentPaymentConfiguration = (props: Props) => {
                     formikProps.values.is_available_on_all_shop_item
                   }
                   isInDrawer={isInDrawer}
-                  paymentPackList={paymentPackList}
-                  privatePassList={privatePassList}
                   setFieldValue={formikProps.setFieldValue}
-                  shopItemList={shopItemList}
                 />
                 <Divider className={classes.divider} />
                 <InstalmentPaymentAdvancedForm />

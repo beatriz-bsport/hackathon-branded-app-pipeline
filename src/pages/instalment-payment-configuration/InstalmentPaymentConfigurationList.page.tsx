@@ -226,12 +226,7 @@ export class InstalmentPaymentConfigurationList extends Component<Props> {
               setIsCreationFormOpen(false);
               setInstalmentPaymentToEditId(null);
             }}
-            comboList={comboList}
-            giftcardList={giftcardList}
             initial={instalmentPaymentToEdit}
-            paymentPackList={paymentPackList}
-            privatePassList={privatePassList}
-            shopItemList={shopItemList}
             submit={(instalmentPayment, options) => {
               createOrUpdateInstalmentPayment(instalmentPayment, options);
             }}

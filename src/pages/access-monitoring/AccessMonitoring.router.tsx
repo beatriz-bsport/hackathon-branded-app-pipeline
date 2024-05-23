@@ -16,6 +16,7 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { getPermissions } from '#src/libs/role/selectors';
 import type { RolePermission } from '#src/libs/role/types';
 import {
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#src/libs/establishment/actions';
@@ -94,6 +95,7 @@ const AccessMonitoringSwitcher: React.FC<{
  * and call the AccessMonitoringSwitcher component to render the content of the selected tab.
  */
 const AccessMonitoringRouter: React.FC<Props> = ({
+  fetchAllEstablishmentBillingGroup,
   fetchAllEstablishmentGroup,
   fetchEstablishments,
   location,
@@ -108,10 +110,16 @@ const AccessMonitoringRouter: React.FC<Props> = ({
   // Fetch data on component mount
   useEffect(() => {
     if (theme.enable_multi_localization) {
+      fetchAllEstablishmentBillingGroup();
       fetchAllEstablishmentGroup();
     }
     fetchEstablishments();
-  }, [fetchAllEstablishmentGroup, fetchEstablishments, theme]);
+  }, [
+    fetchAllEstablishmentBillingGroup,
+    fetchAllEstablishmentGroup,
+    fetchEstablishments,
+    theme,
+  ]);
 
   const tabsData = Immutable([
     ...(permissions?.navigationMenu?.accessMonitoring?.perform
@@ -176,6 +184,7 @@ const connector = connect(
     theme: state.theme.theme,
   }),
   {
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchEstablishments: fetchEstablishmentsAction,
     push: pushFunc,

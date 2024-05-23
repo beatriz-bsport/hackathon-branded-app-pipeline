@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 import {
   MarketplaceCalendar,
   CalendarDataContainer,
+  FinalProps as MarketplaceCalendarFinalProps,
+  OwnProps as MarketplaceCalendarOwnProps,
 } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
-import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
+import {
+  MarketplaceCalendarData,
+  MarketplaceCalendarVariant,
+} from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
 import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
@@ -18,6 +23,7 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import {
   withStyles,
   createStyles,
+  type WithStyles,
 } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -39,7 +45,14 @@ const getNowISODate = () => {
   return `${year}-${month}-${day}`;
 };
 
-const MarketplaceCalendarStyled = compose(
+type MarketplaceCalendarStyledProps = MarketplaceCalendarOwnProps & {
+  theme: Theme,
+};
+
+const MarketplaceCalendarStyled = compose<
+  MarketplaceCalendarFinalProps,
+  MarketplaceCalendarStyledProps
+>(
   themify,
   withPostMessageOnPropsUpdate([
     { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
@@ -74,20 +87,23 @@ type OwnProps = {
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  typeof mapDispatchToProps &
+  WithStyles;
 
 type State = {
-  filters: {
-    coaches: number[],
-    establishments: number[],
-    activity__in: number[],
-    levels: number[],
-    establishment_group__in: number[],
-  },
+  filters: FiltersType,
   onlineFilter: {
     is_online?: boolean | undefined,
   },
   selectedDate: string,
+};
+
+type FiltersType = {
+  coaches: number[],
+  establishments: number[],
+  activity__in: number[],
+  levels: number[],
+  establishment_group__in: number[],
 };
 
 export class CalendarWidget extends Component<Props, State> {
@@ -96,7 +112,7 @@ export class CalendarWidget extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const filters: any = {
+    const filters: FiltersType = {
       coaches: props.config.coaches || [],
       establishments: props.config.establishments || [],
       activity__in: props.config.metaActivities || [],
@@ -165,7 +181,9 @@ export class CalendarWidget extends Component<Props, State> {
         compactMode={
           this.props.config ? this.props.config.compactMode : undefined
         }
-        onlineFilter={this.state.onlineFilter}
+        onlineFilter={{
+          is_online: this.state.onlineFilter.is_online || undefined,
+        }}
         filters={this.state.filters}
         variant={this.props?.config?.variant}
         groupSessionByPeriod={this.props?.config?.groupSessionByPeriod}
@@ -173,6 +191,7 @@ export class CalendarWidget extends Component<Props, State> {
         otherParams={{
           date: this.state.selectedDate,
           onlyDay: this.props.config.todayOnly ? 'true' : '',
+          filtersOpen: '',
         }}
         setOtherParams={this.setOtherParams}
         goToBook={this.onClickGoToBook}
@@ -208,7 +227,7 @@ const mapDispatchToProps = {
   bridgeRequestRegisteredOfferIdList,
 };
 
-export default compose<any, Props>(
+export default compose<Props, OwnProps>(
   withStyles(styles),
   CalendarDataContainer,
   connect(mapStateToProps, mapDispatchToProps),

@@ -53,7 +53,6 @@ import type {
   IsShopUsedInComboAPI,
   ShopItem,
   ShopItemTemplate,
-  ShopItemVariant,
   ShopItemVariantCombination,
   ShopStateReworked,
   ShopSupplier,
@@ -331,7 +330,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       }: {
         payload: {
-          data: PaginatedResponse<ShopItemVariant>;
+          data: PaginatedResponse<ShopItem>;
           baseItemId: number;
         };
       },

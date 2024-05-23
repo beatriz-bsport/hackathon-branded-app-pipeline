@@ -12,7 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ShopItemDetailVariantList from '#libs/shop/components/ShopItemDetailVariantList';
 import ShopItemDetailVariantListMobile from '#libs/shop/components/ShopItemDetailVariantListMobile';
 
-import type { ShopItemVariant } from '#libs/shop/types';
+import type { ShopItem } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../../state/types';
 import type { ShopItemVariantBulkUpdateFormValues } from '#libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
@@ -22,7 +22,7 @@ import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constant
 type Props = {
   companyId?: number;
   isDeletingVariant?: boolean;
-  shopItemVariantList: ShopItemVariant[];
+  shopItemVariantList: ShopItem[];
   page: number;
   count: number;
   isVariantEditMode?: boolean;

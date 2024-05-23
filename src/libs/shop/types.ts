@@ -56,9 +56,10 @@ export type IsShopUsedInComboAPI = {
 };
 
 export type ShopItem = {
-  available_payment_method_identifiers: number[];
   all_variants_follow_base_price: boolean | null;
+  available_payment_method_identifiers: number[];
   barcode: string;
+  base_item: number | null;
   color: string;
   company: number;
   company_details: {
@@ -100,11 +101,6 @@ export type ShopItemTemplate = ShopItem & {
 
 export type ShopItemTemplateFilterParams = PaginationFilterParams & {
   sub_shop_template: number;
-};
-
-/** Represents a variant related to a base shop item */
-export type ShopItemVariant = ShopItem & {
-  base_item: number;
 };
 
 export type ShopItemVariantFilterParams = PaginationFilterParams & {
@@ -217,7 +213,7 @@ export type ShopStateReworked = {
       byBaseItemId: {
         [key: number]: WithPagination & {
           combinationList: ShopItemVariantCombination[];
-          variants: ShopItemVariant[];
+          variants: ShopItem[];
         };
       };
       allIds: number[];

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import uniqBy from 'lodash/uniqBy';
 
-import { ShopItemVariant } from '#libs/shop/types';
+import type { ShopItem } from '#libs/shop/types';
 
 type ActiveFilterState = {
   company: string | null;
@@ -14,7 +14,7 @@ type ActiveFilterState = {
  * @param shopItemVariantList The list of variants from the base item
  */
 export default function useShopItemDetailInventoryFilters(
-  shopItemVariantList: ShopItemVariant[],
+  shopItemVariantList: ShopItem[],
 ) {
   const [activeFilters, setActiveFilters] = useState<ActiveFilterState>({
     company: null,

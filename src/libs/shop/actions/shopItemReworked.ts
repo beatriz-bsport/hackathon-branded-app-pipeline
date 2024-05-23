@@ -35,7 +35,6 @@ import type {
   ShopItem,
   ShopItemEdit,
   ShopItemListFilterParams,
-  ShopItemVariant,
   ShopItemVariantAttributes,
   Provision,
   ProvisionBulkCreate,
@@ -202,7 +201,7 @@ export const fetchShopItemVariantListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/VARIANT/LIST/ERROR'),
   success: createAction<{
-    data: PaginatedResponse<ShopItemVariant>;
+    data: PaginatedResponse<ShopItem>;
     baseItemId: number;
   }>('SHOP_ITEM/VARIANT/LIST/SUCCESS'),
 };
@@ -226,7 +225,7 @@ export const fetchShopItemVariantList = ({
   page?: number;
   colors?: string[];
   sizes?: string[];
-  options?: OptionCallback<PaginatedResponse<ShopItemVariant>>;
+  options?: OptionCallback<PaginatedResponse<ShopItem>>;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -298,9 +297,7 @@ export const createShopItem = (
 export const createShopItemVariantsActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/CREATE/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/VARIANT/CREATE/ERROR'),
-  success: createAction<ShopItemVariant[]>(
-    'SHOP_ITEM/VARIANT/CREATE/LIST/SUCCESS',
-  ),
+  success: createAction<ShopItem[]>('SHOP_ITEM/VARIANT/CREATE/LIST/SUCCESS'),
 };
 
 /**
@@ -317,7 +314,7 @@ export const createShopItemVariants = ({
 }: {
   id: number;
   data: ShopItemVariantAttributes;
-  options?: OptionCallback<ShopItemVariant[]>;
+  options?: OptionCallback<ShopItem[]>;
 }) => {
   return async (dispatch: Dispatch) => {
     try {

@@ -14,7 +14,7 @@ import shopItemInventoryFormValidationSchema from '#libs/shop/components/ShopIte
 
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { ShopItemInventoryFormValues } from '#libs/shop/components/ShopItemInventoryUpdateForm/types';
-import type { ShopItem, ShopItemVariant } from '#libs/shop/types';
+import type { ShopItem } from '#libs/shop/types';
 import type { SelectOption } from '#libs/types';
 
 import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
@@ -23,7 +23,7 @@ type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;
   isUpdatingVariant?: boolean;
   shopItem: ShopItem;
-  shopItemVariantList: ShopItemVariant[];
+  shopItemVariantList: ShopItem[];
   variantSizeFilterOptionList: SelectOption[];
   variantSizeFilterOptionValueList: SelectOption[];
   variantColorFilterOptionList: SelectOption[];

@@ -28,7 +28,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { CustomChip } from '#components/chip/CustomChip.component';
 import ShopItemVariantBulkUpdateForm from '#libs/shop/components/ShopItemVariantBulkUpdateForm';
 
-import type { ShopItemVariant } from '#libs/shop/types';
+import type { ShopItem } from '#libs/shop/types';
 import type { ShopItemVariantBulkUpdateFormValues } from '#libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
 import Config from '../../../../config';
@@ -43,12 +43,12 @@ type Props = {
   isDeletingVariant?: boolean;
   isVariantEditMode?: boolean;
   onDeleteShopItemVariant: (id: number) => void;
-  shopItemVariantList: ShopItemVariant[];
+  shopItemVariantList: ShopItem[];
 };
 
 type TableRowItemProps = {
   companyId?: number;
-  item: ShopItemVariant;
+  item: ShopItem;
   isDeletingVariant?: boolean;
   onShowBarcode: (barcode: string) => void;
   onDeleteShopItemVariant: (id: number) => void;

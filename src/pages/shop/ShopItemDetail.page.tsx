@@ -64,7 +64,6 @@ import type {
   ProvisionCreate,
   ShopItem,
   ShopItemEdit,
-  ShopItemVariant,
   ShopItemVariantAttributes,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../state/types';
@@ -231,7 +230,7 @@ export class ShopItemDetailPage extends Component<Props> {
   handleCreateShopItemVariants = (
     baseItemId: number,
     data: ShopItemVariantAttributes,
-    options?: OptionCallback<ShopItemVariant[]>,
+    options?: OptionCallback<ShopItem[]>,
   ) => {
     this.props.createShopItemVariants({
       id: baseItemId,

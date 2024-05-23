@@ -25,7 +25,6 @@ import type {
   ProvisionBulkCreate,
   ShopItem,
   ShopSupplier,
-  ShopItemVariant,
   TabListOption,
   ProvisionCreate,
   Provision,
@@ -42,7 +41,7 @@ type Props = {
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
   selectedTab: TabListOption;
-  variantList: ShopItemVariant[];
+  variantList: ShopItem[];
   shopItem: ShopItem;
   shopItemSupplier: ShopSupplier;
   page: number;

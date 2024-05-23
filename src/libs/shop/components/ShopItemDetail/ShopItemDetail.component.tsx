@@ -19,7 +19,6 @@ import { ShopModalContextProvider } from '#hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItem,
-  ShopItemVariant,
   ShopItemCreate,
   ShopItemEdit,
   ShopItemVariantAttributes,
@@ -52,7 +51,7 @@ type Props = {
   provincialTaxValue: number;
   shopItem: ShopItem;
   shopItemSupplier: ShopSupplier;
-  variantList: ShopItemVariant[];
+  variantList: ShopItem[];
   supplierList: ShopSupplier[];
   page: number;
   count: number;
@@ -75,7 +74,7 @@ type Props = {
   createShopItemVariants: (
     baseItemId: number,
     data: ShopItemVariantAttributes,
-    options?: OptionCallback<ShopItemVariant[]>,
+    options?: OptionCallback<ShopItem[]>,
   ) => void;
   createShopItemProvision: (
     data: ProvisionCreate,

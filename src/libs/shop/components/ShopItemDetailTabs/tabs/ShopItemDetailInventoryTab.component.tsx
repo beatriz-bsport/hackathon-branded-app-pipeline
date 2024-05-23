@@ -18,7 +18,6 @@ import type {
   ProvisionBulkCreate,
   ProvisionCreate,
   ShopItem,
-  ShopItemVariant,
 } from '#libs/shop/types';
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
 import type { OptionCallback } from '../../../../../state/types';
@@ -32,7 +31,7 @@ import {
 } from '#libs/shop/constants';
 
 type Props = {
-  shopItemVariantList: ShopItemVariant[];
+  shopItemVariantList: ShopItem[];
   page: number;
   count: number;
   isUpdatingVariant?: boolean;

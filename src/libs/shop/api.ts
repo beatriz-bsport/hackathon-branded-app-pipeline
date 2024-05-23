@@ -19,7 +19,6 @@ import type {
   ShopItemCreate,
   ShopItemEdit,
   ShopItemListFilterParams,
-  ShopItemVariant,
   ShopItemVariantAttributes,
   ShopItemVariantFilterParams,
   ShopSupplier,
@@ -201,7 +200,7 @@ export const retrieveShopItemUsedInCombo = (id: number) => {
 export const fetchShopItemVariantList = (
   params: ShopItemVariantFilterParams,
 ) => {
-  return getAuth<PaginatedResponse<ShopItemVariant>>(
+  return getAuth<PaginatedResponse<ShopItem>>(
     `${API_V1_URI}/shop/item/${buildUrlParams({
       ...params,
       is_variant: true,
@@ -228,10 +227,7 @@ export const createShopItemVariants = (
   id: number,
   data: ShopItemVariantAttributes,
 ) => {
-  return postAuth<ShopItemVariant[]>(
-    `${API_V1_URI}/shop/item/${id}/variants/`,
-    data,
-  );
+  return postAuth<ShopItem[]>(`${API_V1_URI}/shop/item/${id}/variants/`, data);
 };
 
 /**

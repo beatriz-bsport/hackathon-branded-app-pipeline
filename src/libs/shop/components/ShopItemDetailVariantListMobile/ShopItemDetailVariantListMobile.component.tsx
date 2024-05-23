@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { ShopItemVariant } from '#libs/shop/types';
+import type { ShopItem } from '#libs/shop/types';
 
 type Props = {
-  shopItemVariantList: ShopItemVariant[];
+  shopItemVariantList: ShopItem[];
 };
 
 const ShopItemDetailVariantListMobile: React.FC<Props> = ({

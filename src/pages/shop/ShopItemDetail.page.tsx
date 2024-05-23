@@ -164,7 +164,6 @@ export class ShopItemDetailPage extends Component<Props> {
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
-    id: number,
     options?: OptionCallback<ShopItem>,
   ) => {
     const finalShopItemData = mapFormDataWithObject(
@@ -176,7 +175,7 @@ export class ShopItemDetailPage extends Component<Props> {
 
     this.props.updateShopItem({
       formData: finalShopItemData,
-      id,
+      id: this.props.id,
       options,
     });
   };

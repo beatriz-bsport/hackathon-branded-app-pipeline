@@ -68,7 +68,6 @@ type Props = {
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
-    id: number,
     options?: OptionCallback<ShopItem>,
   ) => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
@@ -267,7 +266,7 @@ const ShopItemDetail: React.FC<Props> = ({
 
   const handleSubmitEditShopItem = useCallback(
     (formData: Partial<ShopItemCreate>) => {
-      updateShopItem(formData, shopItem?.id, {
+      updateShopItem(formData, {
         onSuccess: () => {
           handleCloseEditShopItemDrawer();
           shopItem?.id && trackFormSuccess(shopItem?.id);

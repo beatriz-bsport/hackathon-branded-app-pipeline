@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,19 +10,13 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 import { useFormikContext } from 'formik';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
-import { ImmutableArray } from 'seamless-immutable';
 import { Alert } from '@material-ui/lab';
 import FormSection from '#src/components/forms/FormSection';
 
 import { UniqueCodeCouponCreationPayload } from '#src/libs/coupon/types';
-import PaymentPackSelector from '#src/libs/payment-packs/components/PaymentPackSelector.component';
-import ShopItemSelector from '#src/libs/shop/components/ShopItemSelector.component';
 // @ts-expect-error
 import ShopItemListItem from '#src/libs/shop/components/ShopItemListItem.component';
-import PrivatePassSelector from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
-// @ts-expect-error
-import PaymentComboSelector from '#src/libs/payment-combo/components/PaymentComboSelector.component';
 // @ts-expect-error
 import PaymentComboListItem from '#src/libs/payment-combo/components/PaymentComboListItem.component';
 import PaymentPackListItem from '#src/libs/payment-packs/components/PaymentPackListItem.component';
@@ -31,36 +25,20 @@ import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { ShopItem } from '#src/libs/shop/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { SelectOption } from '#src/libs/types';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import { paymentPackOption } from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+import { shopItemOption } from '#src/libs/shop/components/ShopItemSelector.component';
+import { privatePassOption } from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
+//@ts-expect-error
+import { paymentComboOption } from '#src/libs/payment-combo/components/PaymentComboSelector.component';
 
 type Props = {
-  paymentPacks: PaymentPack[];
-  paymentPacksById: { [key: number]: PaymentPack };
-  privatePasses: PrivatePass[];
-  privatePassesById: {
-    [key: number]: PrivatePass;
-  };
-  shopItems: ImmutableArray<ShopItem>;
-  shopItemsById: {
-    [key: number]: ShopItem;
-  };
-  paymentCombos: PaymentCombo[];
-  paymentCombosById: {
-    [key: number]: PaymentCombo;
-  };
   isProcessing: boolean;
 };
 
-const UniqueCodeCouponFormSettings: React.FC<Props> = ({
-  paymentPacks,
-  paymentPacksById,
-  privatePasses,
-  privatePassesById,
-  shopItems,
-  shopItemsById,
-  paymentCombos,
-  paymentCombosById,
-  isProcessing,
-}) => {
+const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
   const { t } = useTranslation('coupon');
 
   const classes = useStyles();
@@ -70,38 +48,21 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
 
   // Filtered values
 
-  const filteredPaymentPacks = useMemo(
-    () =>
-      paymentPacks
-        ?.filter((paymentPack) => !paymentPack.disabled)
-        ?.filter(
-          (paymentPack) => !values?.only_on_objects?.includes(paymentPack.id),
-        ) ?? [],
-    [paymentPacks, values?.only_on_objects],
-  );
-
-  const filteredShopItems = useMemo(
-    () =>
-      shopItems
-        ?.filter((item) => item.subshop && !item.disabled)
-        ?.filter((item) => !values.only_on_objects?.includes(item.id)) ?? [],
-    [shopItems, values?.only_on_objects],
-  );
-
-  const filteredPrivatePasses = useMemo(
-    () =>
-      privatePasses
-        ?.filter((privatePass) => privatePass.available)
-        ?.filter((pass) => !values.only_on_objects?.includes(pass.id)) ?? [],
-    [privatePasses, values?.only_on_objects],
-  );
-
-  const filteredPaymentCombos = useMemo(
-    () =>
-      paymentCombos
-        ?.filter((paymentCombo) => paymentCombo.available)
-        ?.filter((pack) => !values.only_on_objects?.includes(pack.id)) ?? [],
-    [paymentCombos, values?.only_on_objects],
+  const formatSearchOptions = useCallback(
+    (
+      searchResults:
+        | PaymentPack[]
+        | PaymentCombo[]
+        | ShopItem[]
+        | PrivatePass[],
+    ) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        pp: result,
+      }));
+    },
+    [],
   );
 
   // Handlers
@@ -124,36 +85,38 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
   );
 
   const handleOnChangePaymentPackSelector = useCallback(
-    (paymentPackId) => {
+    ({ value }: SelectOption<number>) => {
       setFieldValue('applies_to', BUYABLE_ITEM_PASS);
-      setFieldValue('only_on_objects', [paymentPackId]);
+      setFieldValue('only_on_objects', [value]);
     },
     [setFieldValue],
   );
 
   const handleOnChangeShopItemSelector = useCallback(
-    (shopItemId) => {
+    ({ value }: SelectOption<number>) => {
       setFieldValue('applies_to', BUYABLE_ITEM_SHOP_ITEM);
-      setFieldValue('only_on_objects', [shopItemId]);
+      setFieldValue('only_on_objects', [value]);
     },
     [setFieldValue],
   );
 
   const handleOnChangePrivatePassSelector = useCallback(
-    (privatePassId) => {
+    ({ value }: SelectOption<number>) => {
       setFieldValue('applies_to', BUYABLE_ITEM_PRIVATE_PASS);
-      setFieldValue('only_on_objects', [privatePassId]);
+      setFieldValue('only_on_objects', [value]);
     },
     [setFieldValue],
   );
 
   const handleOnChangePaymentComboSelector = useCallback(
-    (paymentComboId) => {
+    ({ value }: SelectOption<number>) => {
       setFieldValue('applies_to', BUYABLE_ITEM_COMBO_ITEM);
-      setFieldValue('only_on_objects', [paymentComboId]);
+      setFieldValue('only_on_objects', [value]);
     },
     [setFieldValue],
   );
+
+  const { getResultsById } = useObjectSearch();
 
   const handleUnselectItem = useCallback(
     (selectedItemId: number) => () => {
@@ -204,14 +167,24 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             className={classes.fullWidth}
             id="unique-code-coupon-form-payment-pack-selector"
           >
-            <PaymentPackSelector
-              nullCurrentValue
+            <ObjectSearchComponent
+              additionalParams={{
+                disabled: false,
+                ...(doesApplyToPass &&
+                  values?.only_on_objects && {
+                    id__not_in: values.only_on_objects,
+                  }),
+              }}
+              components={{ Option: paymentPackOption }}
               disabled={isProcessing}
-              helperText={t(
+              initialValues={values?.only_on_objects}
+              onChange={handleOnChangePaymentPackSelector}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t(
                 'uniqueCodeCoupon.form.selectorPlaceholder.paymentPack',
               )}
-              onChange={handleOnChangePaymentPackSelector}
-              paymentPacks={filteredPaymentPacks}
+              searchedObjectType="payment_pack"
+              value={[]}
             />
             {doesApplyToPass
               ? values?.only_on_objects?.map((paymentPackId, index) => (
@@ -219,7 +192,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                     key={`${paymentPackId}-${index}`}
                     disabled={isProcessing}
                     onDelete={handleUnselectItem(paymentPackId)}
-                    pack={paymentPacksById?.[paymentPackId]}
+                    pack={getResultsById('payment_pack')[paymentPackId]}
                   />
                 ))
               : null}
@@ -238,15 +211,24 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             className={classes.fullWidth}
             id="unique-code-coupon-form-shop-item-selector"
           >
-            <ShopItemSelector
-              // @ts-expect-error prop typing
-              nullCurrentValue
+            <ObjectSearchComponent
+              additionalParams={{
+                disabled: false,
+                ...(doesApplyToShopItem &&
+                  values?.only_on_objects && {
+                    id__not_in: values.only_on_objects,
+                  }),
+              }}
+              components={{ Option: shopItemOption }}
               disabled={isProcessing}
-              helperText={t(
+              initialValues={values?.only_on_objects}
+              onChange={handleOnChangeShopItemSelector}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t(
                 'uniqueCodeCoupon.form.selectorPlaceholder.shopItem',
               )}
-              onChange={handleOnChangeShopItemSelector}
-              shopItemList={filteredShopItems}
+              searchedObjectType="shop_item"
+              value={[]}
             />
             {doesApplyToShopItem
               ? values?.only_on_objects?.map((shopItemId, index) => (
@@ -255,7 +237,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                     dense
                     disabled={isProcessing}
                     onDelete={handleUnselectItem(shopItemId)}
-                    shopitem={shopItemsById?.[shopItemId]}
+                    shopitem={getResultsById('shop_item')[shopItemId]}
                   />
                 ))
               : null}
@@ -274,15 +256,25 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             className={classes.fullWidth}
             id="unique-code-coupon-form-private-pass-selector"
           >
-            <PrivatePassSelector
-              // @ts-expect-error prop typing
-              nullCurrentValue
+            <ObjectSearchComponent
+              additionalParams={{
+                ...(doesApplyToPrivatePass &&
+                  values?.only_on_objects && {
+                    id__not_in: values.only_on_objects,
+                  }),
+              }}
+              components={{
+                Option: privatePassOption,
+              }}
               disabled={isProcessing}
-              helperText={t(
+              initialValues={values?.only_on_objects}
+              onChange={handleOnChangePrivatePassSelector}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t(
                 'uniqueCodeCoupon.form.selectorPlaceholder.privatePass',
               )}
-              onChange={handleOnChangePrivatePassSelector}
-              privatePassList={filteredPrivatePasses}
+              searchedObjectType="private_pass"
+              value={[]}
             />
             {doesApplyToPrivatePass
               ? values?.only_on_objects?.map((privatePassId, index) => (
@@ -291,7 +283,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                     dense
                     removePaper
                     onDelete={handleUnselectItem(privatePassId)}
-                    pass={privatePassesById?.[privatePassId]}
+                    pass={getResultsById('private_pass')[privatePassId]}
                   />
                 ))
               : null}
@@ -311,15 +303,25 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             className={classes.fullWidth}
             id="unique-code-coupon-form-payment-combo-selector"
           >
-            <PaymentComboSelector
-              nullCurrentValue
+            <ObjectSearchComponent
+              additionalParams={{
+                ...(doesApplyToPack &&
+                  values?.only_on_objects && {
+                    id__not_in: values.only_on_objects,
+                  }),
+              }}
+              components={{ Option: paymentComboOption }}
               disabled={isProcessing}
-              helperText={t(
+              initialValues={values?.only_on_objects}
+              onChange={handleOnChangePaymentComboSelector}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t(
                 'uniqueCodeCoupon.form.selectorPlaceholder.paymentCombo',
               )}
-              onChange={handleOnChangePaymentComboSelector}
-              paymentComboList={filteredPaymentCombos}
+              searchedObjectType="payment_combo"
+              value={[]}
             />
+
             {doesApplyToPack
               ? values.only_on_objects?.map((paymentComboId, index) => (
                   <PaymentComboListItem
@@ -327,7 +329,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                     dense
                     disabled={isProcessing}
                     onDelete={handleUnselectItem(paymentComboId)}
-                    paymentCombo={paymentCombosById?.[paymentComboId]}
+                    paymentCombo={
+                      getResultsById('payment_combo')[paymentComboId]
+                    }
                   />
                 ))
               : null}

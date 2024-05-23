@@ -444,17 +444,6 @@ export class CouponList extends React.PureComponent<Props, State> {
           onCancel={this.onCloseUniqueCodeCouponFormDrawer}
           onSubmit={this.createOrUpdateUniqueCodeCoupon}
           open={this.state.uniqueCodeCouponFormState.open}
-          paymentCombos={this.props.paymentCombos}
-          paymentCombosById={this.props.allPaymentCombosById}
-          // @ts-expect-error
-          paymentPacks={this.props.paymentPacks}
-          paymentPacksById={this.props.allPaymentPacksById}
-          privatePasses={this.props.privatePasses}
-          privatePassesById={this.props.allPrivatePassesById}
-          // @ts-expect-error
-          shopItems={this.props.shopItemBaseAndStandaloneList ?? []}
-          // @ts-expect-error
-          shopItemsById={this.props.shopItemBaseAndStandaloneById}
           uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
         />
 

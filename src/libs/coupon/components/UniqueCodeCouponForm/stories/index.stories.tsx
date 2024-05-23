@@ -85,14 +85,6 @@ const UniqueCodeCouponFormMeta: ComponentMeta<typeof UniqueCodeCouponForm> = {
   args: {
     isLoading: false,
     isProcessing: false,
-    paymentPacks: fakePaymentPacks,
-    paymentPacksById: fakeAllPaymentPacksById,
-    shopItems: Immutable([]),
-    shopItemsById: {},
-    privatePasses: fakePrivatePasses,
-    privatePassesById: fakePrivatePassesById,
-    paymentCombos: fakePaymentCombos,
-    paymentCombosById: fakePaymentCombosById,
   },
 };
 

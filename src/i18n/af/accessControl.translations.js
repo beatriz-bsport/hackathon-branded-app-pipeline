@@ -52,6 +52,11 @@ exports.default = {
       session: 'Visit reason',
       time: 'Entry',
       accessStatus: 'Status',
+      placeholder: {
+        default: "You haven't registered any visits yet.",
+        search:
+          "Based on your search, we couldn't find any members who visited today.",
+      },
     },
     breadcrumbTitle: 'Location visit',
   },

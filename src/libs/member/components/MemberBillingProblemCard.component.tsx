@@ -69,6 +69,7 @@ type Props = {
   memberLoading: boolean;
   onInvoicePaymentDialogClose?: () => void;
   onlinePaymentEnabled: boolean;
+  onPaymentSuccess?: () => void;
   paperVariant?: 'elevation' | 'outlined';
   selectedInvoiceId?: string;
   showPositiveBalance?: boolean;
@@ -438,6 +439,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                   if (typeof callback === 'function') callback();
                   if (props.onInvoicePaymentDialogClose)
                     props.onInvoicePaymentDialogClose();
+                  props?.onPaymentSuccess?.();
                 }}
                 paymentGroupId={paymentGroupId}
                 paymentGroupPriceCts={paymentGroupPriceCts}

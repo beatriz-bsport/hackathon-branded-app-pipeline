@@ -13,9 +13,10 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './.jest.babelrc' }],
   },
   transformIgnorePatterns: [
-    // Ignore all node_modules, except @bsport/common
-    'node_modules/(?!(@bsport)/)',
+    // Ignore all node_modules except @bsport/common and uuid
+    'node_modules/(?!(@bsport|uuid)/)',
   ],
+
   moduleNameMapper: {
     '^react-native$': 'react-native-web',
     '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.js',

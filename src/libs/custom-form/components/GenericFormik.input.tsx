@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 
 import MuiTextField from '@material-ui/core/TextField';
@@ -15,6 +15,12 @@ import MaterialUISelector, {
   // @ts-expect-error
   Props as MaterialUISelectorProps,
 } from '#src/components/Selector/MaterialUISelector.component';
+import ObjectSearchComponent, {
+  OwnProps as ObjectSearchComponentProps,
+} from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { SelectOption } from '#src/libs/types';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+import { getLabelFromItem } from '#src/libs/fuzzy-search/utils/labelExtractor';
 
 export type BaseFieldProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -285,5 +291,76 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
         )}
       </Field>
     </div>
+  );
+};
+
+type ObjectSearchFieldProps = BaseFieldProps & ObjectSearchComponentProps;
+
+export const ObjectSearchField: React.FC<ObjectSearchFieldProps> = ({
+  name,
+  ...selectProps
+}) => {
+  const { getResultsById } = useObjectSearch();
+  const [field, , helpers] = useField<number[]>(name);
+
+  const getMultiOptionsValue = useCallback(
+    (options: SelectOption<number>[]) => {
+      return options.map((option) => option.value);
+    },
+    [],
+  );
+
+  const rawValues = useMemo(
+    () =>
+      field.value
+        // @ts-expect-error union type restriction on resultsById (necessary for smooth use in component)
+        .map((id) => getResultsById([selectProps.searchedObjectType])[id])
+        .filter((option) => !!option),
+    [field.value, getResultsById, selectProps.searchedObjectType],
+  );
+
+  const selectValues = useMemo(() => {
+    if (selectProps.optionsFormatter) {
+      let selectValuesAcc: SelectOption<number>[] = [];
+      // @ts-expect-error expected union type error
+      const potentiallyGroupedOptions = selectProps.optionsFormatter(rawValues);
+      for (const optionOrGroup of potentiallyGroupedOptions) {
+        if ('options' in optionOrGroup) {
+          selectValuesAcc = selectValuesAcc.concat(optionOrGroup.options);
+        } else {
+          selectValuesAcc.push(optionOrGroup);
+        }
+      }
+      return selectValuesAcc;
+    }
+    return rawValues.map((option) => ({
+      label: getLabelFromItem({
+        item: option,
+        searchedObjectType: selectProps.searchedObjectType,
+      }),
+      value: option.id,
+    }));
+  }, [rawValues, selectProps]);
+
+  const handleChange = useCallback(
+    (options: SelectOption<number>[]) => {
+      helpers.setValue(getMultiOptionsValue(options));
+      helpers.setTouched(true, false);
+    },
+    [getMultiOptionsValue, helpers],
+  );
+
+  return (
+    <Field name={name}>
+      {() => (
+        <ObjectSearchComponent
+          isMulti
+          hideSelectedOptions={false}
+          onChange={handleChange}
+          value={selectValues}
+          {...selectProps}
+        />
+      )}
+    </Field>
   );
 };

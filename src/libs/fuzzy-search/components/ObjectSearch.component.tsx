@@ -19,7 +19,7 @@ import { getSearchVariant } from '#src/libs/fuzzy-search/utils/getSearchVariant'
 
 export type Props = OwnProps;
 
-type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
+export type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
 
 /**
  * A generic select component used to perform fuzzySearch on a specific type of objects.

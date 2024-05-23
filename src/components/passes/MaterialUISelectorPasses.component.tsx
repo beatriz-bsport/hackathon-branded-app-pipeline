@@ -12,6 +12,7 @@ import { PassPreview } from './PassPreview.component';
 
 type MaterialUISelectorPassesProps = {
   disabled?: boolean;
+  onConfirm?: () => void;
   passes: PaymentPack[] | PrivatePass[];
   placeHolder?: string;
   onChange: (passIds: number[]) => void;
@@ -51,6 +52,7 @@ const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
       isDisabled={props.disabled ?? false}
       itemRenderer={passOptionRenderer}
       onChange={onChange}
+      onConfirm={props.onConfirm}
       options={options}
       placeholder={props.placeHolder}
       value={selectedPassOptions}

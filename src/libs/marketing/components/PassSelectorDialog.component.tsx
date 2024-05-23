@@ -43,6 +43,9 @@ export const PassSelectorDialog = ({
   const onSwitchIsAll = useCallback(() => {
     setIsAll(!isAll);
   }, [isAll]);
+  const onConfirm = useCallback(() => {
+    onSubmit(selectedPasses, false);
+  }, [onSubmit, selectedPasses]);
   const submit = useCallback(() => {
     onSubmit(selectedPasses, isAll);
   }, [onSubmit, selectedPasses, isAll]);
@@ -63,6 +66,7 @@ export const PassSelectorDialog = ({
           <MaterialUISelectorPasses
             disabled={isAll}
             onChange={onChange}
+            onConfirm={onConfirm}
             passes={passes}
             placeHolder={t(
               `notifications.passSelectionPlaceholder.${identifier}`,

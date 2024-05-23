@@ -99,6 +99,7 @@ type BaseProps<T extends OptionTypeBase> = {
   options: T[] | Immutable.ImmutableArray<T>;
   placeholder?: string;
   removeIndicator?: boolean;
+  onConfirm?: () => void;
   /** Placeholder to be displayed when the selector is searchable, and focused (ie. search is active) */
   searchPlaceholder?: string;
   withoutConfirmButton?: boolean;
@@ -160,6 +161,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     onEndMenuListReach,
     onFocus,
     onInputChange,
+    onConfirm,
     openMenuOnClear,
     openMenuOnFocus,
     options,
@@ -173,6 +175,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     withoutSelectAll,
     ...restProps
   } = props;
+
   const classes = useStyles();
 
   const selectRef = useRef(null);
@@ -185,7 +188,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
   const handleChange = (data: T | T[], { action }: ActionMeta) => {
     if (!onChange) return;
 
-    if (!withoutConfirmButton) {
+    if (!withoutConfirmButton && !onConfirm) {
       // needed as it conflict with formik sometine
       selectRef.current?.select?.blur();
     }
@@ -199,7 +202,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
       onChange(data);
     }
 
-    /* when clearing the values, the selected items gets updated properly (asynchronous behavior) and the 
+    /* when clearing the values, the selected items gets updated properly (asynchronous behavior) and the
     menu reopens with empty values instead of closing the menu */
     if (openMenuOnClear && action === 'clear') {
       selectRef.current.select.blur();
@@ -340,10 +343,12 @@ function MaterialUISelector<T extends OptionTypeBase>(
           ref={selectRef}
           allOptionsPlaceholder={allOptionsPlaceholder}
           closeMenuOnSelect={closeMenuOnSelect}
+          customConfirmButton={!!onConfirm}
           defaultNumberShown={defaultNumberShown}
           displayAllOptionsPlaceholder={displayAllOptionsPlaceholder}
           displaySearchPlaceholder={displaySearchPlaceholder}
           onBlur={handleBlur}
+          onConfirm={onConfirm}
           onInputChange={onInputChange}
           searchPlaceholder={searchPlaceholder}
           selectRef={selectRef}
@@ -392,7 +397,10 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
         ...selected.slice(indexOf + 1),
       ];
       setSelected(selectedValuesWithoutIndex);
-      if (props.selectProps.withoutConfirmButton) {
+      if (
+        props.selectProps.withoutConfirmButton ||
+        props.selectProps.customConfirmButton
+      ) {
         props.setValue(selectedValuesWithoutIndex);
         props.selectProps.openMenuOnFocus &&
           setTimeout(() => props.selectProps.selectRef.current.focus());
@@ -401,7 +409,10 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     }
     const selectedValues = [...selected, data];
     setSelected(selectedValues);
-    if (props.selectProps.withoutConfirmButton) {
+    if (
+      props.selectProps.withoutConfirmButton ||
+      props.selectProps.customConfirmButton
+    ) {
       props.setValue(selectedValues);
       props.selectProps.openMenuOnFocus &&
         setTimeout(() => props.selectProps?.selectRef?.current?.focus());
@@ -421,7 +432,10 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
         return o.options;
       });
       setSelected(globalSelectedValues);
-      if (props.selectProps.withoutConfirmButton) {
+      if (
+        props.selectProps.withoutConfirmButton ||
+        props.selectProps.customConfirmButton
+      ) {
         props.setValue(globalSelectedValues);
         // trick to keep the menu open while selecting options
         props.selectProps.openMenuOnFocus &&
@@ -472,8 +486,16 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
                 <Button
                   className={classes.button}
                   color="primary"
-                  onClick={handleSubmit}
-                  onTouchEnd={handleSubmit} // for compability with phones
+                  onClick={
+                    props.selectProps.customConfirmButton
+                      ? props.selectProps.onConfirm
+                      : handleSubmit
+                  }
+                  onTouchEnd={
+                    props.selectProps.customConfirmButton
+                      ? props.selectProps.onConfirm
+                      : handleSubmit
+                  } // for compatibility with phones
                 >
                   {t('selector.validate')}
                 </Button>

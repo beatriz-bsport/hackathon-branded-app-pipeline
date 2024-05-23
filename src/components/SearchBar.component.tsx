@@ -34,6 +34,7 @@ import { search as searchActions } from '../actions';
 import { searchArchived as searchArchivedMembers } from '../libs/member/actions';
 
 type OwnProps = {
+  autoFocus?: boolean;
   className: string;
   changeLocation: boolean;
   setMemberHistoryAnchor: (anchor: HTMLElement) => void;
@@ -126,6 +127,7 @@ export class SearchBar extends Component<Props> {
         </Popover>
         <DelayedTextField
           fullWidth
+          autoFocus={this.props.autoFocus}
           className={classes.field}
           InputProps={{
             className: classes.input,

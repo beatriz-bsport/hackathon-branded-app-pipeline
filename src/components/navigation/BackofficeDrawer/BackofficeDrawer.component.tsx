@@ -115,6 +115,7 @@ const usePrevious = (value: Location) => {
 };
 
 type Props = {
+  autoFocusMemberSearchBar?: boolean;
   theme: CompanyTheme;
   nbAlerting: number;
   nbTutorialAlerting: number;
@@ -185,6 +186,7 @@ type Props = {
 } & ConnectedProps<typeof connector>;
 
 export const BackOfficeDrawer: React.FC<Props> = ({
+  autoFocusMemberSearchBar,
   children,
   theme,
   nbAlerting,
@@ -783,8 +785,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         requiredPermission="member.allowed_actions.search"
                       >
                         <Grid item className={classes.searchBar}>
-                          {/* @ts-expect-error */}
-                          <SearchBar changeLocation />
+                          <SearchBar
+                            // @ts-expect-error
+                            changeLocation
+                            autoFocus={autoFocusMemberSearchBar}
+                          />
                         </Grid>
                       </ObjectLevelPermissionWrapper>
                       {renderAdditionalButtons()}

@@ -770,6 +770,11 @@ export class Backoffice extends Component<Props, State> {
           >
             <BannerProvider>
               <BackofficeDrawer
+                autoFocusMemberSearchBar={
+                  !this.props.browserLocation.pathname.includes(
+                    'access-monitoring',
+                  )
+                }
                 clockIn={this.props.clockIn}
                 clockOut={this.props.clockOut}
                 companyId={this.props.theme.company}

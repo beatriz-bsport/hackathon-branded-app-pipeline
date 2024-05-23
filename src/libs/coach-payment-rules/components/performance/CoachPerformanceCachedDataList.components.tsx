@@ -39,6 +39,18 @@ type Props = {
   ) => void;
 };
 
+/**
+ * For legacy reasons, the backend does not always return ISO strings.
+ * If the string cannot be parsed as ISO, we're using another format as a fallback
+ *
+ * @param {string} date
+ */
+const parseDate = (date: string) => {
+  return DateTime.fromISO(date).isValid
+    ? DateTime.fromISO(date)
+    : DateTime.fromFormat(date, 'yyyy-MM-dd HH:mm:ssZZ');
+};
+
 export const CoachPerformanceCachedDataList = (props: Props) => {
   const [openSection, setOptionSection] = React.useState<boolean>(false);
   const { t } = useTranslation('coachPerformance');
@@ -96,10 +108,10 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
                     !data?.metadata?.date_start || !data?.metadata?.date_start
                       ? t('cachedData.unresolvedDaterange')
                       : t('cachedData.dateRange', {
-                          startDate: DateTime.fromISO(
+                          startDate: parseDate(
                             data?.metadata.date_start,
                           ).toLocaleString(DateTime.DATE_SHORT),
-                          endDate: DateTime.fromISO(
+                          endDate: parseDate(
                             data?.metadata.date_end,
                           ).toLocaleString(DateTime.DATE_SHORT),
                         })

@@ -61,8 +61,8 @@ type Props = {
   isEditForm?: boolean;
   provincialTax?: number;
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
-  bookkeepingAccounts: BookkeepingAccount[];
-  bookkeepingAccountById: Record<number, BookkeepingAccount>;
+  bookkeepingAccounts?: BookkeepingAccount[];
+  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
   initialValues: ShopItemFormValues;
 };
 
@@ -198,14 +198,16 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={12}>
-          <BookkeepingAccountSelector
-            bookkeepingAccountById={bookkeepingAccountById}
-            bookkeepingAccounts={bookkeepingAccounts}
-            selectedBookkeepingAccountId={values.bookkeepingAccount}
-            setFieldValue={handleBookkeepingAccountChange}
-          />
-        </Grid>
+        {!!bookkeepingAccountById && !!bookkeepingAccounts && (
+          <Grid item xs={12}>
+            <BookkeepingAccountSelector
+              bookkeepingAccountById={bookkeepingAccountById}
+              bookkeepingAccounts={bookkeepingAccounts}
+              selectedBookkeepingAccountId={values.bookkeepingAccount}
+              setFieldValue={handleBookkeepingAccountChange}
+            />
+          </Grid>
+        )}
         <Grid item xs={12}>
           <NumericInput
             fullWidth

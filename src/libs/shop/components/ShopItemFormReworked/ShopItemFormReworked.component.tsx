@@ -19,6 +19,7 @@ import type {
   ShopItemCreate,
   ShopItemEdit,
   ShopSupplierTemplate,
+  ShopItemTemplate,
 } from '#libs/shop/types';
 import type { BookkeepingAccount } from '#libs/payment/types';
 import {
@@ -39,15 +40,15 @@ const { trackFormSubmitIntent, trackFormCancel } =
 
 type Props = {
   onCreateSubmit?: (values: ShopItemCreate) => void;
-  onUpdateSubmit?: (formData: Partial<ShopItemEdit>, id: number) => void;
-  initial?: ShopItem;
+  onUpdateSubmit?: (formData: ShopItemEdit, id: number) => void;
+  initial?: ShopItem | ShopItemTemplate;
   isLoading?: boolean;
   onCancel: () => void;
   provincialTax?: number;
   isEditForm?: boolean;
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
-  bookkeepingAccounts: BookkeepingAccount[];
-  bookkeepingAccountById: Record<number, BookkeepingAccount>;
+  bookkeepingAccounts?: BookkeepingAccount[];
+  bookkeepingAccountById?: Record<number, BookkeepingAccount>;
 };
 
 const ShopItemFormReworked: React.FC<Props> = ({
@@ -61,7 +62,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
   supplierList,
   bookkeepingAccounts,
   bookkeepingAccountById,
-}) => {
+}: Props) => {
   const classes = useStyles();
 
   const { t } = useTranslation('shop');
@@ -71,7 +72,10 @@ const ShopItemFormReworked: React.FC<Props> = ({
       name: initial?.name ?? '',
       subtitle: initial?.subtitle ?? '',
       price: initial ? parseFloat(initial?.price) : null,
-      supplier: initial?.supplier ?? null,
+      supplier:
+        (initial as ShopItemTemplate)?.supplier_template ??
+        (initial as ShopItem)?.supplier ??
+        null,
       supplierPrice: initial ? parseFloat(initial?.supplier_price) : null,
       cover: initial?.cover ?? null,
       tva: initial ? parseFloat(initial?.tva) : null,
@@ -87,7 +91,10 @@ const ShopItemFormReworked: React.FC<Props> = ({
       featured: initial?.featured ?? false,
       sellOnlyOnProvision: initial?.sell_only_on_provision ?? false,
       isDeliverable: initial?.is_deliverable ?? true,
-      subshop: initial?.subshop ?? null,
+      subshop:
+        (initial as ShopItemTemplate)?.sub_shop_template ??
+        (initial as ShopItem)?.subshop ??
+        null,
       bookkeepingAccount: initial?.bookkeeping_account ?? null,
     }),
     [initial],
@@ -167,7 +174,9 @@ const ShopItemFormReworked: React.FC<Props> = ({
           'available_payment_method_identifiers[]': JSON.stringify(
             values.availablePaymentMethodIdentifiers,
           ),
-          bookkeeping_account: values.bookkeepingAccount,
+          ...(!!values.bookkeepingAccount && {
+            bookkeeping_account: values.bookkeepingAccount,
+          }),
           featured: values.featured,
           sell_only_on_provision: values.sellOnlyOnProvision,
           is_deliverable: values.isDeliverable,

@@ -6,7 +6,6 @@ import type { State } from '../../state/types';
 import type { Alerting } from '#libs/alerting/types';
 import type { RootState } from '#src/reducers';
 import { CompanyState } from './types';
-import { RootState } from '#src/reducers';
 
 const _getState = (state: State) => state.company;
 

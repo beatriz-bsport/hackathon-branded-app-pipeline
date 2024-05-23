@@ -49,6 +49,7 @@ type OwnProps = {
   emailSummaryList: EmailTemplateSummary[];
   emailDetails: { [key: string]: EmailTemplateDetail };
   onCancel: () => void;
+  closeForm: () => void;
   onUpdateMarketingNotification: (id: number, n: MarketingNotification) => any;
   onCreateMarketingNotification: (
     n: MarketingNotification,
@@ -69,6 +70,7 @@ type OwnProps = {
   privatePasses: PrivatePass[];
   establishmentGroups: Array<EstablishmentGroup>;
   createFormOpenType: Identifier;
+  sourceObjectId?: number;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -90,23 +92,22 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
   Props,
   State
 > {
-  // @ts-expect-error
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      sourceObjectId: props.sourceObjectId || null,
+      sourceObjectId: props.sourceObjectId,
     };
   }
 
-  // @ts-expect-error
-  state: State = {};
+  state: State = {
+    sourceObjectId: null,
+  };
 
   onCancel = () => {
     trackFormCancel(this.props.selectedNotification?.id, {
       kind: this.props.createFormOpenType,
     });
     this.props.onCancel();
-    // @ts-expect-error
     this.props.closeForm();
     this.setState({ sourceObjectId: null });
   };
@@ -129,7 +130,6 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     } else {
       trackFormSuccess(undefined, { kind: this.props.createFormOpenType });
       this.props.onCreateMarketingNotification(n, {});
-      // @ts-expect-error
       this.props.closeForm();
       this.setState({ sourceObjectId: null });
     }
@@ -190,11 +190,9 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
               : this.props.metaActivities
           }
           onCancel={this.onCancel}
-          // @ts-expect-error
           onClose={this.props.closeForm}
           onSubmit={(sourceObjectId) => {
             this.setState({
-              // @ts-expect-error
               sourceObjectId,
             });
           }}

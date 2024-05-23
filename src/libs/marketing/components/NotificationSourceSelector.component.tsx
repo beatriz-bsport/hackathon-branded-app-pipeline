@@ -40,7 +40,7 @@ type Identifier =
 type OwnProps = {
   onClose: () => void;
   onCancel: () => void;
-  onSubmit: (identifier: Identifier, objectId: number) => void;
+  onSubmit: (objectIds: number, allObjects?: boolean) => void;
   identifier: Identifier;
   metaActivities: MetaActivity[];
   establishments: Establishment[];
@@ -140,7 +140,6 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'private_pass') {
       objectId = this.state.selectedPrivatePass;
     }
-    // @ts-expect-error
     this.props.onSubmit(objectId);
   };
 

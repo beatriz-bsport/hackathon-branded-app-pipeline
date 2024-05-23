@@ -28,6 +28,11 @@ const generateFakePaymentRules = (length: number): ObjectSearchPaginated => ({
   page: 1,
 });
 
+/**
+ * Mocks the object-search results for coupons and coach payment rules.
+ * This is only used to mock the search inside the storybook.
+ */
+
 const MockObjectSearchWrapper = ({
   children,
 }: {

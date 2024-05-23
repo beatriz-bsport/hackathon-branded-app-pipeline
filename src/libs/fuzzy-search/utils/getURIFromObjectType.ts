@@ -39,6 +39,12 @@ const typeToV0URIMap: { [key in SearchObjectType]?: string } = {
   contract: 'subscription/contract',
 };
 
+/**
+ * This is used to call the right search URL when using the fuzzy search API.
+ * @param objectType The type of object to search for
+ * @returns The URI to call for the search
+ */
+
 export const getSearchObjectURI = (objectType: SearchObjectType): string => {
   if (objectType in typeToV0URIMap) {
     return `${API_URI}/${typeToV0URIMap[objectType]}/search`;

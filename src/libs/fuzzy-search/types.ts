@@ -170,8 +170,23 @@ export type SelectOptions =
 export type ObjectSearchProps = {
   [key in SearchObjectType]: {
     searchedObjectType: key;
+    /**
+     * Function used to format the results into options. Use this when your onChange function needs additional data other
+     * than label and value. By default the optionsFormatter will return an object with keys label and value.
+     *
+     * @param results The results that are fetched from the API
+     * @returns An object with keys label, value and optionally other keys
+     */
     optionsFormatter?: (results: ResultsMap[key]['array']) => SelectOptions;
+    /**
+     * The query filters that can be passed to the API when fetching the results. Can be used to filter the results
+     * and to handle pagination.
+     */
     additionalParams?: ReplaceArrayTypes<CommonParams & APIParamsMap[key]>;
+    /**
+     * The initial values that need to be hydrated. ObjectSearch will use these values to perform a first search that
+     * will store the results in the corresponding byId section of the store.
+     */
     initialValues?: number[];
   };
 }[SearchObjectType];

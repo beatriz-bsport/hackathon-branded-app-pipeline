@@ -72,6 +72,12 @@ const labelExtractorMap: Record<
   establishment_group: (group: EstablishmentGroupAPI) => group.name,
 };
 
+/**
+ * Extracts the option label from an object search result.
+ * This is the default label extractor, and can be overriden by using the
+ * optionsFormatter prop in the ObjectSearch component.
+ */
+
 export const getLabelFromItem = ({
   item,
   searchedObjectType,

@@ -58,7 +58,7 @@ const ValidationSchema = Yup.object().shape({
       test: function isExpirationDateWrongFormat(value) {
         if (value) {
           // replicate the format we implement inside the handle submit
-          const formatedDate = DateTime.fromISO(value).toISODate();
+          const formatedDate = DateTime.fromJSDate(value).toISODate();
           const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
           const isValidDateFormat = dateRegex.test(formatedDate);
           if (!isValidDateFormat) {

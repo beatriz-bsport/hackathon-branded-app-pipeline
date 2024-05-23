@@ -306,7 +306,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                     </Typography>
                     <Typography color="error" component="span" variant="h6">
                       {` ${getCurrencyDisplayWithPrice(
-                        props.member.total_unpaid_amount,
+                        props.member?.total_unpaid_amount,
                       )}`}
                     </Typography>
                   </div>

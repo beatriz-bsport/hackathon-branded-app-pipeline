@@ -130,5 +130,6 @@ export type PaymentComboAPIParams = {
   video?: number;
   include_expired?: boolean;
   available?: boolean;
+  company?: number;
   manager_only?: boolean;
 };

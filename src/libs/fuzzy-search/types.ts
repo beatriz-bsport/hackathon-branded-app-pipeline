@@ -307,11 +307,6 @@ type EmailDesignAPIParams = PaginationFilterParams & { available?: boolean };
 
 type EstablishmentAPIParams = PaginationFilterParams & FetchEstablishmentParams;
 
-type GiftcardAPIParams = PaginationFilterParams & {
-  id__in?: number;
-  disabled?: boolean;
-};
-
 type GifcardTemplateAPIParams = PaginationFilterParams & { id__in?: number };
 
 type MetaActivityAPIParams = PaginationFilterParams & MetaActivityFilter;
@@ -326,6 +321,13 @@ type PaymentComboAPIParams = PaginationFilterParams &
 type PaymentPackAPIParams = PaginationFilterParams & PaymentPackQueryParams;
 
 type PaymentPackCategoryAPIParams = PaginationFilterParams;
+type GiftcardAPIParams = PaginationFilterParams & {
+  id__in?: number;
+  company?: number;
+  disabled?: boolean;
+  value__gt?: number;
+  manager_only?: boolean;
+};
 
 type PerformanceTrackingProgramAPIParams = PaginationFilterParams & {
   is_disabled?: boolean;

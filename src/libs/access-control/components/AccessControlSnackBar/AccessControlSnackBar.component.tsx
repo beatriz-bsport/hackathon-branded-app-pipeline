@@ -102,7 +102,8 @@ const AccessControlSnackBar: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '450px',
+    maxWidth: '585px',
+    minWidth: '450px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

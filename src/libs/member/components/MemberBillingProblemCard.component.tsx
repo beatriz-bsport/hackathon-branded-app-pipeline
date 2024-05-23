@@ -69,6 +69,7 @@ type Props = {
   memberLoading: boolean;
   onInvoicePaymentDialogClose?: () => void;
   onlinePaymentEnabled: boolean;
+  paperVariant?: 'elevation' | 'outlined';
   selectedInvoiceId?: string;
   showPositiveBalance?: boolean;
   snackbarErrorMsg: (msg: string) => void;
@@ -202,7 +203,10 @@ export const MemberBillingProblemCard = (props: Props) => {
     [invoiceToBill, amountToBill],
   );
   return (
-    <Paper className={classes.accountBalanceBloc}>
+    <Paper
+      className={classes.accountBalanceBloc}
+      variant={props?.paperVariant || 'elevation'}
+    >
       <ObjectLevelPermissionProvider
         requiredPermission={[
           'member.allowed_actions.readBalance',

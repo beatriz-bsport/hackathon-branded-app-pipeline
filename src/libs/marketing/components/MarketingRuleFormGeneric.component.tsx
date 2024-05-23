@@ -27,6 +27,7 @@ import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
+import { PassSelectorDialog } from './PassSelectorDialog.component';
 
 type Identifier =
   | 'birthday'
@@ -71,12 +72,17 @@ type OwnProps = {
   establishmentGroups: Array<EstablishmentGroup>;
   createFormOpenType: Identifier;
   sourceObjectId?: number;
+  sourceObjectIds?: number[];
+  containsAllSourceObjects?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
 
 type State = {
   sourceObjectId: number | null;
+  sourceObjectIds: number[];
+  containsAllSourceObjects: boolean;
+  sourceObjectSelected: boolean;
 };
 
 const {
@@ -95,12 +101,18 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
   constructor(props: Props) {
     super(props);
     this.state = {
-      sourceObjectId: props.sourceObjectId,
+      sourceObjectId: props.sourceObjectId || null,
+      sourceObjectIds: props.sourceObjectIds || [],
+      containsAllSourceObjects: props.containsAllSourceObjects || false,
+      sourceObjectSelected: false,
     };
   }
 
   state: State = {
     sourceObjectId: null,
+    sourceObjectIds: [],
+    containsAllSourceObjects: false,
+    sourceObjectSelected: false,
   };
 
   onCancel = () => {
@@ -109,7 +121,11 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     });
     this.props.onCancel();
     this.props.closeForm();
-    this.setState({ sourceObjectId: null });
+    this.setState({
+      sourceObjectId: null,
+      sourceObjectIds: [],
+      sourceObjectSelected: false,
+    });
   };
 
   onSubmitIntent = () => {
@@ -129,9 +145,14 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       );
     } else {
       trackFormSuccess(undefined, { kind: this.props.createFormOpenType });
+
       this.props.onCreateMarketingNotification(n, {});
       this.props.closeForm();
-      this.setState({ sourceObjectId: null });
+      this.setState({
+        sourceObjectId: null,
+        sourceObjectIds: [],
+        sourceObjectSelected: false,
+      });
     }
   };
 
@@ -158,6 +179,24 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     return null;
   };
 
+  onSelectSourceObjectSingle = (sourceObjectId: number) => {
+    this.setState({
+      sourceObjectId,
+      sourceObjectSelected: true,
+    });
+  };
+
+  onSelectSourceObjectMultiple = (
+    sourceObjectIds: number[],
+    allSourceObjects: boolean,
+  ) => {
+    this.setState({
+      sourceObjectIds,
+      containsAllSourceObjects: allSourceObjects || false,
+      sourceObjectSelected: true,
+    });
+  };
+
   componentDidUpdate(prevProps: Props) {
     if (
       (prevProps.createFormOpenType !== this.props.createFormOpenType &&
@@ -174,9 +213,30 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
 
   render() {
     if (
+      (this.props.createFormOpenType === 'payment_pack' ||
+        this.props.createFormOpenType === 'private_pass') &&
+      !this.state.sourceObjectSelected
+    ) {
+      return (
+        <PassSelectorDialog
+          open
+          identifier={this.props.createFormOpenType}
+          onClose={this.props.closeForm}
+          onSubmit={this.onSelectSourceObjectMultiple}
+          passes={
+            this.props.createFormOpenType === 'payment_pack'
+              ? this.props.paymentPacks
+              : this.props.privatePasses
+          }
+        />
+      );
+    }
+    if (
       this.props.createFormOpenType &&
+      this.props.createFormOpenType !== 'payment_pack' &&
+      this.props.createFormOpenType !== 'private_pass' &&
       this.props.createFormOpenType !== 'birthday' &&
-      typeof this.state.sourceObjectId !== 'number'
+      !this.state.sourceObjectSelected
     ) {
       return (
         <NotificationSourceSelector
@@ -191,26 +251,22 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           }
           onCancel={this.onCancel}
           onClose={this.props.closeForm}
-          onSubmit={(sourceObjectId) => {
-            this.setState({
-              sourceObjectId,
-            });
-          }}
-          paymentPacks={this.props.paymentPacks}
-          privatePasses={this.props.privatePasses}
+          onSubmit={this.onSelectSourceObjectSingle}
           privateServices={this.props.privateServices}
         />
       );
     }
 
-    let identifier = '';
-    let objectId = -1;
+    let identifier: Identifier;
+    let objectId: number;
+    let objectIds: number[];
+    let containsAllObjects: boolean;
 
-    if (this.state.sourceObjectId) {
-      /* eslint-disable-next-line */
+    if (this.state.sourceObjectSelected) {
       identifier = this.props.createFormOpenType;
-      /* eslint-disable-next-line */
       objectId = this.state.sourceObjectId;
+      objectIds = this.state.sourceObjectIds;
+      containsAllObjects = this.state.containsAllSourceObjects;
     }
 
     if (this.props.selectedNotification) {
@@ -219,8 +275,10 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
         establishment_group_id,
         meta_activity_id,
         private_service_id,
-        payment_pack_id,
-        private_pass_id,
+        contains_all_payment_packs,
+        payment_pack_ids,
+        contains_all_private_passes,
+        private_pass_ids,
         contract_id,
       } = this.props.selectedNotification.event_rules;
 
@@ -242,14 +300,28 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
         objectId = private_service_id;
       }
 
-      if (payment_pack_id !== undefined) {
+      if (payment_pack_ids !== undefined) {
         identifier = 'payment_pack';
-        objectId = payment_pack_id;
+        objectIds = payment_pack_ids;
       }
-      if (private_pass_id !== undefined) {
+
+      if (contains_all_payment_packs) {
+        identifier = 'payment_pack';
+        objectIds = [];
+        containsAllObjects = true;
+      }
+
+      if (private_pass_ids !== undefined) {
         identifier = 'private_pass';
-        objectId = private_pass_id;
+        objectIds = private_pass_ids;
       }
+
+      if (contains_all_private_passes) {
+        identifier = 'private_pass';
+        objectIds = [];
+        containsAllObjects = true;
+      }
+
       if (contract_id !== undefined) {
         identifier = 'contract';
         objectId = contract_id;
@@ -315,6 +387,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     if (identifier === 'payment_pack' || identifier === 'private_pass') {
       return (
         <MarketingRuleFormProduct
+          containsAllPasses={containsAllObjects}
           emailDetailLoading={this.props.emailDetailLoading}
           // @ts-expect-error
           emailDetails={this.props.emailDetails}
@@ -324,8 +397,8 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           getEmails={this.props.getEmails}
           getSmartLists={this.props.getSmartLists}
           goToSmartlist={this.props.goToSmartlist}
-          id={objectId}
           identifier={identifier}
+          ids={objectIds}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}

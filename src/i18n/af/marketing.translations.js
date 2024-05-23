@@ -64,7 +64,7 @@ exports.default = {
     },
     cancel: 'Cancel',
     next: 'Next',
-    paymentPackPlaceholder: 'Passes',
+    save: 'Save',
     selectIdentifierLabel: {
       payment_pack: 'Select a pass',
       private_service: 'Select an appointment',
@@ -81,12 +81,32 @@ exports.default = {
       opened_rate: 'Open rate',
       total_mail_send: 'Sent emails',
     },
+    notificationTitle: {
+      remainingCredit: 'Remaining credit notifications',
+      remainingValidity: 'Remaining validity notifications',
+      expiredValidity: 'Expiration notifications',
+    },
     mail: 'Email ',
     notificationDetails: 'Overview',
     mailTitle: 'Preview',
     statisticDetails: 'Statistics',
     notificationPreview: 'Overview',
-    privatePassPlaceholder: 'Appointment passes',
+    allOptionsPlaceholder: {
+      private_pass: 'All appointment passes',
+      payment_pack: 'All passes',
+    },
+    allPassSelected: {
+      payment_pack: 'All passes are included',
+      private_pass: 'All appointment passes are included',
+    },
+    selectAllPassesToggle: {
+      payment_pack: 'Apply to all existing and future passes',
+      private_pass: 'Apply to all existing and future appointment passes',
+    },
+    passSelectionPlaceholder: {
+      private_pass: 'Appointment passes',
+      payment_pack: 'Passes',
+    },
     dialogTitle: 'Add a notification',
     listTitle: 'Notifications',
     create: 'Add a notification',
@@ -96,6 +116,23 @@ exports.default = {
       contractStart: 'Start of subscription',
       contractEnd: 'End of subscription',
     },
+    triggerDescription: {
+      remainingCredit: '{{count}} credit left',
+      remainingCredit_plural: '{{count}} credits left',
+      remainingValidity: '{{count}} day left before expiration',
+      remainingValidity_plural: '{{count}} days left before expiration',
+      todayValidity: 'On the day of expiration',
+      expiredValidity: 'Expired for {{count}} day',
+      expiredValidity_plural: 'Expired for {{count}} days',
+    },
+    sendingDelay: {
+      justOnBooking: 'Just after the booking',
+      onBooking: '{{hours}}h after booking',
+      justOnSession: 'Just after the session',
+      onSession: '{{hours}}h after the session',
+    },
+    addPasses: 'Add',
+    editPasses: 'Edit',
   },
   customForm: {
     field: {

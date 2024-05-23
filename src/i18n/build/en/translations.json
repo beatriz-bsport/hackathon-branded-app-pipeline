@@ -16694,7 +16694,7 @@
             },
             "cancel": "Cancel",
             "next": "Next",
-            "paymentPackPlaceholder": "Passes",
+            "save": "Save",
             "selectIdentifierLabel": {
                 "payment_pack": "Select a pass",
                 "private_service": "Select an appointment",
@@ -16713,11 +16713,36 @@
             },
             "mail": "Email ",
             "notificationDetails": "Overview",
+            "notificationTitle": {
+              "remainingCredit": "Remaining credit notifications",
+              "remainingValidity": "Remaining validity notifications",
+              "expiredValidity": "Expiration notifications"
+            },
+            "triggerDescription": {
+              "remainingCredit": "{{count}} credit left",
+              "remainingCredit_plural": "{{count}} credits left",
+              "remainingValidity": "{{count}} day left before expiration",
+              "remainingValidity_plural": "{{count}} days left before expiration",
+              "expiredValidity": "expired for {{count}} day",
+              "expiredValidity_plural": "expired for {{count}} days"
+            },
+            "sendingDelay": {
+              "onBooking": "{{hours}}h after booking",
+              "onSession": "{{hours}}h after the session"
+            },
+            "selectAllPassesToggle": {
+              "payment_pack": "Apply to all existing and future passes",
+              "private_pass": "Apply to all existing and future appointment passes"
+            },
+            "allPassSelected": { "payment_pack": "All passes are included", "private_pass": "All appointment passes are included" },
+            "dialogTitle": "Add a notification",
+            "addPasses": "Add",
+            "editPasses": "Edit",
             "mailTitle": "Preview",
             "statisticDetails": "Statistics",
             "notificationPreview": "Overview",
-            "privatePassPlaceholder": "Appointment passes",
-            "dialogTitle": "Add a notification",
+            "allOptionsPlaceholder": { "private_pass": "All appointment passes", "payment_pack": "All passes" },
+            "passSelectionPlaceholder": { "private_pass": "Appointment passes", "payment_pack": "Passes" },
             "listTitle": "Notifications",
             "create": "Add a notification",
             "handleNotification": "Notification",

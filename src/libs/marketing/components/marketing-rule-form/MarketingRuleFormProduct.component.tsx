@@ -50,10 +50,12 @@ interface InitialFormikValues {
   notificationTitle: string | null;
   kind: number;
   email_design: number;
-  payment_pack_id: number | null;
-  private_pass_id: number | null;
-  days_left: number | string | null;
-  credits_left: number | string | null;
+  contains_all_payment_packs?: boolean;
+  payment_pack_ids?: number[];
+  contains_all_private_passes?: boolean;
+  private_pass_ids?: number[];
+  days_left: number | null;
+  credits_left: number | null;
   smartlist_include: Array<number>;
   smartlist_exclude: Array<number>;
   verboseNotifKind: string | null;
@@ -70,8 +72,10 @@ interface FinalFormikData extends MarketingNotification {
   notificationTitle: string | null;
   verboseNotifKind: string | null;
   days_left: number;
-  payment_pack_id: number | null;
-  private_pass_id: number | null;
+  payment_pack_ids: number[] | null;
+  contains_all_payment_packs: boolean | null;
+  private_pass_ids: number[] | null;
+  contains_all_private_passes: boolean | null;
   identifier: 'payment_pack' | 'private_pass';
   id?: number;
   company?: number;
@@ -119,6 +123,13 @@ type Props = {
   goToSmartlist: () => void;
   initial: MarketingNotification;
   values: FinalFormikData;
+  identifier: 'payment_pack' | 'private_pass';
+  // eslint-disable-next-line react/no-unused-prop-types
+  ids: number[];
+  // eslint-disable-next-line react/no-unused-prop-types
+  containsAllPasses: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onSubmit: (data: MarketingNotification) => void;
   setFieldValue: (key: string, value: any) => void;
   errors: any;
   isSubmitting: boolean;
@@ -189,12 +200,10 @@ const ProductNotificationForm = (props: Props) => {
     getSmartLists();
   }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
-  // @ts-expect-error
-  if (verboseNotifKind !== 'creditsLeft' && credits_left === '') {
+  if (verboseNotifKind !== 'creditsLeft' && credits_left === null) {
     setFieldValue('credits_left', 0);
   }
-  // @ts-expect-error
-  if (verboseNotifKind === 'creditsLeft' && days_left === '') {
+  if (verboseNotifKind === 'creditsLeft' && days_left === null) {
     setFieldValue('days_left', 0);
   }
   return (
@@ -480,16 +489,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductNotificationSchema = Yup.object().shape({
   kind: Yup.number(),
-  payment_pack_id: Yup.number().when('identifier', {
+  contains_all_payment_packs: Yup.boolean().when('identifier', {
     is: 'payment_pack',
-    then: Yup.number().required(),
-    otherwise: Yup.number().nullable(),
+    then: Yup.boolean().required(),
+    otherwise: Yup.boolean().notRequired(),
   }),
-  private_pass_id: Yup.number().when('identifier', {
+  payment_pack_ids: Yup.array().of(Yup.number()).notRequired(),
+  contains_all_private_passes: Yup.boolean().when('identifier', {
     is: 'private_pass',
-    then: Yup.number().required(),
-    otherwise: Yup.number().nullable(),
+    then: Yup.boolean().required(),
+    otherwise: Yup.boolean().notRequired(),
   }),
+  private_pass_ids: Yup.array().of(Yup.number()).notRequired(),
   days_left: Yup.number().min(0).required(),
   credits_left: Yup.number().min(0).required(),
   creditNotificationKind: Yup.string().oneOf(['onBooking', 'onOfferStart']),
@@ -529,13 +540,10 @@ export default compose<any, Props>(
     validateOnMount: true,
     mapPropsToValues: ({
       initial,
-      id,
+      ids,
+      containsAllPasses,
       identifier,
-    }: {
-      initial: MarketingNotification;
-      id: number;
-      identifier: 'payment_pack' | 'private_pass';
-    }) => {
+    }: Props) => {
       if (initial) {
         const {
           kind,
@@ -544,8 +552,10 @@ export default compose<any, Props>(
           push_notification_content,
         } = initial;
         const {
-          payment_pack_id,
-          private_pass_id,
+          contains_all_payment_packs,
+          payment_pack_ids,
+          contains_all_private_passes,
+          private_pass_ids,
           days_left,
           credits_left,
           smartlist_include,
@@ -563,8 +573,10 @@ export default compose<any, Props>(
           notificationTitle: push_notification_title,
           kind,
           email_design,
-          payment_pack_id,
-          private_pass_id,
+          contains_all_payment_packs,
+          payment_pack_ids,
+          contains_all_private_passes,
+          private_pass_ids,
           days_left: Math.abs(days_left) || 0,
           credits_left: getCreditsDividedValue(credits_left || 0),
           smartlist_include: smartlist_include || [],
@@ -586,8 +598,15 @@ export default compose<any, Props>(
             ? PAYMENT_PACK_EVENT_RULE.NOTIFICATION_CREDIT
             : PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
         email_design: null,
-        payment_pack_id: identifier === 'payment_pack' ? id : null,
-        private_pass_id: identifier === 'private_pass' ? id : null,
+        ...(identifier === 'payment_pack'
+          ? {
+              contains_all_payment_packs: containsAllPasses,
+              payment_pack_ids: ids,
+            }
+          : {
+              contains_all_private_passes: containsAllPasses,
+              private_pass_ids: ids,
+            }),
         days_left: 2,
         credits_left: 2,
         hours: 2,
@@ -603,7 +622,6 @@ export default compose<any, Props>(
     validationSchema: ProductNotificationSchema,
     handleSubmit: (
       values: FinalFormikData,
-      // @ts-expect-error
       { props: { onSubmit, identifier } },
     ) => {
       const data: MarketingNotification = {
@@ -618,10 +636,12 @@ export default compose<any, Props>(
         event_rules: {
           ...(identifier === 'payment_pack'
             ? {
-                payment_pack_id: values.payment_pack_id,
+                contains_all_payment_packs: values.contains_all_payment_packs,
+                payment_pack_ids: values.payment_pack_ids,
               }
             : {
-                private_pass_id: values.private_pass_id,
+                contains_all_private_passes: values.contains_all_private_passes,
+                private_pass_ids: values.private_pass_ids,
               }),
           disabled_if_in_contract: values.disabled_if_in_contract,
           smartlist_include: values.smartlist_include,

@@ -113,3 +113,25 @@ export const getCreditsDividedDisplay = (credits: number) => {
   // If the value has two or more decimals, return it with two decimal places.
   return valueDivided.toFixed(2);
 };
+
+/**
+ * Formats the given credits based on wether it is unlimited and its decimal precision.
+ * @param t The translation function must contain the `paymentPack` namespace.
+ * @param credits The number of credits to be formatted.
+ * @param isUnlimited Whether the credits are unlimited.
+ * @returns A string representing the formatted credits:
+ */
+export const getFormatedCredits = (
+  t: TFunction,
+  credits: number,
+  isUnlimited: boolean,
+) => {
+  if (isUnlimited) {
+    return t('paymentPack:specifications.unlimitedCredits');
+  }
+
+  return t('paymentPack:specifications.nbCredits', {
+    credits: getCreditsDividedDisplay(credits),
+    count: credits,
+  });
+};

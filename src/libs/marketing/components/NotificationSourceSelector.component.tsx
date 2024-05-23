@@ -20,33 +20,26 @@ import { MetaActivity } from '../../meta-activity/types';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
-import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
-import { PrivatePass, PrivateService } from '../../private-service/types';
-import { PaymentPack } from '../../payment-packs/types';
+import { PrivateService } from '../../private-service/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 type Identifier =
   | 'meta_activity'
   | 'establishment'
   | 'private_service'
-  | 'payment_pack'
   | 'workshop'
-  | 'private_pass'
   | 'establishment_group'
   | 'contract';
 
 type OwnProps = {
   onClose: () => void;
   onCancel: () => void;
-  onSubmit: (objectIds: number, allObjects?: boolean) => void;
+  onSubmit: (objectId: number) => void;
   identifier: Identifier;
   metaActivities: MetaActivity[];
   establishments: Establishment[];
   privateServices: PrivateService[];
-  paymentPacks: PaymentPack[];
-  privatePasses: PrivatePass[];
   contracts: Contract[];
   establishmentGroups: Array<EstablishmentGroup>;
 };
@@ -59,8 +52,6 @@ type State = {
   selectedMetaActivity: number[];
   selectedEstablishment: number[];
   selectedPrivateService?: number | null;
-  selectedPaymentPack?: number | null;
-  selectedPrivatePass?: number | null;
   selectedEstablishmentGroup?: number | null;
   selectedContract?: number | null;
 };
@@ -70,8 +61,6 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     selectedMetaActivity: [],
     selectedEstablishment: [],
     selectedPrivateService: null,
-    selectedPaymentPack: null,
-    selectedPrivatePass: null,
     selectedEstablishmentGroup: null,
     selectedContract: null,
   };
@@ -81,8 +70,6 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
       selectedMetaActivity: [],
       selectedEstablishment: [],
       selectedPrivateService: null,
-      selectedPaymentPack: null,
-      selectedPrivatePass: null,
       selectedContract: null,
     };
 
@@ -98,12 +85,6 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'private_service') {
       state.selectedPrivateService = value;
     }
-    if (identifier === 'payment_pack') {
-      state.selectedPaymentPack = value;
-    }
-    if (identifier === 'private_pass') {
-      state.selectedPrivatePass = value;
-    }
     if (identifier === 'contract') {
       state.selectedContract = value;
     }
@@ -112,40 +93,30 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
   };
 
   onSubmit = () => {
-    const { identifier } = this.props;
-
-    let objectId = -1;
-
-    if (['meta_activity', 'workshop'].includes(identifier)) {
-      /* eslint-disable-next-line */
-      objectId = this.state.selectedMetaActivity[0];
+    switch (this.props.identifier) {
+      case 'meta_activity':
+      case 'workshop':
+        this.props.onSubmit(this.state.selectedMetaActivity[0]);
+        break;
+      case 'establishment':
+        this.props.onSubmit(this.state.selectedEstablishment[0]);
+        break;
+      case 'establishment_group':
+        this.props.onSubmit(this.state.selectedEstablishmentGroup);
+        break;
+      case 'private_service':
+        this.props.onSubmit(this.state.selectedPrivateService);
+        break;
+      case 'contract':
+        this.props.onSubmit(this.state.selectedContract);
+        break;
+      default:
+        break;
     }
-    if (identifier === 'establishment') {
-      /* eslint-disable-next-line */
-      objectId = this.state.selectedEstablishment[0];
-    }
-    if (identifier === 'establishment_group') {
-      /* eslint-disable-next-line */
-      objectId = this.state.selectedEstablishmentGroup;
-    }
-    if (identifier === 'private_service') {
-      objectId = this.state.selectedPrivateService;
-    }
-    if (identifier === 'payment_pack') {
-      objectId = this.state.selectedPaymentPack;
-    }
-    if (identifier === 'contract') {
-      objectId = this.state.selectedContract;
-    }
-    if (identifier === 'private_pass') {
-      objectId = this.state.selectedPrivatePass;
-    }
-    this.props.onSubmit(objectId);
   };
 
   disableSubmit = () => {
     const { identifier } = this.props;
-
     if (['meta_activity', 'workshop'].includes(identifier)) {
       return !this.state.selectedMetaActivity.length;
     }
@@ -157,12 +128,6 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     }
     if (identifier === 'contract') {
       return typeof this.state.selectedContract !== 'number';
-    }
-    if (identifier === 'payment_pack') {
-      return typeof this.state.selectedPaymentPack !== 'number';
-    }
-    if (identifier === 'private_pass') {
-      return typeof this.state.selectedPrivatePass !== 'number';
     }
     return false;
   };
@@ -229,33 +194,11 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
               />
             )}
 
-            {identifier === 'payment_pack' && (
-              <PaymentPackSelector
-                helperText={t('notifications.paymentPackPlaceholder')}
-                isMulti={false}
-                onChange={(value) => this.onChange('payment_pack', value)}
-                paymentPacks={this.props.paymentPacks}
-                value={this.state.selectedPaymentPack}
-              />
-            )}
             {identifier === 'contract' && (
               <ContractSelector
                 contractId={this.state.selectedContract}
                 contracts={this.props.contracts}
                 onChange={(value) => this.onChange('contract', value)}
-              />
-            )}
-
-            {identifier === 'private_pass' && (
-              <PrivatePassSelector
-                // @ts-expect-error
-                helperText={t('notifications.privatePassPlaceholder')}
-                isMulti={false}
-                onChange={(value: number) =>
-                  this.onChange('private_pass', value)
-                }
-                privatePassList={this.props.privatePasses}
-                value={this.state.selectedPrivatePass}
               />
             )}
           </DialogContent>

@@ -1,0 +1,61 @@
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Checkbox, MenuItem } from '@material-ui/core';
+import MaterialUISelector, {
+  type ItemRendererProps,
+} from '#src/components/Selector/MaterialUISelector.component';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PassPreviewData } from './types';
+import { toPassPreviewData } from './utils';
+import { PassPreview } from './PassPreview.component';
+
+type MaterialUISelectorPassesProps = {
+  disabled?: boolean;
+  passes: PaymentPack[] | PrivatePass[];
+  placeHolder?: string;
+  onChange: (passIds: number[]) => void;
+};
+
+const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
+  const { t } = useTranslation('paymentPack');
+  const [selectedPassOptions, setSelectedPassOptions] =
+    React.useState<PassPreviewData[]>();
+
+  const onChange = useCallback(
+    (passOptions: PassPreviewData[]) => {
+      setSelectedPassOptions(passOptions);
+      props.onChange(passOptions.map((option) => option.value));
+    },
+    [props],
+  );
+
+  const options: PassPreviewData[] = useMemo(() => {
+    return [...props.passes].map((pass) => toPassPreviewData(t, pass));
+  }, [props.passes, t]);
+
+  const passOptionRenderer = useCallback(
+    ({ data, isSelected }: ItemRendererProps<PassPreviewData>) => (
+      <MenuItem dense>
+        <Checkbox checked={isSelected} />
+        <PassPreview pass={data} />
+      </MenuItem>
+    ),
+    [],
+  );
+
+  return (
+    <MaterialUISelector
+      isMulti
+      closeMenuOnSelect={false}
+      isDisabled={props.disabled ?? false}
+      itemRenderer={passOptionRenderer}
+      onChange={onChange}
+      options={options}
+      placeholder={props.placeHolder}
+      value={selectedPassOptions}
+    />
+  );
+};
+
+export default React.memo(MaterialUISelectorPasses);

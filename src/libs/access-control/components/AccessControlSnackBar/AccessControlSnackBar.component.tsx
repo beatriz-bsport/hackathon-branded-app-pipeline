@@ -44,7 +44,10 @@ export const AccessControlSnackBarContent: React.FC<Omit<Props, 'open'>> = ({
       <div className={classes.primaryContent}>
         <Avatar className={classes.avatar} src={member.photo} />
         <div className={classes.informationContainer}>
-          <Typography variant="body1">
+          <Typography
+            className={classes.text2linesWithEllipsis}
+            variant="body1"
+          >
             <Trans
               i18nKey="accessControl:snackbar.message"
               values={{ name: member?.name }}
@@ -149,6 +152,13 @@ const useStyles = makeStyles((theme) => ({
   },
   openButton: {
     color: theme.palette.common.white,
+  },
+  text2linesWithEllipsis: {
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 

@@ -38,43 +38,43 @@ import type {
 import type { OptionCallback } from '../../../state/types';
 
 type Props = {
-  balance: number;
-  invoiceLoading: boolean;
-  goToInvoice: (uuid: string, invoice?: Invoice) => void;
-  unpaidInvoiceList: Array<Invoice>;
-  memberId: number;
-  member: Member;
-  memberLoading: boolean;
-  asConsumer: boolean;
-  fetchInvoiceListUnpaid: () => void;
-  availablePaymentMethodList: number[];
   adjustCreditWithoutPaymentNote: (c: number) => void;
-  detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
-  establishments: Array<Establishment>;
-  establishmentBillingGroups: EstablishmentBillingGroup[];
-  enableMultiLocalization: boolean;
-  selectedInvoiceId: string;
-  companyId?: number;
-  stripeId: string | null;
-  onInvoicePaymentDialogClose: () => void;
-  applyBalanceToInvoice?: (uuid: string, options?: OptionCallback) => void;
   allowConsumerToUseInternalAccount?: boolean;
-  creditAccountBalance?: number | null;
   applyBalanceLoading?: boolean;
-  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  applyBalanceToInvoice?: (uuid: string, options?: OptionCallback) => void;
   applyGiftcardOnInvoice: (
     invoiceUuid: string,
     consumergiftCardId: number,
     amount: number,
     options?: OptionCallback,
   ) => void;
-  showPositiveBalance?: boolean;
-  stripeReaders: StripeReader[];
-  onlinePaymentEnabled: boolean;
+  asConsumer: boolean;
+  availablePaymentMethodList: number[];
+  balance: number;
   cardBillingDetailsMandatory: boolean;
+  companyId?: number;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  creditAccountBalance?: number | null;
+  detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void;
+  detachPaymentMethodLoading: boolean;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  establishments: Array<Establishment>;
+  fetchInvoiceListUnpaid: () => void;
+  goToInvoice: (uuid: string, invoice?: Invoice) => void;
+  invoiceLoading: boolean;
+  member: Member;
+  memberId: number;
+  memberLoading: boolean;
+  onInvoicePaymentDialogClose: () => void;
+  onlinePaymentEnabled: boolean;
+  selectedInvoiceId: string;
+  showPositiveBalance?: boolean;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
+  stripeId: string | null;
+  stripeReaders: StripeReader[];
+  unpaidInvoiceList: Array<Invoice>;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;

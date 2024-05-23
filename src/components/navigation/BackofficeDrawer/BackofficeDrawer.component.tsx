@@ -1008,7 +1008,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <StripeOnboardingBanner
               stripeOnboardingPending={stripeOnboardingPending}
             />
-            {(location?.pathname ?? '').includes('/shop/') && (
+            {(location?.pathname ?? '').includes('/shop/') && isLocalOrDev && (
               <div className={classes.backToWebshop}>
                 <Button
                   classes={{ label: classes.webshopBannerButtonLabel }}

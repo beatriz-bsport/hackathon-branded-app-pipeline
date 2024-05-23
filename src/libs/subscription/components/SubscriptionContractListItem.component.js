@@ -16,12 +16,12 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '#components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import type { Contract } from '../types';
+import type { ContractWithPaymentPack } from '../types';
 
 type Props = {
   t: TFunction,
   company?: { id: number, name: string },
-  contract: Contract,
+  contract: ContractWithPaymentPack,
   onDelete: () => void,
   onEdit: () => void,
   onClick?: () => void,

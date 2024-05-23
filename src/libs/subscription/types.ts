@@ -133,6 +133,7 @@ export type Contract = {
   is_usable_by_staff: boolean;
   month_billing_day: number | null;
   highlighted_as_recommended: boolean;
+  tags_on_first_billing: number[];
 };
 
 export type ContractWithPaymentPack<
@@ -398,4 +399,5 @@ export type ContractQueryParams = {
   company?: number;
   manager_only?: boolean;
   disabled?: boolean;
+  is_usable_by_staff?: boolean;
 };

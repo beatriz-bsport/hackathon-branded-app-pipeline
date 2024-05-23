@@ -34,7 +34,7 @@ import PrivatePassSelectorField from '../../private-service/components/pass/Priv
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { ContractWithPaymentPack } from '../types';
+import type { ContractWithPaymentPack, Contract } from '../types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
@@ -95,10 +95,7 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
   onClose: () => void;
   onSubmit: (data: any, options: OptionCallback) => void;
   isSubmitting: boolean;
-  initial?: ContractWithPaymentPack<
-    PrivatePass | number,
-    PaymentCombo | number
-  >;
+  initial?: ContractWithPaymentPack<PrivatePass, PaymentCombo> | Contract;
   paymentPackList: PaymentPack[];
   privatePassList: PrivatePass[];
   paymentComboList: PaymentCombo[];
@@ -715,7 +712,9 @@ export const SubscriptionContractFormHoc = withFormik<
       return {
         ...initial,
         // recurrent_price: parseFloat(initial.recurrent_price),
-        payment_pack: initial.payment_pack ? initial.payment_pack.id : null,
+        payment_pack: initial.payment_pack
+          ? getIdOrObject<PaymentPack>(initial.payment_pack)
+          : null,
         private_pass: initial.private_pass
           ? getIdOrObject<PrivatePass>(initial.private_pass)
           : null,

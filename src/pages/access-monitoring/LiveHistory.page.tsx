@@ -97,6 +97,9 @@ const useLiveHistoryPageDataManager = ({
     useState(false);
   const [showMemberPhotoHistoryModal, setShowMemberPhotoHistoryModal] =
     useState(false);
+  // Indicator to know if a member has been selected through the search bar
+  const [isMemberSelectedInSearchBar, setIsMemberSelectedInSearchBar] =
+    useState(false);
 
   /**
    * Get the selected member visit directly from the store
@@ -175,6 +178,7 @@ const useLiveHistoryPageDataManager = ({
   const handleSelectMember = useCallback(
     (memberId: number) => {
       fetchMemberVisitList({ member: memberId, page: 1 });
+      setIsMemberSelectedInSearchBar(true);
     },
     [fetchMemberVisitList],
   );
@@ -208,6 +212,7 @@ const useLiveHistoryPageDataManager = ({
   // When clearing the member filter
   const handleRefreshFirstPage = useCallback(() => {
     fetchMemberVisitList({ page: 1 });
+    setIsMemberSelectedInSearchBar(false);
   }, [fetchMemberVisitList]);
 
   const handleMemberProfileClick = useCallback((memberId: number) => {
@@ -329,6 +334,7 @@ const useLiveHistoryPageDataManager = ({
     handleSelectedMemberProfileClick,
     handleSelectMember,
     handleSelectMemberVisit,
+    isMemberSelectedInSearchBar,
     locationInformation,
     selectedMemberVisit,
     showEntryStatusChangedModal,
@@ -375,6 +381,7 @@ const LiveHistory: React.FC<Props> = ({
     handleSelectedMemberProfileClick,
     handleSelectMember,
     handleSelectMemberVisit,
+    isMemberSelectedInSearchBar,
     locationInformation,
     selectedMemberVisit,
     showEntryStatusChangedModal,
@@ -481,6 +488,7 @@ const LiveHistory: React.FC<Props> = ({
         />
       </ObjectLevelPermissionWrapper>
       <MemberVisitLiveHistoryTable
+        isMemberSelectedInSearchBar={isMemberSelectedInSearchBar}
         isLoading={isLoading}
         handleSelectMemberVisit={handleSelectMemberVisit}
         handleMemberProfileClick={handleMemberProfileClick}

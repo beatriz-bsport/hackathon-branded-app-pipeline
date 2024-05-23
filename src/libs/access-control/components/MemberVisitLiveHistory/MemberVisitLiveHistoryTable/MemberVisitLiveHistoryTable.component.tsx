@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
@@ -34,6 +34,7 @@ export type Props = {
   handleMemberProfileClick: (memberId: number) => void;
   handleSelectMemberVisit: (memberVisit: MemberVisitREST) => void;
   isLoading: boolean;
+  isMemberSelectedInSearchBar: boolean;
   memberVisitList: MemberVisitREST[];
   memberVisitState: AccessControlState['memberVisit'];
 };
@@ -52,7 +53,7 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
   memberVisit,
 }) => {
   const { t } = useTranslation('accessControl');
-  const classes = useStyles();
+  const classes = useStyles({});
 
   const handleMemberNameClick = useCallback(() => {
     handleMemberProfileClick(memberVisit.member.id);
@@ -174,11 +175,15 @@ const MemberVisitLiveHistoryTable: React.FC<Props> = ({
   handleMemberProfileClick,
   handleSelectMemberVisit,
   isLoading,
+  isMemberSelectedInSearchBar,
   memberVisitList,
   memberVisitState,
 }) => {
   const { t } = useTranslation('accessControl');
-  const classes = useStyles();
+
+  const showEmptyListPlaceholder = !memberVisitList?.length && !isLoading;
+
+  const classes = useStyles({ showEmptyListPlaceholder });
 
   const { count, page } = memberVisitState;
 
@@ -191,10 +196,6 @@ const MemberVisitLiveHistoryTable: React.FC<Props> = ({
 
   if (isLoading) {
     return <MemberVisitLiveHistoryTableSkeleton />;
-  }
-
-  if (!memberVisitList?.length) {
-    return null;
   }
 
   return (
@@ -219,27 +220,46 @@ const MemberVisitLiveHistoryTable: React.FC<Props> = ({
           />
           <div className={classes.button} />
         </ListItem>
-        {memberVisitList.map((memberVisit, index) => (
-          <MemberVisitLiveHistoryRow
-            divider={index !== memberVisitList.length - 1}
-            key={memberVisit.id}
-            memberVisit={memberVisit}
-            handleMemberProfileClick={handleMemberProfileClick}
-            handleSelectMemberVisit={handleSelectMemberVisit}
-          />
-        ))}
+        {showEmptyListPlaceholder ? (
+          <ListItem>
+            <ListItemText
+              primary={t(
+                `liveHistory.table.placeholder.${
+                  isMemberSelectedInSearchBar ? 'search' : 'default'
+                }`,
+              )}
+            />
+          </ListItem>
+        ) : (
+          memberVisitList.map((memberVisit, index) => (
+            <MemberVisitLiveHistoryRow
+              divider={index !== memberVisitList.length - 1}
+              key={memberVisit.id}
+              memberVisit={memberVisit}
+              handleMemberProfileClick={handleMemberProfileClick}
+              handleSelectMemberVisit={handleSelectMemberVisit}
+            />
+          ))
+        )}
       </List>
-      <Pagination
-        page={page}
-        count={Math.ceil(count / FETCH_MEMBER_VISIT_PAGE_SIZE)}
-        size="large"
-        onChange={handlePaginationClick}
-      />
+      {!showEmptyListPlaceholder && (
+        <Pagination
+          page={page}
+          count={Math.ceil(count / FETCH_MEMBER_VISIT_PAGE_SIZE)}
+          size="large"
+          onChange={handlePaginationClick}
+        />
+      )}
     </Card>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<
+  Theme,
+  {
+    showEmptyListPlaceholder?: boolean;
+  }
+>((theme) => ({
   accessStatusChips: {
     display: 'flex',
     flex: 'inherit',
@@ -279,7 +299,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: ({ showEmptyListPlaceholder }) =>
+      showEmptyListPlaceholder ? 0 : theme.spacing(2),
   },
   textSecondary: {
     color: theme.palette.text.secondary,

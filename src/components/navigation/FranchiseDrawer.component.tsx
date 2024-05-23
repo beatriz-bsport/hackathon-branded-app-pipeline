@@ -8,6 +8,9 @@ import { withRouter } from 'react-router';
 import { Location } from 'history';
 import { compose } from 'recompose';
 import classNames from 'classnames';
+import { push as pushRouter } from 'connected-react-router';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect, ConnectedProps } from 'react-redux';
 
 import {
   WithStyles,
@@ -46,6 +49,7 @@ import {
   Work,
   Redeem,
   Label,
+  ChevronLeft,
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -106,7 +110,10 @@ type OwnProps = {
   syncMembersAcrossCompanies: boolean;
 };
 
-type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+type Props = OwnProps &
+  WithStyles<typeof styles> &
+  WithTranslation &
+  ConnectedProps<typeof connector>;
 
 const isLocalOrDev = !['production', 'staging'].includes(
   Config.REACT_APP_SENTRY_ENVIRONMENT,
@@ -508,6 +515,19 @@ export const FranchiseDrawer = (props: Props) => {
                     isLocalOrDev && location.pathname.includes('/shop'),
                 })}
               >
+                {(location?.pathname ?? '').includes('/shop/') &&
+                  isLocalOrDev && (
+                    <div className={classes.backToWebshop}>
+                      <Button
+                        classes={{ label: classes.webshopBannerButtonLabel }}
+                        onClick={props.handleGoToWebshop}
+                        size="small"
+                        startIcon={<ChevronLeft />}
+                      >
+                        {t('backofficeMenu.backToWebshop')}
+                      </Button>
+                    </div>
+                  )}
                 {banner}
                 {children}
               </main>
@@ -657,6 +677,18 @@ const getNavigationItems = (props: {
 
 const styles = (theme: Theme) =>
   createStyles({
+    backToWebshop: {
+      display: 'flex',
+      gap: theme.spacing(1),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      background: theme.palette.background.paper,
+    },
+    webshopBannerButtonLabel: {
+      textTransform: 'initial',
+    },
     root: {
       flexGrow: 1,
       zIndex: 1,
@@ -812,7 +844,12 @@ const styles = (theme: Theme) =>
     },
   });
 
+const connector = connect(() => ({}), {
+  handleGoToWebshop: () => pushRouter('/f/shop'),
+});
+
 export default compose<any, OwnProps>(
+  connector,
   withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,

@@ -246,7 +246,7 @@ export default compose(
     ({ t, member }: { t: TFunction, member: Member }) =>
       `${t('titles:invoice.invoiceCreate')} - ${DateTime.now().toLocaleString(
         DateTime.DATE_SHORT,
-      )}} - ${member ? member.name : ' '}`,
+      )} - ${member ? member.name : ' '}`,
   ),
   withMemberBannerHOC(({ member }) => member),
 )(InvoiceCreation);

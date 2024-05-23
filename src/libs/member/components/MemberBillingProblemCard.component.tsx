@@ -156,10 +156,12 @@ export const MemberBillingProblemCard = (props: Props) => {
         }
         if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => {
-            setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI(
-              paymentGroupId,
-              selectedEstablishmentBillingGroup?.id,
-            );
+            if (selectedEstablishmentBillingGroup?.id) {
+              setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI(
+                paymentGroupId,
+                selectedEstablishmentBillingGroup.id,
+              );
+            }
             if (callback) callback();
           }, 2000);
         } else {

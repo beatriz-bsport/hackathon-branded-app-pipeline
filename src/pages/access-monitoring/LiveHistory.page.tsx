@@ -29,6 +29,7 @@ import AccessStatusChangedSuccessModal from '#src/libs/access-control/components
 import EntryStatusChangedModal from '#src/libs/access-control/components/MemberVisit/EntryStatusChangedModal.component';
 import MemberPhotoHistoryModal from '#src/libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ConnectedBillingProblemCard from '#src/libs/access-control/components/ConnectedBillingProblemCard.component';
 
 /** SELECTORS */
 import {
@@ -448,6 +449,14 @@ const LiveHistory: React.FC<Props> = ({
             isLoading={isLoading}
             memberVisit={selectedMemberVisit}
           />
+          {!!selectedMemberVisit?.member?.id &&
+            !isLoading &&
+            selectedMemberVisit.access_status !== AccessStatus.GREEN && (
+              <ConnectedBillingProblemCard
+                memberId={selectedMemberVisit.member.id}
+                onPaymentSuccess={handleRefreshMemberVisitAccessStatus}
+              />
+            )}
         </div>
         <MemberPhotoHistoryModal
           memberPhotoHistory={memberPhotoHistory}

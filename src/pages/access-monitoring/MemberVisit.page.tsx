@@ -44,6 +44,7 @@ import EntryStatusChangedModalComponent from '#src/libs/access-control/component
 import StaffLocationBlocker from '#src/libs/access-control/components/MemberVisit/StaffLocationBlocker.component';
 import MemberVisitWarnings from '#src/libs/access-control/components/MemberVisit/MemberVisitWarnings.component';
 import MemberPhotoHistoryModal from '#src/libs/access-control/components/MemberVisit/MemberPhotoHistoryModal.component';
+import ConnectedBillingProblemCard from '#src/libs/access-control/components/ConnectedBillingProblemCard.component';
 
 // Constants
 
@@ -449,6 +450,14 @@ const MemberVisit: React.FC<Props> = React.memo(
               isLoading={memberVisitIsLoading}
               memberVisit={memberVisit}
             />
+            {!!memberVisit?.member?.id &&
+              !memberVisitIsLoading &&
+              memberVisit.access_status !== AccessStatus.GREEN && (
+                <ConnectedBillingProblemCard
+                  memberId={memberVisit.member.id}
+                  onPaymentSuccess={handleRefreshMemberVisitAccessStatus}
+                />
+              )}
           </>
         )}
         <MemberPhotoHistoryModal

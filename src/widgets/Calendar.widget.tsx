@@ -8,8 +8,7 @@ import {
   OwnProps as MarketplaceCalendarOwnProps,
 } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
 import {
-  MarketplaceCalendarData,
-  MarketplaceCalendarVariant,
+  MarketplaceCalendarData
 } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';

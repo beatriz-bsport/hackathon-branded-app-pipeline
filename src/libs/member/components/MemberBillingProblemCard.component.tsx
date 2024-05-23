@@ -61,6 +61,7 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[];
   establishments: Array<Establishment>;
   fetchInvoiceListUnpaid: () => void;
+  forceOnlyInternal?: boolean;
   goToInvoice: (uuid: string, invoice?: Invoice) => void;
   invoiceLoading: boolean;
   member: Member;
@@ -417,7 +418,6 @@ export const MemberBillingProblemCard = (props: Props) => {
                 onlyInternal={
                   // @ts-expect-error
                   (amountToBill && amountToBill < 0) ||
-                  // @ts-expect-error
                   props.forceOnlyInternal ||
                   (!props.asConsumer &&
                     !regularizeFullDebt &&

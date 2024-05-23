@@ -32,6 +32,12 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   bookkeeping_account: 'bookkeeping_account',
 };
 
+export const SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER = {
+  ...SHOPITEM_FORMDATA_KEYS_MAPPER,
+  sub_shop_template: 'sub_shop_template',
+  supplier_template: 'supplier_template',
+};
+
 /**
  * The associated form to display in inventory tab from the shop item type (details page)
  * @enum `STANDALONE` A form with only one row to for stock adjustment

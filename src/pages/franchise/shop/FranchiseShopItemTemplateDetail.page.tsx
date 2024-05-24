@@ -8,6 +8,9 @@ import {
   retrieveShopItemTemplate as retrieveShopItemTemplateAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
   deleteShopItemTemplate as deleteShopItemTemplateAction,
+  createShopItemProvision as createShopItemProvisionAction,
+  createShopItemProvisionBulk as createShopItemProvisionBulkAction,
+  fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#libs/shop/actions/supplier';
@@ -17,6 +20,11 @@ import {
   getShopItemTemplateDeleteLoading,
   getShopItemTemplateDetail,
   getShopItemTemplateDetailLoading,
+  getShopItemTemplateVariantDeleteLoading,
+  getShopItemTemplateVariantFilterOptionList,
+  getShopItemTemplateVariantListLoading,
+  getShopItemTemplateVariantState,
+  getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
 } from '#libs/shop/selectors';
 
@@ -31,7 +39,14 @@ import { mapFormDataWithObject } from '#src/pages/form.utils';
 
 import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
-import type { ShopItemEdit, ShopItemTemplate } from '#libs/shop/types';
+import type {
+  Provision,
+  ProvisionBulkCreate,
+  ProvisionCreate,
+  ShopItemEdit,
+  ShopItemTemplate,
+} from '#libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
 
 import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 
@@ -61,7 +76,27 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   retrieveShopItemTemplateDetails = () => {
-    this.props.retrieveShopItemTemplate(this.props.id);
+    this.props.retrieveShopItemTemplate(this.props.id, {
+      onSuccess: () => {
+        this.fetchShopItemVariantList();
+      },
+    });
+  };
+
+  fetchShopItemVariantList = () => {
+    const page =
+      parseInt(this.props.queryParams?.page, 10) ||
+      this.props.shopItemTemplateVariantState.page ||
+      1;
+    const colorFilter = this.props.queryParams?.color?.split(',');
+    const sizeFilter = this.props.queryParams?.size?.split(',');
+
+    this.props.fetchShopItemTemplateVariantList({
+      id: this.props.id,
+      page,
+      colors: colorFilter,
+      sizes: sizeFilter,
+    });
   };
 
   handleUpdateShopItemTemplate = (
@@ -101,17 +136,79 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
+  handleChangeInventoryVariantFilters =
+    (type: 'colors' | 'sizes') => (options: SelectOption[]) => {
+      const availableOptions = options.map((option) => option.value).join(',');
+      type === 'colors' && this.props.setQueryParam('color')(availableOptions);
+      type === 'sizes' && this.props.setQueryParam('size')(availableOptions);
+    };
+
+  handleCreateShopItemProvision = (
+    data: ProvisionCreate,
+    options?: OptionCallback<Provision>,
+  ) =>
+    this.props.createShopItemProvision(data, {
+      onSuccess: () => {
+        this.fetchShopItemVariantList();
+        options?.onSuccess?.();
+      },
+      onError: options?.onError,
+    });
+
+  handleCreateShopItemProvisionBulk = (
+    data: ProvisionBulkCreate,
+    options?: OptionCallback,
+  ) => {
+    this.props.createShopItemProvisionBulk(this.props.id, data, {
+      onSuccess: () => {
+        this.fetchShopItemVariantList();
+        options?.onSuccess?.();
+      },
+      onError: options?.onError,
+    });
+  };
+
+  /**
+   * Transform the color/size query params into an array of selector options
+   * to set selector options on page render (if any query params)
+   */
+  getVariantFilterOptionValues = () => {
+    const colors: SelectOption[] = (this.props.queryParams.color ?? '')
+      .split(',')
+      .map((value) => ({ label: value, value }))
+      .filter((option) => !!option.value);
+    const sizes: SelectOption[] = (this.props.queryParams.size ?? '')
+      .split(',')
+      .map((value) => ({ label: value, value }))
+      .filter((option) => !!option.value);
+    return { colors, sizes };
+  };
+
   render() {
     return (
       <FranchiseShopItemTemplateDetail
+        changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
+        count={this.props.shopSupplierTemplateState.count}
+        createShopItemProvision={this.handleCreateShopItemProvision}
+        createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
         deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
         isDeleting={this.props.isDeleteLoading}
+        isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
+        isUpdatingVariant={this.props.isUpdateVariantLoading}
+        isVariantListLoading={this.props.isVariantListLoading}
+        page={this.props.shopSupplierTemplateState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
+        setQueryParam={this.props.setQueryParam}
         shopItemTemplate={this.props.shopItemTemplate}
+        shopItemVariantFilterOptionList={
+          this.props.shopItemVariantFilterOptionList
+        }
+        shopItemVariantFilterOptionValues={this.getVariantFilterOptionValues()}
         supplierTemplateList={this.props.shopSupplierTemplateState.suppliers}
         tab={this.props.queryParams.tab}
         updateShopItemTemplate={this.handleUpdateShopItemTemplate}
+        variantList={this.props.shopItemTemplateVariantState.variants ?? []}
       />
     );
   }
@@ -124,12 +221,23 @@ const connector = connect(
     isDeleteLoading: getShopItemTemplateDeleteLoading(state),
     shopItemTemplate: getShopItemTemplateDetail(state, id),
     shopSupplierTemplateState: getShopSupplierTemplateState(state),
+    shopItemTemplateVariantState: getShopItemTemplateVariantState(state, id),
+    isVariantListLoading: getShopItemTemplateVariantListLoading(state),
+    isUpdateVariantLoading: getShopItemTemplateVariantUpdateLoading(state),
+    isDeleteVariantLoading: getShopItemTemplateVariantDeleteLoading(state),
+    shopItemVariantFilterOptionList: getShopItemTemplateVariantFilterOptionList(
+      state,
+      id,
+    ),
   }),
   {
     retrieveShopItemTemplate: retrieveShopItemTemplateAction,
     updateShopItemTemplate: updateShopItemTemplateAction,
     deleteShopItemTemplate: deleteShopItemTemplateAction,
     fetchShopSupplierTemplateList: fetchShopSupplierTemplateListAction,
+    createShopItemProvision: createShopItemProvisionAction,
+    createShopItemProvisionBulk: createShopItemProvisionBulkAction,
+    fetchShopItemTemplateVariantList: fetchShopItemTemplateVariantListAction,
     backToShopPage: () => push('/f/shop'),
   },
 );

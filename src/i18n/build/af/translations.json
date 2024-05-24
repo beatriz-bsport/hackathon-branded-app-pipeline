@@ -42,7 +42,9 @@
           "search": "Based on your search, we couldn't find any members who visited today."
         }
       },
-      "breadcrumbTitle": "Location visit"
+      "breadcrumbTitle": "Location visit",
+      "unreadCount": "{{ count }} new visit",
+      "unreadCount_plural": "{{ count }} new visits"
     },
     "memberVisitDetails": {
       "accessStatus": { "green": "Valid", "orange": "Warning", "red": "Not valid" },

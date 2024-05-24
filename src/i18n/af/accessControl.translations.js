@@ -59,6 +59,8 @@ exports.default = {
       },
     },
     breadcrumbTitle: 'Location visit',
+    unreadCount: '{{ count }} new visit',
+    unreadCount_plural: '{{ count }} new visits',
   },
   memberVisitDetails: {
     accessStatus: {

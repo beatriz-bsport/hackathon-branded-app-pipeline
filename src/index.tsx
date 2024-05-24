@@ -1,5 +1,4 @@
 import React from 'react';
-//@ts-expect-error
 import ReactDOM from 'react-dom';
 import './i18n';
 
@@ -9,22 +8,18 @@ import { logWidgetConfigUsage } from './utils/log';
 import { WidgetConfig } from './utils/widget-props';
 
 type BsportWidgetMountParams = {
-  parentElement: string
-} & WidgetConfig 
+  parentElement: string,
+} & WidgetConfig;
 
 export default class BsportWidget {
   static el_list_id: string[] = [];
 
-  static mount({
-    parentElement,
-    ...initialParams
-  }: BsportWidgetMountParams) {
+  static mount({ parentElement, ...initialParams }: BsportWidgetMountParams) {
     if (
       initialParams?.widgetType === 'pass' ||
       initialParams?.widgetType === 'subscription' ||
       initialParams?.widgetType === 'newsletterV2'
     ) {
-      //@ts-expect-error
       import('../vendor/reset.css');
     }
     const component = (
@@ -64,18 +59,5 @@ export default class BsportWidget {
         doRender();
       });
     }
-  }
-
-  static unmount() {
-    //@ts-expect-error
-    if (!BsportWidget.el) {
-      throw new Error('BsportWidget is not mounted, mount first');
-    }
-    //@ts-expect-error
-    ReactDOM.unmountComponentAtNode(BsportWidget.el);
-    //@ts-expect-error
-    BsportWidget.el.parentNode.removeChild(BsportWidget.el);
-    //@ts-expect-error
-    BsportWidget.el = null;
   }
 }

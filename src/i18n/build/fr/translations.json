@@ -6434,7 +6434,7 @@
                     "establishment_practical_info": "Accès à la salle",
                     "address": "Adresse",
                     "ics_calendar_link": "Lien ics calendrier",
-                    "spot": "Place",
+                    "spot": "Emplacement",
                     "canceled_grouped_session": "Groupe de réservation annulé"
                 },
                 "subtitles": {
@@ -10662,7 +10662,7 @@
             "margin_value_excluding_sales_tax": "Apport marginal HT",
             "billing_group_address": "Adresse",
             "is_first_visit": "Première réservation",
-            "is_from_billing_plan": "Venant de l'abonnement",
+            "is_from_billing_plan": "Venant d'un abonnement",
             "bookkeeping_account_name": "Nom du compte",
             "bookkeeping_account_number": "Numéro de compte",
             "admission": "Admission",
@@ -13997,7 +13997,7 @@
             "tag_on_join_and_untag_on_left": "Tagger si présent dans la smartlist",
             "tag_on_join": "Tagger en entrée de smartlist",
             "tag_on_left": "Tagger en sortie de smartlist",
-            "create": "Créer un règle",
+            "create": "Créer une règle",
             "associated_tag": "Tag associé",
             "display_tag_rules": "Afficher les règles de Tag",
             "cancel": "Annuler",

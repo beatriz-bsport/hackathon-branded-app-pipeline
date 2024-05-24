@@ -2123,7 +2123,7 @@
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
                     "ics_calendar_link": "ICS Calendar Link",
-                    "spot": "Place",
+                    "spot": "Spot",
                     "canceled_grouped_session": "Cancelled reservation group"
                 },
                 "subtitles": {
@@ -9403,7 +9403,7 @@
                 "enable": "Activate",
                 "disable": "Deactivate",
                 "changeMethod": "Change the payment method",
-                "solveInvalidPaymentAttempt": "Regularise"
+                "solveInvalidPaymentAttempt": "Regularize"
             },
             "nextRetryDate": "The payment will be retried on {{ d }}",
             "lockedToday": "The payment is scheduled today, you can no longer change it",
@@ -16227,7 +16227,7 @@
                 "noPassAvailable": "You don't own a compatible pass yet."
             },
             "analytics": {
-                "uploaded": "Video put online the {{date}}",
+                "uploaded": "Video uploaded on {{date}}",
                 "distinctViewers": "Unique views",
                 "viewsLastWeek": "Last 7 days",
                 "totalViews": "Total",

@@ -23,6 +23,7 @@ import {
   deleteShopItemTemplateActions,
   updateShopItemTemplateActions,
   createShopItemTemplateActions,
+  fetchShopItemTemplateVariantListActions,
 } from './actions/shopItemReworked';
 
 import {
@@ -153,6 +154,14 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
           byId: {},
           updateDetails: { error: null, loading: false },
           delete: { error: null, loading: false },
+        },
+        itemVariant: {
+          error: null,
+          loading: false,
+          create: { error: null, loading: false },
+          updateVariant: { error: null, loading: false },
+          delete: { error: null, loading: false },
+          byBaseItemTemplateId: {},
         },
         create: { error: null, loading: false },
         updateShopItemTemplate: { error: null, loading: false },
@@ -550,6 +559,56 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
             shopItemTemplate: {
               bySubshopTemplateId: {
                 [payload.subshopTemplateId]: payload.data,
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [fetchShopItemTemplateVariantListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariant', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariant', 'error'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          data: PaginatedResponse<ShopItem>;
+          baseItemTemplateId: number;
+        };
+      },
+    ) => {
+      const { results, page, next_page, count } = payload.data;
+      return state.merge(
+        {
+          shopTemplates: {
+            shopItemTemplate: {
+              itemVariant: {
+                byBaseItemTemplateId: {
+                  [payload.baseItemTemplateId]: {
+                    page,
+                    count,
+                    next_page,
+                    variants: results,
+                  },
+                },
               },
             },
           },

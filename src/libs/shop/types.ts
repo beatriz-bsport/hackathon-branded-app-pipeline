@@ -93,7 +93,7 @@ export type ShopItem = {
   bookkeeping_account?: number;
 };
 
-export type ShopItemTemplate = ShopItem & {
+export type ShopItemTemplate = Omit<ShopItem, 'supplier' | 'subshop'> & {
   franchisor: number;
   sub_shop_template: number;
   supplier_template: number | null;
@@ -266,6 +266,17 @@ export type ShopStateReworked = {
         byId: { [key: number]: ShopItemTemplate };
         updateDetails: ErrorAndLoading;
         delete: ErrorAndLoading;
+      } & ErrorAndLoading;
+      itemVariant: {
+        create: ErrorAndLoading;
+        updateVariant: ErrorAndLoading;
+        delete: ErrorAndLoading;
+        byBaseItemTemplateId: {
+          [key: number]: WithPagination & {
+            combinationList: ShopItemVariantCombination[];
+            variants: ShopItem[];
+          };
+        };
       } & ErrorAndLoading;
       create: ErrorAndLoading;
       updateShopItemTemplate: ErrorAndLoading;

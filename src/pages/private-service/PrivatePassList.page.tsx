@@ -2,7 +2,6 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
@@ -12,13 +11,13 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
 import { push as pushRouter } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
-import Fuse, { FuseOptions } from 'fuse.js';
 import { Theme } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import uniqBy from 'lodash/uniqBy';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import themeSelectors from '#libs/theme/selectors';
 import withTitle from '#hocs/with-title.hoc';
@@ -58,7 +57,6 @@ import type {
   PrivateSlot,
 } from '#libs/private-service/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import FuzeSearch from '#components/FuzeSearch.component';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { PrivatePassCategoryList } from '#libs/private-service/components/category/PrivatePassCategoryList.component';
@@ -105,6 +103,11 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const {
   trackFormAdd,
@@ -120,6 +123,25 @@ type OwnProps = {
   openDeleteCompatibilityDialog: number;
   archivationWarning: { [id: number]: { use_in_combo: boolean } };
 };
+
+type PrivatePassOption = {
+  label: string;
+  onClick: () => void;
+  onDelete: () => void;
+  onEdit: () => void;
+  pass: PrivatePass;
+  updatePrivatePass: (data: any, options?: OptionCallback) => void;
+  value: number;
+};
+
+const searchBarAdditionalParams = {
+  available: true,
+  manager_only: false,
+};
+
+const Option: React.FC<OptionPropsWithData<PrivatePassOption>> = (props) => (
+  <PrivatePassListItem divider {...props.data} />
+);
 
 type StateHandlerInit = {
   openCreateForm: boolean;
@@ -140,7 +162,10 @@ type StateHandlerType = typeof withStateHandlersInit &
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  WithObjectSearch;
 
 type Props = OwnProps &
   ConnectedProps &
@@ -150,8 +175,6 @@ type Props = OwnProps &
   WithHandlerType<typeof mapWithHandlers>;
 
 type State = {
-  searchText: string;
-  searchResult: Array<PrivatePass>;
   selectedCategories: Array<number>;
   selectedDisponibility: ManagerOnly;
   selectedSortOption: SortOption;
@@ -164,8 +187,6 @@ export class PrivatePassList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      searchText: '',
-      searchResult: [],
       selectedCategories: this.props.userPreferenceSelectedCategories,
       selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
       selectedSortOption: this.props.userPreferenceSortOption,
@@ -234,20 +255,6 @@ export class PrivatePassList extends React.Component<Props, State> {
         }
       },
     });
-  };
-
-  changeSearch =
-    (fuse: Fuse<PrivatePass, FuseOptions<PrivatePass>>) =>
-    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      this.setState({
-        searchText: ev.target.value,
-        // @ts-expect-error
-        searchResult: fuse.search(ev.target.value),
-      });
-    };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
   };
 
   categoryOptions = memoize(() => [
@@ -356,6 +363,22 @@ export class PrivatePassList extends React.Component<Props, State> {
   getDeletePassHandler = (pass: PrivatePass) => () =>
     this.openDeletePassDialog(pass.id);
 
+  privatePassesOptionsFormatter =
+    (hasDeletePermission: boolean, hasEditPermission: boolean) =>
+    (privatePasses: PrivatePass[]): PrivatePassOption[] =>
+      privatePasses.map((privatePass) => {
+        return {
+          label: privatePass.name,
+          onClick: () => this.props.goToPass(privatePass.id),
+          onDelete:
+            hasDeletePermission && this.getDeletePassHandler(privatePass),
+          onEdit: hasEditPermission && this.getOpenEditFormHandler(privatePass),
+          pass: privatePass,
+          updatePrivatePass: this.props.createOrUpdatePrivatePass,
+          value: privatePass.id,
+        };
+      });
+
   render() {
     const { classes, t, establishmentList, metaActivities, categoryList } =
       this.props;
@@ -436,15 +459,18 @@ export class PrivatePassList extends React.Component<Props, State> {
             <div className={classes.search}>
               <div className={classes.buttonRow}>
                 <div style={{ flex: 1 }}>
-                  <FuzeSearch
-                    changeSearch={this.changeSearch}
-                    clearSearch={this.clearSearch}
-                    // @ts-expect-error
-                    items={this.props.privatePassListCustomerEnabled}
-                    placeholder={t('searshAppointmentPass')}
-                    searchFields={['name']}
-                    searchResult={this.state.searchResult}
-                    searchText={this.state.searchText}
+                  <ObjectSearchComponent
+                    additionalParams={searchBarAdditionalParams}
+                    components={{
+                      Option,
+                    }}
+                    optionsFormatter={this.privatePassesOptionsFormatter(
+                      hasDeletePermission,
+                      hasEditPermission,
+                    )}
+                    placeholder={this.props.t('search')}
+                    searchedObjectType="private_pass"
+                    variant="underlined"
                   />
                 </div>
                 {hasCreatePermission && (
@@ -462,45 +488,6 @@ export class PrivatePassList extends React.Component<Props, State> {
                 )}
               </div>
             </div>
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? classes.searchPaperDisplayed
-                  : classes.searchPaperHidden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <List disablePadding>
-                  {this.state.searchResult
-                    .filter((pp) => !pp.manager_only)
-                    .map((pass) => (
-                      <PrivatePassListItem
-                        key={pass.id}
-                        divider
-                        draggable={hasEditPermission}
-                        onClick={() => {
-                          this.props.goToPass(pass.id);
-                        }}
-                        onDelete={
-                          hasDeletePermission && this.getDeletePassHandler(pass)
-                        }
-                        onEdit={
-                          hasEditPermission && this.getOpenEditFormHandler(pass)
-                        }
-                        pass={pass}
-                        // @ts-expect-error
-                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
-                      />
-                    ))}
-                </List>
-              </Collapse>
-            </Paper>
             <PaymentPackFilterAndSortHeader
               categoryFilterOnchange={this.categoryFilterOnchange}
               // @ts-expect-error
@@ -886,7 +873,11 @@ const mapWithHandlers = {
       });
     },
   deletePrivatePass: (props: OwnAndConnectedProps) => (id: number) => {
-    props.deletePrivatePass(id);
+    props.deletePrivatePass(id, {
+      onSuccess: () => {
+        props.refreshOptions('private_pass', searchBarAdditionalParams);
+      },
+    });
     props.closePrivatePassForm();
   },
   createOrUpdatePrivatePass:
@@ -896,6 +887,8 @@ const mapWithHandlers = {
         props.selectedPrivatePass?.id || null,
         {
           onSuccess: () => {
+            props.selectedPrivatePass?.id &&
+              props.refreshOptions('private_pass', searchBarAdditionalParams);
             if (options?.onSuccess) options.onSuccess();
             props.closePrivatePassForm();
           },
@@ -947,5 +940,6 @@ export default compose(
     'setOpenDeleteCompatibility',
     false,
   ),
+  withObjectSearch,
   withHandlers(mapWithHandlers),
 )(PrivatePassList);

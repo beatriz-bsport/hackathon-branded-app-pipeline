@@ -695,4 +695,6 @@ export type PrivatePassQueryParams = {
   include_expired?: boolean;
   company?: number;
   id__not_in?: number[];
+  available?: boolean;
+  manager_only?: boolean;
 };

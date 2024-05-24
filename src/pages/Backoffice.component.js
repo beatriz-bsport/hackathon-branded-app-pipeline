@@ -37,6 +37,7 @@ import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
 } from '../constants';
+import FeatureBase from '#src/components/feature-base/FeatureBase.component';
 import i18n, { setLuxonLocale } from '../i18n/index';
 import GenericResponsiveDialog from '../components/genericDialog/GenericResponsiveDialog';
 import Analytics from '../components/analytics/Analytics.component';
@@ -240,7 +241,9 @@ const CompanyOnboarding = asyncComponent(() =>
 );
 
 const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
-
+const FeatureBaseRouter = asyncComponent(() =>
+  import('./feature-base/FeatureBase.router'),
+);
 const Inbox = asyncComponent(() => import('./inbox/Inbox.router'));
 
 const AccessMonitoring = asyncComponent(() =>
@@ -372,6 +375,7 @@ type Props = {
     params: { thread_ids: number[] },
     options?: OptionCallback,
   ) => void,
+  userAuthState: any,
 };
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
@@ -415,6 +419,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={Expense} path="/expense" />
       <Route component={Subscription} path="/subscription" />
       <Route component={Tutorial} path="/tutorial" />
+      <Route component={FeatureBaseRouter} path="/feature-base" />
       <Route component={Member} path="/member" />
       <Route component={MetaActivity} path="/activity" />
       <Route component={WorkshopActivity} path="/workshop-activity" />
@@ -997,6 +1002,7 @@ export default compose(
       nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
       userAcknowlegdePlatformTutorial: userAcknowlegdePlatformTutorial(state),
       username: state.auth.username,
+      userAuthState: state.auth,
       name: state.auth.name,
       roleId: state.auth.role,
       loadingImpersonation: state.auth.loadingImpersonation,

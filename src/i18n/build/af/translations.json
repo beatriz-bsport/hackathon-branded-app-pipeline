@@ -5388,7 +5388,8 @@
       "audience": "{{ audienceCamelCase }}",
       "toggle": { "expand": "Expand", "shrink": "Collapse" },
       "replacement": "Substitution",
-      "inbox": "Inbox"
+      "inbox": "Inbox",
+      "feedbackBoard": "Feedback board"
     },
     "deprecatedNavigator": {
       "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -5477,7 +5478,8 @@
       "appSettings": { "links": "External links", "popups": "Startup pop-up", "customize": "Personalisation" },
       "communicationSentGroupConfig": { "general": "General", "campaigns": "Campaigns" },
       "settings": { "theme": { "general": "General", "memberProfile": "Member Profile" } }
-    }
+    },
+    "featureBaseButton": "Suggest a feature or improvement"
   },
   "notificationRule": {
     "ruleGroup": {

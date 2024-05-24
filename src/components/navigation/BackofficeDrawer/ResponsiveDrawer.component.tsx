@@ -40,7 +40,7 @@ import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-
+import { MessageHeartSquare } from '#src/components/untitledui';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -68,6 +68,7 @@ import {
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
+import Config from '#src/config';
 import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
 import { ObjectLevelPermissions, RolePermission } from '#src/libs/role/types';
 import ToolTip from '#src/components/Tooltip.component';
@@ -79,7 +80,7 @@ import { getItemInStorage } from '#src/utils/storage';
 import VersionVisualizer from '../../VersionVisualizer.component';
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
-
+import { FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION } from '#src/components/feature-base/constants';
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
   const previousIconOnlyState = React.useRef<boolean>();
@@ -679,6 +680,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
             } as DrawerItemDefault,
           ]
         : []),
+      ...(Config.REACT_APP_SEGMENT_API_KEY === 'production' &&
+        FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(companyId) && [
+          {
+            to: '/feature-base',
+            icon: () => <MessageHeartSquare stroke="currentColor" />,
+            text: t('backofficeMenu.feedbackBoard'),
+          } as DrawerItemDefault,
+        ],
+      []),
       isTabImpersonated
         ? ({
             action: closeTab,

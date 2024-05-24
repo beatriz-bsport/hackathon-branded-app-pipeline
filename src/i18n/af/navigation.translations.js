@@ -117,6 +117,7 @@ exports.default = {
     toggle: { expand: 'Expand', shrink: 'Collapse' },
     replacement: 'Substitution',
     inbox: 'Inbox',
+    feedbackBoard: 'Feedback board',
   },
   deprecatedNavigator: {
     navigatorError:
@@ -261,4 +262,5 @@ exports.default = {
       },
     },
   },
+  featureBaseButton: 'Suggest a feature or improvement',
 };

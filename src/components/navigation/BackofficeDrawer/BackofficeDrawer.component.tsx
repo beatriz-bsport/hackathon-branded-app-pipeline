@@ -51,7 +51,7 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { getAllUnreadAnswersCount } from '#src/libs/communication-v2/selectors';
-
+import FeatureBaseBoardButton from '#src/components/feature-base/FeatureBase.component';
 // @ts-expect-error
 import TempPasswordDialog from '#src/libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '#src/libs/cashbook/components/CashBookForm.component';
@@ -101,7 +101,7 @@ import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { clearStorage, getItemInStorage } from '#src/utils/storage';
-
+import { FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION } from '#src/components/feature-base/constants';
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
 const usePrevious = (value: Location) => {
@@ -824,8 +824,19 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                           />
                         </Grid>
                       </ObjectLevelPermissionWrapper>
+
+                      {Config.REACT_APP_SEGMENT_API_KEY === 'production' &&
+                        FEATUREBASE_PRODUCTION_COMPANY_IDS_ACTIVATION.includes(
+                          companyId,
+                        ) && (
+                          <Grid item>
+                            <FeatureBaseBoardButton />
+                          </Grid>
+                        )}
+
                       {renderAdditionalButtons()}
                     </Hidden>
+
                     <Hidden smUp>
                       <Grid item>{renderContractedMenu(forced_hide)}</Grid>
                     </Hidden>
@@ -1025,14 +1036,17 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/spot-scheduling') ||
                 location.pathname.includes('/audience') ||
                 location.pathname.includes('/inbox/') ||
-                (isLocalOrDev && location.pathname.includes('/shop'))
+                (isLocalOrDev && location.pathname.includes('/shop')) ||
+                location.pathname.includes('/feature-base')
               ),
               [classes.unscrollableContent]:
-                location.pathname.includes('/audience') &&
-                !location.pathname.includes('/audience/'),
+                (location.pathname.includes('/audience') &&
+                  !location.pathname.includes('/audience/')) ||
+                location.pathname.includes('/feature-base'),
               [classes.contentWithoutPadding]:
                 location.pathname.includes('/inbox/') ||
-                (isLocalOrDev && location.pathname.includes('/shop')),
+                (isLocalOrDev && location.pathname.includes('/shop')) ||
+                location.pathname.includes('/feature-base'),
             })}
           >
             {displayBanner && <div className={classes.bannerContextspacing} />}

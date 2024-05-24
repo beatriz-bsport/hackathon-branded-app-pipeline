@@ -43,6 +43,9 @@ export const initialState: Immutable.Immutable<AccessControlState> =
       ...basePaginationErrorAndLoading,
       byId: {},
       allIds: [],
+      // In page != 1, when a new member visit is received from the broadcast channel, the unread count is increased
+      // It is then reset when the manager comes back to page 1.
+      unreadCount: 0,
     },
     policy: {
       loading: false,
@@ -71,6 +74,7 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
       { payload }: { payload: MemberVisitREST },
     ) => {
       let newIds = [];
+      let newUnreadCount = state.memberVisit.unreadCount;
 
       if (state.memberVisit.page === 1) {
         // The new member visit is inserted on top of the list
@@ -81,11 +85,14 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
         );
       } else {
         newIds = [...state.memberVisit.allIds];
+        // Since the member visit is not inserted on top of the list, the unread count is increased
+        newUnreadCount += 1;
       }
 
       return state
         .setIn(['memberVisit', 'allIds'], newIds)
         .setIn(['memberVisit', 'count'], state.memberVisit.count + 1)
+        .setIn(['memberVisit', 'unreadCount'], newUnreadCount)
         .merge(
           {
             memberVisit: {
@@ -171,9 +178,13 @@ export default handleActions<Immutable.Immutable<AccessControlState>, any>(
     ) => {
       const { next_page, results, count, page } = payload;
 
+      // If page 1 is fetched, the unread count is reset, since this page includes the new unread member visits
+      const newUnreadCount = page === 1 ? 0 : state.memberVisit.unreadCount;
+
       return state
         .setIn(['memberVisit', 'next_page'], next_page)
         .setIn(['memberVisit', 'count'], count)
+        .setIn(['memberVisit', 'unreadCount'], newUnreadCount)
         .setIn(['memberVisit', 'page'], page)
         .setIn(
           ['memberVisit', 'allIds'],

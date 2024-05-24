@@ -129,7 +129,9 @@ type StoreSection<ObjectType, IdType extends string | number = number> = {
   ErrorAndLoading;
 
 export type AccessControlState = {
-  memberVisit: StoreSection<MemberVisitREST>;
+  memberVisit: StoreSection<MemberVisitREST> & {
+    unreadCount: number;
+  };
   policy: { policy: AccessControlPolicy } & ErrorAndLoading;
   nextBookingOrPrivateBooking: {
     bookingOrPrivateBooking?: AccessControlBookingOrPrivateBooking;

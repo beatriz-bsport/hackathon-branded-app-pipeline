@@ -23,6 +23,7 @@ const fakeState = {
   allIds: [1],
   byId: {},
   loading: false,
+  unreadCount: 0,
 };
 
 const MemberVisitLiveHistoryTableTemplate: ComponentStory<

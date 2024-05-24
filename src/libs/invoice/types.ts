@@ -215,7 +215,7 @@ export type InvoiceFilter = {
   order?: string;
   reverted?: boolean;
   company?: number;
-  member?: string;
+  member?: number;
   is_fully_paid?: boolean;
   is_v2?: boolean;
   unpaid?: boolean;

@@ -562,7 +562,6 @@ const mapDispatchToProps = {
       is_draft: false,
       is_v2: true,
       unpaid: true,
-      // @ts-expect-error
       member: id,
     }),
   fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,

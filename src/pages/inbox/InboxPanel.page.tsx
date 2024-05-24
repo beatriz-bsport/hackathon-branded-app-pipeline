@@ -235,7 +235,7 @@ export default compose<Props, OwnProps>(
         fetchInvoiceList({
           is_v2: true,
           unpaid: true,
-          member: id.toString(),
+          member: id,
         });
       },
     handleFetchOffer:

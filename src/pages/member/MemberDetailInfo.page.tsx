@@ -859,7 +859,6 @@ const mapWithHandler2 = {
         is_v2: true,
         is_draft: false,
         unpaid: true,
-        // @ts-expect-error
         member: id,
       });
     },

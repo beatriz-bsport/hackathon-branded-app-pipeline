@@ -9,7 +9,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import useCurrentLanguageIsoCode from '../../hooks/useCurrentLanguageIsoCode';
 
-import i18n, { availableLanguages } from '../../i18n';
+import i18n, { AVAILABLE_LANGUAGES, LANGUAGES } from '../../i18n';
 
 import FR_FLAG from '../input/flags/FR.png';
 import ES_FLAG from '../input/flags/ES.png';
@@ -32,15 +32,15 @@ type Props = {
 };
 
 const countryFlag = {
-  fr: FR_FLAG,
-  de: DE_FLAG,
-  en_GB: EN_FLAG,
-  en_US: US_FLAG,
-  nl: NL_FLAG,
-  it: IT_FLAG,
-  es: ES_FLAG,
-  pt: PT_FLAG,
-  cs: CZ_FLAG,
+  [LANGUAGES.FRENCH]: FR_FLAG,
+  [LANGUAGES.GERMAN]: DE_FLAG,
+  [LANGUAGES.ENGLISH_BRITISH]: EN_FLAG,
+  [LANGUAGES.ENGLISH_US]: US_FLAG,
+  [LANGUAGES.DUTCH]: NL_FLAG,
+  [LANGUAGES.ITALIAN]: IT_FLAG,
+  [LANGUAGES.SPANISH]: ES_FLAG,
+  [LANGUAGES.PORTUGUESE]: PT_FLAG,
+  [LANGUAGES.CZECH]: CZ_FLAG,
 };
 
 const LanguageSelectBase = (props: Props) => {
@@ -51,11 +51,7 @@ const LanguageSelectBase = (props: Props) => {
     return (
       <MenuItem key={lng} component="div" value={lng}>
         {lng !== 'none' && (
-          <img
-            alt="text"
-            className={classes.flag}
-            src={countryFlag[lng.replace('-', '_')]}
-          />
+          <img alt="text" className={classes.flag} src={countryFlag[lng]} />
         )}
         {!noLabelMenuItem && t(`language.${lng}`)}
       </MenuItem>
@@ -80,7 +76,7 @@ const LanguageSelectBase = (props: Props) => {
         <MenuItem disabled component="div" value="">
           {t('navigation.pick_a_language')}
         </MenuItem>
-        {availableLanguages.map((lng) => renderMenuItem(lng.lang))}
+        {AVAILABLE_LANGUAGES.map((lng) => renderMenuItem(lng))}
         {!!allowNull && (
           <MenuItem component="div" value="none">
             {t('navigation.automaticLanguage')}

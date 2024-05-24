@@ -1,2 +1,2 @@
 // @flow
-export const availableLanguages = [{ lang: 'fr-FR' }];
+export const availableLanguages = ['fr-FR'];

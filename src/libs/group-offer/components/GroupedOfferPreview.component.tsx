@@ -203,14 +203,10 @@ export const GroupedOfferPreviewForm: React.FC<
               }`,
               {
                 count: recurrence_rule.interval ?? 0,
-                day: getDisplayDateFromRecurrence(
-                  firstDate,
-                  // @ts-expect-error
-                  {
-                    frequence: 1,
-                  },
-                  t,
-                ),
+                // @ts-expect-error
+                day: getDisplayDateFromRecurrence(firstDate, {
+                  frequence: 1,
+                }),
                 month: firstDate.toFormat('LLLL'),
               },
             )}
@@ -230,11 +226,7 @@ export const GroupedOfferPreviewForm: React.FC<
               }${intervalIsPlural ? '_plural' : ''}`,
               {
                 count: recurrence_rule.interval ?? 0,
-                day: getDisplayDateFromRecurrence(
-                  firstDate,
-                  recurrence_rule,
-                  t,
-                ),
+                day: getDisplayDateFromRecurrence(firstDate, recurrence_rule),
               },
             )}
           </Typography>

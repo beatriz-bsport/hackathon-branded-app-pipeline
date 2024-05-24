@@ -1,6 +1,5 @@
 import memoize from 'memoize-one';
-// @ts-expect-error
-import { availableLanguages } from '../i18n/index';
+import { AVAILABLE_LANGUAGES, LANGUAGES } from '../i18n/languages';
 
 // ISO 639-1 format for language : two letters (fr for French)
 // We got 6 languages on Intercom : fr, en, nl, it, es, de
@@ -8,18 +7,18 @@ import { availableLanguages } from '../i18n/index';
 export const getCurrentLanguageIsoCode = memoize((language: string) => {
   let languageIso: string = '';
   if (['en-GB', 'en-gb'].includes(language)) {
-    languageIso = 'en-GB';
+    languageIso = LANGUAGES.ENGLISH_BRITISH;
   } else {
     languageIso = language?.split('-')?.[0] ?? 'en';
   }
-  const isSplitAvailable = availableLanguages.find(
-    ({ lang }: { lang: string }) => lang === languageIso,
-  );
+  const isSplitAvailable = (
+    AVAILABLE_LANGUAGES as ReadonlyArray<string>
+  ).includes(languageIso);
   if (isSplitAvailable) return languageIso;
 
-  const isFullAvailable = availableLanguages.find(
-    ({ lang }: { lang: string }) => lang === language,
-  );
+  const isFullAvailable = (
+    AVAILABLE_LANGUAGES as ReadonlyArray<string>
+  ).includes(language);
   if (isFullAvailable) return language.split('-')[0];
-  return 'en';
+  return LANGUAGES.ENGLISH;
 });

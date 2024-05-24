@@ -843,7 +843,6 @@ const OffersList: React.FC<{
                         frequence:
                           FREQUENCE_NUMBER_CONVERTER[recurrence_frequence],
                       },
-                      t,
                     )}
                   </div>
                   <div>

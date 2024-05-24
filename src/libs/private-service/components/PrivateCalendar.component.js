@@ -46,7 +46,7 @@ import {
 
 import './main.scss';
 import './custom.scss';
-import i18n from '../../../i18n';
+import i18n, { LANGUAGES } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 
@@ -848,7 +848,11 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           firstDay={Info.getStartOfWeek()}
           headerToolbar={this.getHeaderToolbar()}
           initialView={this.getInitialView()}
-          locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
+          locale={
+            i18n.language === LANGUAGES.ENGLISH
+              ? LANGUAGES.ENGLISH_BRITISH
+              : i18n.language
+          }
           locales={SUPPORTED_LOCALES}
           plugins={SUPPORTED_PLUGINS}
           resources={this.props.resources}

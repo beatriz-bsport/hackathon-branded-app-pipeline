@@ -21,6 +21,7 @@ import {
 
 import { Trans, useTranslation } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { AVAILABLE_LANGUAGES, LANGUAGES } from '#src/i18n/languages';
 
 import type {
   Alerting,
@@ -449,11 +450,11 @@ const NewTutorialSectionOrLessonListItem: React.FC<{
   const { section_names, lesson_names, section_id, lesson_id, new_section } =
     alerting.data;
   const notificationType = new_section ? 'newSection' : 'newLesson';
-  const lang: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs' = [
-    'en-GB',
-    'en-US',
-  ].includes(i18n?.language)
-    ? 'en'
+  const lang: Exclude<
+    (typeof AVAILABLE_LANGUAGES)[number],
+    typeof LANGUAGES.ENGLISH_BRITISH | typeof LANGUAGES.ENGLISH_US
+  > = [LANGUAGES.ENGLISH_BRITISH, LANGUAGES.ENGLISH_US].includes(i18n?.language)
+    ? LANGUAGES.ENGLISH
     : i18n?.language;
 
   const title = t(`newTutorialSectionOrLesson.${notificationType}.title`, {

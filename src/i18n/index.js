@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
 import { Settings } from 'luxon';
 import config from '../config';
-import languages from './languages.json';
+import { LANGUAGES, AVAILABLE_LANGUAGES } from './languages';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
 
 import {
@@ -75,8 +75,6 @@ i18n
       if (code.startsWith('cs')) return ['cs', 'en', 'fr', ...fallback];
       return ['en', 'fr', 'af'];
     },
-
-    // lng: 'fr-FR',
     detection: {
       order: ['localStorage', 'navigator', 'cookie'],
     },
@@ -87,7 +85,7 @@ i18n
 
     debug: false, // !['production', 'test'].includes(process.env.NODE_ENV),
     partialBundledLanguages: false,
-    supportedLngs: languages,
+    supportedLngs: Object.values(LANGUAGES),
 
     interpolation: {
       defaultVariables: {
@@ -118,36 +116,6 @@ i18n
       nsMode: 'default',
     },
   });
-
-const availableLanguages = [
-  {
-    lang: 'fr',
-  },
-  {
-    lang: 'en-GB',
-  },
-  {
-    lang: 'en-US',
-  },
-  {
-    lang: 'es',
-  },
-  {
-    lang: 'nl',
-  },
-  {
-    lang: 'de',
-  },
-  {
-    lang: 'it',
-  },
-  {
-    lang: 'pt',
-  },
-  {
-    lang: 'cs',
-  },
-];
 
 export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ['en-US', 'en-CA'];
 
@@ -185,7 +153,13 @@ const getLanguage = () => {
 };
 
 export default i18n;
-export { availableLanguages, setLanguage, getLanguage, setLuxonLocale };
+export {
+  AVAILABLE_LANGUAGES,
+  LANGUAGES,
+  setLanguage,
+  getLanguage,
+  setLuxonLocale,
+};
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

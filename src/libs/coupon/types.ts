@@ -148,6 +148,7 @@ export type FetchCouponsParams = {
   blacklist_tags__in?: number[];
   tags__in?: number[];
   page_size?: number;
+  available?: boolean;
 };
 
 export type InvoiceParams = {

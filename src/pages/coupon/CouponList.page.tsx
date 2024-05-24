@@ -6,13 +6,9 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Collapse from '@material-ui/core/Collapse';
-import { List } from '@material-ui/core';
 
-import Fuse, { FuseOptions } from 'fuse.js';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
@@ -91,12 +87,17 @@ import type { RootState } from '../../reducers';
 import FabWithItems from '#components/button/FabWithItems';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type OwnProps = {
-  couponToDelete: (id: string) => void;
+  couponToDelete: number;
   setCouponToDelete: (id: number) => void;
   closeDeleteModal: () => void;
-  deleteCoupon: (id: string) => void;
+  deleteCouponAction: (id: string) => void;
   classes: Object;
   fetchSelectedPaymentCombos: (
     params: { company: Number; id__in?: Number[] },
@@ -104,24 +105,43 @@ type OwnProps = {
   ) => void;
 };
 
+type AdditionnalProps = {
+  closeDeleteModal: () => void;
+  deleteCoupon: () => void;
+};
+
 type Props = OwnProps &
+  AdditionnalProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
   ConnectedProps<typeof connector> &
-  WithHandlerType<typeof mapWithHandlers>;
+  WithHandlerType<typeof mapWithHandlers> &
+  WithObjectSearch;
 
 type State = {
-  searchText: string;
-  searchResult: Array<PaymentCombo>;
   couponFormState: { open: boolean; initial?: Coupon };
   uniqueCodeCouponFormState: { open: boolean; initial?: Coupon };
 };
 
+type CouponOption = {
+  label: string;
+  onDelete: (id: number) => void;
+  onEdit: (coupon: Coupon) => void;
+  onClick: (id: number) => void;
+  coupon: Coupon;
+  value: number;
+};
+
+const Option: React.FC<OptionPropsWithData<CouponOption>> = (props) => (
+  <CouponListItem divider {...props.data} />
+);
+
+const searchBarAdditionalParams = {
+  available: true,
+};
+
 export class CouponList extends React.PureComponent<Props, State> {
   state = {
-    searchText: '',
-    // @ts-expect-error
-    searchResult: [],
     couponFormState: { open: false, initial: null as Coupon },
     uniqueCodeCouponFormState: { open: false, initial: null as Coupon },
   };
@@ -141,20 +161,6 @@ export class CouponList extends React.PureComponent<Props, State> {
     this.props.fetchPaymentComboList();
     this.props.fetchTags();
   }
-
-  changeSearch =
-    (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) =>
-    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      this.setState({
-        searchText: ev.target.value,
-        // @ts-expect-error
-        searchResult: fuse.search(ev.target.value),
-      });
-    };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   createOrUpdateCoupon = (data: Coupon, options?: OptionCallback) => {
     if (this.state.couponFormState.initial?.id) {
@@ -351,6 +357,18 @@ export class CouponList extends React.PureComponent<Props, State> {
     },
   ];
 
+  couponOptionsFormatter = (coupons: Coupon[]): CouponOption[] =>
+    coupons.map((coupon) => {
+      return {
+        label: coupon.name,
+        onClick: () => this.props.goToCoupon(coupon.id.toString()),
+        onDelete: this.props.setCouponToDelete,
+        onEdit: this.onEditCouponListItem,
+        coupon,
+        value: coupon.id,
+      };
+    });
+
   render() {
     const { classes, t } = this.props;
 
@@ -373,45 +391,16 @@ export class CouponList extends React.PureComponent<Props, State> {
         ) : (
           <div>
             <div className={classes.search}>
-              <FuzeSearch
-                changeSearch={this.changeSearch}
-                clearSearch={this.clearSearch}
-                // @ts-expect-error
-                items={this.props.allCoupons}
-                placeholder={t('search')}
-                searchFields={['name']}
-                searchResult={this.state.searchResult}
-                searchText={this.state.searchText}
+              <ObjectSearchComponent
+                additionalParams={searchBarAdditionalParams}
+                components={{
+                  Option,
+                }}
+                optionsFormatter={this.couponOptionsFormatter}
+                placeholder={this.props.t('search')}
+                searchedObjectType="coupon"
+                variant="underlined"
               />
-
-              <Paper
-                className={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                    ? classes.searchPaperDisplayed
-                    : classes.searchPaperHidden
-                }
-              >
-                <Collapse
-                  in={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                  }
-                >
-                  <List dense disablePadding>
-                    {this.state.searchResult.map((coupon) => (
-                      <CouponListItem
-                        key={coupon.id}
-                        divider
-                        coupon={coupon}
-                        onClick={() => this.props.goToCoupon(coupon.id)}
-                        onDelete={this.props.setCouponToDelete}
-                        onEdit={this.onEditCouponListItem}
-                      />
-                    ))}
-                  </List>
-                </Collapse>
-              </Paper>
             </div>
 
             <CouponListComponent
@@ -651,14 +640,27 @@ export default compose(
   connector,
   // @ts-expect-error
   withStyles(styles),
+  withObjectSearch,
   withState('couponToDelete', 'setCouponToDelete', null),
-  withProps(({ setCouponToDelete, couponToDelete, deleteCouponAction }) => ({
-    closeDeleteModal: () => setCouponToDelete(null),
-    deleteCoupon: () => {
-      deleteCouponAction(couponToDelete);
-      setCouponToDelete(null);
-    },
-  })),
+  withProps<
+    AdditionnalProps,
+    OwnProps & ConnectedProps<typeof connector> & WithObjectSearch
+  >(
+    ({
+      setCouponToDelete,
+      couponToDelete,
+      deleteCouponAction,
+      refreshOptions,
+    }) => ({
+      closeDeleteModal: () => setCouponToDelete(null),
+      deleteCoupon: () => {
+        deleteCouponAction(couponToDelete.toString(), {
+          onSuccess: () => refreshOptions('coupon', searchBarAdditionalParams),
+        });
+        setCouponToDelete(null);
+      },
+    }),
+  ),
   withHandlers(mapWithHandlers),
   withTitle(({ t }: { t: TFunction }) => t('titles:coupon.couponList')),
 )(CouponList);

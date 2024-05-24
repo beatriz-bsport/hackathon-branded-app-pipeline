@@ -7,16 +7,23 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
 import ShopItemDetailProductCard from '#libs/shop/components/ShopItemDetailProductCard';
 import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import FranchiseShopItemTemplateDetailTabs from './FranchiseShopItemTemplateDetailTabs.component';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { ShopModalContextProvider } from '#hocs/shop-modal-prompt.hoc';
 
 import type {
   ShopItemTemplate,
   TabListOption,
   ShopItemEdit,
   ShopSupplierTemplate,
+  ShopItem,
+  ProvisionCreate,
+  Provision,
+  ProvisionBulkCreate,
 } from '#libs/shop/types';
 import type { OptionCallback } from '#state/types';
+import type { SelectOption } from '#src/libs/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
@@ -29,31 +36,71 @@ type Props = {
   tab?: string;
   isLoading?: boolean;
   isDeleting?: boolean;
+  isVariantListLoading?: boolean;
+  isDeletingVariant?: boolean;
+  isUpdatingVariant?: boolean;
   provincialTaxValue: number;
   shopItemTemplate: ShopItemTemplate;
   supplierTemplateList: ShopSupplierTemplate[];
+  variantList: ShopItem[];
+  page: number;
+  count: number;
+  shopItemVariantFilterOptionList: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
+  shopItemVariantFilterOptionValues: {
+    colors: SelectOption[];
+    sizes: SelectOption[];
+  };
   updateShopItemTemplate: (
     formData: ShopItemEdit,
     options?: OptionCallback,
   ) => void;
   deleteShopItemTemplate: () => void;
+  changeInventoryVariantFilter: (
+    type: 'colors' | 'sizes',
+  ) => (options: SelectOption[]) => void;
+  createShopItemProvision: (
+    data: ProvisionCreate,
+    options?: OptionCallback<Provision>,
+  ) => void;
+  createShopItemProvisionBulk: (
+    data: ProvisionBulkCreate,
+    options?: OptionCallback,
+  ) => void;
+  setQueryParam: (queryParam: string) => (value: string) => void;
 };
 
 const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   tab,
   isLoading,
   isDeleting,
+  isVariantListLoading,
+  isUpdatingVariant,
+  isDeletingVariant,
   provincialTaxValue,
   shopItemTemplate,
   supplierTemplateList,
+  variantList,
+  page,
+  count,
+  shopItemVariantFilterOptionList,
+  shopItemVariantFilterOptionValues,
   updateShopItemTemplate,
   deleteShopItemTemplate,
+  changeInventoryVariantFilter,
+  createShopItemProvision,
+  createShopItemProvisionBulk,
+  setQueryParam,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles({ isMobile });
 
   const { t } = useTranslation('shop');
+
+  const [, setIsCreateVariantDrawerOpen] = useState(false);
 
   const [selectedTab, setSelectedTab] = useState<TabListOption>({
     label: t('shop:shopItemDetail.tab.inventory'),
@@ -101,6 +148,11 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
     setShowDeleteConfirmationModal(false);
   }, []);
 
+  const handleOpenCreateVariantDrawer = useCallback(
+    () => setIsCreateVariantDrawerOpen(true),
+    [],
+  );
+
   const handleOpenEditShopItemDrawer = useCallback(
     () => setIsEditShopitemDrawerOpen(true),
     [],
@@ -130,6 +182,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <ShopItemDetailProductCard
+        hideCopyPaymentPageLink
         allVariantsHaveSamePrice={
           shopItemTemplate?.all_variants_follow_base_price
         }
@@ -144,6 +197,29 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
         price={shopItemTemplate?.price}
         subtitle={shopItemTemplate?.subtitle}
       />
+
+      <ShopModalContextProvider>
+        <FranchiseShopItemTemplateDetailTabs
+          availableTabListOptions={availableTabListOptions}
+          changeInventoryVariantFilter={changeInventoryVariantFilter}
+          count={count}
+          createShopItemProvision={createShopItemProvision}
+          createShopItemProvisionBulk={createShopItemProvisionBulk}
+          handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
+          isDeletingVariant={isDeletingVariant}
+          isLoading={isLoading}
+          isUpdatingVariant={isUpdatingVariant}
+          isVariantListLoading={isVariantListLoading}
+          page={page}
+          selectedTab={selectedTab}
+          setQueryParam={setQueryParam}
+          shopItemTemplate={shopItemTemplate}
+          shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
+          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues}
+          variantCombinationListCount={count} // handled in https://bsporttest.atlassian.net/browse/BS-4194
+          variantList={variantList}
+        />
+      </ShopModalContextProvider>
 
       <GenericResponsiveDrawer
         onClose={handleCloseEditShopItemDrawer}

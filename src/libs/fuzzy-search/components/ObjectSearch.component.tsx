@@ -24,6 +24,7 @@ import type { RootState } from '../../../reducers';
 import { useHydrateSearch } from '#libs/fuzzy-search/hooks/useHydrateSearch';
 import type { SelectOption } from '#libs/types';
 import { DEFAULT_SELECTOR_ID } from '../constants';
+import { getSearchVariant } from '#libs/fuzzy-search/utils/getSearchVariant';
 
 export type Props = OwnProps & ConnectedProps<typeof connector>;
 
@@ -43,7 +44,8 @@ type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
  * - additionalParams (optional): Additional query parameters that can be passed to the API to filter the search results
  * - initialValues (optional): The initial values that need to be hydrated
  * - selectorId (optional): The id of the selector, used to differentiate between multiple selectors of the same type on the same page
- *
+ * - variant : variant of ObjectSearch
+
  * The rest of the props are passed to the Select component. For initial values use the initialValues prop (not defaultValues), except if you
  * want to override the default behaviour of the component.
  *
@@ -60,6 +62,7 @@ const ObjectSearch: React.FC<Props> = ({
   isLoading,
   optionsFormatter,
   selectorId = DEFAULT_SELECTOR_ID,
+  variant = 'default',
   ...selectorProps
 }) => {
   const { formattedInitialValues, hasHydratedResults } = useHydrateSearch({
@@ -79,20 +82,23 @@ const ObjectSearch: React.FC<Props> = ({
     hasHydratedResults,
     selectorId,
   });
+  const { components, ...otherSelectProps } = { ...selectorProps };
+  const componentsVariant = getSearchVariant(variant, components);
 
   if (!hasHydratedResults) {
     return <PlaceholderSelect {...selectorProps} />;
   }
 
   return (
-    <Select
+    <Select<SelectOptions[number]>
+      components={componentsVariant}
       defaultValue={formattedInitialValues}
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filterOption={(_option, _text) => true}
       isLoading={isLoading}
       onInputChange={handleInputChange}
       options={[...formattedResults] as SelectOptions}
-      {...selectorProps}
+      {...otherSelectProps}
     />
   );
 };

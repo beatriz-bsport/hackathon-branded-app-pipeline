@@ -1,9 +1,11 @@
 import { OptionsType } from 'react-select/lib/types';
 import { ImmutableArray } from 'seamless-immutable';
+import type { OptionProps } from 'react-select/lib/components/Option';
+
+import type { SelectOption } from '#src/libs/types';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Coupon, FetchCouponsParams } from '#libs/coupon/types';
 import type { PaginatedResponse } from '#state/types';
-
 import type { EmailTemplate } from '#libs/email-editor/types';
 import type {
   Establishment,
@@ -157,6 +159,10 @@ type ResultsTypes = {
   establishment_group: EstablishmentGroupAPI;
 };
 
+const variantType = ['default', 'underlined'] as const;
+
+export type VariantType = (typeof variantType)[number];
+
 type ResultTypeMap<T extends SearchObjectType> = {
   result: ResultsTypes[T];
   array: ResultsTypes[T][];
@@ -206,6 +212,10 @@ export type ObjectSearchProps = {
      * If you are using multiple selectors for the same object type simultaneously, make sure to pass a unique id to each of them.
      */
     selectorId?: string;
+    /**
+     * Variant of the ObjectSearchProps
+     */
+    variant?: VariantType;
   };
 }[SearchObjectType];
 
@@ -337,3 +347,10 @@ type ReplaceArrayTypes<T> = T extends Array<infer U>
   : T extends object
   ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
   : T;
+
+export type OptionPropsWithData<T> = Omit<
+  OptionProps<SelectOption<number>>,
+  'data'
+> & {
+  data: T;
+};

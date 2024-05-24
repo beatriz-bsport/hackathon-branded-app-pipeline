@@ -13,12 +13,12 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Collapse from '@material-ui/core/Collapse';
-import Fuse, { FuseOptions } from 'fuse.js';
+import type { ImmutableArray } from 'seamless-immutable';
 
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+
 import { RootState } from '../../reducers';
 import themeSelectors, {
   getStripeRegion,
@@ -57,8 +57,7 @@ import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import FuzeSearch from '../../components/FuzeSearch.component';
-
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import {
   getInactiveContractList,
   getAvailableContractListManager,
@@ -84,10 +83,15 @@ import { getStripeReaders } from '#libs/terminal/selectors';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import type { OptionCallback } from '../../state/types';
-import type { Contract } from '../../libs/subscription/types';
-
-import { Coach } from '../../libs/associated-coach/types';
+import type { OptionCallback } from '#state/types';
+import type {
+  Contract,
+  ContractWithPaymentPack,
+} from '#libs/subscription/types';
+import type { TagGroupAPI } from '#libs/tag/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
 import { Member } from '../../libs/member/types';
 
 import {
@@ -95,12 +99,43 @@ import {
   BackgroundDialogActionMode,
 } from '#libs/background-dialog/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+// @ts-expect-error js file
+import SubscriptionContractListItem from '#libs/subscription/components/SubscriptionContractListItem.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+
+type ContractSearchOptionData = {
+  tagList: {
+    group: TagGroupAPI;
+    id: number;
+    name: string;
+    color: string;
+    icon: string;
+    tag_template?: number;
+  }[];
+  company: { id: number; name: string };
+  contract: ContractWithPaymentPack;
+  label: string;
+  onClick: () => void;
+  onDelete: () => void;
+  onEdit: () => void;
+  onRegister: () => void;
+  paymentComboList: PaymentCombo[];
+  paymentPackList: ImmutableArray<PaymentPack>;
+  privatePassList: PrivatePass[];
+  selectedContract: number;
+  value: number;
+};
+
+const Option: React.ComponentType<
+  OptionPropsWithData<ContractSearchOptionData>
+> = (props) => <SubscriptionContractListItem dense divider {...props.data} />;
 
 export class SubscriptionList extends React.Component<Props, State> {
-  state = {
-    searchText: '',
-    // @ts-expect-error
-    searchResult: [],
+  state: State = {
+    contractToEditFromSearch: null,
   };
 
   componentDidMount() {
@@ -124,6 +159,20 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.fetchTags();
   }
 
+  readonly searchBarAdditionalParams = {
+    manager_only: false,
+    disabled: false,
+    is_usable_by_staff: true,
+  };
+
+  refreshSearchBarOptions = () =>
+    this.props.refreshOptions('contract', this.searchBarAdditionalParams);
+
+  setContractToEditFromSearch = (contract: Contract) =>
+    this.setState({
+      contractToEditFromSearch: { ...contract },
+    });
+
   onClickContract = (id: number) => {
     if (id === this.props.selectedContract) {
       this.props.setSelectedContract(null);
@@ -135,20 +184,6 @@ export class SubscriptionList extends React.Component<Props, State> {
     }
   };
 
-  changeSearch =
-    (fuse: Fuse<Contract, FuseOptions<Contract>>) =>
-    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      this.setState({
-        searchText: ev.target.value,
-        // @ts-expect-error
-        searchResult: fuse.search(ev.target.value),
-      });
-    };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
-
   handleEditContract = (
     data: SubscriptionContractFormValues,
     options?: OptionCallback<void>,
@@ -156,6 +191,10 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.createOrUpdateContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
+        this.setState({
+          contractToEditFromSearch: null,
+        });
+        this.refreshSearchBarOptions();
         if (options && options.onSuccess) {
           options.onSuccess();
         }
@@ -165,14 +204,73 @@ export class SubscriptionList extends React.Component<Props, State> {
 
   handleRestoreContract = (id: number) => {
     this.props.restoreContract(id, {
-      onSuccess: () => this.props.fetchContractList(),
+      onSuccess: () => {
+        this.props.fetchContractList();
+        this.refreshSearchBarOptions();
+      },
     });
   };
 
-  handleDeleteContract = (id: number) =>
+  handleDeleteContract = (id: number) => {
     this.props.deleteContract(id, {
-      onSuccess: this.props.fetchContractList,
+      onSuccess: () => {
+        this.props.fetchContractList();
+        this.refreshSearchBarOptions();
+      },
     });
+  };
+
+  searchOptionsFormatters =
+    (
+      hasCreateBillingPlanPermission: boolean,
+      hasDeletePermission: boolean,
+      hasEditPermission: boolean,
+    ) =>
+    (contracts: Contract[]): ContractSearchOptionData[] =>
+      contracts.map((contract) => {
+        return {
+          contract: {
+            ...contract,
+            // TODO: Needs another way instead of relying on another fetch
+            payment_combo:
+              this.props.paymentComboList.find(
+                (paymentCombo) => contract.payment_combo === paymentCombo.id,
+              ) || null,
+            // TODO: Needs another way instead of relying on another fetch
+            payment_pack:
+              this.props.paymentPackList.find(
+                (paymentPack) => contract.payment_pack === paymentPack.id,
+              ) || null,
+            // TODO: Needs another way instead of relying on another fetch
+            private_pass:
+              this.props.privatePassList.find(
+                (privatePass) => contract.private_pass === privatePass.id,
+              ) || null,
+          },
+          label: contract.name,
+          value: contract.id,
+          company: {
+            id: this.props.theme.company,
+            name: this.props.theme.company_name,
+          },
+          onClick: () => this.onClickContract(contract.id),
+          paymentComboList: this.props.paymentComboList,
+          paymentPackList: this.props.paymentPackList,
+          privatePassList: this.props.privatePassList,
+          // TODO: Needs another way instead of relying on another fetch
+          tagList: this.props.allTagsWithTagGroup,
+          onDelete: hasDeletePermission
+            ? () => this.handleDeleteContract(contract.id)
+            : null,
+          onEdit: hasEditPermission
+            ? () => this.setContractToEditFromSearch(contract)
+            : null,
+          onRegister: hasCreateBillingPlanPermission
+            ? () => this.props.openContractRegister(contract)
+            : null,
+          selectedContract: this.props.selectedContract,
+        };
+      });
 
   render() {
     const stripeRegion = getStripeRegion();
@@ -206,60 +304,20 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             ) : (
               <div className={this.props.classes.search}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={this.props.contractListAvailableAll}
+                <ObjectSearchComponent
+                  additionalParams={this.searchBarAdditionalParams}
+                  components={{
+                    Option,
+                  }}
+                  optionsFormatter={this.searchOptionsFormatters(
+                    hasCreateBillingPlanPermission,
+                    hasDeletePermission,
+                    hasEditPermission,
+                  )}
                   placeholder={this.props.t('search')}
-                  searchFields={['name']}
-                  // @ts-expect-error
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
+                  searchedObjectType="contract"
+                  variant="underlined"
                 />
-
-                <Paper
-                  className={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                      ? this.props.classes.searchPaperDisplayed
-                      : this.props.classes.searchPaperHidden
-                  }
-                >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    <SubscriptionContractList
-                      dense
-                      divider
-                      company={{
-                        id: this.props.theme.company,
-                        name: this.props.theme.company_name,
-                      }}
-                      contractList={this.state.searchResult}
-                      displayNewCheckoutFlow={
-                        this.props.theme.display_new_checkout_flow
-                      }
-                      loading={this.props.contractLoading}
-                      onClick={this.onClickContract}
-                      onDelete={
-                        hasDeletePermission && this.handleDeleteContract
-                      }
-                      onEdit={hasEditPermission && this.handleEditContract}
-                      onRegister={
-                        hasCreateBillingPlanPermission &&
-                        this.props.openContractRegister
-                      }
-                      paymentComboList={this.props.paymentComboList}
-                      paymentPackList={this.props.paymentPackList}
-                      privatePassList={this.props.privatePassList}
-                      selectedContract={this.props.selectedContract}
-                      tagList={this.props.allTagsWithTagGroup}
-                    />
-                  </Collapse>
-                </Paper>
               </div>
             )}
             <Grid container spacing={2}>
@@ -434,9 +492,21 @@ export class SubscriptionList extends React.Component<Props, State> {
               displayNewCheckoutFlow={
                 this.props.theme.display_new_checkout_flow
               }
-              onClose={this.props.onCloseCreate}
-              onSubmit={this.props.onCreate}
-              open={this.props.createContractFormOpen}
+              initial={this.state.contractToEditFromSearch}
+              onClose={
+                this.state.contractToEditFromSearch
+                  ? () => this.setState({ contractToEditFromSearch: null })
+                  : this.props.onCloseCreate
+              }
+              onSubmit={
+                this.state.contractToEditFromSearch
+                  ? this.handleEditContract
+                  : this.props.onCreate
+              }
+              open={
+                !!this.state.contractToEditFromSearch ||
+                this.props.createContractFormOpen
+              }
               paymentComboList={this.props.paymentComboList}
               // @ts-expect-error
               paymentPackList={this.props.paymentPackList}
@@ -495,15 +565,15 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type HandlersType = WithHandlerType<typeof mapWithHandlers>;
 
 type State = {
-  searchText: string;
-  searchResult: Array<Coach>;
+  contractToEditFromSearch: Contract | null;
 };
 
 type Props = MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
   ConnectedProps &
   StateHandlerType &
-  HandlersType;
+  HandlersType &
+  WithObjectSearch;
 
 const mapStateToProps = (state: RootState) => ({
   theme: themeSelectors.getTheme(state),
@@ -711,6 +781,7 @@ export default compose(
   ),
   connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  withObjectSearch,
   // @ts-expect-error
   withHandlers(mapWithHandlers),
   // @ts-expect-error

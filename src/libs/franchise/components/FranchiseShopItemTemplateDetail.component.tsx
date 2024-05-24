@@ -1,7 +1,10 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
+// @ts-expect-error
+import Barcode from 'react-barcode';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme, useMediaQuery, Theme } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
@@ -53,6 +56,7 @@ type Props = {
     colors: SelectOption[];
     sizes: SelectOption[];
   };
+  shopItemTemplateSupplierName?: string;
   updateShopItemTemplate: (
     formData: ShopItemEdit,
     options?: OptionCallback,
@@ -87,6 +91,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   count,
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
+  shopItemTemplateSupplierName,
   updateShopItemTemplate,
   deleteShopItemTemplate,
   changeInventoryVariantFilter,
@@ -101,6 +106,10 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   const { t } = useTranslation('shop');
 
   const [, setIsCreateVariantDrawerOpen] = useState(false);
+
+  const [selectedVariantBarcode, setSelectedVariantBarcode] = useState<
+    string | null
+  >(null);
 
   const [selectedTab, setSelectedTab] = useState<TabListOption>({
     label: t('shop:shopItemDetail.tab.inventory'),
@@ -163,6 +172,17 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
     [],
   );
 
+  const handleOpenBarcodeModal = useCallback((barcode: string) => {
+    setSelectedVariantBarcode(barcode);
+    setShowBarcodeModal(true);
+  }, []);
+
+  const handleCloseBarcodeModal = useCallback(() => {
+    setShowBarcodeModal(false);
+  }, []);
+
+  const [showBarcodeModal, setShowBarcodeModal] = useState(false);
+
   const handleSubmitEditShopItem = useCallback(
     (formData: ShopItemEdit) => {
       updateShopItemTemplate(formData, {
@@ -205,6 +225,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           count={count}
           createShopItemProvision={createShopItemProvision}
           createShopItemProvisionBulk={createShopItemProvisionBulk}
+          handleOpenBarcodeModal={handleOpenBarcodeModal}
           handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
           isDeletingVariant={isDeletingVariant}
           isLoading={isLoading}
@@ -214,9 +235,10 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           selectedTab={selectedTab}
           setQueryParam={setQueryParam}
           shopItemTemplate={shopItemTemplate}
+          shopItemTemplateSupplierName={shopItemTemplateSupplierName}
           shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
-          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues}
-          variantCombinationListCount={count} // handled in https://bsporttest.atlassian.net/browse/BS-4194
+          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues} // handled in https://bsporttest.atlassian.net/browse/BS-4194
+          variantCombinationListCount={count}
           variantList={variantList}
         />
       </ShopModalContextProvider>
@@ -244,6 +266,13 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
         open={showDeleteConfirmationModal}
         shopItemName={shopItemTemplate?.name ?? ''}
       />
+
+      <Dialog
+        onClose={handleCloseBarcodeModal}
+        open={showBarcodeModal && !!selectedVariantBarcode}
+      >
+        <Barcode background="#fafafa" value={selectedVariantBarcode} />
+      </Dialog>
     </div>
   );
 };

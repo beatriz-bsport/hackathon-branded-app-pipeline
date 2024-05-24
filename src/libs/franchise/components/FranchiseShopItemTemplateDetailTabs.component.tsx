@@ -12,9 +12,11 @@ import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 
 import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
-import FranchiseShopItemTemplateDetailInventoryTab from './FranchiseShopItemTemplateDetailInventoryTab.component';
 import PromptOnPageLeaveComponent from '#components/Prompt';
+import FranchiseShopItemTemplateDetailInventoryTab from './FranchiseShopItemTemplateDetailInventoryTab.component';
+import ShopItemDetailSettingsTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailSettingsTab.component';
 
 import type {
   ProvisionBulkCreate,
@@ -49,6 +51,7 @@ type Props = {
     sizes: SelectOption[];
   };
   variantCombinationListCount: number;
+  shopItemTemplateSupplierName?: string;
   setQueryParam: (queryParam: string) => (value: string) => void;
   handleOpenVariantDrawer: () => void;
   createShopItemProvision: (
@@ -62,6 +65,7 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  handleOpenBarcodeModal: (barcode: string) => void;
 };
 
 const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
@@ -78,11 +82,13 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
   variantCombinationListCount,
+  shopItemTemplateSupplierName,
   setQueryParam,
   handleOpenVariantDrawer,
   createShopItemProvision,
   createShopItemProvisionBulk,
   changeInventoryVariantFilter,
+  handleOpenBarcodeModal,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -164,6 +170,27 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
               variantCombinationListCount={variantCombinationListCount}
             />
           </>
+        )}
+
+        {!!shopItemTemplate && (
+          <ShopItemDetailSettingsTab
+            availablePaymentMethodIdentifiers={
+              shopItemTemplate.available_payment_method_identifiers
+            }
+            barcode={shopItemTemplate.barcode}
+            handleOpenBarcodeModal={handleOpenBarcodeModal}
+            isDeliverable={shopItemTemplate.is_deliverable}
+            isFeatured={shopItemTemplate.featured}
+            isMarketplaceEnabled={shopItemTemplate.marketplace_enabled}
+            productHasVariants={count > 0}
+            sellOnlyOnProvision={shopItemTemplate.sell_only_on_provision}
+            stockKeepingUnit={shopItemTemplate.stock_keeping_unit}
+            supplierName={shopItemTemplateSupplierName}
+            supplierPrice={getCurrencyDisplayWithPrice(
+              shopItemTemplate.supplier_price,
+            )}
+            tva={shopItemTemplate.tva}
+          />
         )}
       </TabContext>
     </Card>

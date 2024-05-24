@@ -20,6 +20,7 @@ import {
   getShopItemTemplateDeleteLoading,
   getShopItemTemplateDetail,
   getShopItemTemplateDetailLoading,
+  getShopItemTemplateSupplier,
   getShopItemTemplateVariantDeleteLoading,
   getShopItemTemplateVariantFilterOptionList,
   getShopItemTemplateVariantListLoading,
@@ -201,6 +202,11 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         provincialTaxValue={this.props.theme.provincial_tax_value}
         setQueryParam={this.props.setQueryParam}
         shopItemTemplate={this.props.shopItemTemplate}
+        shopItemTemplateSupplierName={
+          this.props.getShopItemTemplateSupplier(
+            this.props.shopItemTemplate?.supplier_template,
+          )?.name
+        }
         shopItemVariantFilterOptionList={
           this.props.shopItemVariantFilterOptionList
         }
@@ -229,6 +235,8 @@ const connector = connect(
       state,
       id,
     ),
+    getShopItemTemplateSupplier: (supplierTemplateId: number) =>
+      getShopItemTemplateSupplier(state, supplierTemplateId),
   }),
   {
     retrieveShopItemTemplate: retrieveShopItemTemplateAction,

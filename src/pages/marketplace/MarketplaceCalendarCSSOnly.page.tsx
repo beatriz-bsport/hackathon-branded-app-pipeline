@@ -90,7 +90,6 @@ import { WithHandlerType } from '../../utils/types';
 import { Offer, OfferFilterData, Offer_FULL } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import GroupRulePopup from '#marketplacecomponents/@Offer/GroupRulePopup.dialog';
-import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 
@@ -100,13 +99,11 @@ import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 import type { MarketplaceComponentConfig } from '#libs/marketplace/types';
 
-type OwnProps = {
+export type OwnProps = {
   companyId: number;
   compactMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
-  requestSignUp: () => void;
-  toggleCurrentBasketOpen: (value: boolean) => void;
   onCompletePurchase?: (offerId: number, packId: number) => void;
   otherParams: {
     date: string;
@@ -127,7 +124,6 @@ type OwnProps = {
   setFilters: (key: string) => (value: any) => void;
   goToPackPayment?: (packId: number, offerId: number) => void;
   goToBook?: (id: number, companyId: number) => void;
-  getLevel: (id: number) => Level;
   goToBookOption?: (id: number, companyId: number) => void;
   store?: any; // for the widget only
   mapContainerClassName?: string;
@@ -147,7 +143,7 @@ type Props = OwnProps &
   WithTranslation &
   RouteChildrenProps<any>;
 
-type FinalProps = Props & WithHandlerType<typeof mapWithHandlers>;
+export type FinalProps = Props & WithHandlerType<typeof mapWithHandlers>;
 type State = {
   offerId: number | null;
   offer: Offer | null;

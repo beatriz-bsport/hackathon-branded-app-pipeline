@@ -50,7 +50,7 @@ type Props = {
   isUpdatingVariant?: boolean;
   provincialTaxValue: number;
   shopItem: ShopItem;
-  shopItemSupplier: ShopSupplier;
+  shopItemSupplierName?: string;
   variantList: ShopItem[];
   supplierList: ShopSupplier[];
   page: number;
@@ -103,7 +103,7 @@ const ShopItemDetail: React.FC<Props> = ({
   isUpdatingVariant,
   provincialTaxValue,
   shopItem,
-  shopItemSupplier,
+  shopItemSupplierName,
   variantList,
   supplierList,
   count,
@@ -338,7 +338,7 @@ const ShopItemDetail: React.FC<Props> = ({
           setIsVariantEditMode={setIsVariantEditMode}
           setQueryParam={setQueryParam}
           shopItem={shopItem}
-          shopItemSupplier={shopItemSupplier}
+          shopItemSupplierName={shopItemSupplierName}
           shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
           shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues}
           updateShopItemVariantBulk={updateShopItemVariantBulk}

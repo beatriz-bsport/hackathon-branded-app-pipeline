@@ -307,9 +307,9 @@ export class ShopItemDetailPage extends Component<Props> {
         provincialTaxValue={this.props.theme.provincial_tax_value}
         setQueryParam={this.props.setQueryParam}
         shopItem={this.props.shopItem}
-        shopItemSupplier={this.props.getShopItemSupplier(
-          this.props.shopItem?.supplier,
-        )}
+        shopItemSupplierName={
+          this.props.getShopItemSupplier(this.props.shopItem?.supplier)?.name
+        }
         shopItemVariantFilterOptionList={
           this.props.shopItemVariantFilterOptionList
         }

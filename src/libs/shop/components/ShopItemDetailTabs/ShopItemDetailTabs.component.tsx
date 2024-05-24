@@ -24,7 +24,6 @@ import PromptOnPageLeaveComponent from '#components/Prompt';
 import type {
   ProvisionBulkCreate,
   ShopItem,
-  ShopSupplier,
   TabListOption,
   ProvisionCreate,
   Provision,
@@ -43,7 +42,7 @@ type Props = {
   selectedTab: TabListOption;
   variantList: ShopItem[];
   shopItem: ShopItem;
-  shopItemSupplier: ShopSupplier;
+  shopItemSupplierName?: string;
   page: number;
   count: number;
   isVariantEditMode?: boolean;
@@ -85,7 +84,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   selectedTab,
   variantList,
   shopItem,
-  shopItemSupplier,
+  shopItemSupplierName,
   page,
   count,
   isVariantEditMode,
@@ -211,7 +210,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
                 productHasVariants={count > 0}
                 sellOnlyOnProvision={shopItem.sell_only_on_provision}
                 stockKeepingUnit={shopItem.stock_keeping_unit}
-                supplierName={shopItemSupplier?.name}
+                supplierName={shopItemSupplierName}
                 supplierPrice={getCurrencyDisplayWithPrice(
                   shopItem.supplier_price,
                 )}

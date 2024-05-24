@@ -118,6 +118,8 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflow: 'auto',
+    flexWrap: 'wrap',
+    rowGap: '5px',
   },
   title: {
     marginBottom: theme.spacing(1) / 2,

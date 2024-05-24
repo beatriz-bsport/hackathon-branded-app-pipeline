@@ -13,14 +13,19 @@ import ShopItemUpdateProvisionDialog from '#libs/shop/components/ShopItemUpdateP
 
 import useShopItemDetailInventoryFilters from '#libs/shop/hooks/useShopItemDetailInventoryFilters';
 
-import type { Provision, ProvisionCreate, ShopItem } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../state/types';
+import type {
+  Provision,
+  ProvisionCreate,
+  ShopItem,
+  ShopItemTemplate,
+} from '#libs/shop/types';
+import type { OptionCallback } from '#state/types';
 
 import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;
-  shopItem: ShopItem;
+  shopItemTemplate: ShopItemTemplate;
   shopItemVariantList: ShopItem[];
   isUpdatingVariant?: boolean;
   createShopItemProvision: (
@@ -29,9 +34,9 @@ type Props = {
   ) => void;
 };
 
-const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
+const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
   formType,
-  shopItem,
+  shopItemTemplate,
   shopItemVariantList,
   isUpdatingVariant,
   createShopItemProvision,
@@ -45,6 +50,7 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   const classes = useStyles();
 
   const {
+    companyFilterOptionList,
     variantSizeFilterOptionList,
     variantColorFilterOptionList,
     filteredVariantList,
@@ -83,6 +89,8 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
     [createShopItemProvision, handleCloseProvisionDialog, selectedVariant],
   );
 
+  const isMasterAccount = false; // TODO WEBSHOP ON MA
+
   return (
     <>
       {formType === ShopItemDetailInventoryFormType.VARIANTS && (
@@ -93,6 +101,16 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
             classes.flexGap,
           )}
         >
+          {isMasterAccount && (
+            <Select
+              isClearable
+              onChange={handleFilterValueChange('company')}
+              options={companyFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.company',
+              )}
+            />
+          )}
           <div className={classes.flexGap}>
             <Select
               isClearable
@@ -163,16 +181,16 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
             <div className={classes.listItemDetails}>
               <Typography>{`${t(
                 'shopItemDetail.table.inventory.currentStock',
-              )}: ${shopItem.current_stock}`}</Typography>
+              )}: ${shopItemTemplate.current_stock}`}</Typography>
               <Typography>{`${t(
                 'shopItemDetail.table.inventory.totalSales',
-              )}: ${shopItem.total_sales}`}</Typography>
+              )}: ${shopItemTemplate.total_sales}`}</Typography>
             </div>
 
             <Button
               fullWidth
               color="primary"
-              onClick={handleOpenProvisionDialog(shopItem.id)}
+              onClick={handleOpenProvisionDialog(shopItemTemplate.id)}
               variant="outlined"
             >
               {t('shopItemDetail.table.inventory.stockAdjustment')}
@@ -234,4 +252,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(ShopItemDetailInventoryListMobile);
+export default React.memo(FranchiseShopItemDetailInventoryListMobile);

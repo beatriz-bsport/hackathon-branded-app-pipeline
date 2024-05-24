@@ -137,6 +137,10 @@ export const getShopItemDetailLoading = (state: RootState) =>
 export const getShopItemVariantListLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemVariant.loading;
 
+/** Returns the loading state of the item template variant list */
+export const getShopItemTemplateVariantListLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemVariant.loading;
+
 /** Returns the loading state when deleting a base/standalone item */
 export const getShopItemDetailDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemDetails.delete.loading;
@@ -172,6 +176,15 @@ export const getShopItemVariantUpdateLoading = (state: RootState) =>
 export const getShopItemVariantDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemVariant.delete.loading;
 
+/** Returns the loading state when updating a variant item */
+export const getShopItemTemplateVariantUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemVariant.updateVariant
+    .loading;
+
+/** Returns the loading state when deleting a variant item */
+export const getShopItemTemplateVariantDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemVariant.delete.loading;
+
 /** Retrieves the boolean for combo warning when deleting a shop item */
 export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
   if (!id) return false;
@@ -189,6 +202,30 @@ export const getShopItemVariantState = (
 ) => {
   const shopItemVariantState =
     state.shopReworked.shopItemReworked.itemVariant.byBaseItemId[shopItemId];
+  if (!shopItemId || !shopItemVariantState) {
+    return {
+      page: 1,
+      next_page: null,
+      count: 0,
+      variants: [],
+      combinationList: [],
+    };
+  }
+  return shopItemVariantState;
+};
+
+/**
+ * Retrieves the variant state related to a base item template.\
+ * If the base item is standalone, variants is always an empty array.
+ * @param id The base/standalone item id to retrieve variant state for
+ */
+export const getShopItemTemplateVariantState = (
+  state: RootState,
+  shopItemId: number,
+) => {
+  const shopItemVariantState =
+    state.shopReworked.shopTemplates.shopItemTemplate.itemVariant
+      .byBaseItemTemplateId[shopItemId];
   if (!shopItemId || !shopItemVariantState) {
     return {
       page: 1,
@@ -410,6 +447,42 @@ export const getShopItemVariantCombinationList = (
 
 /** Returns a list of all available options for variant filters on inventory tab (color/size/company) */
 export const getShopItemVariantFilterOptionList = createSelector(
+  [getShopItemVariantCombinationList],
+  (variantCombinationList) => {
+    const colorList: SelectOption[] = variantCombinationList
+      .map((variant) => ({
+        label: variant.color,
+        value: variant.color,
+      }))
+      .filter((variantOption) => !!variantOption.value);
+    const sizeList: SelectOption[] = variantCombinationList
+      .map((variant) => ({
+        label: variant.size,
+        value: variant.size,
+      }))
+      .filter((variantOption) => !!variantOption.value);
+
+    return {
+      colors: uniqBy(colorList, 'value'),
+      sizes: uniqBy(sizeList, 'value'),
+    };
+  },
+);
+
+/** Returns the existing variant combination list from a base item template */
+export const getShopItemTemplateVariantCombinationList = (
+  state: RootState,
+  shopItemTemplateId: number,
+) => {
+  if (!shopItemTemplateId) return [];
+  return (
+    state.shopReworked.shopTemplates.shopItemTemplate.itemVariant
+      .byBaseItemTemplateId[shopItemTemplateId]?.combinationList ?? []
+  );
+};
+
+/** Franchisor: Returns a list of all available options for variant filters on inventory tab (color/size/company) */
+export const getShopItemTemplateVariantFilterOptionList = createSelector(
   [getShopItemVariantCombinationList],
   (variantCombinationList) => {
     const colorList: SelectOption[] = variantCombinationList

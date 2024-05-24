@@ -88,6 +88,8 @@ export const registerBooking = async (
     offer: number | Array<number>;
     keep_credits: boolean;
     notify_member: boolean;
+    spot_id?: number;
+    auto_assign_spot?: boolean;
   },
 ) => {
   return postAuth(

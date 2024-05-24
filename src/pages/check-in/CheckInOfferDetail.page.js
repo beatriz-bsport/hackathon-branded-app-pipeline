@@ -438,7 +438,7 @@ export default compose(
       (consumerPaymentPackId, options) => {
         registerBooking(
           consumerPaymentPackId,
-          { offer: offerId },
+          { offer: offerId, auto_assign_spot: true },
           {
             onError: options && options.onError,
             onSuccess: () => {

@@ -20,12 +20,13 @@ import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 import uniqBy from 'lodash/uniqBy';
 import { Alert } from '@material-ui/lab';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+
 import { VideoStatusEnum } from '#libs/video/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers/index';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import FuzeSearch from '#components/FuzeSearch.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
@@ -115,6 +116,20 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+
+type PaymentPackOption = {
+  label: string;
+  pack: PaymentPack;
+  onClick: () => void;
+  onDelete: () => void;
+  onEdit: () => void;
+  value: number;
+};
 
 const {
   trackFormAdd,
@@ -138,11 +153,15 @@ type StateHandlerType = typeof withStateHandlersInit &
 type OwnProps = {};
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  WithObjectSearch;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
+
 type State = {
   paymentPackToDelete?: PaymentPack;
   showDisabled: boolean;
@@ -163,6 +182,14 @@ type State = {
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 const CONSUMER_PACK_PAGINATION_SIZE = 10;
+
+const searchBarAdditionalParams = {
+  disabled: false,
+};
+
+const Option: React.FC<OptionPropsWithData<PaymentPackOption>> = (props) => (
+  <PaymentPackListItem divider {...props.data} />
+);
 
 export class PaymentPackList extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -445,6 +472,26 @@ export class PaymentPackList extends React.Component<Props, State> {
     });
   };
 
+  paymentPackOptionsFormatter =
+    (hasDeletePermission: boolean, hasEditPermission: boolean) =>
+    (paymentPacks: PaymentPack[]): PaymentPackOption[] =>
+      paymentPacks.map((paymentPack) => {
+        return {
+          label: paymentPack.name,
+          onClick: !paymentPack.disabled
+            ? () => this.props.goToPack(paymentPack.id)
+            : null,
+          onDelete: hasDeletePermission
+            ? () => this.requestDelete(paymentPack)
+            : null,
+          onEdit: hasEditPermission
+            ? () => this.requestEdit(paymentPack)
+            : null,
+          pack: paymentPack,
+          value: paymentPack.id,
+        };
+      });
+
   render() {
     const {
       loading,
@@ -556,16 +603,18 @@ export class PaymentPackList extends React.Component<Props, State> {
                 {/* @ts-expect-error */}
                 {!!this.props.enabledPacks?.length && (
                   <div style={{ flex: 1 }}>
-                    <FuzeSearch
-                      // @ts-expect-error
-                      changeSearch={this.changeSearch}
-                      clearSearch={this.clearSearch}
-                      // @ts-expect-error
-                      items={[...this.props.enabledPacks]}
-                      placeholder={t('search')}
-                      searchFields={['name']}
-                      searchResult={this.state.searchResult}
-                      searchText={this.state.searchText}
+                    <ObjectSearchComponent
+                      additionalParams={searchBarAdditionalParams}
+                      components={{
+                        Option,
+                      }}
+                      optionsFormatter={this.paymentPackOptionsFormatter(
+                        hasDeletePermission,
+                        hasEditPermission,
+                      )}
+                      placeholder={this.props.t('search')}
+                      searchedObjectType="payment_pack"
+                      variant="underlined"
                     />
                   </div>
                 )}
@@ -585,54 +634,6 @@ export class PaymentPackList extends React.Component<Props, State> {
                   </Button>
                 )}
               </div>
-              <Paper
-                className={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                    ? classes.searchPaperDisplayed
-                    : classes.searchPaperHidden
-                }
-              >
-                <Collapse
-                  in={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                  }
-                >
-                  <Paper>
-                    <List disablePadding>
-                      {this.state.searchResult.map((pack) => (
-                        <PaymentPackListItem
-                          key={pack.id}
-                          divider
-                          // @ts-expect-error
-                          creditScaleFactor={
-                            // @ts-expect-error
-                            this.props.theme.pass_credit_factor
-                          }
-                          onClick={
-                            !pack.disabled
-                              ? () => this.props.goToPack(pack.id)
-                              : null
-                          }
-                          onDelete={
-                            hasDeletePermission &&
-                            (() => this.requestDelete(pack))
-                          }
-                          onEdit={
-                            hasEditPermission && (() => this.requestEdit(pack))
-                          }
-                          onRestore={
-                            hasEditPermission &&
-                            (() => this.restorePaymentPack(pack.id))
-                          }
-                          pack={pack}
-                        />
-                      ))}
-                    </List>
-                  </Paper>
-                </Collapse>
-              </Paper>
               <PaymentPackFilterAndSortHeader
                 categoryFilterOnchange={this.categoryFilterOnchange}
                 // @ts-expect-error
@@ -953,6 +954,7 @@ const mapWithHandlers = {
     (paymentPackId: number, data: Partial<PaymentPack>) => {
       props.patchPaymentPack(paymentPackId, data, {
         onSuccess: (payload) => {
+          props.refreshOptions('payment_pack', searchBarAdditionalParams);
           if (payload.linked_private_pass) {
             props.fetchPrivatePassList();
           }
@@ -1011,6 +1013,10 @@ const mapWithHandlers = {
       props.createOrUpdatePaymentPackAction(data, {
         ...options,
         onSuccess: (res) => {
+          // condition to edit
+          if (data?.id) {
+            props.refreshOptions('payment_pack', searchBarAdditionalParams);
+          }
           options.onSuccess(res);
           props.refreshCompanyThemeAction(props.companyId, {
             onSuccess: (theme) => {
@@ -1107,5 +1113,6 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),
   ),
+  withObjectSearch,
   withHandlers(mapWithHandlers),
 )(PaymentPackList);

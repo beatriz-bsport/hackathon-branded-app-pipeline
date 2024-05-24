@@ -96,6 +96,9 @@ export const getShopItemsBulk = createSelector(_getShopItemsBulk, (shopItems) =>
 const getShopItemSupplierById = (state: RootState) =>
   state.shopReworked.shopItemReworked.suppliers.byId;
 
+const getShopItemTemplateSupplierById = (state: RootState) =>
+  state.shopReworked.shopTemplates.supplierTemplate.byId;
+
 const getShopItemStandaloneAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.allIds;
 
@@ -244,6 +247,20 @@ export const getShopItemTemplateVariantState = (
  */
 export const getShopItemSupplier = createSelector(
   [getShopItemSupplierById, (_: RootState, id: number) => id],
+  (supplierById, id) => {
+    if (!id) {
+      return null;
+    }
+    return supplierById?.[id] ?? null;
+  },
+);
+
+/**
+ * Retrieves the supplier template associated to a shop item template.
+ * @param id The shop item template id
+ */
+export const getShopItemTemplateSupplier = createSelector(
+  [getShopItemTemplateSupplierById, (_: RootState, id: number) => id],
   (supplierById, id) => {
     if (!id) {
       return null;

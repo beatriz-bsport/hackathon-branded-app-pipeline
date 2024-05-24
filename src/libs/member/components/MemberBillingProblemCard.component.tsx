@@ -150,65 +150,151 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
     useState<number>(0);
 
-    setClientSecret(null);
-    setClientSecretLoading(true);
-    setClientSecretError(false);
-    requestClientSecretAPI(
-      paymentEngine,
-      invoiceToBill ? PAYMENT_INTENT_TYPE_INVOICE : PAYMENT_INTENT_TYPE_DEBT,
-      {
-        invoice: invoiceToBill ? invoiceToBill.uuid : null,
-        member: memberId,
-        requested_price_cts: amountToBill
-          ? // @ts-expect-error
-            parseInt(parseFloat(amountToBill) * 100, 10)
-          : null,
-        ...(params || {}),
-      },
-    )
-      .then((r) => {
-        setClientSecretLoading(false);
-        setClientSecret(r.data.client_secret);
-        setPaymentGroupPriceCts(r.data.price_cts);
-        setPaymentGroupId(r.data.payment_group);
-        setClientSecretError(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setClientSecretLoading(false);
-        setClientSecretError(true);
-        Sentry.captureException(err);
-      });
-  };
-  const listenPaymentGroupCompleted = (callback?: () => void) => {
-    getPaymentGroupStatusAPI(paymentGroupId)
-      .then((r) => {
-        if (retryPaymentGroupStatus > PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY) {
-          return;
-        }
-        if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
-          setTimeout(() => {
-            if (selectedEstablishmentBillingGroup?.id) {
-              setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI(
-                paymentGroupId,
-                selectedEstablishmentBillingGroup.id,
-              );
-            }
-            if (callback) callback();
-          }, 2000);
-        } else {
-          setRetryPaymentGroupStatus(retryPaymentGroupStatus + 1);
-          setTimeout(
-            listenPaymentGroupCompleted,
-            paymentGroupCompletedCheckSeconds * 2000,
-          );
-        }
-      })
-      .catch(console.error);
-  };
+  const requestClientSecret = useCallback(
+    (paymentEngine: number, params?: any) => {
+      setClientSecret(null);
+      setClientSecretLoading(true);
+      setClientSecretError(false);
+      requestClientSecretAPI(
+        paymentEngine,
+        invoiceToBill ? PAYMENT_INTENT_TYPE_INVOICE : PAYMENT_INTENT_TYPE_DEBT,
+        {
+          invoice: invoiceToBill ? invoiceToBill.uuid : null,
+          member: memberId,
+          requested_price_cts: amountToBill
+            ? // @ts-expect-error
+              parseInt(parseFloat(amountToBill) * 100, 10)
+            : null,
+          ...(params || {}),
+        },
+      )
+        .then((r) => {
+          setClientSecretLoading(false);
+          setClientSecret(r.data.client_secret);
+          setPaymentGroupPriceCts(r.data.price_cts);
+          setPaymentGroupId(r.data.payment_group);
+          setClientSecretError(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setClientSecretLoading(false);
+          setClientSecretError(true);
+          Sentry.captureException(err);
+        });
+    },
+    [amountToBill, invoiceToBill, memberId],
+  );
+
+  const listenPaymentGroupCompleted = useCallback(
+    (callback?: () => void) => {
+      getPaymentGroupStatusAPI(paymentGroupId)
+        .then((r) => {
+          if (retryPaymentGroupStatus > PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY) {
+            return;
+          }
+          if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
+            setTimeout(() => {
+              if (selectedEstablishmentBillingGroup?.id) {
+                setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI(
+                  paymentGroupId,
+                  selectedEstablishmentBillingGroup.id,
+                );
+              }
+              if (callback) callback();
+            }, 2000);
+          } else {
+            setRetryPaymentGroupStatus(retryPaymentGroupStatus + 1);
+            setTimeout(
+              listenPaymentGroupCompleted,
+              paymentGroupCompletedCheckSeconds * 2000,
+            );
+          }
+        })
+        .catch(console.error);
+    },
+    [
+      paymentGroupId,
+      paymentGroupCompletedCheckSeconds,
+      retryPaymentGroupStatus,
+      selectedEstablishmentBillingGroup,
+    ],
+  );
 
   const handleApplyBalanceToInvoice = (options: OptionCallback) =>
     invoiceToBill?.uuid && applyBalanceToInvoice(invoiceToBill?.uuid, options);
+
+  const handleRegularizeMemberFullDebt = useCallback(
+    () => setRegularizeFullDebt(true),
+    [setRegularizeFullDebt],
+  );
+
+  const onAdjustMemberBalanceClick = useCallback(() => {
+    if (asConsumer) {
+      // @ts-expect-error
+      setAmountToBill(Math.abs(parseFloat(balance)));
+    } else {
+      setAdjustBalanceDialogOpen(true);
+    }
+  }, [asConsumer, balance]);
+
+  const handeAdjustMemberBalance = useCallback(
+    (arg, withoutPaymentNote) => {
+      if (withoutPaymentNote) {
+        adjustCreditWithoutPaymentNote(arg);
+        setAdjustBalanceDialogOpen(false);
+      } else {
+        setAmountToBill(arg);
+        setAdjustBalanceDialogOpen(false);
+      }
+    },
+    [
+      adjustCreditWithoutPaymentNote,
+      setAdjustBalanceDialogOpen,
+      setAmountToBill,
+    ],
+  );
+
+  const onCloseMemberBalanceUpdate = useCallback(
+    () => setAdjustBalanceDialogOpen(false),
+    [setAdjustBalanceDialogOpen],
+  );
+
+  const handleCancelPayment = useCallback(() => {
+    setInvoiceToBill(null);
+    // @ts-expect-error
+    setAmountToBill(0);
+    setRegularizeFullDebt(false);
+    if (onInvoicePaymentDialogClose) onInvoicePaymentDialogClose();
+  }, [
+    onInvoicePaymentDialogClose,
+    setInvoiceToBill,
+    setAmountToBill,
+    setRegularizeFullDebt,
+  ]);
+
+  const handlePaymentSuccess = useCallback(
+    (callback?: () => void) => {
+      fetchInvoiceListUnpaid();
+      setInvoiceToBill(null);
+      setAmountToBill(null);
+      setRegularizeFullDebt(false);
+      listenPaymentGroupCompleted();
+      if (typeof callback === 'function') callback();
+      if (onInvoicePaymentDialogClose) onInvoicePaymentDialogClose();
+      onPaymentSuccess?.();
+    },
+    [
+      fetchInvoiceListUnpaid,
+      setInvoiceToBill,
+      setAmountToBill,
+      setRegularizeFullDebt,
+      listenPaymentGroupCompleted,
+      onInvoicePaymentDialogClose,
+      onPaymentSuccess,
+    ],
+  );
+
+  const emptyFunction = useCallback(() => {}, []);
 
   let color = 'secondary';
   // @ts-expect-error
@@ -275,14 +361,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                         <Button
                           color="primary"
                           disabled={memberLoading}
-                          onClick={() => {
-                            if (asConsumer) {
-                              // @ts-expect-error
-                              setAmountToBill(Math.abs(parseFloat(balance)));
-                            } else {
-                              setAdjustBalanceDialogOpen(true);
-                            }
-                          }}
+                          onClick={onAdjustMemberBalanceClick}
                           variant="outlined"
                         >
                           {t(
@@ -371,7 +450,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     // @ts-expect-error
                     className={classes.payAllButton}
                     color="primary"
-                    onClick={() => setRegularizeFullDebt(true)}
+                    onClick={handleRegularizeMemberFullDebt}
                     variant="outlined"
                   >
                     {t('invoice:paymentPanel.actions.payAll')}
@@ -387,17 +466,8 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                 establishmentBillingGroups={establishmentBillingGroups}
                 // @ts-expect-error
                 initialValue={parseFloat(balance)}
-                onClose={() => setAdjustBalanceDialogOpen(false)}
-                onSubmit={(arg, withoutPaymentNote) => {
-                  if (withoutPaymentNote) {
-                    adjustCreditWithoutPaymentNote(arg);
-                    setAdjustBalanceDialogOpen(false);
-                  } else {
-                    // @ts-expect-error
-                    setAmountToBill(arg);
-                    setAdjustBalanceDialogOpen(false);
-                  }
-                }}
+                onClose={onCloseMemberBalanceUpdate}
+                onSubmit={handeAdjustMemberBalance}
                 // @ts-expect-error
                 selectedEstablishmentBillingGroup={
                   selectedEstablishmentBillingGroup
@@ -435,15 +505,8 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
                 establishments={establishments}
                 memberId={memberId}
-                onCancel={() => {
-                  setInvoiceToBill(null);
-                  // @ts-expect-error
-                  setAmountToBill(0);
-                  setRegularizeFullDebt(false);
-                  if (onInvoicePaymentDialogClose)
-                    onInvoicePaymentDialogClose();
-                }}
-                onError={() => {}}
+                onCancel={handleCancelPayment}
+                onError={emptyFunction}
                 onlyInternal={
                   // @ts-expect-error
                   (amountToBill && amountToBill < 0) ||
@@ -454,17 +517,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     amountDisplayed <
                       TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS)
                 }
-                onSuccess={(callback?: () => void) => {
-                  fetchInvoiceListUnpaid();
-                  setInvoiceToBill(null);
-                  setAmountToBill(null);
-                  setRegularizeFullDebt(false);
-                  listenPaymentGroupCompleted();
-                  if (typeof callback === 'function') callback();
-                  if (onInvoicePaymentDialogClose)
-                    onInvoicePaymentDialogClose();
-                  onPaymentSuccess?.();
-                }}
+                onSuccess={handlePaymentSuccess}
                 paymentGroupId={paymentGroupId}
                 paymentGroupPriceCts={paymentGroupPriceCts}
                 requestClientSecret={requestClientSecret}

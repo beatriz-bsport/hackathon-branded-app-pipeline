@@ -18,7 +18,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Collapse from '@material-ui/core/Collapse';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -35,6 +34,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 
+import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
 import themeSelectors from '../../libs/theme/selectors';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
@@ -57,7 +57,6 @@ import type { ShopItem, SubShop } from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
 import ShopItemListItem from '../../libs/shop/components/ShopItemListItem.component';
 import shopSelectors from '../../libs/shop/selectors';
-import FuzeSearch from '../../components/FuzeSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -73,6 +72,24 @@ import {
   getBookkeepingAccountById,
 } from '../../libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '../../libs/payment/constants';
+import { SEARCH_BAR_PAGE_ADDITIONAL_PARAMS } from '../../libs/shop/components/ShopListTabs/constants';
+import ObjectSearchComponent from '../../libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+
+type ShopItemOption = {
+  label: string,
+  onClick: (id: number) => void,
+  additionalActions: any,
+  shopitem: ShopItem,
+  value: number,
+};
+
+const Option: React.FC<OptionPropsWithData<ShopItemOption>> = (props) => (
+  <ShopItemListItem divider {...props.data} />
+);
 
 type Props = {
   t: TFunction,
@@ -100,7 +117,7 @@ type Props = {
   bookkeepingAccounts: BookkeepingAccount[],
   bookkeepingAccountById: Record<number, BookkeepingAccount>,
   fetchBookkeepingAccountList: () => void,
-};
+} & WithObjectSearch;
 
 type State = {
   newSubShopName: string | null,
@@ -113,8 +130,6 @@ export class ShopItemList extends Component<Props, State> {
     newSubShopName: null,
     createItemFromSubShop: null,
     shopitemToDelete: null,
-    searchText: '',
-    searchResult: [],
   };
 
   componentDidMount() {
@@ -134,6 +149,10 @@ export class ShopItemList extends Component<Props, State> {
     shopItemData.append('subshop', this.state.createItemFromSubShop);
     this.props.createOrUpdateShopItem(shopItemData, id ?? null, {
       onSuccess: () => {
+        this.props.refreshOptions(
+          'shop_item',
+          SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+        );
         this.setState({
           createItemFromSubShop: null,
         });
@@ -143,16 +162,29 @@ export class ShopItemList extends Component<Props, State> {
     });
   };
 
-  changeSearch = (fuse) => (ev) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
+  shopItemOptionsFormatter = (shopItems: ShopItem[]): ShopItemOption[] =>
+    shopItems.map((shopItem) => {
+      return {
+        label: shopItem.name,
+        onClick: () => this.props.goToShopItem(shopItem.id),
+        shopitem: shopItem,
+        value: shopItem.id,
+        additionalActions: (
+          <ListItemSecondaryAction>
+            <IconButton disableRipple>
+              {shopItem.marketplace_enabled ? (
+                <LanguageIcon color="secondary" />
+              ) : (
+                <VisibilityOffIcon />
+              )}
+            </IconButton>
+            <IconButton onClick={() => this.openDeleteShopItemDialog(shopItem)}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        ),
+      };
     });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   openDeleteShopItemDialog = (shopItem: ShopItem) => {
     this.props.isShopItemUsedInCombo(shopItem.id);
@@ -319,58 +351,16 @@ export class ShopItemList extends Component<Props, State> {
     }
     return (
       <div className={this.props.classes.container}>
-        <FuzeSearch
-          changeSearch={this.changeSearch}
-          clearSearch={this.clearSearch}
-          items={subShops
-            .map((subShop) => subShop.shopItems)
-            .reduce(
-              (shopItemList, shopItems) => shopItemList.concat(shopItems),
-              [],
-            )}
+        <ObjectSearchComponent
+          additionalParams={SEARCH_BAR_PAGE_ADDITIONAL_PARAMS}
+          components={{
+            Option,
+          }}
+          optionsFormatter={this.shopItemOptionsFormatter}
           placeholder={this.props.t('shop:search')}
-          searchFields={['name', 'description']}
-          searchResult={this.state.searchResult}
-          searchText={this.state.searchText}
+          searchedObjectType="shop_item"
+          variant="underlined"
         />
-
-        <Paper
-          className={
-            this.state.searchResult.length > 0 && this.state.searchText !== ''
-              ? this.props.classes.searchPaperDisplayed
-              : this.props.classes.searchPaperHiden
-          }
-        >
-          <Collapse
-            in={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-            }
-          >
-            {this.state.searchResult.map((si) => (
-              <ShopItemListItem
-                key={si.id}
-                additionalActions={
-                  <ListItemSecondaryAction>
-                    <IconButton disableRipple>
-                      {si.marketplace_enabled ? (
-                        <LanguageIcon color="secondary" />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
-                    </IconButton>
-                    <IconButton
-                      onClick={() => this.openDeleteShopItemDialog(si)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                }
-                onClick={() => this.props.goToShopItem(si.id)}
-                shopitem={si}
-              />
-            ))}
-          </Collapse>
-        </Paper>
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
         <GenericResponsiveDrawer
@@ -399,7 +389,12 @@ export class ShopItemList extends Component<Props, State> {
             }
             onCancel={() => this.setState({ shopitemToDelete: null })}
             onSubmit={() => {
-              this.props.deleteItem(this.state.shopitemToDelete.id);
+              this.props.deleteItem(this.state.shopitemToDelete.id, () =>
+                this.props.refreshOptions(
+                  'shop_item',
+                  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+                ),
+              );
               this.setState({ shopitemToDelete: null });
             }}
             shopitem={this.state.shopitemToDelete}
@@ -444,6 +439,7 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(),
   withMobileDialog(),
+  withObjectSearch,
   connect(
     (state) => ({
       theme: themeSelectors.getTheme(state),

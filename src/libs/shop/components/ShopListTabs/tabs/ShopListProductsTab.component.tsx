@@ -1,11 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import Fuse, { FuseOptions } from 'fuse.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,19 +22,35 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LanguageIcon from '@material-ui/icons/Language';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 
-import FuzeSearch from '#components/FuzeSearch.component';
 // @ts-expect-error
 import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
 // @ts-expect-error
 import SubShopList from '#pages/shop/SubShopList.component';
 import ShopListSubshopForm from '#libs/shop/components/ShopListSubshopForm';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 
 import type { ShopItem, SubShop } from '#libs/shop/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { OptionCallback } from '../../../../../state/types';
 
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import {
+  ShopListTab,
+  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+} from '#libs/shop/components/ShopListTabs/constants';
+
+type ShopItemOption = {
+  label: string;
+  onClick: (id: number) => void;
+  additionalActions: any;
+  shopitem: ShopItem;
+  value: number;
+};
+
+const Option: React.FC<OptionPropsWithData<ShopItemOption>> = (props) => (
+  <ShopItemListItem divider {...props.data} />
+);
 
 type Props = {
   subshopList: SubShop[];
@@ -69,29 +83,9 @@ const ShopListProductsTab: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['shop', 'translation', 'common']);
 
-  const [searchText, setSearchText] = useState<string>('');
-
-  const [searchResult, setSearchResult] = useState<ShopItem[] | []>([]);
-
   const [showSubshopForm, setShowSubshopForm] = useState(false);
 
   const classes = useStyles();
-
-  const handleClearSearch = useCallback(() => {
-    setSearchText('');
-    setSearchResult([]);
-  }, []);
-
-  const handleChangeSearch = useCallback(
-    (fuse: Fuse<ShopItem, FuseOptions<ShopItem>>) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        const fuseSearchResult = fuse.search(value) as ShopItem[];
-        setSearchText(value);
-        setSearchResult(fuseSearchResult);
-      },
-    [],
-  );
 
   const handleOpenDeleteShopItemDialog = useCallback(
     (shopItem: ShopItem) => () => {
@@ -145,63 +139,45 @@ const ShopListProductsTab: React.FC<Props> = ({
     [deleteSubshop],
   );
 
-  const fuzeSearchItems = useMemo(
-    () =>
-      subshopList
-        .map((subshop) => subshop.shopItems)
-        .reduce(
-          (shopItemList, shopItems) => shopItemList.concat(shopItems),
-          [],
-        ),
-    [subshopList],
+  const shopItemOptionsFormatter = React.useCallback(
+    (shopItems: ShopItem[]): ShopItemOption[] =>
+      shopItems.map((shopItem) => {
+        return {
+          label: shopItem.name,
+          onClick: handleGoToShopItem(shopItem.id),
+          shopitem: shopItem,
+          value: shopItem.id,
+          additionalActions: (
+            <ListItemSecondaryAction>
+              <IconButton disableRipple>
+                {shopItem.marketplace_enabled ? (
+                  <LanguageIcon color="secondary" />
+                ) : (
+                  <VisibilityOffIcon />
+                )}
+              </IconButton>
+              <IconButton onClick={handleOpenDeleteShopItemDialog(shopItem)}>
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          ),
+        };
+      }),
+    [handleGoToShopItem, handleOpenDeleteShopItemDialog],
   );
-
-  const hasSearchResults = searchResult.length > 0 && searchText !== '';
 
   return (
     <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
-      <FuzeSearch
-        changeSearch={handleChangeSearch}
-        clearSearch={handleClearSearch}
-        items={fuzeSearchItems}
+      <ObjectSearchComponent
+        additionalParams={SEARCH_BAR_PAGE_ADDITIONAL_PARAMS}
+        components={{
+          Option,
+        }}
+        optionsFormatter={shopItemOptionsFormatter}
         placeholder={t('search')}
-        searchFields={['name', 'description']}
-        searchText={searchText}
+        searchedObjectType="shop_item"
+        variant="underlined"
       />
-
-      <Paper
-        className={
-          hasSearchResults
-            ? classes.searchPaperDisplayed
-            : classes.searchPaperHidden
-        }
-      >
-        <Collapse in={hasSearchResults}>
-          {searchResult.map((shopItem) => (
-            <ShopItemListItem
-              key={shopItem.id}
-              additionalActions={
-                <ListItemSecondaryAction>
-                  <IconButton disableRipple>
-                    {shopItem.marketplace_enabled ? (
-                      <LanguageIcon color="secondary" />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
-                  </IconButton>
-                  <IconButton
-                    onClick={handleOpenDeleteShopItemDialog(shopItem)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              }
-              onClick={handleGoToShopItem(shopItem.id)}
-              shopitem={shopItem}
-            />
-          ))}
-        </Collapse>
-      </Paper>
 
       {subshopList.map((subshop) => (
         <SubShopList

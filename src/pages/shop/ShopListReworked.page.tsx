@@ -64,6 +64,10 @@ import ShopListReworked from '#libs/shop/components/ShopListReworked';
 // @ts-expect-error
 import { mapFormDataWithObject } from '#pages/form.utils';
 import withTitle from '#hocs/with-title.hoc';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 // --- TYPES ---
 import type {
@@ -81,7 +85,10 @@ import type { DeliveryFee } from '#libs/order/types';
 
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
-import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import {
+  ShopListTab,
+  SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+} from '#libs/shop/components/ShopListTabs/constants';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type OwnProps = {};
@@ -90,7 +97,10 @@ type Handlers = {
   fetchBookkeepingAccountList: () => void;
 };
 
-type Props = OwnProps & ConnectedProps<typeof connector> & Handlers;
+type Props = OwnProps &
+  ConnectedProps<typeof connector> &
+  Handlers &
+  WithObjectSearch;
 
 export class ShopListReworkedPage extends PureComponent<Props> {
   componentDidMount() {
@@ -170,6 +180,10 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     this.props.deleteShopItem(id, {
       onSuccess: () => {
         this.handleFetchStandaloneBaseItemList();
+        this.props.refreshOptions(
+          'shop_item',
+          SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
+        );
         options?.onSuccess?.();
       },
     });
@@ -338,6 +352,7 @@ const connector = connect(
 export default compose<Props, OwnProps>(
   withTranslation('titles'),
   connector,
+  withObjectSearch,
   withHandlers({
     fetchBookkeepingAccountList:
       ({ fetchBookkeepingAccountListAction }) =>

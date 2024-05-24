@@ -297,7 +297,7 @@ export type ShopStateReworked = {
 
 export type ShopAPIFilter = PaginationFilterParams & {
   marketplace_enabled?: true;
-  disabled?: false;
+  disabled?: boolean;
   company?: number;
   as_consumer?: true;
   featured?: boolean;

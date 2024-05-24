@@ -34,6 +34,7 @@ type Props = {
   lowestVariantPrice?: number;
   allVariantsHaveSamePrice?: boolean;
   productHasVariants?: boolean;
+  hideCopyPaymentPageLink?: boolean;
   onEditShopItem: () => void;
   onDeleteShopItem: () => void;
 };
@@ -85,6 +86,7 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   lowestVariantPrice,
   allVariantsHaveSamePrice,
   productHasVariants,
+  hideCopyPaymentPageLink,
   onEditShopItem,
   onDeleteShopItem,
 }) => {
@@ -151,7 +153,7 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
               onClose={handleCloseMenu}
               open={!!menuAnchorElement}
             >
-              {!productHasVariants && (
+              {!productHasVariants && !hideCopyPaymentPageLink && (
                 <MenuItem onClick={handleCloseMenu}>
                   {t('shop:shopItemDetail.copyPaymentPageLink')}
                 </MenuItem>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
@@ -121,10 +121,9 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation(['member', 'invoice']);
 
-  const [invoiceToBill, setInvoiceToBill] = React.useState<Invoice | null>(
-    null,
-  );
-  React.useEffect(
+  const [invoiceToBill, setInvoiceToBill] = useState<Invoice | null>(null);
+
+  useEffect(
     () =>
       setInvoiceToBill(
         unpaidInvoiceList.find((i) => i.uuid === selectedInvoiceId),
@@ -132,30 +131,25 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
     [unpaidInvoiceList, selectedInvoiceId],
   );
   const [clientSecretLoading, setClientSecretLoading] =
-    React.useState<boolean>(false);
-  const [clientSecret, setClientSecret] = React.useState<string | null>(null);
-  const [clientSecretError, setClientSecretError] =
-    React.useState<boolean>(false);
+    useState<boolean>(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [clientSecretError, setClientSecretError] = useState<boolean>(false);
 
-  const [paymentGroupPriceCts, setPaymentGroupPriceCts] =
-    React.useState<number>(0);
-  const [paymentGroupId, setPaymentGroupId] = React.useState<number | null>(
-    null,
-  );
+  const [paymentGroupPriceCts, setPaymentGroupPriceCts] = useState<number>(0);
+  const [paymentGroupId, setPaymentGroupId] = useState<number | null>(null);
 
   const [ajustBalanceOpen, setAdjustBalanceDialogOpen] =
-    React.useState<boolean>(false);
-  const [regularizeFullDebt, setRegularizeFullDebt] =
-    React.useState<boolean>(false);
-  const [amountToBill, setAmountToBill] = React.useState<string | null>(null);
+    useState<boolean>(false);
+  const [regularizeFullDebt, setRegularizeFullDebt] = useState<boolean>(false);
+  const [amountToBill, setAmountToBill] = useState<string | null>(null);
   const [
     selectedEstablishmentBillingGroup,
     setSelectedEstablishmentBillingGroup,
-  ] = React.useState<EstablishmentBillingGroup>(null);
-  const [paymentGroupCompletedCheckSeconds] = React.useState<number>(0.5);
+  ] = useState<EstablishmentBillingGroup>(null);
+  const [paymentGroupCompletedCheckSeconds] = useState<number>(0.5);
   const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
-    React.useState<number>(0);
-  const requestClientSecret = (paymentEngine: number, params?: any) => {
+    useState<number>(0);
+
     setClientSecret(null);
     setClientSecretLoading(true);
     setClientSecretError(false);
@@ -226,7 +220,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
     color = 'error';
   }
 
-  const amountDisplayed = React.useMemo(
+  const amountDisplayed = useMemo(
     () =>
       invoiceToBill
         ? parseFloat(

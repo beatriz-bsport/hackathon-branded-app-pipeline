@@ -173,6 +173,7 @@ exports.default = {
         action: { update: 'Update inventory' },
         variants: 'Variants',
         currentStock: 'Current stock',
+        companyName: 'Studio',
         stockAdjustment: 'Stock adjustment (+/-)',
         totalSales: 'Total sales',
       },

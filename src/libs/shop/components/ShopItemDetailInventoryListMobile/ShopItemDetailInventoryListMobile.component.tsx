@@ -45,7 +45,6 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   const classes = useStyles();
 
   const {
-    companyFilterOptionList,
     variantSizeFilterOptionList,
     variantColorFilterOptionList,
     filteredVariantList,
@@ -84,8 +83,6 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
     [createShopItemProvision, handleCloseProvisionDialog, selectedVariant],
   );
 
-  const isMasterAccount = false; // TODO WEBSHOP ON MA
-
   return (
     <>
       {formType === ShopItemDetailInventoryFormType.VARIANTS && (
@@ -96,17 +93,6 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
             classes.flexGap,
           )}
         >
-          {isMasterAccount && (
-            <Select
-              isClearable
-              className={classes.fullWidth}
-              onChange={handleFilterValueChange('company')}
-              options={companyFilterOptionList}
-              placeholder={t(
-                'shopItemDetail.table.inventory.filterPlaceholder.company',
-              )}
-            />
-          )}
           <div className={classes.flexGap}>
             <Select
               isClearable

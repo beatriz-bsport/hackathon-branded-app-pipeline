@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ConnectedProps, connect } from 'react-redux';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import { DateTime } from 'luxon';
 
 /** ACTIONS */
@@ -354,6 +355,7 @@ const LiveHistory: React.FC<Props> = ({
   memberNextBookingOrPrivateBooking,
   memberVisitList,
   memberVisitState,
+  memberVisitUnreadCount,
   memberPhotoHistory,
   permissions,
   refreshMemberVisitAccessStatus,
@@ -479,13 +481,24 @@ const LiveHistory: React.FC<Props> = ({
         forcedBehavior="hidden"
         requiredPermission="member.allowed_actions.search"
       >
-        <MemberVisitSearchMember
-          displayDropDownInPopover
-          reducedWidth
-          searchMembers={searchMembers}
-          onMemberClick={handleSelectMember}
-          onClearSearch={handleRefreshFirstPage}
-        />
+        <div className={classes.searchBarAndNewVisitContainer}>
+          <MemberVisitSearchMember
+            displayDropDownInPopover
+            reducedWidth
+            searchMembers={searchMembers}
+            onMemberClick={handleSelectMember}
+            onClearSearch={handleRefreshFirstPage}
+          />
+          {memberVisitUnreadCount > 0 && (
+            <Link
+              variant="body1"
+              style={{ cursor: 'pointer' }}
+              onClick={() => fetchMemberVisitList({ page: 1 })}
+            >
+              {t('liveHistory.unreadCount', { count: memberVisitUnreadCount })}
+            </Link>
+          )}
+        </div>
       </ObjectLevelPermissionWrapper>
       <MemberVisitLiveHistoryTable
         isMemberSelectedInSearchBar={isMemberSelectedInSearchBar}
@@ -509,6 +522,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   root: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
+  searchBarAndNewVisitContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 }));
 
 const connector = connect(
@@ -520,6 +538,7 @@ const connector = connect(
     memberPhotoHistory: getUserPhotoUpdatesList(state),
     memberVisitList: getAllMemberVisits(state),
     memberVisitState: state.accessControl.memberVisit,
+    memberVisitUnreadCount: state.accessControl.memberVisit.unreadCount,
     memberNextBookingOrPrivateBooking:
       getMemberNextBookingOrPrivateBooking(state),
     permissions: getPermissions(state),

@@ -4,7 +4,7 @@ import MarketplacePrivatePassCompatibilityModal, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePrivatePassCompatibilityModalCss from '!!raw-loader!./styles.css';
+import MarketplacePrivatePassCompatibilityModalCss from './styles.css?raw';
 import { privateServiceListFactory } from '#libs/private-service/factory';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 

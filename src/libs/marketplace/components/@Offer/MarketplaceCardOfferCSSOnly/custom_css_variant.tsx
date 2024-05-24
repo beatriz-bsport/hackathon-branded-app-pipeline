@@ -7,7 +7,7 @@ import MarketPlaceCardOfferCSSOnly, {
 } from './MarketPlaceCardOfferCSSOnly.component';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceCardOfferCss from '!!raw-loader!./MarketplaceCardOfferCSSOnly.css';
+import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {

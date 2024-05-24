@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import MarketplaceFilter, { Props as MarketplaceFilterProps } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceFilterCss from '!!raw-loader!./MarketplaceFilter.css';
+import MarketplaceFilterCss from './MarketplaceFilter.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

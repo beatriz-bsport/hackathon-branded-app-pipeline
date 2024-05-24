@@ -8,7 +8,7 @@ import {
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TooltipCSS from '!!raw-loader!./styles.css';
+import TooltipCSS from './styles.css?raw';
 
 import type { CompanyTheme } from '#libs/theme/types';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';

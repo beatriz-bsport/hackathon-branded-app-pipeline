@@ -4,7 +4,7 @@ import ResetPasswordConfirmation from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ResetPasswordConfirmationCss from '!!raw-loader!./styles.css';
+import ResetPasswordConfirmationCss from './styles.css?raw';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {

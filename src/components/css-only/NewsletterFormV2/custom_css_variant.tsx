@@ -5,7 +5,7 @@ import NewsletterForm, { Props as NewsletterFormProps } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import NewsletterFormCss from '!!raw-loader!./styles.css';
+import NewsletterFormCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

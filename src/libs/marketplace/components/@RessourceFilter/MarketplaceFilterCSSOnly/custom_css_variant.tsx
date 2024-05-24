@@ -4,7 +4,7 @@ import MarketplaceFilterCSSOnly, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceFilterCss from '!!raw-loader!./MarketplaceFilterCSSOnly.css';
+import MarketplaceFilterCss from './MarketplaceFilterCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

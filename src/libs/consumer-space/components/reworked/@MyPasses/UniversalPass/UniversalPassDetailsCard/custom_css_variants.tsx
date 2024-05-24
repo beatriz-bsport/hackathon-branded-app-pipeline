@@ -24,7 +24,7 @@ import type {
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import UniversalPassDetailsCardCss from '!!raw-loader!./styles.css';
+import UniversalPassDetailsCardCss from './styles.css?raw';
 
 const fakeEstablishments = establishmentFactoryBot.Establishment.create(2);
 const fakeMembers = generateRandomNames(faker, { count: 2 });

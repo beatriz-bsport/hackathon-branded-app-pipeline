@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import StatusMessageWithIcon from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import StatusMessageWithIconCss from '!!raw-loader!./styles.css';
+import StatusMessageWithIconCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

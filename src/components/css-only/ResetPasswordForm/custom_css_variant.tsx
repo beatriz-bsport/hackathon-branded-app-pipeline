@@ -6,7 +6,7 @@ import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ResetPasswordFormCss from '!!raw-loader!./styles.css';
+import ResetPasswordFormCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

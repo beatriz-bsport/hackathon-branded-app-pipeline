@@ -6,7 +6,7 @@ import MarketplaceOfferListItemCSSOnly, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import OfferListItemCss from '!!raw-loader!./MarketplaceOfferListItemCSSOnly.css';
+import OfferListItemCss from './MarketplaceOfferListItemCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

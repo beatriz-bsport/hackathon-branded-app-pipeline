@@ -5,7 +5,7 @@ import Selector, { SelectorProps } from '#Fabrique/Selector';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import SelectorCss from '!!raw-loader!./selector-input-styles.css';
+import SelectorCss from './selector-input-styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 

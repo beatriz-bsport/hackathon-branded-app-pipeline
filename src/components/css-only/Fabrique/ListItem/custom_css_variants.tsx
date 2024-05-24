@@ -2,7 +2,7 @@ import React from 'react';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ListItemCSS from '!!raw-loader!./styles.css';
+import ListItemCSS from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

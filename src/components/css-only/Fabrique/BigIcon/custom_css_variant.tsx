@@ -4,7 +4,7 @@ import BigIcon from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BigIconCss from '!!raw-loader!./styles.css';
+import BigIconCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

@@ -5,7 +5,7 @@ import { BadgeColorEnum } from './constants';
 import { BadgeColor } from './types';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BadgeCss from '!!raw-loader!./styles.css';
+import BadgeCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,

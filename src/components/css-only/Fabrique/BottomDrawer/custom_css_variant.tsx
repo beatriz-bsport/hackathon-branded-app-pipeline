@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import BottomDrawer, { Props as ButtonDrawerProps } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BottomDrawerCss from '!!raw-loader!./styles.css';
+import BottomDrawerCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,

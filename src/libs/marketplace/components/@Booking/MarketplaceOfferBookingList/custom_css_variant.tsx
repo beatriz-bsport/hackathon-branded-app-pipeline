@@ -8,7 +8,7 @@ import MarketplaceOfferBookingList, { Props } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceOfferBookingListCss from '!!raw-loader!./styles.css';
+import MarketplaceOfferBookingListCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {

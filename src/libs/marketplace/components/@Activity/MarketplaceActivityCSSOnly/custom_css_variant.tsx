@@ -5,7 +5,7 @@ import MarketplaceActivityCSSOnly, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceActivityCSSOnlyCss from '!!raw-loader!./MarketplaceActivity.css';
+import MarketplaceActivityCSSOnlyCss from './MarketplaceActivity.css?raw';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,

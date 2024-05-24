@@ -3,7 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 import Tab, { Props as TabProps } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TabCss from '!!raw-loader!./styles.css';
+import TabCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,

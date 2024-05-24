@@ -3,7 +3,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Search, { Props as SearchProps } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import SearchCss from '!!raw-loader!./style.css';
+import SearchCss from './style.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

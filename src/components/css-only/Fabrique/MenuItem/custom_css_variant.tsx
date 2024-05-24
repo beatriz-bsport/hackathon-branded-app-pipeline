@@ -5,7 +5,7 @@ import MenuItem, { MenuItemProps, MenuItemType, MenuItemTypeEnum } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MenuItemCss from '!!raw-loader!./styles.css';
+import MenuItemCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 

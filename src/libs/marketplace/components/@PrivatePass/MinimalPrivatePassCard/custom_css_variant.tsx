@@ -6,7 +6,7 @@ import MinimalPrivatePassCard, { type Props } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MinimalPrivatePassCardCss from '!!raw-loader!./styles.css';
+import MinimalPrivatePassCardCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {

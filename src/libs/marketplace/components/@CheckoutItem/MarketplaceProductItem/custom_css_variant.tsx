@@ -6,7 +6,7 @@ import MarketplaceProductItem, { type Props } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceProductItemCss from '!!raw-loader!./styles.css';
+import MarketplaceProductItemCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {

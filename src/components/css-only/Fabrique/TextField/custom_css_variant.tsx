@@ -4,7 +4,7 @@ import TextField, { Props as TextFieldProps } from '.';
 import { TextFieldSize, TextFieldVariant } from './types';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TextFieldCss from '!!raw-loader!./styles.css';
+import TextFieldCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,

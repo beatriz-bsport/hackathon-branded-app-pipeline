@@ -3,7 +3,7 @@ import MarketplaceBasketSummaryItemCssOnly, { Props } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBasketSummaryItemCss from '!!raw-loader!./styles.css';
+import MarketplaceBasketSummaryItemCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

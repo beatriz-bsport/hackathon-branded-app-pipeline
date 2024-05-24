@@ -7,7 +7,7 @@ import LoginForm, { Props as LoginFormProps } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import LoginFormCss from '!!raw-loader!./styles.css';
+import LoginFormCss from './styles.css?raw';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {

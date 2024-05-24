@@ -2,30 +2,6 @@
   background: var(--color-background-paper);
 }
 
-/* .bs-minimal-payment-combo-card-content:{} 
-
-*/
-
-/* .bs-minimal-payment-combo-card-grid:{} 
-
-*/
-
-/* .bs-minimal-payment-combo-card__title-item__name:{} 
-
-*/
-
-/* .bs-minimal-payment-combo-card__price-item:{} 
-
-*/
-
-/* .bs-minimal-payment-combo-card__price-item__price:{} 
-
-*/
-
-/* .bs-minimal-payment-combo-card__credit-item__credits:{} 
-
-*/
-
 .bs-minimal-payment-combo-card__title-item {
   font-size: var(--subtitle1-fontSize);
   font-weight: var(--h5-fontWeight);

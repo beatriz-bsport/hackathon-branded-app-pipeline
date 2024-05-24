@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -9,9 +10,8 @@ import {
 
 import { coachFactory } from '#libs/associated-coach/factories';
 import { BookingFactory } from '#libs/booking/factories';
-// @ts-expect-error
+import ConsumerBookingCardCss from './styles.css?raw';
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerBookingCardCss from '!!raw-loader!./styles.css';
 import ConsumerBookingCard, { ConsumerBookingCardProps } from '.';
 
 const fakeBooking = BookingFactory(1);

@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceMinimalAppBarCss from '!!raw-loader!./styles.css';
+import MarketplaceMinimalAppBarCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {

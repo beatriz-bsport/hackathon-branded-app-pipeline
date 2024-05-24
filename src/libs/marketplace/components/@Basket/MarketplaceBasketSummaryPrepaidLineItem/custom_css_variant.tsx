@@ -2,7 +2,7 @@ import React from 'react';
 import PrepaidLineListItemCssOnly, { Props } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import PrepaidLineItemCSS from '!!raw-loader!./styles.css';
+import PrepaidLineItemCSS from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

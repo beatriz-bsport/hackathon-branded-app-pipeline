@@ -2,6 +2,8 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
 
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -13,9 +15,8 @@ import { establishment_factory } from '#libs/establishment/factory';
 import { coachesFactory } from '#libs/associated-coach/factories';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { Coach } from '#libs/associated-coach/types';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import WeekTimeTableCss from '!!raw-loader!./MarketplaceWeekTimeTableCSSOnly.css';
+import WeekTimeTableCss from './MarketplaceWeekTimeTableCSSOnly.css?raw';
+
 import MarketplaceWeekTimeTableCSSOnly, {
   Props as MarketplaceWeekTimeTableCSSOnlyProps,
 } from '.';

@@ -8,7 +8,7 @@ import Card from '#Fabrique/Card';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BlanketCss from '!!raw-loader!./styles.css';
+import BlanketCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,

@@ -9,7 +9,7 @@ import {
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerBookingDetailsCardCss from '!!raw-loader!./styles.css';
+import ConsumerBookingDetailsCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { establishment_factory } from '#libs/establishment/factory';

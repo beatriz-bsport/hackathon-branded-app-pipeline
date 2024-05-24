@@ -4,7 +4,7 @@ import MarketplacePrivatePassCard, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePrivatePassCardCss from '!!raw-loader!./styles.css';
+import MarketplacePrivatePassCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {

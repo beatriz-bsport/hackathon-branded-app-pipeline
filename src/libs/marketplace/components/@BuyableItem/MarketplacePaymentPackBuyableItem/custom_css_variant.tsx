@@ -3,7 +3,7 @@ import React from 'react';
 import MarketplacePaymentPackBuyableItem from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePaymentPackBuyableItemCss from '!!raw-loader!./styles.css';
+import MarketplacePaymentPackBuyableItemCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

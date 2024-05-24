@@ -7,7 +7,7 @@ import MarketplaceBookingBlockedReason, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBookingBlockedReasonCss from '!!raw-loader!./MarketplaceBookingBlockedReason.css';
+import MarketplaceBookingBlockedReasonCss from './MarketplaceBookingBlockedReason.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {

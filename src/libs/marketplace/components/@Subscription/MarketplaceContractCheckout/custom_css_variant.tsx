@@ -4,7 +4,7 @@ import MarketplaceContractCheckout, {
 } from '.';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceContractCheckoutCss from '!!raw-loader!./styles.css';
+import MarketplaceContractCheckoutCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,

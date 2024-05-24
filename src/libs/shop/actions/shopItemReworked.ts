@@ -4,7 +4,7 @@ import {
   fetchShopItemList as retrieveShopItemListAPI,
   retrieveShopItemDetails as retrieveShopItemDetailsAPI,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAPI,
-  fetchShopItemVariantList as retrieveShopItemVariantListAPI,
+  fetchShopItemVariantList as fetchShopItemVariantListAPI,
   createShopItem as createShopItemAPI,
   createShopItemVariants as createShopItemVariantsAPI,
   updateShopItem as updateShopItemAPI,
@@ -48,6 +48,7 @@ import {
   SHOP_ITEM_TEMPLATE_PAGE_SIZE,
 } from '#libs/shop/constants';
 import type { RootState } from '#src/reducers';
+import type { PaginationFilterParams } from '#src/libs/types';
 
 export const fetchShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
@@ -220,9 +221,8 @@ export const fetchShopItemVariantList = ({
   colors,
   sizes,
   options,
-}: {
+}: PaginationFilterParams & {
   id: number;
-  page?: number;
   colors?: string[];
   sizes?: string[];
   options?: OptionCallback<PaginatedResponse<ShopItem>>;
@@ -236,7 +236,7 @@ export const fetchShopItemVariantList = ({
       const colorFilter = colors?.length ? { color: colors.join(',') } : {};
       const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
 
-      const result = await retrieveShopItemVariantListAPI({
+      const result = await fetchShopItemVariantListAPI({
         base_item_id: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
@@ -708,7 +708,7 @@ export const fetchShopItemTemplateList = (
 export const retrieveShopItemTemplateDetailsActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/DETAILS/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/DETAILS/ERROR'),
-  success: createAction<ShopItem>('SHOP_ITEM_TEMPLATE/DETAILS/SUCCESS'),
+  success: createAction<ShopItemTemplate>('SHOP_ITEM_TEMPLATE/DETAILS/SUCCESS'),
 };
 
 /**
@@ -832,6 +832,69 @@ export const deleteShopItemTemplate = (
       options?.onError?.();
     } finally {
       dispatch(deleteShopItemTemplateActions.isLoading(false));
+    }
+  };
+};
+
+export const fetchShopItemTemplateVariantListActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/ERROR'),
+  success: createAction<{
+    data: PaginatedResponse<ShopItem>;
+    baseItemTemplateId: number;
+  }>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/SUCCESS'),
+};
+
+/**
+ * Fetch all variants related to a base item template.\
+ * If there are no variants API will return an empty list
+ * @param id The ID of the base item template
+ * @param colors An optional array of string for filtering
+ * @param sizes An optional array of string for filtering
+ */
+export const fetchShopItemTemplateVariantList = ({
+  id,
+  page,
+  colors,
+  sizes,
+  options,
+}: PaginationFilterParams & {
+  id: number;
+  colors?: string[];
+  sizes?: string[];
+  options?: OptionCallback<PaginatedResponse<ShopItem>>;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchShopItemTemplateVariantListActions.isLoading(true));
+      dispatch(fetchShopItemTemplateVariantListActions.error(null));
+
+      // parse as string for HTTP GET filter
+      const colorFilter = colors?.length ? { color: colors.join(',') } : {};
+      const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
+
+      const result = await fetchShopItemVariantListAPI({
+        base_shop_item_template: id,
+        page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
+        page,
+        is_variant: true,
+        ...colorFilter,
+        ...sizeFilter,
+      });
+
+      dispatch(
+        fetchShopItemTemplateVariantListActions.success({
+          data: result.data,
+          baseItemTemplateId: id,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(fetchShopItemTemplateVariantListActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(fetchShopItemTemplateVariantListActions.isLoading(false));
     }
   };
 };

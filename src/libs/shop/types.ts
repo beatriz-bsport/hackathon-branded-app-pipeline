@@ -104,9 +104,13 @@ export type ShopItemTemplateFilterParams = PaginationFilterParams & {
 };
 
 export type ShopItemVariantFilterParams = PaginationFilterParams & {
-  base_item_id: number;
+  is_variant?: boolean;
+  is_base_item?: boolean;
+  is_standalone_item?: boolean;
+  base_item_id?: number;
   color?: string;
   size?: string;
+  base_shop_item_template?: number;
 };
 
 export type ShopItemCreate = {
@@ -280,14 +284,12 @@ export type ShopStateReworked = {
   };
 };
 
-export type ShopAPIFilter = {
+export type ShopAPIFilter = PaginationFilterParams & {
   marketplace_enabled?: true;
   disabled?: false;
   company?: number;
   as_consumer?: true;
   featured?: boolean;
-  page?: number;
-  page_size?: number;
 };
 
 export type ProvisionCreate = { shop_item: number; qty: number };

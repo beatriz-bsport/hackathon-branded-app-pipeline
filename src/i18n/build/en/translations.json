@@ -9627,7 +9627,7 @@
             "billing_plan-pause_deleted": "Pause cancelled"
         },
         "table": {
-            "noContent": "There are no subscribers to display."
+            "noContent": "There are no subscriptions to display."
         },
         "subscription": {
             "list": {

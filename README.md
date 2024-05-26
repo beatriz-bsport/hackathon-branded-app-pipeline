@@ -6,21 +6,20 @@ This project is a simple implementation of how a Monorepository can be configure
 
 ```tree
 ├── README.md
-├── apps             // End-user applications projects
-│   ├── app-1
-│   └── app-2
+├── apps                   // End-user applications projects
+│   └── app-1
 ├── node_modules
-├── nx.json
-├── package.json
+├── nx.json               // NX config file
+├── package.json          // Workspace package.json
 ├── packages
 │   ├── constants
 │   ├── types
 │   └── utils
-├── pnpm-lock.yaml
-├── pnpm-workspace.yaml
+├── pnpm-lock.yaml        // Dependencies lock file
+├── pnpm-workspace.yaml   // Pnpm workspace configuration
 ├── tools
-│   ├── monorepo-utils
+│   ├── monorepo-utils    // Custom made TS CLI tool to admin the monorepo
 │   └── templates
 ├── tsconfig.base.json
-└── tsconfig.json
+└── tsconfig.json         // TS config used to run ts-node at a workspace level
 ```

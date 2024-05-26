@@ -1,5 +1,5 @@
 export const wow = {
-  NEVER: "goona",
+  NEVER: "gonna",
   GIVE: "you up",
   LET: "you down",
 } as const;

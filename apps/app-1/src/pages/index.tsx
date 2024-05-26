@@ -21,8 +21,8 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
-          <p>Never: {ex.start}</p>
-          <p>Give: {ex.end}</p>
+          <p>{ex.start}</p>
+          <p>{ex.end}</p>
         </div>
       </main>
     </>

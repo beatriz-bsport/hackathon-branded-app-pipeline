@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+ts-node src/index.ts command:list --format=markdown --output=readme && git add README.md

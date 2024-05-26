@@ -1,0 +1,45 @@
+node_modules
+
+**/build
+**/node_modules
+
+**/dist
+
+**/.DS_Store
+
+**/.tmp
+
+# local logs
+**/log
+*.log
+
+**/.env.*.local
+**/.env.local
+
+*.vscode
+*/.vscode
+
+.idea
+
+# nextjs
+**/.next
+
+deployment-manifest
+
+# +----------------------------+
+# |    Keep .gitkeep files     |
+# +----------------------------+-------------------------------+
+# | To keep an empty directory, add a .gitkeep file to it      |
+# | and ignore the directory with a wildcard:                  |
+# |                                                            |
+# |     /path/to/dir/*                                         |
+# |                                                            |
+# | this will ignore the content but not the director itself.  |
+# +------------------------------------------------------------+
+!/**/.gitkeep
+
+# __tmp__ folders in any folders can be used to store temporary files or local scripts
+**/__tmp__
+
+# NX
+.nx/cache

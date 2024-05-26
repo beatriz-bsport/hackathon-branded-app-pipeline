@@ -1,0 +1,12 @@
+packages:
+  # Common packages
+  - "packages/**"
+
+  # Applications
+  - "apps/**"
+
+  # Tools
+  - "tools/monorepo-utils"
+
+  # Templates
+  - "tools/templates/**"

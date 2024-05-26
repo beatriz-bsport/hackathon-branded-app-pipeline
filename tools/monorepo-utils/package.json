@@ -1,0 +1,30 @@
+{
+  "name": "@bsport/monorepo-utils-tools",
+  "version": "1.0.0",
+  "description": "Monorepository utils library",
+  "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "@bsport/typescript-monorepo-utils": "workspace:*",
+    "@bsport/typescript-string-utils": "workspace:*",
+    "commander": "^9.3.0",
+    "directory-tree": "^3.5.1",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^8.2.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/inquirer": "^9.0.3"
+  },
+  "scripts": {
+    "command:create": "ts-node src/index.ts command:create",
+    "command:list": "ts-node src/index.ts command:list",
+    "command:run": "ts-node src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "pre-commit": "sh scripts/pre-commit",
+    "ts-node": "ts-node"
+  }
+}

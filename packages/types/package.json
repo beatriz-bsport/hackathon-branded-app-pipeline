@@ -1,0 +1,7 @@
+{
+  "name": "@bsport/types",
+  "version": "1.0.0",
+  "description": "",
+  "type": "commonjs",
+  "types": "src/index.d.ts"
+}

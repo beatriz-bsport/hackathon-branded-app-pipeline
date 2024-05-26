@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+if [ "$TB_ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+    pnpm install --no-lockfile
+fi

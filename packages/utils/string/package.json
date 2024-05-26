@@ -1,0 +1,21 @@
+{
+  "name": "@bsport/typescript-string-utils",
+  "version": "0.0.0",
+  "description": "Typescript String Utils",
+  "author": "Marwan El Boussarghini <marwan.elboussarghini@gmail.com>",
+  "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.17.4",
+    "lodash": "^4.17.21"
+  }
+}

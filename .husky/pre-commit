@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+if [ "$TB_ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+    pnpm run -w nx affected --target=pre-commit --base=HEAD
+    pnpm run -w utils project:list --format=yaml --target=gh-actions
+    pnpm run -w utils project:list --format=json --target=deployment
+    git add .github/
+fi

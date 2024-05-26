@@ -1,0 +1,21 @@
+{
+  "name": "monorepository-example",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "nx": "nx",
+    "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
+    "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
+    "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@nx/workspace": "^19.1.0",
+    "husky": "^9.0.11",
+    "ts-node": "^10.9.2",
+    "type-fest": "^4.18.3",
+    "typescript": "^5.3.3"
+  }
+}

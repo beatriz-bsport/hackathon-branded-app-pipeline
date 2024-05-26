@@ -1,0 +1,25 @@
+{
+  "name": "@bsport/typescript-monorepo-utils",
+  "version": "0.0.0",
+  "description": "Typescript Monorepo Utils",
+  "author": "Marwan El Boussarghini <marwan.elboussarghini@gmail.com>",
+  "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1"
+  }
+}

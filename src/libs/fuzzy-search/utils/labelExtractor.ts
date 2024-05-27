@@ -1,5 +1,8 @@
 import type { Coach } from '#src/libs/associated-coach/types';
-import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroupAPI,
+} from '#src/libs/coach-payment-rules/types';
 import type { Coupon } from '#src/libs/coupon/types';
 import type { EmailTemplate } from '#src/libs/email-editor/types';
 import type {
@@ -80,6 +83,7 @@ const labelExtractorMap: Record<
   video: (video: Video) => video.name,
   associated_coach: (coach: Coach) => `${coach.firstname} ${coach.lastname}`,
   establishment_group: (group: EstablishmentGroupAPI) => group.name,
+  coach_payment_rule_groups: (group: CoachPaymentRuleGroupAPI) => group.name,
 };
 
 /**

@@ -35,6 +35,7 @@ const typeToURIMap: Record<SearchObjectType, string> = {
   associated_coach: 'associated_coach',
   establishment_group: 'establishment-group',
   custom_form: 'custom_form/custom_form',
+  coach_payment_rule_groups: 'coach_payment_rule_group',
 };
 
 const typeToV0URIMap: { [key in SearchObjectType]?: string } = {

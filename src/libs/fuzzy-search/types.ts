@@ -4,7 +4,10 @@ import type { OptionProps } from 'react-select/lib/components/Option';
 import type { Coupon, FetchCouponsParams } from '#src/libs/coupon/types';
 import type { PaginatedResponse } from '#src/state/types';
 import type { EmailTemplate } from '#src/libs/email-editor/types';
-import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroupAPI,
+} from '#src/libs/coach-payment-rules/types';
 
 import type {
   Establishment,
@@ -142,6 +145,7 @@ export const searchObjectIdentifiers = [
   'associated_coach',
   'establishment_group',
   'custom_form',
+  'coach_payment_rule_groups',
 ] as const;
 
 export type SearchObjectType = (typeof searchObjectIdentifiers)[number];
@@ -184,6 +188,7 @@ type ResultsTypes = {
   associated_coach: Coach;
   establishment_group: EstablishmentGroupAPI;
   custom_form: CustomForm;
+  coach_payment_rule_groups: CoachPaymentRuleGroupAPI;
 };
 
 const variantType = ['default', 'mui-selector', 'underlined'] as const;
@@ -285,6 +290,7 @@ type APIParamsMap = {
   associated_coach: AssociatedCoachAPIParams;
   establishment_group: EstablishmentGroupAPIParams;
   custom_form: CustomFormAPIParams;
+  coach_payment_rule_groups: CoachPaymentRuleGroupAPIParams;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =
@@ -372,6 +378,8 @@ type EstablishmentGroupAPIParams = PaginationFilterParams & {
 };
 
 type CustomFormAPIParams = PaginationFilterParams & CustomFormQueryParams;
+
+type CoachPaymentRuleGroupAPIParams = PaginationFilterParams;
 
 type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
 

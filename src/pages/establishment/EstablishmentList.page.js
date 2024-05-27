@@ -16,7 +16,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import Map from '../../components/map/Map.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -36,7 +36,7 @@ import {
   getEstablishmentGroupByAddress,
 } from '../../libs/establishment/selectors';
 import {
-  deleteEstablishment,
+  deleteEstablishment as deleteEstablishmentAction,
   restoreEstablishment as restoreEstablishmentAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '../../libs/establishment/actions';
@@ -44,6 +44,11 @@ import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
 import themeSelectors from '../../libs/theme/selectors';
+import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '../../libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type Props = {
   loading: boolean,
@@ -64,20 +69,31 @@ type Props = {
   t: TFunction,
   fetchMarketingNotificationList: (params: any) => void,
   establishmentGroupByAddress: EstablishmentListGroupByAddressType,
-};
+} & WithObjectSearch;
 
 type State = {
-  searchText: string,
-  searchResult: Array<Establishment>,
   showDisabled: boolean,
 };
+
+type EstablishmentOption = {
+  label: string,
+  onClick: () => void,
+  onClickDelete: () => void,
+  onClickEdit: () => void,
+  value: number,
+};
+
+const searchBarAdditionalParams = {
+  disabled: false,
+};
+const Option: React.FC<OptionPropsWithData<EstablishmentOption>> = (props) => (
+  <EstablishmentListItem divider {...props.data} />
+);
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
 export class EstablishmentList extends React.Component<Props, State> {
   state = {
-    searchText: '',
-    searchResult: [],
     showDisabled: false,
   };
 
@@ -89,16 +105,21 @@ export class EstablishmentList extends React.Component<Props, State> {
     });
   }
 
-  changeSearch = (fuse) => (ev) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
+  establishmentOptionsFormatter = (
+    establishments: Establishment[],
+  ): EstablishmentOption[] =>
+    establishments.map((establishment) => {
+      return {
+        label: establishment.name,
+        establishment,
+        onClick: () => this.props.goToEstablishment(establishment.id),
+        onClickDelete: () =>
+          this.props.setEstablishmentToDelete(establishment.id),
+        onClickEdit: () =>
+          this.props.startUpdateEstablishment(establishment.id),
+        value: establishment.id,
+      };
     });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   render() {
     if (
@@ -122,47 +143,16 @@ export class EstablishmentList extends React.Component<Props, State> {
         ) : null}
         {this.props.establishments.length > 0 ? (
           <div className={this.props.classes.search}>
-            <FuzeSearch
-              changeSearch={this.changeSearch}
-              clearSearch={this.clearSearch}
-              items={this.props.establishments}
+            <ObjectSearchComponent
+              additionalParams={searchBarAdditionalParams}
+              components={{
+                Option,
+              }}
+              optionsFormatter={this.establishmentOptionsFormatter}
               placeholder={this.props.t('search')}
-              searchFields={['title', 'location.adress']}
-              searchResult={this.state.searchResult}
-              searchText={this.state.searchText}
+              searchedObjectType="establishment"
+              variant="underlined"
             />
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? this.props.classes.searchPaperDisplayed
-                  : this.props.classes.searchPaperHiden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <List disablePadding component="nav">
-                  {this.state.searchResult.map((e) => (
-                    <EstablishmentListItem
-                      key={e.id}
-                      divider
-                      establishment={e}
-                      onClick={() => this.props.goToEstablishment(e.id)}
-                      onClickDelete={() =>
-                        this.props.setEstablishmentToDelete(e.id)
-                      }
-                      onClickEdit={() => {
-                        this.props.startUpdateEstablishment(e.id);
-                      }}
-                    />
-                  ))}
-                </List>
-              </Collapse>
-            </Paper>
           </div>
         ) : null}
 
@@ -296,6 +286,7 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:establishment.establishmentList'),
   ),
+  withObjectSearch,
   withState('establishmentToDelete', 'setEstablishmentToDelete', null),
   connect(
     (state) => ({
@@ -313,7 +304,7 @@ export default compose(
         push(`/establishment/edit/${id}`),
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
       fetchEstablishments: fetchEstablishmentsAction,
-      deleteEstablishment,
+      deleteEstablishmentAction,
       restoreEstablishment: restoreEstablishmentAction,
       fetchMarketingNotificationList,
       onCreate: () => push('/establishment/add'),
@@ -327,5 +318,12 @@ export default compose(
           onSuccess: () => fetchEstablishments(),
         });
       },
+    deleteEstablishment: (props) => (id) => {
+      props.deleteEstablishmentAction(id, {
+        onSuccess: () => {
+          props.refreshOptions('establishment', searchBarAdditionalParams);
+        },
+      });
+    },
   }),
 )(EstablishmentList);

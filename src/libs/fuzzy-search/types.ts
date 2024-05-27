@@ -49,6 +49,15 @@ import type { Tag } from '#libs/tag/types';
 import type { Video, VideoQueryParams } from '#libs/video/types';
 import { AssociatedCoachFilters, Coach } from '#libs/associated-coach/types';
 
+export type SearchIdentifier = {
+  searchedObjectType: SearchObjectType;
+  selectorId: string;
+};
+
+export type IdentifiedValue<T> = {
+  value: T;
+} & SearchIdentifier;
+
 export type ObjectSearchResult = ResultsMap[SearchObjectType]['result'];
 export type ObjectSearchArray = ResultsMap[SearchObjectType]['array'];
 export type ObjectSearchPaginated = ResultsMap[SearchObjectType]['paginated'];
@@ -59,14 +68,17 @@ export type ObjectSearchState<T extends SearchObjectType> = {
   results: {
     currentResults: ResultsMap[T]['array'];
     page: number;
+    next_page: number | null;
     count: number;
-    byId: Record<number, ResultsMap[T]['result']>;
     allIds: number[];
   };
 };
 
 export type SearchState = {
-  [key in SearchObjectType]: ObjectSearchState<key>;
+  [key in SearchObjectType]: {
+    byId: Record<number, ResultsMap[key]['result']>; // All the results of the search on this object
+    bySelectorId: Record<string, ObjectSearchState<key>>; // The state of the search for a specific selector
+  };
 };
 
 /**
@@ -188,6 +200,12 @@ export type ObjectSearchProps = {
      * will store the results in the corresponding byId section of the store.
      */
     initialValues?: number[];
+    /**
+     * The redux identifier that will be used to store the results. This is used to differentiate between different
+     * selectors searching the same object type. By default, the id is "default".
+     * If you are using multiple selectors for the same object type simultaneously, make sure to pass a unique id to each of them.
+     */
+    selectorId?: string;
   };
 }[SearchObjectType];
 

@@ -9,7 +9,7 @@ import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import { useObjectSearch } from '#libs/fuzzy-search/components/useObjectSearch';
-import { getSearchState } from '#libs/fuzzy-search/selectors';
+import { getResultsById, getSelectorState } from '#libs/fuzzy-search/selectors';
 import {
   resetObjectSearch as resetObjectSearchAction,
   searchObjects as searchObjectsAction,
@@ -23,6 +23,7 @@ import {
 import type { RootState } from '../../../reducers';
 import { useHydrateSearch } from '#libs/fuzzy-search/components/useHydrateSearch';
 import { SelectOption } from '#src/libs/types';
+import { DEFAULT_SELECTOR_ID } from '../constants';
 
 export type Props = OwnProps & ConnectedProps<typeof connector>;
 
@@ -40,6 +41,7 @@ type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
  * - optionsFormatter (optional): A function that formats the search results into options
  * - additionalParams (optional): Additional query parameters that can be passed to the API to filter the search results
  * - initialValues (optional): The initial values that need to be hydrated
+ * - selectorId (optional): The id of the selector, used to differentiate between multiple selectors of the same type on the same page
  *
  * The rest of the props are passed to the Select component. For initial values use the initialValues prop (not defaultValues), except if you
  * want to override the default behaviour of the component.
@@ -56,6 +58,7 @@ const ObjectSearch: React.FC<Props> = ({
   initialValues,
   isLoading,
   optionsFormatter,
+  selectorId = DEFAULT_SELECTOR_ID,
   ...selectorProps
 }) => {
   const { formattedInitialValues, hasHydratedResults } = useHydrateSearch({
@@ -63,6 +66,7 @@ const ObjectSearch: React.FC<Props> = ({
     searchedObjectType,
     initialValues,
     searchObjects,
+    selectorId,
   });
   const { handleInputChange, formattedResults } = useObjectSearch({
     searchObjects,
@@ -72,6 +76,7 @@ const ObjectSearch: React.FC<Props> = ({
     additionalParams,
     optionsFormatter,
     hasHydratedResults,
+    selectorId,
   });
 
   if (!hasHydratedResults) {
@@ -98,11 +103,16 @@ const PlaceholderSelect: React.FC<SelectProps<SelectOption<number>>> = (
 const connector = connect(
   (
     state: RootState,
-    { searchedObjectType }: { searchedObjectType: SearchObjectType },
+    {
+      searchedObjectType,
+      selectorId,
+    }: { searchedObjectType: SearchObjectType; selectorId: string },
   ) => ({
-    results: getSearchState(state)[searchedObjectType].results.currentResults,
-    resultsById: getSearchState(state)[searchedObjectType].results.byId,
-    isLoading: getSearchState(state)[searchedObjectType].isLoading,
+    results: getSelectorState(state, searchedObjectType, selectorId).results
+      .currentResults,
+    resultsById: getResultsById(state, searchedObjectType),
+    isLoading: getSelectorState(state, searchedObjectType, selectorId)
+      .isLoading,
   }),
   {
     searchObjects: searchObjectsAction,

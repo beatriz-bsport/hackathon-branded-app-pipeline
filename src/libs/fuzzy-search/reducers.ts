@@ -2,32 +2,35 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  IdentifiedValue,
   objectSearchActions,
   objectSearchClientActions,
 } from '#libs/fuzzy-search/actions';
 import {
+  IdentifiedValue,
   ObjectSearchPaginated,
   ObjectSearchResult,
   ObjectSearchState,
+  SearchIdentifier,
   SearchObjectType,
   SearchState,
   searchObjectIdentifiers,
 } from '#libs/fuzzy-search/types';
 
+import { DEFAULT_SELECTOR_ID } from './constants';
+
 type Payload<T> = { payload: T };
 
-const getDefaultState = (): ObjectSearchState<SearchObjectType> => ({
+const defaultSelectorState: ObjectSearchState<SearchObjectType> = {
   error: null,
   isLoading: false,
   results: {
-    page: 0,
+    next_page: null,
+    page: 1,
     count: 0,
     allIds: [],
     currentResults: [],
-    byId: {},
   },
-});
+};
 
 /**
  * initialState is a record of all the search states.
@@ -36,8 +39,11 @@ const getDefaultState = (): ObjectSearchState<SearchObjectType> => ({
 
 const initialState: Immutable.Immutable<SearchState> = Immutable<SearchState>({
   ...searchObjectIdentifiers.reduce<SearchState>((accumulator, objectType) => {
-    // @ts-expect-error hard exclusive typing
-    accumulator[objectType] = getDefaultState();
+    accumulator[objectType] = {
+      byId: {},
+      // @ts-expect-error union exclusive typing
+      bySelectorId: { [DEFAULT_SELECTOR_ID]: defaultSelectorState },
+    };
     return accumulator;
   }, {} as SearchState),
 });
@@ -46,17 +52,13 @@ export default handleActions(
   {
     [objectSearchClientActions.reset.toString()]: (
       state,
-      { payload }: Payload<any>, // Payload<SearchObjectType> but redux typing -_-
+      { payload }: Payload<SearchIdentifier>,
     ) => {
       return state.merge(
         {
-          [payload]: {
-            error: null,
-            isLoading: false,
-            results: {
-              page: 0,
-              count: 0,
-              currentResults: [], // not resetting allIds and byId because those could be used to display initial values
+          [payload.searchedObjectType]: {
+            bySelectorId: {
+              [payload.selectorId]: defaultSelectorState,
             },
           },
         },
@@ -69,15 +71,28 @@ export default handleActions(
       { payload }: Payload<IdentifiedValue<boolean>>,
     ) => {
       return state.setIn(
-        [payload.searchObjectType, 'isLoading'],
+        [
+          payload.searchedObjectType,
+          'bySelectorId',
+          payload.selectorId,
+          'isLoading',
+        ],
         payload.value,
       );
     },
     [objectSearchActions.error.toString()]: (
       state,
-      { payload }: Payload<IdentifiedValue<Error>>,
+      { payload }: Payload<IdentifiedValue<Error | null>>,
     ) => {
-      return state.setIn([payload.searchObjectType, 'error'], payload.value);
+      return state.setIn(
+        [
+          payload.searchedObjectType,
+          'bySelectorId',
+          payload.selectorId,
+          'error',
+        ],
+        payload.value,
+      );
     },
     [objectSearchActions.success.toString()]: (
       state,
@@ -89,45 +104,37 @@ export default handleActions(
 
       return state
         .setIn(
-          [payload.searchObjectType, 'results', 'page'],
-          payload.value.page,
-        )
-        .setIn(
-          [payload.searchObjectType, 'results', 'next_page'],
-          payload.value.next_page,
-        )
-        .setIn(
-          [payload.searchObjectType, 'results', 'currentResults'],
-          payload.value.results,
-        )
-        .setIn(
-          [payload.searchObjectType, 'results', 'count'],
-          payload.value.count,
-        )
-        .setIn(
-          [payload.searchObjectType, 'results', 'allIds'],
-          payload.value.page === 1
-            ? newIds
-            : [
-                ...state[payload.searchObjectType].results.allIds.asMutable(),
-                ...newIds,
-              ],
+          [
+            payload.searchedObjectType,
+            'bySelectorId',
+            payload.selectorId,
+            'results',
+          ],
+          {
+            page: payload.value.page,
+            next_page: payload.value.next_page,
+            currentResults: payload.value.results,
+            count: payload.value.count,
+            allIds:
+              payload.value.page === 1
+                ? newIds
+                : [
+                    ...state[payload.searchedObjectType].bySelectorId[
+                      payload.selectorId
+                    ].results.allIds.asMutable(),
+                    ...newIds,
+                  ],
+          },
         )
         .merge(
           {
-            [payload.searchObjectType]: {
-              results: {
-                byId: payload.value.results.reduce(
-                  (
-                    acc: Record<number, ObjectSearchResult>,
-                    currentResult: ObjectSearchResult,
-                  ) => {
-                    acc[currentResult.id] = currentResult;
-                    return acc;
-                  },
-                  {},
-                ),
-              },
+            [payload.searchedObjectType]: {
+              byId: payload.value.results.reduce<
+                Record<number, ObjectSearchResult>
+              >((acc, currentResult) => {
+                acc[currentResult.id] = currentResult;
+                return acc;
+              }, {}),
             },
           },
           { deep: true },

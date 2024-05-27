@@ -3,14 +3,11 @@ import { search as searchAPI } from '#libs/fuzzy-search/api';
 import type { Dispatch, OptionCallback } from '#state/types';
 import type {
   FuzzySearchAPIParams,
+  IdentifiedValue,
   ObjectSearchPaginated,
+  SearchIdentifier,
   SearchObjectType,
 } from '#libs/fuzzy-search/types';
-
-export type IdentifiedValue<T> = {
-  searchObjectType: SearchObjectType;
-  value: T;
-};
 
 export const objectSearchActions = {
   isLoading: createAction<IdentifiedValue<boolean>>('OBJECTSEARCH/LOADING'),
@@ -21,20 +18,24 @@ export const objectSearchActions = {
 };
 
 export function searchObjects(
-  args: { searchedObjectType: SearchObjectType; params: FuzzySearchAPIParams },
+  args: {
+    searchedObjectType: SearchObjectType;
+    params: FuzzySearchAPIParams;
+    selectorId: string;
+  },
   options?: OptionCallback<ObjectSearchPaginated>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(
       objectSearchActions.isLoading({
         value: true,
-        searchObjectType: args.searchedObjectType,
+        ...args,
       }),
     );
     dispatch(
       objectSearchActions.error({
         value: null,
-        searchObjectType: args.searchedObjectType,
+        ...args,
       }),
     );
     try {
@@ -42,38 +43,34 @@ export function searchObjects(
       dispatch(
         objectSearchActions.success({
           value: response.data,
-          searchObjectType: args.searchedObjectType,
+          ...args,
         }),
       );
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(
         objectSearchActions.error({
           value: err,
-          searchObjectType: args.searchedObjectType,
+          ...args,
         }),
       );
-      if (options && options.onError) {
-        options.onError(err);
-      }
+      options?.onError?.(err);
     }
     dispatch(
       objectSearchActions.isLoading({
         value: false,
-        searchObjectType: args.searchedObjectType,
+        ...args,
       }),
     );
   };
 }
 
 export const objectSearchClientActions = {
-  reset: createAction<SearchObjectType>('OBJECTSEARCH/RESET'),
+  reset: createAction<SearchIdentifier>('OBJECTSEARCH/RESET'),
 };
 
 export const resetObjectSearch =
-  (searchedObjectType: SearchObjectType) => (dispatch: Dispatch) => {
-    dispatch(objectSearchClientActions.reset(searchedObjectType));
+  (props: SearchIdentifier) => (dispatch: Dispatch) => {
+    dispatch(objectSearchClientActions.reset(props));
   };

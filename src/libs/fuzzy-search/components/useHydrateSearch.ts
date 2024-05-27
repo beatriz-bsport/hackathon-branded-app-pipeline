@@ -13,10 +13,12 @@ type HookProps = {
   searchedObjectType: SearchObjectType;
   initialValues?: number[];
   resultsById: Record<number, ObjectSearchResult>;
+  selectorId: string;
   searchObjects: (
     args: {
       params: FuzzySearchAPIParams;
       searchedObjectType: SearchObjectType;
+      selectorId: string;
     },
     options?: OptionCallback<ObjectSearchPaginated>,
   ) => Promise<void>;
@@ -38,6 +40,7 @@ export const useHydrateSearch = ({
   searchedObjectType,
   resultsById,
   initialValues,
+  selectorId,
 }: HookProps) => {
   const [hasHydratedResults, setHasHydratedResults] = useState(
     !initialValues?.length,
@@ -51,10 +54,11 @@ export const useHydrateSearch = ({
           id__in: initialValues ?? [],
         },
         searchedObjectType,
+        selectorId,
       },
       { onSuccess: () => setHasHydratedResults(true) },
     );
-  }, [initialValues, searchObjects, searchedObjectType]);
+  }, [initialValues, searchObjects, searchedObjectType, selectorId]);
 
   useEffect(() => {
     if (!hasHydratedResults) {

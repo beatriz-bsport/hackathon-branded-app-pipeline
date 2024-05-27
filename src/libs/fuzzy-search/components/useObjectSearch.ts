@@ -8,6 +8,7 @@ import type {
   ObjectSearchPaginated,
   ObjectSearchProps,
   ResultsMap,
+  SearchIdentifier,
   SearchObjectType,
   SelectOptions,
 } from '#libs/fuzzy-search/types';
@@ -33,15 +34,17 @@ type HookProps = {
     args: {
       params: FuzzySearchAPIParams;
       searchedObjectType: SearchObjectType;
+      selectorId: string;
     },
     options?: OptionCallback<ObjectSearchPaginated>,
   ) => Promise<void>;
   rawResults: ObjectSearchArray;
   searchedObjectType: SearchObjectType;
-  resetSearch: (searchedObjectType: SearchObjectType) => void;
+  resetSearch: (identifier: SearchIdentifier) => void;
   additionalParams?: ObjectSearchProps['additionalParams'];
   optionsFormatter: (results: ObjectSearchArray) => SelectOptions;
   hasHydratedResults: boolean;
+  selectorId: string;
 };
 
 /**
@@ -62,6 +65,7 @@ export const useObjectSearch = ({
   additionalParams,
   hasHydratedResults,
   optionsFormatter,
+  selectorId,
 }: HookProps) => {
   const paramsRef = useRef(additionalParams);
   const compareTextRef = useRef('');
@@ -73,8 +77,9 @@ export const useObjectSearch = ({
         ...additionalParams,
       },
       searchedObjectType,
+      selectorId,
     });
-  }, [additionalParams, searchObjects, searchedObjectType]);
+  }, [additionalParams, searchObjects, searchedObjectType, selectorId]);
 
   const handleInputChange = debounce((text: string) => {
     if (compareTextRef.current === text) {
@@ -88,12 +93,13 @@ export const useObjectSearch = ({
         ...additionalParams,
       },
       searchedObjectType,
+      selectorId,
     });
   }, DEBOUNCE_TIME);
 
   useEffect(() => {
-    resetSearch(searchedObjectType);
-  }, [resetSearch, searchedObjectType]);
+    resetSearch({ selectorId, searchedObjectType });
+  }, [resetSearch, searchedObjectType, selectorId]);
 
   useEffect(() => {
     if (hasHydratedResults) {

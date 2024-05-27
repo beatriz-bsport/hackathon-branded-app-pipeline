@@ -10,8 +10,10 @@ import {
   deleteShopItemTemplate as deleteShopItemTemplateAction,
   createShopItemProvision as createShopItemProvisionAction,
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
+  updateShopItemTemplateVariantBulk as updateShopItemTemplateVariantBulkAction,
   fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
   fetchShopItemTemplateVariantInstanceList as fetchShopItemTemplateVariantInstanceListAction,
+  createShopItemTemplateVariants as createShopItemTemplateVariantsAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#libs/shop/actions/supplier';
@@ -48,6 +50,7 @@ import type {
   ProvisionCreate,
   ShopItemEdit,
   ShopItemTemplate,
+  ShopItemVariantAttributes,
 } from '#libs/shop/types';
 import type { SelectOption } from '#src/libs/types';
 
@@ -71,6 +74,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     this.retrieveShopItemTemplateDetails();
     this.handleFetchShopSupplierTemplateList();
     this.fetchShopItemTemplateVariantInstanceList();
+    this.fetchShopItemTemplateVariantList();
   }
 
   handleFetchShopSupplierTemplateList = (page?: number) => {
@@ -81,6 +85,36 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
 
   retrieveShopItemTemplateDetails = () => {
     this.props.retrieveShopItemTemplate(this.props.id);
+  };
+
+  fetchShopItemTemplateVariantList = () => {
+    const page =
+      parseInt(this.props.queryParams?.page, 10) ||
+      this.props.shopItemTemplateVariantState.page ||
+      1;
+    this.props.fetchShopItemTemplateVariantList({
+      id: this.props.id,
+      page,
+    });
+  };
+
+  handleCreateShopItemTemplateVariants = (
+    baseItemId: number,
+    data: ShopItemVariantAttributes,
+    options?: OptionCallback,
+  ) => {
+    this.props.createShopItemTemplateVariants({
+      id: baseItemId,
+      data,
+      options: {
+        onSuccess: () => {
+          this.fetchShopItemTemplateVariantList();
+          this.fetchShopItemTemplateVariantInstanceList();
+          options?.onSuccess?.();
+        },
+        onError: options?.onError,
+      },
+    });
   };
 
   fetchShopItemTemplateVariantInstanceList = () => {
@@ -130,9 +164,35 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
+  handleUpdateShopItemTemplateVariantBulk = (
+    data: FormData,
+    options?: OptionCallback,
+  ) => {
+    this.props.updateShopItemTemplateVariantBulk({
+      data,
+      id: this.props.id,
+      options: {
+        onSuccess: () => {
+          this.fetchShopItemTemplateVariantList();
+          options?.onSuccess?.();
+        },
+        onError: options?.onError,
+      },
+    });
+  };
+
   handleDeleteShopItemTemplate = () => {
     this.props.deleteShopItemTemplate(this.props.id, {
       onSuccess: this.props.backToShopPage,
+    });
+  };
+
+  handleDeleteShopItemTemplateVariant = (id: number) => {
+    this.props.deleteShopItemTemplate(id, {
+      onSuccess: () => {
+        this.fetchShopItemTemplateVariantList();
+        this.fetchShopItemTemplateVariantInstanceList();
+      },
     });
   };
 
@@ -191,7 +251,11 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         count={this.props.shopSupplierTemplateState.count}
         createShopItemProvision={this.handleCreateShopItemProvision}
         createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
+        createShopItemTemplateVariants={
+          this.handleCreateShopItemTemplateVariants
+        }
         deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
+        deleteShopItemTemplateVariant={this.handleDeleteShopItemTemplateVariant}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
@@ -213,9 +277,13 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         supplierTemplateList={this.props.shopSupplierTemplateState.suppliers}
         tab={this.props.queryParams.tab}
         updateShopItemTemplate={this.handleUpdateShopItemTemplate}
+        updateShopItemTemplateVariantBulk={
+          this.handleUpdateShopItemTemplateVariantBulk
+        }
         variantInstanceList={
           this.props.shopItemTemplateVariantInstanceState.variants ?? []
         }
+        variantList={this.props.shopItemTemplateVariantState.variants ?? []}
       />
     );
   }
@@ -251,6 +319,8 @@ const connector = connect(
     fetchShopItemTemplateVariantList: fetchShopItemTemplateVariantListAction,
     fetchShopItemTemplateVariantInstanceList:
       fetchShopItemTemplateVariantInstanceListAction,
+    updateShopItemTemplateVariantBulk: updateShopItemTemplateVariantBulkAction,
+    createShopItemTemplateVariants: createShopItemTemplateVariantsAction,
     backToShopPage: () => push('/f/shop'),
   },
 );

@@ -16,6 +16,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import PromptOnPageLeaveComponent from '#components/Prompt';
 import FranchiseShopItemTemplateDetailInventoryTab from './FranchiseShopItemTemplateDetailInventoryTab.component';
+import FranchiseShopItemTemplateDetailVariantsTab from './FranchiseShopItemTemplateDetailVariantsTab.component';
 import ShopItemDetailSettingsTab from '#src/libs/shop/components/ShopItemDetailTabs/tabs/ShopItemDetailSettingsTab.component';
 
 import type {
@@ -36,7 +37,9 @@ type Props = {
   isVariantListLoading?: boolean;
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
+  isVariantEditMode?: boolean;
   selectedTab: TabListOption;
+  variantList: ShopItemTemplate[];
   variantInstanceList: ShopItem[];
   shopItemTemplate: ShopItemTemplate;
   page: number;
@@ -66,6 +69,12 @@ type Props = {
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
   handleOpenBarcodeModal: (barcode: string) => void;
+  onDeleteShopItemVariant: (id: number) => void;
+  updateShopItemTemplateVariantBulk: (
+    data: FormData,
+    options?: OptionCallback,
+  ) => void;
+  setIsVariantEditMode: (value: boolean) => void;
 };
 
 const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
@@ -73,7 +82,9 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
   isVariantListLoading,
   isUpdatingVariant,
   isDeletingVariant,
+  isVariantEditMode,
   selectedTab,
+  variantList,
   variantInstanceList,
   shopItemTemplate,
   page,
@@ -89,6 +100,9 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
   createShopItemProvisionBulk,
   changeInventoryVariantFilter,
   handleOpenBarcodeModal,
+  onDeleteShopItemVariant,
+  updateShopItemTemplateVariantBulk,
+  setIsVariantEditMode,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -171,6 +185,20 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
             />
           </>
         )}
+
+        <FranchiseShopItemTemplateDetailVariantsTab
+          count={count}
+          handleOpenBarcodeModal={handleOpenBarcodeModal}
+          handleOpenVariantDrawer={handleOpenVariantDrawer}
+          isDeletingVariant={isDeletingVariant}
+          isVariantEditMode={isVariantEditMode}
+          onDeleteShopItemVariant={onDeleteShopItemVariant}
+          page={page}
+          setIsVariantEditMode={setIsVariantEditMode}
+          setQueryParam={setQueryParam}
+          shopItemTemplateVariantList={variantList}
+          updateShopItemTemplateVariantBulk={updateShopItemTemplateVariantBulk}
+        />
 
         {!!shopItemTemplate && (
           <ShopItemDetailSettingsTab

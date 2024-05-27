@@ -37,7 +37,7 @@ type Props = {
   isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
   selectedTab: TabListOption;
-  variantList: ShopItem[];
+  variantInstanceList: ShopItem[];
   shopItemTemplate: ShopItemTemplate;
   page: number;
   count: number;
@@ -74,7 +74,7 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
   isUpdatingVariant,
   isDeletingVariant,
   selectedTab,
-  variantList,
+  variantInstanceList,
   shopItemTemplate,
   page,
   count,
@@ -166,7 +166,7 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
               shopItemVariantFilterOptionValues={
                 shopItemVariantFilterOptionValues
               }
-              shopItemVariantList={variantList}
+              shopItemVariantList={variantInstanceList}
               variantCombinationListCount={variantCombinationListCount}
             />
           </>

@@ -100,7 +100,11 @@ export type ShopItemTemplate = Omit<ShopItem, 'supplier' | 'subshop'> & {
 };
 
 export type ShopItemTemplateFilterParams = PaginationFilterParams & {
-  sub_shop_template: number;
+  sub_shop_template?: number;
+  base_item?: number;
+  is_variant?: boolean;
+  is_base_item?: boolean;
+  is_standalone_item?: boolean;
 };
 
 export type ShopItemVariantFilterParams = PaginationFilterParams & {
@@ -262,11 +266,15 @@ export type ShopStateReworked = {
       bySubshopTemplateId: {
         [key: number]: ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
       };
-      itemDetails: {
-        byId: { [key: number]: ShopItemTemplate };
-        updateDetails: ErrorAndLoading;
-        delete: ErrorAndLoading;
+      /** State for shop item variant instances from a shop item template */
+      itemVariantInstance: {
+        byBaseItemTemplateId: {
+          [key: number]: WithPagination & {
+            variants: ShopItem[];
+          };
+        };
       } & ErrorAndLoading;
+      /** State for shop item template variant */
       itemVariant: {
         create: ErrorAndLoading;
         updateVariant: ErrorAndLoading;
@@ -274,9 +282,14 @@ export type ShopStateReworked = {
         byBaseItemTemplateId: {
           [key: number]: WithPagination & {
             combinationList: ShopItemVariantCombination[];
-            variants: ShopItem[];
+            variants: ShopItemTemplate[];
           };
         };
+      } & ErrorAndLoading;
+      itemDetails: {
+        byId: { [key: number]: ShopItemTemplate };
+        updateDetails: ErrorAndLoading;
+        delete: ErrorAndLoading;
       } & ErrorAndLoading;
       create: ErrorAndLoading;
       updateShopItemTemplate: ErrorAndLoading;

@@ -11,6 +11,7 @@ import {
   createShopItemProvision as createShopItemProvisionAction,
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
   fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
+  fetchShopItemTemplateVariantInstanceList as fetchShopItemTemplateVariantInstanceListAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#libs/shop/actions/supplier';
@@ -25,6 +26,7 @@ import {
   getShopItemTemplateVariantFilterOptionList,
   getShopItemTemplateVariantListLoading,
   getShopItemTemplateVariantState,
+  getShopItemTemplateVariantInstanceState,
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
 } from '#libs/shop/selectors';
@@ -68,6 +70,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   componentDidMount() {
     this.retrieveShopItemTemplateDetails();
     this.handleFetchShopSupplierTemplateList();
+    this.fetchShopItemTemplateVariantInstanceList();
   }
 
   handleFetchShopSupplierTemplateList = (page?: number) => {
@@ -77,14 +80,10 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   retrieveShopItemTemplateDetails = () => {
-    this.props.retrieveShopItemTemplate(this.props.id, {
-      onSuccess: () => {
-        this.fetchShopItemVariantList();
-      },
-    });
+    this.props.retrieveShopItemTemplate(this.props.id);
   };
 
-  fetchShopItemVariantList = () => {
+  fetchShopItemTemplateVariantInstanceList = () => {
     const page =
       parseInt(this.props.queryParams?.page, 10) ||
       this.props.shopItemTemplateVariantState.page ||
@@ -92,7 +91,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     const colorFilter = this.props.queryParams?.color?.split(',');
     const sizeFilter = this.props.queryParams?.size?.split(',');
 
-    this.props.fetchShopItemTemplateVariantList({
+    this.props.fetchShopItemTemplateVariantInstanceList({
       id: this.props.id,
       page,
       colors: colorFilter,
@@ -150,7 +149,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   ) =>
     this.props.createShopItemProvision(data, {
       onSuccess: () => {
-        this.fetchShopItemVariantList();
+        this.fetchShopItemTemplateVariantInstanceList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -162,7 +161,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   ) => {
     this.props.createShopItemProvisionBulk(this.props.id, data, {
       onSuccess: () => {
-        this.fetchShopItemVariantList();
+        this.fetchShopItemTemplateVariantInstanceList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -214,7 +213,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         supplierTemplateList={this.props.shopSupplierTemplateState.suppliers}
         tab={this.props.queryParams.tab}
         updateShopItemTemplate={this.handleUpdateShopItemTemplate}
-        variantList={this.props.shopItemTemplateVariantState.variants ?? []}
+        variantInstanceList={
+          this.props.shopItemTemplateVariantInstanceState.variants ?? []
+        }
       />
     );
   }
@@ -228,6 +229,8 @@ const connector = connect(
     shopItemTemplate: getShopItemTemplateDetail(state, id),
     shopSupplierTemplateState: getShopSupplierTemplateState(state),
     shopItemTemplateVariantState: getShopItemTemplateVariantState(state, id),
+    shopItemTemplateVariantInstanceState:
+      getShopItemTemplateVariantInstanceState(state, id),
     isVariantListLoading: getShopItemTemplateVariantListLoading(state),
     isUpdateVariantLoading: getShopItemTemplateVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemTemplateVariantDeleteLoading(state),
@@ -246,6 +249,8 @@ const connector = connect(
     createShopItemProvision: createShopItemProvisionAction,
     createShopItemProvisionBulk: createShopItemProvisionBulkAction,
     fetchShopItemTemplateVariantList: fetchShopItemTemplateVariantListAction,
+    fetchShopItemTemplateVariantInstanceList:
+      fetchShopItemTemplateVariantInstanceListAction,
     backToShopPage: () => push('/f/shop'),
   },
 );

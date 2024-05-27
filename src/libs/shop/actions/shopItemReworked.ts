@@ -836,11 +836,79 @@ export const deleteShopItemTemplate = (
   };
 };
 
+export const fetchShopItemTemplateVariantInstanceListActions = {
+  isLoading: createAction<boolean>(
+    'SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/ERROR',
+  ),
+  success: createAction<{
+    data: PaginatedResponse<ShopItem>;
+    baseItemTemplateId: number;
+  }>('SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/SUCCESS'),
+};
+
+/**
+ * Fetch all franchisee variant instances related to a base item template.
+ * @param id The ID of the base item template
+ * @param colors An optional array of string for filtering
+ * @param sizes An optional array of string for filtering
+ */
+export const fetchShopItemTemplateVariantInstanceList = ({
+  id,
+  page,
+  colors,
+  sizes,
+  options,
+}: PaginationFilterParams & {
+  id: number;
+  colors?: string[];
+  sizes?: string[];
+  options?: OptionCallback<PaginatedResponse<ShopItem>>;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchShopItemTemplateVariantInstanceListActions.isLoading(true));
+      dispatch(fetchShopItemTemplateVariantInstanceListActions.error(null));
+
+      // parse as string for HTTP GET filter
+      const colorFilter = colors?.length ? { color: colors.join(',') } : {};
+      const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
+
+      const result = await fetchShopItemVariantListAPI({
+        base_shop_item_template: id,
+        page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
+        page,
+        is_variant: true,
+        ...colorFilter,
+        ...sizeFilter,
+      });
+
+      dispatch(
+        fetchShopItemTemplateVariantInstanceListActions.success({
+          data: result.data,
+          baseItemTemplateId: id,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(fetchShopItemTemplateVariantInstanceListActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(
+        fetchShopItemTemplateVariantInstanceListActions.isLoading(false),
+      );
+    }
+  };
+};
+
 export const fetchShopItemTemplateVariantListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/ERROR'),
   success: createAction<{
-    data: PaginatedResponse<ShopItem>;
+    data: PaginatedResponse<ShopItemTemplate>;
     baseItemTemplateId: number;
   }>('SHOP_ITEM_TEMPLATE/VARIANT/LIST/SUCCESS'),
 };
@@ -855,31 +923,21 @@ export const fetchShopItemTemplateVariantListActions = {
 export const fetchShopItemTemplateVariantList = ({
   id,
   page,
-  colors,
-  sizes,
   options,
 }: PaginationFilterParams & {
   id: number;
-  colors?: string[];
-  sizes?: string[];
-  options?: OptionCallback<PaginatedResponse<ShopItem>>;
+  options?: OptionCallback<PaginatedResponse<ShopItemTemplate>>;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(fetchShopItemTemplateVariantListActions.isLoading(true));
       dispatch(fetchShopItemTemplateVariantListActions.error(null));
 
-      // parse as string for HTTP GET filter
-      const colorFilter = colors?.length ? { color: colors.join(',') } : {};
-      const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
-
-      const result = await fetchShopItemVariantListAPI({
-        base_shop_item_template: id,
+      const result = await fetchShopItemTemplateListAPI({
+        base_item: id,
         page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
         is_variant: true,
-        ...colorFilter,
-        ...sizeFilter,
       });
 
       dispatch(

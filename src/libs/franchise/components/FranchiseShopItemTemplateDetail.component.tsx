@@ -45,7 +45,7 @@ type Props = {
   provincialTaxValue: number;
   shopItemTemplate: ShopItemTemplate;
   supplierTemplateList: ShopSupplierTemplate[];
-  variantList: ShopItem[];
+  variantInstanceList: ShopItem[];
   page: number;
   count: number;
   shopItemVariantFilterOptionList: {
@@ -86,7 +86,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   provincialTaxValue,
   shopItemTemplate,
   supplierTemplateList,
-  variantList,
+  variantInstanceList,
   page,
   count,
   shopItemVariantFilterOptionList,
@@ -239,7 +239,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
           shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues} // handled in https://bsporttest.atlassian.net/browse/BS-4194
           variantCombinationListCount={count}
-          variantList={variantList}
+          variantInstanceList={variantInstanceList}
         />
       </ShopModalContextProvider>
 

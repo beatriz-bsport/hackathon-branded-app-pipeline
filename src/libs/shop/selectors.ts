@@ -188,6 +188,12 @@ export const getShopItemTemplateVariantUpdateLoading = (state: RootState) =>
 export const getShopItemTemplateVariantDeleteLoading = (state: RootState) =>
   state.shopReworked.shopTemplates.shopItemTemplate.itemVariant.delete.loading;
 
+/** Returns the loading state when fetching variant instances from a shop item template */
+export const getShopItemTemplateInstanceVariantListLoading = (
+  state: RootState,
+) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemVariantInstance.loading;
+
 /** Retrieves the boolean for combo warning when deleting a shop item */
 export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
   if (!id) return false;
@@ -224,12 +230,12 @@ export const getShopItemVariantState = (
  */
 export const getShopItemTemplateVariantState = (
   state: RootState,
-  shopItemId: number,
+  shopItemTemplateId: number,
 ) => {
   const shopItemVariantState =
     state.shopReworked.shopTemplates.shopItemTemplate.itemVariant
-      .byBaseItemTemplateId[shopItemId];
-  if (!shopItemId || !shopItemVariantState) {
+      .byBaseItemTemplateId[shopItemTemplateId];
+  if (!shopItemTemplateId || !shopItemVariantState) {
     return {
       page: 1,
       next_page: null,
@@ -239,6 +245,29 @@ export const getShopItemTemplateVariantState = (
     };
   }
   return shopItemVariantState;
+};
+
+/**
+ * Retrieves the variant instance state related to a base item template.\
+ * If the base item is standalone, variants is always an empty array.
+ * @param id The base/standalone item id to retrieve variant state for
+ */
+export const getShopItemTemplateVariantInstanceState = (
+  state: RootState,
+  shopItemTemplateId: number,
+) => {
+  const shopItemVariantInstanceState =
+    state.shopReworked.shopTemplates.shopItemTemplate.itemVariantInstance
+      .byBaseItemTemplateId[shopItemTemplateId];
+  if (!shopItemTemplateId || !shopItemVariantInstanceState) {
+    return {
+      page: 1,
+      next_page: null,
+      count: 0,
+      variants: [],
+    };
+  }
+  return shopItemVariantInstanceState;
 };
 
 /**

@@ -24,6 +24,7 @@ import {
   updateShopItemTemplateActions,
   createShopItemTemplateActions,
   fetchShopItemTemplateVariantListActions,
+  fetchShopItemTemplateVariantInstanceListActions,
 } from './actions/shopItemReworked';
 
 import {
@@ -161,6 +162,11 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
           create: { error: null, loading: false },
           updateVariant: { error: null, loading: false },
           delete: { error: null, loading: false },
+          byBaseItemTemplateId: {},
+        },
+        itemVariantInstance: {
+          error: null,
+          loading: false,
           byBaseItemTemplateId: {},
         },
         create: { error: null, loading: false },
@@ -590,7 +596,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       }: {
         payload: {
-          data: PaginatedResponse<ShopItem>;
+          data: PaginatedResponse<ShopItemTemplate>;
           baseItemTemplateId: number;
         };
       },
@@ -601,6 +607,56 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           shopTemplates: {
             shopItemTemplate: {
               itemVariant: {
+                byBaseItemTemplateId: {
+                  [payload.baseItemTemplateId]: {
+                    page,
+                    count,
+                    next_page,
+                    variants: results,
+                  },
+                },
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [fetchShopItemTemplateVariantInstanceListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariantInstance', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantInstanceListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariantInstance', 'error'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantInstanceListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          data: PaginatedResponse<ShopItem>;
+          baseItemTemplateId: number;
+        };
+      },
+    ) => {
+      const { results, page, next_page, count } = payload.data;
+      return state.merge(
+        {
+          shopTemplates: {
+            shopItemTemplate: {
+              itemVariantInstance: {
                 byBaseItemTemplateId: {
                   [payload.baseItemTemplateId]: {
                     page,

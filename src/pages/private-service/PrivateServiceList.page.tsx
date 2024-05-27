@@ -6,12 +6,12 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Paper from '@material-ui/core/Paper';
-import Collapse from '@material-ui/core/Collapse';
+
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
-import FuzeSearch from '#components/FuzeSearch.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -57,6 +57,8 @@ import { withPrivateBookingNotification } from '#libs/marketing/selectors';
 
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
+import type { AssociatedEstablishment } from '#libs/establishment/types';
+import type { Coach } from '#libs/associated-coach/types';
 import type {
   PrivateService,
   PrivateServiceGroup,
@@ -65,6 +67,10 @@ import type {
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 type ConnectProps = ConnectedProps<typeof connector>;
 
@@ -84,21 +90,30 @@ type Props = {
   WithStyles<typeof styles> &
   WithTranslation &
   ParamsToProps &
-  WithHandlerType<typeof mapWithHandlers>;
+  WithHandlerType<typeof mapWithHandlers> &
+  WithObjectSearch;
 
-type State = {
-  searchText: string;
-  searchResult: Array<PrivateService>;
+type State = {};
+
+type PrivateServiceOption = {
+  isEditable: boolean;
+  label: string;
+  onClick: () => void;
+  onDelete: () => void;
+  privateService: PrivateService;
+  value: number;
 };
 
+const searchBarAdditionalParams = {
+  available: true,
+};
+
+const Option: React.FC<OptionPropsWithData<PrivateServiceOption>> = (props) => (
+  <PrivateServiceListItem {...props.data} />
+);
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
 export class PrivateServiceList extends React.Component<Props, State> {
-  state = {
-    searchText: '',
-    searchResult: [] as Array<PrivateService>,
-  };
-
   componentDidMount() {
     this.props.fetchAllPrivateServices();
     this.props.fetchPrivateServiceGroupList({ mine: true });
@@ -138,28 +153,39 @@ export class PrivateServiceList extends React.Component<Props, State> {
 
   deletePrivateService = (id: number) =>
     this.props.deletePrivateService(id, {
-      onSuccess: this.closeDeleteServiceModal,
-      onError: this.closeDeleteServiceModal,
+      onSuccess: () => {
+        this.props.setOpenDeleteServiceModal(null);
+        this.props.refreshOptions('private_service', searchBarAdditionalParams);
+      },
+      onError: () => {
+        this.props.setOpenDeleteServiceModal(null);
+        this.props.refreshOptions('private_service', searchBarAdditionalParams);
+      },
     });
 
-  changeSearch =
-    (fuse: any) =>
-    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      this.setState({
-        searchText: ev.target.value,
-        searchResult: fuse.search(ev.target.value),
+  privateServiceOptionsFormatter =
+    (hasEditPermission: boolean, hasDeletePermission: boolean) =>
+    (privateServices: PrivateService[]): PrivateServiceOption[] =>
+      privateServices.map((privateService) => {
+        return {
+          label: privateService.name,
+          onDelete: hasDeletePermission
+            ? () => this.props.setOpenDeleteServiceModal(privateService.id)
+            : null,
+          onEdit: hasEditPermission
+            ? () => this.props.setOpenEditForm(privateService)
+            : null,
+          privateService,
+          isEditable: hasEditPermission,
+          onClick: () => this.props.goToPrivateService(privateService.id),
+          value: privateService.id,
+        };
       });
-    };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   trueifinclude = () => {};
 
   render() {
     const { classes, t } = this.props;
-
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
@@ -173,55 +199,30 @@ export class PrivateServiceList extends React.Component<Props, State> {
             text={this.props.t('noPrivateService')}
           />
         ) : (
-          <div className={classes.search}>
-            <div className={classes.header}>
-              <FuzeSearch
-                changeSearch={this.changeSearch}
-                clearSearch={this.clearSearch}
-                items={this.props.availablePrivateServices}
-                placeholder={t('search')}
-                searchFields={['name']}
-                searchText={this.state.searchText}
-              />
-            </div>
-
-            <Paper>
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <ObjectLevelPermissionProvider
-                  requiredPermission={[
-                    'management.privateService.allowed_actions.edit',
-                    'management.privateService.allowed_actions.delete',
-                  ]}
-                >
-                  {([hasEditPermission, hasDeletePermission]) =>
-                    this.state.searchResult.map((ps) => (
-                      <PrivateServiceListItem
-                        key={ps.id}
-                        isEditable={hasEditPermission}
-                        onClick={this.props.goToPrivateService}
-                        onDelete={
-                          hasDeletePermission
-                            ? () => this.props.setOpenDeleteServiceModal(ps.id)
-                            : null
-                        }
-                        onEdit={
-                          hasEditPermission
-                            ? () => this.props.setOpenEditForm(ps)
-                            : null
-                        }
-                        privateService={ps}
-                      />
-                    ))
-                  }
-                </ObjectLevelPermissionProvider>
-              </Collapse>
-            </Paper>
-          </div>
+          <ObjectLevelPermissionProvider
+            requiredPermission={[
+              'management.privateService.allowed_actions.edit',
+              'management.privateService.allowed_actions.delete',
+            ]}
+          >
+            {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+              <div className={classes.search}>
+                <ObjectSearchComponent
+                  additionalParams={searchBarAdditionalParams}
+                  components={{
+                    Option,
+                  }}
+                  optionsFormatter={this.privateServiceOptionsFormatter(
+                    hasEditPermission,
+                    hasDeletePermission,
+                  )}
+                  placeholder={t('search')}
+                  searchedObjectType="private_service"
+                  variant="underlined"
+                />
+              </div>
+            )}
+          </ObjectLevelPermissionProvider>
         )}
 
         <PrivateServiceListWithGroup
@@ -296,12 +297,6 @@ export class PrivateServiceList extends React.Component<Props, State> {
 
 const styles = (theme: Theme) =>
   createStyles({
-    header: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
     search: {
       display: 'flex',
       flexDirection: 'column',
@@ -345,7 +340,10 @@ const styles = (theme: Theme) =>
 
 type StateHandlerInit = {
   openCreationForm: boolean;
-  openEditForm: PrivateService | null;
+  openEditForm:
+    | PrivateService
+    | PrivateService<Coach, AssociatedEstablishment>
+    | null;
   openDeleteServiceModal: number | null;
   serviceGroupToEdit: PrivateServiceGroupWithService | null;
   serviceGroupCreateOpen: boolean;
@@ -364,9 +362,16 @@ const StateHandlersSetter = {
     return { openCreationForm };
   },
 
-  setOpenEditForm: () => (openEditForm: PrivateService | null) => {
-    return { openEditForm };
-  },
+  setOpenEditForm:
+    () =>
+    (
+      openEditForm:
+        | PrivateService
+        | PrivateService<Coach, AssociatedEstablishment>
+        | null,
+    ) => {
+      return { openEditForm };
+    },
 
   setOpenDeleteServiceModal: () => (openDeleteServiceModal: number | null) => {
     return { openDeleteServiceModal };
@@ -456,6 +461,7 @@ const mapWithHandlers = {
 
 export default compose(
   withStyles(styles),
+  withObjectSearch,
   routerParamsToProps({ privateServiceId: 'privateServiceId:number' }),
   withTranslation(['privateService', 'titles']),
   withTitle(({ t }) => t('titles:privateService.serviceList')),

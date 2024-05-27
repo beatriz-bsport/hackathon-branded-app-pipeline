@@ -31,7 +31,7 @@ type OwnProps = {
   availableEstablishments: Array<AssociatedEstablishment>;
   allEstablishments: Array<AssociatedEstablishment>;
   isSubmitting: boolean;
-  initial?: PrivateService<Coach, AssociatedEstablishment>;
+  initial?: PrivateService | PrivateService<Coach, AssociatedEstablishment>;
   onCancel: () => void;
 };
 type Props = OwnProps & WithTranslation;

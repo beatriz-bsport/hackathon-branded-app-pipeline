@@ -523,6 +523,13 @@ export const PrivateServiceSchema = Yup.object().shape({
   allow_unpaid_booking: Yup.boolean(),
 });
 
+const isNumber = <T,>(value: T) => !Number.isNaN(Number(value));
+
+const getIds = <T extends { id: number }>(list: T[]) =>
+  (list || [])
+    .map((value) => (isNumber<T>(value) ? value : value.id))
+    .filter((_value) => !!_value);
+
 export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
   // @ts-expect-error
   mapPropsToValues: ({ initial }) => {
@@ -537,9 +544,9 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           ? IS_WITH_ESTABLISHMENT
           : IS_WITHOUT_ESTABLISHMENT,
         establishments: [
-          ...initial.establishments.map((ae: AssociatedEstablishment) => ae.id),
+          ...getIds<AssociatedEstablishment>(initial.establishments),
         ],
-        coaches: [...initial.coaches.map((ac: Coach) => ac.id)],
+        coaches: [...getIds<Coach>(initial.coaches)],
         // @ts-expect-error
         coach_capacity_used: parseInt(12 / initial.coach_capacity_used, 10),
         coach_consumer_attribution:

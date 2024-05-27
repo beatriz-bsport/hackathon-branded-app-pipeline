@@ -4,7 +4,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { goBack, push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
-import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -18,10 +17,10 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { getEditableSCTs } from '../../libs/category/selectors';
@@ -73,7 +72,7 @@ import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDe
 import MetaActivityCreate from '../../libs/meta-activity/components/MetaActivityCreate.drawer';
 
 import {
-  deleteWorkshop,
+  deleteWorkshop as deleteWorkshopAction,
   restoreMetaActivity,
   fetchMetaActivities as fetchMetaActivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
@@ -91,6 +90,12 @@ import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityE
 import { mapFormData, unmap } from '../form.utils';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -198,18 +203,31 @@ type Props = {
   setFormIsOpen: (formIsOpen: boolean) => void,
   openNoShowPenaltyDialog: boolean,
   setOpenNoShowPenaltyDialog: (openNoShowPenaltyDialog: boolean) => void,
-};
+} & WithObjectSearch;
 
 type State = {
-  searchText: string,
-  searchResult: Array<MetaActivity>,
   showDisabled: boolean,
 };
 
+type WorkshopOption = {
+  deleteMetaActivity: () => void,
+  goToEdit: () => void,
+  label: string,
+  metaActivity: MetaActivity,
+  onClick: () => void,
+  value: number,
+};
+
+const searchBarAdditionalParams = {
+  is_workshop: true,
+  customer_enabled: true,
+};
+
+const Option: React.FC<OptionPropsWithData<WorkshopOption>> = (props) => (
+  <MetaActivityListItem divider {...props.data} />
+);
 export class WorkshopActivityList extends React.Component<Props, State> {
   state = {
-    searchText: '',
-    searchResult: [],
     showDisabled: false,
   };
 
@@ -220,17 +238,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
       kind: NOTIFICATION_KIND.BOOKING_CREATION,
     });
   }
-
-  changeSearch = (fuse) => (ev) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   onShowDisabled = () => {
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
@@ -329,6 +336,29 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     this.props.fetchPaymentPacks();
   };
 
+  workshopOptionsFormatter =
+    (
+      hasWorkshopEditPermission: boolean,
+      hasWorkshopDeletePermission: boolean,
+    ) =>
+    (workshops: MetaActivity[]): WorkshopOption[] =>
+      workshops.map((workshop) => {
+        return {
+          label: workshop.name,
+          deleteMetaActivity: hasWorkshopEditPermission
+            ? () => this.props.setWorkshopToDelete(workshop.id)
+            : null,
+          goToEdit: hasWorkshopDeletePermission
+            ? () => this.editMetaActivity(workshop.id)
+            : null,
+          metaActivity: workshop,
+          onClick: workshop.customer_enabled
+            ? () => this.props.goToDetail(workshop.id)
+            : null,
+          value: workshop.id,
+        };
+      });
+
   render() {
     const { classes, t, selectedMetaActivity } = this.props;
 
@@ -357,9 +387,16 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         requiredPermission={[
           'management.workshop.allowed_actions.create',
           'session.workshop.allowed_actions.create',
+          'management.workshop.allowed_actions.edit',
+          'management.workshop.allowed_actions.delete',
         ]}
       >
-        {([hasCreatePermission, hasAddSessionPermission]: boolean[]) => (
+        {([
+          hasCreatePermission,
+          hasAddSessionPermission,
+          hasWorkshopEditPermission,
+          hasWorkshopDeletePermission,
+        ]: boolean[]) => (
           <div className={classes.container}>
             {this.props.loading || this.props.notificationLoading ? (
               <LinearProgress />
@@ -373,14 +410,18 @@ export class WorkshopActivityList extends React.Component<Props, State> {
               <div className={this.props.classes.search}>
                 <div className={classes.header}>
                   <div className={classes.searchField}>
-                    <FuzeSearch
-                      changeSearch={this.changeSearch}
-                      clearSearch={this.clearSearch}
-                      items={this.props.workshopActivities}
+                    <ObjectSearchComponent
+                      additionalParams={searchBarAdditionalParams}
+                      components={{
+                        Option,
+                      }}
+                      optionsFormatter={this.workshopOptionsFormatter(
+                        hasWorkshopEditPermission,
+                        hasWorkshopDeletePermission,
+                      )}
                       placeholder={t('actions.search')}
-                      searchFields={['name', 'description']}
-                      searchResult={this.state.searchResult}
-                      searchText={this.state.searchText}
+                      searchedObjectType="meta_activity"
+                      variant="underlined"
                     />
                   </div>
                   <Hidden smDown>
@@ -394,29 +435,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                     </Button>
                   </Hidden>
                 </div>
-                <Paper
-                  className={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                      ? this.props.classes.searchPaperDisplayed
-                      : this.props.classes.searchPaperHiden
-                  }
-                >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    <MetaActivityList
-                      isWorkshop
-                      deleteMetaActivity={this.props.setWorkshopToDelete}
-                      goToDetail={this.props.goToDetail}
-                      goToEdit={this.editMetaActivity}
-                      metaActivities={this.state.searchResult}
-                    />
-                  </Collapse>
-                </Paper>
               </div>
             ) : null}
             <MetaActivityList
@@ -561,6 +579,7 @@ const withStateHandlersSetter = {
 
 export default compose(
   withStyles(styles),
+  withObjectSearch,
   withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   withTranslation(['workshop']),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
@@ -608,7 +627,7 @@ export default compose(
       fetchAllActivities: fetchMetaActivitiesAction,
       makeActivityCopy: makeActivityCopyAction,
       redirectIfAllowed: redirectIfAllowedAction,
-      deleteWorkshop,
+      deleteWorkshopAction,
       restoreMetaActivity,
       fetchMarketingNotificationList,
       goToDetail: (metaActivityId) =>
@@ -648,6 +667,7 @@ export default compose(
         selectedMetaActivityId,
         upsertWorkshopActivity,
         setSelectedMetaActivityId,
+        refreshOptions,
       }) =>
       (values: any, options: OptionCallback) => {
         try {
@@ -658,6 +678,7 @@ export default compose(
             ...options,
             onSuccess: () => {
               if (options.onSuccess) options.onSuccess();
+              refreshOptions('meta_activity', searchBarAdditionalParams);
               setSelectedMetaActivityId(null);
             },
             onError: (err) => {
@@ -710,6 +731,17 @@ export default compose(
           },
         });
       },
+    deleteWorkshop: (props) => (id: number, options: OptionCallback) => {
+      props.deleteWorkshopAction(id, {
+        onSuccess: () => {
+          props.refreshOptions('meta_activity', searchBarAdditionalParams);
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          options?.onError?.();
+        },
+      });
+    },
   }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),
 )(WorkshopActivityList);

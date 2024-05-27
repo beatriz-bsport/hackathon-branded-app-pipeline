@@ -7,8 +7,10 @@ import {
   fetchShopItemVariantList as fetchShopItemVariantListAPI,
   createShopItem as createShopItemAPI,
   createShopItemVariants as createShopItemVariantsAPI,
+  createShopItemTemplateVariants as createShopItemTemplateVariantsAPI,
   updateShopItem as updateShopItemAPI,
   updateShopItemVariantBulk as updateShopItemVariantBulkAPI,
+  updateShopItemTemplateVariantBulk as updateShopItemTemplateVariantBulkAPI,
   deleteShopItem as deleteShopItemAPI,
   createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
   createShopItemProvision as createShopItemProvisionAPI,
@@ -342,6 +344,46 @@ export const createShopItemVariants = ({
   };
 };
 
+export const createShopItemTemplateVariantsActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/VARIANT/CREATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/VARIANT/CREATE/ERROR'),
+  success: createAction('SHOP_ITEM_TEMPLATE/VARIANT/CREATE/LIST/SUCCESS'),
+};
+
+/**
+ * Creates one or more variants from an existing base item template.\
+ * Params are all existing variant attributes
+ * @param id The base item template id to create variants from
+ * @param data Object containing all properties to create variants from (colors, sizes..)
+ */
+export const createShopItemTemplateVariants = ({
+  id,
+  data,
+  options,
+}: {
+  id: number;
+  data: ShopItemVariantAttributes;
+  options?: OptionCallback;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createShopItemTemplateVariantsActions.isLoading(true));
+      dispatch(createShopItemTemplateVariantsActions.error(null));
+
+      const result = await createShopItemTemplateVariantsAPI(id, data);
+
+      dispatch(createShopItemTemplateVariantsActions.success(result.data));
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(createShopItemTemplateVariantsActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(createShopItemTemplateVariantsActions.isLoading(false));
+    }
+  };
+};
+
 export const updateShopItemActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/UPDATE/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/UPDATE/ERROR'),
@@ -418,6 +460,50 @@ export const updateShopItemVariantBulk = ({
       options?.onError?.();
     } finally {
       dispatch(updateShopItemVariantBulkActions.isLoading(false));
+    }
+  };
+};
+
+export const updateShopItemTemplateVariantBulkActions = {
+  isLoading: createAction<boolean>(
+    'SHOP_ITEM_TEMPLATE/VARIANT/UPDATE_BULK/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SHOP_ITEM_TEMPLATE/VARIANT/UPDATE_BULK/ERROR',
+  ),
+  success: createAction<void>('SHOP_ITEM_TEMPLATE/VARIANT/UPDATE_BULK/SUCCESS'),
+};
+
+/**
+ * Updates one or multiple shop item template variants related to a base item template.\
+ * Params are all existing variant attributes
+ * @param id The ID of the base shop item template
+ * @param data The payload sent to the API. Array of variants item fields expected.
+ */
+export const updateShopItemTemplateVariantBulk = ({
+  id,
+  data,
+  options,
+}: {
+  id: number;
+  data: FormData;
+  options: OptionCallback;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(updateShopItemTemplateVariantBulkActions.isLoading(true));
+      dispatch(updateShopItemTemplateVariantBulkActions.error(null));
+
+      await updateShopItemTemplateVariantBulkAPI(id, data);
+
+      dispatch(updateShopItemTemplateVariantBulkActions.success());
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(updateShopItemTemplateVariantBulkActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(updateShopItemTemplateVariantBulkActions.isLoading(false));
     }
   };
 };

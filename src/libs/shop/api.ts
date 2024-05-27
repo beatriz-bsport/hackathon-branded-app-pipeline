@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
   postAuth,
@@ -8,7 +8,7 @@ import {
   deleteAuth,
 } from '../../http';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#state/types';
 import type {
   IsShopUsedInComboAPI,
   Provision,
@@ -231,6 +231,23 @@ export const createShopItemVariants = (
 };
 
 /**
+ * Creates one or more variants from an existing base item template.\
+ * Params are all existing variant attributes
+ * @param id The base item template id to create variants from
+ * @param color An array of strings
+ * @param size An array of strings
+ */
+export const createShopItemTemplateVariants = (
+  id: number,
+  data: ShopItemVariantAttributes,
+) => {
+  return postAuth<ShopItem[]>(
+    `${API_V1_URI}/shop/shopitemtemplate/${id}/variants/`,
+    data,
+  );
+};
+
+/**
  * Updates a base/standalone shop item.\
  * Params are all existing variant attributes
  * @param id The ID of the shop item to update
@@ -254,6 +271,28 @@ export const updateShopItemVariantBulk = (id: number, data: FormData) => {
    * - 400 if the update couldn't be processed correctly.
    */
   return patchAuth(`${API_V1_URI}/shop/item/${id}/variants/bulk_update/`, data);
+};
+
+/**
+ * Updates one or multiple shop item template variants related to a base item template.\
+ * Params are all existing variant attributes
+ * @param id The ID of the base item template
+ * @param data The payload sent to the API. Array of variants item fields expected.
+ */
+export const updateShopItemTemplateVariantBulk = (
+  id: number,
+  data: FormData,
+) => {
+  /**
+   * Response:
+   * - 204 on success.
+   * - 404 if the base item cannot be found.
+   * - 400 if the update couldn't be processed correctly.
+   */
+  return patchAuth<void>(
+    `${API_V1_URI}/shop/shopitemtemplate/${id}/variants/bulk_update/`,
+    data,
+  );
 };
 
 /**

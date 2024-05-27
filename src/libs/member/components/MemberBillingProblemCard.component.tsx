@@ -66,9 +66,9 @@ type Props = {
   member: Member;
   memberId: number;
   memberLoading: boolean;
-  onInvoicePaymentDialogClose: () => void;
+  onInvoicePaymentDialogClose?: () => void;
   onlinePaymentEnabled: boolean;
-  selectedInvoiceId: string;
+  selectedInvoiceId?: string;
   showPositiveBalance?: boolean;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;

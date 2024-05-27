@@ -173,91 +173,105 @@ export const getNotificationGrouped = createSelector(
         contract_id,
         kind,
       } = n.event_rules;
-      if (payment_pack_ids?.length > 0) {
-        if (byPaymentPack[payment_pack_ids[0]] === undefined) {
-          byPaymentPack[payment_pack_ids[0]] = [];
-        }
-        byPaymentPack[payment_pack_ids[0]].push(n);
-      }
-      if (private_pass_ids?.length > 0) {
-        if (byPrivatePass[private_pass_ids[0]] === undefined) {
-          byPrivatePass[private_pass_ids[0]] = [];
-        }
-        byPrivatePass[private_pass_ids[0]].push(n);
-      }
-      if (contract_id !== undefined) {
-        if (byContract[contract_id] === undefined) {
-          byContract[contract_id] = [];
-        }
-        byContract[contract_id].push(n);
-      }
-      if (meta_activity_id !== undefined && meta_activity_id !== null) {
-        const _path = [
-          meta_activity_id.toString(),
-          'bySession',
-          notify_booking_nb.toString(),
-          kind.toString(),
-        ];
+      switch (n.kind) {
+        case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
+        case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
+          if (payment_pack_ids?.length > 0) {
+            if (byPaymentPack[payment_pack_ids[0]] === undefined) {
+              byPaymentPack[payment_pack_ids[0]] = [];
+            }
+            byPaymentPack[payment_pack_ids[0]].push(n);
+          }
+          break;
+        case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
+        case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
+          if (private_pass_ids?.length > 0) {
+            if (byPrivatePass[private_pass_ids[0]] === undefined) {
+              byPrivatePass[private_pass_ids[0]] = [];
+            }
+            byPrivatePass[private_pass_ids[0]].push(n);
+          }
+          break;
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION:
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING:
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END:
+          if (contract_id !== undefined) {
+            if (byContract[contract_id] === undefined) {
+              byContract[contract_id] = [];
+            }
+            byContract[contract_id].push(n);
+          }
+          break;
+        case NOTIFICATION_KIND.BOOKING_CREATION:
+          if (meta_activity_id !== undefined && meta_activity_id !== null) {
+            const _path = [
+              meta_activity_id.toString(),
+              'bySession',
+              notify_booking_nb.toString(),
+              kind.toString(),
+            ];
 
-        !get(bookings, _path) && setWith(bookings, _path, [], Object);
-        bookings[meta_activity_id.toString()].identifier = 'meta_activity';
-        bookings[meta_activity_id.toString()].bySession[notify_booking_nb][
-          kind
-        ].push(n);
-      }
+            !get(bookings, _path) && setWith(bookings, _path, [], Object);
+            bookings[meta_activity_id.toString()].identifier = 'meta_activity';
+            bookings[meta_activity_id.toString()].bySession[notify_booking_nb][
+              kind
+            ].push(n);
+          }
+          if (establishment_id !== undefined && establishment_id !== null) {
+            const _path = [
+              establishment_id.toString(),
+              'bySession',
+              notify_booking_nb.toString(),
+              kind.toString(),
+            ];
 
-      if (establishment_id !== undefined && establishment_id !== null) {
-        const _path = [
-          establishment_id.toString(),
-          'bySession',
-          notify_booking_nb.toString(),
-          kind.toString(),
-        ];
+            !get(bookings, _path) && setWith(bookings, _path, [], Object);
+            bookings[establishment_id.toString()].identifier = 'establishment';
+            bookings[establishment_id.toString()].bySession[notify_booking_nb][
+              kind
+            ].push(n);
+          }
+          if (
+            establishment_group_id !== undefined &&
+            establishment_group_id !== null
+          ) {
+            const _path = [
+              establishment_group_id.toString(),
+              'bySession',
+              notify_booking_nb.toString(),
+              kind.toString(),
+            ];
 
-        !get(bookings, _path) && setWith(bookings, _path, [], Object);
-        bookings[establishment_id.toString()].identifier = 'establishment';
-        bookings[establishment_id.toString()].bySession[notify_booking_nb][
-          kind
-        ].push(n);
-      }
-      if (
-        establishment_group_id !== undefined &&
-        establishment_group_id !== null
-      ) {
-        const _path = [
-          establishment_group_id.toString(),
-          'bySession',
-          notify_booking_nb.toString(),
-          kind.toString(),
-        ];
+            !get(bookings, _path) && setWith(bookings, _path, [], Object);
+            bookings[establishment_group_id.toString()].identifier =
+              'establishment_group';
+            bookings[establishment_group_id.toString()].bySession[
+              notify_booking_nb
+            ][kind].push(n);
+          }
+          break;
+        case NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION:
+          if (private_service_id !== undefined && private_service_id !== null) {
+            const _path = [
+              private_service_id.toString(),
+              'bySession',
+              notify_booking_nb.toString(),
+              kind.toString(),
+            ];
 
-        !get(bookings, _path) && setWith(bookings, _path, [], Object);
-        bookings[establishment_group_id.toString()].identifier =
-          'establishment_group';
-        bookings[establishment_group_id.toString()].bySession[
-          notify_booking_nb
-        ][kind].push(n);
-      }
-
-      if (private_service_id !== undefined && private_service_id !== null) {
-        const _path = [
-          private_service_id.toString(),
-          'bySession',
-          notify_booking_nb.toString(),
-          kind.toString(),
-        ];
-
-        !get(privateBookings, _path) &&
-          setWith(privateBookings, _path, [], Object);
-        privateBookings[private_service_id.toString()].identifier =
-          'private_service';
-        privateBookings[private_service_id.toString()].bySession[
-          notify_booking_nb
-        ][kind].push(n);
-      }
-
-      if (n.kind === NOTIFICATION_KIND.BIRTHDAY) {
-        birthday.push(n);
+            !get(privateBookings, _path) &&
+              setWith(privateBookings, _path, [], Object);
+            privateBookings[private_service_id.toString()].identifier =
+              'private_service';
+            privateBookings[private_service_id.toString()].bySession[
+              notify_booking_nb
+            ][kind].push(n);
+          }
+          break;
+        case NOTIFICATION_KIND.BIRTHDAY:
+          birthday.push(n);
+          break;
+        default:
       }
     });
 

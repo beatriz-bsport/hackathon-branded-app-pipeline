@@ -6,7 +6,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   NOTIFICATION_KIND,
   BOOKING_EVENT_RULES,
-  PAYMENT_PACK_EVENT_RULE,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 import {
   Button,
@@ -20,7 +19,6 @@ import {
 
 import { TFunction } from 'i18next';
 import NotificationPushPreview from '#src/components/notification-push/NotificationPushPreview.component';
-import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#src/libs/private-service/utils';
 import HTMLPreview from '#src/components/html/HTMLPreview.component';
 import { Contract } from '#src/libs/subscription/types';
 import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
@@ -199,15 +197,11 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     return 'notRefunded';
   };
 
-  getPaymentPackNotificationKind = (notif: any) => {
-    if (notif.kind === PAYMENT_PACK_EVENT_RULE.NOTIFICATION_TIME) {
-      return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
-    }
-    return 'creditsLeft';
-  };
-
-  getPrivatePassNotificationKind = (notif: any) => {
-    if (notif.kind === PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME) {
+  getPassNotificationKind = (notif: MarketingNotification) => {
+    if (
+      notif.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME ||
+      notif.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME
+    ) {
       return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
     }
     return 'creditsLeft';
@@ -217,144 +211,37 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
-    if (notif.event_rules.payment_pack_ids !== undefined) {
-      const notificationKind = this.getPaymentPackNotificationKind(notif);
-      if (notificationKind === 'creditsLeft') {
+    const passNotificationKind = this.getPassNotificationKind(notif);
+    switch (notif.kind) {
+      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
         return `${t(
           'paymentPack:notification.creditsLeft.first',
         )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
           'paymentPack:notification.creditsLeft.second',
         )}`;
-      }
-      return `${t(
-        `paymentPack:notification.${notificationKind}.first`,
-      )} ${Math.abs(notif.event_rules.days_left)} ${t(
-        `paymentPack:notification.${notificationKind}.second`,
-      )}`;
-    }
-    if (notif.event_rules.private_pass_ids !== undefined) {
-      const notificationKind = this.getPrivatePassNotificationKind(notif);
-      if (notificationKind === 'creditsLeft') {
+      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
+        return `${t(
+          `paymentPack:notification.${passNotificationKind}.first`,
+        )} ${Math.abs(notif.event_rules.days_left)} ${t(
+          `paymentPack:notification.${passNotificationKind}.second`,
+        )}`;
+      case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
         return `${t(
           'paymentPack:notification.creditsLeft.first',
         )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
           'paymentPack:notification.creditsLeft.second',
         )}`;
-      }
-      return `${t(
-        `paymentPack:notification.${notificationKind}.first`,
-      )} ${Math.abs(notif.event_rules.days_left)} ${t(
-        `paymentPack:notification.${notificationKind}.second`,
-      )}`;
-    }
-
-    if (notif.kind === NOTIFICATION_KIND.BIRTHDAY) {
-      return t('booking:notification.form.listItemPrimary.birthday');
-    }
-
-    return `${
-      notify_booking_nb === 0
-        ? t(
-            `booking:notification.form.listItemPrimary.notifyAllEvents.${this.getNotificationKind(
-              kind,
-            )}`,
-          )
-        : t(
-            `booking:notification.form.listItemPrimary.${this.getNotificationKind(
-              kind,
-            )}`,
-            {
-              notify_booking_nb,
-            },
-          )
-    } | ${
-      hours
-        ? t(
-            `booking:notification.form.listItemPrimary.${
-              hours > 0 ? 'hour_after' : 'hour_before'
-            }`,
-            {
-              hours: Math.abs(hours),
-              count: Math.abs(hours),
-            },
-          )
-        : t(
-            `booking:notification.form.listItemPrimary.${
-              days > 0 ? 'day_after' : 'day_before'
-            }`,
-            {
-              days: Math.abs(days),
-              count: Math.abs(days),
-            },
-          )
-    }`;
-  };
-
-  renderPrimaryText = (notif: MarketingNotification) => {
-    const { notify_booking_nb, kind, hours, days } = notif.event_rules;
-    const { t } = this.props;
-
-    if (notif.event_rules.payment_pack_ids !== undefined) {
-      const notificationKind = this.getPaymentPackNotificationKind(notif);
-      if (notificationKind === 'creditsLeft') {
-        return (
-          <Typography>
-            {`${t(
-              'paymentPack:notification.creditsLeft.first',
-            )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
-              'paymentPack:notification.creditsLeft.second',
-            )}`}
-          </Typography>
-        );
-      }
-      return (
-        <Typography>
-          {`${t(
-            `paymentPack:notification.${notificationKind}.first`,
-          )} ${Math.abs(notif.event_rules.days_left)} ${t(
-            `paymentPack:notification.${notificationKind}.second`,
-          )}`}
-        </Typography>
-      );
-    }
-    if (notif.event_rules.private_pass_ids !== undefined) {
-      const notificationKind = this.getPrivatePassNotificationKind(notif);
-      if (notificationKind === 'creditsLeft') {
-        return (
-          <Typography>
-            {`${t(
-              'paymentPack:notification.creditsLeft.first',
-            )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
-              'paymentPack:notification.creditsLeft.second',
-            )}`}
-          </Typography>
-        );
-      }
-      return (
-        <Typography>
-          {`${t(
-            `paymentPack:notification.${notificationKind}.first`,
-          )} ${Math.abs(notif.event_rules.days_left)} ${t(
-            `paymentPack:notification.${notificationKind}.second`,
-          )}`}
-        </Typography>
-      );
-    }
-    if (notif.event_rules.contract_id !== undefined) {
-      return <Typography>{this.getContractLabel(notif, t)}</Typography>;
-    }
-
-    if (notif.kind === NOTIFICATION_KIND.BIRTHDAY) {
-      return (
-        <Typography>
-          {t('booking:notification.form.listItemPrimary.birthday')}
-        </Typography>
-      );
-    }
-
-    return (
-      <Typography>
-        {`${
+      case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
+        return `${t(
+          `paymentPack:notification.${passNotificationKind}.first`,
+        )} ${Math.abs(notif.event_rules.days_left)} ${t(
+          `paymentPack:notification.${passNotificationKind}.second`,
+        )}`;
+      case NOTIFICATION_KIND.BIRTHDAY:
+        return t('booking:notification.form.listItemPrimary.birthday');
+      case NOTIFICATION_KIND.BOOKING_CREATION:
+      case NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION:
+        return `${
           notify_booking_nb === 0
             ? t(
                 `booking:notification.form.listItemPrimary.notifyAllEvents.${this.getNotificationKind(
@@ -369,7 +256,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                   notify_booking_nb,
                 },
               )
-        } |  ${
+        } | ${
           hours
             ? t(
                 `booking:notification.form.listItemPrimary.${
@@ -389,9 +276,14 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                   count: Math.abs(days),
                 },
               )
-        }`}
-      </Typography>
-    );
+        }`;
+      case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION:
+      case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING:
+      case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END:
+        return this.getContractLabel(notif, t);
+      default:
+        return '';
+    }
   };
 
   onOpenCommunicationDrawerClick = () => {
@@ -455,7 +347,9 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                     contractById,
                   })}
                 </Typography>
-                {this.renderPrimaryText(this.props.selectedNotification)}
+                <Typography>
+                  {this.getPrimaryText(this.props.selectedNotification)}
+                </Typography>
                 <ObjectLevelPermissionWrapper
                   forcedBehavior="hidden"
                   requiredPermission="member.allowed_actions.manageNotification"

@@ -200,6 +200,17 @@ const getDefaultPermissions = (
   restrictedPaths: [],
 });
 
+function getDefaultObjectLevelPermissions(
+  featureList: FeatureList,
+  isFranchisor: boolean,
+): ObjectLevelPermissions {
+  const objectLevelPermissions = cloneDeep(DEFAULT_OBJECT_LEVEL_PERMISSIONS);
+  if (hideAccessMonitoringStudioOnly(featureList, isFranchisor)) {
+    delete objectLevelPermissions.report.Club.access_monitoring;
+  }
+  return objectLevelPermissions;
+}
+
 const HIDDEN_PARAMS = [
   'restrictedPaths',
   'navigation',
@@ -228,7 +239,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       description: '',
       permissions: getDefaultPermissions(props.featureList, props.isFranchisor),
       unwantedKeyPermissions: [],
-      objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
+      objectLevelPermissions: getDefaultObjectLevelPermissions(
+        props.featureList,
+        props.isFranchisor,
+      ),
       restrictedPathNew: '',
       showAdvanced: false,
       hasBookingOverrideControl: true,
@@ -258,17 +272,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       // By default, if some keys are not found in props.role.object_level_permissions
       // then they are initialized to true
       if (props.role.object_level_permissions) {
-        state.objectLevelPermissions = deepMerge(
-          cloneDeep(props.role.object_level_permissions),
-          setAllValuesInObject(DEFAULT_OBJECT_LEVEL_PERMISSIONS, true),
-        ) as ObjectLevelPermissions;
+        state.objectLevelPermissions = this.getFormattedObjectLevelPermissions(
+          props.featureList,
+          props.isFranchisor,
+          props.role.object_level_permissions,
+        );
       }
-    }
-    if (
-      hideAccessMonitoringStudioOnly(props.featureList, props.isFranchisor) &&
-      !!state.objectLevelPermissions.report.Club?.access_monitoring
-    ) {
-      delete state.objectLevelPermissions.report.Club.access_monitoring;
     }
 
     if (!state.permissions.restrictedPaths) {
@@ -276,6 +285,30 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     }
 
     return state;
+  };
+
+  /**
+   * Reshapes the object level permissions stored in database as JSON to match the default object level permissions.
+   *
+   * @param featureList The list of upsells the company have. If the user is a franchisor, it will be undefined.
+   * @param isFranchisor Indicates whether the user is a franchisor.
+   * @param objectLevelPermissions The object level permissions stored in database of the role.
+   * @returns The object level permissions with missing keys completed.
+   */
+  getFormattedObjectLevelPermissions = (
+    featureList: FeatureList,
+    isFranchisor: boolean,
+    objectLevelPermissions: ObjectLevelPermissions,
+  ): ObjectLevelPermissions => {
+    const formattedObjectLevelPermissions = deepMerge(
+      cloneDeep(objectLevelPermissions),
+      setAllValuesInObject(cloneDeep(DEFAULT_OBJECT_LEVEL_PERMISSIONS), true),
+    ) as ObjectLevelPermissions;
+
+    if (hideAccessMonitoringStudioOnly(featureList, isFranchisor)) {
+      delete formattedObjectLevelPermissions.report.Club.access_monitoring;
+    }
+    return formattedObjectLevelPermissions;
   };
 
   updateObjectLevelPermissions = (
@@ -311,7 +344,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         this.props.isFranchisor,
       ),
       unwantedKeyPermissions: [],
-      objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
+      objectLevelPermissions: getDefaultObjectLevelPermissions(
+        this.props.featureList,
+        this.props.isFranchisor,
+      ),
       restrictedPathNew: '',
       hasBookingOverrideControl: true,
     });

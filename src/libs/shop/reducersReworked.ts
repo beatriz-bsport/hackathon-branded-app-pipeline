@@ -13,6 +13,7 @@ import {
   createShopItemVariantsActions,
   updateShopItemActions,
   updateShopItemVariantBulkActions,
+  updateShopItemTemplateVariantBulkActions,
   deleteShopItemActions,
   deleteShopItemVariantActions,
   createShopItemProvisionActions,
@@ -25,6 +26,7 @@ import {
   createShopItemTemplateActions,
   fetchShopItemTemplateVariantListActions,
   fetchShopItemTemplateVariantInstanceListActions,
+  createShopItemTemplateVariantsActions,
 } from './actions/shopItemReworked';
 
 import {
@@ -429,6 +431,30 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       );
     },
+    [createShopItemTemplateVariantsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'itemVariant',
+          'create',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [createShopItemTemplateVariantsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariant', 'create', 'error'],
+        payload,
+      );
+    },
     [updateShopItemActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -475,6 +501,36 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopItemReworked', 'itemVariant', 'updateVariant', 'error'],
+        payload,
+      );
+    },
+    [updateShopItemTemplateVariantBulkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'itemVariant',
+          'updateVariant',
+          'loading',
+        ],
+        payload,
+      );
+    },
+    [updateShopItemTemplateVariantBulkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'itemVariant',
+          'updateVariant',
+          'error',
+        ],
         payload,
       );
     },

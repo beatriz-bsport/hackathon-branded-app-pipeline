@@ -40,7 +40,7 @@ type State = {
 faceapi.env.monkeyPatch({
   Canvas: window.HTMLCanvasElement,
   Image: window.HTMLImageElement,
-  ImageData: canvas.ImageData,
+  ImageData: canvas.createImageData(),
   createCanvasElement: () => document.createElement('canvas'),
   createImageElement: () => document.createElement('img'),
 });

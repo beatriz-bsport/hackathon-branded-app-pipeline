@@ -86,7 +86,6 @@ choosePort(HOST, DEFAULT_PORT)
       proxyConfig,
       urls.lanUrlForConfig,
     );
-    console.log('1111111111111111111');
 
     const devServer = new WebpackDevServer(serverConfig, compiler);
 
@@ -107,7 +106,7 @@ choosePort(HOST, DEFAULT_PORT)
   })
   .catch((err) => {
     if (err && err.message) {
-      console.log('RRRR', err.message);
+      console.log(err.message);
     }
     process.exit(1);
   });

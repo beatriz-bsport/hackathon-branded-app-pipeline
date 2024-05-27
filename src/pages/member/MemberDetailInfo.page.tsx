@@ -7,7 +7,7 @@ import { compose, withHandlers, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
 
 import Config from '../../config';
 

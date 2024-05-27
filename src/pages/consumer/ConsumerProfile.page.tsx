@@ -9,7 +9,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
 import Config from '../../config';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';

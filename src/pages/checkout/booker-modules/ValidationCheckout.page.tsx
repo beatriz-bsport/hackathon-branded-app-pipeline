@@ -14,7 +14,7 @@ import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
 import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
 import { RootState } from '../../../reducers';
 // @ts-expect-error
 import withQueryParams from '../../../hocs/with-query-params.hoc';

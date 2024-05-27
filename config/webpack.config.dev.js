@@ -24,11 +24,13 @@ module.exports = {
     pathinfo: true,
     filename: 'static/js/bundle.js',
     chunkFilename: 'static/js/[name].chunk.js',
-    publicPath,
     devtoolModuleFilenameTemplate: (info) =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
+    fallback: {
+      fs: false
+    },
     modules: ['node_modules', paths.appNodeModules].concat(
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
@@ -198,6 +200,7 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
+    port: 3000,
     hot: true,
     open: true,
     compress: true,

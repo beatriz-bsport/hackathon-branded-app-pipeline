@@ -18,9 +18,8 @@ import Divider from '@material-ui/core/Divider';
 import { createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 
-import FuzeSearch from '#components/FuzeSearch.component';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 
 // @ts-expect-error
 import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreate.drawer';
@@ -43,7 +42,7 @@ import {
   getMetaActivity,
 } from '#libs/meta-activity/selectors';
 import {
-  deleteMetaActivity,
+  deleteMetaActivity as deleteMetaActivityAction,
   restoreMetaActivity,
   makeActivityCopy as makeActivityCopyAction,
   fetchAllMetaActivityCategory,
@@ -122,6 +121,11 @@ import { mapFormData, unmap } from '../form.utils';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -142,6 +146,10 @@ const MetaActivityMap = {
   custom_restriction_rule: 'custom_restriction_rule',
   id: 'id',
 };
+const searchBarAdditionalParams = {
+  is_workshop: false,
+  customer_enabled: true,
+};
 
 type RouterParamsToProps = { id: number };
 
@@ -161,11 +169,10 @@ type Props = RouterParamsToProps &
   WithTranslation &
   MetaActivityConnectedProps &
   MetaActivityHandlers &
-  StateToProps;
+  StateToProps &
+  WithObjectSearch;
 
 type State = {
-  searchText: string;
-  searchResult: Array<MetaActivity>;
   showDisabled: boolean;
   showCategoryDialog: boolean;
   selectedCategory: MetaActivityCategory;
@@ -173,10 +180,21 @@ type State = {
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
+type MetaActivityOption = {
+  deleteMetaActivity: () => void;
+  goToEdit: () => void;
+  label: string;
+  metaActivity: MetaActivity;
+  onClick: () => void;
+  value: number;
+};
+
+const Option: React.FC<OptionPropsWithData<MetaActivityOption>> = (props) => (
+  <MetaActivityListItem divider {...props.data} />
+);
+
 export class MetaActivityListPage extends React.Component<Props, State> {
   state: State = {
-    searchText: '',
-    searchResult: [],
     showDisabled: false,
     showCategoryDialog: false,
     selectedCategory: null,
@@ -192,18 +210,6 @@ export class MetaActivityListPage extends React.Component<Props, State> {
       kind: BOOKING_CREATION_NOTIFICATION,
     });
   }
-
-  changeSearch = (fuse: MetaActivity) => (ev: any) => {
-    this.setState({
-      searchText: ev.target.value,
-      // @ts-expect-error
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
 
   onShowDisabled = () => {
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
@@ -356,6 +362,29 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     this.props.fetchPaymentPacks();
   };
 
+  metaActivityOptionsFormatter =
+    (
+      hasMetaActivityEditPermission: boolean,
+      hasMetaActivityDeletePermission: boolean,
+    ) =>
+    (metaActivities: MetaActivity[]): MetaActivityOption[] =>
+      metaActivities.map((metaActivity) => {
+        return {
+          label: metaActivity.name,
+          deleteMetaActivity: hasMetaActivityDeletePermission
+            ? () => this.props.setActivityToDelete(metaActivity.id)
+            : null,
+          goToEdit: hasMetaActivityEditPermission
+            ? () => this.editMetaActivity(metaActivity.id)
+            : null,
+          metaActivity,
+          onClick: metaActivity.customer_enabled
+            ? () => this.props.goToDetail(metaActivity.id)
+            : null,
+          value: metaActivity.id,
+        };
+      });
+
   render() {
     const { classes, t, selectedMetaActivity } = this.props;
     if (
@@ -386,9 +415,16 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         requiredPermission={[
           'management.activity.allowed_actions.create',
           'session.activity.allowed_actions.create',
+          `management.activity.allowed_actions.edit`,
+          `management.activity.allowed_actions.delete`,
         ]}
       >
-        {([hasCreatePermission, hasAddSessionPermission]: boolean[]) => (
+        {([
+          hasCreatePermission,
+          hasAddSessionPermission,
+          hasMetaActivityEditPermission,
+          hasMetaActivityDeletePermission,
+        ]: boolean[]) => (
           <div className={classes.container}>
             {this.props.loading || this.props.notificationLoading ? (
               <LinearProgress />
@@ -403,15 +439,18 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               <div className={classes.search}>
                 <div className={classes.header}>
                   <div className={classes.searchField}>
-                    <FuzeSearch
-                      changeSearch={this.changeSearch}
-                      clearSearch={this.clearSearch}
-                      items={this.props.enabledMetaActivities}
-                      placeholder={t('actions.search')}
-                      searchFields={['name', 'description']}
-                      // @ts-expect-error
-                      searchResult={this.state.searchResult}
-                      searchText={this.state.searchText}
+                    <ObjectSearchComponent
+                      additionalParams={searchBarAdditionalParams}
+                      components={{
+                        Option,
+                      }}
+                      optionsFormatter={this.metaActivityOptionsFormatter(
+                        hasMetaActivityEditPermission,
+                        hasMetaActivityDeletePermission,
+                      )}
+                      placeholder={this.props.t('search')}
+                      searchedObjectType="meta_activity"
+                      variant="underlined"
                     />
                   </div>
                   <Hidden smDown>
@@ -427,30 +466,6 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                     </Button>
                   </Hidden>
                 </div>
-                <Paper
-                  className={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                      ? classes.searchPaperDisplayed
-                      : null
-                  }
-                >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    {/* @ts-expect-error */}
-                    <MetaActivityList
-                      deleteMetaActivity={this.props.setActivityToDelete}
-                      goToDetail={this.props.goToDetail}
-                      goToEdit={this.editMetaActivity}
-                      isWorkshop={false}
-                      metaActivities={this.state.searchResult}
-                    />
-                  </Collapse>
-                </Paper>
               </div>
             )}
             {/*
@@ -717,7 +732,7 @@ const connector = connect(
     goToDetail: (metaActivityId: number) =>
       push(`/activity/${metaActivityId}/general`),
     redirectIfAllowed: redirectIfAllowedAction,
-    deleteMetaActivity,
+    deleteMetaActivityAction,
     restoreMetaActivity,
     fetchMarketingNotificationList,
     fetchAllMetaActivityCategory,
@@ -755,7 +770,8 @@ const connector = connect(
 
 type HandlersProps = MetaActivityConnectedProps &
   RouterParamsToProps &
-  StateToProps;
+  StateToProps &
+  WithObjectSearch;
 
 const handlers = {
   makeActivityCopy:
@@ -774,6 +790,7 @@ const handlers = {
       selectedMetaActivityId,
       upsertMetaActivity,
       setSelectedMetaActivityId,
+      refreshOptions,
     }: HandlersProps) =>
     (values: any, options: OptionCallback) => {
       try {
@@ -784,6 +801,7 @@ const handlers = {
           ...options,
           onSuccess: () => {
             if (options.onSuccess) options.onSuccess();
+            refreshOptions('meta_activity', searchBarAdditionalParams);
             setSelectedMetaActivityId(null);
           },
           onError: (err) => {
@@ -845,6 +863,18 @@ const handlers = {
         },
       });
     },
+  deleteMetaActivity:
+    (props: HandlersProps) => (id: number, options: OptionCallback) => {
+      props.deleteMetaActivityAction(id, {
+        onSuccess: () => {
+          props.refreshOptions('meta_activity', searchBarAdditionalParams);
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          options?.onError?.();
+        },
+      });
+    },
 };
 
 type StateHandlerInit = {
@@ -869,6 +899,7 @@ const withStateHandlersSetter = {
 export default compose(
   withStyles(styles),
   withTranslation(['metaActivity', 'titles', 'common']),
+  withObjectSearch,
   withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   withState('activityToDelete', 'setActivityToDelete', null),
   routerParamsToProps({ id: 'id:number' }),

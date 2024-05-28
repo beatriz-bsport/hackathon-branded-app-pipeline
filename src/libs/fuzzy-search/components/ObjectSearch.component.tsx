@@ -35,7 +35,8 @@ type OwnProps = SelectProps<SelectOption<number>> & ObjectSearchProps;
  * Any prop from react-select can be passed to this component and overriden.
  * @info - It is by default uncontrolled, meaning you can invoke it right away without passing any value and start
  * performing searches.
- * - If you need to access the results and want to keep it uncontrolled for convenience, use the useSearchResults hook.
+ * - If you need to access the results and want to keep it uncontrolled for convenience, use the **useObjectSearch** hook.
+ * In case you are using a class component, you can use the **withObjectSearch** HOC.
  * @properties
  * - searchedObjectType: The type of object that is being searched
  * - optionsFormatter (optional): A function that formats the search results into options

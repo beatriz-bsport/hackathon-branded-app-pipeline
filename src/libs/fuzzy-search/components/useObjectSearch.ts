@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+// eslint-disable-next-line bsport/no-redux-in-component
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
@@ -12,7 +12,8 @@ import { SearchObjectType, SearchState } from '#libs/fuzzy-search/types';
  * @returns
  * - getResultsById: Function to get the search results by object type.
  */
-export const useSearchResults = (searchedObjectTypes?: SearchObjectType[]) => {
+
+export const useObjectSearch = (searchedObjectTypes?: SearchObjectType[]) => {
   const comparisonFn = useCallback(
     (prev: SearchState, next: SearchState) => {
       if (!searchedObjectTypes) return Object.is(prev, next);

@@ -51,6 +51,7 @@ import type { CustomForm } from '../../libs/custom-form/types';
 import CustomFormList from '../../libs/custom-form/components/CustomFormList.component';
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 
 type State = {
   openCreateDialog: boolean;
@@ -58,7 +59,9 @@ type State = {
   showDisabledForms: boolean;
   searchText: string;
   searchResult: Array<CustomForm>;
+  customFormIdToDelete: number | null;
 };
+
 type OwnProps = {
   customFormList: Array<any>;
 };
@@ -85,6 +88,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
       searchResult: [],
       openCreateDialog: false,
       openEditDialog: false,
+      customFormIdToDelete: null,
       showDisabledForms: true,
     };
   }
@@ -116,6 +120,17 @@ export class CustomFormListPage extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  handleConfirmDeleteDialog = () => {
+    this.props.disableCustomForm(this.state.customFormIdToDelete);
+    this.setState({ customFormIdToDelete: null });
+  };
+
+  handleCancelDeleteDialog = () =>
+    this.setState({ customFormIdToDelete: null });
+
+  setCustomFormIdToDelete = (id: number) =>
+    this.setState({ customFormIdToDelete: id });
+
   onShowDisabled = () => {
     this.setState((prevState) => ({
       ...prevState,
@@ -128,6 +143,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
     if (this.props.customFormLoading) {
       return <BackofficeLinearProgress />;
     }
+
     return (
       <div className={classes.container}>
         {(!customFormList ||
@@ -218,9 +234,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       )}
                       customFormSelected={this.props.customFormSelected}
                       onClick={(id: number) => this.selected(id)}
-                      onClickDelete={(id: number) =>
-                        this.props.disableCustomForm(id)
-                      }
+                      onClickDelete={this.setCustomFormIdToDelete}
                       onClickDuplicate={(id: number) =>
                         this.props.duplicateCustomForm(id, {
                           onSuccess: (payload) =>
@@ -379,7 +393,19 @@ export class CustomFormListPage extends React.Component<Props, State> {
             open={this.props.openCreateDialog}
           />
         )}
-
+        <ModalConfirm
+          handleCancel={this.handleCancelDeleteDialog}
+          handleConfirm={this.handleConfirmDeleteDialog}
+          open={!!this.state.customFormIdToDelete}
+          options={{
+            title: 'marketing:customForm.modal.delete.title',
+            cancel: 'marketing:customForm.modal.delete.cancel',
+            confirm: 'marketing:customForm.modal.delete.confirm',
+            Content: () => (
+              <p>{t('marketing:customForm.modal.delete.content')}</p>
+            ),
+          }}
+        />
         <BottomActionButtons
           onCreate={async () => {
             this.props.setCustomFormSelected(null);

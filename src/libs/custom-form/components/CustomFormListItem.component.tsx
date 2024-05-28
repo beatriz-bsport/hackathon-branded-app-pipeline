@@ -1,11 +1,5 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -38,49 +32,6 @@ type Props = {
   showQuestionCount?: boolean;
 };
 
-type DialogProps = {
-  open: boolean;
-  onClickDelete: () => void;
-  onClickCancel: () => void;
-};
-const dialogUseStyles = makeStyles((theme) => ({
-  deleteDialogActions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-  },
-}));
-const DeleteDialog = (props: DialogProps) => {
-  const classes = dialogUseStyles();
-  const { t } = useTranslation(['marketing']);
-  const { open, onClickDelete, onClickCancel } = props;
-  return (
-    <Dialog disableBackdropClick open={open}>
-      <DialogTitle>
-        {/* @ts-expect-error */}
-        <div className={classes.title}>
-          <Typography>{t('customForm.modal.delete.title')}</Typography>
-        </div>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          {t('marketing:customForm.modal.delete.content')}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions className={classes.deleteDialogActions}>
-        <Button color="secondary" onClick={onClickCancel}>
-          {t('customForm.modal.delete.cancel')}
-        </Button>
-        <Button color="primary" onClick={onClickDelete}>
-          {t('customForm.modal.delete.confirm')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
-
 export const CustomFormListItem = (props: Props) => {
   const {
     withDisplayRule,
@@ -91,7 +42,6 @@ export const CustomFormListItem = (props: Props) => {
   } = props;
   const classes = useStyles();
   const { t } = useTranslation(['marketing']);
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const customFormName = () => {
     if (props.customform.is_signup) {
       return t('customForm.signupFormTitle');
@@ -102,109 +52,102 @@ export const CustomFormListItem = (props: Props) => {
     return props.customform.name;
   };
   return (
-    <>
-      <ListItem
-        // @ts-expect-error
-        button={!!props.onClick}
-        className={classes.listitem}
-        divider={divider}
-        onClick={(e) => {
-          stopPropagation && e.stopPropagation();
-          props.onClick && props.onClick(props.customform.id);
-        }}
-        selected={props.selected}
-      >
-        <Grid container>
-          <Grid item className={classes.nameItem} xs={gridItemXs ?? 3}>
-            <div>
-              <Typography component="span">{customFormName()}</Typography>
-            </div>
-          </Grid>
-          {showQuestionCount && (
-            <Grid
-              item
-              className={classes.questionItem}
-              xs={withDisplayRule ? 3 : 6}
-            >
-              <Typography component="span">
-                {
-                  props.customform?.custom_form_field.filter(
-                    (field) =>
-                      !field.disabled &&
-                      ![
-                        CUSTOM_FORM_FIELD_TITLE_OPTION,
-                        CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
-                      ].includes(field.kind),
-                  ).length
-                }
-              </Typography>
-            </Grid>
-          )}
-
-          {props.withDisplayRule && (
-            <Grid item className={classes.displayRuleItem} xs={3}>
-              {props.customform.display_rules.map((rule) => (
-                <Chip
-                  key={rule?.id}
-                  className={classes.chip}
-                  color="primary"
-                  label={
-                    rule.kind === CUSTOM_FORM_DISPLAY_ON_CONNECTION
-                      ? t('customForm.displayRule.forRegisteredMember', {
-                          count: rule.timedelta_day_before_display,
-                        })
-                      : t('customForm.displayRule.forNewMember')
-                  }
-                />
-              ))}
-            </Grid>
-          )}
+    <ListItem
+      // @ts-expect-error
+      button={!!props.onClick}
+      className={classes.listitem}
+      divider={divider}
+      onClick={(e) => {
+        stopPropagation && e.stopPropagation();
+        props.onClick && props.onClick(props.customform.id);
+      }}
+      selected={props.selected}
+    >
+      <Grid container>
+        <Grid item className={classes.nameItem} xs={gridItemXs ?? 3}>
+          <div>
+            <Typography component="span">{customFormName()}</Typography>
+          </div>
+        </Grid>
+        {showQuestionCount && (
           <Grid
             item
-            className={
-              props.withDisplayRule
-                ? classes.actionItemMarginRight
-                : classes.actionItem
-            }
-            xs={3}
+            className={classes.questionItem}
+            xs={withDisplayRule ? 3 : 6}
           >
-            <ListItemResponsiveAction
-              actions={[
-                props.onClickEdit && {
-                  icon: ArrowForwardIcon,
-                  label: t('edit'),
-                  color: 'primary',
-                  onClick: () => props.onClickEdit(props.customform.id),
-                },
-                props.onClickDuplicate && {
-                  icon: FileCopyIcon,
-                  label: t('duplicate'),
-                  color: 'primary',
-                  onClick: () => props.onClickDuplicate(props.customform.id),
-                },
-                props.onClickDelete && {
-                  icon: DeleteIcon,
-                  onClick: () => setDeleteDialogOpen(true),
-                  color: 'secondary',
-                  label: t('delete'),
-                },
-                props.onRestore && {
-                  icon: RestoreFromTrashIcon,
-                  label: t('restore'),
-                  color: 'primary',
-                  onClick: () => props.onRestore(props.customform.id),
-                },
-              ]}
-            />
+            <Typography component="span">
+              {
+                props.customform?.custom_form_field.filter(
+                  (field) =>
+                    !field.disabled &&
+                    ![
+                      CUSTOM_FORM_FIELD_TITLE_OPTION,
+                      CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
+                    ].includes(field.kind),
+                ).length
+              }
+            </Typography>
           </Grid>
+        )}
+
+        {props.withDisplayRule && (
+          <Grid item className={classes.displayRuleItem} xs={3}>
+            {props.customform.display_rules.map((rule) => (
+              <Chip
+                key={rule?.id}
+                className={classes.chip}
+                color="primary"
+                label={
+                  rule.kind === CUSTOM_FORM_DISPLAY_ON_CONNECTION
+                    ? t('customForm.displayRule.forRegisteredMember', {
+                        count: rule.timedelta_day_before_display,
+                      })
+                    : t('customForm.displayRule.forNewMember')
+                }
+              />
+            ))}
+          </Grid>
+        )}
+        <Grid
+          item
+          className={
+            props.withDisplayRule
+              ? classes.actionItemMarginRight
+              : classes.actionItem
+          }
+          xs={3}
+        >
+          <ListItemResponsiveAction
+            actions={[
+              props.onClickEdit && {
+                icon: ArrowForwardIcon,
+                label: t('edit'),
+                color: 'primary',
+                onClick: () => props.onClickEdit(props.customform.id),
+              },
+              props.onClickDuplicate && {
+                icon: FileCopyIcon,
+                label: t('duplicate'),
+                color: 'primary',
+                onClick: () => props.onClickDuplicate(props.customform.id),
+              },
+              props.onClickDelete && {
+                icon: DeleteIcon,
+                onClick: () => props.onClickDelete(props.customform.id),
+                color: 'secondary',
+                label: t('delete'),
+              },
+              props.onRestore && {
+                icon: RestoreFromTrashIcon,
+                label: t('restore'),
+                color: 'primary',
+                onClick: () => props.onRestore(props.customform.id),
+              },
+            ]}
+          />
         </Grid>
-      </ListItem>
-      <DeleteDialog
-        onClickCancel={() => setDeleteDialogOpen(false)}
-        onClickDelete={() => props.onClickDelete(props.customform.id)}
-        open={deleteDialogOpen}
-      />
-    </>
+      </Grid>
+    </ListItem>
   );
 };
 
@@ -253,4 +196,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CustomFormListItem;
+export default React.memo(CustomFormListItem);

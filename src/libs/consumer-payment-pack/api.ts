@@ -8,6 +8,7 @@ import {
 import { cleanParams } from '../../utils/createUrlHandlers';
 import type { PaginatedResponse } from '../../state/types';
 import type {
+  ConsumerPaymentPack,
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackExtensionCreate,
   ConsumerPaymentPackExtensionParams,
@@ -61,6 +62,16 @@ export async function fetchConsumerPackList(params: any = {}) {
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({
       ...(cleanedParams || {}),
     })}`,
+  );
+}
+
+/**
+ * Fetch a specific consumer payment pack
+ * @param params Object containing the required `consumer_payment_pack` ID
+ */
+export async function fetchConsumerPack(id: number) {
+  return getAuth<ConsumerPaymentPack>(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}`,
   );
 }
 

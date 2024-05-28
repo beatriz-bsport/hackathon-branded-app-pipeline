@@ -24,6 +24,7 @@ import {
   unblock as unblockAPI,
   fetchConsumerPaymentPackMaxoutBooking as fetchConsumerPaymentPackMaxoutBookingAPI,
   fetchByOfferByMemberV2 as fetchByOfferByMemberV2API,
+  fetchConsumerPack as fetchConsumerPackAPI,
 } from './api';
 
 import type {
@@ -491,6 +492,36 @@ export function retrieveConsumerPackBulk(
       }
     }
     dispatch(retrieveBulk.isLoading(false));
+  };
+}
+
+export const fetchConsumerPackAction = {
+  isLoading: createAction<boolean>(
+    'CONSUMER_PACK/GET_CONSUMER_PACK/IS_LOADING',
+  ),
+  error: createAction<Error | null>('CONSUMER_PACK/GET_CONSUMER_PACK/ERROR'),
+  success: createAction<ConsumerPaymentPack>(
+    'CONSUMER_PACK/GET_CONSUMER_PACK/SUCCESS',
+  ),
+};
+
+export function fetchConsumerPack(
+  id: number,
+  options: OptionCallback<ConsumerPaymentPack>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchConsumerPackAction.isLoading(true));
+    dispatch(fetchConsumerPackAction.error(null));
+    try {
+      const response = await fetchConsumerPackAPI(id);
+      dispatch(fetchConsumerPackAction.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchConsumerPackAction.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchConsumerPackAction.isLoading(false));
   };
 }
 

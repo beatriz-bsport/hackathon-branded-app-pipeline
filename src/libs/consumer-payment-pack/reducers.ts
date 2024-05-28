@@ -19,9 +19,11 @@ import {
   listConsumerPaymentPackPenaltyActions,
   consumerPaymentPackMaxoutBookingAction,
   listConsumerPaymentPackActions,
+  fetchConsumerPackAction,
 } from './actions';
 
 import {
+  ConsumerPaymentPack,
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackState,
 } from './types';
@@ -419,6 +421,24 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         },
         { deep: true },
       );
+    },
+    [fetchConsumerPackAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['loading'], payload);
+    },
+    [fetchConsumerPackAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['error'], payload);
+    },
+    [fetchConsumerPackAction.success.toString()]: (
+      state,
+      { payload }: { payload: ConsumerPaymentPack },
+    ) => {
+      return state.setIn(['byId', payload.id], payload);
     },
     [listConsumerPaymentPackCompatibleActions.isLoading.toString()]: (
       state,

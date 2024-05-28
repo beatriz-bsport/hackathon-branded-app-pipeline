@@ -46,7 +46,6 @@ type PaymentStepProps = {
   ) => void;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
-  stripeId: string | null;
   termsAndConditions: string;
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
@@ -94,7 +93,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
       snackbarSuccessMsg,
-      stripeId,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,
@@ -220,7 +218,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
             snackbarErrorMsg={snackbarErrorMsg}
             snackbarSuccessMsg={snackbarSuccessMsg}
-            stripeId={stripeId}
             termsAndConditions={termsAndConditions}
             termsAndConditionsAccepted={termsAndConditionsAccepted}
             useInternalAccount={useInternalAccount}

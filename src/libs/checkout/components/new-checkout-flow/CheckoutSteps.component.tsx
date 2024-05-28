@@ -64,7 +64,6 @@ type CheckoutStepsProps = {
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
   setPaymentProcessing: (isPaymentProcessing: boolean) => void;
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
-  stripeId: string | null;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
   steps: ImmutableArray<StepType>;
@@ -119,7 +118,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       snackbarErrorMsg,
       snackbarSuccessMsg,
       steps,
-      stripeId,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,
@@ -234,7 +232,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
                 snackbarErrorMsg={snackbarErrorMsg}
                 snackbarSuccessMsg={snackbarSuccessMsg}
-                stripeId={stripeId}
                 termsAndConditions={termsAndConditions}
                 termsAndConditionsAccepted={termsAndConditionsAccepted}
                 useInternalAccount={useInternalAccount}
@@ -283,7 +280,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
       snackbarSuccessMsg,
-      stripeId,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,

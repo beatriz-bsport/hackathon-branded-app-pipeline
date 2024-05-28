@@ -35,7 +35,6 @@ type Props = {
   paymentProcessing: boolean;
   paymentSucceeded: boolean;
   ref: React.Ref<any>;
-  stripeId: string | null;
   applyBalanceToInvoice: () => void;
   detachPaymentMethod: (id: string) => void;
   onPaymentSuccess: (callback?: () => void) => void;
@@ -60,7 +59,6 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
       paymentGroupPriceCts,
       paymentProcessing,
       paymentSucceeded,
-      stripeId,
       applyBalanceToInvoice,
       detachPaymentMethod,
       onPaymentSuccess,
@@ -171,7 +169,6 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
             setPaymentProcessing={setPaymentProcessing}
-            stripeId={stripeId}
           />
         )}
         {paymentProcessing && (

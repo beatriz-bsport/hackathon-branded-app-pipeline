@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { Elements } from '@stripe/react-stripe-js';
-import { Appearance, loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -18,7 +18,6 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
   PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 
 import type { OptionCallback } from '#src/state/types';
@@ -40,13 +39,7 @@ import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
   getCompanyCountry,
-  getStripeRegion,
 } from '#src/libs/theme/selectors';
-import {
-  updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
-  updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
-} from '#src/libs/payment/api';
-import PaymentStripeBacsDebit from './PaymentStripeBacsDebit.component';
 import PaymentStripeBancontact from './PaymentStripeBancontact.component';
 import PaymentStripeCard from './PaymentStripeCard.component';
 import PaymentStripeEPS from './PaymentStripeEPS.component';
@@ -56,8 +49,6 @@ import PaymentStripeSEPA from './PaymentStripeSEPA.component';
 import PaymentStripeSofort from './PaymentStripeSofort.component';
 
 const fallbackStripePromise = loadStripe(getStripePkKey());
-
-const SAVE_FOR_LATER_OFF_SESSION = 'off_session';
 
 type PaymentStripeProps = {
   allowConsumerToUseInternalAccount?: boolean;
@@ -90,7 +81,6 @@ type PaymentStripeProps = {
   selectedEstablishmentBillingGroup?: EstablishmentBillingGroup;
   sepaDefaultEmail?: string;
   sepaDefaultName?: string;
-  stripeId: string | null;
   termsAndConditions?: string;
   termsAndConditionsAccepted?: boolean;
   applyBalanceToInvoice?: () => void;
@@ -138,19 +128,7 @@ const STRIPE_PAYMENT_METHOD_FORM_COMPONENT: { [key: number]: any } = {
   [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: PaymentStripeEPS,
   [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: PaymentStripeGiropay,
   // [PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY]: PaymentStripeMobilePay,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]: PaymentStripeBacsDebit,
-};
-
-const BACS_DEBIT_ELEMENT_APPEARANCE: Appearance = {
-  theme: 'stripe',
-
-  variables: {
-    colorPrimary: '#32325d',
-    fontFamily: 'Roboto, sans-serif',
-    fontSizeBase: '16px',
-    fontWeightNormal: '400',
-    fontLineHeight: '1.5',
-  },
+  //  [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]: PaymentStripeBacsDebit,
 };
 
 const PaymentStripe: React.FC<
@@ -185,7 +163,6 @@ const PaymentStripe: React.FC<
       selectedEstablishmentBillingGroup,
       sepaDefaultEmail,
       sepaDefaultName,
-      stripeId,
       termsAndConditions,
       termsAndConditionsAccepted,
       applyBalanceToInvoice,
@@ -216,26 +193,11 @@ const PaymentStripe: React.FC<
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     );
 
-    const isBacsDebitSelected =
-      paymentMethodSelected === PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT;
-
     const companyCountry = getCompanyCountry();
-    const stripeRegion = getStripeRegion();
-
-    // If the company is in UK Europe Country, BACS Direct Debit could be available and so the PaymentIntent could need a reset
-    const isInUkEurope = stripeRegion === 'Europe' && companyCountry === 'GB';
 
     const StripePaymentMethodForm =
       STRIPE_PAYMENT_METHOD_FORM_COMPONENT[paymentMethodSelected];
 
-    const updateIntentToSavePaymentMethodAdaptedAPI = fromApp
-      ? updateIntentToSavePaymentMethodWebviewAPI
-      : updateIntentToSavePaymentMethodAPI;
-
-    const [processing, setProcessing] = React.useState(true);
-    const [elementOptions, setElementOptions] = React.useState({});
-    const [saveForLaterBacsDebit, setSaveForLaterBacsDebit] =
-      React.useState<boolean>(false);
     const [priceUpdaterOpen, setPriceUpdaterOpen] = React.useState(false);
     const [priceUpdateAmount, setPriceUpdateAmount] = React.useState(
       paymentGroupPriceCts / 100,
@@ -244,42 +206,10 @@ const PaymentStripe: React.FC<
     const totalPriceCts = basketTotalPriceCts || paymentGroupPriceCts;
 
     const handleSelectPaymentMethod = useCallback(
-      async (paymentMethod: number) => {
-        // If we change the payment method we want to reinitialize the 'save_for_later"
-        // option on the Payment Intent, for the companies where BACS Direct Debit is available
-        if (
-          paymentGroupId &&
-          paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT
-        ) {
-          setElementOptions({});
-          try {
-            if (isInUkEurope && (!fromApp || basketId)) {
-              await updateIntentToSavePaymentMethodAdaptedAPI({
-                save_for_later: false,
-                payment_group_id: paymentGroupId,
-                ...(fromApp ? { basket_id: basketId } : {}),
-              });
-              setSaveForLaterBacsDebit(false);
-            }
-          } catch (err) {
-            console.error(err);
-          }
-        } else {
-          // If we change the payment method to BACS Direct Debit we want to be sure
-          // not to try to mount the PaymentStripeBacsDebit component without having updated
-          // the elementOptions.
-          setProcessing(true);
-        }
+      (paymentMethod: number) => {
         selectPaymentMethod(paymentMethod);
       },
-      [
-        basketId,
-        fromApp,
-        isInUkEurope,
-        paymentGroupId,
-        selectPaymentMethod,
-        updateIntentToSavePaymentMethodAdaptedAPI,
-      ],
+      [selectPaymentMethod],
     );
 
     // This useEffect is mandatory in the new checkout flow, since if this condition is not
@@ -287,40 +217,8 @@ const PaymentStripe: React.FC<
     // Pay button to be active
     React.useEffect(() => {
       if (setIsOnlinePaymentDisabled)
-        setIsOnlinePaymentDisabled(processing || !totalPriceCts);
-    }, [processing, setIsOnlinePaymentDisabled, totalPriceCts]);
-
-    // Avoid to have the Elements component mounted before the clientSecret properly fetched, or the BACS Direct Debit
-    // component mounted without the Element options set.
-    React.useEffect(() => {
-      if (isBacsDebitSelected && totalPriceCts) {
-        setElementOptions({
-          appearance: BACS_DEBIT_ELEMENT_APPEARANCE,
-          mode: 'payment',
-          currency: 'gbp',
-          amount: totalPriceCts,
-          paymentMethodTypes: ['bacs_debit'],
-          setupFutureUsage: saveForLaterBacsDebit
-            ? SAVE_FOR_LATER_OFF_SESSION
-            : null,
-          // TEMPORARY: The behaviour of PaymentElement for BACS DirectDebit payments needs to be tested in the Stripe live mode.
-          // However since Stripe webhooks for processing BACS DD payments aren't fully operational, we don't want to allow the
-          // BACS DD payments for real members
-          ...(window.location.search.includes('debug=true')
-            ? { onBehalfOf: stripeId }
-            : {}),
-        });
-        setProcessing(false);
-      } else if (clientSecret) {
-        setProcessing(false);
-      }
-    }, [
-      clientSecret,
-      isBacsDebitSelected,
-      totalPriceCts,
-      saveForLaterBacsDebit,
-      stripeId,
-    ]);
+        setIsOnlinePaymentDisabled(!clientSecret || !totalPriceCts);
+    }, [clientSecret, setIsOnlinePaymentDisabled, totalPriceCts]);
 
     const enhancedSetPaymentProcessing = setPaymentProcessing
       ? (value: boolean) => {
@@ -404,14 +302,11 @@ const PaymentStripe: React.FC<
               />
             )}
         </>
-        {processing || !totalPriceCts ? (
+        {!clientSecret || !totalPriceCts ? (
           <CircularProgress />
         ) : (
           <div className={classes.innerContainer}>
-            <Elements
-              options={elementOptions}
-              stripe={stripePromise ?? fallbackStripePromise}
-            >
+            <Elements stripe={stripePromise ?? fallbackStripePromise}>
               <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
                 {(hasAddPaymentMethodPermission) => (
                   <StripePaymentMethodForm
@@ -461,10 +356,8 @@ const PaymentStripe: React.FC<
                     onError={onError}
                     onSuccess={onSuccess}
                     paymentGroupId={paymentGroupId}
-                    saveForLaterBacsDebit={saveForLaterBacsDebit}
                     setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                     setPaymentProcessing={enhancedSetPaymentProcessing}
-                    setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
                     snackbarErrorMsg={snackbarErrorMsg} // Unused as it does not exist in the child component
                     snackbarSuccessMsg={snackbarSuccessMsg} // Unused as it does not exist in the child component
                     termsAndConditionsAccepted={termsAndConditionsAccepted}

@@ -30,7 +30,6 @@ type Props = {
   isMultilocationEnabled: boolean;
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
-  stripeId: string;
   totalUnpaid: number;
   applyBalanceToInvoice: (invoiceUuid: string) => void;
   changeSelectedFilter: (filter: InvoicesFiltersEnum) => void;
@@ -53,7 +52,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   isMultilocationEnabled,
   membership,
   selectedFilter,
-  stripeId,
   totalUnpaid,
   applyBalanceToInvoice,
   changeSelectedFilter,
@@ -203,7 +201,6 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           onPaymentSuccess={handleRefreshAfterPayment}
           paymentGroupId={paymentGroupId}
           requestClientSecret={requestClientSecret}
-          stripeId={stripeId}
         />
       )}
     </MarketplacePageContent>

@@ -195,7 +195,6 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
         refreshConsumerInvoices={this.refreshConsumerInvoices}
         refreshMembership={this.refreshMembership}
         selectedFilter={this.state.selectedFilter}
-        stripeId={this.props.theme.stripe_id}
         totalUnpaid={this.props.unpaidInvoicesCount}
       />
     );

@@ -456,7 +456,6 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               snackbarErrorMsg={snackbarErrorMsg}
               snackbarSuccessMsg={snackbarSuccessMsg}
               steps={steps}
-              stripeId={theme.stripe_id}
               termsAndConditions={theme.general_terms_and_conditions}
               termsAndConditionsAccepted={termsAndConditionsAccepted}
               updateMemberBillingGroup={updateMemberBillingGroup}

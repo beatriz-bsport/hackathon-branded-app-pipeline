@@ -23,7 +23,6 @@ type Props = {
   isOpen: boolean;
   memberId: number;
   paymentGroupId: number | null;
-  stripeId: string;
   applyBalanceToInvoice: (invoiceUuid: string) => void;
   detachPaymentMethod: (id: string) => void;
   onClose: () => void;
@@ -46,7 +45,6 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
   isOpen,
   memberId,
   paymentGroupId,
-  stripeId,
   applyBalanceToInvoice,
   detachPaymentMethod,
   onClose,
@@ -123,7 +121,6 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
         paymentSucceeded={paymentSucceeded}
         priceToPayCts={consumerInvoice.amount_left_to_pay_cts}
         setPaymentProcessing={handlePaymentProcessing}
-        stripeId={stripeId}
         title={title}
       />
     );
@@ -155,7 +152,6 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
       paymentSucceeded={paymentSucceeded}
       priceToPayCts={consumerInvoice.amount_left_to_pay_cts}
       setPaymentProcessing={handlePaymentProcessing}
-      stripeId={stripeId}
       title={title}
     />
   );

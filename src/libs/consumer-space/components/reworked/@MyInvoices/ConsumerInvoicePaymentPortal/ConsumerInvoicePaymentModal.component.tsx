@@ -25,7 +25,6 @@ type Props = {
   paymentSucceeded: boolean;
   priceToPayCts: number;
   ref: React.Ref<any>;
-  stripeId: string;
   title: string;
   applyBalanceToInvoice: () => void;
   confirmPayment: () => void;
@@ -53,7 +52,6 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
       paymentProcessing,
       paymentSucceeded,
       priceToPayCts,
-      stripeId,
       title,
       applyBalanceToInvoice,
       confirmPayment,
@@ -122,7 +120,6 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
               paymentProcessing={paymentProcessing}
               paymentSucceeded={paymentSucceeded}
               setPaymentProcessing={setPaymentProcessing}
-              stripeId={stripeId}
             />
           </ModalDialog>
         </Blanket>

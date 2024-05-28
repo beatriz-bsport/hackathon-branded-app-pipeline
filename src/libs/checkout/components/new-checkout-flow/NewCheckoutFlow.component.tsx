@@ -11,10 +11,6 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import {
-  PAYMENT_ENGINE_STRIPE,
-  PAYMENT_GROUP_METHOD_BY_ENGINE,
-} from '@bsport/common/lib/master-data/payment-group';
-import {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
@@ -85,6 +81,7 @@ type NewCheckoutFlowProps = {
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>;
   checkItemsBasket: (basketId: string) => boolean;
   clientSecret: string | null;
+  clientSecretLoading: boolean;
   companyId: number;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
@@ -106,6 +103,7 @@ type NewCheckoutFlowProps = {
   ) => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;
+  paymentMethodChoices: Array<number>;
   paymentProcessing?: boolean;
   removeItemFromBasket: (
     basketId: string,
@@ -117,7 +115,6 @@ type NewCheckoutFlowProps = {
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
   snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   termsAndConditionsAccepted: boolean;
   theme: CompanyTheme;
   useInternalAccount?: (amount: number) => void;
@@ -149,6 +146,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   basketOffers,
   checkItemsBasket,
   clientSecret,
+  clientSecretLoading,
   companyId,
   createPendingBookingsIfNecessary,
   updateMemberBillingGroup,
@@ -166,13 +164,13 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   onSelectInstalmentPayment,
   patchBasket,
   paymentGroupId,
+  paymentMethodChoices,
   paymentProcessing,
   removeItemFromBasket,
   setPaymentProcessing,
   setTermsAndConditionsAccepted,
   setIsEstablishmentBillingGroupSelected,
   snackbarErrorMsg,
-  snackbarSuccessMsg,
   termsAndConditionsAccepted,
   theme,
   useInternalAccount,
@@ -410,6 +408,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
               checkItemsBasket={checkItemsBasket}
               clientSecret={clientSecret}
+              clientSecretLoading={clientSecretLoading}
               companyCountry={companyCountry}
               companyId={companyId}
               createPendingBookingsIfNecessary={
@@ -434,11 +433,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               onSelectInstalmentPayment={onSelectInstalmentPayment}
               patchBasket={patchBasket}
               paymentGroupId={paymentGroupId}
-              paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                PAYMENT_ENGINE_STRIPE
-              ].filter((pm) =>
-                (theme.payment_method_available_basket || []).includes(pm),
-              )}
+              paymentMethodChoices={paymentMethodChoices}
               paymentProcessing={paymentProcessing}
               selectedEstablishmentBillingGroup={
                 selectedEstablishmentBillingGroup
@@ -454,7 +449,6 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               }
               setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
               snackbarErrorMsg={snackbarErrorMsg}
-              snackbarSuccessMsg={snackbarSuccessMsg}
               steps={steps}
               termsAndConditions={theme.general_terms_and_conditions}
               termsAndConditionsAccepted={termsAndConditionsAccepted}

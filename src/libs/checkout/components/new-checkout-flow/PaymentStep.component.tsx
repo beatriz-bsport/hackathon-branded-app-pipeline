@@ -6,9 +6,9 @@ import type { Basket, PrepaidLine } from '#src/libs/checkout/types';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 
-import PaymentStripe from '#src/libs/payment/components/payment-backend-stripe/PaymentStripe.component';
-import { BasketNullPrice } from '#src/libs/checkout/components/new-checkout-flow/BasketNullPrice.component';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
+import OnlinePayment from '#libs/payment/components/OnlinePayment.component';
+import { BasketNullPrice } from '#libs/checkout/components/new-checkout-flow/BasketNullPrice.component';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 
 type PaymentStepProps = {
   allowConsumerToUseInternalAccount: boolean;
@@ -45,7 +45,6 @@ type PaymentStepProps = {
     areTermsAndConditionsAccepted: boolean,
   ) => void;
   snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   termsAndConditions: string;
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
@@ -61,6 +60,7 @@ type PaymentStepProps = {
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  clientSecretLoading: boolean;
 };
 
 export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
@@ -92,7 +92,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
-      snackbarSuccessMsg,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,
@@ -104,6 +103,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       setSelectedEstablishmentBillingGroup,
       setIsEstablishmentBillingGroupSelected,
       selectedEstablishmentBillingGroup,
+      clientSecretLoading,
     },
     ref,
   ) => {
@@ -170,7 +170,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
     return (
       <>
         {isOnlinePaymentAvailable && (
-          <PaymentStripe
+          <OnlinePayment
             ref={paymentStripeRef}
             allowConsumerToUseInternalAccount={
               allowConsumerToUseInternalAccount
@@ -181,6 +181,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             cardBillingDetailsMandatory={cardBillingDetailsMandatory}
             checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
+            clientSecretLoading={clientSecretLoading}
             companyId={companyId}
             createPendingBookingsIfNecessary={createPendingBookingsIfNecessary}
             creditAccountBalance={creditAccountBalance}
@@ -217,7 +218,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             }
             setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
             snackbarErrorMsg={snackbarErrorMsg}
-            snackbarSuccessMsg={snackbarSuccessMsg}
             termsAndConditions={termsAndConditions}
             termsAndConditionsAccepted={termsAndConditionsAccepted}
             useInternalAccount={useInternalAccount}

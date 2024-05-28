@@ -13,7 +13,7 @@ import Alert from '#Fabrique/Alert';
 import BigIcon from '#Fabrique/BigIcon';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import LinearProgess from '#Fabrique/LinearProgress';
-import PaymentStripe from '#src/libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import OnlinePayment from '#libs/payment/components/OnlinePayment.component';
 import Typography from '#Fabrique/Typography';
 
 import './styles.css';
@@ -141,7 +141,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
             <CircularProgress />
           </div>
         ) : (
-          <PaymentStripe
+          <OnlinePayment
             ref={ref}
             forceHideButton
             hidePrice
@@ -151,6 +151,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
             applyBalanceToInvoice={applyBalanceToInvoice}
             cardBillingDetailsMandatory={cardBillingDetailsMandatory}
             clientSecret={clientSecret}
+            clientSecretLoading={clientSecretLoading}
             companyId={companyId}
             creditAccountBalance={creditAccountBalance}
             detachPaymentMethod={detachPaymentMethod}

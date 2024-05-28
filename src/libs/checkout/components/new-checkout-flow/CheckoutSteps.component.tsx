@@ -31,6 +31,7 @@ type CheckoutStepsProps = {
   billingGroupSelectorRef: React.Ref<React.ReactNode>;
   checkItemsBasket: (basketId: string) => boolean;
   clientSecret: string | null;
+  clientSecretLoading: boolean;
   companyCountry?: string;
   companyId: number;
   createPendingBookingsIfNecessary?: (data?: {
@@ -65,7 +66,6 @@ type CheckoutStepsProps = {
   setPaymentProcessing: (isPaymentProcessing: boolean) => void;
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
   snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   steps: ImmutableArray<StepType>;
   termsAndConditions: string;
   termsAndConditionsAccepted: boolean;
@@ -89,6 +89,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       basketLoading,
       checkItemsBasket,
       clientSecret,
+      clientSecretLoading,
       companyCountry,
       companyId,
       updateMemberBillingGroup,
@@ -116,7 +117,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
-      snackbarSuccessMsg,
       steps,
       termsAndConditions,
       termsAndConditionsAccepted,
@@ -192,6 +192,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 checkItemsBasket={checkItemsBasket}
                 clientSecret={clientSecret}
+                clientSecretLoading={clientSecretLoading}
                 companyId={companyId}
                 createPendingBookingsIfNecessary={
                   createPendingBookingsIfNecessary
@@ -231,7 +232,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 }
                 setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
                 snackbarErrorMsg={snackbarErrorMsg}
-                snackbarSuccessMsg={snackbarSuccessMsg}
                 termsAndConditions={termsAndConditions}
                 termsAndConditionsAccepted={termsAndConditionsAccepted}
                 useInternalAccount={useInternalAccount}
@@ -256,6 +256,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       basketLoading,
       checkItemsBasket,
       clientSecret,
+      clientSecretLoading,
       companyCountry,
       companyId,
       createPendingBookingsIfNecessary,
@@ -279,7 +280,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
-      snackbarSuccessMsg,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,

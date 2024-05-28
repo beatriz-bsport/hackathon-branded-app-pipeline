@@ -11,7 +11,6 @@ import type { Theme } from '@material-ui/core/styles';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   PAYMENT_ENGINE_STRIPE,
@@ -91,11 +90,8 @@ import asyncComponent from '../../AsyncComponent';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 
-const PaymentStripe = asyncComponent(
-  () =>
-    import(
-      '../../libs/payment/components/payment-backend-stripe/PaymentStripe.component'
-    ),
+const OnlinePayment = asyncComponent(
+  () => import('../../libs/payment/components/OnlinePayment.component'),
 );
 
 type Props = {
@@ -519,7 +515,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             </div>
           </>
         ) : (
-          <PaymentStripe
+          <OnlinePayment
             fromApp
             termsAndConditionsAccepted
             allowConsumerToUseInternalAccount={

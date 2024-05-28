@@ -92,7 +92,7 @@ import { getShopItemFeaturedList } from '../../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
-import PaymentStripe from '../../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import OnlinePayment from '../../../libs/payment/components/OnlinePayment.component';
 import {
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
   checkItemsBasket as checkItemsBasketAPI,
@@ -541,7 +541,7 @@ export class BasketPage extends React.Component<Props> {
                   }
                   patchBasket={this.props.patchCurrentBasket}
                   paymentModule={
-                    <PaymentStripe
+                    <OnlinePayment
                       allowConsumerToUseInternalAccount={
                         this.props.theme.allow_consumer_to_use_internal_account
                       }
@@ -668,6 +668,7 @@ export class BasketPage extends React.Component<Props> {
                   }
                   checkItemsBasket={this.props.checkItemsBasket}
                   clientSecret={this.state.clientSecret}
+                  clientSecretLoading={this.state.clientSecretLoading}
                   companyId={this.props.companyId}
                   createPendingBookingsIfNecessary={
                     this.createPendingBookingsIfNecessary
@@ -706,6 +707,13 @@ export class BasketPage extends React.Component<Props> {
                   onSelectInstalmentPayment={this.onSelectInstalmentPayment}
                   patchBasket={this.props.patchCurrentBasket}
                   paymentGroupId={this.state.paymentGroupId}
+                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                    PAYMENT_ENGINE_STRIPE
+                  ].filter((pm) =>
+                    (
+                      this.props.theme.payment_method_available_basket || []
+                    ).includes(pm),
+                  )}
                   paymentProcessing={this.props.paymentProcessing}
                   refreshBasket={this.props.refreshBasket}
                   removeItemFromBasket={this.props.removeItemFromBasket}

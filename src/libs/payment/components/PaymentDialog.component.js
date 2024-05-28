@@ -27,7 +27,6 @@ import { FeatureList } from '#src/libs/company/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
-import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';
 import { Establishment } from '../../establishment/types';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../api';
@@ -37,6 +36,7 @@ import type {
   OptionCallback,
   OptionBackgroundCallback,
 } from '../../state/types';
+import OnlinePayment from './OnlinePayment.component';
 
 type Props = {
   clientSecret: string,
@@ -269,7 +269,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===
                     PAYMENT_ENGINE_STRIPE && (
-                    <PaymentStripe
+                    <OnlinePayment
                       allowConsumerToUseInternalAccount={
                         this.props.allowConsumerToUseInternalAccount
                       }
@@ -290,6 +290,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                         this.props.cardBillingDetailsMandatory
                       }
                       clientSecret={this.props.clientSecret}
+                      clientSecretLoading={this.props.clientSecretLoading}
                       companyId={this.props.companyId}
                       creditAccountBalance={this.props.creditAccountBalance}
                       detachPaymentMethod={this.props.detachPaymentMethod}

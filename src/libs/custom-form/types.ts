@@ -206,3 +206,10 @@ export type SignUpCustomFormPayload = {
   email_confirmed: boolean;
   user_id: number;
 };
+
+export type CustomFormQueryParams = {
+  id__in?: number[];
+  disabled?: boolean;
+  is_signup?: boolean;
+  is_member_form?: boolean;
+};

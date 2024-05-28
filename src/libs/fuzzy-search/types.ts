@@ -50,11 +50,15 @@ import type { SmartList, SmartListQueryParams } from '#libs/smart-list/types';
 import type { Contract, ContractQueryParams } from '#libs/subscription/types';
 import type { Tag } from '#libs/tag/types';
 import type { Video, VideoQueryParams } from '#libs/video/types';
-import type { PaginationFilterParams, SelectOption } from '#libs/types';
 import type {
   AssociatedCoachFilters,
   Coach,
 } from '#libs/associated-coach/types';
+import type {
+  CustomForm,
+  CustomFormQueryParams,
+} from '#libs/custom-form/types';
+import type { PaginationFilterParams, SelectOption } from '#libs/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;
@@ -123,6 +127,7 @@ export const searchObjectIdentifiers = [
   'video',
   'associated_coach',
   'establishment_group',
+  'custom_form',
 ] as const;
 
 export type SearchObjectType = (typeof searchObjectIdentifiers)[number];
@@ -162,6 +167,7 @@ type ResultsTypes = {
   video: Video;
   associated_coach: Coach;
   establishment_group: EstablishmentGroupAPI;
+  custom_form: CustomForm;
 };
 
 const variantType = ['default', 'underlined'] as const;
@@ -262,6 +268,7 @@ type APIParamsMap = {
   report: ReportAPIParams;
   associated_coach: AssociatedCoachAPIParams;
   establishment_group: EstablishmentGroupAPIParams;
+  custom_form: CustomFormAPIParams;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =
@@ -345,6 +352,8 @@ type ReportAPIParams = PaginationFilterParams;
 type EstablishmentGroupAPIParams = PaginationFilterParams & {
   id__in?: number[];
 };
+
+type CustomFormAPIParams = PaginationFilterParams & CustomFormQueryParams;
 
 type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
 

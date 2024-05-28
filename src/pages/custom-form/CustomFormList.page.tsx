@@ -1,11 +1,10 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -25,7 +24,8 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { OptionCallback } from '../../state/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import CustomFormListItem from '../../libs/custom-form/components/CustomFormListItem.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -52,13 +52,36 @@ import CustomFormList from '../../libs/custom-form/components/CustomFormList.com
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import ModalConfirm from '#src/components/ModalConfirm.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+
+type CustomFormOption = {
+  label: string;
+  value: number;
+  customform: CustomForm;
+  onClick: (id: number) => void;
+  onClickEdit: (id: number) => void;
+  onClickDelete: (id: number) => void;
+  selected: boolean;
+  onClickDuplicate: (id: number) => void;
+};
+
+const searchBarAdditionalParams = {
+  disabled: false,
+  is_signup: false,
+  is_member_form: false,
+};
+
+const Option: React.FC<OptionPropsWithData<CustomFormOption>> = (props) => (
+  <CustomFormListItem divider showQuestionCount {...props.data} />
+);
 
 type State = {
   openCreateDialog: boolean;
   openEditDialog: boolean;
   showDisabledForms: boolean;
-  searchText: string;
-  searchResult: Array<CustomForm>;
   customFormIdToDelete: number | null;
 };
 
@@ -75,7 +98,10 @@ type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  WithObjectSearch;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -84,8 +110,6 @@ export class CustomFormListPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      searchText: '',
-      searchResult: [],
       openCreateDialog: false,
       openEditDialog: false,
       customFormIdToDelete: null,
@@ -106,20 +130,6 @@ export class CustomFormListPage extends React.Component<Props, State> {
     }
   };
 
-  // @ts-expect-error
-  changeSearch = (fuse) => (ev: SyntheticEvent<HTMLElement>) => {
-    this.setState({
-      // @ts-expect-error
-      searchText: ev.target.value,
-      // @ts-expect-error
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
-
   handleConfirmDeleteDialog = () => {
     this.props.disableCustomForm(this.state.customFormIdToDelete);
     this.setState({ customFormIdToDelete: null });
@@ -130,6 +140,31 @@ export class CustomFormListPage extends React.Component<Props, State> {
 
   setCustomFormIdToDelete = (id: number) =>
     this.setState({ customFormIdToDelete: id });
+
+  customFormOptionsFormatter = (
+    customForms: CustomForm[],
+  ): CustomFormOption[] =>
+    customForms.map((customForm) => {
+      return {
+        key: customForm.id,
+        label: customForm.name,
+        customform: customForm,
+        onClick: (id: number) => this.selected(id),
+        onClickDelete: this.setCustomFormIdToDelete,
+        onClickDuplicate: (id) => {
+          this.props.duplicateCustomForm(id, {
+            onSuccess: (payload) =>
+              // @ts-expect-error
+              this.props.goToEdit(payload.id),
+          });
+        },
+        onClickEdit: this.props.goToEdit,
+        selected:
+          this.props.customFormSelected &&
+          customForm.id === this.props.customFormSelected,
+        value: customForm.id,
+      };
+    });
 
   onShowDisabled = () => {
     this.setState((prevState) => ({
@@ -160,68 +195,17 @@ export class CustomFormListPage extends React.Component<Props, State> {
             {customFormList && customFormList.length > 0 ? (
               <>
                 <div className={classes.search}>
-                  <FuzeSearch
-                    changeSearch={this.changeSearch}
-                    clearSearch={this.clearSearch}
-                    items={customFormList.filter(
-                      (customform: CustomForm) => !customform.disabled,
-                    )}
+                  <ObjectSearchComponent
+                    additionalParams={searchBarAdditionalParams}
+                    blurInputOnSelect={false}
+                    components={{
+                      Option,
+                    }}
+                    optionsFormatter={this.customFormOptionsFormatter}
                     placeholder={this.props.t('customForm.search')}
-                    searchFields={['name', 'description']}
-                    // @ts-expect-error
-                    searchResult={this.state.searchResult}
-                    searchText={this.state.searchText}
+                    searchedObjectType="custom_form"
+                    variant="underlined"
                   />
-                  <Paper
-                    className={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                        ? classes.searchPaperDisplayed
-                        : null
-                    }
-                  >
-                    <Collapse
-                      in={
-                        this.state.searchResult.length > 0 &&
-                        this.state.searchText !== ''
-                      }
-                    >
-                      <List
-                        disablePadding
-                        className={classes.list}
-                        component="nav"
-                      >
-                        {this.state.searchResult
-                          .filter((form) => !form.disabled)
-                          .map((customform) => (
-                            <CustomFormListItem
-                              key={customform.id}
-                              divider
-                              showQuestionCount
-                              stopPropagation
-                              customform={customform}
-                              onClick={(id: number) => this.selected(id)}
-                              onClickDelete={(id) => {
-                                this.props.setCustomFormSelected(null);
-                                this.props.disableCustomForm(id);
-                              }}
-                              onClickDuplicate={(id) =>
-                                this.props.duplicateCustomForm(id, {
-                                  onSuccess: (payload) =>
-                                    // @ts-expect-error
-                                    this.props.goToEdit(payload.id),
-                                })
-                              }
-                              onClickEdit={this.props.goToEdit}
-                              selected={
-                                this.props.customFormSelected &&
-                                customform.id === this.props.customFormSelected
-                              }
-                            />
-                          ))}
-                      </List>
-                    </Collapse>
-                  </Paper>
                 </div>
                 <Paper>
                   {this.props.customFormEdtionLoading && (
@@ -555,7 +539,10 @@ const mapWithHandlers = {
     },
   disableCustomForm: (props: OwnAndConnectedProps) => (formId: number) => {
     props.disableCustomFormAction(formId, {
-      onSuccess: () => props.fetchAllCustomFormDisplayRule(),
+      onSuccess: () => {
+        props.fetchAllCustomFormDisplayRule();
+        props.refreshOptions('custom_form', searchBarAdditionalParams);
+      },
     });
   },
   goToEdit: (props: OwnAndConnectedProps) => (formId: number) => {
@@ -586,6 +573,7 @@ export default compose<any, OwnProps>(
   // @ts-expect-error
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('customForm.title')),
+  withObjectSearch,
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),

@@ -32,6 +32,7 @@ import type { SmartList } from '#libs/smart-list/types';
 import type { Contract } from '#libs/subscription/types';
 import type { Tag } from '#libs/tag/types';
 import type { Video } from '#libs/video/types';
+import type { CustomForm } from '#libs/custom-form/types';
 
 const labelExtractorMap: Record<
   SearchObjectType,
@@ -41,6 +42,7 @@ const labelExtractorMap: Record<
     coachPaymentRule.name,
   coupon: (coupon: Coupon) => coupon.name,
   coupon_template: (coupon: Coupon) => coupon.name,
+  custom_form: (customForm: CustomForm) => customForm.name,
   email_design: (emailDesign: EmailTemplate) => emailDesign.title,
   establishment: (establishment: Establishment) => establishment.title,
   giftcard: (giftcard: Giftcard) => giftcard.name,

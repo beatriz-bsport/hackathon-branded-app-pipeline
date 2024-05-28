@@ -45,6 +45,8 @@ import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
 
 import Config from '../../../config';
+import { isPassNotification } from '../utils';
+import MarketingRulePassPaginatedList from './MarketingRulePassPaginatedList.component';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -52,6 +54,10 @@ type OwnProps = {
   loading: boolean;
   onClickEdit: () => void;
   onClickRemove: () => void;
+  onUpdateNotification: (
+    id: number,
+    notification: MarketingNotification,
+  ) => void;
   selectedNotification?: MarketingNotification;
   establishmentById: { [key: string]: Establishment };
   establishmentGroupById: { [key: string]: EstablishmentGroup };
@@ -375,6 +381,14 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                 </ObjectLevelPermissionWrapper>
               </Paper>
 
+              {isPassNotification(this.props.selectedNotification) && (
+                <MarketingRulePassPaginatedList
+                  notification={this.props.selectedNotification}
+                  onUpdateNotification={this.props.onUpdateNotification}
+                  paymentPackById={this.props.paymentPackById}
+                  privatePassById={this.props.privatePassById}
+                />
+              )}
               {this.props.emailSummary && this.props.emailDetails && (
                 <>
                   <Typography className={classes.titleMarginTop} variant="h5">

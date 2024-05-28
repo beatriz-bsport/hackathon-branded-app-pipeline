@@ -16,6 +16,7 @@ type MaterialUISelectorPassesProps = {
   passes: PaymentPack[] | PrivatePass[];
   placeHolder?: string;
   onChange: (passIds: number[]) => void;
+  selectedPasses?: number[];
 };
 
 const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
@@ -35,6 +36,13 @@ const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
     return [...props.passes].map((pass) => toPassPreviewData(t, pass));
   }, [props.passes, t]);
 
+  const defaultValue = useMemo(() => {
+    if (!props.selectedPasses) return [];
+    return options.filter((option) =>
+      props.selectedPasses.includes(option.value),
+    );
+  }, [options, props.selectedPasses]);
+
   const passOptionRenderer = useCallback(
     ({ data, isSelected }: ItemRendererProps<PassPreviewData>) => (
       <MenuItem dense>
@@ -50,13 +58,14 @@ const MaterialUISelectorPasses = (props: MaterialUISelectorPassesProps) => {
       isMulti
       stopEventPropagationOnClickAway
       closeMenuOnSelect={false}
+      defaultValue={defaultValue}
       isDisabled={props.disabled ?? false}
       itemRenderer={passOptionRenderer}
       onChange={onChange}
       onConfirm={props.onConfirm}
       options={options}
       placeholder={props.placeHolder}
-      value={selectedPassOptions}
+      value={props.disabled ? null : selectedPassOptions}
     />
   );
 };

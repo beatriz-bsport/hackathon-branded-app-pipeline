@@ -445,6 +445,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
               });
             }}
             onClickRemove={this.onClickRemove}
+            onUpdateNotification={this.props.updateMarketingNotification}
             paymentPackById={this.props.paymentPackById}
             privatePassById={this.props.privatePassById}
             privateServiceById={this.props.privateServicebyId}

@@ -23,6 +23,14 @@ export const getMergeTags = memoize(
   },
 );
 
+export const isPassNotification = (notification: MarketingNotification) =>
+  [
+    NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
+    NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
+    NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
+    NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
+  ].includes(notification.kind);
+
 export const getSendingTimeNotification = (
   timeComparator: 'before' | 'after',
   periodScale: 'days' | 'hours',

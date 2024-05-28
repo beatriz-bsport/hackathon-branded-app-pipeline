@@ -24,6 +24,10 @@ type DialogProps = {
   onClose: () => void;
   onSubmit: (selectedPasses: number[], isAll: boolean) => void;
   passes: PaymentPack[] | PrivatePass[];
+  initialSelectedPasses?: number[];
+  initialIsAll?: boolean;
+  title?: string;
+  submitButtonLabel?: string;
 };
 
 export const PassSelectorDialog = ({
@@ -32,16 +36,23 @@ export const PassSelectorDialog = ({
   onClose,
   onSubmit,
   passes,
+  initialSelectedPasses,
+  initialIsAll,
+  title,
+  submitButtonLabel,
 }: DialogProps) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
-  const [selectedPasses, setSelectedPasses] = useState<number[]>([]);
-  const [isAll, setIsAll] = useState(false);
+  const [selectedPasses, setSelectedPasses] = useState<number[]>(
+    initialSelectedPasses ?? [],
+  );
+  const [isAll, setIsAll] = useState(initialIsAll ?? false);
   const onChange = useCallback((selection: number[]) => {
     setSelectedPasses(selection);
   }, []);
   const onSwitchIsAll = useCallback(() => {
     setIsAll(!isAll);
+    setSelectedPasses([]);
   }, [isAll]);
   const onConfirm = useCallback(() => {
     onSubmit(selectedPasses, false);
@@ -51,7 +62,7 @@ export const PassSelectorDialog = ({
   }, [onSubmit, selectedPasses, isAll]);
   return (
     <Dialog fullWidth onClose={onClose} open={open}>
-      <DialogTitle>{t('notifications.dialogTitle')}</DialogTitle>
+      <DialogTitle>{title ?? t('notifications.dialogTitle')}</DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <FormControlLabel
           control={
@@ -71,13 +82,14 @@ export const PassSelectorDialog = ({
             placeHolder={t(
               `notifications.passSelectionPlaceholder.${identifier}`,
             )}
+            selectedPasses={initialSelectedPasses}
           />
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t('notifications.cancel')}</Button>
         <Button color="primary" onClick={submit}>
-          {t('notifications.next')}
+          {submitButtonLabel ?? t('notifications.next')}
         </Button>
       </DialogActions>
     </Dialog>

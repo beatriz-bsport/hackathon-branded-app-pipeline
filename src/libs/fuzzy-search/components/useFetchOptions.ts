@@ -57,7 +57,7 @@ type HookProps = {
  *
  */
 
-export const useObjectSearch = ({
+export const useFetchOptions = ({
   searchObjects,
   rawResults,
   searchedObjectType,

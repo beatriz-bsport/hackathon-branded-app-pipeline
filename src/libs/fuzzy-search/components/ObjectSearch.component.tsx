@@ -8,7 +8,7 @@ import { Props as SelectProps } from 'react-select/lib/Select';
 import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { useObjectSearch } from '#libs/fuzzy-search/components/useObjectSearch';
+import { useFetchOptions } from '#libs/fuzzy-search/components/useFetchOptions';
 import { getResultsById, getSelectorState } from '#libs/fuzzy-search/selectors';
 import {
   resetObjectSearch as resetObjectSearchAction,
@@ -68,7 +68,7 @@ const ObjectSearch: React.FC<Props> = ({
     searchObjects,
     selectorId,
   });
-  const { handleInputChange, formattedResults } = useObjectSearch({
+  const { handleInputChange, formattedResults } = useFetchOptions({
     searchObjects,
     rawResults: results,
     searchedObjectType,

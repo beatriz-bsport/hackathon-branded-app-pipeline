@@ -1,5 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import type {
+  CreatePaymentAttemptResponsePayload,
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
   InternalPaymentPayload,
@@ -220,6 +221,52 @@ export const confirmPaymentByPaymentMethodIdWebview = async (
       payment_method_id: paymentMethodId,
       basket_id: basketId,
     },
+  );
+};
+
+export const createPaymentAttempt = ({
+  paymentGroupId,
+}: {
+  paymentGroupId: number;
+}): Promise<AxiosResponse<CreatePaymentAttemptResponsePayload>> => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/${paymentGroupId}/create_payment_attempt/`,
+  );
+};
+
+export const createPaymentAttemptWebview = ({
+  paymentGroupId,
+  basketId,
+}: {
+  paymentGroupId: number;
+  basketId: string;
+}): Promise<AxiosResponse<CreatePaymentAttemptResponsePayload>> => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/create_payment_attempt_by_basket_id/`,
+    { payment_group_id: paymentGroupId, basket_id: basketId },
+  );
+};
+
+export const executePaymentAttempt = ({
+  paymentGroupId,
+}: {
+  paymentGroupId: number;
+}) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/${paymentGroupId}/execute_payment_attempt/`,
+  );
+};
+
+export const executePaymentAttemptWebview = ({
+  paymentGroupId,
+  basketId,
+}: {
+  paymentGroupId: number;
+  basketId: string;
+}) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/execute_payment_attempt_by_basket_id/`,
+    { payment_group_id: paymentGroupId, basket_id: basketId },
   );
 };
 

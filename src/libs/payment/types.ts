@@ -112,6 +112,10 @@ export type Payment = {
   returned_amount: number;
 };
 
+export type CreatePaymentAttemptResponsePayload = {
+  payment_attempt_id: string;
+};
+
 export enum TermsAndConditionType {
   GENERAL_TERMS_OF_USE = 'generalTermsOfUse',
   TERMS_AND_CONDITIONS = 'theTermsAndConditions',

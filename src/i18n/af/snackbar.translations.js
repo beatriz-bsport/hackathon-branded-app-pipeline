@@ -129,6 +129,15 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE,
+    PAYMENT_GROUP_LOCK_ACQUISITION_ERROR,
+    PENDING_PAYMENT_ATTEMPT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
+    PAYMENT_GROUP_PRICE_INCONSISTENCY,
+    PAYMENT_ATTEMPT_EXECUTION_FAILED,
+    PAYMENT_GROUP_UNPROCESSABLE_EXCEPTION,
+    PAYPAL_PAYER_ACCOUNT_ISSUE,
+    PAYPAL_PAYER_CARD_EXPIRED,
+    PAYPAL_REDIRECT_PAYER_FOR_ALTERNATE_FUNDING,
+    PAYPAL_EXCEPTION,
   } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
 
   const {
@@ -913,6 +922,29 @@ const getTranslations = async () => {
         },
         success: 'Group successfully modified',
       },
+    },
+    cancelPayPalPaymentAttempt:
+      'Your payment attempt was cancelled. Please proceed again.',
+    canNotExecutePaymentAttempt: {
+      [PAYMENT_GROUP_LOCK_ACQUISITION_ERROR]:
+        'Your payment is already processing, please wait',
+      [PENDING_PAYMENT_ATTEMPT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
+        'Your payment is already processing, please wait',
+      [PAYMENT_GROUP_PRICE_INCONSISTENCY]:
+        'Your basket did not match the amount you tried to pay, we refreshed your basket, please try again',
+      [PAYMENT_ATTEMPT_EXECUTION_FAILED]:
+        'Your payment has failed, please try again.',
+      [PAYMENT_GROUP_UNPROCESSABLE_EXCEPTION]:
+        'Your payment has failed, please try again.',
+      [PAYPAL_PAYER_ACCOUNT_ISSUE]:
+        'Your PayPal account cannot process the payment, please try again with a different account',
+      [PAYPAL_PAYER_CARD_EXPIRED]: 'Your card is expired',
+      [PAYPAL_REDIRECT_PAYER_FOR_ALTERNATE_FUNDING]:
+        'Your payment has failed, please select another payment method.',
+      [PAYPAL_EXCEPTION]:
+        'Your PayPal payment has failed, please try again or use another payment method',
+      failedLoadingPayPalScript: 'An error occurred while loading PayPal',
+      generic: 'Your payment has failed, please try again',
     },
     canNotBuyErrorCode: {
       [OFFER_WAITING_LIST_STATUS_FULL]: 'The waitlist is full',

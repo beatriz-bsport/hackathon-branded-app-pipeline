@@ -12087,6 +12087,20 @@
         "success": "Group successfully modified"
       }
     },
+    "cancelPayPalPaymentAttempt": "Your payment attempt was cancelled. Please proceed again.",
+    "canNotExecutePaymentAttempt": {
+      "12102": "Your payment is already processing, please wait",
+      "12107": "Your payment has failed, please try again.",
+      "12108": "Your payment is already processing, please wait",
+      "12109": "Your payment has failed, please try again.",
+      "12110": "Your basket did not match the amount you tried to pay, we refreshed your basket, please try again",
+      "35000": "Your PayPal payment has failed, please try again or use another payment method",
+      "35006": "Your PayPal account cannot process the payment, please try again with a different account",
+      "35012": "Your card is expired",
+      "35013": "Your payment has failed, please select another payment method.",
+      "failedLoadingPayPalScript": "An error occurred while loading PayPal",
+      "generic": "Your payment has failed, please try again"
+    },
     "canNotBuyErrorCode": {
       "1": "Bookings are still closed for this session",
       "2": "Bookings are still closed for this session",

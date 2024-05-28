@@ -20,6 +20,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/styles": "^4.9.13",
+    "@paypal/react-paypal-js": "^8.3.0",
     "@quentin-sommer/react-useragent": "^3.2.0",
     "@segment/analytics-next": "^1.31.2",
     "@sentry/react": "^7.26.0",

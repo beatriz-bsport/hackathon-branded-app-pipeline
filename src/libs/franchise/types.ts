@@ -1,11 +1,11 @@
-import { CompanyWithTheme, Company } from '#src/libs/company/types';
-import {
+import type { CompanyWithTheme, Company } from '#src/libs/company/types';
+import type {
   PaymentPack,
   PaymentPackTemplate,
 } from '#src/libs/payment-packs/types';
-import { PrivatePassTemplate } from '#src/libs/private-service/types';
-import { CouponTemplate } from '#src/libs/coupon/types';
-import { GiftcardTemplate } from '#src/libs/giftcard/types';
+import type { PrivatePassTemplate } from '#src/libs/private-service/types';
+import type { CouponTemplate } from '#src/libs/coupon/types';
+import type { GiftcardTemplate } from '#src/libs/giftcard/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -206,3 +206,37 @@ export type FranchisePassFiltersOpener = {
 };
 
 export type CompanyOptionTypeBase = { label: string; value: string };
+
+export type FranchisePrivatePass = {
+  company: number;
+  credits: number;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  expiration_days_before_first_use: number;
+  id: number;
+  name: string;
+  price: string;
+  start_date_method: number;
+  template_instance: number;
+};
+
+export type FranchiseUserPrivatePass = {
+  company_source_id: string;
+  company_source_name: string;
+  company_source_primary_color: string;
+  consumer: number;
+  date_bought: string;
+  date_created: string;
+  disabled: boolean;
+  extension_days: number;
+  id: number;
+  initial_price: string;
+  invoice: string;
+  member_id: number;
+  no_private_booking_active: boolean;
+  private_consumer_pass_source: number | null;
+  private_pass: FranchisePrivatePass;
+  reverted: boolean;
+  used_credits: number;
+};

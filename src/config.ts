@@ -20,6 +20,8 @@ type ConfigType = {
   REACT_APP_RUDDERSTACK_DATAPLANEURL: string;
   REACT_APP_DEBUGGER_MODE: string;
   REACT_APP_ZOOM_CLIENT_ID: string;
+  REACT_APP_PAYPAL_CLIENT_ID: string;
+  REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID: string;
 };
 export const Config = {} as ConfigType;
 

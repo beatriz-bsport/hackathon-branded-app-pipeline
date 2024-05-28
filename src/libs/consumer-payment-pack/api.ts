@@ -67,7 +67,7 @@ export async function fetchConsumerPackList(params: any = {}) {
 
 /**
  * Fetch a specific consumer payment pack
- * @param params Object containing the required `consumer_payment_pack` ID
+ * @param id the id of the `consumer_payment_pack` we want to fetch
  */
 export async function fetchConsumerPack(id: number) {
   return getAuth<ConsumerPaymentPack>(

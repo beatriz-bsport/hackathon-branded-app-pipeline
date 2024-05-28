@@ -2,8 +2,6 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
@@ -24,15 +22,16 @@ module.exports = {
     pathinfo: true,
     filename: 'static/js/bundle.js',
     chunkFilename: 'static/js/[name].chunk.js',
+    publicPath,
     devtoolModuleFilenameTemplate: (info) =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
     fallback: {
-      fs: false
+      fs: false,
     },
     modules: ['node_modules', paths.appNodeModules].concat(
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
     extensions: [
       '.web.js',
@@ -49,7 +48,8 @@ module.exports = {
       '#src': path.resolve(__dirname, '../src'),
       '#libs': path.resolve(__dirname, '../src/libs'),
       '#marketplacecomponents': path.resolve(
-        '../src/libs/marketplace/components',
+        __dirname,
+        '../src/libs/marketplace/components'
       ),
       '#hocs': path.resolve(__dirname, '../src/hocs'),
       '#hooks': path.resolve(__dirname, '../src/hooks'),
@@ -58,7 +58,7 @@ module.exports = {
       '#utils': path.resolve(__dirname, '../src/utils'),
       '#Fabrique': path.resolve(
         __dirname,
-        '../src/components/css-only/Fabrique',
+        '../src/components/css-only/Fabrique'
       ),
       '#untitledui': path.resolve(__dirname, '../src/components/untitledui'),
       '#pages': path.resolve(__dirname, '../src/pages'),
@@ -189,10 +189,10 @@ module.exports = {
       template: paths.appHtml,
       templateParameters: env.raw,
     }),
-    new webpack.DefinePlugin(env.stringified),
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js'
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    // new CaseSensitivePathsPlugin(),
-    // new CleanWebpackPlugin(),
     new ESLintPlugin({
       extensions: ['js', 'jsx', 'ts', 'tsx'],
       emitWarning: true,
@@ -209,6 +209,10 @@ module.exports = {
         errors: true,
         warnings: true,
       },
+    },
+    static: {
+      directory: paths.appPublic,
+      publicPath,
     },
   },
   performance: {

@@ -12118,7 +12118,6 @@
       "6002": "The waitlist is full",
       "6003": "You've already joined this waitlist",
       "8001": "Your chosen spot is no longer available",
-      "10001": "Insufficient stock",
       "11114": "This appointment pass can not be bought anymore as its expiration date has been reached",
       "15002": "The item is already being added to the basket, please wait",
       "23001": "There is no pass available to be able to register to the waiting-list",
@@ -12127,6 +12126,7 @@
       "45005": "The giftcard is not available for purchase anymore.",
       "85000": "A booking is already in progress, please wait a few moments",
       "85101": "Impossible to book. This spot is being booked by another member. Please try again by choosing another spot.",
+      "999999999999": "Insufficient stock",
       "generic": "Error while booking"
     },
     "customForm": {

@@ -11,18 +11,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { useTranslation } from 'react-i18next';
-import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
-
-type Option = {
-  value: number;
-  label: string;
-}[];
+import { ObjectSearchField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 type Props = {
   isMultiLocalizationEnabled: boolean;
   areFiltersDisabled?: boolean;
-  establishmentsOptions: Option;
-  locationsOptions: Option;
   establishmentsLoading: boolean;
   establishmentGroupListLoading: boolean;
 };
@@ -36,8 +29,6 @@ type Values = {
 const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
   isMultiLocalizationEnabled,
   areFiltersDisabled,
-  establishmentsOptions,
-  locationsOptions,
   establishmentsLoading,
   establishmentGroupListLoading,
 }) => {
@@ -91,12 +82,13 @@ const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
             {establishmentGroupListLoading ? (
               <CircularProgress />
             ) : (
-              <MaterialUiMultiSelectorField
-                isMenuListVirtualized
+              <ObjectSearchField
+                isMulti
                 isDisabled={areFiltersDisabled}
                 name="locationsSelected"
-                options={locationsOptions}
                 placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                searchedObjectType="establishment_group"
+                variant="mui-selector"
               />
             )}
           </div>
@@ -110,12 +102,13 @@ const CoachPerformanceLocationEstablishmentFilter: React.FC<Props> = ({
           {establishmentsLoading ? (
             <CircularProgress />
           ) : (
-            <MaterialUiMultiSelectorField
-              isMenuListVirtualized
+            <ObjectSearchField
+              isMulti
               isDisabled={areFiltersDisabled}
               name="establishmentsSelected"
-              options={establishmentsOptions}
               placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+              searchedObjectType="establishment"
+              variant="mui-selector"
             />
           )}
         </div>

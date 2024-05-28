@@ -20,11 +20,8 @@ import { useTranslation } from 'react-i18next';
 import { Submit } from '#src/components/forms';
 import CoachPerformanceDateFilter from '#src/libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 
-import type {
-  Establishment,
-  EstablishmentGroupAPI,
-} from '#src/libs/establishment/types';
-import type { OptionCallback } from '../../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
+import type { Establishment } from '#src/libs/establishment/types';
 
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 
@@ -52,7 +49,6 @@ type Props = {
   ) => Promise<void>;
   updateStateDate: (dateStart: number, dateEnd: number) => void;
   establishments: ImmutableArray<Establishment>;
-  establishmentGroupList: EstablishmentGroupAPI[];
   isMultiLocalizationEnabled: boolean;
   establishmentsLoading: boolean;
   establishmentGroupListLoading: boolean;
@@ -74,7 +70,6 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
   setSelectedEstablishmentFilter,
   updateStateDate,
   establishments,
-  establishmentGroupList,
   isMultiLocalizationEnabled,
   resetForm,
   isSubmitting,
@@ -91,17 +86,6 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
         return { value: establishment?.id, label: establishment?.title };
       }),
     [establishments],
-  );
-
-  const establishmentGroupLocationsOptions = React.useMemo(
-    () =>
-      [...(establishmentGroupList ?? [])]?.map((establishmentGroup) => {
-        return {
-          value: establishmentGroup?.id,
-          label: establishmentGroup?.name,
-        };
-      }) || [],
-    [establishmentGroupList],
   );
 
   const handleResetForm = React.useCallback(() => {
@@ -150,9 +134,7 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
               <CoachPerformanceLocationEstablishmentFilter
                 establishmentGroupListLoading={establishmentGroupListLoading}
                 establishmentsLoading={establishmentsLoading}
-                establishmentsOptions={establishmentsOptions}
                 isMultiLocalizationEnabled={isMultiLocalizationEnabled}
-                locationsOptions={establishmentGroupLocationsOptions}
               />
               <div className={classes.bottomActions}>
                 <Button

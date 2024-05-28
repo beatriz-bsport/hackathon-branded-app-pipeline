@@ -303,9 +303,9 @@ export type FuzzySearchAPIParams = APIParamsMap[SearchObjectType] & {
 
 type AssociatedCoachAPIParams = PaginationFilterParams & AssociatedCoachFilters;
 
-type CoachPaymentRuleAPIParams = PaginationFilterParams;
-
 type CouponAPIParams = PaginationFilterParams & FetchCouponsParams;
+
+type CoachPaymentRuleAPIParams = PaginationFilterParams & { kind__in?: number };
 
 type CouponTemplateAPIParams = PaginationFilterParams & FetchCouponsParams;
 

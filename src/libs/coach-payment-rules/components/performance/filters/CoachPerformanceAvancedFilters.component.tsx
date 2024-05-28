@@ -2,6 +2,7 @@ import React from 'react';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PERFORMANCE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps, Field, FieldProps } from 'formik';
@@ -21,21 +22,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import type { ImmutableArray } from 'seamless-immutable';
 // @ts-expect-error
 import { Submit } from '#src/components/forms';
-import { MaterialUiMultiSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 import { Coach } from '#src/libs/associated-coach/types';
-import {
-  CoachPaymentRuleGroup,
-  CoachPaymentRulesByKind,
-} from '#src/libs/coach-payment-rules/types';
-import type {
-  Establishment,
-  EstablishmentGroupAPI,
-} from '#src/libs/establishment/types';
+
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 import type { OptionCallback } from '../../../../../state/types';
+import { ObjectSearchField } from '#src/libs/custom-form/components/GenericFormik.input';
 
 type InitialValues = {
   by_coach_payment_rule_group: boolean;
@@ -53,15 +46,11 @@ type OwnProps = {
   coaches: Array<Coach>;
   disabled?: boolean;
   loading: boolean;
-  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
-  coachPaymentRulesByKind: CoachPaymentRulesByKind;
   isMultiLocalizationEnabled: boolean;
-  establishments: ImmutableArray<Establishment>;
   setSelectedEstablishmentFilter: (
     selectedEstablishments: number[],
     selectedLocations: number[],
   ) => void;
-  establishmentGroupList: EstablishmentGroupAPI[];
   establishmentsLoading: boolean;
   establishmentGroupListLoading: boolean;
 };
@@ -85,9 +74,7 @@ export function CoachPerformanceForm(props: Props) {
   const {
     isSubmitting,
     isMultiLocalizationEnabled,
-    establishments,
     establishmentsLoading,
-    establishmentGroupList,
     establishmentGroupListLoading,
     resetForm,
     setSelectedEstablishmentFilter,
@@ -106,22 +93,6 @@ export function CoachPerformanceForm(props: Props) {
       setOptionSection(false);
     }
   }, [setOptionSection, disableFilters]);
-
-  const establishmentsOptions = React.useMemo(
-    () =>
-      ([...establishments] || []).map((establishment) => {
-        return { value: establishment.id, label: establishment.title };
-      }),
-    [establishments],
-  );
-
-  const establishmentGroupLocationsOptions = React.useMemo(
-    () =>
-      ([...establishmentGroupList] || []).map((establishmentGroup) => {
-        return { value: establishmentGroup.id, label: establishmentGroup.name };
-      }),
-    [establishmentGroupList],
-  );
 
   const handleResetForm = React.useCallback(() => {
     resetForm();
@@ -199,17 +170,12 @@ export function CoachPerformanceForm(props: Props) {
                     'coachPerformance:advancedFilters.coachPaymentRuleGroupSelector',
                   )}
                 </Typography>
-                <MaterialUiMultiSelectorField
-                  isMenuListVirtualized
+                <ObjectSearchField
                   isDisabled={disableFilters}
                   name="coach_payment_rule_groups"
-                  options={[...(props?.coachPaymentRuleGroups || [])].map(
-                    (group) => ({
-                      label: group.name,
-                      value: group.id,
-                    }),
-                  )}
                   placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                  searchedObjectType="coach_payment_rule_groups"
+                  variant="mui-selector"
                 />
               </div>
             </Collapse>
@@ -220,19 +186,14 @@ export function CoachPerformanceForm(props: Props) {
                     'coachPerformance:advancedFilters.sessionCoachPaymentRuleSelctor',
                   )}
                 </Typography>
-                <MaterialUiMultiSelectorField
-                  isMenuListVirtualized
+                <ObjectSearchField
+                  additionalParams={{ kind__in: COACH_PERFORMANCE_FOR_SESSION }}
                   isDisabled={disableFilters}
                   name="session_coach_payment_rules"
-                  options={[
-                    ...(props?.coachPaymentRulesByKind[
-                      COACH_PERFORMANCE_FOR_SESSION
-                    ] || []),
-                  ].map((rule) => ({
-                    label: rule.name,
-                    value: rule.id,
-                  }))}
                   placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                  searchedObjectType="coach_payment_rules"
+                  selectorId="payment-rules-activities"
+                  variant="mui-selector"
                 />
               </div>
 
@@ -242,19 +203,16 @@ export function CoachPerformanceForm(props: Props) {
                     'coachPerformance:advancedFilters.workshopCoachPaymentRuleSelctor',
                   )}
                 </Typography>
-                <MaterialUiMultiSelectorField
-                  isMenuListVirtualized
+                <ObjectSearchField
+                  additionalParams={{
+                    kind__in: COACH_PERFORMANCE_FOR_WORKSHOP,
+                  }}
                   isDisabled={disableFilters}
                   name="workshop_coach_payment_rules"
-                  options={[
-                    ...(props?.coachPaymentRulesByKind[
-                      COACH_PERFORMANCE_FOR_SESSION
-                    ] || []),
-                  ].map((rule) => ({
-                    label: rule.name,
-                    value: rule.id,
-                  }))}
                   placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                  searchedObjectType="coach_payment_rules"
+                  selectorId="payment-rules-workshops"
+                  variant="mui-selector"
                 />
               </div>
 
@@ -264,19 +222,16 @@ export function CoachPerformanceForm(props: Props) {
                     'coachPerformance:advancedFilters.privateserviceCoachPaymentRuleSelector',
                   )}
                 </Typography>
-                <MaterialUiMultiSelectorField
-                  isMenuListVirtualized
+                <ObjectSearchField
+                  additionalParams={{
+                    kind__in: COACH_PERFORMANCE_FOR_APPOINTMENT,
+                  }}
                   isDisabled={disableFilters}
                   name="private_service_coach_payment_rules"
-                  options={[
-                    ...(props?.coachPaymentRulesByKind[
-                      COACH_PERFORMANCE_FOR_APPOINTMENT
-                    ] || []),
-                  ].map((rule) => ({
-                    label: rule.name,
-                    value: rule.id,
-                  }))}
                   placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                  searchedObjectType="coach_payment_rules"
+                  selectorId="payment-rules-private-services"
+                  variant="mui-selector"
                 />
               </div>
             </Collapse>
@@ -284,31 +239,22 @@ export function CoachPerformanceForm(props: Props) {
               <Typography variant="subtitle1">
                 {t('coachPerformance:advancedFilters.coachSelector')}
               </Typography>
-              <MaterialUiMultiSelectorField
-                isMenuListVirtualized
+              <ObjectSearchField
                 isDisabled={disableFilters}
                 name="coaches_selected"
-                options={[...props.coaches].map((coach) => ({
-                  label: coach.name,
-                  value: coach.associated_coach_id,
-                }))}
                 placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+                searchedObjectType="associated_coach"
+                variant="mui-selector"
               />
             </div>
-
             <Divider className={classes.divider} />
-
             <CoachPerformanceLocationEstablishmentFilter
               areFiltersDisabled={disableFilters}
               establishmentGroupListLoading={establishmentGroupListLoading}
               establishmentsLoading={establishmentsLoading}
-              establishmentsOptions={establishmentsOptions}
               isMultiLocalizationEnabled={isMultiLocalizationEnabled}
-              locationsOptions={establishmentGroupLocationsOptions}
             />
-
             <Divider className={classes.divider} />
-
             <div className={classes.bottomActions}>
               <Button
                 color="secondary"

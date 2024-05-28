@@ -312,14 +312,10 @@ export class AllCoachPerformancePage extends Component<Props, State> {
 
         <CoachPerformanceAdvancedFilters
           coaches={this.props.allActiveAssociatedCoaches}
-          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
-          coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           disabled={isInPreviewMode}
-          establishmentGroupList={this.props.establishmentGroupList}
           establishmentGroupListLoading={
             this.props.establishmentGroupListLoading
           }
-          establishments={this.props.establishments}
           establishmentsLoading={this.props.establishmentsLoading}
           isMultiLocalizationEnabled={
             this.props.companyTheme?.enable_multi_localization

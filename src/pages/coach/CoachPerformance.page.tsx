@@ -155,14 +155,12 @@ export class CoachPerformance extends React.Component<Props> {
       companyTheme,
       establishments,
       establishmentsLoading,
-      establishmentGroupList,
       establishmentGroupListLoading,
     } = this.props;
 
     return (
       <div className={classes.container}>
         <CoachPerformanceDateAndEstablishmentFilter
-          establishmentGroupList={establishmentGroupList}
           establishmentGroupListLoading={establishmentGroupListLoading}
           establishments={establishments}
           establishmentsLoading={establishmentsLoading}

@@ -150,7 +150,6 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.container}>
       <CoachPerformanceDateAndEstablishmentFilter
-        establishmentGroupList={establishmentGroupList}
         establishmentGroupListLoading={establishmentGroupListLoading}
         establishments={establishments}
         establishmentsLoading={establishmentsLoading}

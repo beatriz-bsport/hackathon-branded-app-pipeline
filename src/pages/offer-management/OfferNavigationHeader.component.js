@@ -21,7 +21,7 @@ const getDateDictionnary = (offer) => {
   const date = offer
     ? DateTime.fromISO(offer.date_start).setZone(offer.timezone_name)
     : DateTime.now();
-  return { year: date.year, month: date.month + 1, day: date.date };
+  return { year: date.year, month: date.month, day: date.day };
 };
 
 type Props = {

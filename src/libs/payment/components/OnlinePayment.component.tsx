@@ -1,7 +1,9 @@
 import React, { forwardRef, useCallback } from 'react';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
   PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_PAYPAL,
 } from '@bsport/common/lib/master-data/payment-group';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,7 +12,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
 import PriceInput from '#components/input/PriceInput.component';
+import PaymentPaypal from './paypal/PaymentPaypal.component';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { OptionCallback } from '../../../state/types';
@@ -19,6 +23,7 @@ import type { Basket } from '#libs/checkout/types';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
+import { TermsAndConditionType } from '#libs/payment/types';
 import InstalmentPaymentSelector from '../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import PaymentMethodCardSelector from './PaymentMethodCardSelector.component';
 
@@ -51,6 +56,7 @@ type Props = {
   instalmentPaymentSelectedId?: number;
   isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
+  locale?: string;
   memberId: number;
   onCancel?: () => void;
   onError?: () => void;
@@ -72,11 +78,13 @@ type Props = {
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  setPaymentEngine?: (paymentEngine: number) => void;
   setPaymentProcessing?: (process: boolean) => void;
   setSelectedEstablishmentBillingGroup?: (
     value: React.SetStateAction<EstablishmentBillingGroup>,
   ) => void;
   setTermsAndConditionsAccepted?: (termsAndConditionsAccepted: boolean) => void;
+  snackbarErrorMsg?: (message: string) => void;
   termsAndConditions?: string;
   termsAndConditionsAccepted?: boolean;
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
@@ -111,6 +119,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       instalmentPaymentSelectedId,
       isEstablishmentBillingGroupSelected = true,
       loading,
+      locale,
       memberId,
       onCancel,
       onError,
@@ -126,9 +135,11 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       sepaDefaultName,
       setIsEstablishmentBillingGroupSelected,
       setIsOnlinePaymentDisabled,
+      setPaymentEngine,
       setPaymentProcessing,
       setSelectedEstablishmentBillingGroup,
       setTermsAndConditionsAccepted,
+      snackbarErrorMsg,
       termsAndConditions,
       termsAndConditionsAccepted,
       updateMemberBillingGroup,
@@ -149,9 +160,21 @@ const OnlinePayment: React.FC<Props> = forwardRef(
 
     const handleSelectPaymentMethod = useCallback(
       (paymentMethod: number) => {
+        // By default, we consider that only Stripe payment methods are available
+        if (setPaymentEngine) {
+          if (paymentMethod === PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET) {
+            setPaymentEngine(PAYMENT_ENGINE_PAYPAL);
+
+            // Only temporary while instalment payments are not available with PayPal.
+            // Incoming with BS-3592
+            if (onSelectInstalmentPayment) onSelectInstalmentPayment(null);
+          } else {
+            setPaymentEngine(PAYMENT_ENGINE_STRIPE);
+          }
+        }
         selectPaymentMethod(paymentMethod);
       },
-      [selectPaymentMethod],
+      [selectPaymentMethod, setPaymentEngine, onSelectInstalmentPayment],
     );
 
     const classes = useStyles();
@@ -233,7 +256,8 @@ const OnlinePayment: React.FC<Props> = forwardRef(
           selectPaymentMethod={handleSelectPaymentMethod}
         />
         {instalmentPaymentConfigurationList?.length > 0 &&
-          !!onSelectInstalmentPayment && (
+          !!onSelectInstalmentPayment &&
+          paymentEngine !== PAYMENT_ENGINE_PAYPAL && (
             <InstalmentPaymentSelector
               basketPriceCts={
                 basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
@@ -313,6 +337,63 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                   )}
                 </div>
               </PaymentStripe>
+            )}
+            {paymentEngine === PAYMENT_ENGINE_PAYPAL && (
+              <PaymentPaypal
+                acceptTermsAndConditionsElement={
+                  termsAndConditions ? (
+                    <AcceptTermsAndConditions
+                      accepted={termsAndConditionsAccepted}
+                      onChecked={setTermsAndConditionsAccepted}
+                      termsAndConditions={termsAndConditions}
+                      type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+                    />
+                  ) : null
+                }
+                allowConsumerToUseInternalAccount={
+                  allowConsumerToUseInternalAccount
+                }
+                applyBalanceLoading={applyBalanceLoading}
+                applyBalanceToInvoice={applyBalanceToInvoice}
+                basketId={basketId}
+                clientSecret={clientSecret}
+                creditAccountBalance={creditAccountBalance}
+                forceDisabled={priceUpdaterOpen}
+                fromApp={fromApp}
+                isEstablishmentBillingGroupSelected={
+                  isEstablishmentBillingGroupSelected
+                }
+                loading={loading}
+                locale={locale}
+                onCancel={onCancel}
+                onError={onError}
+                onSuccess={onSuccess}
+                paymentGroupId={paymentGroupId}
+                paymentProcessing={paymentProcessing}
+                setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+                setPaymentProcessing={enhancedSetPaymentProcessing}
+                snackbarErrorMsg={snackbarErrorMsg}
+                termsAndConditionsAccepted={termsAndConditionsAccepted}
+                useInternalAccount={useInternalAccount}
+              >
+                <div className={classes.billingGroupSelector}>
+                  {!!establishmentBillingGroups && (
+                    <CheckoutBillingGroupSelector
+                      enableMultiLocalization={enableMultiLocalization}
+                      establishmentBillingGroups={establishmentBillingGroups}
+                      selectedEstablishmentBillingGroup={
+                        selectedEstablishmentBillingGroup
+                      }
+                      setIsEstablishmentBillingGroupSelected={
+                        setIsEstablishmentBillingGroupSelected
+                      }
+                      setSelectedEstablishmentBillingGroup={
+                        setSelectedEstablishmentBillingGroup
+                      }
+                    />
+                  )}
+                </div>
+              </PaymentPaypal>
             )}
           </div>
         )}

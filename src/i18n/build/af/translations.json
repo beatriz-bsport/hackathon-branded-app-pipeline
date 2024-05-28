@@ -3459,7 +3459,8 @@
         "13": "Giropay",
         "14": "Client credit balance (debit)",
         "15": "Card (manual - card machine)",
-        "16": "Bacs Direct Debit"
+        "16": "Bacs Direct Debit",
+        "17": "PayPal"
       },
       "select": { "label": "Payment method" },
       "isInternalExplain": "The account balance will be automatically charged if no payment method has been added.",
@@ -6300,6 +6301,7 @@
       "50": "EPS",
       "60": "Giropay",
       "70": "Bacs Direct Debit",
+      "80": "PayPal",
       "CB": "Card",
       "CREDIT_ACCOUNT": "Internal account",
       "GIROPAY": "Giropay",
@@ -6375,6 +6377,7 @@
       "50": "EPS",
       "60": "Giropay",
       "70": "Bacs Direct Debit",
+      "80": "PayPal",
       "label": "Payment method",
       "disputeWon": "Won"
     },
@@ -9255,6 +9258,7 @@
       "payment_method_ideal": "iDEAL",
       "payment_method_bancontact": "Bancontact",
       "payment_method_sofort": "Sofort",
+      "payment_method_paypal_wallet": "PayPal Wallet",
       "payment_method_eps": "EPS",
       "stock_at_end": "Stock (end date)",
       "stock_at_start": "Stock (start date)",

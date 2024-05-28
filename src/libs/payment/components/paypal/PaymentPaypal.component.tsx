@@ -203,40 +203,43 @@ const PaymentPaypal: React.FC<Props> = ({
                   {acceptTermsAndConditionsElement}
                 </div>
               )}
-              <div className={classes.paypalButton}>
-                <PayPalScriptProvider
-                  options={{
-                    clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
-                    merchantId: clientSecret,
-                    components: 'buttons,funding-eligibility,marks',
-                    currency: getCurrencyCode().toUpperCase(),
-                    integrationDate: '2020-07-01',
-                    debug: false,
-                    commit: true,
-                    intent: 'capture',
-                    dataPartnerAttributionId:
-                      Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
-                    ...(locale ? { locale } : {}),
-                  }}
-                >
-                  <PayPalPaymentButton
-                    createOrder={createOrder}
-                    isDisabled={isSubmitButtonDisabled}
-                    onApprove={onApprove}
-                    onCancel={onPayPalCancel}
-                    onError={onPayPalError}
-                  />
-                </PayPalScriptProvider>
-              </div>
               <div
                 className={classNames(
                   classes.actionRow,
                   customClasses?.actionRow,
                 )}
               >
-                <Button disabled={loading} onClick={onCancel}>
-                  {t('paymentPanel.actions.cancel')}
-                </Button>
+                <>
+                  <div className={classes.paypalButton}>
+                    <PayPalScriptProvider
+                      options={{
+                        clientId: Config.REACT_APP_PAYPAL_CLIENT_ID,
+                        merchantId: clientSecret,
+                        components: 'buttons,funding-eligibility,marks',
+                        currency: getCurrencyCode().toUpperCase(),
+                        integrationDate: '2020-07-01',
+                        debug: false,
+                        commit: true,
+                        intent: 'capture',
+                        dataPartnerAttributionId:
+                          Config.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID,
+                        ...(locale ? { locale } : {}),
+                      }}
+                    >
+                      <PayPalPaymentButton
+                        createOrder={createOrder}
+                        isDisabled={isSubmitButtonDisabled}
+                        onApprove={onApprove}
+                        onCancel={onPayPalCancel}
+                        onError={onPayPalError}
+                      />
+                    </PayPalScriptProvider>
+                  </div>
+
+                  <Button disabled={loading} onClick={onCancel}>
+                    {t('paymentPanel.actions.cancel')}
+                  </Button>
+                </>
               </div>
             </>
           )}
@@ -251,9 +254,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(1),
   },
   paypalButton: {
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    width: theme.spacing(25),
+    height: theme.spacing(5),
   },
   actionRow: {
     display: 'flex',

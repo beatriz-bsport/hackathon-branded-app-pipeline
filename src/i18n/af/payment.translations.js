@@ -19,6 +19,7 @@ const getTranslations = async () => {
     EPS,
     IDEAL,
     SOFORT,
+    PAYPAL_WALLET,
     PAYMENT_PACK,
   } = await import('@bsport/common/lib/master-data/payment-methods.js');
   const {
@@ -59,6 +60,7 @@ const getTranslations = async () => {
       [PAYMENT_PACK.id]: 'Pass',
       [OTHER.id]: 'Other',
       [DISPUTE.id]: 'Chargeback',
+      [PAYPAL_WALLET.id]: 'PayPal',
       CB: 'Card',
       CREDIT_ACCOUNT: 'Internal account',
       GIROPAY: 'Giropay',
@@ -147,6 +149,7 @@ const getTranslations = async () => {
       [IDEAL.id]: 'iDEAL',
       [SOFORT.id]: 'Sofort',
       [PAYMENT_PACK.id]: 'Pass',
+      [PAYPAL_WALLET.id]: 'PayPal',
       label: 'Payment method',
       disputeWon: 'Won',
     },

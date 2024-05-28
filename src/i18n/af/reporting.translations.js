@@ -251,6 +251,7 @@ const getTranslations = async () => {
       payment_method_ideal: 'iDEAL',
       payment_method_bancontact: 'Bancontact',
       payment_method_sofort: 'Sofort',
+      payment_method_paypal_wallet: 'PayPal Wallet',
       payment_method_eps: 'EPS',
       stock_at_end: 'Stock (end date)',
       stock_at_start: 'Stock (start date)',

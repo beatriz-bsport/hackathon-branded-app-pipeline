@@ -217,6 +217,7 @@ export class BasketPage extends React.Component<Props> {
     clientSecret: null,
     paymentGroupId: null,
     clientSecretLoading: false,
+    paymentEngine: PAYMENT_ENGINE_STRIPE,
     nextPaymentIntentStatusCheckSeconds: 1.5,
     isEstablishmentBillingGroupSelected: true,
     selectedEstablishmentBillingGroup: null,
@@ -260,7 +261,7 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       Analytics.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
-        this.getSecret();
+        this.getSecret(this.state.paymentEngine);
       }
     }
     if (this.props.auth.authenticated && this.props.basket?.member) {
@@ -281,7 +282,7 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       Analytics.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
-        this.getSecret();
+        this.getSecret(this.state.paymentEngine);
       }
       if (this.props.basket.member) {
         this.props.fetchMember(this.props.basket.member);
@@ -295,7 +296,7 @@ export class BasketPage extends React.Component<Props> {
       this.props.basket.total_price_cts !== prevProps.basket.total_price_cts &&
       this.props.basket.total_price_cts
     ) {
-      this.getSecret();
+      this.getSecret(this.state.paymentEngine);
     }
 
     loadDefaultEstablishmentBillingGroup(
@@ -319,20 +320,30 @@ export class BasketPage extends React.Component<Props> {
     );
   }
 
-  getSecret = () => {
+  handlePaymentEngineUpdate = (newPaymentEngine: number) => {
+    if (newPaymentEngine !== this.state.paymentEngine)
+      this.getSecret(newPaymentEngine);
+
+    this.setState({ paymentEngine: newPaymentEngine });
+  };
+
+  getSecret = (paymentEngine: number) => {
     if (shouldNotRetrieveSecret(this.props.queryParams)) {
       return;
     }
     this.setState({ clientSecretLoading: true });
-    requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_BASKET, {
+    requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
       basket: this.props.basket.id,
     })
       .then((r) => {
-        this.setState({
-          clientSecret: r.data.client_secret,
-          paymentGroupId: r.data.payment_group,
-          clientSecretLoading: false,
-        });
+        // To avoid race condition when changing payment engine while client secret is loading
+        if (paymentEngine === this.state.paymentEngine) {
+          this.setState({
+            clientSecret: r.data.client_secret,
+            paymentGroupId: r.data.payment_group,
+            clientSecretLoading: false,
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -585,18 +596,17 @@ export class BasketPage extends React.Component<Props> {
                         this.props.processing ||
                         this.props.paymentProcessing
                       }
+                      locale={this.props.theme.locale}
                       memberId={this.props.basket.member}
                       onCancel={this.backToCalendar}
+                      onError={this.props.refreshBasket}
                       onSelectInstalmentPayment={this.onSelectInstalmentPayment}
                       onSuccess={this.onSuccess}
+                      paymentEngine={this.state.paymentEngine}
                       paymentGroupId={this.state.paymentGroupId}
-                      paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                        PAYMENT_ENGINE_STRIPE
-                      ].filter((pm) =>
-                        (
-                          this.props.theme.payment_method_available_basket || []
-                        ).includes(pm),
-                      )}
+                      paymentMethodChoices={
+                        this.props.theme.payment_method_available_basket || []
+                      }
                       paymentProcessing={this.props.paymentProcessing}
                       selectedEstablishmentBillingGroup={
                         this.state.selectedEstablishmentBillingGroup
@@ -606,6 +616,7 @@ export class BasketPage extends React.Component<Props> {
                       setIsEstablishmentBillingGroupSelected={
                         this.setIsEstablishmentBillingGroupSelected
                       }
+                      setPaymentEngine={this.handlePaymentEngineUpdate}
                       setPaymentProcessing={this.props.setPaymentProcessing}
                       setSelectedEstablishmentBillingGroup={
                         this.setSelectedEstablishmentBillingGroup

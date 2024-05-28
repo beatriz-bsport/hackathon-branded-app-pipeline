@@ -1,5 +1,5 @@
 $line-bubble-size: 40px;
-$line-bubble-negative-margin: $line-bubble-size / 4;
+$line-bubble-negative-margin: calc($line-bubble-size / 4);
 
 .easy-access-stack {
   display: flex;
@@ -14,7 +14,7 @@ $line-bubble-negative-margin: $line-bubble-size / 4;
     width: 0.5 * $line-bubble-size;
     height: 0.5 * $line-bubble-size;
     line-height: 0.5 * $line-bubble-size;
-    border-radius: 0.5 * $line-bubble-size / 2;
+    border-radius: 0.5 * calc($line-bubble-size / 2);
     margin-left: -$line-bubble-negative-margin * 0.5;
   }
 }
@@ -24,7 +24,7 @@ $line-bubble-negative-margin: $line-bubble-size / 4;
   width: $line-bubble-size;
   height: $line-bubble-size;
   line-height: $line-bubble-size;
-  border-radius: $line-bubble-size / 2;
+  border-radius: calc($line-bubble-size / 2);
   margin-left: -$line-bubble-negative-margin;
   text-align: center;
 }

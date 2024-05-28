@@ -525,7 +525,6 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                 stripeId={this.props.companyTheme.stripe_id}
                 stripeReaders={this.props.stripeReaders || []}
-                // @ts-expect-error
                 unpaidInvoiceList={this.props.unpaidInvoiceList}
               />
               <TaskList

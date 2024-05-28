@@ -123,25 +123,22 @@ export const getPlannedPaymentEventList = createSelector(
 );
 
 export const withInvoiceItem = memoize(
-  (selector: (state: RootState) => Invoice[] | Invoice | null) =>
+  <T extends Invoice[] | Invoice | null>(selector: (state: RootState) => T) =>
     createSelector(
       [selector, _getInvoiceItemData],
-      (invoice, invoiceItemData) => {
-        if (!invoice) return invoice;
+      (invoice, invoiceItemData): T => {
+        if (!invoice) return invoice as T;
+
         if (Array.isArray(invoice)) {
           return invoice.map((inv: Invoice) => ({
             ...inv,
-            invoice_items: inv.invoice_items.map((ii) => {
-              return invoiceItemData[ii];
-            }),
-          }));
+            invoice_items: inv.invoice_items.map((ii) => invoiceItemData[ii]),
+          })) as unknown as T;
         }
         return {
           ...invoice,
-          invoice_items: invoice.invoice_items.map((ii) => {
-            return invoiceItemData[ii];
-          }),
-        };
+          invoice_items: invoice.invoice_items.map((ii) => invoiceItemData[ii]),
+        } as T;
       },
     ),
 );

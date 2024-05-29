@@ -1,6 +1,5 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -22,7 +21,6 @@ const CardHeaders: React.FC<{
   const { t } = useTranslation('reporting');
 
   const converters = (headerDetails || []).map((detail) =>
-    // @ts-expect-error
     getConverter(detail, classes, t, reportCategory),
   );
 

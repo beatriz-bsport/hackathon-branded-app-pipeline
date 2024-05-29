@@ -82,7 +82,6 @@ import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 import type {
   ReportCategory,
-  ReportMetadataColumn,
   ReportMetadata,
   ReportConfiguration,
   CellConverter,
@@ -286,9 +285,12 @@ export function getColumn(
   );
 }
 
-// TODO Test it
 export const getConverter = (
-  column: ReportMetadataColumn,
+  column: {
+    column_identifier?: string;
+    identifier?: string;
+    datatype: string;
+  },
   classes: ClassNameMap<string>,
   t: TFunction,
   reportCategory: string,
@@ -298,126 +300,119 @@ export const getConverter = (
   }
   const { datatype } = column;
 
-  // @ts-expect-error
-  return (value: any) => {
+  return (value) => {
     if (datatype === 'price') {
-      if (typeof value === 'number' || !value) {
-        return {
-          cellProps: { className: classes.right },
-          value: `${getCurrencyDisplayWithPrice(
-            parseFloat(value || '0').toFixed(2),
-          )}`,
-        };
-      }
-    }
-    if (datatype === 'number') {
       return {
-        value: parseFloat(value || '0').toFixed(2),
+        cellProps: { className: classes.right },
+        value: `${getCurrencyDisplayWithPrice(Number(value).toFixed(2))}`,
       };
     }
-    if (datatype === 'cts') {
-      if (typeof value === 'number' || !value) {
-        return {
-          cellProps: { className: classes.right },
-          value: `${getCurrencyDisplayWithPrice(
-            (parseFloat(value || '0') / 100).toFixed(2),
-          )}`,
-        };
-      }
+
+    if (datatype === 'number') {
+      return {
+        value: Number(value).toFixed(2),
+      };
     }
 
-    const creditsColumns = [
-      'credits',
-      'available_credits',
-      'remaining_credits_annotated',
-    ];
+    if (datatype === 'cts') {
+      return {
+        cellProps: { className: classes.right },
+        value: `${getCurrencyDisplayWithPrice(
+          (Number(value) / 100).toFixed(2),
+        )}`,
+      };
+    }
+
     if (datatype === 'int') {
+      const creditsColumns = [
+        'credits',
+        'available_credits',
+        'remaining_credits_annotated',
+      ];
       const shouldBeDivided =
         ['memberships', 'private_cpasses'].includes(reportCategory) &&
-        // @ts-expect-error
         creditsColumns.includes(column.column_identifier || column.identifier);
 
-      if (shouldBeDivided) {
-        const dividedValue = getCreditsDividedDisplay(parseInt(value, 10));
-        return {
-          cellProps: { className: classes.right },
-          value: dividedValue,
-        };
-      }
-
-      if (typeof value === 'number' || !value) {
-        return {
-          cellProps: { className: classes.right },
-          value: parseInt(value || '0', 10),
-        };
-      }
+      const valueInt = Math.floor(Number(value));
+      return {
+        cellProps: { className: classes.right },
+        value: shouldBeDivided ? getCreditsDividedDisplay(valueInt) : valueInt,
+      };
     }
 
     if (datatype === 'percent') {
-      if (typeof value === 'number' || !value) {
-        return {
-          cellProps: { className: classes.right },
-          value: `${parseFloat(value || '0').toFixed(2)}%`,
-        };
-      }
+      return {
+        cellProps: { className: classes.right },
+        value: `${Number(value).toFixed(2)}%`,
+      };
     }
+
+    if (datatype === 'dow') {
+      return {
+        value:
+          getLocaleWeekdays('long')[(Math.floor(Number(value)) + 1) % 7] || '',
+      };
+    }
+
+    if (datatype === 'boolean') {
+      return { value: t(value ? 'yes' : 'no') as string };
+    }
+
     if (datatype === 'time') {
       return {
         value,
       };
     }
+
     if (datatype === 'date') {
+      const date = DateTime.fromISO(String(value));
       return {
-        value: value ? DateTime.fromISO(value).toFormat('D') : '',
+        value: date.isValid ? date.toFormat('D') : '',
       };
     }
-    if (datatype === 'dow') {
-      return {
-        value: getLocaleWeekdays('long')[(parseInt(value, 10) + 1) % 7],
-      };
-    }
-    if (datatype === 'boolean') {
-      if (value) {
-        return { value: t('yes') };
-      }
-      return { value: t('no') };
-    }
+
     if (datatype === 'datetime') {
-      if (value) {
-        return {
-          value: DateTime.fromFormat(value, "yyyy-MM-dd',' HH:mm:ss").toFormat(
-            "D HH'h'mm",
-          ),
-        };
-      }
-      return '';
+      const date = DateTime.fromFormat(String(value), "yyyy-MM-dd',' HH:mm:ss");
+      return {
+        value: date.isValid ? date.toFormat("D HH'h'mm") : '',
+      };
     }
 
     if (datatype === 'product_type') {
-      return { value: t(`product_type.${value}`) };
+      return { value: t(`product_type.${value}`) as string };
     }
-    if (datatype === 'payment_method') {
-      if (value && (typeof value === 'string' || !value)) {
-        return {
-          value: (value || '')
-            .split(',')
 
-            // @ts-expect-error
-            .map((v) => t(`payment_method.${v}`))
-            .join(', '),
-        };
-      }
-      return { value: t('payment_method.none') };
+    if (datatype === 'payment_method') {
+      return {
+        value:
+          value && typeof value === 'string'
+            ? value
+                .split(',')
+                .map((v) => t(`payment_method.${v}`))
+                .join(', ')
+            : (t('payment_method.none') as string),
+      };
     }
+
     if (datatype === 'payment_method_with_credit_account') {
-      return { value: t(`payment_method_with_credit_account.${value}`) };
+      return {
+        value: t(`payment_method_with_credit_account.${value}`) as string,
+      };
     }
+
     if (datatype === 'dispute_status') {
-      return { value: t(`payment:disputeStatus.${value}`) };
+      return { value: t(`payment:disputeStatus.${value}`) as string };
     }
-    if (datatype === 'payout_status' && typeof value === 'number') {
-      return { value: t(`payment:payout.status.${value}`) };
+
+    if (datatype === 'payout_status') {
+      return {
+        value:
+          typeof value === 'number'
+            ? (t(`payment:payout.status.${value}`) as string)
+            : value,
+      };
     }
+
     return { value };
   };
 };

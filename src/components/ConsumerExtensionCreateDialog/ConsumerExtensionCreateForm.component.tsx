@@ -58,7 +58,7 @@ const ConsumerExtensionCreateForm: React.FC<Props> = ({
       DateTime.fromISO(passEndingDate)
         .setZone(timezone)
         .plus({
-          day: values.nbDays,
+          day: values.nbDays || 0,
         })
         .toISO(),
     [passEndingDate, timezone, values.nbDays],

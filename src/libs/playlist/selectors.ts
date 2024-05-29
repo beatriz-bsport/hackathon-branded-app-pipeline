@@ -29,10 +29,10 @@ export const withCoachInVideo = memoize((selector: any) =>
             .filter((v: Video) => !!v)
             .map((v: Video) => ({
               ...v,
-              coaches: v.coaches
+              coaches: (v?.coaches ?? [])
                 .map((c) =>
                   Object.values(coachData).find((coach) =>
-                    coach.associatedcoach_set.includes(c),
+                    (coach?.associatedcoach_set ?? []).includes(c),
                   ),
                 )
                 .filter((c) => !!c),

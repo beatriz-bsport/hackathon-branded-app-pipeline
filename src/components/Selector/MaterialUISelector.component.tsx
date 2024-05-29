@@ -171,9 +171,14 @@ function MaterialUISelector<T extends OptionTypeBase>(
     ...restProps
   } = props;
   const classes = useStyles();
+
   const selectRef = useRef(null);
+
   const [containerRef, setContainerRef] = useState(null);
   const [displayMore, setDisplayMore] = useState(false);
+  /** Keeps track of the focus state of the inner Select component */
+  const [isFocused, setIsFocused] = useState(false);
+
   const handleChange = (data: T | T[], { action }: ActionMeta) => {
     if (!onChange) return;
 
@@ -202,8 +207,17 @@ function MaterialUISelector<T extends OptionTypeBase>(
     }
   };
 
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      onFocus?.(e);
+    },
+    [onFocus],
+  );
+
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
       if (onBlur) {
         e.target.name = name;
         onBlur(e);
@@ -306,6 +320,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           isSearchable={isSearchable}
           menuPortalTarget={_menuPortalTarget}
           onChange={handleChange}
+          onFocus={handleFocus}
           openMenuOnFocus={openMenuOnFocus}
           options={options}
           placeholder={placeholder}

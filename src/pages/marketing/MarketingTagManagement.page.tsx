@@ -248,7 +248,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
     });
     if (this.props.selectedTag) {
       tagGroup.tags.forEach((tag) => {
-        tag.id === this.props.selectedTag.id &&
+        tag?.id === this.props.selectedTag?.id &&
           this.props.replace(`/marketing/tags/${window.location.search}`);
       });
     }

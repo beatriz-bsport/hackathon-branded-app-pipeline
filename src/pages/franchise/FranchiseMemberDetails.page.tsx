@@ -114,6 +114,11 @@ const FranchiseMemberDetails: React.FC<Props> = ({
         <Route
           exact
           component={FranchiseMemberDetailPrivateConsumerPass}
+          path="/f/members/:userId/member/private-consumer-pass/:selectedPrivateConsumerPassId"
+        />
+        <Route
+          exact
+          component={FranchiseMemberDetailPrivateConsumerPass}
           path="/f/members/:userId/member/private-consumer-pass"
         />
         <Route

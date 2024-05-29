@@ -844,12 +844,14 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
     if (customPlaceholder) {
       content = (
         <>
-          <Typography
-            className={props?.selectProps?.classes?.placeholder}
-            color="textSecondary"
-          >
-            {customPlaceholder}
-          </Typography>
+          {!props.selectProps?.inputValue && (
+            <Typography
+              className={props?.selectProps?.classes?.placeholder}
+              color="textSecondary"
+            >
+              {customPlaceholder}
+            </Typography>
+          )}
           {/* This is a hack to make the entire select clickable
           Make sure the children components are under display: none rule */}
           {props.children}

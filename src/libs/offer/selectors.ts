@@ -400,8 +400,10 @@ export const getOfferAsEventList = createSelector(
     return offerList
       .filter(
         (o) =>
-          DateTime.fromISO(o.date_start).day <= DateTime.fromISO(end).day &&
-          DateTime.fromISO(o.date_start).day >= DateTime.fromISO(start).day,
+          DateTime.fromISO(o.date_start).startOf('day') <=
+            DateTime.fromISO(end).startOf('day') &&
+          DateTime.fromISO(o.date_start).startOf('day') >=
+            DateTime.fromISO(start).startOf('day'),
       )
       .map((o) =>
         Immutable({

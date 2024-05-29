@@ -161,14 +161,16 @@ const OfferSummary: React.FC<Props> = ({
             {offer?.name_override || metaActivity?.name}
           </Typography>
 
-          <Typography className={classes.grey}>
-            {formatAsDateWithWeekday(
-              offer?.date_start,
-              theme,
-              'DDD t',
-              offer?.timezone_name,
-            )}
-          </Typography>
+          {offer?.date_start && (
+            <Typography className={classes.grey}>
+              {formatAsDateWithWeekday(
+                offer.date_start,
+                theme,
+                'DDD t',
+                offer?.timezone_name,
+              )}
+            </Typography>
+          )}
         </div>
         <div className={classes.columnGap2}>
           {(metaActivity?.is_broadcast || waitlistExists) && (

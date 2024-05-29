@@ -4,34 +4,41 @@ type ImportComponentType = () => Promise<{ default: React.ComponentType<any> }>;
 
 interface Props {}
 interface State {
-  component: React.ComponentType<any> | null;
+  returnedComponent: React.ComponentType<any> | null;
 }
 
-export default function asyncComponent(importComponent: ImportComponentType) {
+const asyncComponent = (
+  importComponent: ImportComponentType,
+): React.ComponentType<Props> => {
   class AsyncComponent extends Component<Props, State> {
     constructor(props: Props) {
       super(props);
 
       this.state = {
-        component: null,
+        returnedComponent: null,
       };
     }
 
     async componentDidMount() {
-      const { default: component } = await importComponent();
+      try {
+        const { default: component } = await importComponent();
 
-      // eslint-disable-next-line
-      this.setState({
-        component,
-      });
+        this.setState({
+          returnedComponent: component,
+        });
+      } catch (error) {
+        console.error('Error loading component:', error);
+      }
     }
 
     render() {
-      const C = this.state.component;
+      const DisplayComponent = this.state.returnedComponent;
 
-      return C ? <C {...this.props} /> : null;
+      return DisplayComponent ? <DisplayComponent {...this.props} /> : null;
     }
   }
 
   return AsyncComponent;
-}
+};
+
+export default asyncComponent;

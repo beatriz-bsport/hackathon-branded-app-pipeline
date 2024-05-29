@@ -264,11 +264,12 @@ function MaterialUISelector<T extends OptionTypeBase>(
 
   const displayAllOptionsPlaceholder = useMemo(
     () =>
+      !isFocused &&
       !!isMulti &&
       !!allOptionsPlaceholder &&
       options?.length !== 0 &&
       options?.length === value?.length,
-    [isMulti, allOptionsPlaceholder, options, value],
+    [isFocused, isMulti, allOptionsPlaceholder, options, value],
   );
 
   return (

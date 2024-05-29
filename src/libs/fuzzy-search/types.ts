@@ -64,7 +64,7 @@ export type ObjectSearchPaginated = ResultsMap[SearchObjectType]['paginated'];
 
 export type ObjectSearchState<T extends SearchObjectType> = {
   error: Error | null;
-  isLoading: boolean;
+  loading: boolean;
   results: {
     currentResults: ResultsMap[T]['array'];
     page: number;

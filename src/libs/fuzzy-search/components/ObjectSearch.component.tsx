@@ -112,8 +112,7 @@ const connector = connect(
     results: getSelectorState(state, searchedObjectType, selectorId).results
       .currentResults,
     resultsById: getResultsById(state, searchedObjectType),
-    isLoading: getSelectorState(state, searchedObjectType, selectorId)
-      .isLoading,
+    isLoading: getSelectorState(state, searchedObjectType, selectorId).loading,
   }),
   {
     searchObjects: searchObjectsAction,

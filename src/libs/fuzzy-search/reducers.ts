@@ -22,7 +22,7 @@ type Payload<T> = { payload: T };
 
 const defaultSelectorState: ObjectSearchState<SearchObjectType> = {
   error: null,
-  isLoading: false,
+  loading: false,
   results: {
     next_page: null,
     page: 1,
@@ -75,7 +75,7 @@ export default handleActions(
           payload.searchedObjectType,
           'bySelectorId',
           payload.selectorId,
-          'isLoading',
+          'loading',
         ],
         payload.value,
       );

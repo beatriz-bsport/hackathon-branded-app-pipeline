@@ -1,10 +1,11 @@
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
 
-import cloneDeep from 'lodash/cloneDeep';
 import mergeWith from 'lodash/mergeWith';
 import get from 'lodash/get';
 
+import cloneDeep from 'lodash/cloneDeep';
+import has from 'lodash/has';
 import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
 import type {
   RolePermission,
@@ -193,6 +194,70 @@ type HasAccessToUrlProps = {
   url: string;
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
+};
+
+type MergeResult = {
+  mergedObject: permissionsGenericObject;
+  missingKeys: Set<string>;
+};
+
+type permissionsGenericObject = {
+  [key: string]: boolean | string[] | permissionsGenericObject;
+};
+
+/**
+ * Merges two objects and tracks the keys that are present in the source object but missing in the completion object.
+ *
+ * @param {permissionsGenericObject} target - The source object to merge.
+ * @param {permissionsGenericObject} source - The completion object to merge with the source object.
+ * @returns {MergeResult} An object containing the merged object and a set of missing keys.
+ *
+ * @example
+ * const target = { a: 1, b: 2, c: { d: 3 } };
+ * const source = { a: 1, c: { e: 4 } };
+ * const result = deepMergeAndTrackMissingKeys(target, source);
+ * // result.mergedObject will be { a: 1, b: 2, c: { d: 3 } }
+ * // result.missingKeys will be Set { 'b', 'c.d' }
+ */
+export const deepMergeAndTrackMissingKeys = (
+  target: permissionsGenericObject,
+  source: permissionsGenericObject,
+): MergeResult => {
+  if (Array.isArray(target)) {
+    return { mergedObject: target, missingKeys: new Set() };
+  }
+
+  const mergedObject: permissionsGenericObject = {};
+  const missingKeys: Set<string> = new Set();
+
+  Object.entries(target).forEach(([key, value]) => {
+    if (!has(source, key) || typeof value !== typeof source[key]) {
+      mergedObject[key] = value;
+      missingKeys.add(key);
+      return;
+    }
+
+    const src = source[key];
+
+    if (Array.isArray(value)) {
+      mergedObject[key] = cloneDeep(value);
+      return;
+    }
+
+    if (typeof value === 'object') {
+      const result = deepMergeAndTrackMissingKeys(
+        value,
+        src as permissionsGenericObject,
+      );
+      mergedObject[key] = result.mergedObject;
+      result.missingKeys.forEach((k) => missingKeys.add(`${key}.${k}`));
+      return;
+    }
+
+    mergedObject[key] = value;
+  });
+
+  return { mergedObject, missingKeys };
 };
 
 export const hasAccessToUrl = ({

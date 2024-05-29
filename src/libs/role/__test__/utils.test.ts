@@ -2,6 +2,7 @@ import {
   checkRequiredPermissions,
   checkRequiredPermissionsForPath,
   deepMerge,
+  deepMergeAndTrackMissingKeys,
   setAllValuesInObject,
 } from '../utils';
 import { RolePermission } from '../types';
@@ -328,6 +329,134 @@ describe('TEST deepMerge', () => {
         permissionA,
       ),
     ).toStrictEqual(permissionA);
+  });
+
+  it('Should deepMergeAndTrackMissingKeys not show fields not present in backend nor send them in the http request', () => {
+    expect(
+      deepMergeAndTrackMissingKeys(
+        {
+          restrictedPaths: [],
+          navigationMenu: {
+            dashboard: true,
+            calendar: true,
+            schedule: true,
+          },
+        },
+        { ...permissionA, fieldNotRetrievedFromBackend: true },
+      ),
+    ).toStrictEqual({
+      mergedObject: {
+        restrictedPaths: [],
+        navigationMenu: {
+          dashboard: true,
+          calendar: true,
+          schedule: true,
+        },
+      },
+      // no fieldNotRetrievedFromBackend field here
+      missingKeys: new Set([]),
+    });
+  });
+
+  it('Should deepMergeAndTrackMissingKeys have the same behaviour than deepMerge PLUS returning the missingKeys in completionObject', () => {
+    expect(
+      deepMergeAndTrackMissingKeys(
+        {
+          restrictedPaths: [],
+          navigationMenu: {
+            dashboard: true,
+            calendar: true,
+            schedule: true,
+            myClub: {
+              activities: true,
+              workshops: true,
+              appointments: true,
+              teachers: true,
+              establishments: true,
+              programs: true,
+            },
+            settings: {
+              paymentThatShouldBeIgnored: {
+                preferences: true,
+                accountSetup: true,
+              },
+              fieldThatShoudBeIgnored: true,
+            },
+          },
+        },
+        permissionA,
+      ),
+    ).toStrictEqual({
+      mergedObject: {
+        restrictedPaths: [],
+        navigationMenu: {
+          dashboard: true,
+          calendar: true,
+          schedule: true,
+          myClub: {
+            activities: true,
+            workshops: true,
+            appointments: true,
+            teachers: true,
+            establishments: true,
+            programs: true,
+          },
+          settings: {
+            paymentThatShouldBeIgnored: {
+              preferences: true,
+              accountSetup: true,
+            },
+            fieldThatShoudBeIgnored: true,
+          },
+        },
+      },
+      missingKeys: new Set([
+        'navigationMenu.settings.paymentThatShouldBeIgnored',
+        'navigationMenu.settings.fieldThatShoudBeIgnored',
+      ]),
+    });
+  });
+
+  it('Should deepMergeAndTrackMissingKeys return same type as source with different types for calendar, which is now an object for example', () => {
+    expect(
+      deepMergeAndTrackMissingKeys(
+        {
+          restrictedPaths: [],
+          navigationMenu: {
+            dashboard: true,
+            calendar: { marketplace: true, widget: true },
+            settings: {
+              paymentThatShouldBeIgnored: {
+                preferences: true,
+                accountSetup: true,
+              },
+              fieldThatShoudBeIgnored: true,
+            },
+          },
+        },
+        permissionA,
+      ),
+    ).toStrictEqual({
+      mergedObject: {
+        restrictedPaths: [],
+        navigationMenu: {
+          dashboard: true,
+          calendar: { marketplace: true, widget: true },
+          settings: {
+            paymentThatShouldBeIgnored: {
+              preferences: true,
+              accountSetup: true,
+            },
+            fieldThatShoudBeIgnored: true,
+          },
+        },
+      },
+      missingKeys: new Set([
+        'navigationMenu.settings.paymentThatShouldBeIgnored',
+        'navigationMenu.settings.fieldThatShoudBeIgnored',
+        'navigationMenu.calendar',
+      ]),
+    });
   });
 
   it('Should merge base on the value of the boolean case true', () => {

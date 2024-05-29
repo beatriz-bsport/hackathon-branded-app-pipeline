@@ -32,6 +32,7 @@ import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import {
   deepMerge,
+  deepMergeAndTrackMissingKeys,
   getRoleDescription,
   getRoleName,
   setAllValuesInObject,
@@ -59,6 +60,7 @@ type State = {
   name: string;
   description: string;
   permissions: RolePermission;
+  unwantedKeyPermissions: Array<string>;
   objectLevelPermissions: ObjectLevelPermissions;
   restrictedPathNew: string;
   hasBookingOverrideControl: boolean;
@@ -221,10 +223,11 @@ export class CreateRoleDialog extends React.Component<Props, State> {
   };
 
   getInitialState = (props: Props) => {
-    const state = {
+    const state: State = {
       name: '',
       description: '',
       permissions: getDefaultPermissions(props.featureList, props.isFranchisor),
+      unwantedKeyPermissions: [],
       objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       showAdvanced: false,
@@ -241,13 +244,15 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         if (hideAccessMonitoring(props.featureList, props.isFranchisor)) {
           delete rolePermissions.navigationMenu?.accessMonitoring;
         }
-        state.permissions = deepMerge(
+        const result = deepMergeAndTrackMissingKeys(
           rolePermissions,
           setAllValuesInObject(
             getDefaultPermissions(props.featureList, props.isFranchisor),
             false,
-          ),
-        ) as RolePermission;
+          ) as RolePermission,
+        );
+        state.permissions = result.mergedObject as RolePermission;
+        state.unwantedKeyPermissions = [...result.missingKeys];
       }
 
       // By default, if some keys are not found in props.role.object_level_permissions
@@ -305,6 +310,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         this.props.featureList,
         this.props.isFranchisor,
       ),
+      unwantedKeyPermissions: [],
       objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       hasBookingOverrideControl: true,
@@ -449,6 +455,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     keysAccumulator={[key]}
                     permissions={this.state.permissions}
                     rightKey={key}
+                    unwantedKeyPermissions={this.state.unwantedKeyPermissions}
                     updatePermission={(permissions) => {
                       this.setState({
                         // @ts-expect-error

@@ -25,6 +25,7 @@ type Props = {
   keysAccumulator: string[];
   disabled: boolean;
   permissions: RolePermission | ObjectLevelPermissions;
+  unwantedKeyPermissions?: string[];
   updatePermission: (
     permission: RolePermission | ObjectLevelPermissions,
   ) => void;
@@ -40,6 +41,7 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
   disabled,
   permissions,
   updatePermission,
+  unwantedKeyPermissions,
   dependencyMap,
   keysToHide = [],
 }) => {
@@ -48,7 +50,10 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
 
   const [isFolded, setIsFolded] = useState(true);
 
-  if ([...keysAccumulator].join('.') === 'navigationMenu.search') {
+  if (
+    [...keysAccumulator].join('.') === 'navigationMenu.search' ||
+    unwantedKeyPermissions?.includes([...keysAccumulator].join('.'))
+  ) {
     return null;
   }
 
@@ -273,6 +278,7 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
                   permissions={permissions}
                   rightKey={innerKey}
                   translationKeyPrefix={translationKeyPrefix}
+                  unwantedKeyPermissions={unwantedKeyPermissions}
                   updatePermission={updatePermission}
                 />
               ))}

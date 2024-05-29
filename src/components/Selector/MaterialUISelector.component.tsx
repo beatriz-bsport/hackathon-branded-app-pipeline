@@ -843,10 +843,13 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
 
     if (customPlaceholder) {
       content = (
-        <>
+        <div className={classes.relative}>
           {!props.selectProps?.inputValue && (
             <Typography
-              className={props?.selectProps?.classes?.placeholder}
+              className={classNames(
+                props?.selectProps?.classes?.placeholder,
+                classes.placeholderAbsolutePosition,
+              )}
               color="textSecondary"
             >
               {customPlaceholder}
@@ -855,7 +858,7 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
           {/* This is a hack to make the entire select clickable
           Make sure the children components are under display: none rule */}
           {props.children}
-        </>
+        </div>
       );
     } else if (props.hasValue && !props.isMulti) {
       content = <div>{props.children}</div>;
@@ -965,6 +968,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     minWidth: 250,
     overflowX: 'auto',
     zIndex: 1500,
+  },
+  placeholderAbsolutePosition: {
+    left: 3,
+    position: 'absolute',
+    textWrap: 'nowrap',
+    top: '50%',
+    transform: 'translateY(-50%)',
   },
   relative: {
     position: 'relative',

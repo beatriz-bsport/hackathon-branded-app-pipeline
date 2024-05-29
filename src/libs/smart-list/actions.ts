@@ -266,7 +266,10 @@ export const deleteSmartListAction = {
   success: createAction('SMART-LIST/DELETE/SUCCESS'),
 };
 
-export function smartListDelete(id: number): ThunkAction {
+export function smartListDelete(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteSmartListAction.isLoading(true));
     dispatch(deleteSmartListAction.error(null));
@@ -274,9 +277,11 @@ export function smartListDelete(id: number): ThunkAction {
     try {
       await deleteSmartListAPI(id);
 
+      options?.onSuccess?.();
       dispatch(snackbarSuccess('smartlist.delete.success'));
       dispatch(deleteSmartListAction.success(id));
     } catch (error) {
+      options?.onError?.();
       dispatch(deleteSmartListAction.error(error));
       dispatch(snackbarError('smartlist.delete.error'));
     }

@@ -13,15 +13,13 @@ import { withRouter } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
-import Collapse from '@material-ui/core/Collapse';
 
-import FuzeSearch from '../../components/FuzeSearch.component';
 import ModalConfirm from '../../components/ModalConfirm.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import {
   getAllSmartList,
   getSmartList,
   getCadencesUsingSmartlist,
-  getCadenceIdsUsingSmartlistLoading,
 } from '../../libs/smart-list/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -51,6 +49,24 @@ import type {
   CadenceQueryParams,
 } from '../../libs/sequential_marketing/types';
 import { getTheme } from '../../libs/theme/selectors';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+
+type SmartlistOption = {
+  label: string,
+  onClick: (id: number) => void,
+  onClickDelete: (smartlist: Smartlist) => void,
+  onClickDuplicate: (id: number) => void,
+  onClickEdit: (id: number) => void,
+  selected: boolean,
+  value: number,
+};
+
+const Option: React.FC<OptionPropsWithData<SmartlistOption>> = (props) => (
+  <SmartListListItem divider {...props.data} />
+);
 
 type Props = {
   smartlists: Array<SmartList>,
@@ -66,7 +82,6 @@ type Props = {
   goToSelectedCampaign: (id: number) => void,
   smartListUpdate: (id: number) => void,
   onClickDuplicate: (id: number, options: any) => void,
-  goToSmartlistList: () => void,
   smartlistSelected: ?SmartList,
   loading: boolean,
   fetchCadencesUsingSmartlist: (
@@ -74,10 +89,10 @@ type Props = {
     options: OptionCallback<number[]>,
   ) => void,
   getCadences: (id: number) => Cadence[],
-  cadencesLoading: boolean,
   fetchCadenceList: (params: CadenceQueryParams) => void,
   hasSequentialMarketingUpsell: boolean,
-} & WithRouterProps;
+} & WithRouterProps &
+  WithObjectSearch;
 
 type State = {
   openCreateDialog: boolean,
@@ -135,6 +150,31 @@ export class SmartListList extends Component<Props, State> {
     }
   };
 
+  smartlistOptionsFormatter = (smartlists: SmartList[]): SmartlistOption[] =>
+    smartlists.map((smartlist) => {
+      return {
+        label: smartlist.name,
+        isSequentialMarketingAuthorized: isSequentialMarketingAuthorized(
+          this.props.company_id,
+          this.props.hasSequentialMarketingUpsell,
+        ),
+        onClick: (id) => {
+          this.selected(id);
+        },
+        onClickDelete: this.handleDeleteClick,
+        onClickDuplicate: (id) =>
+          this.props.onClickDuplicate(id, {
+            onSuccess: (newId) => this.props.goToSelected(newId),
+          }),
+        onClickEdit: this.props.goToEdit,
+        selected:
+          this.props.smartlistSelected &&
+          smartlist.id === this.props.smartlistSelected.id,
+        smartlist,
+        value: smartlist.id,
+      };
+    });
+
   handleDeleteClick = (smartlist: SmartList) => {
     this.setState({ smartlistIdToDelete: smartlist.id });
   };
@@ -159,7 +199,9 @@ export class SmartListList extends Component<Props, State> {
       this.fetchCadences(this.state.smartlistIdToDelete);
     } else {
       this.props.smartListDelete(this.state.smartlistIdToDelete, {
-        onSuccess: this.props.goToSmartlistList,
+        onSuccess: () => {
+          this.props.refreshOptions('smart_list');
+        },
       });
       this.setState({ smartlistIdToDelete: null });
     }
@@ -179,7 +221,9 @@ export class SmartListList extends Component<Props, State> {
           this.setState({ isSmartlistCannotBeDeletedDialogOpen: true });
         } else {
           this.props.smartListDelete(id, {
-            onSuccess: this.props.goToSmartlistList,
+            onSuccess: () => {
+              this.props.refreshOptions('smart_list');
+            },
           });
           this.setState({ smartlistIdToDelete: null });
         }
@@ -204,65 +248,15 @@ export class SmartListList extends Component<Props, State> {
           <Grid item md={6} xs={12}>
             {smartlists.length > 0 ? (
               <div className={this.props.classes.search}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={smartlists}
+                <ObjectSearchComponent
+                  components={{
+                    Option,
+                  }}
+                  optionsFormatter={this.smartlistOptionsFormatter}
                   placeholder={this.props.t('search')}
-                  searchFields={['name', 'description']}
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
+                  searchedObjectType="smart_list"
+                  variant="underlined"
                 />
-                <Paper
-                  className={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                      ? this.props.classes.searchPaperDisplayed
-                      : this.props.classes.searchPaperHiden
-                  }
-                >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    <List
-                      disablePadding
-                      className={classes.list}
-                      component="nav"
-                    >
-                      {this.state.searchResult.map((smartlist) => (
-                        <SmartListListItem
-                          key={smartlist.id}
-                          cadencesLoading={this.props.cadencesLoading}
-                          fetchCadences={this.fetchCadences}
-                          getCadences={this.props.getCadences}
-                          isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
-                            this.props.company_id,
-                            this.props.hasSequentialMarketingUpsell,
-                          )}
-                          onClick={(id) => {
-                            this.selected(id);
-                          }}
-                          onClickDelete={this.handleDeleteClick}
-                          onClickDuplicate={(id) =>
-                            this.props.onClickDuplicate(id, {
-                              onSuccess: (newId) =>
-                                this.props.goToSelected(newId),
-                            })
-                          }
-                          onClickEdit={this.props.goToEdit}
-                          selected={
-                            this.props.smartlistSelected &&
-                            smartlist.id === this.props.smartlistSelected.id
-                          }
-                          smartlist={smartlist}
-                        />
-                      ))}
-                    </List>
-                  </Collapse>
-                </Paper>
               </div>
             ) : null}
             <Paper>
@@ -391,6 +385,7 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ id: 'selectedId:number' }),
   withTitle(({ t }) => t('smart_list.list.title')),
+  withObjectSearch,
   withRouter,
   withQueryParams([['create'], 'queryParams', 'setQueryParams']),
   connect(
@@ -398,7 +393,6 @@ export default compose(
       smartlists: getAllSmartList(state),
       smartlistSelected: getSmartList(state, selectedId),
       getCadences: (id: number) => getCadencesUsingSmartlist(state, id),
-      cadencesLoading: getCadenceIdsUsingSmartlistLoading(state),
       loading: state.smartList.loading,
       company_id: getTheme(state).company,
       hasSequentialMarketingUpsell:
@@ -414,7 +408,6 @@ export default compose(
       goToEdit: (id) => push(`/smart-list/${id}/member`),
       goToSelected: (id) => push(`/smart-list/${id}`),
       goToSelectedCampaign: (id) => push(`/smart-list/${id}/campaign`),
-      goToSmartlistList: () => push('/smart-list/'),
       fetchCadencesUsingSmartlist,
       fetchCadenceList,
     },

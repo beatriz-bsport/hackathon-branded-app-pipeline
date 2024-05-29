@@ -107,17 +107,10 @@ export type ShopItemVariant = ShopItem & {
   base_item: number;
 };
 
-export type ShopItemVariantFilterParams = {
+export type ShopItemVariantFilterParams = PaginationFilterParams & {
   base_item_id: number;
-  page_size: number;
-  page: number;
   color?: string;
   size?: string;
-};
-
-export type ShopSupplierFilterParams = {
-  page_size: number;
-  page?: number;
 };
 
 export type ShopItemCreate = {

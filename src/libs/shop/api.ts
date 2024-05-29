@@ -27,7 +27,6 @@ import type {
   ShopSupplierCreate,
   ShopSupplierUpdate,
   ShopItemVariantCombination,
-  ShopSupplierFilterParams,
   SubshopTemplateCreate,
   SubshopTemplate,
   SubshopTemplateUpdate,
@@ -294,7 +293,7 @@ export const retrieveShopItemSupplier = (id: number) => {
  * @param page The page number used to fetch suppliers
  * @param page_size The number of suppliers to fetch per page
  */
-export const fetchShopSupplierList = (params: ShopSupplierFilterParams) => {
+export const fetchShopSupplierList = (params: PaginationFilterParams) => {
   return getAuth<PaginatedResponse<ShopSupplier>>(
     `${API_V1_URI}/shop/supplier/${buildUrlParams(params)}`,
   );

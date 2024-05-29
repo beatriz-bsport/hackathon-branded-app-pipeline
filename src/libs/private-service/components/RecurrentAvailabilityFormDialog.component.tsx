@@ -46,7 +46,7 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
 
   const handleSubmit = (ev: React.SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
-    onSubmit(date.toISODate(), eventSlot);
+    !!date && onSubmit(date.toISODate(), eventSlot);
   };
 
   const handleDateChange = (newDate: DateTime) => {

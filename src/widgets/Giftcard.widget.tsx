@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { compose } from 'recompose';
 import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplaceGiftcardBase } from 'bsport-saas/src/pages/marketplace/MarketplaceGiftcard.page';
 import { MarketplaceGiftcardData } from 'bsport-saas/src/libs/marketplace/types';
 
-import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import type { WithStyles } from '@material-ui/styles';
+import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 import { getEnv } from '../utils/env';
 
 const MarketplaceGiftcardThemed = themify(MarketplaceGiftcardBase);
@@ -14,12 +13,12 @@ const MarketplaceGiftcardThemed = themify(MarketplaceGiftcardBase);
 type OwnProps = {
   companyId: number,
   store: any,
-  theme: Theme,
+  theme: CompanyTheme,
   config?: MarketplaceGiftcardData,
   onWindowOpen: (url: string) => void,
 };
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & WithStyles<typeof styles>;
 
 class GiftcardWidget extends Component<Props> {
   openGiftcardConfig = (giftcardId: number, companyId: number) => {
@@ -50,4 +49,4 @@ const styles = () => ({
   },
 });
 
-export default compose<any, OwnProps>(withStyles(styles))(GiftcardWidget);
+export default withStyles(styles)(GiftcardWidget);

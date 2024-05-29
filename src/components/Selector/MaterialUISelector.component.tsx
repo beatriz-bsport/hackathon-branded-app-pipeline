@@ -11,17 +11,17 @@ import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Button,
-  Checkbox,
-  Chip,
-  makeStyles,
-  MenuItem,
-  MenuList as MenuListMaterial,
-  Paper,
-  Theme,
-  Typography,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuListMaterial from '@material-ui/core/MenuList';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+import type { Theme } from '@material-ui/core/styles';
+
 import Select, {
   // @ts-expect-error
   NamedProps,
@@ -44,7 +44,7 @@ import Select, {
   InputActionTypes,
 } from 'react-select';
 // @ts-expect-error
-import { NoticeProps } from 'react-select/src/components/Menu';
+import type { NoticeProps } from 'react-select/src/components/Menu';
 // @ts-expect-error
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import { ActionMeta } from 'react-select/lib/types';

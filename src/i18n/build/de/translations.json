@@ -1019,7 +1019,7 @@
                 "isPast": "Vergangen",
                 "notAvailable": "Storniert",
                 "notBookableYet": "Bald verfügbar",
-                "alreadyRegistered": "Gebucht",
+                "alreadyRegistered": "Reserviert",
                 "full": "Vollständig",
                 "popOverTitle": {
                     "bookOption": "Der Kurs ist ausgebucht, eine Warteliste ist verfügbar.",
@@ -9370,7 +9370,7 @@
             "messages": {
                 "offerLocked": "Fehler beim Buchen",
                 "maleUnavailable": "Der Kurs kann nicht mehr für Männer gebucht werden.",
-                "femaleUnavailable": "Der Kurs n kann nicht mehr für Frauen gebucht werden."
+                "femaleUnavailable": "Der Kurs kann nicht mehr für Frauen gebucht werden."
             },
             "hasRegistered": "Sie sind bereits für diesen Kurs angemeldet.",
             "recurrent": {
@@ -18253,9 +18253,9 @@
             "square": "Quadrat",
             "predefined": "Vorgegebene Formen",
             "selected": "Ausgewählter Spot",
-            "takenPersonalized": "Gebucht: {{- name }}",
+            "takenPersonalized": "Reserviert: {{- name }}",
             "generalInfo": "Allgemeine Informationen",
-            "taken": "Gebuchte Spots",
+            "taken": "Reservierter Platz",
             "saved": "Gespeicherter Spot",
             "nameExplain": "Name des Platz-typs",
             "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",

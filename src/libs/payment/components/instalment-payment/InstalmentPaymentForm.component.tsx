@@ -14,6 +14,7 @@ import {
   TextField,
   IntervalRecurrenceSelectField,
   DateField,
+  IntegerFieldEnhancedHelperTextError,
   // @ts-expect-error
 } from '#components/forms';
 
@@ -71,7 +72,13 @@ export class InstalmentPaymentForm extends Component<Props> {
           <Typography variant="body2">
             {t('instalment.form.recurrence_basis.label')}
           </Typography>
-          <TextField required name="recurrence_basis" variant="outlined" />
+          <IntegerFieldEnhancedHelperTextError
+            required
+            min={1}
+            name="recurrence_basis"
+            variant="outlined"
+          />
+
           <Typography variant="body2">
             {t(
               `instalment.form.recurrence_basis.intervalName.${values.interval}`,
@@ -107,7 +114,7 @@ export class InstalmentPaymentForm extends Component<Props> {
           // @ts-expect-error
           nb_interval={parseInt(values.nb_interval)}
           // @ts-expect-error
-          recurrence_basis={parseInt(values.recurrence_basis)}
+          recurrence_basis={parseInt(values.recurrence_basis) || 0}
           // @ts-expect-error
           totalPriceCts={this.props.totalPriceCts}
         />

@@ -88,7 +88,7 @@ exports.default = {
           oneCreditNoHours:
             'after the end of the session to remind the user that they have 1 credit left on their pass',
           oneCreditHours:
-            '1 hours after the end of the session to remind the user that they have 1 credit left on their pass',
+            '1 hour after the end of the session to remind the user that they have 1 credit left on their pass',
           oneCreditHours_plural:
             '{{hours}} hours after the end of the session to remind the user that they have 1 credit left on their pass',
           creditsNoHours:

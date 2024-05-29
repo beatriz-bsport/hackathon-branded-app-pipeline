@@ -103,6 +103,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
 import { ImmutableObject } from 'seamless-immutable';
+import { getNotificationDeletionParameters as getNotificationDeleteDialogParameters } from '#src/libs/marketing/utils';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -266,9 +267,14 @@ export class MarketingRuleListPage extends Component<Props, State> {
 
   onClickRemove = async () => {
     const { t } = this.props;
+    const notification = this.props.notificationList.find(
+      (n) => n.id === this.state.selectedNotification,
+    );
+    const parameters = getNotificationDeleteDialogParameters(t, notification);
     const res = await showDeleteDialog(
       t('marketing:notifications.deleteDialogTitle'),
-      t('marketing:notifications.deleteDialogText'),
+      parameters.warningText,
+      parameters.buttonActivationDelay,
     );
     if (res && this.state.selectedNotification) {
       this.props.deleteMarketingNotification(this.state.selectedNotification);

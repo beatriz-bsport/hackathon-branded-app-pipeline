@@ -84,3 +84,69 @@ export const splitPassNotificationsByTrigger = (
     expiredValidityNotifications,
   };
 };
+
+export const getNotificationDeletionParameters = (
+  t: TFunction,
+  notification: MarketingNotification,
+) => {
+  if (!isPassNotification(notification))
+    return {
+      warningText: t('marketing:notifications.deleteDialogText'),
+      buttonActivationDelay: 0,
+    };
+
+  const {
+    contains_all_payment_packs,
+    payment_pack_ids,
+    contains_all_private_passes,
+    private_pass_ids,
+  } = notification.event_rules;
+
+  const hasPassesAttached =
+    (contains_all_payment_packs ||
+      contains_all_private_passes ||
+      payment_pack_ids?.length > 0 ||
+      private_pass_ids?.length > 0) ??
+    false;
+
+  const text_parts = [];
+  text_parts.push(
+    t('marketing:notifications.passNotificationDeleteDialog.warning.sure'),
+  );
+
+  switch (notification.kind) {
+    case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
+    case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
+      if (hasPassesAttached) {
+        text_parts.push(
+          t(
+            'marketing:notifications.passNotificationDeleteDialog.warning.attachedPaymentPacks',
+          ),
+        );
+      }
+      break;
+    case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
+    case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
+      if (hasPassesAttached) {
+        text_parts.push(
+          t(
+            'marketing:notifications.passNotificationDeleteDialog.warning.attachedPrivatePasses',
+          ),
+        );
+      }
+      break;
+    default:
+      break;
+  }
+
+  text_parts.push(
+    t(
+      'marketing:notifications.passNotificationDeleteDialog.warning.irreversible',
+    ),
+  );
+
+  return {
+    warningText: text_parts.join(' '),
+    buttonActivationDelay: hasPassesAttached ? 3 : 0,
+  };
+};

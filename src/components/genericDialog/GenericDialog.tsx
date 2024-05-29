@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -10,12 +9,14 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { MaterialStyleType } from '../../utils/types';
+import TimeoutButton from '../button/TimeoutButton.component';
 
 interface ButtonI {
   label: string;
   color?: 'inherit' | 'primary' | 'secondary' | 'default';
   variant?: 'text' | 'outlined' | 'contained';
   key?: string | number | boolean;
+  delayBeforeActivation?: number;
 }
 
 interface ParamsI {
@@ -119,14 +120,15 @@ class GenericDialog extends React.PureComponent<Props, StateI> {
         <DialogActions>
           {this.state.buttons.map((button, i) => {
             return (
-              <Button
+              <TimeoutButton
                 key={i}
                 color={button.color}
+                delayBeforeActivation={button.delayBeforeActivation}
                 onClick={(ev) => this.onClickButton(ev, button, i)}
                 variant={button.variant}
               >
                 {button.label}
-              </Button>
+              </TimeoutButton>
             );
           })}
         </DialogActions>

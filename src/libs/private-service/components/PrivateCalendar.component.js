@@ -51,7 +51,7 @@ import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
-
+const ZOOM_LEVEL_FALLBACK = 0.5;
 const SUPPORTED_LOCALES = Immutable([frLocale, itLocale, deLocale, nlLocale]);
 const SUPPORTED_PLUGINS = Immutable([
   interactionPlugin,
@@ -480,20 +480,36 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
       zoomLevel: Math.min((this.props.scheduleFilter.zoomLevel ?? 1) + 1, 2),
     });
 
+  getSafeZoomLevel = () => {
+    if (
+      !this.props.scheduleFilter?.zoomLevel ||
+      this.props.scheduleFilter?.zoomLevel === undefined ||
+      Number.isNaN(this.props.scheduleFilter?.zoomLevel)
+    ) {
+      return ZOOM_LEVEL_FALLBACK;
+    }
+
+    // Safe because strange javascripts cases handled above. (Number.isNaN(undefined) === false)
+
+    const safeZoomLevel = Number(this.props.scheduleFilter.zoomLevel);
+
+    if (safeZoomLevel === 0) {
+      return ZOOM_LEVEL_FALLBACK;
+    }
+
+    return safeZoomLevel;
+  };
+
   dateClick = (eventSlotSelected: EventSlot) => {
     const start = DateTime.fromISO(eventSlotSelected.dateStr).setZone(
       this.props.timezone,
     );
-    const zoomLevel =
-      this.props.scheduleFilter.zoomLevel === 0
-        ? 0.5
-        : this.props.scheduleFilter.zoomLevel;
 
     this.setState({
       eventSlotSelected: {
         ...eventSlotSelected,
         startStr: start.toISO(),
-        endStr: start.plus({ minutes: 30 * zoomLevel }).toISO(),
+        endStr: start.plus({ minutes: 30 * this.getSafeZoomLevel() }).toISO(),
       },
     });
   };

@@ -20,6 +20,7 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { RootState } from '../../reducers';
 import { Giftcard } from '../../libs/giftcard/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -29,11 +30,12 @@ const styles = (theme: Theme) =>
   });
 
 type OwnProps = {
-  title: string;
   companyId: number;
   goToGiftcardCheckout: (id: number, companyId: number) => void;
+  store?: any; // required when the component is rendered as a widget
+  theme?: CompanyTheme;
   params?: {
-    giftcards?: any;
+    giftcards?: number[] | string;
   };
 };
 
@@ -104,7 +106,7 @@ const marketplaceConnector = connect(null, {
     push(`/checkout/${companyId}/giftcard/${id}`),
 });
 
-export const MarketplaceGiftcardBase = compose(
+export const MarketplaceGiftcardBase = compose<Props, OwnProps>(
   marketplaceCssHoc(),
   withStyles(styles),
   connector,

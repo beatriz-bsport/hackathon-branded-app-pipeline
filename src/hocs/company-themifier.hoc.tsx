@@ -2,10 +2,17 @@ import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 // @ts-expect-error
 import { getTheme, getFranchiseTheme } from '../theme';
-import { Theme } from '../libs/theme/types';
+import { CompanyTheme } from '../libs/theme/types';
+import {
+  Franchise,
+  FranchiseDetails,
+  FranchiseTheme,
+} from '#src/libs/franchise/types';
 
 type Props = {
-  theme: Theme;
+  theme: CompanyTheme;
+  franchisor?: Franchise | FranchiseDetails;
+  franchiseTheme?: FranchiseTheme;
 };
 
 export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {

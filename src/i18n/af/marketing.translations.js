@@ -32,6 +32,85 @@ exports.default = {
     },
   },
   notifications: {
+    primaryText: {
+      send: {
+        email: 'An email will be sent',
+        push: 'A notification will be sent',
+        emailAndPush: 'An email and a push notification will be sent',
+      },
+      smartlist: {
+        smartListInclude:
+          'This notification is intended for this smartlist: {{smartlist_names}}.',
+        smartListInclude_plural:
+          'This notification is intended for these smartlists: {{smartlist_names}}.',
+        smartListExclude:
+          'This notification is not intended for this smartlist: {{smartlist_names}}.',
+        smartListExclude_plural:
+          'This notification is not intended for these smartlists: {{smartlist_names}}.',
+      },
+      expired: {
+        days: 'after 1 day of expiration',
+        days_plural: 'after {{days}} days of expiration',
+      },
+      expires: {
+        noDays: 'on the day of expiration',
+        days: '1 day before expiration',
+        days_plural: '{{days}} days before expiration',
+      },
+      paymentPack: {
+        creditsLeftOnBooking: {
+          noCreditsNoHours:
+            'after a booking to remind the user that they have no credit left on their pass',
+          noCreditsHours:
+            '1 hour after a booking to remind the user that they have no credit left on their pass',
+          noCreditsHours_plural:
+            '{{hours}} hours after a booking to remind the user that they have no credit left on their pass',
+          oneCreditNoHours:
+            'after a booking to remind the user that they have 1 credit left on their pass',
+          oneCreditHours:
+            '1 hour after a booking to remind the user that they have 1 credit left on their pass',
+          oneCreditHours_plural:
+            '{{hours}} hours after a booking to remind the user that they have 1 credit left on their pass',
+          creditsNoHours:
+            'after a booking to remind the user that they have {{credits}} credits left on their pass',
+          creditsHours:
+            '1 hour after a booking to remind the user that they have {{credits}} credits left on their pass',
+          creditsHours_plural:
+            '{{hours}} hours after a booking to remind the user that they have {{credits}} credits left on their pass',
+        },
+        creditsLeftOnSessionEnd: {
+          noCreditsNoHours:
+            'after the end of the session to remind the user that they have no credit left on their pass',
+          noCreditsHours:
+            '1 hour after the end of the session to remind the user that they have no credit left on their pass',
+          noCreditsHours_plural:
+            '{{hours}} hours after the end of the session to remind the user that they have no credit left on their pass',
+          oneCreditNoHours:
+            'after the end of the session to remind the user that they have 1 credit left on their pass',
+          oneCreditHours:
+            '1 hours after the end of the session to remind the user that they have 1 credit left on their pass',
+          oneCreditHours_plural:
+            '{{hours}} hours after the end of the session to remind the user that they have 1 credit left on their pass',
+          creditsNoHours:
+            'after the end of the session to remind the user that they have {{credits}} credits left on their pass',
+          creditsHours:
+            '1 hour after the end of the session to remind the user that they have {{credits}} credits left on their pass',
+          creditsHours_plural:
+            '{{hours}} hours after the end of the session to remind the user that they have {{credits}} credits left on their pass',
+        },
+      },
+      private_pass: {
+        creditsLeft: {
+          noCredits:
+            'to remind the user that they have no credit left on their appointment pass',
+          credits:
+            'to remind the user that they have 1 credit left on their appointment pass',
+          credits_plural:
+            'to remind the user that they have {{credits}} credit left on their appointment pass',
+        },
+      },
+    },
+
     selectNotificationRules:
       'Select a notification to display more information.',
     createNotificationFabLabel: 'Add a notification',

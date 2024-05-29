@@ -28,6 +28,7 @@ import { FeatureList } from '#src/libs/company/types';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import type { ImmutableArray } from 'seamless-immutable';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -47,6 +48,8 @@ import { CompanyTheme } from '../../theme/types';
 import Config from '../../../config';
 import { isPassNotification } from '../utils';
 import MarketingRulePassPaginatedList from './MarketingRulePassPaginatedList.component';
+import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#src/libs/payment-packs/utils';
+import type { SmartList } from '#src/libs/smart-list/types';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -65,6 +68,7 @@ type OwnProps = {
   privateServiceById: { [key: string]: PrivateService };
   paymentPackById: { [key: string]: PaymentPack };
   privatePassById: { [key: string]: PrivatePass };
+  smartLists: ImmutableArray<SmartList>;
   contractById: { [key: string]: Contract };
   notificationsStatById: { [key: string]: MarketingNotificationMailStat };
   theme: CompanyTheme;
@@ -213,36 +217,131 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     return 'creditsLeft';
   };
 
+  getPassSendTextPrefix = (notif: MarketingNotification) => {
+    const { t } = this.props;
+    if (notif.email_design && notif.push_notification_title) {
+      return t('marketing:notifications.primaryText.send.emailAndPush');
+    }
+    if (notif.email_design) {
+      return t('marketing:notifications.primaryText.send.email');
+    }
+    return t('marketing:notifications.primaryText.send.push');
+  };
+
+  getPassSmartListTextSuffix = (notif: MarketingNotification) => {
+    const { t, smartLists } = this.props;
+    const { smartlist_include, smartlist_exclude } = notif.event_rules;
+
+    const smartlist_texts = [];
+    if (smartlist_include?.length > 0) {
+      const smartlist_names = smartlist_include
+        .map((id) => smartLists.find((smartlist) => smartlist.id === id)?.name)
+        .join(', ');
+      smartlist_texts.push(
+        t('marketing:notifications.primaryText.smartlist.smartListInclude', {
+          smartlist_names,
+          count: smartlist_include.length,
+        }),
+      );
+    }
+    if (smartlist_exclude?.length > 0) {
+      const smartlist_names = smartlist_exclude
+        .map((id) => smartLists.find((smartlist) => smartlist.id === id)?.name)
+        .join(', ');
+      smartlist_texts.push(
+        t('marketing:notifications.primaryText.smartlist.smartListExclude', {
+          smartlist_names,
+          count: smartlist_exclude.length,
+        }),
+      );
+    }
+    return smartlist_texts.join(' ');
+  };
+
+  getCreditPaymentPackPrimaryText = (notif: MarketingNotification) => {
+    const { t } = this.props;
+    const { credits_left, hours } = notif.event_rules;
+
+    const type =
+      notif.event_rules.kind ===
+      CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING
+        ? 'creditsLeftOnBooking'
+        : 'creditsLeftOnSessionEnd';
+
+    let numberOfCredits;
+    switch (credits_left) {
+      case 0:
+        numberOfCredits = 'noCredits';
+        break;
+      case 1:
+        numberOfCredits = 'oneCredit';
+        break;
+      default:
+        numberOfCredits = 'credits';
+    }
+
+    const numberOfHours = hours === 0 ? 'NoHours' : 'Hours';
+
+    return t(
+      `marketing:notifications.primaryText.paymentPack.${type}.${numberOfCredits}${numberOfHours}`,
+      {
+        credits: getCreditsDividedDisplay(credits_left),
+        hours,
+        count: hours,
+      },
+    );
+  };
+
+  getCreditPrivatePassPrimaryText = (notif: MarketingNotification) => {
+    const { t } = this.props;
+    const { credits_left } = notif.event_rules;
+    const credits = getCreditsDividedDisplay(credits_left);
+    return t(
+      `marketing:notifications.primaryText.privatePass.creditsLeft.${
+        credits_left === 0 ? 'noCredits' : 'credits'
+      }`,
+      { credits, count: credits_left },
+    );
+  };
+
+  getExpirationPassPrimaryText = (notif: MarketingNotification) => {
+    const { t } = this.props;
+    const { days_left } = notif.event_rules;
+    return t(
+      `marketing:notifications.primaryText.${
+        days_left < 0 ? 'expired' : 'expires'
+      }.${days_left === 0 ? 'noDays' : 'days'}`,
+      {
+        days: Math.abs(days_left),
+        count: Math.abs(days_left),
+      },
+    );
+  };
+
   getPrimaryText = (notif: MarketingNotification) => {
     const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
-    const passNotificationKind = this.getPassNotificationKind(notif);
     switch (notif.kind) {
       case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
-        return `${t(
-          'paymentPack:notification.creditsLeft.first',
-        )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
-          'paymentPack:notification.creditsLeft.second',
-        )}`;
-      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
-        return `${t(
-          `paymentPack:notification.${passNotificationKind}.first`,
-        )} ${Math.abs(notif.event_rules.days_left)} ${t(
-          `paymentPack:notification.${passNotificationKind}.second`,
-        )}`;
+        return `${this.getPassSendTextPrefix(
+          notif,
+        )} ${this.getCreditPaymentPackPrimaryText(
+          notif,
+        )}. ${this.getPassSmartListTextSuffix(notif)}`;
       case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
-        return `${t(
-          'paymentPack:notification.creditsLeft.first',
-        )} ${getCreditsDividedDisplay(notif.event_rules.credits_left)} ${t(
-          'paymentPack:notification.creditsLeft.second',
-        )}`;
+        return `${this.getPassSendTextPrefix(
+          notif,
+        )} ${this.getCreditPrivatePassPrimaryText(
+          notif,
+        )}. ${this.getPassSmartListTextSuffix(notif)}`;
+      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
       case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
-        return `${t(
-          `paymentPack:notification.${passNotificationKind}.first`,
-        )} ${Math.abs(notif.event_rules.days_left)} ${t(
-          `paymentPack:notification.${passNotificationKind}.second`,
-        )}`;
+        return `${this.getPassSendTextPrefix(
+          notif,
+        )} ${this.getExpirationPassPrimaryText(
+          notif,
+        )}. ${this.getPassSmartListTextSuffix(notif)}`;
       case NOTIFICATION_KIND.BIRTHDAY:
         return t('booking:notification.form.listItemPrimary.birthday');
       case NOTIFICATION_KIND.BOOKING_CREATION:
@@ -454,7 +553,8 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                     </Button>
                   )}
                   <Typography className={classes.emailSummary} variant="h5">
-                    {t('marketing:notifications.mailTitle')}
+                    {t('marketing:notifications.mailTitle')}:{' '}
+                    {this.props.emailSummary.title}
                   </Typography>
                   <Divider className={classes.divider} />
                   <HTMLPreview

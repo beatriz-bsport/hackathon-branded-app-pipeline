@@ -453,6 +453,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             selectedNotification={this.props.notificationList.find(
               (n) => n.id === this.state.selectedNotification,
             )}
+            smartLists={this.props.smartLists}
             theme={this.props.theme}
           />
         </div>

@@ -1,10 +1,10 @@
 import React, {
   createContext,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
 } from 'react';
 import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
@@ -12,14 +12,14 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import {
-  Theme,
-  makeStyles,
-  Paper,
+  Button,
   Checkbox,
   Chip,
-  Button,
-  MenuList as MenuListMaterial,
+  makeStyles,
   MenuItem,
+  MenuList as MenuListMaterial,
+  Paper,
+  Theme,
   Typography,
 } from '@material-ui/core';
 import Select, {
@@ -68,47 +68,48 @@ export type OptionTypeBase =
     };
 
 type BaseProps<T extends OptionTypeBase> = {
-  id?: number | string;
-  inScrollBar?: boolean;
-  isMenuListPaddingDisabled?: boolean;
-  isDisabled?: boolean;
-  isMenuListVirtualized?: boolean;
-  isSearchable?: boolean;
-  isLoading?: boolean;
-  leftIcon?: React.ReactNode;
-  withoutPortal?: Boolean;
-  defaultNumberShown?: number;
-  classes?: Record<string, CSSProperties>;
-  error?: boolean;
-  withoutSelectAll?: boolean;
-  removeIndicator?: boolean;
-  chipsRenderer?: (props: ChipsRendererProps<T>) => React.ReactNode;
-  itemRenderer?: (props: ItemRendererProps<T>) => React.ReactNode;
-  headerListRenderer?: () => React.ReactChild;
-  onEndMenuListReach?: () => void;
-  onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  name?: string;
-  blurOnSelect?: boolean;
-  placeholder?: string;
-  withoutConfirmButton?: boolean;
-  filterOption?: (option: T, inputValue: string) => boolean;
-  openMenuOnFocus?: boolean;
-  openMenuOnClear?: boolean;
-  onMenuOpen?: () => void;
-  onMeuClose?: () => void;
-  options: T[] | Immutable.ImmutableArray<T>;
-  closeMenuOnSelect?: boolean;
-  withoutNullValues?: boolean;
   /** Placeholder to display when all the options available are selected */
   allOptionsPlaceholder?: string;
+  blurOnSelect?: boolean;
+  chipsRenderer?: (props: ChipsRendererProps<T>) => React.ReactNode;
+  classes?: Record<string, CSSProperties>;
+  closeMenuOnSelect?: boolean;
+  defaultNumberShown?: number;
+  error?: boolean;
+  filterOption?: (option: T, inputValue: string) => boolean;
+  headerListRenderer?: () => React.ReactChild;
+  id?: number | string;
+  inScrollBar?: boolean;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  isMenuListPaddingDisabled?: boolean;
+  isMenuListVirtualized?: boolean;
+  isSearchable?: boolean;
+  itemRenderer?: (props: ItemRendererProps<T>) => React.ReactNode;
+  leftIcon?: React.ReactNode;
+  name?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onEndMenuListReach?: () => void;
+  onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
+  onMenuOpen?: () => void;
+  onMeuClose?: () => void;
+  openMenuOnClear?: boolean;
+  openMenuOnFocus?: boolean;
+  options: T[] | Immutable.ImmutableArray<T>;
+  placeholder?: string;
+  removeIndicator?: boolean;
+  withoutConfirmButton?: boolean;
+  withoutNullValues?: boolean;
+  withoutPortal?: Boolean;
+  withoutSelectAll?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type ItemRendererProps<T extends OptionTypeBase> = {
-  data: T;
-  isSelected: boolean;
   children: React.ReactNode;
+  data: T;
   isDisabled: boolean;
+  isSelected: boolean;
 };
 
 export type ChipsRendererProps<T extends OptionTypeBase> = {
@@ -118,14 +119,14 @@ export type ChipsRendererProps<T extends OptionTypeBase> = {
 
 export type OwnProps<T extends OptionTypeBase> =
   | ({
-      onChange?: (values: T[] | OptionTypeBase[]) => void;
       isMulti: true;
+      onChange?: (values: T[] | OptionTypeBase[]) => void;
       value?: T[] | OptionTypeBase[];
     } & BaseProps<T>)
   | ({
       isMulti?: false;
-      value?: T | OptionTypeBase | null;
       onChange?: (value: T | OptionTypeBase) => void;
+      value?: T | OptionTypeBase | null;
     } & BaseProps<T>);
 
 export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T>;
@@ -134,38 +135,39 @@ function MaterialUISelector<T extends OptionTypeBase>(
   props: MuiSelectProps<T>,
 ) {
   const {
+    allOptionsPlaceholder,
+    blurOnSelect,
+    chipsRenderer,
+    closeMenuOnSelect = true,
+    defaultNumberShown,
+    defaultValue,
+    headerListRenderer,
     id,
-    isMulti,
-    options,
-    value,
-    leftIcon,
-    menuPortalTarget,
-    withoutPortal = false,
-    isDisabled,
     inScrollBar,
+    isDisabled,
     isMenuListPaddingDisabled,
     isMenuListVirtualized,
+    isMulti,
     isSearchable,
-    defaultNumberShown,
-    withoutSelectAll,
-    removeIndicator,
-    chipsRenderer,
     itemRenderer,
-    headerListRenderer,
+    leftIcon,
+    menuPortalTarget,
+    name,
+    onBlur,
     onChange,
     onEndMenuListReach,
+    onFocus,
     onInputChange,
-    defaultValue,
-    onBlur,
-    name,
-    blurOnSelect,
-    placeholder,
-    withoutConfirmButton,
-    openMenuOnFocus,
     openMenuOnClear,
-    closeMenuOnSelect = true,
+    openMenuOnFocus,
+    options,
+    placeholder,
+    removeIndicator,
+    value,
+    withoutConfirmButton,
     withoutNullValues,
-    allOptionsPlaceholder,
+    withoutPortal = false,
+    withoutSelectAll,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -222,10 +224,10 @@ function MaterialUISelector<T extends OptionTypeBase>(
       return {
         menuPortal: (base: CSSProperties) => ({
           ...base,
-          zIndex: 9999,
+          left: '0px',
           position: 'absolute',
           top: '100%',
-          left: '0px',
+          zIndex: 9999,
         }),
       };
     }
@@ -462,10 +464,10 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
 
 function Option<T extends OptionTypeBase>(
   itemRenderer?: (props: {
-    data: T;
     children: React.ReactNode;
-    isSelected: boolean;
+    data: T;
     isDisabled: boolean;
+    isSelected: boolean;
   }) => React.ReactNode,
 ) {
   return (props: OptionProps<OptionTypeBase, boolean, any>) => {
@@ -565,9 +567,9 @@ const getItemPositionData = (selectProps, data) => {
   const overflowValues = selectedValues.length - maxDisplay;
 
   return {
+    data,
     index,
     maxDisplay,
-    data,
     overflowValues,
     selectedValues,
   };
@@ -852,102 +854,98 @@ const menuOptionListStyle = () => ({
   overflowX: 'auto',
 });
 const useStyles = makeStyles((theme: Theme) => ({
-  displayNone: {
-    display: 'none',
+  button: {
+    padding: theme.spacing(1),
   },
-  container: {},
-  menu: {
-    marginTop: theme.spacing(1),
-    borderRadius: 5,
-    boxShadow: theme.shadows[2],
-    zIndex: 1500,
-    minWidth: 250,
-    overflowX: 'auto',
-  },
-  reset: {
-    all: 'unset',
+  buttonShowMore: {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    borderRadius: '16px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: theme.spacing(0.5),
+    paddingTop: theme.spacing(0.5),
+    textTransform: 'none',
+    width: 'fit-content',
+    '&:hover': {
+      backgroundColor: '#eee',
+    },
   },
   chip: {
     marginRight: 4,
   },
-  list: {
-    overflowY: 'auto',
-  },
-  button: {
-    padding: theme.spacing(1),
-  },
-  selectButton: {
-    textTransform: 'none',
-  },
-  footer: {
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    display: 'flex',
+  container: {},
+  control: {
     alignItems: 'center',
+    display: 'flex',
     justifyContent: 'space-between',
-    borderTop: `1px solid ${theme.palette.grey[200]}`,
+    marginBottom: theme.spacing(0.5),
+    marginTop: theme.spacing(0.5),
+    width: '100%',
   },
+  displayNone: { display: 'none' },
   emptyState: {
     padding: theme.spacing(2),
     textAlign: 'center',
   },
+  error: {
+    borderRadius: theme.spacing(1) / 2,
+    boxShadow: `0 0 0 1px ${theme.palette.error.main}`,
+  },
+  footer: {
+    alignItems: 'center',
+    borderTop: `1px solid ${theme.palette.grey[200]}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(1),
+  },
   groupHeader: {
     paddingLeft: theme.spacing(1),
   },
-  valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: theme.spacing(1),
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
+  icon: { marginRight: 8 },
+  leftIcon: {
+    color: theme.palette.error.main,
+    marginRight: theme.spacing(1),
+    transform: 'rotate(180deg)',
   },
-  icon: {
-    marginRight: 8,
+  list: {
+    overflowY: 'auto',
   },
-  control: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
+  menu: {
+    borderRadius: 5,
+    boxShadow: theme.shadows[2],
+    marginTop: theme.spacing(1),
+    minWidth: 250,
+    overflowX: 'auto',
+    zIndex: 1500,
   },
-  row: {
-    display: 'flex',
-    gap: theme.spacing(1),
+  relative: {
+    position: 'relative',
   },
-  buttonShowMore: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 'fit-content',
-    alignSelf: 'flex-end',
-    textTransform: 'none',
-    borderRadius: '16px',
-    boxSizing: 'border-box',
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-    '&:hover': {
-      backgroundColor: '#eee',
-    },
+  reset: {
+    all: 'unset',
   },
   rightIcon: {
     color: theme.palette.success.main,
     marginRight: theme.spacing(1),
   },
-  leftIcon: {
-    color: theme.palette.error.main,
-    transform: 'rotate(180deg)',
-    marginRight: theme.spacing(1),
+  row: {
+    display: 'flex',
+    gap: theme.spacing(1),
   },
-  relative: {
-    position: 'relative',
+  selectButton: {
+    textTransform: 'none',
   },
-  error: {
-    borderRadius: theme.spacing(1) / 2,
-    boxShadow: `0 0 0 1px ${theme.palette.error.main}`,
+  valueContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
   },
 }));
 

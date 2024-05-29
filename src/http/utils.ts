@@ -93,7 +93,9 @@ export function setAccessControlBroadcastsChannelId(uuid: string) {
 }
 
 export const getTimezoneName = () => {
-  return Settings.defaultZone.name || 'Europe/Paris';
+  return Settings.defaultZone.isValid
+    ? Settings.defaultZone.name
+    : 'Europe/Paris';
 };
 
 export function getAuthToken() {

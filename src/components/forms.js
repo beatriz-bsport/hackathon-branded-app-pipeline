@@ -321,8 +321,32 @@ export const DateField = (
 ) => {
   const { t } = useTranslation();
   const classes = useDateFieldStyles();
+  const { parseAsString, clearable } = props;
+  const now = DateTime.now();
+  const nowISODate = now.toISODate();
 
-  const now = DateTime.now().startOf('year').minus({ year: 30 }).toISODate();
+  const thirtyYearsAgoISODate = DateTime.now()
+    .startOf('year')
+    .minus({ year: 30 })
+    .toISODate();
+
+  const getDateFieldValueOnChange = useCallback(
+    (date) => {
+      // In this case we consider that the form using a date that is clearable will
+      // handle the null value itself
+      if (clearable && !date) {
+        return null;
+      }
+      // In this case we consider that the form is not ready to handle null value : only clearable input
+      // can actually handle null value on change.
+      if (!date) {
+        return parseAsString ? nowISODate : now;
+      }
+
+      return parseAsString ? date.toISODate() : date;
+    },
+    [now, nowISODate, parseAsString, clearable],
+  );
 
   return (
     <Field {...props}>
@@ -355,13 +379,15 @@ export const DateField = (
             onChange={(date) => {
               props?.onChange?.(date);
               setFieldTouched(props.name);
-              setFieldValue(
-                props.name,
-                props.parseAsString ? date.toISODate() : date,
-              );
+
+              setFieldValue(props.name, getDateFieldValueOnChange(date));
             }}
             style={{ minWidth: 120 }}
-            value={props.allowNullValue ? field.value : field.value || now}
+            value={
+              props.allowNullValue
+                ? field.value
+                : field.value || thirtyYearsAgoISODate
+            }
           />
           {props.bottomError && !props.outsideErrorDisplay && (
             <ErrorMessage

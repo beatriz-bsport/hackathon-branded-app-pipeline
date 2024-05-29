@@ -408,6 +408,36 @@ const getTranslations = async () => {
       content:
         'To comply with the German Fair Consumers Contract Act, after 2 years of subscription, the new subscription cycles must be for less than a year. Are you sure you want to continue?',
     },
+    contractTemplate: {
+      list: {
+        isEmpty: 'No shared contracts',
+      },
+      icons: {
+        restore: 'Restore',
+      },
+      dialog: {
+        delete: {
+          title: 'Delete confirmation',
+          content: 'Are you sure you want to delete the shared subscription?',
+          cancel: 'Cancel',
+          confirm: 'Delete',
+        },
+      },
+      filter: {
+        noFilters: 'All subscriptions',
+        availableForEveryone: 'Available for everyone',
+        memberOnly: 'Member only',
+        staffOnly: 'Staff only',
+        unavailableForEveryone: 'Unavailable for everyone',
+        availability: 'Availability',
+        searchPlaceholder: 'Search a subscription',
+        studios: 'Studios',
+        passes: 'Passes',
+        appointmentPasses: 'Appointment passes',
+        productType: 'Product',
+        associatedPass: 'Associated pass',
+      },
+    },
     recap: {
       willBecharged: ' will be charged ',
       every: ' every ',

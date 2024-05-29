@@ -154,6 +154,7 @@ exports.default = {
       shopTemplates: 'Webshop',
       label: 'Products',
       giftcardTemplates: 'Gift cards',
+      contractTemplates: 'Subscriptions',
     },
   },
   multiSession: {

@@ -62,9 +62,13 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
       return <img alt="ideal" className={classes.icon} src={IDEAL_LOGO} />;
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
-      return <img alt="ideal" className={classes.icon} src={BACS_DEBIT_LOGO} />;
+      return (
+        <img alt="bacs_debit" className={classes.icon} src={BACS_DEBIT_LOGO} />
+      );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET:
-      return <img alt="ideal" className={classes.icon} src={PAYPAL_LOGO} />;
+      return (
+        <img alt="paypal_wallet" className={classes.icon} src={PAYPAL_LOGO} />
+      );
     case PAYMENT_STRIPE_TERMINAL_FAKE:
       return <Stripe className={classes.stripeIcon} />;
     case QuicksalePaymentMethod.Manual:

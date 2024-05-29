@@ -15,7 +15,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
-  PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
 import {
   checkItemsBasket as checkItemsBasketAPI,
@@ -130,6 +129,7 @@ type State = {
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   hideEstablishmentBillingGroupSelector: boolean;
   stripePromise: StripeInit | null;
+  paymentEngine: number;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -144,6 +144,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       selectedEstablishmentBillingGroup: null,
       hideEstablishmentBillingGroupSelector: false,
       stripePromise: null,
+      paymentEngine: PAYMENT_ENGINE_STRIPE,
     };
   }
 
@@ -192,7 +193,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.props.fetchInstalmentPaymentByBasket(this.props.basketId);
 
         if (!basket.is_finalized) {
-          this.getSecret();
+          this.getSecret(this.state.paymentEngine);
           this.props.fetchMembershipByBasket(
             {
               basket_uuid: this.props.basketId,
@@ -243,21 +244,31 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     }
   }
 
-  getSecret = () => {
+  handlePaymentEngineUpdate = (newPaymentEngine: number) => {
+    if (newPaymentEngine !== this.state.paymentEngine)
+      this.getSecret(newPaymentEngine);
+
+    this.setState({ paymentEngine: newPaymentEngine });
+  };
+
+  getSecret = (paymentEngine: number) => {
     // @ts-expect-error
     if (shouldNotRetrieveSecret(this.props.queryParams)) {
       return;
     }
     this.setState({ clientSecretLoading: true });
-    requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_BASKET, {
+    requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
       basket: this.props.basketId,
     })
       .then((r) => {
-        this.setState({
-          clientSecret: r.data.client_secret,
-          clientSecretLoading: false,
-          paymentGroupId: r.data.payment_group,
-        });
+        // To avoid race condition when changing payment engine while client secret is loading
+        if (paymentEngine === this.state.paymentEngine) {
+          this.setState({
+            clientSecret: r.data.client_secret,
+            paymentGroupId: r.data.payment_group,
+            clientSecretLoading: false,
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -554,17 +565,16 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.props.processing ||
               this.props.paymentProcessing
             }
+            locale={this.state.theme.locale}
             memberId={this.props.basket.member}
+            onError={this.props.refreshBasket}
             onSelectInstalmentPayment={this.onSelectInstalmentPayment}
             onSuccess={this.onSuccess}
+            paymentEngine={this.state.paymentEngine}
             paymentGroupId={this.state.paymentGroupId}
-            paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-              PAYMENT_ENGINE_STRIPE
-            ].filter((pm) =>
-              (this.state.theme.payment_method_available_basket || []).includes(
-                pm,
-              ),
-            )}
+            paymentMethodChoices={
+              this.state.theme.payment_method_available_basket || []
+            }
             paymentProcessing={this.props.paymentProcessing}
             selectedEstablishmentBillingGroup={
               !this.state.hideEstablishmentBillingGroupSelector
@@ -574,10 +584,12 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             setIsEstablishmentBillingGroupSelected={
               this.setIsEstablishmentBillingGroupSelected
             }
+            setPaymentEngine={this.handlePaymentEngineUpdate}
             setPaymentProcessing={this.props.setPaymentProcessing}
             setSelectedEstablishmentBillingGroup={
               this.setSelectedEstablishmentBillingGroup
             }
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
             stripeId={this.state.theme.stripe_id}
             stripePromise={this.state.stripePromise}
             updateMemberBillingGroup={this.updateMemberBillingGroup}

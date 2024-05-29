@@ -428,6 +428,7 @@ const getTranslations = async () => {
       ideal: 'iDEAL',
       eps: 'EPS',
       giropay: 'Giropay',
+      paypal_wallet: 'PayPal Wallet',
       debt: 'Internal account',
       bacs_debit: 'Bacs Direct Debit',
     },

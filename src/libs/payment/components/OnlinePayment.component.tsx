@@ -370,7 +370,6 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 onSuccess={onSuccess}
                 paymentGroupId={paymentGroupId}
                 paymentProcessing={paymentProcessing}
-                setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                 setPaymentProcessing={enhancedSetPaymentProcessing}
                 snackbarErrorMsg={snackbarErrorMsg}
                 termsAndConditionsAccepted={termsAndConditionsAccepted}

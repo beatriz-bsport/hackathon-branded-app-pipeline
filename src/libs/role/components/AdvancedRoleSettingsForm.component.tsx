@@ -152,9 +152,6 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                   isSearchable
                   withoutPortal
                   defaultNumberShown={2}
-                  inputPlaceholder={t(
-                    'forms.user.advancedSettingsModal.accessMonitoring.multilocation.search',
-                  )}
                   isLoading={establishmentGroupListLoading}
                   menuPlacement="bottom"
                   name="locations"
@@ -162,6 +159,9 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                   options={sitesOptions}
                   placeholder={t(
                     'forms.user.advancedSettingsModal.accessMonitoring.multilocation.placeholder',
+                  )}
+                  searchPlaceholder={t(
+                    'forms.user.advancedSettingsModal.accessMonitoring.multilocation.search',
                   )}
                   value={selectedSite}
                 />
@@ -179,9 +179,6 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                     isSearchable
                     withoutPortal
                     defaultNumberShown={2}
-                    inputPlaceholder={t(
-                      'forms.user.advancedSettingsModal.accessMonitoring.singlelocation.search',
-                    )}
                     isLoading={establishmentGroupListLoading}
                     menuPlacement="bottom"
                     name="addresses"
@@ -189,6 +186,9 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                     options={sitesOptions}
                     placeholder={t(
                       'forms.user.advancedSettingsModal.accessMonitoring.singlelocation.placeholder',
+                    )}
+                    searchPlaceholder={t(
+                      'forms.user.advancedSettingsModal.accessMonitoring.singlelocation.search',
                     )}
                     value={selectedSite}
                   />
@@ -210,9 +210,6 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                   'forms.user.advancedSettingsModal.accessMonitoring.establishment.allOptionsPlaceholder',
                 )}
                 defaultNumberShown={2}
-                inputPlaceholder={t(
-                  'forms.user.advancedSettingsModal.accessMonitoring.establishment.search',
-                )}
                 isDisabled={!selectedSite}
                 isLoading={establishmentListLoading}
                 menuPlacement="bottom"
@@ -221,6 +218,9 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                 options={establishmentOptions}
                 placeholder={t(
                   'forms.user.advancedSettingsModal.accessMonitoring.establishment.placeholder',
+                )}
+                searchPlaceholder={t(
+                  'forms.user.advancedSettingsModal.accessMonitoring.establishment.search',
                 )}
                 value={selectedEstablishments}
               />

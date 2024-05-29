@@ -335,6 +335,7 @@ export type FranchiseRolePermission = {
       shopTemplates: boolean;
       giftcardTemplates: boolean;
       couponTemplates: boolean;
+      contractTemplates: boolean;
     };
     emailTemplates: boolean;
     notificationRules: boolean;

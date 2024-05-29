@@ -64,6 +64,7 @@ import { colors } from '@bsport/common/lib/colors';
 import { checkRequiredPermissions } from '#src/libs/role/utils';
 import { FranchiseRolePermission } from '#src/libs/role/types';
 import FranchiseUserSearchBarComponent from '#src/libs/franchise/components/FranchiseUserSearchBar.component';
+import Payment from '@material-ui/icons/Payment';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
@@ -591,6 +592,11 @@ const getNavigationItems = (props: {
               icon:
                 getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             },
+            {
+              to: '/f/subscription/contract-template',
+              text: 'franchiseMenu.products.contractTemplates',
+              icon: Payment,
+            },
           ].filter((item) => !!item)
         : [
             'divider',
@@ -614,6 +620,12 @@ const getNavigationItems = (props: {
               text: 'franchiseMenu.products.couponTemplates',
               icon:
                 getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
+            },
+
+            {
+              to: '/f/subscription/contract-template',
+              text: 'franchiseMenu.products.contractTemplates',
+              icon: Payment,
             },
           ].filter((item) => !!item),
     },

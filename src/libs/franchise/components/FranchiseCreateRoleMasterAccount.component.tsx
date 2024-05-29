@@ -53,6 +53,7 @@ const defaultPermissions: FranchiseRolePermission = {
       shopTemplates: true,
       giftcardTemplates: true,
       couponTemplates: true,
+      contractTemplates: true,
     },
     // @ts-expect-error
     marketing: {

@@ -80,6 +80,9 @@ const FranchiseCouponTemplateRouter = asyncComponent(
 const FranchiseGiftcardTemplateRouter = asyncComponent(
   () => import('./giftcard-template/FranchiseGiftcardTemplate.router'),
 );
+const FranchiseContractTemplateRouter = asyncComponent(
+  () => import('./contract-template/FranchiseContractTemplate.router'),
+);
 const FranchiseMarketingRouter = asyncComponent(
   () => import('./marketing/FranchiseMarketing.router'),
 );
@@ -230,6 +233,10 @@ const FranchiseRouter = (props: Props) => {
                 path="/f/giftcard-template"
               />
             )}
+            <Route
+              component={FranchiseContractTemplateRouter}
+              path="/f/subscription/contract-template"
+            />
             <Route
               component={FranchiseNotificationRulesPage}
               path="/f/settings/notification-rule/:notificationId?"

@@ -86,9 +86,6 @@ export function formatAsDatetimeAdapted(
 export function formatAsDatetime(date: string, tzname?: string) {
   return `${formatAsDate(date)} - ${formatISOStringAsTime(date, tzname)}`;
 }
-export function formatAsDatetimeWithoutHyphen(date: string, tzname?: string) {
-  return `${formatAsDate(date)}\u00A0${formatISOStringAsTime(date, tzname)}`;
-}
 
 export const getUserZone = () => {
   const zone = new SystemZone();

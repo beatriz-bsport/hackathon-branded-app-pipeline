@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-  formatAsDatetime,
-  formatAsDatetimeWithoutHyphen,
-} from '../../../../utils/datetime';
+
 import StaffHistoryGeneric from './StaffHistoryGenericComponents.component';
 import { useTranslation } from 'react-i18next';
-import type { StaffModificationHistory } from '#libs/role/types';
-
+import { DateTime } from 'luxon';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -80,8 +76,9 @@ export const PrivatebookingStaffHistory: React.FC<Props> = ({
                           withStaff={false}
                         />
                         <Typography color="textSecondary" variant="body2">
-                          - {/* @ts-expect-error */}
-                          {formatAsDatetimeWithoutHyphen(1000 * sh.timestamp)}
+                          {`\u00A0-\u00A0${DateTime.fromSeconds(
+                            sh.timestamp,
+                          ).toLocaleString(DateTime.DATETIME_MED)}`}
                         </Typography>
                       </div>
                       <div className={classes.parameterRow}>
@@ -89,8 +86,9 @@ export const PrivatebookingStaffHistory: React.FC<Props> = ({
                           {t('privateBooking.detail.initialDateTime')} :
                         </Typography>
                         <Typography>
-                          {/* @ts-expect-error */}
-                          {formatAsDatetime(1000 * sh.old_date_start)}
+                          {DateTime.fromSeconds(
+                            sh.old_date_start,
+                          ).toLocaleString(DateTime.DATETIME_MED)}
                         </Typography>
                       </div>
                       <div className={classes.parameterRow}>

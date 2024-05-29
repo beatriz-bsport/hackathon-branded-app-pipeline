@@ -41,12 +41,10 @@ export function fetchFranchise(options?: OptionCallback) {
       const response = await fetchFranchiseAPI();
       dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(fetchFranchiseActions.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
+      options?.onError?.(error);
     }
 
     dispatch(fetchFranchiseActions.isLoading(false));
@@ -65,12 +63,10 @@ export function retrieveFranchise(
       const response = await retrieveFranchiseAPI(id);
       dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
-      options?.onSuccess && options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(fetchFranchiseActions.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
+      options?.onError?.(error);
     }
 
     dispatch(fetchFranchiseActions.isLoading(false));
@@ -96,12 +92,10 @@ export function fetchFranchiseTheme(
       dispatch(
         fetchFranchiseThemeActions.success({ franchisor: response.data }),
       );
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(fetchFranchiseThemeActions.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
+      options?.onError?.(error);
     }
 
     dispatch(fetchFranchiseThemeActions.isLoading(false));
@@ -138,10 +132,10 @@ export function fetchFranchiseUsers(props: {
 
       dispatch(fetchFranchiseUsersActions.success(response.data));
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(fetchFranchiseUsersActions.error(error));
-      options?.onError(error);
+      options?.onError?.(error);
     }
 
     dispatch(fetchFranchiseUsersActions.isLoading(false));
@@ -171,10 +165,10 @@ export function fetchFranchiseUser(props: {
         fetchFranchiseUserActions.success({ results: response.data, userId }),
       );
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(fetchFranchiseUserActions.error(error));
-      options?.onError(error);
+      options?.onError?.(error);
     }
 
     dispatch(fetchFranchiseUserActions.isLoading(false));
@@ -198,11 +192,11 @@ export function updateFranchiseTheme(
     try {
       const response = await updateFranchiseThemeAPI(franchiseId, data);
       dispatch(updateFranchiseThemeActions.success(response.data));
-      options?.onSuccess(response.data);
-    } catch (error) {
-      dispatch(updateFranchiseThemeActions.error(error));
+      options?.onSuccess?.(response.data);
+    } catch (erroror) {
+      dispatch(updateFranchiseThemeActions.error(erroror));
       dispatch(updateFranchiseThemeActions.isLoading(false));
-      options?.onError();
+      options?.onError?.();
     }
   };
 }
@@ -227,13 +221,11 @@ export function fetchCompanyGroupList(
       );
 
       dispatch(listCompanyGroupActions.success(response.data));
-      if (options && options.onSuccess) {
-        options?.onSuccess(response.data);
-      }
+      options?.onSuccess?.(response.data);
     } catch (error) {
       console.error(error);
       dispatch(listCompanyGroupActions.error(error));
-      options?.onError(error);
+      options?.onError?.(error);
     }
 
     dispatch(listCompanyGroupActions.isLoading(false));
@@ -294,10 +286,10 @@ export function searchFranchiseUsers(
       const response = await searchFranchiseUsersAPI(payload);
       dispatch(searchFranchiseUsersActions.success(response.data));
 
-      options?.onSuccess();
+      options?.onSuccess?.();
     } catch (error) {
       dispatch(searchFranchiseUsersActions.error(error));
-      options?.onError(error);
+      options?.onError?.(error);
     }
 
     dispatch(searchFranchiseUsersActions.isLoading(false));
@@ -330,15 +322,11 @@ export function fetchFranchiseUserPasses(
         paginated_params,
       );
       dispatch(fetchFranchiseUserPassesActions.success(response.data));
-      if (options?.onSuccess) {
-        options.onSuccess(response.data);
-      }
-    } catch (err) {
-      console.error(err);
-      dispatch(fetchFranchiseUserPassesActions.error(err));
-      if (options?.onError) {
-        options.onError(err);
-      }
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserPassesActions.error(error));
+      options?.onError?.(error);
     }
     dispatch(fetchFranchiseUserPassesActions.isLoading(false));
   };

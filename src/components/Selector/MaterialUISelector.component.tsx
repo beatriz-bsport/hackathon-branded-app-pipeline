@@ -99,6 +99,8 @@ type BaseProps<T extends OptionTypeBase> = {
   options: T[] | Immutable.ImmutableArray<T>;
   placeholder?: string;
   removeIndicator?: boolean;
+  /** Placeholder to be displayed when the selector is searchable, and focused (ie. search is active) */
+  searchPlaceholder?: string;
   withoutConfirmButton?: boolean;
   withoutNullValues?: boolean;
   withoutPortal?: Boolean;
@@ -163,6 +165,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     options,
     placeholder,
     removeIndicator,
+    searchPlaceholder,
     value,
     withoutConfirmButton,
     withoutNullValues,
@@ -272,6 +275,9 @@ function MaterialUISelector<T extends OptionTypeBase>(
     [isFocused, isMulti, allOptionsPlaceholder, options, value],
   );
 
+  const displaySearchPlaceholder =
+    isSearchable && isFocused && !!searchPlaceholder;
+
   return (
     <SelectorContext.Provider
       value={{
@@ -336,8 +342,10 @@ function MaterialUISelector<T extends OptionTypeBase>(
           closeMenuOnSelect={closeMenuOnSelect}
           defaultNumberShown={defaultNumberShown}
           displayAllOptionsPlaceholder={displayAllOptionsPlaceholder}
+          displaySearchPlaceholder={displaySearchPlaceholder}
           onBlur={handleBlur}
           onInputChange={onInputChange}
+          searchPlaceholder={searchPlaceholder}
           selectRef={selectRef}
           withoutConfirmButton={withoutConfirmButton}
         />
@@ -724,8 +732,9 @@ function MenuList<T extends OptionTypeBase>(
 }
 
 const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
-  // @ts-expect-error
-  const { displayAllOptionsPlaceholder } = props?.selectProps;
+  const { displayAllOptionsPlaceholder, displaySearchPlaceholder } =
+    // @ts-expect-error
+    props.selectProps ?? {};
   const classes = useStyles();
 
   const { index, maxDisplay, data } = getItemPositionData(
@@ -740,7 +749,8 @@ const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
       {({ displayMore }) => {
         const isHiddenItemChip =
           (index > maxDisplay && !displayMore && !!data) ||
-          displayAllOptionsPlaceholder;
+          displayAllOptionsPlaceholder ||
+          displaySearchPlaceholder;
 
         const className = isHiddenItemChip
           ? classes.displayNone
@@ -816,14 +826,29 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
 
   return (props: ValueContainerProps<T, boolean, any>) => {
     let content;
-    if (props.selectProps?.displayAllOptionsPlaceholder) {
+
+    const {
+      displayAllOptionsPlaceholder,
+      displaySearchPlaceholder,
+      allOptionsPlaceholder,
+      searchPlaceholder,
+    } = props.selectProps;
+
+    let customPlaceholder;
+    if (displayAllOptionsPlaceholder && allOptionsPlaceholder) {
+      customPlaceholder = allOptionsPlaceholder;
+    } else if (displaySearchPlaceholder && searchPlaceholder) {
+      customPlaceholder = searchPlaceholder;
+    }
+
+    if (customPlaceholder) {
       content = (
         <>
           <Typography
             className={props?.selectProps?.classes?.placeholder}
             color="textSecondary"
           >
-            {props.selectProps?.allOptionsPlaceholder}
+            {customPlaceholder}
           </Typography>
           {/* This is a hack to make the entire select clickable
           Make sure the children components are under display: none rule */}

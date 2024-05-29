@@ -16,6 +16,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 
 import FuzeSearch from '../../components/FuzeSearch.component';
+import ModalConfirm from '../../components/ModalConfirm.component';
 import {
   getAllSmartList,
   getSmartList,
@@ -37,7 +38,7 @@ import {
   copySmartList as copySmartListAction,
   fetchCadencesUsingSmartlist,
 } from '../../libs/smart-list/actions';
-
+import SmartlistCannotBeDeletedDialog from '../../libs/smart-list/components/SmartListCannotBeDeletedDialog.component';
 import type { SmartList } from '../../libs/smart-list/types';
 import SmartListListItem from '../../libs/smart-list/components/SmartListListItem.component';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
@@ -81,6 +82,8 @@ type Props = {
 type State = {
   openCreateDialog: boolean,
   openEditDialog: boolean,
+  smartlistIdToDelete: number,
+  isSmartlistCannotBeDeletedDialogOpen: boolean,
 };
 
 export class SmartListList extends Component<Props, State> {
@@ -89,8 +92,8 @@ export class SmartListList extends Component<Props, State> {
     this.state = {
       openCreateDialog: false,
       openEditDialog: false,
-      searchText: '',
-      searchResult: [],
+      smartlistIdToDelete: null,
+      isSmartlistCannotBeDeletedDialogOpen: false,
     };
   }
 
@@ -132,21 +135,34 @@ export class SmartListList extends Component<Props, State> {
     }
   };
 
-  changeSearch = (fuse) => (ev) => {
+  handleDeleteClick = (smartlist: SmartList) => {
+    this.setState({ smartlistIdToDelete: smartlist.id });
+  };
+
+  handleCancelDelete = () => {
+    this.setState({ smartlistIdToDelete: null });
+  };
+
+  handleCancelIsSmartlistCannotBeDeletedDialogOpen = () =>
     this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
+      isSmartlistCannotBeDeletedDialogOpen: false,
+      smartlistIdToDelete: null,
     });
-  };
 
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
-
-  handleDeleteSmartlist = (id: number) => {
-    this.props.smartListDelete(id, {
-      onSuccess: this.props.goToSmartlistList,
-    });
+  handleDeleteSmartlist = () => {
+    if (
+      isSequentialMarketingAuthorized(
+        this.props.company_id,
+        this.props.hasSequentialMarketingUpsell,
+      )
+    ) {
+      this.fetchCadences(this.state.smartlistIdToDelete);
+    } else {
+      this.props.smartListDelete(this.state.smartlistIdToDelete, {
+        onSuccess: this.props.goToSmartlistList,
+      });
+      this.setState({ smartlistIdToDelete: null });
+    }
   };
 
   handleOpenSmartlistCreateDialog = () => {
@@ -160,6 +176,12 @@ export class SmartListList extends Component<Props, State> {
         const uniq_ids = uniq(cadence_ids ?? []);
         if (uniq_ids?.length !== 0) {
           this.props.fetchCadenceList({ id__in: cadence_ids });
+          this.setState({ isSmartlistCannotBeDeletedDialogOpen: true });
+        } else {
+          this.props.smartListDelete(id, {
+            onSuccess: this.props.goToSmartlistList,
+          });
+          this.setState({ smartlistIdToDelete: null });
         }
       },
     });
@@ -223,7 +245,7 @@ export class SmartListList extends Component<Props, State> {
                           onClick={(id) => {
                             this.selected(id);
                           }}
-                          onClickDelete={this.handleDeleteSmartlist}
+                          onClickDelete={this.handleDeleteClick}
                           onClickDuplicate={(id) =>
                             this.props.onClickDuplicate(id, {
                               onSuccess: (newId) =>
@@ -248,17 +270,10 @@ export class SmartListList extends Component<Props, State> {
                 {smartlists.map((smartlist) => (
                   <SmartListListItem
                     key={smartlist.id}
-                    cadencesLoading={this.props.cadencesLoading}
-                    fetchCadences={this.fetchCadences}
-                    getCadences={this.props.getCadences}
-                    isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
-                      this.props.company_id,
-                      this.props.hasSequentialMarketingUpsell,
-                    )}
                     onClick={(id) => {
                       this.selected(id);
                     }}
-                    onClickDelete={this.handleDeleteSmartlist}
+                    onClickDelete={this.handleDeleteClick}
                     onClickDuplicate={(id) =>
                       this.props.onClickDuplicate(id, {
                         onSuccess: (newId) => this.props.goToSelected(newId),
@@ -303,6 +318,29 @@ export class SmartListList extends Component<Props, State> {
                 ? this.updateSmartList
                 : this.addNewSmartList
             }
+          />
+        )}
+        <ModalConfirm
+          handleCancel={this.handleCancelDelete}
+          handleConfirm={this.handleDeleteSmartlist}
+          open={this.state.smartlistIdToDelete}
+          options={{
+            title: 'smartList:modal.delete.title',
+            cancel: 'smartList:modal.delete.cancel',
+            confirm: 'smartList:modal.delete.confirm',
+            Content: ({ t }: { t: TFunction }) => (
+              <p>{t('smartList:modal.delete.content')}</p>
+            ),
+          }}
+        />
+        {isSequentialMarketingAuthorized(
+          this.props.company_id,
+          this.props.hasSequentialMarketingUpsell,
+        ) && (
+          <SmartlistCannotBeDeletedDialog
+            cadences={this.props.getCadences(this.state.smartlistIdToDelete)}
+            onCancel={this.handleCancelIsSmartlistCannotBeDeletedDialogOpen}
+            open={this.state.isSmartlistCannotBeDeletedDialogOpen}
           />
         )}
         <BottomActionButtons

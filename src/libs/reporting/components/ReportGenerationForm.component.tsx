@@ -171,7 +171,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
       onClick={() => {
         handleExcelExportation({
           dateStart: values.dateStart,
-          dateEnd: values.dateStart,
+          dateEnd: values.dateEnd,
           ...(timeWindowFilteringEnabled
             ? {
                 timeStart: values?.timeStart,

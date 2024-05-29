@@ -23,9 +23,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 
-import { CustomChip } from '#src/components/chip/CustomChip.component';
+import { CustomChip } from '#components/chip/CustomChip.component';
 
 import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
+
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
 
 type ShopItemInventoryBulkUpdateFormRow = {
   id: number;
@@ -213,7 +215,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
   tableErrorContainer: {
-    height: 36,
+    height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
     alignItems: 'center',
   },
   tableActionContainer: {

@@ -29,6 +29,8 @@ import type {
   ShopItemInventoryBulkUpdateFormValues,
 } from './types';
 
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
+
 type ShopItemBulkFieldArray = {
   form: Pick<
     FormikState<ShopItemInventoryBulkUpdateFormValues>,
@@ -189,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
   tableErrorContainer: {
-    height: 36,
+    height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
     alignItems: 'center',
   },
   tableActionContainer: {

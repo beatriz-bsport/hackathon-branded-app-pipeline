@@ -47,3 +47,5 @@ export enum ShopItemDetailInventoryFormType {
   STANDALONE = 'standalone',
   VARIANTS = 'variants',
 }
+
+export const SHOP_TABLE_ERROR_CONTAINER_HEIGHT = 36;

@@ -17,6 +17,8 @@ import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
 
 import type { ShopItemInventoryFormValues } from './types';
 
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
+
 const ShopItemInventoryUpdateForm: React.FC = () => {
   const { t } = useTranslation('shop');
 
@@ -119,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
   tableErrorContainer: {
-    height: 36,
+    height: SHOP_TABLE_ERROR_CONTAINER_HEIGHT,
     alignItems: 'center',
   },
   tableActionContainer: {

@@ -14,7 +14,7 @@ import {
   resetObjectSearch as resetObjectSearchAction,
   searchObjects as searchObjectsAction,
 } from '#libs/fuzzy-search/actions';
-import {
+import type {
   ObjectSearchProps,
   SearchObjectType,
   SelectOptions,
@@ -22,7 +22,7 @@ import {
 
 import type { RootState } from '../../../reducers';
 import { useHydrateSearch } from '#libs/fuzzy-search/components/useHydrateSearch';
-import { SelectOption } from '#src/libs/types';
+import type { SelectOption } from '#libs/types';
 import { DEFAULT_SELECTOR_ID } from '../constants';
 
 export type Props = OwnProps & ConnectedProps<typeof connector>;

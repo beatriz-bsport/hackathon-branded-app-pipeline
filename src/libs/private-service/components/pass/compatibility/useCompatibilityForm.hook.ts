@@ -126,10 +126,12 @@ export const useCompatibilityForm = ({
 
   const establishmentsValues = useMemo(
     () =>
-      paymentPackValues?.establishments?.map((establishment) => ({
-        label: establishment.title,
-        value: establishment.id,
-      })),
+      paymentPackValues?.establishments
+        ?.map((establishment) => ({
+          label: establishment?.title,
+          value: establishment?.id,
+        }))
+        .filter((option) => !!option.value && !!option.label),
     [paymentPackValues?.establishments],
   );
 

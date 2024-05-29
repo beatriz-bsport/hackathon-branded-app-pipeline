@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  createContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';
@@ -193,7 +200,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     }
   };
 
-  const handleBlur = React.useCallback(
+  const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLInputElement>) => {
       if (onBlur) {
         e.target.name = name;
@@ -237,7 +244,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     }
   }, [options, onInputChange]);
 
-  const emptyIndicatorsContainer = React.useCallback(() => null, []);
+  const emptyIndicatorsContainer = useCallback(() => null, []);
 
   const displayAllOptionsPlaceholder = useMemo(
     () =>
@@ -321,7 +328,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
   );
 }
 
-export const SelectorContext = React.createContext<{
+export const SelectorContext = createContext<{
   displayMore: boolean;
   setDisplayMore: (value: boolean) => void;
 }>({
@@ -333,7 +340,7 @@ export const SelectorContext = React.createContext<{
 /* ***** */
 /* Overiding some behavior to fit with expected experiences */
 /* ***** */
-const SelectContext = React.createContext({
+const SelectContext = createContext({
   selected: [],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSelect: (data: any) => {},

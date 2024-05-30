@@ -12,16 +12,16 @@ import {
 } from './constants';
 
 export type Company = {
+  company_group: number | null;
+  cover: string;
+  email: string;
+  hidden_from_marketplace: boolean;
   id: number;
   name: string;
-  timezone_name: string;
-  email: string;
-  websiteURL: string;
-  cover: string;
   primaryRGB: string;
   secondaryRGB: string;
-  company_group: number | null;
-  hidden_from_marketplace: boolean;
+  timezone_name: string;
+  websiteURL: string;
 };
 
 export type CompanyWithTheme = Company & {

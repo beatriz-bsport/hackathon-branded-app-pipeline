@@ -247,6 +247,9 @@ type APIParamsMap = {
   establishment_group: EstablishmentGroupAPIParams;
 };
 
+export type FuzzySearchFilterParams<T extends SearchObjectType> =
+  ReplaceArrayTypes<CommonParams & APIParamsMap[T]>;
+
 export type FuzzySearchAPIParams = APIParamsMap[SearchObjectType] & {
   searchObjectURI: string;
   q: string;

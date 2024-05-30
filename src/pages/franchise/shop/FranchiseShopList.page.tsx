@@ -45,6 +45,10 @@ import {
   getShopSupplierTemplateUpdateLoading,
   getShopSupplierTemplateDeleteLoading,
 } from '#libs/shop/selectors';
+import {
+  getFranchiseCompanies,
+  getFranchiseCompanyById,
+} from '#src/libs/franchise/selectors';
 
 import FranchiseShopList from '#libs/franchise/components/FranchiseShopList.component';
 
@@ -62,6 +66,9 @@ import type {
   ShopSupplierUpdate,
   SubshopTemplate,
 } from '#libs/shop/types';
+import type { SelectOption } from '#libs/types';
+import type { FranchiseCompany } from '#libs/franchise/types';
+
 import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 
 type Props = ConnectedProps<typeof connector>;
@@ -77,11 +84,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
     options: OptionCallback<SubshopTemplate>,
   ) => {
     this.props.createSubshopTemplate(
-      /*
-       * TEMP - company_ids param will not be required anymore in the future
-       * @see https://bsporttest.atlassian.net/browse/BS-3909
-       */
-      { ...values, company_ids: [1], franchisor: this.props.franchisorId },
+      { ...values, franchisor: this.props.franchisorId },
       {
         onSuccess: () => {
           this.props.fetchSubshopTemplateList();
@@ -96,20 +99,13 @@ export class FranchiseShopListPage extends PureComponent<Props> {
     values: ShopListSubshopFormValues,
     options: OptionCallback<SubshopTemplate>,
   ) => {
-    this.props.updateSubshopTemplate(
-      /*
-       * TEMP - company_ids param will not be required anymore in the future
-       * @see https://bsporttest.atlassian.net/browse/BS-3909
-       */
-      { ...values, company_ids: [1] },
-      {
-        onSuccess: () => {
-          this.props.fetchSubshopTemplateList();
-          options?.onSuccess?.();
-        },
-        onError: options?.onError,
+    this.props.updateSubshopTemplate(values, {
+      onSuccess: () => {
+        this.props.fetchSubshopTemplateList();
+        options?.onSuccess?.();
       },
-    );
+      onError: options?.onError,
+    });
   };
 
   handleDeleteSubshopTemplate = (
@@ -141,7 +137,6 @@ export class FranchiseShopListPage extends PureComponent<Props> {
       ['cover'],
     );
     formData.append('sub_shop_template', subshopTemplateId.toString());
-    formData.append('company_ids[0]', '1'); // TEMP -> https://bsporttest.atlassian.net/browse/BS-3909
     if (formValues.cover) formData.append('cover', formValues.cover);
 
     this.props.createShopItemTemplate(formData, {
@@ -244,6 +239,15 @@ export class FranchiseShopListPage extends PureComponent<Props> {
     });
   };
 
+  getFranchiseCompanyListOptions: () => SelectOption[] = () =>
+    // @ts-expect-error bad typing on legacy selector
+    (this.props.franchisorCompanyList.asMutable() ?? []).map(
+      (company: FranchiseCompany) => ({
+        label: company.name,
+        value: company.id,
+      }),
+    );
+
   render() {
     return (
       <FranchiseShopList
@@ -255,6 +259,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         deleteSubshopTemplate={this.handleDeleteSubshopTemplate}
         deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}
+        franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
         getShopItemTemplateState={this.props.getShopItemTemplateState}
         goToShopItemTemplate={this.props.goToShopItemTemplate}
         subshopTemplateList={this.props.subshopTemplateList}
@@ -277,6 +282,8 @@ export class FranchiseShopListPage extends PureComponent<Props> {
 const connector = connect(
   (state: RootState) => ({
     franchisorId: state.franchise.franchisor.id,
+    franchisorCompanyList: getFranchiseCompanies(state),
+    franchisorCompanyListById: getFranchiseCompanyById(state),
     // subshop template selectors
     subshopTemplateList: getSubshopTemplateList(state),
     isSubshopTemplateLoading: getSubshopTemplateLoading(state),

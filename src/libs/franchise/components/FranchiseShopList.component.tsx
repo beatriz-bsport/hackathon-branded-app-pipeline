@@ -21,7 +21,7 @@ import type {
 } from '#libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading, SelectOption } from '#libs/types';
 import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
@@ -33,6 +33,7 @@ type Props = {
   supplierTemplateListPage: number;
   supplierTemplateListCount: number;
   isSupplierTemplateListLoading?: boolean;
+  franchiseCompanyListOptions: SelectOption[];
   goToShopItemTemplate: (shopItemTemplateId: number) => void;
   getShopItemTemplateState: (
     subshopTemplateId: number,
@@ -80,6 +81,7 @@ const FranchiseShopList: React.FC<Props> = ({
   supplierTemplateListPage,
   supplierTemplateListCount,
   isSupplierTemplateListLoading,
+  franchiseCompanyListOptions,
   goToShopItemTemplate,
   getShopItemTemplateState,
   createSubshopTemplate,
@@ -278,8 +280,9 @@ const FranchiseShopList: React.FC<Props> = ({
         trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.ShopItem}
       >
         <ShopItemFormReworked
-          bookkeepingAccountById={{}} // TEMP - tackled in https://bsporttest.atlassian.net/browse/BS-4055
-          bookkeepingAccounts={[]} // TEMP - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          bookkeepingAccountById={{}} // TODO - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          bookkeepingAccounts={[]} // TODO - tackled in https://bsporttest.atlassian.net/browse/BS-4055
+          franchiseCompanyListOptions={franchiseCompanyListOptions}
           isLoading={isLoading}
           onCancel={handleCloseShopItemTemplateForm}
           onCreateSubmit={handleShopItemTemplateSubmit}

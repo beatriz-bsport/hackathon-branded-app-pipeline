@@ -880,8 +880,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   ).hasSame(DateTime.now(), 'month'),
                 });
                 if (
-                  DateTime.fromISO(this.props.date).startOf('month') >=
-                  DateTime.now().startOf('month')
+                  (this.props.date
+                    ? DateTime.fromISO(this.props.date)
+                    : DateTime.now()
+                  ).startOf('month') >= DateTime.now().startOf('month')
                 ) {
                   this.submit(false, !areInitialBillingDetailsNecessary);
                 }

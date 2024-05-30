@@ -8,7 +8,7 @@ import { Props as SelectProps } from 'react-select/lib/Select';
 import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { useFetchOptions } from '#libs/fuzzy-search/components/useFetchOptions';
+import { useFetchOptions } from '#libs/fuzzy-search/hooks/useFetchOptions';
 import { getResultsById, getSelectorState } from '#libs/fuzzy-search/selectors';
 import {
   resetObjectSearch as resetObjectSearchAction,
@@ -21,7 +21,7 @@ import type {
 } from '#libs/fuzzy-search/types';
 
 import type { RootState } from '../../../reducers';
-import { useHydrateSearch } from '#libs/fuzzy-search/components/useHydrateSearch';
+import { useHydrateSearch } from '#libs/fuzzy-search/hooks/useHydrateSearch';
 import type { SelectOption } from '#libs/types';
 import { DEFAULT_SELECTOR_ID } from '../constants';
 

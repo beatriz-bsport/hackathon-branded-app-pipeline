@@ -66,6 +66,7 @@ const ObjectSearch: React.FC<Props> = ({
   optionsFormatter,
   selectorId = DEFAULT_SELECTOR_ID,
   variant = 'default',
+  objectId,
   ...selectorProps
 }) => {
   const { formattedInitialValues, hasHydratedResults } = useHydrateSearch({
@@ -74,6 +75,7 @@ const ObjectSearch: React.FC<Props> = ({
     initialValues,
     searchObjects,
     selectorId,
+    objectId,
   });
   const { handleInputChange, formattedResults } = useFetchOptions({
     searchObjects,
@@ -84,6 +86,7 @@ const ObjectSearch: React.FC<Props> = ({
     optionsFormatter,
     hasHydratedResults,
     selectorId,
+    objectId,
   });
   const { components, ...otherSelectProps } = { ...selectorProps };
   const componentsVariant = getSearchVariant(variant, components);

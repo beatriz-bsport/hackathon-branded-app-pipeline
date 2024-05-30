@@ -33,6 +33,7 @@ import type { Contract } from '#src/libs/subscription/types';
 import type { Tag } from '#src/libs/tag/types';
 import type { Video } from '#src/libs/video/types';
 import type { CustomForm } from '#src/libs/custom-form/types';
+import type { FranchiseUserPrivatePass } from '#src/libs/franchise/types';
 
 const labelExtractorMap: Record<
   SearchObjectType,
@@ -61,6 +62,8 @@ const labelExtractorMap: Record<
   private_pass: (privatePass: PrivatePass) => privatePass.name,
   private_pass_category: (category: PrivatePassCategory) => category.name,
   private_pass_template: (template: PrivatePass) => template.name,
+  franchise_user_private_pass: (userPrivatePass: FranchiseUserPrivatePass) =>
+    userPrivatePass.private_pass.name,
   private_service: (privateService: PrivateService) => privateService.name,
   private_slot: (privateSlot: PrivateSlot) => privateSlot.name,
   shop_item: (shopItem: ShopItem) => shopItem.name,

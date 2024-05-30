@@ -22,6 +22,7 @@ type HookProps = {
     },
     options?: OptionCallback<ObjectSearchPaginated>,
   ) => Promise<void>;
+  objectId?: number;
 };
 
 /**
@@ -41,6 +42,7 @@ export const useHydrateSearch = ({
   resultsById,
   initialValues,
   selectorId,
+  objectId,
 }: HookProps) => {
   const [hasHydratedResults, setHasHydratedResults] = useState(
     !initialValues?.length,
@@ -49,7 +51,7 @@ export const useHydrateSearch = ({
     searchObjects(
       {
         params: {
-          searchObjectURI: getSearchObjectURI(searchedObjectType),
+          searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
           q: '',
           id__in: initialValues ?? [],
         },
@@ -58,7 +60,7 @@ export const useHydrateSearch = ({
       },
       { onSuccess: () => setHasHydratedResults(true) },
     );
-  }, [initialValues, searchObjects, searchedObjectType, selectorId]);
+  }, [initialValues, objectId, searchObjects, searchedObjectType, selectorId]);
 
   useEffect(() => {
     if (!hasHydratedResults) {

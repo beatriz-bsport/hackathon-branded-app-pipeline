@@ -66,6 +66,10 @@ import type {
   CustomFormQueryParams,
 } from '#src/libs/custom-form/types';
 import type { PaginationFilterParams, SelectOption } from '#src/libs/types';
+import type {
+  FranchiseUserPrivatePass,
+  PassesSearchPaginatedQueryParams,
+} from '#src/libs/franchise/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;
@@ -123,6 +127,7 @@ export const searchObjectIdentifiers = [
   'private_pass',
   'private_pass_category',
   'private_pass_template',
+  'franchise_user_private_pass',
   'cadence',
   'sub_shop',
   'sub_shop_template',
@@ -163,6 +168,7 @@ type ResultsTypes = {
   private_pass: PrivatePass;
   private_pass_category: PrivatePassCategory;
   private_pass_template: PrivatePassTemplate;
+  franchise_user_private_pass: FranchiseUserPrivatePass;
   cadence: Cadence;
   sub_shop: SubShop;
   sub_shop_template: SubShop;
@@ -236,6 +242,7 @@ export type ObjectSearchProps = {
      * Variant of the ObjectSearchProps
      */
     variant?: VariantType;
+    objectId?: number;
   };
 }[SearchObjectType];
 
@@ -263,6 +270,7 @@ type APIParamsMap = {
   private_pass: PrivatePassAPIParams;
   private_pass_category: PrivatePassCategoryAPIParams;
   private_pass_template: PrivatePassTemplateAPIParams;
+  franchise_user_private_pass: PassesSearchPaginatedQueryParams;
   cadence: CadenceAPIParams;
   sub_shop: SubShopAPIParams;
   sub_shop_template: SubShopTemplateAPIParams;

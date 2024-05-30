@@ -6,6 +6,7 @@ import type {
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
 import type { CouponTemplate } from '#src/libs/coupon/types';
 import type { GiftcardTemplate } from '#src/libs/giftcard/types';
+import type { PaginationFilterParams } from '#src/libs/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -138,9 +139,10 @@ export type SearchUsersPayload = {
   count?: number;
 };
 
-export type PassesPaginatedQueryParams = {
-  page?: number;
-  page_size?: number;
+export type PassesSearchPaginatedQueryParams = PaginationFilterParams &
+  FranchisePassFilters;
+
+export type PassesPaginatedQueryParams = PaginationFilterParams & {
   filters?: FranchisePassFilters;
 };
 

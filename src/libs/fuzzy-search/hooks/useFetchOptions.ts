@@ -45,6 +45,7 @@ type HookProps = {
   optionsFormatter: (results: ObjectSearchArray) => SelectOptions;
   hasHydratedResults: boolean;
   selectorId: string;
+  objectId?: number;
 };
 
 /**
@@ -66,20 +67,27 @@ export const useFetchOptions = ({
   hasHydratedResults,
   optionsFormatter,
   selectorId,
+  objectId,
 }: HookProps) => {
   const paramsRef = useRef(additionalParams);
   const compareTextRef = useRef('');
   const hydrateOptions = useCallback(() => {
     searchObjects({
       params: {
-        searchObjectURI: getSearchObjectURI(searchedObjectType),
+        searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
         q: '',
         ...additionalParams,
       },
       searchedObjectType,
       selectorId,
     });
-  }, [additionalParams, searchObjects, searchedObjectType, selectorId]);
+  }, [
+    additionalParams,
+    objectId,
+    searchObjects,
+    searchedObjectType,
+    selectorId,
+  ]);
 
   const handleInputChange = debounce((text: string) => {
     if (compareTextRef.current === text) {
@@ -88,7 +96,7 @@ export const useFetchOptions = ({
     compareTextRef.current = text;
     searchObjects({
       params: {
-        searchObjectURI: getSearchObjectURI(searchedObjectType),
+        searchObjectURI: getSearchObjectURI(searchedObjectType, objectId),
         q: text,
         ...additionalParams,
       },

@@ -22,6 +22,7 @@ const typeToURIMap: Record<SearchObjectType, string> = {
   private_pass: 'private_service/private_pass',
   private_pass_category: 'private_service/private_pass_category',
   private_pass_template: 'private_service/private-pass-template',
+  franchise_user_private_pass: 'franchise_user_profile/private_consumer_pass',
   shop_item: 'shop/item',
   shop_item_template: 'shop/shopitemtemplate',
   smart_list: 'smartlist/group',
@@ -46,7 +47,13 @@ const typeToV0URIMap: { [key in SearchObjectType]?: string } = {
  * @returns The URI to call for the search
  */
 
-export const getSearchObjectURI = (objectType: SearchObjectType): string => {
+export const getSearchObjectURI = (
+  objectType: SearchObjectType,
+  objectId?: number,
+): string => {
+  if (objectType === 'franchise_user_private_pass') {
+    return `${API_V1_URI}/private_service/franchise_user_profile/${objectId}/private_consumer_pass/search`;
+  }
   if (objectType in typeToV0URIMap) {
     return `${API_URI}/${typeToV0URIMap[objectType]}/search`;
   }

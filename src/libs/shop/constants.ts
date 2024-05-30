@@ -49,3 +49,4 @@ export enum ShopItemDetailInventoryFormType {
 }
 
 export const SHOP_TABLE_ERROR_CONTAINER_HEIGHT = 36;
+export const SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH = 95;

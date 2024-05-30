@@ -27,6 +27,8 @@ import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
 
 import type { ShopItemVariantBulkUpdateFormValues } from './types';
 
+import { SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH } from '#libs/shop/constants';
+
 type OwnFieldArrayRenderProps = {
   form: FormikProps<ShopItemVariantBulkUpdateFormValues>;
 };
@@ -114,7 +116,10 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                               label={field.value?.name ?? ''}
                               onDelete={emptyFn}
                               size="small"
-                              style={{ maxWidth: '95px' }}
+                              style={{
+                                maxWidth:
+                                  SHOP_VARIANT_BULK_UPDATE_FORM_COVER_CHIP_MAX_WIDTH,
+                              }}
                               variant="outlined"
                             />
                           </Tooltip>

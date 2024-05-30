@@ -18,13 +18,16 @@ import {
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
 type OwnProps = {
-  authenticated: boolean,
   onWindowOpen: (url: string) => void,
-
+  companyId: number,
+  franchiseId: number,
   uniqueWidgetId: string,
 };
 
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps &
+  WithTranslation &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 class LoginButton extends Component<Props> {
   componentDidMount() {
@@ -116,8 +119,7 @@ const mapDispatchToProps = {
   bridgeRequestLogout,
 };
 
-export default compose<any, OwnProps>(
-  // @ts-ignore
+export default compose<Props, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),
   withTranslation(['navigation']),
 )(LoginButton);

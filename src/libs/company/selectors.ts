@@ -26,7 +26,7 @@ export const getCompanyCountry = (state: RootState) =>
   state.theme?.theme?.locale.split('_')[1];
 
 const getStripeCompanyData = (state: CompanyState) =>
-  state?.stripeCompany?.data;
+  state.company.stripeCompany?.data;
 
 export const getStripeOnboardingPending = createSelector(
   [

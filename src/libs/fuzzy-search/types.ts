@@ -2,7 +2,6 @@ import { OptionsType } from 'react-select/lib/types';
 import { ImmutableArray } from 'seamless-immutable';
 import type { OptionProps } from 'react-select/lib/components/Option';
 
-import type { SelectOption } from '#src/libs/types';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Coupon, FetchCouponsParams } from '#libs/coupon/types';
 import type { PaginatedResponse } from '#state/types';
@@ -43,13 +42,19 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 import type {
   ShopItem,
   ShopItemListFilterParams,
+  ShopItemTemplate,
+  ShopItemTemplateFilterParams,
   SubShop,
 } from '#libs/shop/types';
 import type { SmartList, SmartListQueryParams } from '#libs/smart-list/types';
 import type { Contract, ContractQueryParams } from '#libs/subscription/types';
 import type { Tag } from '#libs/tag/types';
 import type { Video, VideoQueryParams } from '#libs/video/types';
-import { AssociatedCoachFilters, Coach } from '#libs/associated-coach/types';
+import type { PaginationFilterParams, SelectOption } from '#libs/types';
+import type {
+  AssociatedCoachFilters,
+  Coach,
+} from '#libs/associated-coach/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;
@@ -150,7 +155,7 @@ type ResultsTypes = {
   sub_shop: SubShop;
   sub_shop_template: SubShop;
   shop_item: ShopItem;
-  shop_item_template: ShopItem;
+  shop_item_template: ShopItemTemplate;
   smart_list: SmartList;
   contract: Contract;
   tag: Tag;
@@ -200,7 +205,9 @@ export type ObjectSearchProps = {
      * The query filters that can be passed to the API when fetching the results. Can be used to filter the results
      * and to handle pagination.
      */
-    additionalParams?: ReplaceArrayTypes<CommonParams & APIParamsMap[key]>;
+    additionalParams?: ReplaceArrayTypes<
+      PaginationFilterParams & APIParamsMap[key]
+    >;
     /**
      * The initial values that need to be hydrated. ObjectSearch will use these values to perform a first search that
      * will store the results in the corresponding byId section of the store.
@@ -258,83 +265,86 @@ type APIParamsMap = {
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =
-  ReplaceArrayTypes<CommonParams & APIParamsMap[T]>;
+  ReplaceArrayTypes<PaginationFilterParams & APIParamsMap[T]>;
 
 export type FuzzySearchAPIParams = APIParamsMap[SearchObjectType] & {
   searchObjectURI: string;
   q: string;
 };
 
-type CommonParams = {
-  page_size?: number;
-  page?: number;
+type AssociatedCoachAPIParams = PaginationFilterParams & AssociatedCoachFilters;
+
+type CoachPaymentRuleAPIParams = PaginationFilterParams;
+
+type CouponAPIParams = PaginationFilterParams & FetchCouponsParams;
+
+type CouponTemplateAPIParams = PaginationFilterParams & FetchCouponsParams;
+
+type EmailDesignAPIParams = PaginationFilterParams;
+
+type EstablishmentAPIParams = PaginationFilterParams & FetchEstablishmentParams;
+
+type GiftcardAPIParams = PaginationFilterParams & {
+  id__in?: number;
+  disabled?: boolean;
 };
 
-type AssociatedCoachAPIParams = CommonParams & AssociatedCoachFilters;
+type GifcardTemplateAPIParams = PaginationFilterParams & { id__in?: number };
 
-type CoachPaymentRuleAPIParams = CommonParams;
+type MetaActivityAPIParams = PaginationFilterParams & MetaActivityFilter;
 
-type CouponAPIParams = CommonParams & FetchCouponsParams;
+type CustomLevelAPIParams = PaginationFilterParams & LevelFilterSet;
 
-type CouponTemplateAPIParams = CommonParams & FetchCouponsParams;
+type InstalmentPaymentAPIParams = PaginationFilterParams & { company?: number };
 
-type EmailDesignAPIParams = CommonParams;
+type PaymentComboAPIParams = PaginationFilterParams &
+  PaymentComboAPIQueryParams;
 
-type EstablishmentAPIParams = CommonParams & FetchEstablishmentParams;
+type PaymentPackAPIParams = PaginationFilterParams & PaymentPackQueryParams;
 
-type GiftcardAPIParams = CommonParams & { id__in?: number; disabled?: boolean };
+type PaymentPackCategoryAPIParams = PaginationFilterParams;
 
-type GifcardTemplateAPIParams = CommonParams & { id__in?: number };
-
-type MetaActivityAPIParams = CommonParams & MetaActivityFilter;
-
-type CustomLevelAPIParams = CommonParams & LevelFilterSet;
-
-type InstalmentPaymentAPIParams = CommonParams & { company?: number };
-
-type PaymentComboAPIParams = CommonParams & PaymentComboAPIQueryParams;
-
-type PaymentPackAPIParams = CommonParams & PaymentPackQueryParams;
-
-type PaymentPackCategoryAPIParams = CommonParams;
-
-type PerformanceTrackingProgramAPIParams = CommonParams & {
+type PerformanceTrackingProgramAPIParams = PaginationFilterParams & {
   is_disabled?: boolean;
   company?: number;
   id__in?: number[];
 };
 
-type PrivateServiceAPIParams = CommonParams & PrivateServiceQueryParams;
+type PrivateServiceAPIParams = PaginationFilterParams &
+  PrivateServiceQueryParams;
 
-type PrivateSlotAPIParams = CommonParams & PrivateSlotQueryParams;
+type PrivateSlotAPIParams = PaginationFilterParams & PrivateSlotQueryParams;
 
-type PrivatePassAPIParams = CommonParams & PrivatePassQueryParams;
+type PrivatePassAPIParams = PaginationFilterParams & PrivatePassQueryParams;
 
-type PrivatePassCategoryAPIParams = CommonParams;
+type PrivatePassCategoryAPIParams = PaginationFilterParams;
 
-type PrivatePassTemplateAPIParams = CommonParams;
+type PrivatePassTemplateAPIParams = PaginationFilterParams;
 
-type CadenceAPIParams = CommonParams & { id__in?: number };
+type CadenceAPIParams = PaginationFilterParams & { id__in?: number };
 
-type SubShopAPIParams = CommonParams & { company?: number };
+type SubShopAPIParams = PaginationFilterParams & { company?: number };
 
-type SubShopTemplateAPIParams = CommonParams;
+type SubShopTemplateAPIParams = PaginationFilterParams;
 
-type ShopItemAPIParams = CommonParams & ShopItemListFilterParams;
+type ShopItemAPIParams = PaginationFilterParams & ShopItemListFilterParams;
 
-type ShopItemTemplateAPIParams = CommonParams;
+type ShopItemTemplateAPIParams = PaginationFilterParams &
+  ShopItemTemplateFilterParams;
 
-type SmartListAPIParams = CommonParams & SmartListQueryParams;
+type SmartListAPIParams = PaginationFilterParams & SmartListQueryParams;
 
-type ContractAPIParams = CommonParams & ContractQueryParams;
+type ContractAPIParams = PaginationFilterParams & ContractQueryParams;
 
-type TagAPIParams = CommonParams;
+type TagAPIParams = PaginationFilterParams;
 
-type VideoAPIParams = CommonParams & VideoQueryParams;
+type VideoAPIParams = PaginationFilterParams & VideoQueryParams;
 
-type ReportAPIParams = CommonParams;
+type ReportAPIParams = PaginationFilterParams;
 
-type EstablishmentGroupAPIParams = CommonParams & { id__in?: number[] };
+type EstablishmentGroupAPIParams = PaginationFilterParams & {
+  id__in?: number[];
+};
 
 type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
 

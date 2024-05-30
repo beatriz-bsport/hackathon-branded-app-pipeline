@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const paths = require('./paths');
@@ -174,6 +175,11 @@ module.exports = {
       },
     ],
   },
+  plugins:  [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js'
+    }),
+  ],
   performance: {
     hints: false,
   },

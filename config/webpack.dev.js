@@ -37,9 +37,6 @@ module.exports = merge(common, {
       template: paths.appHtml,
       templateParameters: env.raw,
     }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser.js'
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new ESLintPlugin({
       extensions: ['js', 'jsx', 'ts', 'tsx'],

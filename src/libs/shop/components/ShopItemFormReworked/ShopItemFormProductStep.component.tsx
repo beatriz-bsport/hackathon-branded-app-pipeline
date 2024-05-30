@@ -24,14 +24,18 @@ import PriceInput from '#components/input/PriceInput.component';
 import ImageUploader from '#components/input/ImageUploader.component';
 import PaymentMethodSelectorInput from '#libs/payment/components/PaymentMethodSelectorInput.component';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 import type { ShopSupplier, ShopSupplierTemplate } from '#libs/shop/types';
 import type { ShopItemFormValues } from '#libs/shop/components/ShopItemFormReworked/types';
+import type { BookkeepingAccount } from '#libs/payment/types';
+import type { SelectOption } from '#libs/types';
 
 import { ALMOST_100 } from '../../../../constants';
-import type { BookkeepingAccount } from '#libs/payment/types';
 
 const SHOP_ITEM_SUPPLIER_FIELD_LABEL = 'shop-item-supplier-selector-label';
+const FRANCHISOR_SHOP_ITEM_COMPANY_FIELD_LABEL =
+  'franchisor-shop-item-company-selector-label';
 
 const ShopItemPreview: React.FC<{
   previewURL?: string;
@@ -61,6 +65,7 @@ type Props = {
   isEditForm?: boolean;
   provincialTax?: number;
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
+  franchiseCompanyListOptions?: SelectOption[];
   bookkeepingAccounts?: BookkeepingAccount[];
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
   initialValues: ShopItemFormValues;
@@ -72,6 +77,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
   isEditForm,
   provincialTax,
   supplierList,
+  franchiseCompanyListOptions,
   bookkeepingAccounts,
   bookkeepingAccountById,
   initialValues,
@@ -111,6 +117,13 @@ const ShopItemFormProductStep: React.FC<Props> = ({
       if (cover) {
         setFieldValue('cover', cover);
       }
+    },
+    [setFieldValue],
+  );
+
+  const handleChangeFranchiseComanyList = useCallback(
+    (companyList: SelectOption[]) => {
+      setFieldValue('franchiseCompanyList', companyList);
     },
     [setFieldValue],
   );
@@ -259,6 +272,28 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             </Select>
           </FormControl>
         </Grid>
+        {franchiseCompanyListOptions?.length > 0 && (
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel
+                className={classes.supplierSelectorLabel}
+                id={FRANCHISOR_SHOP_ITEM_COMPANY_FIELD_LABEL}
+              >
+                {t('translation:form.shop.item.studios')}
+              </InputLabel>
+              <MaterialUISelector
+                isMulti
+                defaultNumberShown={1}
+                error={!!errors.franchiseCompanyList}
+                name="franchiseCompanyList"
+                onChange={handleChangeFranchiseComanyList}
+                options={franchiseCompanyListOptions}
+                placeholder={t('translation:form.shop.item.studios')}
+                value={values.franchiseCompanyList}
+              />
+            </FormControl>
+          </Grid>
+        )}
       </Grid>
       <Grid item xs={12}>
         <FormControlLabel

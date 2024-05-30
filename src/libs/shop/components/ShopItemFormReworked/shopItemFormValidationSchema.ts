@@ -28,6 +28,23 @@ const shopItemFormProductStepValidationSchema = Yup.object().shape({
   bookkeepingAccount: Yup.number().nullable().notRequired(),
 });
 
+/** Exclusively reserved for franchise when creating a shop item template */
+export const franchiseCompanyListFieldSchemaValidation = Yup.object()
+  .shape({
+    franchiseCompanyList: Yup.array().of(
+      Yup.object().shape({
+        label: Yup.string(),
+        value: Yup.string(),
+      }),
+    ),
+  })
+  .required('common:requiredField');
+
+const shopItemTemplateFormProductStepValidationSchema =
+  shopItemFormProductStepValidationSchema.concat(
+    franchiseCompanyListFieldSchemaValidation,
+  );
+
 const shopItemFormVariantStepValidationSchema = Yup.object().shape({
   colors: Yup.array().of(
     Yup.object().shape({
@@ -50,6 +67,22 @@ const shopItemFormVariantStepValidationSchema = Yup.object().shape({
     }),
   ),
 });
+
+export const getShopItemFormValidationSchema = (
+  step: ShopItemFormStep,
+  isFranchise?: boolean,
+) => {
+  switch (step) {
+    case ShopItemFormStep.PRODUCT:
+      return isFranchise
+        ? shopItemTemplateFormProductStepValidationSchema
+        : shopItemFormProductStepValidationSchema;
+    case ShopItemFormStep.VARIANT:
+      return shopItemFormVariantStepValidationSchema;
+    default:
+      return {};
+  }
+};
 
 export default {
   [ShopItemFormStep.PRODUCT]: shopItemFormProductStepValidationSchema,

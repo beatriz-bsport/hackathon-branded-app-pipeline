@@ -35,14 +35,20 @@ export function mapFormDataWithObject(base, map, keyExecptionsList) {
   const formData = new FormData();
   for (const [key, value] of Object.entries(base)) {
     const isVariantKey = key.includes('variants.');
+    const isFranchiseCompanyKey = key.includes('company_ids');
     // Retail variant creation
-    if (isVariantKey) {
+    if (isVariantKey || isFranchiseCompanyKey) {
       formData.append(key, value);
     }
-    if (!isVariantKey && !(typeof map[key] === 'boolean') && !map[key]) {
+    if (
+      !isVariantKey &&
+      !isFranchiseCompanyKey &&
+      !(typeof map[key] === 'boolean') &&
+      !map[key]
+    ) {
       throw new Error(`Mapping for key ${key} does not exist.`);
     }
-    if (!isVariantKey && value !== undefined) {
+    if (!isVariantKey && !isFranchiseCompanyKey && value !== undefined) {
       if (Array.isArray(value)) {
         formData.append(map[key], JSON.stringify(value));
       } else if (key === 'bookkeeping_account' && value === null) {

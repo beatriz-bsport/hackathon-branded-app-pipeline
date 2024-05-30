@@ -26,12 +26,16 @@ import {
   ShopItemFormStep,
   ShopItemFormValues,
   ShopItemVariantOption,
-} from './types';
+} from '#libs/shop/components/ShopItemFormReworked/types';
+import type { SelectOption } from '#libs/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
-import shopItemFormValidationSchema from './shopItemFormValidationSchema';
-import { generateShopitemColorSizeCombinationList } from '#libs/shop/utils';
+import { getShopItemFormValidationSchema } from '#libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
+import {
+  generateShopitemColorSizeCombinationList,
+  getFormDataFieldsFromArray,
+} from '#libs/shop/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -49,6 +53,8 @@ type Props = {
   supplierList: ShopSupplier[] | ShopSupplierTemplate[];
   bookkeepingAccounts?: BookkeepingAccount[];
   bookkeepingAccountById?: Record<number, BookkeepingAccount>;
+  /** Used on franchise context */
+  franchiseCompanyListOptions?: SelectOption[];
 };
 
 const ShopItemFormReworked: React.FC<Props> = ({
@@ -62,6 +68,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
   supplierList,
   bookkeepingAccounts,
   bookkeepingAccountById,
+  franchiseCompanyListOptions,
 }: Props) => {
   const classes = useStyles();
 
@@ -96,6 +103,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
         (initial as ShopItem)?.subshop ??
         null,
       bookkeepingAccount: initial?.bookkeeping_account ?? null,
+      franchiseCompanyList: [],
     }),
     [initial],
   );
@@ -113,41 +121,6 @@ const ShopItemFormReworked: React.FC<Props> = ({
     trackFormCancel(initial?.id);
   }, [initial?.id, onCancel]);
 
-  /**
-   * Transforms variant options from formik to valid object for FormData
-   * @example
-   * const colorsAndSizes = getVariantPayloadFromFormik(values.colors, values.sizes)
-   * // { 'variants.colors[0]': 'Black', 'variants.sizes[0]': 'S', ... }
-   */
-  const getVariantPayloadFromFormik = useCallback(
-    (colors: ShopItemVariantOption[], sizes: ShopItemVariantOption[]) => {
-      const clonedColors = (colors || []).map((option) => option);
-      const clonedSizes = (sizes || []).map((option) => option);
-
-      const shouldCreateVariants =
-        !!(clonedColors.length > 0) || !!(clonedSizes.length > 0);
-
-      if (!shouldCreateVariants) return {};
-
-      const mappedColors = clonedColors.reduce<{ [key: string]: string }>(
-        (acc, option, index) => {
-          acc[`variants.colors[${index}]`] = option.value;
-          return acc;
-        },
-        {},
-      );
-      const mappedSizes = clonedSizes.reduce<{ [key: string]: string }>(
-        (acc, option, index) => {
-          acc[`variants.sizes[${index}]`] = option.value;
-          return acc;
-        },
-        {},
-      );
-      return { ...mappedColors, ...mappedSizes };
-    },
-    [],
-  );
-
   const handleOnSubmit = useCallback(
     (values: ShopItemFormValues) => {
       if (!isEditForm && formStep === ShopItemFormStep.PRODUCT) {
@@ -155,9 +128,20 @@ const ShopItemFormReworked: React.FC<Props> = ({
       } else {
         trackFormSubmitIntent(initial?.id);
 
-        const variantsPayload = getVariantPayloadFromFormik(
-          values?.colors,
-          values?.sizes,
+        const variantColorListPayload = getFormDataFieldsFromArray(
+          'variants.colors',
+          (values.colors ?? []).map((option) => option.value),
+        );
+
+        const variantSizeListPayload = getFormDataFieldsFromArray(
+          'variants.sizes',
+          (values.sizes ?? []).map((option) => option.value),
+        );
+
+        // only on MA (spread the shop item to x studios only)
+        const companyIdListPayload = getFormDataFieldsFromArray(
+          'company_ids',
+          (values.franchiseCompanyList ?? []).map((option) => option.value),
         );
 
         const payload = {
@@ -183,7 +167,11 @@ const ShopItemFormReworked: React.FC<Props> = ({
           ...(!!values.subshop && { subshop: values.subshop }),
           stock_keeping_unit: values.stockKeepingUnit || '',
           ...(!!values.supplier && { supplier: values.supplier }),
-          ...variantsPayload,
+          ...(!!values.colors?.length && { ...variantColorListPayload }),
+          ...(!!values.sizes?.length && { ...variantSizeListPayload }),
+          ...(!!values.franchiseCompanyList.length && {
+            ...companyIdListPayload,
+          }),
         };
 
         isEditForm
@@ -191,14 +179,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
           : onCreateSubmit(payload);
       }
     },
-    [
-      formStep,
-      getVariantPayloadFromFormik,
-      initial?.id,
-      isEditForm,
-      onCreateSubmit,
-      onUpdateSubmit,
-    ],
+    [formStep, initial?.id, isEditForm, onCreateSubmit, onUpdateSubmit],
   );
 
   const getVariantStepSubmitLabel = useCallback(
@@ -224,7 +205,10 @@ const ShopItemFormReworked: React.FC<Props> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
-      validationSchema={shopItemFormValidationSchema[formStep]}
+      validationSchema={getShopItemFormValidationSchema(
+        formStep,
+        !!(franchiseCompanyListOptions ?? [].length),
+      )}
     >
       {({ values }) => (
         <Form noValidate className={classes.form}>
@@ -232,6 +216,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
             <ShopItemFormProductStep
               bookkeepingAccountById={bookkeepingAccountById}
               bookkeepingAccounts={bookkeepingAccounts}
+              franchiseCompanyListOptions={franchiseCompanyListOptions}
               handleCancel={handleCancel}
               initialValues={initialValues}
               isEditForm={isEditForm}

@@ -131,4 +131,5 @@ export enum CssComponentsVariantIdentifiers {
   RESET_PASSWORD_CONFIRMATION = 'reset_password_confirmation',
   REFERRAL_DETAILS = 'referral_details',
   CONSUMER_TERMS_AND_CONDITIONS = 'consumer_terms_and_conditions',
+  CONSUMER_SAVED_PAYMENT_METHODS_CARD = 'consumer_saved_payment_methods_card',
 }

@@ -505,6 +505,8 @@ exports.default = {
       consumer_subscription_card: 'Consumer subscription card',
       consumer_subscription_details_card: 'Consumer subscription details card',
       consumer_terms_and_conditions: 'Consumer terms and conditions card',
+      consumer_saved_payment_methods_card:
+        'Consumer saved payment methods card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

@@ -452,6 +452,10 @@ import {
   CONSUMER_TERMS_AND_CONDITIONS_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/TermsAndConditionsCard';
 import {
+  CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
+  CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
+import {
   FABRIQUE_TOOLTIP_PREVIEW,
   FABRIQUE_TOOLTIP_CONFIGURATION,
 } from '#components/css-only/Fabrique/Tooltipv2/custom_css_variant';
@@ -576,6 +580,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_INVOICE_CARD_CONFIGURATION,
         CONSUMER_INVOICE_DETAILS_CARD_CONFIGURATION,
         CONSUMER_TERMS_AND_CONDITIONS_CARD_CONFIGURATION,
+        CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -793,6 +798,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_INVOICE_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_TERMS_AND_CONDITIONS]:
         CONSUMER_TERMS_AND_CONDITIONS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_SAVED_PAYMENT_METHODS_CARD]:
+        CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
     }),
   });
 

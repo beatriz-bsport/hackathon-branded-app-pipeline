@@ -29,13 +29,11 @@ export type SubshopTemplate = {
 };
 
 export type SubshopTemplateCreate = {
-  company_ids: number[];
   franchisor: number;
   name: string;
 };
 
 export type SubshopTemplateUpdate = {
-  company_ids: number[];
   franchisor?: number;
   id: number;
   name?: string;

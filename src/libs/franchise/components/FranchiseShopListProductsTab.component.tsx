@@ -13,7 +13,7 @@ import FranchiseSubshopTemplateDialog from '#libs/franchise/components/Franchise
 import type { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { OptionCallback, PaginatedResponse } from '#state/types';
-import type { ErrorAndLoading } from '#src/libs/types';
+import type { ErrorAndLoading } from '#libs/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/FranchiseSubshopTemplateDialog/constants';

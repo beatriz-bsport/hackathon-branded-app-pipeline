@@ -15,10 +15,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { CustomChip } from '#src/components/chip/CustomChip.component';
-import { getShopItemName } from '#src/libs/shop/utils';
-import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getShopItemName } from '#libs/shop/utils';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { ShopItemTemplate } from '#src/libs/shop/types';
+import type { ShopItemTemplate } from '#libs/shop/types';
 
 type Props = {
   className?: string;

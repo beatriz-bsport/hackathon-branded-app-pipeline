@@ -3,14 +3,11 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import FranchiseSubshopTemplateList from '.';
-import {
-  shopItemListFactory,
-  subshopListFactory,
-} from '#src/libs/shop/factory';
-import { ShopItemTemplate, SubshopTemplate } from '#src/libs/shop/types';
-import { ErrorAndLoading } from '#src/libs/types';
+import { shopItemListFactory, subshopListFactory } from '#libs/shop/factory';
+import { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
+import { ErrorAndLoading } from '#libs/types';
 import { PaginatedResponse } from '#src/state/types';
-import { SHOP_ITEM_TEMPLATE_PAGE_SIZE } from '#src/libs/shop/constants';
+import { SHOP_ITEM_TEMPLATE_PAGE_SIZE } from '#libs/shop/constants';
 
 export default {
   title: 'Libs/Franchise/FranchiseSubshopTemplateList',

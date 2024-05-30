@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 
 import FranchiseSubshopTemplateDialog from '.';
-import { subshopFactory } from '#src/libs/shop/factory';
+import { subshopFactory } from '#libs/shop/factory';
 import { FranchiseSubshopTemplateDialogEnum } from './constants';
 
 const SUBSHOP_TEMPLATE = subshopFactory({ isFranchise: true });

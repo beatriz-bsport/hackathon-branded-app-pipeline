@@ -14,8 +14,8 @@ import Typography from '@material-ui/core/Typography';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
-import type { SubshopTemplate } from '#src/libs/shop/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { SubshopTemplate } from '#libs/shop/types';
 
 import { FranchiseSubshopTemplateDialogEnum } from './constants';
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import FranchiseShopItemTemplateListItem from '.';
 import FranchiseShopItemTemplateListItemSkeleton from './FranchiseShopItemTemplateListItemSkeleton.component';
-import { shopItemFactory } from '#src/libs/shop/factory';
+import { shopItemFactory } from '#libs/shop/factory';
 
 export default {
   title: 'Library/Franchise/FranchiseShopItemTemplateListItem',

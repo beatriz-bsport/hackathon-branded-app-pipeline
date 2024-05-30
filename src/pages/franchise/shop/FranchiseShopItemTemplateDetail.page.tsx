@@ -10,7 +10,7 @@ import {
   deleteShopItemTemplate as deleteShopItemTemplateAction,
 } from '#libs/shop/actions/shopItemReworked';
 
-import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#src/libs/shop/actions/supplier';
+import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#libs/shop/actions/supplier';
 
 import { getTheme } from '#libs/theme/selectors';
 import {
@@ -18,9 +18,9 @@ import {
   getShopItemTemplateDetail,
   getShopItemTemplateDetailLoading,
   getShopSupplierTemplateState,
-} from '#src/libs/shop/selectors';
+} from '#libs/shop/selectors';
 
-import FranchiseShopItemTemplateDetail from '#src/libs/franchise/components/FranchiseShopItemTemplateDetail.component';
+import FranchiseShopItemTemplateDetail from '#libs/franchise/components/FranchiseShopItemTemplateDetail.component';
 
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -33,7 +33,7 @@ import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
 import type { ShopItemEdit, ShopItemTemplate } from '#libs/shop/types';
 
-import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
+import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 
 type OwnProps = {
   id: number;

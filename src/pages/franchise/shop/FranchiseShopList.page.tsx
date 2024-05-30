@@ -46,14 +46,14 @@ import {
   getShopSupplierTemplateDeleteLoading,
 } from '#libs/shop/selectors';
 
-import FranchiseShopList from '#src/libs/franchise/components/FranchiseShopList.component';
+import FranchiseShopList from '#libs/franchise/components/FranchiseShopList.component';
 
 // @ts-expect-error
 import { mapFormDataWithObject } from '#pages/form.utils';
 
 import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type {
   ShopItemCreate,
   ShopItemTemplate,
@@ -61,8 +61,8 @@ import type {
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
   SubshopTemplate,
-} from '#src/libs/shop/types';
-import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#src/libs/shop/constants';
+} from '#libs/shop/types';
+import { SHOPITEM_TEMPLATE_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 
 type Props = ConnectedProps<typeof connector>;
 

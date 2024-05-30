@@ -26,7 +26,7 @@ import type {
   OptionCallback,
   PaginatedResponse,
 } from '../../../state/types';
-import type { PaginationFilterParams } from '#src/libs/types';
+import type { PaginationFilterParams } from '#libs/types';
 
 import type { RootState } from '../../../reducers';
 import { SHOP_SUPPLIER_PAGE_SIZE } from '../constants';

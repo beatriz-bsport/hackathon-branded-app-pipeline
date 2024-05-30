@@ -13,10 +13,10 @@ import type {
   ShopItemTemplate,
   ShopSupplierTemplate,
   SubshopTemplate,
-} from '#src/libs/shop/types';
+} from '#libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
-import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
-import type { ErrorAndLoading } from '#src/libs/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { ErrorAndLoading } from '#libs/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 

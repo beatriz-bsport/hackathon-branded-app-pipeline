@@ -9,7 +9,7 @@ import ShopListSettingsSupplierModal from '#libs/shop/components/ShopListSetting
 import ShopSupplierDeleteConfirmModal from '#libs/shop/components/ShopSupplierDeleteConfirmModal';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
-import ShopItemDeleteConfirmDialog from '#src/libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
 
 import type {
   ShopItemCreate,
@@ -18,7 +18,7 @@ import type {
   ShopSupplierTemplateCreate,
   ShopSupplierUpdate,
   SubshopTemplate,
-} from '#src/libs/shop/types';
+} from '#libs/shop/types';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { ErrorAndLoading } from '#libs/types';

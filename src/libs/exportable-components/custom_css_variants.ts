@@ -455,6 +455,11 @@ import {
   CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
   CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/SavedPaymentMethodCard';
+
+import {
+  CONSUMER_SUMMARY_CARD_CONFIGURATION,
+  CONSUMER_SUMMARY_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileCards/ConsumerSummaryCard';
 import {
   FABRIQUE_TOOLTIP_PREVIEW,
   FABRIQUE_TOOLTIP_CONFIGURATION,
@@ -581,6 +586,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_INVOICE_DETAILS_CARD_CONFIGURATION,
         CONSUMER_TERMS_AND_CONDITIONS_CARD_CONFIGURATION,
         CONSUMER_SAVED_PAYMENT_METHODS_CARD_CONFIGURATION,
+        CONSUMER_SUMMARY_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -800,6 +806,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_TERMS_AND_CONDITIONS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_SAVED_PAYMENT_METHODS_CARD]:
         CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_SUMMARY_CARD]:
+        CONSUMER_SUMMARY_CARD_PREVIEW,
     }),
   });
 

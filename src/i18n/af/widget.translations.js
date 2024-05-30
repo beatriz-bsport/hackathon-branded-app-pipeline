@@ -345,6 +345,8 @@ exports.default = {
         WithBillingHistory: 'Display successful payments',
         withFailedPayments: 'Display failed payments',
         isCollapsable: 'Title type',
+        acceptEmail: 'Accept email',
+        acceptSms: 'Accept sms',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -507,6 +509,7 @@ exports.default = {
       consumer_terms_and_conditions: 'Consumer terms and conditions card',
       consumer_saved_payment_methods_card:
         'Consumer saved payment methods card',
+      consumer_summary_card: 'Consumer summary card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

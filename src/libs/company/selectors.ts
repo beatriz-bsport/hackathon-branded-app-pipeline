@@ -5,7 +5,6 @@ import { CompanyOnboardingTypes } from '#libs/alerting/constants';
 import type { State } from '../../state/types';
 import type { Alerting } from '#libs/alerting/types';
 import type { RootState } from '#src/reducers';
-import { CompanyState } from './types';
 
 const _getState = (state: State) => state.company;
 
@@ -25,7 +24,7 @@ export const getCompanyFeatureState = (state: State) =>
 export const getCompanyCountry = (state: RootState) =>
   state.theme?.theme?.locale.split('_')[1];
 
-const getStripeCompanyData = (state: CompanyState) =>
+const getStripeCompanyData = (state: RootState) =>
   state.company.stripeCompany?.data;
 
 export const getStripeOnboardingPending = createSelector(

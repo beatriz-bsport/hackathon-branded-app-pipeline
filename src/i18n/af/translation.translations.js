@@ -747,6 +747,7 @@ exports.default = {
       item: {
         sku: 'SKU',
         supplier: 'Supplier',
+        studios: 'Studios',
         tva: 'VAT / Sales tax',
         price: 'Price',
         name: 'Name',

@@ -123,3 +123,29 @@ export const getDuplicateVariantCombinationList = (
     [],
   );
 };
+
+/**
+ * Returns an object with associated values for FormData purposes
+ * @param {string} fieldName The name of the wanted field
+ * @param {string[]} values An array of string that will be iterated over
+ * @example
+ * const colorField = getFormDataFieldFromArray('variants.color', ['Black', 'White', 'Red'])
+ * // colorField =  { 'variants.colors[0]': 'Black', 'variants.colors[1]': 'White', 'variants.colors[2]': 'Red', }
+ */
+export const getFormDataFieldsFromArray: (
+  fieldName: string,
+  values: string[],
+) => {
+  [field: string]: string;
+} = (fieldName, values) => {
+  const parsedValues = (values ?? []).reduce<{ [key: string]: string }>(
+    (acc, value, index) => {
+      // we set the field name here with index to have a format such as { myField[0]: 'value' }
+      acc[`${fieldName}[${index}]`] = value;
+      return acc;
+    },
+    {},
+  );
+
+  return parsedValues;
+};

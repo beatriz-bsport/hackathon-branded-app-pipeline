@@ -23,7 +23,7 @@ import type { ShopItemTemplate } from '#libs/shop/types';
 type Props = {
   className?: string;
   shopItemTemplate: ShopItemTemplate;
-  handleDelete: (shopItemTemplateId: number) => void;
+  handleDelete?: (shopItemTemplateId: number) => void;
   goToShopItemTemplate: (shopItemTemplateId: number) => void;
 };
 
@@ -40,7 +40,7 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   const classes = useStyles();
 
   const handleDeleteShopItemTemplate = useCallback(() => {
-    handleDelete(shopItemTemplate.id);
+    handleDelete?.(shopItemTemplate.id);
   }, [handleDelete, shopItemTemplate.id]);
 
   const handleGoToShopItemTemplate = useCallback(() => {
@@ -109,11 +109,13 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
           />
         )}
 
-        <Tooltip title={t('common:delete')}>
-          <IconButton onClick={handleDeleteShopItemTemplate}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        {!!handleDelete && (
+          <Tooltip title={t('common:delete')}>
+            <IconButton onClick={handleDeleteShopItemTemplate}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        )}
       </ListItemSecondaryAction>
     </ListItem>
   );

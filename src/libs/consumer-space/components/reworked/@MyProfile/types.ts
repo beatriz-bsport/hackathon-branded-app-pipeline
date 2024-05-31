@@ -49,3 +49,22 @@ export type TermsAndConditionsCardProps = {
   openTermsAndConditionsDialog: () => void;
   openTermsOfUseDialog: () => void;
 };
+export type ConsumerProfileContextType = {
+  closeAddPaymentMethodPortal: () => void;
+  closeEditProfilePortal: () => void;
+  isAddPaymentMethodPortalOpen: boolean;
+  isBarcodePortalOpen: boolean;
+  isDetachPaymentPortalOpen: boolean;
+  isEditProfilePortalOpen: boolean;
+  isMobile: boolean;
+  isTermsAndConditionPortalOpen: boolean;
+  isTermsOfUsePortalOpen: boolean;
+  openAddPaymentMethodPortal: () => void;
+  openEditProfilePortal: () => void;
+  paymentMethodIdToDetach: string;
+  selectPaymentMethodToDetach: (id: string) => () => void;
+  toggleBarcodeModal: () => void;
+  closeDetachPaymentMethodPortal: () => void;
+  toggleTermsAndConditionPortal: () => void;
+  toggleTermsOfUsePortal: () => void;
+};

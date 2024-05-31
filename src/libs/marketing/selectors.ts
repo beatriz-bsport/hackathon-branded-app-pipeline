@@ -143,8 +143,8 @@ export const getNotificationForMarketingPage = createSelector(
 export const getNotificationGrouped = createSelector(
   [getNotificationForMarketingPage],
   (notifications) => {
-    const byPaymentPack: { [key: string]: MarketingNotification[] } = {};
-    const byPrivatePass: { [key: string]: MarketingNotification[] } = {};
+    const paymentPacks: MarketingNotification[] = [];
+    const privatePasses: MarketingNotification[] = [];
     const byContract: { [key: string]: MarketingNotification[] } = {};
     const bookings: {
       [key: string]: {
@@ -163,8 +163,6 @@ export const getNotificationGrouped = createSelector(
 
     notifications.forEach((n) => {
       const {
-        payment_pack_ids,
-        private_pass_ids,
         establishment_id,
         establishment_group_id,
         meta_activity_id,
@@ -176,21 +174,11 @@ export const getNotificationGrouped = createSelector(
       switch (n.kind) {
         case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
         case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
-          if (payment_pack_ids?.length > 0) {
-            if (byPaymentPack[payment_pack_ids[0]] === undefined) {
-              byPaymentPack[payment_pack_ids[0]] = [];
-            }
-            byPaymentPack[payment_pack_ids[0]].push(n);
-          }
+          paymentPacks.push(n);
           break;
         case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
         case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
-          if (private_pass_ids?.length > 0) {
-            if (byPrivatePass[private_pass_ids[0]] === undefined) {
-              byPrivatePass[private_pass_ids[0]] = [];
-            }
-            byPrivatePass[private_pass_ids[0]].push(n);
-          }
+          privatePasses.push(n);
           break;
         case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION:
         case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING:
@@ -276,8 +264,8 @@ export const getNotificationGrouped = createSelector(
     });
 
     return {
-      byPaymentPack,
-      byPrivatePass,
+      paymentPacks,
+      privatePasses,
       byContract,
       bookings,
       privateBookings,

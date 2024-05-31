@@ -1,5 +1,7 @@
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
+import type { MarketingNotification } from './types';
 
 export const getMergeTags = memoize(
   (tags: { [tag_name: string]: string[] }, t: TFunction) => {
@@ -40,4 +42,37 @@ export const getSendingTimeNotification = (
   }
 
   return [daysSubmit, hoursSubmit];
+};
+
+export const splitPassNotificationsByTrigger = (
+  notifications: MarketingNotification[],
+) => {
+  const remainingCreditNotifications: MarketingNotification[] = [];
+  const remainingValidityNotifications: MarketingNotification[] = [];
+  const expiredValidityNotifications: MarketingNotification[] = [];
+
+  for (const notification of notifications) {
+    switch (notification.kind) {
+      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT:
+      case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT:
+        remainingCreditNotifications.push(notification);
+        break;
+      case NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME:
+      case NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME:
+        if (notification.event_rules.days_left >= 0) {
+          remainingValidityNotifications.push(notification);
+        } else {
+          expiredValidityNotifications.push(notification);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  return {
+    remainingCreditNotifications,
+    remainingValidityNotifications,
+    expiredValidityNotifications,
+  };
 };

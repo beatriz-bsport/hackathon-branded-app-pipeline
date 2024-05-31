@@ -65,8 +65,7 @@ import {
   getResolvedGenericTags,
 } from '#src/libs/notification-rule/selectors';
 
-import MarketingRuleListPaymentPack from '#src/libs/marketing/components/MarketingRuleListPaymentPack.component';
-import MarketingRuleListPrivatePass from '#src/libs/marketing/components/MarketingRuleListPrivatePass.component';
+import MarketingRuleListPass from '#src/libs/marketing/components/MarketingRuleListPass.component';
 import MarketingRuleListBooking from '#src/libs/marketing/components/MarketingRuleListBooking.component';
 import MarketingRuleListPrivateBooking from '#src/libs/marketing/components/MarketingRuleListPrivateBooking.component';
 
@@ -103,6 +102,7 @@ import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
+import { ImmutableObject } from 'seamless-immutable';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -249,7 +249,11 @@ export class MarketingRuleListPage extends Component<Props, State> {
     return this.props.emailDetailById[notifcationDetail.email_design];
   };
 
-  onClickNotification = (notification: MarketingNotification) => {
+  onClickNotification = (
+    notification:
+      | ImmutableObject<MarketingNotification>
+      | MarketingNotification,
+  ) => {
     this.props.fetchMarketingNotificationCampaignSummary(notification.id);
     this.setState({
       selectedNotification: notification.id,
@@ -383,23 +387,19 @@ export class MarketingRuleListPage extends Component<Props, State> {
             // @ts-expect-error
             smartLists={this.props.smartLists}
           />
-          <MarketingRuleListPaymentPack
+          <MarketingRuleListPass
             emailSummariesById={this.props.emailSummariesById}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
-            paymentPackById={this.props.paymentPackById}
-            paymentPackNotifications={this.props.notifications.byPaymentPack}
-            // @ts-expect-error
-            smartLists={this.props.smartLists}
+            passNotifications={this.props.notifications.paymentPacks}
+            sectionTitleKey="notifications.groupTitle.paymentPack"
           />
-          <MarketingRuleListPrivatePass
+          <MarketingRuleListPass
             emailSummariesById={this.props.emailSummariesById}
             onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
-            privatePassById={this.props.privatePassById}
-            privatePassNotifications={this.props.notifications.byPrivatePass}
-            // @ts-expect-error
-            smartLists={this.props.smartLists}
+            passNotifications={this.props.notifications.privatePasses}
+            sectionTitleKey="notifications.groupTitle.privatePass"
           />
           <MarketingRuleListContract
             contractById={this.props.contractById}

@@ -134,6 +134,7 @@ export type Contract = {
   month_billing_day: number | null;
   highlighted_as_recommended: boolean;
   tags_on_first_billing: number[];
+  nb_interval_after_auto_renewal: number | null;
 };
 
 export type ContractWithPaymentPack<
@@ -161,6 +162,7 @@ export type ContractWithPaymentPack<
   month_billing_day: number | null;
   highlighted_as_recommended: boolean;
   tags_on_first_billing: Array<number>;
+  nb_interval_after_auto_renewal: number | null;
 };
 
 export type ContractInterval = 'month' | 'week';

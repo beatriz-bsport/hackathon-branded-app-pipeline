@@ -16,7 +16,8 @@ import Alert from '@material-ui/lab/Alert';
 import * as Yup from 'yup';
 import { FormikProps, useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { PaymentPack } from '#src/libs/payment-packs/types';
@@ -29,7 +30,10 @@ import FormSection from '#src/components/forms/FormSection';
 import PopOver from '#src/components/Popover';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
-import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '../constants';
+import {
+  CONTRACT_MAX_NB_INTERVAL_ALLOWED,
+  SHOULD_DISPLAY_AUTO_RENEWAL_WARNING_MESSAGE,
+} from '../constants';
 import { OptionCallback } from '../../../state/types';
 import { ContractWithPaymentPack, Contract } from '../types';
 // @ts-expect-error
@@ -91,6 +95,53 @@ type FormValues = Omit<
   tags_on_first_billing?: Array<number>;
 };
 
+/** Custom hook to manage the display of the nb_interval_after_auto_renewal input
+ *
+ * The nb_interval_after_auto_renewal input is displayed only if the auto_renewal switch is enabled.
+ * Also, the default value of nb_interval_after_auto_renewal is set to the value of nb_interval when the input is displayed.
+ * @param initialValues Formik initial values
+ * @param values Formik values
+ * @param setFieldValue Formik setFieldValue
+ * @returns A tuple containing the state of the nb_interval_after_auto_renewal input and a function to toggle it
+ */
+const useShowNbIntervalAfterAutoRenewalInput = (
+  initialValues: FormValues,
+  values: FormValues,
+  setFieldValue: (field: string, value: any) => void,
+) => {
+  const [
+    showNbIntervalAfterAutoRenewalInput,
+    setShowNbIntervalAfterAutoRenewalInput,
+  ] = React.useState(initialValues.nb_interval_after_auto_renewal !== null);
+  React.useEffect(() => {
+    if (!values.auto_renewal) {
+      setShowNbIntervalAfterAutoRenewalInput(false);
+    }
+  }, [values.auto_renewal, setFieldValue]);
+
+  React.useEffect(() => {
+    if (
+      showNbIntervalAfterAutoRenewalInput &&
+      values.nb_interval_after_auto_renewal === null
+    ) {
+      setFieldValue('nb_interval_after_auto_renewal', values.nb_interval);
+    }
+    if (!showNbIntervalAfterAutoRenewalInput) {
+      setFieldValue('nb_interval_after_auto_renewal', null);
+    }
+  }, [
+    showNbIntervalAfterAutoRenewalInput,
+    setFieldValue,
+    values.nb_interval,
+    values.nb_interval_after_auto_renewal,
+  ]);
+
+  return {
+    showNbIntervalAfterAutoRenewalInput,
+    setShowNbIntervalAfterAutoRenewalInput,
+  };
+};
+
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: any, options: OptionCallback) => void;
@@ -120,7 +171,8 @@ export function SubscriptionContractFields(
     trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { values, setFieldValue } = useFormikContext<FormValues>();
+  const { values, setFieldValue, initialValues } =
+    useFormikContext<FormValues>();
   React.useEffect(() => {
     if (values.invoicing_type === InvoicingType.fixedDay) {
       setFieldValue('recurrence_basis', 1);
@@ -149,6 +201,18 @@ export function SubscriptionContractFields(
       'contract.form.nb_interval.restrictionForFixedBillingDay',
     );
 
+  let nbIntervalHelperTextAfterAutoRenewal = '';
+  if (values.nb_interval_after_auto_renewal > CONTRACT_MAX_NB_INTERVAL_ALLOWED)
+    nbIntervalHelperTextAfterAutoRenewal = t('contract.form.nb_interval.error');
+  else if (
+    values.invoicing_type === InvoicingType.fixedDay &&
+    (values.nb_interval_after_auto_renewal > 12 ||
+      values.nb_interval_after_auto_renewal < 2)
+  )
+    nbIntervalHelperTextAfterAutoRenewal = t(
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
+    );
+
   const onChangeTagsOnAcquisition = React.useCallback(
     (options: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
       return setFieldValue(
@@ -158,6 +222,18 @@ export function SubscriptionContractFields(
     },
     [setFieldValue],
   );
+
+  const {
+    showNbIntervalAfterAutoRenewalInput,
+    setShowNbIntervalAfterAutoRenewalInput,
+  } = useShowNbIntervalAfterAutoRenewalInput(
+    initialValues,
+    values,
+    setFieldValue,
+  );
+
+  const updateShowNbIntervalAfterAutoRenewalInput = () =>
+    setShowNbIntervalAfterAutoRenewalInput((prevState) => !prevState);
 
   const onDeleteTagsOnAcquisition = React.useCallback(
     (itemId: number) =>
@@ -457,6 +533,53 @@ export function SubscriptionContractFields(
             )}
           </Alert>
         </Collapse>
+        <SwitchField
+          label={t('contract.form.autoRenewal.label')}
+          name="auto_renewal"
+        />
+        {values.auto_renewal && SHOULD_DISPLAY_AUTO_RENEWAL_WARNING_MESSAGE && (
+          // Only available for German market
+          <Alert
+            className={classes.alert}
+            severity="warning"
+            variant="outlined"
+          >
+            {t('contract.form.autoRenewal.germanMarketWarning')}
+          </Alert>
+        )}
+        {values.auto_renewal && (
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={showNbIntervalAfterAutoRenewalInput}
+                  onChange={updateShowNbIntervalAfterAutoRenewalInput}
+                />
+              }
+              label={t('contract.form.nbIntervalAfterAutoRenewal.firstLabel')}
+            />
+          </div>
+        )}
+        {showNbIntervalAfterAutoRenewalInput && (
+          <>
+            <TextField
+              fullWidth
+              helperText={nbIntervalHelperTextAfterAutoRenewal}
+              label={t('contract.form.nbIntervalAfterAutoRenewal.secondLabel')}
+              name="nb_interval_after_auto_renewal"
+            />
+            <Alert className={classes.alert} severity="info" variant="outlined">
+              {t(
+                `contract.nbIntervalAfterAutoRenewal.details.${values.interval}`,
+                {
+                  durationAfterAutoRenewal:
+                    values.nb_interval_after_auto_renewal *
+                    values.recurrence_basis,
+                },
+              )}
+            </Alert>
+          </>
+        )}
       </FormSection>
 
       <FormSection
@@ -483,10 +606,6 @@ export function SubscriptionContractFields(
         <SwitchField
           label={t('contract.form.managerOnly.label')}
           name="manager_only"
-        />
-        <SwitchField
-          label={t('contract.form.autoRenewal.label')}
-          name="auto_renewal"
         />
         <SwitchField
           label={t('contract.form.unusableByStaff.label')}
@@ -699,6 +818,31 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     ),
   highlighted_as_recommended: Yup.boolean(),
   tags_on_first_billing: Yup.array().of(Yup.number().integer()),
+  nb_interval_after_auto_renewal: Yup.number()
+    .integer()
+    .min(1)
+    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED)
+    .nullable()
+    .test(
+      'Must-be-less-than-twelve-for-fixed-billing-day',
+      'contract.form.nb_interval.errorForFixedBillingDay',
+      function checkNbIntervalForFixedBillingDay(nb_interval) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          nb_interval <= 12
+        );
+      },
+    )
+    .test(
+      'Must-be-more-than-one-for-fixed-billing-day',
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
+      function checkNbIntervalForFixedBillingDay(nb_interval) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          nb_interval > 1
+        );
+      },
+    ),
 });
 
 function isNumber(value: unknown): value is number {
@@ -756,10 +900,11 @@ export const SubscriptionContractFormHoc = withFormik<
       auto_renewal: false,
       object_type: ObjectType.paymentPack,
       unusable_by_staff: false,
-      invoicing_type: InvoicingType.fixedDay,
+      invoicing_type: InvoicingType.sameDayAsSubscription,
       month_billing_day: 1,
       highlighted_as_recommended: false,
       tags_on_first_billing: [],
+      nb_interval_after_auto_renewal: null,
     };
   },
   enableReinitialize: true,

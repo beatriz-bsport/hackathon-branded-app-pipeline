@@ -53,6 +53,7 @@ export const contractFactory = (options?: ContractFactoryOptions) => {
     month_billing_day: options?.monthBillingDay ?? null,
     highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
     tags_on_first_billing: [1, 2],
+    nb_interval_after_auto_renewal: faker.number.int({ min: 2, max: 12 }),
   };
 };
 

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplacePassBase } from 'bsport-saas/src/pages/marketplace/MarketplacePass';
-import { MarketplacePassData } from 'bsport-saas/src/libs/marketplace/types';
+import type {
+  MarketplacePassData,
+  MarketplacePassParams,
+} from 'bsport-saas/src/libs/marketplace/types';
 
-import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import type { WithStyles } from '@material-ui/styles';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
 import { bridgeRequestMemberTag } from '../libs/bridge/actions';
@@ -17,16 +20,15 @@ const MarketplacePassStyled = themify(MarketplacePassBase);
 type OwnProps = {
   companyId: number,
   store: any,
-  theme: Theme,
+  theme: CompanyTheme,
   config?: MarketplacePassData,
   onWindowOpen: (url: string) => void,
   uniqueWidgetId: string,
 };
 
 type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  WithStyles<typeof styles> &
+  ConnectedProps<typeof connector>;
 
 class PassWidget extends Component<Props> {
   componentDidMount() {
@@ -97,7 +99,7 @@ class PassWidget extends Component<Props> {
   };
 
   render() {
-    const params = {
+    const params: MarketplacePassParams = {
       hidePaymentPack: 'false',
       hidePrivatePass: 'false',
       hidePaymentCombo: 'false',
@@ -152,17 +154,18 @@ const styles = () => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
-  authenticated: state.bridge.authentication.authenticated,
-  username: state.bridge.authentication.username,
-  memberTagList: state.bridge.tag.tag_list,
-});
+const connector = connect(
+  (state: RootState) => ({
+    authenticated: state.bridge.authentication.authenticated,
+    username: state.bridge.authentication.username,
+    memberTagList: state.bridge.tag.tag_list,
+  }),
+  {
+    bridgeRequestMemberTag,
+  },
+);
 
-const mapDispatchToProps = {
-  bridgeRequestMemberTag,
-};
-
-export default compose<any, OwnProps>(
+export default compose<Props, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(PassWidget);

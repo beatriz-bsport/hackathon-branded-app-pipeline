@@ -117,6 +117,7 @@ export type ShopItemVariantFilterParams = PaginationFilterParams & {
   base_item_id?: number;
   color?: string;
   size?: string;
+  company?: string;
   base_shop_item_template?: number;
 };
 

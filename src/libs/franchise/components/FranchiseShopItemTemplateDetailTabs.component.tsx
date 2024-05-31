@@ -51,10 +51,12 @@ type Props = {
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   variantCombinationListCount: number;
   shopItemTemplateSupplierName?: string;
@@ -69,7 +71,7 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   changeInventoryVariantFilter: (
-    type: 'colors' | 'sizes',
+    type: 'colors' | 'sizes' | 'company',
   ) => (options: SelectOption[]) => void;
   handleOpenBarcodeModal: (barcode: string) => void;
   onDeleteShopItemVariant: (id: number) => void;

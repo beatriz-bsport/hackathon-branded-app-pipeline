@@ -525,14 +525,15 @@ export const getShopItemTemplateVariantCombinationList = (
 
 /** Franchisor: Returns a list of all available options for variant filters on inventory tab (color/size/company) */
 export const getShopItemTemplateVariantFilterOptionList = createSelector(
-  [getShopItemVariantCombinationList],
-  (variantCombinationList) => {
+  [getShopItemTemplateVariantCombinationList, getShopItemTemplateDetail],
+  (variantCombinationList, shopItemTemplateDetail) => {
     const colorList: SelectOption[] = variantCombinationList
       .map((variant) => ({
         label: variant.color,
         value: variant.color,
       }))
       .filter((variantOption) => !!variantOption.value);
+
     const sizeList: SelectOption[] = variantCombinationList
       .map((variant) => ({
         label: variant.size,
@@ -540,9 +541,19 @@ export const getShopItemTemplateVariantFilterOptionList = createSelector(
       }))
       .filter((variantOption) => !!variantOption.value);
 
+    const companyList: SelectOption[] = (
+      shopItemTemplateDetail?.synced_companies ?? []
+    )
+      .map((company) => ({
+        label: company.name,
+        value: company.id.toString(),
+      }))
+      .filter((variantOption) => !!variantOption.value);
+
     return {
       colors: uniqBy(colorList, 'value'),
       sizes: uniqBy(sizeList, 'value'),
+      company: uniqBy(companyList, 'value'),
     };
   },
 );

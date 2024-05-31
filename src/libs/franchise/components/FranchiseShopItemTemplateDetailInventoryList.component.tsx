@@ -46,6 +46,8 @@ type Props = {
   variantSizeFilterOptionValueList: SelectOption[];
   variantColorFilterOptionList: SelectOption[];
   variantColorFilterOptionValueList: SelectOption[];
+  variantCompanyFilterOptionList: SelectOption[];
+  variantCompanyFilterOptionValueList: SelectOption[];
   handleSubmit: (
     values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
     {
@@ -55,7 +57,7 @@ type Props = {
     >,
   ) => void;
   changeInventoryVariantFilter: (
-    type: 'colors' | 'sizes',
+    type: 'colors' | 'sizes' | 'company',
   ) => (options: SelectOption[]) => void;
 };
 
@@ -68,6 +70,8 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
   variantSizeFilterOptionValueList,
   variantColorFilterOptionList,
   variantColorFilterOptionValueList,
+  variantCompanyFilterOptionList,
+  variantCompanyFilterOptionValueList,
   handleSubmit,
   changeInventoryVariantFilter,
 }) => {
@@ -113,6 +117,17 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
             <div
               className={classNames(classes.flexGap, classes.filterContainer)}
             >
+              <Select
+                isClearable
+                isMulti
+                className={classes.flexGrow}
+                onChange={changeInventoryVariantFilter('company')}
+                options={variantCompanyFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.company',
+                )}
+                value={variantCompanyFilterOptionValueList}
+              />
               <Select
                 isClearable
                 isMulti

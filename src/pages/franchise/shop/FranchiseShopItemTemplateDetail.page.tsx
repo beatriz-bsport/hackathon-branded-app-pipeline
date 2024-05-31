@@ -65,6 +65,7 @@ type OwnProps = {
     inventorypage?: string;
     color?: string;
     size?: string;
+    company?: string;
   };
   setQueryParam: (queryParam: string) => (value: string) => void;
 };
@@ -145,6 +146,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       1;
     const colorFilter = this.props.queryParams?.color?.split(',');
     const sizeFilter = this.props.queryParams?.size?.split(',');
+    const companyIdsFilter = this.props.queryParams?.company?.split(',');
 
     !!this.props.shopItemTemplate &&
       this.props.fetchShopItemTemplateInstanceList({
@@ -152,6 +154,8 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         page,
         colors: colorFilter,
         sizes: sizeFilter,
+        company: companyIdsFilter,
+
         ...(this.props.shopItemTemplate?.number_of_variants > 0
           ? {
               is_variant: true,
@@ -224,10 +228,12 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   handleChangeInventoryVariantFilters =
-    (type: 'colors' | 'sizes') => (options: SelectOption[]) => {
+    (type: 'colors' | 'sizes' | 'company') => (options: SelectOption[]) => {
       const availableOptions = options.map((option) => option.value).join(',');
       type === 'colors' && this.props.setQueryParam('color')(availableOptions);
       type === 'sizes' && this.props.setQueryParam('size')(availableOptions);
+      type === 'company' &&
+        this.props.setQueryParam('company')(availableOptions);
     };
 
   handleCreateShopItemProvision = (
@@ -256,10 +262,13 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   };
 
   /**
-   * Transform the color/size query params into an array of selector options
+   * Transform the color/size/compeny query params into an array of selector options
    * to set selector options on page render (if any query params)
    */
   getVariantFilterOptionValues = () => {
+    const shopItemTemplateSyncCompanies =
+      this.props.shopItemTemplate?.synced_companies ?? [];
+
     const colors: SelectOption[] = (this.props.queryParams.color ?? '')
       .split(',')
       .map((value) => ({ label: value, value }))
@@ -268,7 +277,17 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       .split(',')
       .map((value) => ({ label: value, value }))
       .filter((option) => !!option.value);
-    return { colors, sizes };
+    const company: SelectOption[] = (this.props.queryParams.company ?? '')
+      .split(',')
+      .map((value) => ({
+        label:
+          shopItemTemplateSyncCompanies.find(
+            (companyItem) => companyItem.id === parseInt(value, 10),
+          )?.name ?? value,
+        value,
+      }))
+      .filter((option) => !!option.value);
+    return { colors, sizes, company };
   };
 
   render() {

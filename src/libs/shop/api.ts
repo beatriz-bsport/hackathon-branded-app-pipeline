@@ -203,10 +203,7 @@ export const fetchShopItemVariantList = (
   params: ShopItemVariantFilterParams,
 ) => {
   return getAuth<PaginatedResponse<ShopItem>>(
-    `${API_V1_URI}/shop/item/${buildUrlParams({
-      ...params,
-      is_variant: true,
-    })}`,
+    `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
   );
 };
 

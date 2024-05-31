@@ -40,10 +40,12 @@ type Props = {
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   variantCombinationListCount: number;
   handleOpenVariantDrawer: () => void;
@@ -57,7 +59,7 @@ type Props = {
   ) => void;
   setQueryParam: (queryParam: string) => (value: string) => void;
   changeInventoryVariantFilter: (
-    type: 'colors' | 'sizes',
+    type: 'colors' | 'sizes' | 'company',
   ) => (options: SelectOption[]) => void;
 };
 
@@ -192,6 +194,12 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
           variantColorFilterOptionList={shopItemVariantFilterOptionList.colors}
           variantColorFilterOptionValueList={
             shopItemVariantFilterOptionValues.colors
+          }
+          variantCompanyFilterOptionList={
+            shopItemVariantFilterOptionList.company
+          }
+          variantCompanyFilterOptionValueList={
+            shopItemVariantFilterOptionValues.company
           }
           variantSizeFilterOptionList={shopItemVariantFilterOptionList.sizes}
           variantSizeFilterOptionValueList={

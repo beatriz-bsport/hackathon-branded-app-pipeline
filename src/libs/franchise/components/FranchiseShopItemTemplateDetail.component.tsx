@@ -58,10 +58,12 @@ type Props = {
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   shopItemVariantFilterOptionValues: {
     colors: SelectOption[];
     sizes: SelectOption[];
+    company: SelectOption[];
   };
   shopItemTemplateSupplierName?: string;
   updateShopItemTemplate: (
@@ -71,7 +73,7 @@ type Props = {
   deleteShopItemTemplate: () => void;
   deleteShopItemTemplateVariant: (id: number) => void;
   changeInventoryVariantFilter: (
-    type: 'colors' | 'sizes',
+    type: 'colors' | 'sizes' | 'company',
   ) => (options: SelectOption[]) => void;
   createShopItemProvision: (
     data: ProvisionCreate,

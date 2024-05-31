@@ -340,6 +340,7 @@ export function stampLastStripeAccountConfigurationWarningDateAction(
   };
 }
 
+// BS-3649 action called on setLogin
 function setLogin(
   {
     username,
@@ -511,6 +512,7 @@ function impersonateManagerLoading(loading: boolean) {
   return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
 }
 
+// BS-3649 Impersonation function called when you impersonate a company
 export function navigateAsCompanyAdmin(
   companyId: number,
   url?: string,
@@ -531,8 +533,11 @@ export function navigateAsCompanyAdmin(
       if (!newToken) {
         throw new Error('No token');
       }
-      const storage = window.localStorage;
-      storage.setItem('bsport:franchise:http:token', franchiseConnexionToken);
+      const { sessionStorage } = window;
+      sessionStorage.setItem(
+        'bsport:franchise:http:token',
+        franchiseConnexionToken,
+      );
 
       const { data } = await accessLevelAPI(newToken);
 
@@ -566,17 +571,18 @@ export function navigateAsCompanyAdmin(
   };
 }
 
+// BS-3649 Impersonation action dispatched when you click on return to Master Account
 export function navigateBackToFranchise() {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(impersonateManagerLoading(true));
 
-      const storage = window.localStorage;
-      const newToken = storage.getItem('bsport:franchise:http:token');
+      const { sessionStorage } = window;
+      const newToken = sessionStorage.getItem('bsport:franchise:http:token');
 
       const { data } = await accessLevelAPI(newToken);
 
-      storage.removeItem('bsport:franchise:http:token');
+      sessionStorage.removeItem('bsport:franchise:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
@@ -586,6 +592,7 @@ export function navigateBackToFranchise() {
           token: newToken,
         }),
       );
+      sessionStorage.removeItem('http:token');
 
       dispatch(impersonateManagerLoading(false));
 

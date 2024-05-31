@@ -77,11 +77,26 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  if (!token || token === 'null') {
-    storage.setItem('http:token', token);
-    storage.removeItem('bsport:franchise:http:token');
+  const localStorageToken: string = storage.getItem('bsport:http:token');
+
+  const isTokenInvalid = !token || token === 'null';
+  const isLocalStorageTokenValid =
+    localStorageToken && localStorageToken !== 'null';
+
+  if (isTokenInvalid) {
+    clearTokens();
+  } else if (isLocalStorageTokenValid) {
+    sessionStorage.setItem('http:token', token);
+  } else {
+    storage.setItem('bsport:http:token', token);
   }
-  storage.setItem('bsport:http:token', token);
+}
+
+function clearTokens() {
+  storage.setItem('http:token', 'null');
+  storage.setItem('bsport:http:token', 'null');
+  sessionStorage.removeItem('bsport:franchise:http:token');
+  sessionStorage.removeItem('http:token');
 }
 
 export function setAccessControlBroadcastsChannelId(uuid: string) {
@@ -98,8 +113,14 @@ export const getTimezoneName = () => {
     : 'Europe/Paris';
 };
 
+// TODO (Impersonate - BS-3649) : should update this function if I change from the localStorage to the sessionStorage
 export function getAuthToken() {
   const oldToken = storage.getItem('http:token');
+  const sessionToken = sessionStorage.getItem('http:token');
+
+  if (sessionToken) {
+    return sessionToken;
+  }
   if (oldToken && oldToken !== 'null' && oldToken !== 'undefined') {
     return (
       storage.getItem('http:token') || storage.getItem('bsport:http:token')

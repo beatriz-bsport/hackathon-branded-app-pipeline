@@ -37,6 +37,7 @@ exports.default = {
     goBack: 'Back',
     refresh: 'Refresh',
     logoff: 'Logout',
+    closeTab: 'Close Tab',
     payment: 'Transactions',
     establishment: 'Establishments',
     member: 'Members',

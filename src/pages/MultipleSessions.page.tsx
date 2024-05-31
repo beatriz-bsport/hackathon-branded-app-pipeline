@@ -41,7 +41,7 @@ export const MultipleSessions = (props: Props) => {
   const restoreSession = () => {
     if (getStatus(currentConnexionRight) === 'franchisor') {
       // Reset the franchise token as it was delete during rollback navigation
-      window.localStorage.setItem('bsport:franchise:http:token', newToken);
+      window.sessionStorage.setItem('bsport:franchise:http:token', newToken);
     }
     fetchAccessLevel(storedToken);
   };

@@ -97,6 +97,7 @@ import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
 import BillingBanner from '#src/components/navigation/BillingBanner.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
+import { setAuthToken } from '#src/http';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -274,6 +275,14 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   const previousLocation = usePrevious(location);
 
   React.useEffect(() => {
+    const handleLogoffOnOtherTab = (event: StorageEvent) => {
+      if (event?.key === 'bsport:http:token' && event?.newValue === 'null') {
+        setAuthToken('null');
+        disconnect();
+      }
+    };
+
+    window?.addEventListener('storage', handleLogoffOnOtherTab);
     if (
       location.search.includes(`?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`)
     ) {
@@ -282,7 +291,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
       }
       return setOpenWelcometutorialDialog(true);
     }
-    return setOpenWelcometutorialDialog(false);
+    return () => {
+      document.removeEventListener('storage', handleLogoffOnOtherTab);
+      setOpenWelcometutorialDialog(false);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -379,17 +391,32 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             </ListItemIcon>
             <ListItemText primary={t('backofficeMenu.requestTempPassword')} />
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
-              disconnect();
-            }}
-          >
-            <ListItemIcon>
-              <PowerSettingsNewIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('backofficeMenu.logoff')} />
-          </MenuItem>
+          {window.sessionStorage.getItem('http:token') ? (
+            <MenuItem
+              onClick={() => {
+                setAnchorElMini(null);
+                dispatchEvent(new Event('storage'));
+                //                disconnect();
+              }}
+            >
+              <ListItemIcon>
+                <PowerSettingsNewIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('backofficeMenu.closeTab')} />
+            </MenuItem>
+          ) : (
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+                disconnect();
+              }}
+            >
+              <ListItemIcon>
+                <PowerSettingsNewIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('backofficeMenu.logoff')} />
+            </MenuItem>
+          )}
         </Menu>
       </Grid>
     );

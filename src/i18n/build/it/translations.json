@@ -4304,6 +4304,7 @@
             "contract": "Abbonamenti ricorrenti",
             "coupon": "Promozioni",
             "logoff": "Disconnessione",
+            "closeTab": "Chiudere la scheda",
             "refresh": "Ricarica",
             "cashBook": {
                 "save": "Salva",

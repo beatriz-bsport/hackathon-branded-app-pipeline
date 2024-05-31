@@ -461,9 +461,6 @@ export class Backoffice extends Component<Props, State> {
       this.props.fetchAllAlertings();
     }, ALERTING_REFRESH_INTERVAL);
     this.props.fetchAccessLevel(getAuthToken());
-  }
-
-  componentDidMount() {
     window?.sessionStorage?.setItem(
       BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
       BsportRequestFromHeaderValue.SAAS_BACKOFFICE,
@@ -800,7 +797,7 @@ export class Backoffice extends Component<Props, State> {
                   this.props.getStaffsAttendanceRealTime
                 }
                 isFranchisorNavigation={
-                  !!window.localStorage.getItem('bsport:franchise:http:token')
+                  !!window.sessionStorage.getItem('bsport:franchise:http:token')
                 }
                 lastClockIn={this.props.lastClockin}
                 logo={this.props.theme ? this.props.theme.cover : null}
@@ -1090,9 +1087,13 @@ export default compose(
   ),
   withHandlers({
     disconnect:
-      ({ signout, theme }) =>
+      ({ navigateBackToFranchise, signout, theme }) =>
       () => {
-        signout(theme.company);
+        if (window.sessionStorage.getItem('http:token')) {
+          navigateBackToFranchise();
+        } else {
+          signout(theme.company);
+        }
       },
     checkEmailValidation:
       ({ checkEmailValidation, pushRouter, username }) =>

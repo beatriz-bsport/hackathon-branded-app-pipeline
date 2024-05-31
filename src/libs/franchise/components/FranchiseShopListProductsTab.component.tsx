@@ -7,13 +7,16 @@ import TabPanel from '@material-ui/lab/TabPanel';
 
 import AddIcon from '@material-ui/icons/Add';
 
+import { OptionProps } from 'react-select/lib/components/Option';
 import FranchiseSubshopTemplateList from '#libs/franchise/components/FranchiseSubshopTemplateList';
 import FranchiseSubshopTemplateDialog from '#libs/franchise/components/FranchiseSubshopTemplateDialog';
+import ObjectSearch from '#libs/fuzzy-search/components/ObjectSearch.component';
+import FranchiseShopItemTemplateListItem from '#libs/franchise/components/FranchiseShopItemTemplateListItem';
 
 import type { ShopItemTemplate, SubshopTemplate } from '#libs/shop/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { OptionCallback, PaginatedResponse } from '#state/types';
-import type { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading, SelectOption } from '#libs/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 import { FranchiseSubshopTemplateDialogEnum } from '#libs/franchise/components/FranchiseSubshopTemplateDialog/constants';
@@ -44,6 +47,18 @@ type Props = {
     subshopTemplateId: number,
   ) => void;
 };
+
+const FranchiseShopListProductsTabSearchListItem = React.memo(
+  (
+    props: OptionProps<SelectOption<number>> &
+      Pick<Props, 'goToShopItemTemplate'>,
+  ) => (
+    <FranchiseShopItemTemplateListItem
+      goToShopItemTemplate={props.goToShopItemTemplate}
+      shopItemTemplate={props.data.item}
+    />
+  ),
+);
 
 const FranchiseShopListProductsTab: React.FC<Props> = ({
   subshopTemplateList,
@@ -149,9 +164,35 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
     [handleOpenSubshopTemplateDialog],
   );
 
+  const objectSearchOptionsFormatter = useCallback(
+    (results) =>
+      results.map((shopItemTemplate: ShopItemTemplate) => ({
+        label: shopItemTemplate.name,
+        value: shopItemTemplate.id,
+        item: shopItemTemplate,
+      })),
+    [],
+  );
+
   return (
     <TabPanel className={classes.contentContainer} value={ShopListTab.PRODUCTS}>
       <div className={classes.searchContainer}>
+        <ObjectSearch
+          additionalParams={{ is_variant: false }}
+          className={classes.searchInput}
+          components={{
+            Option: (props) => (
+              <FranchiseShopListProductsTabSearchListItem
+                {...props}
+                goToShopItemTemplate={goToShopItemTemplate}
+              />
+            ),
+          }}
+          optionsFormatter={objectSearchOptionsFormatter}
+          placeholder={t('shop:search')}
+          searchedObjectType="shop_item_template"
+          styles={objectSearchStyles}
+        />
         <Button
           color="primary"
           onClick={handleCreateSubshopTemplateClick}
@@ -196,6 +237,9 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
+  searchInput: {
+    flex: 1,
+  },
   fuzeSearchContainer: { flex: 1 },
   searchPaperDisplayed: {
     border: '1px solid',
@@ -216,5 +260,25 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
+
+const objectSearchStyles = (() => ({
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+  dropdownIndicator: () => ({
+    display: 'none',
+  }),
+  control: (provided: React.CSSProperties) => ({
+    ...provided,
+    background: 'none',
+    border: 'none',
+    borderBottom: '1px solid #000',
+    boxShadow: 'none',
+    borderRadius: 0,
+    ':hover': {
+      borderBottom: '2px solid #000',
+    },
+  }),
+}))();
 
 export default React.memo(FranchiseShopListProductsTab);

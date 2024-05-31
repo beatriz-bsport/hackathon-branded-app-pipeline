@@ -59,14 +59,15 @@ import { getMemberTagsIdsList } from '#libs/tag/selectors';
 import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import {
-  MarketplaceCategoryPassFilterOption,
-  MarketplacePassDialogStateKey,
+  type MarketplaceCategoryPassFilterOption,
+  type MarketplacePassDialogStateKey,
   MarketplacePassPageDialogState,
+  type MarketplacePassParams,
 } from '#libs/marketplace/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
 import Carousel from '#components/css-only/Carousel';
-import { PaymentCombo } from '#libs/payment-combo/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 import MarketplacePaymentComboCard from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard';
 import {
   BaseAdditionalData,
@@ -88,17 +89,12 @@ import './styles.css';
 
 type OwnProps = {
   authenticated: boolean;
-  params?: {
-    hideFilters?: string;
-    hidePaymentPack?: string;
-    hidePrivatePass?: string;
-    hidePaymentCombo?: string;
-    paymentPackCategories?: any;
-    privatePassCategories?: any;
-  };
+  params?: MarketplacePassParams;
+  store: any;
+  memberTagList: number[];
   companyId: number;
-  requestSignUp: () => void;
-  toggleCurrentBasketOpen: (open: boolean) => void;
+  requestSignUp?: () => void;
+  toggleCurrentBasketOpen?: (open: boolean) => void;
   addComboToCart?: (id: number) => void;
   addPaymentPackToCart?: (id: number) => void;
   addPrivatePassToCart?: (id: number) => void;

@@ -49,6 +49,15 @@ export type MarketplacePrivateServiceData = {
   privateGroups?: number[] | null;
 };
 
+export type MarketplacePassParams = {
+  hideFilters?: string;
+  hidePaymentPack?: string;
+  hidePrivatePass?: string;
+  hidePaymentCombo?: string;
+  paymentPackCategories?: number[] | null;
+  privatePassCategories?: number[] | null;
+};
+
 export type MarketplacePassData = {
   hideFilters?: boolean;
   hidePaymentPack?: boolean;

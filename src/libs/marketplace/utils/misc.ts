@@ -7,8 +7,8 @@ export function httpParser(url: string) {
 
 // pass page - parse the categories from router params to array of numbers if any
 export const getParsedPassRestrictedCategories = (
-  paymentPackCategoriesRouterParam: string,
-  privatePassCategoriesRouterParam: string,
+  paymentPackCategoriesRouterParam: number[] | string,
+  privatePassCategoriesRouterParam: number[] | string,
 ) => {
   let paymentPackCategories = null;
   let privatePassCategories = null;

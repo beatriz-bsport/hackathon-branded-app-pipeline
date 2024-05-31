@@ -17,7 +17,7 @@ import { compose } from 'recompose';
 
 import InfoIcon from '@material-ui/icons/Info';
 import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
-import { Divider, Switch } from '@material-ui/core';
+import { Divider, FormHelperText, Switch } from '@material-ui/core';
 import {
   TextField,
   IntegerField,
@@ -39,7 +39,10 @@ import {
 } from '#src/libs/payment-packs/utils';
 import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
-import { getCreditsDividedValue } from '#src/libs/theme/utils';
+import {
+  getCreditsDividedValue,
+  getDecimalCreditHelperText,
+} from '#src/libs/theme/utils';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import { MarketingNotification } from '../../types';
@@ -197,6 +200,17 @@ const ProductNotificationForm = (props: Props) => {
     disabled_if_in_contract,
   } = values;
 
+  const creditHelperText = React.useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        credits_left,
+        'notification.creditsLeft.helperText',
+        t,
+        '',
+      ),
+    [credits_left, t],
+  );
+
   useEffect(() => {
     if (initial) getEmailDetail(initial.email_design);
     getEmails();
@@ -271,19 +285,24 @@ const ProductNotificationForm = (props: Props) => {
               />
             </div>
             {verboseNotifKind === 'creditsLeft' && (
-              <div className={classes.inlineContainer}>
-                <Typography variant="body2">
-                  {t('notification.creditsLeft.first')}
-                </Typography>
-                <TextField
-                  className={classes.textInput}
-                  name="credits_left"
-                  type="number"
-                />
-                <Typography variant="body2">
-                  {t('notification.creditsLeft.second')}
-                </Typography>
-              </div>
+              <>
+                <div className={classes.inlineContainer}>
+                  <Typography variant="body2">
+                    {t('notification.creditsLeft.first')}
+                  </Typography>
+                  <TextField
+                    className={classes.textInput}
+                    name="credits_left"
+                    type="number"
+                  />
+                  <Typography variant="body2">
+                    {t('notification.creditsLeft.second')}
+                  </Typography>
+                </div>
+                {getCreditFactor() !== 1 && (
+                  <FormHelperText>{creditHelperText}</FormHelperText>
+                )}
+              </>
             )}
 
             {verboseNotifKind === 'daysLeft' && (
@@ -648,7 +667,7 @@ export default compose<any, Props>(
               private_pass_ids: ids,
             }),
         days_left: 2,
-        credits_left: 2,
+        credits_left: 2 * getCreditFactor(),
         hours: 2,
         creditNotificationKind: 'onBooking',
         smartlist_include: [],

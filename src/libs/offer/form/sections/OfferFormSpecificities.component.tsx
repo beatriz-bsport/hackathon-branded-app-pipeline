@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { useFormikContext } from 'formik';
-import { useTheme } from '@material-ui/core';
+import { FormHelperText, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
@@ -41,6 +41,8 @@ import {
 import { TextField } from '../../../../components/forms';
 // @ts-expect-error
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
+import { getCreditFactor } from '#src/libs/theme/selectors';
+import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
 
 type Props = {
   activeCustomLevels: Level[];
@@ -152,6 +154,17 @@ const OfferFormSpecificities: React.FC<Props> = ({
 
     return [];
   }, [establishment, roomBlueprints]);
+
+  const creditHelperText = useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        credits,
+        'form.section.specificities.field.decimalCredit.helperText',
+        t,
+        '',
+      ),
+    [credits, t],
+  );
 
   const handleSelectLevel = useCallback(
     (newLevel: number) => setFieldValue('level', newLevel),
@@ -554,7 +567,11 @@ const OfferFormSpecificities: React.FC<Props> = ({
         </div>
       </OfferFormField>
 
-      {(credits === 0 || credits > 5) && (
+      {getCreditFactor() !== 1 && (
+        <FormHelperText>{creditHelperText}</FormHelperText>
+      )}
+
+      {(credits === 0 || credits > 5) && getCreditFactor() == 1 && (
         <Alert severity="warning">{t('form.warnings.effectif')}</Alert>
       )}
 

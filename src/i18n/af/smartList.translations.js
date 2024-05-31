@@ -337,7 +337,12 @@ const getTranslations = async () => {
         has_not: "Doesn't own",
         second: 'and',
         third: 'à',
-        credits: { first: 'credits:', second: 'and' },
+        credits: {
+          first: 'credits:',
+          second: 'and',
+          helperText: 'Filtered on {{count}} credit',
+          helperText_plural: 'Filtered on {{count}} credits',
+        },
         date_bought: { first: 'purchase date' },
         expiration: {
           first_will_expire: 'expires',
@@ -353,7 +358,12 @@ const getTranslations = async () => {
           first_will_expire: 'expires',
         },
         date_bought: { first: 'purchase date' },
-        credits: { second: 'and', first: 'credits:' },
+        credits: {
+          second: 'and',
+          first: 'credits:',
+          helperText: 'Filtered on {{count}} credit',
+          helperText_plural: 'Filtered on {{count}} credits',
+        },
         third: 'at',
         second: 'and',
         has_not: "Doesn't own",

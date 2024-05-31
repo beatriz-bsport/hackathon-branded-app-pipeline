@@ -32,6 +32,7 @@ import { Tag, TagGroup } from '#src/libs/tag/types';
 import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
 import type { LuxonDateTime } from '#src/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
+import { getCreditFactor } from '../theme/selectors';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
@@ -269,7 +270,8 @@ const formikFormWrapper = withFormik<
       calendarSelectedDate: sanitizedSelectedDate.toISO(),
       coach: null,
       coachPaymentRule: null,
-      credits: 1,
+      // Initial credits value is set to the creditFactor so that the helperText beneath the credit input displays exactly one credit
+      credits: getCreditFactor(),
       dateIntervalEnd: sanitizedSelectedDate.plus({ day: 1 }),
       dateIntervalStart,
       dates: [],

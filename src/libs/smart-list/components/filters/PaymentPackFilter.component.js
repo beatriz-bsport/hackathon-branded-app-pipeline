@@ -87,14 +87,12 @@ export class PaymentPackFilter extends Component<Props, state> {
     const creditHelperText = getDecimalCreditHelperText(
       filter_data.credit_value,
       `filters.${filter_data.filter_identifier}.credits.helperText`,
-      `filters.${filter_data.filter_identifier}.credits.helperText_plural`,
       t,
       '',
     );
     const creditHelperTextSecond = getDecimalCreditHelperText(
       filter_data.credit_value_second,
       `filters.${filter_data.filter_identifier}.credits.helperText`,
-      `filters.${filter_data.filter_identifier}.credits.helperText_plural`,
       t,
       '',
     );

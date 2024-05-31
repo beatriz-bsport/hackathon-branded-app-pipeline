@@ -42,6 +42,7 @@ import {
 import { SmartList } from '#src/libs/smart-list/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { MultiStepper } from '#src/components/forms/Stepper';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 export interface FormikValues {
   name: string | null;
@@ -169,7 +170,8 @@ export const PrivatePassForm = (props: Props) => {
             name: null,
             category: null,
             tax: 0,
-            credits: 1,
+            // Initial credits value is set to the creditFactor so that the helperText beneath the credit input displays exactly one credit
+            credits: getCreditFactor(),
             price: 0,
             manager_only: false,
             new_member_only: false,

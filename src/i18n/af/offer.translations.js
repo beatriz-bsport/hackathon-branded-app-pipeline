@@ -349,6 +349,10 @@ exports.default = {
           broadcastLink: 'Link to the livestream',
           establishment: 'Establishment',
           credits: 'Credits',
+          decimalCredit: {
+            helperText: 'This session will cost {{count}} credit.',
+            helperText_plural: 'This session will cost {{count}} credits.',
+          },
           level: 'Level',
           waitingListMaxSize: 'Waiting list',
           effectif: 'Available slots',

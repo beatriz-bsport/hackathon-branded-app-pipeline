@@ -30,7 +30,13 @@ const getTranslations = async () => {
         actions: { submit: 'Save', cancel: 'Cancel' },
         explain:
           "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
-        credits: { label: 'Credit to deduct' },
+        credits: {
+          label: 'Credit to deduct',
+          decimalCredit: {
+            helperText: '{{count}} credit will be deducted',
+            helperText_plural: '{{count}} credits will be deducted',
+          },
+        },
         note: { label: 'Note' },
         description: '{{credits}} credit - {{note}}',
         description_plural: '{{credits}} credits - {{note}}',
@@ -131,6 +137,10 @@ const getTranslations = async () => {
       creditsLeft: {
         second: 'credit(s) remaining',
         first: "Send a notification when there's",
+        helperText:
+          'This notification will be triggered when there’s {{count}} credit remaining',
+        helperText_plural:
+          'This notification will be triggered when there’s {{count}} credits remaining',
       },
       daysPastLabel:
         'This notification will be sent when the pass has expired for {{day}} day.',
@@ -784,6 +794,10 @@ const getTranslations = async () => {
       penality: 'Apply a penalty for too many late cancellations',
       packValidity: 'Validity',
       numberOfAvailableCredits: 'Number of available credits',
+      decimalCredit: {
+        helperText: 'This pass will contain {{count}} credit',
+        helperText_plural: 'This pass will contain {{count}} credits',
+      },
       credit: 'Credit',
       unlimited: 'Unlimited',
       limited: 'Limited',

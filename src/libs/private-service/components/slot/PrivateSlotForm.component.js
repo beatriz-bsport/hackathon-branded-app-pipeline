@@ -11,6 +11,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 import DurationInput from '../../../../components/input/DurationInputWithSelect.component';
 import NumericInput from '../../../../components/input/NumericInput.component';
 import { DURATION_CHOICES_SHORT, Submit } from '../../../../components/forms';
+import { getCreditFactor } from '../../../theme/selectors';
+import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
 
 type PrivateSlotData = any;
 
@@ -43,7 +45,8 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       this.state = {
         name: null,
         duration_minutes: 60,
-        credit: 1,
+        // Initial credits value is set to the creditFactor so that the helperText beneath the credit input displays exactly one credit
+        credit: getCreditFactor(),
         people_capacity_used: 1,
         booking_interval_minutes: 15,
         isSubmitting: false,
@@ -116,6 +119,12 @@ export class PrivateSlotForm extends React.Component<Props, State> {
 
   render() {
     const { t, classes, onCancel } = this.props;
+    const helperText = getDecimalCreditHelperText(
+      this.state.credit,
+      'slot.form.credit.decimalCredit.helperText',
+      t,
+      t('slot.form.credit.helperText'),
+    );
 
     return (
       <form
@@ -137,7 +146,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
           <NumericInput
             fullWidth
             error={this.state.credit < 0}
-            helperText={t('slot.form.credit.helperText')}
+            helperText={helperText}
             label={t('slot.form.credit.label')}
             onChange={(ev) => this.setState({ credit: ev.target.value })}
             value={this.state.credit}

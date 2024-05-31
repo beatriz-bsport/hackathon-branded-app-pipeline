@@ -23,7 +23,10 @@ import { FormikProps, useFormikContext } from 'formik';
 import { Alert } from '@material-ui/lab';
 
 import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
-import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import {
+  provincialTaxHelperText,
+  getDecimalCreditHelperText,
+} from '#src/libs/theme/utils';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
@@ -94,6 +97,16 @@ export const PaymentPackFormGeneral = (props: Props) => {
   const is_universal_pass_value = React.useMemo(
     () => values.is_universal_pass,
     [values],
+  );
+  const creditHelperText = React.useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        values.credits,
+        'addPaymentPack.decimalCredit.helperText',
+        t,
+        t('addPaymentPack.numberOfAvailableCredits'),
+      ),
+    [values.credits, t],
   );
   React.useEffect(() => {
     if (is_universal_pass_value) {
@@ -307,7 +320,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 fullWidth
                 required
                 disabled={initial && !initial?.editable}
-                helperText={t('addPaymentPack.numberOfAvailableCredits')}
+                helperText={creditHelperText}
                 id="paymentpack-form-credit-input"
                 label={t('addPaymentPack.credit')}
                 name="credits"

@@ -147,7 +147,6 @@ export const getFormatedCredits = (
 export const getDecimalCreditHelperText = (
   credits: number,
   translationTextKey: string,
-  translationTextKey_plural: string,
   t: TFunction,
   initialHelperText: string,
 ) => {
@@ -157,13 +156,7 @@ export const getDecimalCreditHelperText = (
     return initialHelperText;
   }
 
-  if (Number(dividedDisplayCreditPrice) > 1) {
-    return t(translationTextKey_plural, {
-      credits: dividedDisplayCreditPrice,
-    });
-  }
-
   return t(translationTextKey, {
-    credits: dividedDisplayCreditPrice,
+    count: Number(dividedDisplayCreditPrice),
   });
 };

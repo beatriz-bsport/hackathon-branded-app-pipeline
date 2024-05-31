@@ -14,8 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
-import { getCreditFactor } from '#src/libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
 
 type Props = {
   open: boolean,
@@ -44,6 +43,18 @@ type Props = {
 export const RefundConsumerPaymentPack = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);
+
+  const creditHelperText = React.useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        props.credits,
+        'consumerPaymentPack.refund.credits.decimalCredit.helperText',
+        t,
+        '',
+      ),
+    [props.credits, t],
+  );
+
   return (
     <Dialog open={props.open}>
       <DialogTitle>{t('consumerPaymentPack.refund.title')}</DialogTitle>
@@ -51,8 +62,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
         onSubmit={(ev) => {
           ev.preventDefault();
           props.onSubmit(props.consumerPaymentPack.id, {
-            credit_to_refund:
-              (props.showCreditRefund ? props.credits : 0) * getCreditFactor(),
+            credit_to_refund: props.showCreditRefund ? props.credits : 0,
             refund_amount: props.price,
             note: props.note,
             block_unlimited: props.showCreditRefund
@@ -81,6 +91,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
               props.showCreditRefund && (
                 <TextField
                   className={classes.field}
+                  helperText={creditHelperText}
                   InputProps={{ inputProps: { step: 1, min: 1 } }}
                   label={t('consumerPaymentPack.refund.credits.label')}
                   onChange={props.handleCreditChange}
@@ -174,9 +185,7 @@ const useStyles = makeStyles((theme) => ({
 export default compose(
   withStateHandlers(
     ({ consumerPaymentPack }) => ({
-      credits: getCreditsDividedDisplay(
-        Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
-      ),
+      credits: Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
       price: 0,
       note: '',
       blockUnlimited: true,

@@ -327,6 +327,10 @@ const getTranslations = async () => {
           label: 'Credit(s)',
           helperText:
             'Select the number of required credits to book an appointment.',
+          decimalCredit: {
+            helperText: 'This session will cost {{count}} credit',
+            helperText_plural: 'This session will cost {{count}} credits',
+          },
         },
         duration_minutes: {
           label: 'Duration',
@@ -508,6 +512,10 @@ const getTranslations = async () => {
         credits: {
           label: 'Number of credits',
           helperText: 'Indicate the number of included credits.',
+          decimalCredit: {
+            helperText: 'This pass will contain {{count}} credit.',
+            helperText_plural: 'This pass will contain {{count}} credits.',
+          },
         },
         price: {
           label: 'Price (incl. VAT / Sales Tax)',

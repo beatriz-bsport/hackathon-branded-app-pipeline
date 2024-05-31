@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -23,6 +23,7 @@ import {
   CheckboxField,
 } from '../../../components/forms';
 import { Video } from '../types';
+import { getDecimalCreditHelperText } from '../../theme/utils';
 
 type Props = {
   coaches: Array<Coach>,
@@ -58,6 +59,17 @@ export const VideoForm = (props: Props) => {
       },
     });
   };
+
+  const creditHelperText = useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        props.values.credit_price,
+        'video.form.creditPrice.decimalCredit.helperText',
+        t,
+        t('video.form.creditPrice.helperText'),
+      ),
+    [props.values.credit_price, t],
+  );
 
   return (
     <div className={classes.container}>
@@ -150,7 +162,7 @@ export const VideoForm = (props: Props) => {
         <IntegerField
           fullWidth
           required
-          helperText={t('video.form.creditPrice.helperText')}
+          helperText={creditHelperText}
           inputProps={{ maxLength: 500 }}
           label={t('video.form.creditPrice.label')}
           name="credit_price"

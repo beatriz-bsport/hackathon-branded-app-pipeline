@@ -65,6 +65,7 @@ import type {
 import type { SmartList } from '#src/libs/smart-list/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 import { PassType } from '#src/components/passes/types';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
@@ -426,7 +427,8 @@ export const PaymentPackForm: React.FC<Props> = ({
             price: 0,
             tax: 0,
             credit_number: 'limited',
-            credits: 1,
+            // Initial credits value is set to the creditFactor so that the helperText beneath the credit input displays exactly one credit
+            credits: getCreditFactor(),
             penalty_active: false,
             no_show_penalty_active: false,
             validity: 'givenNumber',

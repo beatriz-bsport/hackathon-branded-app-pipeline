@@ -6251,6 +6251,10 @@
             "broadcastLink": "Link to the livestream",
             "establishment": "Establishment",
             "credits": "Credits",
+            "decimalCredit": {
+              "helperText": "This session will cost {{count}} credit.",
+              "helperText_plural": "This session will cost {{count}} credits."
+            },
             "level": "Level",
             "waitingListMaxSize": "Waiting list",
             "effectif": "Available slots",
@@ -6703,7 +6707,13 @@
       "refund": {
         "actions": { "submit": "Save", "cancel": "Cancel" },
         "explain": "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
-        "credits": { "label": "Credit to deduct" },
+        "credits": {
+          "label": "Credit to deduct",
+          "decimalCredit": {
+            "helperText": "{{count}} credit will be deducted",
+            "helperText_plural": "{{count}} credits will be deducted"
+          }
+        },
         "note": { "label": "Note" },
         "description": "{{credits}} credit - {{note}}",
         "description_plural": "{{credits}} credits - {{note}}",
@@ -6777,7 +6787,12 @@
       },
       "daysPast": { "second": "day(s).", "first": "Send this message when this pass has expired for" },
       "daysLeft": { "second": "remaining day(s) of validity left", "first": "Send this notification when this pass has" },
-      "creditsLeft": { "second": "credit(s) remaining", "first": "Send a notification when there's" },
+      "creditsLeft": {
+        "second": "credit(s) remaining",
+        "first": "Send a notification when there's",
+        "helperText": "This notification will be triggered when there’s {{count}} credit remaining",
+        "helperText_plural": "This notification will be triggered when there’s {{count}} credits remaining"
+      },
       "daysPastLabel": "This notification will be sent when the pass has expired for {{day}} day.",
       "daysPastLabel_plural": "This notification will be sent when the pass has expired for {{day}} days.",
       "daysLeftLabel": "This notification will be sent when the pass expires in {{day}} day.",
@@ -7314,6 +7329,10 @@
       "penality": "Apply a penalty for too many late cancellations",
       "packValidity": "Validity",
       "numberOfAvailableCredits": "Number of available credits",
+      "decimalCredit": {
+        "helperText": "This pass will contain {{count}} credit",
+        "helperText_plural": "This pass will contain {{count}} credits"
+      },
       "credit": "Credit",
       "unlimited": "Unlimited",
       "limited": "Limited",
@@ -7993,7 +8012,14 @@
           "label": "Number of people",
           "helperText": "This number will be used to manage the availability of the establishment(s)."
         },
-        "credit": { "label": "Credit(s)", "helperText": "Select the number of required credits to book an appointment." },
+        "credit": {
+          "label": "Credit(s)",
+          "helperText": "Select the number of required credits to book an appointment.",
+          "decimalCredit": {
+            "helperText": "This session will cost {{count}} credit",
+            "helperText_plural": "This session will cost {{count}} credits"
+          }
+        },
         "duration_minutes": {
           "label": "Duration",
           "helperText": "Configure the amount of required credits to the duration of the session."
@@ -8147,7 +8173,14 @@
         "title": "[Form] Appointment pass",
         "managerOnly": { "label": "Unavailable for purchase" },
         "name": { "label": "Name", "helperText": "Name of the appointment pass" },
-        "credits": { "label": "Number of credits", "helperText": "Indicate the number of included credits." },
+        "credits": {
+          "label": "Number of credits",
+          "helperText": "Indicate the number of included credits.",
+          "decimalCredit": {
+            "helperText": "This pass will contain {{count}} credit.",
+            "helperText_plural": "This pass will contain {{count}} credits."
+          }
+        },
         "price": { "label": "Price (incl. VAT / Sales Tax)", "helperText": "This is the selling price for members." },
         "tax": { "label": "VAT / Sales tax" },
         "actions": { "submit": "Save", "cancel": "Cancel", "back": "Back", "next": "Next" },
@@ -11537,7 +11570,12 @@
         "has_not": "Doesn't own",
         "second": "and",
         "third": "à",
-        "credits": { "first": "credits:", "second": "and" },
+        "credits": {
+          "first": "credits:",
+          "second": "and",
+          "helperText": "Filtered on {{count}} credit",
+          "helperText_plural": "Filtered on {{count}} credits"
+        },
         "date_bought": { "first": "purchase date" },
         "expiration": { "first_will_expire": "expires", "first_has_expire": "has expired" },
         "infoIcon": "Filter on credit doesn't apply to unlimited passes",
@@ -11601,7 +11639,12 @@
       "25": {
         "expiration": { "first_has_expire": "has expired", "first_will_expire": "expires" },
         "date_bought": { "first": "purchase date" },
-        "credits": { "second": "and", "first": "credits:" },
+        "credits": {
+          "second": "and",
+          "first": "credits:",
+          "helperText": "Filtered on {{count}} credit",
+          "helperText_plural": "Filtered on {{count}} credits"
+        },
         "third": "at",
         "second": "and",
         "has_not": "Doesn't own",
@@ -15048,7 +15091,11 @@
         "edit": "Edit",
         "creditPrice": {
           "label": "Price (in credits)",
-          "helperText": "Leave at 0 if you want the video to be accessible to all your members"
+          "helperText": "Leave at 0 if you want the video to be accessible to all your members",
+          "decimalCredit": {
+            "helperText": "This video will cost {{count}} credit. Leave at 0 if you want the video to be accessible to all your members",
+            "helperText_plural": "This video will cost {{count}} credits. Leave at 0 if you want the video to be accessible to all your members"
+          }
         },
         "video_label": "Video",
         "video_source": {

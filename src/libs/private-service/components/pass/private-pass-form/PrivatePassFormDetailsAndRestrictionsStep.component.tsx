@@ -72,7 +72,10 @@ import type {
   ServiceCompatibilityPass,
 } from '#src/libs/private-service/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
-import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import {
+  getDecimalCreditHelperText,
+  provincialTaxHelperText,
+} from '#src/libs/theme/utils';
 import { ALMOST_100 } from '#src/constants';
 import type { SCT } from '#src/libs/category/types';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
@@ -164,6 +167,17 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
   const provincialTaxText = React.useMemo(
     () => provincialTaxHelperText(values.tax, props.provincialTax, t),
     [values.tax, props.provincialTax, t],
+  );
+
+  const creditHelperText = React.useMemo(
+    () =>
+      getDecimalCreditHelperText(
+        values.credits,
+        'privatePass.form.credits.decimalCredit.helperText',
+        t,
+        t('privatePass.form.credits.helperText'),
+      ),
+    [values.credits, t],
   );
 
   const isCreatingPass = !props.initial?.id;
@@ -295,7 +309,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           <TextField
             fullWidth
             disabled={props.initial && props.initial.editable === false}
-            helperText={t('privatePass.form.credits.helperText')}
+            helperText={creditHelperText}
             id="private-pass-credit-field"
             label={t('privatePass.form.credits.label')}
             name="credits"

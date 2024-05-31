@@ -10,6 +10,12 @@ exports.default = {
         label: 'Price (in credits)',
         helperText:
           'Leave at 0 if you want the video to be accessible to all your members',
+        decimalCredit: {
+          helperText:
+            'This video will cost {{count}} credit. Leave at 0 if you want the video to be accessible to all your members',
+          helperText_plural:
+            'This video will cost {{count}} credits. Leave at 0 if you want the video to be accessible to all your members',
+        },
       },
       video_label: 'Video',
       video_source: {

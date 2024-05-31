@@ -181,7 +181,7 @@ export class SpotSchedulingSelector extends Component<Props, State> {
         )?.prefix ?? '';
     }
 
-    const selectedSpot = prefix + spot.indexType.toString();
+    const selectedSpot = prefix + (spot.indexType ?? index).toString();
 
     this.setState({
       selectedSpot,

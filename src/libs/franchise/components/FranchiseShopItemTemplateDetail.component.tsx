@@ -28,6 +28,7 @@ import type {
   Provision,
   ProvisionBulkCreate,
   ShopItemVariantAttributes,
+  ShopItemVariantCombination,
 } from '#src/libs/shop/types';
 import type { OptionCallback } from '#src/state/types';
 import type { SelectOption } from '#src/libs/types';
@@ -66,6 +67,7 @@ type Props = {
     company: SelectOption[];
   };
   shopItemTemplateSupplierName?: string;
+  variantCombinationList: ShopItemVariantCombination[];
   updateShopItemTemplate: (
     formData: ShopItemEdit,
     options?: OptionCallback,
@@ -114,6 +116,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
   shopItemTemplateSupplierName,
+  variantCombinationList,
   updateShopItemTemplate,
   deleteShopItemTemplate,
   deleteShopItemTemplateVariant,
@@ -337,7 +340,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
           shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues} // handled in https://bsporttest.atlassian.net/browse/BS-4194
           updateShopItemTemplateVariantBulk={updateShopItemTemplateVariantBulk}
-          variantCombinationListCount={count}
+          variantCombinationListCount={(variantCombinationList ?? []).length}
           variantList={variantList}
         />
       </ShopModalContextProvider>

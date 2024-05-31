@@ -31,6 +31,7 @@ import {
   createShopItemProvisionActions,
   createShopItemProvisionBulkActions,
   fetchShopItemVariantCombinationListActions,
+  fetchShopItemTemplateVariantCombinationListActions,
   retrieveShopItemTemplateDetailsActions,
   fetchShopItemTemplateListActions,
   deleteShopItemTemplateActions,
@@ -1364,6 +1365,43 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           'itemVariant',
           'byBaseItemId',
           payload.id,
+          'combinationList',
+        ],
+        payload.data,
+      );
+    },
+    [fetchShopItemTemplateVariantCombinationListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariant', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantCombinationListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopTemplates', 'shopItemTemplate', 'itemVariant', 'error'],
+        payload,
+      );
+    },
+    [fetchShopItemTemplateVariantCombinationListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { id: number; data: ShopItemVariantCombination[] } },
+    ) => {
+      if (!payload.id) return state;
+      return state.setIn(
+        [
+          'shopTemplates',
+          'shopItemTemplate',
+          'itemVariant',
+          'byBaseItemTemplateId',
+          `${payload.id}`,
           'combinationList',
         ],
         payload.data,

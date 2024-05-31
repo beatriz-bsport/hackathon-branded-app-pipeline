@@ -14,6 +14,7 @@ import {
   fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
   fetchShopItemTemplateInstanceList as fetchShopItemTemplateInstanceListAction,
   createShopItemTemplateVariants as createShopItemTemplateVariantsAction,
+  fetchShopItemTemplateVariantCombinationList as fetchShopItemTemplateVariantCombinationListAction,
 } from '#src/libs/shop/actions/shopItemReworked';
 
 import { fetchShopSupplierTemplateList as fetchShopSupplierTemplateListAction } from '#src/libs/shop/actions/supplier';
@@ -24,6 +25,7 @@ import {
   getShopItemTemplateDetail,
   getShopItemTemplateDetailLoading,
   getShopItemTemplateSupplier,
+  getShopItemTemplateVariantCombinationList,
   getShopItemTemplateVariantDeleteLoading,
   getShopItemTemplateVariantFilterOptionList,
   getShopItemTemplateVariantListLoading,
@@ -81,6 +83,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
     this.handleFetchShopSupplierTemplateList();
     this.fetchShopItemTemplateVariantList();
+    this.props.fetchShopItemTemplateVariantCombinationList(this.props.id);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -94,6 +97,21 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       prevProps.queryParams.variantspage !== this.props.queryParams.variantspage
     ) {
       this.fetchShopItemTemplateVariantList();
+    }
+    /*
+      Whenever applying filters, we want to get back to page 1 to prevent
+      fetching filtered pages that doesnt exist.
+    */
+    if (
+      prevProps.queryParams.color !== this.props.queryParams.color ||
+      prevProps.queryParams.size !== this.props.queryParams.size ||
+      prevProps.queryParams.company !== this.props.queryParams.company
+    ) {
+      this.props.setQueryParam('inventorypage')('1');
+      // if we are applying filters but already on page 1
+      if (this.props.queryParams.inventorypage === '1') {
+        this.fetchShopItemTemplateInstanceList();
+      }
     }
   }
 
@@ -339,6 +357,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         updateShopItemTemplateVariantBulk={
           this.handleUpdateShopItemTemplateVariantBulk
         }
+        variantCombinationList={this.props.variantCombinationList}
         variantList={this.props.shopItemTemplateVariantState.variants ?? []}
       />
     );
@@ -361,6 +380,10 @@ const connector = connect(
       state,
       id,
     ),
+    variantCombinationList: getShopItemTemplateVariantCombinationList(
+      state,
+      id,
+    ),
     getShopItemTemplateSupplier: (supplierTemplateId: number) =>
       getShopItemTemplateSupplier(state, supplierTemplateId),
   }),
@@ -375,6 +398,8 @@ const connector = connect(
     fetchShopItemTemplateInstanceList: fetchShopItemTemplateInstanceListAction,
     updateShopItemTemplateVariantBulk: updateShopItemTemplateVariantBulkAction,
     createShopItemTemplateVariants: createShopItemTemplateVariantsAction,
+    fetchShopItemTemplateVariantCombinationList:
+      fetchShopItemTemplateVariantCombinationListAction,
     backToShopPage: () => push('/f/shop'),
   },
 );

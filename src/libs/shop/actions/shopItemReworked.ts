@@ -44,6 +44,7 @@ import {
   createShopItemProvision as createShopItemProvisionAPI,
   duplicateShopItem as duplicateShopItemAPI,
   fetchShopItemVariantCombinationList as fetchShopItemVariantCombinationListAPI,
+  fetchShopItemTemplateVariantCombinationList as fetchShopItemTemplateVariantCombinationListAPI,
   fetchShopItemTemplateList as fetchShopItemTemplateListAPI,
   retrieveShopItemTemplate as retrieveShopItemTemplateAPI,
   createShopItemTemplate as createShopItemTemplateAPI,
@@ -712,6 +713,52 @@ export const fetchShopItemVariantCombinationList = (
       options?.onError?.();
     } finally {
       dispatch(fetchShopItemVariantCombinationListActions.isLoading(false));
+    }
+  };
+};
+
+export const fetchShopItemTemplateVariantCombinationListActions = {
+  isLoading: createAction<boolean>(
+    'SHOP_ITEM_TEMPLATE/VARIANT_COMBINATION_LIST/LOADING',
+  ),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT_COMBINATION_LIST/ERROR'),
+  success: createAction<{ id: number; data: ShopItemVariantCombination[] }>(
+    'SHOP_ITEM_TEMPLATE/VARIANT_COMBINATION_LIST/SUCCESS',
+  ),
+};
+
+/**
+ * Fetch the list of existing variant combination for a base item template
+ * @param id The ID of the base item template
+ */
+export const fetchShopItemTemplateVariantCombinationList = (
+  id: number,
+  options?: OptionCallback<ShopItemVariantCombination[]>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        fetchShopItemTemplateVariantCombinationListActions.isLoading(true),
+      );
+      dispatch(fetchShopItemTemplateVariantCombinationListActions.error(null));
+
+      const result = await fetchShopItemTemplateVariantCombinationListAPI(id);
+
+      dispatch(
+        fetchShopItemTemplateVariantCombinationListActions.success({
+          id,
+          data: result.data,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(fetchShopItemTemplateVariantCombinationListActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(
+        fetchShopItemTemplateVariantCombinationListActions.isLoading(false),
+      );
     }
   };
 };

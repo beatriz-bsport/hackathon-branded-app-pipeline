@@ -472,6 +472,16 @@ export const fetchShopItemVariantCombinationList = (id: number) => {
 };
 
 /**
+ * Fetch the list of existing variant combination for a base item template
+ * @param id The ID of the base item template
+ */
+export const fetchShopItemTemplateVariantCombinationList = (id: number) => {
+  return getAuth<ShopItemVariantCombination[]>(
+    `${API_V1_URI}/shop/shopitemtemplate/${id}/variants/`,
+  );
+};
+
+/**
  * Fetch the list of existing subshop templates
  */
 export const fetchSubshopTemplateList = (params?: PaginationFilterParams) => {

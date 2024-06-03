@@ -40,7 +40,8 @@ const FranchiseConsumerPackRowItem: React.FC<Props> = ({
         <div>
           <ListItem
             dense
-            button={(!!onClick && hasMemberProfileAccessPermission) as any}
+            // @ts-expect-error
+            button={!!onClick && hasMemberProfileAccessPermission}
             className={classes.listContainer}
             disabled={!!consumerPack.reverted || !!disabled}
             onClick={

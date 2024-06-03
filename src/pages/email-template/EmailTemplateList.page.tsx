@@ -17,7 +17,8 @@ import { Divider, IconButton } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import memoize from 'memoize-one';
-import FuzeSearch from '#components/FuzeSearch.component';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
@@ -67,6 +68,10 @@ import LinearProgress from '#components/navigation/BackofficeLinearProgress.comp
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import InfoBox from '#components/box/InfoBox.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
@@ -76,7 +81,7 @@ const { trackFormAdd, trackFormCancel, trackFormSuccess } =
 
 type OwnProps = {
   goToEdit: (id: number) => void;
-  emailTemplateDelete: (id: number) => void;
+  emailTemplateDelete: (id: number, options?: OptionCallback) => void;
   emailTemplateDetail: (id: number) => void;
   emailTemplateDuplicate: (props: {
     id: number;
@@ -125,20 +130,33 @@ type OwnProps = {
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation &
+  WithObjectSearch;
 
 type State = {
-  searchText: string;
-  searchResult: Array<EmailTemplateSummary>;
   selectedCategory: EmailTemplateCategory | null;
   showCategoryDialog: boolean;
   emailTemplateToDelete: number | null;
 };
 
+type EmailTemplateOption = {
+  label: string;
+  email: EmailTemplateSummary;
+  navigateTo: (id: number) => void;
+  onEdit?: (id: number) => void;
+  onDuplicate: (id: number) => void;
+  onDelete?: (id: number) => void;
+  value: number;
+};
+
+const searchBarAdditionalParams = { available: true };
+
+const Option: React.FC<OptionPropsWithData<EmailTemplateOption>> = (props) => (
+  <EmailListItem {...props.data} />
+);
+
 export class MarketingEmail extends Component<Props, State> {
   state: State = {
-    searchText: '',
-    searchResult: [],
     selectedCategory: null,
     showCategoryDialog: false,
     emailTemplateToDelete: null,
@@ -159,17 +177,6 @@ export class MarketingEmail extends Component<Props, State> {
     }
   }
 
-  changeSearch = (fuse: EmailTemplateSummary) => (ev: any) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
-
   handleOpenDeleteModal = (id: number) =>
     this.setState({ emailTemplateToDelete: id });
 
@@ -179,13 +186,34 @@ export class MarketingEmail extends Component<Props, State> {
     this.props.emailTemplateDelete(this.state.emailTemplateToDelete, {
       onSuccess: () => {
         this.setState({ emailTemplateToDelete: null });
+        this.props.refreshOptions('email_design', searchBarAdditionalParams);
       },
       onError: () => {
         this.setState({ emailTemplateToDelete: null });
       },
     });
 
-    
+  emailTemplateOptionsFormatter = (
+    emailTemplates: EmailTemplateSummary[],
+  ): EmailTemplateOption[] =>
+    emailTemplates.map((emailTemplate) => {
+      return {
+        label: emailTemplate.name,
+        navigateTo: this.selected,
+        onDelete:
+          emailTemplate.company_id && !emailTemplate.is_default_bsport_template
+            ? this.handleOpenDeleteModal
+            : undefined,
+        onDuplicate: this.onDuplicate,
+        onEdit:
+          emailTemplate.company_id && !emailTemplate.is_default_bsport_template
+            ? this.props.goToEdit
+            : undefined,
+        email: emailTemplate,
+        value: emailTemplate.id,
+      };
+    });
+
   onDuplicate = async (idEmail: number) => {
     this.props.emailTemplateDuplicate({
       id: idEmail,
@@ -233,8 +261,6 @@ export class MarketingEmail extends Component<Props, State> {
           (email) => !email.company_id && !email.is_default_bsport_template,
         ) || [],
     )(email_templates);
-    const buttonEnabled = (email: EmailTemplateSummary) =>
-      email.company_id && !email.is_default_bsport_template;
 
     if (this.props.categoryLoading) {
       return <LinearProgress />;
@@ -255,62 +281,16 @@ export class MarketingEmail extends Component<Props, State> {
           <Grid item md={6} xs={12}>
             {this.props.email_templates.length > 0 ? (
               <div className={this.props.classes.search}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={this.props.email_templates}
+                <ObjectSearchComponent
+                  additionalParams={searchBarAdditionalParams}
+                  components={{
+                    Option,
+                  }}
+                  optionsFormatter={this.emailTemplateOptionsFormatter}
                   placeholder={t('search')}
-                  searchFields={['title', 'subject']}
-                  // @ts-expect-error
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
+                  searchedObjectType="email_design"
+                  variant="underlined"
                 />
-                <Paper
-                  className={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                      ? this.props.classes.searchPaperDisplayed
-                      : this.props.classes.searchPaperHidden
-                  }
-                >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    <List
-                      disablePadding
-                      component="nav"
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      {this.state.searchResult.map((email) => (
-                        <EmailListItem
-                          key={`search-${email.id}`}
-                          email={email}
-                          navigateTo={this.selected}
-                          onDelete={
-                            email.company_id &&
-                            !email.is_default_bsport_template
-                              ? this.handleOpenDeleteModal
-                              : undefined
-                          }
-                          onDuplicate={this.onDuplicate}
-                          onEdit={
-                            buttonEnabled(email)
-                              ? this.props.goToEdit
-                              : undefined
-                          }
-                          search={this.state.searchText}
-                          selected={email.id === this.props.id}
-                        />
-                      ))}
-                    </List>
-                  </Collapse>
-                </Paper>
               </div>
             ) : null}
             <AddCategoryButton
@@ -334,7 +314,7 @@ export class MarketingEmail extends Component<Props, State> {
                     // @ts-expect-error
                     ListItemComponent={EmailListItem}
                     onClickItem={this.selected}
-                    onDeleteItem={this.props.emailTemplateDelete}
+                    onDeleteItem={this.handleOpenDeleteModal}
                     onDuplicateItem={this.onDuplicate}
                     onEditItem={this.props.goToEdit}
                     selectedItem={this.props.id}
@@ -563,6 +543,7 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   withTitle(({ t }) => t('listTitle')),
+  withObjectSearch,
   withState(
     'expandCollapseLaunchingEmails',
     'setExpandCollapseLaunchingEmails',

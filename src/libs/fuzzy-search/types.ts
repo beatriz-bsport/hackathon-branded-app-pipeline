@@ -280,7 +280,7 @@ type CouponAPIParams = PaginationFilterParams & FetchCouponsParams;
 
 type CouponTemplateAPIParams = PaginationFilterParams & FetchCouponsParams;
 
-type EmailDesignAPIParams = PaginationFilterParams;
+type EmailDesignAPIParams = PaginationFilterParams & { available?: boolean };
 
 type EstablishmentAPIParams = PaginationFilterParams & FetchEstablishmentParams;
 

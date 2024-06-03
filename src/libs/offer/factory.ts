@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Tag } from '#src/libs/tag/types';
 import { Establishment } from '#src/libs/establishment/types';
@@ -32,19 +33,9 @@ export function offerFactory(overrideData?: {
   Level
 > {
   const level = levelFactory();
-  const date_start = randomDate(
+  const dateStart = randomDate(
     new Date(2022, 0, 1, 0, 0),
     new Date(2024, 0, 1, 0, 0),
-  );
-  const date_end = randomDate(
-    date_start,
-    new Date(
-      date_start.getFullYear(),
-      date_start.getMonth(),
-      date_start.getDate(),
-      23,
-      59,
-    ),
   );
 
   return {
@@ -61,8 +52,7 @@ export function offerFactory(overrideData?: {
     coach_override: coachFactory(),
     coach: null,
     cover_main: `Cover of offer`,
-    date_end: date_end.toString(),
-    date_start: date_start.toString(),
+    date_start: DateTime.fromJSDate(dateStart).toISO(),
     effectif: generateRandomInt(100),
     // @ts-expect-error
     level: overrideData?.level ?? level,

@@ -12,7 +12,6 @@ import {
 import { CompanyTheme } from '#src/libs/theme/types';
 
 import { offerFactory } from '#src/libs/offer/factories';
-import { formatAsDate } from '#src/utils/datetime';
 // @ts-expect-error
 import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';
 import MarketPlaceCardOfferCSSOnly, {
@@ -130,9 +129,7 @@ const usePropsFromVariation = (
     if (offerStatusSelected === 'past') {
       return {
         ...bookableOffer,
-        date_start: formatAsDate(
-          DateTime.now().minus({ weeks: 1 }).toISODate(),
-        ),
+        date_start: DateTime.now().minus({ weeks: 1 }).toISO(),
       };
     }
 
@@ -149,7 +146,7 @@ const usePropsFromVariation = (
 
       return {
         ...bookableOffer,
-        date_start: formatAsDate(DateTime.now().plus({ years: 1 }).toISODate()),
+        date_start: DateTime.now().plus({ years: 1 }).toISO(),
         // TODO WAIT FOR FIX ON OFFER FOR THIS TO ACTUALLY WORK.
         meta_activity: { ...metaActivity, first_booking_minutes_until: 1 },
       };

@@ -84,10 +84,10 @@ const EASY_ACCESS_NAMES: Array<string> = [
 
 const TZNAMES: Array<string> = [
   'Europe/Paris',
-  'Europe/Barcelone',
-  'Europe/Londres',
-  'Amérique/NewYork',
-  'Amérique/Vancouver',
+  'Europe/Madrid',
+  'Europe/London',
+  'America/New_York',
+  'America/Los_Angeles',
 ];
 
 function random_choice(arr: Array<any>): any {

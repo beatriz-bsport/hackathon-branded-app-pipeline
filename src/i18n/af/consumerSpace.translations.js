@@ -562,6 +562,15 @@ exports.default = {
         generalTerms: 'General terms',
         accepted: 'Accepted on {{- dateAccepted}}',
       },
+      header: {
+        buttons: {
+          editProfile: 'Edit',
+        },
+        title: 'My Profile',
+      },
+      edition: {
+        title: 'Edit your profile',
+      },
     },
   },
 };

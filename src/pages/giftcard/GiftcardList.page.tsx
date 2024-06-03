@@ -68,6 +68,7 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import GiftcardListDeleteDialog from '#libs/giftcard/components/GiftcardListDeleteDialog.component';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -115,11 +116,16 @@ type State = {
   showDisabled: boolean;
   searchText: string;
   searchResult: Array<Giftcard>;
+  giftcardIdToDelete: number | null;
 };
 
 export class GiftcardListPage extends Component<Props, State> {
-  // @ts-expect-error
-  state = { showDisabled: false, searchText: '', searchResult: [] };
+  state: State = {
+    showDisabled: false,
+    searchText: '',
+    searchResult: [],
+    giftcardIdToDelete: null,
+  };
 
   componentDidMount() {
     this.props.fetchGiftcardList();
@@ -153,6 +159,18 @@ export class GiftcardListPage extends Component<Props, State> {
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
+  };
+
+  handleOpenDeleteModal = (id: number) =>
+    this.setState({ giftcardIdToDelete: id });
+
+  handleCloseDeleteModal = () => this.setState({ giftcardIdToDelete: null });
+
+  handleDeleteGiftCard = () => {
+    this.props.deleteGiftcard(this.state.giftcardIdToDelete, {
+      onSuccess: this.handleCloseDeleteModal,
+      onError: this.handleCloseDeleteModal,
+    });
   };
 
   render() {
@@ -195,8 +213,7 @@ export class GiftcardListPage extends Component<Props, State> {
                         giftcard={giftcard}
                         onClick={this.props.goToGiftcard}
                         onEdit={this.props.openEditForm}
-                        // @ts-expect-error
-                        onRemove={this.props.deleteGiftcard}
+                        onRemove={this.handleOpenDeleteModal}
                       />
                     ))}
                   </List>
@@ -246,7 +263,7 @@ export class GiftcardListPage extends Component<Props, State> {
               // @ts-expect-error
               onDuplicate={this.props.makeGiftcardCopy}
               onEdit={this.props.openEditForm}
-              onRemove={this.props.deleteGiftcard}
+              onRemove={this.handleOpenDeleteModal}
             />
           </>
         )}
@@ -265,7 +282,7 @@ export class GiftcardListPage extends Component<Props, State> {
               giftcardList={this.props.giftcardListUnavailableForSale}
               onClick={this.props.goToGiftcard}
               onEdit={this.props.openEditForm}
-              onRemove={this.props.deleteGiftcard}
+              onRemove={this.handleOpenDeleteModal}
             />
           </div>
         )}
@@ -332,6 +349,11 @@ export class GiftcardListPage extends Component<Props, State> {
             open={this.props.queryParams.isBackgroundImageUploaderOpen}
           />
         )}
+        <GiftcardListDeleteDialog
+          handleCancel={this.handleCloseDeleteModal}
+          handleConfirm={this.handleDeleteGiftCard}
+          open={!!this.state.giftcardIdToDelete}
+        />
       </div>
     );
   }

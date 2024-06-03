@@ -28,6 +28,7 @@ type Props = {
   loading: ?boolean,
   onPageRequested: (page: number | null, page_size?: number) => void,
   renderCustomPageFirst?: boolean,
+  displayDivider?: Boolean,
 
   t: TFunction,
   classes: any,
@@ -118,6 +119,7 @@ export class PaginatedList extends PureComponent<Props, State> {
             : null}
         </List>
         {this.props.loading ? <LinearProgress /> : null}
+        {this.props.displayDivider && <Divider />}
         <div
           style={{
             display: 'flex',

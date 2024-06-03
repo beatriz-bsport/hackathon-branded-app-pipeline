@@ -67,6 +67,7 @@ import LinearProgress from '#components/navigation/BackofficeLinearProgress.comp
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import InfoBox from '#components/box/InfoBox.component';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -131,6 +132,7 @@ type State = {
   searchResult: Array<EmailTemplateSummary>;
   selectedCategory: EmailTemplateCategory | null;
   showCategoryDialog: boolean;
+  emailTemplateToDelete: number | null;
 };
 
 export class MarketingEmail extends Component<Props, State> {
@@ -139,6 +141,7 @@ export class MarketingEmail extends Component<Props, State> {
     searchResult: [],
     selectedCategory: null,
     showCategoryDialog: false,
+    emailTemplateToDelete: null,
   };
 
   componentDidMount() {
@@ -167,6 +170,22 @@ export class MarketingEmail extends Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  handleOpenDeleteModal = (id: number) =>
+    this.setState({ emailTemplateToDelete: id });
+
+  handleCloseDeleteModal = () => this.setState({ emailTemplateToDelete: null });
+
+  handleEmailTemplateDelete = () =>
+    this.props.emailTemplateDelete(this.state.emailTemplateToDelete, {
+      onSuccess: () => {
+        this.setState({ emailTemplateToDelete: null });
+      },
+      onError: () => {
+        this.setState({ emailTemplateToDelete: null });
+      },
+    });
+
+    
   onDuplicate = async (idEmail: number) => {
     this.props.emailTemplateDuplicate({
       id: idEmail,
@@ -276,7 +295,7 @@ export class MarketingEmail extends Component<Props, State> {
                           onDelete={
                             email.company_id &&
                             !email.is_default_bsport_template
-                              ? this.props.emailTemplateDelete
+                              ? this.handleOpenDeleteModal
                               : undefined
                           }
                           onDuplicate={this.onDuplicate}
@@ -453,6 +472,17 @@ export class MarketingEmail extends Component<Props, State> {
             open={this.state.showCategoryDialog}
           />
         ) : null}
+        <ModalConfirm
+          handleCancel={this.handleCloseDeleteModal}
+          handleConfirm={this.handleEmailTemplateDelete}
+          open={!!this.state.emailTemplateToDelete}
+          options={{
+            title: 'emailTemplate:modal.delete.title',
+            cancel: 'emailTemplate:modal.delete.cancel',
+            confirm: 'emailTemplate:modal.delete.confirm',
+            Content: () => <p>{t('emailTemplate:modal.delete.content')}</p>,
+          }}
+        />
       </div>
     );
   }

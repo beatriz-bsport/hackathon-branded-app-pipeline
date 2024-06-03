@@ -4,31 +4,22 @@ import classNames from 'classnames';
 import {
   Chip,
   ListItem,
-  ListItemIcon,
-  MenuItem,
   Theme,
   withStyles,
   WithStyles,
   createStyles,
   Hidden,
 } from '@material-ui/core';
-import {
-  useTranslation,
-  withTranslation,
-  WithTranslation,
-} from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import Typography from '@material-ui/core/Typography';
-import { TFunction } from 'i18next';
 
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-// @ts-expect-error
-import withConfirm from '../../../hocs/with-confirm.hoc';
 import { EmailTemplateSummary } from '../types';
 import HighlightedText from '../../../components/HighlightedText/HighlightedText.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
@@ -64,55 +55,6 @@ export type OwnProps = {
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
-
-const DeleteButton = (props: { onClick: () => void }) => (
-  <IconButton
-    onClick={(ev) => {
-      ev.stopPropagation();
-      ev.preventDefault();
-      props.onClick();
-    }}
-  >
-    <DeleteIcon />
-  </IconButton>
-);
-
-const DeleteButtonMenuItem = (props: { onClick: () => void }) => {
-  const { t } = useTranslation(['emailTemplate']);
-
-  return (
-    <MenuItem
-      onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-        ev.stopPropagation();
-        ev.preventDefault();
-        props.onClick();
-      }}
-    >
-      <ListItemIcon>
-        <DeleteIcon />
-      </ListItemIcon>
-      <Typography>{t('delete')}</Typography>
-    </MenuItem>
-  );
-};
-
-const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
-  title: 'emailTemplate:modal.delete.title',
-  cancel: 'emailTemplate:modal.delete.cancel',
-  confirm: 'emailTemplate:modal.delete.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('emailTemplate:modal.delete.content')}</p>
-  ),
-});
-
-const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
-  title: 'emailTemplate:modal.delete.title',
-  cancel: 'emailTemplate:modal.delete.cancel',
-  confirm: 'emailTemplate:modal.delete.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('emailTemplate:modal.delete.content')}</p>
-  ),
-});
 
 class EmailListItem extends React.PureComponent<Props> {
   renderChildren = (containerStyle: any, virtualized: boolean) => {
@@ -219,9 +161,7 @@ class EmailListItem extends React.PureComponent<Props> {
                   onClick: onDuplicate,
                 },
                 onDelete && {
-                  icon: DeleteButton,
-                  iconButtonComponent: ButtonWithConfirm,
-                  menuItemComponent: ButtonWithConfirmMenuItem,
+                  icon: DeleteIcon,
                   label: `delete-${email.id}`,
                   onClick: onDelete,
                   color: 'secondary',

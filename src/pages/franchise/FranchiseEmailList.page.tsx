@@ -36,6 +36,7 @@ import { getFranchiseCompanies } from '#libs/franchise/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
 import withTitle from '#hocs/with-title.hoc';
 import { FranchiseCompany } from '#libs/franchise/types';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 
 type OwnProps = {
   id: number;
@@ -81,6 +82,20 @@ const FranchiseEmailList = (props: Props) => {
     }
   }, [emailTemplateDetail, id]);
 
+  const [emailTemplateToDelete, setEmailTemplateToDelete] = React.useState<
+    number | null
+  >(null);
+
+  const handleOpenDeleteModal = React.useCallback(
+    (emailTemplateId: number) => setEmailTemplateToDelete(emailTemplateId),
+    [],
+  );
+
+  const handleCloseDeleteModal = React.useCallback(
+    () => setEmailTemplateToDelete(null),
+    [],
+  );
+
   const navigateToCreate = () => {
     push('/f/email-template/create');
   };
@@ -112,12 +127,16 @@ const FranchiseEmailList = (props: Props) => {
     [navigateTo, emailTemplateDuplicate, t],
   );
 
-  const onDelete = useCallback(
-    (emailId: number) => {
-      deleteTemplate(emailId);
-    },
-    [deleteTemplate],
-  );
+  const handleEmailTemplateDelete = useCallback(() => {
+    deleteTemplate(emailTemplateToDelete, {
+      onSuccess: () => {
+        setEmailTemplateToDelete(null);
+      },
+      onError: () => {
+        setEmailTemplateToDelete(null);
+      },
+    });
+  }, [deleteTemplate, emailTemplateToDelete]);
 
   const saveFilter = (value: boolean) => {
     updateFranchisePageFilter([
@@ -143,7 +162,7 @@ const FranchiseEmailList = (props: Props) => {
             emails={emails}
             isGrouped={savedFilter?.includes('franchised') ?? false}
             navigateTo={navigateTo}
-            onDelete={onDelete}
+            onDelete={handleOpenDeleteModal}
             onDuplicate={onDuplicate}
             onEdit={onEdit}
             saveFilter={saveFilter}
@@ -165,6 +184,17 @@ const FranchiseEmailList = (props: Props) => {
       <BottomActionButtons
         onCreate={navigateToCreate}
         onCreateLabel={t('emails.create')}
+      />
+      <ModalConfirm
+        handleCancel={handleCloseDeleteModal}
+        handleConfirm={handleEmailTemplateDelete}
+        open={!!emailTemplateToDelete}
+        options={{
+          title: 'emailTemplate:modal.delete.title',
+          cancel: 'emailTemplate:modal.delete.cancel',
+          confirm: 'emailTemplate:modal.delete.confirm',
+          Content: () => <p>{t('emailTemplate:modal.delete.content')}</p>,
+        }}
       />
     </div>
   );

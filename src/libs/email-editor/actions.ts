@@ -563,18 +563,22 @@ export const deleteEmailTemplateAction = {
   success: createAction('EMAIL/DELETE/SUCCESS'),
 };
 
-export function emailTemplateDelete(id: number): ThunkAction {
+export function emailTemplateDelete(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteEmailTemplateAction.loading(true));
     dispatch(deleteEmailTemplateAction.error(null));
 
     try {
       await deleteEmailTemplateAPI(id);
-
+      options?.onSuccess?.();
       dispatch(snackbarSuccess('email.delete.success'));
       dispatch(resetEmails());
       dispatch(emailTemplatesSummaries());
     } catch (error) {
+      options?.onError?.();
       dispatch(deleteEmailTemplateAction.error(error));
       dispatch(snackbarError('email.delete.error'));
     }

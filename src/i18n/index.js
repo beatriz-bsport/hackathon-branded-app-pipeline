@@ -14,6 +14,7 @@ import {
   AUDIENCE_WORKFLOW_NAME,
   AUDIENCE_WORKFLOW_NAME_PLURAL,
 } from '#libs/sequential_marketing/constants';
+import { STORAGE_KEY_BSPORT_I18NEXTLNG } from '../actions/constants';
 
 const backendOptions = {};
 
@@ -79,7 +80,6 @@ i18n
       order: ['localStorage', 'navigator', 'cookie'],
     },
     load: 'languageOnly',
-
     // have a common namespace used around the full app
     defaultNS: 'translation',
 
@@ -140,14 +140,12 @@ setLuxonLocale(i18n.language);
 
 const setLanguage = (lng: string) => {
   i18n.changeLanguage(lng);
-  if (window.localStorage) {
-    window.localStorage.setItem(STORAGE_LANGUAGE_KEY, lng);
-  }
+  window.localStorage.setItem(STORAGE_LANGUAGE_KEY, lng);
 };
 
 const getLanguage = () => {
-  if (window.localStorage) {
-    return window.localStorage.getItem('i18nextLng').slice(0, 2);
+  if (window.localStorage && window.sessionStorage) {
+    window.localStorage.getItem(STORAGE_KEY_BSPORT_I18NEXTLNG).slice(0, 2);
   }
   return 'en';
 };

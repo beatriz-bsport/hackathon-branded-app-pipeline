@@ -4,6 +4,11 @@ import {
   BSPORT_REQUEST_FROM_HEADER,
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
 } from '../constants';
+import {
+  STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+  STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+  STORAGE_KEY_BSPORT_TOKEN,
+} from '#src/actions/constants';
 
 const storage = window.localStorage;
 const sessionStorage = window.sessionStorage;
@@ -77,7 +82,7 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  const localStorageToken: string = storage.getItem('bsport:http:token');
+  const localStorageToken: string = storage.getItem(STORAGE_KEY_BSPORT_TOKEN);
 
   const isTokenInvalid = !token || token === 'null';
   const isLocalStorageTokenValid =
@@ -86,17 +91,16 @@ export function setAuthToken(token: string) {
   if (isTokenInvalid) {
     clearTokens();
   } else if (isLocalStorageTokenValid) {
-    sessionStorage.setItem('http:token', token);
+    sessionStorage.setItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN, token);
   } else {
-    storage.setItem('bsport:http:token', token);
+    storage.setItem(STORAGE_KEY_BSPORT_TOKEN, token);
   }
 }
 
 function clearTokens() {
-  storage.setItem('http:token', 'null');
-  storage.setItem('bsport:http:token', 'null');
-  sessionStorage.removeItem('bsport:franchise:http:token');
-  sessionStorage.removeItem('http:token');
+  storage.setItem(STORAGE_KEY_BSPORT_TOKEN, 'null');
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
 }
 
 export function setAccessControlBroadcastsChannelId(uuid: string) {
@@ -115,18 +119,10 @@ export const getTimezoneName = () => {
 
 // TODO (Impersonate - BS-3649) : should update this function if I change from the localStorage to the sessionStorage
 export function getAuthToken() {
-  const oldToken = storage.getItem('http:token');
-  const sessionToken = sessionStorage.getItem('http:token');
-
-  if (sessionToken) {
-    return sessionToken;
-  }
-  if (oldToken && oldToken !== 'null' && oldToken !== 'undefined') {
-    return (
-      storage.getItem('http:token') || storage.getItem('bsport:http:token')
-    );
-  }
-  return storage.getItem('bsport:http:token');
+  return (
+    sessionStorage.getItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN) ||
+    storage.getItem(STORAGE_KEY_BSPORT_TOKEN)
+  );
 }
 
 export function getAccessControlBroadcastsChannelId() {

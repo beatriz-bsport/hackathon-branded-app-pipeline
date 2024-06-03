@@ -31,6 +31,23 @@ import {
   RELATIONMISSPARAMETERS,
   TOKENISUNDEFINED,
 } from '../libs/relationship/constants';
+import {
+  STORAGE_KEY_BSPORT_I18NEXTLNG,
+  STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN,
+  STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL,
+  STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+  STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
+  STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+} from './constants';
+import {
+  STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
+  STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY,
+  STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE,
+  STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY,
+  STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION,
+  STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
+} from '../libs/theme/constants';
+import i18n from '../i18n';
 
 export const initiateInterface = createAction('initiate');
 
@@ -533,9 +550,24 @@ export function navigateAsCompanyAdmin(
       if (!newToken) {
         throw new Error('No token');
       }
-      const { sessionStorage } = window;
+      const { localStorage, sessionStorage } = window;
+      const impersonatedOnUrl = window.location.href
+        .toString()
+        .split(window.location.host)[1];
+
+      const actualLanguage = localStorage.getItem(
+        STORAGE_KEY_BSPORT_I18NEXTLNG,
+      );
       sessionStorage.setItem(
-        'bsport:franchise:http:token',
+        STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN,
+        actualLanguage,
+      );
+      sessionStorage.setItem(
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
+        impersonatedOnUrl,
+      );
+      sessionStorage.setItem(
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
         franchiseConnexionToken,
       );
 
@@ -578,11 +610,27 @@ export function navigateBackToFranchise() {
       dispatch(impersonateManagerLoading(true));
 
       const { sessionStorage } = window;
-      const newToken = sessionStorage.getItem('bsport:franchise:http:token');
+      const newToken = sessionStorage.getItem(
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+      );
 
       const { data } = await accessLevelAPI(newToken);
 
-      sessionStorage.removeItem('bsport:franchise:http:token');
+      const lastUrlImpersonated = window.location.href
+        .toString()
+        .split(window.location.host)[1];
+      sessionStorage.setItem(
+        STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL,
+        lastUrlImpersonated,
+      );
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
@@ -592,7 +640,11 @@ export function navigateBackToFranchise() {
           token: newToken,
         }),
       );
-      sessionStorage.removeItem('http:token');
+      i18n.changeLanguage(
+        sessionStorage.getItem(STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN),
+      );
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG_ORIGIN);
+      sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN);
 
       dispatch(impersonateManagerLoading(false));
 

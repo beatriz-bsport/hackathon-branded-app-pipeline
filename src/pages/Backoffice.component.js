@@ -137,6 +137,7 @@ import {
 import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '../libs/access-control/actions';
 import { getEstablishmentsSelectedInRole } from '../libs/establishment/selectors';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '../actions/constants';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -1089,7 +1090,9 @@ export default compose(
     disconnect:
       ({ navigateBackToFranchise, signout, theme }) =>
       () => {
-        if (window.sessionStorage.getItem('http:token')) {
+        if (
+          window.sessionStorage.getItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN)
+        ) {
           navigateBackToFranchise();
         } else {
           signout(theme.company);

@@ -98,6 +98,7 @@ import BillingBanner from '#src/components/navigation/BillingBanner.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -391,32 +392,25 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             </ListItemIcon>
             <ListItemText primary={t('backofficeMenu.requestTempPassword')} />
           </MenuItem>
-          {window.sessionStorage.getItem('http:token') ? (
-            <MenuItem
-              onClick={() => {
-                setAnchorElMini(null);
-                dispatchEvent(new Event('storage'));
-                //                disconnect();
-              }}
-            >
-              <ListItemIcon>
-                <PowerSettingsNewIcon />
-              </ListItemIcon>
-              <ListItemText primary={t('backofficeMenu.closeTab')} />
-            </MenuItem>
-          ) : (
-            <MenuItem
-              onClick={() => {
-                setAnchorEl(null);
-                disconnect();
-              }}
-            >
-              <ListItemIcon>
-                <PowerSettingsNewIcon />
-              </ListItemIcon>
-              <ListItemText primary={t('backofficeMenu.logoff')} />
-            </MenuItem>
-          )}
+          <MenuItem
+            onClick={() => {
+              setAnchorEl(null);
+              disconnect();
+            }}
+          >
+            <ListItemIcon>
+              <PowerSettingsNewIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                window.sessionStorage.getItem(
+                  STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+                )
+                  ? t('backofficeMenu.closeTab')
+                  : t('backofficeMenu.logoff')
+              }
+            />
+          </MenuItem>
         </Menu>
       </Grid>
     );

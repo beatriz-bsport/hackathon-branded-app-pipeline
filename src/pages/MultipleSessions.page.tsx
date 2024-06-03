@@ -13,6 +13,7 @@ import {
   // @ts-expect-error
 } from '../actions/auth.actions';
 import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
 
 type OwnProps = {
   newToken: string;
@@ -41,7 +42,10 @@ export const MultipleSessions = (props: Props) => {
   const restoreSession = () => {
     if (getStatus(currentConnexionRight) === 'franchisor') {
       // Reset the franchise token as it was delete during rollback navigation
-      window.sessionStorage.setItem('bsport:franchise:http:token', newToken);
+      window.sessionStorage.setItem(
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+        newToken,
+      );
     }
     fetchAccessLevel(storedToken);
   };

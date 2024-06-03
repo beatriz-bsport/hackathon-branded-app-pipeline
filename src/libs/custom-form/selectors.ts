@@ -135,7 +135,6 @@ export const withMemberProfileData = memoize(
           ...custom_form,
           custom_form_field: custom_form.custom_form_field.map((field) => ({
             ...field,
-            // @ts-expect-error
             answer: insertMemberProfileDataToAnswer(field, memberData),
           })),
         };
@@ -145,7 +144,6 @@ export const withMemberProfileData = memoize(
           ...cf,
           custom_form_field: cf?.custom_form_field.map((field) => ({
             ...field,
-            // @ts-expect-error
             answer: insertMemberProfileDataToAnswer(field, memberData),
           })),
         };
@@ -413,4 +411,20 @@ export const memberCovidStatusInSignUpForm = createSelector(
 export const showVaccinationStatus = createSelector(
   [memberCovidStatusInMemberForm, memberCovidStatusInSignUpForm],
   (isInMemberForm, isInSignUpForm) => isInMemberForm || isInSignUpForm,
+);
+
+export const getConsumerProfileCustomForm = createSelector(
+  [getMemberCustomFormWithEnabledField, getMemberDetail],
+  (customForm, memberData) => {
+    if (!customForm) return null;
+    if (!memberData) return customForm;
+
+    return {
+      ...customForm,
+      custom_form_field: customForm.custom_form_field.map((field) => ({
+        ...field,
+        answer: insertMemberProfileDataToAnswer(field, memberData),
+      })),
+    };
+  },
 );

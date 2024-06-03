@@ -3,8 +3,11 @@ import memoize from 'memoize-one';
 // @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#src/libs/role/role-types';
 import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
-import { RootState } from '../../reducers';
-import { FranchiseCompany, FranchiseState } from './types';
+import { RootState } from '#src/reducers';
+import type {
+  FranchiseCompany,
+  FranchiseState,
+} from '#src/libs/franchise/types';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
 
@@ -159,6 +162,12 @@ export const getFranchiseCompanyById = (state: RootState) => {
   return null;
 };
 
+export const getFranchiseCompany = (companyId: number) =>
+  createSelector(
+    [getFranchiseCompanyById],
+    (companiesById) => companiesById[companyId],
+  );
+
 // @ts-expect-error
 export const getFranchiseCompanies = (state: RootState) => {
   if (getState(state).companies?.allIds) {
@@ -194,6 +203,33 @@ export const _getCompanyGroupAllIds = (state: RootState) =>
 export const getCompanyGroupList = createSelector(
   [_getCompanyGroupAllIds, _getCompanyGroupById],
   (ids, data) => ids.map((id) => data[id]),
+);
+
+export const getFranchiseUserInfo = (state: RootState) =>
+  getState(state).userProfile.generalInformation.franchiseUser;
+
+export const getFranchiseUserMembersLoading = (state: RootState) =>
+  getState(state).userProfile.associatedMembers.loading;
+
+export const getFranchiseUserMembersCount = (state: RootState) =>
+  getState(state).userProfile.associatedMembers.count;
+
+export const getFranchiseUserMembersPage = (state: RootState) =>
+  getState(state).userProfile.associatedMembers.page;
+
+export const _getFranchiseUserMembersById = (state: RootState) =>
+  getState(state).userProfile.associatedMembers.byId;
+
+export const _getFranchiseUserMembersAllIds = (state: RootState) =>
+  getState(state).userProfile.associatedMembers.allIds;
+
+/** Selector to get the list of the Members related to a User in a Franchise */
+export const getFranchiseUserMembersList = createSelector(
+  [_getFranchiseUserMembersAllIds, _getFranchiseUserMembersById],
+  (membersIds, membersData) =>
+    (membersIds ?? [])
+      .map((memberId) => membersData[memberId])
+      .filter((member) => !!member),
 );
 
 export const _getFranchiseUserPassesById = (state: RootState) =>

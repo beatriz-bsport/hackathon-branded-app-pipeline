@@ -14,7 +14,9 @@ import {
   createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
   searchFranchiseUsers as searchFranchiseUsersAPI,
   fetchFranchiseUserPasses as fetchFranchiseUserPassesAPI,
-} from './api';
+  fetchFranchiseUserInfo as fetchFranchiseUserInfoAPI,
+  fetchFranchiseUserMembers as fetchFranchiseUserMembersAPI,
+} from '#src/libs/franchise/api';
 import type {
   Franchise,
   CompanyGroup,
@@ -23,8 +25,14 @@ import type {
   FranchiseUser,
   FranchiseUserPass,
   FranchiseUserPassesQueryParams,
-} from './types';
-import { FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE } from './constants';
+  FranchiseUserMembersQueryParams,
+  FranchiseUserMember,
+} from '#src/libs/franchise/types';
+import {
+  FRANCHISE_CONSUMER_PAYMENT_PACK_PAGE_DEFAULT_SIZE,
+  FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
+} from '#src/libs/franchise/constants';
+import type { RootState } from '#src/reducers';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -329,5 +337,69 @@ export function fetchFranchiseUserPasses(
       options?.onError?.(error);
     }
     dispatch(fetchFranchiseUserPassesActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserInfoActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/INFO/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/INFO/ERROR'),
+  success: createAction<FranchiseUser>('FRANCHISE/USER/INFO/SUCCESS'),
+};
+
+export function fetchFranchiseUserInfo(
+  params: { user_id: number },
+  options?: OptionCallback<FranchiseUser>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchiseUserInfoActions.isLoading(true));
+    dispatch(fetchFranchiseUserInfoActions.error(null));
+    try {
+      const response = await fetchFranchiseUserInfoAPI(params.user_id);
+      dispatch(fetchFranchiseUserInfoActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserInfoActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchFranchiseUserInfoActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseUserMembersActions = {
+  isLoading: createAction<boolean>('FRANCHISE/USER/MEMBERS/IS_LOADING'),
+  error: createAction<Error | null>('FRANCHISE/USER/MEMBERS/ERROR'),
+  success: createAction<PaginatedResponse<FranchiseUserMember>>(
+    'FRANCHISE/USER/MEMBERS/SUCCESS',
+  ),
+};
+
+export function fetchFranchiseUserMembers(
+  params: Omit<FranchiseUserMembersQueryParams, 'page_size'>,
+  options?: OptionCallback<PaginatedResponse<FranchiseUserMember>>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchFranchiseUserMembersActions.isLoading(true));
+    dispatch(fetchFranchiseUserMembersActions.error(null));
+    try {
+      const currentState = getState().franchise.userProfile.associatedMembers;
+      const nextPage = currentState.next_page ?? 1;
+
+      const paginated_params = {
+        page: params.page ?? nextPage,
+        page_size: FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE,
+      };
+      const response = await fetchFranchiseUserMembersAPI(
+        params.user_id,
+        paginated_params,
+      );
+      dispatch(fetchFranchiseUserMembersActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchFranchiseUserMembersActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(fetchFranchiseUserMembersActions.isLoading(false));
   };
 }

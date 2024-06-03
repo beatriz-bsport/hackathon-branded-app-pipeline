@@ -1,5 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { GenericPaginationResults } from '../types';
+import type {
+  GenericPaginationResults,
+  PaginationFilterParams,
+} from '#src/libs/types';
 import {
   API_V1_URI,
   buildUrlParams,
@@ -8,7 +11,7 @@ import {
   postAuth,
   patchAuth,
   get,
-} from '../../http';
+} from '#src/http';
 import type {
   FranchiseUser,
   Franchise,
@@ -18,8 +21,9 @@ import type {
   SearchUsersPayload,
   FranchiseUserPass,
   PassesPaginatedQueryParams,
-} from './types';
-import { PaginatedResponse } from '#src/state/types';
+  FranchiseUserMember,
+} from '#src/libs/franchise/types';
+import type { PaginatedResponse } from '#src/state/types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me/`);
@@ -95,6 +99,23 @@ export const fetchFranchiseUserPasses = (
 ) => {
   return getAuth<PaginatedResponse<FranchiseUserPass>>(
     `${API_V1_URI}/payment-pack/franchise_user_profile/${user_id}/consumer_payment_pack/${buildUrlParams(
+      paginated_params,
+    )}`,
+  );
+};
+
+export const fetchFranchiseUserInfo = (user_id: number) => {
+  return getAuth<FranchiseUser>(
+    `${API_V1_URI}/franchise_user_profile/${user_id}/`,
+  );
+};
+
+export const fetchFranchiseUserMembers = (
+  user_id: number,
+  paginated_params: PaginationFilterParams,
+) => {
+  return getAuth<PaginatedResponse<FranchiseUserMember>>(
+    `${API_V1_URI}/franchise_user_profile/${user_id}/get_user_members_in_franchise/${buildUrlParams(
       paginated_params,
     )}`,
   );

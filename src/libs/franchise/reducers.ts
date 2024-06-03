@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
+import type { PaginatedResponse } from '#src/state/types';
 import {
   fetchFranchiseActions,
   fetchFranchiseThemeActions,
@@ -12,7 +13,9 @@ import {
   updateFranchiseThemeActions,
   searchFranchiseUsersActions,
   fetchFranchiseUserPassesActions,
-} from './actions';
+  fetchFranchiseUserMembersActions,
+  fetchFranchiseUserInfoActions,
+} from '#src/libs/franchise/actions';
 
 import type {
   FranchiseCompany,
@@ -21,8 +24,8 @@ import type {
   CompanyGroup,
   Franchise,
   FranchiseUserPass,
+  FranchiseUserMember,
 } from '#src/libs/franchise/types';
-import type { PaginatedResponse } from '#src/state/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
@@ -54,6 +57,28 @@ const initialState: Immutable.Immutable<FranchiseState> =
       error: null,
     },
     userProfile: {
+      generalInformation: {
+        franchiseUser: {
+          companies: [],
+          company_member: {},
+          email: null,
+          id: null,
+          name: null,
+          phone: null,
+          photo: null,
+        },
+        loading: false,
+        error: null,
+      },
+      associatedMembers: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: null,
+      },
       passes: {
         page: 1,
         next_page: null,
@@ -300,6 +325,86 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
 
     // ---- User profile ----
+    // User general information
+    [fetchFranchiseUserInfoActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'generalInformation', 'loading'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserInfoActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'generalInformation', 'error'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserInfoActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: FranchiseUser },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'generalInformation', 'franchiseUser'],
+        payload,
+      );
+    },
+
+    // User members
+    [fetchFranchiseUserMembersActions.isLoading.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'associatedMembers', 'loading'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserMembersActions.error.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['userProfile', 'associatedMembers', 'error'],
+        payload,
+      );
+    },
+    [fetchFranchiseUserMembersActions.success.toString()]: (
+      state: Immutable.Immutable<FranchiseState>,
+      { payload }: { payload: PaginatedResponse<FranchiseUserMember> },
+    ) => {
+      const { page, next_page, count, results } = payload;
+
+      return state
+        .setIn(['userProfile', 'associatedMembers', 'page'], page)
+        .setIn(['userProfile', 'associatedMembers', 'next_page'], next_page)
+        .setIn(['userProfile', 'associatedMembers', 'count'], count)
+        .setIn(
+          ['userProfile', 'associatedMembers', 'allIds'],
+          uniq((results || []).map((member) => member.id)),
+        )
+        .merge(
+          {
+            userProfile: {
+              associatedMembers: {
+                byId: results.reduce(
+                  (acc: Record<number, FranchiseUserMember>, member) => {
+                    acc[member.id] = member;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+
     // User passes
     [fetchFranchiseUserPassesActions.isLoading.toString()]: (
       state: Immutable.Immutable<FranchiseState>,

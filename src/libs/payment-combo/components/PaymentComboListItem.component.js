@@ -9,13 +9,9 @@ import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Typography from '@material-ui/core/Typography';
-import { MenuItem } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { PaymentCombo } from '../types';
-import withConfirm from '../../../hocs/with-confirm.hoc';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
 import Tooltip from '#components/Tooltip.component';
@@ -30,57 +26,6 @@ type Props = {
   t: TFunction,
   isExcludingTax?: boolean,
 };
-
-const DeleteButton = (props: { onClick: () => void }) => (
-  <IconButton
-    onClick={(ev) => {
-      ev.stopPropagation();
-      ev.preventDefault();
-      props.onClick();
-    }}
-  >
-    <DeleteIcon />
-  </IconButton>
-);
-
-const DeleteButtonMenuItem = withTranslation(['paymentCombo'])(
-  (props: { onClick: () => void }) => (
-    <MenuItem
-      onClick={(ev) => {
-        ev.stopPropagation();
-        ev.preventDefault();
-        props.onClick();
-      }}
-    >
-      <ListItemIcon>
-        <DeleteIcon />
-      </ListItemIcon>
-      <Typography>{props.t('delete.submit')}</Typography>
-    </MenuItem>
-  ),
-);
-
-const DeleteButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
-  title: 'paymentCombo:delete.title',
-  cancel: 'paymentCombo:delete.cancel',
-  confirm: 'paymentCombo:delete.submit',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('paymentCombo:delete.content')}</p>
-  ),
-});
-
-const DeleteButtonWithConfirmMenuItem = withConfirm(
-  DeleteButtonMenuItem,
-  'onClick',
-  {
-    title: 'paymentCombo:delete.title',
-    cancel: 'paymentCombo:delete.cancel',
-    confirm: 'paymentCombo:delete.submit',
-    Content: ({ t }: { t: TFunction }) => (
-      <p>{t('paymentCombo:delete.content')}</p>
-    ),
-  },
-);
 
 export const PaymentComboListItem = (props: Props) => {
   if (!props.paymentCombo) {
@@ -134,8 +79,8 @@ export const PaymentComboListItem = (props: Props) => {
             },
           },
           props.onDelete && {
-            iconButtonComponent: DeleteButtonWithConfirm,
-            menuItemComponent: DeleteButtonWithConfirmMenuItem,
+            icon: DeleteIcon,
+            label: props.t('common.delete'),
             onClick: () => {
               props.onDelete();
             },

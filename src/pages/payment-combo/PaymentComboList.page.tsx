@@ -45,6 +45,7 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import ModalConfirm from '#src/components/ModalConfirm.component';
 
 type OwnProps = {
   t: TFunction;
@@ -53,6 +54,8 @@ type OwnProps = {
   openForm: boolean;
   setOpenForm: (arg: boolean) => void;
   comboInitialData?: PaymentCombo;
+  paymentComboIdToDelete: number | null;
+  setPaymentComboIdToDelete: (arg: number | null) => void;
 };
 
 type Props = OwnProps &
@@ -77,6 +80,18 @@ export class PaymentComboListPage extends React.Component<Props, State> {
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
   }
+
+  handleOnDeletePaymentCombo = (id: number) =>
+    this.props.setPaymentComboIdToDelete(id);
+
+  handleCancelDelete = () => this.props.setPaymentComboIdToDelete(null);
+
+  deletePaymentCombo = () =>
+    this.props.deletePaymentCombo(this.props.paymentComboIdToDelete, {
+      onSuccess: () => {
+        this.props.setPaymentComboIdToDelete(null);
+      },
+    });
 
   createOrUpdate = (values: any, options: OptionCallback) =>
     this.props.createOrUpdatePaymentCombo(values, {
@@ -161,7 +176,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
                       key={pc.id}
                       divider
                       onClick={() => this.props.goToPaymentCombo(pc.id)}
-                      onDelete={() => this.props.deletePaymentCombo(pc.id)}
+                      onDelete={() => this.handleOnDeletePaymentCombo(pc.id)}
                       onEdit={() => openCreateOrUpdateForm(pc)}
                       paymentCombo={pc}
                     />
@@ -174,7 +189,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
         <PaymentComboList
           loading={loading}
           onClickPaymentCombo={this.props.goToPaymentCombo}
-          onDelete={this.props.deletePaymentCombo}
+          onDelete={this.handleOnDeletePaymentCombo}
           onEdit={openCreateOrUpdateForm}
           paymentComboListAvailableOnline={paymentComboListAvailableOnline}
           paymentComboListUnavailableOnline={paymentComboListUnavailableOnline}
@@ -196,6 +211,17 @@ export class PaymentComboListPage extends React.Component<Props, State> {
             tagList={this.props.allTagsWithTagGroup}
           />
         ) : null}
+        <ModalConfirm
+          handleCancel={this.handleCancelDelete}
+          handleConfirm={this.deletePaymentCombo}
+          open={!!this.props.paymentComboIdToDelete}
+          options={{
+            title: 'paymentCombo:delete.title',
+            cancel: 'paymentCombo:delete.cancel',
+            confirm: 'paymentCombo:delete.submit',
+            Content: () => <p>{t('paymentCombo:delete.content')}</p>,
+          }}
+        />
       </div>
     );
   }
@@ -270,6 +296,7 @@ export default compose<any, Props>(
   }),
   withState('openForm', 'setOpenForm', false),
   withState('comboInitialData', 'setComboInitialData', null),
+  withState('paymentComboIdToDelete', 'setPaymentComboIdToDelete', null),
   withProps(({ setComboInitialData, setOpenForm }) => ({
     openCreateOrUpdateForm: (paymentCombo?: PaymentCombo) => {
       setComboInitialData(paymentCombo);

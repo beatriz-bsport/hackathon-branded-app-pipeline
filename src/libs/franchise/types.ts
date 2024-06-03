@@ -39,6 +39,20 @@ export type FranchiseState = {
     error: Error | null;
   };
   userProfile: {
+    generalInformation: {
+      franchiseUser: FranchiseUser;
+      loading: boolean;
+      error: Error | null;
+    };
+    associatedMembers: {
+      page: number;
+      next_page: number;
+      count: number;
+      allIds: number[];
+      byId: Record<number, FranchiseUserMember>;
+      loading: boolean;
+      error: Error | null;
+    };
     passes: {
       page: number;
       next_page: number;
@@ -242,3 +256,14 @@ export type FranchiseUserPrivatePass = {
   reverted: boolean;
   used_credits: number;
 };
+
+export type FranchiseUserMember = {
+  archived: boolean;
+  company_id: string;
+  company_name: string;
+  id: number;
+};
+
+export type FranchiseUserMembersQueryParams = {
+  user_id: number;
+} & PaginationFilterParams;

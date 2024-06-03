@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -17,29 +17,19 @@ import {
 } from '#src/components/untitledui';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import type { PaymentMethodsCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import './styles.css';
 
 const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
-  detachPaymentMethod,
   detachPaymentMethodLoading,
-  openAddPaymentMethodDialog,
   paymentMethodLoading,
   paymentMethods,
 }) => {
   const { t } = useTranslation(['consumerSpace']);
 
-  const handleDetachPaymentMethod = useCallback(
-    (id: string) => () => {
-      detachPaymentMethod?.(id);
-    },
-    [detachPaymentMethod],
-  );
-
-  const handleOpenPaymentMethodDialog = useCallback(
-    () => openAddPaymentMethodDialog(true),
-    [openAddPaymentMethodDialog],
-  );
+  const { openAddPaymentMethodPortal, selectPaymentMethodToDetach } =
+    useContext(ConsumerProfileContext) ?? {};
 
   const cards = useMemo(
     () =>
@@ -112,7 +102,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
                   className="bs-consumer-payment-methods-card__list-item__icon-button"
                   color="grey"
                   isDisabled={detachPaymentMethodLoading}
-                  onClick={handleDetachPaymentMethod(card.id)}
+                  onClick={selectPaymentMethodToDetach?.(card.id)}
                   size="md"
                   variant="outlined"
                 >
@@ -157,7 +147,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
                   className="bs-consumer-payment-methods-card__list-item__icon-button"
                   color="grey"
                   isDisabled={detachPaymentMethodLoading}
-                  onClick={handleDetachPaymentMethod(directPayment.id)}
+                  onClick={selectPaymentMethodToDetach?.(directPayment.id)}
                   size="md"
                   variant="outlined"
                 >
@@ -175,7 +165,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
           className="bs-consumer-payment-methods-card__button-section__button"
           color="grey"
           leftIcon={<CreditCardPlus />}
-          onClick={handleOpenPaymentMethodDialog}
+          onClick={openAddPaymentMethodPortal}
           size="md"
           variant="outlined"
         >

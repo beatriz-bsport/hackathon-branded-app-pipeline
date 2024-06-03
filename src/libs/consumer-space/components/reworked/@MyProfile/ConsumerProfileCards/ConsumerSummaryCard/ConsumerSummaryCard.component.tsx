@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -13,6 +13,7 @@ import {
   ConsumerSpiviSection,
 } from './sections';
 import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
+import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import './styles.css';
 
@@ -26,8 +27,6 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   emergencyContact,
   firstName,
   gender,
-  handleToggleBarcodeModal,
-  isMobile,
   lastName,
   memberId,
   membershipId,
@@ -41,6 +40,9 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { spiviEnabled } = useFeaturesProvider();
+  const { toggleBarcodeModal, isMobile } =
+    useContext(ConsumerProfileContext) ?? {};
+
   return (
     <div className="bs-consumer-summary-card__container">
       <Card className={classNames('bs-consumer-summary-card__root')}>
@@ -48,7 +50,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
           creditAccountBalance={creditAccountBalance}
           email={email}
           firstName={firstName}
-          handleToggleBarcodeModal={handleToggleBarcodeModal}
+          handleToggleBarcodeModal={toggleBarcodeModal}
           isMobile={isMobile}
           lastName={lastName}
           photo={photo}

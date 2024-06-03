@@ -1,5 +1,4 @@
 import type { PaymentMethod } from '#src/libs/payment/types';
-import type { OptionCallback } from '#src/state/types';
 
 export type ConsumerSummaryCardProps = {
   acceptEmail: boolean;
@@ -18,8 +17,6 @@ export type ConsumerSummaryCardProps = {
   emergencyContact: string;
   firstName: string;
   gender: string;
-  handleToggleBarcodeModal: () => void;
-  isMobile: boolean;
   lastName: string;
   memberId: number;
   membershipId: string;
@@ -36,19 +33,12 @@ export type PaymentMethodsCardProps = {
   paymentMethods: PaymentMethod[];
   paymentMethodLoading: boolean;
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (
-    paymentMethodId: string,
-    option?: OptionCallback,
-  ) => void;
-  openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
 };
 
 export type TermsAndConditionsCardProps = {
   dateJoined: string;
   generalTermsOfUseDateAccepted: string | null;
   generalTermsAndConditionsDateAccepted: string | null;
-  openTermsAndConditionsDialog: () => void;
-  openTermsOfUseDialog: () => void;
 };
 
 export type ConsumerHeaderProps = {

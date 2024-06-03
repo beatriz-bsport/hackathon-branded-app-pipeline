@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -9,15 +9,16 @@ import ListItem from '#Fabrique/ListItem';
 import Button from '#Fabrique/ButtonV2';
 
 import type { TermsAndConditionsCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import './styles.css';
 
 const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
   dateJoined,
   generalTermsAndConditionsDateAccepted,
-  openTermsAndConditionsDialog,
-  openTermsOfUseDialog,
 }) => {
   const { t } = useTranslation('consumerSpace');
+  const { toggleTermsAndConditionPortal, toggleTermsOfUsePortal } =
+    useContext(ConsumerProfileContext) ?? {};
 
   return (
     <Card className={classNames('bs-consumer-payment-terms-card__root')}>
@@ -35,7 +36,7 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
           label={
             <Button
               className="bs-consumer-payment-terms-card__list-item__button"
-              onClick={openTermsOfUseDialog}
+              onClick={toggleTermsOfUsePortal}
               size="sm"
               variant="text"
             >
@@ -56,7 +57,7 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
           label={
             <Button
               className="bs-consumer-payment-terms-card__list-item__button"
-              onClick={openTermsAndConditionsDialog}
+              onClick={toggleTermsAndConditionPortal}
               size="sm"
               variant="text"
             >

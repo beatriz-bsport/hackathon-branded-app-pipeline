@@ -282,7 +282,7 @@ type EmailDesignAPIParams = CommonParams;
 
 type EstablishmentAPIParams = CommonParams & FetchEstablishmentParams;
 
-type GiftcardAPIParams = CommonParams & { id__in?: number };
+type GiftcardAPIParams = CommonParams & { id__in?: number; disabled?: boolean };
 
 type GifcardTemplateAPIParams = CommonParams & { id__in?: number };
 

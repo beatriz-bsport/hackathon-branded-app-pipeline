@@ -3,14 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushAction } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 
-import {
-  WithStyles,
-  createStyles,
-  withStyles,
-  Theme,
-  Paper,
-  List,
-} from '@material-ui/core';
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -24,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import withTitle from '../../hocs/with-title.hoc';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
@@ -48,7 +42,6 @@ import {
 } from '../../libs/giftcard/selectors';
 import GiftcardFormDrawer from '../../libs/giftcard/components/GiftcardFormDrawer.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
 import DividerLoader from '../../components/DividerLoader.component';
 import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
@@ -68,7 +61,12 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import GiftcardListDeleteDialog from '#libs/giftcard/components/GiftcardListDeleteDialog.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -110,20 +108,35 @@ type OwnProps = {
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
   WithStyles &
-  WithTranslation;
+  WithTranslation &
+  WithObjectSearch;
 
 type State = {
   showDisabled: boolean;
-  searchText: string;
-  searchResult: Array<Giftcard>;
   giftcardIdToDelete: number | null;
 };
+
+const searchBarAdditionalParams = {
+  disabled: false,
+  manager_only: false,
+};
+
+type GiftcardOption = {
+  label: string;
+  onDuplicate?: (id: number) => void;
+  onEdit?: (id: number) => void;
+  onClick?: (id: number) => void;
+  giftcard: Giftcard;
+  value: number;
+};
+
+const Option: React.FC<OptionPropsWithData<GiftcardOption>> = (props) => (
+  <GiftcardListItem divider {...props.data} />
+);
 
 export class GiftcardListPage extends Component<Props, State> {
   state: State = {
     showDisabled: false,
-    searchText: '',
-    searchResult: [],
     giftcardIdToDelete: null,
   };
 
@@ -148,19 +161,6 @@ export class GiftcardListPage extends Component<Props, State> {
     this.props.removeImage(id);
   };
 
-  changeSearch = (fuse: string) => (ev: MouseEvent) => {
-    this.setState({
-      // @ts-expect-error
-      searchText: ev.target.value,
-      // @ts-expect-error
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
-
   handleOpenDeleteModal = (id: number) =>
     this.setState({ giftcardIdToDelete: id });
 
@@ -168,10 +168,28 @@ export class GiftcardListPage extends Component<Props, State> {
 
   handleDeleteGiftCard = () => {
     this.props.deleteGiftcard(this.state.giftcardIdToDelete, {
-      onSuccess: this.handleCloseDeleteModal,
-      onError: this.handleCloseDeleteModal,
+      onSuccess: () => {
+        this.setState({ giftcardIdToDelete: null });
+        this.props.refreshOptions('giftcard', searchBarAdditionalParams);
+      },
+      onError: () => {
+        this.setState({ giftcardIdToDelete: null });
+        this.props.refreshOptions('giftcard', searchBarAdditionalParams);
+      },
     });
   };
+
+  giftcardOptionsFormatter = (giftcards: Giftcard[]): GiftcardOption[] =>
+    giftcards.map((giftcard) => {
+      return {
+        label: giftcard.name,
+        giftcard,
+        onClick: this.props.goToGiftcard,
+        onEdit: this.props.openEditForm,
+        onRemove: this.handleOpenDeleteModal,
+        value: giftcard.id,
+      };
+    });
 
   render() {
     const { classes, t } = this.props;
@@ -179,48 +197,16 @@ export class GiftcardListPage extends Component<Props, State> {
       <div className={classes.container}>
         {this.props.loading && <BackofficeLinearProgressComponent />}
         {this.props.giftcardListActive?.length ? (
-          <>
-            <FuzeSearch
-              // @ts-expect-error
-              changeSearch={this.changeSearch}
-              clearSearch={this.clearSearch}
-              items={[...this.props.giftcardListActive]}
-              placeholder={t('search')}
-              searchFields={['name']}
-              searchResult={this.state.searchResult}
-              searchText={this.state.searchText}
-            />
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? classes.searchPaperDisplayed
-                  : classes.searchPaperHidden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <Paper>
-                  <List disablePadding>
-                    {this.state.searchResult.map((giftcard) => (
-                      <GiftcardListItem
-                        key={giftcard.id}
-                        divider
-                        giftcard={giftcard}
-                        onClick={this.props.goToGiftcard}
-                        onEdit={this.props.openEditForm}
-                        onRemove={this.handleOpenDeleteModal}
-                      />
-                    ))}
-                  </List>
-                </Paper>
-              </Collapse>
-            </Paper>
-          </>
+          <ObjectSearchComponent
+            additionalParams={searchBarAdditionalParams}
+            components={{
+              Option,
+            }}
+            optionsFormatter={this.giftcardOptionsFormatter}
+            placeholder={this.props.t('search')}
+            searchedObjectType="giftcard"
+            variant="underlined"
+          />
         ) : null}
         <div className={classes.buttonRow}>
           <Button
@@ -397,6 +383,7 @@ export default compose(
     'queryParams',
     'setQueryParams',
   ]),
+  withObjectSearch,
   withHandlers({
     closeForms:
       ({ setQueryParams, queryParams }) =>

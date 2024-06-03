@@ -48,6 +48,10 @@ module.exports = {
         setItem: (key, value) => null,
         getItem: (key) => null,
       },
+      sessionStorage: {
+        setItem: (key, value) => null,
+        getItem: (key) => null,
+      },
       storage: {
         setItem: () => null,
         getItem: () => null,

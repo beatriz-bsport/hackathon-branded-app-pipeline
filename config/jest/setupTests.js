@@ -27,4 +27,16 @@ const localStorageMock = {
   },
 };
 
+const sessionStorageMock = {
+  getItem: (id) => data[id],
+  setItem: (id, value) => {
+    data[id] = value;
+  },
+  clear: (id) => {
+    data[id] = '';
+  },
+};
+
+
 window.localStorage = localStorageMock;
+window.sessionStorage = sessionStorageMock;

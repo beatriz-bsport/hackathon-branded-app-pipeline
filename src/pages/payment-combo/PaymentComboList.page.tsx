@@ -5,12 +5,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
-import List from '@material-ui/core/List';
 
-import Collapse from '@material-ui/core/Collapse';
-import Paper from '@material-ui/core/Paper';
 import { Theme } from '@material-ui/core/styles';
-import Fuse, { FuseOptions } from 'fuse.js';
+import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import {
   fetchPaymentComboList,
   createOrUpdatePaymentCombo,
@@ -23,7 +20,6 @@ import {
   getPaymentComboListAvailableForSale,
   getPaymentComboListUnavailableForSale,
 } from '#libs/payment-combo/selectors';
-import FuzeSearch from '../../components/FuzeSearch.component';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
 // @ts-expect-error
@@ -45,6 +41,11 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
+import {
+  withObjectSearch,
+  WithObjectSearch,
+} from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 
 type OwnProps = {
@@ -61,25 +62,33 @@ type OwnProps = {
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
-  ConnectedProps<typeof connector>;
+  ConnectedProps<typeof connector> &
+  WithObjectSearch;
 
-type State = {
-  searchText: string;
-  searchResult: Array<PaymentCombo>;
+type PaymentComboOption = {
+  label: string;
+  onClick: () => void;
+  onDelete: () => void;
+  onEdit: () => void;
+  paymentCombo: PaymentCombo;
+  value: number;
 };
-export class PaymentComboListPage extends React.Component<Props, State> {
-  state = {
-    searchText: '',
-    // @ts-expect-error
-    searchResult: [],
-  };
 
+const Option: React.FC<OptionPropsWithData<PaymentComboOption>> = (props) => (
+  <PaymentComboListItem divider {...props.data} />
+);
+
+export class PaymentComboListPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchPaymentComboList();
     this.props.fetchTags();
     IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
       this.props.fetchBookkeepingAccountList();
   }
+
+  readonly searchBarAdditionalParams = {
+    available: true,
+  };
 
   handleOnDeletePaymentCombo = (id: number) =>
     this.props.setPaymentComboIdToDelete(id);
@@ -90,6 +99,10 @@ export class PaymentComboListPage extends React.Component<Props, State> {
     this.props.deletePaymentCombo(this.props.paymentComboIdToDelete, {
       onSuccess: () => {
         this.props.setPaymentComboIdToDelete(null);
+        this.props.refreshOptions(
+          'payment_combo',
+          this.searchBarAdditionalParams,
+        );
       },
     });
 
@@ -97,6 +110,10 @@ export class PaymentComboListPage extends React.Component<Props, State> {
     this.props.createOrUpdatePaymentCombo(values, {
       onSuccess: (...args) => {
         if (options && options.onSuccess) options.onSuccess(...args);
+        this.props.refreshOptions(
+          'payment_combo',
+          this.searchBarAdditionalParams,
+        );
         this.props.setOpenForm(false);
         this.props.fetchPaymentComboList();
       },
@@ -105,23 +122,22 @@ export class PaymentComboListPage extends React.Component<Props, State> {
       },
     });
 
-  changeSearch =
-    (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) =>
-    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      this.setState({
-        searchText: ev.target.value,
-        // @ts-expect-error
-        searchResult: fuse.search(ev.target.value),
-      });
-    };
-
-  clearSearch = () => {
-    this.setState({ searchText: '', searchResult: [] });
-  };
+  paymentCombosOptionsFormatter = (
+    paymentCombos: PaymentCombo[],
+  ): PaymentComboOption[] =>
+    paymentCombos.map((paymentCombo) => {
+      return {
+        label: paymentCombo.name,
+        onClick: () => this.props.goToPaymentCombo(paymentCombo.id),
+        onDelete: () => this.handleOnDeletePaymentCombo(paymentCombo.id),
+        onEdit: () => this.props.openCreateOrUpdateForm(paymentCombo),
+        paymentCombo,
+        value: paymentCombo.id,
+      };
+    });
 
   render() {
     const {
-      paymentComboList,
       t,
       classes,
       loading,
@@ -145,45 +161,16 @@ export class PaymentComboListPage extends React.Component<Props, State> {
           />
         ) : (
           <div className={classes.search}>
-            <FuzeSearch
-              changeSearch={this.changeSearch}
-              clearSearch={this.clearSearch}
-              items={paymentComboList}
-              placeholder={t('search')}
-              searchFields={['name']}
-              // @ts-expect-error
-              searchResult={this.state.searchResult}
-              searchText={this.state.searchText}
+            <ObjectSearchComponent
+              additionalParams={this.searchBarAdditionalParams}
+              components={{
+                Option,
+              }}
+              optionsFormatter={this.paymentCombosOptionsFormatter}
+              placeholder={this.props.t('search')}
+              searchedObjectType="payment_combo"
+              variant="underlined"
             />
-
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? classes.searchPaperDisplayed
-                  : classes.searchPaperHidden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <List disablePadding>
-                  {this.state.searchResult.map((pc) => (
-                    <PaymentComboListItem
-                      key={pc.id}
-                      divider
-                      onClick={() => this.props.goToPaymentCombo(pc.id)}
-                      onDelete={() => this.handleOnDeletePaymentCombo(pc.id)}
-                      onEdit={() => openCreateOrUpdateForm(pc)}
-                      paymentCombo={pc}
-                    />
-                  ))}
-                </List>
-              </Collapse>
-            </Paper>
           </div>
         )}
         <PaymentComboList
@@ -297,6 +284,7 @@ export default compose<any, Props>(
   withState('openForm', 'setOpenForm', false),
   withState('comboInitialData', 'setComboInitialData', null),
   withState('paymentComboIdToDelete', 'setPaymentComboIdToDelete', null),
+  withObjectSearch,
   withProps(({ setComboInitialData, setOpenForm }) => ({
     openCreateOrUpdateForm: (paymentCombo?: PaymentCombo) => {
       setComboInitialData(paymentCombo);

@@ -128,4 +128,6 @@ export type PaymentComboAPIParams = {
   as_consumer_of_company?: number;
   video?: number;
   include_expired?: boolean;
+  available?: boolean;
+  manager_only?: boolean;
 };

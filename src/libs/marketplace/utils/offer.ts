@@ -7,13 +7,13 @@ import {
   Offer_FULL,
   OfferREST,
 } from '#libs/offer/types';
+import { isDateInThePast } from '#src/utils/datetime';
 import {
   OFFER_DATE_HOURS_SEPARATOR,
   OFFER_HOURS_SEPARATOR,
   OFFER_NAME_CAPITALIZED_MAX_LENGTH,
   OFFER_NAME_MAX_LENGTH,
 } from '../constants';
-import { isDateInThePast } from '#src/utils/datetime';
 
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {

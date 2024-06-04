@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import classnames from 'classnames';
 
+// eslint-disable-next-line import/no-unresolved
 import { compose } from 'recompose';
 
 import { push as pushRouter } from 'connected-react-router';
@@ -49,22 +50,12 @@ import InboxIcon from '@material-ui/icons/Inbox';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
-import Config from '../../../config';
-import { getTextColorFromRGB } from '../../../utils/color';
 import { getAllUnreadAnswersCount } from '#libs/communication-v2/selectors';
 
-import BillingBanner from '../BillingBanner.component';
-import StripeOnboardingBanner from '../StripeOnboardingBanner.component';
-// @ts-expect-error
-import LanguageButton from '../../button/LanguageButton.component';
 // @ts-expect-error
 import TempPasswordDialog from '#libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '#libs/cashbook/components/CashBookForm.component';
-import SearchBar from '../../SearchBar.component';
 import AlertButtonMenu from '#libs/alerting/components/AlertButtonMenu.component';
-import { windowTitleToProps } from '../../../hocs/with-title.hoc';
-import { openIntercomHelp } from '../../../intercom';
 import { DeleteAlert } from '#libs/alerting/types';
 import { TempPasswordState } from '#libs/login/types';
 import type {
@@ -72,9 +63,7 @@ import type {
   Role,
   ObjectLevelPermissions,
 } from '#libs/role/types';
-import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
 import ClockInDialog from '#libs/clock-in/components/ClockInDialog.component';
-import ResponsiveDrawer from './ResponsiveDrawer.component';
 import type {
   LastClockIn,
   UserWithRealTimeAttendance,
@@ -84,7 +73,6 @@ import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_INBOX,
 } from '#libs/platform-billing/upsell-identifiers';
-import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 import {
   TUTORIAL_GENERIC_DIALOG_WELCOME,
@@ -93,14 +81,27 @@ import {
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import ProtectedRoutes from '#components/navigation/ProtectedRoutes.component';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ResponsiveDrawer from './ResponsiveDrawer.component';
+import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { RootState } from '../../../reducers';
 import type {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../state/types';
 
-import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
+import { openIntercomHelp } from '../../../intercom';
+import { windowTitleToProps } from '../../../hocs/with-title.hoc';
+import SearchBar from '../../SearchBar.component';
+// @ts-expect-error
+import LanguageButton from '../../button/LanguageButton.component';
+import StripeOnboardingBanner from '../StripeOnboardingBanner.component';
+import BillingBanner from '../BillingBanner.component';
+import { getTextColorFromRGB } from '../../../utils/color';
+import Config from '../../../config';
+import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;

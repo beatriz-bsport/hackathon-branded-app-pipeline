@@ -21,33 +21,33 @@ import MarketPlaceOfferListItemComponent from '#marketplacecomponents/@Offer/Mar
 import { Offer_FULL, Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { Theme } from '#libs/theme/types';
-import {
-  isOfferInThePast,
-  isOfferInGroupLockedByPreviousOfferInPast,
-} from '../../../utils';
 import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 
-import type { LuxonDateTime } from '#src/types';
-
+import {
+  isOfferInThePast,
+  isOfferInGroupLockedByPreviousOfferInPast,
+} from '../../../utils';
 import './MarketplaceWeekTimeTableCSSOnly.css';
 
 const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
+
 export type Props = {
   loading: boolean;
   onClickOffer: () => void;
   onClickBook: (offer: Offer_FULL) => void;
   onClickBookOption: (offer: Offer_FULL) => void;
   getLevel: { [id: number]: Level };
-  date: LuxonDateTime;
+  date: DateTime;
   t: TFunction;
   showOfferFilling: boolean;
   hideCoach: boolean;
   activityLoading: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   coachLoading: boolean;
   establishmentLoading: boolean;
   offers: Array<Offer>;
@@ -73,7 +73,7 @@ type State = {
 };
 
 const getWeekOffers = (
-  selectedDate: LuxonDateTime,
+  selectedDate: DateTime,
   offers: Array<Offer>,
   themeOptions?: { startWeekOnDaySelected?: boolean },
 ) => {
@@ -131,8 +131,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   /**
    * function that split offers into day periods [morning, afternoon, evening]
    */
-
-  getOffersByPeriod = memoize((date: LuxonDateTime, offers: Array<Offer>) => {
+  getOffersByPeriod = memoize((date: DateTime, offers: Array<Offer>) => {
     const morning: Array<Array<Offer>> = [];
     const afternoon: Array<Array<Offer>> = [];
     const evening: Array<Array<Offer>> = [];
@@ -160,7 +159,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     return [morning, afternoon, evening];
   });
 
-  getOffersByDay = memoize((date: LuxonDateTime, offers: Array<Offer>) => {
+  getOffersByDay = memoize((date: DateTime, offers: Array<Offer>) => {
     const day_offers = offers.filter((offer) =>
       DateTime.fromISO(offer.date_start).hasSame(date, 'day'),
     );
@@ -400,7 +399,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderNextDaysOffersListVersion = (
-    main_date: LuxonDateTime,
+    main_date: DateTime,
     offers: Array<Offer>,
   ) => {
     const next_days = [

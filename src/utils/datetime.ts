@@ -17,7 +17,7 @@ export function formatAsDate(date: string, tzname?: string) {
   return luxonDate.setZone(tzname).toLocaleString(DateTime.DATE_SHORT);
 }
 
-/*
+/**
  Format date following the LL format with month as word  e.g : March 16, 1990, or 16 March 1990 depending on the locale.
  We also inject the weekday at the beging of the formated date. It follows the rules set by theme.days_format_display
  - Default = Friday March 16, 1990

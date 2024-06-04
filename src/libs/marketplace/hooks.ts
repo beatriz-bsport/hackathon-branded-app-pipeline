@@ -13,12 +13,6 @@ import { DateTime } from 'luxon';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { useTranslation } from 'react-i18next';
-import {
-  formatAsDateWithWeekday,
-  formatISOStringAsTime,
-  formatMinutes,
-  getUserZone,
-} from '../../utils/datetime';
 
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
@@ -33,6 +27,12 @@ import type { CompanyTheme, Theme } from '#libs/theme/types';
 import { Offer, OfferWithSpotInformation, Offer_FULL } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Contract } from '#libs/subscription/types';
+import {
+  formatAsDateWithWeekday,
+  formatISOStringAsTime,
+  formatMinutes,
+  getUserZone,
+} from '../../utils/datetime';
 
 /**
  * @description Hook used in the component MarketplaceContractList for handling

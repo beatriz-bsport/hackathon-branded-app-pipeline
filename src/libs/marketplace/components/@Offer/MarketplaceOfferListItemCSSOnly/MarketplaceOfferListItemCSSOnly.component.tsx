@@ -2,15 +2,12 @@ import React, { useCallback } from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
 import { useTranslation } from 'react-i18next';
-import {
-  formatAsDateWithWeekday,
-  getUserZone,
-} from '../../../../../utils/datetime';
 import MaleIcon from '#components/icons/MaleIcon.component';
 import FemaleIcon from '#components/icons/FemaleIcon.component';
 
@@ -39,8 +36,12 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 import PopOver from '#components/Popover';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
+import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+import {
+  formatAsDateWithWeekday,
+  getUserZone,
+} from '../../../../../utils/datetime';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 
@@ -712,6 +713,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   offer={offer}
                 />
               )}
+
               <MarketplaceOfferStatusChip
                 showLabel
                 companyTheme={theme}

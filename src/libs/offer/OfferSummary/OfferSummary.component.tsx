@@ -19,7 +19,6 @@ import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personal
 
 import { ImmutableObject } from 'seamless-immutable';
 import PersonAdd from '@material-ui/icons/PersonAdd';
-import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -33,11 +32,12 @@ import {
   type Offer,
   OfferSummaryVariant,
 } from '#libs/offer/types';
-import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
 import MarketplaceBroadcastCSSOnly from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
+import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { OfferSummarySkeleton } from '.';
 
 export type Props = {

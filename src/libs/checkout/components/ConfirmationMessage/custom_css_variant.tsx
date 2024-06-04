@@ -128,7 +128,7 @@ export const CONFIRMATION_CHECKOUT_MESSAGE_PREVIEW: React.FC<{
       <Alert severity="info" style={{ alignItems: 'center' }}>
         {t('widget.cssConfig.confirmationMessageComponentAlert')}
       </Alert>
-      <ConfirmationMessage {...componentProps} />;
+      <ConfirmationMessage {...componentProps} />
     </div>
   );
 });

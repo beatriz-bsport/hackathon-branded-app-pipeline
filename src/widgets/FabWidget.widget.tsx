@@ -1,15 +1,21 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import {
   Badge,
   ButtonBase,
   Fade,
   Grow,
   Portal,
-  Theme,
   Tooltip,
 } from '@material-ui/core';
+import {
+  withStyles,
+  createStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import type {
+  WithStyles,
+  Theme,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import CreditCard from '@material-ui/icons/CreditCard';
 import HomeIcon from '@material-ui/icons/Home';
@@ -17,9 +23,8 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import TodayIcon from '@material-ui/icons/Today';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import { RootState } from '../reducers';
 import {
   closeUserInteractionPortal,
@@ -44,9 +49,8 @@ type OwnProps = {
 };
 
 type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles> &
   WithTranslation;
 
 type State = {
@@ -273,84 +277,85 @@ class FabWidget extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  container: {
-    position: 'fixed',
-    bottom: 20,
-    left: 20,
-    zIndex: 9999,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  backgroundActions: {
-    width: '100vw',
-    height: '100vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: 999,
-    backgroundColor: '#00000033',
-  },
-  backgroundButton: {
-    width: '100%',
-    height: '100%',
-  },
-  radius50: {
-    borderRadius: '50% !important',
-  },
-  fab: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 56,
-    height: 56,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    'box-shadow': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-  },
-  actionButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-    marginBottom: theme.spacing(2),
-    borderRadius: '50%',
-    backgroundColor: 'white',
-    'box-shadow': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-  },
-  iframe: {
-    display: 'none !important',
-  },
-  fabBadgeBasket: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    width: 20,
-    height: 20,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.secondary.main,
-    fontSize: 14,
-    right: 0,
-    bottom: 0,
-  },
-  fabBadgeBookings: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    width: 20,
-    height: 20,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.secondary.main,
-    fontSize: 14,
-    right: 0,
-    top: 0,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      position: 'fixed',
+      bottom: 20,
+      left: 20,
+      zIndex: 9999,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    backgroundActions: {
+      width: '100vw',
+      height: '100vh',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 999,
+      backgroundColor: '#00000033',
+    },
+    backgroundButton: {
+      width: '100%',
+      height: '100%',
+    },
+    radius50: {
+      borderRadius: '50% !important',
+    },
+    fab: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 56,
+      height: 56,
+      borderRadius: '50%',
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
+      'box-shadow': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    },
+    actionButton: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 40,
+      height: 40,
+      marginBottom: theme.spacing(2),
+      borderRadius: '50%',
+      backgroundColor: 'white',
+      'box-shadow': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    },
+    iframe: {
+      display: 'none !important',
+    },
+    fabBadgeBasket: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      backgroundColor: theme.palette.secondary.main,
+      fontSize: 14,
+      right: 0,
+      bottom: 0,
+    },
+    fabBadgeBookings: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      backgroundColor: theme.palette.secondary.main,
+      fontSize: 14,
+      right: 0,
+      top: 0,
+    },
+  });
 
 const mapStateToProps = (state: RootState) => ({
   dialogUrl: state.modal.url,
@@ -373,9 +378,10 @@ const mapDispatchToProps = {
   bridgeRequestBookingCount,
 };
 
-export default compose<any, OwnProps>(
-  // @ts-ignore
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose<Props, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withTranslation(['checkout', 'navigation']),
 )(FabWidget);

@@ -3,6 +3,7 @@ import { Form } from 'formik';
 import BottomDrawer from '#Fabrique/BottomDrawer';
 import ConsumerFormFields from '#src/libs/custom-form/components/consumer-form/CustomForm.formik-hoc';
 import type { CustomFormModalsProps } from './types';
+import { PortalContainer } from '#Fabrique/PortalContainer';
 import './styles.css';
 
 const CustomFormBottomDrawer: React.FC<CustomFormModalsProps> = ({
@@ -19,24 +20,26 @@ const CustomFormBottomDrawer: React.FC<CustomFormModalsProps> = ({
   ...restProps
 }) => {
   return (
-    <BottomDrawer
-      blanketProps={{ isOpen, onClick: onClose }}
-      modalDialogProps={{
-        cancelLabel,
-        confirmLabel,
-        isSubmitLoading: isSubmitting,
-        onCancel,
-        onClose,
-        onConfirm: onClickSubmit,
-        size: size ?? 'xl',
-        subtitle,
-        title,
-      }}
-    >
-      <Form>
-        <ConsumerFormFields {...restProps} />
-      </Form>
-    </BottomDrawer>
+    <PortalContainer wrapperId="bs-fabrique-custom-form-view-portal-container">
+      <BottomDrawer
+        blanketProps={{ isOpen, onClick: onClose }}
+        modalDialogProps={{
+          cancelLabel,
+          confirmLabel,
+          isSubmitLoading: isSubmitting,
+          onCancel,
+          onClose,
+          onConfirm: onClickSubmit,
+          size: size ?? 'xl',
+          subtitle,
+          title,
+        }}
+      >
+        <Form>
+          <ConsumerFormFields {...restProps} />
+        </Form>
+      </BottomDrawer>
+    </PortalContainer>
   );
 };
 

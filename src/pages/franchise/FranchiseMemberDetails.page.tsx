@@ -9,16 +9,14 @@ import { Route, Switch } from 'react-router-dom';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import {
-  getFranchiseUserById,
-  withAllowedFranchisees,
-} from '#src/libs/franchise/selectors';
+import { getFranchiseUserInfo } from '#src/libs/franchise/selectors';
 import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
 import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
-import type { RootState } from '../../reducers';
+import type { RootState } from '#src/reducers';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
-import Config from '../../config';
+import asyncComponent from '#src/AsyncComponent';
+import Config from '#src/config';
+import { fetchFranchiseUserInfo as fetchFranchiseUserInfoAction } from '#src/libs/franchise/actions';
 
 const FranchiseMemberDetailInfo = asyncComponent(
   () => import('./FranchiseMemberDetailInfo.page'),
@@ -77,6 +75,7 @@ const FranchiseMemberDetails: React.FC<Props> = ({
   tab,
   pageHeight,
   push,
+  fetchFranchiseUserInfo,
 }) => {
   const pushToTab = (id: number, newTab: string) =>
     push(`/f/members/${id}/member/${newTab}`);
@@ -84,6 +83,10 @@ const FranchiseMemberDetails: React.FC<Props> = ({
   const handleOnChange = (newTab: string) => {
     pushToTab(userId, newTab);
   };
+
+  React.useEffect(() => {
+    fetchFranchiseUserInfo({ user_id: userId });
+  }, [fetchFranchiseUserInfo, userId]);
 
   return (
     <ContentWithAppBar
@@ -132,12 +135,12 @@ const FranchiseMemberDetails: React.FC<Props> = ({
 };
 
 const connector = connect(
-  (state: RootState, props: { userId: number; tab: string }) => ({
-    // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
-    user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
+  (state: RootState) => ({
+    user: getFranchiseUserInfo(state),
   }),
   {
     push: pushAction,
+    fetchFranchiseUserInfo: fetchFranchiseUserInfoAction,
   },
 );
 

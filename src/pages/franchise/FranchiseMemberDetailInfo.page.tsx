@@ -1,27 +1,36 @@
 import React, { useEffect } from 'react';
-import { push as pushAction } from 'connected-react-router';
 
 import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
+import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classnames from 'classnames';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
-
+import FranchiseMemberPageLayout from '#src/components/franchise/FranchiseMemberPageLayout.component';
+import FranchiseMemberSectionLayout from '#src/components/franchise/FranchiseMemberSectionLayout.component';
+import FranchiseMemberRowItem from '#src/libs/franchise/components/FranchiseMemberRowItem.component';
 import {
+  fetchFranchiseUserInfo as fetchFranchiseUserInfoAction,
+  fetchFranchiseUserMembers as fetchFranchiseUserMembersAction,
   fetchFranchise as fetchFranchiseAction,
-  fetchFranchiseUser as fetchFranchiseUserAction,
 } from '#src/libs/franchise/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
-import {
-  getFranchiseUserById,
-  withAllowedFranchisees,
-} from '#src/libs/franchise/selectors';
 import FranchiseMemberDetailsCard from '#src/libs/franchise/components/FranchiseMemberDetailsCard.components';
-import FranchiseMemberMembership from '#src/libs/franchise/components/FranchiseMemberMembership.components';
-import type { RootState } from '../../reducers';
+import type { RootState } from '#src/reducers';
 // @ts-expect-error
-import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
+import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '#src/actions/auth.actions';
+import { FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE } from '#src/libs/franchise/constants';
+import type { FranchiseUserMember } from '#src/libs/franchise/types';
+import {
+  getFranchiseUserInfo,
+  getFranchiseUserMembersCount,
+  getFranchiseUserMembersLoading,
+  getFranchiseUserMembersPage,
+  getFranchiseUserMembersList,
+} from '#src/libs/franchise/selectors';
+// @ts-expect-error
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
 
 type ParamsProps = {
   userId: number;
@@ -32,22 +41,31 @@ type Props = ParamsProps & ConnectedProps<typeof connector>;
 const FranchiseMemberDetailInfo: React.FC<Props> = ({
   userId,
   user,
-  fetchFranchiseUser,
+  members,
+  membersLoading,
+  membersCount,
+  membersPage,
+  fetchFranchiseUserInfo,
+  fetchFranchiseUserMembers,
   fetchFranchise,
   navigateAsCompanyAdmin,
-  push,
 }) => {
+  const { t } = useTranslation('franchise');
   const classes = useStyles();
 
-  useEffect(() => {
-    fetchFranchiseUser({ userId });
-  }, [fetchFranchiseUser, userId]);
+  const listProps = {
+    className: classes.companiesContainer,
+  };
 
   useEffect(() => {
+    fetchFranchiseUserInfo({ user_id: userId });
+  }, [fetchFranchiseUserInfo, userId]);
+
+  React.useEffect(() => {
     fetchFranchise();
   }, [fetchFranchise]);
 
-  const goToCompanyDetails = React.useCallback(
+  const goToMemberInCompany = React.useCallback(
     (companyId: number) => () => {
       navigateAsCompanyAdmin(
         companyId,
@@ -57,67 +75,68 @@ const FranchiseMemberDetailInfo: React.FC<Props> = ({
     [navigateAsCompanyAdmin, user?.company_member],
   );
 
-  const goToFranchiseCompanyDetails = React.useCallback(
-    (companyId: number) => () => {
-      push(`/f/franchises/${companyId}`);
+  const fetchMembersList = React.useCallback(
+    (page: number) => {
+      fetchFranchiseUserMembers({ user_id: userId, page });
     },
-    [push],
+    [fetchFranchiseUserMembers, userId],
   );
 
+  if (!user) return <LinearProgress />;
+
   return (
-    <div className={classes.container}>
-      {user ? (
-        <>
-          <div className={classnames(classes.content, classes.left)}>
-            <FranchiseMemberDetailsCard user={user} />
-          </div>
-          <div className={classes.content}>
-            <FranchiseMemberMembership
-              // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
-              companies={user?.companies}
-              goToCompanyDetails={goToCompanyDetails}
-              goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
+    <FranchiseMemberPageLayout
+      leftChildren={
+        <FranchiseMemberSectionLayout>
+          <FranchiseMemberDetailsCard user={user} />
+        </FranchiseMemberSectionLayout>
+      }
+      rightChildren={
+        <FranchiseMemberSectionLayout title={t('member.franchises')}>
+          <Paper>
+            <PaginatedListBase
+              displayDivider
+              itemPerPage={FRANCHISE_USER_MEMBERS_PAGE_DEFAULT_SIZE}
+              items={members}
+              listProps={listProps}
+              loading={membersLoading}
+              nbItems={membersCount}
+              onPageRequested={fetchMembersList}
+              page={membersPage}
+              renderItem={(member: FranchiseUserMember) => (
+                <FranchiseMemberRowItem
+                  isLast={member.id === members.at(-1).id}
+                  member={member}
+                  onClick={goToMemberInCompany(parseInt(member.company_id))}
+                />
+              )}
             />
-          </div>
-        </>
-      ) : (
-        <LinearProgress />
-      )}
-    </div>
+          </Paper>
+        </FranchiseMemberSectionLayout>
+      }
+    />
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    width: '100%',
-    display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      padding: theme.spacing(4),
-    },
-  },
-  content: {
-    flex: 1,
-  },
-  left: {
-    marginRight: theme.spacing(4),
-    [theme.breakpoints.down('sm')]: {
-      marginRight: 0,
-      marginBottom: theme.spacing(4),
-    },
+  companiesContainer: {
+    padding: theme.spacing(2),
   },
 }));
 
 const connector = connect(
-  (state: RootState, props: { userId: number }) => ({
-    // @ts-expect-error -> TO DO: will be corrected in the BS-3827 ticket
-    user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
+  (state: RootState) => ({
+    user: getFranchiseUserInfo(state),
+    members: getFranchiseUserMembersList(state),
+    membersLoading: getFranchiseUserMembersLoading(state),
+    membersCount: getFranchiseUserMembersCount(state),
+    membersPage: getFranchiseUserMembersPage(state),
   }),
   {
-    fetchFranchiseUser: fetchFranchiseUserAction,
+    fetchFranchiseUserInfo: fetchFranchiseUserInfoAction,
+    fetchFranchiseUserMembers: fetchFranchiseUserMembersAction,
     fetchFranchise: fetchFranchiseAction,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
-    push: pushAction,
   },
 );
 

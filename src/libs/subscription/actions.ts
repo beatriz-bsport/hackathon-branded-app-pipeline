@@ -1,7 +1,5 @@
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
-
-import type { Contract } from '#src/libs/subscription/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { COMPANY_EVENTS } from './event.utils';
 import api, {
@@ -28,6 +26,7 @@ import api, {
   registerContractSubscriptionUnauthenticated as registerContractBackgroundUnauthenticatedAPI,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAPI,
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAPI,
+  fetchContractTemplateList as fetchContractTemplateListAPI,
 } from './api';
 
 import type {
@@ -35,24 +34,29 @@ import type {
   ThunkAction,
   OptionCallback,
   OptionBackgroundCallback,
-} from '../../state/types';
+  PaginatedResponse,
+} from '#src/state/types';
 import {
   snackbarSuccess,
   snackbarWarning,
   snackbarError,
 } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
-import {
+import type {
   PauseRequestData,
   Subscription,
   SubscriptionQueryParams,
   ContractPauseRequestData,
   ContractPauseDetails,
   RegisterBackgroundReturnValue,
+  ContractTemplate,
+  Contract,
+  ContractTemplatePaginatedQueryParams,
 } from './types';
-
+import { CONTRACT_TEMPLATE_PAGE_SIZE } from './constants';
 import { fetchEventList } from '../event/actions';
 import { downloadDocument } from '../../utils/downloader';
+import { RootState } from '#src/reducers';
 
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},
@@ -1133,3 +1137,88 @@ export function downloadPDFContractTermsForBillingPlan(
     dispatch(downloadPDFContractTermsActions.isLoading(false));
   };
 }
+
+export const fetchActiveContractTemplateListActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<ContractTemplate>>(
+    'FRANCHISE/ACTIVE_CONTRACT_TEMPLATE/LIST/SUCCESS',
+  ),
+};
+
+export function fetchActiveContractTemplateList(
+  params?: ContractTemplatePaginatedQueryParams,
+  options?: OptionCallback<ContractTemplate[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchActiveContractTemplateListActions.isLoading(true));
+    dispatch(fetchActiveContractTemplateListActions.error(null));
+    const page =
+      params?.page ??
+      getState().subscription?.contractTemplate?.active?.page ??
+      1;
+    try {
+      const response = await fetchContractTemplateListAPI({
+        ...params,
+        page,
+        page_size: params?.page_size ?? CONTRACT_TEMPLATE_PAGE_SIZE,
+        disabled: false,
+      });
+      dispatch(fetchActiveContractTemplateListActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchActiveContractTemplateListActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchActiveContractTemplateListActions.isLoading(false));
+  };
+}
+
+export const fetchDisabledContractTemplateListActions = {
+  error: createAction<Error | null>(
+    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<ContractTemplate>>(
+    'FRANCHISE/DISABLED_CONTRACT_TEMPLATE/LIST/SUCCESS',
+  ),
+};
+
+export const fetchDisabledContractTemplateList =
+  (
+    params?: ContractTemplatePaginatedQueryParams,
+    options?: OptionCallback<ContractTemplate[]>,
+  ) =>
+  async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchDisabledContractTemplateListActions.isLoading(true));
+    dispatch(fetchDisabledContractTemplateListActions.error(null));
+
+    const page =
+      params?.page ??
+      getState().subscription?.contractTemplate?.disabled?.page ??
+      1;
+    try {
+      const response = await fetchContractTemplateListAPI({
+        ...params,
+        page,
+        page_size: params?.page_size ?? CONTRACT_TEMPLATE_PAGE_SIZE,
+        disabled: true,
+      });
+      dispatch(fetchDisabledContractTemplateListActions.success(response.data));
+
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchDisabledContractTemplateListActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchDisabledContractTemplateListActions.isLoading(false));
+  };

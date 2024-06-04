@@ -28,9 +28,13 @@ import {
   retrieveContractPauseActions,
   updatePlannedInvoiceActions,
   downloadPDFContractTermsActions,
+  fetchActiveContractTemplateListActions,
+  fetchDisabledContractTemplateListActions,
 } from './actions';
 
-import type { SubscriptionState } from './types';
+import type { ContractTemplate, SubscriptionState } from './types';
+import { PaginatedResponse } from '#src/state/types';
+import { CONTRACT_TEMPLATE_PAGE_SIZE } from './constants';
 
 const initialState: SubscriptionState = Immutable({
   byId: {},
@@ -124,9 +128,30 @@ const initialState: SubscriptionState = Immutable({
     loading: false,
     error: null,
   },
+
+  contractTemplate: {
+    active: {
+      loading: false,
+      error: null,
+      allIds: [],
+      byId: {},
+      count: 0,
+      page: 1,
+      numberOfPages: 0,
+    },
+    disabled: {
+      loading: false,
+      error: null,
+      allIds: [],
+      byId: {},
+      count: 0,
+      page: 1,
+      numberOfPages: 0,
+    },
+  },
 });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<SubscriptionState>>(
   {
     [listPlannedInvoiceActions.isLoading]: (state, { payload }) => {
       return state.setIn(['plannedInvoice', 'loading'], payload);
@@ -446,6 +471,106 @@ export default handleActions(
     },
     [downloadPDFContractTermsActions.error]: (state, { payload }) => {
       return state.setIn(['contractTermsDownload', 'error'], payload);
+    },
+    [fetchActiveContractTemplateListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['contractTemplate', 'active', 'loading'], payload);
+    },
+    [fetchActiveContractTemplateListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['contractTemplate', 'active', 'error'], payload);
+    },
+    [fetchActiveContractTemplateListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ContractTemplate> },
+    ) => {
+      const { results, page, count } = payload;
+
+      const numberOfPages = Math.ceil(count / CONTRACT_TEMPLATE_PAGE_SIZE);
+
+      return state
+        .setIn(['contractTemplate', 'active', 'page'], page)
+        .setIn(['contractTemplate', 'active', 'count'], count)
+        .setIn(['contractTemplate', 'active', 'numberOfPages'], numberOfPages)
+        .setIn(
+          ['contractTemplate', 'active', 'allIds'],
+          results.map(
+            (contractTemplate: ContractTemplate) => contractTemplate.id,
+          ),
+        )
+        .merge(
+          {
+            contractTemplate: {
+              active: {
+                byId: results.reduce(
+                  (
+                    acc: Record<number, ContractTemplate>,
+                    contractTemplate: ContractTemplate,
+                  ) => {
+                    acc[contractTemplate.id] = contractTemplate;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchDisabledContractTemplateListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['contractTemplate', 'disabled', 'loading'], payload);
+    },
+    [fetchDisabledContractTemplateListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['contractTemplate', 'disabled', 'error'], payload);
+    },
+    [fetchDisabledContractTemplateListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<ContractTemplate> },
+    ) => {
+      const { results, page, count } = payload;
+
+      const numberOfPages = Math.ceil(count / CONTRACT_TEMPLATE_PAGE_SIZE);
+
+      return state
+        .setIn(['contractTemplate', 'disabled', 'page'], page)
+        .setIn(['contractTemplate', 'disabled', 'count'], count)
+        .setIn(['contractTemplate', 'disabled', 'numberOfPages'], numberOfPages)
+        .setIn(
+          ['contractTemplate', 'disabled', 'allIds'],
+          results.map(
+            (contractTemplate: ContractTemplate) => contractTemplate.id,
+          ),
+        )
+        .merge(
+          {
+            contractTemplate: {
+              disabled: {
+                byId: results.reduce(
+                  (
+                    acc: Record<number, ContractTemplate>,
+                    contractTemplate: ContractTemplate,
+                  ) => {
+                    acc[contractTemplate.id] = contractTemplate;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

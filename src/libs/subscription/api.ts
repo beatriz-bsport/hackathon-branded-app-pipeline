@@ -11,7 +11,6 @@ import {
   patchAuth,
   putAuth,
 } from '../../http';
-
 import type {
   PauseRequestData,
   ContractPauseRequestData,
@@ -21,8 +20,11 @@ import type {
   SubscriptionsInvoicesDetailsREST,
   SubscriptionDetailsQueryParams,
   ContractQueryParams,
+  ContractTemplate,
+  ContractTemplatePaginatedQueryParams,
 } from './types';
-import { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#src/state/types';
+import { cleanParams } from '#src/utils/createUrlHandlers';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
@@ -325,4 +327,15 @@ export default {
   fetchContractList,
   createOrUpdateContract,
   deleteContract,
+};
+
+export const fetchContractTemplateList = (
+  params?: ContractTemplatePaginatedQueryParams,
+) => {
+  const cleanedParams = cleanParams(params);
+  return getAuth<PaginatedResponse<ContractTemplate>>(
+    `${API_URI}/subscription/contract-template/${buildUrlParams(
+      cleanedParams,
+    )}`,
+  );
 };

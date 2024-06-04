@@ -18,6 +18,8 @@ import type { PrivatePass } from '../../../private-service/types';
 import Selector from '../MultiSelector.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
 import CalendarPicker from '../CalendarPicker.component';
+import { getCreditFactor } from '#src/libs/theme/selectors';
+import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
 
 const DATE_BETWEEN = 2;
 const DURATION_AFTER = 4;
@@ -55,8 +57,9 @@ export class PrivatePassFilter extends Component<Props, state> {
         private_passes: null,
         has_pack: true,
         credit_comparator: 2,
-        credit_value: 1,
-        credit_value_second: 4,
+        // Initial credits value is set to the creditFactor so that the helperText beneath the credit input displays exactly one credit
+        credit_value: getCreditFactor(),
+        credit_value_second: 4 * getCreditFactor(),
         expiration_date: DateTime.now().toISODate(),
         expiration_date_second: DateTime.now().toISODate(),
         expiration_duration: 0,
@@ -76,6 +79,21 @@ export class PrivatePassFilter extends Component<Props, state> {
 
   render() {
     const { filter_data, t, classes, onChange, private_passes } = this.props;
+    const creditHelperText = getDecimalCreditHelperText(
+      filter_data.credit_value,
+      `filters.${filter_data.filter_identifier}.credits.helperText`,
+      `filters.${filter_data.filter_identifier}.credits.helperText_plural`,
+      t,
+      '',
+    );
+    const creditHelperTextSecond = getDecimalCreditHelperText(
+      filter_data.credit_value_second,
+      `filters.${filter_data.filter_identifier}.credits.helperText`,
+      `filters.${filter_data.filter_identifier}.credits.helperText_plural`,
+      t,
+      '',
+    );
+    const isCreditFactorNotOne = getCreditFactor() !== 1;
     return (
       <div>
         <div className={classes.wrapper}>
@@ -235,6 +253,7 @@ export class PrivatePassFilter extends Component<Props, state> {
         <div className={classes.dateBoughtContainer}>
           <Switch
             checked={filter_data.credit_filter_active}
+            className={isCreditFactorNotOne ? classes.creditAlign : ''}
             inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
@@ -250,13 +269,16 @@ export class PrivatePassFilter extends Component<Props, state> {
                 : classes.disabled
             }
           >
-            {this.props.t(
-              `filters.${filter_data.filter_identifier}.credits.first`,
-            )}
-
+            <div className={isCreditFactorNotOne ? classes.creditAlign : ''}>
+              {this.props.t(
+                `filters.${filter_data.filter_identifier}.credits.first`,
+              )}
+            </div>
             <Select
               required
-              className={classes.input}
+              className={
+                isCreditFactorNotOne ? classes.creditAlignInput : classes.input
+              }
               onChange={(ev) =>
                 onChange({ credit_comparator: ev.target.value })
               }
@@ -271,6 +293,7 @@ export class PrivatePassFilter extends Component<Props, state> {
             <DelayedNumericInput
               isPositive
               classes={classes}
+              helperText={creditHelperText}
               onChange={(ev) =>
                 onChange({
                   credit_value: ev.target.value === '' ? null : ev.target.value,
@@ -278,16 +301,18 @@ export class PrivatePassFilter extends Component<Props, state> {
               }
               value={filter_data.credit_value}
             />
-            {filter_data.credit_comparator === BETWEEN_COMPARATOR
-              ? this.props.t(
+            {filter_data.credit_comparator === BETWEEN_COMPARATOR && (
+              <div className={isCreditFactorNotOne ? classes.creditAlign : ''}>
+                {this.props.t(
                   `filters.${filter_data.filter_identifier}.credits.second`,
-                )
-              : null}
-
+                )}
+              </div>
+            )}
             {filter_data.credit_comparator === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
                 isPositive
                 classes={classes}
+                helperText={creditHelperTextSecond}
                 onChange={(ev) =>
                   onChange({
                     credit_value_second:
@@ -341,6 +366,14 @@ const styles = (theme) => ({
   },
   selector: {
     minWidth: '300px',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  creditAlign: {
+    marginBottom: theme.spacing(3),
+  },
+  creditAlignInput: {
+    marginBottom: theme.spacing(3),
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },

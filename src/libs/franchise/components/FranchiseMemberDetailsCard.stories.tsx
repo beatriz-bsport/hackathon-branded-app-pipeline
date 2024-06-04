@@ -1,10 +1,10 @@
 import React from 'react';
 import FranchiseMemberDetailsCard, {
-  OwnProps,
+  Props,
 } from './FranchiseMemberDetailsCard.components';
 import FactoryBot from '../factories/FranchiseUserFactory';
 
-const CustomTemplate = (args: OwnProps) => (
+const CustomTemplate = (args: Props) => (
   <FranchiseMemberDetailsCard {...args} />
 );
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import {
   Event as EventIcon,
@@ -9,26 +8,20 @@ import {
   AlternateEmail as AlternateEmailIcon,
   LocalHospital as LocalHospitalIcon,
 } from '@material-ui/icons';
-import {
-  Avatar,
-  createStyles,
-  Theme,
-  Typography,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 
-import { FranchiseUser } from '../types';
-import { addressToReadableAddress } from '../utils';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { FranchiseUser } from '#src/libs/franchise/types';
+import { addressToReadableAddress } from '#src/libs/franchise/utils';
 
-export type OwnProps = {
+export type Props = {
   user: FranchiseUser;
 };
 
-type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
-
-const FranchiseMemberDetailsCard = (props: Props) => {
-  const { user, classes, t } = props;
+const FranchiseMemberDetailsCard: React.FC<Props> = ({ user }) => {
+  const { t } = useTranslation('franchise');
+  const classes = useStyles();
 
   return (
     <div className={classes.card}>
@@ -64,36 +57,32 @@ const FranchiseMemberDetailsCard = (props: Props) => {
   );
 };
 
-const styles = (theme: Theme) =>
-  createStyles({
-    card: {
-      backgroundColor: theme.palette.common.white,
-      borderRadius: 5,
-      boxShadow: theme.shadows[2],
-      padding: theme.spacing(2),
-    },
-    header: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    avatar: {
-      height: theme.spacing(8),
-      width: theme.spacing(8),
-    },
-    headerTitle: {
-      marginLeft: theme.spacing(2),
-    },
-    row: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: theme.spacing(2),
-    },
-    icon: {
-      marginRight: theme.spacing(2),
-    },
-  });
+const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: 5,
+    boxShadow: theme.shadows[2],
+    padding: theme.spacing(2),
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  avatar: {
+    height: theme.spacing(8),
+    width: theme.spacing(8),
+  },
+  headerTitle: {
+    marginLeft: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  withTranslation(['franchise']),
-)(FranchiseMemberDetailsCard);
+export default React.memo(FranchiseMemberDetailsCard);

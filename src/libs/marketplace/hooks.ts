@@ -32,7 +32,7 @@ import {
   formatISOStringAsTime,
   formatMinutes,
   getUserZone,
-} from '../../utils/datetime';
+} from '#src/utils/datetime';
 
 /**
  * @description Hook used in the component MarketplaceContractList for handling

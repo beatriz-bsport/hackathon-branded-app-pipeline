@@ -37,11 +37,8 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import PopOver from '#components/Popover';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
+import { formatAsDateWithWeekday, getUserZone } from '#src/utils/datetime';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
-import {
-  formatAsDateWithWeekday,
-  getUserZone,
-} from '../../../../../utils/datetime';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 

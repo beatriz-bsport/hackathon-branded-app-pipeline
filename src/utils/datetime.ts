@@ -3,7 +3,6 @@ import { DateTime, Info, SystemZone } from 'luxon';
 import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import type { Theme } from '#libs/theme/types';
-import type { LuxonDateTime } from '#src/types';
 
 /**
  * Returns a calendar date from an ISO date
@@ -134,7 +133,7 @@ export function formatMinutes(
  * const title = `${formatAsTitle(someDate)} - ${formatAsTitle(someOtherDate)}`;
  * // Sun 05/05 - Sat 11/05
  */
-export function formatAsTitle(date: LuxonDateTime) {
+export function formatAsTitle(date: DateTime) {
   const formattedDate = date.toFormat('ccc D');
   return formattedDate.substring(0, formattedDate.length - 5);
 }

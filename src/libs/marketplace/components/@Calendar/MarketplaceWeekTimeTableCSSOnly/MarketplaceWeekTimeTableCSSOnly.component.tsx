@@ -29,7 +29,7 @@ import { Coach } from '#libs/associated-coach/types';
 import {
   isOfferInThePast,
   isOfferInGroupLockedByPreviousOfferInPast,
-} from '../../../utils';
+} from '#libs/marketplace/utils';
 import './MarketplaceWeekTimeTableCSSOnly.css';
 
 const SPLIT_AFTERNOON = 12;

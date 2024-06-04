@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import classnames from 'classnames';
 
-// eslint-disable-next-line import/no-unresolved
 import { compose } from 'recompose';
 
 import { push as pushRouter } from 'connected-react-router';
@@ -83,25 +82,21 @@ import ProtectedRoutes from '#components/navigation/ProtectedRoutes.component';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { BannerContext, BannerContextValue } from '#src/hocs/banner.hoc';
+import { useFullScreenWithIconDrawer } from '#src/hooks/useFullScreenWithIconDrawer';
+import { getTextColorFromRGB } from '#src/utils/color';
+import Config from '#src/config';
+// @ts-expect-error
+import LanguageButton from '#src/components/button/LanguageButton.component';
+import { windowTitleToProps } from '#src/hocs/with-title.hoc';
+import { openIntercomHelp } from '#src/intercom';
+import SearchBar from '#src/components/SearchBar.component';
+import StripeOnboardingBanner from '#src/components/navigation/StripeOnboardingBanner.component';
+import { RootState } from '#src/reducers';
+import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
+import BillingBanner from '#src/components/navigation/BillingBanner.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
-import { RootState } from '../../../reducers';
-import type {
-  OptionCallback,
-  OptionPaginatedCallback,
-} from '../../../state/types';
-
-import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
-import { openIntercomHelp } from '../../../intercom';
-import { windowTitleToProps } from '../../../hocs/with-title.hoc';
-import SearchBar from '../../SearchBar.component';
-// @ts-expect-error
-import LanguageButton from '../../button/LanguageButton.component';
-import StripeOnboardingBanner from '../StripeOnboardingBanner.component';
-import BillingBanner from '../BillingBanner.component';
-import { getTextColorFromRGB } from '../../../utils/color';
-import Config from '../../../config';
-import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;

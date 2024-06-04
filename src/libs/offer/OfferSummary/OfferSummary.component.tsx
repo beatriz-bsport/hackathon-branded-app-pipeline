@@ -23,10 +23,9 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-
-import { MetaActivity } from '#libs/meta-activity/types';
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { Coach } from '#libs/associated-coach/types';
 import {
   type OfferStatus,
   type Offer_FULL,
@@ -34,11 +33,10 @@ import {
   OfferSummaryVariant,
 } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
-
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
 import MarketplaceBroadcastCSSOnly from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
-import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
-import { formatAsDateWithWeekday } from '../../../utils/datetime';
+import { formatAsDateWithWeekday } from '#src/utils/datetime';
+import DEFAULT_PROFILE_PICTURE_URL from '#src/assets/constants';
 import { OfferSummarySkeleton } from '.';
 
 export type Props = {

@@ -13,7 +13,7 @@ import {
   OFFER_HOURS_SEPARATOR,
   OFFER_NAME_CAPITALIZED_MAX_LENGTH,
   OFFER_NAME_MAX_LENGTH,
-} from '../constants';
+} from '#libs/marketplace/constants';
 
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {

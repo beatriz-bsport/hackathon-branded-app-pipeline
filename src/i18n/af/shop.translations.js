@@ -135,6 +135,7 @@ exports.default = {
   },
   shopItemDetail: {
     title: 'Product details',
+    coverAlt: 'Picture for the product {{ product }}',
     startingAt: 'Starting at',
     showMore: 'Show more',
     showLess: 'Show less',

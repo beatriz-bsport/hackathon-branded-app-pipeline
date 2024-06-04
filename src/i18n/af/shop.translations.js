@@ -129,6 +129,11 @@ exports.default = {
               message: 'Are you sure you want to delete this supplier ?',
             },
           },
+          supplierPrices: {
+            title: 'Supplier prices',
+            hideSupplierPricesForFranchisees:
+              'Hide supplier prices for the franchise studios',
+          },
         },
       },
     },
@@ -141,7 +146,6 @@ exports.default = {
     showLess: 'Show less',
     copyPaymentPageLink: 'Copy payment page link',
     viewBarcode: 'View barcode',
-    deleteVariant: 'Delete variant',
     deleteModal: {
       title: 'Deletion - {{- name }}',
       genericTitle: 'Deletion confirmation',

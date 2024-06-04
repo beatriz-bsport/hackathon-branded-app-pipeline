@@ -6,6 +6,7 @@ export type ModalsAndDrawersProps = {
   onClose?: () => void;
   subtitle?: string;
   title: string;
+  isLoading?: boolean;
 };
 
 export type PortalProps = ModalsAndDrawersProps & {

@@ -15,6 +15,7 @@ import {
 import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton/ConsumerDetailsCardSkeleton.component';
 import './styles.css';
 
 const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
@@ -27,6 +28,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   emergencyContact,
   firstName,
   gender,
+  isLoading,
   lastName,
   memberId,
   membershipId,
@@ -42,6 +44,8 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   const { spiviEnabled } = useFeaturesProvider();
   const { toggleBarcodeModal, isMobile } =
     useContext(ConsumerProfileContext) ?? {};
+
+  if (isLoading) return <ConsumerDetailsCardSkeleton />;
 
   return (
     <div className="bs-consumer-summary-card__container">

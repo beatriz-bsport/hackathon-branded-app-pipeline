@@ -10,15 +10,20 @@ import Button from '#Fabrique/ButtonV2';
 
 import type { TermsAndConditionsCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
+import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import './styles.css';
 
 const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
   dateJoined,
   generalTermsAndConditionsDateAccepted,
+  isLoading,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
   const { toggleTermsAndConditionPortal, toggleTermsOfUsePortal } =
     useContext(ConsumerProfileContext) ?? {};
+
+  if (isLoading) return <ConsumerCardSkeleton />;
 
   return (
     <Card className={classNames('bs-consumer-payment-terms-card__root')}>

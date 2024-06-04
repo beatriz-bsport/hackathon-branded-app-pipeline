@@ -15,6 +15,7 @@ const DetachPaymentModal: React.FC<ModalsAndDrawersProps> = ({
   onConfirm,
   subtitle,
   title,
+  isLoading,
 }) => {
   return (
     <PortalContainer wrapperId="bs-detach-payment-portal-container">
@@ -24,6 +25,7 @@ const DetachPaymentModal: React.FC<ModalsAndDrawersProps> = ({
           className="bs-detach-payment-modal"
           confirmButtonColor="error"
           confirmLabel={confirmLabel}
+          isSubmitLoading={isLoading}
           onCancel={onClose}
           onClose={onClose}
           onConfirm={onConfirm}

@@ -19,12 +19,14 @@ import {
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import type { PaymentMethodsCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import './styles.css';
 
 const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
   detachPaymentMethodLoading,
   paymentMethodLoading,
   paymentMethods,
+  isLoading,
 }) => {
   const { t } = useTranslation(['consumerSpace']);
 
@@ -49,6 +51,8 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
 
   const isPaymentMethodsEmpty =
     !paymentMethodLoading && !paymentMethods?.length;
+
+  if (isLoading) return <ConsumerCardSkeleton />;
 
   return (
     <Card className={classNames('bs-consumer-payment-methods-card__root')}>

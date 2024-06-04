@@ -12,6 +12,7 @@ const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
   onConfirm,
   subtitle,
   title,
+  isLoading,
 }) => {
   return (
     <PortalContainer wrapperId="bs-detach-payment-portal-container">
@@ -26,6 +27,7 @@ const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
           onConfirm,
           subtitle,
           title,
+          isSubmitLoading: isLoading,
         }}
       />
     </PortalContainer>

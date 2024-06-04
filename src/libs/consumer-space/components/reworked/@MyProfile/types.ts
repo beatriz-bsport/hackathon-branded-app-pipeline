@@ -17,6 +17,7 @@ export type ConsumerSummaryCardProps = {
   emergencyContact: string;
   firstName: string;
   gender: string;
+  isLoading: boolean;
   lastName: string;
   memberId: number;
   membershipId: string;
@@ -33,12 +34,14 @@ export type PaymentMethodsCardProps = {
   paymentMethods: PaymentMethod[];
   paymentMethodLoading: boolean;
   detachPaymentMethodLoading: boolean;
+  isLoading: boolean;
 };
 
 export type TermsAndConditionsCardProps = {
   dateJoined: string;
   generalTermsOfUseDateAccepted: string | null;
   generalTermsAndConditionsDateAccepted: string | null;
+  isLoading: boolean;
 };
 
 export type ConsumerHeaderProps = {

@@ -3164,6 +3164,14 @@
                     "urlRedirection": "Benutzerdefinierte URL",
                     "helperText": "Standardmäßig werden Mitglieder, sobald sie ihr Passwort zurücksetzen auf den Marktplatz umgeleitet. Wenn sie wo anders weitergeleitet werden sollen (z. B. auf Ihre Website), tragen Sie bitte die gewünschte URL in das folgende Feld ein.",
                     "title": "Passwort zurücksetzen"
+                },
+                "memberProfile": {
+                    "myProfile": {
+                        "showMembershipNumber": "Mitgliedsnummer anzeigen",
+                        "showBarcodeButton": "Barcode anzeigen",
+                        "showMemberAccountBalance": "Kontostand des Mitglieds anzeigen",
+                        "title": "Mein Profil"
+                    }
                 }
             },
             "submit": "Speichern",
@@ -3827,6 +3835,9 @@
                     },
                     "couponTemplates": {
                         "_label": "Angebote"
+                    },
+                    "shopTemplates": {
+                        "_label": "Webshop"
                     }
                 },
                 "emailTemplates": {
@@ -8988,7 +8999,8 @@
                         "default": "Möchten Sie Ihre Änderungen speichern, bevor Sie zu einer anderen Seite wechseln?",
                         "inventory": "Bevor Sie zu einer anderen Seite wechseln, möchten Sie den Bestand auf der Grundlage der in der Spalte \"Bestandsanpassung\" eingegebenen Werte aktualisieren?",
                         "title": "Ungespeicherte Änderungen"
-                    }
+                    },
+                    "companyName": "Studio"
                 }
             },
             "tab": {
@@ -9054,7 +9066,19 @@
                         },
                         "title": "Eine Kategorie hinzufügen"
                     },
-                    "title": "Produkte"
+                    "title": "Produkte",
+                    "emptySubshopList": "Es wurden noch keine Produkte in dieser Kategorie erstellt.",
+                    "online": "Online",
+                    "storeOnly": "Nur im Laden",
+                    "franchiseSubshopDialog": {
+                        "info": "Die Kategorien werden auf dem Marktplatz und in der mobilen Anwendung für zum Verkauf stehende Artikel angezeigt.",
+                        "deleteInfo": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle zugehörigen Elemente werden dann ebenfalls gelöscht.",
+                        "delete": "Kategorie löschen",
+                        "update": "Kategorie umbenennen",
+                        "create": "Kategorie hinzufügen",
+                        "inputPlaceholder": "Name der Kategorie"
+                    },
+                    "addProduct": "Produkt hinzufügen"
                 }
             }
         },
@@ -10346,7 +10370,8 @@
         "positiveNumber": "Dieses Feld muss größer als 0 sein.",
         "seeMore": "Mehr sehen",
         "seeLess": "Weniger sehen",
-        "discardChanges": "Änderungen verwerfen"
+        "discardChanges": "Änderungen verwerfen",
+        "rename": "Umbenennen"
     },
     "coupon": {
         "detail": {
@@ -12337,7 +12362,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -12727,6 +12752,54 @@
                     "refunded": "Sie haben noch keine erstatteten Rechnungen.",
                     "paid": "Sie haben noch keine bezahlten Rechnungen.",
                     "unpaid": "Gut gemacht, Sie haben keine unbezahlten Rechnungen mehr."
+                }
+            },
+            "myProfile": {
+                "termsAndConditions": {
+                    "accepted": "Akzeptiert am {{- dateAccepted}}",
+                    "generalTerms": "Allgemeine Bedingungen",
+                    "termOfuse": "Bedingungen für die Nutzung",
+                    "subtitle": "Mitglied seit {{- dateJoined}}",
+                    "title": "Bedingungen und Konditionen"
+                },
+                "paymentMethods": {
+                    "add": "Zahlungsmethode hinzufügen",
+                    "cardItemCaptionText": "Läuft ab: {{- additionalInfo}}",
+                    "paymentMethodLabel": "Endet mit <strong>{{- identifier}}</strong>",
+                    "empty": "Sobald Sie eine Zahlung gespeichert haben, wird sie hier angezeigt.",
+                    "directPayments": "Direkte Zahlungen",
+                    "cards": "Karten",
+                    "title": "Gespeicherte Zahlungsarten"
+                },
+                "membershipId": "Mitgliedsnummer",
+                "accountBalance": "Kontostand",
+                "spivi": {
+                    "information": "Falls aktiviert, werden Ihre Daten (Geschwindigkeit, Kalorienverbrauch usw.) während Ihrer Sitzung in Echtzeit angezeigt. Andernfalls erhalten Sie am Ende der Sitzung eine Zusammenfassung per E-Mail.",
+                    "drawerTitle": "Daten anzeigen",
+                    "displayData": "Meine Daten in Echtzeit anzeigen",
+                    "title": "Daten abrufen"
+                },
+                "notifications": {
+                    "emailNotAllowed": "E-Mail-Benachrichtigungen nicht erlaubt",
+                    "emailAllowed": "E-Mail-Benachrichtigungen erlaubt",
+                    "phoneNotAllowed": "Telefonische Benachrichtigungen nicht erlaubt",
+                    "phoneAllowed": "Telefonische Benachrichtigungen erlaubt",
+                    "title": "Benachrichtigungen"
+                },
+                "address": "Addresse",
+                "emergencyNumber": "Notfallnummer",
+                "phone": "Handynummer",
+                "identityDocument": "Ausweisdokument",
+                "birthday": "Geburtstag",
+                "gender": "Geschlecht",
+                "detachPayment": {
+                    "subtitle": "Denken Sie daran, dass Sie Zahlungsarten, die für wiederkehrende Zahlungen verwendet werden, nicht löschen können.",
+                    "title": "Zahlungsmethode löschen"
+                },
+                "barCode": {
+                    "entryBarcode": "Eingabe Barcode",
+                    "scanInfo": "Scannen Sie diesen Barcode, um das Studio zu betreten oder um für Ihren Kurs einzuchecken.",
+                    "scan": "Scan Barcode"
                 }
             }
         }
@@ -14492,7 +14565,8 @@
                 "paymentPackTemplates": "Kurspässe",
                 "privatePassTemplates": "Terminpässe",
                 "giftcardTemplates": "Gutscheine",
-                "couponTemplates": "Angebote"
+                "couponTemplates": "Angebote",
+                "shopTemplates": "Webshop"
             },
             "emailTemplates": "E-Mails",
             "notificationRules": "Transaktions-Benachrichtigungen",
@@ -14618,6 +14692,12 @@
                 "settings": "Einstellungen",
                 "monitor": "Besuche am Standort",
                 "perform": "Besuch eines Mitglieds"
+            },
+            "settings": {
+                "theme": {
+                    "memberProfile": "Mitgliederprofil",
+                    "general": "Allgemein"
+                }
             }
         },
         "logout": "Abmelden",
@@ -16998,7 +17078,10 @@
                 "fabrique_title": "Titel",
                 "consumer_invoice_details_card": "Karte mit Rechnungsangaben (für Mitglieder)",
                 "consumer_invoice_card": "Rechnungskarte (für Mitglieder)",
-                "fabrique_tooltip": "Werkzeugsinformation"
+                "fabrique_tooltip": "Werkzeugsinformation",
+                "consumer_summary_card": "Übersichtskarte für Verbraucher",
+                "consumer_saved_payment_methods_card": "Gespeicherte Verbraucherzahlungsmethoden Karte",
+                "consumer_terms_and_conditions": "Karte mit den allgemeinen Geschäftsbedingungen für Verbraucher"
             },
             "page": {
                 "calendar": "Kalender",
@@ -17154,7 +17237,9 @@
                     "showSuccessTitle": "Bestätigungstitel anzeigen",
                     "isCollapsable": "Art des Titels",
                     "isMultilocationEnabled": "Rechnungsort anzeigen",
-                    "invoiceType": "Rechnungsart"
+                    "invoiceType": "Rechnungsart",
+                    "acceptSms": "Sms akzeptieren",
+                    "acceptEmail": "E-Mail akzeptieren"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -18711,7 +18796,8 @@
             "infoNoMemberProgram": "Dieses Mitglied hat derzeit keine Programme.",
             "infoNoConsumerProgram": "Sie haben noch kein Programm, wenden Sie sich an Ihr Studio, um mit der Beobachtung Ihrer Leistungen zu beginnen!",
             "deleteContent": "Sie werden die Werte der Programmmetriken für dieses Mitglied verlieren"
-        }
+        },
+        "maxLength200": "Dieses Feld hat eine maximale Länge von 200 Zeichen."
     },
     "expense": {
         "form": {
@@ -19965,9 +20051,15 @@
                 "time": "Eintritt",
                 "session": "Grund des Besuchs",
                 "entered": "Eingetreten",
-                "refusedEntry": "Eintritt verweigert"
+                "refusedEntry": "Eintritt verweigert",
+                "placeholder": {
+                    "search": "Aufgrund Ihrer Suche konnten wir keine Mitglieder finden, die heute zu Besuch waren.",
+                    "default": "Sie haben noch keine Besuche registriert."
+                }
             },
-            "breadcrumbTitle": "Besuch des Standortes"
+            "breadcrumbTitle": "Besuch des Standortes",
+            "unreadCount": "{{ count }} neuer Besuch",
+            "unreadCount_plural": "{{ count }} neue Besuche"
         },
         "accessMonitoringTitle": "Zugangskontrolle",
         "filters": {

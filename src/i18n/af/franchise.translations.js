@@ -12,6 +12,7 @@ exports.default = {
   member: {
     pageTitle: 'Member',
     seeMembership: 'Show member information',
+    seeMemberInCompany: 'Show',
     isVaccinated: "I'm in possession of a valid COVID-19 Sanitary Pass",
     franchises: 'Studios',
   },

@@ -135,3 +135,35 @@ export const getFormatedCredits = (
     count: credits,
   });
 };
+
+/*
+ * Returns the helper text when the credit value is decimal.
+ * @param credits The number of credits to be divided.
+ * @param translationTextKey The translation key for the helper text.
+ * @param t The translation function.
+ * @param initialHelperText The initial helper text, if the credit factor is 1.
+ * @returns The helper text based on the credit value and the credit factor
+ */
+export const getDecimalCreditHelperText = (
+  credits: number,
+  translationTextKey: string,
+  translationTextKey_plural: string,
+  t: TFunction,
+  initialHelperText: string,
+) => {
+  const dividedDisplayCreditPrice = getCreditsDividedDisplay(credits);
+
+  if (getCreditFactor() === 1) {
+    return initialHelperText;
+  }
+
+  if (Number(dividedDisplayCreditPrice) > 1) {
+    return t(translationTextKey_plural, {
+      credits: dividedDisplayCreditPrice,
+    });
+  }
+
+  return t(translationTextKey, {
+    credits: dividedDisplayCreditPrice,
+  });
+};

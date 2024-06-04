@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { DateTime } from 'luxon';
 import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -235,7 +236,9 @@ export const CONSUMER_BOOKING_CARD_PREVIEW: React.FC<{
       coachPhoto={fakeCoach.photo}
       establishmentAddress="Booking's address"
       menuId="consumer-booking-card-preview"
-      offerDate={fakeBooking.date}
+      offerDate={`${DateTime.fromISO(fakeBooking.date).toFormat(
+        'EEE dd MMMM',
+      )} • ${DateTime.fromISO(fakeBooking.date).toFormat('HH:mm')}`}
       onBookClick={emptyFn}
       onBookingCancelClick={emptyFn}
       onBookingForAGuestClick={emptyFn}

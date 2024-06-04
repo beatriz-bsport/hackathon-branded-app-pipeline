@@ -26,7 +26,10 @@ import {
 } from '.';
 
 const DAYS_IN_FUTURE = 3;
-const OFFER_DATE_START = DateTime.now().plus({ days: DAYS_IN_FUTURE }).toISO();
+const offerDateStart = DateTime.now().plus({ days: DAYS_IN_FUTURE }).toISO();
+const OFFER_DATE_START = `${DateTime.fromISO(offerDateStart).toFormat(
+  'EEE dd MMMM',
+)} • ${DateTime.fromISO(offerDateStart).toFormat('HH:mm')}`;
 const LEVEL_NAME = faker.word.adjective({ length: { min: 5, max: 10 } });
 const RANDOM_URL = faker.internet.url();
 const COACH_PICTURE = faker.internet.avatar();

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin');
 const common = require('./webpack.common.js');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -13,9 +13,10 @@ const publicPath = '/';
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval',
   devServer: {
     historyApiFallback: true,
+    allowedHosts: 'all',
     port: 3000,
     hot: true,
     open: true,

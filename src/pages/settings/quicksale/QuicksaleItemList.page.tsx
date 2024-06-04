@@ -48,7 +48,6 @@ import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/
 import { getAllShopItemData } from '#src/libs/shop/selectors';
 import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
 import { getGiftcardData } from '#src/libs/giftcard/selectors';
-// @ts-expect-error
 import { getContractsById } from '#src/libs/subscription/selectors';
 import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subscription/actions';
 
@@ -607,6 +606,7 @@ const connector = connect(
     // @ts-expect-error
     shopItemById: getAllShopItemData(state),
     giftcardById: getGiftcardData(state),
+    // @ts-expect-error
     subscriptionById: getContractsById(state),
     availableItemsByItemIdentifierByCategory:
       // @ts-expect-error

@@ -173,6 +173,14 @@ export const getFranchiseCompany = (companyId: number) =>
     (companiesById) => companiesById[companyId],
   );
 
+export const getFranchiseCompanyListById = (
+  state: RootState,
+  id__in: number[],
+) =>
+  (id__in ?? [])
+    .map((id) => getFranchiseCompanyById(state)[id])
+    .filter((company) => !!company);
+
 // @ts-expect-error
 export const getFranchiseCompanies = (state: RootState) => {
   if (getState(state).companies?.allIds) {

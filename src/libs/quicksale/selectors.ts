@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 import { getBuyableItem } from '#src/libs/invoice/selectors';
 import shopSelectors, { getAllShopItemData } from '#src/libs/shop/selectors';
-// @ts-expect-error
 import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import type { Contract } from '#src/libs/subscription/types';
 import {
@@ -63,6 +62,7 @@ export const getItemsInQuicksaleConfig = createSelector(
     getPaymenComboDataDict,
     getAllShopItemData,
     getGiftcardData,
+    // @ts-expect-error
     getAvailableContractList as () => Contract[],
   ],
   (
@@ -161,6 +161,7 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
     ),
     getBuyableItem,
     shopSelectors.getSubShops,
+    // @ts-expect-error
     getAvailableContractList as () => Contract[],
   ],
   (

@@ -1,8 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-// @ts-expect-error
-import { get as getSubscriptionById } from '../../libs/subscription/selectors';
+import { get as getSubscriptionById } from '#src/libs/subscription/selectors';
 import { fetch as fetchSubscription } from '../../libs/subscription/actions';
 // @ts-expect-error
 import SubscriptionDetailDEPRECATED from './SubscriptionDetailDEPRECATED.page';
@@ -42,6 +41,7 @@ export default compose(
   connect(
     // @ts-expect-error
     (state, { id }) => ({
+      // @ts-expect-error
       subscription: getSubscriptionById(state, id),
     }),
     {

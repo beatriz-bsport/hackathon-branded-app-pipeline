@@ -1,5 +1,3 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
@@ -11,7 +9,7 @@ import { getEventState } from '../event/selectors';
 import {
   getPaymentPackById,
   getAllPaymentPacks as getPaymentPackList,
-} from '../payment-packs/selectors';
+} from '#src/libs/payment-packs/selectors';
 import { getPrivatePassById } from '../private-service/selectors/private-pass';
 import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
 import { withMember } from '../order/selectors';
@@ -61,6 +59,7 @@ export const getAvailableContractListCustomer = createSelector(
     ),
 );
 
+// @ts-expect-error
 export const getAvailableContractListWithPaymentPack: (
   state: RootState,
 ) => ContractWithPaymentPack<number, number> = createSelector(
@@ -81,7 +80,9 @@ export const getMarketplaceContractList = createSelector(
   (contractData, ids) => ids.map((id) => contractData[id]),
 );
 
+// @ts-expect-error
 const _getSubscriptionIds = (state) => state.subscription.list.allIds;
+// @ts-expect-error
 const _getSubscriptionData = (state) => state.subscription.byId;
 
 export const getSubscriptionDetail = (state: RootState, id: number) =>
@@ -89,17 +90,21 @@ export const getSubscriptionDetail = (state: RootState, id: number) =>
 
 export const getSubscriptionList = createSelector(
   [_getSubscriptionIds, _getSubscriptionData],
+  // @ts-expect-error
   (ids, data) => ids.map((id) => data[id]),
 );
 
+// @ts-expect-error
 const _getSubscriptionIdsByMember = (state) =>
   state.subscription.byMember.allIds;
 
 export const getSubscriptionListByMember = createSelector(
   [_getSubscriptionIdsByMember, _getSubscriptionData],
+  // @ts-expect-error
   (ids, data) => ids.map((id) => data[id]),
 );
 
+// @ts-expect-error
 export const get: Subscription<PrivatePass, PaymentPack, PaymentCombo> =
   createSelector(
     [
@@ -121,6 +126,7 @@ export const get: Subscription<PrivatePass, PaymentPack, PaymentCombo> =
     },
   );
 
+// @ts-expect-error
 export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getPaymentPackById, getPrivatePassById, getPaymentComboById],
@@ -163,6 +169,7 @@ export const getSubscriptionByMemberPendingAction = createSelector(
   getSubscriptionListByMember,
   (subList) =>
     subList.filter(
+      // @ts-expect-error
       (sub) =>
         sub.payment_method === 2 &&
         !!sub.recurrent_price &&
@@ -179,6 +186,7 @@ export const getContractForBooking = createSelector(
 );
 
 export const getSubscriptionEventState = (state: State) =>
+  // @ts-expect-error
   getEventState(state.event, 'subscription');
 
 export const getSubscriptionEventList = createSelector(
@@ -191,24 +199,31 @@ export const getSubscriptionEventList = createSelector(
   },
 );
 
+// @ts-expect-error
 const _getPlannedInvoiceIds = (state) =>
   state.subscription.plannedInvoice.allIds;
+// @ts-expect-error
 const _getPlannedInvoiceData = (state) =>
   state.subscription.plannedInvoice.byId;
 
 export const getPlannedInvoiceList = createSelector(
   [_getPlannedInvoiceIds, _getPlannedInvoiceData],
+  // @ts-expect-error
   (ids, data) => ids.map((id) => data[id]).filter((pl) => !!pl),
 );
 
+// @ts-expect-error
 const _getContractPauseData = (state) => state.subscription.contractPause.byId;
+// @ts-expect-error
 const _getContractPauseIds = (state) => state.subscription.contractPause.allIds;
 
 export const getContractPauseList = createSelector(
   [_getContractPauseIds, _getContractPauseData, _getSubscriptionData],
   (ids, data, subData) =>
     ids
+      // @ts-expect-error
       .map((id) => data[id])
+      // @ts-expect-error
       .map((cp) => {
         return {
           ...cp,
@@ -216,8 +231,10 @@ export const getContractPauseList = createSelector(
             ...cp.billing_plan_errors,
             ...cp.billing_plan_impossible,
           ].map((t) => t[0]),
+          // @ts-expect-error
           billing_plan_success_ids: cp.billing_plan_success.map((t) => t[0]),
           billing_plan_success: cp.billing_plan_success.map(
+            // @ts-expect-error
             (id) => subData[id[0]],
           ),
           billing_plan_invalid: [
@@ -228,8 +245,10 @@ export const getContractPauseList = createSelector(
       }),
 );
 
+// @ts-expect-error
 const _getSubscriptionListCount = (state) => state.subscription.list.count;
 
+// @ts-expect-error
 const _getSubscriptionListLoading = (state) => state.subscription.list.loading;
 
 export const getContractDetailSubscription = createSelector(
@@ -239,6 +258,31 @@ export const getContractDetailSubscription = createSelector(
     _getSubscriptionListLoading,
   ],
   (count, items, loading) => ({ count, items, loading }),
+);
+
+const _getActiveContractTemplateListAllIds = (state: RootState) =>
+  state.subscription.contractTemplate.active.allIds;
+
+const _getActiveContractTemplateListById = (state: RootState) =>
+  state.subscription.contractTemplate.active.byId;
+
+const _getDisabledContractTemplateListAllIds = (state: RootState) =>
+  state.subscription.contractTemplate.disabled.allIds;
+
+const _getDisabledContractTemplateListById = (state: RootState) =>
+  state.subscription.contractTemplate.disabled.byId;
+
+export const getActiveContractTemplateList = createSelector(
+  [_getActiveContractTemplateListAllIds, _getActiveContractTemplateListById],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
+export const getDisabledContractTemplateList = createSelector(
+  [
+    _getDisabledContractTemplateListAllIds,
+    _getDisabledContractTemplateListById,
+  ],
+  (ids, data) => ids.map((id) => data[id]),
 );
 
 export default { get };

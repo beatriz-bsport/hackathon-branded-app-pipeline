@@ -76,8 +76,7 @@ import {
   getAvailableContractListCustomer,
   getContract,
   withPaymentPack,
-  // @ts-expect-error
-} from '../../libs/subscription/selectors';
+} from '#src/libs/subscription/selectors';
 import {
   createOrUpdateContract as createOrUpdateContractAction,
   fetchContractList as fetchContractListAction,
@@ -786,6 +785,7 @@ export default compose(
   withHandlers(mapWithHandlers),
   // @ts-expect-error
   connect((state, { selectedContract }) => ({
+    // @ts-expect-error
     selectedContractData: getContract(state, selectedContract),
   })),
 )(SubscriptionList);

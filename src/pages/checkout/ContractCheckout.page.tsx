@@ -24,7 +24,6 @@ import {
 import {
   getContract,
   getMarketplaceContractList,
-  // @ts-expect-error
 } from '#src/libs/subscription/selectors';
 import {
   getDefaultEstablishmentBillingGroup,
@@ -524,11 +523,13 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
                 {displayDirectLinkLayout && (
                   <MarketplaceContractDetail
+                    // @ts-expect-error
                     contract={contract}
                     getPaymentComboSelected={this.props.getPaymentComboSelected}
                     getPaymentPackSelected={this.props.getPaymentPackSelected}
                     getPrivatePassSelected={this.props.getPrivatePassSelected}
                     isContractObjectLoading={this.getContractObjectLoading(
+                      // @ts-expect-error
                       contract,
                     )}
                   />
@@ -627,7 +628,9 @@ const mapStateToProps = (
     getPaymentComboSelected: (id: number) => {
       return getPaymentCombo(state, id);
     },
+    // @ts-expect-error
     contractList: getMarketplaceContractList(state),
+    // @ts-expect-error
     contract: getContract(state, parseInt(contractId, 10)),
     contractLoading: state.subscription.contract.byMarketplace.loading,
     paymentPackLoading: state.paymentPack.loading,

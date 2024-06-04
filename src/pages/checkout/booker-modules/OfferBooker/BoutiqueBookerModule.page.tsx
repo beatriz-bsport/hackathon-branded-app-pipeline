@@ -71,7 +71,6 @@ import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
-  // @ts-expect-error
 } from '#src/libs/subscription/selectors';
 import { fetchContractForBooking as fetchContractForBookingAction } from '#src/libs/subscription/actions';
 import {

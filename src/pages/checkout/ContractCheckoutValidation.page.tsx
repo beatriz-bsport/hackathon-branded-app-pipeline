@@ -15,7 +15,6 @@ import { Payment } from '@material-ui/icons';
 import withTheme from '#src/hocs/company-themifier.hoc';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-// @ts-expect-error
 import { getContract } from '#src/libs/subscription/selectors';
 import { fetchContractDetail } from '#src/libs/subscription/actions';
 import ValidationIcon from '#src/components/icons/ValidationIcon.component';
@@ -145,6 +144,7 @@ export class ContractCheckoutValidation extends Component<Props> {
 const connector = connect(
   (state: RootState, props: RouterProps) => ({
     theme: themeSelectors.getTheme(state),
+    // @ts-expect-error
     contract: getContract(state, parseInt(props.contractId, 10)),
   }),
   {

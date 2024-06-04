@@ -50,7 +50,6 @@ import {
 } from '#src/libs/settings/selectors';
 import { updateCompanyTheme as updateCompanyThemeAction } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-// @ts-expect-error
 import { getMarketplaceContractList as getContractList } from '#src/libs/subscription/selectors';
 import { RootState } from '../../reducers';
 
@@ -222,6 +221,7 @@ const connector = connect(
 
     paymentComboList: getPaymentComboListAvailableOnline(state),
     paymentPackList: getPaymentPackAvailable(state),
+    // @ts-expect-error
     contractList: getContractList(state),
     vodList: getVideoList(state),
     giftcards: getGiftcardListActive(state),

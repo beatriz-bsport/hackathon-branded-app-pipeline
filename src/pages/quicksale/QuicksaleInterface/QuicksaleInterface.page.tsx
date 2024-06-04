@@ -54,7 +54,6 @@ import {
 } from '#src/libs/giftcard/selectors';
 import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#src/libs/giftcard/actions';
 
-// @ts-expect-error
 import { getContractsById } from '#src/libs/subscription/selectors';
 import {
   fetchContractList as fetchSubscriptionListAction,
@@ -569,6 +568,7 @@ const connector = connect(
     // @ts-expect-error
     shopItemById: getAllShopItemData(state),
     giftcardById: getGiftcardData(state),
+    // @ts-expect-error
     contractById: getContractsById(state),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
     establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),

@@ -60,7 +60,6 @@ import {
   withPaymentPack,
   getContractDetailSubscription,
   getContractPauseList,
-  // @ts-expect-error
 } from '#src/libs/subscription/selectors';
 import { getEnabled as getPaymentPackEnabled } from '#src/libs/payment-packs/selectors';
 import ContractDetail from '#src/libs/subscription/components/contract/ContractDetail.component';
@@ -313,6 +312,7 @@ export class ContractDetailPage extends Component<Props> {
                 <Paper>
                   <PaginatedSubscriptionList
                     itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
+                    // @ts-expect-error
                     items={this.props.subscriptions.items}
                     loading={this.props.subscriptions.loading}
                     nbItems={this.props.subscriptions.count}
@@ -450,6 +450,7 @@ const connector = connect(
   (state: RootState, { contractId }: { contractId: number }) => ({
     loading: state.subscription.contract.loading,
     subscriptions: getContractDetailSubscription(state),
+    // @ts-expect-error
     contract: withPaymentPack(getContract)(state, contractId),
     paymentPackList: getPaymentPackEnabled(state),
     privatePassList: getPrivatePassAvailable(state),
@@ -459,6 +460,7 @@ const connector = connect(
     emailDetailLoading: state.emailTemplate.detail.loading,
     paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),
+    // @ts-expect-error
     contractPauseList: getContractPauseList(state, contractId),
     subscriptionData: state.subscription.byId,
     tagCategories: getTagCategories(state),

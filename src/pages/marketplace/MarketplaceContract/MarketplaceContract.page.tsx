@@ -10,12 +10,8 @@ import { getPaymentPack } from '#src/libs/payment-packs/selectors';
 import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#src/libs/payment-packs/actions';
 import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '#src/libs/private-service/actions';
-import {
-  getPaymentCombo,
-  getPaymentComboList,
-} from '#src/libs/payment-combo/selectors';
+import { getPaymentCombo } from '#src/libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-// @ts-expect-error
 import { getMarketplaceContractList } from '#src/libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '#src/libs/subscription/actions';
 import { snackbarWarning, snackbarSuccess } from '#src/libs/snackbar/actions';
@@ -259,8 +255,8 @@ const mapStateToProps = (state: RootState) => ({
   getPaymentComboSelected: (id: number) => {
     return getPaymentCombo(state, id);
   },
+  // @ts-expect-error
   contractList: getMarketplaceContractList(state),
-  paymentComboList: getPaymentComboList(state),
   contractLoading: state.subscription.contract.byMarketplace.loading,
   companyTheme: themeSelectors.getTheme(state),
 });

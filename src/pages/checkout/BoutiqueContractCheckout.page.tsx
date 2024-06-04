@@ -67,7 +67,6 @@ import {
   fetchPrivatePassAsConsumerList,
 } from '#src/libs/private-service/actions';
 import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
-// @ts-expect-error
 import { getContract, withPaymentPack } from '#src/libs/subscription/selectors';
 import { getMarketplaceEnabledPaymentMethods } from '#src/libs/payment/utils';
 
@@ -754,6 +753,7 @@ const mapStateToProps = (
   }: { contractId: string; offerId: number; companyId: number },
 ) => ({
   offer: withMetaActivity(withEstablishment(getOfferById))(state, offerId),
+  // @ts-expect-error
   contract: withPaymentPack(getContract)(state, contractId),
   contractLoading: state.subscription.contract.byMarketplace.loading,
   theme: themeSelectors.getTheme(state),

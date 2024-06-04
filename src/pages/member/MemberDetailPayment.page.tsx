@@ -24,8 +24,7 @@ import type {
   SubscriptionQueryParams,
 } from '../../libs/subscription/types';
 
-// @ts-expect-error
-import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
+import { getSubscriptionListByMember } from '#src/libs/subscription/selectors';
 import {
   getInvoiceList,
   withInvoiceItem,

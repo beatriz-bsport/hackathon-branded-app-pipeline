@@ -20,7 +20,6 @@ import { getAllPrivateSlots } from '#src/libs/private-service/selectors/private-
 import { getAllGiftcardList } from '#src/libs/giftcard/selectors';
 import { getAllCoupons } from '#src/libs/coupon/selectors';
 import { getVideoList } from '#src/libs/video/selectors';
-// @ts-expect-error
 import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
 import { getSubShopsByCompany } from '#src/libs/shop/selectors';
@@ -100,6 +99,7 @@ const connector = connect(
     coupons: getAllCoupons(state),
     billingGroups: getEstablishmentBillingroups(state),
     videos: getVideoList(state),
+    // @ts-expect-error
     contracts: getAvailableContractList(state),
     subshops: getSubShopsByCompany(state, getTheme(state).company),
     staffs: getUsersWithRole(state),
@@ -454,7 +454,6 @@ export default function withDatatypeDynamicData(
 
               case ReportFilterableDataType.CONTRACT:
                 return props.contracts.find(
-                  // @ts-expect-error
                   (contract) => contract.id.toString() === stringifiedValue,
                 )?.name;
 
@@ -588,7 +587,6 @@ export default function withDatatypeDynamicData(
                 columnName,
               }));
             case ReportFilterableDataType.CONTRACT:
-              // @ts-expect-error
               return props.contracts.map((contract) => ({
                 label: contract.name,
                 value: contract.id,

@@ -330,6 +330,8 @@ export const groupByCategory = memoize((selector: PaymentPackArraySelector) =>
 export const getPaymentPackTemplateData = (state: RootState) =>
   state.paymentPack.paymentPackTemplate.byId;
 
+export const getPaymentPackTemplateById = (state: RootState, id: number) =>
+  state.paymentPack.paymentPackTemplate.byId[id];
 const getPaymentPackTemplateIdList = (state: RootState) =>
   state.paymentPack.paymentPackTemplate.allIds;
 

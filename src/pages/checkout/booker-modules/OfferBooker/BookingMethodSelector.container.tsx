@@ -74,8 +74,7 @@ import {
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
-  // @ts-expect-error
-} from '../../../../libs/subscription/selectors';
+} from '#src/libs/subscription/selectors';
 import {
   OfferData,
   OfferConstraint,

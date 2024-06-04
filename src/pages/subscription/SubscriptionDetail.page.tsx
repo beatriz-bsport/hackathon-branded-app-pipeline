@@ -46,7 +46,6 @@ import {
   get as getSubscriptionById,
   getSubscriptionEventList,
   getSubscriptionEventState,
-  // @ts-expect-error
 } from '#src/libs/subscription/selectors';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SubscriptionComponent from '#src/libs/subscription/components/Subscription.component';
@@ -116,6 +115,7 @@ export class SubscriptionDetail extends Component<Props> {
         <SubscriptionComponent
           cancelPause={this.props.cancelPause}
           downloadContractTerms={this.props.downloadContractTerms}
+          // @ts-expect-error
           eventList={this.props.eventList}
           eventLoading={this.props.eventLoading}
           eventPage={this.props.eventPage}
@@ -255,6 +255,7 @@ export class SubscriptionDetail extends Component<Props> {
 }
 const connector = connect(
   (state: RootState, { id }: { id: number }) => ({
+    // @ts-expect-error
     subscription: getSubscriptionById(state, id),
     companyId: state.theme.theme.company,
     memberLoading: state.member.loading,
@@ -267,7 +268,9 @@ const connector = connect(
     availablePrivatePassList: getPrivatePassAvailable(state),
     availablePaymentComboList: getPaymentComboList(state),
     eventList: getSubscriptionEventList(state),
+    // @ts-expect-error
     eventPage: getSubscriptionEventState(state).page,
+    // @ts-expect-error
     eventLoading: getSubscriptionEventState(state).loading,
     savedPaymentMethodList: getSavedPaymentMethodList(state),
     memberById: state.member.detailData,

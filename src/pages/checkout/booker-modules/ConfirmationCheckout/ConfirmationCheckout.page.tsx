@@ -30,7 +30,6 @@ import {
   getOfferStatusWaitingListPosition,
 } from '#src/libs/offer/selectors';
 import { withCustomLevel } from '#src/libs/level/selectors';
-// @ts-expect-error
 import { getSubscriptionDetail } from '#src/libs/subscription/selectors';
 
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#src/libs/establishment/actions';
@@ -810,6 +809,7 @@ const mapStateToProps = (
   paymentComboById: getPaymenComboDataDict(state),
   billingPlan:
     queryParams.billingPlanId &&
+    // @ts-expect-error
     getSubscriptionDetail(state, queryParams.billingPlanId),
   customConfiguration: state.exportableComponents.customCss,
   getOfferBookableStatus: (offerId: number) =>

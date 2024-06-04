@@ -29,7 +29,6 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
   fetchEmailTemplateSummariesBulk,
 } from '#src/libs/email-editor/actions';
-// @ts-expect-error
 import { getActiveContractList } from '#src/libs/subscription/selectors';
 import {
   fetchAllPrivateServices,
@@ -576,8 +575,8 @@ const mapStateToProps = (state: RootState) => ({
   ) as Array<EstablishmentGroup>,
   privateServices: _getAvailablePrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
+  // @ts-expect-error
   contracts: getActiveContractList(state),
-  comm: state.communication,
   theme: getTheme(state),
   tagCategories: getTagCategories(state),
   privatePasses: getPrivatePasses(state),

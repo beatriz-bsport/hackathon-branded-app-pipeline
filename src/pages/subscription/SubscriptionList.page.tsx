@@ -32,7 +32,6 @@ import {
   getSubscriptionEventList,
   getSubscriptionEventState,
   getPlannedInvoiceList,
-  // @ts-expect-error
 } from '../../libs/subscription/selectors';
 import {
   fetchSubscriptionList as fetchSubscriptionListAction,
@@ -41,7 +40,7 @@ import {
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAction,
 } from '../../libs/subscription/actions';
 import { MaterialStyleType } from '../../utils/types';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 
 type OwnProps = {
   goToSubscription: (id: number) => void;
@@ -149,7 +148,9 @@ export default compose(
       subscriptionCount: state.subscription.list.count,
       subscriptionLoading: state.subscription.list.loading,
       eventList: getSubscriptionEventList(state),
+      // @ts-expect-error
       eventPage: getSubscriptionEventState(state).page,
+      // @ts-expect-error
       eventLoading: getSubscriptionEventState(state).loading,
       // @ts-expect-error
       plannedInvoiceCount: state.subscription.plannedInvoice.count,

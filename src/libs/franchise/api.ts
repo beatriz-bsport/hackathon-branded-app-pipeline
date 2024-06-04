@@ -48,13 +48,12 @@ export const fetchFranchiseUser = async (
 
 export const updateFranchiseTheme = async (
   franchiseId: number,
-  data: {
-    primary_color: string;
-    secondary_color: string;
-    cover: File;
-  },
+  data: FormData,
 ) => {
-  return patchAuth(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`, data);
+  return patchAuth<Franchise>(
+    `${API_V1_URI}/franchisor/franchisor/${franchiseId}/`,
+    data,
+  );
 };
 
 export const fetchFranchiseTheme = async (

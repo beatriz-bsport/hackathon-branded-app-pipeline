@@ -82,12 +82,12 @@ const usePropsFromVariation = (
   const isSuspended = variationsSelected.isSuspended?.value === 'true';
   const expirationDate =
     variationsSelected.isExpired?.value === 'true'
-      ? DateTime.now().minus({ day: 1 }).toFormat('D')
-      : DateTime.now().plus({ day: 1 }).toFormat('D');
+      ? DateTime.now().minus({ day: 1 }).toISO()
+      : DateTime.now().plus({ day: 1 }).toISO();
   const startDate =
     variationsSelected.isFuture?.value === 'true'
-      ? DateTime.now().plus({ day: 1 }).toFormat('D')
-      : DateTime.now().minus({ day: 1 }).toFormat('D');
+      ? DateTime.now().plus({ day: 1 }).toISO()
+      : DateTime.now().minus({ day: 1 }).toISO();
   return {
     isSuspended,
     expirationDate,

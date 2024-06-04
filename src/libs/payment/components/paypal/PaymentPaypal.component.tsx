@@ -1,7 +1,9 @@
 import React from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
 
-import type { AxiosResponse } from 'axios';
+import type { AxiosError } from 'axios';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { PAYMENT_EXECUTION_ERROR_CODES } from '@bsport/common/lib/master-data/error-codes/payment';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,12 +13,9 @@ import { useTranslation } from 'react-i18next';
 import Config from '#src/config';
 import { isErrorWithCustomCode } from '#libs/utils';
 import {
-  createPaymentAttempt,
-  createPaymentAttemptWebview,
-  executePaymentAttempt,
-  executePaymentAttemptWebview,
-} from '#libs/payment/api';
-
+  createPaymentAttempt as createPaymentAttemptAction,
+  executePaymentAttempt as executePaymentAttemptAction,
+} from '#libs/payment/actions';
 import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
@@ -30,8 +29,22 @@ type Props = {
   basketId: string;
   children?: React.ReactNode;
   clientSecret: string;
+  createPaymentAttempt: (
+    paymentGroupId: number,
+    fromApp: boolean,
+    basketId?: string,
+  ) => Promise<string>;
   creditAccountBalance?: number | null;
   customClasses?: { [className: string]: string };
+  executePaymentAttempt: (
+    paymentGroupId: number,
+    fromApp: boolean,
+    basketId?: string,
+    options?: {
+      onError: (error: AxiosError) => void;
+      onSuccess: () => void;
+    },
+  ) => Promise<void>;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
   forceHideButton?: boolean;
@@ -60,6 +73,7 @@ const PaymentPaypal: React.FC<Props> = ({
   clientSecret,
   creditAccountBalance,
   customClasses,
+  executePaymentAttempt,
   forceButtonDisplay,
   forceDisabled,
   forceHideButton,
@@ -71,6 +85,7 @@ const PaymentPaypal: React.FC<Props> = ({
   onCancel,
   onError,
   onSuccess,
+  createPaymentAttempt,
   paymentGroupId,
   paymentProcessing,
   setPaymentProcessing,
@@ -82,72 +97,45 @@ const PaymentPaypal: React.FC<Props> = ({
 
   const { t } = useTranslation('invoice');
 
-  const createOrder = React.useCallback(async (): Promise<string> => {
-    // Allows to authenticate the user through the basket uuid if used in webview
-    const createPaymentAttemptMethod: ({
-      paymentGroupId,
-      basketId,
-    }: {
-      paymentGroupId: number;
-      basketId?: string;
-    }) => Promise<AxiosResponse> = fromApp
-      ? createPaymentAttemptWebview
-      : createPaymentAttempt;
+  const createOrder = React.useCallback((): Promise<string> => {
+    return createPaymentAttempt(paymentGroupId, fromApp, basketId);
+  }, [basketId, fromApp, paymentGroupId, createPaymentAttempt]);
 
-    const response = await createPaymentAttemptMethod({
-      paymentGroupId,
-      ...(fromApp ? { basketId } : {}),
-    });
-
-    return response.data.payment_attempt_id;
-  }, [basketId, fromApp, paymentGroupId]);
-
-  const onApprove = React.useCallback(async (): Promise<void> => {
+  const onApprove = React.useCallback((): Promise<void> => {
     setPaymentProcessing(true);
-    // Allows to authenticate the user through the basket uuid if used in webview
-    const executePaymentAttemptMethod: ({
-      paymentGroupId,
-      basketId,
-    }: {
-      paymentGroupId: number;
-      basketId?: string;
-    }) => Promise<AxiosResponse> = fromApp
-      ? executePaymentAttemptWebview
-      : executePaymentAttempt;
 
-    try {
-      await executePaymentAttemptMethod({
-        paymentGroupId,
-        ...(fromApp ? { basketId } : {}),
-      });
-      onSuccess(() => setPaymentProcessing(false));
-    } catch (error) {
-      setPaymentProcessing(false);
-      if (onError) onError();
+    return executePaymentAttempt(paymentGroupId, fromApp, basketId, {
+      onError: (error: AxiosError) => {
+        setPaymentProcessing(false);
+        if (onError) onError();
 
-      if (
-        isErrorWithCustomCode(error) &&
-        error.response.data &&
-        snackbarErrorMsg
-      ) {
-        // Multiple exceptions could be returned in the response
-        const error_data = Array.isArray(error.response.data)
-          ? error.response.data
-          : [error.response.data];
+        if (
+          isErrorWithCustomCode(error) &&
+          error.response.data &&
+          snackbarErrorMsg
+        ) {
+          // Multiple exceptions could be returned in the response
+          const error_data = Array.isArray(error.response.data)
+            ? error.response.data
+            : [error.response.data];
 
-        error_data.forEach((exc: { error_code: number }) => {
-          const { error_code } = exc;
+          error_data.forEach((exc: { error_code: number }) => {
+            const { error_code } = exc;
 
-          if (ALL_ERROR_CODES.includes(error_code)) {
-            snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
-          } else if (PAYMENT_EXECUTION_ERROR_CODES.includes(error_code)) {
-            snackbarErrorMsg(`canNotExecutePaymentAttempt.${error_code}`);
-          } else {
-            snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
-          }
-        });
-      }
-    }
+            if (ALL_ERROR_CODES.includes(error_code)) {
+              snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
+            } else if (PAYMENT_EXECUTION_ERROR_CODES.includes(error_code)) {
+              snackbarErrorMsg(`canNotExecutePaymentAttempt.${error_code}`);
+            } else {
+              snackbarErrorMsg('canNotExecutePaymentAttempt.generic');
+            }
+          });
+        }
+      },
+      onSuccess: () => {
+        onSuccess(() => setPaymentProcessing(false));
+      },
+    });
   }, [
     basketId,
     fromApp,
@@ -156,6 +144,7 @@ const PaymentPaypal: React.FC<Props> = ({
     onError,
     snackbarErrorMsg,
     setPaymentProcessing,
+    executePaymentAttempt,
   ]);
 
   const onPayPalError = React.useCallback(() => {
@@ -271,4 +260,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PaymentPaypal);
+const mapDispatchToProps = {
+  createPaymentAttempt: createPaymentAttemptAction,
+  executePaymentAttempt: executePaymentAttemptAction,
+};
+
+export default connect(() => {}, mapDispatchToProps)(React.memo(PaymentPaypal));

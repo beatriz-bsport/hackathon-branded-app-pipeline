@@ -19,6 +19,7 @@ import {
   updateBookkeepingAccountActions,
   deleteBookkeepingAccountActions,
   getLinkedProductNamesActions,
+  createPaymentAttemptActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -37,6 +38,11 @@ const initialState = Immutable({
     loading: false,
     allIds: [],
     byId: {},
+  },
+  paymentAttempt: {
+    error: null,
+    loading: false,
+    id: null,
   },
   payout: {
     error: null,
@@ -173,6 +179,15 @@ export default handleActions(
     },
     [onSpotPaymentReportActions.error]: (state, { payload }) => {
       return state.setIn(['onSpotPaymentReport', 'error'], payload);
+    },
+    [createPaymentAttemptActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['paymentAttempt', 'id'], payload.payment_attempt_id);
+    },
+    [createPaymentAttemptActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentAttempt', 'loading'], payload);
+    },
+    [createPaymentAttemptActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentAttempt', 'error'], payload);
     },
     [listPaymentGroupActions.error]: (state, { payload }) => {
       return state.setIn(['paymentGroup', 'error'], payload);

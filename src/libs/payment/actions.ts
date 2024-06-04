@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
+import { AxiosResponse } from 'axios';
 import type {
   Dispatch,
   ThunkAction,
@@ -27,6 +28,10 @@ import {
   updateBookkeepingAccount as updateBookkeepingAccountAPI,
   deleteBookkeepingAccount as deleteBookkeepingAccountAPI,
   getLinkedProductNames as getLinkedProductNamesAPI,
+  createPaymentAttempt as createPaymentAttemptAPI,
+  createPaymentAttemptWebview as createPaymentAttemptWebviewAPI,
+  executePaymentAttempt as executePaymentAttemptAPI,
+  executePaymentAttemptWebview as executePaymentAttemptWebviewAPI,
 } from './api';
 import type {
   PaymentGroup,
@@ -263,6 +268,89 @@ export function fetchPayoutList(
       dispatch(listPayoutActions.error(err));
     }
     dispatch(listPayoutActions.isLoading(false));
+  };
+}
+
+export const createPaymentAttemptActions = {
+  isLoading: createAction('PAYMENT_ATTEMPT/CREATE/LOADING'),
+  error: createAction('PAYMENT_ATTEMPT/CREATE/ERROR'),
+  success: createAction('PAYMENT_ATTEMPT/CREATE/SUCCESS'),
+};
+
+export function createPaymentAttempt(
+  paymentGroupId: number,
+  fromApp: boolean,
+  basketId?: string,
+  options?: OptionCallback<PaymentGroup>,
+): ThunkAction {
+  // Eslint is disabled because of the return pattern needed in the case of PayPal payments explained below
+  // eslint-disable-next-line
+  return async (dispatch: Dispatch) => {
+    dispatch(createPaymentAttemptActions.isLoading(true));
+    dispatch(createPaymentAttemptActions.error(null));
+    try {
+      const createPaymentAttemptMethod: ({
+        paymentGroupId,
+        basketId,
+      }: {
+        paymentGroupId: number;
+        basketId?: string;
+      }) => Promise<AxiosResponse> = fromApp
+        ? createPaymentAttemptWebviewAPI
+        : createPaymentAttemptAPI;
+
+      const response = await createPaymentAttemptMethod({
+        paymentGroupId,
+        ...(fromApp ? { basketId } : {}),
+      });
+
+      dispatch(createPaymentAttemptActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+      // Needed in the case of PayPal payments, since the PayPal SDK requires a callback returning a Promise<string> to retrieve the Order id
+      return response.data.payment_attempt_id;
+    } catch (err) {
+      console.error(err);
+      dispatch(createPaymentAttemptActions.error(err));
+    } finally {
+      dispatch(createPaymentAttemptActions.isLoading(false));
+    }
+  };
+}
+
+export function executePaymentAttempt(
+  paymentGroupId: number,
+  fromApp: boolean,
+  basketId?: string,
+  options?: OptionCallback<PaymentGroup>,
+): ThunkAction {
+  return async () => {
+    try {
+      const executePaymentAttemptMethod: ({
+        paymentGroupId,
+        basketId,
+      }: {
+        paymentGroupId: number;
+        basketId?: string;
+      }) => Promise<AxiosResponse> = fromApp
+        ? executePaymentAttemptWebviewAPI
+        : executePaymentAttemptAPI;
+
+      const response = await executePaymentAttemptMethod({
+        paymentGroupId,
+        ...(fromApp ? { basketId } : {}),
+      });
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
   };
 }
 

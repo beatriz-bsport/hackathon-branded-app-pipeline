@@ -52,6 +52,16 @@ export const CONDITION_CHIPS = [
   'stock',
 ];
 
+export const CREDIT_COLUMNS = [
+  'remaining_credits',
+  'credit_consumed',
+  'available_credits',
+  'credits',
+  'remaining_credits_annotated',
+  'payment_method_manual_credit_card',
+  'credit_price',
+];
+
 export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
   Payments: [
     ReportCategoryEnum.BASKET,

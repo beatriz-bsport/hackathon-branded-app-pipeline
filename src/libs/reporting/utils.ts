@@ -78,7 +78,6 @@ import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '#src/libs/theme/selectors';
-import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 import type { ObjectLevelPermissions } from '#src/libs/role/types';
 import type {
@@ -292,7 +291,6 @@ export const getConverter = (
   },
   classes: ClassNameMap<string>,
   t: TFunction,
-  reportCategory: string,
 ): CellConverter => {
   if (!column || !column.datatype) {
     return (value: any) => ({ value });
@@ -323,19 +321,10 @@ export const getConverter = (
     }
 
     if (datatype === 'int') {
-      const creditsColumns = [
-        'credits',
-        'available_credits',
-        'remaining_credits_annotated',
-      ];
-      const shouldBeDivided =
-        ['memberships', 'private_cpasses'].includes(reportCategory) &&
-        creditsColumns.includes(column.column_identifier || column.identifier);
-
       const valueInt = Math.floor(Number(value));
       return {
         cellProps: { className: classes.right },
-        value: shouldBeDivided ? getCreditsDividedDisplay(valueInt) : valueInt,
+        value: valueInt,
       };
     }
 

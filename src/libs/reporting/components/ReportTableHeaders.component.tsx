@@ -15,13 +15,12 @@ const CardHeaders: React.FC<{
     datatype: string;
     column_value: null | number;
   }[];
-  reportCategory: string;
-}> = React.memo(({ headerDetails, headerTitle, reportCategory }) => {
+}> = React.memo(({ headerDetails, headerTitle }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
   const converters = (headerDetails || []).map((detail) =>
-    getConverter(detail, classes, t, reportCategory),
+    getConverter(detail, classes, t),
   );
 
   return (
@@ -65,8 +64,7 @@ const CardHeaders: React.FC<{
 
 const ReportTableHeaders: React.FC<{
   reportHeaders: ReportHeader;
-  reportCategory: number;
-}> = ({ reportHeaders, reportCategory }) => {
+}> = ({ reportHeaders }) => {
   const classes = useStyles();
 
   return (
@@ -76,8 +74,6 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.averageable}
             headerTitle="average"
-            // @ts-expect-error
-            reportCategory={reportCategory}
           />
         )}
       {!!reportHeaders?.averageable?.length &&
@@ -85,8 +81,6 @@ const ReportTableHeaders: React.FC<{
           <CardHeaders
             headerDetails={reportHeaders.summable}
             headerTitle="sum"
-            // @ts-expect-error
-            reportCategory={reportCategory}
           />
         )}
     </div>

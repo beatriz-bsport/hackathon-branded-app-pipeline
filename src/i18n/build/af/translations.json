@@ -9747,7 +9747,11 @@
         "cancel": "Cancel",
         "edit": "Edit",
         "columnError": "Please note that the column filtered here has been removed from the report. However, the filter on this column is still applied.",
-        "shortColumnError": "The corresponding column is not displayed"
+        "shortColumnError": "The corresponding column is not displayed",
+        "decimalCredit": {
+          "helperText": "You must enter an integer value here, please remind that the credits value displayed in the reports are not divided by {{creditFactor}}",
+          "filterViewHelperText": "For credits-related filters, you must enter an integer value, please remind that the credits value displayed in the reports are not divided by {{creditFactor}}"
+        }
       }
     },
     "datatype": {
@@ -9864,7 +9868,8 @@
       "activityByEst": "The activities and establishments that appear are those for which a session is planned in the selected date range.",
       "activities": "The activities that appear are those for which a session is scheduled in the selected date range.",
       "members": "Members are filtered on their registration date.",
-      "referral_grant": "Referral links are filtered according to the registration date of the referred member"
+      "referral_grant": "Referral links are filtered according to the registration date of the referred member",
+      "decimalCredit": "The credits values displayed in the reports are not divided by {{creditFactor}}, please do not forget to divide these columns for further analysis."
     },
     "franchiseWarning": {
       "part2": "You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.",

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Popover, Theme, makeStyles } from '@material-ui/core';
+import { FormHelperText, Popover, Theme, makeStyles } from '@material-ui/core';
 
 import { useFormikContext } from 'formik';
 import {
@@ -27,6 +27,8 @@ import DatatypeFilterConfigValueManager from '#src/libs/datatype-filtering/compo
 import { handleGetDynamicDataForFiltersReturn } from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import { ReportFilterConfig } from '../types';
+import { CREDIT_COLUMNS } from '../constants';
+import { getCreditFactor } from '#src/libs/theme/selectors';
 
 export type QuickFiltersColumnsData = {
   identifier: string;
@@ -87,6 +89,14 @@ const QuickReportFilterConfigFilter: React.FC<
       },
     ],
     [t],
+  );
+
+  const showDecimalCreditHelperText: boolean = useMemo(
+    () =>
+      getCreditFactor() !== 1 &&
+      ['int', 'number'].includes(selectedColumn.datatype) &&
+      CREDIT_COLUMNS.includes(selectedColumn.identifier),
+    [selectedColumn.datatype, selectedColumn.identifier],
   );
 
   const filterComparators: AllComparator[] = useMemo(
@@ -167,6 +177,13 @@ const QuickReportFilterConfigFilter: React.FC<
             datatype={selectedColumn.datatype}
             label={selectedColumn.identifier}
           />
+          {showDecimalCreditHelperText && (
+            <FormHelperText>
+              {t('filter.form.decimalCredit.helperText', {
+                creditFactor: String(getCreditFactor()),
+              })}
+            </FormHelperText>
+          )}
           <div className={classes.quickReportFilterSelectorRows}>
             {selectedColumn.datatype === 'datetime' && (
               <div className={classes.subDataTypeSelector}>

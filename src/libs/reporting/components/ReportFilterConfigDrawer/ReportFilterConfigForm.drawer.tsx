@@ -17,6 +17,7 @@ import {
   ButtonBase,
   CircularProgress,
   Divider,
+  FormHelperText,
   makeStyles,
   Menu,
   MenuItem,
@@ -53,6 +54,8 @@ import { getFilterableColumns } from '#src/libs/reporting/utils';
 import { OptionCallback } from '../../../../state/types';
 import NestedAlertError from './NestedAlertError.component';
 import { ReportFilterConfig, ReportMetadataColumn } from '../../types';
+import { getCreditFactor } from '#src/libs/theme/selectors';
+import { CREDIT_COLUMNS } from '../../constants';
 
 type Values = {
   name: string;
@@ -130,6 +133,23 @@ const ReportFilterConfigFormDrawer: React.FC<
   const reportColumns = useMemo(() => {
     return columns.filter((c) => c.is_filterable).map((c) => c.identifier);
   }, [columns]);
+
+  const showDecimalCreditHelperText: boolean = useMemo(() => {
+    // Get the list of identifiers of the filters currently selected by the user in the Filtered view
+    const filterListIdentifiers = values.config.groups.reduce((acc, group) => {
+      const identifiers = group.filters_data.map(
+        (filter_data) => filter_data.identifier,
+      );
+      return acc.concat(identifiers);
+    }, []);
+
+    return (
+      getCreditFactor() !== 1 &&
+      CREDIT_COLUMNS.some((column: string) =>
+        filterListIdentifiers.includes(column),
+      )
+    );
+  }, [values.config.groups]);
 
   const checkOtherRowExist = useCallback(
     (uuid) =>
@@ -247,6 +267,13 @@ const ReportFilterConfigFormDrawer: React.FC<
               )}
               {reportColumns?.length > 0 && (
                 <>
+                  {showDecimalCreditHelperText && (
+                    <FormHelperText className={classes.decimalCreditHelperText}>
+                      {t('filter.form.decimalCredit.filterViewHelperText', {
+                        creditFactor: String(getCreditFactor()),
+                      })}
+                    </FormHelperText>
+                  )}
                   <div className={classes.verticalRows}>
                     {values.config.groups.map((filterGroup, indexGroup) => (
                       <DatatypeFilterConfigGroupRow
@@ -413,6 +440,9 @@ const useStyles = makeStyles((theme) => ({
   },
   editIcon: {
     marginRight: theme.spacing(1),
+  },
+  decimalCreditHelperText: {
+    marginBottom: theme.spacing(2),
   },
 }));
 

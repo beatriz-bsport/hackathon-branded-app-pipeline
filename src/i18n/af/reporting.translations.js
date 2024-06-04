@@ -623,6 +623,12 @@ const getTranslations = async () => {
         columnError:
           'Please note that the column filtered here has been removed from the report. However, the filter on this column is still applied.',
         shortColumnError: 'The corresponding column is not displayed',
+        decimalCredit: {
+          helperText:
+            'You must enter an integer value here, please remind that the credits value displayed in the reports are not divided by {{creditFactor}}',
+          filterViewHelperText:
+            'For credits-related filters, you must enter an integer value, please remind that the credits value displayed in the reports are not divided by {{creditFactor}}',
+        },
       },
     },
     datatype: {
@@ -787,6 +793,8 @@ const getTranslations = async () => {
       members: 'Members are filtered on their registration date.',
       referral_grant:
         'Referral links are filtered according to the registration date of the referred member',
+      decimalCredit:
+        'The credits values displayed in the reports are not divided by {{creditFactor}}, please do not forget to divide these columns for further analysis.',
     },
     franchiseWarning: {
       part2:

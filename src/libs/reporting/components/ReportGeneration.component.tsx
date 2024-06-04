@@ -26,6 +26,8 @@ import { OptionCallback } from '../../../state/types';
 import ReportTableHeaders from './ReportTableHeaders.component';
 import ReportTable from './ReportTable.component';
 import ReportGenerationForm from './ReportGenerationForm.component';
+import { getCreditFactor } from '#src/libs/theme/selectors';
+import { CREDIT_COLUMNS } from '../constants';
 
 type Props = {
   resultLoading?: boolean;
@@ -139,6 +141,13 @@ const ReportGeneration: React.FC<Props> = ({
   const { edit: hasEditPermission, read: hasReadPermission } =
     getReportObjectPermissions(objectLevelPermissions, report);
 
+  // Check if the report has any column that is in CREDIT_COLUMNS
+  const isColumnInCreditColumns = columnsMetadata
+    ?.map((column) => column?.identifier)
+    .some((columnIdentifier) => CREDIT_COLUMNS.includes(columnIdentifier));
+  const showCreditFactorWarning =
+    getCreditFactor() !== 1 && isColumnInCreditColumns;
+
   return (
     <div>
       {isFranchisor && (
@@ -192,9 +201,8 @@ const ReportGeneration: React.FC<Props> = ({
       {hasReadPermission ? (
         <>
           <ReportTableHeaders
-            handleGenerateHeaders={handleGenerateHeaders}
             // @ts-expect-error
-            reportCategory={report.category}
+            handleGenerateHeaders={handleGenerateHeaders}
             reportHeaders={reportHeaders}
             reportHeadersLoading={reportHeadersLoading}
           />
@@ -207,6 +215,7 @@ const ReportGeneration: React.FC<Props> = ({
               <Trans
                 components={[
                   <a
+                    key="invoicesAccrualMethodLink"
                     className={classes.infoLink}
                     href={t('reporting:helperText.invoicesAccrualMethodLink')}
                     rel="noopener noreferrer"
@@ -223,6 +232,13 @@ const ReportGeneration: React.FC<Props> = ({
                   ),
                 }}
               />
+            </Alert>
+          )}
+          {showCreditFactorWarning && (
+            <Alert className={classes.alert} severity="warning">
+              {t('reporting:helperText.decimalCredit', {
+                creditFactor: getCreditFactor(),
+              })}
             </Alert>
           )}
           {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}

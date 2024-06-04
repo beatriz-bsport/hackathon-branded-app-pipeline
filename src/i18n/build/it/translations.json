@@ -2080,6 +2080,54 @@
                         "processing": "In elaborazione"
                     }
                 }
+            },
+            "myProfile": {
+                "termsAndConditions": {
+                    "accepted": "Accettati il {{- dateAccepted}}",
+                    "generalTerms": "Termini generali",
+                    "termOfuse": "Termini d'uso",
+                    "subtitle": "Membro dal {{- dateJoined}}",
+                    "title": "Termini e condizioni"
+                },
+                "paymentMethods": {
+                    "add": "Aggiungi un metodo di pagamento",
+                    "cardItemCaptionText": "Scadenza: {{- additionalInfo}}",
+                    "paymentMethodLabel": "Termina con <strong>{{- identifier}}</strong>",
+                    "empty": "Una volta salvato un pagamento, questo apparirà qui.",
+                    "directPayments": "Pagamenti diretti",
+                    "cards": "Carte",
+                    "title": "Metodi di pagamento salvati"
+                },
+                "membershipId": "Numero di adesione",
+                "accountBalance": "Saldo del conto",
+                "spivi": {
+                    "information": "Se attivata, i dati (velocità, calorie bruciate, ecc.) saranno visualizzati in tempo reale durante la sessione. Altrimenti, si riceverà un riepilogo via e-mail al termine della sessione.",
+                    "drawerTitle": "VIsualizza i dati",
+                    "displayData": "Visualizza i miei dati in tempo reale",
+                    "title": "Dati riguardo lo spinning"
+                },
+                "notifications": {
+                    "emailNotAllowed": "Notifiche via email non consentite",
+                    "emailAllowed": "Notifiche via email consentite",
+                    "phoneNotAllowed": "Notifiche telefoniche non consentite",
+                    "phoneAllowed": "Notifiche telefoniche consentite",
+                    "title": "Notifiche"
+                },
+                "address": "Indirizzo",
+                "emergencyNumber": "Numero di emergenza",
+                "phone": "Numero di telefono",
+                "identityDocument": "Documento di identità",
+                "birthday": "Compleanno",
+                "gender": "Genere",
+                "detachPayment": {
+                    "subtitle": "Ricorda che non è possibile eliminare i metodi di pagamento utilizzati per i pagamenti ricorrenti.",
+                    "title": "Elimina metodo di pagamento"
+                },
+                "barCode": {
+                    "entryBarcode": "Codice a barre in ingresso",
+                    "scanInfo": "Scansiona questo codice a barre per entrare nello studio o per effettuare il check-in per la tua lezione.",
+                    "scan": "Scansiona codice a barre"
+                }
             }
         }
     },
@@ -4326,7 +4374,8 @@
                 "giftcardTemplates": "Gift card",
                 "privatePassTemplates": "Pacchetto per appuntamenti",
                 "paymentPackTemplates": "Pacchetti",
-                "label": "Prodotti"
+                "label": "Prodotti",
+                "shopTemplates": "Shop"
             },
             "tag": "Tag",
             "marketing": {
@@ -4447,6 +4496,12 @@
                 "settings": "Impostazioni",
                 "monitor": "Visite in loco",
                 "perform": "Visita dei membri"
+            },
+            "settings": {
+                "theme": {
+                    "memberProfile": "Profilo del membro",
+                    "general": "Generale"
+                }
             }
         },
         "logout": "Logout",
@@ -4760,6 +4815,14 @@
                     "urlRedirection": "URL personalizzato",
                     "helperText": "Per impostazione predefinita, quando i membri resettano la password, vengono reindirizzati al marketplace. Se si desidera reindirizzarli altrove (al sito web, ad esempio), compila il seguente campo con l'URL desiderato.",
                     "title": "Reimposta la password"
+                },
+                "memberProfile": {
+                    "myProfile": {
+                        "showMembershipNumber": "Mostra il numero di iscrizione",
+                        "showBarcodeButton": "Mostra il pulsante codice a barre",
+                        "showMemberAccountBalance": "Mostra il saldo del conto del membro",
+                        "title": "Il mio profilo"
+                    }
                 }
             },
             "instagramURL": {
@@ -13404,7 +13467,8 @@
                         "default": "Vuoi salvare le modifiche prima di passare a un'altra pagina?",
                         "inventory": "Prima di passare a un'altra pagina, si desidera aggiornare l'inventario in base ai valori inseriti nella colonna “Adeguamento scorte”?",
                         "title": "Modifiche non salvate"
-                    }
+                    },
+                    "companyName": "Studio"
                 }
             },
             "tab": {
@@ -13470,7 +13534,19 @@
                         },
                         "title": "Aggiungi una categoria"
                     },
-                    "title": "Prodotti"
+                    "title": "Prodotti",
+                    "emptySubshopList": "Non ci sono ancora prodotti creati in questa categoria.",
+                    "online": "Online",
+                    "storeOnly": "Solo nel negozio",
+                    "franchiseSubshopDialog": {
+                        "info": "Le categorie appariranno sul marketplace e sull'applicazione mobile per gli articoli disponibili alla vendita.",
+                        "deleteInfo": "Sei sicuro di voler eliminare questa categoria? Verranno eliminati anche tutti gli elementi che contiene.",
+                        "delete": "Elimina categoria",
+                        "update": "Rinomina categoria",
+                        "create": "Aggiungi una categoria",
+                        "inputPlaceholder": "Nome della categoria"
+                    },
+                    "addProduct": "Aggiungi un prodotto"
                 }
             }
         },
@@ -13751,7 +13827,8 @@
         "positiveNumber": "Questo campo deve essere maggiore di 0.",
         "seeMore": "Vedi più",
         "seeLess": "Vedi meno",
-        "discardChanges": "Scarta le modifiche"
+        "discardChanges": "Scarta le modifiche",
+        "rename": "Rinomina"
     },
     "titles": {
         "metaActivity": {
@@ -15567,6 +15644,9 @@
                     },
                     "giftcardTemplates": {
                         "_label": "Gift card"
+                    },
+                    "shopTemplates": {
+                        "_label": "Shop"
                     }
                 },
                 "settings": {
@@ -17006,7 +17086,10 @@
                 "fabrique_title": "Titolo",
                 "consumer_invoice_details_card": "Scheda dei dettagli della ricevuta (per i membri)",
                 "consumer_invoice_card": "Scheda della ricevuta (per i membri)",
-                "fabrique_tooltip": "Tooltip"
+                "fabrique_tooltip": "Tooltip",
+                "consumer_summary_card": "Card riepilogo cliente",
+                "consumer_saved_payment_methods_card": "Card dei metodi di pagamento salvati dai clienti",
+                "consumer_terms_and_conditions": "Card dei termini e delle condizioni per i clienti"
             },
             "cssConfig": {
                 "title": {
@@ -17145,7 +17228,9 @@
                     "showSuccessTitle": "Mostra il titolo di conferma",
                     "isCollapsable": "Tipo di titolo",
                     "isMultilocationEnabled": "Visualizza la sede di contabilizzazione",
-                    "invoiceType": "Tipo di ricevuta"
+                    "invoiceType": "Tipo di ricevuta",
+                    "acceptSms": "Accetta sms",
+                    "acceptEmail": "Accetta email"
                 },
                 "option": {
                     "false": "No",
@@ -18804,7 +18889,8 @@
                 "maxValueHelperText": "Valore massimo della metrica",
                 "color": "Colore"
             }
-        }
+        },
+        "maxLength200": "Questo campo ha un massimo di 200 caratteri."
     },
     "expense": {
         "dialogEditExpense": {
@@ -20059,8 +20145,14 @@
                 "member": "Membro",
                 "entryUnknown": "Specifica se il membro è stato autorizzato a entrare",
                 "entered": "Entrato",
-                "refusedEntry": "Ingresso rifiutato"
-            }
+                "refusedEntry": "Ingresso rifiutato",
+                "placeholder": {
+                    "search": "In base alla tua ricerca, non abbiamo trovato nessun membro che abbia effettuato una visita oggi.",
+                    "default": "Non hai ancora registrato alcuna visita."
+                }
+            },
+            "unreadCount": "{{ count }} nuova visita",
+            "unreadCount_plural": "{{ count }} nuove visite"
         },
         "accessMonitoringTitle": "Monitoraggio degli accessi",
         "filters": {

@@ -5,9 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Pagination from '@material-ui/lab/Pagination';
+import Switch from '@material-ui/core/Switch';
 import TabPanel from '@material-ui/lab/TabPanel';
 import Typography from '@material-ui/core/Typography';
 
@@ -25,12 +27,18 @@ type Props = {
   supplierTemplateList: ShopSupplierTemplate[];
   supplierTemplateListCount: number;
   supplierTemplateListPage: number;
+  isFranchiseLoading?: boolean;
+  isFranchiseeSupplierPriceHidden?: boolean;
   handleSelectSupplierTemplateForDeletion: (
     supplier: ShopSupplierTemplate,
   ) => void;
   handleEditSupplierTemplate: (supplier: ShopSupplierTemplate) => void;
   handleOpenSupplierTemplateModal: () => void;
   changeSupplierTemplatePage: (page: number) => void;
+  changeHideShopSupplierPrice: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    hideShopSupplierPriceForFranchisees: boolean,
+  ) => void;
 };
 
 const FranchiseShopListSettingsTab: React.FC<Props> = ({
@@ -38,10 +46,13 @@ const FranchiseShopListSettingsTab: React.FC<Props> = ({
   supplierTemplateList,
   supplierTemplateListCount,
   supplierTemplateListPage,
+  isFranchiseLoading,
+  isFranchiseeSupplierPriceHidden,
   handleSelectSupplierTemplateForDeletion,
   handleEditSupplierTemplate,
   handleOpenSupplierTemplateModal,
   changeSupplierTemplatePage,
+  changeHideShopSupplierPrice,
 }) => {
   const classes = useStyles();
 
@@ -99,6 +110,28 @@ const FranchiseShopListSettingsTab: React.FC<Props> = ({
           </Card>
         </Grid>
       </Grid>
+
+      <Card className={classes.supplierPriceSettingsContainer}>
+        <Typography variant="h6">
+          {t('shopList.tab.settings.section.supplierPrices.title')}
+        </Typography>
+
+        <div className={classes.supplierPriceSettingsList}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isFranchiseeSupplierPriceHidden}
+                color="primary"
+                disabled={isFranchiseLoading}
+                onChange={changeHideShopSupplierPrice}
+              />
+            }
+            label={t(
+              'shopList.tab.settings.section.supplierPrices.hideSupplierPricesForFranchisees',
+            )}
+          />
+        </div>
+      </Card>
     </TabPanel>
   );
 };
@@ -128,6 +161,12 @@ const useStyles = makeStyles((theme) => ({
   paginationContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  supplierPriceSettingsContainer: {
+    padding: theme.spacing(3),
+  },
+  supplierPriceSettingsList: {
+    paddingTop: theme.spacing(2),
   },
 }));
 

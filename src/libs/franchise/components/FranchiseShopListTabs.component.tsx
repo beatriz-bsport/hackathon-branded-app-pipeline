@@ -26,6 +26,8 @@ type Props = {
   supplierTemplateListCount: number;
   supplierTemplateListPage: number;
   isSupplierTemplateListLoading?: boolean;
+  isFranchiseLoading?: boolean;
+  isFranchiseeSupplierPriceHidden?: boolean;
   goToShopItemTemplate: (shopItemTemplateId: number) => void;
   createSubshopTemplate: (
     values: ShopListSubshopFormValues,
@@ -55,6 +57,10 @@ type Props = {
     shopItemTemplate: ShopItemTemplate,
     subshopTemplateId: number,
   ) => void;
+  changeHideShopSupplierPrice: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    hideShopSupplierPriceForFranchisees: boolean,
+  ) => void;
 };
 
 const FranchiseShopListTabs: React.FC<Props> = ({
@@ -63,6 +69,8 @@ const FranchiseShopListTabs: React.FC<Props> = ({
   supplierTemplateListCount,
   supplierTemplateListPage,
   isSupplierTemplateListLoading,
+  isFranchiseLoading,
+  isFranchiseeSupplierPriceHidden,
   getShopItemTemplateState,
   createSubshopTemplate,
   updateSubshopTemplate,
@@ -75,6 +83,7 @@ const FranchiseShopListTabs: React.FC<Props> = ({
   handleOpenShopItemTemplateForm,
   handleSetShopItemTemplateToDelete,
   goToShopItemTemplate,
+  changeHideShopSupplierPrice,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -121,12 +130,15 @@ const FranchiseShopListTabs: React.FC<Props> = ({
       />
 
       <FranchiseShopListSettingsTab
+        changeHideShopSupplierPrice={changeHideShopSupplierPrice}
         changeSupplierTemplatePage={changeSupplierTemplatePage}
         handleEditSupplierTemplate={handleEditSupplierTemplate}
         handleOpenSupplierTemplateModal={handleOpenSupplierTemplateModal}
         handleSelectSupplierTemplateForDeletion={
           handleSelectSupplierTemplateForDeletion
         }
+        isFranchiseeSupplierPriceHidden={isFranchiseeSupplierPriceHidden}
+        isFranchiseLoading={isFranchiseLoading}
         isSupplierTemplateListLoading={isSupplierTemplateListLoading}
         supplierTemplateList={supplierTemplateList}
         supplierTemplateListCount={supplierTemplateListCount}

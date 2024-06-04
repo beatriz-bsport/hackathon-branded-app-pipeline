@@ -34,6 +34,8 @@ type Props = {
   supplierTemplateListCount: number;
   isSupplierTemplateListLoading?: boolean;
   franchiseCompanyListOptions: SelectOption[];
+  isFranchiseLoading?: boolean;
+  isFranchiseeSupplierPriceHidden?: boolean;
   goToShopItemTemplate: (shopItemTemplateId: number) => void;
   getShopItemTemplateState: (
     subshopTemplateId: number,
@@ -72,6 +74,10 @@ type Props = {
     subshopTemplateId: number,
     options?: OptionCallback<number>,
   ) => void;
+  changeHideShopSupplierPrice: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    hideShopSupplierPriceForFranchisees: boolean,
+  ) => void;
 };
 
 const FranchiseShopList: React.FC<Props> = ({
@@ -82,6 +88,8 @@ const FranchiseShopList: React.FC<Props> = ({
   supplierTemplateListCount,
   isSupplierTemplateListLoading,
   franchiseCompanyListOptions,
+  isFranchiseLoading,
+  isFranchiseeSupplierPriceHidden,
   goToShopItemTemplate,
   getShopItemTemplateState,
   createSubshopTemplate,
@@ -94,6 +102,7 @@ const FranchiseShopList: React.FC<Props> = ({
   changeSupplierTemplatePage,
   createShopItemTemplate,
   deleteShopItemTemplate,
+  changeHideShopSupplierPrice,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -254,6 +263,7 @@ const FranchiseShopList: React.FC<Props> = ({
     <div className={classes.container}>
       {isLoading && <LinearProgress />}
       <FranchiseShopListTabs
+        changeHideShopSupplierPrice={changeHideShopSupplierPrice}
         changeSupplierTemplatePage={changeSupplierTemplatePage}
         createSubshopTemplate={createSubshopTemplate}
         deleteSubshopTemplate={deleteSubshopTemplate}
@@ -265,6 +275,8 @@ const FranchiseShopList: React.FC<Props> = ({
         handleOpenSupplierTemplateModal={handleOpenSupplierTemplateModal}
         handleSelectSupplierTemplateForDeletion={handleDeleteSupplierTemplate}
         handleSetShopItemTemplateToDelete={handleSetShopItemTemplateToDelete}
+        isFranchiseeSupplierPriceHidden={isFranchiseeSupplierPriceHidden}
+        isFranchiseLoading={isFranchiseLoading}
         isSupplierTemplateListLoading={isSupplierTemplateListLoading}
         subshopTemplateList={subshopTemplateList}
         supplierTemplateList={supplierTemplateList}

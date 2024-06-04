@@ -26,6 +26,8 @@ import {
   deleteShopSupplierTemplate as deleteShopSupplierTemplateAction,
 } from '#libs/shop/actions/supplier';
 
+import { updateFranchiseTheme as updateFranchiseThemeAction } from '#libs/franchise/actions';
+
 import {
   // subshop template selectors
   getSubshopTemplateList,
@@ -48,12 +50,16 @@ import {
 import {
   getFranchiseCompanies,
   getFranchiseCompanyById,
+  getFranchiseId,
+  getFranchiseIsLoading,
+  getFranchisor,
 } from '#src/libs/franchise/selectors';
 
 import FranchiseShopList from '#libs/franchise/components/FranchiseShopList.component';
 
 // @ts-expect-error
 import { mapFormDataWithObject } from '#pages/form.utils';
+import { objectToFormData } from '#libs/utils';
 
 import type { RootState } from '#src/reducers';
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
@@ -248,9 +254,20 @@ export class FranchiseShopListPage extends PureComponent<Props> {
       }),
     );
 
+  handleChangeHideShopSupplierPrice = (
+    _: React.ChangeEvent<HTMLInputElement>,
+    hideShopSupplierPriceForFranchisees: boolean,
+  ) => {
+    const formData = objectToFormData({ hideShopSupplierPriceForFranchisees });
+
+    this.props.franchisorId &&
+      this.props.updateFranchiseTheme(this.props.franchisorId, formData);
+  };
+
   render() {
     return (
       <FranchiseShopList
+        changeHideShopSupplierPrice={this.handleChangeHideShopSupplierPrice}
         changeSupplierTemplatePage={this.handleChangeSupplierTemplatePage}
         createShopItemTemplate={this.handleCreateShopItemTemplate}
         createSubshopTemplate={this.handleCreateSubshopTemplate}
@@ -262,6 +279,9 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
         getShopItemTemplateState={this.props.getShopItemTemplateState}
         goToShopItemTemplate={this.props.goToShopItemTemplate}
+        isFranchiseeSupplierPriceHidden={
+          this.props.franchisor?.hide_shop_supplier_price_for_franchisees
+        }
         subshopTemplateList={this.props.subshopTemplateList}
         supplierTemplateList={
           this.props.shopSupplierTemplateState.suppliers ?? []
@@ -281,9 +301,11 @@ export class FranchiseShopListPage extends PureComponent<Props> {
 
 const connector = connect(
   (state: RootState) => ({
-    franchisorId: state.franchise.franchisor.id,
     franchisorCompanyList: getFranchiseCompanies(state),
     franchisorCompanyListById: getFranchiseCompanyById(state),
+    franchisorId: getFranchiseId(state),
+    isFranchiseLoading: getFranchiseIsLoading(state),
+    franchisor: getFranchisor(state),
     // subshop template selectors
     subshopTemplateList: getSubshopTemplateList(state),
     isSubshopTemplateLoading: getSubshopTemplateLoading(state),
@@ -309,6 +331,7 @@ const connector = connect(
   }),
   {
     goToShopItemTemplate: (id: number) => push(`/f/shop/${id}`),
+    updateFranchiseTheme: updateFranchiseThemeAction,
     // subshop template actions
     fetchSubshopTemplateList: fetchSubshopTemplateListAction,
     createSubshopTemplate: createSubshopTemplateAction,

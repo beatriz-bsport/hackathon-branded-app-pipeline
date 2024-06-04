@@ -15,7 +15,7 @@ import type { Payment, PaymentEngine } from '#src/libs/payment/types';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import { ErrorAndLoading } from '../../state/types';
+import type { PaginationFilterParams, ErrorAndLoading } from '#src/libs/types';
 
 export type PlannedInvoice = {
   date: string;
@@ -274,6 +274,22 @@ export type SubscriptionState = {
       allIds: Array<number>;
     };
   };
+  contractTemplate: {
+    active: ErrorAndLoading & {
+      byId: { [id: number]: ContractTemplate };
+      allIds: number[];
+      page: number;
+      numberOfPages: number;
+      count: number;
+    };
+    disabled: ErrorAndLoading & {
+      byId: { [id: number]: ContractTemplate };
+      allIds: number[];
+      page: number;
+      numberOfPages: number;
+      count: number;
+    };
+  };
   contractTermsDownload: ErrorAndLoading;
   tags_on_first_billing: number[];
 };
@@ -404,4 +420,33 @@ export type ContractQueryParams = {
   manager_only?: boolean;
   disabled?: boolean;
   is_usable_by_staff?: boolean;
+};
+
+export type ContractTemplate = {
+  id: number;
+  disabled: boolean;
+  franchisor: number;
+  children_contracts: number[];
+  payment_pack_template: number;
+  private_pass_template: number;
+  nb_interval: number;
+  recurrent_price: number;
+  recurrence_basis: number;
+  interval: SubscriptionInterval;
+  month_billing_day: number | null;
+  name: string;
+  description: string;
+  contract: string;
+  manager_only: boolean;
+  auto_renewal: boolean;
+  flat_fee: number;
+  is_usable_by_staff: boolean;
+  companies: number[];
+};
+
+export type ContractTemplatePaginatedQueryParams = PaginationFilterParams & {
+  id__in?: number[];
+  companies?: number[];
+  is_appointment_pass?: boolean;
+  disabled?: boolean;
 };

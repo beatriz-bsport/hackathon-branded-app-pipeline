@@ -32,3 +32,31 @@ export const containsAnySubstring = (
   }
   return false;
 };
+
+/**
+ * Converts a given object into a FormData instance, converting object keys into snake case keys
+ * @param data The object to be transformed into FormData
+ * @example
+ * const payload = objectToFormData({ someField: 'a string' });
+ * const name = payload.get('some_field'); // 'a string'
+ * const isFormData = payload instanceof FormData; // true
+ *
+ */
+export const objectToFormData = (data: Record<string, any>) => {
+  const formData = new FormData();
+
+  for (const [key, value] of Object.entries(data)) {
+    formData.append(_toSnakeCase(key), value);
+  }
+
+  return formData;
+};
+
+/**
+ * Converts camelCase keys to snake_case
+ * @param {string} string The camelCase string
+ * @returns {string} The snake_case string
+ */
+const _toSnakeCase = (string: string) => {
+  return string.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+};

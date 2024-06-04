@@ -27,6 +27,7 @@ import {
   createBookkeepingAccount as createBookkeepingAccountAPI,
   updateBookkeepingAccount as updateBookkeepingAccountAPI,
   deleteBookkeepingAccount as deleteBookkeepingAccountAPI,
+  getPaymentGroupStatus as getPaymentGroupStatusAPI,
   getLinkedProductNames as getLinkedProductNamesAPI,
   createPaymentAttempt as createPaymentAttemptAPI,
   createPaymentAttemptWebview as createPaymentAttemptWebviewAPI,
@@ -268,6 +269,32 @@ export function fetchPayoutList(
       dispatch(listPayoutActions.error(err));
     }
     dispatch(listPayoutActions.isLoading(false));
+  };
+}
+export const fetchPaymentGroupStatusActions = {
+  isLoading: createAction('PAYMENT_GROUP/STATUS/LOADING'),
+  error: createAction('PAYMENT_GROUP/STATUS/ERROR'),
+  success: createAction('PAYMENT_GROUP/STATUS/SUCCESS'),
+};
+
+export function fetchPaymentGroupStatus(
+  paymentGroupId: number,
+  options?: OptionCallback<number>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchPaymentGroupStatusActions.isLoading(true));
+    dispatch(fetchPaymentGroupStatusActions.error(null));
+    try {
+      const response = await getPaymentGroupStatusAPI(paymentGroupId);
+      dispatch(fetchPaymentGroupStatusActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchPaymentGroupStatusActions.error(err));
+    }
+    dispatch(fetchPaymentGroupStatusActions.isLoading(false));
   };
 }
 

@@ -6,6 +6,7 @@ import uniq from 'lodash/uniq';
 
 import {
   listSavedPaymentMethodListActions,
+  fetchPaymentGroupStatusActions,
   onSpotPaymentReportActions,
   listPaymentGroupActions,
   listPayoutActions,
@@ -43,6 +44,11 @@ const initialState = Immutable({
     error: null,
     loading: false,
     id: null,
+  },
+  paymentGroupStatus: {
+    error: null,
+    loading: false,
+    status: null,
   },
   payout: {
     error: null,
@@ -188,6 +194,18 @@ export default handleActions(
     },
     [createPaymentAttemptActions.error]: (state, { payload }) => {
       return state.setIn(['paymentAttempt', 'error'], payload);
+    },
+    [fetchPaymentGroupStatusActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentGroupStatus', 'status'], payload);
+    },
+    [fetchPaymentGroupStatusActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentGroupStatus', 'loading'], payload);
+    },
+    [fetchPaymentGroupStatusActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentGroupStatus', 'error'], payload);
     },
     [listPaymentGroupActions.error]: (state, { payload }) => {
       return state.setIn(['paymentGroup', 'error'], payload);

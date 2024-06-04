@@ -15,6 +15,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import {
   checkItemsBasket as checkItemsBasketAPI,
@@ -28,7 +29,10 @@ import {
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
 } from '#src/libs/checkout/actions';
-import { fetchPaymentMethodList } from '#src/libs/payment/actions';
+import {
+  fetchPaymentMethodList,
+  fetchPaymentGroupStatus as fetchPaymentGroupStatusAction,
+} from '#src/libs/payment/actions';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 import {
@@ -42,6 +46,8 @@ import { Basket, PrepaidLine } from '#src/libs/checkout/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import PrepaidLineListItem from '#src/libs/checkout/components/PrepaidLineListItem.component';
 import type { CompanyTheme } from '#src/libs/theme/types';
+// @ts-expect-error
+import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
 import {
   getSubTotal,
   hasRedirectionFailed,
@@ -79,15 +85,13 @@ import { withEstablishment, withMetaActivity } from '#src/libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
-// @ts-expect-error
-import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
-import { MaterialStyleType } from '../../utils/types';
 import type { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
+import { MaterialStyleType } from '#src/utils/types';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -101,6 +105,10 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>;
   fetchPaymentMethodList: (params: any) => void;
   fetchInstalmentPaymentByBasket: (basketId: number) => void;
+  fetchPaymentGroupStatus: (
+    paymentGroupId: number,
+    options: OptionCallback,
+  ) => void;
   instalmentPaymentConfigurationList: Array<InstalmentPayment>;
   assignInstalmentPayment: (
     basket: string,
@@ -304,6 +312,18 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     this.props.setQueryParams('check_payment_intent', 'false');
   };
 
+  fetchPaymentGroupBasket = () => {
+    // Making a request to get the payment group status	instead of the whole basket avoid monopolizing the basket lock,
+    // needed to fully acknowledge the payment group success and finalize the basket
+    this.props.fetchPaymentGroupStatus(this.state.paymentGroupId, {
+      onSuccess: (paymentGroupStatus: number) => {
+        if (paymentGroupStatus >= PAYMENT_INTENT_STATUS_SUCCESS) {
+          this.props.fetchBasket(this.props.basketId);
+        }
+      },
+    });
+  };
+
   onSuccess = () => {
     const delays = [
       0, 1000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000,
@@ -327,7 +347,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             JSON.stringify({ status: 'succeeded' }),
           );
         }
-        this.props.fetchBasket(this.props.basketId);
+        this.fetchPaymentGroupBasket();
         if (i < delays.length) {
           sendMessage(i + 1);
         }
@@ -683,6 +703,7 @@ const connector = connect(
     };
   },
   {
+    fetchPaymentGroupStatus: fetchPaymentGroupStatusAction,
     fetchBasket: fetchBasketAction,
     attachPayment: attachPaymentAction,
     fetchPaymentMethodList,

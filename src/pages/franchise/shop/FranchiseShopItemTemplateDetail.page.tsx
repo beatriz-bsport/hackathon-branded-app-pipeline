@@ -198,7 +198,6 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       ['cover'],
     );
     if (formValues.cover) formData.append('cover', formValues.cover);
-    formData.append('company_ids', 1); // TEMP -> https://bsporttest.atlassian.net/browse/BS-3909
 
     this.props.updateShopItemTemplate({
       formData,

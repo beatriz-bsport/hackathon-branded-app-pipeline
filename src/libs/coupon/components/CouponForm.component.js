@@ -198,18 +198,23 @@ export class CouponForm extends React.Component<Props, State> {
   }
 
   checkCouponCodeAvailability = debounce(async (code: string) => {
+    if (!code?.length) return;
     const payload: CheckCouponCodePayload = {
       code,
       coupon_ids_to_ignore: this.props.initial?.id
         ? [this.props.initial.id]
         : [],
     };
-    const { data } = await checkCouponCodeValidity(payload);
-    if (
-      this.state.isCodeUsedError !== data?.is_used &&
-      code === this.state.code
-    ) {
-      this.setState({ isCodeUsedError: data?.is_used });
+    try {
+      const { data } = await checkCouponCodeValidity(payload);
+      if (
+        this.state.isCodeUsedError !== data?.is_used &&
+        code === this.state.code
+      ) {
+        this.setState({ isCodeUsedError: data?.is_used });
+      }
+    } catch (e) {
+      console.error(e);
     }
   }, 500);
 

@@ -103,7 +103,7 @@ export const useConfirmationMessageData = (
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t('validation.sections.errorExplain.genericOfferError'),
         title: t(
-          'validation.sections.confirmationStatusTitle.errorExplain.paymentSuccess',
+          'validation.sections.confirmationStatusTitle.errors.genericOfferError',
         ),
         withAlert: {
           message: t('validation.sections.alert'),
@@ -132,7 +132,7 @@ export const useConfirmationMessageData = (
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t('validation.sections.errorExplain.genericOfferError'),
         title: t(
-          'validation.sections.confirmationStatusTitle.errorExplain.paymentSuccess',
+          'validation.sections.confirmationStatusTitle.errors.genericOfferError',
         ),
         withAlert: {
           message: t('validation.sections.errorExplain.offerOnlyBookingError'),

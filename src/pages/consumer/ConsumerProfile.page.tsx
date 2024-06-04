@@ -306,7 +306,6 @@ const connector = connect(
       getMemberCustomFormWithEnabledField,
     )(state, membership?.id),
     showVaccinationStatus: showVaccinationStatus(state),
-    // @ts-expect-error
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
     referralProgram: getTheReferralProgram(state),
     referralProgramLoading: getReferralProgramsLoading(state),

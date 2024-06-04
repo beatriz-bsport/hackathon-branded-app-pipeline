@@ -27,7 +27,7 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     author: options?.author ?? faker.number.int(),
     billing_plan: options?.billing_plan ?? null,
     custom_footer: options?.custom_footer ?? '',
-    date: options?.date ?? faker.date.future().toString(),
+    date: options?.date ?? faker.date.future().toISOString(),
     establishment_billing_group: options?.establishment_billing_group ?? null,
     establishment: options?.establishment ?? null,
     fully_payed: options?.fully_payed ?? '',
@@ -81,7 +81,7 @@ export function consumerInvoiceFactory(
       options?.amount_left_to_pay_cts ?? defaultAmountLeftToPayCts,
     amount_paid_cts: options?.amount_paid_cts ?? defaultAmountPaidCts,
     amount_refunded_cts: options?.amount_refunded_cts ?? 0,
-    date: options?.date ?? faker.date.future().toString(),
+    date: options?.date ?? faker.date.future().toISOString(),
     disputed_payments: options?.disputed_payments ?? [],
     establishment_billing_group_name:
       options?.establishment_billing_group_name ?? null,

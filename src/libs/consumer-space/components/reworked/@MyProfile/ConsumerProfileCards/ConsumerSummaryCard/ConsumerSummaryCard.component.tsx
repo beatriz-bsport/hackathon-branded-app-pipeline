@@ -35,6 +35,9 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   officialDocumentId,
   phoneNumber,
   photo,
+  showAccountBalance,
+  showBarcodeButton,
+  showMembershipNumber,
   spiviPrivacySettingsAccepted,
   spiviPrivacySettingsLoading,
   totalUnpaidAmount,
@@ -58,6 +61,8 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
           isMobile={isMobile}
           lastName={lastName}
           photo={photo}
+          showAccountBalance={showAccountBalance}
+          showBarcodeButton={showBarcodeButton}
           totalUnpaidAmount={totalUnpaidAmount}
         />
         <ConsumerInfoSection
@@ -72,18 +77,20 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
           acceptEmail={acceptEmail}
           acceptSms={acceptSms}
         />
-        <ConsumerCardSection
-          className={classNames(
-            'bs-consumer-summary-card-section',
-            'bs-consumer-summary-card__membership-section',
-          )}
-        >
-          <Title
-            subtitle={membershipId}
-            title={t('reworked.myProfile.membershipId')}
-            variant="xs"
-          />
-        </ConsumerCardSection>
+        {showMembershipNumber && (
+          <ConsumerCardSection
+            className={classNames(
+              'bs-consumer-summary-card-section',
+              'bs-consumer-summary-card__membership-section',
+            )}
+          >
+            <Title
+              subtitle={membershipId}
+              title={t('reworked.myProfile.membershipId')}
+              variant="xs"
+            />
+          </ConsumerCardSection>
+        )}
         {spiviEnabled && (
           <ConsumerSpiviSection
             isMobile={isMobile}

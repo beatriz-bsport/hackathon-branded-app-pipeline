@@ -13,6 +13,7 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
+import { CompanyTheme } from '#src/libs/theme/types';
 
 const member = MemberFactory({});
 
@@ -20,7 +21,11 @@ const emptyFn = () => {};
 
 const defaultProps: Omit<
   ConsumerSummaryCardProps,
-  'acceptEmail' | 'acceptSms'
+  | 'acceptEmail'
+  | 'acceptSms'
+  | 'showAccountBalance'
+  | 'showBarcodeButton'
+  | 'showMembershipNumber'
 > = {
   address: {
     address_line_1: 'Carrer de la Diputacio, 7',
@@ -89,13 +94,20 @@ const usePropsFromVariation = (
 };
 
 export const CONSUMER_SUMMARY_CARD_PREVIEW: React.FC<{
+  theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
-}> = React.memo(({ variationsSelected }) => {
+}> = React.memo(({ theme, variationsSelected }) => {
   const componentProps = usePropsFromVariation(variationsSelected);
 
   return (
     <div>
-      <ConsumerSummaryCard {...componentProps} {...defaultProps} />
+      <ConsumerSummaryCard
+        {...componentProps}
+        {...defaultProps}
+        showAccountBalance={theme?.show_member_account_balance}
+        showBarcodeButton={theme?.show_barcode_button}
+        showMembershipNumber={theme?.show_membership_number}
+      />
     </div>
   );
 });

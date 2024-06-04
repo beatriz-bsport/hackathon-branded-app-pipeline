@@ -16,6 +16,10 @@
   padding: unset;
 }
 
+.bs-consumer-payment-terms-card__list-item--hidden {
+  display: none;
+}
+
 .bs-consumer-payment-terms-card__list-item__button {
   padding: unset;
 }

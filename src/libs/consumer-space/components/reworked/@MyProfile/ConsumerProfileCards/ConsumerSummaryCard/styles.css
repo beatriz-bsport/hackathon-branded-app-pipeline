@@ -20,7 +20,7 @@
 
 /* GENERAL */
 .bs-consumer-summary-card-section {
-  align-self: start;
+  align-self: stretch;
   min-width: 220px;
 }
 
@@ -28,6 +28,13 @@
 .bs-consumer-summary-card__info-section {
   grid-area: info;
   gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-summary-card__info-item {
+}
+
+.bs-consumer-summary-card__info-item--hidden {
+  display: none;
 }
 
 /* ADDRESS SECTION */
@@ -98,6 +105,11 @@
   color: var(--bs-color-text-error-strong);
 }
 
+.bs-consumer-summary-card__notification-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: unset;
+}
+
 /* SPIVI SECTION */
 .bs-consumer-summary-card__spivi-section {
   grid-area: spivi;
@@ -116,11 +128,18 @@
   overflow: hidden;
 }
 
+.bs-consumer-summary-card__profile-header__title {
+  max-width: 70%;
+  width: auto;
+}
+
 .bs-consumer-summary-card__profile-header__username {
   display: -webkit-box;
+  /* autoprefixer: off */
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .bs-consumer-summary-card__account-balance {
@@ -129,16 +148,28 @@
   align-items: center;
 }
 
+.bs-consumer-summary-card__account-balance--hidden {
+  display: none;
+}
+
 .bs-consumer-summary-card__barcode-button {
+}
+
+.bs-consumer-summary-card__barcode-button--hidden {
+  display: none;
 }
 
 /* MEMBERSHIP SECTION */
 .bs-consumer-summary-card__membership-section {
   grid-area: membership;
 }
-.bs-consumer-summary-card__membership-section:not(:last-of-type) {
+.bs-consumer-summary-card__membership-section:last-of-type {
   border-bottom: none;
   margin-bottom: unset;
+}
+
+.bs-consumer-summary-card__membership-section--hidden {
+  display: none;
 }
 
 @container bsConsumerSummaryCard (width < 500px) {
@@ -153,5 +184,9 @@
   .bs-consumer-summary-card__profile-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .bs-consumer-summary-card__profile-header__title {
+    max-width: unset;
   }
 }

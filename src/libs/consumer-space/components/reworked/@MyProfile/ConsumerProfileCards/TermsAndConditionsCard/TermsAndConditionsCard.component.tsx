@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 import Title from '#Fabrique/Title';
@@ -16,12 +17,23 @@ import './styles.css';
 const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
   dateJoined,
   generalTermsAndConditionsDateAccepted,
+  generalTermsOfUseDateAccepted,
   isLoading,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
   const { toggleTermsAndConditionPortal, toggleTermsOfUsePortal } =
     useContext(ConsumerProfileContext) ?? {};
+
+  const formattedDateJoined = DateTime.fromISO(dateJoined).toFormat('D');
+
+  const formattedGeneralTermsAndConditionsDateAccepted =
+    generalTermsAndConditionsDateAccepted &&
+    DateTime.fromISO(generalTermsAndConditionsDateAccepted).toFormat('D');
+
+  const formattedGeneralTermsOfUseDateAccepted =
+    generalTermsOfUseDateAccepted &&
+    DateTime.fromISO(generalTermsOfUseDateAccepted).toFormat('D');
 
   if (isLoading) return <ConsumerCardSkeleton />;
 
@@ -30,14 +42,24 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
       <Title
         className="bs-consumer-payment-terms-card__title"
         subtitle={t('reworked.myProfile.termsAndConditions.subtitle', {
-          dateJoined,
+          dateJoined: formattedDateJoined,
         })}
         title={t('reworked.myProfile.termsAndConditions.title')}
         variant="xs"
       />
       <List className="bs-consumer-payment-terms-card__list">
         <ListItem
-          className="bs-consumer-payment-terms-card__list-item"
+          captionText={t('reworked.myProfile.termsAndConditions.accepted', {
+            dateAccepted: formattedGeneralTermsOfUseDateAccepted,
+          })}
+          classes={{
+            captionText:
+              'bs-consumer-payment-terms-card__list-item__caption-text',
+          }}
+          className={classNames('bs-consumer-payment-terms-card__list-item', {
+            'bs-consumer-payment-terms-card__list-item--hidden':
+              !formattedGeneralTermsOfUseDateAccepted,
+          })}
           label={
             <Button
               className="bs-consumer-payment-terms-card__list-item__button"
@@ -52,13 +74,16 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
         />
         <ListItem
           captionText={t('reworked.myProfile.termsAndConditions.accepted', {
-            dateAccepted: generalTermsAndConditionsDateAccepted,
+            dateAccepted: formattedGeneralTermsAndConditionsDateAccepted,
           })}
           classes={{
             captionText:
               'bs-consumer-payment-terms-card__list-item__caption-text',
           }}
-          className="bs-consumer-payment-terms-card__list-item"
+          className={classNames('bs-consumer-payment-terms-card__list-item', {
+            'bs-consumer-payment-terms-card__list-item--hidden':
+              !formattedGeneralTermsAndConditionsDateAccepted,
+          })}
           label={
             <Button
               className="bs-consumer-payment-terms-card__list-item__button"

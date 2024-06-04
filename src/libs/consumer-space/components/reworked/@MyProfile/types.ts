@@ -24,6 +24,9 @@ export type ConsumerSummaryCardProps = {
   officialDocumentId: string;
   phoneNumber: string;
   photo: string;
+  showAccountBalance: boolean;
+  showBarcodeButton: boolean;
+  showMembershipNumber: boolean;
   spiviPrivacySettingsAccepted: boolean;
   spiviPrivacySettingsLoading: boolean;
   totalUnpaidAmount: string;

@@ -35,26 +35,41 @@ const ConsumerInfoSection: React.FC<Props> = ({
       )}
     >
       <Title
+        className={classNames('bs-consumer-summary-card__info-item', {
+          'bs-consumer-summary-card__info-item--hidden': !gender,
+        })}
         subtitle={gender}
         title={t('reworked.myProfile.gender')}
         variant="xs"
       />
       <Title
+        className={classNames('bs-consumer-summary-card__info-item', {
+          'bs-consumer-summary-card__info-item--hidden': !consumerBirthDay,
+        })}
         subtitle={consumerBirthDay}
         title={t('reworked.myProfile.birthday')}
         variant="xs"
       />
       <Title
+        className={classNames('bs-consumer-summary-card__info-item', {
+          'bs-consumer-summary-card__info-item--hidden': !officialDocumentId,
+        })}
         subtitle={officialDocumentId}
         title={t('reworked.myProfile.identityDocument')}
         variant="xs"
       />
       <Title
+        className={classNames('bs-consumer-summary-card__info-item', {
+          'bs-consumer-summary-card__info-item--hidden': !phoneNumber,
+        })}
         subtitle={phoneNumber}
         title={t('reworked.myProfile.phone')}
         variant="xs"
       />
       <Title
+        className={classNames('bs-consumer-summary-card__info-item', {
+          'bs-consumer-summary-card__info-item--hidden': !emergencyContact,
+        })}
         subtitle={emergencyContact}
         title={t('reworked.myProfile.emergencyNumber')}
         variant="xs"

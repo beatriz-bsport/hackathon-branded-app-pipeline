@@ -12,7 +12,7 @@ type Props = Pick<ConsumerSummaryCardProps, 'address'>;
 const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
   const { t } = useTranslation('consumerSpace');
 
-  if (!address) return null;
+  if (!address || !Object.keys(address).length) return null;
 
   const { address_line_1, address_line_2, city, country, state, zipcode } =
     address;

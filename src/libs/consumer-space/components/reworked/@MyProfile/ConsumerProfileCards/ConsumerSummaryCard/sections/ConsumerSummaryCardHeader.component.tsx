@@ -20,6 +20,8 @@ type Props = Pick<
   | 'lastName'
   | 'photo'
   | 'totalUnpaidAmount'
+  | 'showAccountBalance'
+  | 'showBarcodeButton'
 > & {
   isMobile: boolean;
   handleToggleBarcodeModal: () => void;
@@ -33,6 +35,8 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
   isMobile,
   handleToggleBarcodeModal,
   photo,
+  showAccountBalance,
+  showBarcodeButton,
   totalUnpaidAmount,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -51,7 +55,7 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
       case -1:
         return 'error';
       default:
-        return 'default';
+        return 'success';
     }
   })();
 
@@ -76,12 +80,18 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
           classes={{
             title: 'bs-consumer-summary-card__profile-header__username',
           }}
+          className="bs-consumer-summary-card__profile-header__title"
           subtitle={email}
           title={userName}
           variant="md"
         />
       </div>
-      <div className="bs-consumer-summary-card__account-balance">
+      <div
+        className={classNames('bs-consumer-summary-card__account-balance', {
+          'bs-consumer-summary-card__account-balance--hidden':
+            !showAccountBalance,
+        })}
+      >
         <Typography>{`${t('reworked.myProfile.accountBalance')}:`}</Typography>
         <Typography color={accountBalanceColor} variant="title-md">
           {accountBalance}
@@ -90,10 +100,13 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
       <Button
         className={classNames('bs-consumer-summary-card__barcode-button', {
           'bs-consumer-summary-card__barcode-button--isMobile': isMobile,
+          'bs-consumer-summary-card__barcode-button--hidden':
+            !showBarcodeButton,
         })}
         color="primary"
         leftIcon={<Scan stroke="currentColor" />}
         onClick={handleToggleBarcodeModal}
+        size="md"
       >
         {t('reworked.myProfile.barCode.entryBarcode')}
       </Button>

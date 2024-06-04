@@ -39,10 +39,7 @@ import {
 } from '#src/libs/payment-packs/utils';
 import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
-import {
-  getCreditsDividedValue,
-  getDecimalCreditHelperText,
-} from '#src/libs/theme/utils';
+import { getDecimalCreditHelperText } from '#src/libs/theme/utils';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import { MarketingNotification } from '../../types';
@@ -636,7 +633,7 @@ export default compose<any, Props>(
           contains_all_private_passes,
           private_pass_ids,
           days_left: Math.abs(days_left) || 0,
-          credits_left: getCreditsDividedValue(credits_left || 0),
+          credits_left: credits_left || 0,
           smartlist_include: smartlist_include || [],
           smartlist_exclude: smartlist_exclude || [],
           hours: Math.abs(hours) || 0,
@@ -720,8 +717,7 @@ export default compose<any, Props>(
             data.event_rules.hours = values.hours;
             data.event_rules.kind = getEventRulesKind(values);
           }
-          data.event_rules.credits_left =
-            values.credits_left * getCreditFactor();
+          data.event_rules.credits_left = Number(values.credits_left);
           break;
       }
       onSubmit(data);

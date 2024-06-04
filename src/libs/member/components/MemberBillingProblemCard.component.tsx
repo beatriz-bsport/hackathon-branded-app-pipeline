@@ -63,6 +63,7 @@ type Props = {
   fetchInvoiceListUnpaid: () => void;
   forceOnlyInternal?: boolean;
   goToInvoice: (uuid: string, invoice?: Invoice) => void;
+  hidePositiveBalanceForManager?: boolean;
   invoiceLoading: boolean;
   member: Member;
   memberId: number;
@@ -102,6 +103,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   fetchInvoiceListUnpaid,
   forceOnlyInternal,
   goToInvoice,
+  hidePositiveBalanceForManager,
   invoiceLoading,
   member,
   memberId,
@@ -317,6 +319,12 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
           Math.round(amountToBill * 100),
     [invoiceToBill, amountToBill],
   );
+
+  const showBalance = useMemo(
+    () => parsedBalance < 0 || (!asConsumer && !hidePositiveBalanceForManager),
+    [parsedBalance, asConsumer, hidePositiveBalanceForManager],
+  );
+
   return (
     <Paper
       className={classes.accountBalanceBloc}
@@ -337,7 +345,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
           hasReadInvoicesPermission,
         ]: boolean[]) => (
           <>
-            {!!(!asConsumer || (parsedBalance && parsedBalance < 0)) && (
+            {showBalance && (
               <div className={classes.padding}>
                 {(hasReadBalancePermission || asConsumer) && (
                   <div className={classes.accountBalance}>
@@ -404,7 +412,12 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     </div>
                   </div>
                 )}
-                <Divider className={classes.divider} />
+                {showBalance || showPositiveBalance ? (
+                  <Divider className={classes.divider} />
+                ) : (
+                  // This is to keep the top margin when the divider is not displayed
+                  <div className={classes.divider} />
+                )}
                 <div className={classes.invoiceContainer}>
                   <div className={classes.unpaidAmountHeader}>
                     <Typography className={classes.padding} variant="h6">

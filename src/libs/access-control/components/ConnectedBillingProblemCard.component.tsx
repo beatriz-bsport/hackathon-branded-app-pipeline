@@ -417,6 +417,7 @@ const ConnectedBillingProblemCard: React.FC<Props> = React.memo(
     return (
       <>
         <MemberBillingProblemCard
+          hidePositiveBalanceForManager
           adjustCreditWithoutPaymentNote={handleAdjustCreditWithoutPaymentNote}
           applyBalanceToInvoice={handleApplyBalanceToUnpaidInvoices}
           applyGiftcardOnInvoice={handleApplyGiftcardOnInvoice}

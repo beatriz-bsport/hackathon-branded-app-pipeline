@@ -269,15 +269,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       ? getUserZone()
       : establishment?.tzname || theme.timezone_name || 'Europe/Paris';
 
-    if (offer?.date_start)
-      return formatAsDateWithWeekday(
-        offer?.date_start,
-        theme,
-        'DDD',
-        timezoneName,
-      );
-
-    return '';
+    const dateStart = offer?.date_start
+      ? DateTime.fromISO(offer.date_start).setZone(timezoneName)
+      : null;
+    return formatAsDateWithWeekday(dateStart, theme, 'DDD');
   })();
 
   return (

@@ -25,14 +25,12 @@ export function formatAsDate(date: string, tzname?: string) {
  - Three letters = Fri March 16, 1990
  */
 export function formatAsDateWithWeekday(
-  dateISO: string,
+  date: DateTime | null,
   theme: Theme,
   format: string,
-  tzname?: string,
 ) {
-  const date = tzname
-    ? DateTime.fromISO(dateISO).setZone(tzname)
-    : DateTime.fromISO(dateISO);
+  if (!date.isValid || date) return '';
+
   const formattedDate = date.toFormat(format);
 
   if (!theme)

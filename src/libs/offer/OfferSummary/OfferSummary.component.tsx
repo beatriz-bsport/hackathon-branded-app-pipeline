@@ -11,6 +11,7 @@ import CreditCard from '@material-ui/icons/CreditCard';
 import HourglassFull from '@material-ui/icons/HourglassFull';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Person from '@material-ui/icons/Person';
+import { DateTime } from 'luxon';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
@@ -144,6 +145,11 @@ const OfferSummary: React.FC<Props> = ({
     return <OfferSummarySkeleton classes={classes} />;
   }
 
+  let dateStart = offer.date_start ? DateTime.fromISO(offer.date_start) : null;
+
+  if (offer?.timezone_name && dateStart) {
+    dateStart = dateStart.setZone(offer?.timezone_name);
+  }
   return (
     <div className={classes.grid}>
       <div className={classes.columnGap1}>
@@ -161,14 +167,9 @@ const OfferSummary: React.FC<Props> = ({
             {offer?.name_override || metaActivity?.name}
           </Typography>
 
-          {offer?.date_start && (
+          {dateStart && dateStart.isValid && (
             <Typography className={classes.grey}>
-              {formatAsDateWithWeekday(
-                offer.date_start,
-                theme,
-                'DDD t',
-                offer?.timezone_name,
-              )}
+              {formatAsDateWithWeekday(dateStart, theme, 'DDD t')}
             </Typography>
           )}
         </div>

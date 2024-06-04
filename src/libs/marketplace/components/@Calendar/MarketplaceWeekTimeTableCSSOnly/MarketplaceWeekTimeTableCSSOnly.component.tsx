@@ -303,13 +303,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     );
   };
 
-  renderDayOffersListVersion = (
-    main_date: LuxonDateTime,
-    offers: Array<Offer>,
-  ) => {
+  renderDayOffersListVersion = (main_date: DateTime, offers: Array<Offer>) => {
     const day_offers = this.getOffersByDay(main_date, offers);
     const mainDateFormated = formatAsDateWithWeekday(
-      main_date.toISO(),
+      main_date,
       this.props.theme,
       'dd MMMM',
     );

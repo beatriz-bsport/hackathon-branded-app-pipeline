@@ -484,12 +484,8 @@ export const useOfferFormattedDate = (
     : offer?.establishment?.tzname ||
       companyTheme?.timezone_name ||
       'Europe/Paris';
-  if (offer?.date_start)
-    return formatAsDateWithWeekday(
-      offer.date_start,
-      companyTheme,
-      'DDD',
-      timezoneName,
-    );
-  return '';
+  const dateStart = offer?.date_start
+    ? DateTime.fromISO(offer.date_start).setZone(timezoneName)
+    : null;
+  return formatAsDateWithWeekday(dateStart, companyTheme, 'DDD');
 };

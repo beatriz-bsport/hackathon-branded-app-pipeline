@@ -163,7 +163,7 @@ const usePropsFromVariation = (
       ? fakeSuccessfulInvoices
       : null,
     // @ts-expect-error creating fake data just to display some invoices
-    failedInvoices: withFailedPayments ? fakeFailedInvoices : null,
+    failedInvoices: withFailedPayments ? fakeFailedInvoices(3) : null,
     selectedSubscriptionsFuturePauses: withFuturePauses
       ? SUBSCRIPTION.pauses
       : null,

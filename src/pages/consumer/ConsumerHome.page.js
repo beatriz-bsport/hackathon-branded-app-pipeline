@@ -90,6 +90,9 @@ const ConsumerSubscriptionReworked = asyncComponent(() =>
   import('./ConsumerSubscriptionReworked.page'),
 );
 const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
+const ConsumerProfileReworked = asyncComponent(() =>
+  import('./ConsumerProfileReworked.page'),
+);
 const ConsumerProgram = asyncComponent(() =>
   import('../performance-tracking/ConsumerProgram.page'),
 );
@@ -304,7 +307,11 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                     <Route
                       path="/c/:companyId/profile/"
-                      render={this.attachConsumerProps(ConsumerProfile)}
+                      render={this.attachConsumerProps(
+                        displayReworkedMemberProfile
+                          ? ConsumerProfileReworked
+                          : ConsumerProfile,
+                      )}
                     />
                     <Route
                       path="/c/:companyId/giftcard/"

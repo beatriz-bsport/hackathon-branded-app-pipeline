@@ -2878,7 +2878,8 @@
                         "default": "¿Quieres guardar los cambios antes de pasar a otra página?",
                         "inventory": "Antes de pasar a otra página, ¿desea actualizar el inventario en función de los valores introducidos en la columna \"Ajuste de existencias\"?",
                         "title": "Cambios sin guardar"
-                    }
+                    },
+                    "companyName": "Estudio"
                 }
             },
             "tab": {
@@ -2944,7 +2945,19 @@
                         },
                         "title": "Añadir una categoría"
                     },
-                    "title": "Productos"
+                    "title": "Productos",
+                    "emptySubshopList": "Aún no hay productos creados en esta categoría.",
+                    "online": "Online",
+                    "storeOnly": "Sólo en tienda",
+                    "franchiseSubshopDialog": {
+                        "info": "Las categorías aparecerán en el mercado y en la aplicación móvil para los artículos disponibles para la venta.",
+                        "deleteInfo": "¿Está seguro de que desea eliminar esta categoría? También se eliminarán todos los elementos asociados.",
+                        "delete": "Borrar categoría",
+                        "update": "Renombrar categoría",
+                        "create": "Añadir categoría",
+                        "inputPlaceholder": "Nombre de la categoría"
+                    },
+                    "addProduct": "Añadir producto"
                 }
             }
         },
@@ -8181,6 +8194,54 @@
                     "paid": "Aún no tiene facturas pagadas.",
                     "unpaid": "Bien hecho, no tienes ninguna factura impagada."
                 }
+            },
+            "myProfile": {
+                "termsAndConditions": {
+                    "accepted": "Aceptado el {{- dateAccepted}}",
+                    "generalTerms": "Condiciones generales",
+                    "title": "Términos y condiciones",
+                    "termOfuse": "Condiciones generales de uso",
+                    "subtitle": "Miembro desde {{- dateJoined}}"
+                },
+                "paymentMethods": {
+                    "add": "Añadir método de pago",
+                    "cardItemCaptionText": "Caduca: {{- additionalInfo}}",
+                    "paymentMethodLabel": "Termina en <strong>{{- identifier}}</strong>",
+                    "empty": "Una vez que guarde un pago, aparecerá aquí.",
+                    "directPayments": "Pagos directos",
+                    "cards": "Tarjetas",
+                    "title": "Métodos de pago guardados"
+                },
+                "membershipId": "Número de miembro",
+                "accountBalance": "Saldo de la cuenta",
+                "spivi": {
+                    "information": "Si está activada, sus datos (velocidad, calorías quemadas, etc.) se mostrarán en tiempo real durante la sesión. Si no, recibirás un resumen por correo electrónico al final de la sesión.",
+                    "drawerTitle": "Mostrar datos",
+                    "displayData": "Visualizar mis datos en tiempo real",
+                    "title": "Datos de Spinning"
+                },
+                "notifications": {
+                    "emailNotAllowed": "Notificaciones por correo electrónico no permitidas",
+                    "emailAllowed": "Notificaciones por correo electrónico permitidas",
+                    "phoneNotAllowed": "Notificaciones telefónicas no permitidas",
+                    "phoneAllowed": "Notificaciones telefónicas permitidas",
+                    "title": "Notificaciones"
+                },
+                "address": "Dirección",
+                "emergencyNumber": "Número de emergencia",
+                "phone": "Número de teléfono",
+                "identityDocument": "Documento de identidad",
+                "birthday": "Cumpleaños",
+                "gender": "Género",
+                "detachPayment": {
+                    "subtitle": "Recuerde que no puede eliminar los métodos de pago utilizados en los pagos periódicos.",
+                    "title": "Eliminar método de pago"
+                },
+                "barCode": {
+                    "entryBarcode": "Código de barras de entrada",
+                    "scanInfo": "Escanee este código de barras para entrar en el estudio o registrarse para su clase.",
+                    "scan": "Escanear código de barras"
+                }
             }
         }
     },
@@ -10433,6 +10494,14 @@
                     "urlRedirection": "URL personalizada",
                     "helperText": "Por defecto, cuando sus miembros restablecen su contraseña, son redirigidos al mercado. Si desea redirigirlos a otro lugar (por ejemplo, a su sitio web), rellene el siguiente campo con la URL deseada.",
                     "title": "Restablecer contraseña"
+                },
+                "memberProfile": {
+                    "myProfile": {
+                        "showMembershipNumber": "Mostrar número de miembro",
+                        "showBarcodeButton": "Mostrar botón de código de barras",
+                        "showMemberAccountBalance": "Mostrar saldo de cuenta de miembro",
+                        "title": "Mi perfil"
+                    }
                 }
             },
             "submit": "Guardar",
@@ -11140,6 +11209,9 @@
                     "_label": "Productos",
                     "giftcardTemplates": {
                         "_label": "Tarjeta de regalo"
+                    },
+                    "shopTemplates": {
+                        "_label": "Tienda online"
                     }
                 },
                 "members": {
@@ -12983,7 +13055,8 @@
         "positiveNumber": "Este campo debe ser superior a 0.",
         "seeMore": "Ver más",
         "seeLess": "Ver menos",
-        "discardChanges": "Descartar cambios"
+        "discardChanges": "Descartar cambios",
+        "rename": "Renombrar"
     },
     "snackbar": {
         "invoice": {
@@ -15399,7 +15472,8 @@
                 "privatePassTemplates": "Tarjetas de cita",
                 "paymentPackTemplates": "Bonos",
                 "label": "Productos",
-                "giftcardTemplates": "Tarjetas de regalo"
+                "giftcardTemplates": "Tarjetas de regalo",
+                "shopTemplates": "Tienda online"
             },
             "tag": "Etiquetas",
             "marketing": {
@@ -15520,6 +15594,12 @@
                 "settings": "Ajustes",
                 "monitor": "Visitas a la ubicación",
                 "perform": "Visita de miembro"
+            },
+            "settings": {
+                "theme": {
+                    "memberProfile": "Perfil de miembro",
+                    "general": "General"
+                }
             }
         },
         "logout": "Cerrar sesión",
@@ -17145,7 +17225,9 @@
                     "showSuccessTitle": "Mostrar título de confirmación",
                     "isCollapsable": "Tipo de título",
                     "isMultilocationEnabled": "Mostrar la ubicación de facturación",
-                    "invoiceType": "Tipo de factura"
+                    "invoiceType": "Tipo de factura",
+                    "acceptSms": "Aceptar sms",
+                    "acceptEmail": "Aceptar correo electrónico"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -17310,7 +17392,10 @@
                 "fabrique_title": "Título",
                 "consumer_invoice_details_card": "Tarjeta de datos de la factura (para el miembro)",
                 "consumer_invoice_card": "Tarjeta de factura (para el miembro)",
-                "fabrique_tooltip": "Información sobre herramientas"
+                "fabrique_tooltip": "Información sobre herramientas",
+                "consumer_summary_card": "Tarjeta resumen del consumidor",
+                "consumer_saved_payment_methods_card": "Tarjeta de medios de pago ahorrados por el consumidor",
+                "consumer_terms_and_conditions": "Tarjeta de términos y condiciones del consumidor"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -18861,7 +18946,8 @@
                     "success": "Programa modificado"
                 }
             }
-        }
+        },
+        "maxLength200": "Este campo tiene un máximo de 200 caracteres."
     },
     "expense": {
         "form": {
@@ -20116,8 +20202,14 @@
                 "member": "Miembro",
                 "entryUnknown": "Especifique si se permitió la entrada del miembro",
                 "entered": "Entró",
-                "refusedEntry": "Entrada denegada"
-            }
+                "refusedEntry": "Entrada denegada",
+                "placeholder": {
+                    "search": "Basándonos en tu búsqueda, no hemos podido encontrar ningún miembro que nos haya visitado hoy.",
+                    "default": "Todavía no ha registrado ninguna visita."
+                }
+            },
+            "unreadCount": "{{ count }} visita nueva",
+            "unreadCount_plural": "{{ count }} visitas nuevas"
         },
         "accessMonitoringTitle": "Control de acceso",
         "filters": {

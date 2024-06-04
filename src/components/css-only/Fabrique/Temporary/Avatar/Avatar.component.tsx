@@ -4,6 +4,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import type { AvatarSize, AvatarType } from './types';
 import { AvatarSizeEnum, AvatarTypeEnum } from './constants';
 import { Building05, User01 } from '#components/untitledui';
+import DEFAULT_PROFILE_PICTURE_URL from '#src/assets/constants';
 import './styles.css';
 
 export type AvatarProps = {
@@ -48,7 +49,9 @@ const Avatar: React.FC<AvatarProps> = ({
     }
   }, [size]);
 
-  if (!picture) {
+  const noPicture = !picture || picture === DEFAULT_PROFILE_PICTURE_URL;
+
+  if (noPicture) {
     return (
       <div
         className={classNames(

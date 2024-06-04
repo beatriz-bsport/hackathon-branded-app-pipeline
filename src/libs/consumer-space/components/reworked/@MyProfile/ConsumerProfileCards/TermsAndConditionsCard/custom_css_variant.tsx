@@ -25,14 +25,12 @@ export const CONSUMER_TERMS_AND_CONDITIONS_CARD_CONFIGURATION: MarketplaceCSSCom
 
 export const CONSUMER_TERMS_AND_CONDITIONS_CARD_PREVIEW: React.FC<{}> =
   React.memo(() => {
-    const emptyFn = () => {};
-
     return (
       <TermsAndConditionsCard
         dateJoined={date}
         generalTermsAndConditionsDateAccepted={date}
-        openTermsAndConditionsDialog={emptyFn}
-        openTermsOfUseDialog={emptyFn}
+        generalTermsOfUseDateAccepted={date}
+        isLoading={false}
       />
     );
   });

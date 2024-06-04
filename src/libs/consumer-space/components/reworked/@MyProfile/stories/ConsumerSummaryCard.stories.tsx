@@ -15,7 +15,10 @@ export default {
 
 const member = MemberFactory({});
 
-const defaultArgs: ConsumerSummaryCardProps = {
+const defaultArgs: Omit<
+  ConsumerSummaryCardProps,
+  'showAccountBalance' | 'showBarcodeButton' | 'showMembershipNumber'
+> = {
   acceptEmail: member.accept_email,
   acceptSms: member.accept_sms,
   address: {
@@ -40,9 +43,8 @@ const defaultArgs: ConsumerSummaryCardProps = {
   photo: member.photo,
   spiviPrivacySettingsAccepted: member.spivi_privacy_settings_accepted,
   totalUnpaidAmount: member.total_unpaid_amount,
-  handleToggleBarcodeModal: () => {},
-  isMobile: false,
   spiviPrivacySettingsLoading: false,
+  isLoading: false,
   updateSpiviPrivacySettings: () => {},
 };
 

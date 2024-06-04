@@ -44,10 +44,9 @@ const defaultProps: Omit<
   photo: member.photo,
   spiviPrivacySettingsAccepted: member.spivi_privacy_settings_accepted,
   totalUnpaidAmount: member.total_unpaid_amount,
-  handleToggleBarcodeModal: emptyFn,
   spiviPrivacySettingsLoading: false,
   updateSpiviPrivacySettings: emptyFn,
-  isMobile: false,
+  isLoading: false,
 };
 
 const ConsumerSummaryCardVariationRegistry = [

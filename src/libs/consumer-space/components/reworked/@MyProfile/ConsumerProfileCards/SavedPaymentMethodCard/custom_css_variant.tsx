@@ -44,6 +44,7 @@ const usePropsFromVariation = (
   return {
     detachPaymentMethodLoading,
     paymentMethodLoading,
+    isLoading: false,
   };
 };
 
@@ -51,13 +52,10 @@ export const CONSUMER_SAVED_PAYMENT_METHODS_CARD_PREVIEW: React.FC<{
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected }) => {
   const componentProps = usePropsFromVariation(variationsSelected);
-  const emptyFn = () => {};
 
   return (
     <SavedPaymentMethodCard
       {...componentProps}
-      detachPaymentMethod={emptyFn}
-      openAddPaymentMethodDialog={emptyFn}
       paymentMethods={paymentMethods}
     />
   );

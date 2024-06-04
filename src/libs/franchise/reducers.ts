@@ -9,17 +9,19 @@ import {
   fetchFranchiseUserActions,
   listCompanyGroupActions,
   createOrUpdateCompanyGroupActions,
-  themeUpdate,
+  updateFranchiseThemeActions,
   searchFranchiseUsersActions,
   fetchFranchiseUserPassesActions,
 } from './actions';
+
 import type {
   FranchiseCompany,
   FranchiseState,
   FranchiseUser,
   CompanyGroup,
+  Franchise,
   FranchiseUserPass,
-} from './types';
+} from '#libs/franchise/types';
 import type { PaginatedResponse } from '#state/types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
@@ -142,13 +144,22 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         );
     },
 
-    [themeUpdate.isLoading.toString()]: (state, { payload }) => {
+    [updateFranchiseThemeActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload).set('error', null);
     },
-    [themeUpdate.error.toString()]: (state, { payload }) => {
+    [updateFranchiseThemeActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload).set('loading', false);
     },
-    [themeUpdate.success.toString()]: (state, { payload }: any) => {
+    [updateFranchiseThemeActions.success.toString()]: (
+      state,
+      { payload }: { payload: Franchise },
+    ) => {
       return state
         .set('loading', false)
         .set('error', null)
@@ -237,9 +248,6 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           },
           { deep: true },
         );
-    },
-    [themeUpdate.error.toString()]: (state, { payload }) => {
-      return state.set('error', payload).set('loading', false);
     },
 
     [fetchFranchiseUserActions.isLoading.toString()]: (state, { payload }) => {

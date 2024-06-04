@@ -573,6 +573,54 @@
                     "paid": "Je hebt nog geen betaalde facturen.",
                     "unpaid": "Goed gedaan, je hebt geen onbetaalde facturen."
                 }
+            },
+            "myProfile": {
+                "termsAndConditions": {
+                    "accepted": "Geaccepteerd op {{- dateAccepted}}",
+                    "generalTerms": "Algemene voorwaarden",
+                    "termOfuse": "Servicevoorwaarden",
+                    "subtitle": "Lid sinds {{- dateJoined}}",
+                    "title": "Algemene voorwaarden"
+                },
+                "paymentMethods": {
+                    "add": "Voeg een betaalmethode oe",
+                    "cardItemCaptionText": "Vervalt {{- additionalInfo}}",
+                    "paymentMethodLabel": "Stopt met <strong>{{- identifier}}</strong>",
+                    "empty": "Zodra je een betaling hebt opgeslagen, wordt deze hier weergegeven.",
+                    "directPayments": "Directe betalingen",
+                    "cards": "Kaarten",
+                    "title": "Opgeslagen betalingsmethoden"
+                },
+                "membershipId": "Lidmaatschapsnummer",
+                "accountBalance": "Saldo rekening",
+                "spivi": {
+                    "information": "Indien geactiveerd, worden je gegevens (snelheid, verbrande calorieën, enz.) in real-time weergegeven tijdens je sessie. Anders ontvang je aan het einde van de sessie een samenvatting per e-mail.",
+                    "drawerTitle": "Gegevens weergeven",
+                    "displayData": "Mijn gegevens in realtime weergeven",
+                    "title": "Gegevens draaien"
+                },
+                "notifications": {
+                    "emailNotAllowed": "E-mailmeldingen niet toegestaan",
+                    "emailAllowed": "E-mailmeldingen toegestaan",
+                    "phoneNotAllowed": "Telefoonmeldingen niet toegestaan",
+                    "phoneAllowed": "Telefoonmeldingen toegestaan",
+                    "title": "Meldingen"
+                },
+                "address": "Adres",
+                "emergencyNumber": "Alarmnummer",
+                "phone": "Telefoonnummer",
+                "identityDocument": "Identiteitsbewijs",
+                "birthday": "Verjaardag",
+                "gender": "Geslacht",
+                "detachPayment": {
+                    "subtitle": "Vergeet niet dat je betaalmethoden die worden gebruikt in terugkerende betalingen niet kunt verwijderen.",
+                    "title": "Betalingsmethode verwijderen"
+                },
+                "barCode": {
+                    "entryBarcode": "Barcode invoer",
+                    "scanInfo": "Scan deze barcode om de studio binnen te komen of om in te checken voor je les.",
+                    "scan": "Scan barcode"
+                }
             }
         }
     },
@@ -616,8 +664,8 @@
             "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
             "510": "Wanneer een abonnementsbetaling mislukt",
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
-            "481": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor leden)",
-            "480": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor medewerkers)",
+            "481": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (leden)",
+            "480": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (docent)",
             "987": "Incasseringspoging voor een termijnbetaling",
             "801": "Afgezegde afspraak groep",
             "103": "Gewijzigde sessies (instructeurs)",
@@ -10635,7 +10683,8 @@
                         "default": "Wil je je wijzigingen opslaan voordat je naar een andere pagina gaat?",
                         "inventory": "Wil je, voordat je naar een andere pagina gaat, de inventaris bijwerken op basis van de waarden die zijn ingevoerd in de kolom “Voorraadaanpassing”?",
                         "title": "Niet-opgeslagen wijzigingen"
-                    }
+                    },
+                    "companyName": "Sudio"
                 },
                 "history": {
                     "invoice": {
@@ -10717,7 +10766,19 @@
                         },
                         "title": "Een categorie toevoegen"
                     },
-                    "title": "Producten"
+                    "title": "Producten",
+                    "emptySubshopList": "Er zijn nog geen producten gemaakt in deze categorie.",
+                    "online": "Online",
+                    "storeOnly": "Winkel alleen",
+                    "franchiseSubshopDialog": {
+                        "info": "De categorieën verschijnen op de marktplaats en in de mobiele applicatie voor items die te koop zijn.",
+                        "deleteInfo": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende elementen worden ook verwijderd.",
+                        "delete": "Categorie verwijderen",
+                        "update": "Hernoem catrgorie",
+                        "create": "Voeg categorie toe",
+                        "inputPlaceholder": "Naam van de categorie"
+                    },
+                    "addProduct": "Product toevoegen"
                 }
             }
         },
@@ -13299,7 +13360,8 @@
         "positiveNumber": "Dit veld moet meer dan 0 zijn.",
         "seeMore": "Zie meer",
         "seeLess": "Zie minder",
-        "discardChanges": "Wijzigingen weggooien"
+        "discardChanges": "Wijzigingen weggooien",
+        "rename": "Hernoem"
     },
     "workshop": {
         "modal": {
@@ -13713,6 +13775,14 @@
                     "urlRedirection": "Aangepaste URL",
                     "helperText": "Wanneer je leden hun wachtwoord opnieuw instellen, worden ze standaard doorgestuurd naar de marktplaats. Als je ze ergens anders heen wilt sturen (bijvoorbeeld naar je eigen website), vul dan het volgende veld in met de gewenste URL.",
                     "title": "Wachtwoord opnieuw instellen"
+                },
+                "memberProfile": {
+                    "myProfile": {
+                        "showMembershipNumber": "Lidmaatschapsnummer tonen",
+                        "showBarcodeButton": "Toon barcode knop",
+                        "showMemberAccountBalance": "Saldo ledenrekening tonen",
+                        "title": "Mijn profiel"
+                    }
                 }
             },
             "gtmId": {
@@ -15331,6 +15401,9 @@
                     "_label": "Producten",
                     "giftcardTemplates": {
                         "_label": "Cadeaubon"
+                    },
+                    "shopTemplates": {
+                        "_label": "Webshop"
                     }
                 },
                 "members": {
@@ -16655,7 +16728,8 @@
                 "privatePassTemplates": "Afspraakkaarten",
                 "paymentPackTemplates": "Leskaarten",
                 "label": "Producten",
-                "giftcardTemplates": "Cadeaubonnen"
+                "giftcardTemplates": "Cadeaubonnen",
+                "shopTemplates": "Webshop"
             },
             "tag": "Tags",
             "marketing": {
@@ -16776,6 +16850,12 @@
                 "settings": "Instellingen",
                 "perform": "Leden bezoek",
                 "monitor": "Locatie bezoeken"
+            },
+            "settings": {
+                "theme": {
+                    "memberProfile": "Ledenrprofiel",
+                    "general": "Algemeen"
+                }
             }
         },
         "logout": "Loguit",
@@ -17110,7 +17190,9 @@
                     "showSuccessTitle": "Toon bevestigingstitel",
                     "isCollapsable": "Type titel",
                     "isMultilocationEnabled": "Factureringslocatie weergeven",
-                    "invoiceType": "Factuur type"
+                    "invoiceType": "Factuur type",
+                    "acceptSms": "Accepteer sms",
+                    "acceptEmail": "Acceot email"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -17275,7 +17357,10 @@
                 "fabrique_title": "Titel",
                 "consumer_invoice_details_card": "Kaart met factuurgegevens (voor lid)",
                 "consumer_invoice_card": "Factuurkaart (voor lid)",
-                "fabrique_tooltip": "Tooltip"
+                "fabrique_tooltip": "Tooltip",
+                "consumer_summary_card": "Overzichtskaart voor consumenten",
+                "consumer_saved_payment_methods_card": "Door consumenten opgeslagen betaalmethoden kaart",
+                "consumer_terms_and_conditions": "Consumentenvoorwaardenkaart"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -18826,7 +18911,8 @@
             "save": "Opslaan",
             "cancel": "Annuleren"
         },
-        "requiredField": "Dit veld is verplicht."
+        "requiredField": "Dit veld is verplicht.",
+        "maxLength200": "Dit veld heeft maximaal 200 tekens."
     },
     "expense": {
         "form": {
@@ -20081,8 +20167,14 @@
                 "member": "Lid",
                 "entryUnknown": "Geef aan of het lid naar binnen mocht",
                 "entered": "Ingevoerd",
-                "refusedEntry": "Toegang geweigerd"
-            }
+                "refusedEntry": "Toegang geweigerd",
+                "placeholder": {
+                    "search": "Op basis van je zoekopdracht konden we geen leden vinden die vandaag op bezoek zijn geweest.",
+                    "default": "Je hebt nog geen bezoeken geregistreerd."
+                }
+            },
+            "unreadCount": "{{ count }} nieuw bezoek",
+            "unreadCount_plural": "{{ count }} Nieuwe bezoeken"
         },
         "accessMonitoringTitle": "Toegangscontrole",
         "filters": {

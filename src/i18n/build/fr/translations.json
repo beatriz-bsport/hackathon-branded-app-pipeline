@@ -1152,7 +1152,8 @@
         "positiveNumber": "Ce champ doit être supérieur à 0.",
         "seeMore": "Voir plus",
         "seeLess": "Voir moins",
-        "discardChanges": "Abandonner les modifications"
+        "discardChanges": "Abandonner les modifications",
+        "rename": "Renommer"
     },
     "communication": {
         "table": {
@@ -2149,6 +2150,54 @@
                         "won": "Litige gagné",
                         "processing": "En cours"
                     }
+                }
+            },
+            "myProfile": {
+                "termsAndConditions": {
+                    "accepted": "Acceptée le {{- dateAccepted}}",
+                    "generalTerms": "Termes généraux",
+                    "termOfuse": "Conditions d'utilisations",
+                    "title": "Conditions générales d'utilisation",
+                    "subtitle": "Membre depuis {{- dateJoined}}"
+                },
+                "paymentMethods": {
+                    "add": "Ajouter un mode de paiement",
+                    "cardItemCaptionText": "Expire: {{- additionalInfo}}",
+                    "paymentMethodLabel": "Se termine par <strong>{{- identifier}}</strong>",
+                    "empty": "Une fois que vous aurez enregistré un paiement, il apparaîtra ici.",
+                    "directPayments": "Paiements directs",
+                    "cards": "Cartes",
+                    "title": "Modes de paiement enregistrés"
+                },
+                "membershipId": "Numéro d'adhérent",
+                "accountBalance": "Solde du compte",
+                "spivi": {
+                    "information": "Si vous l'activez, vos données (vitesse, calories brûlées, etc.) seront affichées en temps réel pendant votre séance. Sinon, vous recevrez un résumé par e-mail à la fin de la séance.",
+                    "drawerTitle": "Afficher les données",
+                    "displayData": "Afficher mes données en temps réel",
+                    "title": "Données de spinning"
+                },
+                "notifications": {
+                    "emailNotAllowed": "Notifications par e-mail non autorisées",
+                    "emailAllowed": "Notifications par e-mail autorisées",
+                    "phoneNotAllowed": "Notifications par téléphone non autorisées",
+                    "phoneAllowed": "Notifications par téléphone autorisées",
+                    "title": "Notifications"
+                },
+                "address": "Adresse",
+                "emergencyNumber": "Numéro de téléphone d'urgence",
+                "phone": "Numéro de téléphone",
+                "identityDocument": "Document d'identité",
+                "birthday": "Anniversaire",
+                "gender": "Genre",
+                "detachPayment": {
+                    "subtitle": "N'oubliez pas que vous ne pouvez pas supprimer les modes de paiement utilisés pour les paiements récurrents.",
+                    "title": "Supprimer le mode de paiement"
+                },
+                "barCode": {
+                    "entryBarcode": "Code-barres d'entrée",
+                    "scanInfo": "Scannez ce code-barres pour entrer dans le studio ou pour vous enregistrer pour votre cours.",
+                    "scan": "Scanner le code-barres"
                 }
             }
         }
@@ -6233,7 +6282,8 @@
                 "paymentPackTemplates": "Cartes de cours",
                 "privatePassTemplates": "Cartes de RDV",
                 "giftcardTemplates": "Cartes cadeaux",
-                "couponTemplates": "Promotions"
+                "couponTemplates": "Promotions",
+                "shopTemplates": "Magasin"
             },
             "emailTemplates": "Emails",
             "notificationRules": "Emails Transactionnels",
@@ -6350,6 +6400,12 @@
                 "settings": "Paramètres",
                 "monitor": "Historique des visites",
                 "perform": "Visite du membre"
+            },
+            "settings": {
+                "theme": {
+                    "memberProfile": "Profil du membre",
+                    "general": "Général"
+                }
             }
         },
         "logout": "Déconnexion",
@@ -6651,8 +6707,8 @@
             "451": "Rendez-vous annulé - remboursé (élève)",
             "452": "Nouveau rendez-vous (élève)",
             "453": "Horaire modifié (élève)",
-            "480": "Rendez-vous récurrent annulé pour manque de disponibilité (professeur)",
-            "481": "Rendez-vous récurrent annulé pour manque de disponibilité (élèves)",
+            "480": "Le rendez-vous récurrent n'a pas abouti en raison d'un manque de disponibilité (professeur)",
+            "481": "Le rendez-vous récurrent n'a pas abouti en raison d'un manque de disponibilité (membres)",
             "510": "Paiement d'une souscription échoué",
             "515": "Carte de cours de la souscription automatiquement désactivée",
             "520": "Paiement d'une souscription échoué, sera retenté",
@@ -8786,7 +8842,8 @@
             "infoNoConsumerProgram": "Vous n’avez pas encore de programme, contactez votre studio pour commencer à suivre vos performances !",
             "deleteHeader": "Voulez-vous vraiment dissocier ce programme de ce membre ?",
             "deleteContent": "Vous perdrez les valeurs des métriques du programme pour ce membre"
-        }
+        },
+        "maxLength200": "Ce champ peut contenir jusqu'à 200 caractères."
     },
     "platformBilling": {
         "platformInvoice": {
@@ -11419,6 +11476,9 @@
                     },
                     "giftcardTemplates": {
                         "_label": "Carte cadeau"
+                    },
+                    "shopTemplates": {
+                        "_label": "Magasin"
                     }
                 },
                 "emailTemplates": {
@@ -13168,7 +13228,8 @@
                         "default": "Souhaitez-vous enregistrer vos modifications avant de passer à une autre page ?",
                         "inventory": "Avant de passer à une autre page, souhaitez-vous mettre à jour l'inventaire en fonction des valeurs introduites dans la colonne « Modification des stocks » ?",
                         "title": "Modifications non sauvegardées"
-                    }
+                    },
+                    "companyName": "Studio"
                 },
                 "history": {
                     "invoice": {
@@ -13278,7 +13339,19 @@
                         },
                         "title": "Ajouter une catégorie"
                     },
-                    "title": "Produits"
+                    "title": "Produits",
+                    "emptySubshopList": "Il n'y a pas encore de produits créés dans cette catégorie.",
+                    "online": "En ligne",
+                    "storeOnly": "Magasin uniquement",
+                    "franchiseSubshopDialog": {
+                        "info": "Les catégories apparaîtront sur la marketplace et l'application mobile pour les articles disponibles à la vente.",
+                        "deleteInfo": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments associés seront également supprimés.",
+                        "delete": "Supprimer une catégorie",
+                        "update": "Renommer une catégorie",
+                        "create": "Ajouter une catégorie",
+                        "inputPlaceholder": "Nom de la catégorie"
+                    },
+                    "addProduct": "Ajouter un produit"
                 }
             }
         },
@@ -16612,6 +16685,14 @@
                     "urlRedirection": "URL personnalisée",
                     "helperText": "Par défaut, lorsque vos membres réinitialisent leur mot de passe, ils sont redirigés vers la marketplace. Si vous souhaitez les rediriger ailleurs (par exemple sur votre site web), veuillez remplir le champ suivant avec l'URL souhaitée.",
                     "title": "Réinitialiser le mot de passe"
+                },
+                "memberProfile": {
+                    "myProfile": {
+                        "showMembershipNumber": "Afficher le numéro de membre",
+                        "showBarcodeButton": "Afficher le bouton du code-barres",
+                        "showMemberAccountBalance": "Afficher le solde du compte du membre",
+                        "title": "Mon profil"
+                    }
                 }
             },
             "cover": {
@@ -18613,7 +18694,10 @@
                 "fabrique_title": "Titre",
                 "consumer_invoice_details_card": "Carte de détails de la facture (pour le membre)",
                 "consumer_invoice_card": "Carte de facturation (pour le membre)",
-                "fabrique_tooltip": "Bulle d'aide"
+                "fabrique_tooltip": "Bulle d'aide",
+                "consumer_summary_card": "Carte récapitulative du membre",
+                "consumer_saved_payment_methods_card": "Carte des méthodes de paiements sauvegardées",
+                "consumer_terms_and_conditions": "Carte de conditions générales de vente pour les consommateurs"
             },
             "page": {
                 "common": "Commun",
@@ -18770,7 +18854,9 @@
                     "showSuccessTitle": "Montrer le titre de la confirmation",
                     "isCollapsable": "Type de titre",
                     "isMultilocationEnabled": "Afficher le lieu de facturation",
-                    "invoiceType": "Type de facture"
+                    "invoiceType": "Type de facture",
+                    "acceptSms": "Accepter les sms",
+                    "acceptEmail": "Accepter les emails"
                 },
                 "option": {
                     "true": "Oui",
@@ -19822,8 +19908,14 @@
                 "member": "Membre",
                 "entryUnknown": "Indiquez si le membre a été autorisé à entrer",
                 "entered": "Entré",
-                "refusedEntry": "Entrée refusée"
-            }
+                "refusedEntry": "Entrée refusée",
+                "placeholder": {
+                    "search": "Sur la base de votre recherche, nous n'avons pas trouvé de membres ayant fait une visite aujourd'hui.",
+                    "default": "Vous n'avez pas encore enregistré de visites."
+                }
+            },
+            "unreadCount": "{{ count }} nouvelle visite",
+            "unreadCount_plural": "{{ count }} nouvelles visites"
         },
         "accessMonitoringTitle": "Surveillance des accès",
         "filters": {

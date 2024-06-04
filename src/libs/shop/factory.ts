@@ -122,6 +122,17 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     ...(options?.isFranchise && {
       supplier_template: faker.number.int({ max: 10000 }),
     }),
+    ...(options?.isFranchise && {
+      synced_companies: faker.helpers.multiple(
+        () => ({
+          id: faker.number.int(10000),
+          name: generateRandomName(faker),
+        }),
+        {
+          count: faker.number.int(5),
+        },
+      ),
+    }),
   };
 };
 

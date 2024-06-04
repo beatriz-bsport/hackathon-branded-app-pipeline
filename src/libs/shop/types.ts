@@ -99,6 +99,7 @@ export type ShopItemTemplate = Omit<
   franchisor: number;
   sub_shop_template: number;
   supplier_template: number | null;
+  synced_companies: { id: number; name: string }[];
 };
 
 export type ShopItemTemplateFilterParams = PaginationFilterParams & {

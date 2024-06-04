@@ -181,27 +181,27 @@ export function fetchFranchiseUser(props: {
   };
 }
 
-export const themeUpdate = {
-  error: createAction('FRANCHISE/THEME_UPDATE/ERROR'),
-  isLoading: createAction('FRANCHISE/THEME_UPDATE/IS_LOADING'),
-  success: createAction('FRANCHISE/THEME_UPDATE/SUCCESS'),
+export const updateFranchiseThemeActions = {
+  error: createAction<Error | null>('FRANCHISE/THEME_UPDATE/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/THEME_UPDATE/IS_LOADING'),
+  success: createAction<Franchise>('FRANCHISE/THEME_UPDATE/SUCCESS'),
 };
 
 export function updateFranchiseTheme(
   franchiseId: number,
-  data: any,
-  options?: OptionCallback,
+  data: FormData,
+  options?: OptionCallback<Franchise>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(themeUpdate.isLoading(true));
+    dispatch(updateFranchiseThemeActions.isLoading(true));
 
     try {
       const response = await updateFranchiseThemeAPI(franchiseId, data);
-      dispatch(themeUpdate.success(response.data));
-      options?.onSuccess();
-    } catch (err) {
-      dispatch(themeUpdate.error(err));
-      dispatch(themeUpdate.isLoading(false));
+      dispatch(updateFranchiseThemeActions.success(response.data));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      dispatch(updateFranchiseThemeActions.error(error));
+      dispatch(updateFranchiseThemeActions.isLoading(false));
       options?.onError();
     }
   };

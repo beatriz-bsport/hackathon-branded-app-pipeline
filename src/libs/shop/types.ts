@@ -269,15 +269,15 @@ export type ShopStateReworked = {
       bySubshopTemplateId: {
         [key: number]: ErrorAndLoading & PaginatedResponse<ShopItemTemplate>;
       };
-      /** State for shop item variant instances from a shop item template */
-      itemVariantInstance: {
+      /** State for shop item instances from a shop item template */
+      itemInstance: {
         byBaseItemTemplateId: {
           [key: number]: WithPagination & {
-            variants: ShopItem[];
+            items: ShopItem[];
           };
         };
       } & ErrorAndLoading;
-      /** State for shop item template variant */
+      /** State for shop item variants from a shop item template */
       itemVariant: {
         create: ErrorAndLoading;
         updateVariant: ErrorAndLoading;

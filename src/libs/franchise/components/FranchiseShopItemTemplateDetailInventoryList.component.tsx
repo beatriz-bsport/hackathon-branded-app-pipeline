@@ -41,7 +41,7 @@ type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;
   isUpdatingVariant?: boolean;
   shopItemTemplate: ShopItemTemplate;
-  shopItemVariantList: ShopItem[];
+  shopItemTemplateInstanceList: ShopItem[];
   variantSizeFilterOptionList: SelectOption[];
   variantSizeFilterOptionValueList: SelectOption[];
   variantColorFilterOptionList: SelectOption[];
@@ -63,7 +63,7 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
   formType,
   isUpdatingVariant,
   shopItemTemplate,
-  shopItemVariantList,
+  shopItemTemplateInstanceList,
   variantSizeFilterOptionList,
   variantSizeFilterOptionValueList,
   variantColorFilterOptionList,
@@ -83,35 +83,24 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
 
   const initialValues = useMemo(
     () => ({
-      [ShopItemDetailInventoryFormType.STANDALONE]: {
-        currentStock: shopItemTemplate?.current_stock ?? 0,
+      instances: (shopItemTemplateInstanceList ?? []).map((shopItem) => ({
+        id: shopItem.id,
+        color: shopItem.color,
+        size: shopItem.size,
+        currentStock: shopItem.current_stock ?? 0,
+        companyName: shopItem.company_details?.name,
         stockAdjustment: '',
         totalSales: shopItemTemplate?.total_sales ?? 0,
-      },
-      [ShopItemDetailInventoryFormType.VARIANTS]: {
-        variants: (shopItemVariantList ?? []).map((shopItemVariant) => ({
-          id: shopItemVariant.id,
-          color: shopItemVariant.color,
-          size: shopItemVariant.size,
-          currentStock: shopItemVariant.current_stock ?? 0,
-          companyName: shopItemVariant.company_details.name,
-          stockAdjustment: '',
-          totalSales: shopItemVariant.total_sales ?? 0,
-        })),
-      },
+      })),
     }),
-    [
-      shopItemTemplate?.current_stock,
-      shopItemTemplate?.total_sales,
-      shopItemVariantList,
-    ],
+    [shopItemTemplate?.total_sales, shopItemTemplateInstanceList],
   );
 
   return (
     <Formik
       enableReinitialize
       validateOnChange
-      initialValues={initialValues[formType]}
+      initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={validationSchema[formType]}
     >

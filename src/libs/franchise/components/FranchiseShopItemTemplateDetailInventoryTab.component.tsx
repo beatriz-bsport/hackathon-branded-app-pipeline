@@ -89,7 +89,7 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
-      setQueryParam('page')(`${pageNumber}`);
+      setQueryParam('inventorypage')(`${pageNumber}`);
     },
     [setQueryParam],
   );
@@ -200,14 +200,12 @@ const FranchiseShopItemTemplateDetailInventoryTab: React.FC<Props> = ({
         />
       )}
 
-      {formType === ShopItemDetailInventoryFormType.VARIANTS && (
-        <Pagination
-          className={classes.justifyCenter}
-          count={Math.ceil(count / SHOP_ITEM_VARIANTS_PAGE_SIZE)}
-          onChange={handlePageChange}
-          page={page}
-        />
-      )}
+      <Pagination
+        className={classes.justifyCenter}
+        count={Math.ceil(count / SHOP_ITEM_VARIANTS_PAGE_SIZE)}
+        onChange={handlePageChange}
+        page={page}
+      />
     </TabPanel>
   );
 };

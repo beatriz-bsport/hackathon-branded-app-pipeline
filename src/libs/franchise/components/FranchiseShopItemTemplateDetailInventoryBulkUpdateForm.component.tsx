@@ -40,7 +40,7 @@ type ShopItemInventoryBulkUpdateFormRow = {
 };
 
 type ShopItemInventoryBulkUpdateFormValues = {
-  variants: ShopItemInventoryBulkUpdateFormRow[];
+  instances: ShopItemInventoryBulkUpdateFormRow[];
 };
 
 type ShopItemBulkFieldArray = {
@@ -97,7 +97,7 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
     <Form noValidate>
       <TableContainer className={classes.tableContainer}>
         <div className={classes.tableActionContainer}>
-          {!!errors.variants && (
+          {!!errors.instances && (
             <Alert className={classes.tableErrorContainer} severity="error">
               {t('shopItemDetail.table.inventory.formError')}
             </Alert>
@@ -135,13 +135,13 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            <FieldArray name="variants">
+            <FieldArray name="instances">
               {({
                 form: {
-                  values: { variants },
+                  values: { instances },
                 },
               }: ShopItemBulkFieldArray) =>
-                (variants ?? []).map(
+                (instances ?? []).map(
                   (row: ShopItemInventoryBulkUpdateFormRow, index: number) => (
                     <TableRow key={row.id}>
                       <TableCell>
@@ -159,7 +159,7 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
                       <TableCell>
                         <FastField
                           key={index.toString()}
-                          name={`variants.${index}.currentStock`}
+                          name={`instances.${index}.currentStock`}
                         >
                           {({ field }: { field: FieldInputProps<number> }) =>
                             field.value
@@ -169,14 +169,14 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
                       <TableCell>
                         <FastField
                           key={index.toString()}
-                          name={`variants.${index}.stockAdjustment`}
+                          name={`instances.${index}.stockAdjustment`}
                         >
                           {({ field }: { field: FieldInputProps<number> }) => (
                             <TextField
                               {...field}
                               error={
                                 !!(
-                                  errors.variants as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
+                                  errors.instances as FormikErrors<ShopItemInventoryBulkUpdateFormRow>[]
                                 )?.[index]?.stockAdjustment
                               }
                               placeholder="0"
@@ -187,7 +187,7 @@ const FranchiseShopItemTemplateDetailInventoryBulkForm: React.FC<Props> = ({
                       <TableCell>
                         <FastField
                           key={index.toString()}
-                          name={`variants[${index}]totalSales`}
+                          name={`instances[${index}]totalSales`}
                         >
                           {({ field }: { field: FieldInputProps<number> }) =>
                             field.value

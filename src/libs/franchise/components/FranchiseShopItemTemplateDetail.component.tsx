@@ -50,9 +50,11 @@ type Props = {
   shopItemTemplate: ShopItemTemplate;
   supplierTemplateList: ShopSupplierTemplate[];
   variantList: ShopItemTemplate[];
-  variantInstanceList: ShopItem[];
-  page: number;
-  count: number;
+  shopItemTemplateInstanceList: ShopItem[];
+  shopItemTemplateVariantPage: number;
+  shopItemTemplateInstancePage: number;
+  shopItemTemplateVariantCount: number;
+  shopItemTemplateInstanceCount: number;
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
     sizes: SelectOption[];
@@ -102,9 +104,11 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
   shopItemTemplate,
   variantList,
   supplierTemplateList,
-  variantInstanceList,
-  page,
-  count,
+  shopItemTemplateInstanceList,
+  shopItemTemplateVariantPage,
+  shopItemTemplateInstancePage,
+  shopItemTemplateVariantCount,
+  shopItemTemplateInstanceCount,
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
   shopItemTemplateSupplierName,
@@ -270,20 +274,10 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
 
   const handleChangeTab = useCallback(
     (option: TabListOption) => {
-      const isTabRenderingVariants =
-        option.value === ShopItemDetailTab.INVENTORY ||
-        option.value === ShopItemDetailTab.VARIANTS;
-      /*
-       Whenever changing tab, we want to get back to page 1 to prevent
-       keeping page number synchronized across tabs. 
-       */
-      if (page > 1 && isTabRenderingVariants) {
-        setQueryParam('page')('1');
-      }
       isVariantEditMode && setIsVariantEditMode(false);
       setSelectedTab(option);
     },
-    [isVariantEditMode, page, setQueryParam],
+    [isVariantEditMode],
   );
 
   return (
@@ -318,7 +312,6 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
         <FranchiseShopItemTemplateDetailTabs
           availableTabListOptions={availableTabListOptions}
           changeInventoryVariantFilter={changeInventoryVariantFilter}
-          count={count}
           createShopItemProvision={createShopItemProvision}
           createShopItemProvisionBulk={createShopItemProvisionBulk}
           handleOpenBarcodeModal={handleOpenBarcodeModal}
@@ -329,17 +322,20 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           isVariantEditMode={isVariantEditMode}
           isVariantListLoading={isVariantListLoading}
           onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
-          page={page}
           selectedTab={selectedTab}
           setIsVariantEditMode={setIsVariantEditMode}
           setQueryParam={setQueryParam}
           shopItemTemplate={shopItemTemplate}
+          shopItemTemplateInstanceCount={shopItemTemplateInstanceCount}
+          shopItemTemplateInstanceList={shopItemTemplateInstanceList}
+          shopItemTemplateInstancePage={shopItemTemplateInstancePage}
           shopItemTemplateSupplierName={shopItemTemplateSupplierName}
+          shopItemTemplateVariantCount={shopItemTemplateVariantCount}
+          shopItemTemplateVariantPage={shopItemTemplateVariantPage}
           shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
-          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues}
-          updateShopItemTemplateVariantBulk={updateShopItemTemplateVariantBulk} // handled in https://bsporttest.atlassian.net/browse/BS-4194
+          shopItemVariantFilterOptionValues={shopItemVariantFilterOptionValues} // handled in https://bsporttest.atlassian.net/browse/BS-4194
+          updateShopItemTemplateVariantBulk={updateShopItemTemplateVariantBulk}
           variantCombinationListCount={count}
-          variantInstanceList={variantInstanceList}
           variantList={variantList}
         />
       </ShopModalContextProvider>

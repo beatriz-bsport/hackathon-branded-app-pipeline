@@ -41,10 +41,12 @@ type Props = {
   isVariantEditMode?: boolean;
   selectedTab: TabListOption;
   variantList: ShopItemTemplate[];
-  variantInstanceList: ShopItem[];
+  shopItemTemplateInstanceList: ShopItem[];
   shopItemTemplate: ShopItemTemplate;
-  page: number;
-  count: number;
+  shopItemTemplateVariantPage: number;
+  shopItemTemplateInstancePage: number;
+  shopItemTemplateVariantCount: number;
+  shopItemTemplateInstanceCount: number;
   availableTabListOptions: TabListOption[];
   shopItemVariantFilterOptionList: {
     colors: SelectOption[];
@@ -86,10 +88,12 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
   isVariantEditMode,
   selectedTab,
   variantList,
-  variantInstanceList,
+  shopItemTemplateInstanceList,
   shopItemTemplate,
-  page,
-  count,
+  shopItemTemplateVariantPage,
+  shopItemTemplateInstancePage,
+  shopItemTemplateVariantCount,
+  shopItemTemplateInstanceCount,
   availableTabListOptions = [],
   shopItemVariantFilterOptionList,
   shopItemVariantFilterOptionValues,
@@ -168,33 +172,33 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
           <>
             <FranchiseShopItemTemplateDetailInventoryTab
               changeInventoryVariantFilter={changeInventoryVariantFilter}
-              count={count}
+              count={shopItemTemplateInstanceCount}
               createShopItemProvision={createShopItemProvision}
               createShopItemProvisionBulk={createShopItemProvisionBulk}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isStandaloneItem={shopItemTemplate?.is_standalone_item}
               isUpdatingVariant={isUpdatingVariant}
-              page={page}
+              page={shopItemTemplateInstancePage}
               setQueryParam={setQueryParam}
               shopItemTemplate={shopItemTemplate}
+              shopItemTemplateInstanceList={shopItemTemplateInstanceList}
               shopItemVariantFilterOptionList={shopItemVariantFilterOptionList}
               shopItemVariantFilterOptionValues={
                 shopItemVariantFilterOptionValues
               }
-              shopItemVariantList={variantInstanceList}
               variantCombinationListCount={variantCombinationListCount}
             />
           </>
         )}
 
         <FranchiseShopItemTemplateDetailVariantsTab
-          count={count}
+          count={shopItemTemplateVariantCount}
           handleOpenBarcodeModal={handleOpenBarcodeModal}
           handleOpenVariantDrawer={handleOpenVariantDrawer}
           isDeletingVariant={isDeletingVariant}
           isVariantEditMode={isVariantEditMode}
           onDeleteShopItemVariant={onDeleteShopItemVariant}
-          page={page}
+          page={shopItemTemplateVariantPage}
           setIsVariantEditMode={setIsVariantEditMode}
           setQueryParam={setQueryParam}
           shopItemTemplateVariantList={variantList}
@@ -211,7 +215,7 @@ const FranchiseShopItemTemplateDetailTabs: React.FC<Props> = ({
             isDeliverable={shopItemTemplate.is_deliverable}
             isFeatured={shopItemTemplate.featured}
             isMarketplaceEnabled={shopItemTemplate.marketplace_enabled}
-            productHasVariants={count > 0}
+            productHasVariants={shopItemTemplateVariantCount > 0}
             sellOnlyOnProvision={shopItemTemplate.sell_only_on_provision}
             stockKeepingUnit={shopItemTemplate.stock_keeping_unit}
             supplierName={shopItemTemplateSupplierName}

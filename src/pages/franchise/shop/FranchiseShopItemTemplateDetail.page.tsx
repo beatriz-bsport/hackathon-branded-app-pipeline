@@ -12,7 +12,7 @@ import {
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
   updateShopItemTemplateVariantBulk as updateShopItemTemplateVariantBulkAction,
   fetchShopItemTemplateVariantList as fetchShopItemTemplateVariantListAction,
-  fetchShopItemTemplateVariantInstanceList as fetchShopItemTemplateVariantInstanceListAction,
+  fetchShopItemTemplateInstanceList as fetchShopItemTemplateInstanceListAction,
   createShopItemTemplateVariants as createShopItemTemplateVariantsAction,
 } from '#src/libs/shop/actions/shopItemReworked';
 
@@ -28,7 +28,7 @@ import {
   getShopItemTemplateVariantFilterOptionList,
   getShopItemTemplateVariantListLoading,
   getShopItemTemplateVariantState,
-  getShopItemTemplateVariantInstanceState,
+  getShopItemTemplateInstanceState,
   getShopItemTemplateVariantUpdateLoading,
   getShopSupplierTemplateState,
 } from '#src/libs/shop/selectors';
@@ -61,7 +61,8 @@ type OwnProps = {
   id: number;
   queryParams: {
     tab?: string;
-    page?: string;
+    variantspage?: string;
+    inventorypage?: string;
     color?: string;
     size?: string;
   };
@@ -72,10 +73,27 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   componentDidMount() {
-    this.retrieveShopItemTemplateDetails();
+    this.retrieveShopItemTemplateDetails({
+      onSuccess: () => {
+        this.fetchShopItemTemplateInstanceList();
+      },
+    });
     this.handleFetchShopSupplierTemplateList();
-    this.fetchShopItemTemplateVariantInstanceList();
     this.fetchShopItemTemplateVariantList();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.queryParams.inventorypage !==
+      this.props.queryParams.inventorypage
+    ) {
+      this.fetchShopItemTemplateInstanceList();
+    }
+    if (
+      prevProps.queryParams.variantspage !== this.props.queryParams.variantspage
+    ) {
+      this.fetchShopItemTemplateVariantList();
+    }
   }
 
   handleFetchShopSupplierTemplateList = (page?: number) => {
@@ -84,13 +102,15 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
-  retrieveShopItemTemplateDetails = () => {
-    this.props.retrieveShopItemTemplate(this.props.id);
+  retrieveShopItemTemplateDetails = (
+    options?: OptionCallback<ShopItemTemplate>,
+  ) => {
+    this.props.retrieveShopItemTemplate(this.props.id, options);
   };
 
   fetchShopItemTemplateVariantList = () => {
     const page =
-      parseInt(this.props.queryParams?.page, 10) ||
+      parseInt(this.props.queryParams?.variantspage, 10) ||
       this.props.shopItemTemplateVariantState.page ||
       1;
     this.props.fetchShopItemTemplateVariantList({
@@ -110,7 +130,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       options: {
         onSuccess: () => {
           this.fetchShopItemTemplateVariantList();
-          this.fetchShopItemTemplateVariantInstanceList();
+          this.fetchShopItemTemplateInstanceList();
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -118,20 +138,26 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     });
   };
 
-  fetchShopItemTemplateVariantInstanceList = () => {
+  fetchShopItemTemplateInstanceList = () => {
     const page =
-      parseInt(this.props.queryParams?.page, 10) ||
+      parseInt(this.props.queryParams?.inventorypage, 10) ||
       this.props.shopItemTemplateVariantState.page ||
       1;
     const colorFilter = this.props.queryParams?.color?.split(',');
     const sizeFilter = this.props.queryParams?.size?.split(',');
 
-    this.props.fetchShopItemTemplateVariantInstanceList({
-      id: this.props.id,
-      page,
-      colors: colorFilter,
-      sizes: sizeFilter,
-    });
+    !!this.props.shopItemTemplate &&
+      this.props.fetchShopItemTemplateInstanceList({
+        id: this.props.id,
+        page,
+        colors: colorFilter,
+        sizes: sizeFilter,
+        ...(this.props.shopItemTemplate?.number_of_variants > 0
+          ? {
+              is_variant: true,
+            }
+          : {}),
+      });
   };
 
   handleUpdateShopItemTemplate = (
@@ -192,7 +218,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     this.props.deleteShopItemTemplate(id, {
       onSuccess: () => {
         this.fetchShopItemTemplateVariantList();
-        this.fetchShopItemTemplateVariantInstanceList();
+        this.fetchShopItemTemplateInstanceList();
       },
     });
   };
@@ -210,7 +236,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   ) =>
     this.props.createShopItemProvision(data, {
       onSuccess: () => {
-        this.fetchShopItemTemplateVariantInstanceList();
+        this.fetchShopItemTemplateInstanceList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -222,7 +248,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
   ) => {
     this.props.createShopItemProvisionBulk(this.props.id, data, {
       onSuccess: () => {
-        this.fetchShopItemTemplateVariantInstanceList();
+        this.fetchShopItemTemplateInstanceList();
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -249,7 +275,6 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
     return (
       <FranchiseShopItemTemplateDetail
         changeInventoryVariantFilter={this.handleChangeInventoryVariantFilters}
-        count={this.props.shopSupplierTemplateState.count}
         createShopItemProvision={this.handleCreateShopItemProvision}
         createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
         createShopItemTemplateVariants={
@@ -262,14 +287,28 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         isLoading={this.props.isLoading}
         isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}
-        page={this.props.shopSupplierTemplateState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
         setQueryParam={this.props.setQueryParam}
         shopItemTemplate={this.props.shopItemTemplate}
+        shopItemTemplateInstanceCount={
+          this.props.shopItemTemplateInstanceState.count
+        }
+        shopItemTemplateInstanceList={
+          this.props.shopItemTemplateInstanceState.items ?? []
+        }
+        shopItemTemplateInstancePage={
+          this.props.shopItemTemplateInstanceState.page
+        }
         shopItemTemplateSupplierName={
           this.props.getShopItemTemplateSupplier(
             this.props.shopItemTemplate?.supplier_template,
           )?.name
+        }
+        shopItemTemplateVariantCount={
+          this.props.shopItemTemplateVariantState.count
+        }
+        shopItemTemplateVariantPage={
+          this.props.shopItemTemplateVariantState.page
         }
         shopItemVariantFilterOptionList={
           this.props.shopItemVariantFilterOptionList
@@ -280,9 +319,6 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
         updateShopItemTemplate={this.handleUpdateShopItemTemplate}
         updateShopItemTemplateVariantBulk={
           this.handleUpdateShopItemTemplateVariantBulk
-        }
-        variantInstanceList={
-          this.props.shopItemTemplateVariantInstanceState.variants ?? []
         }
         variantList={this.props.shopItemTemplateVariantState.variants ?? []}
       />
@@ -298,8 +334,7 @@ const connector = connect(
     shopItemTemplate: getShopItemTemplateDetail(state, id),
     shopSupplierTemplateState: getShopSupplierTemplateState(state),
     shopItemTemplateVariantState: getShopItemTemplateVariantState(state, id),
-    shopItemTemplateVariantInstanceState:
-      getShopItemTemplateVariantInstanceState(state, id),
+    shopItemTemplateInstanceState: getShopItemTemplateInstanceState(state, id),
     isVariantListLoading: getShopItemTemplateVariantListLoading(state),
     isUpdateVariantLoading: getShopItemTemplateVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemTemplateVariantDeleteLoading(state),
@@ -318,8 +353,7 @@ const connector = connect(
     createShopItemProvision: createShopItemProvisionAction,
     createShopItemProvisionBulk: createShopItemProvisionBulkAction,
     fetchShopItemTemplateVariantList: fetchShopItemTemplateVariantListAction,
-    fetchShopItemTemplateVariantInstanceList:
-      fetchShopItemTemplateVariantInstanceListAction,
+    fetchShopItemTemplateInstanceList: fetchShopItemTemplateInstanceListAction,
     updateShopItemTemplateVariantBulk: updateShopItemTemplateVariantBulkAction,
     createShopItemTemplateVariants: createShopItemTemplateVariantsAction,
     backToShopPage: () => push('/f/shop'),
@@ -328,7 +362,7 @@ const connector = connect(
 
 export default compose<Props, OwnProps>(
   withQueryParams([
-    ['tab', 'page', 'color', 'size'],
+    ['tab', 'variantspage', 'inventorypage', 'color', 'size', 'company'],
     'queryParams',
     'setQueryParam',
   ]),

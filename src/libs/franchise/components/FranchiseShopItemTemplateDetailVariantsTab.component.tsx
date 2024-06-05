@@ -65,7 +65,7 @@ const FranchiseShopItemTemplateDetailVariantsTab: React.FC<Props> = ({
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
-      setQueryParam('page')(`${pageNumber}`);
+      setQueryParam('variantspage')(`${pageNumber}`);
     },
     [setQueryParam],
   );

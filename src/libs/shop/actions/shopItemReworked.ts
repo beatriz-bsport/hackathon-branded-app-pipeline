@@ -921,26 +921,23 @@ export const deleteShopItemTemplate = (
   };
 };
 
-export const fetchShopItemTemplateVariantInstanceListActions = {
-  isLoading: createAction<boolean>(
-    'SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/LOADING',
-  ),
-  error: createAction<Error | null>(
-    'SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/ERROR',
-  ),
+export const fetchShopItemTemplateInstanceListActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/INSTANCE/LIST/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/INSTANCE/LIST/ERROR'),
   success: createAction<{
     data: PaginatedResponse<ShopItem>;
     baseItemTemplateId: number;
-  }>('SHOP_ITEM_TEMPLATE/VARIANT_INSTANCE/LIST/SUCCESS'),
+  }>('SHOP_ITEM_TEMPLATE/INSTANCE/LIST/SUCCESS'),
 };
 
 /**
- * Fetch all franchisee variant instances related to a base item template.
- * @param id The ID of the base item template
+ * Fetch all shop item instances related to a shop item template.
+ * The shop item template can be a base item or standalone item
+ * @param id The ID of the shop item template
  * @param colors An optional array of string for filtering
  * @param sizes An optional array of string for filtering
  */
-export const fetchShopItemTemplateVariantInstanceList = ({
+export const fetchShopItemTemplateInstanceList = ({
   id,
   page,
   colors,
@@ -954,8 +951,8 @@ export const fetchShopItemTemplateVariantInstanceList = ({
 }) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(fetchShopItemTemplateVariantInstanceListActions.isLoading(true));
-      dispatch(fetchShopItemTemplateVariantInstanceListActions.error(null));
+      dispatch(fetchShopItemTemplateInstanceListActions.isLoading(true));
+      dispatch(fetchShopItemTemplateInstanceListActions.error(null));
 
       // parse as string for HTTP GET filter
       const colorFilter = colors?.length ? { color: colors.join(',') } : {};
@@ -971,20 +968,18 @@ export const fetchShopItemTemplateVariantInstanceList = ({
       });
 
       dispatch(
-        fetchShopItemTemplateVariantInstanceListActions.success({
+        fetchShopItemTemplateInstanceListActions.success({
           data: result.data,
           baseItemTemplateId: id,
         }),
       );
       options?.onSuccess?.(result.data);
     } catch (error) {
-      dispatch(fetchShopItemTemplateVariantInstanceListActions.error(error));
+      dispatch(fetchShopItemTemplateInstanceListActions.error(error));
       console.error(error);
       options?.onError?.();
     } finally {
-      dispatch(
-        fetchShopItemTemplateVariantInstanceListActions.isLoading(false),
-      );
+      dispatch(fetchShopItemTemplateInstanceListActions.isLoading(false));
     }
   };
 };

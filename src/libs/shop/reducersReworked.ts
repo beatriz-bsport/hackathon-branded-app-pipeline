@@ -37,7 +37,7 @@ import {
   updateShopItemTemplateActions,
   createShopItemTemplateActions,
   fetchShopItemTemplateVariantListActions,
-  fetchShopItemTemplateVariantInstanceListActions,
+  fetchShopItemTemplateInstanceListActions,
   createShopItemTemplateVariantsActions,
 } from './actions/shopItemReworked';
 
@@ -165,7 +165,7 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
           delete: { error: null, loading: false },
           byBaseItemTemplateId: {},
         },
-        itemVariantInstance: {
+        itemInstance: {
           error: null,
           loading: false,
           byBaseItemTemplateId: {},
@@ -677,25 +677,25 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         { deep: true },
       );
     },
-    [fetchShopItemTemplateVariantInstanceListActions.isLoading.toString()]: (
+    [fetchShopItemTemplateInstanceListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['shopTemplates', 'shopItemTemplate', 'itemVariantInstance', 'loading'],
+        ['shopTemplates', 'shopItemTemplate', 'itemInstance', 'loading'],
         payload,
       );
     },
-    [fetchShopItemTemplateVariantInstanceListActions.error.toString()]: (
+    [fetchShopItemTemplateInstanceListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
-        ['shopTemplates', 'shopItemTemplate', 'itemVariantInstance', 'error'],
+        ['shopTemplates', 'shopItemTemplate', 'itemInstance', 'error'],
         payload,
       );
     },
-    [fetchShopItemTemplateVariantInstanceListActions.success.toString()]: (
+    [fetchShopItemTemplateInstanceListActions.success.toString()]: (
       state,
       {
         payload,
@@ -711,13 +711,13 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         {
           shopTemplates: {
             shopItemTemplate: {
-              itemVariantInstance: {
+              itemInstance: {
                 byBaseItemTemplateId: {
                   [payload.baseItemTemplateId]: {
                     page,
                     count,
                     next_page,
-                    variants: results,
+                    items: results,
                   },
                 },
               },

@@ -188,10 +188,8 @@ export const getShopItemTemplateVariantDeleteLoading = (state: RootState) =>
   state.shopReworked.shopTemplates.shopItemTemplate.itemVariant.delete.loading;
 
 /** Returns the loading state when fetching variant instances from a shop item template */
-export const getShopItemTemplateInstanceVariantListLoading = (
-  state: RootState,
-) =>
-  state.shopReworked.shopTemplates.shopItemTemplate.itemVariantInstance.loading;
+export const getShopItemTemplateInstanceListLoading = (state: RootState) =>
+  state.shopReworked.shopTemplates.shopItemTemplate.itemInstance.loading;
 
 /** Retrieves the boolean for combo warning when deleting a shop item */
 export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
@@ -247,26 +245,25 @@ export const getShopItemTemplateVariantState = (
 };
 
 /**
- * Retrieves the variant instance state related to a base item template.\
- * If the base item is standalone, variants is always an empty array.
- * @param id The base/standalone item id to retrieve variant state for
+ * Retrieves the shop item instance state related to a shop item template.
+ * @param id The base/standalone item id to retrieve instance state for
  */
-export const getShopItemTemplateVariantInstanceState = (
+export const getShopItemTemplateInstanceState = (
   state: RootState,
   shopItemTemplateId: number,
 ) => {
-  const shopItemVariantInstanceState =
-    state.shopReworked.shopTemplates.shopItemTemplate.itemVariantInstance
+  const shopItemInstanceState =
+    state.shopReworked.shopTemplates.shopItemTemplate.itemInstance
       .byBaseItemTemplateId[shopItemTemplateId];
-  if (!shopItemTemplateId || !shopItemVariantInstanceState) {
+  if (!shopItemTemplateId || !shopItemInstanceState) {
     return {
       page: 1,
       next_page: null,
       count: 0,
-      variants: [],
+      items: [],
     };
   }
-  return shopItemVariantInstanceState;
+  return shopItemInstanceState;
 };
 
 /**

@@ -13,8 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-import { WithHandlerType } from '../../../utils/types';
-import { buildUrlParams } from '../../../http';
 import CouponTemplateListItem from '#libs/coupon/components/CouponTemplateListItem.component';
 import { getPaymentPackTemplateList } from '#libs/payment-packs/selectors';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#libs/payment-packs/actions';
@@ -22,7 +20,6 @@ import { getPrivatePassTemplateList } from '#libs/private-service/selectors/priv
 import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#libs/private-service/actions';
 import CouponTemplateFormDrawer from '#libs/coupon/components/CouponTemplateFormDrawer.component';
 import CouponTemplateDeleteDialog from '#libs/coupon/components/CouponTemplateDeleteDialog.component';
-import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
 import {
   fetchCouponTemplateList as fetchCouponTemplateListAction,
   createOrUpdateCouponTemplate as createOrUpdateCouponTemplateAction,
@@ -34,6 +31,9 @@ import {
   getInactiveCouponTemplates,
 } from '#libs/coupon/selectors';
 import type { CouponTemplateAPI } from '#libs/coupon/types';
+import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
+import { buildUrlParams } from '../../../http';
+import { WithHandlerType } from '../../../utils/types';
 import type { OptionCallback } from '../../../state/types';
 import { RootState } from '../../../reducers';
 

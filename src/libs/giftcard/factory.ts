@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
-import { generateRandomInt } from '../../utils/factories';
 import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
 import { WithFranchiseCompanies } from '#libs/franchise/types';
+import { generateRandomInt } from '../../utils/factories';
 import {
   ConsumerGiftcard,
   Giftcard,

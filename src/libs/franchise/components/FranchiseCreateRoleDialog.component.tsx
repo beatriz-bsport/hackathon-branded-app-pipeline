@@ -24,15 +24,15 @@ import classNames from 'classnames';
 import { Divider } from '@material-ui/core';
 import chroma from 'chroma-js';
 // @ts-expect-error
-import asyncComponent from '../../../AsyncComponent';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CreateRoleMasterAccount from '#libs/franchise/components/FranchiseCreateRoleMasterAccount.component';
-import { MaterialStyleType } from '../../../utils/types';
 import {
   FranchiseRole,
   FranchiseRoleFranchiseeData,
   FranchiseRoleMasterAccountData,
 } from '#libs/role/types';
+import { MaterialStyleType } from '../../../utils/types';
+import asyncComponent from '../../../AsyncComponent';
 
 type OwnProps = {
   open: boolean;

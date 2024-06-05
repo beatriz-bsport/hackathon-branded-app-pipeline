@@ -23,7 +23,6 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import chroma from 'chroma-js';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 import Login from '#csscomponents/Login/Login.component';
@@ -31,7 +30,6 @@ import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar'
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#components/analytics/Analytics.component';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
-import { parseQueryString } from '../../http';
 
 import {
   addItemToBasket,
@@ -53,24 +51,14 @@ import {
   getCheckoutUrl,
 } from '#libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#libs/marketplace/utils';
-import asyncComponent from '../../AsyncComponent';
 
-import { auth as authActions } from '../../actions';
-import {
-  // DEPRECATED
-  // signupV2,
-  navigateToRelationAccount as navigateToRelationAccountAction,
-  navigateBackToMasterRelation as navigateBackToMasterRelationAction,
-} from '../../actions/auth.actions';
 import { fetchProfile } from '#libs/consumer-space/actions';
 
-import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 import {
   MarketplaceSettings,
   MarketplaceTabConfig,
 } from '#libs/marketplace/types';
 import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
-import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
@@ -79,9 +67,7 @@ import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFor
 import CustomFormViewDialogComponent from '#libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
 import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
 import { retrieveFranchise } from '#libs/franchise/actions';
-import type { OptionCallback } from '../../state/types';
 import type { CustomFormFilled } from '#libs/custom-form/types';
-import type { RootState } from '../../reducers';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
 import { getMyControlableMemberList } from '#libs/relationship/selectors';
 import { fetchMyControlableMemberList } from '#libs/relationship/actions';
@@ -101,6 +87,20 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
+import {
+  // DEPRECATED
+  // signupV2,
+  navigateToRelationAccount as navigateToRelationAccountAction,
+  navigateBackToMasterRelation as navigateBackToMasterRelationAction,
+} from '../../actions/auth.actions';
+import { auth as authActions } from '../../actions';
+import asyncComponent from '../../AsyncComponent';
+import { parseQueryString } from '../../http';
+import { getTheme } from '../../theme';
 
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import { getItemInStorage } from '../../utils/storage';

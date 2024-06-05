@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import useSmartlistContext, {
-  type SmartlistOption,
-} from '../hooks/useSmartlistContext.hook';
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import useSmartlistContext, {
+  type SmartlistOption,
+} from '../hooks/useSmartlistContext.hook';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {

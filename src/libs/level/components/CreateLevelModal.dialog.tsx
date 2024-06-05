@@ -17,12 +17,12 @@ import Button from '@material-ui/core/Button';
 import { DateRange } from '@material-ui/icons';
 import classNames from 'classnames';
 
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { ColorField } from '#components/forms';
-import { Level as LevelType } from '../types';
 import FormSection from '#components/forms/FormSection';
 import { useOfferFormStyles } from '#libs/offer/hooks';
+import { Level as LevelType } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 const NAME_MAX_LENGTH = 30;
 

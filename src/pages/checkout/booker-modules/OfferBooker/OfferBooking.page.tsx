@@ -32,17 +32,13 @@ import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/wai
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import withTheme from '#hocs/company-themifier.hoc';
-import { RootState } from '../../../../reducers';
-import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
 import { urlToMarketplace } from '#libs/marketplace/utils';
 import themeSelectors from '#libs/theme/selectors';
-import { buildUrlParams, parseQueryString } from '../../../../http';
 import {
   getOfferById,
   withEstablishment,
@@ -111,7 +107,6 @@ import OfferListSummary from '#libs/booker-module/components/OfferListSummary.co
 import { getMyRelatedMemberList } from '#libs/relationship/selectors';
 import { fetchMyRelatedMemberList } from '#libs/relationship/actions';
 
-import BookingMethodSelector from './BookingMethodSelector.container';
 import {
   OfferData,
   SelectedPack,
@@ -120,7 +115,6 @@ import {
 } from '#libs/booker-module/types';
 import { MemberMinimal } from '#libs/member/types';
 
-import OfferSpotSelector from './OfferSpotSelector';
 import BookButton from '#libs/booker-module/components/BookButton.components';
 import GroupOfferRedirectToFirstOfferDialog from '#marketplacecomponents/@Offer/GroupOfferRedirectToFirstOffer.dialog';
 
@@ -131,6 +125,12 @@ import {
 } from '#libs/marketplace/routing-utils';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
 import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
+import OfferSpotSelector from './OfferSpotSelector';
+import BookingMethodSelector from './BookingMethodSelector.container';
+import { buildUrlParams, parseQueryString } from '../../../../http';
+import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
+import { RootState } from '../../../../reducers';
+import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
 type OwnProps = { id: number; redirectedToFirstOfferToBeBooked: boolean };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &

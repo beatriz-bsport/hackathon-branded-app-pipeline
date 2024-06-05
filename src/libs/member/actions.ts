@@ -6,6 +6,10 @@ import URI from 'urijs';
 
 import * as Sentry from '@sentry/react';
 // @ts-expect-error
+import { fetchEventList } from '#libs/event/actions';
+import { EventListParams } from '#libs/event/types';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
+import { displayCustomBackgroundDialog } from '#libs/background-dialog/actions';
 import type { RootState } from '../../reducers/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
@@ -62,10 +66,6 @@ import {
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { COMPANY_EVENTS } from './events.utils';
-import { fetchEventList } from '#libs/event/actions';
-import { EventListParams } from '#libs/event/types';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
-import { displayCustomBackgroundDialog } from '#libs/background-dialog/actions';
 
 import MemberStatusMergeDialogComponent from './MemberStatusMergeDialog.component';
 

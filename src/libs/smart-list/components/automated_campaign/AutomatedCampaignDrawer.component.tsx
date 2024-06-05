@@ -32,7 +32,6 @@ import Select from 'react-select';
 import type { ValueType } from 'react-select/lib/types';
 import chroma from 'chroma-js';
 import type { AutomatedCampaign, OptionType } from '#libs/smart-list/types';
-import Config from '../../../../config';
 import {
   MAX_LENGTH_PUSH_TITLE,
   MAX_LENGTH_PUSH_CONTENT,
@@ -47,13 +46,11 @@ import WriteEmail from '#libs/communication/components/WriteEmail.component';
 // @ts-expect-error
 import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
 // @ts-expect-error
-import FeatureListProvider from '../../../company/hocs/feature-list-provider.hoc';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
 import { Submit, TextField } from '#components/forms';
 import type { FeatureList } from '#libs/company/types';
-import type { OptionCallback } from '../../../../state/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -67,6 +64,9 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 import { UNLIMITED_AUTOMATIC_MESSAGING } from '#libs/smart-list/components/constants';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import { util } from '#libs/communication-v2/components/convertEncode.utils';
+import type { OptionCallback } from '../../../../state/types';
+import FeatureListProvider from '../../../company/hocs/feature-list-provider.hoc';
+import Config from '../../../../config';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;

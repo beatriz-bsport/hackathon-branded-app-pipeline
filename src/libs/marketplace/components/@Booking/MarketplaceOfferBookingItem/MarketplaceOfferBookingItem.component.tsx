@@ -6,16 +6,16 @@ import {
   OfferStatus,
   OfferWithSpotInformation,
 } from '#libs/offer/types';
-import MarketplaceBookingItem from '../MarketplaceBookingItem';
 import { useOfferFormattedDate, useOfferHours } from '#libs/marketplace/hooks';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
 import { CompanyTheme } from '#libs/theme/types';
 import { getAddGuestTooltipText } from '#libs/marketplace/utils/booking';
 import {
   formatOfferDateWithTime,
   formatOfferHours,
 } from '#libs/marketplace/utils/offer';
+import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
+import MarketplaceBookingItem from '../MarketplaceBookingItem';
 
 export type Props = {
   offer: OfferWithSpotInformation;

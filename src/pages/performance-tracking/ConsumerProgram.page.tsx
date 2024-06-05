@@ -15,8 +15,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Info } from '@material-ui/icons';
 
 import { Grid } from '@material-ui/core';
-import { WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
@@ -25,7 +23,6 @@ import ProgramList from '#libs/performance-tracking/components/program/ProgramLi
 import MemberProgramDetail from '#libs/performance-tracking/components/member-program/MemberProgramDetail.component';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import ProgramMenuItem from '#libs/performance-tracking/components/program/ProgramMenuItem.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import GenericDialog from '#components/genericDialog/GenericDialog';
 import {
   getMemberProgramByMemberList,
@@ -43,6 +40,9 @@ import {
 import { Membership } from '#libs/membership/types';
 import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
 import withTitle from '#hocs/with-title.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { RootState } from '../../reducers';
+import { WithHandlerType } from '../../utils/types';
 
 type OwnProps = {
   memberProgramList: Array<PerformanceTrackingMemberProgram>;

@@ -2,18 +2,12 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 import chroma from 'chroma-js';
 import { TFunction } from 'i18next';
 
-import { QuicksaleItemColor, QuicksaleSectionColor } from './constants';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { Contract } from '#libs/subscription/types';
 import type { Giftcard } from '#libs/giftcard/types';
-import type {
-  QuicksaleCardInfo,
-  QuicksaleItem,
-  QuicksaleSection,
-} from './types';
 import type { Basket } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
@@ -22,6 +16,12 @@ import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
+import type {
+  QuicksaleCardInfo,
+  QuicksaleItem,
+  QuicksaleSection,
+} from './types';
+import { QuicksaleItemColor, QuicksaleSectionColor } from './constants';
 
 export const getBorderColorFromBackgroundColor = (backgroundColor: string) => {
   // This function retrieves the border color of an item card of the quicksale

@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import { WithHandlerType } from '../../../utils/types';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 
 import ActivitiesToReplaceTable from '#libs/replacement-request/components/replacement-request-table/ActivitiesToReplaceTable.component';
@@ -23,7 +22,6 @@ import {
   ReplacementDisplays,
   PAGE_SIZE,
 } from '#libs/replacement-request/constants';
-import { RootState } from '../../../reducers';
 import {
   withMetaActivity,
   withCoach,
@@ -58,13 +56,15 @@ import {
   CoachLateReplacementRequestStatus,
   Coach,
 } from '#libs/associated-coach/types';
-import { OptionCallback } from '../../../state/types';
 import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
 import { isReplacementRequestToBeCreatedLate } from '#libs/replacement-request/utils';
 import { OfferMinimal } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
+import { OptionCallback } from '../../../state/types';
+import { RootState } from '../../../reducers';
+import { WithHandlerType } from '../../../utils/types';
 
 type ConnectProps = ConnectedProps<typeof connector>;
 type Props = ConnectProps & WithHandlerType<typeof handlers>;

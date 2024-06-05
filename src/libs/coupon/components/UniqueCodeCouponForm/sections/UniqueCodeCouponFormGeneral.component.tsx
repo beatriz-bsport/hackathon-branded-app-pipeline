@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
 // @ts-expect-error
-import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 import FormSection from '#components/forms/FormSection';
+import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 
 type Props = {
   isProcessing: boolean;

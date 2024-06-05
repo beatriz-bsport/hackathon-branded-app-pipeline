@@ -6,26 +6,12 @@ import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import {
-  fetchTagList as fetchTagListAction,
-  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
-} from '../../libs/notification-rule/actions';
-import {
-  getTagCategories,
-  getResolvedGenericTags,
-} from '../../libs/notification-rule/selectors';
 import {
   getMetaActivity,
   withCustomRestrictionsTags,
@@ -65,12 +51,26 @@ import {
 
 import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
-import { mapFormData, unmap } from '../form.utils';
-import { OptionCallBack } from '../../state/types';
 import { SCT } from '#libs/category/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { SmartList } from '#libs/smart-list/types';
+import { OptionCallBack } from '../../state/types';
+import { mapFormData, unmap } from '../form.utils';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '../../libs/notification-rule/selectors';
+import {
+  fetchTagList as fetchTagListAction,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '../../libs/notification-rule/actions';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 

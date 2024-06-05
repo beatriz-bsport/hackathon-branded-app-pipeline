@@ -1,8 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { BigIconVariantType } from './types';
 import type { SVGComponentProps } from '#components/untitledui/template';
-import { BigIconEnum } from './constants';
 import {
   AlertTriangle,
   CheckCircleBroken,
@@ -11,6 +9,8 @@ import {
   XCircle,
 } from '#components/untitledui';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { BigIconEnum } from './constants';
+import type { BigIconVariantType } from './types';
 
 import './styles.css';
 

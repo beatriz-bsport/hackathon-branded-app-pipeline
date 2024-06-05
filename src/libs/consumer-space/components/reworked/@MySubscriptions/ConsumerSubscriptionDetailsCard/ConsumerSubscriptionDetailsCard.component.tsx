@@ -7,14 +7,6 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
-import {
-  ConsumerSubscriptionDetailsCardBillingHistory,
-  ConsumerSubscriptionDetailsCardDescription,
-  ConsumerSubscriptionDetailsCardFailedPayments,
-  ConsumerSubscriptionDetailsCardHeader,
-  ConsumerSubscriptionDetailsCardPaymentMethod,
-  ConsumerSubscriptionDetailsCardTerms,
-} from './sections';
 import Card from '#Fabrique/Card';
 
 import type {
@@ -24,6 +16,14 @@ import type {
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
 import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
+import {
+  ConsumerSubscriptionDetailsCardBillingHistory,
+  ConsumerSubscriptionDetailsCardDescription,
+  ConsumerSubscriptionDetailsCardFailedPayments,
+  ConsumerSubscriptionDetailsCardHeader,
+  ConsumerSubscriptionDetailsCardPaymentMethod,
+  ConsumerSubscriptionDetailsCardTerms,
+} from './sections';
 
 import './styles.css';
 

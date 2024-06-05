@@ -18,9 +18,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
+import { SmartList } from '#libs/smart-list/types';
 import MarketingRuleFormPrivateBooking from '../../../marketing/components/marketing-rule-form/MarketingRuleFormPrivateBooking.component';
 import NotificationListInner from '../../../marketing/components/NotificationListInner.component';
-import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   getEmails: () => void,

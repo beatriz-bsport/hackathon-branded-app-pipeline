@@ -8,8 +8,8 @@ import HourglassIcon from '@material-ui/icons/HourglassEmpty';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-import { buildSchedulePlan } from './utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { buildSchedulePlan } from './utils';
 
 type PaymentInstalmentListItemProps = {
   paymentInstalment: {

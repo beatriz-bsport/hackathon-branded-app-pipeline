@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
@@ -17,6 +16,7 @@ import {
 } from '#components/untitledui';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { formatAsDate } from '#utils/datetime';
+import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerSubscriptionRecurrenceLabel from '../../ConsumerSubscriptionRecurrenceLabel';
 
 type Props = Pick<

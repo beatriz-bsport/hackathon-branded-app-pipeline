@@ -9,8 +9,8 @@ import Button from '#components/css-only/Fabrique/Button';
 
 import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
 import { CouponErrorCodes } from '#libs/coupon/constants';
-import type { OptionCallBackWithKeyedCallbacks } from '../../../../../../state/types';
 import type { Coupon } from '#libs/coupon/types';
+import type { OptionCallBackWithKeyedCallbacks } from '../../../../../../state/types';
 import '../styles.css';
 
 export type Props = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '#components/css-only/Fabrique/Typography';
-import useConsumerSubscriptionRecurrenceLabel from '../hooks/useConsumerSubscriptionRecurrenceLabel';
 import type { SubscriptionInterval } from '#libs/subscription/types';
+import useConsumerSubscriptionRecurrenceLabel from '../hooks/useConsumerSubscriptionRecurrenceLabel';
 import './styles.css';
 
 type Props = {

@@ -9,20 +9,20 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import { getTextColorFromRGB } from '../../../../../utils/color';
 
 import type { Basket } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import type { MarketplaceSettings } from '#libs/marketplace/types';
 import type { Franchise } from '#libs/franchise/types';
 import type { Company } from '#libs/company/types';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import ToolTip from '#components/Tooltip.component';
 import AppBarMenu from './AppBarMenu.component';
 import AppBarLogo from './AppBarLogo.component';
 import AppBarBasket from './AppBarBasket.component';
 import AppBarProfile from './AppBarProfile.component';
 import AppBarProfileMenu from './AppBarProfileMenu.component';
-import WidgetUtils from '#libs/widget/WidgetUtils';
-import ToolTip from '#components/Tooltip.component';
+import { getTextColorFromRGB } from '../../../../../utils/color';
 
 type Props = {
   auth?: any;

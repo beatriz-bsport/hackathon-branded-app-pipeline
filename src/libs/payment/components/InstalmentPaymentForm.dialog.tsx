@@ -18,18 +18,8 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import { Form } from 'formik';
 import Immutable from 'seamless-immutable';
-import {
-  getCompanyCountry,
-  getCurrencyDisplayWithPrice,
-} from '../../theme/selectors';
 // @ts-expect-error
 import { Submit } from '#components/forms';
-import InstalmentPaymentForm, {
-  InstalPaymentFormHOC,
-} from './instalment-payment';
-import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';
-import PaymentMethodSelector from './PaymentMethodSelector.component';
-import type { PaymentInstalmentData, PaymentConfigData } from '../types';
 import type { OptionCallback } from '#state/types';
 import {
   fromPaymentGroupIdentifierToPaymentMethodIdentifier,
@@ -41,6 +31,16 @@ import {
   BillingDetails,
   MarketplacePaymentMethods,
 } from '#libs/marketplace/types';
+import type { PaymentInstalmentData, PaymentConfigData } from '../types';
+import PaymentMethodSelector from './PaymentMethodSelector.component';
+import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';
+import InstalmentPaymentForm, {
+  InstalPaymentFormHOC,
+} from './instalment-payment';
+import {
+  getCompanyCountry,
+  getCurrencyDisplayWithPrice,
+} from '../../theme/selectors';
 
 type Props = {
   enabledPaymentGroupMethodIdentifier: Array<number>;

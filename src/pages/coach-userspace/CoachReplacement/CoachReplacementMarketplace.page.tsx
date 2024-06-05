@@ -25,7 +25,6 @@ import {
   PAGE_SIZE,
 } from '#libs/replacement-request/constants';
 import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { RootState } from '../../../reducers';
 import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 import {
@@ -51,6 +50,7 @@ import {
   fetchAllReplacementRequestCoachAnswers as fetchAllReplacementRequestCoachAnswersAction,
   createOrUpdateReplacementRequestCoachAnswer as createOrUpdateReplacementRequestCoachAnswerAction,
 } from '#libs/replacement-request/actions';
+import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 
 type ConnectProps = ConnectedProps<typeof connector>;

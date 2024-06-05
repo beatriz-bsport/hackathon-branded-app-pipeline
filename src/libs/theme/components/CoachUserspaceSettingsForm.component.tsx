@@ -14,12 +14,12 @@ import { makeStyles, Theme } from '@material-ui/core';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 
-import { OptionCallback } from '../../../state/types';
-import type { CompanyTheme } from '../types';
 // @ts-expect-error
 import { SwitchField } from '#components/forms';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import type { CompanyTheme } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 interface FormikValues {
   is_coach_access_enabled_by_default: boolean;

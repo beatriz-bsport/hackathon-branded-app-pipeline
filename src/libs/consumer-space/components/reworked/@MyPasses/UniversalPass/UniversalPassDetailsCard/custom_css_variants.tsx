@@ -13,14 +13,13 @@ import {
 } from '#libs/exportable-components/types';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 
-import UniversalPassDetailsCard, { UniversalPassDetailsCardProps } from '.';
-
 import type {
   ConsumerPaymentPackCompatibility,
   DayOfWeekNumber,
   PrivateConsumerPassCompatibility,
   TimeSlot,
 } from '#libs/consumer-space/types';
+import UniversalPassDetailsCard, { UniversalPassDetailsCardProps } from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved

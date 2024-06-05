@@ -7,8 +7,6 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
-import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 
@@ -23,7 +21,6 @@ import Item, {
 import Price, { Color } from '#csscomponents/Price';
 import CircularProgress from '#csscomponents/CircularProgress';
 
-import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
@@ -33,6 +30,9 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import { PrivatePass } from '#libs/private-service/types';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 import Collapse from '#components/css-only/Fabrique/Collapse';
+import BillingInterval from '../MarketplaceBillingInterval';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 

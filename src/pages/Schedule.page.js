@@ -11,6 +11,10 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import flatten from 'lodash/flatten';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+import { getTheme } from '#libs/theme/selectors';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
@@ -42,7 +46,6 @@ import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
 import { getScheduleFilter } from '../libs/user-preference/selectors';
 import { ScheduleFilter } from '../libs/user-preference/types';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -50,7 +53,6 @@ import {
   getFilteredAvailabilitySlots,
   getResourceDataList,
 } from '../libs/private-service/selectors/availability-slot';
-import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 
 import AvailabilityUpdateResourceChoserDialog from '../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 
@@ -68,7 +70,6 @@ import {
   disableAvailabilitySlotMultipleResource,
   enableAvailabilitySlotMultipleResource,
 } from '../libs/private-service/actions';
-import { getTheme } from '#libs/theme/selectors';
 
 import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
@@ -77,7 +78,6 @@ import {
 import { CompanyTheme } from '../libs/theme/types';
 import { Coach } from '../libs/associated-coach/types';
 import { Offer } from '../libs/offer/types';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 import {
   PrivateBooking,
   AvailabilitySlot,

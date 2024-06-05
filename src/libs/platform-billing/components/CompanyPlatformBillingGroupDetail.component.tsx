@@ -5,17 +5,17 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-import getUpsellPackageComponent from './UpsellPackage.component';
-
 import type { UpsellPackage } from '#libs/company/types';
-import type { PlatformSubscription } from '../type';
-
-import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
-
 import {
   BETA_UPSELL_IDS,
   UNSUBSCRIBABLE_UPSELL_IDS,
 } from '#libs/platform-billing/constant';
+import getUpsellPackageComponent from './UpsellPackage.component';
+
+import type { PlatformSubscription } from '../type';
+
+import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
+
 import { UPSELL_IDENTIFIER_CADENCE } from '../upsell-identifiers';
 
 const UpsellPackageList = React.memo(

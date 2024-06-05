@@ -6,6 +6,7 @@ import type {
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
 import type {
   CadenceStatus,
   DestinationKind,
@@ -18,7 +19,6 @@ import type {
   TriggerIdentifier,
   TriggerKind,
 } from './constants';
-import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
 
 // ========== BACKEND MODELS & JSON SPECIFICATIONS ==========
 export type Cadence = {

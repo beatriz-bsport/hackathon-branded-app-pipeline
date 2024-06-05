@@ -3,9 +3,6 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import type { RouteComponentProps } from 'react-router-dom';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import type { WithHandlerType } from '../../utils/types';
-import type { RootState } from '../../reducers';
-import type { OptionCallback } from '../../state/types';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
@@ -51,6 +48,9 @@ import {
 import { getTheme } from '#libs/theme/selectors';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
 
 type OwnProps = {
   membership: Membership;

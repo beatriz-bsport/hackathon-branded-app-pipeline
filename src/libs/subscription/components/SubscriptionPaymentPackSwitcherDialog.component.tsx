@@ -13,10 +13,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import * as Yup from 'yup';
 // @ts-expect-error
+import type { PaymentPack } from '#libs/payment-packs/types';
 import { Submit } from '../../../components/forms';
 // @ts-expect-error
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
-import type { PaymentPack } from '#libs/payment-packs/types';
 
 type Props = {
   open: boolean;

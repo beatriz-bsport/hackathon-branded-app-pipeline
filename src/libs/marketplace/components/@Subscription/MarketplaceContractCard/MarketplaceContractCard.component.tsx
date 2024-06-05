@@ -18,10 +18,10 @@ import GridItem, {
 import Price from '#csscomponents/Price';
 import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 
-import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import type { Contract } from '#libs/subscription/types';
+import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';
 

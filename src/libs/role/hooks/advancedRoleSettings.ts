@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import type { Coach } from '#libs/associated-coach/types';
 import {
   getAddressOptionsFromEstablishmentList,
   getEstablishmentOptionsFromSelectedSites,
   getOptionsFromIds,
 } from '../utils';
 
-import type { Coach } from '#libs/associated-coach/types';
 import type { SelectFieldItem } from '../types';
 import type { Props as AdvancedSettingsProps } from '../components/AdvancedRoleSettingsModal.component';
 

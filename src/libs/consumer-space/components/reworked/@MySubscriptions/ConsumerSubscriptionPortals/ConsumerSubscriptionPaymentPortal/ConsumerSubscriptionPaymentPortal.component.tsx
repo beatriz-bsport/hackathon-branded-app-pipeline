@@ -2,14 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AxiosResponse } from 'axios';
 
-import {
-  ConsumerSubscriptionPaymentModal,
-  ConsumerSubscriptionPaymentBottomDrawer,
-} from '.';
 
 import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import {
+  ConsumerSubscriptionPaymentModal,
+  ConsumerSubscriptionPaymentBottomDrawer,
+} from '.';
 
 type Props = {
   displayBottomDrawer: boolean;

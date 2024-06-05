@@ -15,9 +15,6 @@ import Close from '@material-ui/icons/Close';
 import { Tune, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/styles';
-import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
-import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
-import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
 import type {
   SelectFieldItem,
   FilterState,
@@ -26,6 +23,9 @@ import {
   getFiltersToEnable,
   getFilterOptionsOverride,
 } from '#libs/communication-v2/utils';
+import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
+import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
+import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
 
 type OwnProps = {
   contextIdentifier: number;

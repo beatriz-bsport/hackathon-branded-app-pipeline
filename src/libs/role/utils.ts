@@ -6,7 +6,13 @@ import get from 'lodash/get';
 
 import cloneDeep from 'lodash/cloneDeep';
 import has from 'lodash/has';
-import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Company, UpsellSumup } from '#libs/company/types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
+import Config from '#src/config';
 import type {
   RolePermission,
   ProtectedUrls,
@@ -16,13 +22,7 @@ import type {
   FranchiseRolePermission,
   ObjectLevelPermissions,
 } from './types';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Company, UpsellSumup } from '#libs/company/types';
-import type {
-  Establishment,
-  EstablishmentGroupAPI,
-} from '#libs/establishment/types';
-import Config from '#src/config';
+import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
 
 export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {

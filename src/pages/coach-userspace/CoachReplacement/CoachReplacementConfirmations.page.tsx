@@ -17,7 +17,6 @@ import {
   ReplacementDisplays,
   PAGE_SIZE,
 } from '#libs/replacement-request/constants';
-import { RootState } from '../../../reducers';
 import {
   getOfferCalendarStateData,
   withCoach,
@@ -37,6 +36,7 @@ import {
 } from '#libs/establishment/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 
 type ConnectProps = ConnectedProps<typeof connector>;

@@ -7,19 +7,8 @@ import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { withTranslation } from 'react-i18next';
-import {
-  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-  BsportRequestFromHeaderValue,
-} from '../../constants';
-import { RootState } from '../../reducers';
-import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-// @ts-expect-error
-import { disconnect } from '../../actions/auth.actions';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-// import themeSelectors, { getThemeLoading } from '#libs/theme/selectors';
-// @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
 
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
 
@@ -32,14 +21,25 @@ import {
   getFranchiseThemeLoading,
 } from '#libs/franchise/selectors';
 import { FranchiseDetails } from '#libs/franchise/types';
+
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 // @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
 import namespaces from '../../i18n/namespaces.json';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginRouterStyles.css';
 import { isLoginBackgroundFixed } from './utils';
 import withThemeProvider from '#hocs/company-themifier.hoc';
 import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
+// @ts-expect-error
+import asyncComponent from '../../AsyncComponent';
+// @ts-expect-error
+import { disconnect } from '../../actions/auth.actions';
+import { parseQueryString } from '../../http';
+import { RootState } from '../../reducers';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
 
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 

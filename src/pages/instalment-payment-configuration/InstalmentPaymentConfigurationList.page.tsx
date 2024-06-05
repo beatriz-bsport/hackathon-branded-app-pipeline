@@ -52,12 +52,12 @@ import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
-import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '#utils/types';
 import type {
   InstalmentPayment,
   InstalmentPaymentApi,
 } from '#libs/instalment-payment-configuration/types';
+import type { RootState } from '../../reducers';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.InstalmentPayment,

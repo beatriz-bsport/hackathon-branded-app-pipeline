@@ -5,8 +5,6 @@ import { push } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { compose, withHandlers, withState } from 'recompose';
-import type { OptionCallback } from '../../state/types';
-import type { RootState } from '../../reducers';
 import InboxThreadList from '#libs/communication-v2/thread/InboxThreadList';
 import {
   getInboxThreadsWithUnreadAnswersCount,
@@ -31,7 +29,6 @@ import {
   fetchInboxThreadListFromThreadCalledFromURL,
 } from '#libs/communication-v2/utils';
 import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
-import InboxThreadCreator from './InboxThreadCreator.page';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
@@ -39,6 +36,9 @@ import type {
   SelectFieldItem,
 } from '#libs/communication-v2/types';
 import withTitle from '#hocs/with-title.hoc';
+import InboxThreadCreator from './InboxThreadCreator.page';
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
 
 const PAGE_SIZE = 15;
 

@@ -1,14 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-import { RootState } from '../../reducers';
-import {
-  DisciplineGroup,
-  ReplacementRequest,
-  ReplacementRequestState,
-} from './types';
 import { Offer } from '#libs/offer/types';
-import { ReplacementRequestStatus } from './constants';
 import {
   withCoach,
   withEstablishment,
@@ -27,6 +20,13 @@ import {
   getAssociatedEstablishmentGroup,
 } from '#libs/establishment/selectors';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import { ReplacementRequestStatus } from './constants';
+import {
+  DisciplineGroup,
+  ReplacementRequest,
+  ReplacementRequestState,
+} from './types';
+import { RootState } from '../../reducers';
 
 const getState = (state: RootState): ReplacementRequestState =>
   state.replacementRequest;

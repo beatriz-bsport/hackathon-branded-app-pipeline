@@ -5,9 +5,9 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import Unsubscribe from '#libs/consumer-space/components/reworked/@Unsubscribe';
 import { RootState } from '../../reducers';
 
-import Unsubscribe from '#libs/consumer-space/components/reworked/@Unsubscribe';
 
 type ReturnTypeRouterParamasToProps = {
   unsubscribe_uuid: string;

@@ -15,8 +15,8 @@ import classNames from 'classnames';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type { Member } from '../../member/types';
 import type { BookingOption } from '#libs/booking/types';
+import type { Member } from '../../member/types';
 
 type Props = {
   option: BookingOption;

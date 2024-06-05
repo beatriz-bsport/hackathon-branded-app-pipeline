@@ -4,12 +4,12 @@ import Immutable from 'seamless-immutable';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
-import type { StoredTrigger } from './types';
 import type { DestinationConfig } from '#libs/sequential_marketing/types';
 import {
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import type { StoredTrigger } from './types';
 
 type EdgesRendererProps = {
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;

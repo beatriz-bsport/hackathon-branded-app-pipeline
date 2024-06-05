@@ -11,6 +11,7 @@ import {
   CUSTOM_FORM_SUBMITTION_DRAFT,
 } from '@bsport/common/lib/master-data/custom-form';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
@@ -47,7 +48,6 @@ import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import MemberGreetingBanner from '../../libs/custom-form/components/consumer-form/CustomFormMemberGreetingBanner.component';
 import { Member } from '../../libs/member/types';
-import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
 
 type StateHandlerInit = {
   temporaryCustomFormData: {

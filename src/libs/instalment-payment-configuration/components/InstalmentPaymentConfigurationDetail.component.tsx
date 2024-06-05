@@ -13,7 +13,6 @@ import Warning from '@material-ui/icons/Warning';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import RedButton from '#components/button/RedButton.component';
-import InstalmentPaymentConfigurationCompatibilityDetail from './InstalmentPaymentConfigurationCompatibilityDetail.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 
 import {
@@ -32,6 +31,7 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { ShopItem } from '#libs/shop/types';
+import InstalmentPaymentConfigurationCompatibilityDetail from './InstalmentPaymentConfigurationCompatibilityDetail.component';
 
 type Props = {
   instalmentPayment: InstalmentPayment;

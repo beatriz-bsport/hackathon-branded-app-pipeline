@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplacePaymentPackOffPeakRestrictionModal, {
-  Props as MarketplacePaymentPackOffPeakRestrictionModalProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePaymentPackOffPeakRestrictionModalCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -13,6 +7,12 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplacePaymentPackOffPeakRestrictionModalCss from './styles.css?raw';
+import MarketplacePaymentPackOffPeakRestrictionModal, {
+  Props as MarketplacePaymentPackOffPeakRestrictionModalProps,
+} from '.';
 
 const paymentPackFromFactory = paymentPackFactory();
 

@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import memoize from 'memoize-one';
-import { RootState } from '../../reducers';
 import { Offer } from '#libs/offer/types';
+import { RootState } from '../../reducers';
 
 export const getGroupPreview = (state: RootState) =>
   state.groupOffer.preview.groups;

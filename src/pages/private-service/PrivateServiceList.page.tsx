@@ -9,12 +9,9 @@ import AddIcon from '@material-ui/icons/Add';
 
 import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '../../hocs/with-title.hoc';
 import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import PrivateServiceFormDrawer from '#libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceListWithGroup from '#libs/private-service/components/service/PrivateServiceListWithGroup.component';
@@ -64,6 +61,9 @@ import type {
   PrivateServiceGroup,
   PrivateServiceGroupWithService,
 } from '#libs/private-service/types';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import withTitle from '../../hocs/with-title.hoc';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';

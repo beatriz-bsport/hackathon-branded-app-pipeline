@@ -15,9 +15,9 @@ import { Alert } from '@material-ui/lab';
 import Switch from '@material-ui/core/Switch';
 // @ts-expect-error
 import withConfirm from '#hocs/with-confirm.hoc';
+import { cleanCSSFile } from '#libs/widget/utils';
 import CssCodeTextarea from './CssCodeTextarea.component';
 import { getCssComponentByLabel } from '../utils';
-import { cleanCSSFile } from '#libs/widget/utils';
 
 type Props = {
   code: string;

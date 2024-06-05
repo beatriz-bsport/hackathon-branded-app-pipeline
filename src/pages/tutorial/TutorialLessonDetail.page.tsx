@@ -15,9 +15,7 @@ import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { CircularProgress } from '@material-ui/core';
 // @ts-expect-error
-import { getLanguage } from '../../i18n';
 
-import { RootState } from '../../reducers';
 
 import {
   getTutorialLesson,
@@ -58,7 +56,6 @@ import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLe
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 
-import { WithHandlerType } from '../../utils/types';
 import { TutorialLesson, TutorialSection } from '#libs/platform-tutorial/types';
 
 import {
@@ -68,6 +65,9 @@ import {
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import { getLanguage } from '../../i18n';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

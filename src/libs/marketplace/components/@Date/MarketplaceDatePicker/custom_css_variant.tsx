@@ -1,10 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceDatePickerCss from './MarketplaceDatePicker.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -13,6 +9,10 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceDatePickerCss from './MarketplaceDatePicker.css?raw';
+import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
 
 const marketplaceDatePickerVariationRegistry = [
   {

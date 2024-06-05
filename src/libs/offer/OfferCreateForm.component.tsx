@@ -20,7 +20,6 @@ import { useOfferFormStyles } from '#libs/offer/hooks';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 import { getOfferRecurrenceDates } from '#libs/offer/utils';
 
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { Establishment } from '#libs/establishment/types';
@@ -32,6 +31,7 @@ import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { OFFER_RECURRENCE } from '#libs/offer/constants';
 import type { LuxonDateTime } from '#src/types';
+import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;

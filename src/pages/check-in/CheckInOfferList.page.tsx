@@ -13,7 +13,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -37,14 +36,10 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/a
 // @ts-expect-error
 import CheckInOfferList from '#libs/check-in/components/CheckInOfferList.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import type { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Offer } from '#libs/offer/types';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 // @ts-expect-error
-import { requestLogin as requestLoginAction } from '../../actions/auth.actions';
 import { withCustomLevel } from '#libs/level/selectors';
-import type { Dispatch } from '../../state/types';
 import {
   lockCheckInFilter as lockCheckInFilterAction,
   unlockCheckInFilter as unlockCheckInFilterAction,
@@ -57,6 +52,11 @@ import {
   getLocalStorageEstablishementList,
   isLocalStorageEstablishementListValid,
 } from '#libs/check-in/utils';
+import type { Dispatch } from '../../state/types';
+import { requestLogin as requestLoginAction } from '../../actions/auth.actions';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 
 type State = {
   authenticationDialog: {

@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 import { Dispatch, OptionCallback } from '../../state/types';
 
 import {
@@ -14,7 +15,6 @@ import {
   PricingOptionOrdering,
 } from './types';
 import { getMarketplaceDefaultConfig } from './constants';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),

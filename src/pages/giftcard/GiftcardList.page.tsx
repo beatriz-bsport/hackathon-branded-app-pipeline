@@ -18,6 +18,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
 import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountById,
+} from '#libs/payment/selectors';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 import withTitle from '../../hocs/with-title.hoc';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
@@ -45,8 +53,6 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
 import DividerLoader from '../../components/DividerLoader.component';
 import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
 
 import {
   ConsumerGiftcard,
@@ -55,12 +61,6 @@ import {
 } from '../../libs/giftcard/types';
 import { OptionCallback } from '../../state/types';
 import GiftcardListItem from '../../libs/giftcard/components/GiftcardListItem.component';
-import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
-import {
-  getBookkeepingAccountList,
-  getBookkeepingAccountById,
-} from '#libs/payment/selectors';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import GiftcardListDeleteDialog from '#libs/giftcard/components/GiftcardListDeleteDialog.component';
 import {

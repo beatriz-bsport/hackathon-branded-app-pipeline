@@ -3,6 +3,7 @@ import type { AxiosResponse } from 'axios';
 import uniq from 'lodash/uniq';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type {
   Dispatch,
@@ -59,7 +60,6 @@ import type {
   CommunicationScheduledFiltersForUniqueSmartlist,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 // --------- SEND COMMUNICATION ---------
 

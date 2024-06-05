@@ -5,9 +5,9 @@ import '#csscomponents/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { Typography, useTheme, makeStyles } from '@material-ui/core';
-import { LoginTitleCssHoc } from './LoginTitle.component';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { httpParser } from '#libs/marketplace/utils';
+import { LoginTitleCssHoc } from './LoginTitle.component';
 
 type Props = {
   companyName: string;

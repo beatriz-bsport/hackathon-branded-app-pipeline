@@ -4,9 +4,6 @@ import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
 // @ts-expect-error
-import { fetchAccessLevel } from '../../../actions/auth.actions';
-import { getAuthToken } from '../../../http';
-import { RootState } from '../../../reducers';
 import themeSelectors from '#libs/theme/selectors';
 import FinalStep from '#libs/login/components/account-configuration/AccountConfigurationFinalStep.component';
 
@@ -15,6 +12,9 @@ import { validateAccountConfigurationStepAction } from '#libs/company/actions';
 import { ACCOUNT_CONFIGURATION_FINAL_STEP } from '#libs/company/constants';
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
+import { RootState } from '../../../reducers';
+import { getAuthToken } from '../../../http';
+import { fetchAccessLevel } from '../../../actions/auth.actions';
 
 export type Props = ConnectedProps<typeof connector>;
 type State = {

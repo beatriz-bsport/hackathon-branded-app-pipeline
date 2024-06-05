@@ -6,8 +6,6 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
 import { DateTime } from 'luxon';
-import { OptionCallback } from '../../state/types';
-import withTitle from '../../hocs/with-title.hoc';
 import {
   getActiveCoaches,
   getActiveCoachesBulk,
@@ -46,8 +44,6 @@ import {
 
 import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 import CoachPerformanceCachedDataList from '#libs/coach-payment-rules/components/performance/CoachPerformanceCachedDataList.components';
-import type { RootState } from '../../reducers';
-import { WithHandlerType } from '../../utils/types';
 import CoachPerformanceTable from '#libs/coach-payment-rules/components/performance/CoachPerformanceTable.component';
 import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
 import type { Coach } from '#libs/associated-coach/types';
@@ -69,6 +65,10 @@ import {
   // @ts-expect-error js file
 } from '#libs/coach-payment-rules/utils';
 import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+import { WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
+import withTitle from '../../hocs/with-title.hoc';
+import { OptionCallback } from '../../state/types';
 
 const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>

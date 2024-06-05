@@ -4,12 +4,12 @@ import { Formik } from 'formik';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import ConsumerExtensionCreateForm from './ConsumerExtensionCreateForm.component';
 
-import type { ConsumerExtensionCreateFormValues } from './types';
 import type { ConsumerPaymentPackExtensionCreate } from '#libs/consumer-payment-pack/types';
 import type { PrivateConsumerPassExtensionCreate } from '#libs/private-service/types';
 import type { Common } from '#libs/types';
+import type { ConsumerExtensionCreateFormValues } from './types';
+import ConsumerExtensionCreateForm from './ConsumerExtensionCreateForm.component';
 
 import ConsumerExtensionCreateFormValidationSchema from './ConsumerExtensionCreateFormValidationSchema';
 import { EXTENSION_OPTIONS } from './constants';

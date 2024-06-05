@@ -4,11 +4,11 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import Search from '#components/css-only/Search';
 import ClickableItem from '#components/css-only/ClickableItem';
+import { Contract } from '#libs/subscription/types';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useMarketplaceSearchContractData } from '../hooks';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
 
-import { Contract } from '#libs/subscription/types';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
   contractList: Contract[];

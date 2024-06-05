@@ -3,13 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import { Handle, Position } from 'react-flow-renderer';
 
-import EntryStepCard from './EntryStepCard.component';
 import MenuSelectorOnly from '#components/menu/menu-only';
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
-import FirstEntryStepFlowConfigurationPopovers from './FirstEntryStepFlowConfigurationPopovers.component';
-import RegularEntryStepFlowConfigurationPopovers from './RegularEntryStepFlowConfigurationPopovers.component';
 
 import {
   HandleTypeChoices,
@@ -23,6 +20,9 @@ import type {
   StepMarketingActions,
   EntryStepFlowVersionData,
 } from '#libs/sequential_marketing/types';
+import RegularEntryStepFlowConfigurationPopovers from './RegularEntryStepFlowConfigurationPopovers.component';
+import FirstEntryStepFlowConfigurationPopovers from './FirstEntryStepFlowConfigurationPopovers.component';
+import EntryStepCard from './EntryStepCard.component';
 
 export type FlowProps = {
   data: EntryStepFlowVersionData & React.ComponentProps<typeof EntryStepCard>;

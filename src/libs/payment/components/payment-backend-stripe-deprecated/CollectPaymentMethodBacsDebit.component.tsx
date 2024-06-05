@@ -29,11 +29,11 @@ import { ClassNameMap } from '@material-ui/styles';
 import { TFunction } from 'i18next';
 // @ts-expect-error
 import { TextField } from '#components/forms';
+import LocaleSelector from '#components/input/LocaleSelector.component';
+import type { StripeInit } from '#libs/payment/types';
 import { getStripePkKey } from '../../../theme/selectors';
 // @ts-expect-error
 import StripeErrorCode from './StripeErrorCode.component';
-import LocaleSelector from '#components/input/LocaleSelector.component';
-import type { StripeInit } from '#libs/payment/types';
 
 const Wrapper = ({
   children,

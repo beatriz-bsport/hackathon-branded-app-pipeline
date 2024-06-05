@@ -10,7 +10,6 @@ import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import { RootState } from '../../../reducers';
 
 import {
   fetchBasket as fetchBasketAction,
@@ -49,21 +48,22 @@ import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.compon
 
 import { getCompanyCountry } from '#libs/theme/selectors';
 
-import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error
-import { mapFormData } from '../../form.utils';
-import QuicksaleCheckout from './QuicksaleCheckout.component';
 import type { PaymentGroup } from '#libs/payment/types';
 import type { Basket, BasketAddress } from '#libs/checkout/types';
 import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
 import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
-import { useQuicksalePayments, useModals } from './hooks';
 import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import { MemberFormData } from '#libs/member/types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import { useQuicksalePayments, useModals } from './hooks';
+import QuicksaleCheckout from './QuicksaleCheckout.component';
+import { mapFormData } from '../../form.utils';
+import type { OptionCallback } from '../../../state/types';
+import { RootState } from '../../../reducers';
 
 type Props = {
   basketId: string;

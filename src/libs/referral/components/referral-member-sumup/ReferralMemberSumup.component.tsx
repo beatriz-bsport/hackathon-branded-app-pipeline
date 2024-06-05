@@ -13,9 +13,9 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { Alert } from '@material-ui/lab';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ReferralMemberSumupDialog from './ReferralMemberSumupDialog.component';
 import { getReferredReduction } from '#libs/referral/utils';
 import { ReferralProgram } from '#libs/referral/types';
+import ReferralMemberSumupDialog from './ReferralMemberSumupDialog.component';
 
 type Props = {
   nbRemainingReferralUses: number;

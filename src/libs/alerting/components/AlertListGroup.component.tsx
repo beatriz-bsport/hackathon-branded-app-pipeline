@@ -18,9 +18,9 @@ import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
+import RedIconButton from '#components/button/RedIconButton.component';
 import { openIntercomHelp } from '../../../intercom';
 // @ts-expect-error
-import RedIconButton from '#components/button/RedIconButton.component';
 
 import type { AlertGroup, DeleteAlert } from '../types';
 import AlertListItem from './AlertListItem.component';

@@ -2,12 +2,6 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { generateRandomName } from '../../../../../utils/factories';
-
-import MarketplaceBookerModuleBuyableItems from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBookerModuleBuyableItemsCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -37,6 +31,11 @@ import { contractListFactory } from '#libs/subscription/factory';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBookerModuleBuyableItemsCss from './styles.css?raw';
+import MarketplaceBookerModuleBuyableItems from '.';
+import { generateRandomName } from '../../../../../utils/factories';
 
 const consumerPacks = consumerPaymentPackListFactory(1);
 

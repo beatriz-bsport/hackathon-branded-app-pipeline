@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
+import { PrivatePass } from '#libs/private-service/types';
 import {
   fetchPaymentComboList as fetchPaymentComboListAPI,
   fetchPaymentComboPurchaseList as fetchPaymentComboPurchaseListAPI,
@@ -26,7 +27,6 @@ import type {
   FetchPaymentComboPurchaseListParams,
   PaymentComboPurchase,
 } from './types';
-import { PrivatePass } from '#libs/private-service/types';
 
 export const paymentComboRetrieveActions = {
   error: createAction<Error | null>('PAYMENT_COMBO/RETRIEVE/ERROR'),

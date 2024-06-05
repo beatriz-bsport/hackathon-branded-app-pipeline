@@ -12,6 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import { DialogTitle } from '@material-ui/core';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -40,13 +47,6 @@ import {
   setExternalUrl,
 } from '../../libs/video/actions';
 
-import {
-  fetchLevelList as fetchLevelListAction,
-  updateLevel as updateLevelAction,
-  createLevel as createLevelAction,
-  deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
 import { getEditableSCTs } from '../../libs/category/selectors';
 
 import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';

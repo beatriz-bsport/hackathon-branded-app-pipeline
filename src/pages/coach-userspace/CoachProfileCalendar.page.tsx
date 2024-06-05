@@ -11,9 +11,6 @@ import { createStyles, Theme } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
 import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
 
-import { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
-import { WithHandlerType } from '../../utils/types';
 import withTitle from '#hocs/with-title.hoc';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -60,6 +57,9 @@ import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/select
 import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
 
 import { getCustomEventList } from '#libs/private-service/selectors/custom-event';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
 
 type Period = { start: string; end: string };
 type withStateType = {

@@ -33,8 +33,8 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 
 import type { CoachUpdateOrCreatedPayload } from '#libs/associated-coach/types';
 
-import type { CoachDetailed } from '../../../api/types';
 import type { OptionCallback } from '#state/types';
+import type { CoachDetailed } from '../../../api/types';
 
 const {
   trackFormAdd,

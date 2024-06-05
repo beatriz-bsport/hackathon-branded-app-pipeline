@@ -3,14 +3,14 @@ import React from 'react';
 import { replace } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import RedirectionLoading from './RedirectionLoading.component';
-import { fetchOfferBulk } from '../../../libs/offer/actions';
-import { OptionCallback } from '../../../state/types';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import type { CompanyTheme } from '#libs/theme/types';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import type { Offer } from '#libs/offer/types';
+import RedirectionLoading from './RedirectionLoading.component';
+import { fetchOfferBulk } from '../../../libs/offer/actions';
+import { OptionCallback } from '../../../state/types';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../../reducers';
 
 type Props = {

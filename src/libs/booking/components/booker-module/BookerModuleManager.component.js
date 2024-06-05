@@ -27,15 +27,15 @@ import ConsumerPackRowItem from '#libs/consumer-payment-pack/components/Consumer
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
-import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
-import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
-import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-
 import {
   ConsumerPaymentPack,
   MaxoutBooking,
 } from '#libs/consumer-payment-pack/types';
+import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
+import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
+import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
+
 
 import type { WithIsSharedActive } from '../../../relationship/types';
 import type { EstablishmentBillingGroup } from '../../../establishment/types';

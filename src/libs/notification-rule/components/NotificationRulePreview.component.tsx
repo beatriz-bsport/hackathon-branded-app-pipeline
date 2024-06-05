@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import Alert from '@material-ui/lab/Alert/Alert';
 
-import { NotificationRule, NotificationRuleEventType } from '../types';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
@@ -12,6 +11,7 @@ import {
 import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
 import { CompanyTheme } from '#libs/theme/types';
 import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
+import { NotificationRule, NotificationRuleEventType } from '../types';
 
 type Props = {
   previewEmail?: {

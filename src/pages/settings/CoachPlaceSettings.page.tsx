@@ -3,22 +3,22 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import { RootState } from '../../reducers';
-import { CompanyTheme } from '../../libs/theme/types';
-import CoachUserspaceSettingsForm from '../../libs/theme/components/CoachUserspaceSettingsForm.component';
 import ReplacementRequestConfigurationForm from '#libs/replacement-request/components/ReplacementRequestConfigurationForm.component';
-import {
-  updateCompanyTheme,
-  fetchCompanyTheme as fetchCompanyThemeAction,
-} from '../../libs/theme/actions';
 import {
   fetchReplacementConfiguration as fetchReplacementConfigurationAction,
   updateReplacementConfiguration as updateReplacementConfigurationAction,
 } from '#libs/replacement-request/actions';
 import { getReplacementRequestConfiguration } from '#libs/replacement-request/selectors';
-import themeSelectors from '../../libs/theme/selectors';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import { RootState } from '../../reducers';
+import { CompanyTheme } from '../../libs/theme/types';
+import CoachUserspaceSettingsForm from '../../libs/theme/components/CoachUserspaceSettingsForm.component';
+import {
+  updateCompanyTheme,
+  fetchCompanyTheme as fetchCompanyThemeAction,
+} from '../../libs/theme/actions';
+import themeSelectors from '../../libs/theme/selectors';
 
 type OwnProps = {
   theme: CompanyTheme;

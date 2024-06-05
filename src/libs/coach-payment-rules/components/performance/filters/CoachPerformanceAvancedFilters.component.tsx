@@ -24,18 +24,18 @@ import Divider from '@material-ui/core/Divider';
 import type { ImmutableArray } from 'seamless-immutable';
 // @ts-expect-error
 import { Submit } from '#components/forms';
-import type { OptionCallback } from '../../../../../state/types';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { Coach } from '#libs/associated-coach/types';
 import {
   CoachPaymentRuleGroup,
   CoachPaymentRulesByKind,
 } from '#libs/coach-payment-rules/types';
-import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
+import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
+import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
   by_coach_payment_rule_group: boolean;

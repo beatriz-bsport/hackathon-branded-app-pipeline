@@ -14,15 +14,10 @@ import {
   getCompanyCountry,
   getCurrencyDisplayWithPrice,
 } from '#libs/theme/selectors';
-import {
-  Basket,
-  ConfirmationStatus,
-  BuyableItemOptions,
-  CheckoutItem,
-  PrepaidLine,
-  CheckoutItemExtraData,
-} from './types';
 
+import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
+import { OfferWithSpotInformation } from '#libs/offer/types';
+import { Subscription } from '#libs/subscription/types';
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
@@ -32,9 +27,14 @@ import {
   EXCEPTION_BOOKING_GUEST_REACHED_LIMIT,
   EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
 } from './constants';
-import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
-import { OfferWithSpotInformation } from '#libs/offer/types';
-import { Subscription } from '#libs/subscription/types';
+import {
+  Basket,
+  ConfirmationStatus,
+  BuyableItemOptions,
+  CheckoutItem,
+  PrepaidLine,
+  CheckoutItemExtraData,
+} from './types';
 
 // IDK what the hell is happening, but importing them from common broke the VOD widget
 const SPOT_NOT_AVAILABLE = 8001;

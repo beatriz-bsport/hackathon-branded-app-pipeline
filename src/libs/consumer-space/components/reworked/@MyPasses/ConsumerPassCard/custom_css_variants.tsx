@@ -1,11 +1,7 @@
 import React from 'react';
 
 import { DateTime } from 'luxon';
-import ConsumerPassCard, { ConsumerPassCardProps } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerPassCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -14,6 +10,10 @@ import {
 } from '#libs/exportable-components/types';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ConsumerPassCardCss from './styles.css?raw';
+import ConsumerPassCard, { ConsumerPassCardProps } from '.';
 
 const fakeConsumerPass = consumerPaymentPackFactory();
 const fakePaymentPack = paymentPackFactory();

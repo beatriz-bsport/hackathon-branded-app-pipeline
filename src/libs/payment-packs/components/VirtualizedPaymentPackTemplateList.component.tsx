@@ -7,8 +7,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core';
 
-import PaymentPackTemplateListItem from './PaymentPackTemplateListItem.component';
 import DelayedTextField from '#components/DelayedTextField.component';
+import PaymentPackTemplateListItem from './PaymentPackTemplateListItem.component';
 import { PaymentPackTemplate } from '../types';
 
 const HEIGHT_ITEM = 80;

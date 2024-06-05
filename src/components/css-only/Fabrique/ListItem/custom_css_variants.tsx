@@ -1,19 +1,19 @@
 import React from 'react';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ListItemCSS from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { ArrowBlockLeft } from '#components/untitledui';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ListItemCSS from './styles.css?raw';
 
 import { ListItem } from './ListItem.component';
 import { ListItemSizeEnum, ListItemTypeEnum } from './constants';
 import type { ListItemSize, ListItemType } from './types';
-import { ArrowBlockLeft } from '#components/untitledui';
 
 const fabriqueListItemVariationRegistry = [
   {

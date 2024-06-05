@@ -13,10 +13,10 @@ import InfoIcon from '@material-ui/icons/Info';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DateTime } from 'luxon';
+import ToolTip from '#components/Tooltip.component';
 import { MaterialStyleType } from '../../../../utils/types';
 import CalendarPicker from '../CalendarPicker.component';
 import { DATE_EXACT } from '../constants';
-import ToolTip from '#components/Tooltip.component';
 
 type OwnProps = {
   filter_data: any;

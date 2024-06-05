@@ -1,17 +1,17 @@
 import { createAction } from 'redux-actions';
 import { Dispatch } from 'redux';
-import {
-  ManagerOnly,
-  SortOption,
-} from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
-import type { ScheduleFilter } from './types';
 import type { OffersGroupFilter } from '#libs/group-offer/types';
 import type {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
 } from '#libs/replacement-request/types';
 import type { PrivateBookingFilterParams } from '#libs/private-service/types';
+import type { ScheduleFilter } from './types';
+import {
+  ManagerOnly,
+  SortOption,
+} from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),

@@ -12,10 +12,7 @@ import { Theme, makeStyles } from '@material-ui/core';
 import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '#components/DelayedNumericInput.component';
 // @ts-expect-error
-import Selector from '../MultiSelector.component';
-import CheckboxSelector from '../CheckboxSelector.component';
 
-import CalendarPicker from '../CalendarPicker.component';
 import type { Establishment } from '#libs/establishment/types';
 // @ts-expect-error
 import EstablishmentListItem from '#libs/establishment/components/EstablishmentListItem.component';
@@ -31,6 +28,9 @@ import type {
   FetchBulkItemsType,
   FetchItemsType,
 } from '#libs/smart-list/types';
+import CalendarPicker from '../CalendarPicker.component';
+import CheckboxSelector from '../CheckboxSelector.component';
+import Selector from '../MultiSelector.component';
 
 const DATE_BETWEEN = 2;
 

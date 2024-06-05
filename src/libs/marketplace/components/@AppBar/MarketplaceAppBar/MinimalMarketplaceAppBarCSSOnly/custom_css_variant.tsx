@@ -2,9 +2,6 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceMinimalAppBarCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -13,6 +10,9 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceMinimalAppBarCss from './styles.css?raw';
 import MinimalMarketplaceAppBarCSSOnly from '.';
 
 const minimalMarketplaceAppBarVariationRegistry = [

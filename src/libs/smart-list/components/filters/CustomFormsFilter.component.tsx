@@ -13,11 +13,11 @@ import {
 import DelayedNumericInput from '#components/DelayedNumericInput.component';
 
 // @ts-expect-error
-import Selector from '../MultiSelector.component';
 import CustomFormListItem from '#libs/custom-form/components/CustomFormListItem.component';
+import { CustomForm } from '#libs/custom-form/types';
+import Selector from '../MultiSelector.component';
 import { MaterialStyleType } from '../../../../utils/types';
 
-import { CustomForm } from '#libs/custom-form/types';
 import CalendarPicker from '../CalendarPicker.component';
 import { DATE_EXACT } from '../constants';
 

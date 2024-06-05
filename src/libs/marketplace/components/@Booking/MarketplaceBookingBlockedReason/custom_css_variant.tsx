@@ -2,12 +2,6 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import MarketplaceBookingBlockedReason, {
-  Props as MarketplaceBookingBlockedReasonProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBookingBlockedReasonCss from './MarketplaceBookingBlockedReason.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -18,6 +12,12 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 
 import { getBookingBlockedReasonIcon } from '#libs/marketplace/utils';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBookingBlockedReasonCss from './MarketplaceBookingBlockedReason.css?raw';
+import MarketplaceBookingBlockedReason, {
+  Props as MarketplaceBookingBlockedReasonProps,
+} from '.';
 
 const bookingBlockedReasonVariationRegistry = [
   {

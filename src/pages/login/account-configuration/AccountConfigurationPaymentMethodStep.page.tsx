@@ -4,17 +4,13 @@ import { compose } from 'recompose';
 
 import { push } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
-import { RootState } from '../../../reducers';
 import PaymentMethodStep from '#libs/login/components/account-configuration/AccountConfigurationPaymentMethodStep.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import { fetchMyUserProfile } from '#libs/member/actions';
-import {
-  fetchPaymentMethodList as fetchPaymentMethodListAction,
-  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
-} from '../../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { PaymentMethod } from '#libs/payment/types';
 import { updateCompanyTheme } from '#libs/theme/actions';
+import { PAYMENT_METHOD_CONFIGURATION_STEP } from '#libs/company/constants';
 import {
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
   validateAccountConfigurationStepAction,
@@ -24,7 +20,11 @@ import {
   AccountConfigurationFinalStepUrl,
   AccountConfigurationStripeStepUrl,
 } from './AccountConfiguration.router';
-import { PAYMENT_METHOD_CONFIGURATION_STEP } from '#libs/company/constants';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
+  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
+} from '../../../libs/payment/actions';
+import { RootState } from '../../../reducers';
 
 export type Props = ConnectedProps<typeof connector>;
 export class AccountConfigurationPaymentMethodStepPage extends Component<Props> {

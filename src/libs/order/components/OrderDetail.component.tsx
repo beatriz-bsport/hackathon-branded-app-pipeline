@@ -21,8 +21,6 @@ import {
 } from '@bsport/common/lib/master-data/order-states';
 import RedButton from '#components/button/RedButton.component';
 import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
-import ProductLine from './ProductLine.component';
-import DeliveryInfo from './DeliveryInfo.component';
 import InvoiceSummary from '#libs/invoice/InvoiceListItem.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
@@ -32,6 +30,8 @@ import { EmailTemplateDetail } from '#libs/email-editor/types';
 
 import DeliveryFeeListItem from '#libs/order/components/DeliveryFeeListItem.component';
 import { Member } from '#libs/member/types';
+import DeliveryInfo from './DeliveryInfo.component';
+import ProductLine from './ProductLine.component';
 
 type Props = {
   onInvoiceClick: (uuid: string) => void;

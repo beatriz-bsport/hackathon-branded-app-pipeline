@@ -22,7 +22,6 @@ import {
 } from '#libs/establishment/selectors';
 import { shouldPlannedPaymentEventBeDisplayed } from '#libs/invoice/utils';
 
-import type { RootState } from '../../reducers';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
@@ -35,6 +34,7 @@ import type {
   Invoice,
   PlannedPaymentEvent,
 } from '#libs/invoice/types';
+import type { RootState } from '../../reducers';
 
 export const getState = (state: RootState): InvoiceState => state.invoice;
 

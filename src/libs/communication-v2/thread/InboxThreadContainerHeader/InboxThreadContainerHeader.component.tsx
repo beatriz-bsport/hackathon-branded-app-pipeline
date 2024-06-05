@@ -8,8 +8,8 @@ import type {
   CommunicationThread,
   SelectFieldItem,
 } from '#libs/communication-v2/types';
-import type { OptionCallback } from '../../../../state/types';
 import InboxThreadFilterContainer from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadFilterContainer.component';
+import type { OptionCallback } from '../../../../state/types';
 
 export type Props = {
   thread: CommunicationThread;

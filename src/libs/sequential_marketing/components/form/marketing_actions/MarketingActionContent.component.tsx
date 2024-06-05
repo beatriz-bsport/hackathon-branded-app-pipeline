@@ -2,12 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { MarketingActions } from '#libs/sequential_marketing/constants';
-import { getMarketingActionType } from './utils';
-
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+import { getMarketingActionType } from './utils';
+
 
 import NotificationForm from './communication_forms/NotificationForm';
 import SmsForm from './communication_forms/SmsForm';

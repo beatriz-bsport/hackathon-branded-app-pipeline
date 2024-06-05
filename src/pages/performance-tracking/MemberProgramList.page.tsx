@@ -15,9 +15,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Add, Info } from '@material-ui/icons';
 
 import { Grid } from '@material-ui/core';
-import { WithHandlerType } from '../../utils/types';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
@@ -47,6 +44,9 @@ import {
   retrieveMemberProgram as retrieveMemberProgramAction,
 } from '#libs/performance-tracking/actions';
 import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { WithHandlerType } from '../../utils/types';
 
 type OwnProps = {
   memberProgramList: Array<PerformanceTrackingMemberProgram>;

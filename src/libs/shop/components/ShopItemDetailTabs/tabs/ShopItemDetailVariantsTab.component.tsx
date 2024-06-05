@@ -13,11 +13,11 @@ import ShopItemDetailVariantList from '#libs/shop/components/ShopItemDetailVaria
 import ShopItemDetailVariantListMobile from '#libs/shop/components/ShopItemDetailVariantListMobile';
 
 import type { ShopItem } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../../state/types';
 import type { ShopItemVariantBulkUpdateFormValues } from '#libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '#libs/shop/constants';
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
+import type { OptionCallback } from '../../../../../state/types';
 
 type Props = {
   companyId?: number;

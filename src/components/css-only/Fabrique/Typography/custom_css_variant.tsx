@@ -1,19 +1,18 @@
 import React from 'react';
 
-import Typography, { Props as TypographyProps } from '.';
-import { TypographyVariant, TypographyColor } from './constants';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TypographyCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
-
 import type { CompanyTheme } from '#libs/theme/types';
+import Typography, { Props as TypographyProps } from '.';
+import { TypographyVariant, TypographyColor } from './constants';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import TypographyCss from './styles.css?raw';
+
 import type { TypographyColorType } from './types';
 
 const fabriqueTextFieldVariationRegistry = [

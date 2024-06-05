@@ -4,12 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ItemQuantity } from './ItemQuantity.component';
 import {
   BuyableItemOptions,
   CheckoutItem,
   OnRemoveCheckoutItemData,
 } from '#libs/checkout/types';
+import { ItemQuantity } from './ItemQuantity.component';
 
 type NewCheckoutItemListItemProps = {
   checkoutItem: CheckoutItem;

@@ -23,12 +23,12 @@ import type { StripeReader } from '#libs/terminal/types';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
 import PaymentBsportInternal from '#libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
 import PaymentStripeCard from '#libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
-import type { OptionCallback } from '../../../../state/types';
 import { getStripePkKey } from '#libs/theme/selectors';
 import PaymentStripeSEPA from '#libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
 import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import type { Basket } from '#libs/checkout/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   basket?: Basket;

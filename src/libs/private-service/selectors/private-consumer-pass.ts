@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import { Member } from '#libs/member/types';
 import type { PrivateConsumerPass } from '../types';
 import { getMemberListData } from '../../member/selectors';
 import { RootState } from '../../../reducers';
-import { Member } from '#libs/member/types';
 
 const _getPrivateConsumerPassIdList = (state: RootState) =>
   state.privateService.privateConsumerPass.allIds;

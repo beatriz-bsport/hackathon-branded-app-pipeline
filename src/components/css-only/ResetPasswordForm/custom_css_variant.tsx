@@ -2,11 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
-import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ResetPasswordFormCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -15,6 +11,10 @@ import {
 } from '#libs/exportable-components/types';
 
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ResetPasswordFormCss from './styles.css?raw';
+import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 
 const resetPasswordFormVariationRegistry = [
   {

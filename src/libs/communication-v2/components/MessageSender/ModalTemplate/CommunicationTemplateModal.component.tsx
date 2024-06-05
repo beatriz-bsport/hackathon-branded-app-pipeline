@@ -2,13 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CommunicationWrapperDialog from '#libs/communication-v2/components/CommunicationWrapperDialog.component';
-import CommunicationSelectTemplate from './CommunicationSelectTemplate.component';
-
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import CommunicationSelectTemplate from './CommunicationSelectTemplate.component';
+
 
 export type Props = {
   emailDetailList: Record<number, EmailTemplateDetail>;

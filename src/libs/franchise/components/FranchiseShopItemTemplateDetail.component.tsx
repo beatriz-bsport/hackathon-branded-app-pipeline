@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
-// @ts-expect-error
 import Barcode from 'react-barcode';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme, useMediaQuery, Theme } from '@material-ui/core';

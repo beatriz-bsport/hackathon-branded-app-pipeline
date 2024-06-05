@@ -3,10 +3,10 @@ import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import CouponTemplateForm from './CouponTemplateForm.component';
-import type { CouponTemplate } from '../types';
 import type { PaymentPackTemplate } from '#libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#libs/private-service/types';
+import CouponTemplateForm from './CouponTemplateForm.component';
+import type { CouponTemplate } from '../types';
 
 type OwnProps = {
   open: boolean;

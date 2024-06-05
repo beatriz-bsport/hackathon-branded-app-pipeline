@@ -17,6 +17,10 @@ import TextField from '@material-ui/core/TextField';
 import { withTranslation, TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 
+import {
+  getCheckoutUrl,
+  getUserSpaceUrl,
+} from '#libs/marketplace/routing-utils';
 import themeSelectors from '../../../libs/theme/selectors';
 
 import MarketplaceBasketDialog from '../../marketplace/MarketplaceBasketDialog.component';
@@ -65,10 +69,6 @@ import type {
 import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
-import {
-  getCheckoutUrl,
-  getUserSpaceUrl,
-} from '#libs/marketplace/routing-utils';
 
 type Props = {
   privateServiceId: number,

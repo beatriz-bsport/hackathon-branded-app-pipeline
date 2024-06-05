@@ -8,8 +8,8 @@ import ValidationIcon from '#components/icons/ValidationIcon.component';
 import SadSmileyIcon from '#components/icons/SadSmileyIcon.component';
 import EmailIcon from '#components/icons/EmailIcon.component';
 
-import { QuicksaleInterfaceModalColors } from '../constants';
 import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
+import { QuicksaleInterfaceModalColors } from '../constants';
 
 type Props = {
   // Modal to warn the staff that there are still open baskets

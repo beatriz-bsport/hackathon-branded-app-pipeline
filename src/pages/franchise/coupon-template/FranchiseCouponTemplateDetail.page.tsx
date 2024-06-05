@@ -5,22 +5,15 @@ import { push as pushAction } from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';
 import CouponTemplateCard from '#libs/coupon/components/CouponTemplateCard.component';
 import PaginatedDiscountList from '#libs/coupon/components/PaginatedDiscountList.component';
-import { WithHandlerType } from '../../../utils/types';
-import { OptionCallback } from '../../../state/types';
 import { getPaymentPackTemplateList } from '#libs/payment-packs/selectors';
 import { fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction } from '#libs/payment-packs/actions';
 import { getPrivatePassTemplateList } from '#libs/private-service/selectors/private-pass';
 import { fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAction } from '#libs/private-service/actions';
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import CouponTemplateDeleteDialog from '#libs/coupon/components/CouponTemplateDeleteDialog.component';
 import CouponTemplateInstanceFormDialog from '#libs/coupon/components/CouponTemplateInstanceFormDialog.component';
 import CouponTemplateInstanceDeleteDialog from '#libs/coupon/components/CouponTemplateInstanceDeleteDialog.component';
 import CouponTemplateFormDrawer from '#libs/coupon/components/CouponTemplateFormDrawer.component';
-import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
-import { parseQueryString } from '../../../http';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-
 import {
   fetchDiscountList as fetchDiscountListAction,
   retrieveCouponTemplate as retrieveCouponTemplateAction,
@@ -29,15 +22,22 @@ import {
   createCouponTemplateInstance as createCouponTemplateInstanceAction,
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAction,
 } from '#libs/coupon/actions';
-import {
-  getFranchiseCompanies,
-  getAllowedFranchisees,
-} from '../../../libs/franchise/selectors';
 import { getCouponTemplate } from '#libs/coupon/selectors';
 import type {
   CouponTemplateAPI,
   CouponTemplateInstance,
 } from '#libs/coupon/types';
+import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
+import { parseQueryString } from '../../../http';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+
+import {
+  getFranchiseCompanies,
+  getAllowedFranchisees,
+} from '../../../libs/franchise/selectors';
+import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { OptionCallback } from '../../../state/types';
+import { WithHandlerType } from '../../../utils/types';
 
 import { RootState } from '../../../reducers';
 

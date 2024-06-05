@@ -5,7 +5,6 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesDict,
@@ -13,8 +12,6 @@ import {
   getRequiredTags,
   getRelatedNotificationEvents,
 } from '#libs/email-editor/selectors';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import withTitle from '../../hocs/with-title.hoc';
 import { snackbarError } from '#libs/snackbar/actions';
 
 import {
@@ -25,16 +22,19 @@ import {
   fetchAllEmailTemplateCategory,
   fetchCurrentTemplateMetadata,
 } from '#libs/email-editor/actions';
-import { DrawerContext, DrawerContextValue } from '../../context';
 
 import EmailEditorPanel from '#libs/email-editor/components/EmailEditor.component';
 import { fetchTagList } from '#libs/notification-rule/actions';
 import { getTagCategories } from '#libs/notification-rule/selectors';
-import { RootState } from '../../reducers';
 
 import { EmailTemplate } from '#libs/email-editor/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { RootState } from '../../reducers';
+import { DrawerContext, DrawerContextValue } from '../../context';
+import withTitle from '../../hocs/with-title.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { OptionCallback } from '../../state/types';
 
 const { trackFormAdd, trackFormSuccess } =

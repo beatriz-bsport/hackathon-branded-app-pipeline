@@ -15,10 +15,10 @@ import GridItem, {
   Justification,
 } from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
-import InitialPrice from './InitialPrice';
-import PaymentComboItemList from './PaymentComboItemList';
 import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 import type { PaymentCombo } from '#libs/payment-combo/types';
+import InitialPrice from './InitialPrice';
+import PaymentComboItemList from './PaymentComboItemList';
 
 import './styles.css';
 

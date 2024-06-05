@@ -32,11 +32,11 @@ import { getCustomCssConfiguration } from '#libs/exportable-components/selectors
 import withConfirm from '#hocs/with-confirm.hoc';
 import CssCodeTextarea from '#libs/exportable-components/components/CssCodeTextarea.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import type { Coach } from '#libs/associated-coach/types';
 import CanvasEditorCssPreviewDialog from './CanvasEditorCssPreviewDialog.component';
 
 import type { CanvasElement } from './tools/BaseClasses/Base.tool';
 import type { RoomBlueprint, SpotType } from '../types';
-import type { Coach } from '#libs/associated-coach/types';
 import type { RootState } from '../../../reducers';
 
 type Props = {

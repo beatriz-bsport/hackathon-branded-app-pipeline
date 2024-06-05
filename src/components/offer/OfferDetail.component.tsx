@@ -13,10 +13,6 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import {
-  formatAsDatetimeAdapted,
-  formatISOStringAsTime,
-} from '../../utils/datetime';
 import Tooltip from '#components/Tooltip.component';
 import type { Offer } from '#libs/offer/types';
 import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
@@ -28,6 +24,10 @@ import { ADDITIONAL_COACHES_MAX_DISPLAY } from '#libs/offer/constants';
 import type { Level } from '#libs/level/types';
 import { CustomChip } from '#components/chip/CustomChip.component';
 import { getLevelTranslation } from '#libs/level/utils';
+import {
+  formatAsDatetimeAdapted,
+  formatISOStringAsTime,
+} from '../../utils/datetime';
 
 type Props = {
   offer: Offer<

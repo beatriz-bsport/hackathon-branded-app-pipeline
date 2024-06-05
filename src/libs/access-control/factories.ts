@@ -3,8 +3,8 @@ import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
 import MemberMinimalFactoryBot from '#libs/member/factories/MemberMinimal';
 
-import { AccessStatus, EntryStatus } from './constants';
 import { generateRandomName } from '#utils/factories';
+import { AccessStatus, EntryStatus } from './constants';
 
 /**
  * Generate an array of random numbers, of random length.

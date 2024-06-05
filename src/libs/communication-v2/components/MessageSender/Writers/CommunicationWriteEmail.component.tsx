@@ -11,7 +11,6 @@ import {
 } from '@material-ui/icons';
 
 import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
-import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
@@ -22,6 +21,7 @@ import {
   TEXTFIELD_MAIL_TITLE,
   TEXTFIELD_MAIL_CONTENT,
 } from '#libs/communication-v2/constants';
+import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 
 type Props = {
   children: React.ReactNode;

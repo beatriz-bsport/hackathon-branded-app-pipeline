@@ -25,6 +25,10 @@ import { Alert } from '@material-ui/lab';
 import isEqual from 'lodash/isEqual';
 import { AxiosError } from 'axios';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
+import CategorySelector from '#components/ordering/CategorySelector.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import RequiredTags from '#components/notification/RequiredTags.component';
 import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import Checkbox from '../../../components/input/Checkbox.component';
@@ -38,11 +42,7 @@ import i18n from '../../../i18n';
 import { FranchiseCompany } from '../../franchise/types';
 import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.component';
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
-import CategorySelector from '#components/ordering/CategorySelector.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { createUrl } from '../../../utils/createUrlHandlers';
-import RequiredTags from '#components/notification/RequiredTags.component';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

@@ -8,11 +8,11 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
-import type { OptionCallback } from '../../../../../../state/types';
 import type {
   ConsumerSubscriptionInvoiceDetails,
   ConsumerSubscriptionReworked,
 } from '#libs/consumer-space/types';
+import type { OptionCallback } from '../../../../../../state/types';
 
 type Data = {
   activeSubscriptionsState: ConsumerSubscriptionReworked;

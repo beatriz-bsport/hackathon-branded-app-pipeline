@@ -8,17 +8,17 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import DelayedTextField from '../../../components/DelayedTextField.component';
 // @ts-expect-error
 import SCTSelector from '#libs/category/components/SCTSelectorBase.component';
 import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
 // @ts-expect-error
-import DurationSelector from './DurationSelector.component';
 import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 
 import type { Coach } from '#libs/associated-coach/types';
 import type { SCT } from '#libs/category/types';
 import type { Level } from '#libs/level/types';
+import DurationSelector from './DurationSelector.component';
+import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '../constant';
 

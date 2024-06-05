@@ -8,7 +8,6 @@ import {
 
 import { withWidth } from '@material-ui/core';
 
-import { RootState } from '../../reducers';
 import { fetchEstablishments as fetchEstablishmentsAction } from '#libs/establishment/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
 import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
@@ -94,9 +93,10 @@ import {
 } from '#libs/member/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import WorkshopActivityGroup from './WorkshopActivityGroup.component';
 import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
 import zoomAppSelectors from '#libs/zoom-app/selectors';
+import WorkshopActivityGroup from './WorkshopActivityGroup.component';
+import { RootState } from '../../reducers';
 
 export const workshopActivityGroupConnector = connect(
   (

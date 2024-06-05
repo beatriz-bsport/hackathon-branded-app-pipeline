@@ -1,15 +1,15 @@
-import { Offer } from './types';
 import { Coach } from '#libs/associated-coach/types';
 import { Tag } from '#libs/tag/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
 import { coachFactory } from '#libs/associated-coach/factories';
-import { tagListFactory } from '../tag/factory';
 import { establishment_factory } from '#libs/establishment/factory';
 import { levelFactory } from '#libs/level/factories';
-import { generateRandomInt } from '../../utils/factories';
 import type { OffersGroup } from '#libs/group-offer/types';
 import { offerGroupFactory } from '#libs/group-offer/factory';
+import { generateRandomInt } from '../../utils/factories';
+import { tagListFactory } from '../tag/factory';
+import { Offer } from './types';
 
 const categories = ['Swimming', 'Running', 'Collective'];
 

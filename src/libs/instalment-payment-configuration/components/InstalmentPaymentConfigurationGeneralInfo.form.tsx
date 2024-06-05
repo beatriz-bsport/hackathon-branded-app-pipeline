@@ -10,15 +10,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {
-  TextFieldEnhancedLabelWithError,
-  PriceField,
-  RadioGroupField,
-  TextField,
-  // @ts-expect-error
-} from '../../../components/forms';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { generateInfo, generateRecurrencyString } from '../utils';
 import { InstalmentPaymentApi } from '#libs/instalment-payment-configuration/types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
@@ -28,6 +20,14 @@ import {
   MONTHLY,
   WEEKLY,
 } from '#libs/instalment-payment-configuration/constants';
+import { generateInfo, generateRecurrencyString } from '../utils';
+import {
+  TextFieldEnhancedLabelWithError,
+  PriceField,
+  RadioGroupField,
+  TextField,
+  // @ts-expect-error
+} from '../../../components/forms';
 
 export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
   const { t } = useTranslation('instalmentPayment');

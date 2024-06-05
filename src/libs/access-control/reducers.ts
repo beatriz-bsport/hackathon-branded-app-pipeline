@@ -4,6 +4,8 @@ import { handleActions } from 'redux-actions';
 
 import type { AxiosResponse } from 'axios';
 
+import type { PaginatedResponse } from '#state/types';
+import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import {
   approvePhotoUpdateActions,
   checkMemberInEstablishmentActions,
@@ -19,8 +21,6 @@ import {
 } from './actions';
 import { FETCH_MEMBER_VISIT_PAGE_SIZE } from './constants';
 
-import type { PaginatedResponse } from '#state/types';
-import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type {
   AccessControlBookingOrPrivateBooking,
   AccessControlPolicy,

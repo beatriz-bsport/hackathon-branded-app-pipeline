@@ -36,11 +36,11 @@ import type {
 
 import type { Member } from '#libs/member/types';
 
-import type { OptionCallback } from '../../../state/types';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import type { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
+import type { OptionCallback } from '../../../state/types';
 
 import useStyles from './hooks/styles';
 import QuicksaleTileList from './QuicksaleTileList.component';

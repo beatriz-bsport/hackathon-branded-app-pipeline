@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import classNames from 'classnames';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Card, { CardSize } from '#components/css-only/Card';
 import Content from '#csscomponents/Card/CardContent';
 import Grid from '#components/css-only/Grid';
@@ -13,13 +12,14 @@ import GridItem, {
 } from '#csscomponents/Grid/GridItem';
 import Price from '#components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import BillingInterval from '../MarketplaceBillingInterval';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import type { Subscription } from '#libs/subscription/types';
 
-import MinimalCardSkeleton from '../../MinimalCardSkeleton';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import Button from '#components/css-only/Fabrique/Button';
+import MinimalCardSkeleton from '../../MinimalCardSkeleton';
+import BillingInterval from '../MarketplaceBillingInterval';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 

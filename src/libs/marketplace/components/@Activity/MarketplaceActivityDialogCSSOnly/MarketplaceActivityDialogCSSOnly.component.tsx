@@ -4,7 +4,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 import { Offer } from '#libs/offer/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -14,6 +13,7 @@ import { Level } from '#libs/level/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
 import WidgetPortalSlidingContainer from '#libs/widget/components/PortalContainer';
+import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 
 import './MarketplaceActivityDialogCSSOnly.css';
 

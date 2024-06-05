@@ -9,13 +9,6 @@ import Card from '#Fabrique/Card';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
-import {
-  UniversalPassDetailsCardHeader,
-  UniversalPassDetailsCardDescriptionSection,
-  UniversalPassDetailsCardCompatibleEstablishmentsSection,
-  UniversalPassDetailsCardSharedSection,
-  UniversalPassDetailsCardCompatibilitySection,
-} from './sections';
 
 import type { Establishment } from '#libs/establishment/types';
 import type {
@@ -23,6 +16,13 @@ import type {
   PrivateConsumerPassCompatibility,
   TimeSlot,
 } from '#libs/consumer-space/types';
+import {
+  UniversalPassDetailsCardHeader,
+  UniversalPassDetailsCardDescriptionSection,
+  UniversalPassDetailsCardCompatibleEstablishmentsSection,
+  UniversalPassDetailsCardSharedSection,
+  UniversalPassDetailsCardCompatibilitySection,
+} from './sections';
 
 import './styles.css';
 

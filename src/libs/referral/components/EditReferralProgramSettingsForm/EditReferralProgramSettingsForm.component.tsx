@@ -2,7 +2,6 @@ import React from 'react';
 import { withFormik, Form, FormikProps } from 'formik';
 import { Typography, makeStyles, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { OptionCallback } from '../../../../state/types';
 
 import {
   ReferralTimeLimitUnits,
@@ -13,6 +12,7 @@ import { Tag } from '#libs/tag/types';
 import { SwitchField } from '#components/forms';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { ReferralProgram } from '#libs/referral/types';
+import { OptionCallback } from '../../../../state/types';
 import EditReferralProgramFormValidationSchema from './EditReferralProgramSettingsFormValidationSchema';
 import EditReferralProgramSettingsFormGeneral from './sections/EditReferralProgramSettingsFormGeneral.component';
 import EditReferralProgramSettingsFormReferredReduction from './sections/EditReferralProgramSettingsFormReferredReduction.component';

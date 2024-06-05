@@ -2,18 +2,16 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import Card, { type CardProps } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import CardCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import Card, { type CardProps } from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import CardCss from './styles.css?raw';
 
 const CARD_CHILDREN = faker.lorem.sentence(3);
 

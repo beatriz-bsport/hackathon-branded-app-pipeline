@@ -1,18 +1,18 @@
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
 import { fakerEN as faker } from '@faker-js/faker';
+import type {
+  Communication,
+  CommunicationMessage,
+} from '#libs/communication-v2/types';
+import type { Member } from '#libs/member/types';
+import MembersFactory from '#libs/member/factories/Member';
+import fakerHTML from '#components/html/fakerHTML';
+import { RecipientCompactListFactory } from './RecipientWithMember';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
   COMMUNICATION_FILTER_CHANNELS,
   COMMUNICATION_FILTER_KINDS,
 } from '../constants';
-import type {
-  Communication,
-  CommunicationMessage,
-} from '#libs/communication-v2/types';
-import { RecipientCompactListFactory } from './RecipientWithMember';
-import type { Member } from '#libs/member/types';
-import MembersFactory from '#libs/member/factories/Member';
-import fakerHTML from '#components/html/fakerHTML';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max - 0.00001);

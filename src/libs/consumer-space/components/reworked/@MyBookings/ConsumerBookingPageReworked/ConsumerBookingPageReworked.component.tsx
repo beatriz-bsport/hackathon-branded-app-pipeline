@@ -24,7 +24,6 @@ import type {
   CancelPrivateBookingParams,
 } from '#libs/booking/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { OptionCallback } from '../../../../../../state/types';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { PrivateBooking } from '#libs/private-service/types';
@@ -34,6 +33,7 @@ import type {
 } from '#libs/waiting-list/types';
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';
 

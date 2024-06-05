@@ -8,6 +8,7 @@ import {
 import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 import { convertCtsToFullPrice } from '#libs/consumer-space/components/reworked/@MyInvoices/helpers/utils';
 import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+import type { ConsumerInvoice } from '#libs/invoice/types';
 import {
   ConsumerInvoiceItemList,
   ConsumerInvoicePaymentHistory,
@@ -16,7 +17,6 @@ import {
   ConsumerInvoiceTotal,
 } from './subsections';
 
-import type { ConsumerInvoice } from '#libs/invoice/types';
 
 import '../styles.css';
 

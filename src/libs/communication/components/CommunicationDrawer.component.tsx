@@ -37,20 +37,14 @@ import {
 } from '@bsport/common/lib/master-data/communication-kind';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import Config from '../../../config';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 // @ts-expect-error
-import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 // @ts-expect-error
-import SelectTemplate from './SelectTemplate.component';
 // @ts-expect-error
-import WriteEmail from './WriteEmail.component';
 // @ts-expect-error
-import WriteSMS from './WriteSMS.component';
-import WriteNotification from './WriteNotification.component';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
@@ -76,12 +70,18 @@ import type {
   CommunicationScheduledCreate,
 } from '#libs/communication-v2/types';
 
-import type { OptionCallback } from '../../../state/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import type { OptionCallback } from '../../../state/types';
+import WriteNotification from './WriteNotification.component';
+import WriteSMS from './WriteSMS.component';
+import WriteEmail from './WriteEmail.component';
+import SelectTemplate from './SelectTemplate.component';
+import ReceiversCollapseItem from './ReceiversCollapseItem.component';
+import Config from '../../../config';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { DetachPaymentBottomDrawer, DetachPaymentModal } from '.';
 import type { PortalProps } from '#src/components/css-only/Portals/types';
+import { DetachPaymentBottomDrawer, DetachPaymentModal } from '.';
 
 const DetachPaymentPortal: React.FC<PortalProps> = ({
   isMobile,

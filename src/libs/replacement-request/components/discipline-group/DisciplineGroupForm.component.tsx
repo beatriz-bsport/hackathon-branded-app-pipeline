@@ -23,7 +23,6 @@ import CoachSelector from '#libs/associated-coach/components/coach-selector/Coac
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import SCTChip from '#libs/category/components/SCTChip.component';
 
-import { OptionCallback } from '../../../../state/types';
 import { DisciplineGroupAPIData } from '#libs/replacement-request/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
@@ -41,6 +40,7 @@ import {
 } from '#libs/establishment/types';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import { MultilocationChoice } from '#libs/replacement-request/constants';
+import { OptionCallback } from '../../../../state/types';
 
 const {
   trackFormAdd,

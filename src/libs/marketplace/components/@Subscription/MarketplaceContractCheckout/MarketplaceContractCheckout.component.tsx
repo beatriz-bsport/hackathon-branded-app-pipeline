@@ -5,7 +5,6 @@ import UpdateIcon from '@material-ui/icons/Update';
 
 import classNames from 'classnames';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
@@ -17,7 +16,6 @@ import GridItem, {
 } from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 import CircularProgress from '#csscomponents/CircularProgress';
-import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { PaymentPack } from '#libs/payment-packs/types';
@@ -26,6 +24,8 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import { Contract } from '#libs/subscription/types';
 import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 import Collapse from '#csscomponents/Fabrique/Collapse';
+import BillingInterval from '../MarketplaceBillingInterval';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 

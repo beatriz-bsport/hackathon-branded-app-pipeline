@@ -3,11 +3,11 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BasketInstalmentEmptyPlaceholder from '#libs/instalment-payment-configuration/components/BasketInstalmentEmptyPlaceholder.component';
+import type { Basket } from '#libs/checkout/types';
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
 import type { InstalmentPaymentApiWithBasketId } from '../types';
 import type { OptionCallback } from '../../../state/types';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
-import type { Basket } from '#libs/checkout/types';
 
 type Props = {
   instalmentPaymentConfigurationList: null | InstalmentPaymentApiWithBasketId[];

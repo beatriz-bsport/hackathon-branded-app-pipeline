@@ -15,14 +15,7 @@ import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { getTheme } from '#libs/theme/selectors';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import withTitle from '../../hocs/with-title.hoc';
 // @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import {
   fetchAllGroups,
@@ -84,6 +77,13 @@ import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.compon
 import TadDetailOfferFilters from '#libs/marketing/components/TagDetailOfferFilters.components';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParams from '../../hocs/with-query-params.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 
 export enum TagAuthorizationFilter {
   showAll = 0,

@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 
+import { isErrorWithCustomCode } from '#libs/utils';
 import { Dispatch, OptionCallback } from '../../state/types';
 import { snackbarWarning } from '../snackbar/actions';
 
@@ -16,7 +17,6 @@ import type { ClockInData, ClockInQueryParams } from './types';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 
 export const retrieveLastClockInActions = {
   error: createAction('CLOCKIN/GET_LAST/ERROR'),

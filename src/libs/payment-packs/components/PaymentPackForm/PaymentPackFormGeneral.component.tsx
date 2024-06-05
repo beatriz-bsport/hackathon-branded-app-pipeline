@@ -21,6 +21,21 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import { FormikProps, useFormikContext } from 'formik';
 import { Alert } from '@material-ui/lab';
+// @ts-expect-error
+
+import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import { provincialTaxHelperText } from '#libs/theme/utils';
+import type { PrivatePass } from '#libs/private-service/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
+import { ALMOST_100 } from '../../../../constants';
+import {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackFormValues,
+} from '../../types';
+import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
 import {
   TextFieldEnhancedLabelWithError,
   PriceField,
@@ -28,21 +43,6 @@ import {
   SwitchField,
   // @ts-expect-error
 } from '../../../../components/forms';
-// @ts-expect-error
-import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
-
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import {
-  PaymentPack,
-  PaymentPackCategory,
-  PaymentPackFormValues,
-} from '../../types';
-import { provincialTaxHelperText } from '#libs/theme/utils';
-import type { PrivatePass } from '#libs/private-service/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { ALMOST_100 } from '../../../../constants';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
 
 type Props = {
   paymentPackCategories: Array<PaymentPackCategory>;

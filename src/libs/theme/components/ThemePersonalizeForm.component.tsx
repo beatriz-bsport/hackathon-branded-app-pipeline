@@ -33,7 +33,6 @@ import {
 
 import classNames from 'classnames';
 import { Alert } from '@material-ui/lab';
-import Config from '../../../config';
 
 import {
   IntegerField,
@@ -45,13 +44,14 @@ import {
   // @ts-expect-error
 } from '#components/forms';
 
-import { OptionCallback } from '../../../state/types';
-import { CompanyTheme } from '../types';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
+import { CompanyTheme } from '../types';
+import { OptionCallback } from '../../../state/types';
+import Config from '../../../config';
 
 interface FormikValues {
   show_offers_filling: boolean;

@@ -1,16 +1,16 @@
 import { offerFactory } from '#libs/offer/factory';
-import { generateRandomInt } from '../../utils/factories';
 
-import { ReplacementRequest, ReplacementRequestCoachAnswer } from './types';
 import { Coach } from '#libs/associated-coach/types';
 import { Tag } from '#libs/tag/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
+import { coachFactory } from '#libs/associated-coach/factories';
 import {
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,
 } from './constants';
-import { coachFactory } from '#libs/associated-coach/factories';
+import { ReplacementRequest, ReplacementRequestCoachAnswer } from './types';
+import { generateRandomInt } from '../../utils/factories';
 
 function randomDate(start: Date, end: Date) {
   return new Date(

@@ -10,8 +10,8 @@ import {
 
 import AccessControlSettingsForm from '#libs/access-control/components/AccessControlSettings/AccessControlSettingsForm.component';
 
-import type { RootState } from '../../reducers';
 import type { AccessControlPolicy } from '#libs/access-control/types';
+import type { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector>;
 

@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable';
 import { Box, Position, Rect, Viewport } from 'react-flow-renderer';
-import Config from '../../config';
 import type {
   Cadence,
   CadenceInitialConfigurationState,
@@ -8,6 +7,7 @@ import type {
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import Config from '../../config';
 
 export const isCadenceInitialConfigurationCompleted = (
   cadenceMinimalConfigurationState: CadenceInitialConfigurationState,

@@ -1,5 +1,3 @@
-import type { Offer, OfferBookingOption, OfferREST } from '../offer/types';
-import type { PaymentPack } from '../payment-packs/types';
 import type {
   StaffModificationHistory,
   BookingModificationActionIdentifier,
@@ -20,6 +18,8 @@ import type {
   PrivateSlot,
 } from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+import type { PaymentPack } from '../payment-packs/types';
+import type { Offer, OfferBookingOption, OfferREST } from '../offer/types';
 
 export type BroadcastInfo = {
   id: number;

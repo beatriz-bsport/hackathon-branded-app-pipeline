@@ -1,9 +1,14 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       },
       "eslint-import-resolver-custom-alias": {
         "alias": {
@@ -20,7 +25,12 @@
           "#pages": "./src/pages",
           "#state": "./src/state"
         },
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -62,7 +72,10 @@
     "no-console": [
       "error",
       {
-        "allow": ["warn", "error"]
+        "allow": [
+          "warn",
+          "error"
+        ]
       }
     ],
     "react/require-default-props": 0,
@@ -103,15 +116,26 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 0,
     "babel/new-cap": 0,
-    "arrow-parens": ["error", "always"],
-    "object-curly-newline": ["off"],
-    "space-before-function-paren": ["off"],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "object-curly-newline": [
+      "off"
+    ],
+    "space-before-function-paren": [
+      "off"
+    ],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [".js", ".jsx", "tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          "tsx"
+        ]
       }
     ],
     "flowtype/no-types-missing-file-annotation": 0,
@@ -128,7 +152,10 @@
     "no-duplicate-case": 1,
     "no-duplicate-imports": 1,
     "no-irregular-whitespace": 1,
-    "max-classes-per-file": ["error", 1],
+    "max-classes-per-file": [
+      "error",
+      1
+    ],
     "max-depth": [
       "warn",
       {
@@ -137,16 +164,14 @@
     ],
     "no-empty": 1,
     "no-sequences": 1,
-    // Custom rules
     "bsport/no-redux-in-component": 2,
     "bsport/no-moment-without-timezone": 2,
     "react/jsx-sort-props": [
       "error",
       {
-        "ignoreCase": true, // Ignores the case of prop names during sorting
-        "shorthandFirst": true, // Short hand props must be listed before all other props, but still respecting the alphabetical order
-        // "multiline": "last", // Multiline props must be listed after all other props
-        "reservedFirst": true // Reserved props such as key, children will be placed first, but still respecting the alphabetical order
+        "ignoreCase": true,
+        "shorthandFirst": true,
+        "reservedFirst": true
       }
     ]
   },
@@ -157,15 +182,26 @@
   },
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": [
+        "*.js"
+      ],
       "excludedFiles": "**/*.translation*.js",
       "rules": {
-        "quotes": [2, "single"]
+        "quotes": [
+          2,
+          "single"
+        ]
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "excludedFiles": ["**/*.test.ts", "src/**/__test__/**"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "excludedFiles": [
+        "**/*.test.ts",
+        "src/**/__test__/**"
+      ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": "tsconfig-eslint.json",
@@ -177,7 +213,9 @@
         "import/no-named-as-default-member": "off",
         "max-len": "off",
         "react/prop-types": 0,
-        "@typescript-eslint/no-unused-vars": ["error"],
+        "@typescript-eslint/no-unused-vars": [
+          "error"
+        ],
         "prefer-destructuring": "off",
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",

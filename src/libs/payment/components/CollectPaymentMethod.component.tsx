@@ -2,13 +2,13 @@ import React, { memo } from 'react';
 
 import { AxiosResponse } from 'axios';
 import { SetupIntentResult } from '@stripe/stripe-js';
+import type { StripeReader } from '#libs/terminal/types';
+import type { StripeInit } from '#libs/payment/types';
 import CollectPaymentMethodBacsDebit from './payment-backend-stripe-deprecated/CollectPaymentMethodBacsDebit.component';
 // @ts-expect-error
 import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/CollectPaymentMethodCard.component';
 // @ts-expect-error
 import CollectPaymentMethodSepa from './payment-backend-stripe-deprecated/CollectPaymentMethodSepa.component';
-import type { StripeReader } from '#libs/terminal/types';
-import type { StripeInit } from '#libs/payment/types';
 
 type Props = {
   refreshSavedPaymentMethodList?: () => void;

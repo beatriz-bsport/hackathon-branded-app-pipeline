@@ -16,10 +16,10 @@ import {
 } from '#libs/sequential_marketing/constants';
 import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/components/graph/hooks/utils';
 import { getTriggerKind } from '#libs/sequential_marketing/components/helpers/utils';
+import MenuSelectorTextButton from '#components/menu/text';
 import { multipleTriggersValidationSchema } from './validationSchema';
 
 import CollapsibleConnectedTriggerContent from './CollapsibleConnectedTriggerContent.component';
-import MenuSelectorTextButton from '#components/menu/text';
 import useConnectedTriggerChoices from './hooks/useConnectedTriggerChoices.hook';
 import LostTriggerTimeoutForm from './trigger_forms/LostTriggerTimeoutForm.component';
 

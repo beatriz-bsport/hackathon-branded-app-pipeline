@@ -1,11 +1,5 @@
 import React from 'react';
 
-import MarketplaceActivityCSSOnly, {
-  Props as MarketplaceActivityCSSOnlyProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceActivityCSSOnlyCss from './MarketplaceActivity.css?raw';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -15,6 +9,12 @@ import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/con
 import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceActivityCSSOnlyCss from './MarketplaceActivity.css?raw';
+import MarketplaceActivityCSSOnly, {
+  Props as MarketplaceActivityCSSOnlyProps,
+} from '.';
 
 const activityVariationRegistry = [
   {

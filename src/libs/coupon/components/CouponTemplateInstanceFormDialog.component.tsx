@@ -9,6 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import { Form } from 'formik';
+import type { PaymentPackTemplate } from '#libs/payment-packs/types';
+import type { PrivatePassTemplate } from '#libs/private-service/types';
+import type { CouponTemplate } from '#libs/coupon/types';
 import CouponTemplateInstanceForm, {
   CouponTemplateInstanceFormikHOC,
 } from './CouponTemplateInstanceForm.component';
@@ -16,9 +19,6 @@ import CouponTemplateInstanceForm, {
 // @ts-expect-error
 import { Submit } from '../../../components/forms';
 import type { FranchiseCompany } from '../../franchise/types';
-import type { PaymentPackTemplate } from '#libs/payment-packs/types';
-import type { PrivatePassTemplate } from '#libs/private-service/types';
-import type { CouponTemplate } from '#libs/coupon/types';
 
 type Props = {
   onClose: () => void;

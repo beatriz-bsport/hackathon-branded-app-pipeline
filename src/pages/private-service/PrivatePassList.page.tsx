@@ -74,7 +74,6 @@ import {
   setPrivatePassManagerOnlyFilter,
   setPrivatePassSort,
 } from '#libs/user-preference/actions';
-import { OptionCallback } from '../../state/types';
 import { getFormInitial } from '#libs/private-service/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
@@ -87,11 +86,6 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import {
-  fetchActivitiesCompany,
-  fetchMetaActivities as fetchMetaActivitiesAction,
-} from '../../libs/meta-activity/actions';
 import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
 import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
@@ -108,6 +102,12 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '../../libs/meta-activity/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { OptionCallback } from '../../state/types';
 
 const {
   trackFormAdd,

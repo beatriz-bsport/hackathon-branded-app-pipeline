@@ -3,6 +3,17 @@ import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import {
+  getMemberProgramByMemberDict,
+  getMemberProgramDict,
+  getMetricDict,
+  getProgramDict,
+} from '#libs/performance-tracking/selector';
+import { Member } from '#libs/member/types';
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
+import { StaffModificationHistory } from '#libs/role/types';
+import { Period } from '#libs/types';
 import { RootState } from '../../../reducers';
 import {
   PrivateBooking,
@@ -22,17 +33,6 @@ import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';
 import { getTagGroupsDict, getTagsDict } from '../../tag/selectors';
 
-import {
-  getMemberProgramByMemberDict,
-  getMemberProgramDict,
-  getMetricDict,
-  getProgramDict,
-} from '#libs/performance-tracking/selector';
-import { Member } from '#libs/member/types';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import { StaffModificationHistory } from '#libs/role/types';
-import { Period } from '#libs/types';
 
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(

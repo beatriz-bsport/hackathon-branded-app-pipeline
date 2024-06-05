@@ -4,20 +4,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import type { OptionsType } from 'react-select/lib/types';
 
-import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
-
 import type {
   ShopItemVariantAttributes,
   ShopItemVariantCombination,
 } from '#libs/shop/types';
-import type { ShopItemVariantFormValues } from './types';
-import type { ShopItemVariantOption } from '../ShopItemFormReworked/types';
-
-import { shopItemVariantFormValidationSchema } from './shopItemVariantFormValidationSchema';
 import {
   generateShopitemColorSizeCombinationList,
   getDuplicateVariantCombinationList,
 } from '#libs/shop/utils';
+import ShopItemFormVariantStep from '../ShopItemFormReworked/ShopItemFormVariantStep.component';
+
+import type { ShopItemVariantFormValues } from './types';
+import type { ShopItemVariantOption } from '../ShopItemFormReworked/types';
+
+import { shopItemVariantFormValidationSchema } from './shopItemVariantFormValidationSchema';
 
 type Props = {
   variantCombinationList: ShopItemVariantCombination[];

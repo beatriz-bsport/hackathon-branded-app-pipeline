@@ -19,12 +19,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 
-import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormProduct.component';
 import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
-import { getMergeTags } from '../../utils';
-import { PaymentPack } from '../../../payment-packs/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormProduct.component';
+import { getMergeTags } from '../../utils';
+import { PaymentPack } from '../../../payment-packs/types';
 
 type Props = {
   getEmails: () => void;

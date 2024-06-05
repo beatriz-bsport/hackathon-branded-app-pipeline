@@ -1,9 +1,9 @@
 import type { Establishment } from '#libs/establishment/types';
-import { AccessStatus, EntryStatus } from './constants';
 
 import type { Member, MemberMinimal } from '#libs/member/types';
 import type { ErrorAndLoading, WithPagination } from '#libs/types';
 import type { SpotInformation } from '#libs/spot-scheduling/types';
+import { AccessStatus, EntryStatus } from './constants';
 
 /** API TYPES */
 

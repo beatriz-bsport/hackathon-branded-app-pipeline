@@ -4,13 +4,9 @@ import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import MaleIcon from '../../../../../components/icons/MaleIcon.component';
-import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
 import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBookButton';
-import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer } from '#libs/offer/types';
 import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
-import { useOfferHours } from '../../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import {
@@ -26,10 +22,14 @@ import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
-import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import PopOver from '#components/Popover/Popover.component';
 import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
 import { shouldApplyEllipsis } from '#libs/marketplace/utils';
+import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+import { useOfferHours } from '../../../hooks';
+import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
+import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
+import MaleIcon from '../../../../../components/icons/MaleIcon.component';
 import './MarketplaceCardOfferCSSOnly.css';
 
 type OwnProps = {

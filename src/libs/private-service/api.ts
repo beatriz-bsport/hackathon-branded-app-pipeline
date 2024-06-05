@@ -1,3 +1,5 @@
+import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import type { CancelPrivateBookingParams } from '#libs/booking/types';
 import {
   getAuth,
   post,
@@ -22,9 +24,7 @@ import type {
   PrivateConsumerPassExtension,
   PrivateConsumerPassExtensionCreate,
 } from './types';
-import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
-import type { CancelPrivateBookingParams } from '#libs/booking/types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(

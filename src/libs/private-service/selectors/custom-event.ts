@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
+import { Period } from '#libs/types';
 import { RootState } from '../../../reducers';
 import { getCoaches } from '../../associated-coach/selectors';
-import { Period } from '#libs/types';
 
 const periodExtractor = (state: RootState, period: Period) => period;
 

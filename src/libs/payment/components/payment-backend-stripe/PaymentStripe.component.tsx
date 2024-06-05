@@ -32,16 +32,7 @@ import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/C
 import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
-import PaymentStripeBacsDebit from './PaymentStripeBacsDebit.component';
-import PaymentStripeBancontact from './PaymentStripeBancontact.component';
-import PaymentStripeCard from './PaymentStripeCard.component';
-import PaymentStripeEPS from './PaymentStripeEPS.component';
-import PaymentStripeGiropay from './PaymentStripeGiropay.component';
-import PaymentStripeIdeal from './PaymentStripeIdeal.component';
-import PaymentStripeSEPA from './PaymentStripeSEPA.component';
-import PaymentStripeSofort from './PaymentStripeSofort.component';
 import PriceInput from '#components/input/PriceInput.component';
-
 import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
@@ -52,6 +43,15 @@ import {
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
 } from '#libs/payment/api';
+import PaymentStripeBacsDebit from './PaymentStripeBacsDebit.component';
+import PaymentStripeBancontact from './PaymentStripeBancontact.component';
+import PaymentStripeCard from './PaymentStripeCard.component';
+import PaymentStripeEPS from './PaymentStripeEPS.component';
+import PaymentStripeGiropay from './PaymentStripeGiropay.component';
+import PaymentStripeIdeal from './PaymentStripeIdeal.component';
+import PaymentStripeSEPA from './PaymentStripeSEPA.component';
+import PaymentStripeSofort from './PaymentStripeSofort.component';
+
 
 const fallbackStripePromise = loadStripe(getStripePkKey());
 

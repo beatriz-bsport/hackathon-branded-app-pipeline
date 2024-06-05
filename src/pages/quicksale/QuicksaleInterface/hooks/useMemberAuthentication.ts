@@ -3,12 +3,12 @@ import React from 'react';
 import { MemberMap } from '#libs/member/utils';
 
 // @ts-expect-error
-import { mapFormData } from '../../../form.utils';
-import type { OptionCallback } from '../../../../state/types';
 import type { Contract } from '#libs/subscription/types';
 import { Basket, QuicksaleMemberUpdateResponse } from '#libs/checkout/types';
 import { QuicksaleCardInfo } from '#libs/quicksale/types';
 import { Member, MemberFormData, MemberMinimal } from '#libs/member/types';
+import type { OptionCallback } from '../../../../state/types';
+import { mapFormData } from '../../../form.utils';
 
 const useMemberAuthentication = (
   createMemberAction: (

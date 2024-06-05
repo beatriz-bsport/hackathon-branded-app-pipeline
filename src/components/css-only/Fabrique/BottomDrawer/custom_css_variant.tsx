@@ -2,10 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { useTranslation } from 'react-i18next';
 
-import BottomDrawer, { Props as ButtonDrawerProps } from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BottomDrawerCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
@@ -13,6 +9,10 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import Button from '#Fabrique/ButtonV2';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BottomDrawerCss from './styles.css?raw';
+import BottomDrawer, { Props as ButtonDrawerProps } from '.';
 
 const DRAWER_CONTENT = faker.lorem.sentences(20);
 const DIALOG_TITLE = faker.lorem.words(3);

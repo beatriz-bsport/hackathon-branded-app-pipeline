@@ -22,6 +22,11 @@ import {
 
 import { replace as replaceAction } from 'connected-react-router';
 import memoize from 'memoize-one';
+import { CompanyTheme } from '#libs/theme/types';
+import { getTheme } from '#libs/theme/selectors';
+import { getSubscriptionValidationUrl } from '#libs/marketplace/routing-utils';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { loadDefaultEstablishmentBillingGroupFromOffers } from '#libs/marketplace/utils/booking';
 import { OptionCallback } from '../../../../state/types';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
@@ -79,11 +84,6 @@ import {
 import { fetchMemberTagList } from '../../../../libs/tag/actions';
 import { getMemberTagsIdsList } from '../../../../libs/tag/selectors';
 import type { Tag } from '../../../../libs/tag/types';
-import { CompanyTheme } from '#libs/theme/types';
-import { getTheme } from '#libs/theme/selectors';
-import { getSubscriptionValidationUrl } from '#libs/marketplace/routing-utils';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { loadDefaultEstablishmentBillingGroupFromOffers } from '#libs/marketplace/utils/booking';
 
 type OwnProps = {
   offerId: number;

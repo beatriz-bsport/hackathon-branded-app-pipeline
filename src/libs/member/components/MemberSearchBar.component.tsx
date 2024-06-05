@@ -12,10 +12,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core';
 
-import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import type { MemberMinimal } from '#libs/member/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import DelayedTextField from '../../../components/DelayedTextField.component';
 
 type Props = {
   autoFocus?: boolean;

@@ -12,7 +12,6 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
 import { DateTime } from 'luxon';
-import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
@@ -24,6 +23,7 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 import ToolTip from '#components/Tooltip.component';
 import { offPeakGroupDefault } from '#libs/payment-packs/utils';
 import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
+import { PaymentPackFormValues, PaymentPackTemplate } from '../../types';
 
 type Props = {
   initial: PaymentPackTemplate;

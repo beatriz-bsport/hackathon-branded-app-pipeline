@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import EventPanel from '#libs/event/components/EventPanel.component';
+import { EventListParams } from '#libs/event/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import PlannedInvoiceListDetail from './PlannedInvoiceListDetail.component';
 import PauseV1ListItem from './pause/PauseV1ListItem.component';
@@ -17,8 +19,6 @@ import { Subscription, PauseRequestData } from '../types';
 
 import { COMPANY_EVENTS } from '../event.utils';
 import { OptionCallback } from '../../../state/types';
-import { EventListParams } from '#libs/event/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   subscription: Subscription;

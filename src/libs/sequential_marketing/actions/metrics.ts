@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import type { OptionCallback, Dispatch } from '../../../state/types';
 
 import {
   fetchGlobalMetrics as fetchGlobalMetricsAPI,
@@ -17,6 +16,7 @@ import type {
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
 } from '#libs/sequential_marketing/types';
+import type { OptionCallback, Dispatch } from '../../../state/types';
 
 export const fetchGlobalMetricsActions = {
   isLoading: createAction<boolean>('CADENCE_GLOBAL_METRICS/IS_LOADING'),

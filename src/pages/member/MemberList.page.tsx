@@ -28,9 +28,9 @@ import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLev
 import TagChipList from '#libs/tag/components/TagChipList.component';
 import TagFilterForm from '#libs/tag/components/TagFilterForm.component';
 import tagSelectors from '#libs/tag/selectors';
+import type { Tag } from '#libs/tag/types';
 import withTitle from '../../hocs/with-title.hoc';
 
-import type { Tag } from '#libs/tag/types';
 import type { RootState } from '../../reducers';
 
 type WithStateProps = {

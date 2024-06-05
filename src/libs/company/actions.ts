@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
 
+import { memberBulkActions } from '#libs/member/actions';
+import type { Member } from '#libs/member/types';
 import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,
@@ -21,8 +23,6 @@ import type {
   StripeAccountStatus,
   StripeCompany,
 } from './types';
-import { memberBulkActions } from '#libs/member/actions';
-import type { Member } from '#libs/member/types';
 
 export const searchActions = {
   success: createAction<Company[]>('COMPANY/SEARCH/SUCCESS'),

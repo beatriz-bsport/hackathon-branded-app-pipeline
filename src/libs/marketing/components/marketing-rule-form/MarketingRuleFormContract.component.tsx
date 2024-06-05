@@ -21,11 +21,11 @@ import {
   Submit,
   // @ts-expect-error
 } from '#components/forms';
-import { MarketingNotification } from '../../types';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import { MarketingNotification } from '../../types';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 

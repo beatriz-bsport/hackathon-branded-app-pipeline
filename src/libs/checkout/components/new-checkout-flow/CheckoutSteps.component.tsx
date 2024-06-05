@@ -19,9 +19,9 @@ import {
   STEPS,
 } from '#libs/checkout/types';
 
-import { PaymentStep } from './PaymentStep.component';
 import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
 import BasketDeliveryForm from '#libs/checkout/components/BasketDeliveryForm.component';
+import { PaymentStep } from './PaymentStep.component';
 
 type CheckoutStepsProps = {
   allowConsumerToUseInternalAccount: boolean;

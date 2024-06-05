@@ -19,12 +19,12 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { IntegerField, CheckboxField, Submit } from '#components/forms';
 import { SmartList } from '#libs/smart-list/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { getSendingTimeNotification } from '#libs/marketing/utils';
 import MarketingRuleBasicTypeField from '../MarketingRuleBasicTypeField.component';
 
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import MarketingRuleFormStateField from '../MarketingRuleStateField.component';
-import { getSendingTimeNotification } from '#libs/marketing/utils';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 

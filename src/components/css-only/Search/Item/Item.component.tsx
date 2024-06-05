@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { BaseAdditionalData, SearchItemData } from '../Search.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { BaseAdditionalData, SearchItemData } from '../Search.component';
 
 import './style.css';
 

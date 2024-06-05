@@ -12,7 +12,6 @@ import type {
   Offer_FULL,
 } from '#libs/offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
-import { isOfferBookableYet } from './offer';
 import { CheckoutItem } from '#libs/checkout/types';
 import { AdditionalGuest } from '#libs/booker-module/types';
 import {
@@ -20,6 +19,7 @@ import {
   EstablishmentBillingGroup,
 } from '#libs/establishment/types';
 import { isDateInThePast } from '#src/utils/datetime';
+import { isOfferBookableYet } from './offer';
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,

@@ -6,13 +6,13 @@ import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import { withTranslation } from 'react-i18next';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
+import { getFranchiseId } from '#libs/franchise/selectors';
 import { BsportRequestFromHeaderValue } from '../../constants';
 import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
-import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
-import { getFranchiseId } from '#libs/franchise/selectors';
 import namespaces from '../../i18n/namespaces.json';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));

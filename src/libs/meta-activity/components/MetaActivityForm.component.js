@@ -18,6 +18,8 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 import { compose } from 'recompose';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
@@ -29,8 +31,6 @@ import {
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictionsForm.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { formatDurationFromMinute } from '../../../utils/duration';
 
 const MetaActivitySchema = Yup.object().shape({

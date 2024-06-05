@@ -1,19 +1,17 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MenuItemList, { MenuItemListProps } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MenuItemListCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import MenuItemList, { MenuItemListProps } from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MenuItemListCss from './styles.css?raw';
+
 import MenuItem from '../MenuItem';
 
 const GROUP_TITLE = faker.lorem.word();

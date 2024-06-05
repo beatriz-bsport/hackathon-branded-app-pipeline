@@ -2,14 +2,14 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import {
+  getAllMembers,
+  getIncrementalSearchedMembers,
+} from '#libs/member/selectors';
+import {
   resetTncrementalSearch as resetTncrementalSearchAction,
   incrementalSearch as incrementalSearchAction,
   fetchMemberBulk as fetchMemberBulkAction,
 } from '../../libs/member/actions';
-import {
-  getAllMembers,
-  getIncrementalSearchedMembers,
-} from '#libs/member/selectors';
 import { RootState } from '../../reducers';
 import { MuiSelectProps } from './MaterialUISelector.component';
 import MaterialUISelectorConsumers from './MaterialUISelectorConsumers.component';

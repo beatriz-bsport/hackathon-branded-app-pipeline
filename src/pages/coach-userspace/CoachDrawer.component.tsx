@@ -41,14 +41,14 @@ import {
 
 import { colors } from '@bsport/common/lib/colors';
 
-import { DrawerContext, DrawerContextValue } from '../../context';
-import { openIntercomHelp } from '../../intercom';
 // @ts-expect-error
 import LanguageButton from '#components/button/LanguageButton.component';
-import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '#hocs/with-title.hoc';
 import { BannerContext, BannerContextValue } from '#hocs/banner.hoc';
 import VersionVisualizer from '#components/VersionVisualizer.component';
+import LOGO_ASSET from '../../public/images/banner_lowres.png';
+import { openIntercomHelp } from '../../intercom';
+import { DrawerContext, DrawerContextValue } from '../../context';
 // import SearchBar from '../SearchBar.component';
 
 export const drawerWidth = 260;

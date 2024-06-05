@@ -1,11 +1,11 @@
 import type { Node as FlowNode } from 'react-flow-renderer';
 
-import { CustomNodesEnum } from './useNodes.hooks';
-
 import type {
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
+import { CustomNodesEnum } from './useNodes.hooks';
+
 import type { InnerStepCardProps } from '../nodes/steps/InnerStepCard.component';
 import type { EntryStepCardProps } from '../nodes/steps/EntryStepCard.component';
 import type { CadenceExitCardProps } from '../nodes/exits/CadenceExitCard.component';

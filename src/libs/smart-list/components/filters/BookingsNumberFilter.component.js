@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ListItemText from '@material-ui/core/ListItemText';
+import { getLevelTranslation } from '#libs/level/utils';
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
@@ -23,7 +24,6 @@ import PaymentPackListItem from '../../../payment-packs/components/PaymentPackLi
 
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 
-import { getLevelTranslation } from '#libs/level/utils';
 
 const DATE_BETWEEN = 2;
 

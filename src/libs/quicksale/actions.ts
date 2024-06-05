@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 import type { Dispatch, ThunkAction } from '../../state/types';
 import {
   fetchQuicksaleConfiguration as fetchConfigurationAPI,
   updateQuicksaleConfiguration as updateConfigurationAPI,
 } from './api';
 import { QuicksaleConfiguration, QuicksaleSection } from './types';
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
 export const quicksaleActions = {
   isLoading: createAction<boolean>('QUICKSALE/FETCH/IS_LOADING'),

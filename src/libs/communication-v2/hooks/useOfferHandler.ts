@@ -4,9 +4,9 @@ import omit from 'lodash/omit';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 // @ts-expect-error
+import { OfferFilter, Offer } from '#libs/offer/types';
 import { omit_list } from '../../../pages/planning/Planning.page';
 
-import { OfferFilter, Offer } from '#libs/offer/types';
 import { OptionCallback } from '../../../state/types';
 
 type OfferHandlerHookProps = {

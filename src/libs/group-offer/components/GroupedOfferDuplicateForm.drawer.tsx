@@ -6,10 +6,10 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { Offer } from '#libs/offer/types';
 import GroupedOfferPreviewForm from './GroupedOfferPreview.component';
 import { OptionCallback } from '../../../state/types';
 
-import { Offer } from '#libs/offer/types';
 import GroupedOfferCreateDuplicationForm from './GroupedOfferCreateDuplication.component';
 
 export type Props = {

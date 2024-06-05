@@ -3,8 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Collapse, Typography } from '@material-ui/core';
 import Editor from 'react-simple-code-editor';
 // @ts-expect-error
+// eslint-disable-next-line
 import { highlight, languages } from 'prismjs/components/prism-core';
+// eslint-disable-next-line
 import 'prismjs/components/prism-css';
+// eslint-disable-next-line
 import 'prismjs/themes/prism-dark.css';
 
 import { interpolateCSSVar } from '#libs/widget/utils';

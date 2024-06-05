@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplacePrivatePassCard, {
-  Props as MarketplacePrivatePassCardProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePrivatePassCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -15,6 +9,12 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 
 import { privatePassFactory } from '#libs/private-service/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplacePrivatePassCardCss from './styles.css?raw';
+import MarketplacePrivatePassCard, {
+  Props as MarketplacePrivatePassCardProps,
+} from '.';
 
 const privatePassCardVariationRegistry = [
   {

@@ -22,16 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 // @ts-expect-error
 import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
 import { provincialTaxHelperText } from '#libs/theme/utils';
-import {
-  TextField,
-  PriceField,
-  PercentField,
-  CheckboxField,
-  DateField,
-  // @ts-expect-error
-} from '../../../components/forms';
 import ToolTip from '#components/Tooltip.component';
-import { ALMOST_100 } from '../../../constants';
 
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 // @ts-expect-error
@@ -48,7 +39,6 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
-import Config from '../../../config';
 
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
@@ -61,6 +51,16 @@ import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.co
 import { SelectOption } from '#libs/types';
 import { useObjectSearch } from '#libs/fuzzy-search/hooks/useObjectSearch';
 import { ShopItem } from '#src/libs/shop/types';
+import Config from '../../../config';
+import { ALMOST_100 } from '../../../constants';
+import {
+  TextField,
+  PriceField,
+  PercentField,
+  CheckboxField,
+  DateField,
+  // @ts-expect-error
+} from '../../../components/forms';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

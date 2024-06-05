@@ -13,11 +13,11 @@ import { Theme, WithStyles, withStyles } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PauseIcon from '@material-ui/icons/Pause';
 import { SubscriptionPause as SubscriptionPausePacks } from '@bsport/common/lib/master-data/subscription-pause';
-import { OptionCallback } from '../../../../state/types';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+import InfoGenericBox from '#components/box/InfoGenericBox.component';
+import { OptionCallback } from '../../../../state/types';
 import PauseResultDialog from '../pause/PauseResultDialog.component';
 import PauseFormDateRange from '../pause/PauseFormDateRange.component';
-import InfoGenericBox from '#components/box/InfoGenericBox.component';
 import ContractPauseFormPaginatedSubscriptionList from './ContractPauseFormPaginatedSubscriptionList';
 import {
   ContractPauseRequestData,

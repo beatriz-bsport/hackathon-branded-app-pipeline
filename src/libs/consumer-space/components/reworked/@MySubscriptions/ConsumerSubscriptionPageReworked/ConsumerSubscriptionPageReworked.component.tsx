@@ -15,7 +15,6 @@ import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
-import type { OptionCallback } from '../../../../../../state/types';
 import type {
   ConsumerSubscriptionInvoiceDetails,
   ConsumerSubscriptionReworked,
@@ -26,6 +25,7 @@ import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@
 import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import { mobileDetailsDisplay } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';
 

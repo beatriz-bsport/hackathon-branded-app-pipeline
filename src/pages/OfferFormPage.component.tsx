@@ -14,6 +14,22 @@ import Grid from '@material-ui/core/Grid';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
+import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
+import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
+import { fetchZoomApp } from '#libs/zoom-app/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { OfferCreate } from '#libs/offer/types';
 import routerParamsToProps from '../hocs/router-params-to-props.hoc';
 import withTitle from '../hocs/with-title.hoc';
 
@@ -22,7 +38,6 @@ import {
   createOffers as createOffersActions,
 } from '../libs/offer/actions';
 
-import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
 
 import { fetchRoomBlueprints } from '../libs/spot-scheduling/actions';
 import { getAvailableRoomBlueprints } from '../libs/spot-scheduling/selector';
@@ -34,27 +49,12 @@ import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
-import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
-import { fetchZoomApp } from '#libs/zoom-app/actions';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../libs/meta-activity/selectors';
-import {
-  fetchLevelList as fetchLevelListAction,
-  updateLevel as updateLevelAction,
-  createLevel as createLevelAction,
-  deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
-import {
-  getActiveCustomLevels,
-  getAllCustomLevels,
-} from '#libs/level/selectors';
 
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
-import { OfferCreate } from '#libs/offer/types';
 
 type OwnProps = {
   goBack: () => void;

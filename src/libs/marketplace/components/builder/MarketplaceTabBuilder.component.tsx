@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import { Level } from '#libs/level/types';
 import { Coach } from '../../../associated-coach/types';
 import {
   Establishment,
@@ -36,7 +37,6 @@ import ExportableComponentConfigurator from '../../../exportable-components/comp
 import { Video } from '../../../video/types';
 import { MARKETPLACE_COMPONENT_TYPE_LIST } from '../../constants';
 import { PaymentPackCategory } from '../../../payment-packs/types';
-import { Level } from '#libs/level/types';
 
 type Props = {
   onClose: () => void;

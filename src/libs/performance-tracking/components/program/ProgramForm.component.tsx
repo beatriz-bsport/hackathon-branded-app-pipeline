@@ -16,21 +16,21 @@ import {
 import { Info } from '@material-ui/icons';
 import { MAX_LENGTH_FOR_LONG_ANSWER } from '@bsport/common/lib/master-data/custom-form';
 
-import { OptionCallback } from '../../../../state/types';
+import {
+  PerformanceTrackingMetric,
+  PerformanceTrackingProgram,
+} from '#libs/performance-tracking/types';
+import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
 import {
   TextFieldEnhancedLabelWithError,
   ColorField,
   IconField,
   // @ts-expect-error
 } from '../../../../components/forms';
-import {
-  PerformanceTrackingMetric,
-  PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { OptionCallback } from '../../../../state/types';
 
 const { trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

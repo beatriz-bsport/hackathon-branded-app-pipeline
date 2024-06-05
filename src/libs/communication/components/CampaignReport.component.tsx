@@ -14,6 +14,8 @@ import clx from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 // @ts-expect-error
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 import RecipientTable from './RecipientTable.component';
 import type {
   Campaign,
@@ -21,8 +23,6 @@ import type {
   Recipient,
   CommunicationSentGroup,
 } from '../types';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import type { OptionCallback } from '../../../state/types';
 

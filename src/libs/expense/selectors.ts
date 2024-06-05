@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { RootState } from '../../reducers';
 import { getUsers } from '#libs/role/selectors';
+import { RootState } from '../../reducers';
 import { Expense } from './types';
 
 const _getExpenseData = (state: RootState) => state.expense.expense.byId;

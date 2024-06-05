@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
-import { Level } from '../types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { Level } from '../types';
 import { LevelMenuItem } from './LevelMenuItem.component';
 import LevelComponent from './Level.component';
 import { getGroupOptionsForSelect } from '../utils';

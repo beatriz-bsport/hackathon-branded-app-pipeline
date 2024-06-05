@@ -52,7 +52,6 @@ import {
   fetchAllPaymentPackCategory,
 } from '#libs/payment-packs/actions';
 import withTitle from '#hocs/with-title.hoc';
-import { RootState } from '../../../reducers';
 
 import { fetchMemberTagList } from '#libs/tag/actions';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
@@ -74,16 +73,17 @@ import {
   SearchItemData,
 } from '#components/css-only/Search/Search.component';
 import MarketplacePaymentComboList from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboList';
-import MarketplacePassFilters from './MarketplacePassFilters';
 import {
   getParsedPassRestrictedCategories,
   getPassFilterAvailableCategories,
 } from '#libs/marketplace/utils';
-import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component';
 import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
 import { getMetaActivityAbstractDict } from '#libs/meta-activity/selectors';
 import { _getPrivateServicesById } from '#libs/private-service/selectors/private-service';
 import { getAllPrivateSlotsDict } from '#libs/private-service/selectors/private-slot';
+import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component';
+import MarketplacePassFilters from './MarketplacePassFilters';
+import { RootState } from '../../../reducers';
 
 import './styles.css';
 

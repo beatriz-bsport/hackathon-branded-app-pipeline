@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import type { Offer } from '#libs/offer/types';
 import {
   byOfferActions,
   byMemberActions,
@@ -20,7 +21,6 @@ import {
   updateOfferWithCancelledBookingsToRetryActions,
 } from './actions';
 import type { Booking, BookingsState, RecurrenceRuleBooking } from './types';
-import type { Offer } from '#libs/offer/types';
 
 export const initialState: Immutable.Immutable<BookingsState> =
   Immutable<BookingsState>({

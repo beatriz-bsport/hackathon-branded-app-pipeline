@@ -11,7 +11,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
-import CadenceMetricsMemberTableContent from './CadenceMetricsMemberTableContent.component';
 import DelayedTextField from '#components/DelayedTextField.component';
 import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
 
@@ -21,6 +20,7 @@ import type {
   CadenceStep,
 } from '#libs/sequential_marketing/types';
 import type { Member } from '#libs/member/types';
+import CadenceMetricsMemberTableContent from './CadenceMetricsMemberTableContent.component';
 
 type Props = {
   isHistoric?: boolean;

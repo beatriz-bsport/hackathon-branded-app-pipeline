@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 
 import ModalConfirm from '#components/ModalConfirm.component';
 
-import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
-import { FranchiseRole, Role, UserRole } from '../types';
-import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
-
 import type { Coach } from '#libs/associated-coach/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
+import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
+import { FranchiseRole, Role, UserRole } from '../types';
+import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
+
 
 export type Props = {
   coachList: Coach[];

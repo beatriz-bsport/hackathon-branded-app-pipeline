@@ -7,8 +7,8 @@ import { push } from 'connected-react-router';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import ValidateEmailWithToken from '#libs/login/components/ValidateEmailWithToken.component';
 import { validateEmail as validateEmailAction } from '#libs/login/actions';
-import { parseQueryString } from '../../http';
 import themeSelectors from '#libs/theme/selectors';
+import { parseQueryString } from '../../http';
 
 type OwnProps = {
   uid: string,

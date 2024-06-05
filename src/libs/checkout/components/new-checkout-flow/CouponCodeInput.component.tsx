@@ -7,10 +7,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import TextFieldWithCustomColors from '#components/input/text-field/TextFieldWithCustomColors.component';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 import { Coupon } from '#libs/coupon/types';
+import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 
 enum ErrorType {
   COUPON_NOT_APPLICABLE = 'not_applicable',

@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import tinycolor from 'tinycolor2';
 import classNames from 'classnames';
 // @ts-expect-error
+import RedButton from '#components/button/RedButton.component';
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 // @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
@@ -22,7 +23,6 @@ import type { Theme } from '../types';
 // @ts-expect-error
 import AnalyticsDialog from './AnalyticsDialog.component';
 import { MaterialStyleType } from '../../../utils/types';
-import RedButton from '#components/button/RedButton.component';
 import { MAX_COLOR_BRIGHTNESS } from '../utils';
 
 type OwnProps = {

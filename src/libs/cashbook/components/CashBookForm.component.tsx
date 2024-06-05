@@ -9,10 +9,10 @@ import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 // @ts-expect-error
+import { RolePermission } from '#libs/role/types';
 import { PriceField, Submit } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { CashBook, CashBookUpdate, Transaction } from '../types';
-import { RolePermission } from '#libs/role/types';
 import { OptionCallback } from '../../../state/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 

@@ -23,6 +23,15 @@ import {
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
 // @ts-expect-error
+import type { Coach } from '#libs/associated-coach/types';
+import type {
+  AssociatedEstablishment,
+  Establishment,
+} from '#libs/establishment/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
+import type { PrivateServiceGroup } from '#libs/private-service/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
@@ -42,16 +51,7 @@ import {
 } from '../../../../components/forms';
 // @ts-expect-error
 import ImageField from '../../../../components/forms/ImageField.component';
-import type { Coach } from '#libs/associated-coach/types';
-import type {
-  AssociatedEstablishment,
-  Establishment,
-} from '#libs/establishment/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
-import type { PrivateServiceGroup } from '#libs/private-service/types';
 import PrivateServiceFormTag from './PrivateServiceFormTag.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.PrivateService,

@@ -1,19 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import Menu from '#Fabrique/Menu';
+import MenuItem from '#Fabrique/MenuItem';
+import MenuItemList from '#Fabrique/MenuItemList';
+import Typography from '#Fabrique/Typography';
+import { REQUIRED_SYMBOL } from '#Fabrique/constants';
+import type { SelectorSize } from './types';
+import { SelectorSizeEnum } from './constants';
 import {
   SelectorInput,
   SelectorInputClasses,
   SelectorValues,
   SelectorValuesClasses,
 } from '.';
-import Menu from '#Fabrique/Menu';
-import MenuItem from '#Fabrique/MenuItem';
-import MenuItemList from '#Fabrique/MenuItemList';
-import Typography from '#Fabrique/Typography';
-import type { SelectorSize } from './types';
-import { SelectorSizeEnum } from './constants';
-import { REQUIRED_SYMBOL } from '#Fabrique/constants';
 import './styles.css';
 
 export type SelectorClasses = {

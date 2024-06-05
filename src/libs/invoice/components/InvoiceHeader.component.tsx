@@ -22,7 +22,6 @@ import {
 import { CircularProgress } from '@material-ui/core';
 
 import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
-import type { Invoice, WithAuthor } from '../types';
 import type {
   Establishment,
   EstablishmentBillingGroup,
@@ -31,6 +30,7 @@ import type {
 } from '#libs/establishment/types';
 import { getStaffName } from '#libs/booking/utils';
 import { Member } from '#libs/member/types';
+import type { Invoice, WithAuthor } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
+import { getMemberListData } from '#libs/member/selectors';
 import { RootState } from '../../reducers';
 
-import { getMemberListData } from '#libs/member/selectors';
 
 const getProgramAllIds = (state: RootState) =>
   state.performanceTracking.program.allIds;

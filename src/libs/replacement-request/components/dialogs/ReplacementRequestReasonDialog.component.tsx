@@ -13,9 +13,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { DateTime } from 'luxon';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
-import { OptionCallback } from '../../../../state/types';
 import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
 import { CoachLateReplacementRequestStatus } from '#libs/associated-coach/types';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
   open: boolean;

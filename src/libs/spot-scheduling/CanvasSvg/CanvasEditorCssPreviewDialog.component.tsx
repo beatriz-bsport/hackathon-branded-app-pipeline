@@ -10,13 +10,13 @@ import Draggable from 'react-draggable';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import CanvasViewController from './CanvasViewController';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import { CanvasElement } from './tools/BaseClasses/Base.tool';
 import type { Coach } from '#libs/associated-coach/types';
-import type { SpotType } from '../types';
 import type { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
+import { CanvasElement } from './tools/BaseClasses/Base.tool';
+import type { SpotType } from '../types';
+import CanvasViewController from './CanvasViewController';
 
 const WrappedCanvasViewController =
   marketplaceCssHoc<React.ComponentProps<typeof CanvasViewController>>()(

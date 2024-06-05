@@ -18,6 +18,9 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 import {
   formatMinutes,
   formatAsDatetime,
@@ -27,16 +30,13 @@ import {
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
-import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import type { Offer } from '../../api/types';
 import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
-import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 import CoachToolTip, {
   AdditionalCoachesTooltipTitle,
 } from '../../libs/associated-coach/components/CoachToolTip.component';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 const styles = (theme) => ({
   relativeContainer: { position: 'relative' },

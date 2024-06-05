@@ -15,10 +15,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createTheme';
 
-import { getTextColorFromRGB } from '../../../utils/color';
 import Tooltip from '#components/Tooltip.component';
 // @ts-expect-error
 import ColorInput from '#components/input/ColorInput.component';
+import { getTextColorFromRGB } from '../../../utils/color';
 import CoachListItem from './CoachListItem.component';
 import type { Coach } from '../types';
 

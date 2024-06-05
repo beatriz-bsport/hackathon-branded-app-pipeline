@@ -2,13 +2,13 @@ import { createAction } from 'redux-actions';
 
 import { AccessStatus } from '#libs/access-control/constants';
 
+import type { MemberMinimal } from '#libs/member/types';
 import type { ThunkAction, Dispatch } from '../../state/types';
 import type {
   SnackKind,
   BackgroundSnackKind,
   AccessControlSnack,
 } from './types';
-import type { MemberMinimal } from '#libs/member/types';
 
 export const snackbarDisplay = createAction('SNACKBAR/DISPLAY');
 export const snackbarDestroy = createAction('SNACKBAR/DESTROY');

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, ListItemText, MenuItem } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
+import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import { InstalmentPayment } from '../types';
 import { generateInstalmentPaymentSecondaryText } from '../utils';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 
 type OwnProps = {
   instalmentPayment: InstalmentPayment;

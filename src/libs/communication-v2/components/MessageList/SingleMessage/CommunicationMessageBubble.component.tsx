@@ -23,10 +23,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
 import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters';
 import Tooltip from '#components/Tooltip.component';
-import { getTextColorFromRGB } from '../../../../../utils/color';
 import type { CommunicationMessage } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
-import CommunicationMessageNumberRecipients from './CommunicationMessageNumberRecipients.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import {
   interpolateHTMLWithTags,
@@ -40,6 +38,8 @@ import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
 } from '#libs/communication-v2/constants';
 import { getSmartlistChannelFromMetadata } from '#libs/communication-v2/utils';
+import CommunicationMessageNumberRecipients from './CommunicationMessageNumberRecipients.component';
+import { getTextColorFromRGB } from '../../../../../utils/color';
 
 import '../styles.css';
 

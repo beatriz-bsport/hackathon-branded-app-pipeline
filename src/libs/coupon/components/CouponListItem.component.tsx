@@ -16,12 +16,12 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import { IconButton, makeStyles } from '@material-ui/core';
+import Popover from '#components/Popover';
 import type { Coupon } from '../types';
 import ListItemResponsiveAction, {
   ActionOption,
 } from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import Popover from '#components/Popover';
 
 type Props = {
   coupon: Coupon;

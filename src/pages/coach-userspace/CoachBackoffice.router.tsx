@@ -7,21 +7,21 @@ import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
 // @ts-expect-error
+import withThemeProvider from '#hocs/company-themifier.hoc';
+import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
+import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import { getTheme } from '#libs/theme/selectors';
+import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
 import asyncComponent from '../../AsyncComponent';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { getFranchiseId } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import { DrawerContext } from '../../context';
-import withThemeProvider from '#hocs/company-themifier.hoc';
 import namespaces from '../../i18n/namespaces.json';
 
-import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
-import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 import CoachDrawer from './CoachDrawer.component';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import { getTheme } from '#libs/theme/selectors';
-import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
 import withRudderStackHistoryTracker from '../../components/analytics/rudderstack/with-rudderstack-history-tracking';
 
 type RouterProps = { companyId: number };

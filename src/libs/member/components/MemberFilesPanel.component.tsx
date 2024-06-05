@@ -16,8 +16,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
-import { MemberUploadedFile } from '../types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { MemberUploadedFile } from '../types';
 
 const MAX_FILES_UPLOADED = 5;
 

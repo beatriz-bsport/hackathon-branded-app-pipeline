@@ -30,7 +30,6 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 import isEqual from 'lodash/isEqual';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { SwitchField } from '#components/forms';
 import { PricingOptionOrdering } from '#libs/marketplace/types';
@@ -44,6 +43,7 @@ import {
   PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID,
 } from '#libs/marketplace/constants';
 import { PaymentPackCategory } from '#libs/payment-packs/types';
+import { OptionCallback } from '../../../state/types';
 
 type PricingOptionItemComponentProps = {
   passCategoryName?: string;

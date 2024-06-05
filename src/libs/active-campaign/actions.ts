@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import type { Dispatch, ThunkAction, OptionCallback } from 'src/state/types';
 // @ts-expect-error
+import withIntercomAction from '#hocs/tracking/dispatch-action.hoc';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import type {
   ActiveCampaignWebhook,
@@ -21,7 +22,6 @@ import {
   fetchWebhooks as getActiveCampaignWebhooksAPI,
 } from './api';
 // @ts-expect-error
-import withIntercomAction from '#hocs/tracking/dispatch-action.hoc';
 
 // Active campaign Account
 export const activeCampaignAccountListAction = {

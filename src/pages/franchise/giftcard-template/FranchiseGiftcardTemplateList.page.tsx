@@ -4,10 +4,6 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { buildUrlParams } from '../../../http';
-import { RootState } from '../../../reducers';
-import { OptionCallback } from '../../../state/types';
-import { WithHandlerType } from '../../../utils/types';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import {
@@ -31,6 +27,10 @@ import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.com
 import FranchiseGenericProductDoubleList from '#libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
 import { GiftcardTemplate, GiftcardDataAPI } from '#libs/giftcard/types';
 import { FranchiseCompany } from '#libs/franchise/types';
+import { WithHandlerType } from '../../../utils/types';
+import { OptionCallback } from '../../../state/types';
+import { RootState } from '../../../reducers';
+import { buildUrlParams } from '../../../http';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;

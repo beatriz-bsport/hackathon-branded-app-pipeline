@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
-import { RootState } from '../../reducers';
 import {
   getUsersPaginatedWithRole,
   UsersPaginatedWithRoleSelector,
 } from '#libs/role/selectors';
+import { RootState } from '../../reducers';
 
 const _getClockinState = (state: RootState) => state.clockIn;
 

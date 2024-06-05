@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
 import { DateTime } from 'luxon';
 // @ts-expect-error
+import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 import type { Dispatch, ThunkAction } from '../state/types';
 
 import statsAPI, {
@@ -15,9 +17,7 @@ import statsAPI, {
 } from './api-deprecated';
 
 import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
-import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
 // @ts-expect-error
-import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
 export const statIsLoading = createAction('STATISTICS/IS_LOADING');

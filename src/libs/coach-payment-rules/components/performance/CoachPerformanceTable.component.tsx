@@ -29,9 +29,9 @@ import type {
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
+import { getFilteredAssociatedCoachWithPerformance } from '#libs/coach-payment-rules/utils';
 import type { OptionCallback } from '../../../../state/types';
 // @ts-expect-error
-import { getFilteredAssociatedCoachWithPerformance } from '#libs/coach-payment-rules/utils';
 
 interface HeadersProps {
   title: string;

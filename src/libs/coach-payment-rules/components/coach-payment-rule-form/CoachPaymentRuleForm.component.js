@@ -34,6 +34,7 @@ import {
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+import InfoBox from '#components/box/InfoBox.component';
 import {
   TextField,
   PriceField,
@@ -41,7 +42,6 @@ import {
   CheckboxField,
   AlertError,
 } from '../../../../components/forms';
-import InfoBox from '#components/box/InfoBox.component';
 import PopoverCoachPaymentRuleForm from '../PopoverCoachPaymentRuleForm.component';
 import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';

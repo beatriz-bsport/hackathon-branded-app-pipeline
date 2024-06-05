@@ -17,6 +17,7 @@ import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 // @ts-expect-error
@@ -27,7 +28,6 @@ import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '../../../../utils/types';
-import { urlToMarketplace } from '#libs/marketplace/utils';
 
 type OwnProps = typeof mapParamsToProps & {
   /** Override by the widget */

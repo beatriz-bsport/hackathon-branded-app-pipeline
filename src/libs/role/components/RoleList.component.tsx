@@ -17,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 
+import CreateFranchiseRoleDialog from '#libs/franchise/components/FranchiseCreateRoleDialog.component';
 import {
   Role,
   RolePermission,
@@ -29,7 +30,6 @@ import { MaterialStyleType } from '../../../utils/types';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import RedButton from '../../../components/button/RedButton.component';
 import CreateRoleDialog from './CreateRoleDialog.component';
-import CreateFranchiseRoleDialog from '#libs/franchise/components/FranchiseCreateRoleDialog.component';
 import { getRoleDescription, getRoleName } from '../utils';
 
 type OwnProps = {

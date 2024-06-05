@@ -1,8 +1,5 @@
 import React from 'react';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ListCSS from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -11,11 +8,14 @@ import {
 } from '#libs/exportable-components/types';
 
 import type { CompanyTheme } from '#libs/theme/types';
-import List from '.';
 import ListItem from '#Fabrique/ListItem';
 import { ListItemTypeEnum } from '#Fabrique/ListItem/constants';
 import type { ListItemType } from '#Fabrique/ListItem/types';
 import { ArrowBlockLeft } from '#components/untitledui';
+import List from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ListCSS from './styles.css?raw';
 
 type NumberKey = '1' | '2' | '3' | '4' | '5';
 const numbersDict: Record<NumberKey, boolean> = {

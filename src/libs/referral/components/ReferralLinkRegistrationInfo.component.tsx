@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { SadSmileyIcon } from '#components/icons/SadSmileyIcon.component';
+import Welcome from '#libs/login/components/Welcome.component';
 import type { ReferralLinkStatus } from '../types';
 
-import { SadSmileyIcon } from '#components/icons/SadSmileyIcon.component';
 import { isReferralUsable } from '../utils';
-import Welcome from '#libs/login/components/Welcome.component';
 
 import './ReferralLinkRegistrationInfo.css';
 

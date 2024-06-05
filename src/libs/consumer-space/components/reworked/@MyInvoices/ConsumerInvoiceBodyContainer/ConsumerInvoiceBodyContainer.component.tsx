@@ -4,10 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '#libs/invoice/api';
 import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
-import {
-  MY_INVOICES_LIST_CONTAINER_HEIGHT_DESKTOP,
-  MY_INVOICES_LIST_CONTAINER_HEIGHT_MOBILE,
-} from '.';
 import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerInvoiceCard from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
@@ -15,6 +11,10 @@ import ConsumerInvoiceDetailsCard from '#libs/consumer-space/components/reworked
 import Typography from '#Fabrique/Typography';
 
 import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
+import {
+  MY_INVOICES_LIST_CONTAINER_HEIGHT_DESKTOP,
+  MY_INVOICES_LIST_CONTAINER_HEIGHT_MOBILE,
+} from '.';
 
 import './styles.css';
 

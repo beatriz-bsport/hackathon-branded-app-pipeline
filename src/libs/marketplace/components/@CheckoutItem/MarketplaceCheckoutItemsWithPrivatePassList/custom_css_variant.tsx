@@ -2,11 +2,6 @@ import React from 'react';
 
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
-import MarketplaceCheckoutItemsWithPrivatePassList, { Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceCheckoutItemsWithPrivatePassListCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
@@ -18,6 +13,10 @@ import {
 import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { privatePassListFactory } from '#libs/private-service/factory';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceCheckoutItemsWithPrivatePassListCss from './styles.css?raw';
+import MarketplaceCheckoutItemsWithPrivatePassList, { Props } from '.';
 
 const checkoutPrivatePassItems: CheckoutItem[] = checkoutItemsFactory(3, {
   buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,

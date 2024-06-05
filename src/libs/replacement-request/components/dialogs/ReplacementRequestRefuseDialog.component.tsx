@@ -10,8 +10,8 @@ import red from '@material-ui/core/colors/red';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { OptionCallback } from '../../../../state/types';
 import { ReplacementRequest } from '#libs/replacement-request/types';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
   open: boolean;

@@ -4,13 +4,13 @@ import omit from 'lodash/omit';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import { PrivatePassFilters } from '#libs/private-service/types';
 import {
   OffPeakSchedule,
   PaymentPack,
   PaymentPackFilters,
   PaymentPackTemplate,
 } from './types';
-import { PrivatePassFilters } from '#libs/private-service/types';
 
 export const getValidityInfo = (
   pack: PaymentPack | PaymentPackTemplate,

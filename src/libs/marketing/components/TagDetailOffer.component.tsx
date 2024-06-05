@@ -23,12 +23,12 @@ import LabelOffIcon from '@material-ui/icons/LabelOff';
 import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
 
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import type { Offer } from '#libs/offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Tag } from '#libs/tag/types';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   tag: Tag;

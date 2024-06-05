@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
-import type { OptionCallback } from '../../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import {
   OfferREST,
@@ -28,6 +27,7 @@ import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 import Countdown from '#components/time/CountDown.component';
 import type { MetaActivity } from '#libs/meta-activity/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import './styles.css';
 

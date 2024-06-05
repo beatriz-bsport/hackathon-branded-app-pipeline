@@ -3,6 +3,8 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
@@ -11,8 +13,6 @@ import {
 } from '../../libs/communication/actions';
 import CampaignList from '../../libs/communication/components/CampaignList.component';
 import { getCampaignAndRecipientByMember } from '../../libs/communication/selectors';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 // import PaymentMethodManager from '../../libs/payment/component/PaymentMethodManager.component';
 
 import type { Campaign, Recipient } from '../../libs/communication/types';

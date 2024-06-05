@@ -21,11 +21,11 @@ import {
   SelectFieldItem,
   FranchiseRole,
 } from '#libs/role/types';
-import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Company } from '#libs/company/types';
+import { MaterialStyleType } from '../../../utils/types';
 
 export type OwnProps = {
   franchiseeList: Array<Company>;

@@ -6,14 +6,15 @@ import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { DateTime } from 'luxon';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
+import { SmartList } from '#libs/smart-list/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   fetchOffersByDay as fetchOffersByDayAction,
   fetchEstablishmentEvents as fetchEstablishmentEventsAction,
@@ -68,7 +69,6 @@ import {
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
-import { SmartList } from '#libs/smart-list/types';
 import {
   fetchTagList as fetchTagListAction,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,

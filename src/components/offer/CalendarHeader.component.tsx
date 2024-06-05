@@ -18,9 +18,9 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import TodayIcon from '@material-ui/icons/Today';
 import classNames from 'classnames';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
+import type { LuxonDateTime } from '#src/types';
 import { MONTHMODE } from './Calendar.component';
 import { formatAsTitle } from '../../utils/datetime';
-import type { LuxonDateTime } from '#src/types';
 
 type Props = {
   forceMonthDisplay: boolean;

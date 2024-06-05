@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { CompanyTheme } from '#libs/theme/types';
+import { CssComponentsVariantIdentifiersValues } from '#libs/exportable-components/types';
 import VariationConfigurationWrapper from './VariationConfigurationWrapper.component';
 
-import { CssComponentsVariantIdentifiersValues } from '#libs/exportable-components/types';
 
 type Props = {
   component: (

@@ -4,8 +4,8 @@ import type {
   CustomFormFilled,
   ResponsiveLayouts,
 } from '#libs/custom-form/types';
-import type { OptionCallback } from '../../../../../state/types';
 import type { ModalDialogSize } from '#Fabrique/ModalDialog/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 export type CustomFormPortalProps = {
   asManager?: boolean;

@@ -55,14 +55,11 @@ import {
   EmailTemplateCategoryWithTemplates,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
-import { OptionCallback } from '../../state/types';
 import { CategoryList } from '#components/ordering/CategoryList.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
 import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import EmailTemplateSummary from '#libs/email-editor/factories/EmailTemplateSummary';
 import { ArchivedSection } from '#components/ordering/ArchivedSection.component';
-import { MaterialStyleType } from '../../utils/types';
-import { RootState } from '../../reducers';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
@@ -73,6 +70,9 @@ import {
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
+import { RootState } from '../../reducers';
+import { MaterialStyleType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

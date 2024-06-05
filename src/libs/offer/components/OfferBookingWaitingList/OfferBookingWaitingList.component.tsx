@@ -10,7 +10,6 @@ import {
   useOfferWaitingListStatusText,
 } from '#libs/offer/hooks';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import OfferBookingWaitingListStatusIcon from '../OfferBookingWaitingListStatusIcon';
 
 import type { Offer, OfferStatus } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -20,6 +19,7 @@ import { CompanyTheme } from '#libs/theme/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+import OfferBookingWaitingListStatusIcon from '../OfferBookingWaitingListStatusIcon';
 
 import './styles.css';
 

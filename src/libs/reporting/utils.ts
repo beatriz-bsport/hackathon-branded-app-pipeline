@@ -80,13 +80,6 @@ import {
 } from '#libs/theme/selectors';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
-import type {
-  ReportCategory,
-  ReportMetadata,
-  ReportConfiguration,
-  CellConverter,
-  ReportObjectPermissions,
-} from './types';
 import type { ObjectLevelPermissions } from '#libs/role/types';
 import type {
   DataSourceFieldMetadata,
@@ -108,6 +101,8 @@ import {
   ReportFilterableDataType,
 } from '#libs/datatype-filtering/constants';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
+import { getLocaleWeekdays } from '#src/utils/datetime';
 import {
   GREEN_GREY_BOOLEAN_CHIPS,
   RED_GREEN_BOOLEAN_CHIPS,
@@ -115,8 +110,13 @@ import {
   STATUS_CHIPS,
   CONDITION_CHIPS,
 } from './constants';
-import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
-import { getLocaleWeekdays } from '#src/utils/datetime';
+import type {
+  ReportCategory,
+  ReportMetadata,
+  ReportConfiguration,
+  CellConverter,
+  ReportObjectPermissions,
+} from './types';
 
 export const CATEGORIES: ReportCategory[] = [
   {

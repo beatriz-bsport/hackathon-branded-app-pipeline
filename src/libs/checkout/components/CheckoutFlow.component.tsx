@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
+import { Coupon } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import BasketConsumer from './BasketConsumer.component';
 
 // @ts-expect-error
@@ -17,9 +20,6 @@ import {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../../state/types';
-import { Coupon } from '#libs/coupon/types';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

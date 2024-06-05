@@ -16,10 +16,10 @@ import Price, { Color } from '#csscomponents/Price';
 
 import PaymentPackDetailList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackDetailModal/DetailList/PaymentPackDetailList.component';
 
-import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import type { PaymentPack } from '#libs/payment-packs/types';
 import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import './styles.css';
 

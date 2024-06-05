@@ -12,17 +12,17 @@ import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getPermissions } from '#libs/role/selectors';
-import MemberVisit from './MemberVisit.page';
-import LiveHistory from './LiveHistory.page';
-import AccessControlSettings from './AccessControlSettings.page';
-
-import type { RootState } from '../../reducers';
 import type { RolePermission } from '#libs/role/types';
 import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#libs/establishment/actions';
 import withTitle from '#hocs/with-title.hoc';
+import MemberVisit from './MemberVisit.page';
+import LiveHistory from './LiveHistory.page';
+import AccessControlSettings from './AccessControlSettings.page';
+
+import type { RootState } from '../../reducers';
 
 type TabType = 'perform' | 'monitor' | 'settings';
 

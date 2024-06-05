@@ -15,21 +15,14 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import { mapFormData } from '../form.utils';
 import RecurrenceRuleOfferFormDialog from '#libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
-import QuickInvoicePanel from './QuickInvoicePanel.component';
 import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
-import BookerModuleManager from './BookerModuleManager.component';
-import MailMembers from './MailMembers.component';
 
 import MemberForm from '#libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '#libs/member/api';
 import DiscardBookingOptionDialog from '#libs/waiting-list/components/DiscardBookingOptionDialog.component';
 
-import BookingManagement from './BookingManagement.component';
-import OfferNavigationHeader from './OfferNavigationHeader.component';
-import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
 import WaitinglistAutoBookingInfoDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingInfoDialog.component';
@@ -45,7 +38,6 @@ import type {
 import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
-import type { WaitingListConfiguration } from '#libs/waiting-list/type';
 import type {
   Establishment,
   EstablishmentBillingGroup,
@@ -60,7 +52,6 @@ import type {
   AssetForBlueprint,
   RoomBlueprint,
 } from '#libs/spot-scheduling/types';
-import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
@@ -69,10 +60,6 @@ import { MemberMap } from '#libs/member/utils';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericDialog from '#components/genericDialog/GenericDialog';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import type {
-  OptionCallback,
-  OptionBackgroundCallback,
-} from '../../state/types';
 
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
@@ -88,6 +75,19 @@ import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/Objec
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '../../libs/role/permission-utils/utils';
 import SessionNotePad from '#libs/offer/components/SessionNotePad';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
+import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
+import type { WaitingListConfiguration } from '#libs/waiting-list/type';
+import OfferBroadcastHelper from './OfferBroadcastHelper.component';
+import OfferNavigationHeader from './OfferNavigationHeader.component';
+import BookingManagement from './BookingManagement.component';
+import MailMembers from './MailMembers.component';
+import BookerModuleManager from './BookerModuleManager.component';
+import QuickInvoicePanel from './QuickInvoicePanel.component';
+import { mapFormData } from '../form.utils';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 

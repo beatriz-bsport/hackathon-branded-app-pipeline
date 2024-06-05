@@ -9,11 +9,11 @@ import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import CheckSharpIcon from '@material-ui/icons/CheckSharp';
 
-import FilterMenu from '../../../../components/button/FilterMenu.component';
 import {
   PrivatePassFilters,
   PrivatePassFiltersOpener,
 } from '#libs/private-service/types';
+import FilterMenu from '../../../../components/button/FilterMenu.component';
 
 type Props = {
   filters: PrivatePassFilters;

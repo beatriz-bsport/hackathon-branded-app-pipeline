@@ -12,16 +12,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core';
+import AccessControlSnackBar from '#libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
+import { getPerformAccessMonitoringUrl } from '#libs/access-control/utils';
 import {
   deleteAccessControlSnackbar as deleteAccessControlSnackbarAction,
   deleteBottomSnackbar as deleteBottomSnackbarAction,
   deleteSnackbar,
 } from './libs/snackbar/actions';
 import { RootState } from './reducers';
-import AccessControlSnackBar from '#libs/access-control/components/AccessControlSnackBar/AccessControlSnackBar.component';
 
 import type { AccessControlSnack, Snack } from './libs/snackbar/types';
-import { getPerformAccessMonitoringUrl } from '#libs/access-control/utils';
 
 type Props = {
   topMessages: Snack[];

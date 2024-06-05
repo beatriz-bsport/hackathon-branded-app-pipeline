@@ -13,8 +13,6 @@ import type { Theme } from '@material-ui/core/styles';
 import type { UniqueIdentifier } from '@dnd-kit/core';
 import type { TFunction } from 'i18next';
 
-import type { OptionCallback } from '../../state/types';
-import type { RootState } from '../../reducers';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import {
@@ -38,7 +36,6 @@ import {
   // @ts-expect-error
 } from '#libs/platform-billing/selectors';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   // fetchStripeBalance as fetchStripeBalanceAction,
@@ -67,6 +64,9 @@ import type { PaymentMethod, StripePayout } from '#libs/payment/types';
 import type { FeatureList, UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { getTheme } from '#libs/theme/selectors';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

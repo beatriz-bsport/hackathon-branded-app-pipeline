@@ -11,13 +11,13 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import LoginForm from '#components/css-only/LoginForm';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import { Franchise } from '#libs/franchise/types';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
-import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
-import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginBackground.css';
 import './styles.css';
 

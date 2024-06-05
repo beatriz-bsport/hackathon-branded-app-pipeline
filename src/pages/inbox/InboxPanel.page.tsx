@@ -5,7 +5,6 @@ import { compose, withHandlers, withState } from 'recompose';
 import { push } from 'connected-react-router';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { RootState } from '../../reducers';
 import InboxPanelComponent from '#libs/communication-v2/thread/InboxPanel';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import { getMember } from '#libs/member/selectors';
@@ -40,6 +39,7 @@ import { fetchSmartListMembers as fetchSmartListMembersAPI } from '#libs/smart-l
 import type { Offer } from '#libs/offer/types';
 import { getFilterTagsFromSmartlist } from '#libs/communication-v2/utils';
 import { getTheme } from '#libs/theme/selectors';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   isPanelOpen?: boolean;

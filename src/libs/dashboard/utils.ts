@@ -4,12 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { TFunction } from 'i18next';
 import isEqual from 'lodash/isEqual';
 // @ts-expect-error
-import type { Graph } from '../statistics/types';
-import type {
-  DataSourceDashboardGraph,
-  DataSourceDashboardGraphMetadata,
-} from './types';
-import { DASHBOARD_COLOR_PALETTE } from './colors';
 import { DATATYPE_PRESET_INTEGER_VALUE } from '#libs/datatype-filtering/constants';
 import {
   IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES,
@@ -19,6 +13,12 @@ import {
   BILLING_PLAN_GRAPH_IDENTIFIER,
 } from '#libs/dashboard/constants';
 import { DatatypeFilterConfig } from '#libs/datatype-filtering/types';
+import type { Graph } from '../statistics/types';
+import type {
+  DataSourceDashboardGraph,
+  DataSourceDashboardGraphMetadata,
+} from './types';
+import { DASHBOARD_COLOR_PALETTE } from './colors';
 
 export const replaceDates: (graphList: Array<Graph>) => Array<Graph> = (
   graphList,

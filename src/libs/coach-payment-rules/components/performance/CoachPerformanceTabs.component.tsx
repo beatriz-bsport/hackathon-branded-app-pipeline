@@ -16,13 +16,13 @@ import {
 import Typography from '@material-ui/core/Typography';
 import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';
-import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
-import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
 import type {
   CoachwithPerformance,
   CoachPaymentRuleGroup,
   CoachPaymentRule,
 } from '#libs/coach-payment-rules/types';
+import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
+import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
 import CoachPerformanceRuleSetter from './CoachPerformanceRuleSetter.component';
 
 type CoachPaymentRuleTabPanelActions = {

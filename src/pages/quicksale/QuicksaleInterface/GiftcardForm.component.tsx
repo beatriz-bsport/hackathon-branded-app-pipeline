@@ -10,13 +10,13 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 
 import type { FormValues as ConsumerGiftcardDetails } from '#libs/giftcard/components/ConsumerGiftcardForm.component';
-import type { OptionCallback } from '../../../state/types';
 import type { QuicksaleCardInfo } from '#libs/quicksale/types';
 import type { Basket, CheckoutItemData } from '#libs/checkout/types';
 import type { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
 
-import useStyles from './hooks/styles';
 import { getIdsFromQuicksaleCardInfoId } from '#libs/quicksale/utils';
+import useStyles from './hooks/styles';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   company: number;

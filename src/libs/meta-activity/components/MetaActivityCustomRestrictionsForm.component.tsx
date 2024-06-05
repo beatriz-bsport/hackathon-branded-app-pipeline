@@ -23,13 +23,13 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import { Alert } from '@material-ui/lab';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import { Tag } from '#libs/tag/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 // @ts-expect-error
 import { DurationField } from '../../../components/forms';
 
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Tag } from '#libs/tag/types';
 
 type OwnProps = {
   variant?: string;

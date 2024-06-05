@@ -3,10 +3,10 @@ import {
   UniqueCodeStateStatus,
   CouponUniqueCodeEditModeOptions,
 } from '@bsport/common/lib/master-data/coupon';
-import { ErrorAndLoading } from '../types';
-import { Company } from '../company/types';
 import { Invoice } from '#libs/invoice/types';
 import type { LuxonDateTime } from '#src/types';
+import { ErrorAndLoading } from '../types';
+import { Company } from '../company/types';
 
 export type Discount = {
   id: string;

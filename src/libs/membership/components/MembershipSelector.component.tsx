@@ -14,12 +14,12 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
 import DelayedTextField from '#components/DelayedTextField.component';
 
-import type { Membership } from '../types';
 import FuzeSearch from '#components/FuzeSearch.component';
 
 import MembershipListItem from '#libs/membership/components/MembershipListItem.component';
-import CompanyListItem from './CompanyListItem.component';
 import type { Company } from '#libs/company/types';
+import CompanyListItem from './CompanyListItem.component';
+import type { Membership } from '../types';
 
 type Props = {
   hasMore: boolean;

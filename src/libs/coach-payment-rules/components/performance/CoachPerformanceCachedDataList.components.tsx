@@ -19,8 +19,8 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Paper from '@material-ui/core/Paper';
 import type { CoachPerformanceCachedData } from '#libs/coach-payment-rules/types';
 import Tooltip from '#components/Tooltip.component';
-import type { OptionCallback } from '../../../../state/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   cachedDataList: Array<CoachPerformanceCachedData>;

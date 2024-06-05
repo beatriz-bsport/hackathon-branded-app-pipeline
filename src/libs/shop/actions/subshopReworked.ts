@@ -1,5 +1,21 @@
 import { createAction } from 'redux-actions';
 
+
+import type {
+  SubShop,
+  SubshopTemplate,
+  SubshopTemplateCreate,
+  SubshopTemplateUpdate,
+} from '#libs/shop/types';
+import type { PaginationFilterParams } from '#libs/types';
+import type { RootState } from '#src/reducers';
+
+import { FRANCHISE_SUBSHOP_TEMPLATE_PAGE_SIZE } from '#libs/shop/constants';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../../state/types';
 import {
   fetchSubshopList as retrieveSubshopListAPI,
   createSubshop as createSubshopAPI,
@@ -10,22 +26,6 @@ import {
   updateSubshopTemplate as updateSubshopTemplateAPI,
   deleteSubshopTemplate as deleteSubshopTemplateAPI,
 } from '../api';
-
-import type {
-  SubShop,
-  SubshopTemplate,
-  SubshopTemplateCreate,
-  SubshopTemplateUpdate,
-} from '#libs/shop/types';
-import type {
-  Dispatch,
-  OptionCallback,
-  PaginatedResponse,
-} from '../../../state/types';
-import type { PaginationFilterParams } from '#libs/types';
-import type { RootState } from '#src/reducers';
-
-import { FRANCHISE_SUBSHOP_TEMPLATE_PAGE_SIZE } from '#libs/shop/constants';
 
 export const fetchSubshopListActions = {
   isLoading: createAction<boolean>('SUB_SHOP/LIST/LOADING'),

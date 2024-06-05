@@ -3,11 +3,6 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
-import Selector, { SelectorProps } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import SelectorCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
@@ -19,6 +14,10 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import MenuItem from '#Fabrique/MenuItem';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import SelectorCss from './styles.css?raw';
+import Selector, { SelectorProps } from '.';
 import { SelectorSizeEnum } from './constants';
 import type { SelectorSize } from './types';
 

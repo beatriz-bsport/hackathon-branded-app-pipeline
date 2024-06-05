@@ -12,9 +12,9 @@ import { makeStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
-import { formatMinutes } from '../../../utils/datetime';
 import { Tag, TagGroup } from '#libs/tag/types';
 import TagChip from '#libs/tag/components/TagChip.component';
+import { formatMinutes } from '../../../utils/datetime';
 
 type Props = {
   open: boolean;

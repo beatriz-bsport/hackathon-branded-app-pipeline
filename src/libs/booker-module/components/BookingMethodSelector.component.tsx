@@ -14,6 +14,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
+import { ContractWithPaymentPack } from '#libs/subscription/types';
+import { CompanyTheme } from '#libs/theme/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 import CollapsibleSection from '../../../components/CollapsibleSection';
@@ -23,17 +26,14 @@ import ContractBookableItem from './ContractBookableItem.component';
 import ConsumerPaymentPackBookableItem from './ConsumerPaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
 import { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
   MaxoutData,
 } from '../../payment-packs/types';
-import { ContractWithPaymentPack } from '#libs/subscription/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import { Offer_FULL } from '../../offer/types';
 import PaymentPackCategoryBookableItem from './PaymentPackCategoryBookableItem.component';
-import { CompanyTheme } from '#libs/theme/types';
 import { SelectedPack } from '../types';
 
 type OwnProps = {

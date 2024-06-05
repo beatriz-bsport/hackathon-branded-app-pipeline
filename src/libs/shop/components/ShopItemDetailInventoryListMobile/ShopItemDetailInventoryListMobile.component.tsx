@@ -14,9 +14,9 @@ import ShopItemUpdateProvisionDialog from '#libs/shop/components/ShopItemUpdateP
 import useShopItemDetailInventoryFilters from '#libs/shop/hooks/useShopItemDetailInventoryFilters';
 
 import type { Provision, ProvisionCreate, ShopItem } from '#libs/shop/types';
+import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
 import type { OptionCallback } from '../../../../state/types';
 
-import { ShopItemDetailInventoryFormType } from '#libs/shop/constants';
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;

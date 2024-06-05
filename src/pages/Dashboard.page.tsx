@@ -11,11 +11,7 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import BackofficeLinearProgress from '../components/navigation/BackofficeLinearProgress.component';
-import { WithHandlerType } from '../utils/types';
-import { OptionCallback } from '../state/types';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import BottomActionButtons from '../components/button/BottomActionsButton.component';
 import DashboardGraphWrapper from '#libs/dashboard/components/DashboardGraphWrapper.component';
 import { prepareGraphPropsForDisplay } from '#libs/dashboard/utils';
 
@@ -31,7 +27,6 @@ import TimeslotGridChart from '#components/graph/TimeslotGridChart.component';
 import PieChart from '#components/graph/PieChart.component';
 // @ts-expect-error
 import QualitativeBarChart from '#components/graph/QualitativeBarChart.component';
-import withTitle from '../hocs/with-title.hoc';
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
 } from '#libs/datatype-filtering/dynamic-data-hoc';
@@ -50,13 +45,18 @@ import {
 import { fetchDataSourceDashboardStatistics } from '#libs/statistics/actions';
 import { getDataSourceDashboardTabStatistics } from '#libs/statistics/selectors';
 
-import type { RootState } from '../reducers';
 import type {
   DataSourceDashboardGraph,
   DataSourceDashboardTab,
 } from '#libs/dashboard/types';
 
 import { getTheme } from '#libs/theme/selectors';
+import type { RootState } from '../reducers';
+import withTitle from '../hocs/with-title.hoc';
+import BottomActionButtons from '../components/button/BottomActionsButton.component';
+import { OptionCallback } from '../state/types';
+import { WithHandlerType } from '../utils/types';
+import BackofficeLinearProgress from '../components/navigation/BackofficeLinearProgress.component';
 
 type WithStateProps = {
   t: TFunction;

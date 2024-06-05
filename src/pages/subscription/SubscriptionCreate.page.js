@@ -8,6 +8,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter, goBack } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import type { StripeReader } from '#libs/terminal/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withFetchDetail from '../../hocs/with-fetch-details.hoc';
@@ -46,9 +49,6 @@ import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   member: Member,

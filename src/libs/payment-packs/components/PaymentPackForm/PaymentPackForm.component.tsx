@@ -19,22 +19,17 @@ import {
   formatOffPeakScheduleOnSubmit,
   formatOffPeakScheduleOnEdit,
 } from '#libs/payment-packs/utils';
-import { OptionCallback } from '../../../../state/types';
 import {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackFormValues,
 } from '#libs/payment-packs/types';
-import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
-import PaymentPackFormValidity from './PaymentPackFormValidity.component';
-import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';
 import UniversalPassFormPrivateserviceCompatibility from '#libs/universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#libs/payment-packs/constants';
-import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
 // @ts-expect-error
 import { Actions } from '#components/forms';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
@@ -48,8 +43,13 @@ import type {
   PrivatePass,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
-import { ALMOST_100 } from '../../../../constants';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import { ALMOST_100 } from '../../../../constants';
+import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
+import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';
+import PaymentPackFormValidity from './PaymentPackFormValidity.component';
+import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
+import { OptionCallback } from '../../../../state/types';
 
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',

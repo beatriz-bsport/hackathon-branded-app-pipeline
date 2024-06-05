@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
   API_URI,
   API_V1_URI,
@@ -22,7 +23,6 @@ import type {
   ContractQueryParams,
 } from './types';
 import { PaginatedResponse } from '../../state/types';
-import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(

@@ -1,10 +1,10 @@
+import type { Member } from '#libs/member/types';
+import { MemberFactory } from '#libs/member/factories/Member';
 import type {
   Recipient,
   CommunicationMessage,
   RecipientCompact,
 } from '../types';
-import type { Member } from '#libs/member/types';
-import { MemberFactory } from '#libs/member/factories/Member';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

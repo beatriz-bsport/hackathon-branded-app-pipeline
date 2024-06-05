@@ -39,28 +39,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
-import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
-import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { appliesToContract } from '../../coupon/api';
-import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import type { EstablishmentBillingGroup } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
-import { getPrice, getTaxPrice } from '../../theme/utils';
-import type { SubscriptionData } from '../types';
 import type { StripeReader } from '#libs/terminal/types';
 import NumericInput from '#components/input/NumericInput.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
+import type { StripeInit } from '#libs/payment/types';
+import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
+import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { appliesToContract } from '../../coupon/api';
+import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
+import type { EstablishmentBillingGroup } from '../../establishment/types';
+import { getPrice, getTaxPrice } from '../../theme/utils';
+import type { SubscriptionData } from '../types';
 import { computeProrataPriceForSubscription } from '../utils';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
 } from '../../marketplace/types';
-import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 import EstablishmentBillingGroupSelector from '../../establishment/components/EstablishmentBillingGroupSelector';
-import type { StripeInit } from '#libs/payment/types';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';

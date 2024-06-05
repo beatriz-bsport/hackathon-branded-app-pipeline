@@ -6,11 +6,8 @@ import { Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import type { Dispatch } from '../../../state/types';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { parseQueryString } from '../../../http';
 // @ts-expect-error
-import { requestLogin, disconnect } from '../../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
@@ -35,6 +32,9 @@ import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationActio
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
 import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
+import { requestLogin, disconnect } from '../../../actions/auth.actions';
+import { parseQueryString } from '../../../http';
+import type { Dispatch } from '../../../state/types';
 
 type OwnProps = {
   location: {

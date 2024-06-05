@@ -1,7 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { PaginatedResponse } from '../../state/types';
-import { API_V1_URI, postAuth, getAuth, patchAuth } from '../../http';
-
 import type {
   DeliveryConfiguration,
   DeliveryFee,
@@ -9,6 +6,9 @@ import type {
   Order,
   OrderWithProducts,
 } from '#libs/order/types';
+import { PaginatedResponse } from '../../state/types';
+import { API_V1_URI, postAuth, getAuth, patchAuth } from '../../http';
+
 
 export async function fetchOrders(
   page: number,

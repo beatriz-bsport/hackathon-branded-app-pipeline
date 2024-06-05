@@ -8,8 +8,9 @@ import { push, replace } from 'connected-react-router';
 
 import { Theme } from '@material-ui/core';
 // @ts-expect-error
-import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { urlToMarketplaceTab } from '#libs/marketplace/utils';
+import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import { retrievePlaylist as retrievePlaylistAction } from '../../libs/playlist/actions';
@@ -24,7 +25,6 @@ import {
   withCategory,
   getPlaybackUrlById,
 } from '../../libs/video/selectors';
-import { urlToMarketplaceTab } from '#libs/marketplace/utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';

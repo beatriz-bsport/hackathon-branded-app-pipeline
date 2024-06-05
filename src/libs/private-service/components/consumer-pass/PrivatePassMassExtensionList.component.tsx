@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Paper } from '@material-ui/core';
 
 // @ts-expect-error
-import PaginatedListBase from '../../../../components/PaginatedListBase.component';
 import ExtensionListItem from '#components/ExtensionListItem';
+import PaginatedListBase from '../../../../components/PaginatedListBase.component';
 import type { PrivatePassMassExtension } from '../../types';
 
 type Props = {

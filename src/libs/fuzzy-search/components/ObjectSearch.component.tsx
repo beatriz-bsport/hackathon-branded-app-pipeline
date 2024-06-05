@@ -20,9 +20,9 @@ import type {
   SelectOptions,
 } from '#libs/fuzzy-search/types';
 
-import type { RootState } from '../../../reducers';
 import { useHydrateSearch } from '#libs/fuzzy-search/hooks/useHydrateSearch';
 import type { SelectOption } from '#libs/types';
+import type { RootState } from '../../../reducers';
 import { DEFAULT_SELECTOR_ID } from '../constants';
 import { getSearchVariant } from '#libs/fuzzy-search/utils/getSearchVariant';
 

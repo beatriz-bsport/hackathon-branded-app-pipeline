@@ -6,13 +6,13 @@ import {
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import type { CompanyTheme } from '#libs/theme/types';
 import { TitleSize } from './constants';
 import Title, { Props as TitleProps } from '.';
-import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import TitleCss from './styles.css?raw';
-import type { CompanyTheme } from '#libs/theme/types';
 
 const fabriqueTextFieldVariationRegistry = [
   {

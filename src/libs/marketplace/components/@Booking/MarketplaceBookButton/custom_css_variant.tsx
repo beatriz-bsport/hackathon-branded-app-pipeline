@@ -1,10 +1,6 @@
 import React from 'react';
 
 import { DateTime } from 'luxon';
-import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBookButtonCss from './MarketplaceBookButton.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -15,6 +11,10 @@ import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
 import { OffersGroup } from '#libs/group-offer/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBookButtonCss from './MarketplaceBookButton.css?raw';
+import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
 
 const marketplaceBookingButtonVariationRegistry = [
   {

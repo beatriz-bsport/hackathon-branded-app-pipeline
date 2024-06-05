@@ -16,7 +16,6 @@ import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/fo
 import ToolTip from '#components/Tooltip.component';
 import StopBuildIcon from '#components/icons/StopBuildIcon.component';
 
-import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceUtilityDialog, {
   DialogVariant,
@@ -24,6 +23,7 @@ import CadenceUtilityDialog, {
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

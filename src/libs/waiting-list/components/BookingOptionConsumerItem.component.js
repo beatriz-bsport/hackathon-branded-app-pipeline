@@ -12,11 +12,11 @@ import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { CustomChip } from '#components/chip/CustomChip.component';
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDatetime } from '../../../utils/datetime';
 import type { BookingOption } from '../../../api/types';
-import { CustomChip } from '#components/chip/CustomChip.component';
 
 type OwnProps = {
   confirmBookingOption: () => void,

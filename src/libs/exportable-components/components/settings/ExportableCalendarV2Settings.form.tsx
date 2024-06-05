@@ -9,6 +9,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { Level } from '#libs/level/types';
 import {
   MarketplaceCalendarData,
   MarketplaceCalendarVariant,
@@ -21,7 +22,6 @@ import {
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 import CommonSettings from './CommonSettings.form';
-import { Level } from '#libs/level/types';
 
 interface Props {
   coaches: Array<Coach>;

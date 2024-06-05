@@ -19,6 +19,22 @@ import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 
+import { withContractNotification } from '#libs/marketing/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchMarketingNotificationList } from '#libs/marketing/actions';
+import {
+  displayBackgroundDialog as displayBackgroundDialogAction,
+  deletebackgroundDialog as deletebackgroundDialogAction,
+} from '#libs/background-dialog/actions';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import {
+  BackgroundDialogDisplayMode,
+  BackgroundDialogActionMode,
+} from '#libs/background-dialog/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { RootState } from '../../reducers';
 import themeSelectors, {
   getStripeRegion,
@@ -39,9 +55,6 @@ import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { withContractNotification } from '#libs/marketing/selectors';
-import { fetchTags } from '#libs/tag/actions';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
@@ -51,7 +64,6 @@ import SubscriptionContractFormDrawer from '../../libs/subscription/components/S
 // @ts-expect-error
 import { FormValues as SubscriptionContractFormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
-import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
@@ -74,13 +86,6 @@ import {
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
   registerContractBackground as registerContractBackgroundAction,
 } from '../../libs/subscription/actions';
-import {
-  displayBackgroundDialog as displayBackgroundDialogAction,
-  deletebackgroundDialog as deletebackgroundDialogAction,
-} from '#libs/background-dialog/actions';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '#state/types';
@@ -94,11 +99,6 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import { Member } from '../../libs/member/types';
 
-import {
-  BackgroundDialogDisplayMode,
-  BackgroundDialogActionMode,
-} from '#libs/background-dialog/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-expect-error js file
 import SubscriptionContractListItem from '#libs/subscription/components/SubscriptionContractListItem.component';
 import {

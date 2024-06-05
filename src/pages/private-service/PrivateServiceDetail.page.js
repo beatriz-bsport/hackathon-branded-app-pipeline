@@ -7,13 +7,16 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withHandlers, withStateHandlers } from 'recompose';
 
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { SmartList } from '#libs/smart-list/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
@@ -68,10 +71,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { SmartList } from '#libs/smart-list/types';
 
-import type { Tag, TagGroup } from '#libs/tag/types';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 

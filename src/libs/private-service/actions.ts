@@ -3,6 +3,24 @@ import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data
 import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
 import axios from 'axios';
+import type {
+  PrivateBookingFilterParams,
+  PrivateConsumerPassExtension,
+  PrivateConsumerPassExtensionCreate,
+  PrivateConsumerPassExtensionParams,
+  PrivateConsumerPassREST,
+  PrivatePassMassExtensionCreate,
+  PrivatePassMassExtensionParams,
+} from '#libs/private-service/types';
+import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
+import {
+  EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
+  EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED,
+  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE,
+  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE,
+} from '#libs/role/constants';
+import { isErrorWithCustomCode } from '#libs/utils';
 import { refreshAlertingByKind } from '../alerting/actions';
 
 import { RootState } from '../../reducers';
@@ -131,26 +149,8 @@ import {
   PrivatePass,
   ServiceCompatibilityPass,
 } from './types';
-import type {
-  PrivateBookingFilterParams,
-  PrivateConsumerPassExtension,
-  PrivateConsumerPassExtensionCreate,
-  PrivateConsumerPassExtensionParams,
-  PrivateConsumerPassREST,
-  PrivatePassMassExtensionCreate,
-  PrivatePassMassExtensionParams,
-} from '#libs/private-service/types';
-import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 // @ts-expect-error
-import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
-import {
-  EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
-  EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED,
-  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE,
-  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE,
-} from '#libs/role/constants';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 import {
   PRIVATE_CONSUMER_PASS_EXTENSION_PAGE_SIZE,
   PRIVATE_PASS_MASS_EXTENSION_PAGE_SIZE,

@@ -2,6 +2,10 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import {
+  COMMUNICATION_KIND,
+  INBOX_THREAD_PAGE_SIZE,
+} from '#libs/communication-v2/constants';
+import {
   sendCommunicationAction,
   recipientAction,
   communicationSentAction,
@@ -34,10 +38,6 @@ import type {
   UnreadAnswersCount,
   CommunicationScheduled,
 } from './types';
-import {
-  COMMUNICATION_KIND,
-  INBOX_THREAD_PAGE_SIZE,
-} from '#libs/communication-v2/constants';
 import type { PaginatedResponse } from '../../state/types';
 
 const initialState: Immutable.Immutable<CommunicationState> =

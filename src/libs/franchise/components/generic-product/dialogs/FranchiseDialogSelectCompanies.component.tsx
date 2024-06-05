@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
-import FranchiseCompaniesSelector from '../../FranchiseCompaniesSelector.component';
 import { FranchiseCompany } from '#libs/franchise/types';
+import FranchiseCompaniesSelector from '../../FranchiseCompaniesSelector.component';
 
 type Props = {
   companyWithoutInstanceList: FranchiseCompany[];

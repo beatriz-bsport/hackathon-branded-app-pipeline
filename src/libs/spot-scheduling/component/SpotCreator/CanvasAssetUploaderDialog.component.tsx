@@ -17,16 +17,16 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import AssetUploaderFormComponent from './AssetUploaderForm.component';
 import type { AssetForBlueprint } from '#libs/spot-scheduling/types';
-import type { RootState } from '../../../../reducers';
-import type { OptionCallback } from '../../../../state/types';
 import {
   fetchAssetForBlueprint,
   fetchUnboundAssetForBlueprintPaginated as fetchUnboundAssetForBlueprintPaginatedAction,
 } from '#libs/spot-scheduling/actions';
-
 import { getAssetUnboudedForBluePrintById } from '#libs/spot-scheduling/selector';
+import AssetUploaderFormComponent from './AssetUploaderForm.component';
+import type { RootState } from '../../../../reducers';
+import type { OptionCallback } from '../../../../state/types';
+
 
 type OwnProps = {
   open: boolean;

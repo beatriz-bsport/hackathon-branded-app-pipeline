@@ -15,7 +15,6 @@ import Item, { Justification } from '#csscomponents/Grid/GridItem';
 import Price, { Color } from '#csscomponents/Price';
 import CircularProgress from '#components/css-only/CircularProgress';
 
-import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
@@ -23,6 +22,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { Contract } from '#libs/subscription/types';
+import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';
 

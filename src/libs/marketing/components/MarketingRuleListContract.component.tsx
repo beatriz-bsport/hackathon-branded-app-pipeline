@@ -15,13 +15,13 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import { Contract } from '#libs/subscription/types.ts';
+import { SmartList } from '#libs/smart-list/types';
 import { DeepPartial } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 // @ts-expect-error
-import { Contract } from '#libs/subscription/types.ts';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
-import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   contractNotifications: { [key: string]: MarketingNotification[] };

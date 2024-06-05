@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
+import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
 import type { Props as MemberVisitDetailsCardProps } from './MemberVisitDetailsCard.component';
 
-import { AccessStatus, EntryStatus } from '#libs/access-control/constants';
 
 const MemberVisitDetailsCardManualEntrySection: React.FC<
   Pick<

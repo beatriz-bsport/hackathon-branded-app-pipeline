@@ -10,6 +10,24 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
+import GenericFormDialog from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import MarketingRuleListEstablishmentGroup from '#libs/marketing/components/MarketingRuleListEstablishmentGroup.component';
+import {
+  getAllEmailTemplatesDict,
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '#libs/email-editor/selectors';
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '#libs/email-editor/actions';
+import { getmarketingNotificationbyEstablishmentGroup } from '#libs/marketing/selectors';
+import { MarketingNotification } from '#libs/marketing/types';
+import { EmailTemplateSummary } from '#libs/email-editor/types';
+import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -19,8 +37,6 @@ import {
   upsertEstablishmentGroup as upsertEstablishmentGroupAction,
   deleteEstablishmentGroup as deleteEstablishmentGroupAction,
 } from '../../libs/establishment/actions';
-import { getAllSmartList } from '#libs/smart-list/selectors';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   getAssociatedEstablishmentGroup,
   withEstablishment,
@@ -40,22 +56,6 @@ import {
   updateMarketingNotification as updateMarketingNotificationAction,
   deleteMarketingNotification as deleteMarketingNotificationAction,
 } from '../../libs/marketing/actions';
-import GenericFormDialog from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import MarketingRuleListEstablishmentGroup from '#libs/marketing/components/MarketingRuleListEstablishmentGroup.component';
-import {
-  getAllEmailTemplatesDict,
-  getAllEmailTemplatesSummaries,
-  getEmailTemplatesDetail,
-} from '#libs/email-editor/selectors';
-import {
-  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
-  emailTemplateDetail,
-  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#libs/email-editor/actions';
-import { getmarketingNotificationbyEstablishmentGroup } from '#libs/marketing/selectors';
-import { MarketingNotification } from '#libs/marketing/types';
-import { EmailTemplateSummary } from '#libs/email-editor/types';
-import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
 
 type StateHandlerInit = {
   openDialogForm: boolean;

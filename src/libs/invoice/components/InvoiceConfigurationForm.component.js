@@ -23,16 +23,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import StripeTerminalRegisterReaderDialog from '#libs/terminal/components/StripeTerminalRegisterReaderDialog';
-import NumberInput from '../../../components/input/NumericInput.component';
 import ThemeInternalAccountForm from '#libs/theme/components/ThemeInternalAccountForm.component';
-import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
-import TaxDisplayForm from '../../theme/components/TaxDisplay.form';
 import InfoTypography from '#components/typo/InfoTypography.components';
 import type { FeatureList } from '#libs/company/types';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import type { StripeReader } from '#libs/terminal/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import TaxDisplayForm from '../../theme/components/TaxDisplay.form';
+import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
+import NumberInput from '../../../components/input/NumericInput.component';
 
 type Props = {
   classes: any,

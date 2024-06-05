@@ -2,9 +2,9 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { PaymentPackTemplate } from '#libs/payment-packs/types';
 import { MarketplacePaymentPackTemplateData } from '../../../marketplace/types';
 
-import { PaymentPackTemplate } from '#libs/payment-packs/types';
 
 interface Props {
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;

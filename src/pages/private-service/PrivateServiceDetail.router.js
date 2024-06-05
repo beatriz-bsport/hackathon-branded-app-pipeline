@@ -8,11 +8,11 @@ import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import PrivateServiceDetail from './PrivateServiceDetail.page';
 import PrivateServiceCalendar from './PrivateServiceCalendar.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 type Props = {
   tab: string,

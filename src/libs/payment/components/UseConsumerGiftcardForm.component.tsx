@@ -17,14 +17,14 @@ import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error
-import { PriceField } from '../../../components/forms';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { Member } from '#libs/member/types';
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { PriceField } from '../../../components/forms';
+import type { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
   applyGiftcardOnInvoice: (

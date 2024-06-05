@@ -5,8 +5,6 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { compose } from 'recompose';
 
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
-import Config from '../../config';
-import { RootState } from '../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import themeSelectors from '#libs/theme/selectors';
@@ -35,6 +33,8 @@ import ReferralWidget from '#components/ReferralWidget';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
+import { RootState } from '../../reducers';
+import Config from '../../config';
 
 type OwnProps = {
   companyId: number;

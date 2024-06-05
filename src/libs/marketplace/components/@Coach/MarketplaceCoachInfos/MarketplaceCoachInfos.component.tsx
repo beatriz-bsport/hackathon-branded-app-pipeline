@@ -3,14 +3,14 @@ import classNames from 'classnames';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
-import OfferCoachName from './OfferCoachName';
-import OfferCoachPicture from './OfferCoachPicture';
 
 import type { Theme } from '#libs/theme/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Offer } from '#libs/offer/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import OfferCoachPicture from './OfferCoachPicture';
+import OfferCoachName from './OfferCoachName';
 
 export type Props = {
   theme: Theme;

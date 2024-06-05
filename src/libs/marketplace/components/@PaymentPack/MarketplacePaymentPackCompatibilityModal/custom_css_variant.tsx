@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplacePaymentPackCompatibilityModal, {
-  Props as MarketplacePaymentPackCompatibilityModalProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePaymentPackCompatibilityModalCss from './styles.css?raw';
 import { factory_scts } from '#libs/category/factory';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { establishment_factory } from '#libs/establishment/factory';
@@ -14,6 +8,12 @@ import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
 } from '#libs/exportable-components/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplacePaymentPackCompatibilityModalCss from './styles.css?raw';
+import MarketplacePaymentPackCompatibilityModal, {
+  Props as MarketplacePaymentPackCompatibilityModalProps,
+} from '.';
 import { generateRandomInt } from '../../../../../utils/factories';
 
 const fakeCategories = factory_scts(generateRandomInt(5));

@@ -10,11 +10,11 @@ import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
+import { MEMBER_PROGRAM_PER_PAGE } from '#libs/performance-tracking/utils';
+import { Member } from '#libs/member/types';
 import ProgramCard from './ProgramCard.component';
 import MetricList from '../metrics/MetricList.component';
 import ProgramDetailMember from './ProgramDetailMember.component';
-import { MEMBER_PROGRAM_PER_PAGE } from '#libs/performance-tracking/utils';
-import { Member } from '#libs/member/types';
 
 type OwnProps = {
   program: PerformanceTrackingProgram;

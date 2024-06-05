@@ -11,14 +11,14 @@ import {
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
-import { CadenceChip } from './CadenceChip.component';
-import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
-
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import { CadenceChip } from './CadenceChip.component';
+import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
+
 
 export type ConnectedTriggerChipProps = {
   connectedTrigger: ConnectedTrigger;

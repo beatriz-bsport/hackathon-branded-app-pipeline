@@ -2,12 +2,6 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MarketplaceProductItem, { type Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceProductItemCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -16,6 +10,10 @@ import {
 } from '#libs/exportable-components/types';
 
 import { generateRandomName } from '#utils/factories';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceProductItemCss from './styles.css?raw';
+import MarketplaceProductItem, { type Props } from '.';
 
 const quantity = faker.number.int(10);
 

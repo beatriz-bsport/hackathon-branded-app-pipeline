@@ -14,10 +14,10 @@ import {
   Theme,
 } from '@material-ui/core';
 
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import FabWithItems from '../../../components/button/FabWithItems';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   timezone: string;

@@ -12,7 +12,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
 import {
   TRIGGER_FORM_DEFAULT_HEIGHT,
@@ -21,6 +20,7 @@ import {
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 
 type Props = {
   color: string;

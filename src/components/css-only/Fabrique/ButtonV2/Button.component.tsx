@@ -2,9 +2,9 @@ import React, { memo } from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
+import { joinWithSeparator } from '#Fabrique/utils/joinStringWithSpreadOperator';
 import ButtonBase from '../ButtonBaseV2';
 
-import { joinWithSeparator } from '#Fabrique/utils/joinStringWithSpreadOperator';
 
 import type { ButtonHTMLType } from '../ButtonBaseV2/types';
 import type {

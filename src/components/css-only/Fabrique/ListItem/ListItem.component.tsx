@@ -4,11 +4,11 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
+import RadioButton from '#Fabrique/RadioButtonV2';
+import Checkbox from '#Fabrique/Checkbox';
 import type { ListItemSize, ListItemType } from './types';
 
 import { ListItemSizeEnum, ListItemTypeEnum } from './constants';
-import RadioButton from '#Fabrique/RadioButtonV2';
-import Checkbox from '#Fabrique/Checkbox';
 
 import './styles.css';
 

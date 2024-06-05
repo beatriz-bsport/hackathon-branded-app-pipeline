@@ -12,13 +12,13 @@ import * as Yup from 'yup';
 
 import { Divider, Theme, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import { SpotType } from '#libs/spot-scheduling/types';
 import { OptionCallback } from '../../../../state/types';
 import PersonalizedSpotCreator from './PersonalizedSpotCreator.component';
 import PredefinedSpotCreator from './PredefinedSpotCreator.component';
 
 // @ts-expect-error
 import { TextField, RadioGroupField } from '../../../../components/forms';
-import { SpotType } from '#libs/spot-scheduling/types';
 
 type Props = {
   onCreateSpot: (

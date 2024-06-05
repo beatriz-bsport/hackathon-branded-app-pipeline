@@ -10,7 +10,6 @@ import { withTranslation } from 'react-i18next';
 
 import WorkshopDeleteDialog from '#libs/meta-activity/components/WorkshopDeleteDialog.component';
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
-import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getWorkshops,
@@ -50,18 +49,19 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '#libs/email-editor/actions';
 import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { SCT } from '#libs/category/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
+import { SmartList } from '#libs/smart-list/types';
 import { mapFormData, unmap } from '../form.utils';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { OptionCallBack } from '../../state/types';
-import { SCT } from '#libs/category/types';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { Tag, TagGroup } from '#libs/tag/types';
-import { SmartList } from '#libs/smart-list/types';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getEditableSCTs } from '../../libs/category/selectors';
 import {
   fetchTagList as fetchTagListAction,

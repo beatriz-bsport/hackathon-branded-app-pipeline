@@ -32,6 +32,11 @@ import BuildIcon from '@material-ui/icons/Build';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
+import { CompanyTheme } from '#libs/theme/types';
 import EraserIcon from './tools/Eraser/Eraser.icon';
 // @ts-expect-error
 import ColorInput from '../../../components/input/ColorInput.component';
@@ -40,10 +45,6 @@ import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 import CanvasSpotToolMenu from './CanvasSpotToolMenu.component';
 
 // @ts-expect-error
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
 import {
   CANVAS_SELECTABLE_TOOLS,
   CanvasSelectableToolsEnum,
@@ -51,7 +52,6 @@ import {
 import PointerIcon from './tools/Pointer/Pointer.icon';
 import HandIcon from './tools/Hand/Hand.icon';
 import { SpotType } from '../types';
-import { CompanyTheme } from '#libs/theme/types';
 
 type OwnProps = {
   selectedTool: CanvasSelectableToolsEnum;

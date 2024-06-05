@@ -2,6 +2,9 @@ import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 import {
   fetchMember as fetchMemberAction,
@@ -18,7 +21,6 @@ import {
   fetchCompanyCustomMemberForm,
 } from '../../libs/custom-form/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import {
   getMemberThroughMembership,
   getMemberDetailData,
@@ -31,8 +33,6 @@ import {
   getCustomFormBlockingDisplayRuleIdsList,
 } from '../../libs/membership/selectors';
 import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWrapperInner.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 

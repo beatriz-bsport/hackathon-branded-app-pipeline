@@ -26,6 +26,22 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   editOffers as editOffersActions,
 } from '#libs/offer/actions';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
+import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
+import {
+  getActiveCoaches,
+  getCoachesSelectedInRole,
+} from '#libs/associated-coach/selectors';
+import { Coach } from '#libs/associated-coach/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
+import {
+  fetchInvoiceList as fetchInvoiceListAction,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
+} from '#libs/invoice/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
+import { fetchPaymentMethodList } from '#libs/payment/actions';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,
@@ -44,9 +60,6 @@ import {
   withRelatedFields,
   composeBookingsWithMemberProgram,
 } from '../selectors/private-booking';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
-import zoomAppSelectors from '#libs/zoom-app/selectors';
-import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
 import {
   fetchPrivateBooking as fetchPrivateBookingAction,
   fetchPrivateSlot as fetchPrivateSlotAction,
@@ -77,11 +90,6 @@ import {
 } from '../../member/actions';
 
 import {
-  getActiveCoaches,
-  getCoachesSelectedInRole,
-} from '#libs/associated-coach/selectors';
-import { Coach } from '#libs/associated-coach/types';
-import {
   getAvailableEstablishmentList,
   getAllEstablishments,
 } from '../../establishment/selectors';
@@ -105,18 +113,10 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
-import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
-import {
-  fetchInvoiceList as fetchInvoiceListAction,
-  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '#libs/invoice/actions';
-import { snackbarSuccess } from '#libs/snackbar/actions';
-import { fetchPaymentMethodList } from '#libs/payment/actions';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '#libs/invoice/types';

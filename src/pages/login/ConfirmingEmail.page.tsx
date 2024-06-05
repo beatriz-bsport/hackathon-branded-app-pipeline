@@ -13,11 +13,11 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import classNames from 'classnames';
 import themeSelectors from '#libs/theme/selectors';
 // @ts-expect-error
-import { requestConfirmationEmail as requestConfirmationEmailAction } from '../../actions/auth.actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import withQueryParams from '#hocs/with-query-params.hoc';
+import { requestConfirmationEmail as requestConfirmationEmailAction } from '../../actions/auth.actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 // @ts-expect-error
-import withQueryParams from '#hocs/with-query-params.hoc';
 
 type Props = {
   fetchCompanyTheme: (companyId: number) => void;

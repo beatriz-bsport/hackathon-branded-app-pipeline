@@ -79,8 +79,8 @@ import { getTheme } from '#libs/theme/selectors';
 
 import type { Offer } from '#libs/offer/types';
 
-import type { RootState } from '../../reducers';
 import type { OptionCallback } from '#state/types';
+import type { RootState } from '../../reducers';
 
 // not found
 type CustomEventData = any;

@@ -30,9 +30,6 @@ import {
 } from '#libs/role/selectors';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import withTitle from '../../hocs/with-title.hoc';
-import { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
@@ -45,6 +42,9 @@ import {
 import { getTheme } from '#libs/theme/selectors';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
+import { MaterialStyleType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import withTitle from '../../hocs/with-title.hoc';
 
 type ConnectedProps = WithTranslation &
   typeof mapDispatchToProps &

@@ -11,9 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import { FormikProps, withFormik } from 'formik';
 import type { Offer as OfferAPI } from 'src/api/types';
-import { OptionCallback } from '../../../../state/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PromptOnPageLeave from '#components/Prompt';
+import { OptionCallback } from '../../../../state/types';
 
 export type Props = {
   noDivider?: boolean;

@@ -33,10 +33,10 @@ import {
   DateField,
   // @ts-expect-error
 } from '#components/forms';
-import { PrivatePassWithCompatibility } from '../../../types';
-import { getValidityInfo } from '../../../utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { PrivatePassWithCompatibility } from '../../../types';
+import { getValidityInfo } from '../../../utils';
 import { ALMOST_100 } from '../../../../../constants';
 
 const {

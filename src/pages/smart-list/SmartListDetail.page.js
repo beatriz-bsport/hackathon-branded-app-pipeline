@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import SmartListDetailMember from './SmartListDetailMember.page';
 import SmartListDetailCampaign from './SmartListDetailCampaign.page';
 import SmartListDetailCampaignReport from './SmartListDetailCampaignReport.page';
 import SmartListDetailStatistic from './SmartListDetailStatistic.page';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 import { getSmartList } from '../../libs/smart-list/selectors';
 import { fetchSmartListDetail } from '../../libs/smart-list/actions';

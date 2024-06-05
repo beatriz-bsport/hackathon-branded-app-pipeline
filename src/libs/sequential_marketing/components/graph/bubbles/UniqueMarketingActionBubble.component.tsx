@@ -6,11 +6,11 @@ import type {
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 
-import CadenceBubble from './CadenceBubble.component';
 import UniqueMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/UniqueMarketingActionForm.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import { getMarketingActionType } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   marketingAction?: Partial<StepMarketingActions>;

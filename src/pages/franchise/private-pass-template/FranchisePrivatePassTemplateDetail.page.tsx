@@ -7,10 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 // import omit from 'lodash/omit';
-import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
-import { parseQueryString } from '../../../http';
 
-import { RootState } from '../../../reducers';
 
 import {
   retrievePrivatePassTemplate as retrievePrivatePassTemplateAction,
@@ -26,11 +23,9 @@ import {
 import { getPrivatePassTemplate } from '#libs/private-service/selectors/private-pass';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 
 import PrivatePassTemplateInstanceDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
 // @ts-expect-error
-import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 // / import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
@@ -41,6 +36,11 @@ import {
   getPrivateConsumerPassList,
   withMember,
 } from '#libs/private-service/selectors/private-consumer-pass';
+import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
+import { RootState } from '../../../reducers';
+import { parseQueryString } from '../../../http';
+import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 
 type OwnProps = { privatePassTemplateId: number };
 

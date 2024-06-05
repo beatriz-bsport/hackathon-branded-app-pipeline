@@ -10,7 +10,6 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
-import { RootState } from '../../reducers';
 import {
   associatedCoachSelector,
   getAllCoaches,
@@ -27,6 +26,7 @@ import type {
   // @ts-expect-error
   CoachPaymentRuleGroupAPI,
 } from '#libs/associated-coach/types';
+import { RootState } from '../../reducers';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
   // @ts-expect-error

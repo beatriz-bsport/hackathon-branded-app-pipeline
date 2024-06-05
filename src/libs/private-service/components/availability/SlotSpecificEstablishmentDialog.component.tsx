@@ -7,9 +7,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
-import SlotSpecificEstablishmentPicker from './SlotSpecificEstablishmentPicker.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import SlotSpecificEstablishmentPicker from './SlotSpecificEstablishmentPicker.component';
 
 export type Props = {
   establishments: Array<EstablishmentWithAssociatedId>;

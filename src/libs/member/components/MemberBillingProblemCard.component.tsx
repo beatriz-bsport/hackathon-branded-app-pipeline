@@ -16,6 +16,11 @@ import {
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 // @ts-expect-error
+import type { Invoice } from '#libs/invoice/types';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import type { StripeReader } from '#libs/terminal/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -30,12 +35,7 @@ import type {
   Establishment,
   EstablishmentBillingGroup,
 } from '../../establishment/types';
-import type { Invoice } from '#libs/invoice/types';
-import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
-import type { StripeReader } from '#libs/terminal/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
 
 type Props = {
   balance: number;

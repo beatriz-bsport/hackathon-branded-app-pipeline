@@ -34,10 +34,10 @@ import {
   getCreditsDividedValue,
 } from '#libs/theme/utils';
 
+import { MaterialStyleType } from '#utils/types';
 import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';
-import { MaterialStyleType } from '#utils/types';
 
 type OwnProps = {
   pack: PaymentPack;

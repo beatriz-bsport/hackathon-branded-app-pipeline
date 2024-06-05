@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import PrivatePassTemplateForm, {
   PrivatePassTemplateFormikHOC,
 } from './PrivatePassTemplateForm.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   open?: boolean;

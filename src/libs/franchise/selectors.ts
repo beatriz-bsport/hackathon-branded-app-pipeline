@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 // @ts-expect-error
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
+import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 import { RootState } from '../../reducers';
 import { FranchiseCompany, FranchiseState } from './types';
-import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
 

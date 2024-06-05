@@ -8,16 +8,16 @@ import {
   ItemType,
 } from '#components/css-only/Search/PassSearch/utils';
 import {
+  BaseAdditionalData,
+  SearchItemData,
+} from '#components/css-only/Search/Search.component';
+import {
   MarketplaceSearchContractDataParams,
   MarketplaceSearchDataIdentifier,
   MarketplaceSearchPaymentComboDataParams,
   MarketplaceSearchPaymentPackDataParams,
   MarketplaceSearchPrivatePassDataParams,
 } from './types';
-import {
-  BaseAdditionalData,
-  SearchItemData,
-} from '#components/css-only/Search/Search.component';
 
 export const useMarketplaceSearchPaymentPackData = ({
   paymentPackList,

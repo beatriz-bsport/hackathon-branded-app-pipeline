@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable';
 
-import Config from '../../config';
 
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
@@ -245,7 +244,6 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 
-import { CssComponentsVariantIdentifiers } from './constants';
 import {
   FABRIQUE_BADGE_PREVIEW,
   FABRIQUE_BADGE_CONFIGURATION,
@@ -464,6 +462,8 @@ import {
   FABRIQUE_TOOLTIP_PREVIEW,
   FABRIQUE_TOOLTIP_CONFIGURATION,
 } from '#components/css-only/Fabrique/Tooltipv2/custom_css_variant';
+import { CssComponentsVariantIdentifiers } from './constants';
+import Config from '../../config';
 /* TEMPLATE
 
 {

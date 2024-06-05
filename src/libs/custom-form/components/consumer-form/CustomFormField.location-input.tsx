@@ -7,6 +7,8 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import { useTranslation, WithTranslation } from 'react-i18next';
 import { FormLabel } from '@material-ui/core';
 // @ts-expect-error
+import { generateUniqueCustomFormFieldIdentifier } from '#libs/custom-form/utils';
+import FabriqueSelectfield from '#components/css-only/Fabrique/Temporary/Selectfield';
 import { SelectFieldWithEnhancedLabeLError } from '../../../../components/forms';
 
 import { CustomFormField, FormikCustomFormFilled } from '../../types';
@@ -16,8 +18,6 @@ import { fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction } from '
 import { RootState } from '../../../../reducers';
 
 import themeSelectors from '../../../theme/selectors';
-import { generateUniqueCustomFormFieldIdentifier } from '#libs/custom-form/utils';
-import FabriqueSelectfield from '#components/css-only/Fabrique/Temporary/Selectfield';
 
 const useStyles = makeStyles((theme: Theme) => ({
   spacedField: {

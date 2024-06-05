@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
 import {
   AddGuestFormInitialStep,
   AddGuestFormEmailWarningStep,
@@ -13,7 +14,6 @@ import {
   AddGuestValidationShema,
   type AddGuestFormValues,
 } from '.';
-import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
 
 import './styles.css';
 

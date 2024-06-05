@@ -13,8 +13,8 @@ import {
 
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import { MaterialStyleType } from '../../utils/types';
 import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
+import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {
   items: {

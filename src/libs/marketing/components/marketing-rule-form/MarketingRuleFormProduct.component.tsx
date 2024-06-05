@@ -28,7 +28,6 @@ import {
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getCreditFactor } from '#libs/theme/selectors';
 
-import { MarketingNotification } from '../../types';
 import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
@@ -39,9 +38,10 @@ import {
 } from '#libs/payment-packs/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 
+import { getCreditsDividedValue } from '#libs/theme/utils';
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
-import { getCreditsDividedValue } from '#libs/theme/utils';
+import { MarketingNotification } from '../../types';
 
 interface InitialFormikValues {
   send_email: boolean;

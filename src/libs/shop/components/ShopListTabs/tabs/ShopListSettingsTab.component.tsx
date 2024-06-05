@@ -20,10 +20,10 @@ import ShopSupplierTable from '#libs/shop/components/ShopSupplierTable';
 
 import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 import type { ShopSupplier } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../../state/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 import { SHOP_SUPPLIER_PAGE_SIZE } from '#libs/shop/constants';
+import type { OptionCallback } from '../../../../../state/types';
 
 type Props = {
   isSupplierListLoading?: boolean;

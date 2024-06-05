@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplacePaymentComboCard, {
-  Props as MarketplacePaymentComboCardProps,
-} from './MarketplacePaymentComboCard.component';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePaymentComboCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -16,6 +10,12 @@ import { CompanyTheme } from '#libs/theme/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 
 import { paymentComboFactory } from '#libs/payment-combo/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplacePaymentComboCardCss from './styles.css?raw';
+import MarketplacePaymentComboCard, {
+  Props as MarketplacePaymentComboCardProps,
+} from './MarketplacePaymentComboCard.component';
 
 const paymentComboCardVariationRegistry = [
   {

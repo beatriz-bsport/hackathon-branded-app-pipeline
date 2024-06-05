@@ -23,6 +23,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { AVAILABLE_LANGUAGES, LANGUAGES } from '#src/i18n/languages';
 
+import { formatAsDatetimeAdapted } from '#utils/datetime';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type {
   Alerting,
   CompanyOnboardingAlerting,
@@ -39,8 +41,6 @@ import type {
 // @ts-expect-error
 import i18n from '../../../i18n';
 import { buildUrlParams } from '../../../http';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   alerting: Alerting;

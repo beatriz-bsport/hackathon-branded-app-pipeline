@@ -1,11 +1,11 @@
 import React from 'react';
 
-import type { OptionCallback } from '../../../state/types';
 import type {
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
 } from '#libs/payment/types';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import type { OptionCallback } from '../../../state/types';
 
 import BookkeepingAccountForm from './BookkeepingAccountForm.component';
 import BookkeepingAccountListDisplay from './BookkeepingAccountListDisplay.component';

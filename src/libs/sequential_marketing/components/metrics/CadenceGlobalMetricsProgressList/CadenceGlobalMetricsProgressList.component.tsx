@@ -6,13 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
-import CadenceGlobalMetricsProgressBar from './CadenceGlobalMetricsProgressBar.component';
 import CadenceGlobalMetricsIcon from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
-import CadenceGlobalMetricsProgressListSkeleton from './CadenceGlobalMetricsProgressListSkeleton.components';
 import {
   SequentialMarketingColors,
   CadenceMetricsSizes,
 } from '#libs/sequential_marketing/constants';
+import CadenceGlobalMetricsProgressBar from './CadenceGlobalMetricsProgressBar.component';
+import CadenceGlobalMetricsProgressListSkeleton from './CadenceGlobalMetricsProgressListSkeleton.components';
 
 type CadenceProgressBarProps = Omit<
   React.ComponentProps<typeof CadenceGlobalMetricsProgressBar>,

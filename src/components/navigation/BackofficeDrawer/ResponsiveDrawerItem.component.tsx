@@ -11,14 +11,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { checkRequiredPermissionsForPath } from '#libs/role/utils';
+import { RolePermission, ProtectedUrls } from '#libs/role/types';
 import type {
   DrawerItem,
   DrawerItemDefault,
   DrawerItemDivider,
   DrawerItemNested,
 } from './ResponsiveDrawer.component';
-import { checkRequiredPermissionsForPath } from '#libs/role/utils';
-import { RolePermission, ProtectedUrls } from '#libs/role/types';
 import DrawerListItem from './ResponsiveDrawerListItem.component';
 import ResponsiveDrawerListItemIcon from './DrawerListItemIcon.component';
 

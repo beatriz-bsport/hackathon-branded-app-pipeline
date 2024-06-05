@@ -27,9 +27,9 @@ import TutorialLessonList from '#libs/platform-tutorial/components/TutorialLesso
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { FeatureList } from '#libs/company/types';
 import MuiIcon from '#components/MuiIcon.component';
-import { isLessonCompleted, isLessonViewed } from '../utils';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import ToolTip from '#components/Tooltip.component';
+import { isLessonCompleted, isLessonViewed } from '../utils';
 
 export type Props = {
   sections: Array<TutorialSection>;

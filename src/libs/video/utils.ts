@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next';
 import { DateTime } from 'luxon';
 import { VideoPurchase } from '#libs/video/types';
-import { formatAsDatetime } from '../../utils/datetime';
 import { getPackDate } from '#libs/payment-packs/utils';
 import { getPassDate } from '#libs/private-service/utils';
+import { formatAsDatetime } from '../../utils/datetime';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {
   return DateTime.fromISO(videoPurchase.date_created).plus({

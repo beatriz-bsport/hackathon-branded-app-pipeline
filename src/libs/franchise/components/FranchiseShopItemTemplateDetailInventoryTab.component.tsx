@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import FranchiseShopItemTemplateDetailInventoryList from './FranchiseShopItemTemplateDetailInventoryList.component';
-import FranchiseShopItemDetailInventoryListMobile from './FranchiseShopItemDetailInventoryListMobile.component';
 
 import type {
   Provision,
@@ -30,6 +28,8 @@ import {
   SHOP_ITEM_VARIANTS_PAGE_SIZE,
   ShopItemDetailInventoryFormType,
 } from '#libs/shop/constants';
+import FranchiseShopItemDetailInventoryListMobile from './FranchiseShopItemDetailInventoryListMobile.component';
+import FranchiseShopItemTemplateDetailInventoryList from './FranchiseShopItemTemplateDetailInventoryList.component';
 
 type Props = {
   shopItemVariantList: ShopItem[];

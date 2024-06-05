@@ -7,6 +7,8 @@ import { withWidth } from '@material-ui/core';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import { EmailConfirmation } from '#libs/login/components/email-confirmation/EmailConfirmation.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { getIsUISimplified } from '#libs/theme/selectors';
 import {
   sendEmailForConfirmation as sendEmailForConfirmationAction,
   disconnect as disconnectAction,
@@ -15,8 +17,6 @@ import {
 } from '../../../actions/auth.actions';
 import type { RootState } from '../../../reducers';
 import './EmailConfirmationStyles.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getIsUISimplified } from '#libs/theme/selectors';
 
 type Props = {
   sendEmailForConfirmation: (companyId: number, options: any) => void;

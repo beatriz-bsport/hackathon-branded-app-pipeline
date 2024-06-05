@@ -14,6 +14,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -34,8 +36,6 @@ import CustomFormView from '../../libs/custom-form/components/consumer-form/Cust
 // @ts-expect-error
 import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
 import themeSelector from '../../libs/theme/selectors';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type StateHandlerInit = {
   customFormFilledSelected: boolean;

@@ -5,7 +5,6 @@ import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
 
 import EntryActionBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryActionBubble.component';
 import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
-import EntryStepCard from './EntryStepCard.component';
 import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 
 import type {
@@ -16,6 +15,7 @@ import type {
 
 import { InitialConfigurationStep } from '#libs/sequential_marketing/constants';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+import EntryStepCard from './EntryStepCard.component';
 
 type Props = {
   anchorActionBubble: HTMLDivElement | null;

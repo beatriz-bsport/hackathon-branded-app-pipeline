@@ -1,11 +1,5 @@
 import React from 'react';
 
-import MinimalSubscriptionCard, { type Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MinimalSubscriptionCardCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -13,6 +7,10 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { subscriptionFactory } from '#libs/subscription/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MinimalSubscriptionCardCss from './styles.css?raw';
+import MinimalSubscriptionCard, { type Props } from '.';
 
 const SUBSCRIPTION = subscriptionFactory();
 

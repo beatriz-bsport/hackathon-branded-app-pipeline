@@ -14,9 +14,9 @@ import {
   CHANGE_EMAIL_REQUEST_LINK_ACCOUNT_KIND,
   CHANGE_EMAIL_REQUEST_SIMPLE_EMAIL_CONFIRMATION_KIND,
 } from '@bsport/common/lib/master-data/change-email-request';
-import { MaterialStyleType } from '../../../../utils/types';
 import { ChangeEmailRequest } from '#libs/member/types';
 import { CompanyTheme } from '#libs/theme/types';
+import { MaterialStyleType } from '../../../../utils/types';
 
 type OwnProps = {
   open: boolean;

@@ -11,7 +11,6 @@ import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rule
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
-import { RootState } from '../../reducers';
 import { withCoachPerformance } from '#libs/coach-payment-rules/selectors';
 import {
   fetchCoachSessionPerformanceAction,
@@ -19,8 +18,6 @@ import {
   exportPdfPerformance,
 } from '#libs/coach-payment-rules/actions';
 import withTitle from '#hocs/with-title.hoc';
-import { OptionCallback } from '../../state/types';
-import { WithHandlerType } from '../../utils/types';
 import { getTheme } from '#libs/theme/selectors';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
@@ -38,6 +35,9 @@ import {
   getFilteredEstablishments,
   // @ts-expect-error
 } from '#libs/coach-payment-rules/utils';
+import { WithHandlerType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
 
 const styles = (theme: Theme) =>
   createStyles({

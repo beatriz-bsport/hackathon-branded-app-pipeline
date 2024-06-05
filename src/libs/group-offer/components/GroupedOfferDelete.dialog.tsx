@@ -24,8 +24,8 @@ import {
 
 import RedButton from '#components/button/RedButton.component';
 import { OffersGroup } from '#libs/group-offer/types';
-import { OptionCallback } from '../../../state/types';
 import { Offer } from '#libs/offer/types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean;

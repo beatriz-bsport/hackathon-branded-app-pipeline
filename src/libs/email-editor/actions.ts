@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
@@ -36,7 +37,6 @@ import {
   EmailTemplateCategoryWithTemplates,
   FranchisorSavedFilter,
 } from './types';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import { ELLIPSIS, EMAIL_TITLE_BACKEND_CHARACTER_LIMIT } from './constants';
 
 export const emailTemplatesSummariesAction = {

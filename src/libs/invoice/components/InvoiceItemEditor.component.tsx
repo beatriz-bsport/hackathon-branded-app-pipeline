@@ -22,6 +22,7 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
@@ -34,7 +35,6 @@ import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 // @ts-expect-error
 import { BuyableItemTypes } from '../types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type BuyableItemProps = {
   buyableItemIdentifier: number;

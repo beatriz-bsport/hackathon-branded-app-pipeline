@@ -9,6 +9,12 @@ import {
   getDefaultTitleForComponent,
 } from '#libs/exportable-components/utils';
 
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '#libs/exportable-components/constants';
+import { MetaActivity } from '#libs/meta-activity/types';
 import { RootState } from '../../reducers';
 import {
   fetchAllPrivatePassCategory as fetchAllPrivatePassCategoryAction,
@@ -47,7 +53,6 @@ import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { fetchPlaylistList as fetchPlaylistListAction } from '../../libs/playlist/actions';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 import { getVideoList } from '../../libs/video/selectors';
@@ -55,12 +60,7 @@ import { fetchVideoList as fetchVideoListAction } from '../../libs/video/actions
 import MarketplaceBuilder from '../../libs/marketplace/components/builder/MarketplaceBuilder.component';
 import MarketplaceTabPreview from '../../libs/marketplace/components/builder/MarketplaceTabPreview.component';
 import MarketplaceTabBuilder from '../../libs/marketplace/components/builder/MarketplaceTabBuilder.component';
-import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { getActiveCustomLevels } from '#libs/level/selectors';
-import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '#libs/exportable-components/constants';
-import { MetaActivity } from '#libs/meta-activity/types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 

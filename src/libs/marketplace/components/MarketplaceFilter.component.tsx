@@ -2,17 +2,17 @@ import React from 'react';
 import { Grid, Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
+import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
+import { Level } from '#libs/level/types';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 // @ts-expect-error
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
-import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
 import EstablishmentGroupSelector from '../../establishment/components/EstablishmentGroupSelector.component';
-import { Level } from '#libs/level/types';
 import { MarketPlaceFilter } from '../types';
 
 type Props = {

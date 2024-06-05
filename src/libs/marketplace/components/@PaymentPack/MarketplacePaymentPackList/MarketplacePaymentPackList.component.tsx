@@ -5,7 +5,6 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Immutable } from 'seamless-immutable';
 
 // @ts-expect-error
-import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import MarketplacePaymentPackCard from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCard';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
@@ -15,6 +14,7 @@ import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
+import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import './styles.css';
 

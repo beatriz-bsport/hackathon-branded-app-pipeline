@@ -4,20 +4,20 @@ import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { withProps, compose } from 'recompose';
-import { RootState } from '../../reducers';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { parseQueryString, buildUrlParams } from '../../http';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../libs/exportable-components/actions';
 import ResetPasswordConfirmation from '#libs/login/components/ResetPasswordConfirmation/';
+import ChangePasswordForm from '#components/css-only/ChangePasswordForm';
+import { Franchise } from '#libs/franchise/types';
+import { RootState } from '../../reducers';
+import { parseQueryString, buildUrlParams } from '../../http';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../libs/exportable-components/actions';
 
 import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { retrieveFranchise } from '../../libs/franchise/actions';
 import { getFranchisor } from '../../libs/franchise/selectors';
-import ChangePasswordForm from '#components/css-only/ChangePasswordForm';
-import { Franchise } from '#libs/franchise/types';
 
 interface FranchiseWithCompany extends Franchise {
   company_theme: CompanyTheme;

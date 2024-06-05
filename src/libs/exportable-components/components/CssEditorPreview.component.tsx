@@ -7,14 +7,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
 import { CompanyTheme } from '#libs/theme/types';
-import { getCssComponentByLabel } from '../utils';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
+import { CSS_COMPONENTS_BY_ID } from '#libs/exportable-components/custom_css_variants';
+import { getCssComponentByLabel } from '../utils';
 import {
   CssComponentsVariantIdentifiersValues,
   MarketplaceCSSConfiguration,
 } from '../types';
 import ComponentPreview from './ComponentPreview.component';
-import { CSS_COMPONENTS_BY_ID } from '#libs/exportable-components/custom_css_variants';
 
 const CssEditorPreview: React.FC<{
   code: string;

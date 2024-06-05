@@ -1,5 +1,5 @@
-import { ErrorAndLoading } from '../types';
 import type { AutomatedCampaign } from '#libs/smart-list/types';
+import { ErrorAndLoading } from '../types';
 
 export type MemberMailData = {
   members: Array<number>;

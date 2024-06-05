@@ -27,13 +27,13 @@ import DelayedTextField from '#components/DelayedTextField.component';
 import { Submit } from '#components/forms';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import { OptionCallback } from '../../../state/types';
-import ReccurenceDisplay from './RecurrenceDisplay.component';
 import {
   FREQUENCE_STRING_CONVERTER,
   getDisplayDateFromRecurrence,
 } from '#libs/group-offer/utils';
 import { Offer } from '#libs/offer/types';
+import { OptionCallback } from '../../../state/types';
+import ReccurenceDisplay from './RecurrenceDisplay.component';
 
 export type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types

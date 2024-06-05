@@ -19,8 +19,8 @@ import {
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
 
-import FilterMenu from '../../../components/button/FilterMenu.component';
 import type { PrivateBookingFilterParams } from '#libs/private-service/types';
+import FilterMenu from '../../../components/button/FilterMenu.component';
 
 type Props = {
   filters: PrivateBookingFilterParams;

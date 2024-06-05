@@ -15,7 +15,6 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { OptionCallback } from '../../../state/types';
 import {
   TextField,
   Submit,
@@ -30,6 +29,7 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
+import { OptionCallback } from '../../../state/types';
 
 type OuterProps = {
   initial: OffersGroup;

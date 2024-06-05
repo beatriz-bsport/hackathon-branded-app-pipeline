@@ -6,12 +6,13 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
 import { DateTime } from 'luxon';
-import type { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import type { Coupon, UniqueCodeCouponUpdatePayload } from '#libs/coupon/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import type { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import UniqueCodeCouponFormSkeleton from './UniqueCodeCouponFormSkeleton.component';
 import UniqueCodeCouponFormGeneral from './sections/UniqueCodeCouponFormGeneral.component';
 import ValidationSchema, { ValidationSchemaOnUpdate } from './ValidationSchema';
@@ -19,7 +20,6 @@ import UniqueCodeCouponFormSettings from './sections/UniqueCodeCouponFormSetting
 import UniqueCodeCouponFormAvailability from './sections/UniqueCodeCouponFormAvailability.component';
 import UniqueCodeCouponFormUsability from './sections/UniqueCodeCouponFormUsability.component';
 import UniqueCodeCouponFormUpload from './sections/UniqueCodeCouponFormUpload.component';
-import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type ComponentProps = {
   uniqueCodeCoupon?: Coupon;

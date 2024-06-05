@@ -12,14 +12,14 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 
-import { OptionCallback } from '../../../state/types';
-import RedButton from '../../../components/button/RedButton.component';
 import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import type { Booking } from '#libs/booking/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Offer } from '#libs/offer/types';
+import RedButton from '../../../components/button/RedButton.component';
+import { OptionCallback } from '../../../state/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {

@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -38,7 +37,6 @@ module.exports = merge(common, {
       template: paths.appHtml,
       templateParameters: env.raw,
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new ESLintPlugin({
       extensions: ['js', 'jsx', 'ts', 'tsx'],
       emitWarning: true,

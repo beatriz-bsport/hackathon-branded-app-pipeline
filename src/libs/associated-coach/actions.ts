@@ -5,7 +5,6 @@ import uniq from 'lodash/uniq';
 import { ThunkDispatch } from 'redux-thunk';
 import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
-import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
   updateCoach as updateCoachAPI,
@@ -27,13 +26,6 @@ import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#libs/replace
 import { getFreshCoachIds } from '#libs/associated-coach/selectors';
 
 // @ts-expect-error
-import { createDictionnaryById, createIdList } from '../../actions/utils';
-import {
-  OptionCallback,
-  Dispatch,
-  CustomErrorActionCallback,
-} from '../../state/types';
-import { RootState } from '../../reducers';
 import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
 import type {
   Coach,
@@ -44,6 +36,14 @@ import type {
 import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import { RootState } from '../../reducers';
+import {
+  OptionCallback,
+  Dispatch,
+  CustomErrorActionCallback,
+} from '../../state/types';
+import { createDictionnaryById, createIdList } from '../../actions/utils';
+import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),

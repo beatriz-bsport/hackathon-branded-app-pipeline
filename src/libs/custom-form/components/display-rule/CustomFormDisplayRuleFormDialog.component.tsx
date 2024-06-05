@@ -30,12 +30,12 @@ import {
   CUSTOM_FORM_DISPLAY_ON_CONNECTION,
   CUSTOM_FORM_DISPLAY_ON_SIGN_UP,
 } from '@bsport/common/lib/master-data/custom-form';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import type { CustomFormDisplayRule } from '../../types';
 // @ts-expect-error
 import { IntegerField } from '../../../../components/forms';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../state/types';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
   trackFormAdd,

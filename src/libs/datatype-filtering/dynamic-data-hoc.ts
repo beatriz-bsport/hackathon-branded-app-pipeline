@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import type { RootState } from '../../reducers';
 import { getPageMetaActivities } from '#libs/meta-activity/selectors';
 import {
   getAll as getAllPaymentPack,
@@ -63,9 +62,10 @@ import {
   setDynamicDataHasBeenLoaded as setDynamicDataHasBeenLoadedAction,
   resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
 } from '#libs/datatype-filtering/actions';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 import { getFranchiseCompanies } from '../franchise/selectors';
 import { ReportFilterableDataType } from './constants';
-import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+import type { RootState } from '../../reducers';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 

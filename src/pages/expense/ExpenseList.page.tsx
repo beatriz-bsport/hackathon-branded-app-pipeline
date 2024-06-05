@@ -7,9 +7,6 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { OptionCallback } from '../../state/types';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers';
 import { getExpenseList, withUsers } from '#libs/expense/selectors';
 import {
   fetchExpenseList,
@@ -36,6 +33,9 @@ import { UserRole } from '#libs/role/types';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { RootState } from '../../reducers';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Expense,

@@ -1,19 +1,17 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MenuItem, { MenuItemProps, MenuItemType, MenuItemTypeEnum } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MenuItemCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import MenuItem, { MenuItemProps, MenuItemType, MenuItemTypeEnum } from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MenuItemCss from './styles.css?raw';
+
 import { MENU_ITEM_START_ICON } from './constants';
 
 const LABEL = faker.lorem.word();

@@ -23,13 +23,13 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import type { Theme } from '@material-ui/core';
 import { Cake } from '@material-ui/icons';
 
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import MemberSearchBar from './MemberSearchBar.component';
 // @ts-expect-error
 import MemberForm from '../MemberForm.component';
 import { Member } from '../types';
 import { OptionCallback } from '../../../state/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   open: boolean;

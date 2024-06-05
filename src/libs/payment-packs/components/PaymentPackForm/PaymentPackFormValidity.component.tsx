@@ -13,6 +13,7 @@ import {
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
+import type { PrivatePass } from '#libs/private-service/types';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -21,7 +22,6 @@ import {
   // @ts-expect-error
 } from '../../../../components/forms';
 import { getValidityString } from '../../utils';
-import type { PrivatePass } from '#libs/private-service/types';
 
 type Props = {
   initial: PaymentPack<PrivatePass>;

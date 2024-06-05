@@ -28,12 +28,12 @@ import Price from '#components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
-import { BookerModuleOfferSummarySkeleton } from '.';
-
 import {
   formatOfferDateWithTime,
   formatOfferHours,
 } from '#libs/marketplace/utils/offer';
+import { BookerModuleOfferSummarySkeleton } from '.';
+
 
 import './styles.css';
 

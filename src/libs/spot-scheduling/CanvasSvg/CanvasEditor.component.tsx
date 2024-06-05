@@ -6,6 +6,7 @@ import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { withTheme } from '@storybook/theming';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { CompanyTheme, Theme } from '#libs/theme/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
@@ -22,7 +23,6 @@ import SpotImageUploadDialog from './SpotImageUploadDialog.component';
 import CanvasToolbar from './CanvasToolbar.component';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../types';
 import { OptionCallback } from '../../../state/types';
-import { CompanyTheme, Theme } from '#libs/theme/types';
 import CanvasEditorCssForm from './CanvasEditorCssForm.component';
 
 type UndoRedoState = {

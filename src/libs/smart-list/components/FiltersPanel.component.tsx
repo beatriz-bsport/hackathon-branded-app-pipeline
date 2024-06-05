@@ -76,7 +76,6 @@ import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLeve
 import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 
-import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import type { CustomForm } from '#libs/custom-form/types';
 import type { Establishment } from '#libs/establishment/types';
@@ -90,6 +89,7 @@ import type {
   CommunicationScheduled,
   SmartListPopupSending,
 } from '#libs/communication-v2/types';
+import type { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

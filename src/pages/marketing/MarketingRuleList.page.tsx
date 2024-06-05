@@ -9,10 +9,6 @@ import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { OptionCallback } from '../../state/types';
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 import {
   getNotificationGrouped,
   getNotificationForMarketingPage,
@@ -39,7 +35,6 @@ import {
   fetchPrivateServiceBulk,
   fetchPrivatePassList,
 } from '#libs/private-service/actions';
-import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
 import {
   fetchActivitiesCompany,
   fetchMetaActivityBulk,
@@ -70,7 +65,6 @@ import {
   getResolvedGenericTags,
 } from '#libs/notification-rule/selectors';
 
-import { MaterialStyleType } from '../../utils/types';
 
 import MarketingRuleListPaymentPack from '#libs/marketing/components/MarketingRuleListPaymentPack.component';
 import MarketingRuleListPrivatePass from '#libs/marketing/components/MarketingRuleListPrivatePass.component';
@@ -104,6 +98,12 @@ import FabWithItems from '#components/button/FabWithItems';
 import MarketingRuleListContract from '#libs/marketing/components/MarketingRuleListContract.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import MarketingRuleListBirthday from '#libs/marketing/components/MarketingRuleListBirthday.component';
+import { MaterialStyleType } from '../../utils/types';
+import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import { OptionCallback } from '../../state/types';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &

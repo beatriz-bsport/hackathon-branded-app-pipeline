@@ -21,16 +21,16 @@ import {
   OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import type { ImmutableArray } from 'seamless-immutable';
-import { ErrorAndLoading } from '../types';
-import { Establishment } from '../establishment/types';
-import { MetaActivity } from '../meta-activity/types';
-import { Coach } from '../associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import { OFFER_RECURRENCE } from './constants';
 import { SpotInformation } from '#libs/spot-scheduling/types';
 import { Level } from '#libs/level/types';
 import { BroadcastInfo } from '#libs/booking/types';
 import type { LuxonDateTime } from '#src/types';
+import { ErrorAndLoading } from '../types';
+import { Establishment } from '../establishment/types';
+import { MetaActivity } from '../meta-activity/types';
+import { Coach } from '../associated-coach/types';
+import { OFFER_RECURRENCE } from './constants';
 
 export type OfferFilter = {
   establishments?: number[];

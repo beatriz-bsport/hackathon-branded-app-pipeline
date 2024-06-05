@@ -12,6 +12,12 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { appliesToInvoice } from '#libs/coupon/api';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { GiftcardBackgroundImage } from '#libs/giftcard/types';
+import { Member } from '#libs/member/types';
+import { isErrorWithCustomCode } from '#libs/utils';
 import InvoiceContent from './InvoiceContent.component';
 // @ts-expect-error
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
@@ -20,15 +26,9 @@ import {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../../state/types';
-import { appliesToInvoice } from '#libs/coupon/api';
-import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
-import { GiftcardBackgroundImage } from '#libs/giftcard/types';
-import { Member } from '#libs/member/types';
 import { InvoiceItem } from '../invoice-item/types';
 import { BuyableItem } from '../types';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 
 type OwnProps = {
   invoiceItemList: Array<InvoiceItem>;

@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { SelectorSize } from '../types';
-import { SelectorSizeEnum } from '../constants';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import { ChevronDown, ChevronUp, XClose } from '#components/untitledui';
 import Typography from '#Fabrique/Typography';
+import { SelectorSizeEnum } from '../constants';
+import { SelectorSize } from '../types';
 import './selector-input-styles.css';
 
 export type SelectorInputClasses = {

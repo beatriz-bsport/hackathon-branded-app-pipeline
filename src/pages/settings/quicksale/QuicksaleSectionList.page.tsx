@@ -42,9 +42,9 @@ import {
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { bottomSnackbarInfo } from '#libs/snackbar/actions';
 
+import PromptOnPageLeave from '#components/Prompt';
 import { Dispatch } from '../../../state/types';
 import { RootState } from '../../../reducers';
-import PromptOnPageLeave from '#components/Prompt';
 import useStyles from './cardListHook';
 
 enum ReducerActionType {

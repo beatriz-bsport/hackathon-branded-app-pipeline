@@ -4,6 +4,10 @@ import uniq from 'lodash/uniq';
 import pickBy from 'lodash/pickBy';
 
 import {
+  updateRollCallOfferRetrieveActions,
+  updateRollCallOfferByIdActions,
+} from '#libs/booking/actions';
+import {
   offers,
   offersPaginated,
   compatiblePacks,
@@ -40,10 +44,6 @@ import {
   updateInternalNoteActions,
 } from './actions';
 import { OfferState } from './types';
-import {
-  updateRollCallOfferRetrieveActions,
-  updateRollCallOfferByIdActions,
-} from '#libs/booking/actions';
 
 export const marketplaceByMetaActivityEmptyState = Immutable({
   allIds: [],

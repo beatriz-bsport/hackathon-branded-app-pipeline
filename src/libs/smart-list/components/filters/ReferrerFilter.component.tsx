@@ -3,8 +3,8 @@ import React from 'react';
 import { Theme, makeStyles } from '@material-ui/core';
 
 import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list';
-import { DisableInputComponent, NumbersComparatorInput } from './inputs';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { DisableInputComponent, NumbersComparatorInput } from './inputs';
 
 type FilterData = {
   filter_identifier: number;

@@ -24,12 +24,12 @@ import {
 
 import { DateTime } from 'luxon';
 // @ts-expect-error
+import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
 import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { StripePayout } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
-import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
 
 type Props = {
   stripePayout: StripePayout;

@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { v4 as uuidv4 } from 'uuid';
 
+import { validateEmailActions } from '#libs/login/actions';
 import {
   setAuthToken,
   setAccessControlBroadcastsChannelId,
@@ -13,7 +14,6 @@ import {
   stampLastStripeAccountConfigurationWarningDateSuccess,
 } from '../actions/auth.actions';
 
-import { validateEmailActions } from '#libs/login/actions';
 
 const initialState = Immutable({
   username: '',

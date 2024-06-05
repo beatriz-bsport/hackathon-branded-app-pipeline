@@ -1,8 +1,4 @@
 import { ContractWithPaymentPack } from '#libs/subscription/types';
-import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import type { Offer_FULL } from '../offer/types';
-import { PaymentCombo } from '../payment-combo/types';
-import { PaymentPack, MaxoutData } from '../payment-packs/types';
 import type {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
@@ -10,6 +6,10 @@ import type {
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
 } from '#libs/marketplace/constants';
+import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
+import type { Offer_FULL } from '../offer/types';
+import { PaymentCombo } from '../payment-combo/types';
+import { PaymentPack, MaxoutData } from '../payment-packs/types';
 
 export type OfferData = {
   offer: Offer_FULL;

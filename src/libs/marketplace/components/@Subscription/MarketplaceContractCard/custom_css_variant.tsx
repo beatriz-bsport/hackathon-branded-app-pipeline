@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplaceContractCard, {
-  Props as MarketplaceContractCardProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceContractCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -14,6 +8,12 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 
 import { contractFactory } from '#libs/subscription/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceContractCardCss from './styles.css?raw';
+import MarketplaceContractCard, {
+  Props as MarketplaceContractCardProps,
+} from '.';
 
 const contractCardVariationRegistry = [
   {

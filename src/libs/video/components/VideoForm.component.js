@@ -12,6 +12,7 @@ import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { Duration } from 'luxon';
+import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
 import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
@@ -21,7 +22,6 @@ import {
   IntegerField,
   CheckboxField,
 } from '../../../components/forms';
-import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
 import { Video } from '../types';
 
 type Props = {

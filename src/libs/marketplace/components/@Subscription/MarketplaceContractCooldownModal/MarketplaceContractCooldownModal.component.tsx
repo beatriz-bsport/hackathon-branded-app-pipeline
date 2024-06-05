@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { CONTRACT_CHECKOUT_COOLDOWN_MODAL_SECONDS } from '#libs/marketplace/constants';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import './styles.css';
 

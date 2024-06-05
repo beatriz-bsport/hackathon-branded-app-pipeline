@@ -1,8 +1,8 @@
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
+import { PaymentGroup } from '#libs/invoice/types';
 import { RootState } from '../../reducers';
 import type { Payout, StripePayout } from './types';
-import { PaymentGroup } from '#libs/invoice/types';
 
 const EMPTY_LIST = Immutable([]);
 const _getPaymentMethodLoading = (state: RootState) =>

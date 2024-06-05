@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 import {
   CheckoutItem,
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
 } from '#libs/checkout/types';
 import { getCurrencyDisplayWithPriceAndQuantity } from '#libs/theme/selectors';
+import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 
 type BasketSummaryProps = {
   basketSummaryCheckoutItems: Array<CheckoutItem>;

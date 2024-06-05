@@ -1,5 +1,5 @@
-import { ActivitySimplified } from '../../api/types';
 import { ErrorAndLoading } from '#libs/types';
+import { ActivitySimplified } from '../../api/types';
 
 export type CoachUpdateOrCreatedPayload = {
   avatar: File;

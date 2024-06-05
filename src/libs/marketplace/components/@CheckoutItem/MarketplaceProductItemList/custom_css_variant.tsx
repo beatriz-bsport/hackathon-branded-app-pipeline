@@ -2,11 +2,6 @@ import React from 'react';
 
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
-import MarketplaceProductItemList, { Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceProductItemListCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
@@ -17,6 +12,10 @@ import {
 
 import { BuyableItemOptions } from '#libs/checkout/types';
 import { checkoutItemsFactory } from '#libs/checkout/factories';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceProductItemListCss from './styles.css?raw';
+import MarketplaceProductItemList, { Props } from '.';
 
 const items = checkoutItemsFactory(4, {
   buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,

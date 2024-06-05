@@ -4,13 +4,13 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import { useCloseModal, usePopoverPositioning } from '#Fabrique/hooks';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
-import { MENU_MARGIN } from './constants';
 import {
   DELAY_DURATION,
   MARGIN_THRESHOLD,
   HorizontalEnum,
   VerticalEnum,
 } from '#Fabrique/constants';
+import { MENU_MARGIN } from './constants';
 import './styles.css';
 
 type MenuProps = {

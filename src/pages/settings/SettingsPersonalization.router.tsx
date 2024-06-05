@@ -9,10 +9,10 @@ import { push as pushRouter } from 'connected-react-router';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 // @ts-expect-error
-import SettingsPersonalizePage from './SettingsPersonalizePage.page';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import MemberProfileSettingsPage from './MemberProfileSettings.page';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import SettingsPersonalizePage from './SettingsPersonalizePage.page';
+import MemberProfileSettingsPage from './MemberProfileSettings.page';
 
 type Props = {
   tab: string;

@@ -9,6 +9,10 @@ import withStyles from '@material-ui/styles/withStyles';
 import { CircularProgress } from '@material-ui/core';
 
 // @ts-expect-error
+import type { Theme } from '#libs/theme/types';
+import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
+import { Membership } from '#libs/membership/types';
+import type { StripeInit } from '#libs/payment/types';
 import asyncComponent from '../../AsyncComponent';
 
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
@@ -23,10 +27,6 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
-import type { Theme } from '#libs/theme/types';
-import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
-import { Membership } from '#libs/membership/types';
-import type { StripeInit } from '#libs/payment/types';
 
 const SubscriptionPayment = asyncComponent(
   () =>

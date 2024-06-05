@@ -13,20 +13,20 @@ import AddIcon from '@material-ui/icons/Add';
 import { createStyles, Theme } from '@material-ui/core';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-import { ReportConfiguration, ReportMetadataValue } from '../types';
 
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ModalConfirm from '#components/ModalConfirm.component';
-import ReportCategorySelector from './ReportCategorySelector.component';
-import ReportList from './ReportList.component';
-import ReportListItem from './ReportListItem.component';
-import ReportConfigurationForm from './ReportConfigurationForm.component';
-import { OptionCallback } from '../../../state/types';
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import ReportCategorySelector from './ReportCategorySelector.component';
+import ReportList from './ReportList.component';
+import ReportListItem from './ReportListItem.component';
+import ReportConfigurationForm from './ReportConfigurationForm.component';
+import { OptionCallback } from '../../../state/types';
+import { ReportConfiguration, ReportMetadataValue } from '../types';
 
 const {
   trackFormAdd,

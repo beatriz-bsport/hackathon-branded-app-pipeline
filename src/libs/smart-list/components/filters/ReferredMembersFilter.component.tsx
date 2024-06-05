@@ -3,12 +3,12 @@ import React from 'react';
 import { Theme, makeStyles } from '@material-ui/core';
 import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list';
 
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import {
   BooleanChoiceInputComponent,
   DisableInputComponent,
   NumbersComparatorInput,
 } from './inputs';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type FilterData = {
   filter_identifier: number;

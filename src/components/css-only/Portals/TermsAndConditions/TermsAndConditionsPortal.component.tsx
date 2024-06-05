@@ -1,9 +1,9 @@
 import React from 'react';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
+import type { TermsPortalProps } from '#csscomponents/Portals/types';
 import { TermsAndConditionsModal, TermsAndConditionsBottomDrawer } from '.';
 
-import type { TermsPortalProps } from '#csscomponents/Portals/types';
 
 const TermsAndConditionsPortal: React.FC<TermsPortalProps> = ({
   terms,

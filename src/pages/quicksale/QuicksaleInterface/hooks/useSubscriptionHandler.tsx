@@ -8,11 +8,11 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/p
 import type { Member } from '#libs/member/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
+import { BackgroundDialogDisplayMode } from '#libs/background-dialog/types';
 import type {
   OptionBackgroundCallback,
   OptionCallback,
 } from '../../../../state/types';
-import { BackgroundDialogDisplayMode } from '#libs/background-dialog/types';
 
 const useSubscriptionHandler = (
   currency: string,

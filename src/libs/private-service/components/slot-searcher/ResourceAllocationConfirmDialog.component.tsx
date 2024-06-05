@@ -12,11 +12,11 @@ import Dialog from '@material-ui/core/Dialog';
 import { WithStyles, withStyles, Theme, Typography } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 
+import { joinIntervalList } from '#libs/private-service/utils';
 import type { PrivateBooking, PrivateSlot, PrivateService } from '../../types';
 import type { Coach } from '../../../associated-coach/types';
 import { Establishment } from '../../../establishment/types';
 import { resourceAllocationChecker } from '../../api';
-import { joinIntervalList } from '#libs/private-service/utils';
 
 type OwnProps = {
   onCancel: () => void;

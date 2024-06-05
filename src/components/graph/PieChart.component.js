@@ -18,8 +18,8 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import isEqual from 'lodash/isEqual';
-import { numberFormatter } from '../../libs/statistics/utils';
 import { DASHBOARD_COLOR_PALETTE } from '#libs/dashboard/colors';
+import { numberFormatter } from '../../libs/statistics/utils';
 
 type Props = {
   height?: number | string,

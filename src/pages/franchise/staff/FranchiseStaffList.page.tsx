@@ -25,10 +25,10 @@ import {
   hasFranchiseRoleUpsertPermission,
 } from '#libs/role/selectors';
 import withTitle from '#hocs/with-title.hoc';
-import { RootState } from '../../../reducers';
-import { MaterialStyleType } from '../../../utils/types';
 import { getFranchiseCompanies } from '#libs/franchise/selectors';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+import { RootState } from '../../../reducers';
+import { MaterialStyleType } from '../../../utils/types';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &

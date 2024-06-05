@@ -3,10 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 
-import EntryStepFlowVersion from '../nodes/steps/EntryStepFlowVersion.component';
-import InnerStepFlowVersion from '../nodes/steps/InnerStepFlowVersion.component';
-import TriggerCardFlowVersion from '../nodes/triggers/TriggerCardFlowVersion.component';
-import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.component';
 
 import {
   DestinationKind,
@@ -18,7 +14,6 @@ import {
   TriggerKind,
   DestinationStatus,
 } from '#libs/sequential_marketing/constants';
-import { getConnectedTriggerDefaultValues } from './utils';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
 
 import type {
@@ -30,13 +25,18 @@ import type {
   StepMarketingActions,
   MarketingActionEssentials,
 } from '#libs/sequential_marketing/types';
-import type { StoredStep, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
-import type { OptionCallback } from '../../../../../state/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { OptionCallback } from '../../../../../state/types';
+import type { StoredStep, StoredTrigger } from './types';
+import { getConnectedTriggerDefaultValues } from './utils';
+import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.component';
+import TriggerCardFlowVersion from '../nodes/triggers/TriggerCardFlowVersion.component';
+import InnerStepFlowVersion from '../nodes/steps/InnerStepFlowVersion.component';
+import EntryStepFlowVersion from '../nodes/steps/EntryStepFlowVersion.component';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Audience,

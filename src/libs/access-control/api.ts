@@ -1,3 +1,4 @@
+import type { PaginatedResponse } from '#state/types';
 import {
   buildUrlParams,
   API_V1_URI,
@@ -7,7 +8,6 @@ import {
 } from '../../http';
 import { EntryStatus } from './constants';
 
-import type { PaginatedResponse } from '#state/types';
 import type {
   AccessControlBookingOrPrivateBooking,
   AccessControlPolicy,

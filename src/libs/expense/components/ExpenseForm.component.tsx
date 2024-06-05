@@ -12,8 +12,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { LinearProgress, Theme, Typography } from '@material-ui/core';
-import RRule from 'rrule';
+import { RRule } from 'rrule';
 import { DateTime } from 'luxon';
+import { UserRole } from '#libs/role/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { OptionCallback } from '../../../state/types';
 import { ExpenseFormValues, ExpenseWithUser } from '../types';
 import {
@@ -24,11 +27,7 @@ import {
   PriceField,
   // @ts-expect-error
 } from '../../../components/forms';
-import { UserRole } from '#libs/role/types';
 import ExpenseRecurrencySelector from '../../../components/input/ExpenseRecurrencySelector.component';
-
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
   trackFormAdd,

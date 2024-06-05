@@ -17,9 +17,9 @@ import Immutable from 'seamless-immutable';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
 import type { Coach } from '../../types';
 
-import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
 
 type Props = {
   id?: string;

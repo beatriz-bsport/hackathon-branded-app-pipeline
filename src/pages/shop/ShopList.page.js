@@ -35,6 +35,10 @@ import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 
 import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import themeSelectors from '../../libs/theme/selectors';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
@@ -50,8 +54,6 @@ import {
   deleteSubShop,
 } from '../../libs/shop/actions/subshop';
 import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
 
 import type { ShopItem, SubShop } from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
@@ -63,8 +65,6 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withtitle from '../../hocs/with-title.hoc';
 import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { BookkeepingAccount } from '../../libs/payment/types';
 import { fetchBookkeepingAccountList } from '../../libs/payment/actions';
 import {

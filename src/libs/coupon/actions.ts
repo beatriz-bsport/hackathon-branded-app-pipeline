@@ -1,6 +1,26 @@
 import { createAction } from 'redux-actions';
 
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+
+import {
+  Coupon,
+  CouponTemplate,
+  CouponTemplateInstance,
+  Discount,
+  FetchCouponsParams,
+  FetchDiscountParams,
+  ResetDiscountList,
+  UniqueCodeCouponCreationPayload,
+} from '#libs/coupon/types';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+
+import { isErrorWithCustomCode } from '#libs/utils';
+import {
+  OptionCallback,
+  Dispatch,
+  ThunkAction,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../state/types';
 import {
   fetchCouponPage as fetchCouponPageAPI,
   fetchCouponDiscounts as fetchCouponDiscountsAPI,
@@ -22,26 +42,6 @@ import {
   markCodesAsRedeemed as markCodesAsRedeemedAPI,
   exportCodesAsCsv as exportCodesAsCsvAPI,
 } from './api';
-
-import {
-  OptionCallback,
-  Dispatch,
-  ThunkAction,
-  OptionCallBackWithKeyedCallbacks,
-} from '../../state/types';
-import {
-  Coupon,
-  CouponTemplate,
-  CouponTemplateInstance,
-  Discount,
-  FetchCouponsParams,
-  FetchDiscountParams,
-  ResetDiscountList,
-  UniqueCodeCouponCreationPayload,
-} from '#libs/coupon/types';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
-
-import { isErrorWithCustomCode } from '#libs/utils';
 
 export const couponList = {
   error: createAction<Error | null>('COUPON/LIST/ERROR'),

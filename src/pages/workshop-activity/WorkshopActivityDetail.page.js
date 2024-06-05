@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import WorkshopActivityDetailPack from './WorkshopActivityDetailPack.page';
 import WorkshopActivityDetailGeneral from './WorkshopActivityDetailGeneral.page';
 import WorkshopActivityDetailGroup from './WorkshopActivityDetailGroup.page';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
 import { fetchMetaActivities as fetchMetaActivitiesAction } from '../../libs/meta-activity/actions';

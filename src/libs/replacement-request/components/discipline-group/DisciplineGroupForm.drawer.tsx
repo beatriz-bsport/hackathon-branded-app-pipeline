@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import DisciplineGroupForm from './DisciplineGroupForm.component';
 import { DisciplineGroup } from '#libs/replacement-request/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
@@ -11,6 +10,7 @@ import { Coach } from '#libs/associated-coach/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import DisciplineGroupForm from './DisciplineGroupForm.component';
 import type { Theme as CompanyTheme } from '../../../theme/types';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(

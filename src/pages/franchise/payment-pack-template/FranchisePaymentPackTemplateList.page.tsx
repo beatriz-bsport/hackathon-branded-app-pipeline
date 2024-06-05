@@ -14,17 +14,12 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import BackofficeLinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
-import { buildUrlParams } from '../../../http';
 
-import { RootState } from '../../../reducers';
 
 import VirtualizedPaymentPackTemplateList from '#libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
-import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
 import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
-import { OptionCallback } from '../../../state/types';
 import {
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction,
   fetchPaymentPackTemplateListManagerOnly as fetchPaymentPackTemplateListManagerOnlyAction,
@@ -37,6 +32,11 @@ import {
   getPaymentPackTemplateListAvailableForSale,
   getPaymentPackTemplateData,
 } from '#libs/payment-packs/selectors';
+import { OptionCallback } from '../../../state/types';
+import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
+import { RootState } from '../../../reducers';
+import { buildUrlParams } from '../../../http';
+import BackofficeLinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 
 const styles = (theme: Theme) =>
   createStyles({

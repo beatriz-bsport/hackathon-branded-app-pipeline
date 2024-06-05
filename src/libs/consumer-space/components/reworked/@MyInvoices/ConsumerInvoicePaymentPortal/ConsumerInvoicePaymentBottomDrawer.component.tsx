@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerInvoicePaymentContent } from '.';
 import BottomDrawer from '#Fabrique/BottomDrawer';
+import { ConsumerInvoicePaymentContent } from '.';
 
 import './styles.css';
 

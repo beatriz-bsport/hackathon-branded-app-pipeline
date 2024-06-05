@@ -12,12 +12,8 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import type { RootState } from '../../reducers';
-import InboxThreadList from './InboxThreadList.page';
-import InboxThreadContainer from './InboxThreadContainer.page';
 import { getInboxThreadFromSelectedId } from '#libs/communication-v2/selectors';
 import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/communication-v2/actions';
-import InboxPanel from './InboxPanel.page';
 import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
@@ -34,6 +30,10 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segm
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 
 import type { UpsellPackage } from '#libs/company/types';
+import InboxPanel from './InboxPanel.page';
+import InboxThreadContainer from './InboxThreadContainer.page';
+import InboxThreadList from './InboxThreadList.page';
+import type { RootState } from '../../reducers';
 
 const INBOX_PANEL_WIDTH = 378;
 

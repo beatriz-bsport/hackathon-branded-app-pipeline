@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplacePaymentPackCard, {
-  Props as MarketplacePaymentPackCardProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplacePaymentPackCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -15,6 +9,12 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplacePaymentPackCardCss from './styles.css?raw';
+import MarketplacePaymentPackCard, {
+  Props as MarketplacePaymentPackCardProps,
+} from '.';
 
 const paymentPackCardVariationRegistry = [
   {

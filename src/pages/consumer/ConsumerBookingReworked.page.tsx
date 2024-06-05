@@ -72,13 +72,13 @@ import {
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
 
 import type { BookingREST } from '#libs/booking/types';
-import type { RootState } from '../../reducers';
-import type { WithHandlerType } from '../../utils/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import type { WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {};
 type ParamsProps = {

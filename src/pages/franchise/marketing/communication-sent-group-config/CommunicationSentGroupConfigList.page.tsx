@@ -5,9 +5,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import { ConnectedProps, connect } from 'react-redux';
-import { WithHandlerType } from '../../../../utils/types';
-import { OptionCallback } from '../../../../state/types';
-import { RootState } from '../../../../reducers';
 import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
@@ -23,11 +20,14 @@ import {
 } from '#libs/communication/selectors';
 import type { CommunicationSentGroupConfig } from '#libs/communication/types';
 // @ts-expect-error
-import withQueryParams from '../../../../hocs/with-query-params.hoc';
 // @ts-expect-error
 import SmartListFormDialog from '#libs/smart-list/components/SmartListFormDialog.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import CommunicationSentGroupConfigListing from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing';
+import withQueryParams from '../../../../hocs/with-query-params.hoc';
+import { RootState } from '../../../../reducers';
+import { OptionCallback } from '../../../../state/types';
+import { WithHandlerType } from '../../../../utils/types';
 
 type OwnProps = {
   campaignId: number;

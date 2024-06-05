@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { ColorField } from '../../../../components/forms';
 import CanvasSpotComponent from '../../CanvasSvg/tools/Spot/CanvasSpot.component';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 // @ts-expect-error
 export const PersonalizedSpotCreator = (props) => {

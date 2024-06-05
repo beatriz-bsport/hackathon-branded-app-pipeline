@@ -6,7 +6,6 @@ import ListItem from '#Fabrique/ListItem';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
 
-import type { ConsumerBookingCardProps } from '..';
 import {
   ChevronRight,
   HourGlass03,
@@ -15,6 +14,7 @@ import {
   User01,
 } from '#components/untitledui';
 import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import type { ConsumerBookingCardProps } from '..';
 
 type Props = Required<
   Pick<

@@ -3,11 +3,8 @@ import React, { useCallback, useEffect } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { DrawerContext, DrawerContextValue } from '../../context';
-import { RootState } from '../../reducers';
 import { snackbarError as snackbarErrorAction } from '#libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
@@ -32,6 +29,9 @@ import { fetchTagList as fetchTagListAction } from '#libs/notification-rule/acti
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
 import { FranchiseCompany } from '#libs/franchise/types';
+import { RootState } from '../../reducers';
+import { DrawerContext, DrawerContextValue } from '../../context';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import type { OptionCallback } from '../../state/types';
 
 type OwnProps = {

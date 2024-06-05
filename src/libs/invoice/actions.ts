@@ -12,6 +12,36 @@ import {
 } from '@bsport/common/lib/master-data/error-codes/lock';
 
 import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
+
+import { refreshAlertingByKind } from '#libs/alerting/actions';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import { isErrorWithCustomCode } from '#libs/utils';
+
+import type {
+  Invoice,
+  InvoiceConfigurationSerializer,
+  InvoiceConfigurationMemberSerializer,
+  InvoiceDetailsSerializer,
+  InvoiceFilter,
+  InvoiceInfoSerializer,
+  InvoiceItemFilter,
+  InvoiceV1Serializer,
+  PaymentFilter,
+  PlannedPaymentEvent,
+  PlannedPaymentEventFilter,
+  PlannedPaymentEventSerializer,
+} from '#libs/invoice/types';
+import type { PaymentItem } from '#libs/invoice/payment/types';
+import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import type { Payment } from '#libs/payment/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
 import {
   revert as revertAPI,
   createQuick as createQuickAPI,
@@ -44,36 +74,6 @@ import {
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
 } from './api';
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-
-import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
-
-import { refreshAlertingByKind } from '#libs/alerting/actions';
-import { CouponErrorCodes } from '#libs/coupon/constants';
-import { isErrorWithCustomCode } from '#libs/utils';
-
-import type {
-  Dispatch,
-  OptionCallback,
-  PaginatedResponse,
-} from '../../state/types';
-import type {
-  Invoice,
-  InvoiceConfigurationSerializer,
-  InvoiceConfigurationMemberSerializer,
-  InvoiceDetailsSerializer,
-  InvoiceFilter,
-  InvoiceInfoSerializer,
-  InvoiceItemFilter,
-  InvoiceV1Serializer,
-  PaymentFilter,
-  PlannedPaymentEvent,
-  PlannedPaymentEventFilter,
-  PlannedPaymentEventSerializer,
-} from '#libs/invoice/types';
-import type { PaymentItem } from '#libs/invoice/payment/types';
-import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
-import type { Payment } from '#libs/payment/types';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),

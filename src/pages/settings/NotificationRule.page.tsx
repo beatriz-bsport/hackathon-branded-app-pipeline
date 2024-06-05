@@ -5,7 +5,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
 
-import { RootState } from '../../reducers';
 import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
@@ -19,6 +18,7 @@ import { getEventByGroup } from '#libs/notification-rule/selectors';
 import withTitle from '#hocs/with-title.hoc';
 import NotificationRuleGroupHeader from '#libs/notification-rule/components/NotificationRuleGroupHeader.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import { RootState } from '../../reducers';
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,

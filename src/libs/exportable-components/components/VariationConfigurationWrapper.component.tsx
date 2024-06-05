@@ -14,13 +14,13 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-import { getCssComponentByLabel } from '../utils';
 import {
   CssComponentsVariantIdentifiersValues,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import { getCssComponentByLabel } from '../utils';
 /*  Wrapper that dynamically passes different props based on the current state.
  * This wrapper is utilized to display the appropriate React component (children) sourced from the configurations.
  * It is also responsible for managing the state/variant in which the user wants to view the displayed component.

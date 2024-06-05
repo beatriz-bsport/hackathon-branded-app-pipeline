@@ -1,3 +1,4 @@
+import type { Member } from '#libs/member/types';
 import {
   getAuth,
   postAuth,
@@ -17,7 +18,6 @@ import type {
   StripeAccountStatus,
   StripeCompany,
 } from './types';
-import type { Member } from '#libs/member/types';
 
 export const fetchCompanyList = (params: FetchCompanyListParams) => {
   return getAuth<Company[]>(

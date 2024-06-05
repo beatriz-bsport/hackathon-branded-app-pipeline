@@ -13,14 +13,14 @@ import CardContent from '@material-ui/core/CardContent';
 
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-
-import { formatMinutes } from '../../../utils/datetime';
 import {
   MetaActivity,
   MetaActivityCustomRestriction,
 } from '#libs/meta-activity/types';
 import { Tag, TagGroup } from '#libs/tag/types';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
+
+import { formatMinutes } from '../../../utils/datetime';
 import MetaActivityCustomRestrictionDialog from './MetaActivityCustomRestrictionDialog.component';
 
 type Props = {

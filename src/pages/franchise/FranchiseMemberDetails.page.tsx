@@ -13,9 +13,9 @@ import {
   getFranchiseUserById,
   withAllowedFranchisees,
 } from '#libs/franchise/selectors';
-import type { RootState } from '../../reducers';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import type { RootState } from '../../reducers';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import Config from '../../config';

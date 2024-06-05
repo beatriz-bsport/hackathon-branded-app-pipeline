@@ -5,6 +5,8 @@ import { Route, Switch } from 'react-router';
 import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CustomFormDetail from './CustomFormDetail.page';
@@ -13,8 +15,6 @@ import CustomFormLayout from './CustomFormLayout.page';
 import { CustomForm } from '../../libs/custom-form/types';
 import themeSelectors from '../../libs/theme/selectors';
 import type { RootState } from '../../reducers';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
 
 type Props = {
   tab: string;

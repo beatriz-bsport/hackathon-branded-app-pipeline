@@ -2,7 +2,6 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
-import Config from '../../../../../../config';
 
 import {
   CADENCE_MARKETING_ACTION_CHOICES,
@@ -11,6 +10,7 @@ import {
 } from '#libs/sequential_marketing/constants';
 import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
 import type { MenuAction } from '#components/menu/types';
+import Config from '../../../../../../config';
 
 type Props = {
   addMarketingAction: (kind: MarketingActions) => void;

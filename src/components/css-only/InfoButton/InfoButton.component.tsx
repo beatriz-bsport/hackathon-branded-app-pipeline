@@ -1,15 +1,15 @@
 import React from 'react';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import type { InfoButtonSeverityType } from '#csscomponents/InfoButton/types';
+import type { Props as ButtonProps } from '#Fabrique/ButtonV2';
+import type { Props as BottomDrawerProps } from '#Fabrique/BottomDrawer';
+import type { TooltipProps } from '#Fabrique/Tooltipv2';
 import {
   InfoBottomDrawer,
   InfoTooltip,
   InfoButtonSeverityEnum,
   useInfoButtonIcon,
 } from '.';
-import type { InfoButtonSeverityType } from '#csscomponents/InfoButton/types';
-import type { Props as ButtonProps } from '#Fabrique/ButtonV2';
-import type { Props as BottomDrawerProps } from '#Fabrique/BottomDrawer';
-import type { TooltipProps } from '#Fabrique/Tooltipv2';
 
 import '#csscomponents/InfoButton/styles.css';
 

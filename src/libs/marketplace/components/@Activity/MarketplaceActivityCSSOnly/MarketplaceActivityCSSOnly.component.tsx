@@ -13,14 +13,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
-import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
-import { formatMinutes } from '../../../../../utils/datetime';
 import { Offer } from '#libs/offer/types';
 import MarketplaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonForDialog from '#marketplacecomponents/@Booking/MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
 import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
-import { useOfferHours } from '../../../hooks';
 import { Level } from '#libs/level/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
 // @ts-expect-error
@@ -34,6 +30,10 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import Button from '#components/css-only/Fabrique/Button';
 
 import { formatOfferHours } from '#libs/marketplace/utils/offer';
+import { useOfferHours } from '../../../hooks';
+import { formatMinutes } from '../../../../../utils/datetime';
+import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
+import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
 import './MarketplaceActivity.css';
 
 export type Props = {

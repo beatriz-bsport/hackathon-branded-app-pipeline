@@ -3,10 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { DateTime } from 'luxon';
-import { RootState } from '../../reducers';
-import { getAuthToken } from '../../http';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
@@ -17,7 +14,6 @@ import { getMembership } from '#libs/membership/selectors';
 // ACTIONS
 import { fetchCurrentBasket } from '#libs/checkout/actions';
 // @ts-expect-error
-import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
 import {
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
@@ -91,15 +87,19 @@ import type { CheckoutItem, Basket } from '#libs/checkout/types';
 import type { Tag } from '#libs/tag/types';
 
 // CONSTANTS
-import {
-  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-  BsportRequestFromHeaderValue,
-} from '../../constants';
 import actionsBinder from '#libs/widget/actionsBinder';
 import {
   fetchRelatedMembersNamesByConsumerPaymentPackLinks,
   fetchRelatedMembersNamesByPrivateConsumerPassLinks,
 } from '#libs/relationship/actions';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
+import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getAuthToken } from '../../http';
+import { RootState } from '../../reducers';
 
 type OwnProps = {
   companyId: number;

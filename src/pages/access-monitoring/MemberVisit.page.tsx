@@ -52,7 +52,6 @@ import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
 
 // Types
 
-import type { RootState } from '../../reducers';
 import type { MemberVisitREST } from '#libs/access-control/types';
 
 // Hooks / hocs
@@ -61,6 +60,7 @@ import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
 import { useCheckAccessControlLocationSetup } from '#libs/access-control/hooks/checkLocationSetup';
 
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   location: Location;

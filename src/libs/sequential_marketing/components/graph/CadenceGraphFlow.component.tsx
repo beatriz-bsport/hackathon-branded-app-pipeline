@@ -8,15 +8,12 @@ import ReactFlow, {
   ReactFlowProvider,
 } from 'react-flow-renderer';
 
-import CadenceGraphViewPort from './CadenceGraphViewPort.component';
-import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import {
   DestinationStatus,
   InitialConfigurationStep,
 } from '#libs/sequential_marketing/constants';
 import { getCadenceWinOrLoseConnectedTriggers } from '#libs/sequential_marketing/utils';
 
-import type { OptionCallback } from '../../../../state/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { Tag } from '#libs/tag/types';
@@ -29,6 +26,9 @@ import type {
   CadenceInitialConfiguration,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+import type { OptionCallback } from '../../../../state/types';
+import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
+import CadenceGraphViewPort from './CadenceGraphViewPort.component';
 
 const rfStyle = {
   backgroundColor: 'transparent',

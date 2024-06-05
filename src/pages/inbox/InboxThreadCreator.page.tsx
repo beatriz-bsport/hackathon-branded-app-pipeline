@@ -15,8 +15,6 @@ import { AxiosResponse } from 'axios';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import { withGroup } from '#libs/group-offer/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
-import type { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
 import { getTheme, getCompanyCountry } from '#libs/theme/selectors';
 import { getSearchedMembers } from '#libs/member/selectors';
 import {
@@ -31,7 +29,6 @@ import { getAllSmartList } from '#libs/smart-list/selectors';
 import TimeTable from '#components/offer/TimeTable.component';
 import Calendar from '#components/offer/Calendar.component';
 // @ts-expect-error
-import { mapFormData } from '../form.utils';
 import { MemberMap } from '#libs/member/utils';
 
 import {
@@ -55,12 +52,15 @@ import {
 
 import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
 // @ts-expect-error @ts-expect-error
-import { getDayOffers } from '../planning/Planning.page';
 import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
 import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';
 import ThreadCreatorIconAction from '#libs/communication-v2/thread/commons/ThreadCreatorIconAction.component';
 import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
 import { MemberFormData, MemberMinimal } from '#libs/member/types';
+import { getDayOffers } from '../planning/Planning.page';
+import { mapFormData } from '../form.utils';
+import { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
 
 const connector = connect(
   (state: RootState) => ({

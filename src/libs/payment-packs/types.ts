@@ -6,10 +6,10 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import type { DateTime } from 'luxon';
-import { ErrorAndLoading } from '../../state/types';
-import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import { ErrorAndLoading } from '../../state/types';
+import { Company } from '../company/types';
 
 const startDateMethodsTypes = [
   `${START_ON_PURCHASE}`,

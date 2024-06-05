@@ -11,12 +11,12 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { MarketingNotification } from '../types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import NotificationListInner from './NotificationListInner.component';
 import { SmartList } from '../../smart-list/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   notifications: MarketingNotification[];

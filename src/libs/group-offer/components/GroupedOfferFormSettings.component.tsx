@@ -56,7 +56,6 @@ import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { Offer } from '#libs/offer/types';
-import { OptionCallback } from '../../../state/types';
 import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
 import {
   FREQUENCE_NUMBER_CONVERTER,
@@ -71,6 +70,7 @@ import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
 import Tooltip from '#components/Tooltip.component';
 import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
+import { OptionCallback } from '../../../state/types';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types

@@ -19,6 +19,7 @@ import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
+import EbookUploadForm from '#libs/video/components/EbookUploadForm.component';
 import VideoUploadFormMUX from './VideoUploadFormMUX.component';
 import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';
 import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
@@ -26,7 +27,6 @@ import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
-import EbookUploadForm from '#libs/video/components/EbookUploadForm.component';
 
 type State = {
   isUploading: boolean;

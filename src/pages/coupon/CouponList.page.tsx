@@ -12,7 +12,6 @@ import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import withTitle from '../../hocs/with-title.hoc';
 import CouponListComponent from '#libs/coupon/components/CouponList.component';
 import CouponListItem from '#libs/coupon/components/CouponListItem.component';
 // @ts-expect-error
@@ -37,7 +36,6 @@ import type {
   UniqueCodeCouponCreationPayload,
   UniqueCodeCouponUpdatePayload,
 } from '#libs/coupon/types';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import {
@@ -79,19 +77,21 @@ import {
   getPaymentComboList,
 } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import FabWithItems from '#components/button/FabWithItems';
+import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import type { RootState } from '../../reducers';
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../state/types';
-import type { RootState } from '../../reducers';
-import FabWithItems from '#components/button/FabWithItems';
-import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
-import { CouponErrorCodes } from '#libs/coupon/constants';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import {
   withObjectSearch,
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import withTitle from '../../hocs/with-title.hoc';
 
 type OwnProps = {
   couponToDelete: number;

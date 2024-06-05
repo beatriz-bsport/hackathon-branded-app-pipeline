@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Invoice } from '#libs/invoice/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
@@ -31,7 +32,6 @@ import {
   withPayment,
 } from '../../libs/invoice/selectors';
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
-import { Invoice } from '#libs/invoice/types';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';

@@ -10,11 +10,11 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 import classNames from 'classnames';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#components/forms/FormSection';
+import Selector from '#components/Selector/MaterialUISelector.component';
 import {
   QuicksaleCardInfo,
   QuicksaleItemsByItemIdentifierByCategory,
 } from '../../../types';
-import Selector from '#components/Selector/MaterialUISelector.component';
 import ListItem, { SimpleItemListAction } from '../AdditionDrawerListItem';
 import useParentDrawerStyle from '../styles';
 import useStyle from './styles';

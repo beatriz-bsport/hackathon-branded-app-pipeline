@@ -3,9 +3,9 @@ import React, { ChangeEvent, useCallback, useState } from 'react';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { Theme, makeStyles } from '@material-ui/core';
 
-import MetaActivityListItem from './MetaActivityListItem.component';
 import FuzeSearch from '#components/FuzeSearch.component';
 import VirtualizeListAutoSize from '#components/VirtualizeList/VirtualizeListAutoSize.component';
+import MetaActivityListItem from './MetaActivityListItem.component';
 import { MetaActivity } from '../types';
 import MetaActivitySelectorWithCardSkeleton from './MetaActivitySelectorWithCardSkeleton.component';
 

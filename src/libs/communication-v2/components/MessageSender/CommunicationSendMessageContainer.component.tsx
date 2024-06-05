@@ -5,13 +5,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme, withStyles, Paper, WithStyles } from '@material-ui/core';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { OptionCallback } from '../../../../state/types';
-import CommunicationRecipientsModal from './ModalRecipient/CommunicationRecipientsModal.component';
-import CommunicationTemplateModal from './ModalTemplate/CommunicationTemplateModal.component';
-import CommunicationWriteEmail from './Writers/CommunicationWriteEmail.component';
-import CommunicationWriteNotification from './Writers/CommunicationWriteNotification.component';
-import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
-import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import AutoResendConfigDialog from '#libs/communication-v2/components/AutoResendConfigDialog';
 
@@ -50,6 +43,13 @@ import {
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
 import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI } from '#libs/communication-v2/api';
+import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
+import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
+import CommunicationWriteNotification from './Writers/CommunicationWriteNotification.component';
+import CommunicationWriteEmail from './Writers/CommunicationWriteEmail.component';
+import CommunicationTemplateModal from './ModalTemplate/CommunicationTemplateModal.component';
+import CommunicationRecipientsModal from './ModalRecipient/CommunicationRecipientsModal.component';
+import { OptionCallback } from '../../../../state/types';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;

@@ -8,17 +8,17 @@ import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 // @ts-expect-error
-import { Submit } from '../../../../components/forms';
 
-import PrivateServiceFields, {
-  PrivateServiceFormikHOC,
-} from './PrivateServiceForm.component';
 import type { AssociatedEstablishment } from '#libs/establishment/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { PrivateService } from '#libs/private-service/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import PrivateServiceFields, {
+  PrivateServiceFormikHOC,
+} from './PrivateServiceForm.component';
+import { Submit } from '../../../../components/forms';
 
 const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

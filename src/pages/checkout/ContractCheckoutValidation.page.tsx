@@ -12,15 +12,9 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Button, Typography, Paper } from '@material-ui/core';
 import { Payment } from '@material-ui/icons';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 // @ts-expect-error
-import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
 import withTheme from '#hocs/company-themifier.hoc';
 
-import { WithHandlerType } from '../../utils/types';
-import themeSelectors from '../../libs/theme/selectors';
-import ConsumerAppBar from './ConsumerAppBar.container';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 // @ts-expect-error
 import { getContract } from '#libs/subscription/selectors';
@@ -30,6 +24,12 @@ import TimeoutButton from '#components/button/TimeoutButton.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 import ContractValidationCard from '#libs/subscription/components/contract/ContractValidationCard.component';
 import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
+import ConsumerAppBar from './ConsumerAppBar.container';
+import themeSelectors from '../../libs/theme/selectors';
+import { WithHandlerType } from '../../utils/types';
+import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type RouterProps = {
   success: boolean;

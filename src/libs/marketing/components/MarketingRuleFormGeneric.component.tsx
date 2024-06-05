@@ -3,6 +3,10 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import { Contract } from '#libs/subscription/types';
+import { SmartList } from '#libs/smart-list/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { OptionCallback } from '../../../state/types';
 import {
   EmailTemplateDetail,
@@ -15,7 +19,6 @@ import MarketingRuleFormPrivateBooking from './marketing-rule-form/MarketingRule
 import MarketingRuleFormBooking from './marketing-rule-form/MarketingRuleFormBooking.component';
 import MarketingRuleFormProduct from './marketing-rule-form/MarketingRuleFormProduct.component';
 
-import { Contract } from '#libs/subscription/types';
 import MarketingRuleFormBirthday from './marketing-rule-form/MarketingRuleFormBirthday.component';
 import NotificationSourceSelector from './NotificationSourceSelector.component';
 
@@ -24,10 +27,7 @@ import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
-import { SmartList } from '#libs/smart-list/types';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type Identifier =
   | 'birthday'

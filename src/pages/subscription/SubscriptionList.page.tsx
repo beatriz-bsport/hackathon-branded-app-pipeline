@@ -13,13 +13,14 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 
 import { DateTime } from 'luxon';
+import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
+import { SubscriptionEvent } from '#libs/event/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
 // @ts-expect-error
 import PlannedInvoiceList from '../../libs/subscription/components/PlannedInvoiceList.component';
-import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
 import {
   PlannedInvoice,
   Subscription,
@@ -40,7 +41,6 @@ import {
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAction,
 } from '../../libs/subscription/actions';
 import { MaterialStyleType } from '../../utils/types';
-import { SubscriptionEvent } from '#libs/event/types';
 import { RootState } from '../../reducers';
 
 type OwnProps = {

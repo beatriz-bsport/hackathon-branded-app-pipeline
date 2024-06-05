@@ -6,6 +6,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core';
 
+import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/actions';
+import { getFranchisePermissions } from '#libs/role/selectors';
+import GenericDialog from '#components/genericDialog/GenericDialog';
 import { BsportRequestFromHeaderValue } from '../../constants';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
@@ -27,9 +30,6 @@ import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
 import FranchiseStaffRoleRouter from './staff/FranchiseStaffRole.router';
-import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/actions';
-import { getFranchisePermissions } from '#libs/role/selectors';
-import GenericDialog from '#components/genericDialog/GenericDialog';
 
 const FranchiseUserSearch = asyncComponent(
   () => import('./FranchiseUserSearch.page'),

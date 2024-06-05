@@ -1,5 +1,12 @@
 import { AxiosResponse } from 'axios';
 import {
+  ReportConfiguration,
+  ReportFilterConfig,
+  ReportFilterConfigParams,
+  ReportMetadataValue,
+  ReportSerializerParams,
+} from '#libs/reporting/types';
+import {
   API_URI,
   getAuth,
   buildUrlParams,
@@ -8,13 +15,6 @@ import {
   postAuth,
   patchAuth,
 } from '../../http';
-import {
-  ReportConfiguration,
-  ReportFilterConfig,
-  ReportFilterConfigParams,
-  ReportMetadataValue,
-  ReportSerializerParams,
-} from '#libs/reporting/types';
 
 export const fetchReportGeneration = async (reportId: number, params: any) => {
   return getAuth(

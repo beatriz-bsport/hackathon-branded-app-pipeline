@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import type { ConsumerBookingCardProps } from '..';
 
 import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 
@@ -12,6 +11,7 @@ import {
 } from '#components/untitledui';
 
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
+import type { ConsumerBookingCardProps } from '..';
 
 type Props = Required<
   Pick<

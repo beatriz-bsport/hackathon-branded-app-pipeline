@@ -1,3 +1,4 @@
+import type { Offer } from '#libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import {
@@ -14,7 +15,6 @@ import {
   BookingFilterParams,
   CancelBookingParams,
 } from './types';
-import type { Offer } from '#libs/offer/types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(

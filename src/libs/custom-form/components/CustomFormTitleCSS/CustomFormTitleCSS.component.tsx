@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
-import { openIntercomHelp } from '../../../../intercom';
 import IconButton from '#Fabrique/IconButton';
 import { HelpCircle } from '#components/untitledui';
+import { openIntercomHelp } from '../../../../intercom';
 import './styles.css';
 
 export type Props = {

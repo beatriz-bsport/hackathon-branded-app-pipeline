@@ -12,11 +12,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItem from '../components/InvoiceItem.component';
 import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 import type {
   Establishment,
   EstablishmentBillingGroup,

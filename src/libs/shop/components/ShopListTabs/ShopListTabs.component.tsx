@@ -6,13 +6,13 @@ import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
+import type { ShopItem, ShopSupplier, SubShop } from '#libs/shop/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 import ShopListProductsTab from './tabs/ShopListProductsTab.component';
 import ShopListSettingsTab from './tabs/ShopListSettingsTab.component';
 
-import type { ShopItem, ShopSupplier, SubShop } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
-import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 
 import { ShopListTab } from './constants';
 

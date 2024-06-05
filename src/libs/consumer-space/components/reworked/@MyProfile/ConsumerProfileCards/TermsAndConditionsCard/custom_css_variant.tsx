@@ -1,16 +1,15 @@
 import React from 'react';
 
 import { DateTime } from 'luxon';
-import TermsAndConditionsCard from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TermsAndConditionsCardCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
 } from '#libs/exportable-components/types';
+import TermsAndConditionsCard from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import TermsAndConditionsCardCss from './styles.css?raw';
 
 const date = DateTime.now().toFormat('D');
 

@@ -19,6 +19,16 @@ import {
 } from '@material-ui/core';
 
 import { TFunction } from 'i18next';
+import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
+import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
+import HTMLPreview from '#components/html/HTMLPreview.component';
+import { Contract } from '#libs/subscription/types';
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -34,18 +44,8 @@ import { MarketingNotificationMailStat } from '../../communication/types';
 // @ts-expect-error
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
-import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
 
-import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
-import HTMLPreview from '#components/html/HTMLPreview.component';
-import { Contract } from '#libs/subscription/types';
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
 import Config from '../../../config';
-import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type OwnProps = {

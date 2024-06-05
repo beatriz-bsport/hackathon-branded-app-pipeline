@@ -8,6 +8,8 @@ import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress, Theme } from '@material-ui/core';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { CompanyTheme } from '#libs/theme/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 // @ts-expect-error
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
@@ -38,8 +40,6 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { Video, VideoPurchase } from '../../libs/video/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
 import { OptionCallback } from '../../state/types';
-import { CompanyTheme } from '#libs/theme/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;

@@ -37,12 +37,8 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import Config from '../../config';
 import ResultList from '#components/search/ResultList.component';
-import MemberBookingHelper from './MemberBookingHelper.component';
 
-import MemberSearchBar from '../../libs/member/components/MemberSearchBar.component';
-import WaitingListControlHeader from './WaitingListControlHeader.component';
 
 import BookingTable from '#libs/booking/components/BookingTable.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
@@ -54,16 +50,20 @@ import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import { Tag, TagGroup } from '#libs/tag/types';
-import { OptionCallback } from '../../state/types';
-import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
-import { formatISOStringAsTime } from '../../utils/datetime';
-import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
+import { formatISOStringAsTime } from '../../utils/datetime';
+import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+import { OptionCallback } from '../../state/types';
+import WaitingListControlHeader from './WaitingListControlHeader.component';
+import MemberSearchBar from '../../libs/member/components/MemberSearchBar.component';
+import MemberBookingHelper from './MemberBookingHelper.component';
+import Config from '../../config';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);

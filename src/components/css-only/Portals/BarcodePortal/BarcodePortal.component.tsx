@@ -1,8 +1,8 @@
 import React from 'react';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { BarcodeModal, BarcodeBottomDrawer } from '.';
 import type { BarcodePortalProps } from '#src/components/css-only/Portals/types';
+import { BarcodeModal, BarcodeBottomDrawer } from '.';
 
 const BarcodePortal: React.FC<BarcodePortalProps> = ({
   barcode,

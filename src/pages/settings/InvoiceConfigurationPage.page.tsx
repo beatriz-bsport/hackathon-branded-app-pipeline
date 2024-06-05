@@ -10,13 +10,34 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'connected-react-router';
+import InfoTypography from '#components/typo/InfoTypography.components';
+import {
+  deleteBookkeepingAccount as deleteBookkeepingAccountAction,
+  fetchBookkeepingAccountList as fetchBookkeepingAccountListAction,
+  updateBookkeepingAccount as updateBookkeepingAccountAction,
+  createBookkeepingAccount as createBookkeepingAccountAction,
+  fetchLinkedProductNames as fetchLinkedProductNamesAction,
+} from '#libs/payment/actions';
+import {
+  fetchStripeReaders,
+  createStripeReader,
+  deleteStripeReader,
+  editStripeReader,
+} from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountLoading,
+  getLinkedProductNames,
+} from '#libs/payment/selectors';
+import BookkeepingAccountSection from '#libs/invoice/components/BookkeepingAccountSection.component';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
 
-import InfoTypography from '#components/typo/InfoTypography.components';
 
 // @ts-expect-error
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
@@ -40,33 +61,12 @@ import {
   upsertEstablishmentBillingGroup as upsertEstablishmentBillingGroupAction,
   deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAction,
 } from '../../libs/establishment/actions';
-import {
-  deleteBookkeepingAccount as deleteBookkeepingAccountAction,
-  fetchBookkeepingAccountList as fetchBookkeepingAccountListAction,
-  updateBookkeepingAccount as updateBookkeepingAccountAction,
-  createBookkeepingAccount as createBookkeepingAccountAction,
-  fetchLinkedProductNames as fetchLinkedProductNamesAction,
-} from '#libs/payment/actions';
 
 import EstablishmentBillingGroupTable from '../../libs/establishment/components/EstablishmentBillingGroupTable.component';
 import EstablishmentBillingGroupFormDialog from '../../libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
-import {
-  fetchStripeReaders,
-  createStripeReader,
-  deleteStripeReader,
-  editStripeReader,
-} from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
 import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { updateCompanyTheme } from '../../libs/theme/actions';
-import {
-  getBookkeepingAccountList,
-  getBookkeepingAccountLoading,
-  getLinkedProductNames,
-} from '#libs/payment/selectors';
-import BookkeepingAccountSection from '#libs/invoice/components/BookkeepingAccountSection.component';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type StateHandlerInit = {
   openDialogForm: boolean;

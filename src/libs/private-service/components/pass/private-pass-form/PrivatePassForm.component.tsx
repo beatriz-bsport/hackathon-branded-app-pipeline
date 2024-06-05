@@ -56,10 +56,29 @@ import {
   RadioGroupField,
   // @ts-expect-error
 } from '#components/forms';
-import { OptionCallback } from '../../../../../state/types';
 // @ts-expect-error
-import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
 
+// @ts-expect-error
+import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { provincialTaxHelperText } from '#libs/theme/utils';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import { SCT } from '#libs/category/types';
+import { Establishment } from '#libs/establishment/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
+import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
+import type { BookkeepingAccount } from '#libs/payment/types';
+import ToolTip from '#components/Tooltip.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { ALMOST_100 } from '../../../../../constants';
+import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
+import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
+import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
+import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
+import { getValidityInfo, filterPrivateService } from '../../../utils';
 import {
   PrivatePassCategory,
   PrivateServiceWithSlots,
@@ -69,27 +88,8 @@ import {
   PrivatePassWithCompatibility,
   CompatiblePrivateService,
 } from '../../../types';
-import { getValidityInfo, filterPrivateService } from '../../../utils';
-// @ts-expect-error
-import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
-import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
-import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
-import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { provincialTaxHelperText } from '#libs/theme/utils';
-import type { PaymentPack } from '#libs/payment-packs/types';
-import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
-import { SCT } from '#libs/category/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { ALMOST_100 } from '../../../../../constants';
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
-import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
-import type { BookkeepingAccount } from '#libs/payment/types';
-import ToolTip from '#components/Tooltip.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
+import { OptionCallback } from '../../../../../state/types';
 
 export interface FormikValues {
   name: string | null;

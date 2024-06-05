@@ -46,6 +46,8 @@ import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import { colors } from '@bsport/common/lib/colors';
 import { People } from '@material-ui/icons';
 import { ButtonBase, Dialog } from '@material-ui/core';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { containsAnySubstring } from '../../libs/utils';
 import { NEW_MEMBER_PROFILE_ROUTE_LIST } from '../../libs/consumer-space/constants';
 import { getTextColorFromRGB } from '../../utils/color';
@@ -57,8 +59,6 @@ import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import type { Membership } from '../../libs/membership/types';
 import Config from '../../config';

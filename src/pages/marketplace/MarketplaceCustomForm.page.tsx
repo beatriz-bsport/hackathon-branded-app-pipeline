@@ -13,6 +13,9 @@ import Button from '@material-ui/core/Button';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { getLoginUrl as getLoginRedirectionUrl } from '#libs/marketplace/routing-utils';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -38,9 +41,6 @@ import { OptionCallback } from '../../state/types';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import themeSelectors from '../../libs/theme/selectors';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getLoginUrl as getLoginRedirectionUrl } from '#libs/marketplace/routing-utils';
 
 type StateHandlerInit = {
   submitSuccess: boolean;

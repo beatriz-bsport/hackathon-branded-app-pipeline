@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import { StaffModificationHistory } from '#libs/role/types';
 import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import {
@@ -13,7 +14,6 @@ import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-acti
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { RootState } from '../../reducers';
 import { getRoleStateById as getUsersById } from '../role/selectors';
-import { StaffModificationHistory } from '#libs/role/types';
 
 const _getData = (state: State) => state.booking.byId;
 

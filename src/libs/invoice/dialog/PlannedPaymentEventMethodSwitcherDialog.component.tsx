@@ -29,11 +29,7 @@ import {
 import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
-import DateInput from '../../../components/input/DateInput.component';
 // @ts-expect-error
-import Checkbox from '../../../components/input/Checkbox.component';
-import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
@@ -41,9 +37,13 @@ import type { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 
-import type { PlannedPaymentEvent } from '../types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { StripeReader } from '#libs/terminal/types';
+import type { PlannedPaymentEvent } from '../types';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
+import Checkbox from '../../../components/input/Checkbox.component';
+import DateInput from '../../../components/input/DateInput.component';
 
 const PaymentMethodSwitcher = (props: {
   classes: any;

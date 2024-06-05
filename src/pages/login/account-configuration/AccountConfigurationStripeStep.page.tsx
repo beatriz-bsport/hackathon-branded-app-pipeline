@@ -6,9 +6,13 @@ import { push } from 'connected-react-router';
 import { Stripe } from '@stripe/stripe-js';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { LinearProgress } from '@material-ui/core';
-import { RootState } from '../../../reducers';
 import StripeStep from '#libs/login/components/account-configuration/AccountConfigurationStripeStep.component';
 import StripeHoc from '#hocs/stripe.hoc';
+import {
+  validateAccountConfigurationStepAction,
+  retrieveMyCompanySetup as retrieveMyCompanySetupAction,
+} from '#libs/company/actions';
+import { STRIPE_CONFIGURATION_STEP } from '#libs/company/constants';
 import { getOnboardingLink as getOnboardingLinkAPI } from '../../../libs/company/api';
 import {
   AccountConfigurationBankAccountStepUrl,
@@ -16,11 +20,7 @@ import {
   AccountConfigurationPaymentMethodStepUrl,
   AccountConfigurationStripeStepUrl,
 } from './AccountConfiguration.router';
-import {
-  validateAccountConfigurationStepAction,
-  retrieveMyCompanySetup as retrieveMyCompanySetupAction,
-} from '#libs/company/actions';
-import { STRIPE_CONFIGURATION_STEP } from '#libs/company/constants';
+import { RootState } from '../../../reducers';
 
 type StripeProps = { stripe: Stripe };
 type State = {

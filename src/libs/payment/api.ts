@@ -1,14 +1,4 @@
 import type { AxiosResponse } from 'axios';
-import {
-  API_V1_URI,
-  getAuth,
-  post,
-  API_URI,
-  postAuth,
-  buildUrlParams,
-  deleteAuth,
-  patchAuth,
-} from '../../http';
 import type {
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
@@ -21,6 +11,16 @@ import type {
   StripePayout,
 } from '#libs/payment/types';
 import type { BillingDetails } from '#libs/marketplace/types';
+import {
+  API_V1_URI,
+  getAuth,
+  post,
+  API_URI,
+  postAuth,
+  buildUrlParams,
+  deleteAuth,
+  patchAuth,
+} from '../../http';
 
 export const fetchPaymentMethodList = async (
   params: any = {},

@@ -15,6 +15,8 @@ import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
+import { getLevelTranslation } from '#libs/level/utils';
+import { Level } from '#libs/level/types';
 import CheckboxSelector from '../CheckboxSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 
@@ -26,8 +28,6 @@ import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 
-import { getLevelTranslation } from '#libs/level/utils';
-import { Level } from '#libs/level/types';
 
 type LevelItem = {
   id: string | number,

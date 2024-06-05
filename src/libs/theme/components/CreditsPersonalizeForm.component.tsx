@@ -7,10 +7,10 @@ import { Theme, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import { SwitchField } from '#components/forms';
 import { CompanyTheme } from '../types';
 import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
-import { SwitchField } from '#components/forms';
 
 interface FormikValues {
   hide_credits_for_customers: boolean;

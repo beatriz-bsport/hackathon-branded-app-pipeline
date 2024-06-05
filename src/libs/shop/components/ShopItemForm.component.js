@@ -18,6 +18,11 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { Typography, ButtonBase } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 import { provincialTaxHelperText } from '../../theme/utils';
 import type { ShopItem } from '../types';
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -25,13 +30,8 @@ import PriceInput from '../../../components/input/PriceInput.component';
 import ImageUploader from '../../../components/input/ImageUploader.component';
 
 import PaymentMethodSelectorInput from '../../payment/components/PaymentMethodSelectorInput.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { OptionCallback } from '../../../state/types';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { ALMOST_100 } from '../../../constants';
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 import BookkeepingAccountSelector from '../../payment/components/BookkeepingAccountSelector';
 import type { BookkeepingAccount } from '../../payment/types';
 

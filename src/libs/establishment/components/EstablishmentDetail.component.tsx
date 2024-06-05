@@ -7,6 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { DateTime } from 'luxon';
+import { SmartList } from '#libs/smart-list/types';
+import { getMergeTags } from '#libs/marketing/utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';
@@ -23,9 +26,6 @@ import EstablishmentSpotScheduling from './EstablishmentSpotScheduling.component
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { centerMarker } from '../../../components/map/utils';
-import { SmartList } from '#libs/smart-list/types';
-import { getMergeTags } from '#libs/marketing/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const CENTER = [48.86, 2.33];
 const DEFAULT_SPORT = 7;

@@ -2,12 +2,12 @@ import createCachedSelector from 're-reselect';
 import Immutable from 'seamless-immutable';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { createSelector } from 'reselect';
-import { getChannelFromMetadata } from './utils';
 import { getMemberListData } from '#libs/member/selectors';
+import type { Member } from '#libs/member/types';
+import { getChannelFromMetadata } from './utils';
 import { MAX_DISPLAY } from './constants';
 import type { RootState } from '../../reducers';
 import type { Communication } from './types';
-import type { Member } from '#libs/member/types';
 
 // ---------- COMMUNICATION RECIPIENT ----------
 

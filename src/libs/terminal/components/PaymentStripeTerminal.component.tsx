@@ -26,14 +26,9 @@ import {
   parseIntentIdFromClientSecret,
   isSetupForFutureUsageAllowed,
 } from '#libs/terminal/utils';
-import {
-  getCurrencyDisplayWithPrice,
-  getCompanyCountry,
-} from '../../theme/selectors';
 import { updateIntentToSavePaymentMethod } from '#libs/payment/api';
 
 import { STRIPE_ERROR_CODE } from '#libs/constants';
-import type { OptionCallback } from '../../../state/types';
 import type {
   StripeReader,
   CancelReaderActionErrorMessage,
@@ -41,6 +36,11 @@ import type {
 } from '#libs/terminal/types';
 // eslint-disable-next-line no-duplicate-imports
 import { TerminalPaymentSteps } from '#libs/terminal/types';
+import type { OptionCallback } from '../../../state/types';
+import {
+  getCurrencyDisplayWithPrice,
+  getCompanyCountry,
+} from '../../theme/selectors';
 
 const POLL_RETRY_INACTIVITY_THRESHOLD = 60;
 const POLL_RETRY_DELAY_MS = 1000;

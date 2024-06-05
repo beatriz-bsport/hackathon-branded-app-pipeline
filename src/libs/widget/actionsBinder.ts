@@ -1,6 +1,6 @@
+import { BridgeWidgetActions } from '#pages/widget/BridgeWidget.page';
 import { bridgeAPIActionsRegistry } from './actionsRegistry';
 
-import { BridgeWidgetActions } from '#pages/widget/BridgeWidget.page';
 
 const actionsBinder = (actions: BridgeWidgetActions) => {
   // MEMBERSHIP

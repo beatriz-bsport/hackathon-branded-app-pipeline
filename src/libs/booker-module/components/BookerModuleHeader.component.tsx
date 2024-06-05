@@ -9,11 +9,11 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
+import { Coach } from '#libs/associated-coach/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { getCoachOrSubstitute } from '../../offer/utils';
 import { Offer_FULL } from '../../offer/types';
-import { Coach } from '#libs/associated-coach/types';
 
 type OwnProps = {
   offer: Offer_FULL;

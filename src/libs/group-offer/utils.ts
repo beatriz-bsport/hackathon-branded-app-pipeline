@@ -1,12 +1,12 @@
 import { TFunction } from 'i18next';
 import { DateTime, Settings } from 'luxon';
+import { toOrdinal } from '#src/i18n/utils/ordinals';
 import {
   GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_YEARLY_FREQUENCE,
 } from './constants';
 import { RecurrenceRuleGroupOffer } from './types';
-import { toOrdinal } from '#src/i18n/utils/ordinals';
 
 export const getDisplayDateFromRecurrence = (
   date: DateTime,

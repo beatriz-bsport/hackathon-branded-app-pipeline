@@ -4,8 +4,6 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withTitle from '../../hocs/with-title.hoc';
 
 import ReportGeneration from '#libs/reporting/components/ReportGeneration.component';
 
@@ -41,6 +39,8 @@ import withDatatypeDynamicData, {
 } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { fetchCompanyRoles as fetchCompanyRolesAction } from '#libs/role/actions';
 import { getObjectPermissions, getPermissions } from '#libs/role/selectors';
+import withTitle from '../../hocs/with-title.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 
 type OwnProps = {

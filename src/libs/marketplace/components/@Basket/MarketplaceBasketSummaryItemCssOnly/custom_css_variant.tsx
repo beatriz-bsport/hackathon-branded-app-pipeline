@@ -1,9 +1,5 @@
 import React from 'react';
-import MarketplaceBasketSummaryItemCssOnly, { Props } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBasketSummaryItemCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -13,6 +9,10 @@ import {
 import { checkoutItemFactory } from '#libs/checkout/factories';
 import { CompanyTheme } from '#libs/theme/types';
 import { CheckoutItem } from '#libs/checkout/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBasketSummaryItemCss from './styles.css?raw';
+import MarketplaceBasketSummaryItemCssOnly, { Props } from '.';
 
 const checkoutItem = checkoutItemFactory();
 

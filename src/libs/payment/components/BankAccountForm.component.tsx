@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
-import { OptionCallback } from '../../../state/types';
 import { getStripePkKey } from '#libs/theme/selectors';
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { CompanySetup } from '../types';
 import BankAccountFormRegistry from './BankAccountFormRegistry';

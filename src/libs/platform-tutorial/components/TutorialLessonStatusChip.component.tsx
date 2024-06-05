@@ -4,7 +4,6 @@ import chroma from 'chroma-js';
 import { makeStyles } from '@material-ui/core';
 
 import classNames from 'classnames';
-import { isLessonViewed, isUpsellNotSubscribed } from '../utils';
 
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -15,6 +14,7 @@ import {
   TutorialCompletion,
   TutorialLesson,
 } from '#libs/platform-tutorial/types';
+import { isLessonViewed, isUpsellNotSubscribed } from '../utils';
 
 type Props = {
   lesson: TutorialLesson;

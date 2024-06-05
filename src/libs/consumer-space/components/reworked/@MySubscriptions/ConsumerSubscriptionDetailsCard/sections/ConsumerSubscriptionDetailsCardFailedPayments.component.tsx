@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
-import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import List from '#Fabrique/List';
@@ -11,6 +10,7 @@ import Alert from '#Fabrique/Alert';
 
 import { formatAsDate } from '#utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,

@@ -19,10 +19,10 @@ import {
 } from '@bsport/common/lib/master-data/replacement';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 
-import { OptionCallback } from '../../../state/types';
 import { ReplacementRequestConfiguration } from '#libs/replacement-request/types';
 // @ts-expect-error
 import { IntegerField, SwitchField } from '#components/forms';
+import { OptionCallback } from '../../../state/types';
 
 interface FormikValues {
   days_before_offer_replacement_request_is_late: number;

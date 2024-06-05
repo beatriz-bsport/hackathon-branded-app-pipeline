@@ -5,10 +5,10 @@ import classNames from 'classnames';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Checkbox from '#components/css-only/Checkbox/';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 
 import Button from '#components/css-only/Fabrique/Button';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './SubscriptionTermsStyles.css';
 

@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplaceContractCheckout, {
-  Props as MarketplaceContractCheckoutProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceContractCheckoutCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -18,6 +12,12 @@ import { contractFactory } from '#libs/subscription/factory';
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { privatePassFactory } from '#libs/private-service/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceContractCheckoutCss from './styles.css?raw';
+import MarketplaceContractCheckout, {
+  Props as MarketplaceContractCheckoutProps,
+} from '.';
 
 const contractCardVariationRegistry = [
   {

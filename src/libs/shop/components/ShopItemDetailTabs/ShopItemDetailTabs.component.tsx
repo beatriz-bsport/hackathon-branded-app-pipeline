@@ -15,12 +15,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
 
-import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
-import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
-import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';
-import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
 import PromptOnPageLeaveComponent from '#components/Prompt';
-
 import type {
   ProvisionBulkCreate,
   ShopItem,
@@ -28,8 +23,13 @@ import type {
   ProvisionCreate,
   Provision,
 } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../state/types';
 import type { SelectOption } from '#libs/types';
+import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
+import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
+import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';
+import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
+
+import type { OptionCallback } from '../../../../state/types';
 
 import { ShopItemDetailTab } from '../ShopItemDetail/constants';
 

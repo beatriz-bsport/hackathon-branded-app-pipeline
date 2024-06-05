@@ -21,11 +21,11 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '#components/DelayedNumericInput.component';
 
+import ToolTip from '#components/Tooltip.component';
 import { MaterialStyleType } from '../../../../utils/types';
 
 import CalendarPicker from '../CalendarPicker.component';
 import { DATE_BETWEEN } from '../constants';
-import ToolTip from '#components/Tooltip.component';
 
 type OwnProps = {
   filter_data: any;

@@ -20,7 +20,6 @@ import type {
   ShopSupplierUpdate,
   SubShop,
 } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
 import type {
@@ -32,6 +31,7 @@ import type { BookkeepingAccount } from '#libs/payment/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   isLoading?: boolean;

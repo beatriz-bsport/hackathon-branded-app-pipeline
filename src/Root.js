@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { compose, withProps } from 'recompose';
 
+import { isPendingEmailConfirmation } from '#libs/login/selectors';
 import asyncComponent from './AsyncComponent';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';
@@ -19,7 +20,6 @@ import WidgetUtils from './libs/widget/WidgetUtils';
 import { checkBsportPluginActivated } from './libs/plugin/actions';
 import withQueryParams from './hocs/with-query-params.hoc';
 
-import { isPendingEmailConfirmation } from '#libs/login/selectors';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),

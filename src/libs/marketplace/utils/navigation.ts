@@ -1,4 +1,3 @@
-import { MarketplaceTabConfig } from '../types';
 import {
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
@@ -7,6 +6,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
 } from '#libs/exportable-components/constants';
+import { MarketplaceTabConfig } from '../types';
 import { MARKETPLACE_PATH_TAB_PRIVATE_SERVICE } from '../constants';
 
 export function urlToMarketplace(companyName: string, companyId: string) {

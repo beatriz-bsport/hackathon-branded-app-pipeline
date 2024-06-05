@@ -8,6 +8,7 @@ import Card from '#Fabrique/Card';
 
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
+import type { ConsumerBooking } from '#libs/booking/types';
 import ConsumerBookingDetailsCardHeaderSection from './sections/ConsumerBookingDetailsCardHeaderSection.component';
 import ConsumerBookingDetailsCardCancelledSection from './sections/ConsumerBookingDetailsCardCancelledSection.component';
 import ConsumerBookingDetailsCardPassSection from './sections/ConsumerBookingDetailsCardPassSection.component';
@@ -18,7 +19,6 @@ import ConsumerBookingDetailsCardPolicySection from './sections/ConsumerBookingD
 import ConsumerBookingDetailsCardTeacherSection from './sections/ConsumerBookingDetailsCardTeacherSection.component';
 import ConsumerBookingDetailsCardWorkshopSection from './sections/ConsumerBookingDetailsCardWorkshopSection.component';
 
-import type { ConsumerBooking } from '#libs/booking/types';
 
 import './styles.css';
 

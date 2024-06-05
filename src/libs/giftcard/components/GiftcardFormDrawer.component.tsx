@@ -7,14 +7,14 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { Form, FormikProps } from 'formik';
-import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
-import { OptionCallback } from '../../../state/types';
-import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { Tag, TagGroup } from '#libs/tag/types';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
+import { OptionCallback } from '../../../state/types';
+import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

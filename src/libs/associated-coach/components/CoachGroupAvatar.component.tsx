@@ -8,8 +8,8 @@ import type { Theme } from '@material-ui/core/styles';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
-import CoachChip from './CoachChip.component';
 import Tooltip from '#components/Tooltip.component';
+import CoachChip from './CoachChip.component';
 import type { Coach } from '../types';
 
 type Props = {

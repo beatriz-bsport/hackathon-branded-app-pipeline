@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplaceFilterCSSOnly, {
-  Props as MarketplaceFilterCSSOnlyProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceFilterCss from './MarketplaceFilterCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -22,6 +16,12 @@ import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Level } from '#libs/level/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceFilterCss from './MarketplaceFilterCSSOnly.css?raw';
+import MarketplaceFilterCSSOnly, {
+  Props as MarketplaceFilterCSSOnlyProps,
+} from '.';
 
 const contractCardVariationRegistry = [
   {

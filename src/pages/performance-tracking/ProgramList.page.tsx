@@ -16,9 +16,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Info } from '@material-ui/icons';
 import { Grid } from '@material-ui/core';
 
-import { OptionCallback } from '../../state/types';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
@@ -43,7 +40,6 @@ import {
   composeProgramWithMetrics,
   getProgram,
 } from '#libs/performance-tracking/selector';
-import { WithHandlerType } from '../../utils/types';
 import { fetchMemberBulkById } from '#libs/member/actions';
 import { GenericPaginationResults } from '#libs/types';
 import withTitle from '#hocs/with-title.hoc';
@@ -53,6 +49,10 @@ import ProgramListSkeleton from '#libs/performance-tracking/components/program/P
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { OptionCallback } from '../../state/types';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram,

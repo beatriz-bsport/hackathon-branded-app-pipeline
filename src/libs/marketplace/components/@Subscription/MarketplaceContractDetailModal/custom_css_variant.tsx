@@ -1,10 +1,4 @@
 import React from 'react';
-import MarketplaceContractDetailModal, {
-  Props as MarketplaceContractDetailModalProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceContractDetailModalCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -18,6 +12,12 @@ import { contractFactory } from '#libs/subscription/factory';
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { privatePassFactory } from '#libs/private-service/factory';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceContractDetailModalCss from './styles.css?raw';
+import MarketplaceContractDetailModal, {
+  Props as MarketplaceContractDetailModalProps,
+} from '.';
 
 const contractDetailModalVariationRegistry = [
   {

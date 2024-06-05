@@ -78,8 +78,6 @@ import type {
   ShopSupplier,
   SubShop,
 } from '#libs/shop/types';
-import type { RootState } from '../../reducers';
-import type { OptionCallback } from '../../state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { DeliveryFee } from '#libs/order/types';
 
@@ -90,6 +88,8 @@ import {
   SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
 } from '#libs/shop/components/ShopListTabs/constants';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {};
 

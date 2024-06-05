@@ -3,6 +3,8 @@ import { makeStyles, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { useTranslation } from 'react-i18next';
+import { Level } from '#libs/level/types';
+import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 import {
   MarketplaceCalendarData,
   MarketplaceCommonFilter,
@@ -15,8 +17,6 @@ import {
   EstablishmentGroup,
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
-import { Level } from '#libs/level/types';
-import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 
 interface Props {
   coaches: Array<Coach>;

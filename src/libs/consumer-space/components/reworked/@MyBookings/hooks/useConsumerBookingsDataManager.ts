@@ -20,7 +20,6 @@ import type {
   ConsumerPrivateBooking,
   ConsumerSpaceCancelBookingParams,
 } from '#libs/booking/types';
-import type { OptionCallback } from '../../../../../../state/types';
 import type {
   RoomBlueprint,
   SpotInformation,
@@ -38,6 +37,7 @@ import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBook
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
 import { getUserZone } from '#src/utils/datetime';
+import type { OptionCallback } from '../../../../../../state/types';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({

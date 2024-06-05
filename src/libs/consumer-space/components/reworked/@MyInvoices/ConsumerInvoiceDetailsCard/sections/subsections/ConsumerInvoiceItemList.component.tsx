@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerInvoiceItem } from '.';
 import Typography from '#Fabrique/Typography';
 
 import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import { ConsumerInvoiceItem } from '.';
 
 import '../../styles.css';
 

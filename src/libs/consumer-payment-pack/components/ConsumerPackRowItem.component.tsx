@@ -29,13 +29,11 @@ import { getSpecificIncompatibilitiesReasons } from '#libs/consumer-payment-pack
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import { WithIsSharedActive } from '#libs/relationship/types';
 import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
-import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
 import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import RedButton from '#components/button/RedButton.component';
 import Tooltip from '#components/Tooltip.component';
 
-import type { OptionCallback } from '../../../state/types';
 import type { MaterialStyleType } from '#utils/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { Offer } from '#libs/offer/types';
@@ -43,6 +41,8 @@ import type {
   MaxoutBooking,
   ConsumerPaymentPack,
 } from '#libs/consumer-payment-pack/types';
+import type { OptionCallback } from '../../../state/types';
+import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
 
 type Props = {
   loading: boolean;

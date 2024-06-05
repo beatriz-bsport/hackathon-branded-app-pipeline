@@ -21,15 +21,15 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
 import { TFunction } from 'i18next';
-import { formatAsDate, formatISOStringAsTime } from '../../utils/datetime';
 import { BOOKING_CANCELLED_BY_STAFF } from '#libs/booking/components/constants';
 import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/private-service/components/constants';
-import type { Booking } from './types';
 import { UserRoleData } from '#libs/role/types';
 import { PrivateBooking } from '#libs/private-service/types';
+import type { Booking } from './types';
+import { formatAsDate, formatISOStringAsTime } from '../../utils/datetime';
 
 export const getStaffName = (staff: UserRoleData) =>
   staff?.first_name?.length && staff?.last_name?.length

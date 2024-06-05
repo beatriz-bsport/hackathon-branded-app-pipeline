@@ -12,7 +12,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 import CustomChip from '#components/chip/CustomChip.component';
 import {
   CadenceMetricsSizes,
@@ -27,6 +26,7 @@ import type {
   CadenceStep,
 } from '#libs/sequential_marketing/types';
 import { Member } from '#libs/member/types';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 
 const ResponsiveTable = withStyles(() => ({
   root: {

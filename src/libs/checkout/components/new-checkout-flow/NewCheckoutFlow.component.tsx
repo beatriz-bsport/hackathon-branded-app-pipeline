@@ -23,6 +23,36 @@ import {
   BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items';
 
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount';
+import type { CompanyTheme } from '#libs/theme/types';
+import type { Offer } from '#libs/offer/types';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
+import ExpiredSpotDialog from '#libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
+
+import type { Coupon } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import {
+  useHandleSubmitButtonsCallbacks,
+  useSubmitButtonsDisabledState,
+  useSubmitButtonsDisplayableState,
+  useSubmitButtonsProcessingState,
+} from './submitButtonsHooks';
+import CheckoutButtons from './CheckoutButtons.component';
+import { CheckoutSteps } from './CheckoutSteps.component';
+import CouponCodeInput from './CouponCodeInput.component';
+import BasketSummary from './BasketSummary.component';
+import ActivitiesSummary from './ActivitiesSummary.component';
+import type {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+  APIPollOptionCallback,
+} from '../../../../state/types';
 import {
   CheckoutItem,
   Basket,
@@ -33,36 +63,6 @@ import {
   StepType,
   STEPS,
 } from '../../types';
-import type {
-  OptionCallback,
-  OptionCallBackWithKeyedCallbacks,
-  APIPollOptionCallback,
-} from '../../../../state/types';
-import ActivitiesSummary from './ActivitiesSummary.component';
-import BasketSummary from './BasketSummary.component';
-import CouponCodeInput from './CouponCodeInput.component';
-import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount';
-import { CheckoutSteps } from './CheckoutSteps.component';
-import type { CompanyTheme } from '#libs/theme/types';
-import CheckoutButtons from './CheckoutButtons.component';
-import type { Offer } from '#libs/offer/types';
-import type {
-  Establishment,
-  EstablishmentBillingGroup,
-} from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
-import ExpiredSpotDialog from '#libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
-
-import {
-  useHandleSubmitButtonsCallbacks,
-  useSubmitButtonsDisabledState,
-  useSubmitButtonsDisplayableState,
-  useSubmitButtonsProcessingState,
-} from './submitButtonsHooks';
-import type { Coupon } from '#libs/coupon/types';
-import { CouponErrorCodes } from '#libs/coupon/constants';
 import { useWidth } from '../../../../hooks/useWidth';
 
 // These checkout item types are displayed in the bill after the basket summary

@@ -52,16 +52,16 @@ import { getGiftcardData } from '#libs/giftcard/selectors';
 import { getContractsById } from '#libs/subscription/selectors';
 import { fetchContractList as fetchSubscriptionListAction } from '#libs/subscription/actions';
 
-import { RootState } from '../../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import PromptOnPageLeave from '#components/Prompt';
-import useGlobalStyles from './cardListHook';
 import QuicksaleConfigurationItemList, {
   QuicksaleItemListHeader,
 } from '#libs/quicksale/components/QuicksaleConfigurationItemList';
 import QuicksaleItemAdditionDrawer from '#libs/quicksale/components/QuicksaleItemAdditionDrawer';
 import withDatatypeDynamicData from '#libs/datatype-filtering/dynamic-data-hoc';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
+import useGlobalStyles from './cardListHook';
+import { RootState } from '../../../reducers';
 
 type ReducerAction =
   | { type: 'SET_ITEMS' | 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }

@@ -1,5 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import type { FetchRecipientsParams } from '#libs/member/types';
+import type { GenericPaginationResults } from '#libs/types';
 import {
   API_V1_URI,
   buildUrlParams,
@@ -25,8 +27,6 @@ import type {
   SmartListPopupSending,
   UnreadAnswersCount,
 } from './types';
-import type { FetchRecipientsParams } from '#libs/member/types';
-import type { GenericPaginationResults } from '#libs/types';
 import type { PaginatedResponse } from '../../state/types';
 
 export const sendCommunication = async (data: MessageParams) => {

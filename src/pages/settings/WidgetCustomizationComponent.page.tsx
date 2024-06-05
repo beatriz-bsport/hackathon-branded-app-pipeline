@@ -7,7 +7,6 @@ import { push as pushRouter } from 'connected-react-router';
 import CssEditorForm from '#libs/exportable-components/components/CssEditorForm.component';
 import { cleanCSSFile } from '#libs/widget/utils';
 import CssEditorPreview from '#libs/exportable-components/components/CssEditorPreview.component';
-import { RootState } from '../../reducers';
 import { getCssComponentByLabel } from '#libs/exportable-components/utils';
 import CssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
 import {
@@ -22,6 +21,7 @@ import {
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getCustomCssConfiguration } from '#libs/exportable-components/selectors';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
+import { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector> & {
   componentId: CssComponentsVariantIdentifiersValues;

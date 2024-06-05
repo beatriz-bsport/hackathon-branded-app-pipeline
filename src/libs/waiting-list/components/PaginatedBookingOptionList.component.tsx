@@ -5,12 +5,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Paper, Theme } from '@material-ui/core';
 // @ts-expect-error
+import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import { BookingOptionWithActivity } from '../../booking/types';
 import { MaterialStyleType } from '../../../utils/types';
 import BookingOptionItem from './BookingOptionItem.component';
-import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 type OwnProps = {
   onClick: (bookingOption: BookingOptionWithActivity) => void;

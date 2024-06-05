@@ -6,6 +6,12 @@ import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 import { DateTime } from 'luxon';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
+import { withCustomLevel } from '#libs/level/selectors';
+import { withGroup } from '#libs/group-offer/selectors';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import Planning from './Planning.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -22,16 +28,10 @@ import {
   withTags,
   getOfferHasPendingReplacementRequest,
 } from '../../libs/offer/selectors';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
 
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { withCustomLevel } from '#libs/level/selectors';
-import { withGroup } from '#libs/group-offer/selectors';
 
-import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
-import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 
 const formatDate = (date: string) => {
   const formattedDate = DateTime.fromFormat(date, 'yyyy-MM-dd');

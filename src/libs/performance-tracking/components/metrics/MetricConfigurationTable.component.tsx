@@ -7,11 +7,11 @@ import { Button, Collapse, Paper, Typography } from '@material-ui/core';
 import { Add, InsertChart, Warning } from '@material-ui/icons';
 
 import { FieldArrayRenderProps } from 'formik';
-import MetricList from './MetricList.component';
 import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
+import MetricList from './MetricList.component';
 import MetricForm from './MetricForm.component';
 
 type OwnProps = {

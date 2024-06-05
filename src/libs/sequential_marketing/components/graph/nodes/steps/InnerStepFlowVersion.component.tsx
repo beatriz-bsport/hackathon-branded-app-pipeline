@@ -2,9 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Handle, Position } from 'react-flow-renderer';
 
-import InnerStepCard, {
-  type InnerStepCardProps,
-} from './InnerStepCard.component';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
@@ -34,6 +31,9 @@ import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import InnerStepCard, {
+  type InnerStepCardProps,
+} from './InnerStepCard.component';
 import { CadencePopover } from '../internals/CadencePopover.component';
 
 const { trackFormAdd, trackFormCancel } =

@@ -4,12 +4,6 @@ import { ClickAwayListener, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
-import useEventContext, {
-  type EventOption,
-} from '../hooks/useEventContext.hook';
-import useSmartlistContext, {
-  type SmartlistOption,
-} from '../hooks/useSmartlistContext.hook';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 
@@ -18,6 +12,12 @@ import type {
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import useSmartlistContext, {
+  type SmartlistOption,
+} from '../hooks/useSmartlistContext.hook';
+import useEventContext, {
+  type EventOption,
+} from '../hooks/useEventContext.hook';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {

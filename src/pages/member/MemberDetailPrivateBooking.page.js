@@ -21,12 +21,15 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import PrivateBookingFilters from '#libs/booking/components/PrivateBookingFilters.component';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { getMemberPrivateBookingFilter } from '#libs/user-preference/selectors';
+import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#libs/user-preference/actions';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
-import PrivateBookingFilters from '#libs/booking/components/PrivateBookingFilters.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchCompanyUserRoles } from '#libs/role/actions';
 
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions';
@@ -64,7 +67,6 @@ import PrivateBookingDetail from '../../libs/private-service/components/booking/
 import PrivateBookingDisableDialog from '../../libs/private-service/components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingAttachCoachDialog from '../../libs/private-service/components/booking/PrivateBookingAttachCoachDialog.component';
 import RecurrenceRulePrivateBookingItem from '../../libs/private-service/components/booking/RecurrenceRulePrivateBookingItem.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import type {
   PrivateConsumerPass,
@@ -74,8 +76,6 @@ import type {
   RecurrenceRulePrivateBooking,
 } from '../../libs/private-service/types';
 import RecurrenceRulePrivateBooker from '../../libs/private-service/containers/RecurrenceRulePrivateBooker.container';
-import { getMemberPrivateBookingFilter } from '#libs/user-preference/selectors';
-import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#libs/user-preference/actions';
 import type { OptionCallBack } from '../../state/types';
 
 const PAGE_SIZE = 5;

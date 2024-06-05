@@ -1,6 +1,4 @@
 import React from 'react';
-import { AlertColorEnum } from './constants';
-import { AlertColor } from './types';
 import {
   AlertCircle,
   AlertTriangle,
@@ -8,6 +6,8 @@ import {
   CheckCircle,
   InfoCircle,
 } from '#components/untitledui';
+import { AlertColorEnum } from './constants';
+import { AlertColor } from './types';
 
 /**
  * Retrieve the fallback icon associated to the current alert color

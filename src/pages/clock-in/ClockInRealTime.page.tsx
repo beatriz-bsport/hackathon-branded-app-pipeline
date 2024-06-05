@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 
-import { RootState } from '../../reducers';
 import ClockInForOtherTable from '#libs/clock-in/components/ClockInForOtherTable.component';
 import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#libs/role/actions';
 import { getPermissions } from '#libs/role/selectors';
@@ -16,6 +15,7 @@ import {
 } from '#libs/clock-in/actions';
 import { getUsersPaginatedWithRolesWithRealTimeAttendance } from '#libs/clock-in/selectors';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector>;
 

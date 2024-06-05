@@ -13,17 +13,17 @@ import GridItem, {
 } from '#csscomponents/Grid/GridItem';
 import Price, { Color } from '#csscomponents/Price';
 
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 import PaymentComboItemList from '../MarketplacePaymentComboCard/PaymentComboItemList';
 import InitialPrice from '../MarketplacePaymentComboCard/InitialPrice';
 import RestrictionList from './RestrictionList';
 
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 
-import type { PaymentCombo } from '#libs/payment-combo/types';
 
 import './styles.css';
 

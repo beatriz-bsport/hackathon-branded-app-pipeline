@@ -13,11 +13,11 @@ import GridItem, {
   Justification,
 } from '#csscomponents/Grid/GridItem';
 import Price, { Color } from '#csscomponents/Price';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+import type { PrivatePass } from '#libs/private-service/types';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
-import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 
-import type { PrivatePass } from '#libs/private-service/types';
 
 import './styles.css';
 

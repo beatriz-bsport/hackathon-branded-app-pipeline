@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import * as api from '#libs/shop/api';
 
-import { Dispatch, PaginatedResponse } from '../../../state/types';
 import { Provision, ProvisionCreate } from '#libs/shop/types';
+import { Dispatch, PaginatedResponse } from '../../../state/types';
 
 export const provisionByShopItemActions = {
   isLoading: createAction<boolean>('PROVISION/BY_SHOPITEM/LOADING'),

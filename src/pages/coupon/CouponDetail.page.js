@@ -6,39 +6,12 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
-import withTitle from '../../hocs/with-title.hoc';
-import {
-  getCouponById,
-  getCouponDiscounts,
-  withTags,
-} from '../../libs/coupon/selectors';
-import {
-  fetchCouponPage,
-  fetchCouponDiscounts,
-  deleteCoupon,
-  resetDiscounts,
-  updateCoupon,
-  updateUniqueCodeCoupon,
-  markCodesAsRedeemed as markCodesAsRedeemedAction,
-  exportCodesAsCsv as exportCodesAsCsvAction,
-  retrieveCoupon,
-} from '../../libs/coupon/actions';
 
-import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
 import VoucherCodesDialog from '#libs/coupon/components/VoucherCodesDialog/VoucherCodesDialog.component';
 
-import {
-  fetchAllPaymentPacks,
-  fetchPaymentPackBulk as fetchSelectedPaymentPacks,
-  resetDisabledPaymentPack as resetDisabledPaymentPackAction,
-} from '../../libs/payment-packs/actions';
 import { fetchBulk as fetchSelectedShopItems } from '#libs/shop/actions/shopitem';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
@@ -71,9 +44,36 @@ import {
   getPaymentComboList,
 } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { exportAsCsvWithFormattedData } from '../../utils/downloader';
 import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
+import { exportAsCsvWithFormattedData } from '../../utils/downloader';
+import {
+  fetchAllPaymentPacks,
+  fetchPaymentPackBulk as fetchSelectedPaymentPacks,
+  resetDisabledPaymentPack as resetDisabledPaymentPackAction,
+} from '../../libs/payment-packs/actions';
+import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
+import {
+  fetchCouponPage,
+  fetchCouponDiscounts,
+  deleteCoupon,
+  resetDiscounts,
+  updateCoupon,
+  updateUniqueCodeCoupon,
+  markCodesAsRedeemed as markCodesAsRedeemedAction,
+  exportCodesAsCsv as exportCodesAsCsvAction,
+  retrieveCoupon,
+} from '../../libs/coupon/actions';
+import {
+  getCouponById,
+  getCouponDiscounts,
+  withTags,
+} from '../../libs/coupon/selectors';
+import withTitle from '../../hocs/with-title.hoc';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
 import type { PaymentCombo } from '#libs/payment_combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type {

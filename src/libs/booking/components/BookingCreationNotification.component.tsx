@@ -20,11 +20,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState, withHandlers } from 'recompose';
 import { SmartList } from '#libs/smart-list/types';
 
+import { ResolvedGenericTags } from '#libs/email-editor/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import MarketingRuleFormBooking from '../../marketing/components/marketing-rule-form/MarketingRuleFormBooking.component';
 
 import NotificationListInner from '../../marketing/components/NotificationListInner.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   getEmails: () => void;

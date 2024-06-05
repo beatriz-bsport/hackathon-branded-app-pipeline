@@ -21,18 +21,18 @@ import CustomColorButton from '#components/button/CustomColorButton.component';
 import RedButton from '#components/button/RedButton.component';
 import ZoomMultiUserSupportForm from '#libs/zoom-app/components/ZoomMultiUserSupportForm.component';
 
-import type { Theme as CompanyTheme } from '../../theme/types';
 import type {
   ZoomApp,
   ZoomEstablishment,
   ZoomMember,
   ZoomEstablishmentBulkEditData,
 } from '#libs/zoom-app/types';
-import type { OptionCallback } from '../../../state/types';
 import type { Establishment } from '#libs/establishment/types';
 import { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import type { OptionCallback } from '../../../state/types';
+import type { Theme as CompanyTheme } from '../../theme/types';
 
 const styles = (theme: Theme) =>
   createStyles({

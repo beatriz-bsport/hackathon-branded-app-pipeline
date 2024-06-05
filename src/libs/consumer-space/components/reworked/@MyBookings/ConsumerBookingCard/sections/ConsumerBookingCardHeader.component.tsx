@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import type { ChipColor } from '#Fabrique/Chip';
 
-import type { ConsumerBookingCardProps } from '..';
 import {
   CreditCardX,
   Home03,
@@ -14,6 +13,7 @@ import {
 } from '#components/untitledui';
 
 import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import type { ConsumerBookingCardProps } from '..';
 
 type Props = Required<
   Pick<

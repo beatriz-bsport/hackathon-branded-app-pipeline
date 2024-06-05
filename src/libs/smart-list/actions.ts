@@ -6,6 +6,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
+import { isErrorWithCustomCode } from '#libs/utils';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 // @ts-expect-error
@@ -58,7 +59,6 @@ import {
 import { RootState } from '../../reducers';
 import { monitorBackgroundTask } from '../background-task/actions';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 
 export const smartListListAction = {
   error: createAction('SMART-LIST/LIST/ERROR'),

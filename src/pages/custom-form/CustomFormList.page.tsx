@@ -22,6 +22,7 @@ import { push as pushRouter } from 'connected-react-router';
 import Button from '@material-ui/core/Button';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import { OptionCallback } from '../../state/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
@@ -50,7 +51,6 @@ import { RootState } from '../../reducers/index';
 import type { CustomForm } from '../../libs/custom-form/types';
 import CustomFormList from '../../libs/custom-form/components/CustomFormList.component';
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 import {
   withObjectSearch,

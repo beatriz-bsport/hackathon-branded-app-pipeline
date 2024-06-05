@@ -7,9 +7,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { Form, useFormikContext } from 'formik';
-import { Submit } from '../../../components/forms';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
+import { Submit } from '../../../components/forms';
 
 import RecurrenceRuleBookingForm, {
   RecurrenceRuleBookingFormikHOC,

@@ -23,12 +23,12 @@ import {
   // @ts-expect-error
 } from '#components/forms';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { getSendingTimeNotification } from '#libs/marketing/utils';
 import MarketingRuleBasicTypeField from '../MarketingRuleBasicTypeField.component';
 
 import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
 import MarketingRuleFormStateField from '../MarketingRuleStateField.component';
-import { getSendingTimeNotification } from '#libs/marketing/utils';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 

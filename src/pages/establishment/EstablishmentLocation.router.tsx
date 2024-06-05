@@ -5,14 +5,14 @@ import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import EstablishmentList from './EstablishmentList.page';
 import EstablishmentGroupPage from './EstablishmentGroup.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 type OwnProps = {
   tab: string;

@@ -5,13 +5,13 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
+import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
 import {
   ConsumerInvoiceCardHeader,
   ConsumerInvoiceCardBody,
   ConsumerInvoiceCardFooter,
 } from './sections';
 
-import type { ConsumerInvoice, Invoice } from '#libs/invoice/types';
 
 import './styles.css';
 

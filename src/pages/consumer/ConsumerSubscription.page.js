@@ -16,6 +16,8 @@ import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
+import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
+import { CompanyTheme } from '#libs/theme/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchSubscriptionListByMember,
@@ -29,7 +31,6 @@ import SubscriptionListItem from '../../libs/subscription/components/billing-pla
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 
@@ -38,7 +39,6 @@ import type { Membership } from '../../libs/membership/types';
 import { fetchMember } from '../../libs/member/actions';
 import { getMember } from '../../libs/member/selectors';
 import { Member } from '../../libs/member/types';
-import { CompanyTheme } from '#libs/theme/types';
 import { OptionCallback } from '../../state/types';
 
 type Props = {

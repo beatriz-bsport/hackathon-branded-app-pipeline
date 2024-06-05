@@ -20,11 +20,8 @@ import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/paym
 import { getMarketplaceContractList } from '#libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '#libs/subscription/actions';
 // @ts-expect-error
-import Analytics from '../../../components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
-import MarketplaceContractFilters from './MarketplaceContractFilters';
 import MarketplaceContractList from '#marketplacecomponents/@Subscription/MarketplaceContractList';
 import { MarketplaceContractDetailModalPortal } from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal';
 import WidgetUtils from '#libs/widget/WidgetUtils';
@@ -33,12 +30,15 @@ import {
   SearchItemData,
   BaseAdditionalData,
 } from '#components/css-only/Search/Search.component';
-import { RootState } from '../../../reducers';
 import { Contract } from '#libs/subscription/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 import { CompanyTheme } from '#libs/theme/types';
+import { RootState } from '../../../reducers';
+import MarketplaceContractFilters from './MarketplaceContractFilters';
+import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 import './styles.css';
 

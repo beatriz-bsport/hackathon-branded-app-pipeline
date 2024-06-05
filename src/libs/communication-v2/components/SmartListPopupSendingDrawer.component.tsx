@@ -16,9 +16,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { SmartListPopupSending } from '#libs/communication-v2/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { createUrl } from '../../../utils/createUrlHandlers';
 import { FetchRecipientsParams, Member } from '#libs/member/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { createUrl } from '../../../utils/createUrlHandlers';
 import SmartListPopupListItem, {
   MEMBER_PAGE_SIZE,
 } from './SmartListPopupListItem.component';

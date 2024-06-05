@@ -59,9 +59,6 @@ import {
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 
-import type { RootState } from '../../reducers';
-import type { WithHandlerType } from '../../utils/types';
-import type { OptionCallback } from '../../state/types';
 import type {
   Cadence,
   CadenceGlobalMetricsParams,
@@ -71,6 +68,9 @@ import type {
 } from '#libs/sequential_marketing/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
+import type { OptionCallback } from '../../state/types';
 
 const CADENCE_PAGE_SIZE = 500;
 

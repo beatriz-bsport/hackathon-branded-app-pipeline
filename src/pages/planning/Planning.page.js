@@ -120,12 +120,7 @@ import {
   fetchOffersWaitingListStatistics as fetchOffersWaitingListStatisticsAction,
 } from '#libs/statistics/actions';
 
-import {
-  getBookingRelatedStatisticLoading,
-  getStats,
-} from '../../state/stats/selectors';
 
-import type { Offer, Coach } from '#api/types';
 import type { OfferFilter, OfferTypeFilter } from '#libs/offer/types';
 
 import { snackbarSuccess } from '#libs/snackbar/actions';
@@ -151,7 +146,6 @@ import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import { OptionCallback } from '../../state/types';
 import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
@@ -161,9 +155,6 @@ import zoomAppSelectors from '#libs/zoom-app/selectors';
 import { ZoomApp } from '#libs/zoom-app/types';
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
-import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
-import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
@@ -173,6 +164,15 @@ import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollC
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
+import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
+import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
+import { OptionCallback } from '../../state/types';
+import type { Offer, Coach } from '#api/types';
+import {
+  getBookingRelatedStatisticLoading,
+  getStats,
+} from '../../state/stats/selectors';
 
 const styles = (theme) => ({
   container: {

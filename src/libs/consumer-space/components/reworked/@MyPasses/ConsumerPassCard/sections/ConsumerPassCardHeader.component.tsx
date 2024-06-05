@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import type { ChipColor } from '#Fabrique/Chip';
 
-import type { ConsumerPassCardProps } from '..';
 import { Building05, PauseCircle, Users01 } from '#components/untitledui';
 
 import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
+import type { ConsumerPassCardProps } from '..';
 
 type Props = Required<
   Pick<

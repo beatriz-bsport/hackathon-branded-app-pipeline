@@ -14,11 +14,11 @@ import Popper from '@material-ui/core/Popper';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import type {
   DrawerItem,
   DrawerItemDefault,
 } from './ResponsiveDrawer.component';
-import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import DrawerListItemIcon from './DrawerListItemIcon.component';
 
 type DrawerListItemProps = {

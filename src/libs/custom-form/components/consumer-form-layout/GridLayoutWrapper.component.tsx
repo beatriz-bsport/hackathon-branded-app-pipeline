@@ -4,9 +4,9 @@ import { useTheme } from '@material-ui/core';
 import { Responsive } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import './react-grid-layout.css';
+import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 import type { Layout, ResponsiveLayouts } from '../../types';
 import customWithProvider from './customwidthProvider';
-import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 
 const ResponsiveGridLayout = customWithProvider(Responsive);
 const ROW_HEIGHT_FOR_CSS_ONLY_FIELD = 85;

@@ -6,13 +6,13 @@ import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
-import DiscountListItem from './DiscountListItem.component';
 // @ts-expect-error
-import CouponCard from './CouponCard.component';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { Discount, Coupon, FetchDiscountParams } from '#libs/coupon/types';
+import CouponCard from './CouponCard.component';
+import DiscountListItem from './DiscountListItem.component';
 
 type Props = {
   coupon: Coupon;

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Select, { Props as SelectProps } from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceSelectCss from './style.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -17,8 +13,12 @@ import {
   CountryMetaData,
   CountryOption,
 } from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
-import { SelectOptionWithMetaData } from './Select.component';
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+import { SelectOptionWithMetaData } from './Select.component';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceSelectCss from './style.css?raw';
+import Select, { Props as SelectProps } from '.';
 
 const marketplaceSelectVariationRegistry = [
   {

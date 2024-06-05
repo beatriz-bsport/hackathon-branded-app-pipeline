@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
 
+import { CUSTOM_ERROR_CODE } from '#libs/constants';
 import { snackbarError } from '../snackbar/actions';
 import api from './api';
 
-import { CUSTOM_ERROR_CODE } from '#libs/constants';
 import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import type { Tag, TagGroupAPI, TagGroupTemplate } from './types';
 

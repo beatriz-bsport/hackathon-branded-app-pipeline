@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { Offer } from '#libs/offer/types';
 import { buildUrlParams } from '../../http';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
@@ -10,7 +11,6 @@ import {
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
-import { Offer } from '#libs/offer/types';
 
 export const getMarketplaceRoute = (
   companyName: string,

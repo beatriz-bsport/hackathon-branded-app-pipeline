@@ -4,6 +4,8 @@ import { DateTime } from 'luxon';
 
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { isErrorWithCustomCode } from '#libs/utils';
 import {
   Dispatch,
   OptionBackgroundCallback,
@@ -45,7 +47,6 @@ import {
   updateInternalNote as updateInternalNoteAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
-import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { RootState } from '../../reducers';
@@ -61,7 +62,6 @@ import type {
   OfferStatusParams,
 } from './types';
 
-import { isErrorWithCustomCode } from '#libs/utils';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),

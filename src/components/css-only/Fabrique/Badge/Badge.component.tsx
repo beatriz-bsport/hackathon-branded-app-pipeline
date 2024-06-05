@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { BadgeColorEnum } from './constants';
 import Typography from '#Fabrique/Typography';
+import { BadgeColorEnum } from './constants';
 
 import { BadgeColor } from './types';
 import './styles.css';

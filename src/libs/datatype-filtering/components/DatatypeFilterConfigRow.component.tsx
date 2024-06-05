@@ -29,9 +29,9 @@ import {
 
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import HoverableWarning from '#components/HoverableWarning.component';
+import { authorIdentifiers } from '#libs/reporting/constants';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
-import { authorIdentifiers } from '#libs/reporting/constants';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;

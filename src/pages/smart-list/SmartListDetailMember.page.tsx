@@ -22,9 +22,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '#utils/types';
-import type { OptionCallback } from '../../state/types';
-import type { RootState } from '../../reducers';
-import { snackbarError } from '../../actions/snackbar.actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -195,7 +192,6 @@ import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCus
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
 
-import Config from '../../config';
 import {
   getCommunicationScheduledForSmartlist,
   getCommunicationScheduledBySmartlistLoading,
@@ -206,6 +202,10 @@ import {
 // CADENCES
 import { fetchCadenceList } from '#libs/sequential_marketing/actions';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+import Config from '../../config';
+import { snackbarError } from '../../actions/snackbar.actions';
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
 
 type OwnProps = {
   id: number;

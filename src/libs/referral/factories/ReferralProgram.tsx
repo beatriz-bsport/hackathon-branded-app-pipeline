@@ -1,11 +1,11 @@
 import { fakerEN as faker } from '@faker-js/faker';
+import { tagWithoutGroupFactory } from '#libs/tag/factory';
 import { generateRandomName } from '../../../utils/factories';
 import type { ReferralProgram } from '../types';
 import {
   ReferralTimeLimitUnits,
   ReferredVoucherTypeChoices,
 } from '../constants';
-import { tagWithoutGroupFactory } from '#libs/tag/factory';
 
 /**
  * Generates a referral program with Faker

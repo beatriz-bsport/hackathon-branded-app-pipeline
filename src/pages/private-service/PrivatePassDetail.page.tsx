@@ -61,9 +61,6 @@ import PrivateConsumerPassFilters from '#libs/private-service/components/pass/Pr
 import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
-import { RootState } from '../../reducers';
-import { OptionCallback } from '../../state/types';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import MassExtensionCreateDialog, {
   GenericExtensionCreationPayload,
 } from '#components/MassExtensionCreateDialog';
@@ -124,6 +121,9 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
 
 type OwnProps = {
   id: number;

@@ -12,6 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 import themeSelectors from '../../../libs/theme/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import { parseQueryString } from '../../../http';
@@ -28,7 +29,6 @@ import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
 import { OptionCallback } from '../../../state/types';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   theme: Theme,

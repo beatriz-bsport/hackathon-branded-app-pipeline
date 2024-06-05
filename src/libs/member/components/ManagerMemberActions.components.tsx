@@ -11,12 +11,12 @@ import { Theme, useTheme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { getCurrencyDisplay } from '../../theme/selectors';
-import type { Member } from '../types';
 import RedFab from '#components/button/RedFab.component';
 import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { Member } from '../types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type OwnProps = {
   billMember: () => void;

@@ -18,13 +18,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
 import AddIcon from '@material-ui/icons/Add';
 import { DateTime } from 'luxon';
-import { PaymentPack, PaymentPackFormValues } from '../../types';
-import {
-  TextFieldEnhancedLabelWithError,
-  SwitchField,
-  DateField,
-  // @ts-expect-error
-} from '../../../../components/forms';
 import { SCT } from '#libs/category/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { Establishment } from '#libs/establishment/types';
@@ -37,6 +30,13 @@ import ToolTip from '#components/Tooltip.component';
 import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 import { offPeakGroupDefault } from '#libs/payment-packs/utils';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import {
+  TextFieldEnhancedLabelWithError,
+  SwitchField,
+  DateField,
+  // @ts-expect-error
+} from '../../../../components/forms';
+import { PaymentPack, PaymentPackFormValues } from '../../types';
 
 type Props = {
   categoryList: Array<SCT>;

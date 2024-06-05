@@ -7,12 +7,12 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
 // @ts-expect-error
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import EstablishmentDetail from './EstablishmentDetail.page';
 // @ts-expect-error
 import EstablishmentCalendar from './EstablishmentCalendar.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
 
 type OwnProps = {
   tab: string;

@@ -5,16 +5,16 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import { RootState } from '../../../../reducers';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
-import CommunicationSentGroupConfigDetailGeneral from './CommunicationSentGroupConfigDetailGeneral.page';
 import { getCommunicationSentGroupConfig } from '#libs/communication/selectors';
 import { fetchCommunicationSentGroupConfigDetail as fetchCommunicationSentGroupConfigDetailAction } from '#libs/communication/actions';
-import CommunicationSentGroupConfigDetailHistory from './CommunicationSentGroupConfigDetailHistory.page';
 import { CommunicationSentGroupConfig } from '#libs/communication/types';
+import CommunicationSentGroupConfigDetailHistory from './CommunicationSentGroupConfigDetailHistory.page';
+import CommunicationSentGroupConfigDetailGeneral from './CommunicationSentGroupConfigDetailGeneral.page';
+import { RootState } from '../../../../reducers';
 import CommunicationSentGroupConfigDetailReport from './CommunicationSentGroupConfigDetailReport.page';
 
 type Props = {

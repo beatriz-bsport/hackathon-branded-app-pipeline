@@ -13,7 +13,6 @@ import { RouterProps } from 'react-router';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import { buildUrlParams } from '../../../../http';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -51,15 +50,12 @@ import { fetch as fetchBillingPlanAction } from '#libs/subscription/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#libs/marketplace/utils';
 import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
-import { sortByDate } from '../../../../utils/datetime';
 
 import type { CompanyTheme } from '#libs/theme/types';
 import type { OfferWithSpotInformation, Offer_FULL } from '#libs/offer/types';
 import type { ExtraDataFromQueryParams } from '#libs/booker-module/types';
-import type { RootState } from '../../../../reducers';
 import { BuyableItemOptions, type Basket } from '#libs/checkout/types';
 
-import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import MarketplaceOfferBookingList from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
 
 import {
@@ -80,13 +76,17 @@ import { Subscription } from '#libs/subscription/types';
 import Analytics from '#components/analytics/Analytics.component';
 
 import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
-import { ConfirmationCheckoutSkeleton } from '.';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import MarketplaceBookingAddGuestModal, {
   AddGuestFormValues,
 } from '#libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
+import { ConfirmationCheckoutSkeleton } from '.';
+import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
+import type { RootState } from '../../../../reducers';
+import { sortByDate } from '../../../../utils/datetime';
+import { buildUrlParams } from '../../../../http';
 
 import './styles.css';
 

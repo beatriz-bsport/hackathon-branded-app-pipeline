@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { GenericPaginationResults } from '#libs/types';
+import { Offer, OfferStatus } from '#libs/offer/types';
 import {
   API_V1_URI,
   postAuth,
@@ -8,7 +9,6 @@ import {
   getAuth,
   buildUrlParams,
 } from '../../http';
-import { Offer, OfferStatus } from '#libs/offer/types';
 import { OffersGroupFilter, GroupPreviewData, OffersGroup } from './types';
 
 export const fetchGroupsOfferList = async (

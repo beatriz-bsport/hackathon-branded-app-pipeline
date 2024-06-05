@@ -1,3 +1,9 @@
+import type {
+  AssetForBlueprint,
+  SpotType,
+  RoomBlueprint,
+  RoomBlueprintFilters,
+} from '#libs/spot-scheduling/types';
 import {
   API_V1_URI,
   getAuth,
@@ -6,12 +12,6 @@ import {
   patchAuth,
   deleteAuth,
 } from '../../http';
-import type {
-  AssetForBlueprint,
-  SpotType,
-  RoomBlueprint,
-  RoomBlueprintFilters,
-} from '#libs/spot-scheduling/types';
 import type { DeepPartial } from '../../utils/types';
 
 const API = `${API_V1_URI}/spot-scheduling`;

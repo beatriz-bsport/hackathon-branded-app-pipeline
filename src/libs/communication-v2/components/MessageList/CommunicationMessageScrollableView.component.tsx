@@ -3,11 +3,11 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
-import CommunicationMessageBubble from './SingleMessage/CommunicationMessageBubble.component';
 import type { CommunicationMessage } from '#libs/communication-v2/types';
 import type { Member } from '#libs/member/types';
 import type { ResolvedGenericTags } from '#libs/email-editor/types';
+import CommunicationMessageBubble from './SingleMessage/CommunicationMessageBubble.component';
+import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
 
 type Props = {
   messageList: Array<CommunicationMessage>;

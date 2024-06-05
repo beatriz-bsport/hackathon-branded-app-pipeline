@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
-import { RootState } from '../../reducers';
 import { getBuyableItem } from '#libs/invoice/selectors';
 import shopSelectors, { getAllShopItemData } from '#libs/shop/selectors';
 // @ts-expect-error
@@ -12,13 +11,14 @@ import {
   getPaymentPackById,
 } from '#libs/payment-packs/selectors';
 import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
+import { getPrivatePassById } from '#libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
+import { getGiftcardData } from '#libs/giftcard/selectors';
 import {
   QuicksaleObjectsByItemIdentifierByCategory,
   QuicksaleObjectsByItemIdentifierById,
 } from './types';
-import { getPrivatePassById } from '#libs/private-service/selectors/private-pass';
-import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import { getGiftcardData } from '#libs/giftcard/selectors';
+import { RootState } from '../../reducers';
 
 export const getLoading = (state: RootState) => state.quicksale.loading;
 

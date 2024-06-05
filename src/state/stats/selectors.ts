@@ -6,18 +6,18 @@ import createCachedSelector from 're-reselect';
 import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
 import type { RootState } from 'src/reducers';
-import type {
-  DateRange,
-  NumberDateRange,
-  StringStatisticPoint,
-  StringStatisticPointTable,
-} from './types';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
   // @ts-expect-error
 } from '#libs/statistics/utils';
+import type {
+  DateRange,
+  NumberDateRange,
+  StringStatisticPoint,
+  StringStatisticPointTable,
+} from './types';
 
 export const mainChartSelector = (state: RootState) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(

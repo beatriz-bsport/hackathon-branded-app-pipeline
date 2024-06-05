@@ -65,9 +65,9 @@ import { requestLogin } from '../../actions/auth.actions';
 
 import './signup-page/SignupPageStyles.css';
 
-import { RootState } from '../../reducers';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import withThemeProvider from '#hocs/company-themifier.hoc';
+import { RootState } from '../../reducers';
 
 type OwnProps = {
   title: string;

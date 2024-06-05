@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import { Form } from 'formik';
 
+import type { PrivateServiceGroupWithService } from '#libs/private-service/types';
 import PrivateServiceGroupForm, {
   PrivateServiceGroupFormikHOC,
   // @ts-expect-error
@@ -16,7 +17,6 @@ import PrivateServiceGroupForm, {
 // @ts-expect-error
 import { Submit } from '../../../../components/forms';
 
-import type { PrivateServiceGroupWithService } from '#libs/private-service/types';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {

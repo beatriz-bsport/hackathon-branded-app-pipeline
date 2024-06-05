@@ -12,17 +12,17 @@ import Typography from '@material-ui/core/Typography';
 
 import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
 
-import {
-  getCompatibilityText,
-  getCompatibilityTextWithSlots,
-} from '../../utils';
-
 import type {
   PrivateService,
   PrivateServiceWithSlots,
   PrivateSlot,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
+import {
+  getCompatibilityText,
+  getCompatibilityTextWithSlots,
+} from '../../utils';
+
 
 type Props = {
   compatibilityByService?: ServiceCompatibilityPass;

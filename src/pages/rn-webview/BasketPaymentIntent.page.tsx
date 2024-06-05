@@ -19,14 +19,12 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
 // @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
 } from '#libs/payment/api';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   fetchBasket as fetchBasketAction,
@@ -38,7 +36,6 @@ import { fetchPaymentMethodList } from '#libs/payment/actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { getBasket, getOffersListFromBasket } from '#libs/checkout/selectors';
-import { OptionCallback } from '../../state/types';
 import { PaymentMethod, type StripeInit } from '#libs/payment/types';
 import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
@@ -46,8 +43,6 @@ import { Basket, PrepaidLine } from '#libs/checkout/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import PrepaidLineListItem from '#libs/checkout/components/PrepaidLineListItem.component';
 import type { CompanyTheme } from '#libs/theme/types';
-import type { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
 import {
   getSubTotal,
   hasRedirectionFailed,
@@ -73,7 +68,6 @@ import { getInstalmentForBasketList } from '#libs/instalment-payment-configurati
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
 // @ts-expect-error
-import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
 import { isErrorWithCustomCode } from '#libs/utils';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
@@ -87,6 +81,12 @@ import { withEstablishment, withMetaActivity } from '#libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
+import CheckPaymentStatus from '../checkout/basket/CheckPaymentStatus.component';
+import { MaterialStyleType } from '../../utils/types';
+import type { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
+import asyncComponent from '../../AsyncComponent';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 
 const PaymentStripe = asyncComponent(
   () =>

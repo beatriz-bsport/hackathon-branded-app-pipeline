@@ -9,16 +9,16 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import PrivateBookingStaffHistory from '../history/PrivateBookingStaffHistory.component';
-import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
-import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
-import { formatAsDatetime } from '../../../../utils/datetime';
-import { BookingSource, getStaffName } from '../../../booking/utils';
 import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/private-service/components/constants';
+import PrivateBookingStaffHistory from '../history/PrivateBookingStaffHistory.component';
+import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
+import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
+import { formatAsDatetime } from '../../../../utils/datetime';
+import { BookingSource, getStaffName } from '../../../booking/utils';
 import type {
   PrivateBooking,
   PrivateConsumerPass,

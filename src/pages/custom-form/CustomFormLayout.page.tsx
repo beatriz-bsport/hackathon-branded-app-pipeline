@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getCustomFormWithEnableField } from '../../libs/custom-form/selectors';
@@ -16,7 +17,6 @@ import { WithHandlerType } from '../../utils/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { CustomForm, ResponsiveLayouts } from '../../libs/custom-form/types';
 import withTitle from '../../hocs/with-title.hoc';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
   id: number;

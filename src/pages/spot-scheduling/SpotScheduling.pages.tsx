@@ -7,10 +7,7 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/lib/master-data/spot-scheduling';
 import { v4 as uuid4 } from 'uuid';
-import { MaterialStyleType } from '../../utils/types';
 import CanvasEditorComponent from '#libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 
 import {
   createAssetForBlueprint,
@@ -38,7 +35,6 @@ import {
 } from '#libs/spot-scheduling/selector';
 import themeSelectors from '#libs/theme/selectors';
 import { snackbar } from '#libs/snackbar/actions';
-import { OptionCallback } from '../../state/types';
 import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
 import CanvasAssetUploaderDialog from '#libs/spot-scheduling/component/SpotCreator/CanvasAssetUploaderDialog.component';
 import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
@@ -53,6 +49,10 @@ import { FeatureList } from '#libs/company/types';
 import { buildSpiviCorrespondence } from '#libs/spot-scheduling/utils';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {
   id: number;

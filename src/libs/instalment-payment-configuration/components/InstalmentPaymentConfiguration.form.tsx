@@ -11,8 +11,6 @@ import { Button, Divider, LinearProgress } from '@material-ui/core';
 import type { ShopItem } from '#libs/shop/types';
 
 import { PaymentCombo } from '#libs/payment-combo/types';
-import { OptionCallback } from '../../../state/types';
-import { InstalmentPaymentApi } from '../types';
 import {
   CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
   CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
@@ -21,12 +19,14 @@ import {
 
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Giftcard } from '#libs/giftcard/types';
-import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCompability.form';
-import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
 import { PrivatePass } from '#libs/private-service/types';
-import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCompability.form';
+import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
+import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';
+import { InstalmentPaymentApi } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 const {
   trackFormAdd,

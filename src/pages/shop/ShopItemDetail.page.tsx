@@ -55,12 +55,9 @@ import ShopItemDetail from '#libs/shop/components/ShopItemDetail';
 
 // --- UTILS ---
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import withTitle from '../../hocs/with-title.hoc';
 // @ts-expect-error
-import { mapFormDataWithObject } from '../form.utils';
 
 // --- TYPES ---
-import type { RootState } from '../../reducers';
 import type {
   Provision,
   ProvisionBulkCreate,
@@ -69,13 +66,16 @@ import type {
   ShopItemEdit,
   ShopItemVariantAttributes,
 } from '#libs/shop/types';
-import type { OptionCallback } from '../../state/types';
 
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SelectOption } from '#libs/types';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
+import { mapFormDataWithObject } from '../form.utils';
+import withTitle from '../../hocs/with-title.hoc';
 
 type OwnProps = {
   id: number;

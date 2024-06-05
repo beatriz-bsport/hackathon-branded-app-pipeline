@@ -6,14 +6,14 @@ import { Fade, Hidden, Paper, makeStyles } from '@material-ui/core';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import Welcome from '#libs/login/components/Welcome.component';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 import { CompanyTheme } from '#libs/theme/types';
 import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 import Config from '../../config';
 // @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import withThemeProvider from '#hocs/company-themifier.hoc';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 import { RootState } from '../../reducers';
 
 type Props = {

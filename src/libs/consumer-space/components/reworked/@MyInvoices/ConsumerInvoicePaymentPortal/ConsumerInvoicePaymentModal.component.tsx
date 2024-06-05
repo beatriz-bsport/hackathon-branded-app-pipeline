@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ConsumerInvoicePaymentContent } from '.';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Blanket from '#Fabrique/Blanket';
 import ModalDialog from '#Fabrique/ModalDialog';
+import { ConsumerInvoicePaymentContent } from '.';
 
 import './styles.css';
 

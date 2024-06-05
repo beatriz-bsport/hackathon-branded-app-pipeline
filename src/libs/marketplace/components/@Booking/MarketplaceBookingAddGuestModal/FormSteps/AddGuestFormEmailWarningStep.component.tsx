@@ -5,8 +5,8 @@ import { useFormikContext } from 'formik';
 
 import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
 import TextField from '#Fabrique/TextField';
-import { type AddGuestFormValues } from '..';
 import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
+import { type AddGuestFormValues } from '..';
 
 const AddGuestFormEmailWarningStep: React.FC = () => {
   const { t } = useTranslation('booking');

@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
+import { monitorBackgroundTask } from '#libs/background-task/actions';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   // Payment-Pack
   // -----------------
@@ -30,7 +32,6 @@ import {
   createPaymentPackMassExtension as createPaymentPackMassExtensionAPI,
   deletePaymentPackMassExtension as deletePaymentPackMassExtensionAPI,
 } from './api';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
@@ -54,7 +55,6 @@ import type {
   OptionBackgroundCallback,
   PaginatedResponse,
 } from '../../state/types';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { RootState } from '../../reducers';
 import { PAYMENT_PACK_MASS_EXTENSION_PAGE_SIZE } from './constants';
 

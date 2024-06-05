@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import { Circle, Union } from '#components/untitledui';
+import InputBase from '#Fabrique/InputBase';
 import type { RadioButtonSize } from './types';
 import { RadioButtonSizeEnum } from './constants';
-import InputBase from '#Fabrique/InputBase';
 
 import './styles.css';
 

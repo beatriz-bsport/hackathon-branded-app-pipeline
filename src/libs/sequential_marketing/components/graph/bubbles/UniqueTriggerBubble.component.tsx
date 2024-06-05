@@ -10,8 +10,8 @@ import {
   triggerIconByKind,
 } from '#libs/sequential_marketing/components/helpers/utils';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import CadenceBubble from './CadenceBubble.component';
 import ConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/ConnectedTriggerForm.component';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   trigger: ConnectedTrigger;

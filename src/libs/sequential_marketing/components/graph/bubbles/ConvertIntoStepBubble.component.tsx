@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import CadenceBubble from './CadenceBubble.component';
 import {
   MAX_LENGTH_CADENCE_STEP_NAME,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   onCancel?: () => void;

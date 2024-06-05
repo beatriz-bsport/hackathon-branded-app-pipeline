@@ -19,21 +19,21 @@ import { DateTime } from 'luxon';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-import { MaterialStyleType } from '../../../utils/types';
 import {
   Offer_FULL,
   OfferStatus,
   BOOKING_FOR_GUEST_FREQUENCY,
 } from '#libs/offer/types';
-import OfferBookableItem from './OfferBookableItem.component';
-import DividerLinearGradient from '../../../components/DividerLinearGradient.component';
-import { OfferData, AdditionalGuest } from '../types';
-import { Member, MemberMinimal } from '../../member/types';
 import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
 import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
 import { getLevelTranslation } from '#libs/level/utils';
 import { SpotType } from '#libs/spot-scheduling/types';
 import { getSpotTypeMinimal } from '#libs/spot-scheduling/utils';
+import { Member, MemberMinimal } from '../../member/types';
+import { OfferData, AdditionalGuest } from '../types';
+import DividerLinearGradient from '../../../components/DividerLinearGradient.component';
+import OfferBookableItem from './OfferBookableItem.component';
+import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {
   offer: Offer_FULL;

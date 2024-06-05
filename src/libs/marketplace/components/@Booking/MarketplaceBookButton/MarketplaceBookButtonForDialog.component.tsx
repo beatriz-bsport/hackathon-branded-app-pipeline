@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
+import { Offer_FULL } from '#libs/offer/types';
+import { OffersGroup } from '#libs/group-offer/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import Button from '#components/css-only/Fabrique/Button';
 import {
   isOfferInThePast,
   getBookingButtonTraduction,
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '../../../utils';
-import { Offer_FULL } from '#libs/offer/types';
-import { OffersGroup } from '#libs/group-offer/types';
-import { MetaActivity } from '#libs/meta-activity/types';
-import Button from '#components/css-only/Fabrique/Button';
 import './MarketplaceBookButtonForDialog.css';
 
 type Props = {

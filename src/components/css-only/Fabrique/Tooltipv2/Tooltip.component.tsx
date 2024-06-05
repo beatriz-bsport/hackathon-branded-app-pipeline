@@ -1,12 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import {
-  colorEnum,
-  placementToOrigins,
-  TOOLTIP_DELAY,
-  TOOLTIP_MARGIN,
-} from './constants';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
 import { usePopoverPositioning } from '#Fabrique/hooks';
 import {
@@ -18,6 +12,12 @@ import {
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Typography from '#Fabrique/Typography';
 import type { PlacementsType } from '#Fabrique/Types/positions';
+import {
+  colorEnum,
+  placementToOrigins,
+  TOOLTIP_DELAY,
+  TOOLTIP_MARGIN,
+} from './constants';
 import './styles.css';
 
 export type TooltipProps = {

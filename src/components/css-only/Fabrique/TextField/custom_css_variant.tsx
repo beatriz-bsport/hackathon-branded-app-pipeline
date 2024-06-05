@@ -1,16 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import TextField, { Props as TextFieldProps } from '.';
-import { TextFieldSize, TextFieldVariant } from './types';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TextFieldCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import TextField, { Props as TextFieldProps } from '.';
+import { TextFieldSize, TextFieldVariant } from './types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import TextFieldCss from './styles.css?raw';
 
 const FAKE_LABEL = faker.lorem.words(1);
 const FAKE_HELPER_TEXT = faker.lorem.words(3);

@@ -5,11 +5,6 @@ import {
   fetchConsumerSubscription as fetchConsumerSubscriptionAPI,
 } from '#libs/subscription/api';
 
-import type {
-  OptionCallback,
-  ThunkAction,
-  PaginatedResponse,
-} from '../../../state/types';
 
 import type {
   SubscriptionREST,
@@ -18,6 +13,11 @@ import type {
 } from '#libs/subscription/types';
 import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
+import type {
+  OptionCallback,
+  ThunkAction,
+  PaginatedResponse,
+} from '../../../state/types';
 
 const DEFAULT_PAGE_SIZE = 30;
 const DEFAULT_INVOICE_PAGE_SIZE = 5;

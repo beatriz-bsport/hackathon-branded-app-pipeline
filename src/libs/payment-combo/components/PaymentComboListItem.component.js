@@ -11,10 +11,10 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import type { PaymentCombo } from '../types';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
 import Tooltip from '#components/Tooltip.component';
+import type { PaymentCombo } from '../types';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   divider?: boolean,

@@ -5,12 +5,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { formatAsDatetime } from '../../utils/datetime';
-import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 // @ts-expect-error
 import LoadingListItem from '#components/LoadingListItem.component';
 import { Invoice } from '#libs/invoice/types';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
+import { formatAsDatetime } from '../../utils/datetime';
 
 type Props = {
   onClick: (uuid: string) => void;

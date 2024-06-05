@@ -28,8 +28,8 @@ import type {
 } from '#libs/private-service/types';
 import { filterPrivateService } from '#libs/private-service/utils';
 import { PrivateSlotSelectionDialog } from '#libs/private-service/components//slot/PrivateSlotSelectionDialog.component';
-import { PaymentPackFormValues, PaymentPack } from '../../payment-packs/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { PaymentPackFormValues, PaymentPack } from '../../payment-packs/types';
 
 const getExcludedSlots = (
   ps: PrivateServiceWithSlots,

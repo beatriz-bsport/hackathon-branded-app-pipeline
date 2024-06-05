@@ -7,9 +7,6 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation, Trans } from 'react-i18next';
-import ReportGenerationForm from './ReportGenerationForm.component';
-import ReportTable from './ReportTable.component';
-import ReportTableHeaders from './ReportTableHeaders.component';
 
 import type {
   ReportConfiguration,
@@ -20,9 +17,12 @@ import type {
 } from '#libs/reporting/types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { getColumn, getReportObjectPermissions } from '#libs/reporting/utils';
-import { OptionCallback } from '../../../state/types';
 import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { OptionCallback } from '../../../state/types';
+import ReportTableHeaders from './ReportTableHeaders.component';
+import ReportTable from './ReportTable.component';
+import ReportGenerationForm from './ReportGenerationForm.component';
 
 type Props = {
   resultLoading?: boolean;

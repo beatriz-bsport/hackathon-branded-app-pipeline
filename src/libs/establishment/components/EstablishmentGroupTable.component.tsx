@@ -15,12 +15,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import { IconButton } from '@material-ui/core';
+import { MarketingNotification } from '#libs/marketing/types';
+import NotificationBellWithBadge from '#components/marketing/NotificationBell.component';
 import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import type { EstablishmentGroup } from '../types';
-import { MarketingNotification } from '#libs/marketing/types';
-import NotificationBellWithBadge from '#components/marketing/NotificationBell.component';
 
 type OwnProps = {
   establishmentGroupList: Array<EstablishmentGroup>;

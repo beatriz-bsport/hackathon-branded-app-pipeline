@@ -13,13 +13,13 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
-import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
 import RedButton from '#components/button/RedButton.component';
-import { Subscription } from '../../types';
 import { PaymentMethod } from '#libs/payment/types';
+import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
+import { Subscription } from '../../types';
 import { OptionCallback } from '../../../../state/types';
 import ContractTermsDialog from '../contract/ContractTermsDialog.component';
-import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
 import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type Props = {

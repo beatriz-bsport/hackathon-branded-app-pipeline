@@ -25,14 +25,14 @@ import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSe
 import ImageField from '#components/forms/ImageField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { Giftcard, GiftcardTemplate } from '../types';
-import { OptionCallback } from '../../../state/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 import BookkeepingAccountSelector from '#libs/payment/components/BookkeepingAccountSelector';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import { OptionCallback } from '../../../state/types';
+import { Giftcard, GiftcardTemplate } from '../types';
 
 type Props = {
   values: any;

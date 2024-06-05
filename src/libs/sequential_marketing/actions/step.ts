@@ -12,16 +12,16 @@ import {
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 import type {
+  CadenceStep,
+  CadenceStepQueryParams,
+  UpdatedTriggersList,
+} from '#libs/sequential_marketing/types';
+import type {
   OptionCallback,
   Dispatch,
   OptionPaginatedCallback,
   PaginatedResponse,
 } from '../../../state/types';
-import type {
-  CadenceStep,
-  CadenceStepQueryParams,
-  UpdatedTriggersList,
-} from '#libs/sequential_marketing/types';
 
 export const retrieveCadenceStepActions = {
   isLoading: createAction<boolean>('CADENCE_STEP_WIP/RETRIEVE/IS_LOADING'),

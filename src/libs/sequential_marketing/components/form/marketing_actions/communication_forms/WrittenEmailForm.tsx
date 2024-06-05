@@ -5,12 +5,12 @@ import { useFormik } from 'formik';
 import { MarketingActions } from '#libs/sequential_marketing/constants';
 import { writtenEmailValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
 import CommunicationWriteEmail from '#libs/communication-v2/components/MessageSender/Writers/CommunicationWriteEmail.component';
-import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
-
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
 } from '#libs/sequential_marketing/types';
+import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
+
 
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;

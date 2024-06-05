@@ -1,11 +1,5 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import Badge from '.';
-import { BadgeColorEnum } from './constants';
-import { BadgeColor } from './types';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BadgeCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
@@ -13,6 +7,12 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import type { CompanyTheme } from '#libs/theme/types';
+import Badge from '.';
+import { BadgeColorEnum } from './constants';
+import { BadgeColor } from './types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BadgeCss from './styles.css?raw';
 
 const fabriqueBadgeVariationRegistry = [
   {

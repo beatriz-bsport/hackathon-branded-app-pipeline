@@ -1,11 +1,3 @@
-import {
-  API_URI,
-  API_V1_URI,
-  getAuth,
-  postAuth,
-  deleteAuth,
-  buildUrlParams,
-} from '../../http';
 
 import type { PaginatedResponse } from '#state/types';
 import type { BookingREST } from '#libs/booking/types';
@@ -18,6 +10,14 @@ import type {
   ConsumerInvoiceQueryParams,
   ConsumerPassesTabDisplay,
 } from '#libs/consumer-space/types';
+import {
+  API_URI,
+  API_V1_URI,
+  getAuth,
+  postAuth,
+  deleteAuth,
+  buildUrlParams,
+} from '../../http';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);

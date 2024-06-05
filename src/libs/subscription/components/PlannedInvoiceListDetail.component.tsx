@@ -37,8 +37,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import type { LuxonDateTime } from '#src/types';
 
-import { formatAsDate, sortByDate } from '../../../utils/datetime';
 import Tooltip from '#components/Tooltip.component';
+import { getInvoiceIdentifier } from '#libs/invoice/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { formatAsDate, sortByDate } from '../../../utils/datetime';
 import PlannedInvoicePriceUpdater from './PlannedInvoicePriceUpdater.component';
 import PlannedInvoiceDateUpdater from './PlannedInvoiceDateUpdater.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -52,8 +54,6 @@ import {
 import { OptionCallback } from '../../../state/types';
 import PauseDetailListItem from './pause/PauseDetailListItem.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
-import { getInvoiceIdentifier } from '#libs/invoice/utils';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const Status: FC<{
   disabled?: boolean;

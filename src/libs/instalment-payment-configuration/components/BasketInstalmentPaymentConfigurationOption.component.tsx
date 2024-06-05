@@ -5,7 +5,6 @@ import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import classNames from 'classnames';
-import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
 import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
@@ -15,6 +14,7 @@ import {
   WEEKLY,
 } from '#libs/instalment-payment-configuration/constants';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 
 type Props = {
   checked: boolean;

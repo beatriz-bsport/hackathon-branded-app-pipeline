@@ -24,12 +24,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 // @ts-expect-error
-import withConfirm from '../../hocs/with-confirm.hoc';
 import {
   Category,
   CategoryWithItems,
   ListItem,
 } from '#components/ordering/types';
+import withConfirm from '../../hocs/with-confirm.hoc';
 
 type Props = {
   onEdit: (id: number) => void;

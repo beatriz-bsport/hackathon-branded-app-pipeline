@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import { defaultDynamicDataHasBeenLoaded } from '#libs/datatype-filtering/constants';
 import {
   reportGenerationDetail,
   reportHeadersDetail,
@@ -16,7 +17,6 @@ import {
   deleteReportFilterConfigActions,
 } from './actions';
 import { ReportingState } from './types';
-import { defaultDynamicDataHasBeenLoaded } from '#libs/datatype-filtering/constants';
 
 const initialState: Immutable.Immutable<ReportingState> =
   Immutable<ReportingState>({

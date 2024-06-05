@@ -5,9 +5,9 @@ import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
+import { getCreditsDividedDisplay } from '#libs/theme/utils';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
-import { getCreditsDividedDisplay } from '#libs/theme/utils';
 
 type Props = {
   onBookFromPack: () => void,

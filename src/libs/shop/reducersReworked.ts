@@ -3,6 +3,18 @@ import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 
+import type { PaginatedResponse } from '#state/types';
+import type {
+  IsShopUsedInComboAPI,
+  ShopItem,
+  ShopItemTemplate,
+  ShopItemVariantCombination,
+  ShopStateReworked,
+  ShopSupplier,
+  ShopSupplierTemplate,
+  SubShop,
+  SubshopTemplate,
+} from '#libs/shop/types';
 import {
   fetchShopItemBaseListActions,
   fetchShopItemStandaloneListActions,
@@ -52,18 +64,6 @@ import {
   deleteShopSupplierTemplateActions,
 } from './actions/supplier';
 
-import type { PaginatedResponse } from '#state/types';
-import type {
-  IsShopUsedInComboAPI,
-  ShopItem,
-  ShopItemTemplate,
-  ShopItemVariantCombination,
-  ShopStateReworked,
-  ShopSupplier,
-  ShopSupplierTemplate,
-  SubShop,
-  SubshopTemplate,
-} from '#libs/shop/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
 

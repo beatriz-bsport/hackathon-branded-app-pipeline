@@ -29,10 +29,8 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import Config from '../../../../config';
 
 import NestedList from '#components/NestedMenu.component';
-import CommunicationMessageNumberRecipients from '../MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 
 import { Member, MemberMinimal } from '#libs/member/types';
 import { FeatureList } from '#libs/company/types';
@@ -54,6 +52,8 @@ import {
 import { hasUpsell } from '#libs/platform-billing/utils';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import CommunicationMessageNumberRecipients from '../MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
+import Config from '../../../../config';
 
 type Props = {
   actionType: number;

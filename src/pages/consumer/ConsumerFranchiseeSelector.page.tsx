@@ -9,21 +9,16 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
-import { parseQueryString } from '../../http';
 // @ts-expect-error
-import { disconnect } from '../../actions/auth.actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 // import Analytics from '#components/analytics/Analytics.component';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
 
-import type { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
 // @ts-expect-error
-import { getFranchiseTheme } from '../../theme';
 import {
   getFranchiseThemeLoading,
   getFranchisor,
@@ -35,6 +30,11 @@ import {
   getUserSpaceUrl,
 } from '#libs/marketplace/routing-utils';
 import { getThemeLoading } from '#libs/theme/selectors';
+import { getFranchiseTheme } from '../../theme';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
+import { disconnect } from '../../actions/auth.actions';
+import { parseQueryString } from '../../http';
 
 type OwnProps = {
   location: {

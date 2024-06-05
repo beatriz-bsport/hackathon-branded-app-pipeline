@@ -2,12 +2,12 @@ import React from 'react';
 
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { useStyles as cadenceGlobalMetricsProgressListStyles } from './CadenceGlobalMetricsProgressList.component';
-
 import {
   CustomMuiSkeletonText,
   CustomMuiSkeletonIconContainer,
 } from '#components/customMuiSkeletons';
+import { useStyles as cadenceGlobalMetricsProgressListStyles } from './CadenceGlobalMetricsProgressList.component';
+
 
 export const CadenceGlobalMetricsProgressListSkeleton = () => {
   const classes = useStyles();

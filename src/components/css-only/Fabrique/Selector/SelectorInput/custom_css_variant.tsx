@@ -3,10 +3,6 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import Selector, { SelectorProps } from '#Fabrique/Selector';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import SelectorCss from './selector-input-styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import { generateRandomName, generateRandomNames } from '#utils/factories';
@@ -17,9 +13,12 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import MenuItem from '#Fabrique/MenuItem';
+import { Star06 } from '#components/untitledui';
 import { SelectorSizeEnum } from '../constants';
 import type { SelectorSize } from '../types';
-import { Star06 } from '#components/untitledui';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import SelectorCss from './selector-input-styles.css?raw';
 
 const PLACEHOLDER = generateRandomName(faker);
 

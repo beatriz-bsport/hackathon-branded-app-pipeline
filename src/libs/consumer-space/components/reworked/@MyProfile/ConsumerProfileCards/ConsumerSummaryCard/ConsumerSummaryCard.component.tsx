@@ -5,6 +5,8 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 import Title from '#Fabrique/Title';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
+import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import {
   ConsumerSummaryCardHeader,
   ConsumerAddressSection,
@@ -12,9 +14,7 @@ import {
   ConsumerNotificationsSection,
   ConsumerSpiviSection,
 } from './sections';
-import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 import { ConsumerProfileContext } from '#libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
-import type { ConsumerSummaryCardProps } from '#libs/consumer-space/components/reworked/@MyProfile/types';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton/ConsumerDetailsCardSkeleton.component';
 import './styles.css';
 

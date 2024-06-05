@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/react';
+import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
+import { referralExceptionActions } from '#libs/referral/actions';
 import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,
@@ -12,8 +14,6 @@ import {
 } from './api';
 import type { Dispatch, OptionCallback, State } from '../../state/types';
 import { Membership } from './types';
-import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
-import { referralExceptionActions } from '#libs/referral/actions';
 
 export const listAsConsumerActions = {
   success: createAction('MEMBERSHIP/LIST/SUCCESS'),

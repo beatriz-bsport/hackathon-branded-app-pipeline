@@ -8,9 +8,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
-import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean;

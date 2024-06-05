@@ -28,7 +28,6 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 
 // @ts-expect-error
 import { TextField } from '#components/forms';
-import { RootState } from '../../../reducers';
 import {
   createStaffUser,
   fetchCompanyUserRoles,
@@ -38,6 +37,7 @@ import { getRoleStateLoading, getUsers } from '#libs/role/selectors';
 import { UserRole } from '#libs/role/types';
 import PasswordInput from '#components/input/PasswordInput.component';
 import { NO_RESULT_ALERT_BACKGROUND_COLOR } from '#libs/quicksale/constants';
+import { RootState } from '../../../reducers';
 
 type QuicksaleAccess = {
   first_name: string;

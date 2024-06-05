@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import type { UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionForm from './UpsellPackageSubscriptionForm';
 import UpsellSubscriptionConfirmationDialog from './UpsellSubscriptionConfirmationDialog/UpsellSubscriptionConfirmationDialog.component';
 
-import type { UpsellPackage } from '#libs/company/types';
 
 type Props = {
   loading: boolean;

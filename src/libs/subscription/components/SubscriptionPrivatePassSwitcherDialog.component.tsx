@@ -13,15 +13,15 @@ import { Form, withFormik, FormikProps } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { Submit } from '#components/forms';
 // @ts-expect-error
 import PrivatePassSelectorField from '#libs/private-service/components/pass/PrivatePassSelectorField.component';
 import type { PrivatePass } from '#libs/private-service/types';
-import { Subscription } from '../types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
+import { Subscription } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean;

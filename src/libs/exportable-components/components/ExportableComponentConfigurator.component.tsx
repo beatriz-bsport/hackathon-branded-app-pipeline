@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { Level } from '#libs/level/types';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import { Coach } from '../../associated-coach/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
@@ -16,8 +18,6 @@ import {
   PaymentPackCategory,
   PaymentPackTemplate,
 } from '../../payment-packs/types';
-import { Level } from '#libs/level/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
 
 type Props = {
   componentType: string;

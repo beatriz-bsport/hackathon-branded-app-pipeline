@@ -11,9 +11,9 @@ import {
 } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import VoucherCodesRowItem from './VoucherCodesRowItem.component';
 import type { Coupon, UniqueCodeState } from '#libs/coupon/types';
 import { VOUCHER_CODE_TABLE_PAGE_SIZE } from '#libs/coupon/constants';
+import VoucherCodesRowItem from './VoucherCodesRowItem.component';
 import VoucherCodesSelectButtons from '../VoucherCodesSelectors/VoucherCodesSelectButtons.component';
 
 export type Props = {

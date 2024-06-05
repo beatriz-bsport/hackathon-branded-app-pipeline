@@ -8,10 +8,10 @@ import { RoleType } from '@bsport/common/lib/master-data/user-role';
 import withThemeProvider from '#hocs/company-themifier.hoc';
 
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
-import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import { getTheme } from '#libs/theme/selectors';
+import asyncComponent from '../../AsyncComponent';
+import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/actions';
 import type { RootState } from '../../reducers';
 
 const QuicksaleInterface = asyncComponent(() => import('./QuicksaleInterface'));

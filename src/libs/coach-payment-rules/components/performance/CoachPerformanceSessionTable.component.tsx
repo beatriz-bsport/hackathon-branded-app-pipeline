@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import clx from 'classnames';
 // @ts-expect-error
+import type { Coach } from '#libs/associated-coach/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
@@ -23,8 +25,6 @@ import {
   formatISOStringAsTime,
   formatMinutes,
 } from '../../../../utils/datetime';
-import type { Coach } from '#libs/associated-coach/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   performances: Array<CoachPerformance>;

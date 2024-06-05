@@ -2,12 +2,12 @@ import React from 'react';
 import { makeStyles, Theme, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { TFunction } from 'i18next';
+import InfoBox from '#components/box/InfoBox.component';
+import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 import { FranchiseCompany } from '../franchise/types';
 import { EmailTemplateSummary } from '../email-editor/types';
 import EmailListItem from '../email-editor/components/EmailListItem.components';
-import InfoBox from '#components/box/InfoBox.component';
 import { HEIGHT_ITEM } from './EmailVirtualizedList.components';
-import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 
 type RowProps = {
   index: number;

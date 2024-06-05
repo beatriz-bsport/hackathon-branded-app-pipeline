@@ -12,10 +12,10 @@ import { emailValidationRegExp } from '#libs/custom-form/constants';
 import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
 
 import './styles.css';
+import Analytics from '#components/analytics/Analytics.component';
 import { OptionCallback } from '../../../state/types';
 
 // @ts-expect-error
-import Analytics from '#components/analytics/Analytics.component';
 
 const NewsletterFormSchema = Yup.object({
   firstName: Yup.string().nullable(),

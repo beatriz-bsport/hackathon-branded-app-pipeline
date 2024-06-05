@@ -17,8 +17,8 @@ import { ErrorMessage, useFormikContext } from 'formik';
 import SeamlessImmutable from 'seamless-immutable';
 import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 import { CommunicationSentGroupConfigFormValues } from '#libs/communication/types';
-import CommunicationSentGroupConfigSmartlistSelectionRow from './CommunicationSentGroupConfigSmartlistSelectionRow.component';
 import { SmartList } from '#libs/smart-list/types';
+import CommunicationSentGroupConfigSmartlistSelectionRow from './CommunicationSentGroupConfigSmartlistSelectionRow.component';
 
 type Props = {
   smartLists: SeamlessImmutable.ImmutableArray<SmartList>;

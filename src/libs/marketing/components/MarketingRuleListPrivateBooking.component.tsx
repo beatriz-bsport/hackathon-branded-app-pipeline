@@ -17,13 +17,13 @@ import {
   PRIVATEBOOKING_EVENT_RULES,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import { SmartList } from '#libs/smart-list/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { PrivateService } from '../../private-service/types';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
-import { SmartList } from '#libs/smart-list/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
 const getLabelForKind = (

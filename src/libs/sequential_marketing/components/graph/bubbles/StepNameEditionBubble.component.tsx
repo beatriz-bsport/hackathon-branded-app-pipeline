@@ -6,9 +6,9 @@ import {
   MAX_LENGTH_CADENCE_STEP_NAME,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 import CadenceBubble from './CadenceBubble.component';
 
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
 type Props = {
   step: StoredStep;

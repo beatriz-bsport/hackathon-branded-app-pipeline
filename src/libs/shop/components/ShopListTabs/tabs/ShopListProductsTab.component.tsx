@@ -33,12 +33,11 @@ import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.co
 
 import type { ShopItem, SubShop } from '#libs/shop/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
-import type { OptionCallback } from '../../../../../state/types';
-
 import {
   ShopListTab,
   SEARCH_BAR_PAGE_ADDITIONAL_PARAMS,
 } from '#libs/shop/components/ShopListTabs/constants';
+import type { OptionCallback } from '../../../../../state/types';
 
 type ShopItemOption = {
   label: string;

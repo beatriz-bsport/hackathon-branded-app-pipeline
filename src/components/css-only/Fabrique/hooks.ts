@@ -1,11 +1,11 @@
 import React from 'react';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
 import { getTransformOriginValue } from '#Fabrique/utils/getTransformOriginValue';
-import { VerticalEnum } from './constants';
 import { getOffsetTop } from '#Fabrique/utils/getOffsetTop';
 import { getOffsetLeft } from '#Fabrique/utils/getOffsetLeft';
 import getAssociatedDocument from '#Fabrique/utils/getAssociatedDocument';
 import getAssociatedWindow from '#Fabrique/utils/getAssociatedWindow';
+import { VerticalEnum } from './constants';
 
 /**
  * Custom React hook for handling menu modal closure.

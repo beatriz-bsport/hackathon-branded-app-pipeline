@@ -1,3 +1,4 @@
+import { MetaActivityCategory } from '#libs/meta-activity/types';
 import {
   API_V1_URI,
   deleteAuth,
@@ -7,7 +8,6 @@ import {
   putAuth,
   buildUrlParams,
 } from '../../../http';
-import { MetaActivityCategory } from '#libs/meta-activity/types';
 
 export async function fetchAllActivities(params: any) {
   return getAuth(`${API_V1_URI}/meta-activity/${buildUrlParams(params)}`);

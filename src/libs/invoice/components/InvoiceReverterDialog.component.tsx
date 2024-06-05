@@ -24,7 +24,6 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
 } from '@bsport/common/lib/master-data/payment-group';
 import { INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/payment';
-import { OptionCallback } from '../../../state/types';
 import {
   InvoiceAllowedReverseMethods,
   Invoice,
@@ -37,6 +36,7 @@ import type { Payment } from '#libs/payment/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   open?: boolean;

@@ -10,9 +10,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
 import classNames from 'classnames';
-import ConsumerFormFields, {
-  ConsumerFormFieldsHOC,
-} from './CustomForm.formik-hoc';
 import {
   USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
   USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
@@ -24,6 +21,9 @@ import type {
   CustomFormFilled,
   ResponsiveLayouts,
 } from '#libs/custom-form/types';
+import ConsumerFormFields, {
+  ConsumerFormFieldsHOC,
+} from './CustomForm.formik-hoc';
 import type { OptionCallback } from '../../../../state/types';
 import CustomFormButtonsCSS from '../CustomFormButtonsCSS';
 

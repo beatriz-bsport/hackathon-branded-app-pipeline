@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
@@ -33,7 +34,6 @@ import { PaymentPack } from '../../payment-packs/types';
 import { Member } from '../../member/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PaymentCombo } from '../../payment-combo/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
 type OwnProps = {

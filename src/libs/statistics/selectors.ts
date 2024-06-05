@@ -2,11 +2,11 @@ import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import { DateTime } from 'luxon';
+import { getDateRangeFromGraphFilter } from '#libs/dashboard/utils';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import { State, Dispatch } from '../../state/types';
 // @ts-expect-error
 import { Graph } from './types';
-import { getDateRangeFromGraphFilter } from '#libs/dashboard/utils';
 import type {
   DataSourceDashboardGraph,
   DataSourceDashboardTab,

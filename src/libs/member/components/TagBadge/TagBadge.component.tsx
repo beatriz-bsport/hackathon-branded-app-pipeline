@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import { ONLY_BALANCE, ONLY_UNPAID_AMOUNT } from '#libs/member/constants';
 import BalanceChip from '#libs/member/components/BalanceChip.component';
 import TagChip from '#libs/tag/components/TagChip.component';
-import TagCircle from './TagCircle.component';
 
 import type { Member } from '#libs/member/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
+import TagCircle from './TagCircle.component';
 
 import './TagBadge.css';
 

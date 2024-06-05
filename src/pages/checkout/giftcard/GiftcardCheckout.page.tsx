@@ -7,8 +7,6 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { RootState } from '../../../reducers';
-import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 
 import {
   getGiftcard,
@@ -20,13 +18,15 @@ import {
 } from '#libs/giftcard/actions';
 import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 import themeSelectors from '#libs/theme/selectors';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import { addItemToBasket, fetchCurrentBasket } from '#libs/checkout/actions';
 import { Giftcard } from '#libs/giftcard/types';
 
 import { getCurrentBasket } from '#libs/checkout/selectors';
 import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+import { RootState } from '../../../reducers';
 
 type OwnProps = {
   companyId: number;

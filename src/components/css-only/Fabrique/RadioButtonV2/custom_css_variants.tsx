@@ -1,16 +1,16 @@
 import React from 'react';
-import RadioButton, { RadioButtonProps } from '.';
-import { RadioButtonSizeEnum } from './constants';
-import { RadioButtonSize } from './types';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import RadioButtonCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import RadioButton, { RadioButtonProps } from '.';
+import { RadioButtonSizeEnum } from './constants';
+import { RadioButtonSize } from './types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import RadioButtonCss from './styles.css?raw';
 
 const fabriqueRadiobuttonVariationRegistry = [
   {

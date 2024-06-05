@@ -15,16 +15,16 @@ import {
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
 import type {
+  Cadence,
+  CadenceQueryParams,
+  CadenceInitialConfiguration,
+} from '#libs/sequential_marketing/types';
+import type {
   OptionCallback,
   Dispatch,
   OptionPaginatedCallback,
   PaginatedResponse,
 } from '../../../state/types';
-import type {
-  Cadence,
-  CadenceQueryParams,
-  CadenceInitialConfiguration,
-} from '#libs/sequential_marketing/types';
 
 export const createCadenceActions = {
   isLoading: createAction<boolean>('CADENCE_WIP/CREATE/IS_LOADING'),

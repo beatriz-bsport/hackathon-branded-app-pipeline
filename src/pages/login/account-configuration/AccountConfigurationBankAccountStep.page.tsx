@@ -5,8 +5,6 @@ import { compose } from 'recompose';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { LinearProgress } from '@material-ui/core';
-import { OptionCallback } from '../../../state/types';
-import { RootState } from '../../../reducers';
 import BankAccountStep from '#libs/login/components/account-configuration/AccountConfigurationBankAccountStep.component';
 import {
   validateAccountConfigurationStepAction,
@@ -14,12 +12,14 @@ import {
   attachExternalAccount as attachExternalAccountAction,
 } from '#libs/company/actions';
 import { CompanySetup } from '#libs/company/types';
+import { BANK_ACCOUNT_CONFIGURATION_STEP } from '#libs/company/constants';
 import {
   AccountConfigurationFinalStepUrl,
   AccountConfigurationPaymentMethodStepUrl,
   AccountConfigurationStripeStepUrl,
 } from './AccountConfiguration.router';
-import { BANK_ACCOUNT_CONFIGURATION_STEP } from '#libs/company/constants';
+import { RootState } from '../../../reducers';
+import { OptionCallback } from '../../../state/types';
 
 export type Props = ConnectedProps<typeof connector> & WithTranslation;
 export class AccountConfigurationBankAccountPage extends Component<Props> {

@@ -9,7 +9,6 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { Theme, WithStyles } from '@material-ui/core/styles';
 
-import Config from '../../config';
 import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
@@ -133,9 +132,6 @@ import {
 } from '#libs/email-editor/selectors';
 
 // ======================== TYPES =========================
-import type { WithHandlerType } from '../../utils/types';
-import type { OptionCallback } from '../../state/types';
-import type { RootState } from '../../reducers';
 import type {
   Cadence,
   ConnectedTrigger,
@@ -149,6 +145,10 @@ import type {
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
+import type { WithHandlerType } from '../../utils/types';
+import Config from '../../config';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

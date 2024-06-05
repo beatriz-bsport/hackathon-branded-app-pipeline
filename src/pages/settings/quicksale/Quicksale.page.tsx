@@ -11,9 +11,9 @@ import { makeStyles } from '@material-ui/core';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import QuicksaleSectionListPage from './QuicksaleSectionList.page';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import QuicksaleSectionListPage from './QuicksaleSectionList.page';
 import QuicksaleRoleConfiguration from './QuicksaleRoleConfiguration.page';
 import QuicksaleItemListPage from './QuicksaleItemList.page';
 

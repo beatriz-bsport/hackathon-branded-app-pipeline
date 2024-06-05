@@ -14,11 +14,11 @@ import {
 } from '@material-ui/core';
 import { Link as LinkIcon, Mail, People } from '@material-ui/icons';
 import { Formik } from 'formik';
-import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { Member } from '#libs/member/types';
+import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 // @ts-expect-error
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import { OptionCallback } from '../../../state/types';
 
 type InitialValues = {

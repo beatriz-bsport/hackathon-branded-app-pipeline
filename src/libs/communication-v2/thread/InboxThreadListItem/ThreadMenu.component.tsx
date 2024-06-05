@@ -6,9 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { OptionCallback } from '../../../../state/types';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import ThreadMenuActions from '#libs/communication-v2/thread/commons/ThreadMenuActions.component';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   id: number;

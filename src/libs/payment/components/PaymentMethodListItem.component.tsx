@@ -11,9 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 import type { PaymentMethod } from '../types';
 import type { OptionCallback } from '../../../state/types';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 type Props = {
   paymentMethod?: PaymentMethod;

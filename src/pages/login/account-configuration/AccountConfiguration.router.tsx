@@ -5,19 +5,19 @@ import { Route, Switch } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
 import { compose } from 'recompose';
+import { retrieveStripeCompanyAction } from '#libs/company/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import themeSelectors from '#libs/theme/selectors';
+import CompanyThemifierHoc from '#hocs/company-themifier.hoc';
 import { RootState } from '../../../reducers';
 import WelcomeStepPage from './AccountConfigurationWelcomeStep.page';
 import PaymentMethodStepPage from './AccountConfigurationPaymentMethodStep.page';
 import AccountConfigurationFinalStepPage from './AccountConfigurationFinalStep.page';
 import AccountConfigurationStepSwitcherRouter from './AccountConfigurationStepSwitcher.router';
-import { retrieveStripeCompanyAction } from '#libs/company/actions';
 import AccountConfigurationStripeStepPage from './AccountConfigurationStripeStep.page';
 import AccountConfigurationBankAccountStepPage from './AccountConfigurationBankAccountStep.page';
 // @ts-expect-error
 import LanguageButton from '../../../components/button/LanguageButton.component';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import themeSelectors from '#libs/theme/selectors';
-import CompanyThemifierHoc from '#hocs/company-themifier.hoc';
 
 export const AccountConfigurationWelcomeStepUrl =
   '/login/accountConfiguration/welcome/';

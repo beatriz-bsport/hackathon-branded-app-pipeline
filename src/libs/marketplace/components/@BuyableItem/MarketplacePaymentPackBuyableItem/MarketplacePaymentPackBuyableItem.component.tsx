@@ -21,11 +21,11 @@ import {
   getCreditsDividedValue,
 } from '#libs/theme/utils';
 import { useValidityInfoForPaymentPackCard } from '#libs/marketplace/utils/payment-pack';
-import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 

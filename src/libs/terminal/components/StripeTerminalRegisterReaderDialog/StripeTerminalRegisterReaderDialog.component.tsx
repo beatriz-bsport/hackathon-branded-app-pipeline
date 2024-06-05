@@ -14,9 +14,9 @@ import LocaleSelector from '#components/input/LocaleSelector.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 // @ts-expect-error
+import { StripeReader } from '#libs/terminal/types';
 import { TextField } from '../../../../components/forms';
 import { OptionCallback } from '../../../../state/types';
-import { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

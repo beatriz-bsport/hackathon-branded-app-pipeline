@@ -15,8 +15,8 @@ import { Alert } from '@material-ui/lab';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { UpsellPackage } from '#libs/company/types';
-import { MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT } from '../UpsellPackage.component';
 import { getUpsellPriceString } from '#libs/platform-billing/utils';
+import { MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT } from '../UpsellPackage.component';
 
 export type Props = {
   onClose: () => void;

@@ -21,6 +21,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
 // @ts-expect-error
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { Company } from '#libs/company/types';
+import { DEFAULT_ROLES } from '#libs/role/constants';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { Role, UserRole, SelectFieldItem, FranchiseRole } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -31,9 +34,6 @@ import COMMON_ROLES, {
   ADMIN_ROLE,
   // @ts-expect-error
 } from '../role-types';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
-import { Company } from '#libs/company/types';
-import { DEFAULT_ROLES } from '#libs/role/constants';
 
 const DeleteButton = withConfirm(
   (props: { deleteUser: () => void }) => (

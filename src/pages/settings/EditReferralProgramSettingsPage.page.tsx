@@ -4,9 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Helmet from 'react-helmet';
-import type { RootState } from '../../reducers';
 import type { CompanyTheme } from '#libs/theme/types';
-import type { OptionCallback } from '../../state/types';
 import EditReferralProgramSettingsForm from '#libs/referral/components/EditReferralProgramSettingsForm/EditReferralProgramSettingsForm.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import { updateCompanyTheme } from '#libs/theme/actions';
@@ -22,6 +20,8 @@ import {
 } from '#libs/referral/selectors';
 import { getTheme, getThemeLoading } from '#libs/theme/selectors';
 import type { ReferralProgram } from '#libs/referral/types';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 
 type Props = {
   companyTheme: CompanyTheme;

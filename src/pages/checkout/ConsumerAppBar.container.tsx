@@ -4,11 +4,12 @@ import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
+import MinimalMarketplaceAppBarCSSOnly from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
 // @ts-expect-error
 import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } from '../../actions/auth.actions';
 // @ts-expect-error
 import { auth as authActions } from '../../actions';
-import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 // @ts-expect-error
@@ -21,7 +22,6 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import { Theme } from '../../libs/theme/types';
 import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/actions';
 import { RootState } from '../../reducers';
-import MinimalMarketplaceAppBarCSSOnly from '#libs/marketplace/components/@AppBar/MarketplaceAppBar/MinimalMarketplaceAppBarCSSOnly';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 

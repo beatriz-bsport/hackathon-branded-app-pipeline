@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import CadenceBubble from './CadenceBubble.component';
 import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
 
 import {
@@ -18,6 +17,7 @@ import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/com
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   connectedTriggers: ConnectedTrigger[];

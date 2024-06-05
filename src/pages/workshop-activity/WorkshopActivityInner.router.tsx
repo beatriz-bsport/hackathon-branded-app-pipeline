@@ -11,9 +11,9 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
 
 // @ts-expect-error
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import WorkshopActivityList from './WorkshopActivityList.page';
 import WorkshopActivityGroup from './WorkshopActivityGroup.page';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 type Props = {
   tab: 'list' | 'groups';

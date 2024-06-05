@@ -5,8 +5,8 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
 import InputBase from '#Fabrique/InputBase';
-import { CheckboxSizeEnum } from './constants';
 import { CheckSquare01, MinusSquare01, Square } from '#components/untitledui';
+import { CheckboxSizeEnum } from './constants';
 import type { CheckboxSize } from './types';
 
 import './styles.css';

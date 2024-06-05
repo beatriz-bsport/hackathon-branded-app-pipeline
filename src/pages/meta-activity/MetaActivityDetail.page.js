@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import MetaActivityDetailPack from './MetaActivityDetailPack.page';
 import MetaActivityDetailGeneral from './MetaActivityDetailGeneral.page';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
 import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions';

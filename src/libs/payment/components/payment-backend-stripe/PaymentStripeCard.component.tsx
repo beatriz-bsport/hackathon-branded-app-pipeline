@@ -21,7 +21,6 @@ import type { OptionCallback } from '#state/types';
 import type { BillingDetails } from '#libs/marketplace/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
-import Config from '../../../../config';
 import { CheckoutContext } from '#pages/checkout/basket/CheckoutContext';
 import { useWidth } from '#hooks/useWidth';
 import CardBillingDetailsForm from '#libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
@@ -35,6 +34,7 @@ import {
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#libs/payment/api';
+import Config from '../../../../config';
 
 type Props = {
   AcceptTermsAndConditionsComponent?: React.Component;

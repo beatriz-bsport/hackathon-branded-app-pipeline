@@ -1,5 +1,11 @@
 import { createAction } from 'redux-actions';
 import {
+  ReportConfiguration,
+  ReportFilterConfig,
+  ReportFilterConfigParams,
+  ReportSerializerParams,
+} from '#libs/reporting/types';
+import {
   OptionCallback,
   Dispatch,
   OptionPaginatedCallback,
@@ -21,12 +27,6 @@ import {
   fetchReportFilterConfigList as fetchReportFilterConfigListAPI,
   deleteReportFilterConfig as deleteReportFilterConfigAPI,
 } from './api';
-import {
-  ReportConfiguration,
-  ReportFilterConfig,
-  ReportFilterConfigParams,
-  ReportSerializerParams,
-} from '#libs/reporting/types';
 
 export const reportGenerationDetail = {
   error: createAction('REPORT/GENERATE/ERROR'),

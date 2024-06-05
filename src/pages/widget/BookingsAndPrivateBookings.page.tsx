@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import WidgetUtils from '#libs/widget/WidgetUtils';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
@@ -34,7 +35,6 @@ import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions
 
 import { disablePrivateBooking } from '../../libs/private-service/actions';
 import ConsumerAppBarContainer from '../checkout/ConsumerAppBar.container';
-import WidgetUtils from '#libs/widget/WidgetUtils';
 
 const EmptyWrapper: React.FC = ({ children }: { children: ReactNode }) => (
   <>{children}</>

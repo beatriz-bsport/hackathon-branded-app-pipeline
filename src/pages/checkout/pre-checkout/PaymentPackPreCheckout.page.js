@@ -12,6 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 import { parseQueryString } from '../../../http';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 
@@ -27,7 +28,6 @@ import {
 import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   location: Object,

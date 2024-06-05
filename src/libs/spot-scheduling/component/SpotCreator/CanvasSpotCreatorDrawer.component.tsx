@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import CanvasSpotCreatorForm from './CanvasSpotCreatorForm.component';
 import { SpotType } from '#libs/spot-scheduling/types';
+import CanvasSpotCreatorForm from './CanvasSpotCreatorForm.component';
 
 type Props = {
   id: number;

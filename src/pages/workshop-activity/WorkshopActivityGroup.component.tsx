@@ -42,11 +42,11 @@ import { Offer } from '#libs/offer/types';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import usePagination from '../../hooks/usePagination';
 import { OffersGroup, OffersGroupFilter } from '#libs/group-offer/types';
-import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
+import usePagination from '../../hooks/usePagination';
 
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
 

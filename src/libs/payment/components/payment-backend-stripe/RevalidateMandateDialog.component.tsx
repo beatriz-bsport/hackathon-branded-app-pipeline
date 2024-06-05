@@ -8,8 +8,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
 
-import RevalidateMandate from './RevalidateMandate.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import RevalidateMandate from './RevalidateMandate.component';
 
 type ReplaceInvalidateMandateProps = {
   requestSetupIntentSecret: (

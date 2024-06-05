@@ -28,6 +28,9 @@ import {
   OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
 } from '#libs/role/constants';
 
+import type { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import {
@@ -38,9 +41,6 @@ import {
   setAllValuesInObject,
 } from '../utils';
 import RecursiveCheckBoxComponent from './RecursiveCheckBox.component';
-import type { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 
 type OwnProps = {
   featureList: FeatureList;

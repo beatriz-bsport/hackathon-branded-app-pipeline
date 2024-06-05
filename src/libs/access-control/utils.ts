@@ -6,11 +6,11 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 
 import type { RolePermission } from '#libs/role/types';
 import type { UpsellSumup } from '#libs/company/types';
-import type { MemberVisitREST, PassCheckResultInclusive } from './types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
+import type { MemberVisitREST, PassCheckResultInclusive } from './types';
 
 /**
  * Checks if a staff member can perform access monitoring based on their permissions and selected establishments.

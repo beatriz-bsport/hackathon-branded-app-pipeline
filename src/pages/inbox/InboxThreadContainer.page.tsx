@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { connect, type ConnectedProps } from 'react-redux';
-import type { OptionCallback } from '../../state/types';
 import InboxThreadContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
-import Config from '../../config';
 
 import {
   needToFilterOutReceivedCommunicationSentWithActiveFilters,
@@ -29,9 +27,11 @@ import withInboxThreadData, {
 } from '#libs/communication-v2/thread/InboxThreadContainer/withInboxThread.hoc';
 import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
 
+import { hasUpsell } from '#libs/platform-billing/utils';
 import type { RootState } from '../../reducers';
 
-import { hasUpsell } from '#libs/platform-billing/utils';
+import Config from '../../config';
+import type { OptionCallback } from '../../state/types';
 
 type Props = InboxThreadRouterProps &
   WithInboxThreadDataProps &

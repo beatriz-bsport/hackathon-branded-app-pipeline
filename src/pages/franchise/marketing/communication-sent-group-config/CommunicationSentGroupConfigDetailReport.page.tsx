@@ -3,10 +3,7 @@ import { compose, withHandlers } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import { WithStyles } from '@material-ui/core';
-import { WithHandlerType } from '../../../../utils/types';
-import { OptionCallback, PaginatedResponse } from '../../../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import BackofficeLinearProgress from '../../../../components/navigation/BackofficeLinearProgress.component';
 import {
   getCommunicationSentGroup,
   getCommunicationSentGroupReport,
@@ -16,7 +13,6 @@ import { CampaignReport } from '#libs/communication/components/CampaignReport.co
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import type { Recipient } from '#libs/communication/types';
-import { RootState } from '../../../../reducers';
 import {
   fetchCommunicationSentGroupDetails as fetchCommunicationSentGroupDetailsAction,
   fetchRecipientListByCommunicationSentGroup as fetchRecipientListByCommunicationSentGroupAction,
@@ -24,6 +20,10 @@ import {
   fetchCommunicationSentGroupRecipientListExport as fetchCommunicationSentGroupRecipientListExportAction,
   fetchCommunicationSentGroupRecipientListExportLink as fetchCommunicationSentGroupRecipientListExportLinkAction,
 } from '#libs/communication/actions';
+import { RootState } from '../../../../reducers';
+import BackofficeLinearProgress from '../../../../components/navigation/BackofficeLinearProgress.component';
+import { OptionCallback, PaginatedResponse } from '../../../../state/types';
+import { WithHandlerType } from '../../../../utils/types';
 
 type OwnProps = { communicationSentGroupId: number; campaignId: number };
 

@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { MenuItemTypeEnum, MenuItemType, MenuItemClasses } from '.';
 import Typography from '#Fabrique/Typography';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Checkbox from '#Fabrique/Checkbox';
 import RadioButton from '#Fabrique/RadioButtonV2';
+import { MenuItemTypeEnum, MenuItemType, MenuItemClasses } from '.';
 import './styles.css';
 
 export type MenuItemProps = {

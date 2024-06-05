@@ -19,20 +19,20 @@ import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 // @ts-expect-error
+import type { StripeReader } from '#libs/terminal/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { LuxonDateTime } from '#src/types';
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 // @ts-expect-error
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import ContractTermsDialog from './contract/ContractTermsDialog.component';
 import type { EstablishmentBillingGroup } from '../../establishment/types';
-import type { StripeReader } from '#libs/terminal/types';
 import type { Contract } from '../types';
 import type { Member } from '../../member/types';
 import type { PaymentMethod } from '../../payment/types';
 import type { OptionCallback } from '../../../state/types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { LuxonDateTime } from '#src/types';
 
 type OwnProps = {
   member: Member | null;

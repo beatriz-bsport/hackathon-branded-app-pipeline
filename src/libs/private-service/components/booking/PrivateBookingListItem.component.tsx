@@ -11,14 +11,14 @@ import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { BookingStatusCodeText } from '../../../booking/utils';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import { PrivateBooking } from '#libs/private-service/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   formatAsDatetime,
   formatISOStringAsTime,
 } from '../../../../utils/datetime';
-import { PrivateBooking } from '#libs/private-service/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { BookingStatusCodeText } from '../../../booking/utils';
 
 type Props = {
   divider?: boolean;

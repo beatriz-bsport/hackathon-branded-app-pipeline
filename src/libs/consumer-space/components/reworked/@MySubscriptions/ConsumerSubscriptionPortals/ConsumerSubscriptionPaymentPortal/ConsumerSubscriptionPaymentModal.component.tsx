@@ -4,11 +4,11 @@ import type { AxiosResponse } from 'axios';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Blanket from '#Fabrique/Blanket';
 import { PortalContainer } from '#Fabrique/PortalContainer';
-import { ConsumerSubscriptionPaymentContent } from '.';
 
 import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import { ConsumerSubscriptionPaymentContent } from '.';
 
 import './styles.css';
 

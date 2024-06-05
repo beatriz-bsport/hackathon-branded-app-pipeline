@@ -2,12 +2,6 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
-import {
-  generateRandomDescription,
-  generateRandomIdList,
-  generateRandomName,
-  generateRandomPrice,
-} from '../../utils/factories';
 import { coachesFactory } from '#libs/associated-coach/factories';
 
 import type {
@@ -17,6 +11,12 @@ import type {
   PrivateServiceFactoryOptions,
 } from '#libs/private-service/types';
 import type { Coach } from '#libs/associated-coach/types';
+import {
+  generateRandomDescription,
+  generateRandomIdList,
+  generateRandomName,
+  generateRandomPrice,
+} from '../../utils/factories';
 
 /**
  * Generates a private slot with Faker.

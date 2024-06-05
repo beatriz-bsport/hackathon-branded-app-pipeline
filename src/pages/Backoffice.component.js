@@ -9,18 +9,35 @@ import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
 import { DateTime } from 'luxon';
-import { AlertKind } from '../libs/alerting/constants';
-import {
-  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-  BsportRequestFromHeaderValue,
-} from '../constants';
 import Intercom from '#components/intercom/Intercom.component';
-import i18n, { setLuxonLocale } from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
   getFeatureList,
 } from '#libs/company/actions';
+import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
+import type { DeleteAlert } from '#libs/alerting/types';
+import {
+  getLastClockin as getLastClockinAction,
+  clockIn as clockInAction,
+  clockOut as clockOutAction,
+  getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
+} from '#libs/clock-in/actions';
+import {
+  getLastClockin,
+  getUsersPaginatedWithRolesWithRealTimeAttendance,
+} from '#libs/clock-in/selectors';
+import {
+  fetchBatchUnreadAnswersCounts as fetchBatchUnreadAnswersCountsAction,
+  fetchInboxThreadList as fetchInboxThreadListAction,
+} from '#libs/communication-v2/actions';
+import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
+import { AlertKind } from '../libs/alerting/constants';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../constants';
+import i18n, { setLuxonLocale } from '../i18n/index';
 import GenericResponsiveDialog from '../components/genericDialog/GenericResponsiveDialog';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
@@ -57,7 +74,6 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 import { getPermissions, getObjectPermissions } from '../libs/role/selectors';
 import { ObjectLevelPermissions } from '../libs/role/types';
 import { parseRestrictedPath } from '../libs/role/utils';
-import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
 import {
   fetchUserTutorialCompletion,
   updateUserAcknowlegdeTutorial,
@@ -88,7 +104,6 @@ import {
 } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
-import type { DeleteAlert } from '#libs/alerting/types';
 import {
   fetchCompanyRoles,
   fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction,
@@ -107,16 +122,6 @@ import withRudderStackHistoryTracker from '../components/analytics/rudderstack/w
 import { withAccessControlCheckInScanner } from '../libs/access-control/hooks/accessControlCheckingScanner.hoc';
 import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/utils';
 
-import {
-  getLastClockin as getLastClockinAction,
-  clockIn as clockInAction,
-  clockOut as clockOutAction,
-  getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
-} from '#libs/clock-in/actions';
-import {
-  getLastClockin,
-  getUsersPaginatedWithRolesWithRealTimeAttendance,
-} from '#libs/clock-in/selectors';
 import RegularizingInvoiceInformation from '../libs/settings/components/RegularizingInvoiceInformation.component';
 import StripeAccountConfiguration from '../libs/settings/components/NeedStripeAccountConfiguration.component';
 import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing/type';
@@ -130,11 +135,6 @@ import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
 import type { OptionCallback } from '../state/types';
 import { getStripeOnboardingPending } from '../libs/company/selectors';
-import {
-  fetchBatchUnreadAnswersCounts as fetchBatchUnreadAnswersCountsAction,
-  fetchInboxThreadList as fetchInboxThreadListAction,
-} from '#libs/communication-v2/actions';
-import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '../libs/access-control/actions';
 import { getEstablishmentsSelectedInRole } from '../libs/establishment/selectors';
 import {

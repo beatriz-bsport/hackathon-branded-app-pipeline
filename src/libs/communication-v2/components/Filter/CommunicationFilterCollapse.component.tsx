@@ -5,8 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import isEqual from 'lodash/isEqual';
-import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
-import CommunicationFilterDateField from './CommunicationFilterDateField.component';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_KIND,
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
@@ -16,6 +14,8 @@ import {
 } from '#libs/communication-v2/constants';
 import { getFieldChoicesByIdentifier } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
+import CommunicationFilterDateField from './CommunicationFilterDateField.component';
+import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 
 export type FilterModalProps = {
   hasKindFilter?: boolean;

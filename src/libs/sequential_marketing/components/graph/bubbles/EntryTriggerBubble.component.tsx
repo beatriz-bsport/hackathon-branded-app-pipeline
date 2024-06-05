@@ -5,11 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import CadenceBubble from './CadenceBubble.component';
 import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   connectedTriggers: ConnectedTrigger[];

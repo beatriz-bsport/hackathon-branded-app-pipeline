@@ -15,6 +15,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import type { Member } from '#libs/member/types';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 
 import DEPRECATEDReceiversCollapseItem from './DEPRECATEDReceiversCollapseItem.component';
@@ -26,13 +33,6 @@ import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constants';
 
 import type { MemberMailData } from '../types';
 import Config from '../../../config';
-import type { Member } from '#libs/member/types';
-import {
-  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-  UPSELL_IDENTIFIER_SMS,
-} from '#libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;

@@ -1,4 +1,6 @@
 import { createAction } from 'redux-actions';
+import { Recipient } from '#libs/communication/types';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
 import type {
   Dispatch,
   OptionBackgroundCallback,
@@ -32,8 +34,6 @@ import {
   fetchCommunicationSentGroupRecipientListExport as fetchCommunicationSentGroupRecipientListExportAPI,
   fetchCommunicationSentGroupRecipientListExportLink as fetchCommunicationSentGroupRecipientListExportLinkAPI,
 } from '../api';
-import { Recipient } from '#libs/communication/types';
-import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 export const createCommunicationSentGroupConfigAction = {
   error: createAction<Error | null>(

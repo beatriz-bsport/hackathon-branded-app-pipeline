@@ -26,21 +26,17 @@ import {
   withTags,
   getSearchedMembersArchived,
 } from '#libs/member/selectors';
-import { getPermissions } from '../libs/role/selectors';
 // @ts-expect-error
-import RolePermission from '../libs/role/types';
 
 // @ts-expect-error
 import ResultList from '#components/search/ResultList.component';
 import SearchBar from '#components/SearchBar.component';
 
 // @ts-expect-error
-import { search as searchActions } from '../actions';
 import { MemberMinimal, Member } from '#libs/member/types';
 
 import withTitle from '#hocs/with-title.hoc';
 import { showVaccinationStatus } from '#libs/custom-form/selectors';
-import { parseQueryString } from '../http';
 import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#libs/access-control/actions';
@@ -55,6 +51,10 @@ import {
 } from '#libs/broadcast-channel/types';
 import type { OptionCallback } from '#state/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { parseQueryString } from '../http';
+import { search as searchActions } from '../actions';
+import RolePermission from '../libs/role/types';
+import { getPermissions } from '../libs/role/selectors';
 
 type Props = {
   members: MemberMinimal[];

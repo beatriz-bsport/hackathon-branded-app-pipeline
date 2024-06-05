@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import type { PrivatePass } from '#libs/private-service/types';
 import {
   paymentComboListActions,
   paymentComboBulkActions,
@@ -19,7 +20,6 @@ import type {
   PaymentComboPurchase,
   PaymentComboState,
 } from './types';
-import type { PrivatePass } from '#libs/private-service/types';
 
 type ImmutablePaymentComboState = Immutable.Immutable<PaymentComboState>;
 type PayloadReduceType<T> = { [id: number]: T };

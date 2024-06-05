@@ -3,11 +3,11 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Button, Typography, makeStyles } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { TextField } from '#components/forms';
 import { MAX_CUT_OFF_HOUR, MAX_CUT_OFF_MINUTE } from '#libs/theme/constants';
 import { minsToHrMins } from '#libs/theme/utils';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   onSubmit: (id: number, data: FormData, options: OptionCallback) => void;

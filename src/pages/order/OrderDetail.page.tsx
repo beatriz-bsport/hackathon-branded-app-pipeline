@@ -4,12 +4,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation } from 'react-i18next';
-import type { RootState } from '../../reducers';
-import { WithHandlerType } from '../../utils/types';
 
 import { getInvoice } from '#libs/invoice/selectors';
 import type { Invoice } from '#libs/invoice/types';
-import withTitle from '../../hocs/with-title.hoc';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
@@ -34,6 +31,9 @@ import {
 } from '#libs/email-editor/actions';
 
 import { showVaccinationStatus } from '#libs/custom-form/selectors';
+import withTitle from '../../hocs/with-title.hoc';
+import { WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   orderId: string;

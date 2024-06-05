@@ -35,7 +35,6 @@ import {
   DisciplineGroup,
   AssignAssociatedCoachDisciplineGroupParams,
 } from '#libs/replacement-request/types';
-import { OptionCallback } from '../../../../state/types';
 import {
   Establishment,
   EstablishmentGroup,
@@ -46,6 +45,7 @@ import type { Theme as CompanyTheme } from '#libs/theme/types';
 import { EstablishmentGroupSelector } from '#libs/establishment/components/EstablishmentGroupSelector.component';
 import { EstablishmentSelector } from '#libs/establishment/components/EstablishmentSelector.component';
 import { MultilocationChoice } from '#libs/replacement-request/constants';
+import { OptionCallback } from '../../../../state/types';
 
 const DISSOCIATE_COACH_DISCIPLINE_GROUP = -8000;
 

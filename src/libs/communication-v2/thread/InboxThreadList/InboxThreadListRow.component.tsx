@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from 'react';
 
-import type { OptionCallback } from '../../../../state/types';
 import InboxThreadListItem from '#libs/communication-v2/thread/InboxThreadListItem';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
 } from '#libs/communication-v2/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   index: number;

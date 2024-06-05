@@ -6,6 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import { withTranslation, WithTranslation } from 'react-i18next';
 // @ts-expect-error
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
@@ -13,8 +15,6 @@ import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
 import { WithIsSharedActive } from '../../relationship/types';
 import { MaterialStyleType } from '../../../utils/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 type OwnProps = {
   paymentPack: PaymentPack;

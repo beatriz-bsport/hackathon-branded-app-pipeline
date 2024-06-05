@@ -28,7 +28,6 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import EditIcon from '@material-ui/icons/Edit';
 import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#libs/datatype-filtering/validation_schema';
 
-import { ReportFilterConfig, ReportMetadataColumn } from '../../types';
 
 import {
   DynamicFilterDataType,
@@ -48,12 +47,13 @@ import {
   generateNewFilterItem,
 } from '#libs/datatype-filtering/utils';
 
-import NestedAlertError from './NestedAlertError.component';
 import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
-import { OptionCallback } from '../../../../state/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { getFilterableColumns } from '#libs/reporting/utils';
+import { OptionCallback } from '../../../../state/types';
+import NestedAlertError from './NestedAlertError.component';
+import { ReportFilterConfig, ReportMetadataColumn } from '../../types';
 
 type Values = {
   name: string;

@@ -1,5 +1,5 @@
-import { API_V1_URI, postAuth } from '../../http';
 import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+import { API_V1_URI, postAuth } from '../../http';
 
 export async function fetchDataSourceDashboardStatistics(
   graph: DataSourceDashboardGraph,

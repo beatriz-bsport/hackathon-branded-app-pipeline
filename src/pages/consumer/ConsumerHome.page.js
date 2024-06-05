@@ -10,6 +10,7 @@ import {
   replace as replaceRouter,
 } from 'connected-react-router';
 import { getProgramList } from '#libs/performance-tracking/selector';
+import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -53,7 +54,6 @@ import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/se
 import MemberShipValidationWrapper from './MemberShipValidationWrapper.component';
 import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
 
-import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
 import { getMyControlableMemberList } from '../../libs/relationship/selectors';
 import {
   navigateToRelationAccount as navigateToRelationAccountAction,

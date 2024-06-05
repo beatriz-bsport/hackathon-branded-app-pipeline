@@ -7,12 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import { pure } from 'recompose';
-import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 import MarketplaceFilterComponent from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
-import type {
-  Establishment,
-  EstablishmentGroup,
-} from '../../../../establishment/types';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
@@ -20,6 +15,11 @@ import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
 import { Coach } from '#libs/associated-coach/types';
 import type { LuxonDateTime } from '#src/types';
+import type {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../../establishment/types';
+import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 
 import './MarketplaceCalendarCSSOnly.css';
 

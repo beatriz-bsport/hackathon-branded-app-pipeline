@@ -2,10 +2,6 @@ import React from 'react';
 
 import Alert from '@material-ui/lab/Alert/Alert';
 import { useTranslation } from 'react-i18next';
-import ConfirmationMessage from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConfirmationMessageCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -17,6 +13,10 @@ import { offerFactory } from '#libs/offer/factories';
 import { subscriptionFactory } from '#libs/subscription/factory';
 import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { ConfirmationStatus } from '#libs/checkout/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ConfirmationMessageCss from './styles.css?raw';
+import ConfirmationMessage from '.';
 
 const offers = [offerFactory({})];
 const billingPlan = subscriptionFactory();

@@ -53,17 +53,17 @@ import NumericInput from '#components/input/NumericInput.component';
 import PriceInput from '#components/input/PriceInput.component';
 import PercentInput from '#components/input/PercentInput.component';
 import Checkbox from '#components/input/Checkbox.component';
-import type { Coupon, CheckCouponCodePayload } from '../types';
 
 import { PaymentPack } from '#libs/payment-packs/types';
 import { ShopItem } from '#libs/shop/types';
 import { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import type { OptionCallback } from '../../../state/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { checkCouponCodeValidity } from '#libs/coupon/api';
+import type { OptionCallback } from '../../../state/types';
+import type { Coupon, CheckCouponCodePayload } from '../types';
 
 const {
   trackFormAdd,

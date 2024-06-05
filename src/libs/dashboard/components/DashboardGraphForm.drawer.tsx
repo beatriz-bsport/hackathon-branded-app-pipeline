@@ -25,7 +25,6 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { OptionCallback } from '../../../state/types';
 import {
   DatatypeFilterConfigSchemaWithOptionalGroups,
   DatatypeFilterConfigSchemaWithRequiredGroups,
@@ -40,7 +39,6 @@ import {
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   CHART_COMPONENTS_CHOICES_PER_GRAPH_FAMILY,
 } from '#libs/dashboard/constants';
-import { ChartComponentFieldInput } from './ChartComponentField.input';
 import {
   generateNewGroup,
   generateNewGroupForDateRange,
@@ -63,17 +61,19 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { Submit, DelayTextField, CheckboxField } from '#components/forms';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
-import GraphParamTemporalForm from './GraphParamTemporalForm.component';
-import GraphParamQualitativeForm from './GraphParamQualitativeForm.component';
-import GraphParamTimeslotsForm from './GraphParamTimeslotsForm.component';
-
 import {
   DATATYPE_FILTERABLE_BY_ID_IN,
   GROUP_AND_OPERAND,
 } from '#libs/datatype-filtering/constants';
-
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import GraphParamTemporalForm from './GraphParamTemporalForm.component';
+import GraphParamQualitativeForm from './GraphParamQualitativeForm.component';
+import GraphParamTimeslotsForm from './GraphParamTimeslotsForm.component';
+
+
+import { ChartComponentFieldInput } from './ChartComponentField.input';
+import { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

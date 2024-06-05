@@ -6,8 +6,6 @@ import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import FranchiseShopListProductsTab from './FranchiseShopListProductsTab.component';
-import FranchiseShopListSettingsTab from './FranchiseShopListSettingsTab.component';
 
 import type {
   ShopItemTemplate,
@@ -19,6 +17,8 @@ import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSu
 import type { ErrorAndLoading } from '#libs/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
+import FranchiseShopListSettingsTab from './FranchiseShopListSettingsTab.component';
+import FranchiseShopListProductsTab from './FranchiseShopListProductsTab.component';
 
 type Props = {
   subshopTemplateList: SubshopTemplate[];

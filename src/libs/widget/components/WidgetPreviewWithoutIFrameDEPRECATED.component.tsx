@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Config from '../../../config';
 import { WidgetCustomCSS } from '#libs/theme/types';
-import WidgetPreview from './WidgetPreview.component';
 import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
 
 import ApplyCustomThemeComponent from '#libs/exportable-components/ApplyCustomTheme.component';
+import WidgetPreview from './WidgetPreview.component';
+import Config from '../../../config';
 
 type Props = {
   company: number;

@@ -61,6 +61,9 @@ import Send from '@material-ui/icons/Send';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { colors } from '@bsport/common/lib/colors';
+import { checkRequiredPermissions } from '#libs/role/utils';
+import { FranchiseRolePermission } from '#libs/role/types';
+import FranchiseUserSearchBarComponent from '#libs/franchise/components/FranchiseUserSearchBar.component';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
@@ -74,9 +77,6 @@ import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
 import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
 import VersionVisualizer from '../VersionVisualizer.component';
-import { checkRequiredPermissions } from '#libs/role/utils';
-import { FranchiseRolePermission } from '#libs/role/types';
-import FranchiseUserSearchBarComponent from '#libs/franchise/components/FranchiseUserSearchBar.component';
 import Config from '../../config';
 
 // import SearchBar from '../SearchBar.component';

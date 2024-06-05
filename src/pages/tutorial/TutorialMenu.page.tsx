@@ -14,9 +14,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import Fab from '@material-ui/core/Fab';
 // @ts-expect-error
-import { getLanguage } from '../../i18n';
-import { WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers';
 import { snackbarInfo } from '#libs/snackbar/actions';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import type {
@@ -46,11 +43,14 @@ import {
   TUTORIAL_GENERIC_DIALOG_SHARE_LESSON,
   TUTORIAL_GENERIC_DIALOG_SHARE_SECTION,
 } from '#libs/platform-tutorial/constant';
-import { openIntercomHelp } from '../../intercom';
 
 import TutorialMenuHeader from '#libs/platform-tutorial/components/TutorialMenuHeader.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 import { fetchAll as fetchAllAlertings } from '#libs/alerting/actions';
+import { openIntercomHelp } from '../../intercom';
+import { RootState } from '../../reducers';
+import { WithHandlerType } from '../../utils/types';
+import { getLanguage } from '../../i18n';
 
 type IdentifierType =
   | typeof TUTORIAL_GENERIC_DIALOG_SHARE_SECTION

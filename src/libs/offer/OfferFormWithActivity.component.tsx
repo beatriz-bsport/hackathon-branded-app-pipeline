@@ -14,10 +14,10 @@ import { Coach } from '#libs/associated-coach/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { ZoomApp } from '#libs/zoom-app/types';
 import OfferFormBanner from '#libs/offer/form/OfferFormBanner.component';
 import type { LuxonDateTime } from '#src/types';
+import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 
 type Props = {
   metaActivities: MetaActivity[];

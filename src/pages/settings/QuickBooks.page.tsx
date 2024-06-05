@@ -7,14 +7,6 @@ import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import withTitle from '../../hocs/with-title.hoc';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers/index';
-
-import Config from '../../config';
-import { buildUrlParams, parseQueryString } from '../../http';
-
 import { updateCompanyTheme, fetchCompanyTheme } from '#libs/theme/actions';
 import {
   retrieveQuickbooksApp as retrieveQuickbooksAppAction,
@@ -32,10 +24,18 @@ import {
   getTaxCodesList,
 } from '#libs/quickbooks/selectors';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import QuickBooksConfigrationForm from '#libs/quickbooks/components/QuickBooksConfigurationForm.component';
-
 import QuickBooksTaxSection from '#libs/quickbooks/components/QuickBookTaxSection.component';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import withTitle from '../../hocs/with-title.hoc';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers/index';
+
+import Config from '../../config';
+import { buildUrlParams, parseQueryString } from '../../http';
+
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+
 import { OptionCallback } from '../../state/types';
 
 type StateHandlerInit = {};

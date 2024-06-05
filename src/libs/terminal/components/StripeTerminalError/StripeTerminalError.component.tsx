@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 import CardRefusedIcon from '#components/icons/CardRefusedIcon.component';
-import StripeTerminalErrorCode from '../StripeTerminalErrorCode.component';
 import type { StripeAPIException } from '#libs/payment/types';
+import StripeTerminalErrorCode from '../StripeTerminalErrorCode.component';
 
 const useStyles = makeStyles((theme: Theme) => ({
   centerContainer: {

@@ -3,9 +3,9 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import { getEnabledCadencesList } from '#libs/sequential_marketing/selectors';
 
+import type { Cadence } from '#libs/sequential_marketing/types';
 import type { AutoTagRule, SmartList } from './types';
 import type { RootState } from '../../reducers';
-import type { Cadence } from '#libs/sequential_marketing/types';
 
 // SMARTLIST
 export const getSmartListDict = (state: RootState) => state.smartList.byId;

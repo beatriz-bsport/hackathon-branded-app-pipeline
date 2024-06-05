@@ -5,7 +5,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
 
-import { RootState } from '../../reducers';
 import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
@@ -50,6 +49,7 @@ import NotificationRuleListItem from '#libs/notification-rule/components/Notific
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
 const BIRTHDAY_NOTIFICATION = {

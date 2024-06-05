@@ -7,6 +7,14 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
+import {
+  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '#libs/establishment/actions';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { getTheme } from '#libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -14,7 +22,6 @@ import {
   fetchFilteredMembers,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
-import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
@@ -44,19 +51,12 @@ import {
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
 } from '../../libs/private-service/actions';
-import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
-import {
-  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
-  fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import { CompanyTheme } from '../../libs/theme/types';
 import type { ScheduleFilter } from '../../libs/user-preference/types';
 import { setPrivateServiceScheduleFilter as setPrivateServiceScheduleFilterAction } from '../../libs/user-preference/actions';
 import { getPrivateServiceScheduleFilter } from '../../libs/user-preference/selectors';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
-import { getTheme } from '#libs/theme/selectors';
 
 type Props = {
   classes: Object,

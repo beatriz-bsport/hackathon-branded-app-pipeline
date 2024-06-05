@@ -19,6 +19,9 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import InfoBox from '#components/box/InfoBox.component';
+import RequiredTags from '#components/notification/RequiredTags.component';
 import { FranchiseCompany } from '../types';
 import {
   AlertError,
@@ -35,9 +38,6 @@ import {
 } from '../../email-editor/types';
 // @ts-expect-error
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
-import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import InfoBox from '#components/box/InfoBox.component';
-import RequiredTags from '#components/notification/RequiredTags.component';
 
 export type OwnProps = {
   rule?: FranchiseCompleteNotificationRule;

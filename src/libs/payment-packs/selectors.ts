@@ -4,6 +4,8 @@ import memoize from 'memoize-one';
 import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/payment-pack';
 
 import type { SCT } from '#libs/category/types';
+import { getAvailablePrivatePasses } from '#libs/private-service/selectors/private-pass';
+import { FranchiseCompany } from '#libs/franchise/types';
 import { getSCTs, getEditableSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
@@ -23,8 +25,6 @@ import {
   getFranchiseCompanyById,
   withAllowed,
 } from '../franchise/selectors';
-import { getAvailablePrivatePasses } from '#libs/private-service/selectors/private-pass';
-import { FranchiseCompany } from '#libs/franchise/types';
 
 type PaymentPackSelector<LPP = number | null> = (
   state: RootState,

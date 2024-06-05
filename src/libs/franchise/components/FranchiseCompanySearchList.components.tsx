@@ -11,7 +11,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
 import CompanyListItem from '#libs/membership/components/CompanyListItem.component';
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import HighlightedText from '#components/HighlightedText/HighlightedText.component';
@@ -22,6 +21,7 @@ import type {
   CreateUpdateCompanyGroupData,
 } from '#libs/franchise/types';
 import type { OptionCallback } from '#state/types';
+import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
 
 type Props = {
   asManager: boolean;

@@ -1,4 +1,11 @@
 import { createAction } from 'redux-actions';
+import { CUSTOM_ERROR_CODE } from '#libs/constants';
+import type {
+  ZoomApp,
+  ZoomMember,
+  ZoomEstablishment,
+  ZoomEstablishmentBulkEditData,
+} from '#libs/zoom-app/types';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,
@@ -14,13 +21,6 @@ import {
   fetchAllZoomMembers as fetchAllZoomMembersAPI,
 } from './api';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import { CUSTOM_ERROR_CODE } from '#libs/constants';
-import type {
-  ZoomApp,
-  ZoomMember,
-  ZoomEstablishment,
-  ZoomEstablishmentBulkEditData,
-} from '#libs/zoom-app/types';
 
 export const zoomAppDetailAction = {
   success: createAction<ZoomApp>('ZOOM_APP/DETAIL/SUCCESS'),

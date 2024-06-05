@@ -23,14 +23,14 @@ import {
   getSpecificIncompatibilitiesReasons,
 } from '#libs/private-service/utils';
 import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
-import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import RedButton from '#components/button/RedButton.component';
 
-import type { OptionCallback } from '../../../../state/types';
 import type { PrivateConsumerPass } from '#libs/private-service/types';
 import type { Member } from '#libs/member/types';
 import { getCreditsDividedDisplay } from '#libs/theme/utils';
+import type { OptionCallback } from '../../../../state/types';
+import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 
 type Props = {
   button?: Node;

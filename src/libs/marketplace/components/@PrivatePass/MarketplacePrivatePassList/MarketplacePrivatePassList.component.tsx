@@ -6,7 +6,6 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Immutable } from 'seamless-immutable';
 
 // @ts-expect-error
-import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import MarketplacePrivatePassCard from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCard';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
@@ -16,6 +15,7 @@ import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
 } from '#libs/private-service/types';
+import Analytics from '../../../../../components/analytics/Analytics.component';
 
 import './styles.css';
 

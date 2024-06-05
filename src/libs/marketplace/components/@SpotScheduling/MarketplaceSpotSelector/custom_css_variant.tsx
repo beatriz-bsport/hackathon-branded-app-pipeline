@@ -1,9 +1,5 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import MarketplaceSpotSelector from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceSportSelectorCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -12,6 +8,10 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceSportSelectorCss from './styles.css?raw';
+import MarketplaceSpotSelector from '.';
 
 const offer = offerFactory({
   withLevel: true,

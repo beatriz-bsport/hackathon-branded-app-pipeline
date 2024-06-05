@@ -1,11 +1,11 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import MetaActivityListItem from './MetaActivityListItem.component';
 import { OptionCallback } from '../../../state/types';
 
 import type { MetaActivity } from '../types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   metaActivities: Array<MetaActivity>;

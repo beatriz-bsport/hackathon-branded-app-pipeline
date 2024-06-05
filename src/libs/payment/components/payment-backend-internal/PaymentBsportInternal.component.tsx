@@ -14,11 +14,11 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CASH } from '@bsport/common/lib/master-data/payment-group';
-import DateInput from '../../../../components/input/DateInput.component';
 import PriceInput from '#components/input/PriceInput.component';
+import type { InternalPaymentPayload } from '#libs/payment/types';
+import DateInput from '../../../../components/input/DateInput.component';
 
 import { submitInternalPayment as submitInternalPaymentAPI } from '../../api';
-import type { InternalPaymentPayload } from '#libs/payment/types';
 
 import type { OptionBackgroundCallback } from '../../../../state/types';
 

@@ -4,16 +4,16 @@ import { Position } from 'react-flow-renderer';
 
 import EntryActionBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryActionBubble.component';
 import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
-import EntryStepCard from './EntryStepCard.component';
-
 import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
-import CadencePopover from '../internals/CadencePopover.component';
-import ClickAwayContextProvider from '../context/ClickAwayContext.component';
 import type {
   ConnectedTrigger,
   StepMarketingActions,
   EntryStepFlowVersionData,
 } from '#libs/sequential_marketing/types';
+import EntryStepCard from './EntryStepCard.component';
+
+import CadencePopover from '../internals/CadencePopover.component';
+import ClickAwayContextProvider from '../context/ClickAwayContext.component';
 
 type Props = {
   data: EntryStepFlowVersionData & React.ComponentProps<typeof EntryStepCard>;

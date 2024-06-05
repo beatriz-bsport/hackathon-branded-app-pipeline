@@ -4,11 +4,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { compose } from 'recompose';
 import { push } from 'connected-react-router';
-import CoachDetail from './CoachDetail.page';
-import CoachPrivateCalendar from './CoachPrivateCalendar.page';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import CoachPrivateCalendar from './CoachPrivateCalendar.page';
+import CoachDetail from './CoachDetail.page';
 
 type OwnProps = {
   tab: string;

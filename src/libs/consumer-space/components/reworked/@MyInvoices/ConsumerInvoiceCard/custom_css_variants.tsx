@@ -1,10 +1,5 @@
 import React from 'react';
 
-import ConsumerInvoiceCard from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerInvoiceCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -17,6 +12,10 @@ import {
   invoiceItemBatchFactory,
 } from '#libs/invoice/factories';
 import { InvoicesFiltersEnum } from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceFilters';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ConsumerInvoiceCardCss from './styles.css?raw';
+import ConsumerInvoiceCard from '.';
 
 const ConsumerInvoiceCardVariationRegistry = [
   {

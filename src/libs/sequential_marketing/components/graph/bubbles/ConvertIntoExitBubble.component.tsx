@@ -5,11 +5,11 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
-import CadenceBubble from './CadenceBubble.component';
 import {
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import CadenceBubble from './CadenceBubble.component';
 
 export type Props = {
   onCancel?: () => void;

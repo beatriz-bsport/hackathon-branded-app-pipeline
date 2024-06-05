@@ -6,11 +6,11 @@ import { makeStyles } from '@material-ui/core';
 
 import type { Member } from '#libs/member/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
-import InboxPanelMemberDetail from './InboxPanelMemberDetail.component';
 import InboxPanelMemberTags from '#libs/communication-v2/thread/InboxPanel/InboxPanelMember/InboxPanelMemberTags.component';
 import InboxPanelMemberAccountBalance from '#libs/communication-v2/thread/InboxPanel/InboxPanelMember/InboxPanelMemberAccountBalance.component';
 import InboxPanelMemberUnpaidInvoices from '#libs/communication-v2/thread/InboxPanel/InboxPanelMember/InboxPanelMemberUnpaidInvoices.component';
 import InboxPanelMemberSection from '#libs/communication-v2/thread/InboxPanel/InboxPanelMember/InboxPanelMemberSection.component';
+import InboxPanelMemberDetail from './InboxPanelMemberDetail.component';
 
 type Props = {
   member: Member;

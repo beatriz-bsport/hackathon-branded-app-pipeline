@@ -1,4 +1,7 @@
 // @ts-expect-error
+import { ReminderState } from '#libs/reminder/types';
+import { PerformanceTrackingState } from '#libs/performance-tracking/types';
+import { ClockInState } from '#libs/clock-in/types';
 import { AuthAction } from './auth/types';
 
 import { StatsState } from './stats/types';
@@ -21,7 +24,6 @@ import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
 import { PaymentComboState } from '../libs/payment-combo/types';
 // @ts-expect-error
-import { ReminderState } from '#libs/reminder/types';
 import { MembershipState } from '../libs/membership/types';
 import { CompanyState } from '../libs/company/types';
 import { NotificationRuleState } from '../libs/notification-rule/types';
@@ -32,8 +34,6 @@ import { RelationshipState } from '../libs/relationship/types';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { RootState } from '../reducers';
-import { PerformanceTrackingState } from '#libs/performance-tracking/types';
-import { ClockInState } from '#libs/clock-in/types';
 
 export type State = {
   backgroundTask: BackgroundTaskState;

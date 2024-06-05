@@ -2,7 +2,6 @@ import React from 'react';
 import { compose } from 'recompose';
 import { LinearProgress } from '@material-ui/core';
 import { ConnectedProps, connect } from 'react-redux';
-import type { RootState } from '../../../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import type { SendGroupedCommunicationData } from '#libs/communication/types';
 import { getAllFranchiseCompanies } from '#libs/franchise/selectors';
@@ -24,12 +23,13 @@ import {
   fetchMembersDataTableListExportLink as fetchMembersDataTableListExportLinkAction,
 } from '#libs/communication/actions';
 
-import type { OptionCallback } from '../../../../state/types';
 import { getCommunicationSentGroupConfig } from '#libs/communication/selectors';
 import type { FranchiseCompany } from '#libs/franchise/types';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import CommunicationSentGroupConfigDetailGeneralPanel from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigDetailGeneralPanel.component';
+import type { OptionCallback } from '../../../../state/types';
+import type { RootState } from '../../../../reducers';
 
 type OwnProps = { campaignId: number };
 

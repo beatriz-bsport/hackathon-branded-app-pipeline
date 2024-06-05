@@ -16,7 +16,6 @@ import themeSelectors from '#libs/theme/selectors';
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
-import { OptionCallback } from '../../state/types';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
 
 import {
@@ -37,6 +36,7 @@ import {
   withGiftcard,
   getConsumerGiftcardSentList,
 } from '#libs/giftcard/selectors';
+import { OptionCallback } from '../../state/types';
 
 import { RootState } from '../../reducers';
 

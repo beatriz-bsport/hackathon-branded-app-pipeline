@@ -23,9 +23,6 @@ import { Alert } from '@material-ui/lab';
 import type { OptionPropsWithData } from '#libs/fuzzy-search/types';
 
 import { VideoStatusEnum } from '#libs/video/types';
-import { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers/index';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
@@ -54,22 +51,6 @@ import {
   withLinkedPrivatePass,
 } from '#libs/payment-packs/selectors';
 import { fetchVideoFilterableParams } from '#libs/video/actions';
-import {
-  updateCredit as updateCreditAction,
-  resetByPaymentPack as resetByPaymentPackAction,
-  fetchByPaymentPack as fetchByPaymentPackAction,
-} from '../../libs/consumer-payment-pack/actions';
-import type {
-  PaymentPack,
-  PaymentPackCategory,
-  PaymentPackCategoryWithPacks,
-  PaymentPackFormValues,
-} from '../../libs/payment-packs/types';
-import withTitle from '../../hocs/with-title.hoc';
-import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
-import { withPaymentPackNotification } from '../../libs/marketing/selectors';
-import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
-import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
 import {
   setPaymentPackCategoryFilter,
   setPaymentPackManagerOnlyFilter,
@@ -121,6 +102,25 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
+import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
+import { withPaymentPackNotification } from '../../libs/marketing/selectors';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import withTitle from '../../hocs/with-title.hoc';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackCategoryWithPacks,
+  PaymentPackFormValues,
+} from '../../libs/payment-packs/types';
+import {
+  updateCredit as updateCreditAction,
+  resetByPaymentPack as resetByPaymentPackAction,
+  fetchByPaymentPack as fetchByPaymentPackAction,
+} from '../../libs/consumer-payment-pack/actions';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers/index';
+import { OptionCallback } from '../../state/types';
 
 type PaymentPackOption = {
   label: string;

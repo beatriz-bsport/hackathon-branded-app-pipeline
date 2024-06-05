@@ -20,7 +20,6 @@ import type {
   CommunicationMessage,
   MessageData,
 } from '#libs/communication-v2/types';
-import type { OptionCallback } from '../../../../state/types';
 import { getConsentWarning } from '#libs/communication-v2/utils';
 import type { Member } from '#libs/member/types';
 import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
@@ -32,6 +31,7 @@ import type {
 import type { Theme } from '#libs/theme/types';
 import InboxNoThread from '#libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
 import InboxThreadSenderContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
+import type { OptionCallback } from '../../../../state/types';
 import Config from '../../../../config';
 
 export type Props = {

@@ -1,12 +1,6 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MarketplaceOfferListItemCSSOnly, {
-  Props as MarketplaceOfferListItemCSSOnlyProps,
-} from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import OfferListItemCss from './MarketplaceOfferListItemCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -19,6 +13,12 @@ import { coachesFactory } from '#libs/associated-coach/factories';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { offerFactory } from '#libs/offer/factory';
 import { Coach } from '#libs/associated-coach/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import OfferListItemCss from './MarketplaceOfferListItemCSSOnly.css?raw';
+import MarketplaceOfferListItemCSSOnly, {
+  Props as MarketplaceOfferListItemCSSOnlyProps,
+} from '.';
 
 const contractCardVariationRegistry = [
   {

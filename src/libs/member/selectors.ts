@@ -1,10 +1,6 @@
 import memoize from 'lodash/memoize';
 import { createSelector } from 'reselect';
 
-import type { RootState } from '../../reducers';
-import { getMembership } from '../membership/selectors';
-import type { Member } from './types';
-import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
 import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
 import {
   getMemberProgramByMemberDict,
@@ -13,6 +9,10 @@ import {
   getProgramDict,
 } from '#libs/performance-tracking/selector';
 import { getEventState } from '#libs/event/selectors';
+import type { RootState } from '../../reducers';
+import { getMembership } from '../membership/selectors';
+import type { Member } from './types';
+import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;

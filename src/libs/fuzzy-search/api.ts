@@ -1,8 +1,8 @@
-import { buildUrlParams, getAuth } from '../../http';
 import type {
   FuzzySearchAPIParams,
   ObjectSearchPaginated,
 } from '#libs/fuzzy-search/types';
+import { buildUrlParams, getAuth } from '../../http';
 
 export const search = ({
   searchObjectURI,

@@ -12,10 +12,10 @@ import {
 } from '#components/untitledui';
 import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
 import Menu from '#Fabrique/Menu';
-import YearPicker from './YearPicker';
 import { getLocaleWeekdays } from '#src/utils/datetime';
 
 import type { LuxonDateTime } from '#src/types';
+import YearPicker from './YearPicker';
 
 import './styles.css';
 

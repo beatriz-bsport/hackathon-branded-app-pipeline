@@ -37,7 +37,6 @@ import {
   getBookingOptionConsumerList,
 } from '#libs/waiting-list/selectors';
 
-import { buildUrlParams } from '../../http';
 import {
   getPrivateConsumerPassList,
   excludeUnPaidPrivateConsumerPass,
@@ -102,10 +101,7 @@ import {
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
 import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
-import { RootState } from '../../reducers';
 import { Membership } from '#libs/membership/types';
-import { OptionCallback } from '../../state/types';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Booking } from '#libs/booking/types';
 import { Invoice } from '#libs/invoice/types';
 import {
@@ -129,11 +125,15 @@ import { Establishment } from '#libs/establishment/types';
 import CanvasPreviewDialog from '#libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 // @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
 import { fetchConsumerPaymentPackLinks } from '#libs/relationship/actions';
 import { withIsSharedActive } from '#libs/relationship/selectors';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import { fetchMemberTagList } from '#libs/tag/actions';
+import withQueryParams from '../../hocs/with-query-params.hoc';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import { buildUrlParams } from '../../http';
 
 type OwnProps = {
   hideCoach: boolean;

@@ -14,6 +14,7 @@ import {
 import React, { useState } from 'react';
 import memoize from 'memoize-one';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { ManagerOnly } from '#libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import {
   PrivatePass,
   PrivatePassCategory,
@@ -23,7 +24,6 @@ import { OptionCallback } from '../../../../state/types';
 import PrivatePassCategoryItemWithPrivatePasses, {
   PresentationalComponentPassCategory,
 } from './PrivatePassCategoryItemWithPrivatePasses';
-import { ManagerOnly } from '#libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 
 type Props = {
   goToPass: (id: number) => void;

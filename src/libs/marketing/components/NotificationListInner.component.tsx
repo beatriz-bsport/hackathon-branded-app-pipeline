@@ -8,11 +8,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { MarketingNotification } from '../types';
-import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
-import { SmartList } from '../../smart-list/types';
 
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#libs/payment-packs/utils';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
@@ -22,6 +18,10 @@ import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
+import { SmartList } from '../../smart-list/types';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+import { MaterialStyleType } from '../../../utils/types';
+import { MarketingNotification } from '../types';
 
 const getLabelForRules = (
   notification: MarketingNotification,

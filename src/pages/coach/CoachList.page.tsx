@@ -43,8 +43,8 @@ import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLev
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
 import VirtualizedCoachList from '#libs/associated-coach/components/VirtualizedCoachList.component';
 
-import type { RootState } from '../../reducers';
 import type { Coach } from '#libs/associated-coach/types';
+import type { RootState } from '../../reducers';
 
 import {
   withObjectSearch,

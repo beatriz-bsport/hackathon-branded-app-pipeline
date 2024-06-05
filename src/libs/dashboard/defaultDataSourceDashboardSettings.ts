@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import type { DataSourceDashboardSettings } from './types';
 import {
   MEMBER_GRAPH_IDENTIFIER,
   BOOKING_GRAPH_IDENTIFIER,
@@ -9,6 +8,7 @@ import {
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   INVOICE_GRAPH_IDENTIFIER,
 } from '#libs/dashboard/constants';
+import type { DataSourceDashboardSettings } from './types';
 
 export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSettings =
   () => [

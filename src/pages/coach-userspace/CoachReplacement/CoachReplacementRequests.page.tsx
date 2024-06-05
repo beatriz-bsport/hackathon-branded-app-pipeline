@@ -26,7 +26,6 @@ import {
   ReplacementRequestPaginationByStatus,
 } from '#libs/replacement-request/constants';
 import { ReplacementRequestAPIData } from '#libs/replacement-request/types';
-import { RootState } from '../../../reducers';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
@@ -52,8 +51,9 @@ import {
   fetchHasUnseenConfirmedRequests as fetchHasUnseenConfirmedRequestsAction,
   markConfirmedRequestsAsSeen as markConfirmedRequestsAsSeenAction,
 } from '#libs/replacement-request/actions';
-import { WithHandlerType } from '../../../utils/types';
 import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#libs/replacement-request/api';
+import { WithHandlerType } from '../../../utils/types';
+import { RootState } from '../../../reducers';
 
 type ConnectProps = ConnectedProps<typeof connector>;
 type Props = ConnectProps & WithHandlerType<typeof handlers>;

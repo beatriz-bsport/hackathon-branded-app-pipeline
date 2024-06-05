@@ -6,10 +6,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Pagination from '@material-ui/lab/Pagination';
 
-import CommunicationScheduledItem from './CommunicationScheduledItem.component';
 import { COMMUNICATION_SCHEDULED_LIST_PAGINATION } from '#libs/communication-v2/constants';
 
 import type { CommunicationScheduled } from '#libs/communication-v2/types';
+import CommunicationScheduledItem from './CommunicationScheduledItem.component';
 
 type Props = {
   loading: boolean;

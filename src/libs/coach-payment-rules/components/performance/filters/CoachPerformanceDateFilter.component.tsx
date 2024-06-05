@@ -31,9 +31,9 @@ import {
 // @ts-expect-error
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
-import type { OptionCallback } from '../../../../../state/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
   dateStart: DateTime;

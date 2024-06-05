@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import GenericTemplateCardCompanyList from './GenericTemplateCardCompanyList.component';
-import FranchiseDialogSelectCompanies from '../dialogs/FranchiseDialogSelectCompanies.component';
 import { FranchiseCompany } from '#libs/franchise/types';
-import { parseQueryString } from '../../../../../http';
 import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
 import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 import { ProductCardCategoryListSchema } from '#components/card/ProductCardCategoryList.component';
 import ProductCard from '#components/card/ProductCard.component';
+import { parseQueryString } from '../../../../../http';
+import FranchiseDialogSelectCompanies from '../dialogs/FranchiseDialogSelectCompanies.component';
+import GenericTemplateCardCompanyList from './GenericTemplateCardCompanyList.component';
 
 type ProductCardProps = {
   // header

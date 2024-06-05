@@ -25,11 +25,11 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
+import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceListItem, {
   CadenceListItemLoading,
 } from './CadenceListItem.component';
 
-import type { Cadence } from '#libs/sequential_marketing/types';
 
 type Props = {
   cadences: Cadence[];

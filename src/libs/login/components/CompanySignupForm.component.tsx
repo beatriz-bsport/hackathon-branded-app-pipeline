@@ -8,12 +8,12 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import LocaleSelector from '../../../components/input/LocaleSelector.component';
 import TimezoneSelector from '../../../components/input/TimezoneSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 import { OptionCallback } from '../../../state/types';
-import { getTimezonesForCountry } from '#src/i18n/utils/timezone-country';
 
 import Config from '../../../config';
 

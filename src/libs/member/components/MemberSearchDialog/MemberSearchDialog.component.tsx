@@ -20,15 +20,15 @@ import Pagination from '@material-ui/lab/Pagination';
 import Alert from '@material-ui/lab/Alert';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import MemberSearchBar from '../MemberSearchBar.component';
 // @ts-expect-error
 import MemberForm from '#libs/member/MemberForm.component';
 import { getLatest } from '#libs/member/api';
 import type { MemberFormData, MemberMinimal } from '#libs/member/types';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { OptionCallback } from '../../../../state/types';
 
 import useStyles from './styles';
-import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import MemberSearchBar from '../MemberSearchBar.component';
 
 type ListItemProps = {
   member: MemberMinimal;

@@ -21,14 +21,14 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-import EmailSelector from '../../email-editor/components/EmailSelector.component';
-import HTMLPreview from '../../../components/html/HTMLPreview.component';
-
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import HTMLPreview from '../../../components/html/HTMLPreview.component';
+
 
 type Props = {
   onCancel: () => void,

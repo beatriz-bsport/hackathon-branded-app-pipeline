@@ -17,12 +17,12 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import CategoryItemWithItems, {
   PresentationalComponentCategory,
 } from '#components/ordering/CategoryItem.component';
-import { OptionCallback } from '../../state/types';
 import {
   Category,
   CategoryWithItems,
   ListItem,
 } from '#components/ordering/types';
+import { OptionCallback } from '../../state/types';
 
 export type Props = {
   hideTitle?: boolean;

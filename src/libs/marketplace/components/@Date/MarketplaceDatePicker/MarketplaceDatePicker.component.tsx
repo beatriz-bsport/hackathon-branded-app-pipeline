@@ -16,7 +16,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { EventWithElementTarget } from '#libs/marketplace/types';
 
-import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 import {
   formatAsDate,
   formatAsTitle,
@@ -24,6 +23,7 @@ import {
 } from '#utils/datetime';
 
 import type { LuxonDateTime } from '#src/types';
+import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 
 import './MarketplaceDatePicker.css';
 

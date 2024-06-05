@@ -15,7 +15,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 import { compose } from 'recompose';
-import { MaterialStyleType } from '../../../../utils/types';
 // @ts-expect-error
 import { EmailTemplateSummary } from '#libs/email-editor/types.ts';
 
@@ -24,6 +23,7 @@ import { MarketingNotification } from '#libs/marketing/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { SmartList } from '#libs/smart-list/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { MaterialStyleType } from '../../../../utils/types';
 
 type OwnProps = {
   updateNotification: (id: number, data: any) => void;

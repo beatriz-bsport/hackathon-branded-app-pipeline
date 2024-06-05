@@ -19,9 +19,9 @@ import type {
 } from '#libs/establishment/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import ObjectSearchComponent from '#libs/fuzzy-search/components/ObjectSearch.component';
-import type { OfferFilter } from '../types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { SelectOption } from '#src/libs/types';
+import type { OfferFilter } from '../types';
 
 export const FILTER_COACH = 0;
 export const FILTER_ESTABLISHMENT = 1;

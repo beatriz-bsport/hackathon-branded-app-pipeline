@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import FranchiseShopListTabs from './FranchiseShopListTabs.component';
 import ShopListSettingsSupplierModal from '#libs/shop/components/ShopListSettingsSupplierModal';
 import ShopSupplierDeleteConfirmModal from '#libs/shop/components/ShopSupplierDeleteConfirmModal';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
@@ -25,6 +24,7 @@ import type { ErrorAndLoading, SelectOption } from '#libs/types';
 import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import FranchiseShopListTabs from './FranchiseShopListTabs.component';
 
 type Props = {
   isLoading?: boolean;

@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 
 import Select from 'react-select';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import useEventContext, {
-  type EventOption,
-} from '../hooks/useEventContext.hook';
 
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import { Events } from '#libs/sequential_marketing/constants';
+import useEventContext, {
+  type EventOption,
+} from '../hooks/useEventContext.hook';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {

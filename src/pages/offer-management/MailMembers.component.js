@@ -14,9 +14,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 import DEPRECATEDCommunicationDrawer from '../../libs/communication/components/DEPRECATEDCommunicationDrawer.component';
 import type { Booking, BookingOption } from '../../libs/booking/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   fullScreen: boolean,

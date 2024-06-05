@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 
 import type { ChipColor } from '#Fabrique/Chip';
-import type { ConsumerSubscriptionCardProps } from '..';
 import { AlertCircle, CreditCardX, PauseCircle } from '#components/untitledui';
+import type { ConsumerSubscriptionCardProps } from '..';
 
 type Props = Pick<
   ConsumerSubscriptionCardProps,

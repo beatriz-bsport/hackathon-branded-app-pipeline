@@ -3,11 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
-import ChangePasswordForm, { Props as ChangePasswordFormProps } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ChangePasswordFormCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -16,6 +12,10 @@ import {
 } from '#libs/exportable-components/types';
 
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ChangePasswordFormCss from './styles.css?raw';
+import ChangePasswordForm, { Props as ChangePasswordFormProps } from '.';
 
 const ERROR = faker.lorem.words(6);
 

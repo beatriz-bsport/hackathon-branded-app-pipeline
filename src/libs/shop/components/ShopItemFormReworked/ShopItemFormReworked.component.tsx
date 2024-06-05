@@ -10,9 +10,6 @@ import {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import ShopItemFormProductStep from './ShopItemFormProductStep.component';
-import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
-
 import type {
   ShopSupplier,
   ShopItem,
@@ -22,6 +19,14 @@ import type {
   ShopItemTemplate,
 } from '#libs/shop/types';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import {
+  generateShopitemColorSizeCombinationList,
+  getFormDataFieldsFromArray,
+} from '#libs/shop/utils';
+import ShopItemFormProductStep from './ShopItemFormProductStep.component';
+import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
+
 import {
   ShopItemFormStep,
   ShopItemFormValues,
@@ -29,13 +34,7 @@ import {
 } from '#libs/shop/components/ShopItemFormReworked/types';
 import type { SelectOption } from '#libs/types';
 
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-
 import { getShopItemFormValidationSchema } from '#libs/shop/components/ShopItemFormReworked/shopItemFormValidationSchema';
-import {
-  generateShopitemColorSizeCombinationList,
-  getFormDataFieldsFromArray,
-} from '#libs/shop/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

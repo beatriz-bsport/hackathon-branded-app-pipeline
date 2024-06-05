@@ -15,6 +15,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
+import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 // import/no-unresolved
@@ -25,7 +26,6 @@ import IDEAL_LOGO from '../icons/ideal.png';
 import BACS_DEBIT_LOGO from '../icons/bacs-direct-debit.png';
 import Stripe from '../icons/Stripe.icon';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
-import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
   const classes = useStyles();

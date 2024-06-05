@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { goBack as goBackAction } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import { snackbar } from '../../actions/snackbar.actions';
 import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
@@ -18,7 +19,6 @@ import {
   submitSignUpCustomForm as submitSignUpCustomFormAction,
 } from '../../libs/custom-form/actions';
 import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 import type { CustomForm } from '../../libs/custom-form/types';
 import type { Theme } from '../../libs/theme/types';

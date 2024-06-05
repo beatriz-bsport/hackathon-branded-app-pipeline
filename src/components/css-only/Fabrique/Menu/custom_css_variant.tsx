@@ -1,12 +1,6 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import Menu from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MenuCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import { generateRandomNames } from '#utils/factories';
@@ -19,6 +13,10 @@ import MenuItemList from '#Fabrique/MenuItemList';
 import MenuItem from '#Fabrique/MenuItem';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MenuCss from './styles.css?raw';
+import Menu from '.';
 
 const menuItemLabels = generateRandomNames(faker, { count: 5 });
 

@@ -1,16 +1,15 @@
 import React from 'react';
 
-import BigIcon from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BigIconCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import BigIcon from '.';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BigIconCss from './styles.css?raw';
 import { BigIconEnum } from './constants';
 import type { BigIconVariantType } from './types';
 

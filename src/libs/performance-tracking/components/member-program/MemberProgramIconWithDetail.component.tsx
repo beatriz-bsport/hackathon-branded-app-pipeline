@@ -4,12 +4,12 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { OfflineBolt } from '@material-ui/icons';
 import { IconButton, Popover, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '../../../../components/Tooltip.component';
 import {
   MetricRecord,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
 import MuiIcon from '#components/MuiIcon.component';
+import Tooltip from '../../../../components/Tooltip.component';
 
 type OwnProps = {
   metricRecord: MetricRecord;

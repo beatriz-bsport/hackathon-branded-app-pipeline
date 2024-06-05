@@ -7,11 +7,11 @@ import { StylesProvider } from '@material-ui/styles';
 import { useTheme } from '@material-ui/core';
 import classNames from 'classnames';
 import EmailIcon from '#components/icons/EmailIcon.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ResendEmailForConfirmationDialog from '../ResendEmailForConfirmationDialog.component';
 import LoginTitle from '../LoginTitle.component';
 
 import './EmailConfirmationStyles.css';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type Props = {
   goBackToLogin: () => void;

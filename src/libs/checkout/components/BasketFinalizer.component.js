@@ -16,6 +16,8 @@ import {
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
@@ -24,9 +26,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
 import { getSubTotal } from '../utils';
 import BasketTaxInfo from './BasketTaxInfo.component';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 import { TermsAndConditionType } from '../../payment/types';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
 export const ADDRESS_STEP = {
   id: 0,

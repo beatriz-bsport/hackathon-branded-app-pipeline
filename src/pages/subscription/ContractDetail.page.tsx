@@ -14,7 +14,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import memoize from 'memoize-one';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { TFunction } from 'i18next';
-import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
@@ -31,7 +30,6 @@ import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { fetchTags } from '#libs/tag/actions';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import {
@@ -86,13 +84,15 @@ import {
   ContractPauseDetails,
   Subscription,
 } from '#libs/subscription/types';
-import { RootState } from '../../reducers';
 import { getMergeTags } from '#libs/marketing/utils';
 import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
 import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
 import ContractPauseFormDialog from '#libs/subscription/components/contract/ContractPauseFormDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { RootState } from '../../reducers';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { OptionCallback } from '../../state/types';
 
 type OwnProps = {
   contractId: number;

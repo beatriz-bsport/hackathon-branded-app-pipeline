@@ -4,24 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 // @ts-expect-error
-import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 // @ts-expect-error
-import CoachInformation from './coach-detail/CoachInformation.component';
-import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
-import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
-import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import type {
-  CoachPaymentRule,
-  CoachPaymentRuleGroup,
-} from '../../coach-payment-rules/types';
-import type { PrivateServiceWithSlots } from '../../private-service/types';
-import type {
-  Coach,
-  CoachReplacementPreferencesData,
-  UpdateCoachPrivateSlotsPaymentRuleData,
-} from '../types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
 import {
@@ -34,9 +19,24 @@ import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
 
-import type { OptionCallback } from '../../../state/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { OptionCallback } from '../../../state/types';
+import type {
+  Coach,
+  CoachReplacementPreferencesData,
+  UpdateCoachPrivateSlotsPaymentRuleData,
+} from '../types';
+import type { PrivateServiceWithSlots } from '../../private-service/types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+} from '../../coach-payment-rules/types';
+import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
+import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
+import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
+import CoachInformation from './coach-detail/CoachInformation.component';
+import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 
 type Props = {
   coach: Coach;

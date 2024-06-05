@@ -9,6 +9,9 @@ import Card from '#Fabrique/Card';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 
+
+import type { Establishment } from '#libs/establishment/types';
+import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
 import {
   PrivateConsumerPassDetailsCardHeader,
   PrivateConsumerPassDetailsCardDescriptionSection,
@@ -16,9 +19,6 @@ import {
   PrivateConsumerPassDetailsCardSharedSection,
   PrivateConsumerPassDetailsCardCompatibilitySection,
 } from './sections';
-
-import type { Establishment } from '#libs/establishment/types';
-import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
 
 import './styles.css';
 

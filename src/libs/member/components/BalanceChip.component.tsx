@@ -4,12 +4,12 @@ import classnames from 'classnames';
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import ReceiptIcon from '@material-ui/icons/Receipt';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import {
   BALANCE_AND_UNPAID_AMOUNT,
   ONLY_BALANCE,
   ONLY_UNPAID_AMOUNT,
 } from '#libs/member/constants';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   credit: number;

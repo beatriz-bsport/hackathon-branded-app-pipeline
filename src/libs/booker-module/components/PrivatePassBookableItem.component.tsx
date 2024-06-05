@@ -1,14 +1,14 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrivatePass } from '../../private-service/types';
-import { getValidityInfo } from '../../private-service/utils';
-
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
+import { PrivatePass } from '../../private-service/types';
+import { getValidityInfo } from '../../private-service/utils';
+
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
   privatePass: PrivatePass;

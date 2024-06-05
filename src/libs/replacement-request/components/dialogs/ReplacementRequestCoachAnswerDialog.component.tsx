@@ -11,7 +11,6 @@ import { CircularProgress, useTheme } from '@material-ui/core/';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import LevelChip from '#libs/level/components/Level.component';
 import ReplacementRequestRegistrationsStatusChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestRegistrationsStatusChip.component';
-import ReplacementRequestCoachAnswerTable from '../coach-answer-table/ReplacementRequestCoachAnswerTable.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import { ReplacementRequest } from '#libs/replacement-request/types';
@@ -20,6 +19,7 @@ import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
 import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
+import ReplacementRequestCoachAnswerTable from '../coach-answer-table/ReplacementRequestCoachAnswerTable.component';
 import { OptionCallback } from '../../../../state/types';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 

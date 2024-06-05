@@ -24,6 +24,13 @@ import {
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
+import FabriqueTitle from '#Fabrique/Temporary/Title';
+import FabriqueParagraph from '#Fabrique/Temporary/Paragraph';
+import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
+import FabriqueTextFormField from '#Fabrique/Temporary/TextFormField';
+import FabriqueRadioGroupfield from '#Fabrique/Temporary/RadioGroupfield';
+import FabriqueMultipleCheckboxfield from '#Fabrique/Temporary/MultipleCheckboxfield';
+import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
 import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
@@ -49,13 +56,6 @@ import {
 
 import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
 import CustomFormFieldLocationInput from './CustomFormField.location-input';
-import FabriqueTitle from '#Fabrique/Temporary/Title';
-import FabriqueParagraph from '#Fabrique/Temporary/Paragraph';
-import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
-import FabriqueTextFormField from '#Fabrique/Temporary/TextFormField';
-import FabriqueRadioGroupfield from '#Fabrique/Temporary/RadioGroupfield';
-import FabriqueMultipleCheckboxfield from '#Fabrique/Temporary/MultipleCheckboxfield';
-import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
 
 type OwnProps = {
   field: CustomFormField;

@@ -16,6 +16,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ViewCompactIcon from '@material-ui/icons/ViewCompact';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchTags } from '../../libs/tag/actions';
 import { RootState } from '../../reducers';
@@ -38,7 +39,6 @@ import CustomFormList from '../../libs/custom-form/components/CustomFormList.com
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import tagSelectors from '../../libs/tag/selectors';
 import { CustomForm } from '../../libs/custom-form/types';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
   isSubmitting: boolean;

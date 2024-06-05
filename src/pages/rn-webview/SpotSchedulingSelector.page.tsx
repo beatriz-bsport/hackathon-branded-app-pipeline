@@ -40,13 +40,13 @@ import MarketplaceSpotSelector from '#marketplacecomponents/@SpotScheduling/Mark
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '#libs/checkout/actions';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 
-import type { RootState } from '../../reducers';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import type { Offer } from '#libs/offer/types';
 import type { SpotType } from '#libs/spot-scheduling/types';
+import type { RootState } from '../../reducers';
 import './styles.css';
 
 type ParamsToProps = {

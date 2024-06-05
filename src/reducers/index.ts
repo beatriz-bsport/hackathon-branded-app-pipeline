@@ -4,7 +4,6 @@ import { connectRouter } from 'connected-react-router';
 import activeCampaign from '#libs/active-campaign/reducers';
 import alertingReducer from '#libs/alerting/reducers';
 // @ts-expect-error
-import authReducers from './auth';
 import backgroundDialogReducer from '#libs/background-dialog/reducers';
 import backgroundTaskReducers from '#libs/background-task/reducers';
 import bookingReducers from '#libs/booking/reducers';
@@ -69,7 +68,6 @@ import replacementRequestReducer from '#libs/replacement-request/reducers';
 import reportingReducer from '#libs/reporting/reducers';
 import roleReducers from '#libs/role/reducers';
 // @ts-expect-error
-import searchReducer from './search.reducers';
 import settingsReducer from '#libs/settings/reducers';
 import shopReducer from '#libs/shop/reducers';
 import shopReworkedReducer from '#libs/shop/reducersReworked';
@@ -157,7 +155,6 @@ import type { UserPreference } from '#libs/user-preference/types';
 import type { VideoState } from '#libs/video/types';
 import type { TerminalState } from '#libs/terminal/types';
 // @ts-expect-error
-import actionTypes from '../actions/auth.types';
 import type { LevelState } from '#libs/level/types';
 import type { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import type { TutorialState } from '#libs/platform-tutorial/types';
@@ -177,6 +174,9 @@ import type { PaymentBackendState } from '#libs/payment/types';
 import type { ActiveCampaignState } from '#libs/active-campaign/types';
 import type { PaymentPackState } from '#libs/payment-packs/types';
 import type { SearchState } from '#libs/fuzzy-search/types';
+import actionTypes from '../actions/auth.types';
+import searchReducer from './search.reducers';
+import authReducers from './auth';
 
 const rootReducer = (history: any) =>
   combineReducers({

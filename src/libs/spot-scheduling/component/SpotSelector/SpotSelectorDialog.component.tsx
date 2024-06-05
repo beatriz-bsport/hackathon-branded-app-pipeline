@@ -16,13 +16,13 @@ import { DialogContent, Dialog, Grid } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
+import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { getCoachOrSubstitute } from '../../../offer/utils';
 import SpotSelector from './SpotSelector.component';
 import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
-import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
-import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,

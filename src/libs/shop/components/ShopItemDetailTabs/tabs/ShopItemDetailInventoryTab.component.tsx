@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import ShopItemDetailInventoryList from '../../ShopItemDetailInventoryList/ShopItemDetailInventoryList.component';
-import ShopItemDetailInventoryListMobile from '../../ShopItemDetailInventoryListMobile/ShopItemDetailInventoryListMobile.component';
 
 import type {
   Provision,
@@ -20,8 +18,6 @@ import type {
   ShopItem,
 } from '#libs/shop/types';
 import type { ShopItemInventoryBulkUpdateFormValues } from '#libs/shop/components/ShopItemInventoryBulkUpdateForm/types';
-import type { OptionCallback } from '../../../../../state/types';
-import type { ShopItemInventoryFormValues } from '../../ShopItemInventoryUpdateForm/types';
 import type { SelectOption } from '#libs/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
@@ -29,6 +25,10 @@ import {
   SHOP_ITEM_VARIANTS_PAGE_SIZE,
   ShopItemDetailInventoryFormType,
 } from '#libs/shop/constants';
+import type { ShopItemInventoryFormValues } from '../../ShopItemInventoryUpdateForm/types';
+import type { OptionCallback } from '../../../../../state/types';
+import ShopItemDetailInventoryListMobile from '../../ShopItemDetailInventoryListMobile/ShopItemDetailInventoryListMobile.component';
+import ShopItemDetailInventoryList from '../../ShopItemDetailInventoryList/ShopItemDetailInventoryList.component';
 
 type Props = {
   shopItemVariantList: ShopItem[];

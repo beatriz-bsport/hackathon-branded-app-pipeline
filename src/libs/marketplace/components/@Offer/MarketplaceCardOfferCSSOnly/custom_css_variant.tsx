@@ -2,12 +2,6 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MarketPlaceCardOfferCSSOnly, {
-  Props as MarketplaceOfferCardProps,
-} from './MarketPlaceCardOfferCSSOnly.component';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 import {
@@ -19,6 +13,12 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import { offerFactory } from '#libs/offer/factories';
 import { formatAsDate } from '#src/utils/datetime';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceCardOfferCss from './MarketplaceCardOfferCSSOnly.css?raw';
+import MarketPlaceCardOfferCSSOnly, {
+  Props as MarketplaceOfferCardProps,
+} from './MarketPlaceCardOfferCSSOnly.component';
 
 const offerCardVariationRegistry = [
   {

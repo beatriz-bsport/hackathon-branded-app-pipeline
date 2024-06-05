@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
-import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ConsumerCardDescription from '#libs/consumer-space/components/reworked/common/ConsumerCardDescription';
+import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 type Props = Pick<ConsumerSubscriptionDetailsCardProps, 'description'>;
 

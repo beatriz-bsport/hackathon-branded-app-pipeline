@@ -15,8 +15,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import Config from '../../config';
 
 import CampaignList from '#libs/communication/components/CampaignList.component';
 import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
@@ -72,9 +70,11 @@ import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/c
 
 import type { CampaignExportStartEndDates } from '#libs/communication/types';
 import type { CommunicationScheduled } from '#libs/communication-v2/types';
+import type { WithHandlerType, MaterialStyleType } from '#utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
-import type { WithHandlerType, MaterialStyleType } from '#utils/types';
+import Config from '../../config';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type OwnProps = {
   id: number;

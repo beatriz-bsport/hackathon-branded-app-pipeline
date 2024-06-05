@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
 
+import { OfferStatus } from '#libs/offer/types';
 import {
   fetchGroupsOfferListActions,
   generateGroupOffersPreviewActions,
@@ -16,7 +17,6 @@ import {
   getGroupOfferBookableStatusActions,
 } from './actions';
 import { GroupOfferState } from './types';
-import { OfferStatus } from '#libs/offer/types';
 
 const initialState: Immutable.Immutable<GroupOfferState> =
   Immutable<GroupOfferState>({

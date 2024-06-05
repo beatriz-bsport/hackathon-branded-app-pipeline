@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import useOfferWaitingListStatus from './useOfferWaitingListStatus';
 import { OfferStatus } from '#libs/offer/types';
+import useOfferWaitingListStatus from './useOfferWaitingListStatus';
 
 /**
  * Hook used for the text within offer booking waiting list

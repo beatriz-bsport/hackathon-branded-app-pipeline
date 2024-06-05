@@ -21,12 +21,12 @@ import type {
   MessageData,
 } from '#libs/communication-v2/types';
 import type { Member } from '#libs/member/types';
-import type { OptionCallback } from '../../../../state/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   // --- Inbox Thread ---

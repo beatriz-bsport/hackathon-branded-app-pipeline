@@ -14,8 +14,8 @@ import {
   DatatypeFilterConfigGroup,
 } from '#libs/datatype-filtering/types';
 
-import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
+import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 
 type Props = {

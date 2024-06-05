@@ -1,18 +1,15 @@
 import React from 'react';
-import Checkbox, { CheckboxProps, CheckboxSize } from '.';
-import { CheckboxSizeEnum } from './constants';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import CheckboxCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
-
 import {
   MarketplacePage,
   MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import Checkbox, { CheckboxProps, CheckboxSize } from '.';
+import { CheckboxSizeEnum } from './constants';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import CheckboxCss from './styles.css?raw';
 
 const fabriqueCheckboxVariationRegistry = [
   {

@@ -2,12 +2,6 @@ import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
 
-import MarketplaceBookingItem, { Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceBookingItemCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -25,6 +19,10 @@ import type { Establishment } from '#libs/establishment/types';
 import type { Level } from '#libs/level/types';
 import type { Coach } from '#libs/associated-coach/types';
 import { generateRandomName } from '#utils/factories';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBookingItemCss from './styles.css?raw';
+import MarketplaceBookingItem, { Props } from '.';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 

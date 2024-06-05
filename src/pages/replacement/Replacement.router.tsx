@@ -7,13 +7,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose } from 'redux';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import themeSelectors from '../../libs/theme/selectors';
 import ReplacementManagement from './ReplacementManagement.page';
 import ReplacementDisciplineGroup from './ReplacementDisciplineGroup.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
-import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import { RootState } from '../../reducers';
 
 type OwnProps = {

@@ -4,12 +4,12 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { UserInteractionKey } from '#libs/types';
 import {
   EditableQuicksaleSectionKey,
   QuicksaleSectionColor,
 } from '../../../constants';
 import useStyle from './styles';
-import { UserInteractionKey } from '#libs/types';
 import useOnClickOutside from '../../../../../hooks/useClickOutside';
 
 const stopEventPropagation = (e: React.MouseEvent | React.KeyboardEvent) =>

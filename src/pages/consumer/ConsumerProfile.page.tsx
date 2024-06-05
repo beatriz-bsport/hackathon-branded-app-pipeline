@@ -10,6 +10,23 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
+import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import PaymentModal from '#libs/payment/components/PaymentModal.component';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
+import ReferralMemberSumup from '#libs/referral/components/referral-member-sumup';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import {
+  getTheReferralProgram,
+  getReferralMemberStatusWithMemberId,
+  getReferralProgramsLoading,
+  getReferralMemberStatusLoading,
+} from '#libs/referral/selectors';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import Config from '../../config';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
@@ -54,23 +71,6 @@ import { disconnect } from '../../actions/auth.actions';
 import type { OptionCallback } from '../../state/types';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
-import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import PaymentModal from '#libs/payment/components/PaymentModal.component';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
-import ReferralMemberSumup from '#libs/referral/components/referral-member-sumup';
-import {
-  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
-  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
-} from '#libs/referral/actions';
-import {
-  getTheReferralProgram,
-  getReferralMemberStatusWithMemberId,
-  getReferralProgramsLoading,
-  getReferralMemberStatusLoading,
-} from '#libs/referral/selectors';
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type RouterProps = {
   membership: Membership;

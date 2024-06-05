@@ -33,11 +33,11 @@ import { OFFER_RECURRENCE } from '#libs/offer/constants';
 import OfferFormWeeklyRecurrenceDays from '#libs/offer/components/OfferFormWeeklyRecurrenceDays.component';
 import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
 import { useOfferFormDateTime } from '#libs/offer/hooks';
-import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
 import { OfferFormRecurrenceWeekDay, OfferFormValues } from '#libs/offer/types';
 import { getOfferRecurrenceDates } from '#libs/offer/utils';
 import type { LuxonDateTime } from '#src/types';
+import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
 type Props = {
   timezone: string;

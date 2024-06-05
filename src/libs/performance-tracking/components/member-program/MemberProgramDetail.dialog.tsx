@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { Info, KeyboardArrowRight } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { OptionCallback } from '../../../../state/types';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
@@ -20,6 +19,7 @@ import ProgramSelectorDialog from '#libs/performance-tracking/components/program
 import { Booking } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { OptionCallback } from '../../../../state/types';
 
 type OwnProps = {
   open: boolean;

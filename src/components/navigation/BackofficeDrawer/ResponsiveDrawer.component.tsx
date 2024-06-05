@@ -50,14 +50,10 @@ import Immutable from 'seamless-immutable';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 
-import { getCurrencyDisplay } from '../../../libs/theme/selectors';
-
-import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 import {
   checkRequiredPermissions,
   hasUpsellIdentifier,
 } from '#libs/role/utils';
-import VersionVisualizer from '../../VersionVisualizer.component';
 
 import {
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
@@ -73,11 +69,14 @@ import {
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import ToolTip from '#components/Tooltip.component';
+import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
-import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { getItemInStorage } from '#src/utils/storage';
+import VersionVisualizer from '../../VersionVisualizer.component';
+import LOGO_ASSET from '../../../public/images/banner_lowres.png';
+import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {

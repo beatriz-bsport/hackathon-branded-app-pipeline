@@ -36,24 +36,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import { Cake } from '@material-ui/icons';
 
 // @ts-expect-error
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
-import CreditMemberBadge from './CreditMemberBadge.component';
-
-import Avatar from '../../../components/Avatar.component';
-import type { Member } from '../types';
-
-// @ts-expect-error
-import EmailItem from '../../communication/components/EmailItem.component';
-// @ts-expect-error
-import PhoneItem from '../../communication/components/PhoneItem.component';
-import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import MemberSummaryInfoItem from '#libs/member/components/MemberSummaryInfoItem.component';
-// @ts-expect-error
-import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
-import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
-import VaccinationStatus from './VaccinationStatus.component';
-import { EstablishmentGroup } from '../../establishment/types';
-import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 import {
   EmailTemplateDetail,
   ResolvedGenericTags,
@@ -67,6 +50,23 @@ import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+import CreditMemberBadge from './CreditMemberBadge.component';
+
+import Avatar from '../../../components/Avatar.component';
+import type { Member } from '../types';
+
+// @ts-expect-error
+import EmailItem from '../../communication/components/EmailItem.component';
+// @ts-expect-error
+import PhoneItem from '../../communication/components/PhoneItem.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
+// @ts-expect-error
+import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
+import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
+import VaccinationStatus from './VaccinationStatus.component';
+import { EstablishmentGroup } from '../../establishment/types';
+import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 
 import { MemberSummaryCardReferralSection } from './MemberSummaryCardReferralSection.component';
 

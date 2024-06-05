@@ -12,6 +12,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { push, replace as replaceAction, goBack } from 'connected-react-router';
 import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../../http';
@@ -25,7 +26,6 @@ import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   theme: Theme,

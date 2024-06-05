@@ -2,13 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import Fab from '@material-ui/core/Fab';
 import { Theme, makeStyles } from '@material-ui/core';
+import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
+
+import PopOver from '#components/Popover';
 import {
   BottomActionButtonBaseList,
   Props as ButtonBaseListProps,
 } from './BottomActionsButton.component';
-import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
-
-import PopOver from '#components/Popover';
 
 type OwnProps = {
   buttonsProperties?: ButtonProperties[];

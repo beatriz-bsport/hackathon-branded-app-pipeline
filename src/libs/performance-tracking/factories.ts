@@ -2,12 +2,12 @@
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
+import MemberFactory from '#libs/member/factories/MemberMinimal';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
 } from './types';
-import MemberFactory from '#libs/member/factories/MemberMinimal';
 
 const iconNameList = ['AcUnit', 'AccessAlarm', 'Accessible', 'AddBox'];
 

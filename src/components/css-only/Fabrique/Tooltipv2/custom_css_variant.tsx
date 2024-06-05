@@ -6,14 +6,13 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TooltipCSS from './styles.css?raw';
-
 import type { CompanyTheme } from '#libs/theme/types';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '#Fabrique/Typography';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import TooltipCSS from './styles.css?raw';
 import Tooltip from '.';
 import { colorEnum } from './constants';
 

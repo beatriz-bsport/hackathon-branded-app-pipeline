@@ -13,14 +13,14 @@ import { Form, withFormik, FormikProps } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
-import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import PaymentComboSelectorField from '#libs/payment-combo/components/PaymentComboSelectorField.component';
 import type { PrivatePass } from '#libs/private-service/types';
-import type { Subscription } from '../types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import RedButton from '#components/button/RedButton.component';
+import type { Subscription } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean;

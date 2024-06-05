@@ -13,16 +13,15 @@ import {
 } from '#libs/exportable-components/types';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 
-import ConsumerPaymentPackDetailsCard, {
-  ConsumerPaymentPackDetailsCardProps,
-} from '.';
-
 import type {
   ConsumerPaymentPackCompatibility,
   DayOfWeekNumber,
   FrequencyOption,
   TimeSlot,
 } from '#libs/consumer-space/types';
+import ConsumerPaymentPackDetailsCard, {
+  ConsumerPaymentPackDetailsCardProps,
+} from '.';
 
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved

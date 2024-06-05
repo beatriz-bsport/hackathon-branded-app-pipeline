@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import memoize from 'lodash/memoize';
-import { RootState } from '../../reducers';
 import { getPaymentPackById } from '#libs/payment-packs/selectors';
 import { getGiftcardData } from '#libs/giftcard/selectors';
-import { getPaymenComboDataDict } from '../payment-combo/selectors';
 import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '../payment-combo/selectors';
+import { RootState } from '../../reducers';
 import {
   getShopItemStandaloneById,
   getShopItemBaseById,

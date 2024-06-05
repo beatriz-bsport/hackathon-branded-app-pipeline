@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Theme, makeStyles } from '@material-ui/core/styles';
 
-import InstalmentPaymentConfigurationCompatibleItemsList from './InstalmentPaymentConfigurationCompatibleItemsList.component';
 
 import type { Giftcard } from '#libs/giftcard/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
@@ -11,6 +10,7 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import InstalmentPaymentConfigurationCompatibleItemsList from './InstalmentPaymentConfigurationCompatibleItemsList.component';
 
 type Props = {
   instalmentPayment: InstalmentPayment;

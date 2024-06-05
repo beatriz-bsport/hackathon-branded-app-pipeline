@@ -11,9 +11,9 @@ import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
 import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 
-import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
 import UniqueTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
 import { CadencePopover } from '../internals/CadencePopover.component';
 
 type FlowProps = {

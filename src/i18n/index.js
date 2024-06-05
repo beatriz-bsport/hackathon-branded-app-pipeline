@@ -5,10 +5,6 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
 import { Settings } from 'luxon';
-import config from '../config';
-import { LANGUAGES, AVAILABLE_LANGUAGES } from './languages';
-import { getCurrencyDisplay } from '../libs/theme/selectors';
-
 import {
   AUDIENCE_FEATURE_NAME,
   AUDIENCE_WORKFLOW_NAME,
@@ -16,6 +12,9 @@ import {
 } from '#libs/sequential_marketing/constants';
 import { STORAGE_KEY_BSPORT_I18NEXTLNG } from '../actions/constants';
 import { getItemInStorage, setItemInStorage } from '../utils/storage';
+import config from '../config';
+import { LANGUAGES, AVAILABLE_LANGUAGES } from './languages';
+import { getCurrencyDisplay } from '../libs/theme/selectors';
 
 const backendOptions = {};
 

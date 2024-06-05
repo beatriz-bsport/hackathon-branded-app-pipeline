@@ -18,12 +18,12 @@ import Typography from '@material-ui/core/Typography';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { Member } from '#libs/member/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
-import VaccinationBadge from './VaccinationBadge.component';
-import AvatarWithBadge from './AvatarWithBadge.component';
-import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CheckPermission from '#libs/role/components/CheckPermission.component';
 import CheckInButton from '#libs/access-control/components/CheckInButton.component';
+import VaccinationBadge from './VaccinationBadge.component';
+import AvatarWithBadge from './AvatarWithBadge.component';
+import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 
 type Props = {
   bottomCredit?: boolean;

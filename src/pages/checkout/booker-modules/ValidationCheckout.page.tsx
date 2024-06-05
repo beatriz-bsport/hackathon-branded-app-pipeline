@@ -15,11 +15,8 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
-import { RootState } from '../../../reducers';
 // @ts-expect-error
-import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { fetchBasket } from '#libs/checkout/actions';
 import { getBasket } from '#libs/checkout/selectors';
 // @ts-expect-error
@@ -48,12 +45,9 @@ import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
 import OfferBookableItem from '#libs/booker-module/components/OfferBookableItem.component';
 import { urlToMarketplace } from '#libs/marketplace/utils';
 
-import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { sortByDate } from '../../../utils/datetime';
 import { getBookingErrorMessage } from '#libs/checkout/utils';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
 import {
@@ -64,8 +58,14 @@ import {
   getTheReferralProgram,
   getReferralMemberStatusThroughMembership,
 } from '#libs/referral/selectors';
-import Config from '../../../config';
 import ReferralLinkIncentive from '#libs/referral/components/ReferralLinkIncentive.component';
+import Config from '../../../config';
+import { sortByDate } from '../../../utils/datetime';
+import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
+import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import withQueryParams from '../../../hocs/with-query-params.hoc';
+import { RootState } from '../../../reducers';
 import {
   getMemberDetailData,
   getMemberThroughMembership,

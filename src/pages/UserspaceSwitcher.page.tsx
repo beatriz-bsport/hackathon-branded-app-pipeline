@@ -6,6 +6,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
+import WidgetUtils from '#libs/widget/WidgetUtils';
 import asyncComponent from '../AsyncComponent';
 import { getAuthToken } from '../http';
 import { RootState } from '../reducers';
@@ -14,7 +15,6 @@ import { RootState } from '../reducers';
 import { disconnect as disconnectAction } from '../actions/auth.actions';
 // @ts-expect-error
 import withQueryParams from '../hocs/with-query-params.hoc';
-import WidgetUtils from '#libs/widget/WidgetUtils';
 
 import namespaces from '../i18n/namespaces.json';
 

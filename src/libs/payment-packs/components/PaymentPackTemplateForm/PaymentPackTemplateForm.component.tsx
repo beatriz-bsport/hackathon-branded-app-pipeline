@@ -8,6 +8,12 @@ import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
 import { DateTime } from 'luxon';
 
+import {
+  offPeakGroupDefault,
+  formatOffPeakScheduleOnSubmit,
+  formatOffPeakScheduleOnEdit,
+} from '#libs/payment-packs/utils';
+import type { OptionCallback } from '#src/state/types';
 import PaymentPackTemplateFormRestrictions from './PaymentPackTemplateFormRestrictions.component';
 import PaymentPackTemplateFormValidity from './PaymentPackTemplateFormValidity.component';
 import PaymentPackTemplateFormGeneral from './PaymentPackTemplateFormGeneral.component';
@@ -16,15 +22,9 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
   PENALTY_MODE_FRANCHISOR_PRORATA,
 } from '../../constants';
-import {
-  offPeakGroupDefault,
-  formatOffPeakScheduleOnSubmit,
-  formatOffPeakScheduleOnEdit,
-} from '#libs/payment-packs/utils';
 import { offPeakScheduleSchemaValidation } from '../PaymentPackForm/PaymentPackForm.component';
 import { ALMOST_100 } from '../../../../constants';
 import type { PaymentPackTemplate } from '../../types';
-import type { OptionCallback } from '#src/state/types';
 
 export const VALID_BY_DURATION = 'VALID_BY_DURATION';
 export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';

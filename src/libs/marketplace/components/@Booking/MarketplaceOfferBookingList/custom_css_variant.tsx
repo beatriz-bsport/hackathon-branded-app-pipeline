@@ -4,11 +4,6 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
-import MarketplaceOfferBookingList, { Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import MarketplaceOfferBookingListCss from './styles.css?raw';
 
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
@@ -25,6 +20,10 @@ import { offerFactory } from '#libs/offer/factories';
 import { levelFactory } from '#libs/level/factories';
 import type { OfferWithSpotInformation } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceOfferBookingListCss from './styles.css?raw';
+import MarketplaceOfferBookingList, { Props } from '.';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 

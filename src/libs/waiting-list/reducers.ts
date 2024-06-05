@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import {
   byOfferActions,
   discardOptionActions,
@@ -19,7 +20,6 @@ import type {
   WaitingListConfiguration,
   WaitingListState,
 } from './types';
-import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
 
 const initialState: Immutable.Immutable<WaitingListState> =

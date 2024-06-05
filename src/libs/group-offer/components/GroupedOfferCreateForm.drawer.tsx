@@ -13,11 +13,6 @@ import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import GroupedOfferFormMetaActivitySelect from './GroupedOfferFormMetaActivitySelect.component';
-import GroupedOfferFormSettings from './GroupedOfferFormSettings.component';
-import GroupedOfferPreviewForm from './GroupedOfferPreview.component';
-import { OptionCallback } from '../../../state/types';
-
 import {
   GROUPED_OFFERS_RECURSIVE_MONTHLY_FREQUENCY,
   GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY,
@@ -26,6 +21,11 @@ import {
 import { Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { ZoomApp } from '#libs/zoom-app/types';
+import GroupedOfferFormMetaActivitySelect from './GroupedOfferFormMetaActivitySelect.component';
+import GroupedOfferFormSettings from './GroupedOfferFormSettings.component';
+import GroupedOfferPreviewForm from './GroupedOfferPreview.component';
+import { OptionCallback } from '../../../state/types';
+
 
 export type Props = {
   open: boolean;

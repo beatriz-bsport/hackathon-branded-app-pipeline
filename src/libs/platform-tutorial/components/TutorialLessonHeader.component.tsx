@@ -17,15 +17,15 @@ import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
 import { Skeleton } from '@material-ui/lab';
 import SeamlessImmutable from 'seamless-immutable';
 
-import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import ToolTip from '#components/Tooltip.component';
 import MuiIcon from '#components/MuiIcon.component';
-import LessonStatusChips from './TutorialLessonStatusChip.component';
 import InfoBox from '#components/box/InfoBox.component';
 
 import type { FeatureList, UpsellPackage } from '#libs/company/types';
+import LessonStatusChips from './TutorialLessonStatusChip.component';
+import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
 import type {
   TutorialCompletion,
   TutorialLesson,

@@ -2,9 +2,6 @@ import React from 'react';
 import { Position } from 'react-flow-renderer';
 
 import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
-import CadenceExitCard, {
-  CadenceExitCardProps,
-} from './CadenceExitCard.component';
 import {
   DestinationStatus,
   TRIGGER_LEFT_HANDLE_STYLE,
@@ -12,10 +9,13 @@ import {
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
-import { CadencePopover } from '../internals/CadencePopover.component';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import { CadencePopover } from '../internals/CadencePopover.component';
+import CadenceExitCard, {
+  CadenceExitCardProps,
+} from './CadenceExitCard.component';
 
 type Props = {
   data: {

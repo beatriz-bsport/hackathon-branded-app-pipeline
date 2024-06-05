@@ -5,8 +5,8 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 // @ts-expect-error
-import MetaActivitySelector from './MetaActivitySelector.component';
 import DateInput from '#components/input/DateInput.component';
+import MetaActivitySelector from './MetaActivitySelector.component';
 
 import { OffersGroupFilter, MetaActivity } from '../types';
 

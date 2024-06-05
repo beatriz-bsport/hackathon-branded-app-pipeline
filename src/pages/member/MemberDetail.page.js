@@ -9,18 +9,26 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { v4 as uuid4 } from 'uuid';
 import { compose, withHandlers, withState } from 'recompose';
+import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
+import { getProgramList } from '#libs/performance-tracking/selector';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import type { StripeReader } from '#libs/terminal/types';
+import MemberActions from '#libs/member/components/ManagerMemberActions.components';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
 import {
   getMember,
   getMemberDetail,
   getMemberArchiveStatus,
 } from '../../libs/member/selectors';
 import { getObjectPermissions } from '../../libs/role/selectors';
-import { getProgramList } from '#libs/performance-tracking/selector';
 import {
   fetchCountObjects as fetchCountObjectsAction,
   archiveMember,
@@ -29,9 +37,6 @@ import {
   fetchMember,
 } from '../../libs/member/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getStripeReaders } from '#libs/terminal/selectors';
-import type { StripeReader } from '#libs/terminal/types';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
@@ -70,11 +75,6 @@ import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import MemberActions from '#libs/member/components/ManagerMemberActions.components';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
-import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
-import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import type { CommunicationContext } from '#libs/communication-v2/types';
 import { ObjectLevelPermissions } from '../../libs/role/types';
 import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils';

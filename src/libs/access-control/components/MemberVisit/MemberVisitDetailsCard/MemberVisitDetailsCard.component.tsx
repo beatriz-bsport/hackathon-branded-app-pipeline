@@ -17,16 +17,16 @@ import EuroIcon from '@material-ui/icons/Euro';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
-import AccessStatusChip from './AccessStatusChip.component';
-import MemberVisitDetailsCardBookingSection from './MemberVisitDetailsCardBookingSection.component';
-import MemberVisitDetailsCardManualEntrySection from './MemberVisitDetailsCardManualEntrySection.component';
-import MemberVisitDetailsCardSkeleton from './MemberVisitDetailsCardSkeleton.component';
-
 import type {
   AccessControlBookingOrPrivateBooking,
   MemberVisitREST,
 } from '#libs/access-control/types';
 import { AccessStatus } from '#libs/access-control/constants';
+import AccessStatusChip from './AccessStatusChip.component';
+import MemberVisitDetailsCardBookingSection from './MemberVisitDetailsCardBookingSection.component';
+import MemberVisitDetailsCardManualEntrySection from './MemberVisitDetailsCardManualEntrySection.component';
+import MemberVisitDetailsCardSkeleton from './MemberVisitDetailsCardSkeleton.component';
+
 
 export type Props = {
   handleOpenMemberPhotoHistoryModal?: () => void;

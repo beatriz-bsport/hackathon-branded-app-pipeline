@@ -12,17 +12,17 @@ import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { AxiosError } from 'axios';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
-import EmailSelector from '../../email-editor/components/EmailSelector.component';
-import Tooltip from '../../../components/Tooltip.component';
-import { NotificationRule } from '../types';
 import { EmailTemplateSummary } from '#libs/email-editor/types';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import NotificationForm from './NotificationForm.component';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import RequiredTags from '#components/notification/RequiredTags.component';
+import NotificationForm from './NotificationForm.component';
+import { NotificationRule } from '../types';
+import Tooltip from '../../../components/Tooltip.component';
+import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

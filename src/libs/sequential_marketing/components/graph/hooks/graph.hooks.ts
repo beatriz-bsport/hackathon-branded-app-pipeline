@@ -3,12 +3,6 @@ import Immutable from 'seamless-immutable';
 
 import { getConnectedEdges } from 'react-flow-renderer';
 
-import {
-  CustomNodesEnum,
-  useStepsAndTriggersRecorder,
-  useNodeElementsRecorder,
-} from './useNodes.hooks';
-import useEdgesRenderer from './useEdges.hook';
 
 import type {
   Cadence,
@@ -19,16 +13,22 @@ import type {
   CadenceInitialConfiguration,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import type { CustomNode, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
-import type { OptionCallback } from '../../../../../state/types';
-
 import {
   DestinationStatus,
   InitialConfigurationStep,
 } from '#libs/sequential_marketing/constants';
+import type { OptionCallback } from '../../../../../state/types';
+
+import type { CustomNode, StoredTrigger } from './types';
+import useEdgesRenderer from './useEdges.hook';
+import {
+  CustomNodesEnum,
+  useStepsAndTriggersRecorder,
+  useNodeElementsRecorder,
+} from './useNodes.hooks';
 
 type Props = {
   cadence: Cadence;

@@ -11,15 +11,15 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
 import { DateTime } from 'luxon';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import type { StripeReader } from '#libs/terminal/types';
 import { getStripeRegion, getCompanyCountry } from '../../theme/selectors';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 import type { EstablishmentBillingGroup } from '../../establishment/types';
-import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   onlinePaymentEnabled: boolean,

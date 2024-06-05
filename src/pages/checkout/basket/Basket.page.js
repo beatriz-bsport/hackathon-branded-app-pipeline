@@ -26,6 +26,23 @@ import {
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '#libs/establishment/actions';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
+import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
+import CheckoutFlow from '#libs/checkout/components/CheckoutFlow.component';
+import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
+import {
+  getCurrentBasket,
+  getBasketOfferList,
+  getCurrentBasketItemRemovalStatusLoading,
+} from '#libs/checkout/selectors';
+import { withMetaActivity, withEstablishment } from '#libs/offer/selectors';
+import { WidgetUtils } from '#libs/widget/WidgetUtils';
+import themeSelectors from '#libs/theme/selectors';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
   addItemToBasket as addItemToBasketAction,
@@ -38,28 +55,11 @@ import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
   monitorExpiredItemRemoval,
 } from '../../../libs/checkout/actions';
-import {
-  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-} from '#libs/establishment/actions';
-import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
-import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import CheckoutFlow from '#libs/checkout/components/CheckoutFlow.component';
-import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
-import {
-  getCurrentBasket,
-  getBasketOfferList,
-  getCurrentBasketItemRemovalStatusLoading,
-} from '#libs/checkout/selectors';
-import { withMetaActivity, withEstablishment } from '#libs/offer/selectors';
 
-import { WidgetUtils } from '#libs/widget/WidgetUtils';
 
-import themeSelectors from '#libs/theme/selectors';
-import { fetchCompanyTheme } from '#libs/theme/actions';
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';

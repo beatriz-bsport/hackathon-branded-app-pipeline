@@ -8,7 +8,6 @@ import MarketplaceConsumerPaymentPackCard from '#marketplacecomponents/@Consumer
 import MarketplaceFilterBuyableItemCategory from '#marketplacecomponents/@BuyableItem/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#marketplacecomponents/@BuyableItem/MarketplaceBuyableItemCategoryList';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import ButtonBase from '#components/css-only/Fabrique/ButtonBase';
 import type { MaxoutData, PaymentPack } from '#libs/payment-packs/types';
@@ -20,6 +19,7 @@ import type {
   BuyableItemCategory,
   BuyableItemIdentifier,
 } from '#libs/booker-module/types';
+import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 
 import './styles.css';
 

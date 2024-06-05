@@ -63,14 +63,11 @@ import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { withBookingNotification } from '#libs/marketing/selectors';
 import { CategoryList } from '#components/ordering/CategoryList.component';
 import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
-import { OptionCallback, PaginatedResponse } from '../../state/types';
 import {
   MetaActivity,
   MetaActivityCategory,
   MetaActivityCategoryWithActivities,
 } from '#libs/meta-activity/types';
-import { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 // import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
 import { redirectIfAllowed as redirectIfAllowedAction } from '#libs/role/actions';
@@ -88,9 +85,7 @@ import {
   fetchAllPaymentPackCategory,
 } from '#libs/payment-packs/actions';
 
-import withTitle from '../../hocs/with-title.hoc';
 import themeSelectors from '#libs/theme/selectors';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getActivityCompatiblePaymentPacks,
   getAllPaymentPackCategory,
@@ -116,8 +111,6 @@ import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
 import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-// @ts-expect-error
-import { mapFormData, unmap } from '../form.utils';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
@@ -126,6 +119,13 @@ import {
   withObjectSearch,
   WithObjectSearch,
 } from '#libs/fuzzy-search/components/ObjectSearch.hoc';
+// @ts-expect-error
+import { mapFormData, unmap } from '../form.utils';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import { OptionCallback, PaginatedResponse } from '../../state/types';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',

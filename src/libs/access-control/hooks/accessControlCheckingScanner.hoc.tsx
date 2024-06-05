@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 
 import { useBroadcastChannel } from '#libs/broadcast-channel/hooks';
-import { useNumericCodeScanner } from './codeScanning';
-import {
-  getPerformAccessMonitoringUrl,
-  staffMemberCanPerformAccessMonitoring,
-} from '../utils';
 import { BroadcastChannelMessageType } from '#libs/broadcast-channel/types';
 
 import type { UpsellSumup } from '#libs/company/types';
 import type { RolePermission } from '#libs/role/types';
+import {
+  getPerformAccessMonitoringUrl,
+  staffMemberCanPerformAccessMonitoring,
+} from '../utils';
+import { useNumericCodeScanner } from './codeScanning';
 import type { MemberVisitREST } from '../types';
 
 /**

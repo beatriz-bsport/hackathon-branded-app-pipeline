@@ -8,8 +8,8 @@ import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import { WEEKMODE } from './Calendar.component';
 import type { LuxonDateTime } from '#src/types';
+import { WEEKMODE } from './Calendar.component';
 
 type Props = {
   dateSelected: LuxonDateTime;

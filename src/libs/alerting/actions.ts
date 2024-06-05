@@ -14,11 +14,11 @@ import {
 import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { RootState } from 'src/reducers';
 import type { Dispatch, OptionCallback, ThunkAction } from 'src/state/types';
-import api from './api';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
-import type { AlertPayloadSuccess, AlertPayloadLoading } from './types';
 import { updateTutorialLessonUserCompletionStatusAction } from '#libs/platform-tutorial/actions';
 import { flagAsReadActions as updateUnreadCommunicationAsReadAction } from '#libs/communication-v2/actions';
+import type { AlertPayloadSuccess, AlertPayloadLoading } from './types';
+import api from './api';
 
 const ALERT_KINDS = [
   UNEVEN_INVOICE_ALERT,

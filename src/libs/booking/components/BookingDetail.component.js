@@ -8,19 +8,19 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
-import { formatAsDatetime } from '../../../utils/datetime';
-import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
-import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
-
-import type { Booking } from '../types';
 import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import { BookingSource, getStaffName } from '../utils';
 import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/booking/components/constants';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { formatAsDatetime } from '../../../utils/datetime';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
+
+import type { Booking } from '../types';
+import { BookingSource, getStaffName } from '../utils';
 
 type Props = {
   classes: Object,

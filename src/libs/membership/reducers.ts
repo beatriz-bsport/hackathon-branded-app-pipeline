@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
+import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
 import {
   listAsConsumerActions,
   retrieveActions,
@@ -13,7 +14,6 @@ import {
 import { requestCustomFormNotificationActions } from '../custom-form/actions';
 import { Membership, MembershipState } from './types';
 import { USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY } from '../member/utils';
-import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
 
 const initialState: Immutable.Immutable<MembershipState> =
   Immutable<MembershipState>({

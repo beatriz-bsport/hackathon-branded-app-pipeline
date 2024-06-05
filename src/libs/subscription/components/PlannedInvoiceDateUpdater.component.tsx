@@ -11,10 +11,10 @@ import { Settings, DateTime } from 'luxon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
+import { LuxonDateTime } from '#src/types';
 import { OptionCallback } from '../../../state/types';
 import { PlannedInvoice } from '../types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
-import { LuxonDateTime } from '#src/types';
 
 type Props = {
   plannedInvoice: PlannedInvoice;

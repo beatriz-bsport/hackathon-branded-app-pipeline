@@ -16,10 +16,10 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import StopIcon from '@material-ui/icons/Stop';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
+import { RolePermission, Role } from '#libs/role/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../../state/types';
 import { getTextColorFromRGB } from '../../../utils/color';
 
-import { RolePermission, Role } from '#libs/role/types';
 import {
   ClockInQueryParams,
   LastClockIn,

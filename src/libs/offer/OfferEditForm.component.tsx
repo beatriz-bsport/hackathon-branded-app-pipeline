@@ -22,7 +22,6 @@ import OfferFormEditSimilarOffers from '#libs/offer/form/sections/OfferFormEditS
 import EditOfferStepper from '#libs/offer/form/EditOfferStepper.component';
 import { useOfferFormStyles } from '#libs/offer/hooks';
 
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { Establishment } from '#libs/establishment/types';
@@ -34,7 +33,6 @@ import {
   OfferFilterData,
   OfferEdit,
 } from '#libs/offer/types';
-import { Offer } from '../../api/types';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { Tag, TagGroup } from '#libs/tag/types';
@@ -44,6 +42,8 @@ import {
 } from '#libs/offer/constants';
 import { OffersGroup } from '#libs/group-offer/types';
 import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
+import { Offer } from '../../api/types';
+import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;

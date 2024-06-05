@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import {
+  DEFAULT_SPOT_TYPE_ID,
+  getSpotIndexType,
+} from '#libs/spot-scheduling/utils';
+import type { Coach } from '#libs/associated-coach/types';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../../libs/offer/types';
 import {
@@ -7,11 +12,6 @@ import {
   RoomBlueprint,
   SpotType,
 } from '../../../../libs/spot-scheduling/types';
-import {
-  DEFAULT_SPOT_TYPE_ID,
-  getSpotIndexType,
-} from '#libs/spot-scheduling/utils';
-import type { Coach } from '#libs/associated-coach/types';
 
 interface Props {
   offer: Offer<Coach, any, any>;

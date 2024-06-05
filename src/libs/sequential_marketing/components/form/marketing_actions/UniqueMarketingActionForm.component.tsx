@@ -4,11 +4,11 @@ import { useFormikContext, withFormik } from 'formik';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import type { OptionCallback } from '../../../../../state/types';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import MarketingActionContent from './MarketingActionContent.component';
 import { uniqueMarketingActionValidationSchema } from './validationSchemas';

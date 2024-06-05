@@ -5,6 +5,7 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
 import { DateTime } from 'luxon';
+import { rudderStackIdentify } from '#components/analytics/rudderstack/utils';
 import {
   getRelationToken as getRelationTokenAPI,
   impersonateAdmin as impersonateAdminAPI,
@@ -22,7 +23,6 @@ import WidgetUtils from '../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { getAuthToken } from '../http';
-import { rudderStackIdentify } from '#components/analytics/rudderstack/utils';
 
 import { urlToMarketplace } from '../libs/marketplace/utils';
 

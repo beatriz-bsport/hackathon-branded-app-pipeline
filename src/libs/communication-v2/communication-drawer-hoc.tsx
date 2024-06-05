@@ -3,29 +3,9 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
 import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind';
-import { OptionCallback } from '../../state/types';
-import type { RootState } from '../../reducers';
 
 // COMMUNICATION
-import {
-  fetchCommunicationRecipientList as fetchCommunicationRecipientListAction,
-  fetchCommunicationSentList as fetchCommunicationSentListAction,
-  sendCommunication,
-  flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAction,
-  getUnreadAnswersCount as getUnreadAnswersCountAction,
-} from './actions';
 import { fetch as fetchAction } from '#libs/alerting/actions';
-import {
-  getRecipientWithMemberPaginatedList,
-  getCommunicationMessageList,
-  getCommunicationMessageListHasNextPage,
-  getCommunicationMessageListLoading,
-} from './selectors';
-import {
-  getFormatedFiltersToFetchCommunicationSent,
-  getFormatedQueryParamsFromContext,
-  getFormatedQueryParamsToFetchRecipientPaginatedList,
-} from './utils';
 import type {
   Communication,
   MessageData,
@@ -58,13 +38,33 @@ import {
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
 import { getPaginatedMembers } from '#libs/member/selectors';
+import themeSelectors from '#libs/theme/selectors';
 import {
   MAX_DISPLAY,
   PAGINATION_SIZE_RECIPIENTS,
   REFRESH_THREAD_PAGINATION_SIZE,
 } from './constants';
 
-import themeSelectors from '#libs/theme/selectors';
+import {
+  getFormatedFiltersToFetchCommunicationSent,
+  getFormatedQueryParamsFromContext,
+  getFormatedQueryParamsToFetchRecipientPaginatedList,
+} from './utils';
+import {
+  getRecipientWithMemberPaginatedList,
+  getCommunicationMessageList,
+  getCommunicationMessageListHasNextPage,
+  getCommunicationMessageListLoading,
+} from './selectors';
+import {
+  fetchCommunicationRecipientList as fetchCommunicationRecipientListAction,
+  fetchCommunicationSentList as fetchCommunicationSentListAction,
+  sendCommunication,
+  flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAction,
+  getUnreadAnswersCount as getUnreadAnswersCountAction,
+} from './actions';
+import type { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;

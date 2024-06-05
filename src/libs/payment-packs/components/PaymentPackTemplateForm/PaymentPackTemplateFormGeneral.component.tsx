@@ -27,13 +27,13 @@ import {
 } from '#components/forms';
 
 import {
-  PaymentPackTemplate,
-  PaymentPackTemplateFormValues,
-} from '../../types';
-import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '#libs/theme/selectors';
+import {
+  PaymentPackTemplate,
+  PaymentPackTemplateFormValues,
+} from '../../types';
 import {
   PENALTY_MODE_FRANCHISOR_PRORATA,
   PENALTY_MODE_FRANCHISOR_BUYER,

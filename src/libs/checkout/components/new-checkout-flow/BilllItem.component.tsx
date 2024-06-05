@@ -5,11 +5,11 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import type { CheckoutItemExtraData } from '#libs/checkout/types';
-import ReferralCouponHelpText from '../ReferralCouponHelpText.component';
 import {
   getIsCheckoutItemApplied,
   getIsCheckoutItemReferralItem,
 } from '#libs/checkout/utils';
+import ReferralCouponHelpText from '../ReferralCouponHelpText.component';
 
 type BillItemProps = {
   billItemName: string;

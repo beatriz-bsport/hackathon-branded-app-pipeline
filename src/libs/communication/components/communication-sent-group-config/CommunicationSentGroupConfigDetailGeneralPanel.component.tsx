@@ -12,7 +12,6 @@ import {
   yupToFormErrors,
 } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { OptionCallback } from '../../../../state/types';
 import type { FranchiseCompany } from '#libs/franchise/types';
 import type { SmartList } from '#libs/smart-list/types';
 import type {
@@ -22,6 +21,7 @@ import type {
 } from '#libs/communication/types';
 import CommunicationSentGroupConfigSmartlistSelectionPanel from '#libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigSmartlistSelectionPanel';
 import { getCompaniesWithSmartLists } from '#libs/communication/utils';
+import { OptionCallback } from '../../../../state/types';
 
 const CommunicationSentGroupConfigValidationSchema = Yup.object().shape({
   sendToAllMembers: Yup.boolean().test({

@@ -37,7 +37,6 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import { Cake, EventSeat, OfflineBolt } from '@material-ui/icons';
 import WarningIcon from '@material-ui/icons/Warning';
-import { BookingStatusCodeText } from '../utils';
 import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
@@ -62,9 +61,10 @@ import VaccinationBadge from '#libs/member/components/VaccinationBadge.component
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 
 import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
-import NoShowChip from './NoShowChip.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
+import NoShowChip from './NoShowChip.component';
+import { BookingStatusCodeText } from '../utils';
 
 type Props = {
   t: TFunction,

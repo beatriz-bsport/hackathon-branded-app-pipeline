@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray } from 'seamless-immutable';
-import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { ShopItem } from '#libs/shop/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
-import UniqueCodeCouponForm from './UniqueCodeCouponForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Coupon, UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import UniqueCodeCouponForm from './UniqueCodeCouponForm.component';
+import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 
 type Props = {
   uniqueCodeCoupon?: Coupon;

@@ -16,8 +16,8 @@ import { Theme } from '@material-ui/core';
 import { createStyles } from '@material-ui/styles';
 // @ts-expect-error
 import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
-import type { Link, LinkApi, ActiveCampaignList } from '../types';
 import type { SmartList } from '#libs/smart-list/types';
+import type { Link, LinkApi, ActiveCampaignList } from '../types';
 
 type OuterProps = {
   open: boolean;

@@ -14,14 +14,14 @@ import Paper from '@material-ui/core/Paper';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import StyleIcon from '@material-ui/icons/Style';
 import Tooltip from '#components/Tooltip.component';
-import type { PrivatePass } from '../../types';
-import { getValidityInfo } from '../../utils';
-import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import {
   getCreditsDividedDisplay,
   getCreditsDividedValue,
 } from '#libs/theme/utils';
+import type { PrivatePass } from '../../types';
+import { getValidityInfo } from '../../utils';
+import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
   pass: PrivatePass;

@@ -1,5 +1,5 @@
-import { API_URI, API_V1_URI } from '../../../http';
 import type { SearchObjectType } from '#libs/fuzzy-search/types';
+import { API_URI, API_V1_URI } from '../../../http';
 
 const typeToURIMap: Record<SearchObjectType, string> = {
   coach_payment_rules: 'coach_payment_rules',

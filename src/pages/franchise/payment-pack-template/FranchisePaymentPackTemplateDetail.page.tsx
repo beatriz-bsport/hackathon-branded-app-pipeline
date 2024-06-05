@@ -5,6 +5,20 @@ import { push as pushAction } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
+import PaymentPackTemplateCard from '#libs/payment-packs/components/PaymentPackTemplateCard.component';
+import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#libs/consumer-payment-pack/actions';
+import {
+  getPaginatedConsumerPaymentPackList,
+  withPaymentPack,
+  withMember,
+} from '#libs/consumer-payment-pack/selectors';
+import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackTemplateInstanceFormDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
+import PaymentPackTemplateInstanceDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
+import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
+import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
+import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 import { WithHandlerType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
@@ -27,23 +41,9 @@ import {
 import { getPaymentPackTemplate } from '../../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
-import PaymentPackTemplateCard from '#libs/payment-packs/components/PaymentPackTemplateCard.component';
-import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#libs/consumer-payment-pack/actions';
-import {
-  getPaginatedConsumerPaymentPackList,
-  withPaymentPack,
-  withMember,
-} from '#libs/consumer-payment-pack/selectors';
 
-import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import PaymentPackTemplateInstanceFormDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
-import PaymentPackTemplateInstanceDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
 // @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
-import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
-import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
-import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 
 type OwnProps = { paymentPackTemplateId: number };
 

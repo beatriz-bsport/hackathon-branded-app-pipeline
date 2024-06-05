@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import type { OptionCallback, Dispatch } from '../../../state/types';
 
 import {
   subscribeStepToStep as subscribeStepToStepAPI,
@@ -15,6 +14,7 @@ import type {
   GraphCanvas,
   UpdatedTrigger,
 } from '#libs/sequential_marketing/types';
+import type { OptionCallback, Dispatch } from '../../../state/types';
 
 export const subscribeStepToStepActions = {
   isLoading: createAction<boolean>('CADENCE_STEP_WIP/SUB_TO_STEP/IS_LOADING'),

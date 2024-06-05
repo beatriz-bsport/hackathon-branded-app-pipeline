@@ -3,6 +3,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -15,7 +16,6 @@ import {
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
 } from '../exportable-components/constants';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
   EXPORTABLE_COMPONENT_TYPE_VOD,

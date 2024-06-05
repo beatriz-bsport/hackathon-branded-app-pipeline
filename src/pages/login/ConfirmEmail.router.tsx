@@ -6,10 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { useTranslation } from 'react-i18next';
-import { BsportRequestFromHeaderValue } from '../../constants';
-import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 // @ts-expect-error
-import asyncComponent from '../../AsyncComponent';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
@@ -24,6 +21,9 @@ import { RootState } from '../../reducers';
 import './ConfirmEmailRouterStyles.css';
 import withThemeProvider from '#hocs/company-themifier.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import asyncComponent from '../../AsyncComponent';
+import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
+import { BsportRequestFromHeaderValue } from '../../constants';
 
 const ConfirmingEmailPage = asyncComponent(
   () => import('./ConfirmingEmail.page'),

@@ -5,11 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import CadenceGlobalMetricsCard, {
-  CadenceMetricsVariant,
-} from './CadenceGlobalMetricsCard';
-import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList';
-import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 
@@ -22,6 +17,11 @@ import type {
   MetricsPaginatedResponse,
 } from '#libs/sequential_marketing/types';
 import type { Member } from '#libs/member/types';
+import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
+import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList';
+import CadenceGlobalMetricsCard, {
+  CadenceMetricsVariant,
+} from './CadenceGlobalMetricsCard';
 
 type Props = {
   cadence?: Cadence;

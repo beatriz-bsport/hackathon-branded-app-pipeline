@@ -5,7 +5,7 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
-    "transform-flow-strip-types",
+    "@babel/plugin-transform-flow-strip-types",
     "@babel/plugin-transform-runtime",
     [
       "babel-plugin-module-resolver",

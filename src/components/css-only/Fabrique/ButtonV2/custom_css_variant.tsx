@@ -1,18 +1,6 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import Button, { Props as ButtonProps } from '.';
-import { ButtonColor, ButtonVariant, ButtonSize } from './constants';
-import {
-  ButtonColor as ButtonColorType,
-  ButtonVariant as ButtonVariantType,
-  ButtonSize as ButtonSizeType,
-} from './types';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ButtonCss from './styles.css?raw';
-
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -20,6 +8,16 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { Star06 } from '#components/untitledui';
+import Button, { Props as ButtonProps } from '.';
+import { ButtonColor, ButtonVariant, ButtonSize } from './constants';
+import {
+  ButtonColor as ButtonColorType,
+  ButtonVariant as ButtonVariantType,
+  ButtonSize as ButtonSizeType,
+} from './types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ButtonCss from './styles.css?raw';
 
 const fabriqueButtonVariationRegistry = [
   {

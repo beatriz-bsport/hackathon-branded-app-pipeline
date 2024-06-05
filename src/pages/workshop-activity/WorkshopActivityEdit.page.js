@@ -9,6 +9,8 @@ import { withProps, compose } from 'recompose';
 import { goBack, push as routerPush } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
 import { mapFormData, unmap } from '../form.utils';
 import themeSelectors from '../../libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -25,8 +27,6 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { getEditableSCTs } from '../../libs/category/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { Tag, TagGroup } from '#libs/tag/types';
 
 type Props = {
   id: ?number,

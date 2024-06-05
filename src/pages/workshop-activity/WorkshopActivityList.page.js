@@ -18,6 +18,19 @@ import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { OptionPropsWithData } from '../../libs/fuzzy-search/types';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -55,17 +68,6 @@ import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector'
 
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getAllTagsWithTagGroup } from '../../libs/tag/selectors';
-import {
-  getActiveCustomLevels,
-  getAllCustomLevels,
-} from '#libs/level/selectors';
-
-import {
-  fetchLevelList as fetchLevelListAction,
-  updateLevel as updateLevelAction,
-  createLevel as createLevelAction,
-  deleteLevel as deleteLevelAction,
-} from '#libs/level/actions';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
@@ -86,7 +88,6 @@ import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/action
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
-import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { mapFormData, unmap } from '../form.utils';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';

@@ -3,12 +3,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
-import LoginForm, { Props as LoginFormProps } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import LoginFormCss from './styles.css?raw';
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -17,6 +12,10 @@ import {
 } from '#libs/exportable-components/types';
 
 import { CompanyTheme } from '#libs/theme/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import LoginFormCss from './styles.css?raw';
+import LoginForm, { Props as LoginFormProps } from '.';
 
 const loginFormVariationRegistry = [
   {

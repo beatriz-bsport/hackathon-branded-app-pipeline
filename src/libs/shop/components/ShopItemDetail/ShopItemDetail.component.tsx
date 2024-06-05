@@ -29,12 +29,12 @@ import type {
   ProvisionCreate,
   ShopItemVariantCombination,
 } from '#libs/shop/types';
-import type { OptionCallback } from '../../../../state/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { BookkeepingAccount } from '#libs/payment/types';
 import type { SelectOption } from '#libs/types';
+import type { OptionCallback } from '../../../../state/types';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.ShopItem,

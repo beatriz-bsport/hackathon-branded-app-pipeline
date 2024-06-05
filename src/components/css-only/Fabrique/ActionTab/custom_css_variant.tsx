@@ -1,16 +1,17 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ActionTabCss from './styles.css?raw';
-import ActionTab, { Props as ActionTabProps } from '.';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ActionTabCss from './styles.css?raw';
+import ActionTab, { Props as ActionTabProps } from '.';
 
 const fabriqueActiontabVariationRegistry = [
   {

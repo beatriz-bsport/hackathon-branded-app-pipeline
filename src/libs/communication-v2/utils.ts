@@ -25,6 +25,23 @@ import {
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+
+import { Booking, BookingOption } from '#libs/booking/types';
+import { Member } from '#libs/member/types';
+import { WaitingListBookingOption } from '#libs/waiting-list/types';
+import { Tag, TagGroupAPI } from '#libs/tag/types';
+import { OptionCallback } from '../../state/types';
+import {
+  SelectFieldItem,
+  CommunicationFilterParams,
+  CommunicationMetadata,
+  Communication,
+  FilteringMemberIdsByGenericCategories,
+  InboxThreadListParams,
+  CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
+  CommunicationContext,
+} from './types';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
   COMMUNICATION_FILTER_IDENTIFIER_KIND,
@@ -52,23 +69,6 @@ import {
   INBOX_THREAD_PAGE_SIZE,
   CONTEXT_CADENCE,
 } from './constants';
-
-import {
-  SelectFieldItem,
-  CommunicationFilterParams,
-  CommunicationMetadata,
-  Communication,
-  FilteringMemberIdsByGenericCategories,
-  InboxThreadListParams,
-  CommunicationThread,
-  CommunicationThreadWithUnreadAnswersCount,
-  CommunicationContext,
-} from './types';
-import { Booking, BookingOption } from '#libs/booking/types';
-import { Member } from '#libs/member/types';
-import { OptionCallback } from '../../state/types';
-import { WaitingListBookingOption } from '#libs/waiting-list/types';
-import { Tag, TagGroupAPI } from '#libs/tag/types';
 
 // #region FILTER CONTAINER
 

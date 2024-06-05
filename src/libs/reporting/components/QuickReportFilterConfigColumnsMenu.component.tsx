@@ -16,7 +16,6 @@ import uniqBy from 'lodash/uniqBy';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import FuzeSearch from '#components/FuzeSearch.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { ReportFilterConfig, ReportMetadataColumn } from '../types';
 import {
   DataSourceFieldMetadata,
   DataSourceMedadataDataType,
@@ -27,6 +26,8 @@ import {
   generateNewFilterItem,
   generateNewGroup,
 } from '#libs/datatype-filtering/utils';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { authorIdentifiers } from '#libs/reporting/constants';
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';
@@ -34,8 +35,7 @@ import {
   getFilterableColumns,
   getReportGlobalCategoryFromCategory,
 } from '../utils';
-import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
-import { authorIdentifiers } from '#libs/reporting/constants';
+import { ReportFilterConfig, ReportMetadataColumn } from '../types';
 
 type QuickFilterConfigSearchColumnOptions = {
   label: string;

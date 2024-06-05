@@ -35,12 +35,12 @@ import {
   emailTemplatesSummaries as fetchEmailDesignListAction,
 } from '#libs/email-editor/actions';
 import withTitle from '#hocs/with-title.hoc';
-import { RootState } from '../../reducers';
 import { getFranchiseCompanies } from '#libs/franchise/selectors';
 
 import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseNotificationRuleList.component';
 import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
 import { NotificationRule } from '#libs/notification-rule/types';
+import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
 const BIRTHDAY_NOTIFICATION = {

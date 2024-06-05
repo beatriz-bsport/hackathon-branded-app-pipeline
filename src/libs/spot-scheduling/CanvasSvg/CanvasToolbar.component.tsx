@@ -6,15 +6,15 @@ import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { MaterialStyleType } from '../../../utils/types';
-import { RoomBlueprint } from '../types';
-import RoomBlueprintsListDialog from '../component/RoomBlueprintsListDialog.component';
 import ToolTip from '#components/Tooltip.component';
 // @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
+import RoomBlueprintsListDialog from '../component/RoomBlueprintsListDialog.component';
+import { RoomBlueprint } from '../types';
+import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {
   title: string;

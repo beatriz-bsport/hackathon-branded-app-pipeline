@@ -11,8 +11,8 @@ import GroupIcon from '@material-ui/icons/Group';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-import type { MaterialStyleType } from '../../../../utils/types';
 import { DISSOCIATED_COACH_PAYMENT_RULE } from '#libs/coach-payment-rules/constants';
+import type { MaterialStyleType } from '../../../../utils/types';
 
 const getPaymentRuleOptions = (coachPaymentRule: Array<CoachPaymentRule>) =>
   coachPaymentRule.map((rule) => ({ value: rule.id, label: rule.name }));

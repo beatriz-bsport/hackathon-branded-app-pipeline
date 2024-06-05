@@ -6,10 +6,10 @@ import IconButton from '#Fabrique/IconButton';
 import { FilterLines } from '#components/untitledui';
 
 import ConsumerGenericTabs from '#libs/consumer-space/components/reworked/common/ConsumerGenericTabs';
+import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
 import { PassTabEnum } from './constants';
 
 import type { PassTab } from './types';
-import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
 
 import './styles.css';
 

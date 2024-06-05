@@ -1,9 +1,5 @@
 import React from 'react';
-import BasketSummaryCssOnlyDialog, { Props } from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BasketSummaryCssOnlyDialogCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -16,6 +12,10 @@ import {
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
 } from '#libs/checkout/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BasketSummaryCssOnlyDialogCss from './styles.css?raw';
+import BasketSummaryCssOnlyDialog, { Props } from '.';
 
 const marketplaceBasketSummaryDialogVariationRegistry = [
   {

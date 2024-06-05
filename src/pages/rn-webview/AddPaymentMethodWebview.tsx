@@ -11,7 +11,6 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadStripe } from '@stripe/stripe-js';
 
-import type { RootState } from '../../reducers';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
@@ -28,6 +27,7 @@ import {
 } from '#libs/theme/selectors';
 import { getMember } from '#libs/member/selectors';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   queryParams: RouterProps;

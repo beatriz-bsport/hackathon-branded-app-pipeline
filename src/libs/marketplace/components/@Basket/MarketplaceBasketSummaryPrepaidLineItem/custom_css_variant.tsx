@@ -1,8 +1,4 @@
 import React from 'react';
-import PrepaidLineListItemCssOnly, { Props } from '.';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import PrepaidLineItemCSS from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -11,6 +7,10 @@ import {
 } from '#libs/exportable-components/types';
 import type { PrepaidLineExtraData } from '#libs/checkout/types';
 import { prepaidLineFactory } from '#libs/checkout/factories';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import PrepaidLineItemCSS from './styles.css?raw';
+import PrepaidLineListItemCssOnly, { Props } from '.';
 
 const prepaidLine = prepaidLineFactory();
 

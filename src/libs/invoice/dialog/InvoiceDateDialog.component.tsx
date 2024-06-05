@@ -9,8 +9,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import DateInput from '#components/input/DateInput.component';
-import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean;

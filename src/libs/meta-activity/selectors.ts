@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
 import memoize from 'memoize-one';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { MetaActivity } from './types';
 import { RootState } from '../../reducers';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 export const getMetaActivityAbstractDict = (state: RootState) =>
   state.metaActivity.byId;

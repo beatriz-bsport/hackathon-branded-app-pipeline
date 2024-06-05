@@ -3,13 +3,13 @@ import { Collapse, Grid, List, Paper, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import Fuse, { FuseOptions } from 'fuse.js';
-import CommunicationSentGroupConfigListItem from './CommunicationSentGroupConfigListItem.component';
 import FuzeSearch from '#components/FuzeSearch.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import { isNotCommunicationSentGroupConfigList } from '#libs/communication/utils';
 import { CommunicationSentGroupConfig } from '#libs/communication/types';
 // @ts-expect-error
 import SmartListCard from '#libs/smart-list/components/SmartlistCard.component';
+import CommunicationSentGroupConfigListItem from './CommunicationSentGroupConfigListItem.component';
 
 type Props = {
   loading: boolean;

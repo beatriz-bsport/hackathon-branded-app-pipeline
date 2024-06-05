@@ -1,16 +1,16 @@
 import { fakerEN as faker } from '@faker-js/faker';
 
 import {
+  ContractFactoryOptions,
+  ContractInterval,
+} from '#libs/subscription/types';
+import {
   generateRandomDescription,
   generateRandomName,
   generateRandomPrice,
 } from '../../../utils/factories';
 import { FakerTextLength } from '../../../utils/types';
 
-import {
-  ContractFactoryOptions,
-  ContractInterval,
-} from '#libs/subscription/types';
 
 const randomContractInterval = faker.helpers.arrayElement<ContractInterval>([
   'month',

@@ -17,13 +17,13 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
 import { Level } from '#libs/level/types';
+import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
   getBookingButtonTraduction,
   getPositionOfOfferInTheList,
 } from '../../../utils';
-import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 import './MarketplaceGroupOfferListItem.css';

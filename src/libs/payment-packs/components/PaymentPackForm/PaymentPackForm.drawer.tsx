@@ -3,16 +3,9 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import type { Establishment } from '#libs/establishment/types';
-import PaymentPackForm from './PaymentPackForm.component';
-import type {
-  PaymentPack,
-  PaymentPackCategory,
-  PaymentPackFormValues,
-} from '../../types';
 import type { SCT } from '#libs/category/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
-import type { OptionCallback } from '../../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import type {
   PrivateServiceWithSlots,
@@ -20,6 +13,13 @@ import type {
 } from '#libs/private-service/types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { BookkeepingAccount } from '#libs/payment/types';
+import type { OptionCallback } from '../../../../state/types';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackFormValues,
+} from '../../types';
+import PaymentPackForm from './PaymentPackForm.component';
 
 type OwnProps = {
   open: boolean;

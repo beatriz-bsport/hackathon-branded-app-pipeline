@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useFormikContext } from 'formik';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { useCustomFormButtonLabel } from './hooks';
 import { ConsumerFormFieldsHOC } from '#src/libs/custom-form/components/consumer-form/CustomForm.formik-hoc';
-import type { CustomFormPortalProps } from './types';
 import type { CustomFormFilled } from '#src/libs/custom-form/types';
+import { useCustomFormButtonLabel } from './hooks';
+import type { CustomFormPortalProps } from './types';
 import { CustomFormBottomDrawer, CustomFormDialog } from '.';
 import './styles.css';
 

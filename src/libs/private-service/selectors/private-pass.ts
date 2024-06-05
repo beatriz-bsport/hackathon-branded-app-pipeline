@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
+import { getAllPaymentPacks } from '#libs/payment-packs/selectors';
+import { FranchiseCompany } from '#libs/franchise/types';
 import type {
   PrivatePass,
   // @ts-expect-error
@@ -21,8 +23,6 @@ import {
   withAllowed,
 } from '../../franchise/selectors';
 
-import { getAllPaymentPacks } from '#libs/payment-packs/selectors';
-import { FranchiseCompany } from '#libs/franchise/types';
 
 export type PrivatePassSelector<LPP = number> = (
   state: RootState,

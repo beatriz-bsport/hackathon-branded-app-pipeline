@@ -4,13 +4,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'formik';
 import { makeStyles } from '@material-ui/core';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import SubscriptionContractFields, {
   SubscriptionContractFormDrawerProps,
   SubscriptionContractFormHoc,
 } from './SubscriptionContractForm.component';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

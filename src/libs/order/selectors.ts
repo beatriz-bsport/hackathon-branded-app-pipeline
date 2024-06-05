@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { RootState } from '../../reducers';
 import type { OrderWithProducts } from '#libs/order/types';
 import { getMemberDetailData } from '#libs/member/selectors';
+import type { RootState } from '../../reducers';
 
 const getOrderState = (state: RootState) => state.order.order;
 

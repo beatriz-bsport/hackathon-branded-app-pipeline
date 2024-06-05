@@ -5,8 +5,8 @@ import type {
   PrivateConsumerPassCompatibility,
 } from '#libs/consumer-space/types';
 import type { UniversalPassReworked } from '#libs/universal-pass/types';
-import type { UniversalPassDetailsCardProps } from './UniversalPassDetailsCard';
 import { PrivateServiceCompatibilityPass } from '#libs/private-service/types';
+import type { UniversalPassDetailsCardProps } from './UniversalPassDetailsCard';
 
 const getPrivateServiceCompatibilityPassData = (
   privateServiceCompatibilityPass: PrivateServiceCompatibilityPass,

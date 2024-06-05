@@ -1,3 +1,7 @@
+import type {
+  CoachReplacementPreferencesData,
+  UpdateCoachPrivateSlotsPaymentRuleData,
+} from '#libs/associated-coach/types';
 import {
   API_URI,
   API_V1_URI,
@@ -8,10 +12,6 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import type {
-  CoachReplacementPreferencesData,
-  UpdateCoachPrivateSlotsPaymentRuleData,
-} from '#libs/associated-coach/types';
 
 // TO UPDATE TO V1 API
 // -----------------------

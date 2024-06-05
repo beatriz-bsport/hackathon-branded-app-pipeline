@@ -16,10 +16,10 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Add from '@material-ui/icons/Add';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import LinkIcon from '@material-ui/icons/Link';
-import { OptionCallback } from '../../../state/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { getAddPaymentLink } from '#libs/consumer-space/utils';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   paymentMethod?: Array<any>;

@@ -11,6 +11,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { DateTime } from 'luxon';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
+import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
+import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 import themeSelectors from '../../../libs/theme/selectors';
 
 import SubscriptionContractCard from '../../../libs/subscription/components/SubscriptionContractCard.component';
@@ -19,9 +21,7 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../..
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import { registerContractBackground } from '../../../libs/subscription/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
-import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from '../constants';
-import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 import type { EstablishmentBillingGroup } from '../../../libs/establishment/types';
 
 type Props = {

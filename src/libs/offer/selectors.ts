@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import { DateTime } from 'luxon';
 import memoize from 'memoize-one';
+import { getGroupOffersStatusById } from '#libs/group-offer/selectors';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 
 import { getAllCoachesDict, getCoach } from '../associated-coach/selectors';
@@ -24,7 +25,6 @@ import { Offer } from './types';
 import { PaymentPack } from '../payment-packs/types';
 import { getUserPreferencesCalendarFilter } from '../user-preference/selectors';
 import { marketplaceByMetaActivityEmptyState } from './reducers';
-import { getGroupOffersStatusById } from '#libs/group-offer/selectors';
 
 const getState = (state: RootState) => state.offer;
 

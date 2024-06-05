@@ -15,12 +15,12 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import type { Basket } from '#libs/checkout/types';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 // @ts-expect-error
 import { PriceField } from '../../../components/forms';
-import type { Basket } from '#libs/checkout/types';
 
 type Props = {
   onBasketSubmit?: (amount: number, options?: OptionCallback<Basket>) => void;

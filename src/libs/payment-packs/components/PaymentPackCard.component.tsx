@@ -23,9 +23,11 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import RedButton from '../../../components/button/RedButton.component';
 import type { MetaActivity, Establishment } from '../../../api/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   getValidityInfo,
   getCompatibilityInfo,
@@ -43,9 +45,7 @@ import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '../constants';
-import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   onlyPublic?: boolean;

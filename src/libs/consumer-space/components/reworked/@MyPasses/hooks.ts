@@ -10,8 +10,8 @@ import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses
 import type { UniversalPassReworked } from '#libs/universal-pass/types';
 import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
 import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
-import type { ConsumerPassPageReworkedProps } from './ConsumerPassPageReworked';
 import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
+import type { ConsumerPassPageReworkedProps } from './ConsumerPassPageReworked';
 
 const consumerPassesTabDisplayMap = {
   consumer_payment_pack: PassTabEnum.CONSUMER_PAYMENT_PACK,

@@ -19,9 +19,9 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import muiIconNames from '#components/input/muiIcon/muiIconNames';
-import { CustomShopRedirection } from '../types';
 import { SubShop } from '#libs/shop/types';
 import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
+import { CustomShopRedirection } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 
 type Props = {

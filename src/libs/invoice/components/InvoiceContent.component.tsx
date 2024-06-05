@@ -22,16 +22,16 @@ import { ListItem } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 // @ts-expect-error
+import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 import InvoiceItem from './InvoiceItem.component';
 // @ts-expect-error
 import PaymentItem from './PaymentItem.component';
-import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
-import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '../types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 
 type Props = {
   amountInvoiceItem: number;

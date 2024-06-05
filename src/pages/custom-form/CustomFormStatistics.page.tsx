@@ -5,10 +5,6 @@ import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import Grid from '@material-ui/core/Grid';
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import type { WithHandlerType } from '../../utils/types';
-import type { RootState } from '../../reducers/index';
 import type { CustomForm } from '#libs/custom-form/types';
 
 import {
@@ -23,6 +19,10 @@ import { fetchMemberList as fetchMemberListAPI } from '#libs/member/api';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import CustomFormDetailByMemberPanel from '#libs/custom-form/components/statistics/CustomFormDetailByMemberPanel.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { RootState } from '../../reducers/index';
+import type { WithHandlerType } from '../../utils/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type StateHandlerInit = {};
 type StateHandlerType = typeof withStateHandlersInit &

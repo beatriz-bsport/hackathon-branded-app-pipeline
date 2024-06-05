@@ -2,18 +2,18 @@ import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { useTranslation } from 'react-i18next';
 
-import Blanket from '.';
 import Button from '#Fabrique/ButtonV2';
 import Card from '#Fabrique/Card';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BlanketCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
 } from '#libs/exportable-components/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BlanketCss from './styles.css?raw';
+import Blanket from '.';
 
 const BLANKET_TEXT = faker.lorem.sentence();
 

@@ -2,14 +2,7 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
 import { DateTime } from 'luxon';
-import {
-  ConsumerBookingDetailsCardStorybook,
-  Props as ConsumerBookingDetailsCard,
-} from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerBookingDetailsCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 import { establishment_factory } from '#libs/establishment/factory';
@@ -25,6 +18,13 @@ import {
 import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerBooking } from '#libs/booking/types';
 import { getUserZone } from '#src/utils/datetime';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ConsumerBookingDetailsCardCss from './styles.css?raw';
+import {
+  ConsumerBookingDetailsCardStorybook,
+  Props as ConsumerBookingDetailsCard,
+} from '.';
 
 const DAYS_IN_FUTURE = 3;
 const OFFER_DATE_START = DateTime.now().plus({ days: DAYS_IN_FUTURE }).toISO();

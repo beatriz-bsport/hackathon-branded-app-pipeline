@@ -24,12 +24,12 @@ import TextField from '@material-ui/core/TextField';
 
 import { useShopDetailTabsModalPrompt } from '#hocs/shop-modal-prompt.hoc';
 
+import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
 import type {
   ShopItemInventoryBulkUpdateFormRow,
   ShopItemInventoryBulkUpdateFormValues,
 } from './types';
 
-import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#libs/shop/constants';
 
 type ShopItemBulkFieldArray = {
   form: Pick<

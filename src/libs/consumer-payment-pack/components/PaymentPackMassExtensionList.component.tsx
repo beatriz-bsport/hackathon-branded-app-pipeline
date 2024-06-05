@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { Paper } from '@material-ui/core';
 
 // @ts-expect-error
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ExtensionListItem from '#components/ExtensionListItem';
 
 import type { PaymentPackMassExtension } from '#libs/payment-packs/types';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 type Props = {
   items: Array<PaymentPackMassExtension>;

@@ -1,4 +1,10 @@
 import { DateTime } from 'luxon';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Level } from '#libs/level/types';
+import type { LuxonDateTime } from '#src/types';
+import { OFFER_RECURRENCE } from './constants';
 import type {
   Offer,
   OfferDataListItem,
@@ -6,12 +12,6 @@ import type {
   OfferFormValues,
   Offer_FULL,
 } from './types';
-import { OFFER_RECURRENCE } from './constants';
-import type { Coach } from '#libs/associated-coach/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Level } from '#libs/level/types';
-import type { LuxonDateTime } from '#src/types';
 
 export function isDateTooFar(dateISO: string) {
   return (

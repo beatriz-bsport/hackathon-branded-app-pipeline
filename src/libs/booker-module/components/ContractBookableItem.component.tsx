@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
+import { Contract, ContractWithPaymentPack } from '#libs/subscription/types';
 import { MaxoutData } from '../../payment-packs/types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { Contract, ContractWithPaymentPack } from '#libs/subscription/types';
 
 type Props = {
   isExcludingTax?: boolean;

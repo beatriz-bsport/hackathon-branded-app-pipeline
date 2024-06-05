@@ -7,10 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import type { CustomForm } from '../types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { OptionCallback } from '../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { CustomForm } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 const {
   trackFormAdd,

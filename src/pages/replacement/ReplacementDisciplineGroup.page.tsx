@@ -9,13 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import { LinearProgress } from '@material-ui/core';
-import { OptionCallback } from '../../state/types';
 import DisciplineGroupList from '#libs/replacement-request/components/discipline-group/DisciplineGroupList.component';
 import DisciplineGroupDeleteDialog from '#libs/replacement-request/components/discipline-group/DisciplineGroupDeleteDialog.component';
 import CompatibleCoachesList from '#libs/replacement-request/components/discipline-group/CompatibleCoachesList.component';
 import DisciplineGroupFormDrawer from '#libs/replacement-request/components/discipline-group/DisciplineGroupForm.drawer';
 
-import { RootState } from '../../reducers';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import { DisciplineGroup } from '#libs/replacement-request/types';
 import themeSelectors from '#libs/theme/selectors';
@@ -50,6 +48,8 @@ import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
 } from '#libs/establishment/actions';
+import { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
 
 type Props = ConnectedProps<typeof connector>;
 

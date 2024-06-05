@@ -27,10 +27,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import PaginatedListBase from '../../components/PaginatedListBase.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Theme } from '#libs/theme/types';
 import themeSelectors from '#libs/theme/selectors';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
+import { getOfferById } from '#libs/offer/selectors';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMember } from '../../libs/member/selectors';
 import {
   cancelBooking as deleteBooking,
@@ -39,7 +43,6 @@ import {
   fetchBookingsByConsumerPack,
 } from '../../libs/booking/actions';
 import { getInvoice } from '../../libs/invoice/selectors';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   resetConsumerPackByMember as resetConsumerPackByMemberAction,
@@ -81,8 +84,6 @@ import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/Con
 import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/ConsumerPackDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
-import { getOfferById } from '#libs/offer/selectors';
 
 import type { Member } from '../../libs/member/types';
 import type {
@@ -98,7 +99,6 @@ import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   member: ?Member,

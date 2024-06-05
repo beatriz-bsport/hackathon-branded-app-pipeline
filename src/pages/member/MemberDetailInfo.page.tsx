@@ -9,16 +9,13 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils';
 
-import Config from '../../config';
 
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
-import withQueryParams from '../../hocs/with-query-params.hoc';
 // @ts-expect-error
 import TaskList from '#libs/reminder/components/TaskList.component';
 import { getUsersWithRole } from '#libs/role/selectors';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import {
   createOrUpdateNote as createOrUpdateMemberNote,
@@ -75,7 +72,6 @@ import {
   updateTaskStatus,
   // @ts-expect-error
 } from '#libs/reminder/actions';
-import type { OptionCallback } from '../../state/types';
 // @ts-expect-error
 import { memberTaskListSelector } from '#libs/reminder/selectors';
 import { fetchCompanyUserRoles } from '#libs/role/actions';
@@ -113,8 +109,6 @@ import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
 } from '#libs/theme/selectors';
-import { RootState } from '../../reducers';
-import { WithHandlerType } from '../../utils/types';
 import { fetchModelBasedAnswer } from '#libs/custom-form/actions';
 import {
   CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
@@ -134,7 +128,6 @@ import {
   onlyUsable,
 } from '#libs/giftcard/selectors';
 // @ts-expect-error
-import { resetPassword } from '../../actions/auth.actions';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
@@ -156,6 +149,13 @@ import {
   getReferralMemberStatusWithMemberId,
   getTheReferralProgram,
 } from '#libs/referral/selectors';
+import { resetPassword } from '../../actions/auth.actions';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParams from '../../hocs/with-query-params.hoc';
+import Config from '../../config';
 
 type Props = RouterParamsProps &
   ConnectProps &

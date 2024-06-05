@@ -10,8 +10,8 @@ import { compose } from 'recompose';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { FieldArrayRenderProps } from 'formik';
 import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
-import MetricListItem from './MetricListItem.component';
 import { organize_index } from '#libs/performance-tracking/utils';
+import MetricListItem from './MetricListItem.component';
 
 const Container = SortableContainer((props: any) => {
   return <div>{props.children}</div>;

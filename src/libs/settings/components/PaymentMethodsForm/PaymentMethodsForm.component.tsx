@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 import PaymentMethodMultiSelector from '#libs/payment/components/PaymentMethodMultiSelector.component';
-import { addOrRemove } from './utils';
 import NumericInput from '#components/input/NumericInput.component';
+import { addOrRemove } from './utils';
 
 import { validationSchema } from './validationSchema';
 import { MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION } from './constants';

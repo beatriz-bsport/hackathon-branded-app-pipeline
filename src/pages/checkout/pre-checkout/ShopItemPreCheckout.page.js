@@ -12,6 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
@@ -26,7 +27,6 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { fetchShopItem } from '../../../libs/shop/actions/shopitem';
-import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   fetchShopItem: (number, options: OptionCallback) => void,

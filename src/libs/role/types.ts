@@ -1,4 +1,3 @@
-import { ErrorAndLoading } from '../types';
 import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
@@ -11,6 +10,7 @@ import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/booking/components/constants';
+import { ErrorAndLoading } from '../types';
 
 // FOR CREATING A STAFF USER
 export type UserRoleData = {

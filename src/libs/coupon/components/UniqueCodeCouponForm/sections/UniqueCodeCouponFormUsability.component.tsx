@@ -4,8 +4,8 @@ import { FormControlLabel, Switch, makeStyles } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import FormSection from '#components/forms/FormSection';
 // @ts-expect-error
-import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
+import { TextFieldEnhancedLabelWithError } from '../../../../../components/forms';
 
 type Props = {
   isProcessing: boolean;

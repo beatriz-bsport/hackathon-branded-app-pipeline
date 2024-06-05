@@ -31,7 +31,6 @@ import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
 } from '#libs/coach-payment-rules/types';
-import type { MaterialStyleType } from '../../../../utils/types';
 import type { Coach } from '#libs/associated-coach/types';
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
@@ -40,6 +39,7 @@ import {
 import PrivateSlotSelectorStyled from '#libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
 import { PrivateServiceWithSlots } from '#libs/private-service/types';
 import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+import type { MaterialStyleType } from '../../../../utils/types';
 // @ts-expect-error
 import type { OptionCallback } from '../../../state/types';
 

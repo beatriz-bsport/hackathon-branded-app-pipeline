@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Popover, Theme, makeStyles } from '@material-ui/core';
 
 import { useFormikContext } from 'formik';
-import { ReportFilterConfig } from '../types';
-import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import {
   AllComparator,
   DatatypeFilterConfigItem,
@@ -27,6 +25,8 @@ import {
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
+import { ReportFilterConfig } from '../types';
 
 export type QuickFiltersColumnsData = {
   identifier: string;

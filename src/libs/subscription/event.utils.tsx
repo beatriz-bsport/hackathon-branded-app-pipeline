@@ -14,8 +14,8 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
-import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { SubscriptionEvent } from '#libs/event/types';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 const getPrimaryText = (event: SubscriptionEvent, t: TFunction) =>
   `${t(`events.${event.event_type}`)}${` :  ${

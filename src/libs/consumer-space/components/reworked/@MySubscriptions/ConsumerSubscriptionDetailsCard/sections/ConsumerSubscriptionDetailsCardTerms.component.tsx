@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Button from '#Fabrique/ButtonV2';
 import { Eye } from '#components/untitledui';
+import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 type Props = Required<
   Pick<ConsumerSubscriptionDetailsCardProps, 'termsDate' | 'onSeeClick'>

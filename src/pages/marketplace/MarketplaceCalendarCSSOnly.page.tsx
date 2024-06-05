@@ -85,8 +85,6 @@ import withTitle from '#hocs/with-title.hoc';
 
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
-import { RootState } from '../../reducers';
-import { WithHandlerType } from '../../utils/types';
 import { Offer, OfferFilterData, Offer_FULL } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import GroupRulePopup from '#marketplacecomponents/@Offer/GroupRulePopup.dialog';
@@ -98,6 +96,8 @@ import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-t
 import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 import type { MarketplaceComponentConfig } from '#libs/marketplace/types';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
 
 export type OwnProps = {
   companyId: number;

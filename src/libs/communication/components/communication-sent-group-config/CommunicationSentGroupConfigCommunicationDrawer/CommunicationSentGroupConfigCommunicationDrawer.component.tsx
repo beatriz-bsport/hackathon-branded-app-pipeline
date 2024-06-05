@@ -14,7 +14,6 @@ import WriteEmail from '#libs/communication/components/WriteEmail.component';
 // @ts-expect-error
 import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
 // @ts-expect-error
-import { Submit } from '../../../../../components/forms';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import type {
@@ -23,10 +22,11 @@ import type {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import type { SendGroupedCommunicationData } from '#libs/communication/types';
-import type { OptionCallback } from '../../../../../state/types';
 import { CONTEXT_FRANCHISE } from '#libs/communication-v2/constants';
 import { SenderEmailKind } from '#libs/communication/constants';
 import { FranchiseCompany } from '#libs/franchise/types';
+import type { OptionCallback } from '../../../../../state/types';
+import { Submit } from '../../../../../components/forms';
 import CommunicationSentGroupConfigCommunicationSenderEmailChoice from './CommunicationSentGroupConfigCommunicationSenderEmailChoice.component';
 
 const WRITTEN_EMAIL_KIND = 0;

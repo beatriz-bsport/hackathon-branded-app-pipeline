@@ -15,6 +15,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
+import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getPrivatePassAvailableForPrivateBooking } from '../selectors/private-pass';
 import {
   getPrivateConsumerPassList,
@@ -23,7 +27,6 @@ import {
   getPrivateConsumerPassNonCompatibleList,
   getPrivateConsumerPassNonCompatibleIsLoading,
 } from '../selectors/private-consumer-pass';
-import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
 import { MemberMap } from '../../member/utils';
 // @ts-expect-error
 import { mapFormData } from '../../../pages/form.utils';
@@ -71,9 +74,6 @@ import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import { Member } from '../../member/types';
 import { OptionCallback } from '../../../state/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
-import { Coach } from '#libs/associated-coach/types';
-import { Establishment } from '#libs/establishment/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {

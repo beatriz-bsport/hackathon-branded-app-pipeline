@@ -16,8 +16,8 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
-import { OptionCallback } from '../../../../state/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { OptionCallback } from '../../../../state/types';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 
 type Props = {

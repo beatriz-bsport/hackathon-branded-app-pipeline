@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Level } from '#libs/level/types';
 import CommonSettings from './CommonSettings.form';
 
 import { Coach } from '../../../associated-coach/types';
@@ -8,7 +9,6 @@ import {
   EstablishmentGroup,
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
-import { Level } from '#libs/level/types';
 
 interface Props {
   coaches: Array<Coach>;

@@ -6,6 +6,8 @@ import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import { filter_reports_by_upsells } from '#src/libs/reporting/permissions';
+import { getCompanyUpsellData } from '#src/libs/company/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -23,8 +25,6 @@ import { RootState } from '../../reducers';
 import { getReportMetadata, getReports } from '../../libs/reporting/selectors';
 import { OptionCallback } from '../../state/types';
 import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
-import { filter_reports_by_upsells } from '#src/libs/reporting/permissions';
-import { getCompanyUpsellData } from '#src/libs/company/selectors';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 const ReportingDashboard = (props: Props) => {

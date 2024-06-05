@@ -13,8 +13,8 @@ import {
   ChevronUp,
 } from '#components/untitledui';
 import { ButtonBase } from '#Fabrique/ButtonBaseV2/ButtonBase.component';
-import YearPicker from './YearPicker';
 import Typography from '#Fabrique/Typography';
+import YearPicker from './YearPicker';
 import './styles.css';
 
 type MenuProps = React.ComponentProps<typeof Menu>;

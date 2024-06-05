@@ -8,9 +8,9 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import { useMemo } from 'react';
+import type { PaymentPack } from '#libs/payment-packs/types';
 import { formatAsDate } from '../../../utils/datetime';
 
-import type { PaymentPack } from '#libs/payment-packs/types';
 
 export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
   const { t } = useTranslation('marketplace');

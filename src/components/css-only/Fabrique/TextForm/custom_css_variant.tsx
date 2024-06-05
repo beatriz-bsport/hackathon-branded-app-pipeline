@@ -1,17 +1,15 @@
 import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
-import TextForm, { Props } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TextFormCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import TextForm, { Props } from '.';
+
+import TextFormCss from './styles.css?raw';
 
 const HELPER_TEXT = faker.lorem.sentences(1);
 const MAX_CHARACTERS_LENGTH = faker.number.int({ min: 100, max: 1000 });

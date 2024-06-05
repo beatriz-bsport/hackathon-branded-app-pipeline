@@ -1,8 +1,8 @@
 import Immutable from 'seamless-immutable';
 import { actionsType } from '#libs/consumer-space/actions';
 // @ts-expect-error
-import authActionTypes from '../../actions/auth.types';
 import type { ConsumerState } from '#libs/consumer-space/types';
+import authActionTypes from '../../actions/auth.types';
 
 const initialState: Immutable.Immutable<ConsumerState> =
   Immutable<ConsumerState>({

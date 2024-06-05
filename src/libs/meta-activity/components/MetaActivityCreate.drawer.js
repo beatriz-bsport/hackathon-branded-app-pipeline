@@ -8,20 +8,20 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { mapFormData } from '../../../pages/form.utils';
 import MetaActivityForm from './MetaActivityForm.component';
 import OfferCreateForm from '../../offer/OfferCreateForm.component';
 import CompatiblePaymentPacks from './MetaActivityCompatiblePacks.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { OptionCallback } from '../../../state/types';
 
 import { Establishment } from '../../establishment/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { CoachPaymentRule } from '../../coach-payment-rules/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type StepType = {
   id: number,

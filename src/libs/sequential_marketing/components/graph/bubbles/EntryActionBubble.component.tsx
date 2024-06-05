@@ -4,13 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import CadenceBubble from './CadenceBubble.component';
 import MultipleMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/MultipleMarketingActionForm.component';
 
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   isInitial?: boolean;

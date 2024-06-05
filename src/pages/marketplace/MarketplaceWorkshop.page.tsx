@@ -51,7 +51,6 @@ import {
   getOffersListByGroup as getOffersListByGroupSelector,
 } from '#libs/group-offer/selectors';
 import MarketplaceFilters from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly';
-import { RootState } from '../../reducers';
 import themeSelectors from '#libs/theme/selectors';
 
 import {
@@ -63,7 +62,6 @@ import { getActiveCustomLevels, getLevelsDetails } from '#libs/level/selectors';
 import MarketplaceWorkshop from '#marketplacecomponents/@Workshop/MarketplaceWorkshop.component';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
-import { sortByDate } from '../../utils/datetime';
 import withTitle from '#hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
@@ -78,7 +76,6 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '#libs/meta-activity/utils';
-import { useWidth } from '../../hooks/useWidth';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
@@ -88,6 +85,9 @@ import {
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
 } from '#libs/marketplace/utils';
+import { useWidth } from '../../hooks/useWidth';
+import { sortByDate } from '../../utils/datetime';
+import { RootState } from '../../reducers';
 
 import './MarketplaceWorkshop.css';
 

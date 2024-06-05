@@ -13,13 +13,13 @@ import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { useTranslation } from 'react-i18next';
 
-import type { OptionCallback } from '../../../../state/types';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
 } from '#libs/communication-v2/types';
 import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
 import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
+import type { OptionCallback } from '../../../../state/types';
 import ThreadItemSkeleton from './ThreadItemSkeleton.component';
 
 export type Props = {

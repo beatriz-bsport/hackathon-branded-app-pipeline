@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import uniqBy from 'lodash/uniqBy';
 
+import type { SelectOption } from '#libs/types';
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { ShopItem, SubShop } from './types';
-import type { SelectOption } from '#libs/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 

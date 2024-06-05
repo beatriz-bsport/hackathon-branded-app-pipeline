@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 
 import { AxiosResponse } from 'axios';
 import uniq from 'lodash/uniq';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
   fetchAll,
   fetchOld,
@@ -13,7 +14,6 @@ import {
   createItem,
 } from '../api';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import type {
   Dispatch,
   OptionCallback,

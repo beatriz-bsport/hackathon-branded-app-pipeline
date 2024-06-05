@@ -6,8 +6,6 @@ import uniq from 'lodash/uniq';
 import type { DateTime } from 'luxon';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import type { OptionCallback } from '../../../../state/types';
-import type { RootState } from '../../../../reducers';
 
 // COMMUNICATION
 import {
@@ -91,6 +89,8 @@ import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/bookin
 import { fetchByOffer as fetchBookingOptionByOfferAction } from '#libs/waiting-list/actions';
 // THEME
 import themeSelectors from '#libs/theme/selectors';
+import type { RootState } from '../../../../reducers';
+import type { OptionCallback } from '../../../../state/types';
 
 type NullableTimeout = ReturnType<typeof setTimeout> | null;
 

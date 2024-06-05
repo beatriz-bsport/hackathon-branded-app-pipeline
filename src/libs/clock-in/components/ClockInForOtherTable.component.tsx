@@ -16,13 +16,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core';
 
+import { Role } from '#libs/role/types';
+import { getRoleName } from '#libs/role/utils';
 import { UserWithRealTimeAttendance, ClockInQueryParams } from '../types';
 import type {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../state/types';
-import { Role } from '#libs/role/types';
-import { getRoleName } from '#libs/role/utils';
 
 const MEMBER_PER_PAGE = 15;
 

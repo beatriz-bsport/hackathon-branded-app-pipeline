@@ -10,11 +10,11 @@ import {
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 
-import type { OptionCallback } from '../../../../../state/types';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import {
   getMarketingActionPartialValues,

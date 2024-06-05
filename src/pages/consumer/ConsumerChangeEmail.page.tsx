@@ -10,9 +10,6 @@ import {
   CHANGE_EMAIL_REQUEST_SIMPLE_EMAIL_CONFIRMATION_KIND,
   CHANGE_MEMBER_EMAIL_PENDING_STATUS,
 } from '@bsport/common/lib/master-data/change-email-request';
-import type { Dispatch } from '../../state/types';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
 import {
   getMembership,
   _getConsumerMembershipIds,
@@ -23,7 +20,6 @@ import {
   fetchMembershipListAsConsumer,
 } from '#libs/membership/actions';
 import { fetchCompanyBulk } from '#libs/company/actions';
-import { RootState } from '../../reducers';
 import {
   retrieveChangeEmailRequest,
   retrieveMinimalChangeEmailRequest,
@@ -36,7 +32,6 @@ import {
   getCurrentChangeEmailRequestEmailChoices,
 } from '#libs/member/selectors';
 import ChangeEmailSubmitDialog from '#libs/member/components/change_email/ChangeEmailSubmitDialog.component';
-import { WithHandlerType } from '../../utils/types';
 import {
   SimpleEmailChangeContent,
   SimpleEmailChangeContentMultipleCompanies,
@@ -47,6 +42,11 @@ import {
 } from '#libs/member/components/change_email/consumer-space/content';
 
 import LoginComponent from '#csscomponents/Login/Login.component';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import type { Dispatch } from '../../state/types';
 // @ts-expect-error
 import { requestLogin } from '../../actions/auth.actions';
 

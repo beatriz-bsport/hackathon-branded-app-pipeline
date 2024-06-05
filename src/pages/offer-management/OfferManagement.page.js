@@ -115,7 +115,6 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '#libs/email-editor/selectors';
-import { snackbar } from '../../actions/snackbar.actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import {
@@ -150,10 +149,7 @@ import {
 } from '#libs/invoice/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
-import OfferManagementComponent from './OfferManagement.component';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
-import type { Offer } from '../../api/types';
-import { RootState } from '../../reducers';
 import { Booking } from '#libs/booking/types';
 import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
@@ -178,7 +174,6 @@ import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   fetchGiftcardBulk as fetchGiftcardBulkAction,
 } from '#libs/giftcard/actions';
-import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
 import {
   getConsumerGiftcardList,
   withGiftcard,
@@ -186,9 +181,14 @@ import {
   withReceiver,
   onlyUsable,
 } from '#libs/giftcard/selectors';
-import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import type { MemberMinimal } from '#libs/member/types';
+import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
+import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
+import { RootState } from '../../reducers';
+import type { Offer } from '../../api/types';
+import OfferManagementComponent from './OfferManagement.component';
+import { snackbar } from '../../actions/snackbar.actions';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 

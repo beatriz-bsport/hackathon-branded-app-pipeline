@@ -4,10 +4,10 @@ import Avatar from '@material-ui/core/Avatar';
 import type { BadgeClassKey } from '@material-ui/core/Badge';
 
 import classNames from 'classnames';
-import CreditMemberBadge from './CreditMemberBadge.component';
-import TagBadge from './TagBadge/TagBadge.component';
 import type { Member } from '#libs/member/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
+import CreditMemberBadge from './CreditMemberBadge.component';
+import TagBadge from './TagBadge/TagBadge.component';
 
 type Props = {
   member: Member<Tag<TagGroup>>;

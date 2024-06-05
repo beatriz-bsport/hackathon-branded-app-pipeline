@@ -3,6 +3,9 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { goBack, push } from 'connected-react-router';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -19,14 +22,11 @@ import {
   getRecipientListByCampaign,
 } from '../../libs/communication/selectors';
 import CampaignReport from '../../libs/communication/components/CampaignReport.component';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import type {
   Campaign,
   CampaignReport as CampaignReportType,
   Recipient,
 } from '../../libs/communication/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   fetchCampaign: () => void,

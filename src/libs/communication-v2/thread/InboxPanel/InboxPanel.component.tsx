@@ -19,12 +19,12 @@ import type { Establishment } from '#libs/establishment/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import type { Level } from '#libs/level/types';
 
-import InboxPanelMember from './InboxPanelMember/InboxPanelMember.component';
-import InboxPanelSmartlist from './InboxPanelSmartlist/InboxPanelSmartlist.component';
 import type { Offer } from '#libs/offer/types';
-import InboxPanelOffer from './InboxPanelOffer/InboxPanelOffer.component';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
+import InboxPanelMember from './InboxPanelMember/InboxPanelMember.component';
+import InboxPanelSmartlist from './InboxPanelSmartlist/InboxPanelSmartlist.component';
+import InboxPanelOffer from './InboxPanelOffer/InboxPanelOffer.component';
 
 export type Props = {
   isPanelOpen?: boolean;

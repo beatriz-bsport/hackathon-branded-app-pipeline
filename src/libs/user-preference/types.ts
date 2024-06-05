@@ -1,7 +1,3 @@
-import {
-  ManagerOnly,
-  SortOption,
-} from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
 import { OffersGroupFilter } from '#libs/meta-activity/types';
 import {
@@ -14,6 +10,10 @@ import {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
 } from '#libs/replacement-request/types';
+import {
+  ManagerOnly,
+  SortOption,
+} from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 
 export type ScheduleFilter = {
   showOfferList: boolean;

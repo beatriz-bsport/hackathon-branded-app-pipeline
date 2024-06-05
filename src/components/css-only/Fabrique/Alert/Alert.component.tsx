@@ -5,13 +5,13 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Button from '#Fabrique/ButtonV2';
 import IconButton from '#Fabrique/IconButton';
-import { useAlertDefaultLeftIcon } from './hooks';
 import { XClose } from '#components/untitledui';
 
 import {
   TypographyTextAlign,
   TypographyVariant,
 } from '#Fabrique/Typography/constants';
+import { useAlertDefaultLeftIcon } from './hooks';
 import { AlertColorEnum, AlertVariantEnum } from './constants';
 
 import type { AlertColor, AlertVariant } from './types';

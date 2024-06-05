@@ -10,10 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
-import { sortByDate } from '../../../../utils/datetime';
 import type { Basket } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { sortByDate } from '../../../../utils/datetime';
 
 import useStyles from './styles';
 

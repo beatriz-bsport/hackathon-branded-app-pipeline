@@ -21,7 +21,6 @@ import {
   retrieveConsumerGiftcard,
   sendEmailInvitation,
 } from '#libs/giftcard/actions';
-import { OptionCallback } from '../../state/types';
 
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#libs/invoice/actions';
@@ -35,7 +34,6 @@ import {
 import ConsumerGiftcardDetail from '#libs/giftcard/components/ConsumerGiftcardDetail.component';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
@@ -46,10 +44,12 @@ import {
 } from '#libs/giftcard/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 
-import { RootState } from '../../reducers';
 import { Invoice } from '#libs/invoice/types';
 import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
 import { getMember } from '#libs/member/selectors';
+import { RootState } from '../../reducers';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { OptionCallback } from '../../state/types';
 
 const styles = (theme: Theme) =>
   createStyles({

@@ -7,13 +7,7 @@ import {
 } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
-import BookerModuleOfferSummary, {
-  Props as BookerModuleOfferSummaryProps,
-} from '.';
 
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BookerModuleOfferSummaryCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import { offerFactory } from '#libs/offer/factories';
 
@@ -24,6 +18,12 @@ import {
   type VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BookerModuleOfferSummaryCss from './styles.css?raw';
+import BookerModuleOfferSummary, {
+  Props as BookerModuleOfferSummaryProps,
+} from '.';
 
 const TAX = 21;
 

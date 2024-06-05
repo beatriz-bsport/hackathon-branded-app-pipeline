@@ -15,13 +15,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Theme from '@material-ui/core';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '#libs/coach-payment-rules/constants.ts';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { CoachPaymentRule } from '../types';
 // @ts-expect-error
 import Figure from '../../../components/graph/Figure.component';
 import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
-import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '#libs/coach-payment-rules/constants.ts';
 
 type OwnProps = {
   open: boolean;

@@ -19,9 +19,6 @@ import { withFormik } from 'formik';
 import cloneDeep from 'lodash/cloneDeep';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import ModalConfirm from '#components/ModalConfirm.component';
-import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
-import type { OptionCallback } from '../../../state/types';
-import type { ReportFilterConfig } from '../types';
 import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
@@ -29,10 +26,13 @@ import type {
   DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
 import HoverableWarning from '#components/HoverableWarning.component';
-import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
-import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { authorIdentifiers } from '#libs/reporting/constants';
+import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
+import type { OptionCallback } from '../../../state/types';
+import type { ReportFilterConfig } from '../types';
+import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
+import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
 
 export type Props = {
   reportFilterConfigs: ReportFilterConfig[];

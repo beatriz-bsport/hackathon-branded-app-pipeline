@@ -1,21 +1,20 @@
 import React from 'react';
 
 import { fakerEN as faker } from '@faker-js/faker';
-import TextField, { type Props as TextFieldProps } from '.';
-import type { TextFieldSize, TextFieldType } from './types';
-import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 import { Star06 } from '#components/untitledui';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import TextFieldCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
-
 import { CompanyTheme } from '#libs/theme/types';
+import TextField, { type Props as TextFieldProps } from '.';
+import type { TextFieldSize, TextFieldType } from './types';
+import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import TextFieldCss from './styles.css?raw';
 
 const HELPER_TEXT = faker.lorem.sentences(1);
 

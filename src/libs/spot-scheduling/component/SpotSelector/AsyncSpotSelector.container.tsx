@@ -1,13 +1,13 @@
 import React from 'react';
 
-import SpotSelectorDialog from './SpotSelectorDialog.component';
-import { Offer, OfferStatus } from '../../../offer/types';
-import { OptionCallback } from '../../../../state/types';
-import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import {
   DEFAULT_SPOT_TYPE_ID,
   getSpotIndexType,
 } from '#libs/spot-scheduling/utils';
+import SpotSelectorDialog from './SpotSelectorDialog.component';
+import { Offer, OfferStatus } from '../../../offer/types';
+import { OptionCallback } from '../../../../state/types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 
 export const asyncSelectSpotForBlueprint = (offerId?: number) => {
   return new Promise((resolve, reject) => {

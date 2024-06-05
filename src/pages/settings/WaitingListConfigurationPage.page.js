@@ -5,8 +5,8 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import WaitingListConfigurationForm from '../../libs/waiting-list/components/WaitingListConfigurationForm.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import WaitingListConfigurationForm from '../../libs/waiting-list/components/WaitingListConfigurationForm.component';
 import {
   fetchConfiguration,
   patchConfiguration,

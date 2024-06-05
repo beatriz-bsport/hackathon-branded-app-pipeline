@@ -17,13 +17,13 @@ import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
+import { Coach } from '#libs/associated-coach/types';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error
 import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
-import { Coach } from '#libs/associated-coach/types';
 import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
 

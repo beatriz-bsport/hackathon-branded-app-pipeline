@@ -41,7 +41,7 @@ module.exports = {
       '#libs': path.resolve(__dirname, '../src/libs'),
       '#marketplacecomponents': path.resolve(
         __dirname,
-        '../src/libs/marketplace/components'
+        '../src/libs/marketplace/components',
       ),
       '#hocs': path.resolve(__dirname, '../src/hocs'),
       '#hooks': path.resolve(__dirname, '../src/hooks'),
@@ -50,7 +50,7 @@ module.exports = {
       '#utils': path.resolve(__dirname, '../src/utils'),
       '#Fabrique': path.resolve(
         __dirname,
-        '../src/components/css-only/Fabrique'
+        '../src/components/css-only/Fabrique',
       ),
       '#untitledui': path.resolve(__dirname, '../src/components/untitledui'),
       '#pages': path.resolve(__dirname, '../src/pages'),
@@ -85,8 +85,8 @@ module.exports = {
             options: {
               cacheDirectory: true,
               plugins: [
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-proposal-optional-chaining',
+                '@babel/plugin-transform-class-properties',
+                '@babel/plugin-transform-optional-chaining',
               ],
               presets: [
                 [
@@ -175,9 +175,9 @@ module.exports = {
       },
     ],
   },
-  plugins:  [
+  plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser.js'
+      process: 'process/browser.js',
     }),
   ],
   performance: {

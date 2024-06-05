@@ -16,6 +16,27 @@ import Alert from '@material-ui/lab/Alert';
 import * as Yup from 'yup';
 import { FormikProps, useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import FormSection from '#components/forms/FormSection';
+import PopOver from '#components/Popover';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
+import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '../constants';
+import { OptionCallback } from '../../../state/types';
+import { ContractWithPaymentPack, Contract } from '../types';
+// @ts-expect-error
+import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
+// @ts-expect-error
+import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
+// @ts-expect-error
+import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import {
   TextField,
   PriceField,
@@ -26,27 +47,6 @@ import {
   SelectField,
   // @ts-expect-error
 } from '../../../components/forms';
-// @ts-expect-error
-import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
-// @ts-expect-error
-import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
-// @ts-expect-error
-import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import type { ContractWithPaymentPack, Contract } from '../types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { Tag, TagGroup } from '#libs/tag/types';
-import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { OptionCallback } from '../../../state/types';
-import FormSection from '#components/forms/FormSection';
-import PopOver from '#components/Popover';
-import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '../constants';
-import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
-import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

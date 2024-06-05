@@ -17,7 +17,6 @@ import {
   FranchiseRolePermission,
   FranchiseRoleMasterAccountData,
 } from '#libs/role/types';
-import { MaterialStyleType } from '../../../utils/types';
 import {
   deepMerge,
   getRoleDescription,
@@ -25,6 +24,7 @@ import {
   setAllValuesInObject,
 } from '#libs/role/utils';
 import RecursiveCheckBoxComponent from '#libs/role/components/RecursiveCheckBox.component';
+import { MaterialStyleType } from '../../../utils/types';
 import Config from '../../../config';
 
 type OwnProps = {

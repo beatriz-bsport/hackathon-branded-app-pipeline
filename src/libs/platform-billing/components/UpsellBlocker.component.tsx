@@ -20,11 +20,11 @@ import {
   subscribeUpsellPackage as subscribeUpsellPackageAction,
 } from '#libs/platform-billing/actions';
 
+import type { UpsellPackage } from '#libs/company/types';
+import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
-import type { UpsellPackage } from '#libs/company/types';
-import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 
 const useStyles = makeStyles((theme) => ({
   blockerFrame: {

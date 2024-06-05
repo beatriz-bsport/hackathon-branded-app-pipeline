@@ -9,12 +9,10 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/styles';
 import { getTheme } from '#libs/theme/selectors';
-import { MaterialStyleType } from '../../../utils/types';
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { RootState } from '../../../reducers';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import {
@@ -48,6 +46,8 @@ import TagDetailHeader from '#libs/marketing/components/TagDetailHeader.componen
 import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { RootState } from '../../../reducers';
+import { MaterialStyleType } from '../../../utils/types';
 
 const DETAIL_PANEL_ENABLED = false; // due to perf with exclude / include on backend, also it actually does not make much sense
 

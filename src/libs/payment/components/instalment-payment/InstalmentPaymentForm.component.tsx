@@ -18,8 +18,8 @@ import {
   // @ts-expect-error
 } from '#components/forms';
 
-import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
 import type { PaymentInstalmentData } from '#libs/payment/types';
+import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
 
 const styles = (theme: Theme) =>
   createStyles({

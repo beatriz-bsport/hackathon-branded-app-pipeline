@@ -13,10 +13,10 @@ import Alert from '@material-ui/lab/Alert';
 
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import NumericInput from '#components/input/NumericInput.component';
+import { CheckboxField, SwitchField } from '#components/forms';
 import type { WaitingListConfigurationFormikValues } from './WaitingListConfigurationForm.component';
 import { WaitingListAutoCancellation } from '../types';
 // @ts-expect-error
-import { CheckboxField, SwitchField } from '#components/forms';
 
 type Props = {
   handleAutoCancellationTypeChange: (

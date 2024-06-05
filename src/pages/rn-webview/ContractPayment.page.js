@@ -8,20 +8,6 @@ import { withRouter } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import asyncComponent from '../../AsyncComponent';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import {
-  fetchContractDetail,
-  registerContractBackground,
-} from '../../libs/subscription/actions';
-import { getContract } from '../../libs/subscription/selectors';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { parseQueryString } from '../../http';
-import themeSelectors from '../../libs/theme/selectors';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
-import Analytics from '../../components/analytics/Analytics.component';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -37,6 +23,20 @@ import {
 import { withEstablishment } from '#libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { StripeInit } from '#libs/payment/types';
+import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import asyncComponent from '../../AsyncComponent';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import {
+  fetchContractDetail,
+  registerContractBackground,
+} from '../../libs/subscription/actions';
+import { getContract } from '../../libs/subscription/selectors';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { parseQueryString } from '../../http';
+import themeSelectors from '../../libs/theme/selectors';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
+import Analytics from '../../components/analytics/Analytics.component';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),

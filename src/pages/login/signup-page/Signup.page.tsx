@@ -12,11 +12,8 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-import type { Dispatch, OptionCallback } from '../../../state/types';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-import { buildUrlParams, parseQueryString } from '../../../http';
 // @ts-expect-error
-import { requestLogin } from '../../../actions/auth.actions';
 
 import { fetchCompanyTheme } from '#libs/theme/actions';
 // @ts-expect-error
@@ -32,8 +29,6 @@ import {
   getSignUpCustomFormLoading,
 } from '#libs/custom-form/selectors';
 import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
-import type { RootState } from '../../../reducers';
-import { WithHandlerType } from '../../../utils/types';
 import type {
   CustomFormFilled,
   CustomFormFieldAnswer,
@@ -49,6 +44,11 @@ import { isCustomFormCssVariantActivated } from '#libs/custom-form/utils';
 import { isBookingFlowNext } from '#libs/marketplace/routing-utils';
 
 import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#libs/sign-up-form/utils';
+import { WithHandlerType } from '../../../utils/types';
+import type { RootState } from '../../../reducers';
+import { requestLogin } from '../../../actions/auth.actions';
+import { buildUrlParams, parseQueryString } from '../../../http';
+import type { Dispatch, OptionCallback } from '../../../state/types';
 import './SignupPageStyles.css';
 
 type OwnProps = {

@@ -18,7 +18,6 @@ import type { Basket, BasketAddress } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import type { PaymentGroup } from '#libs/payment/types';
 
-import type { OptionCallback } from '../../../state/types';
 import {
   QuicksaleDeliveryType,
   QuicksalePaymentMethod,
@@ -28,6 +27,7 @@ import QuicksalePaymentInfo from '#libs/quicksale/components/QuicksalePaymentInf
 import type { StripeReader } from '#libs/terminal/types';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   theme: Theme;

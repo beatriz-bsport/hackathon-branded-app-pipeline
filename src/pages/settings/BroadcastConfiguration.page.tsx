@@ -6,9 +6,6 @@ import { compose, withProps, withHandlers } from 'recompose';
 
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
-import withTitle from '../../hocs/with-title.hoc';
-import Config from '../../config';
-import { buildUrlParams, parseQueryString } from '../../http';
 
 import BroadcastConfigurationForm from '#libs/video/components/BroadcastConfiguration.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -33,6 +30,9 @@ import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#libs/zoom-app/api';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import type { ZoomApp } from '#libs/zoom-app/types';
+import { buildUrlParams, parseQueryString } from '../../http';
+import Config from '../../config';
+import withTitle from '../../hocs/with-title.hoc';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import type { WithHandlerType } from '../../utils/types';

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { CheckoutItem } from '#libs/checkout/types';
-import MarketplaceProductItem from '../MarketplaceProductItem';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import MarketplaceProductItem from '../MarketplaceProductItem';
 
 import './styles.css';
 

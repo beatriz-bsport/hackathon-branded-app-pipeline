@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { OptionCallback } from '../../../../../state/types';
 import { downloadDocument } from '#utils/downloader';
-import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import CircularProgress from '#components/css-only/CircularProgress';
 
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
+import { OptionCallback } from '../../../../../state/types';
 
 import './styles.css';
 

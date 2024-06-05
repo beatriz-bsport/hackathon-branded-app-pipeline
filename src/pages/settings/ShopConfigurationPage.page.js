@@ -11,10 +11,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { Divider } from '@material-ui/core';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import OrderConfigurationForm from '../../libs/order/components/OrderConfigurationForm.component';
 import DeliveryFeeTable from '../../libs/order/components/DeliveryFeeTable.component';
 import DeliveryFeeDialogForm from '../../libs/order/components/DeliveryFeeDialogForm.component';
-import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import { getDeliveryFeesActive } from '../../libs/order/selectors';
 import type { DeliveryFee } from '../../libs/order/types';

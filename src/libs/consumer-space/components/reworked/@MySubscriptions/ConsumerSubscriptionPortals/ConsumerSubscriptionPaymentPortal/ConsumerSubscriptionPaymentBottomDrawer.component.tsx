@@ -2,11 +2,11 @@ import React from 'react';
 import type { AxiosResponse } from 'axios';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
-import { ConsumerSubscriptionPaymentContent } from '.';
 
 import type { OptionCallback } from '#state/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import { ConsumerSubscriptionPaymentContent } from '.';
 
 type Props = {
   cancelLabel: string;

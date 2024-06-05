@@ -1,11 +1,11 @@
 import { CancelTokenSource } from 'axios';
-import { Company } from '../company/types';
-import { ErrorAndLoading, WithPagination } from '../types';
 import type {
   PrivateBookingModificationActionIdentifier,
   StaffModificationHistory,
 } from '#libs/role/types';
 import type { PrivateConsumerPassLink } from '#libs/relationship/types';
+import { Company } from '../company/types';
+import { ErrorAndLoading, WithPagination } from '../types';
 
 export enum ResourceAttributionEnum {
   auto = 0,

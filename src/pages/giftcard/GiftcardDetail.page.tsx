@@ -14,7 +14,6 @@ import { push } from 'connected-react-router';
 import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
 import GiftcardDeleteDialog from '#libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
-import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   Giftcard,
@@ -25,19 +24,12 @@ import {
 } from '#libs/giftcard/types';
 
 import GiftcardCardDetail from '#libs/giftcard/components/GiftcardCardDetail.component';
-import {
-  retrieveGiftcard,
-  fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
-  createOrUpdateGiftcard as createOrUpdateGiftcardAction,
-  deleteGiftcard as deleteGiftcardActions,
-} from '../../libs/giftcard/actions';
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { snackbarSuccess } from '#libs/snackbar/actions';
-import { OptionCallback } from '../../state/types';
 import {
   withSender,
   withReceiver,
@@ -45,8 +37,6 @@ import {
   getGiftcard,
 } from '#libs/giftcard/selectors';
 
-import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
-import { RootState } from '../../reducers';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { fetchTags } from '#libs/tag/actions';
 import { Tag, TagGroup } from '#libs/tag/types';
@@ -56,6 +46,16 @@ import {
   getBookkeepingAccountById,
 } from '#libs/payment/selectors';
 import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
+import { RootState } from '../../reducers';
+import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
+import { OptionCallback } from '../../state/types';
+import {
+  retrieveGiftcard,
+  fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
+  createOrUpdateGiftcard as createOrUpdateGiftcardAction,
+  deleteGiftcard as deleteGiftcardActions,
+} from '../../libs/giftcard/actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 const styles = (theme: Theme) =>
   createStyles({

@@ -1,18 +1,18 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
-import ModalDialog, { Props as ModalDialogProps } from '.';
-import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
-import { ModalDialogColor, ModalDialogSize } from './types';
 import { Star06 } from '#components/untitledui';
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import BadgeCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplacePage,
   type MarketplaceCSSComponentConfig,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import ModalDialog, { Props as ModalDialogProps } from '.';
+import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
+import { ModalDialogColor, ModalDialogSize } from './types';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import BadgeCss from './styles.css?raw';
 
 const MODAL_DIALOG_TITLE = faker.lorem.words(6);
 const MODAL_DIALOG_SUBTITLE = faker.lorem.words(3);

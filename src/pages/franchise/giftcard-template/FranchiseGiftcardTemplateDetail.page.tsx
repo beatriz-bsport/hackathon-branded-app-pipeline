@@ -10,18 +10,13 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import { WithHandlerType } from '../../../utils/types';
 import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
-import withTitle from '../../../hocs/with-title.hoc';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
-import { OptionCallback } from '../../../state/types';
 
 import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
-import { RootState } from '../../../reducers';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getPaymentMethodsConcatenatedString } from '#libs/payment/utils';
 
@@ -59,6 +54,11 @@ import {
   WithFranchiseCompanies,
   FranchiseCompany,
 } from '#libs/franchise/types';
+import { RootState } from '../../../reducers';
+import { OptionCallback } from '../../../state/types';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import withTitle from '../../../hocs/with-title.hoc';
+import { WithHandlerType } from '../../../utils/types';
 // @ts-expect-error
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 

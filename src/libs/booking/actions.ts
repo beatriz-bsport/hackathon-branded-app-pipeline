@@ -9,6 +9,9 @@ import {
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
 } from '@bsport/common/lib/master-data/error-codes/lock';
 
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
+import { isErrorWithCustomCode } from '#libs/utils';
+import type { Offer } from '#libs/offer/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
@@ -32,10 +35,7 @@ import {
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import type { Booking, BookingREST } from './types';
-import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
-import { isErrorWithCustomCode } from '#libs/utils';
-import type { Offer } from '#libs/offer/types';
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),

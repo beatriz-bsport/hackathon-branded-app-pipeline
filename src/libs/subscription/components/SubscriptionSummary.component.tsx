@@ -8,15 +8,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { DateTime } from 'luxon';
-import { isPaused } from '../utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import ContractTermsDialog from './contract/ContractTermsDialog.component';
-import { Subscription, SubscriptionPause } from '../types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
-import { OptionCallback } from '../../../state/types';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import { OptionCallback } from '../../../state/types';
+import { Subscription, SubscriptionPause } from '../types';
+import ContractTermsDialog from './contract/ContractTermsDialog.component';
+import { isPaused } from '../utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {

@@ -15,11 +15,12 @@ import {
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
-import CustomFormConsumerInput from './CustomFormField.input';
 import {
   CUSTOM_FORM_FIELDS_WITH_CHOICES,
   SIGNUP_CHECKBOX_FIELDS,
 } from '#libs/custom-form/utils';
+import { emailValidationRegExp } from '#libs/custom-form/constants';
+import CustomFormConsumerInput from './CustomFormField.input';
 import type {
   CustomFormField,
   CustomFormFieldAnswer,
@@ -29,7 +30,6 @@ import type {
 // @ts-expect-error
 import { mapFormDataWithObject } from '../../../../pages/form.utils';
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
-import { emailValidationRegExp } from '#libs/custom-form/constants';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;

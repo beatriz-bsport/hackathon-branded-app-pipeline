@@ -25,9 +25,7 @@ import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
 // @ts-expect-error
-import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 // @ts-expect-error
-import { TextField } from '../../../../components/forms';
 import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 import { OfferFormValues } from '#libs/offer/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
@@ -35,12 +33,14 @@ import { Establishment } from '#libs/establishment/types';
 import { ZoomApp } from '#libs/zoom-app/types';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
+import NameDescriptionOverride from '#libs/offer/components/NameDescriptionOverride.component';
 import {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../../state/types';
-import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
-import NameDescriptionOverride from '#libs/offer/components/NameDescriptionOverride.component';
+import { TextField } from '../../../../components/forms';
+import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 
 type Props = {
   activeCustomLevels: Level[];

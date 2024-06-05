@@ -7,14 +7,8 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
-import themeSelectors, {
-  getStripeRegion,
-  getCompanyCountry,
-} from '../../libs/theme/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchPaymentPackList as fetchPaymentPackListAction,
@@ -69,9 +63,15 @@ import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
 import type { Subscription, PauseRequestData } from '#libs/subscription/types';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import type { OptionCallback } from '../../state/types';
 import type { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import withTitle from '../../hocs/with-title.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import themeSelectors, {
+  getStripeRegion,
+  getCompanyCountry,
+} from '../../libs/theme/selectors';
 import { RootState } from '../../reducers';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 

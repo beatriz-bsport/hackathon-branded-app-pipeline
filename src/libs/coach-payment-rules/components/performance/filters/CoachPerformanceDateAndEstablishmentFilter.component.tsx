@@ -20,11 +20,11 @@ import { useTranslation } from 'react-i18next';
 import { Submit } from '#components/forms';
 import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 
-import type { OptionCallback } from '../../../../../state/types';
 import type {
   Establishment,
   EstablishmentGroupAPI,
 } from '#libs/establishment/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
 

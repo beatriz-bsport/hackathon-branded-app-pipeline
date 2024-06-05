@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
-import { RootState } from '../../reducers';
 import { withBookingNotification } from '#libs/marketing/selectors';
 import { getMemberDetail } from '#libs/member/selectors';
+import { RootState } from '../../reducers';
 import {
   AssociatedEstablishment,
   Establishment,

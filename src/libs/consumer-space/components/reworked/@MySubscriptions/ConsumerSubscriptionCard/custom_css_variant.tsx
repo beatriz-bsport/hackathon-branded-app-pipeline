@@ -1,10 +1,5 @@
 import React from 'react';
 
-import ConsumerSubscriptionCard, { ConsumerSubscriptionCardProps } from '.';
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ConsumerSubscriptionCardCss from './styles.css?raw';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
@@ -13,6 +8,10 @@ import {
 } from '#libs/exportable-components/types';
 import { subscriptionFactory } from '#libs/subscription/factory';
 import { formatAsDate } from '#utils/datetime';
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import ConsumerSubscriptionCardCss from './styles.css?raw';
+import ConsumerSubscriptionCard, { ConsumerSubscriptionCardProps } from '.';
 
 const SUBSCRIPTION = subscriptionFactory();
 const SUBSCRIPTIONDATE = formatAsDate(SUBSCRIPTION.first_billing_date);

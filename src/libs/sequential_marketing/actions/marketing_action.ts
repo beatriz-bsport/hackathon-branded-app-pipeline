@@ -9,15 +9,15 @@ import {
 } from '#libs/sequential_marketing/api';
 
 import type {
+  StepMarketingActionsParams,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
+import type {
   OptionCallback,
   Dispatch,
   OptionPaginatedCallback,
   PaginatedResponse,
 } from '../../../state/types';
-import type {
-  StepMarketingActionsParams,
-  StepMarketingActions,
-} from '#libs/sequential_marketing/types';
 
 export const fetchStepMarketingActions = {
   isLoading: createAction<boolean>('CADENCE_WIP/MARKETING_ACTIONS/IS_LOADING'),

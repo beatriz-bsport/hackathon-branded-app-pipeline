@@ -9,29 +9,16 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
-import { hasUpsell } from '../../libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_INBOX } from '../../libs/platform-billing/upsell-identifiers';
-import { FeatureList } from '../../libs/company/types';
 
-import type { CompanyTheme } from '../../libs/theme/types';
-import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
 import CommunicationPersonalizeForm from '#libs/communication-v2/components/CommunicationPersonalizeForm.component';
 import CreditsPersonalizeForm from '#libs/theme/components/CreditsPersonalizeForm.component';
 import ProductsOrderingPersonalizeForm from '#libs/theme/components/ProductsOrderingPersonalizeForm.component';
-import {
-  updateCompanyTheme as updateCompanyThemeAction,
-  fetchCompanyTheme as fetchCompanyThemeAction,
-} from '../../libs/theme/actions';
 import {
   fetchCommunicationProviderSettings as fetchCommunicationProviderSettingsAction,
   updateCommunicationProviderSettings as updateCommunicationProviderSettingsAction,
 } from '#libs/communication-v2/actions';
 import { CommunicationProviderSettings } from '#libs/communication-v2/types';
-import themeSelectors from '../../libs/theme/selectors';
-import withTitle from '../../hocs/with-title.hoc';
 import { getIsTwoWayEmailActivated } from '#libs/communication-v2/selectors';
-import Config from '../../config';
 import {
   fetchBookingFunnelConfiguration as fetchBookingFunnelConfigurationAction,
   updateBookingFunnelConfiguration as updateBookingFunnelConfigurationAction,
@@ -51,6 +38,19 @@ import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
 import { getAvailableContractListCustomer } from '#libs/subscription/selectors';
 import CheckInTabletSettingsForm from '#libs/theme/components/CheckInTabletSettingsForm.component';
+import Config from '../../config';
+import withTitle from '../../hocs/with-title.hoc';
+import themeSelectors from '../../libs/theme/selectors';
+import {
+  updateCompanyTheme as updateCompanyThemeAction,
+  fetchCompanyTheme as fetchCompanyThemeAction,
+} from '../../libs/theme/actions';
+import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
+import type { CompanyTheme } from '../../libs/theme/types';
+import { FeatureList } from '../../libs/company/types';
+import { UPSELL_IDENTIFIER_INBOX } from '../../libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '../../libs/platform-billing/utils';
+import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
 
 type Props = {
   theme: CompanyTheme,

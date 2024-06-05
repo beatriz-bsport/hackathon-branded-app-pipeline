@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { PaginatedResponse } from '../../state/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
   getAuth,

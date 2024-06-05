@@ -17,14 +17,14 @@ import ShareIcon from '@material-ui/icons/Share';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { Tooltip } from '@material-ui/core';
 
-import { isLessonCompleted } from '../utils';
-
-import LessonStatusChips from './TutorialLessonStatusChip.component';
-
 import {
   TutorialCompletion,
   TutorialLesson,
 } from '#libs/platform-tutorial/types';
+import { isLessonCompleted } from '../utils';
+
+import LessonStatusChips from './TutorialLessonStatusChip.component';
+
 
 export type Props = {
   lessons: Array<TutorialLesson>;

@@ -15,8 +15,8 @@ import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePa
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
-import { ContractWithPaymentPack } from '../../types';
 import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { ContractWithPaymentPack } from '../../types';
 
 type Props = {
   contract: ContractWithPaymentPack;

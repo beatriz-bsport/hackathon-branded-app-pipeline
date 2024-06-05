@@ -1,9 +1,9 @@
 import React from 'react';
-import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
-import { CanvasElement } from '../BaseClasses/Base.tool';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import { CanvasElement } from '../BaseClasses/Base.tool';
+import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 
 export const useBeautifierField = (
   CanvasEl: CanvasElement<any>,

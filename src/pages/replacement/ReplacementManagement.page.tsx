@@ -34,7 +34,6 @@ import ReplacementRequestCoachAnswerDialog from '#libs/replacement-request/compo
 import ReplacementRequestRefuseDialog from '#libs/replacement-request/components/dialogs/ReplacementRequestRefuseDialog.component';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 
-import { RootState } from '../../reducers';
 import {
   ReplacementDisplays,
   PAGE_SIZE,
@@ -84,7 +83,6 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
-import { WithHandlerType } from '../../utils/types';
 import { fetch as fetchSpecificAlertKindAction } from '#libs/alerting/actions';
 import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#libs/replacement-request/api';
 
@@ -92,6 +90,8 @@ import {
   setReplacementRequestManagerFilter as setReplacementRequestManagerFilterAction,
   setReplacementRequestOfferHistoryFilter as setReplacementRequestOfferHistoryFilterAction,
 } from '#libs/user-preference/actions';
+import { WithHandlerType } from '../../utils/types';
+import { RootState } from '../../reducers';
 
 const FILTER_LATE = 5;
 const FILTER_CLOSED = 6;

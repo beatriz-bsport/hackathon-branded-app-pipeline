@@ -13,19 +13,19 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Contract } from '#libs/subscription/types';
+import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { MetaActivity } from '../../meta-activity/types';
 // @ts-expect-error
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
-import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 type Identifier =
   | 'meta_activity'

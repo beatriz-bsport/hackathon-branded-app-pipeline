@@ -27,6 +27,8 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import {
   TextField,
   AlertError,
@@ -50,10 +52,8 @@ import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
 import { TagGroup, Tag } from '../../../../tag/types';
 import { Theme as CompanyTheme } from '../../../../theme/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../../state/types';
 import { ALLOWED_COUNTRIES_FOR_STATES } from '../../../../member/constants';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
   trackFormAdd,

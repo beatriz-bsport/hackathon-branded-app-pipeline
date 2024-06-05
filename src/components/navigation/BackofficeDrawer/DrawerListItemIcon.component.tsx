@@ -4,8 +4,8 @@ import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import classNames from 'classnames';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import type { DrawerItem } from './ResponsiveDrawer.component';
 import ToolTip from '#components/Tooltip.component';
+import type { DrawerItem } from './ResponsiveDrawer.component';
 
 type ItemWithIconProps = {
   item: DrawerItem;

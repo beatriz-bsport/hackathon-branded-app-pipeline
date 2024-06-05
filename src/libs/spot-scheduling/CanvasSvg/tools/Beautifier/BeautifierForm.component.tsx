@@ -4,6 +4,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
+import type { SpotType } from '#libs/spot-scheduling/types';
 import type { OptionCallback } from '../../../../../state/types';
 
 import {
@@ -32,7 +33,6 @@ import {
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 import useBeautifierField from './useBeautifierField.hook';
-import type { SpotType } from '#libs/spot-scheduling/types';
 
 const AssetUploaderSchema = Yup.object().shape({
   type: Yup.string().oneOf([

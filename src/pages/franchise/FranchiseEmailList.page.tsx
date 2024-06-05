@@ -14,7 +14,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import { RootState } from '../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   emailTemplateDelete as emailTemplateDeleteAction,
@@ -37,6 +36,7 @@ import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions'
 import withTitle from '#hocs/with-title.hoc';
 import { FranchiseCompany } from '#libs/franchise/types';
 import ModalConfirm from '#src/components/ModalConfirm.component';
+import { RootState } from '../../reducers';
 
 type OwnProps = {
   id: number;

@@ -36,25 +36,25 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
-import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
-import type { PrivateBookingWithRelatedFields } from '../../types';
-import RedButton from '../../../../components/button/RedButton.component';
-import RedChip from '../../../../components/chip/RedChip.component';
-import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
-import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
-import ResourceAllocationConfirmDialog from '../slot-searcher/ResourceAllocationConfirmDialog.component';
 import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
-import type { OptionCallback } from '../../../../state/types';
-import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import SessionNotePad from '#libs/offer/components/SessionNotePad';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
+import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
+import type { OptionCallback } from '../../../../state/types';
+import ResourceAllocationConfirmDialog from '../slot-searcher/ResourceAllocationConfirmDialog.component';
+import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
+import RedChip from '../../../../components/chip/RedChip.component';
+import RedButton from '../../../../components/button/RedButton.component';
+import type { PrivateBookingWithRelatedFields } from '../../types';
+import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,

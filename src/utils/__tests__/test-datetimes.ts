@@ -1,9 +1,9 @@
+import { getLocaleWeekdays } from '#src/utils/datetime';
 import {
   LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
   setLuxonLocale,
   // @ts-expect-error
 } from '../../i18n';
-import { getLocaleWeekdays } from '#src/utils/datetime';
 
 describe('Test getLocaleWeekdays', () => {
   it('Should return Sunday as first element for specific locales', () => {

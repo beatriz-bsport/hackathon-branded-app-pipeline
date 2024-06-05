@@ -14,6 +14,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -38,13 +43,8 @@ import {
   createOrUpdateProvision,
 } from '../../libs/shop/actions/provision';
 import shopSelectors from '../../libs/shop/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { fetchTags } from '#libs/tag/actions';
 import type { ShopItem, Provision } from '../../libs/shop/types';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import themeSelectors from '../../libs/theme/selectors';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
 import type { BookkeepingAccount } from '../../libs/payment/types';
 import { fetchBookkeepingAccountList } from '../../libs/payment/actions';
 import {

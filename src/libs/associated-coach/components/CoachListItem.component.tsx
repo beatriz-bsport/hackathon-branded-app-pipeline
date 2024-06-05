@@ -21,10 +21,10 @@ import List from '@material-ui/core/List';
 
 import type { Theme } from '@material-ui/core/styles';
 
-import type { Coach } from '../types';
 import ListItemResponsiveAction, {
   ActionOption,
 } from '#components/button/ListItemResponsiveAction.component';
+import type { Coach } from '../types';
 
 import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 

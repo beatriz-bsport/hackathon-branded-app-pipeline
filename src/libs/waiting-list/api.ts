@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
@@ -14,7 +15,6 @@ import type {
   WaitingListBookingOptionPaginatedQueryParams,
   DiscardBookingOptionParams,
 } from './types';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 export const fetchConfiguration = async (): Promise<
   AxiosResponse<WaitingListConfiguration>
